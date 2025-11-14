@@ -1,0 +1,196 @@
+{
+  "categories": {
+    "curiosity": {
+      "description": "Words that create information gaps and compel readers to continue",
+      "words": [
+        { "word": "secret", "impact": 0.95, "context": ["hidden knowledge", "insider information"], "alternatives": ["hidden", "confidential", "classified"] },
+        { "word": "revealed", "impact": 0.90, "context": ["discovery", "unveiling"], "alternatives": ["exposed", "uncovered", "disclosed"] },
+        { "word": "surprising", "impact": 0.85, "context": ["unexpected results", "shocking data"], "alternatives": ["shocking", "astonishing", "unexpected"] },
+        { "word": "hidden", "impact": 0.88, "context": ["undiscovered", "beneath surface"], "alternatives": ["concealed", "buried", "obscured"] },
+        { "word": "unknown", "impact": 0.82, "context": ["mystery", "undiscovered"], "alternatives": ["mysterious", "enigmatic", "undiscovered"] },
+        { "word": "confessed", "impact": 0.87, "context": ["admission", "reveal"], "alternatives": ["admitted", "revealed", "disclosed"] },
+        { "word": "behind-the-scenes", "impact": 0.83, "context": ["insider view", "exclusive"], "alternatives": ["insider", "private", "internal"] },
+        { "word": "little-known", "impact": 0.79, "context": ["obscure fact", "hidden truth"], "alternatives": ["obscure", "overlooked", "forgotten"] }
+      ]
+    },
+    "urgency": {
+      "description": "Words that create time pressure and immediate action",
+      "words": [
+        { "word": "now", "impact": 0.92, "context": ["immediate action", "present moment"], "alternatives": ["immediately", "today", "right away"] },
+        { "word": "today", "impact": 0.88, "context": ["current opportunity", "present"], "alternatives": ["right now", "immediately", "this moment"] },
+        { "word": "immediately", "impact": 0.90, "context": ["no delay", "instant"], "alternatives": ["instantly", "now", "right away"] },
+        { "word": "limited", "impact": 0.86, "context": ["scarcity", "exclusive"], "alternatives": ["scarce", "exclusive", "restricted"] },
+        { "word": "deadline", "impact": 0.84, "context": ["time constraint", "expiration"], "alternatives": ["expiring", "ending", "closing"] },
+        { "word": "urgent", "impact": 0.87, "context": ["critical", "pressing"], "alternatives": ["critical", "pressing", "crucial"] },
+        { "word": "ending", "impact": 0.81, "context": ["expiration", "last chance"], "alternatives": ["expiring", "finishing", "closing"] },
+        { "word": "final", "impact": 0.83, "context": ["last opportunity", "ultimate"], "alternatives": ["last", "ultimate", "concluding"] }
+      ]
+    },
+    "exclusivity": {
+      "description": "Words that create feelings of special access or membership",
+      "words": [
+        { "word": "exclusive", "impact": 0.93, "context": ["limited access", "special"], "alternatives": ["private", "members-only", "invitation-only"] },
+        { "word": "only", "impact": 0.89, "context": ["unique", "sole"], "alternatives": ["sole", "singular", "unique"] },
+        { "word": "insider", "impact": 0.91, "context": ["privileged access", "internal"], "alternatives": ["internal", "confidential", "private"] },
+        { "word": "private", "impact": 0.87, "context": ["restricted", "confidential"], "alternatives": ["confidential", "restricted", "exclusive"] },
+        { "word": "members-only", "impact": 0.85, "context": ["club", "exclusive group"], "alternatives": ["exclusive", "private", "restricted"] },
+        { "word": "invitation-only", "impact": 0.86, "context": ["selective", "elite"], "alternatives": ["exclusive", "select", "curated"] },
+        { "word": "VIP", "impact": 0.82, "context": ["premium", "elite"], "alternatives": ["premium", "elite", "exclusive"] },
+        { "word": "privileged", "impact": 0.84, "context": ["special access", "advantaged"], "alternatives": ["special", "advantaged", "favored"] }
+      ]
+    },
+    "authority": {
+      "description": "Words that establish credibility and expertise",
+      "words": [
+        { "word": "proven", "impact": 0.94, "context": ["validated", "tested"], "alternatives": ["verified", "validated", "confirmed"] },
+        { "word": "research", "impact": 0.91, "context": ["scientific", "study"], "alternatives": ["study", "analysis", "investigation"] },
+        { "word": "data", "impact": 0.89, "context": ["statistics", "numbers"], "alternatives": ["statistics", "numbers", "metrics"] },
+        { "word": "expert", "impact": 0.92, "context": ["authority", "specialist"], "alternatives": ["specialist", "authority", "professional"] },
+        { "word": "certified", "impact": 0.88, "context": ["verified", "official"], "alternatives": ["verified", "validated", "authenticated"] },
+        { "word": "scientific", "impact": 0.87, "context": ["research-based", "empirical"], "alternatives": ["research-based", "evidence-based", "empirical"] },
+        { "word": "validated", "impact": 0.86, "context": ["confirmed", "verified"], "alternatives": ["proven", "confirmed", "verified"] },
+        { "word": "documented", "impact": 0.83, "context": ["recorded", "proven"], "alternatives": ["recorded", "logged", "tracked"] }
+      ]
+    },
+    "transformation": {
+      "description": "Words that promise change and improvement",
+      "words": [
+        { "word": "transform", "impact": 0.96, "context": ["dramatic change", "metamorphosis"], "alternatives": ["revolutionize", "overhaul", "reimagine"] },
+        { "word": "breakthrough", "impact": 0.95, "context": ["major discovery", "game-changer"], "alternatives": ["game-changer", "revolution", "paradigm shift"] },
+        { "word": "revolution", "impact": 0.93, "context": ["radical change", "disruption"], "alternatives": ["disruption", "overhaul", "transformation"] },
+        { "word": "reimagine", "impact": 0.88, "context": ["rethink", "reconceive"], "alternatives": ["rethink", "reconceptualize", "reinvent"] },
+        { "word": "unlock", "impact": 0.90, "context": ["reveal potential", "access"], "alternatives": ["unleash", "release", "activate"] },
+        { "word": "upgrade", "impact": 0.85, "context": ["improve", "enhance"], "alternatives": ["elevate", "enhance", "improve"] },
+        { "word": "accelerate", "impact": 0.87, "context": ["speed up", "fast-track"], "alternatives": ["fast-track", "expedite", "speed up"] },
+        { "word": "optimize", "impact": 0.84, "context": ["maximize", "perfect"], "alternatives": ["maximize", "perfect", "fine-tune"] }
+      ]
+    },
+    "emotion": {
+      "description": "Words that trigger emotional responses",
+      "words": [
+        { "word": "amazing", "impact": 0.86, "context": ["impressive", "remarkable"], "alternatives": ["remarkable", "incredible", "extraordinary"] },
+        { "word": "devastating", "impact": 0.89, "context": ["harmful impact", "destructive"], "alternatives": ["destructive", "catastrophic", "harmful"] },
+        { "word": "thrilling", "impact": 0.85, "context": ["exciting", "exhilarating"], "alternatives": ["exciting", "electrifying", "exhilarating"] },
+        { "word": "heartbreaking", "impact": 0.87, "context": ["emotional", "tragic"], "alternatives": ["tragic", "painful", "sorrowful"] },
+        { "word": "inspiring", "impact": 0.88, "context": ["motivating", "uplifting"], "alternatives": ["motivating", "uplifting", "encouraging"] },
+        { "word": "shocking", "impact": 0.91, "context": ["surprising", "startling"], "alternatives": ["startling", "astonishing", "stunning"] },
+        { "word": "outrageous", "impact": 0.84, "context": ["extreme", "excessive"], "alternatives": ["extreme", "excessive", "absurd"] },
+        { "word": "powerful", "impact": 0.87, "context": ["impactful", "strong"], "alternatives": ["impactful", "potent", "influential"] }
+      ]
+    },
+    "specificity": {
+      "description": "Words that add precision and concrete detail",
+      "words": [
+        { "word": "exactly", "impact": 0.87, "context": ["precise", "specific"], "alternatives": ["precisely", "specifically", "definitively"] },
+        { "word": "precisely", "impact": 0.85, "context": ["exact", "accurate"], "alternatives": ["exactly", "accurately", "specifically"] },
+        { "word": "step-by-step", "impact": 0.89, "context": ["sequential", "methodical"], "alternatives": ["methodical", "systematic", "sequential"] },
+        { "word": "proven", "impact": 0.91, "context": ["tested", "validated"], "alternatives": ["validated", "verified", "confirmed"] },
+        { "word": "guaranteed", "impact": 0.90, "context": ["assured", "certain"], "alternatives": ["assured", "certain", "promised"] },
+        { "word": "measurable", "impact": 0.84, "context": ["quantifiable", "trackable"], "alternatives": ["quantifiable", "trackable", "concrete"] },
+        { "word": "actionable", "impact": 0.88, "context": ["practical", "implementable"], "alternatives": ["practical", "implementable", "usable"] },
+        { "word": "concrete", "impact": 0.83, "context": ["tangible", "specific"], "alternatives": ["tangible", "specific", "definite"] }
+      ]
+    }
+  },
+  "phrases": {
+    "curiosity_gaps": [
+      "What most people don't know about",
+      "The surprising truth about",
+      "What {industry} won't tell you",
+      "The secret to",
+      "Why {conventional_wisdom} is wrong",
+      "The hidden pattern in",
+      "What happens when you",
+      "The one thing that"
+    ],
+    "urgency_triggers": [
+      "Before it's too late",
+      "Starting today",
+      "Right now",
+      "While you still can",
+      "Don't wait until",
+      "Time is running out to",
+      "The window is closing on",
+      "This changes everything about"
+    ],
+    "social_proof": [
+      "Top {percentage} of",
+      "{number} businesses have discovered",
+      "Industry leaders are doing this",
+      "The method used by",
+      "What successful {profession} know",
+      "The strategy behind",
+      "{number}% of experts agree",
+      "Research shows that"
+    ],
+    "transformation_promises": [
+      "Transform your {outcome}",
+      "Go from {before} to {after}",
+      "The breakthrough that",
+      "Revolutionize how you",
+      "Finally achieve {goal}",
+      "Unlock your {potential}",
+      "The game-changer for",
+      "Turn {weakness} into {strength}"
+    ]
+  },
+  "cta_formulas": {
+    "engagement": [
+      "What do you think? Share below 👇",
+      "Which one surprised you most?",
+      "Have you experienced this?",
+      "Change my mind. Comment below.",
+      "What am I missing? Tell me.",
+      "Which approach would you try first?",
+      "What's your take on this?",
+      "Sound familiar? Let me know."
+    ],
+    "lead_generation": [
+      "Want the full breakdown? Link in bio.",
+      "Get the complete framework: {link}",
+      "Download the full guide: {link}",
+      "Book a free strategy call: {link}",
+      "Join {number} businesses already using this: {link}",
+      "Get instant access to: {link}",
+      "Try it free for {timeframe}: {link}",
+      "Save this for later reference."
+    ],
+    "viral": [
+      "Tag someone who needs to see this",
+      "Share if you agree",
+      "Send this to your team",
+      "Repost to save for later",
+      "Screenshot this",
+      "Share with someone in {industry}",
+      "Forward to a friend who",
+      "Drop a 💡 if this resonates"
+    ]
+  },
+  "industry_specific": {
+    "roofing": {
+      "power_words": ["leak", "damage", "protect", "storm", "emergency", "certified", "warranty", "lifetime", "trusted", "safety"],
+      "triggers": ["storm damage", "leak detection", "emergency repair", "insurance claim", "preventive maintenance"],
+      "transformations": ["damaged roof → protected home", "leaky ceiling → peace of mind", "old shingles → energy savings"]
+    },
+    "legal": {
+      "power_words": ["rights", "protected", "compensation", "justice", "experienced", "aggressive", "results", "proven", "settlement", "representation"],
+      "triggers": ["accident", "injury", "lawsuit", "claim", "settlement", "legal rights", "compensation"],
+      "transformations": ["injured → compensated", "wronged → justice", "uncertain → protected"]
+    },
+    "healthcare": {
+      "power_words": ["treatment", "relief", "cure", "recovery", "specialist", "advanced", "breakthrough", "painless", "effective", "healing"],
+      "triggers": ["symptoms", "pain", "diagnosis", "treatment options", "recovery time", "side effects"],
+      "transformations": ["pain → relief", "sick → healthy", "uncertain → diagnosed"]
+    },
+    "real_estate": {
+      "power_words": ["location", "value", "investment", "market", "opportunity", "exclusive", "prime", "luxury", "appreciation", "equity"],
+      "triggers": ["market trends", "property value", "investment opportunity", "interest rates", "location benefits"],
+      "transformations": ["renter → homeowner", "small space → dream home", "expense → investment"]
+    },
+    "general_business": {
+      "power_words": ["grow", "scale", "revenue", "profit", "efficiency", "automation", "roi", "strategy", "competitive", "market"],
+      "triggers": ["growth strategy", "revenue increase", "cost reduction", "market opportunity", "competitive advantage"],
+      "transformations": ["stagnant → growing", "manual → automated", "losing → winning"]
+    }
+  }
+}
