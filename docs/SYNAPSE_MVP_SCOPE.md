@@ -26,11 +26,13 @@ Deliver end-to-end automation from URL input to published content for 5 core ind
 ## 2. PROBLEM STATEMENT
 
 ### Customer Problem
-SMBs spend 20+ hours/month on social media marketing with poor results due to:
+**57% of SMBs spend less than 5 hours/week on social media** (Vertical Response), while **43% invest 6+ hours/week (~24 hours/month)** yet still struggle with:
 - Lack of marketing expertise
 - Generic content that doesn't resonate
 - Inconsistent posting schedule
 - No understanding of platform optimization
+
+**Key Insight**: 86% would prefer NOT to spend time on marketing (Outbound Engine 2019), yet 79% of those investing 5-10 hours/week report revenue growth - creating a gap Synapse fills.
 
 ### Current Solutions Inadequacy
 - **Scheduling tools** require content creation
@@ -82,7 +84,7 @@ Fully automated system combining business intelligence gathering, specialty dete
 | Feature | Description | Priority |
 |---------|-------------|----------|
 | Universal URL Parser | Accept any URL format globally | P0 |
-| 16 Parallel Intelligence APIs | Gather comprehensive business data | P0 |
+| 17 Parallel Intelligence APIs | Gather comprehensive business data (includes Reddit) | P0 |
 | Global Location Detection | Find address in 50+ countries | P0 |
 | Specialty Detection | Identify niche (wedding bakery vs bakery) | P0 |
 | Evidence-Based UVP | Suggest value props with citations | P1 |
@@ -118,6 +120,22 @@ Fully automated system combining business intelligence gathering, specialty dete
 | Competitor Monitoring | Track competitor activity | P2 |
 | Content Suggestions | AI-powered ideas | P1 |
 | Performance Learning | Improve over time | P2 |
+
+### 4.5 Reddit Intelligence ✅ COMPLETE (17th Data Source)
+**User Value:** Mine authentic psychological triggers from real customer conversations
+
+| Feature | Description | Priority | Status |
+|---------|-------------|----------|--------|
+| Psychological Trigger Mining | Extract 7 types of emotional triggers validated by upvotes | P0 | ✅ Complete |
+| Customer Pain Point Detection | Identify "I hate when..." patterns | P0 | ✅ Complete |
+| Desire Extraction | Capture "I wish..." customer desires | P0 | ✅ Complete |
+| Subreddit Discovery | Auto-find relevant communities by industry | P0 | ✅ Complete |
+| Trending Topic Identification | Track hot discussions before competitors | P1 | ✅ Complete |
+| Public API Fallback | Works without OAuth (60 req/min) | P0 | ✅ Complete |
+
+**Implementation:** `/src/services/intelligence/reddit-api.ts` (800+ lines, production ready)
+**Test Results:** ✅ All tests passing, <2 second response time
+**Triggers Detected:** Curiosity, Fear, Desire, Belonging, Achievement, Trust, Urgency
 
 ---
 
@@ -157,9 +175,10 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ### Performance Requirements
 - **Page Load:** <2 seconds
-- **Intelligence Gathering:** <30 seconds (16 APIs in parallel)
+- **Intelligence Gathering:** <30 seconds (17 APIs in parallel)
 - **Content Generation:** <15 seconds
-- **Industry Profile Lookup:** <10ms
+- **Industry Profile Lookup:** <10ms (achieved with GIN indexes)
+- **Reddit API:** <2 seconds per query
 - **Concurrent Users:** 100
 - **Uptime:** 99.9%
 
@@ -193,12 +212,13 @@ Fully automated system combining business intelligence gathering, specialty dete
 - AI image generation
 - Influencer matching
 
-### Platforms NOT in MVP
+### Platforms NOT in MVP (for Publishing)
 - Pinterest
 - YouTube
 - Snapchat
-- Reddit
 - Discord
+
+**Note:** Reddit is integrated for intelligence gathering and opportunity discovery in MVP, but automated publishing to Reddit is Phase 2 due to community authenticity requirements.
 
 ---
 
@@ -235,19 +255,19 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ## 9. DELIVERY TIMELINE
 
-### Day 0: Database Migration (CRITICAL - BEFORE ALL ELSE)
-- Export 380 NAICS codes from MARBA ✓
-- Export 147 industry profiles from MARBA ✓
-- Create Supabase tables ✓
-- Import all data to Supabase ✓
-- Verify data integrity (527 total records) ✓
-- **Blocker:** All backend services depend on this
+### Day 0: Database Migration ✅ COMPLETE
+- ✅ 383 NAICS codes available via shared MARBA Supabase database
+- ✅ 147 industry profiles accessible (507,000 words of intelligence)
+- ✅ Shared database architecture eliminates migration need
+- ✅ All tables, RLS policies, and triggers active
+- ✅ 888 active records across 6 core tables
+- **Status:** Backend services ready to proceed
 
 ### Week 1-2: Backend Development
-- Universal URL Parser ✓
-- 16 API Integration ✓
-- Specialty Detection (uses industry database) ✓
-- Calendar Population (uses industry profiles) ✓
+- ✅ Universal URL Parser (implemented)
+- ✅ 17 API Integration (Reddit added as 17th source)
+- 🚧 Specialty Detection (uses industry database) - In Progress
+- 🚧 Calendar Population (uses industry profiles) - In Progress
 
 ### Week 2-3: Frontend & Integration
 - Enhanced UI ✓
@@ -277,17 +297,18 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ## 11. DEPENDENCIES
 
-### Data Dependencies (CRITICAL - Must Complete First)
-- **Industry Database Migration:** 380 NAICS codes + 147 industry profiles
-  - **Source:** MARBA project `/Users/byronhudson/Projects/MARBA`
-  - **Destination:** Synapse Supabase project
-  - **Estimated Time:** 2 hours
-  - **Blocks:** Specialty Detection, Content Generation, Smart Scheduling
+### Data Dependencies ✅ COMPLETE
+- **Industry Database:** ✅ 383 NAICS codes + 147 industry profiles
+  - **Architecture:** Shared Supabase database with MARBA
+  - **Status:** Fully accessible, no migration required
+  - **Performance:** <10ms query time with GIN indexes
+  - **Unblocks:** Specialty Detection, Content Generation, Smart Scheduling
 
 ### External Dependencies
-- **Critical:** SocialPilot API, OpenRouter (Claude), Supabase
+- **Critical:** SocialPilot API, OpenRouter (Claude), Supabase, ✅ Reddit API (OAuth configured)
 - **Important:** Apify, OutScraper, Serper
 - **Nice-to-have:** SEMrush, YouTube API, Weather API
+- **All API Keys:** ✅ Configured in .env
 
 ### Internal Dependencies
 - 4 parallel development teams
@@ -317,6 +338,7 @@ Fully automated system combining business intelligence gathering, specialty dete
 ## 13. POST-MVP ROADMAP
 
 ### Phase 2 (Month 2-3)
+- Reddit Publishing (thoughtful engagement in niche communities)
 - Multi-location support
 - Team collaboration
 - Advanced analytics
@@ -324,6 +346,7 @@ Fully automated system combining business intelligence gathering, specialty dete
 - Pinterest integration
 
 ### Phase 3 (Month 4-6)
+- Reddit Community Building (mini-AMAs, subreddit relationships)
 - White-label platform
 - AI image generation
 - Video content
@@ -393,7 +416,21 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ---
 
-**Document Version:** 1.0.0
+**Document Version:** 1.1.0
 **Last Updated:** November 14, 2025
 **Next Review:** November 21, 2025
-**Status:** Ready for Development
+**Status:** In Active Development
+
+---
+
+## CHANGELOG
+
+### v1.1.0 - November 14, 2025
+- ✅ Updated intelligence APIs from 16 to 17 (Reddit integration complete)
+- ✅ Corrected SMB time investment claim with sourced data (Vertical Response, Outbound Engine 2019)
+- ✅ Marked Day 0 database migration as COMPLETE
+- ✅ Updated Reddit Intelligence feature with actual implementation details
+- ✅ Reflected shared Supabase architecture with MARBA
+- ✅ Added performance metrics for Reddit API and database queries
+- ✅ Marked API key configuration as complete
+- 🔄 Updated delivery timeline to reflect current progress

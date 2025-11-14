@@ -17,13 +17,14 @@ You are Claude Instance #1. Your job is to build the backend intelligence servic
 
 ## 🎯 YOUR MISSION
 
-Build 5 critical backend services that gather and process business intelligence from 16 data sources in parallel:
+Build 6 critical backend services that gather and process business intelligence from 17 data sources in parallel:
 
 1. **Universal URL Parser** - Handle any URL format globally
-2. **Parallel Intelligence Orchestrator** - Run 16 APIs simultaneously
+2. **Parallel Intelligence Orchestrator** - Run 17 APIs simultaneously (including Reddit)
 3. **Specialty Detection Engine** - Identify business niche
 4. **Calendar Population Service** - Generate 30 content ideas
 5. **Content Ideas Generator** - Create platform-specific suggestions
+6. **Reddit Opportunity Service** - Discover SMB opportunities and content ideas
 
 **Success Criteria:**
 - All services pass unit tests (80% coverage)
@@ -227,9 +228,9 @@ git push origin feature/backend-services
 **Dependencies:** URL Parser (Task 1)
 
 **Requirements:**
-Run 16 data sources in parallel with graceful degradation:
+Run 17 data sources in parallel with graceful degradation:
 
-**16 Data Sources:**
+**17 Data Sources:**
 1. Apify (web scraping)
 2. OutScraper (Google Business)
 3. OutScraper (Reviews)
@@ -246,6 +247,7 @@ Run 16 data sources in parallel with graceful degradation:
 14. News API (articles)
 15. Weather API (forecast)
 16. Google Maps (geocoding)
+17. **Reddit API (opportunity discovery)**
 
 **Implementation Pattern:**
 ```typescript
@@ -279,8 +281,9 @@ export class ParallelIntelligenceService {
 
 **Error Handling Strategy:**
 - Critical sources: Apify, OutScraper, Serper Search, Claude AI (must succeed)
+- Important: Reddit API (for SMB opportunity discovery)
 - Non-critical: Weather, YouTube, News (can fail)
-- Minimum viable: 8 out of 16 sources
+- Minimum viable: 8 out of 17 sources
 - All failures logged with severity
 
 **Performance Requirements:**
@@ -634,6 +637,149 @@ git commit -m "feat(backend): Add Content Ideas Generator
 git push origin feature/backend-services
 ```
 
+**Update BuildRunner:** Set completionPercentage: 85
+
+---
+
+### TASK 6: Reddit Opportunity Service (SMB-Focused)
+**File:** `src/services/reddit-opportunity.service.ts`
+**Lines:** ~400
+**Status:** ⏸️ Not Started
+**Dependencies:**
+- Specialty Detection (Task 3)
+- Industry Database (NAICS codes + profiles)
+
+**Requirements:**
+Create Reddit intelligence service specifically for SMBs (who rarely get mentioned by name).
+
+**Implementation:**
+```typescript
+export interface RedditOpportunity {
+  type: 'service_request' | 'problem_discussion' | 'recommendation_thread' | 'competitor_mention';
+  subreddit: string;
+  title: string;
+  url: string;
+  relevance_score: number;
+  urgency: 'immediate' | 'soon' | 'ongoing';
+  keywords_matched: string[];
+  response_suggestion?: string;
+}
+
+export class RedditOpportunityService {
+  private reddit: RedditClient;
+  private supabase = createClient(...);
+
+  async discoverOpportunities(
+    specialty: SpecialtyDetection,
+    location: LocationIntelligence
+  ): Promise<{
+    opportunities: RedditOpportunity[];
+    topCommunities: string[];
+    contentIdeas: string[];
+  }> {
+    // 1. Find relevant subreddits based on industry
+    const communities = await this.mapNicheCommunities(specialty);
+
+    // 2. Search for problems the SMB solves (not brand mentions)
+    const problems = await this.searchProblems(specialty, communities);
+
+    // 3. Monitor local subreddit if location detected
+    const localOpps = await this.searchLocalOpportunities(location);
+
+    // 4. Analyze top posts for content ideas
+    const contentIdeas = await this.extractContentIdeas(communities);
+
+    return {
+      opportunities: [...problems, ...localOpps],
+      topCommunities: communities.slice(0, 10),
+      contentIdeas: contentIdeas.slice(0, 20)
+    };
+  }
+
+  private async mapNicheCommunities(specialty: SpecialtyDetection): Promise<string[]> {
+    // Find 10-20 subreddits where target customers congregate
+    const { data: profile } = await this.supabase
+      .from('industry_profiles')
+      .select('reddit_communities, customer_segments')
+      .eq('naics_code', specialty.naicsCode)
+      .single();
+
+    // Search for relevant subreddits
+    const subreddits = await this.reddit.searchSubreddits({
+      query: specialty.keywords.join(' OR '),
+      minSubscribers: 5000,
+      limit: 20
+    });
+
+    return this.rankSubredditsByRelevance(subreddits, specialty);
+  }
+
+  private async searchProblems(
+    specialty: SpecialtyDetection,
+    communities: string[]
+  ): Promise<RedditOpportunity[]> {
+    // Search patterns for SMB opportunities
+    const problemPatterns = [
+      `"looking for" ${specialty.serviceType}`,
+      `"need help with" ${specialty.problemSolved}`,
+      `"recommend" ${specialty.serviceType}`,
+      `"how do I" ${specialty.problemSolved}`,
+      `"anyone know" ${specialty.serviceType}`
+    ];
+
+    const opportunities: RedditOpportunity[] = [];
+
+    for (const pattern of problemPatterns) {
+      const posts = await this.reddit.search({
+        query: pattern,
+        subreddit: communities.join('+'),
+        time: 'week',
+        sort: 'relevance'
+      });
+
+      opportunities.push(...this.scorePosts(posts, specialty));
+    }
+
+    return opportunities;
+  }
+}
+```
+
+**Key Features:**
+- **Problem Discovery:** Find people asking for solutions the SMB provides
+- **Content Mining:** Extract frequently asked questions for content ideas
+- **Community Mapping:** Identify 10-20 niche subreddits for the industry
+- **Local Monitoring:** Track city/region subreddits for local businesses
+- **Competitor Intelligence:** See what works for similar businesses
+
+**SMB-Specific Optimizations:**
+- Focus on problem/solution matching, not brand mentions
+- Prioritize local community subreddits
+- Track "looking for" and "recommend" posts
+- Identify service request patterns
+- Monitor competitor strategies in niche communities
+
+**Acceptance Criteria:**
+- [ ] OAuth authentication with Reddit API
+- [ ] Discovers 10+ relevant communities per industry
+- [ ] Finds 5+ opportunities per week minimum
+- [ ] Generates 20+ content ideas from discussions
+- [ ] Handles rate limiting gracefully
+- [ ] Caches results for 6 hours
+
+**Git Commit:**
+```bash
+git add src/services/reddit-opportunity.service.ts
+git commit -m "feat(backend): Add Reddit Opportunity Service for SMBs
+
+- Problem discovery instead of brand monitoring
+- Niche community mapping (10-20 subreddits)
+- Local opportunity detection
+- Content idea extraction from FAQs
+- Competitor intelligence gathering"
+git push origin feature/backend-services
+```
+
 **Update BuildRunner:** Set completionPercentage: 100
 
 ---
@@ -644,10 +790,11 @@ git push origin feature/backend-services
 
 Create test files for each service:
 - `url-parser.service.test.ts` (50 test cases)
-- `parallel-intelligence.service.test.ts` (mock all APIs)
+- `parallel-intelligence.service.test.ts` (mock all APIs including Reddit)
 - `specialty-detection.service.test.ts` (100 sample businesses)
 - `calendar-population.service.test.ts` (verify distribution)
 - `content-ideas-generator.service.test.ts` (platform checks)
+- `reddit-opportunity.service.test.ts` (mock Reddit API, test opportunity scoring)
 
 ### Coverage Target: 80%
 
@@ -777,7 +924,7 @@ git push origin feature/backend-services
 **Week 2 End:** Your worktree will be merged to main.
 
 **Before merge, ensure:**
-- [ ] All 5 tasks complete
+- [ ] All 6 tasks complete
 - [ ] All tests passing
 - [ ] 80% code coverage
 - [ ] TypeScript strict mode passes

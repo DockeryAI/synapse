@@ -186,6 +186,7 @@ URL → Intelligence Gathering → Specialty Detection → UVP Building
 - OutScraper (Google Business + reviews)
 - Serper (search intelligence)
 - OpenRouter (Claude synthesis)
+- Reddit (opportunity discovery)
 
 **Flow:**
 ```typescript
@@ -207,6 +208,7 @@ const results = await Promise.allSettled([
   youtubeAPI.getTrending(industry),
   newsAPI.getArticles(industry),
   weatherAPI.getForecast(location),
+  redditService.discoverOpportunities(specialty, location),
 ])
 
 // Minimum viable data threshold
@@ -277,7 +279,40 @@ detectSpecialty(websiteContent, businessName) {
 
 ---
 
-### Feature 5: Calendar Population Service ⚡ CRITICAL
+### Feature 5: Reddit Opportunity Service 🔍 HIGH
+**Status:** Pending
+**Priority:** P1 (SMB intelligence)
+**Estimated Lines:** 400
+
+**Files:**
+- `services/reddit-opportunity.service.ts`
+
+**Function:**
+```typescript
+discoverOpportunities(specialty, location) {
+  // Find people asking for services the SMB provides
+  // Not looking for brand mentions (SMBs rarely mentioned)
+  return {
+    opportunities: RedditOpportunity[], // Service requests
+    topCommunities: string[],          // 10-20 relevant subreddits
+    contentIdeas: string[]             // FAQs from discussions
+  }
+}
+```
+
+**SMB-Specific Features:**
+- Problem discovery ("looking for", "need help with" posts)
+- Niche community mapping (find where customers congregate)
+- Local opportunity detection (city/region subreddits)
+- Content idea extraction (frequently asked questions)
+- Competitor intelligence (what works for similar businesses)
+
+**Dependencies:** Specialty detection, Reddit OAuth
+**Can Build in Parallel:** Yes (after Specialty detection)
+
+---
+
+### Feature 6: Calendar Population Service ⚡ CRITICAL
 **Status:** Pending
 **Priority:** P0 (core integration)
 **Estimated Lines:** 400
@@ -287,20 +322,20 @@ detectSpecialty(websiteContent, businessName) {
 
 **Function:**
 ```typescript
-populateCalendar(brandId, intelligenceData, specialty) {
+populateCalendar(brandId, intelligenceData, specialty, redditOpportunities) {
   // Generate 30 content ideas for calendar
   // Mix of promotional, educational, engagement
-  // Based on specialty + intelligence
+  // Based on specialty + intelligence + Reddit insights
   return ContentItem[] // 30 posts
 }
 ```
 
-**Dependencies:** Specialty detection, Calendar components
+**Dependencies:** Specialty detection, Reddit opportunities, Calendar components
 **Can Build in Parallel:** Partially (needs specialty data)
 
 ---
 
-### Feature 6: SocialPilot Integration ⚡ CRITICAL
+### Feature 7: SocialPilot Integration ⚡ CRITICAL
 **Status:** Pending
 **Priority:** P0 (automation goal)
 **Estimated Lines:** 450
@@ -328,7 +363,7 @@ populateCalendar(brandId, intelligenceData, specialty) {
 
 ---
 
-### Feature 7: Publishing Automation Engine ⚡ CRITICAL
+### Feature 8: Publishing Automation Engine ⚡ CRITICAL
 **Status:** Pending
 **Priority:** P0 (automation goal)
 **Estimated Lines:** 400
@@ -349,7 +384,7 @@ populateCalendar(brandId, intelligenceData, specialty) {
 
 ---
 
-### Feature 8: Enhanced SynapsePage 🎨 HIGH
+### Feature 9: Enhanced SynapsePage 🎨 HIGH
 **Status:** Pending (placeholder exists)
 **Priority:** P1 (main UI)
 **Estimated Lines:** 500
@@ -374,8 +409,9 @@ populateCalendar(brandId, intelligenceData, specialty) {
 ### Phase 1 Tests: Core Intelligence (Backend)
 **Unit Tests:**
 - URL Parser: 50 test cases for different formats
-- Intelligence Orchestrator: Mock all 16 APIs
+- Intelligence Orchestrator: Mock all 17 APIs (including Reddit)
 - Specialty Detection: 100 sample businesses
+- Reddit Opportunity Service: Mock OAuth and API responses
 - Code Coverage Target: 80%
 
 **Integration Tests:**

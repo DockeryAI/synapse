@@ -48,7 +48,7 @@ Enter a business URL → 3 minutes later → 30 days of content ready → Auto-p
 
 ---
 
-## 🧠 THE INTELLIGENCE ENGINE (16 Data Sources)
+## 🧠 THE INTELLIGENCE ENGINE (17 Data Sources)
 
 ### Core Intelligence APIs (Running in Parallel)
 
@@ -110,11 +110,18 @@ Enter a business URL → 3 minutes later → 30 days of content ready → Auto-p
 - Service area mapping
 - International address parsing
 
+**17. Reddit API** - SMB Opportunity Intelligence
+- Problem discovery ("looking for" posts)
+- Niche community mapping
+- Local service requests
+- Content idea extraction
+- Competitor intelligence
+
 ### Intelligence Orchestration
 
 **Parallel Execution:**
 ```
-All 16 sources run simultaneously → 30 seconds total
+All 17 sources run simultaneously → 30 seconds total
 ├─ Apify: 5s
 ├─ OutScraper: 8s
 ├─ Serper (8 APIs): 3s each
@@ -123,7 +130,8 @@ All 16 sources run simultaneously → 30 seconds total
 ├─ News: 3s
 ├─ Weather: 2s
 ├─ Claude AI: 12s
-└─ Google Maps: 2s
+├─ Google Maps: 2s
+└─ Reddit: 5s
 
 Result: Complete business intelligence in 30 seconds
 ```
@@ -147,10 +155,11 @@ Result: Complete business intelligence in 30 seconds
 | Weather API | 1000/day | Use cached weather (6h old) | 6h | Low |
 | Claude AI | 100/min | Fallback to Sonnet 3.5 | 1h | Critical |
 | Google Maps | 40,000/month | Use cached geocoding | 30d | High |
+| Reddit API | 60/min | Cache community data for 6h | 6h | Medium |
 
 **Graceful Degradation Pattern:**
 ```typescript
-const results = await Promise.allSettled([...16 sources])
+const results = await Promise.allSettled([...17 sources])
 const successful = results.filter(r => r.status === 'fulfilled')
 if (successful.length < 8) {
   // Minimum viable data threshold
@@ -439,7 +448,7 @@ engagement_metrics (content_id, likes, comments, shares, reach)
    - IP-based geolocation fallback
 
 3. 🚧 Parallel Intelligence Orchestrator (500 lines)
-   - Runs 16 data sources simultaneously
+   - Runs 17 data sources simultaneously (including Reddit API)
    - 30-second total completion
    - Graceful degradation
    - Intelligent caching
@@ -451,7 +460,14 @@ engagement_metrics (content_id, likes, comments, shares, reach)
    - Service differentiation
    - Target market refinement
 
-5. 🚧 Enhanced UVP Wizard (600 lines)
+5. ⏸️ Reddit Opportunity Service (400 lines)
+   - Problem discovery for SMBs
+   - Niche community mapping (10-20 subreddits)
+   - Local opportunity detection
+   - Content idea extraction
+   - Competitor intelligence
+
+6. 🚧 Enhanced UVP Wizard (600 lines)
    - Evidence-based suggestions
    - Real-time citations
    - "Found on About page"
@@ -572,17 +588,18 @@ engagement_metrics (content_id, likes, comments, shares, reach)
 
 **Core Features (Must Have):**
 1. ✅ Universal URL Parser - Handle any business URL globally
-2. ✅ 16 Parallel Intelligence Sources - 30-second data gathering
+2. ✅ 17 Parallel Intelligence Sources - 30-second data gathering (including Reddit)
 3. ✅ Global Location Detection - Find addresses anywhere
 4. ✅ Specialty Detection - Identify niche vs generic
-5. ✅ Evidence-Based UVP Wizard - Cited suggestions
-6. ✅ Content Calendar - Full calendar system
-7. ✅ Dual-Mode Generation - Fast (MARBA) & Enhanced (Synapse)
-8. ✅ Smart Scheduling - Optimal time recommendations
-9. ✅ Publishing Queue - Real-time status tracking
-10. ✅ SocialPilot Integration - Automated posting
-11. ✅ Opportunity Detection - Intelligence-driven ideas
-12. ✅ Analytics Dashboard - Track engagement & ROI
+5. ✅ Reddit Opportunity Discovery - Find SMB service requests & content ideas
+6. ✅ Evidence-Based UVP Wizard - Cited suggestions
+7. ✅ Content Calendar - Full calendar system
+8. ✅ Dual-Mode Generation - Fast (MARBA) & Enhanced (Synapse)
+9. ✅ Smart Scheduling - Optimal time recommendations
+10. ✅ Publishing Queue - Real-time status tracking
+11. ✅ SocialPilot Integration - Automated posting
+12. ✅ Opportunity Detection - Intelligence-driven ideas
+13. ✅ Analytics Dashboard - Track engagement & ROI
 
 **Platforms (7):**
 - Instagram, Twitter, LinkedIn, Facebook, TikTok, Email, Blog
