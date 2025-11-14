@@ -13,17 +13,20 @@
  * - Integration with calendar system
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown, ChevronUp, Sparkles, TrendingUp, Users, Target, MessageCircle } from 'lucide-react';
-import { MappedIntelligence } from '../../services/intelligence-data-mapper.service';
-import { SpecialtyDetection } from '../../services/synapse-calendar-bridge.service';
+import { useSynapseCalendarBridge } from '../../hooks/useSynapseCalendarBridge';
+import type { IntelligenceResult } from '../../services/parallel-intelligence.service';
+import type { SpecialtyDetection } from '../../services/specialty-detection.service';
 
 // ============================================================================
 // TYPE DEFINITIONS
 // ============================================================================
 
 export interface IntelligencePanelProps {
-  intelligence: MappedIntelligence;
+  /** Raw intelligence results from onboarding */
+  intelligence: IntelligenceResult[];
+  /** Detected specialty information */
   specialty: SpecialtyDetection;
   className?: string;
 }
@@ -38,8 +41,18 @@ export const IntelligencePanel: React.FC<IntelligencePanelProps> = ({
   className = ''
 }) => {
   const [expandedSections, setExpandedSections] = useState<Set<string>>(
-    new Set(['specialty', 'brandVoice']) // Default expanded sections
+    new Set(['specialty', 'pillars']) // Default expanded sections
   );
+
+  // Use the bridge hook to transform intelligence data
+  const { data: bridgedData, loading, error, transform } = useSynapseCalendarBridge();
+
+  // Transform intelligence on mount or when data changes
+  useEffect(() => {
+    if (intelligence && specialty) {
+      transform(intelligence, specialty);
+    }
+  }, [intelligence, specialty, transform]);
 
   const toggleSection = (section: string) => {
     setExpandedSections(prev => {
@@ -54,6 +67,28 @@ export const IntelligencePanel: React.FC<IntelligencePanelProps> = ({
   };
 
   const isSectionExpanded = (section: string) => expandedSections.has(section);
+
+  // Show loading state
+  if (loading) {
+    return (
+      <div className={`space-y-4 ${className}`}>
+        <div className="p-4 text-center text-gray-500">
+          Transforming intelligence data...
+        </div>
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error) {
+    return (
+      <div className={`space-y-4 ${className}`}>
+        <div className="p-4 text-center text-red-500">
+          Error: {error.message}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`space-y-4 ${className}`} role="region" aria-label="Intelligence Insights">
@@ -99,202 +134,208 @@ export const IntelligencePanel: React.FC<IntelligencePanelProps> = ({
         )}
       </Card>
 
-      {/* Brand Voice */}
-      <Card className="bg-white dark:bg-gray-800">
-        <button
-          onClick={() => toggleSection('brandVoice')}
-          className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
-          aria-expanded={isSectionExpanded('brandVoice')}
-          aria-controls="brandvoice-content"
-        >
-          <div className="flex items-center gap-2">
-            <MessageCircle className="w-5 h-5 text-purple-500" />
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-              Brand Voice
-            </h3>
-          </div>
-          {isSectionExpanded('brandVoice') ? (
-            <ChevronUp className="w-4 h-4 text-gray-500" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-gray-500" />
+      {/* Content Pillars */}
+      {bridgedData && bridgedData.pillars.length > 0 && (
+        <Card className="bg-white dark:bg-gray-800">
+          <button
+            onClick={() => toggleSection('pillars')}
+            className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
+            aria-expanded={isSectionExpanded('pillars')}
+            aria-controls="pillars-content"
+          >
+            <div className="flex items-center gap-2">
+              <MessageCircle className="w-5 h-5 text-purple-500" />
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                Content Pillars
+              </h3>
+              <Badge variant="secondary" className="text-xs">
+                {bridgedData.pillars.length}
+              </Badge>
+            </div>
+            {isSectionExpanded('pillars') ? (
+              <ChevronUp className="w-4 h-4 text-gray-500" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            )}
+          </button>
+
+          {isSectionExpanded('pillars') && (
+            <div id="pillars-content" className="px-4 pb-4 space-y-3">
+              {bridgedData.pillars.map((pillar, idx) => (
+                <div key={idx} className="border-l-2 border-purple-500 pl-3 py-2">
+                  <h4 className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                    {pillar.name}
+                  </h4>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                    {pillar.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {pillar.keywords.slice(0, 5).map((keyword, kidx) => (
+                      <span
+                        key={kidx}
+                        className="px-2 py-0.5 text-xs bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded"
+                      >
+                        {keyword}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
-        </button>
+        </Card>
+      )}
 
-        {isSectionExpanded('brandVoice') && (
-          <div id="brandvoice-content" className="px-4 pb-4 space-y-3">
-            <div className="flex gap-2">
-              <Badge variant="secondary">{intelligence.brandVoice.tone}</Badge>
-              <Badge variant="secondary">{intelligence.brandVoice.style}</Badge>
+      {/* Target Audience */}
+      {bridgedData && (
+        <Card className="bg-white dark:bg-gray-800">
+          <button
+            onClick={() => toggleSection('audience')}
+            className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
+            aria-expanded={isSectionExpanded('audience')}
+            aria-controls="audience-content"
+          >
+            <div className="flex items-center gap-2">
+              <Users className="w-5 h-5 text-green-500" />
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                Target Audience
+              </h3>
             </div>
-            <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
-                Top Keywords:
-              </p>
-              <div className="flex flex-wrap gap-1">
-                {intelligence.brandVoice.keywords.slice(0, 8).map((keyword, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2 py-1 text-xs bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded"
-                  >
-                    {keyword}
-                  </span>
-                ))}
+            {isSectionExpanded('audience') ? (
+              <ChevronUp className="w-4 h-4 text-gray-500" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            )}
+          </button>
+
+          {isSectionExpanded('audience') && (
+            <div id="audience-content" className="px-4 pb-4 space-y-3">
+              <div>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                  Interests:
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {bridgedData.audience.interests.slice(0, 8).map((interest, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-0.5 text-xs bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 rounded"
+                    >
+                      {interest}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
+                  Pain Points:
+                </p>
+                <ul className="space-y-1">
+                  {bridgedData.audience.painPoints.map((pain, idx) => (
+                    <li key={idx} className="text-xs text-gray-600 dark:text-gray-400">
+                      • {pain}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
-          </div>
-        )}
-      </Card>
-
-      {/* Customer Insights */}
-      <Card className="bg-white dark:bg-gray-800">
-        <button
-          onClick={() => toggleSection('customerInsights')}
-          className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
-          aria-expanded={isSectionExpanded('customerInsights')}
-          aria-controls="customer-content"
-        >
-          <div className="flex items-center gap-2">
-            <Users className="w-5 h-5 text-green-500" />
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-              Customer Insights
-            </h3>
-            <Badge variant="secondary" className="text-xs">
-              {intelligence.customerSentiment.reviewCount} reviews
-            </Badge>
-          </div>
-          {isSectionExpanded('customerInsights') ? (
-            <ChevronUp className="w-4 h-4 text-gray-500" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-gray-500" />
           )}
-        </button>
-
-        {isSectionExpanded('customerInsights') && (
-          <div id="customer-content" className="px-4 pb-4 space-y-3">
-            <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                  Sentiment Score
-                </span>
-                <span className="text-sm font-semibold text-green-600">
-                  {Math.round(intelligence.customerSentiment.overallScore)}%
-                </span>
-              </div>
-              <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-green-500 rounded-full transition-all"
-                  style={{ width: `${intelligence.customerSentiment.overallScore}%` }}
-                />
-              </div>
-            </div>
-
-            <div>
-              <p className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">
-                Top Mentions:
-              </p>
-              <div className="flex flex-wrap gap-1">
-                {intelligence.customerSentiment.topMentions.map((mention, idx) => (
-                  <Badge key={idx} variant="secondary" className="text-xs">
-                    {mention}
-                  </Badge>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-      </Card>
-
-      {/* Trending Topics */}
-      <Card className="bg-white dark:bg-gray-800">
-        <button
-          onClick={() => toggleSection('trends')}
-          className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
-          aria-expanded={isSectionExpanded('trends')}
-          aria-controls="trends-content"
-        >
-          <div className="flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-amber-500" />
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-              Trending Topics
-            </h3>
-          </div>
-          {isSectionExpanded('trends') ? (
-            <ChevronUp className="w-4 h-4 text-gray-500" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-gray-500" />
-          )}
-        </button>
-
-        {isSectionExpanded('trends') && (
-          <div id="trends-content" className="px-4 pb-4">
-            <ul className="space-y-2">
-              {intelligence.trendingTopics
-                .filter(t => t.relevance > 70)
-                .slice(0, 5)
-                .map((topic, idx) => (
-                  <li key={idx} className="flex items-start gap-2 text-sm">
-                    <span className="text-green-500 mt-0.5">📈</span>
-                    <div className="flex-1">
-                      <span className="text-gray-900 dark:text-gray-100">{topic.topic}</span>
-                      <div className="flex items-center gap-2 mt-1">
-                        <span className="text-xs text-gray-500">{topic.relevance}% relevant</span>
-                        <span className="text-xs text-gray-400">•</span>
-                        <span className="text-xs text-gray-500 capitalize">{topic.source}</span>
-                      </div>
-                    </div>
-                  </li>
-                ))}
-            </ul>
-          </div>
-        )}
-      </Card>
+        </Card>
+      )}
 
       {/* Opportunities */}
-      <Card className="bg-white dark:bg-gray-800">
-        <button
-          onClick={() => toggleSection('opportunities')}
-          className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
-          aria-expanded={isSectionExpanded('opportunities')}
-          aria-controls="opportunities-content"
-        >
-          <div className="flex items-center gap-2">
-            <Target className="w-5 h-5 text-blue-500" />
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100">
-              Content Opportunities
-            </h3>
-          </div>
-          {isSectionExpanded('opportunities') ? (
-            <ChevronUp className="w-4 h-4 text-gray-500" />
-          ) : (
-            <ChevronDown className="w-4 h-4 text-gray-500" />
-          )}
-        </button>
+      {bridgedData && bridgedData.opportunities.length > 0 && (
+        <Card className="bg-white dark:bg-gray-800">
+          <button
+            onClick={() => toggleSection('opportunities')}
+            className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
+            aria-expanded={isSectionExpanded('opportunities')}
+            aria-controls="opportunities-content"
+          >
+            <div className="flex items-center gap-2">
+              <Target className="w-5 h-5 text-blue-500" />
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                Content Opportunities
+              </h3>
+              <Badge variant="secondary" className="text-xs">
+                {bridgedData.opportunities.length}
+              </Badge>
+            </div>
+            {isSectionExpanded('opportunities') ? (
+              <ChevronUp className="w-4 h-4 text-gray-500" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            )}
+          </button>
 
-        {isSectionExpanded('opportunities') && (
-          <div id="opportunities-content" className="px-4 pb-4">
-            <ul className="space-y-2">
-              {intelligence.competitiveGaps.differentiators.map((diff, idx) => (
-                <li key={idx} className="flex items-start gap-2 text-sm">
-                  <span className="text-blue-500 mt-0.5">💡</span>
-                  <span className="text-gray-900 dark:text-gray-100">{diff}</span>
-                </li>
+          {isSectionExpanded('opportunities') && (
+            <div id="opportunities-content" className="px-4 pb-4 space-y-3">
+              {bridgedData.opportunities.map((opp, idx) => (
+                <div key={idx} className="border-l-2 border-blue-500 pl-3 py-2">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-xl">
+                      {opp.type === 'reddit-discussion' ? '💬' :
+                       opp.type === 'customer-pain' ? '🔍' :
+                       opp.type === 'seasonal' ? '🗓️' : '💡'}
+                    </span>
+                    <h4 className="font-medium text-sm text-gray-900 dark:text-gray-100">
+                      {opp.title}
+                    </h4>
+                    <Badge
+                      variant={opp.impact === 'high' ? 'success' : opp.impact === 'medium' ? 'warning' : 'secondary'}
+                      className="text-xs"
+                    >
+                      {opp.impact}
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-1">
+                    {opp.description}
+                  </p>
+                  <p className="text-xs text-blue-600 dark:text-blue-400">
+                    → {opp.action}
+                  </p>
+                </div>
               ))}
-            </ul>
-          </div>
-        )}
-      </Card>
+            </div>
+          )}
+        </Card>
+      )}
 
-      {/* Data Quality Indicator */}
-      <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <div className="flex items-center justify-between text-xs">
-          <span className="text-gray-600 dark:text-gray-400">
-            Data Quality: {intelligence.dataSources.length} sources
-          </span>
-          <span className="font-medium text-gray-900 dark:text-gray-100">
-            {intelligence.qualityScore}% complete
-          </span>
-        </div>
-      </div>
+      {/* Key Insights */}
+      {bridgedData && bridgedData.insights.length > 0 && (
+        <Card className="bg-white dark:bg-gray-800">
+          <button
+            onClick={() => toggleSection('insights')}
+            className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors rounded-lg"
+            aria-expanded={isSectionExpanded('insights')}
+            aria-controls="insights-content"
+          >
+            <div className="flex items-center gap-2">
+              <TrendingUp className="w-5 h-5 text-amber-500" />
+              <h3 className="font-semibold text-gray-900 dark:text-gray-100">
+                Key Insights
+              </h3>
+            </div>
+            {isSectionExpanded('insights') ? (
+              <ChevronUp className="w-4 h-4 text-gray-500" />
+            ) : (
+              <ChevronDown className="w-4 h-4 text-gray-500" />
+            )}
+          </button>
+
+          {isSectionExpanded('insights') && (
+            <div id="insights-content" className="px-4 pb-4">
+              <ul className="space-y-2">
+                {bridgedData.insights.map((insight, idx) => (
+                  <li key={idx} className="flex items-start gap-2 text-sm">
+                    <span className="text-amber-500 mt-0.5">💡</span>
+                    <span className="text-gray-900 dark:text-gray-100">{insight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </Card>
+      )}
     </div>
   );
 };
