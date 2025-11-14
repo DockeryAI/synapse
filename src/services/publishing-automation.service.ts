@@ -346,11 +346,11 @@ export class PublishingAutomationService {
 
       if (status === 'published' && platformPostId) {
         updates.platform_post_id = platformPostId;
-        updates.published_time = new Date().toISOString();
+        updates.published_at = new Date().toISOString();
       }
 
       if (status === 'failed' && errorMessage) {
-        updates.error_message = errorMessage;
+        updates.publish_error = errorMessage;
       }
 
       const { error } = await supabase
