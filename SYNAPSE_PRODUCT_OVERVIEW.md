@@ -160,6 +160,121 @@ if (successful.length < 8) {
 
 ---
 
+## 📚 INDUSTRY INTELLIGENCE DATABASE
+
+### Overview
+Synapse leverages a comprehensive industry database to deliver hyper-targeted, industry-specific content optimization:
+
+**Coverage:**
+- **380 NAICS Codes** - Complete North American Industry Classification System
+- **147 Full Industry Profiles** - Deep psychology, messaging, and engagement patterns
+- **50+ Data Points per Profile** - Power words, emotional triggers, content themes, posting frequencies
+
+### Database Structure
+
+**NAICS Codes Table (380 entries):**
+```typescript
+interface NAICSCode {
+  code: string;              // "541618" or "541618-CONST" (custom sub-industries)
+  parentCode: string | null; // Hierarchical relationship
+  level: number;             // 2=sector, 3=subsector, 4=industry, 6=detailed, 7=custom
+  title: string;             // "Management Consulting"
+  description: string;       // Full industry description
+  isStandard: boolean;       // true for official NAICS, false for custom extensions
+  keywords: string[];        // Detection keywords
+}
+```
+
+**Industry Profiles Table (147 entries):**
+```typescript
+interface IndustryProfile {
+  id: string;                           // "restaurant", "cpa", "dentist"
+  naicsCode: string;                    // Links to NAICS table
+  name: string;                         // "Restaurant & Food Service"
+  targetAudience: string;               // "Local diners, families, food enthusiasts"
+
+  // Psychology Optimization
+  psychologyProfile: {
+    primaryTriggers: string[];          // ["urgency", "social proof", "exclusivity"]
+    emotionalFramework: string;         // "FOMO + Trust + Delight"
+    decisionDrivers: string[];          // ["taste", "convenience", "atmosphere"]
+    painPoints: string[];               // ["long wait times", "inconsistent quality"]
+  };
+
+  // Content Strategy
+  powerWords: string[];                 // ["fresh", "authentic", "handcrafted"]
+  contentThemes: string[];              // ["menu highlights", "behind the scenes"]
+  toneOfVoice: string;                  // "warm, inviting, approachable"
+
+  // Platform Optimization
+  bestPostingTimes: Array<{
+    dayOfWeek: string;
+    hourOfDay: number;
+    platform: string;
+    reasoning: string;
+  }>;
+
+  postingFrequency: {
+    optimal: number;                    // 3-5 times per week
+    minimum: number;
+    maximum: number;
+  };
+
+  platformPriority: string[];           // ["instagram", "facebook", "tiktok"]
+
+  // Engagement Patterns
+  typicalEngagementRate: number;        // 3.5% average
+  benchmarks: {
+    likes: number;
+    comments: number;
+    shares: number;
+  };
+}
+```
+
+### Integration Points
+
+**1. Specialty Detection (Task 3 - Worktree 1)**
+- Uses NAICS codes + keywords to identify business industry
+- Matches detected industry to full profile
+- Confidence scoring based on keyword matches
+- Falls back to generic profile if no match
+
+**2. Content Generation (Task 5 - Worktree 1)**
+- Pulls power words from industry profile
+- Applies psychological triggers specific to industry
+- Uses content themes for topic generation
+- Optimizes tone of voice per industry
+
+**3. Smart Scheduling (Existing Calendar)**
+- References `bestPostingTimes` from profile
+- Adjusts recommendations per industry + platform
+- Accounts for industry-specific engagement patterns
+
+**4. Analytics & Benchmarking**
+- Compares performance against industry benchmarks
+- Flags underperforming content
+- Suggests improvements based on industry best practices
+
+### Data Migration Plan
+
+**Source:** Existing MARBA project industry database
+
+**Destination:** Supabase (new Synapse project)
+
+**Migration Tasks:**
+1. Export 380 NAICS codes from MARBA → JSON
+2. Export 147 industry profiles from MARBA → JSON
+3. Create Supabase tables: `naics_codes`, `industry_profiles`
+4. Bulk insert via Supabase client
+5. Verify data integrity (all 380 + 147 records)
+6. Create indexes on `code`, `naicsCode`, `id` fields
+7. Test lookups via Specialty Detection service
+
+**Estimated Time:** 2 hours
+
+---
+
 ## 🎨 CONTENT CALENDAR SYSTEM
 
 ### Calendar Views
@@ -275,8 +390,14 @@ Content automatically tagged with:
 
 **Key Tables:**
 ```sql
+-- Industry Intelligence (NEW - 380 + 147 records)
+naics_codes (code, parent_code, level, title, description, is_standard, keywords)
+industry_profiles (id, naics_code, name, target_audience, psychology_profile, power_words,
+                  content_themes, tone_of_voice, best_posting_times, posting_frequency,
+                  platform_priority, typical_engagement_rate, benchmarks)
+
 -- Brand Management
-brands (id, name, industry, website, location, specialty)
+brands (id, name, industry, naics_code, website, location, specialty)
 brand_intelligence (brand_id, data_source, cached_data, expires_at)
 
 -- Content Calendar
@@ -466,8 +587,12 @@ engagement_metrics (content_id, likes, comments, shares, reach)
 **Platforms (7):**
 - Instagram, Twitter, LinkedIn, Facebook, TikTok, Email, Blog
 
-**Industries (Initial 5):**
-- Restaurant, CPA, Realtor, Dentist, Consultant
+**Industries (147 Full Profiles + 380 NAICS Codes):**
+- 147 complete industry profiles with psychology optimization
+- 380 NAICS codes for comprehensive industry detection
+- Full coverage: Professional Services, Healthcare, Food Service, Real Estate,
+  Retail, Finance, Hospitality, Construction, Education, and more
+- Priority industries: Restaurant, CPA, Realtor, Dentist, Consultant (pre-built UX)
 
 **What's NOT in v1.0:**
 - Multi-location businesses (Phase 2)

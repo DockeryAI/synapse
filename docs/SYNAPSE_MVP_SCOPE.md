@@ -57,12 +57,20 @@ Fully automated system combining business intelligence gathering, specialty dete
 - **Pain Points:** Too many accounts to manage manually
 - **Goal:** Scale content creation efficiently
 
-### Initial Industries (MVP)
+### Industry Coverage (MVP)
+**Complete Industry Database:**
+- **380 NAICS Codes** - Full North American Industry Classification System
+- **147 Full Industry Profiles** - Complete psychology, messaging, and engagement optimization
+- **50+ Data Points per Profile** - Power words, emotional triggers, content themes, posting times
+
+**Priority Industries (Pre-Built UX):**
 1. **Restaurant** - High social media dependency
 2. **CPA/Accountant** - Seasonal content needs
 3. **Realtor** - Visual content focus
 4. **Dentist** - Trust-building content
 5. **Consultant** - Thought leadership
+
+**Full Coverage Includes:** Professional Services, Healthcare, Food Service, Real Estate, Retail, Finance, Hospitality, Construction, Education, Manufacturing, Technology, Legal, Creative Services, Home Services, Automotive, and 40+ more sectors
 
 ---
 
@@ -130,17 +138,35 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ## 6. TECHNICAL REQUIREMENTS
 
+### Database Requirements
+**Industry Intelligence Foundation:**
+- **380 NAICS Codes table** - Hierarchical industry classification with keywords
+- **147 Industry Profiles table** - Complete psychology and engagement patterns
+- **Migration Prerequisite:** Must be completed before any backend service development
+- **Storage:** ~50MB (NAICS codes + profiles)
+- **Indexes:** GIN index on keywords array, B-tree on codes and foreign keys
+- **Query Performance:** <10ms for profile lookup by NAICS code
+- **Data Source:** Existing MARBA project database
+
+**Additional Tables:**
+- Brands with NAICS code linkage
+- Content calendar items
+- Intelligence cache
+- Publishing queue
+- Analytics metrics
+
 ### Performance Requirements
 - **Page Load:** <2 seconds
-- **Intelligence Gathering:** <30 seconds
+- **Intelligence Gathering:** <30 seconds (16 APIs in parallel)
 - **Content Generation:** <15 seconds
+- **Industry Profile Lookup:** <10ms
 - **Concurrent Users:** 100
 - **Uptime:** 99.9%
 
 ### Security Requirements
 - TLS 1.3 encryption
 - API key rotation (90 days)
-- GDPR compliant
+- GDPR compliant (industry data is public, no PII)
 - SOC 2 Type 1 ready
 - PCI DSS compliant (for payments)
 
@@ -149,6 +175,7 @@ Fully automated system combining business intelligence gathering, specialty dete
 - 1M API calls/month
 - 100GB storage expandable
 - Multi-region deployment ready
+- Industry database read-replicas for global scale
 
 ---
 
@@ -208,11 +235,19 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ## 9. DELIVERY TIMELINE
 
+### Day 0: Database Migration (CRITICAL - BEFORE ALL ELSE)
+- Export 380 NAICS codes from MARBA ✓
+- Export 147 industry profiles from MARBA ✓
+- Create Supabase tables ✓
+- Import all data to Supabase ✓
+- Verify data integrity (527 total records) ✓
+- **Blocker:** All backend services depend on this
+
 ### Week 1-2: Backend Development
 - Universal URL Parser ✓
 - 16 API Integration ✓
-- Specialty Detection ✓
-- Calendar Population ✓
+- Specialty Detection (uses industry database) ✓
+- Calendar Population (uses industry profiles) ✓
 
 ### Week 2-3: Frontend & Integration
 - Enhanced UI ✓
@@ -242,6 +277,13 @@ Fully automated system combining business intelligence gathering, specialty dete
 
 ## 11. DEPENDENCIES
 
+### Data Dependencies (CRITICAL - Must Complete First)
+- **Industry Database Migration:** 380 NAICS codes + 147 industry profiles
+  - **Source:** MARBA project `/Users/byronhudson/Projects/MARBA`
+  - **Destination:** Synapse Supabase project
+  - **Estimated Time:** 2 hours
+  - **Blocks:** Specialty Detection, Content Generation, Smart Scheduling
+
 ### External Dependencies
 - **Critical:** SocialPilot API, OpenRouter (Claude), Supabase
 - **Important:** Apify, OutScraper, Serper
@@ -252,6 +294,7 @@ Fully automated system combining business intelligence gathering, specialty dete
 - Git worktree infrastructure
 - BuildRunner tracking system
 - Daily standups
+- Industry database available in Supabase
 
 ---
 

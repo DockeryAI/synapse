@@ -435,6 +435,192 @@ populateCalendar(brandId, intelligenceData, specialty) {
 
 ## 🗄️ DATABASE MIGRATION STRATEGY
 
+### Critical: Industry Database Migration (Day 0 - BEFORE ALL ELSE)
+
+**MUST COMPLETE FIRST:** All backend services depend on this data.
+
+**Source:** MARBA project `/Users/byronhudson/Projects/MARBA`
+**Destination:** New Synapse Supabase project
+
+**Step-by-Step Migration:**
+
+1. **Export Data from MARBA (30 minutes)**
+```bash
+cd /Users/byronhudson/Projects/MARBA
+
+# Export NAICS codes (380 records)
+node scripts/export-naics.js > data/naics_codes.json
+
+# Export Industry Profiles (147 records)
+node scripts/export-industry-profiles.js > data/industry_profiles.json
+
+# Verify record counts
+jq 'length' data/naics_codes.json  # Should show 380
+jq 'length' data/industry_profiles.json  # Should show 147
+```
+
+2. **Create Supabase Tables (15 minutes)**
+```sql
+-- Migration: 000_industry_database.sql
+
+-- NAICS Codes Table (380 records)
+CREATE TABLE naics_codes (
+  code VARCHAR(20) PRIMARY KEY,  -- "541618" or "541618-CONST"
+  parent_code VARCHAR(20) REFERENCES naics_codes(code),
+  level INTEGER NOT NULL,        -- 2, 3, 4, 6, 7
+  title TEXT NOT NULL,
+  description TEXT NOT NULL,
+  is_standard BOOLEAN DEFAULT true,
+  keywords TEXT[],               -- Array of detection keywords
+  created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Industry Profiles Table (147 records)
+CREATE TABLE industry_profiles (
+  id VARCHAR(50) PRIMARY KEY,    -- "restaurant", "cpa", "dentist"
+  naics_code VARCHAR(20) REFERENCES naics_codes(code),
+  name TEXT NOT NULL,
+  target_audience TEXT NOT NULL,
+
+  -- Psychology (JSONB for flexibility)
+  psychology_profile JSONB NOT NULL, -- primaryTriggers, emotionalFramework, etc.
+
+  -- Content Strategy
+  power_words TEXT[] NOT NULL,
+  content_themes TEXT[] NOT NULL,
+  tone_of_voice TEXT NOT NULL,
+
+  -- Platform Optimization
+  best_posting_times JSONB NOT NULL,  -- Array of {dayOfWeek, hourOfDay, platform, reasoning}
+  posting_frequency JSONB NOT NULL,   -- {optimal, minimum, maximum}
+  platform_priority TEXT[] NOT NULL,
+
+  -- Benchmarks
+  typical_engagement_rate DECIMAL(5,2),
+  benchmarks JSONB,                   -- {likes, comments, shares}
+
+  created_at TIMESTAMP DEFAULT NOW(),
+  updated_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Indexes for fast lookups
+CREATE INDEX idx_naics_parent ON naics_codes(parent_code);
+CREATE INDEX idx_naics_keywords ON naics_codes USING GIN(keywords);
+CREATE INDEX idx_industry_naics ON industry_profiles(naics_code);
+CREATE INDEX idx_industry_name ON industry_profiles(name);
+```
+
+3. **Import Data to Supabase (45 minutes)**
+```typescript
+// scripts/import-industry-data.ts
+import { createClient } from '@supabase/supabase-js'
+import naicsCodes from '../data/naics_codes.json'
+import industryProfiles from '../data/industry_profiles.json'
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!
+)
+
+async function importIndustryData() {
+  console.log('Importing 380 NAICS codes...')
+
+  // Batch insert NAICS codes (50 at a time to avoid timeouts)
+  for (let i = 0; i < naicsCodes.length; i += 50) {
+    const batch = naicsCodes.slice(i, i + 50)
+    const { error } = await supabase.from('naics_codes').insert(batch)
+
+    if (error) throw error
+    console.log(`Imported ${i + batch.length}/${naicsCodes.length} NAICS codes`)
+  }
+
+  console.log('✅ All 380 NAICS codes imported')
+
+  console.log('Importing 147 industry profiles...')
+
+  // Batch insert industry profiles (20 at a time - profiles are larger)
+  for (let i = 0; i < industryProfiles.length; i += 20) {
+    const batch = industryProfiles.slice(i, i + 20)
+    const { error } = await supabase.from('industry_profiles').insert(batch)
+
+    if (error) throw error
+    console.log(`Imported ${i + batch.length}/${industryProfiles.length} profiles`)
+  }
+
+  console.log('✅ All 147 industry profiles imported')
+}
+
+// Verify data integrity
+async function verifyImport() {
+  const { count: naicsCount } = await supabase
+    .from('naics_codes')
+    .select('*', { count: 'exact', head: true })
+
+  const { count: profilesCount } = await supabase
+    .from('industry_profiles')
+    .select('*', { count: 'exact', head: true })
+
+  console.log(`NAICS Codes: ${naicsCount}/380 ✅`)
+  console.log(`Industry Profiles: ${profilesCount}/147 ✅`)
+
+  if (naicsCount !== 380 || profilesCount !== 147) {
+    throw new Error('Data integrity check FAILED!')
+  }
+
+  console.log('✅ Data integrity verified')
+}
+
+importIndustryData()
+  .then(verifyImport)
+  .then(() => process.exit(0))
+  .catch(err => {
+    console.error('Migration failed:', err)
+    process.exit(1)
+  })
+```
+
+4. **Run Migration (15 minutes)**
+```bash
+# Set environment variables
+export SUPABASE_URL="https://xxx.supabase.co"
+export SUPABASE_SERVICE_KEY="your-service-key"
+
+# Run migration
+npm run migrate:industry-data
+
+# Expected output:
+# Importing 380 NAICS codes...
+# Imported 50/380 NAICS codes
+# ...
+# ✅ All 380 NAICS codes imported
+# ✅ All 147 industry profiles imported
+# NAICS Codes: 380/380 ✅
+# Industry Profiles: 147/147 ✅
+# ✅ Data integrity verified
+```
+
+5. **Update Brand Schema (5 minutes)**
+```sql
+-- Migration: 000_update_brands_for_industry.sql
+ALTER TABLE brands ADD COLUMN naics_code VARCHAR(20) REFERENCES naics_codes(code);
+ALTER TABLE brands ADD COLUMN industry_profile_id VARCHAR(50) REFERENCES industry_profiles(id);
+
+CREATE INDEX idx_brands_naics ON brands(naics_code);
+CREATE INDEX idx_brands_industry ON brands(industry_profile_id);
+```
+
+**Total Time:** ~2 hours
+**Completion Criteria:**
+- [ ] 380 NAICS codes in Supabase
+- [ ] 147 industry profiles in Supabase
+- [ ] All foreign keys valid
+- [ ] Indexes created
+- [ ] Test queries working (fetch profile by NAICS, search by keywords)
+
+**Blockers if Skipped:** Specialty Detection, Content Generation, Smart Scheduling will all fail without this data.
+
+---
+
 ### Migration Principles
 1. **Zero Downtime:** All migrations must be backwards compatible
 2. **Rollback Ready:** Every migration has a down() method
@@ -444,6 +630,8 @@ populateCalendar(brandId, intelligenceData, specialty) {
 ### Migration Files Structure
 ```
 supabase/migrations/
+├── 000_industry_database.sql              (NEW - MUST RUN FIRST)
+├── 000_update_brands_for_industry.sql     (NEW - Links brands to industries)
 ├── 001_initial_schema.sql
 ├── 002_add_intelligence_tables.sql
 ├── 003_add_calendar_tables.sql
