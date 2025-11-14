@@ -18,6 +18,9 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
+import { IntelligenceDisplay } from '@/components/synapse/IntelligenceDisplay';
+import { ContentPreview } from '@/components/synapse/ContentPreview';
+import { EnhancedUVPWizard } from '@/components/uvp-wizard/EnhancedUVPWizard';
 
 // Import types (these will be defined or exist already)
 type ParsedURL = {
@@ -311,72 +314,11 @@ export function SynapsePage() {
             <Card className="p-6">
               <h2 className="text-2xl font-semibold mb-4">Business Intelligence</h2>
 
-              {/* Specialty Detection */}
-              <div className="mb-6">
-                <div className="text-sm text-muted-foreground mb-2">Detected Specialty</div>
-                <div className="flex items-center gap-4">
-                  <div className="text-3xl font-bold text-primary">
-                    {specialty.specialty}
-                  </div>
-                  <Badge variant="secondary">
-                    {specialty.confidence}% confidence
-                  </Badge>
-                </div>
-                <p className="text-sm text-muted-foreground mt-2">
-                  {specialty.reasoning}
-                </p>
-              </div>
-
-              {/* Intelligence Summary */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                <Card className="p-4 text-center bg-gray-50">
-                  <div className="text-2xl font-bold text-green-600">
-                    {intelligence.filter(i => i.success).length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Data Sources
-                  </div>
-                </Card>
-
-                <Card className="p-4 text-center bg-gray-50">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {specialty.confidence}%
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Confidence
-                  </div>
-                </Card>
-
-                <Card className="p-4 text-center bg-gray-50">
-                  <div className="text-2xl font-bold text-purple-600">
-                    {specialty.nicheKeywords.length}
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Keywords Found
-                  </div>
-                </Card>
-
-                <Card className="p-4 text-center bg-gray-50">
-                  <div className="text-2xl font-bold text-orange-600">
-                    {Math.round(intelligence.reduce((sum, i) => sum + i.duration, 0) / 1000)}s
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Analysis Time
-                  </div>
-                </Card>
-              </div>
-
-              {/* Keywords */}
-              <div className="mt-6">
-                <div className="text-sm text-muted-foreground mb-2">Niche Keywords</div>
-                <div className="flex flex-wrap gap-2">
-                  {specialty.nicheKeywords.map((keyword) => (
-                    <Badge key={keyword} variant="outline">
-                      {keyword}
-                    </Badge>
-                  ))}
-                </div>
-              </div>
+              {/* Use IntelligenceDisplay Component */}
+              <IntelligenceDisplay
+                intelligence={intelligence}
+                specialty={specialty}
+              />
             </Card>
 
             <div className="flex justify-between">
@@ -402,58 +344,12 @@ export function SynapsePage() {
             <Card className="p-6">
               <h2 className="text-2xl font-semibold mb-4">Value Proposition Builder</h2>
 
-              {/* Simplified UVP section - full wizard will be in Task 2 */}
-              <div className="mb-6">
-                <p className="text-muted-foreground mb-4">
-                  Based on analysis of your website and {intelligence.length} data sources,
-                  we've identified key value propositions for your {specialty.specialty} business.
-                </p>
-
-                <div className="space-y-3">
-                  <Card className="p-4 border-2 border-primary cursor-pointer">
-                    <div className="font-medium mb-2">Specialized in {specialty.specialty}</div>
-                    <div className="text-sm text-muted-foreground mb-2">
-                      <Badge variant="secondary" className="mr-2">AI Analysis</Badge>
-                      <Badge variant="secondary" className="mr-2">{specialty.confidence}% confidence</Badge>
-                    </div>
-                    <div className="text-sm text-muted-foreground italic">
-                      "{specialty.reasoning}"
-                    </div>
-                  </Card>
-
-                  <Card className="p-4 hover:border-gray-300 cursor-pointer">
-                    <div className="font-medium mb-2">Expert craftsmen with decades of experience</div>
-                    <div className="text-sm text-muted-foreground mb-2">
-                      <Badge variant="secondary" className="mr-2">Website Content</Badge>
-                      <Badge variant="secondary" className="mr-2">85% confidence</Badge>
-                    </div>
-                    <div className="text-sm text-muted-foreground italic">
-                      "Mentioned 12 times across service pages"
-                    </div>
-                  </Card>
-
-                  <Card className="p-4 hover:border-gray-300 cursor-pointer">
-                    <div className="font-medium mb-2">Sustainable materials and eco-friendly practices</div>
-                    <div className="text-sm text-muted-foreground mb-2">
-                      <Badge variant="secondary" className="mr-2">Customer Reviews</Badge>
-                      <Badge variant="secondary" className="mr-2">78% confidence</Badge>
-                    </div>
-                    <div className="text-sm text-muted-foreground italic">
-                      "Customers mentioned 'sustainability' in 23 reviews"
-                    </div>
-                  </Card>
-                </div>
-              </div>
-
-              <div className="flex justify-end">
-                <Button
-                  onClick={handleGenerateCalendar}
-                  disabled={loading}
-                  size="lg"
-                >
-                  {loading ? 'Generating...' : 'Generate 30-Day Calendar →'}
-                </Button>
-              </div>
+              {/* Use EnhancedUVPWizard Component */}
+              <EnhancedUVPWizard
+                intelligence={intelligence}
+                specialty={specialty}
+                onComplete={handleGenerateCalendar}
+              />
             </Card>
           </div>
         )}
@@ -467,49 +363,11 @@ export function SynapsePage() {
                 Generated {contentIdeas.length} content ideas optimized for your {specialty.specialty} specialty.
               </p>
 
-              {/* Content Preview Grid */}
-              <div className="space-y-6">
-                {[1, 2, 3, 4].map(week => {
-                  const weekIdeas = contentIdeas.slice((week - 1) * 7, week * 7);
-                  return (
-                    <div key={week}>
-                      <h3 className="font-semibold mb-3">Week {week}</h3>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {weekIdeas.map(idea => (
-                          <Card key={idea.id} className="p-4">
-                            <div className="flex items-start justify-between mb-2">
-                              <div className="flex-1">
-                                <div className="font-medium mb-1">{idea.topic}</div>
-                                <div className="text-sm text-muted-foreground">
-                                  {new Date(idea.scheduledDate).toLocaleDateString()}
-                                </div>
-                              </div>
-
-                              <Badge variant={
-                                idea.contentType === 'educational' ? 'default' :
-                                idea.contentType === 'promotional' ? 'secondary' :
-                                'outline'
-                              }>
-                                {idea.contentType}
-                              </Badge>
-                            </div>
-
-                            <div className="flex items-center gap-2 mt-3">
-                              <Badge variant="outline" className="text-xs">
-                                {idea.platform}
-                              </Badge>
-
-                              <Badge variant="secondary" className="text-xs">
-                                🎯 Specialty-focused
-                              </Badge>
-                            </div>
-                          </Card>
-                        ))}
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+              {/* Use ContentPreview Component */}
+              <ContentPreview
+                ideas={contentIdeas}
+                specialty={specialty}
+              />
 
               <div className="mt-6 flex justify-between">
                 <Button
