@@ -24,22 +24,9 @@ import {
   TrendingUp,
   AlertCircle
 } from 'lucide-react';
-
-// Types
-export interface IntelligenceResult {
-  source: string;
-  success: boolean;
-  duration: number;
-  data: any;
-}
-
-export interface SpecialtyDetection {
-  specialty: string;
-  confidence: number;
-  reasoning: string;
-  targetMarket: string;
-  nicheKeywords: string[];
-}
+import { useIntelligenceDisplay, formatDuration as hookFormatDuration, getStatusColor, getPriorityColor } from '@/hooks/useIntelligenceDisplay';
+import type { IntelligenceResult } from '@/services/parallel-intelligence.service';
+import type { SpecialtyDetection } from '@/services/specialty-detection.service';
 
 interface IntelligenceDisplayProps {
   intelligence: IntelligenceResult[];
@@ -58,10 +45,8 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState('sources');
 
-  const successfulSources = intelligence.filter(i => i.success);
-  const failedSources = intelligence.filter(i => !i.success);
-  const totalDuration = intelligence.reduce((sum, i) => sum + i.duration, 0);
-  const avgDuration = intelligence.length > 0 ? totalDuration / intelligence.length : 0;
+  // Use the intelligence display hook for formatting and stats
+  const { formattedData, groupedByPriority, stats, isViable } = useIntelligenceDisplay(intelligence);
 
   /**
    * Get source icon
@@ -92,7 +77,7 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
         <Card className="p-4 text-center">
           <div className="text-2xl font-bold text-green-600 flex items-center justify-center gap-2">
             <CheckCircle className="w-6 h-6" />
-            {successfulSources.length}
+            {stats.successful}
           </div>
           <div className="text-sm text-muted-foreground mt-1">
             Data Sources
@@ -122,10 +107,10 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
         <Card className="p-4 text-center">
           <div className="text-2xl font-bold text-orange-600 flex items-center justify-center gap-2">
             <Clock className="w-6 h-6" />
-            {Math.round(totalDuration / 1000)}s
+            {hookFormatDuration(stats.avgDuration)}
           </div>
           <div className="text-sm text-muted-foreground mt-1">
-            Analysis Time
+            Avg Response Time
           </div>
         </Card>
       </div>
@@ -155,33 +140,48 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
                 <h4 className="font-semibold">Intelligence Sources</h4>
                 <div className="flex items-center gap-2">
                   <Badge variant="secondary" className="text-xs">
-                    {successfulSources.length} successful
+                    {stats.successful} successful
                   </Badge>
-                  {failedSources.length > 0 && (
+                  {stats.failed > 0 && (
                     <Badge variant="destructive" className="text-xs">
-                      {failedSources.length} failed
+                      {stats.failed} failed
                     </Badge>
                   )}
                 </div>
               </div>
 
-              {/* Successful Sources */}
-              {successfulSources.map((result) => (
+              {/* All Sources (formatted) */}
+              {formattedData.map((result) => (
                 <div
                   key={result.source}
-                  className="flex items-center justify-between p-3 rounded-lg hover:bg-gray-50 transition-colors"
+                  className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                    result.status === 'success' ? 'hover:bg-gray-50' :
+                    result.status === 'error' ? 'bg-red-50 border border-red-200' :
+                    'bg-yellow-50 border border-yellow-200'
+                  }`}
                 >
                   <div className="flex items-center gap-3 flex-1">
-                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <CheckCircle className="w-5 h-5 text-green-600" />
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      result.status === 'success' ? 'bg-green-100' :
+                      result.status === 'error' ? 'bg-red-100' :
+                      'bg-yellow-100'
+                    }`}>
+                      {result.status === 'success' ? <CheckCircle className="w-5 h-5 text-green-600" /> :
+                       result.status === 'error' ? <XCircle className="w-5 h-5 text-red-600" /> :
+                       <AlertCircle className="w-5 h-5 text-yellow-600" />}
                     </div>
                     <div className="flex-1">
                       <div className="font-medium flex items-center gap-2">
                         <span>{getSourceIcon(result.source)}</span>
                         {result.source}
+                        {result.priority !== 'optional' && (
+                          <Badge variant={result.priority === 'critical' ? 'destructive' : 'default'} className="text-xs">
+                            {result.priority}
+                          </Badge>
+                        )}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        Data retrieved successfully
+                        {result.dataSummary}
                       </div>
                     </div>
                   </div>
@@ -189,40 +189,27 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
                   <div className="flex items-center gap-4">
                     <div className="text-right">
                       <div className="text-sm font-medium">
-                        {formatDuration(result.duration)}
+                        {hookFormatDuration(result.duration)}
                       </div>
                       <div className="text-xs text-muted-foreground">
-                        response time
+                        {result.confidence}% confidence
                       </div>
                     </div>
                   </div>
                 </div>
               ))}
 
-              {/* Failed Sources */}
-              {failedSources.map((result) => (
-                <div
-                  key={result.source}
-                  className="flex items-center justify-between p-3 rounded-lg bg-red-50 border border-red-200"
-                >
-                  <div className="flex items-center gap-3 flex-1">
-                    <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
-                      <XCircle className="w-5 h-5 text-red-600" />
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-medium flex items-center gap-2">
-                        <span>{getSourceIcon(result.source)}</span>
-                        {result.source}
-                      </div>
-                      <div className="text-xs text-red-700">
-                        Failed to retrieve data
-                      </div>
+              {/* Viability Warning */}
+              {!isViable && (
+                <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="w-5 h-5 text-yellow-600" />
+                    <div className="text-sm text-yellow-800">
+                      Only {stats.successful} sources succeeded. Minimum 8 required for reliable results.
                     </div>
                   </div>
-
-                  <AlertCircle className="w-5 h-5 text-red-600" />
                 </div>
-              ))}
+              )}
 
               {/* Performance Summary */}
               <div className="mt-4 p-3 bg-blue-50 rounded-lg">
@@ -232,21 +219,21 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
                     <div className="text-lg font-bold text-blue-700">
-                      {formatDuration(totalDuration)}
-                    </div>
-                    <div className="text-xs text-blue-600">Total Time</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-blue-700">
-                      {formatDuration(avgDuration)}
-                    </div>
-                    <div className="text-xs text-blue-600">Avg Per Source</div>
-                  </div>
-                  <div>
-                    <div className="text-lg font-bold text-blue-700">
-                      {Math.round((successfulSources.length / intelligence.length) * 100)}%
+                      {stats.successRate}%
                     </div>
                     <div className="text-xs text-blue-600">Success Rate</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-blue-700">
+                      {hookFormatDuration(stats.avgDuration)}
+                    </div>
+                    <div className="text-xs text-blue-600">Avg Response</div>
+                  </div>
+                  <div>
+                    <div className="text-lg font-bold text-blue-700">
+                      {stats.overallConfidence}%
+                    </div>
+                    <div className="text-xs text-blue-600">Confidence</div>
                   </div>
                 </div>
               </div>
