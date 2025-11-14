@@ -167,7 +167,8 @@ export function useOnboarding(): UseOnboardingReturn {
       console.log('🔍 Step 2/3: Gathering intelligence from 17 sources...');
       console.log('   This may take up to 30 seconds...');
 
-      const intelligence = await parallelIntelligence.gather(parsedUrl);
+      const aggregatedIntelligence = await parallelIntelligence.gather(parsedUrl);
+      const intelligence = aggregatedIntelligence.results;
 
       const successfulSources = intelligence.filter(r => r.success).length;
       console.log(`✅ Intelligence gathered: ${successfulSources}/${intelligence.length} sources successful`);

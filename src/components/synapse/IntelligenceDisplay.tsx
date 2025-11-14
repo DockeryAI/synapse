@@ -298,7 +298,7 @@ export const IntelligenceDisplay: React.FC<IntelligenceDisplayProps> = ({
                     </div>
                   </div>
                   <div className="text-xs text-muted-foreground">
-                    Based on {successfulSources.length} data sources and AI analysis
+                    Based on {stats.successful} data sources and AI analysis
                   </div>
                 </div>
               </div>

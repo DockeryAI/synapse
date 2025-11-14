@@ -61,6 +61,7 @@ export function SynapsePage() {
   const [step, setStep] = useState<Step>('url-input');
   const [url, setUrl] = useState('');
   const [contentIdeas, setContentIdeas] = useState<ContentIdea[] | null>(null);
+  const [mockLoading, setMockLoading] = useState(false); // For mock calendar generation
 
   // Use the real onboarding hook
   const {
@@ -114,7 +115,7 @@ export function SynapsePage() {
   const handleGenerateCalendar = async () => {
     if (!specialty || !intelligence) return;
 
-    setLoading(true);
+    setMockLoading(true);
     setStep('content-preview');
 
     try {
@@ -137,11 +138,10 @@ export function SynapsePage() {
       }));
 
       setContentIdeas(ideas);
-      setLoading(false);
+      setMockLoading(false);
     } catch (err: any) {
       console.error('Calendar generation error:', err);
-      setError('Failed to generate calendar');
-      setLoading(false);
+      setMockLoading(false);
     }
   };
 
