@@ -1,0 +1,262 @@
+{
+  "project": "synapse-smb-platform",
+  "version": "1.0.0",
+  "status": "in_progress",
+  "last_updated": "2025-11-14T00:00:00Z",
+  "description": "Synapse SMB Platform - Fast, intelligent SMB onboarding combining smart UVP wizard with content automation. 3-minute onboarding → 1-minute content generation → automated scheduling to SocialPilot.",
+  "repository": "https://github.com/DockeryAI/synapse",
+  "local_path": "~/Projects/Synapse",
+  "features": [
+    {
+      "id": "universal-url-parser",
+      "name": "Universal URL Parser",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Handles any URL format from any country - example.com, www.example.com, https://example.com, international TLDs (.co.uk, .com.au, etc.). Normalizes and validates URLs before analysis.",
+      "components": [
+        "services/url-parser.service.ts"
+      ],
+      "apis": [],
+      "database_tables": [],
+      "lineOfCode": 0,
+      "capabilities": [
+        "Parse any URL format (with/without protocol)",
+        "Handle international TLDs",
+        "Extract domain, subdomain, path",
+        "Validate URL structure",
+        "Normalize URLs for consistency"
+      ]
+    },
+    {
+      "id": "global-location-detection",
+      "name": "Global Location Detection Engine",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "5-parallel-strategy location detection supporting 50+ countries with international address patterns. Detects UK, US, Canada, Australia, and European locations from website content, contact pages, and metadata.",
+      "components": [
+        "services/location-detection.service.ts"
+      ],
+      "apis": [
+        "Google Maps API (geocoding)"
+      ],
+      "database_tables": [],
+      "lineOfCode": 0,
+      "strategies": [
+        "Contact page scraping",
+        "Footer address extraction",
+        "About page analysis",
+        "Metadata inspection",
+        "IP-based geolocation"
+      ],
+      "supportedCountries": 50
+    },
+    {
+      "id": "parallel-intelligence-gatherer",
+      "name": "Parallel Intelligence Gathering System",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Runs 8+ data sources simultaneously for ultra-fast business intelligence. Apify web scraping, OutScraper reviews, Serper search, and AI analysis run in parallel with 30-second total completion time.",
+      "components": [
+        "services/parallel-intelligence.service.ts"
+      ],
+      "apis": [
+        "Apify (web scraping)",
+        "OutScraper (Google Business & reviews)",
+        "Serper (search intelligence)",
+        "OpenRouter (Claude Opus 4.1)"
+      ],
+      "database_tables": [
+        "intelligence_runs",
+        "scraped_data"
+      ],
+      "lineOfCode": 0,
+      "dataSources": [
+        "Website scraping (Apify)",
+        "Google Business Profile (OutScraper)",
+        "Google Reviews (OutScraper)",
+        "Search presence (Serper)",
+        "Competitor detection (Serper)",
+        "Service page analysis (Apify)",
+        "Social media profiles (Apify)",
+        "AI synthesis (OpenRouter)"
+      ]
+    },
+    {
+      "id": "specialty-detection-engine",
+      "name": "Deep Specialty Detection Engine",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Identifies business specialties and niches vs generic industry classification. Detects 'antique car insurance' vs 'insurance', 'wedding bakery' vs 'bakery', enabling hyper-targeted content.",
+      "components": [
+        "services/specialty-detection.service.ts"
+      ],
+      "apis": [
+        "OpenRouter (Claude for specialty analysis)"
+      ],
+      "database_tables": [],
+      "lineOfCode": 0,
+      "capabilities": [
+        "Niche vs generic detection",
+        "Specialty keywords extraction",
+        "Service differentiation analysis",
+        "Target market refinement",
+        "Industry micro-segmentation"
+      ]
+    },
+    {
+      "id": "enhanced-uvp-wizard",
+      "name": "Enhanced UVP Wizard with Evidence",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Interactive UVP building wizard with real-time evidence citations showing where each suggestion came from. 'Found on your About page', 'Mentioned 47 times on your site', etc.",
+      "components": [
+        "components/uvp-wizard/EnhancedUVPWizard.tsx",
+        "components/uvp-wizard/screens/SimpleWizardStepScreen.tsx",
+        "components/uvp-wizard/EvidenceTag.tsx"
+      ],
+      "apis": [
+        "OpenRouter (suggestion generation)"
+      ],
+      "database_tables": [
+        "uvp_suggestions",
+        "evidence_citations"
+      ],
+      "lineOfCode": 0,
+      "features": [
+        "Step-by-step UVP building",
+        "Real-time evidence citations",
+        "AI-powered suggestions",
+        "Interactive editing",
+        "Progress tracking",
+        "Preview mode"
+      ]
+    },
+    {
+      "id": "synapse-page-enhanced",
+      "name": "Enhanced Synapse Content Generation Page",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "Revamped Synapse page with real-time content preview, specialty-aware generation, and evidence-based suggestions. Generates platform-optimized content in under 60 seconds.",
+      "components": [
+        "pages/SynapsePage.tsx",
+        "components/synapse/ContentPreview.tsx",
+        "components/synapse/PlatformSelector.tsx"
+      ],
+      "apis": [
+        "OpenRouter (content generation)"
+      ],
+      "database_tables": [
+        "content_drafts",
+        "generated_content"
+      ],
+      "lineOfCode": 0,
+      "platforms": [
+        "LinkedIn",
+        "Instagram",
+        "Twitter",
+        "Facebook",
+        "Blog",
+        "Email"
+      ]
+    },
+    {
+      "id": "socialpilot-integration",
+      "name": "SocialPilot API Integration",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "Direct integration with SocialPilot for automated content scheduling and multi-platform posting. One-click publish from Synapse to all connected social accounts.",
+      "components": [
+        "services/socialpilot.service.ts",
+        "components/calendar/SocialPilotSync.tsx"
+      ],
+      "apis": [
+        "SocialPilot API"
+      ],
+      "database_tables": [
+        "socialpilot_connections",
+        "scheduled_posts"
+      ],
+      "lineOfCode": 0,
+      "features": [
+        "OAuth connection to SocialPilot",
+        "Account synchronization",
+        "Automated scheduling",
+        "Multi-platform posting",
+        "Post status tracking",
+        "Calendar integration"
+      ]
+    },
+    {
+      "id": "buyer-journey-simplified",
+      "name": "Simplified Buyer Journey Wizard",
+      "status": "in_progress",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "Streamlined buyer journey mapping with persona selection, pain point identification, and content recommendations.",
+      "components": [
+        "components/buyer-journey/SimplifiedBuyerJourneyWizard.tsx",
+        "components/buyer-journey/steps-simplified/CustomerSelectionStep.tsx",
+        "components/buyer-journey/visual/PersonaGallery.tsx"
+      ],
+      "apis": [
+        "OpenRouter (journey mapping)"
+      ],
+      "database_tables": [
+        "buyer_journeys",
+        "buyer_personas"
+      ],
+      "lineOfCode": 1200
+    }
+  ],
+  "planned_features": [
+    {
+      "id": "calendar-automation",
+      "name": "Content Calendar with Auto-Scheduling",
+      "priority": "high",
+      "estimatedCompletion": "Q1 2025",
+      "description": "30-day content calendar with automatic scheduling to SocialPilot. Generates platform-optimized content for entire month."
+    },
+    {
+      "id": "analytics-dashboard",
+      "name": "Analytics & Performance Dashboard",
+      "priority": "medium",
+      "estimatedCompletion": "Q1 2025",
+      "description": "Track content performance, engagement metrics, and ROI across all platforms."
+    },
+    {
+      "id": "multi-location-support",
+      "name": "Multi-Location Business Support",
+      "priority": "medium",
+      "estimatedCompletion": "Q2 2025",
+      "description": "Support for franchises and multi-location businesses with location-specific content."
+    }
+  ],
+  "metrics": {
+    "completion_percentage": 15,
+    "totalLines": {
+      "typescript": 0,
+      "components": 0,
+      "total": 0
+    },
+    "fileCount": {
+      "components": 0,
+      "utilities": 0,
+      "total": 10
+    }
+  },
+  "tech_stack": {
+    "languages": ["TypeScript 5.2.2", "JavaScript"],
+    "frameworks": ["React 18.3.1", "Vite 5.0.8", "Tailwind CSS"],
+    "infrastructure": ["Supabase", "PostgreSQL", "Netlify"],
+    "tools": ["Git", "BuildRunner 3.0"],
+    "ui_libraries": ["Framer Motion", "Lucide React"],
+    "ai_integrations": ["Claude via OpenRouter", "Apify", "OutScraper", "Serper"]
+  }
+}

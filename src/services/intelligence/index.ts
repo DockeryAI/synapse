@@ -1,0 +1,5 @@
+export { OpportunityDetector } from './opportunity-detector'
+export { IndustryIntelligenceService } from './industry-intelligence'
+export { SynapseAutoAnalyzer } from './synapse-auto-analyzer'
+export { BenchmarkingService } from './benchmarking'
+export { LearningEngineService } from './learning-engine'
