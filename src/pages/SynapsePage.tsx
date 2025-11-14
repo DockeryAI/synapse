@@ -21,6 +21,7 @@ import { Badge } from '@/components/ui/badge';
 import { IntelligenceDisplay } from '@/components/synapse/IntelligenceDisplay';
 import { ContentPreview } from '@/components/synapse/ContentPreview';
 import { EnhancedUVPWizard } from '@/components/uvp-wizard/EnhancedUVPWizard';
+import { useOnboarding, getStepName, getStepDescription } from '@/hooks/useOnboarding';
 
 // Import types (these will be defined or exist already)
 type ParsedURL = {
@@ -59,98 +60,43 @@ type Step = 'url-input' | 'analyzing' | 'specialty-review' | 'uvp-building' | 'c
 export function SynapsePage() {
   const [step, setStep] = useState<Step>('url-input');
   const [url, setUrl] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [progress, setProgress] = useState(0);
-
-  // State for intelligence data
-  const [parsedURL, setParsedURL] = useState<ParsedURL | null>(null);
-  const [intelligence, setIntelligence] = useState<IntelligenceResult[] | null>(null);
-  const [specialty, setSpecialty] = useState<SpecialtyDetection | null>(null);
   const [contentIdeas, setContentIdeas] = useState<ContentIdea[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+
+  // Use the real onboarding hook
+  const {
+    data: onboardingData,
+    loading,
+    currentStep,
+    error: onboardingError,
+    execute,
+    progress
+  } = useOnboarding();
+
+  // Extract data from onboarding result
+  const parsedURL = onboardingData?.parsedUrl || null;
+  const intelligence = onboardingData?.intelligence || null;
+  const specialty = onboardingData?.specialty || null;
+  const error = onboardingError?.message || null;
 
   /**
-   * Handle URL analysis
-   * Simulates intelligence gathering from multiple sources
+   * Handle URL analysis using real onboarding hook
    */
   const handleAnalyze = async () => {
     if (!url.trim()) {
-      setError('Please enter a valid URL');
       return;
     }
 
-    setLoading(true);
-    setError(null);
     setStep('analyzing');
-    setProgress(0);
 
     try {
-      // Step 1: Parse URL (10%)
-      setProgress(10);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      // Execute the real onboarding flow
+      const result = await execute(url);
 
-      // Simulate URL parsing
-      const parsed: ParsedURL = {
-        normalized: url.startsWith('http') ? url : `https://${url}`,
-        domain: url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0],
-        isValid: true
-      };
-      setParsedURL(parsed);
-
-      if (!parsed.isValid) {
-        throw new Error('Invalid URL format');
-      }
-
-      // Step 2: Gather Intelligence (10% → 70%)
-      // Simulate progress during intelligence gathering
-      const progressInterval = setInterval(() => {
-        setProgress(prev => Math.min(prev + 5, 70));
-      }, 2000);
-
-      // Simulate intelligence gathering from multiple sources
-      await new Promise(resolve => setTimeout(resolve, 8000));
-
-      const intelligenceData: IntelligenceResult[] = [
-        { source: 'apify', success: true, duration: 3200, data: { aboutPage: 'We specialize in custom woodworking...' } },
-        { source: 'outscraper-business', success: true, duration: 2800, data: { name: 'Example Business' } },
-        { source: 'outscraper-reviews', success: true, duration: 3100, data: { reviews: [] } },
-        { source: 'serper-search', success: true, duration: 1500, data: { results: [] } },
-        { source: 'serper-news', success: true, duration: 1200, data: { articles: [] } },
-        { source: 'youtube-search', success: true, duration: 1800, data: { videos: [] } },
-        { source: 'weather', success: true, duration: 800, data: { temp: 72 } },
-        { source: 'maps', success: true, duration: 900, data: { location: {} } }
-      ];
-
-      clearInterval(progressInterval);
-      setProgress(70);
-      setIntelligence(intelligenceData);
-
-      // Step 3: Detect Specialty (70% → 85%)
-      setProgress(85);
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      const detectedSpecialty: SpecialtyDetection = {
-        specialty: 'Custom Furniture & Woodworking',
-        confidence: 87,
-        reasoning: 'Based on website content analysis and service pages, this business focuses on custom-made furniture with specialty in reclaimed wood projects.',
-        targetMarket: 'Homeowners seeking unique, handcrafted furniture',
-        nicheKeywords: ['custom furniture', 'reclaimed wood', 'handcrafted', 'bespoke carpentry', 'artisan woodwork']
-      };
-      setSpecialty(detectedSpecialty);
-
-      // Step 4: Complete (85% → 100%)
-      setProgress(100);
-
-      // Move to specialty review
-      setTimeout(() => {
-        setStep('specialty-review');
-        setLoading(false);
-      }, 500);
-
+      // On success, move to specialty review
+      setStep('specialty-review');
     } catch (err: any) {
       console.error('Analysis error:', err);
-      setError(err.message || 'Failed to analyze business');
-      setLoading(false);
+      // Error is handled by the hook, just reset to input
       setStep('url-input');
     }
   };
@@ -280,16 +226,16 @@ export function SynapsePage() {
         {/* Step 2: Analyzing */}
         {step === 'analyzing' && (
           <Card className="p-6">
-            <h2 className="text-2xl font-semibold mb-4">Analyzing {parsedURL?.domain}...</h2>
+            <h2 className="text-2xl font-semibold mb-4">
+              {parsedURL?.domain ? `Analyzing ${parsedURL.domain}...` : 'Analyzing...'}
+            </h2>
 
             <div className="space-y-4">
               <Progress value={progress} className="w-full" />
 
               <div className="text-center text-muted-foreground">
-                {progress < 10 && 'Parsing URL...'}
-                {progress >= 10 && progress < 70 && 'Gathering business intelligence from 16 sources...'}
-                {progress >= 70 && progress < 85 && 'Detecting business specialty...'}
-                {progress >= 85 && 'Finalizing analysis...'}
+                <div className="font-semibold">{getStepName(currentStep)}</div>
+                <div className="text-sm mt-1">{getStepDescription(currentStep)}</div>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-6">
