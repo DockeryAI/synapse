@@ -8,7 +8,7 @@
 
 ## Quick Stats
 - ✅ 0 features complete
-- 🚧 1 features in progress
+- 🚧 2 features in progress
 - 📋 3 features planned
 
 
@@ -36,6 +36,15 @@ Synapse SMB Platform - Fast, intelligent SMB onboarding combining smart UVP wiza
 Streamlined buyer journey mapping with persona selection, pain point identification, and content recommendations.
 
 **Components:** 3
+
+---
+
+### 🚧 Synapse-Calendar Integration Layer
+**Status:** In Progress | **Priority:** critical
+
+Connects Synapse intelligence engine to content calendar system. Transforms intelligence data into calendar-ready content ideas with pillars, opportunities, and enhanced generation.
+
+**Components:** 5
 
 
 ---
@@ -102,5 +111,5 @@ Support for franchises and multi-location businesses with location-specific cont
 
 ---
 
-*Generated from `.buildrunner/features.json` on 2025-11-14T18:49:38.857Z*
+*Generated from `.buildrunner/features.json` on 2025-11-14T22:34:52.091Z*
 *Generator: `.buildrunner/scripts/generate-status.mjs`*
