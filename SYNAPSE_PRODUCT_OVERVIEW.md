@@ -1,0 +1,709 @@
+# Synapse SMB Platform - Complete Product Overview
+
+**Version:** 2.0.0
+**Last Updated:** 2025-11-14
+**Status:** In Development (15% Complete)
+**Vision:** The world's first AI-powered SMB marketing platform that combines 16 parallel intelligence sources with psychology-optimized content generation and automated multi-platform publishing.
+
+---
+
+## 🎯 THE VISION
+
+**One Platform. Complete Automation. Real Results.**
+
+Enter a business URL → 3 minutes later → 30 days of content ready → Auto-posts to all social platforms → Track real ROI
+
+---
+
+## 🚀 COMPLETE USER JOURNEY
+
+### Phase 1: Intelligent Onboarding (3 minutes)
+1. **User enters business URL** (example.com, www.example.co.uk, any format)
+2. **Universal URL Parser** normalizes URL globally (50+ country TLDs)
+3. **16 Parallel Intelligence Sources** gather data simultaneously (30 seconds):
+   - Business profile, reviews, competitors, trends, opportunities
+4. **Global Location Detection** finds address anywhere in the world (5 strategies)
+5. **Specialty Detection** identifies niche ("wedding bakery" not "bakery")
+6. **Evidence-Based UVP Wizard** suggests value props with citations
+   - "Found on your About page"
+   - "Mentioned 47 times in reviews"
+7. **Result:** Complete business profile with specialty-aware positioning
+
+### Phase 2: Content Generation (1 minute)
+1. **User clicks "Generate Calendar"**
+2. **Synapse Engine** creates 30 content ideas:
+   - Platform-optimized (Instagram, LinkedIn, Twitter, Facebook, TikTok)
+   - Psychology-scored (power words, emotional triggers)
+   - Industry-benchmarked
+   - Specialty-aware (hyper-targeted)
+3. **Smart Scheduling** assigns optimal posting times
+4. **Result:** 30-day content calendar ready to review
+
+### Phase 3: Automated Publishing (Set & Forget)
+1. **SocialPilot Integration** connects accounts via OAuth
+2. **Publishing Queue** auto-posts at scheduled times
+3. **Real-Time Monitoring** tracks success/failures
+4. **Analytics Dashboard** shows engagement & ROI
+5. **Result:** Hands-free social media that drives revenue
+
+---
+
+## 🧠 THE INTELLIGENCE ENGINE (16 Data Sources)
+
+### Core Intelligence APIs (Running in Parallel)
+
+**1. Apify** - Web Scraping
+- Website content extraction
+- Service page analysis
+- Social profile discovery
+- SEO metadata capture
+
+**2. OutScraper** - Google Business Intelligence
+- Google Business Profile data
+- Google Reviews (sentiment analysis)
+- Local SEO rankings
+- Competitor reviews
+
+**3-10. Serper** - Google Search Intelligence (8 Sub-APIs)
+- **Search** - General search results
+- **News** - Current events & industry news
+- **Trends** - Trending topics & keywords
+- **Autocomplete** - Search suggestions
+- **Places** - Local business data
+- **Images** - Visual content insights
+- **Videos** - Video content trends
+- **Shopping** - Product & pricing intelligence
+
+**11. SEMrush** - SEO & Competitive Intelligence
+- Keyword rankings
+- Organic traffic data
+- Backlink analysis
+- Competitor strategies
+
+**12. YouTube API** - Video Intelligence
+- Trending topics in industry
+- Psychological triggers from top videos
+- Content format insights
+- Engagement patterns
+
+**13. News API** - Media Intelligence
+- Breaking news
+- Industry developments
+- Local news events
+- Content opportunities
+
+**14. Weather API** - Contextual Intelligence
+- Local weather patterns
+- Seasonal opportunities
+- Event timing optimization
+- Geographic insights
+
+**15. Claude AI (OpenRouter)** - Brand Intelligence
+- Authentic messaging extraction
+- Brand voice analysis
+- Value proposition mining
+- Audience insights
+
+**16. Google Maps API** - Location Intelligence
+- Address validation & geocoding
+- Multi-location support
+- Service area mapping
+- International address parsing
+
+### Intelligence Orchestration
+
+**Parallel Execution:**
+```
+All 16 sources run simultaneously → 30 seconds total
+├─ Apify: 5s
+├─ OutScraper: 8s
+├─ Serper (8 APIs): 3s each
+├─ SEMrush: 6s
+├─ YouTube: 4s
+├─ News: 3s
+├─ Weather: 2s
+├─ Claude AI: 12s
+└─ Google Maps: 2s
+
+Result: Complete business intelligence in 30 seconds
+```
+
+**Intelligent Caching:**
+- 1-hour cache for DeepContext
+- 24-hour cache for static data
+- Force refresh on demand
+- Reduces API costs by 80%
+
+---
+
+## 🎨 CONTENT CALENDAR SYSTEM
+
+### Calendar Views
+- **Month View** - Full month grid with color-coding
+- **Week View** - Time-based hourly breakdown
+- **Day View** - Detailed daily schedule
+- **List View** - Filterable sortable content list
+
+### Dual-Mode Content Generation
+
+**MARBA Mode (Fast):**
+- Claude Sonnet 3.5 via OpenRouter
+- 3 variations per request
+- 5-second generation time
+- Great for volume
+
+**Synapse Mode (Enhanced):**
+- Full psychology optimization
+- 15+ scoring parameters
+- Power word analysis
+- Emotional trigger mapping
+- Industry benchmarking
+- "Why This Works" explanations
+- 15-second generation time
+- Proven 3x engagement
+
+### Platform Support (7 Platforms)
+1. **Instagram** 📷 (Pink) - 1 post/day max
+2. **Twitter** 🐦 (Blue) - 5 posts/day max
+3. **LinkedIn** 💼 (Navy) - 2 posts/day max
+4. **Facebook** 👥 (Dark Blue) - 3 posts/day max
+5. **TikTok** 🎵 (Black) - 2 posts/day max
+6. **Email** 📧 (Red) - 1 email/day max
+7. **Blog** 📝 (Green) - 1 post/day max
+
+### Smart Scheduling Features
+- **Optimal Time Calculator** - Platform-specific peak times
+- **Conflict Detection** - Prevents over-posting
+- **Platform Limits** - Automatic enforcement
+- **Time Scoring** - 0-100 quality score per time slot
+- **Learning Engine** - Improves from performance data
+
+### Bulk Operations
+- Generate 30+ posts at once
+- Date range selection (week/month)
+- Multi-platform targeting
+- Pillar distribution (40% educational, 30% promotional, etc.)
+- Batch approve/reject
+- Auto-schedule all with one click
+
+### Publishing Queue
+- **Real-Time Status** - pending → publishing → published → failed
+- **7-Day Preview** - Upcoming schedule
+- **Manual Controls** - Publish/reschedule/delete
+- **Auto-Retry** - Smart failure recovery
+- **Error Diagnostics** - Detailed failure messages
+- **Approval Workflow** - Optional human review
+
+### Intelligence Opportunities
+
+**Auto-Detection (Every 5 Minutes):**
+- 🌤️ **Weather Alerts** - "Sunny weekend approaching"
+- 📈 **Trending Topics** - "#SmallBusinessSaturday trending"
+- 🎯 **Competitor Activity** - "Competitor launched new service"
+- 📅 **Seasonal Events** - "Holiday shopping season starts"
+- 📰 **Local News** - "Community festival this weekend"
+
+**Features:**
+- Countdown timers
+- Impact scoring (0-100)
+- Urgency levels (low/medium/high/critical)
+- One-click content generation
+- Suggested actions
+- Dismiss/mark as used
+
+### Intelligence Badges
+
+Content automatically tagged with:
+- 🧠 **Synapse Enhanced** - Psychology-optimized
+- 📊 **Data-Driven** - Uses 3+ power words
+- 🎯 **High-Performing** - Psychology score > 80
+- ⚡ **Trending** - Based on current trends
+- 🌍 **Geo-Targeted** - Location-specific
+
+---
+
+## 🛠️ TECHNICAL ARCHITECTURE
+
+### Frontend Stack
+- **React 18.3.1** - Modern React with Suspense
+- **TypeScript 5.2.2** - Type-safe development
+- **Vite 5.0.8** - Lightning-fast builds (880ms)
+- **Tailwind CSS 3.4** - Utility-first styling
+- **Framer Motion** - Smooth animations
+- **React Router 6** - Client-side routing
+- **React Query 5** - Server state management
+- **Zustand 4.4.7** - Local state management
+- **FullCalendar 6** - Calendar UI
+
+### Backend & Infrastructure
+- **Supabase** - PostgreSQL + Edge Functions + Auth
+- **Netlify** - Deployment & hosting
+- **OpenRouter** - Claude Opus 4.1 for AI
+- **Edge Functions** - Server-side API orchestration
+
+### API Integrations (16 Sources)
+- Apify, OutScraper, Serper (8 endpoints)
+- SEMrush, YouTube, News API, Weather API
+- Google Maps, SocialPilot
+- All with intelligent caching & retry logic
+
+### Database Schema
+
+**Key Tables:**
+```sql
+-- Brand Management
+brands (id, name, industry, website, location, specialty)
+brand_intelligence (brand_id, data_source, cached_data, expires_at)
+
+-- Content Calendar
+content_calendar_items (id, brand_id, platform, content_text, scheduled_time, status)
+content_pillars (id, brand_id, name, description, synapse_score)
+
+-- Intelligence
+intelligence_opportunities (id, brand_id, type, title, expires_at, impact_score)
+deep_context_cache (brand_id, context_data, created_at)
+
+-- Publishing
+socialpilot_connections (brand_id, platform, account_id, access_token)
+publishing_queue (content_id, status, scheduled_time, retry_count)
+
+-- Analytics
+engagement_metrics (content_id, likes, comments, shares, reach)
+```
+
+---
+
+## 📊 FEATURE BREAKDOWN
+
+### Phase 1: Core Intelligence (Weeks 1-2) - 40% of MVP
+**Status:** In Progress (15% complete)
+
+**Features:**
+1. ✅ Universal URL Parser (200 lines)
+   - Handles any URL format globally
+   - International TLD support (50+ countries)
+   - Subdomain extraction
+   - Path normalization
+
+2. 🚧 Global Location Detection (500 lines)
+   - 5 parallel detection strategies
+   - 50+ country address formats
+   - Contact page scraping
+   - Footer address extraction
+   - Metadata inspection
+   - IP-based geolocation fallback
+
+3. 🚧 Parallel Intelligence Orchestrator (500 lines)
+   - Runs 16 data sources simultaneously
+   - 30-second total completion
+   - Graceful degradation
+   - Intelligent caching
+   - Error handling & retry
+
+4. ⏸️ Specialty Detection Engine (300 lines)
+   - Niche identification
+   - "Wedding bakery" vs "bakery"
+   - Service differentiation
+   - Target market refinement
+
+5. 🚧 Enhanced UVP Wizard (600 lines)
+   - Evidence-based suggestions
+   - Real-time citations
+   - "Found on About page"
+   - Frequency tracking
+   - Interactive editing
+
+**Deliverables:**
+- Complete business intelligence in 30 seconds
+- Specialty-aware positioning
+- Evidence-backed value props
+
+### Phase 2: Content Calendar (Weeks 1-2) - 35% of MVP
+**Status:** Complete (100%) ✅
+
+**Features:**
+1. ✅ Calendar Views (330 lines)
+   - Month, week, day, list views
+   - Drag-and-drop rescheduling
+   - Color-coding by platform & status
+   - Real-time updates
+
+2. ✅ Content Generator (365 lines)
+   - Dual-mode (MARBA/Synapse)
+   - 3 variations per request
+   - Psychology scoring
+   - Inline editing
+
+3. ✅ Bulk Generator (380 lines)
+   - 30+ posts at once
+   - Multi-platform selection
+   - Pillar distribution
+   - Batch operations
+
+4. ✅ Smart Scheduling (400 lines)
+   - Optimal time calculator
+   - Conflict detection
+   - Platform limits
+   - Time scoring algorithm
+
+5. ✅ Publishing Queue (290 lines)
+   - Real-time status tracking
+   - 7-day preview
+   - Manual controls
+   - Auto-retry logic
+
+6. ✅ Opportunity Feed (240 lines)
+   - 5 opportunity types
+   - Auto-refresh every 5 min
+   - Impact scoring
+   - One-click generation
+
+**Deliverables:**
+- Complete content calendar system
+- 30-day content generation
+- Smart scheduling
+- Intelligence-driven opportunities
+
+### Phase 3: SocialPilot Integration (Weeks 2-3) - 15% of MVP
+**Status:** Pending (0%)
+
+**Features:**
+1. ⏸️ OAuth Authentication (200 lines)
+   - SocialPilot OAuth flow
+   - Token management
+   - Account linking
+
+2. ⏸️ Account Synchronization (150 lines)
+   - Multi-platform sync
+   - Profile discovery
+   - Connection status
+
+3. ⏸️ Publishing Automation (400 lines)
+   - Background job (every 5 min)
+   - Queue polling
+   - Post creation API
+   - Status tracking
+
+4. ⏸️ Error Handling (150 lines)
+   - Retry logic
+   - Error diagnostics
+   - User notifications
+
+**Deliverables:**
+- Automated publishing to all platforms
+- Real-time status updates
+- Reliable error recovery
+
+### Phase 4: UI & Integration (Weeks 2-3) - 10% of MVP
+**Status:** Pending (0%)
+
+**Features:**
+1. ⏸️ Enhanced SynapsePage (500 lines)
+   - "Generate Calendar" button
+   - Intelligence preview
+   - Content preview cards
+   - SocialPilot status
+
+2. ⏸️ Calendar Integration (250 lines)
+   - Synapse → Calendar bridge
+   - Intelligence data mapping
+   - Content idea generation
+
+3. ⏸️ Content Preview Components (300 lines)
+   - Visual content cards
+   - Psychology insights
+   - Benchmark comparisons
+
+**Deliverables:**
+- Complete end-to-end flow
+- Seamless user experience
+- Intelligence-driven content
+
+---
+
+## 🎯 MVP DEFINITION
+
+### What's Included in v1.0 Launch
+
+**Core Features (Must Have):**
+1. ✅ Universal URL Parser - Handle any business URL globally
+2. ✅ 16 Parallel Intelligence Sources - 30-second data gathering
+3. ✅ Global Location Detection - Find addresses anywhere
+4. ✅ Specialty Detection - Identify niche vs generic
+5. ✅ Evidence-Based UVP Wizard - Cited suggestions
+6. ✅ Content Calendar - Full calendar system
+7. ✅ Dual-Mode Generation - Fast (MARBA) & Enhanced (Synapse)
+8. ✅ Smart Scheduling - Optimal time recommendations
+9. ✅ Publishing Queue - Real-time status tracking
+10. ✅ SocialPilot Integration - Automated posting
+11. ✅ Opportunity Detection - Intelligence-driven ideas
+12. ✅ Analytics Dashboard - Track engagement & ROI
+
+**Platforms (7):**
+- Instagram, Twitter, LinkedIn, Facebook, TikTok, Email, Blog
+
+**Industries (Initial 5):**
+- Restaurant, CPA, Realtor, Dentist, Consultant
+
+**What's NOT in v1.0:**
+- Multi-location businesses (Phase 2)
+- Team collaboration (Phase 2)
+- Design Studio integration (Phase 2)
+- A/B testing (Phase 2)
+- Video content generation (Phase 3)
+- White-label option (Phase 3)
+
+---
+
+## 🏗️ BUILD PLAN TO MVP
+
+### Development Approach: Parallel Worktrees
+
+**Strategy:** 4 developers working simultaneously using git worktrees
+
+**Timeline:** 4 weeks (50% faster than sequential)
+
+### Worktree 1: Backend Services (Weeks 1-2)
+**Branch:** `feature/backend-services`
+**Lines:** 1,750
+
+**Tasks:**
+1. Universal URL Parser
+2. Parallel Intelligence Orchestrator
+3. Specialty Detection Engine
+4. Calendar Population Service
+5. Content Ideas Generator
+
+**No Conflicts:** New files only
+
+### Worktree 2: Calendar Integration (Weeks 1-2)
+**Branch:** `feature/calendar-integration`
+**Lines:** 800
+
+**Tasks:**
+1. Synapse → Calendar bridge
+2. Intelligence data mapping
+3. Enhanced content generation
+4. Intelligence panel UI
+
+**Low Conflict Risk:** Mostly new files
+
+### Worktree 3: SocialPilot Integration (Weeks 2-3)
+**Branch:** `feature/socialpilot`
+**Lines:** 1,400
+
+**Tasks:**
+1. SocialPilot API service
+2. OAuth authentication
+3. Publishing automation engine
+4. Status tracker & error handling
+5. UI components
+
+**No Conflicts:** New files only
+
+### Worktree 4: UI Enhancements (Weeks 2-3)
+**Branch:** `feature/ui-enhancements`
+**Lines:** 1,400
+
+**Tasks:**
+1. Enhanced SynapsePage
+2. Enhanced UVP Wizard
+3. Evidence tags & citations
+4. Content preview components
+5. Intelligence display
+
+**Medium Conflict Risk:** Modifies SynapsePage.tsx
+
+### Week-by-Week Breakdown
+
+**Week 1:**
+- Worktree 1: URL Parser, Intelligence Orchestrator (50%)
+- Worktree 2: Calendar bridge (30%)
+- Total: 4 developers working
+
+**Week 2:**
+- Worktree 1: Specialty Detection, Calendar Population (100% complete)
+- Worktree 2: Enhanced generation (100% complete)
+- Worktree 3: SocialPilot service, OAuth (40%)
+- Worktree 4: SynapsePage enhancement (30%)
+- Merge Worktrees 1 & 2 to main
+
+**Week 3:**
+- Worktree 3: Publishing automation (100% complete)
+- Worktree 4: UVP Wizard, Content previews (100% complete)
+- Merge Worktrees 3 & 4 to main
+- Full integration testing
+
+**Week 4:**
+- End-to-end testing
+- Bug fixes
+- Performance optimization
+- Documentation
+- Staging deployment
+- Production launch
+
+### Merge Strategy
+
+**Week 2 Merges:**
+```bash
+git merge feature/backend-services  # No conflicts expected
+git merge feature/calendar-integration  # No conflicts expected
+```
+
+**Week 3 Merges:**
+```bash
+git merge feature/socialpilot  # No conflicts expected
+git merge feature/ui-enhancements  # Potential SynapsePage conflict
+```
+
+**Conflict Resolution:**
+- Only SynapsePage.tsx expected conflict
+- Manual merge of both versions
+- Estimated resolution time: 30 minutes
+
+---
+
+## 💰 PRICING STRATEGY
+
+### Starter Plan - $49/month
+- 30 posts/month
+- 5 industries
+- Basic visuals
+- Instagram, Twitter, Facebook
+- Email support
+- **Perfect for:** Solo entrepreneurs
+
+### Professional Plan - $149/month
+- Unlimited posts
+- All industries
+- Premium visuals
+- All 7 platforms
+- Performance tracking
+- SocialPilot integration
+- Priority support
+- **Perfect for:** Growing businesses
+
+### Agency Plan - $499/month
+- Everything in Professional
+- 5 brands included
+- White label option
+- API access
+- Dedicated account manager
+- Custom integrations
+- **Perfect for:** Agencies & franchises
+
+---
+
+## 📈 SUCCESS METRICS
+
+### Technical Metrics (MVP Launch)
+- Intelligence Gathering: <30 seconds for 16 sources
+- Content Generation: <15 seconds for 3 variations
+- Calendar Population: <60 seconds for 30 posts
+- Publishing Success Rate: >99%
+- System Uptime: >99.9%
+
+### User Experience Metrics
+- Onboarding Time: <3 minutes (URL → complete profile)
+- Content Generation: <1 minute (30 posts ready)
+- Setup to Automation: <10 minutes total
+- User Satisfaction: 4.8+ stars
+
+### Business Metrics
+- Content Quality: 3x engagement vs manual posts
+- Time Savings: 20 hours/month per brand
+- Posting Consistency: 95% adherence to schedule
+- ROI: Trackable revenue attribution
+
+---
+
+## 🎓 COMPETITIVE ADVANTAGES
+
+### vs Hootsuite/Buffer
+**They:** Schedule content you create
+**We:** Create AND schedule (with 16 intelligence sources)
+
+### vs Canva
+**They:** Design pretty pictures
+**We:** Design + write + optimize + publish + track
+
+### vs Jasper/ChatGPT
+**They:** Generic AI writing
+**We:** Specialty-aware, psychology-optimized, evidence-based, auto-scheduled
+
+### vs Everyone
+**Our Secret Weapon:** 16 parallel intelligence sources + Synapse psychology engine + automated publishing = The only truly automated SMB marketing platform
+
+---
+
+## 🚀 LAUNCH PLAN
+
+### Pre-Launch (Week 4)
+- [ ] All features tested end-to-end
+- [ ] Performance optimization complete
+- [ ] Security audit passed
+- [ ] API keys configured
+- [ ] Demo accounts ready
+- [ ] Documentation complete
+- [ ] Support system ready
+
+### Launch Day
+- [ ] Deploy to production
+- [ ] Monitor error logs
+- [ ] Track onboarding flow
+- [ ] Verify publishing automation
+- [ ] Check API limits
+- [ ] Customer support ready
+
+### Post-Launch (Week 1)
+- [ ] Daily metrics review
+- [ ] User feedback collection
+- [ ] Bug fixes (24-hour turnaround)
+- [ ] Performance tuning
+- [ ] Feature requests prioritization
+
+---
+
+## 🎯 NEXT ACTIONS
+
+### Immediate (This Week)
+1. Create 4 git worktrees
+2. Assign developers to worktrees
+3. Begin parallel development
+4. Daily standups
+
+### Short-Term (Weeks 1-2)
+1. Complete backend services
+2. Complete calendar integration
+3. First integration test
+4. Merge to main
+
+### Medium-Term (Weeks 3-4)
+1. Complete SocialPilot integration
+2. Complete UI enhancements
+3. Full system integration
+4. Production launch
+
+---
+
+## 📞 SUPPORT & RESOURCES
+
+- **Repository:** https://github.com/DockeryAI/synapse
+- **Documentation:** `/docs` directory
+- **BuildRunner:** `.buildrunner/STATUS.md`
+- **Build Plans:** `SYNAPSE_CALENDAR_BUILD_PLAN.md`
+- **Parallel Strategy:** `PARALLEL_BUILD_SUMMARY.md`
+
+---
+
+**Product Vision:** The world's first truly automated SMB marketing platform that combines deep business intelligence with psychology-optimized content generation and automated multi-platform publishing.
+
+**Current Status:** 15% complete, 4 weeks to MVP
+
+**Key Differentiator:** 16 parallel intelligence sources + Synapse psychology engine + automated publishing = No competitor comes close
+
+---
+
+**Document Version:** 2.0.0
+**Last Updated:** 2025-11-14
+**Status:** Ready for Parallel Development
