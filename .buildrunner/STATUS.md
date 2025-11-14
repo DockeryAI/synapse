@@ -111,5 +111,5 @@ Support for franchises and multi-location businesses with location-specific cont
 
 ---
 
-*Generated from `.buildrunner/features.json` on 2025-11-14T22:34:52.091Z*
+*Generated from `.buildrunner/features.json` on 2025-11-14T22:36:24.247Z*
 *Generator: `.buildrunner/scripts/generate-status.mjs`*
