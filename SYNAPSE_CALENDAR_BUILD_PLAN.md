@@ -64,8 +64,8 @@ URL → Intelligence Gathering → Specialty Detection → UVP Building
    - Lines: ~200
 
 2. **Parallel Intelligence Orchestrator**
-   - Runs 8 data sources simultaneously
-   - Apify, OutScraper, Serper, Claude in parallel
+   - Runs 16 data sources simultaneously
+   - Apify, OutScraper, Serper (8 endpoints), SEMrush, YouTube, News, Weather, Claude, Maps in parallel
    - File: `services/parallel-intelligence.service.ts`
    - Lines: ~500
    - Speed: 30 seconds total
@@ -189,16 +189,40 @@ URL → Intelligence Gathering → Specialty Detection → UVP Building
 
 **Flow:**
 ```typescript
-Promise.all([
+// Graceful degradation pattern with error handling
+const results = await Promise.allSettled([
   apifyService.scrapeWebsite(url),
   outscraperService.getBusinessProfile(businessName),
   outscraperService.getReviews(businessName),
   serperService.searchBusiness(businessName),
   serperService.findCompetitors(industry),
+  serperService.getNews(industry),
+  serperService.getTrends(location),
+  serperService.getAutocomplete(query),
+  serperService.getPlaces(location),
+  serperService.getImages(brandName),
+  serperService.getVideos(industry),
+  serperService.getShopping(products),
+  semrushService.getKeywords(domain),
+  youtubeAPI.getTrending(industry),
+  newsAPI.getArticles(industry),
+  weatherAPI.getForecast(location),
 ])
+
+// Minimum viable data threshold
+const successful = results.filter(r => r.status === 'fulfilled')
+if (successful.length < 8) {
+  throw new InsufficientDataError('Need at least 8 data sources')
+}
 ```
 
 **Output:** Deep business intelligence in 30 seconds
+
+**Error Handling Strategy:**
+- Minimum 8 sources required (50% threshold)
+- Critical sources: Apify, OutScraper, Serper Search, Claude AI
+- Non-critical can fail: Weather, YouTube, News
+- All failures logged with severity levels
 
 **Dependencies:** URL Parser
 **Can Build in Parallel:** Yes (after URL Parser)
@@ -342,6 +366,126 @@ populateCalendar(brandId, intelligenceData, specialty) {
 
 **Dependencies:** All backend services
 **Can Build in Parallel:** Partially (can build UI, wire later)
+
+---
+
+## 🧪 TESTING STRATEGY
+
+### Phase 1 Tests: Core Intelligence (Backend)
+**Unit Tests:**
+- URL Parser: 50 test cases for different formats
+- Intelligence Orchestrator: Mock all 16 APIs
+- Specialty Detection: 100 sample businesses
+- Code Coverage Target: 80%
+
+**Integration Tests:**
+- Parallel execution with timeout handling
+- Graceful degradation with 50% API failures
+- Cache hit/miss scenarios
+- Rate limit handling
+
+**Load Tests:**
+- 100 concurrent URL processing
+- 1000 requests/minute capacity
+- Memory leak detection
+- Database connection pooling
+
+### Phase 2 Tests: Calendar System
+**Unit Tests:**
+- CRUD operations for all entities
+- Calendar view rendering
+- Drag-drop event handling
+- Content generation variations
+
+**Integration Tests:**
+- End-to-end content creation flow
+- Cross-browser compatibility (Chrome, Safari, Firefox)
+- Mobile responsiveness
+- Timezone handling
+
+**Performance Tests:**
+- 10,000 calendar items rendering
+- Bulk operations (100 posts)
+- Real-time updates via WebSockets
+
+### Phase 3 Tests: SocialPilot
+**Unit Tests:**
+- OAuth flow mocking
+- API response handling
+- Error recovery logic
+
+**Integration Tests:**
+- Full OAuth round-trip
+- Multi-platform posting
+- Rate limit compliance
+- Retry mechanism
+
+### Phase 4 Tests: End-to-End
+**Smoke Tests:**
+- Critical path: URL → Intelligence → Content → Publish
+- All UI interactions
+- API integration health checks
+
+**Regression Tests:**
+- Previous bug fixes verified
+- Performance benchmarks maintained
+- Security vulnerabilities scanned
+
+---
+
+## 🗄️ DATABASE MIGRATION STRATEGY
+
+### Migration Principles
+1. **Zero Downtime:** All migrations must be backwards compatible
+2. **Rollback Ready:** Every migration has a down() method
+3. **Data Integrity:** Validate before and after migration
+4. **Version Control:** Sequential numbering (001, 002, etc.)
+
+### Migration Files Structure
+```
+supabase/migrations/
+├── 001_initial_schema.sql
+├── 002_add_intelligence_tables.sql
+├── 003_add_calendar_tables.sql
+├── 004_add_socialpilot_tables.sql
+├── 005_add_analytics_tables.sql
+└── 006_add_indexes.sql
+```
+
+### Migration Process
+```bash
+# Test migration locally
+supabase db reset
+supabase db push
+
+# Apply to staging
+supabase db push --db-url $STAGING_URL
+
+# Verify data integrity
+npm run test:db
+
+# Apply to production
+supabase db push --db-url $PRODUCTION_URL
+
+# Rollback if needed
+supabase db reset --db-url $PRODUCTION_URL
+supabase db push --db-url $PRODUCTION_URL --version 005
+```
+
+### Schema Versioning
+```sql
+CREATE TABLE schema_migrations (
+  version INTEGER PRIMARY KEY,
+  applied_at TIMESTAMP DEFAULT NOW(),
+  checksum VARCHAR(64)
+);
+```
+
+### Backup Strategy
+- Automated daily backups (30-day retention)
+- Pre-migration snapshot
+- Point-in-time recovery capability
+- Test restore procedure monthly
 
 ---
 

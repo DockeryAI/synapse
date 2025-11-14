@@ -209,6 +209,163 @@ npm run test
 
 ---
 
+## 💬 COMMUNICATION PROTOCOL
+
+### Daily Sync Structure
+```
+9:00 AM - Standup (15 min)
+- What I completed yesterday
+- What I'm building today
+- Any blockers
+- Current completion %
+
+2:00 PM - Blocker Check (5 min)
+- Quick async update in Slack
+- Request help if needed
+
+5:00 PM - Progress Commit
+- Push all code
+- Update BuildRunner status
+- Post summary in team channel
+```
+
+### Team Channels
+- `#synapse-backend` - Developer 1 updates
+- `#synapse-calendar` - Developer 2 updates
+- `#synapse-social` - Developer 3 updates
+- `#synapse-ui` - Developer 4 updates
+- `#synapse-general` - Team-wide announcements
+- `#synapse-blockers` - Urgent help needed
+
+### Async Updates
+- All commits include descriptive messages
+- Daily PR drafts for visibility
+- @mention for urgent dependencies
+- Use 🚨 emoji for blockers
+
+---
+
+## 🔗 DEPENDENCY RESOLUTION MATRIX
+
+### When Developer Needs Code from Another
+
+**Scenario: Developer 2 needs URL Parser from Developer 1**
+
+| Option | When to Use | How to Implement |
+|--------|-------------|------------------|
+| **A. Mock Interface** | Day 1-3 | Create interface file, implement stub |
+| **B. Cherry-pick** | Day 4-7 | `git cherry-pick <commit>` from other branch |
+| **C. Shared Types** | Always | Create `types/shared/` package |
+| **D. Wait for Merge** | Week 2+ | Use after Week 2 merge |
+
+**Example Mock Interface:**
+```typescript
+// services/mocks/url-parser.mock.ts
+export const urlParserMock = {
+  parse: async (url: string) => ({
+    domain: 'example.com',
+    subdomain: 'www',
+    path: '/',
+    tld: 'com',
+    normalized: 'https://www.example.com'
+  })
+}
+```
+
+**Dependency Priority Order:**
+1. Critical: URL Parser, Intelligence types
+2. High: Calendar interfaces, API services
+3. Medium: UI components, utilities
+4. Low: Styling, animations
+
+---
+
+## ⚠️ RISK MITIGATION
+
+### High Risk Areas & Mitigations
+
+| Risk Area | Week | Impact | Mitigation Strategy |
+|-----------|------|--------|-------------------|
+| **SocialPilot OAuth** | 2 | Critical | Start OAuth setup Day 1, use mock in parallel |
+| **SynapsePage Conflicts** | 3 | High | Lock file to Developer 4 only, others read-only |
+| **API Integration Delays** | 1-2 | High | Mock all APIs first, swap implementations later |
+| **16 API Orchestration** | 1 | Critical | Test with 3 APIs first, scale to 16 gradually |
+| **Database Schema Changes** | 2-3 | Medium | Freeze schema after Day 3, queue changes |
+| **Type Mismatches** | 3 | Low | Shared types package from Day 1 |
+
+### Contingency Plans
+
+**If OAuth Fails:**
+- Use API keys temporarily
+- Manual account linking UI
+- Delay to Week 4
+
+**If Performance Issues:**
+- Reduce to 8 APIs initially
+- Implement progressive loading
+- Add queue system
+
+**If Merge Conflicts:**
+- Designated merge master
+- Pair resolution sessions
+- Maximum 2-hour resolution SLA
+
+---
+
+## ✅ QUALITY GATES
+
+### Before Any Merge - Mandatory Checklist
+
+```markdown
+## Pre-Merge Checklist
+- [ ] TypeScript strict mode passes (`npm run typecheck`)
+- [ ] Code coverage ≥ 80% (`npm run test:coverage`)
+- [ ] No console.log statements (`grep -r console.log src/`)
+- [ ] All API errors handled with try/catch
+- [ ] Loading states for all async operations
+- [ ] Mobile responsive (tested at 375px, 768px, 1024px)
+- [ ] No hardcoded API keys or secrets
+- [ ] Documentation updated (JSDoc + README)
+- [ ] BuildRunner status updated
+- [ ] Peer review completed
+```
+
+### Code Quality Standards
+
+**TypeScript:**
+```typescript
+// ✅ Good
+interface APIResponse<T> {
+  data: T;
+  error?: Error;
+  loading: boolean;
+}
+
+// ❌ Bad
+interface APIResponse {
+  data: any;
+  error: any;
+  loading: any;
+}
+```
+
+**Error Handling:**
+```typescript
+// ✅ Good
+try {
+  const result = await apiCall();
+  return { data: result, error: null };
+} catch (error) {
+  logger.error('API failed', error);
+  return { data: null, error };
+}
+
+// ❌ Bad
+const result = await apiCall(); // No error handling
+```
+
+---
+
 ## 📈 Progress Tracking
 
 ### Using BuildRunner

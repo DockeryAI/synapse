@@ -134,6 +134,30 @@ Result: Complete business intelligence in 30 seconds
 - Force refresh on demand
 - Reduces API costs by 80%
 
+### API Rate Limits & Fallback Strategy
+
+| API | Rate Limit | Fallback Strategy | Cache TTL | Priority |
+|-----|------------|------------------|-----------|----------|
+| Apify | 100/min | Basic fetch via Edge Function | 24h | Critical |
+| OutScraper | 50/min | Skip reviews, use basic data | 7d | High |
+| Serper (8 endpoints) | 1000/day total | Google Custom Search API | 1h | Critical |
+| SEMrush | 10/sec | Use cached keywords | 48h | Medium |
+| YouTube API | 10,000 units/day | Skip video intelligence | 12h | Low |
+| News API | 500/day | Use Serper news endpoint | 4h | Medium |
+| Weather API | 1000/day | Use cached weather (6h old) | 6h | Low |
+| Claude AI | 100/min | Fallback to Sonnet 3.5 | 1h | Critical |
+| Google Maps | 40,000/month | Use cached geocoding | 30d | High |
+
+**Graceful Degradation Pattern:**
+```typescript
+const results = await Promise.allSettled([...16 sources])
+const successful = results.filter(r => r.status === 'fulfilled')
+if (successful.length < 8) {
+  // Minimum viable data threshold
+  throw new InsufficientDataError()
+}
+```
+
 ---
 
 ## 🎨 CONTENT CALENDAR SYSTEM
@@ -591,6 +615,74 @@ git merge feature/ui-enhancements  # Potential SynapsePage conflict
 - Dedicated account manager
 - Custom integrations
 - **Perfect for:** Agencies & franchises
+
+---
+
+## 🔒 DATA PRIVACY & COMPLIANCE
+
+### GDPR Compliance
+- **Data Processing Agreement** - Standard DPA for all EU businesses
+- **Consent Management** - Explicit opt-in for data collection
+- **Data Portability** - Export all data in JSON format
+- **Right to Deletion** - Complete data purge within 72 hours
+- **Privacy by Design** - Encryption at rest and in transit
+
+### Data Retention Policies
+- **Intelligence Data:** 90 days (auto-purge)
+- **Content History:** 1 year
+- **Analytics Data:** 2 years
+- **User Account Data:** Until deletion requested
+- **API Cache:** 24-48 hours max
+
+### Security Measures
+- **Encryption:** AES-256 for data at rest
+- **Transport:** TLS 1.3 for all API calls
+- **API Keys:** Encrypted storage, rotation every 90 days
+- **Access Control:** Role-based permissions (RBAC)
+- **Audit Logs:** All data access logged for 1 year
+
+---
+
+## 🚀 PERFORMANCE BENCHMARKS
+
+### System Performance Targets
+- **Concurrent Users:** 100 simultaneous onboardings
+- **API Response Time:** <500ms p95
+- **Intelligence Gathering:** <30 seconds for 16 sources
+- **Content Generation:** <15 seconds for 3 variations
+- **Database Queries:** <100ms p95
+- **Page Load Time:** <2 seconds (Core Web Vitals)
+- **Uptime SLA:** 99.9% (43 minutes downtime/month max)
+
+### Scalability Metrics
+- **Database:** Handles 10,000 brands
+- **Storage:** 100GB included, scalable to 10TB
+- **API Calls:** 1 million/month capacity
+- **CDN:** Global distribution (< 100ms latency worldwide)
+
+---
+
+## 💰 DETAILED COST ANALYSIS
+
+### Per Business Cost Breakdown (100 businesses/month)
+```
+API Costs:
+- Apify: $5.00 (web scraping)
+- OutScraper: $10.00 (reviews + business)
+- Serper: $2.00 (search intelligence)
+- OpenRouter: $15.00 (AI generation)
+- Other APIs: $3.00
+Subtotal APIs: $35.00
+
+Infrastructure:
+- Storage: $5.00 (Supabase)
+- Compute: $10.00 (Edge Functions)
+- CDN: $2.00 (Asset delivery)
+Subtotal Infra: $17.00
+
+Total: $52.00 per 100 = $0.52 per business
+Gross Margin at $49/month: 98.9%
+```
 
 ---
 
