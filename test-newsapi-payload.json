@@ -1,0 +1,14 @@
+{
+  "query": {
+    "$query": {
+      "$and": [
+        {"keyword": "technology"},
+        {"lang": "eng"}
+      ]
+    }
+  },
+  "resultType": "articles",
+  "articlesSortBy": "date",
+  "articlesCount": 1,
+  "apiKey": "5aac6dc8-2b43-465e-9527-c07af2a2672f"
+}

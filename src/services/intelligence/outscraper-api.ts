@@ -4,6 +4,9 @@
  * API Docs: https://outscraper.com/api-docs/
  */
 
+import { SerperAPI } from './serper-api'
+import { ApifyAPI } from './apify-api'
+
 const OUTSCRAPER_API_KEY = import.meta.env.VITE_OUTSCRAPER_API_KEY
 const OUTSCRAPER_API_URL = 'https://api.app.outscraper.com'
 
@@ -98,6 +101,63 @@ export interface LocalRankingData {
 }
 
 // ============================================================================
+// LinkedIn Types & Interfaces
+// ============================================================================
+
+export interface LinkedInProfile {
+  name: string
+  headline: string
+  profileUrl: string
+  location?: string
+  company?: string
+  position?: string
+  connections?: number
+  followers?: number
+  about?: string
+  experience?: Array<{
+    title: string
+    company: string
+    duration?: string
+  }>
+  education?: Array<{
+    school: string
+    degree?: string
+  }>
+}
+
+export interface LinkedInCompany {
+  name: string
+  profileUrl: string
+  description: string
+  industry?: string
+  companySize?: string
+  location?: string
+  followers?: number
+  employees?: number
+  website?: string
+  specialties?: string[]
+}
+
+export interface LinkedInPost {
+  author: string
+  authorProfile?: string
+  authorHeadline?: string
+  content: string
+  postUrl: string
+  publishedAt?: string
+  engagement?: {
+    likes?: number
+    comments?: number
+    shares?: number
+  }
+  hashtags?: string[]
+  media?: {
+    type: 'image' | 'video' | 'document' | 'poll'
+    url?: string
+  }[]
+}
+
+// ============================================================================
 // OutScraper API Service
 // ============================================================================
 
@@ -174,7 +234,7 @@ class OutScraperAPIService {
     console.log('[OutScraper] Fetching business listings:', params.query)
     console.log('[OutScraper] API Key present:', !!OUTSCRAPER_API_KEY)
 
-    const endpoint = '/maps/search-v3'
+    const endpoint = '/maps/search-v2'
     const apiParams = {
       query: params.location ? `${params.query} near ${params.location}` : params.query,
       limit: params.limit || 20,
@@ -248,164 +308,209 @@ class OutScraperAPIService {
   }): Promise<GoogleReview[]> {
     console.log('[OutScraper] Scraping reviews for:', params.business_name || params.place_id)
 
-    // ATTEMPT 1: Try dedicated reviews endpoint (fastest, cached)
-    const endpoint = '/maps/reviews-v3'
-    const apiParams = {
-      query: params.place_id,
-      reviewsLimit: params.limit || 100,
-      sort: params.sort || 'newest',
-      cutoff: params.cutoff_date,
-      language: 'en',
-    }
+    const limit = params.limit || 100
 
-    try {
-      const response = await this.makeRequest<any>(endpoint, apiParams)
-
-      const results = response.data?.[0] || []
-      const reviewsData = results.reviews_data || results.reviews || []
-
-      const reviews: GoogleReview[] = reviewsData.map((review: any) => ({
-        author_name: review.author_title || review.author_name || 'Anonymous',
-        author_photo: review.author_image || review.author_photo,
-        rating: parseInt(review.review_rating) || parseInt(review.rating) || 0,
-        text: review.review_text || review.text || '',
-        time: review.review_datetime_utc || review.time || new Date().toISOString(),
-        language: review.review_language || review.language,
-        likes: parseInt(review.review_likes) || 0,
-        author_reviews_count: parseInt(review.reviews_count) || 0,
-        response: review.owner_answer ? {
-          text: review.owner_answer,
-          time: review.owner_answer_timestamp || '',
-        } : undefined,
-      }))
-
-      if (reviews.length > 0) {
-        console.log('[OutScraper] ✅ Found', reviews.length, 'reviews from dedicated endpoint')
-        return reviews
-      }
-
-      // ATTEMPT 2: Reviews endpoint returned 0, try Maps Search (includes reviews)
-      console.log('[OutScraper] No reviews in cache, trying Maps Search endpoint...')
-
-      // Use place_id directly for guaranteed exact match
-      return await this.getReviewsFromMapsSearch(
-        params.place_id, // searchQuery param (unused but kept for compatibility)
-        params.place_id,
-        params.limit || 50
-      )
-
-    } catch (error) {
-      console.error('[OutScraper] Reviews endpoint failed:', error)
-      // Fallback to Maps Search endpoint
-      console.log('[OutScraper] Falling back to Maps Search endpoint...')
+    // ATTEMPT 1: Try with place_id if provided
+    if (params.place_id) {
       try {
-        // Use place_id directly for guaranteed exact match
-        return await this.getReviewsFromMapsSearch(
-          params.place_id, // searchQuery param (unused but kept for compatibility)
-          params.place_id,
-          params.limit || 50
-        )
-      } catch (fallbackError) {
-        console.error('[OutScraper] Maps Search fallback also failed:', fallbackError)
-        // Return empty array - caller will handle
-        return []
+        console.log('[OutScraper] ATTEMPT 1: Trying place_id:', params.place_id)
+        const endpoint = '/maps/reviews-v2'
+        const apiParams = {
+          query: params.place_id,
+          reviewsLimit: limit,
+          sort: params.sort || 'newest',
+          cutoff: params.cutoff_date,
+          language: 'en',
+          async: false, // Force synchronous mode - get results immediately
+        }
+
+        console.log('[OutScraper] Request params:', apiParams)
+        const response = await this.makeRequest<any>(endpoint, apiParams)
+        console.log('[OutScraper] Response status:', response.status)
+        console.log('[OutScraper] Response data length:', response.data?.length)
+
+        const results = response.data?.[0] || []
+
+        // Debug: Log what we got back
+        if (results) {
+          console.log('[OutScraper] Results keys:', Object.keys(results))
+          console.log('[OutScraper] Business name from results:', results.name || results.business_name || 'not found')
+        }
+
+        const reviewsData = results.reviews_data || results.reviews || []
+
+        console.log('[OutScraper] Reviews found via place_id:', reviewsData.length)
+
+        if (reviewsData.length > 0) {
+          const reviews: GoogleReview[] = reviewsData.map((review: any) => ({
+            author_name: review.author_title || review.author_name || 'Anonymous',
+            author_photo: review.author_image || review.author_photo,
+            rating: parseInt(review.review_rating) || parseInt(review.rating) || 0,
+            text: review.review_text || review.text || '',
+            time: review.review_datetime_utc || review.time || new Date().toISOString(),
+            language: review.review_language || review.language,
+            likes: parseInt(review.review_likes) || 0,
+            author_reviews_count: parseInt(review.reviews_count) || 0,
+            response: review.owner_answer ? {
+              text: review.owner_answer,
+              time: review.owner_answer_timestamp || '',
+            } : undefined,
+          }))
+
+          console.log('[OutScraper] ✅ Found', reviews.length, 'reviews via place_id')
+          return reviews
+        } else {
+          console.warn('[OutScraper] place_id returned 0 reviews, trying name search...')
+        }
+      } catch (error) {
+        console.warn('[OutScraper] place_id lookup failed:', error)
       }
     }
+
+    // ATTEMPT 2: Try with business name + location
+    if (params.business_name && params.location) {
+      try {
+        console.log('[OutScraper] ATTEMPT 2: Trying business name + location search...')
+        const endpoint = '/maps/reviews-v2'
+        const query = params.industry
+          ? `${params.business_name} ${params.industry} ${params.location}`
+          : `${params.business_name} ${params.location}`
+
+        console.log('[OutScraper] Search query:', query)
+
+        const apiParams = {
+          query: query,
+          reviewsLimit: limit,
+          sort: params.sort || 'newest',
+          cutoff: params.cutoff_date,
+          language: 'en',
+          async: false, // Force synchronous mode - get results immediately
+        }
+
+        console.log('[OutScraper] Request params:', apiParams)
+        const response = await this.makeRequest<any>(endpoint, apiParams)
+        console.log('[OutScraper] Response status:', response.status)
+        console.log('[OutScraper] Response data length:', response.data?.length)
+
+        const results = response.data?.[0] || []
+
+        // Debug: Log what we got back
+        if (results) {
+          console.log('[OutScraper] Results keys:', Object.keys(results))
+          console.log('[OutScraper] Business name from results:', results.name || results.business_name || 'not found')
+        }
+
+        const reviewsData = results.reviews_data || results.reviews || []
+
+        console.log('[OutScraper] Reviews found via name search:', reviewsData.length)
+
+        if (reviewsData.length > 0) {
+          const reviews: GoogleReview[] = reviewsData.map((review: any) => ({
+            author_name: review.author_title || review.author_name || 'Anonymous',
+            author_photo: review.author_image || review.author_photo,
+            rating: parseInt(review.review_rating) || parseInt(review.rating) || 0,
+            text: review.review_text || review.text || '',
+            time: review.review_datetime_utc || review.time || new Date().toISOString(),
+            language: review.review_language || review.language,
+            likes: parseInt(review.review_likes) || 0,
+            author_reviews_count: parseInt(review.reviews_count) || 0,
+            response: review.owner_answer ? {
+              text: review.owner_answer,
+              time: review.owner_answer_timestamp || '',
+            } : undefined,
+          }))
+
+          console.log('[OutScraper] ✅ Found', reviews.length, 'reviews via name search')
+          return reviews
+        } else {
+          console.warn('[OutScraper] Name search returned 0 reviews')
+        }
+      } catch (error) {
+        console.warn('[OutScraper] Name search failed:', error)
+      }
+    }
+
+    // ATTEMPT 3: Fallback to Apify Google Maps Scraper
+    console.warn('[OutScraper] ⚠️ No reviews found via OutScraper')
+    console.log('[OutScraper] Trying Apify Google Maps fallback...')
+
+    return await this.fallbackToApify(
+      params.place_id,
+      params.business_name,
+      params.location,
+      limit
+    )
   }
 
   /**
-   * Get reviews from Maps Search endpoint (includes reviews with business data)
-   * This is more reliable than dedicated reviews endpoint for uncached businesses
-   * Uses place_id directly for guaranteed exact match
-   *
-   * @param searchQuery - UNUSED (kept for backwards compatibility)
-   * @param place_id - Place ID to fetch reviews for (guaranteed exact match)
-   * @param limit - Number of reviews to fetch
+   * Fallback to Apify Google Maps Scraper for reviews
+   * More reliable than Serper as it actually returns review text
    */
-  private async getReviewsFromMapsSearch(
-    searchQuery: string,
-    place_id: string,
+  private async fallbackToApify(
+    placeId: string | undefined,
+    businessName: string | undefined,
+    location: string | undefined,
     limit: number
   ): Promise<GoogleReview[]> {
-    const endpoint = '/maps/search-v3'
-    const apiParams = {
-      query: place_id, // Use place_id directly for guaranteed exact match!
-      limit: 1,
-      reviewsLimit: limit,
-      language: 'en',
-      async: false, // CRITICAL: Force synchronous response with actual data!
-    }
+    try {
+      console.log('[OutScraper → Apify] Starting fallback to Apify Google Maps Scraper')
 
-    console.log('[OutScraper] Maps Search using place_id:', place_id)
-    console.log('[OutScraper] API params:', apiParams)
-
-    const response = await this.makeRequest<any>(endpoint, apiParams)
-
-    console.log('[OutScraper] Full API response structure:')
-    console.log('[OutScraper] - response.data exists:', !!response.data)
-    console.log('[OutScraper] - response.data[0] exists:', !!response.data?.[0])
-    console.log('[OutScraper] - response.data[0] length:', response.data?.[0]?.length)
-
-    const results = response.data?.[0] || []
-    const business = results[0]
-
-    if (!business) {
-      console.warn('[OutScraper] No business found for place_id:', place_id)
-      return []
-    }
-
-    console.log('[OutScraper] ✅ Found business:', business.name)
-    console.log('[OutScraper] Business object keys:', Object.keys(business))
-    console.log('[OutScraper] business.reviews value:', business.reviews)
-    console.log('[OutScraper] business.reviews type:', typeof business.reviews)
-    console.log('[OutScraper] business.reviews_data exists:', 'reviews_data' in business)
-    console.log('[OutScraper] business.reviews_data value:', business.reviews_data)
-
-    // OutScraper Maps Search response structure - need to determine correct property
-    // Possible properties: reviews_data, google_reviews, review, etc.
-    let reviewsData = business.reviews_data || business.google_reviews || []
-
-    // Defensive: Ensure reviewsData is an array
-    if (!Array.isArray(reviewsData)) {
-      console.warn('[OutScraper] Standard properties not arrays, checking alternates...')
-      console.warn('[OutScraper] Available keys:', Object.keys(business).join(', '))
-
-      // Look for any property that might contain reviews array
-      for (const key of Object.keys(business)) {
-        if (Array.isArray(business[key]) && business[key].length > 0) {
-          // Check if first element looks like a review object
-          const firstItem = business[key][0]
-          if (firstItem && (firstItem.review_text || firstItem.text || firstItem.rating || firstItem.review_rating)) {
-            console.log('[OutScraper] ✅ Found reviews in property:', key)
-            reviewsData = business[key]
-            break
-          }
-        }
-      }
-
-      if (!Array.isArray(reviewsData) || reviewsData.length === 0) {
-        console.warn('[OutScraper] No valid reviews array found in business object')
+      // Check if we have enough info for Apify query
+      if (!placeId && (!businessName || !location)) {
+        console.warn('[OutScraper → Apify] Cannot fallback - missing placeId and business_name+location')
+        console.warn('[OutScraper → Apify] Received:', { placeId, businessName, location })
         return []
       }
+
+      // Build search query
+      let searchQuery: string | undefined = undefined
+      if (businessName && location) {
+        searchQuery = `${businessName} ${location}`
+        console.log(`[OutScraper → Apify] Searching with query: "${searchQuery}"`)
+      }
+
+      // Call Apify Google Maps Scraper
+      const apifyPlaces = await ApifyAPI.scrapeGoogleMapsReviews({
+        placeId,
+        searchQuery,
+        location,
+        maxReviews: limit
+      })
+
+      if (apifyPlaces.length === 0) {
+        console.warn('[OutScraper → Apify] No places found')
+        return []
+      }
+
+      const place = apifyPlaces[0]
+      const reviews = place.reviews || []
+
+      if (reviews.length === 0) {
+        console.warn('[OutScraper → Apify] Place found but no reviews available')
+        return []
+      }
+
+      console.log(`[OutScraper → Apify] ✅ Found ${reviews.length} reviews from Apify`)
+
+      // Convert Apify reviews to GoogleReview format
+      const googleReviews: GoogleReview[] = reviews.map(review => ({
+        author_name: review.name,
+        author_photo: review.reviewerPhotoUrl,
+        rating: review.stars,
+        text: review.text,
+        time: review.publishedAtDate,
+        language: undefined,
+        likes: review.likesCount,
+        author_reviews_count: undefined,
+        response: undefined,
+      }))
+
+      return googleReviews
+
+    } catch (error) {
+      console.error('[OutScraper → Apify] Fallback failed:', error)
+      return []
     }
-
-    const reviews: GoogleReview[] = reviewsData.map((review: any) => ({
-      author_name: review.author_title || review.author_name || 'Anonymous',
-      author_photo: review.author_image || review.author_photo,
-      rating: parseInt(review.review_rating) || parseInt(review.rating) || 0,
-      text: review.review_text || review.text || '',
-      time: review.review_datetime_utc || review.time || new Date().toISOString(),
-      language: review.review_language || review.language,
-      likes: parseInt(review.review_likes) || 0,
-      author_reviews_count: parseInt(review.reviews_count) || 0,
-      response: review.owner_answer ? {
-        text: review.owner_answer,
-        time: review.owner_answer_timestamp || '',
-      } : undefined,
-    }))
-
-    console.log('[OutScraper] ✅ Found', reviews.length, 'reviews from Maps Search endpoint')
-    return reviews
   }
 
   /**
@@ -415,7 +520,7 @@ class OutScraperAPIService {
     console.log('[OutScraper] Fetching business details for:', place_id)
 
     // Use the maps search with place_id to get full details
-    const endpoint = '/maps/search-v3'
+    const endpoint = '/maps/search-v2'
     const apiParams = {
       query: place_id,
       limit: 1,
@@ -552,6 +657,155 @@ class OutScraperAPIService {
     }
 
     return rankings
+  }
+
+  // ============================================================================
+  // LinkedIn Intelligence Methods
+  // ============================================================================
+
+  /**
+   * 7. Search LinkedIn profiles
+   * API Docs: https://outscraper.com/linkedin-profile-scraper/
+   */
+  async getLinkedInProfiles(query: string, limit: number = 20): Promise<LinkedInProfile[]> {
+    console.log('[OutScraper] Searching LinkedIn profiles:', query)
+
+    const endpoint = '/linkedin/profiles'
+    const apiParams = {
+      query,
+      limit,
+      async: false, // Force synchronous mode
+    }
+
+    try {
+      const response = await this.makeRequest<any>(endpoint, apiParams)
+
+      // OutScraper returns different formats - handle both
+      let results = response.data?.[0] || response.data || []
+
+      // If results is not an array, wrap it
+      if (!Array.isArray(results)) {
+        console.log('[OutScraper] Response is not an array, wrapping:', typeof results)
+        results = results ? [results] : []
+      }
+
+      const profiles: LinkedInProfile[] = results.map((item: any) => ({
+        name: item.name || item.full_name || '',
+        headline: item.headline || item.title || '',
+        profileUrl: item.profile_url || item.url || '',
+        location: item.location || item.geo || undefined,
+        company: item.company || item.current_company || undefined,
+        position: item.position || item.current_position || undefined,
+        connections: item.connections ? parseInt(item.connections) : undefined,
+        followers: item.followers ? parseInt(item.followers) : undefined,
+        about: item.about || item.summary || undefined,
+        experience: item.experience || [],
+        education: item.education || [],
+      }))
+
+      console.log('[OutScraper] Found', profiles.length, 'LinkedIn profiles')
+      return profiles
+    } catch (error) {
+      console.error('[OutScraper] getLinkedInProfiles failed:', error)
+      return [] // Return empty array instead of throwing
+    }
+  }
+
+  /**
+   * 8. Search LinkedIn companies
+   * API Docs: https://outscraper.com/linkedin-company-scraper/
+   */
+  async getLinkedInCompanies(query: string, limit: number = 20): Promise<LinkedInCompany[]> {
+    console.log('[OutScraper] Searching LinkedIn companies:', query)
+
+    const endpoint = '/linkedin/companies'
+    const apiParams = {
+      query,
+      limit,
+      async: false, // Force synchronous mode
+    }
+
+    try {
+      const response = await this.makeRequest<any>(endpoint, apiParams)
+
+      // OutScraper returns different formats - handle both
+      let results = response.data?.[0] || response.data || []
+
+      // If results is not an array, wrap it
+      if (!Array.isArray(results)) {
+        console.log('[OutScraper] Response is not an array, wrapping:', typeof results)
+        results = results ? [results] : []
+      }
+
+      const companies: LinkedInCompany[] = results.map((item: any) => ({
+        name: item.name || item.company_name || '',
+        profileUrl: item.profile_url || item.url || '',
+        description: item.description || item.about || '',
+        industry: item.industry || undefined,
+        companySize: item.company_size || item.size || undefined,
+        location: item.location || item.headquarters || undefined,
+        followers: item.followers ? parseInt(item.followers) : undefined,
+        employees: item.employees ? parseInt(item.employees) : undefined,
+        website: item.website || undefined,
+        specialties: item.specialties || [],
+      }))
+
+      console.log('[OutScraper] Found', companies.length, 'LinkedIn companies')
+      return companies
+    } catch (error) {
+      console.error('[OutScraper] getLinkedInCompanies failed:', error)
+      return [] // Return empty array instead of throwing
+    }
+  }
+
+  /**
+   * 9. Search LinkedIn posts
+   * API Docs: https://outscraper.com/linkedin-posts-scraper/
+   */
+  async getLinkedInPosts(query: string, limit: number = 20): Promise<LinkedInPost[]> {
+    console.log('[OutScraper] Searching LinkedIn posts:', query)
+
+    const endpoint = '/linkedin/posts'
+    const apiParams = {
+      query,
+      limit,
+      async: false, // Force synchronous mode
+    }
+
+    try {
+      const response = await this.makeRequest<any>(endpoint, apiParams)
+
+      // OutScraper returns different formats - handle both
+      let results = response.data?.[0] || response.data || []
+
+      // If results is not an array, wrap it
+      if (!Array.isArray(results)) {
+        console.log('[OutScraper] Response is not an array, wrapping:', typeof results)
+        results = results ? [results] : []
+      }
+
+      const posts: LinkedInPost[] = results.map((item: any) => ({
+        author: item.author || item.author_name || '',
+        authorProfile: item.author_profile || item.author_url || undefined,
+        authorHeadline: item.author_headline || item.author_title || undefined,
+        content: item.content || item.text || item.post_text || '',
+        postUrl: item.post_url || item.url || '',
+        publishedAt: item.published_at || item.date || item.timestamp || undefined,
+        engagement: {
+          likes: item.likes ? parseInt(item.likes) : undefined,
+          comments: item.comments ? parseInt(item.comments) : undefined,
+          shares: item.shares ? parseInt(item.shares) : undefined,
+        },
+        hashtags: item.hashtags || [],
+        media: item.media || [],
+      }))
+
+      console.log('[OutScraper] Found', posts.length, 'LinkedIn posts')
+      return posts
+    } catch (error) {
+      console.error('[OutScraper] getLinkedInPosts failed:', error)
+      return [] // Return empty array instead of throwing
+    }
   }
 
   // ============================================================================

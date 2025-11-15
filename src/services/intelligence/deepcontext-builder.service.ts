@@ -10,7 +10,7 @@
  * 3. Calls OutScraper for Google Reviews and customer sentiment
  * 4. Calls News API (via Serper) for current events and industry trends
  * 5. Calls Weather API for timing-based opportunities
- * 6. Calls Serper for search trends (News, Trends, Autocomplete, Places, Images, Videos, Shopping)
+ * 6. Calls Serper for search trends (7 endpoints: News, Trends, Autocomplete, Places, Images, Videos, Shopping)
  * 7. Calls SEMrush for SEO data, keywords, and rankings
  * 8. Calls Website Analyzer (Claude AI) for authentic brand messaging extraction
  * 9. Uses intelligent caching to reduce API costs
@@ -28,6 +28,8 @@ import { WeatherAPI } from './weather-api';
 import { SerperAPI } from './serper-api';
 import { SemrushAPI } from './semrush-api';
 import { websiteAnalyzer } from './website-analyzer.service';
+import { redditAPI } from './reddit-api';
+import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { intelligenceCache } from './intelligence-cache.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type {
@@ -49,6 +51,9 @@ export interface DeepContextBuilderConfig {
   includeSerper?: boolean;
   includeSemrush?: boolean;
   includeWebsiteAnalysis?: boolean;
+  includeReddit?: boolean; // Reddit psychological triggers and customer insights
+  includePerplexity?: boolean; // Perplexity local events and real-time insights
+  includeLinkedIn?: boolean; // LinkedIn B2B intelligence (posts, companies, jobs)
   cacheResults?: boolean;
   forceFresh?: boolean; // Skip cache and force fresh API calls
 }
@@ -122,7 +127,7 @@ class DeepContextBuilderService {
       });
 
       // 2. Gather intelligence from all sources (parallel execution)
-      console.log('[DeepContext] Step 2/7: Gathering intelligence from APIs...');
+      console.log('[DeepContext] Step 2/10: Gathering intelligence from APIs...');
       const [
         youtubeData,
         outscraperData,
@@ -130,7 +135,10 @@ class DeepContextBuilderService {
         weatherData,
         serperData,
         semrushData,
-        websiteData
+        websiteData,
+        redditData,
+        perplexityData,
+        linkedinData
       ] = await Promise.allSettled([
         config.includeYouTube !== false
           ? this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed)
@@ -152,6 +160,15 @@ class DeepContextBuilderService {
           : Promise.resolve(null),
         config.includeWebsiteAnalysis !== false && brandData.website
           ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
+        config.includeReddit !== false
+          ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
+        config.includePerplexity !== false
+          ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
+        config.includeLinkedIn !== false
+          ? this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null)
       ]);
 
@@ -194,6 +211,21 @@ class DeepContextBuilderService {
         dataPoints.push(...websiteData.value);
       }
 
+      // Add Reddit data points
+      if (redditData.status === 'fulfilled' && redditData.value) {
+        dataPoints.push(...redditData.value);
+      }
+
+      // Add Perplexity data points
+      if (perplexityData.status === 'fulfilled' && perplexityData.value) {
+        dataPoints.push(...perplexityData.value);
+      }
+
+      // Add LinkedIn data points
+      if (linkedinData.status === 'fulfilled' && linkedinData.value) {
+        dataPoints.push(...linkedinData.value);
+      }
+
       console.log(`[DeepContext] Collected ${dataPoints.length} data points from ${dataSourcesUsed.length} sources`);
 
       // 4. Build DeepContext structure
@@ -227,7 +259,8 @@ class DeepContextBuilderService {
           buildTimeMs,
           dataSourcesUsed,
           dataPointsCollected: dataPoints.length,
-          errors
+          errors,
+          detailedDataPoints: dataPoints  // Include all raw data points for detailed provenance
         }
       };
 
@@ -354,6 +387,9 @@ class DeepContextBuilderService {
         try {
           const reviews = await OutScraperAPI.scrapeGoogleReviews({
             place_id: competitor.place_id,
+            business_name: competitor.name,  // Pass business name for Serper fallback
+            location: location,              // Pass location for Serper fallback
+            industry: brandData.industry,    // Pass industry for better search specificity
             limit: 20,
             sort: 'newest'
           });
@@ -493,8 +529,8 @@ class DeepContextBuilderService {
   }
 
   /**
-   * Fetch Serper intelligence (8 data sources via one API)
-   * Includes: Search, News, Trends, Autocomplete, Places, Images, Videos, Shopping
+   * Fetch Serper intelligence (7 data sources via one API)
+   * Includes: News, Trends, Autocomplete, Places, Images, Videos, Shopping
    */
   private async fetchSerperIntelligence(
     brandData: any,
@@ -502,7 +538,7 @@ class DeepContextBuilderService {
     dataSourcesUsed: string[]
   ): Promise<DataPoint[]> {
     try {
-      console.log('[DeepContext/Serper] Fetching from 8 Serper endpoints...');
+      console.log('[DeepContext/Serper] ⚡ Fetching from 8 Serper endpoints in parallel...');
 
       const dataPoints: DataPoint[] = [];
       const keywords = brandData.keywords || [brandData.industry];
@@ -512,23 +548,31 @@ class DeepContextBuilderService {
           : `${brandData.location.city}, ${brandData.location.state}`
         : '';
 
-      // 1. News (with location filtering)
-      try {
-        const topic = `${brandData.industry} trends`;
-        const cacheKey = intelligenceCache.cacheKeyNews(topic, location);
-        let newsResults = await intelligenceCache.get(cacheKey);
+      // PARALLELIZE all Serper API calls for maximum performance
+      const [
+        newsResult,
+        trendsResult,
+        autocompleteResult,
+        placesResult,
+        videosResult,
+        imagesResult
+      ] = await Promise.allSettled([
+        // 1. News
+        (async () => {
+          const topic = `${brandData.industry} trends`;
+          const cacheKey = intelligenceCache.cacheKeyNews(topic, location);
+          let newsResults = await intelligenceCache.get(cacheKey);
 
-        if (!newsResults) {
-          newsResults = await SerperAPI.getNews(topic, location || undefined);
-          await intelligenceCache.set(cacheKey, newsResults, {
-            dataType: 'news',
-            sourceApi: 'serper',
-            brandId: brandData.id
-          });
-        }
+          if (!newsResults) {
+            newsResults = await SerperAPI.getNews(topic, location || undefined);
+            await intelligenceCache.set(cacheKey, newsResults, {
+              dataType: 'news',
+              sourceApi: 'serper',
+              brandId: brandData.id
+            });
+          }
 
-        newsResults.slice(0, 5).forEach((article: any) => {
-          dataPoints.push({
+          return newsResults.slice(0, 5).map((article: any) => ({
             source: 'serper' as DataSource,
             type: 'trending_topic' as DataPointType,
             content: `${article.title}: ${article.snippet}`,
@@ -539,29 +583,27 @@ class DeepContextBuilderService {
             },
             timestamp: article.date,
             confidence: 0.85
-          });
-        });
-      } catch (err) {
-        console.warn('[DeepContext/Serper] News fetch failed');
-      }
+          }));
+        })(),
 
-      // 2. Trends (for top keyword)
-      try {
-        const keyword = keywords[0];
-        const cacheKey = intelligenceCache.cacheKeyTrends(keyword);
-        let trendData = await intelligenceCache.get(cacheKey);
+        // 2. Trends
+        (async () => {
+          const keyword = keywords[0];
+          const cacheKey = intelligenceCache.cacheKeyTrends(keyword);
+          let trendData = await intelligenceCache.get(cacheKey);
 
-        if (!trendData) {
-          trendData = await SerperAPI.getTrends(keyword);
-          await intelligenceCache.set(cacheKey, trendData, {
-            dataType: 'trend_data',
-            sourceApi: 'serper',
-            brandId: brandData.id
-          });
-        }
+          if (!trendData) {
+            trendData = await SerperAPI.getTrends(keyword);
+            await intelligenceCache.set(cacheKey, trendData, {
+              dataType: 'trend_data',
+              sourceApi: 'serper',
+              brandId: brandData.id
+            });
+          }
 
-        if (trendData) {
-          dataPoints.push({
+          if (!trendData) return [];
+
+          return [{
             source: 'serper' as DataSource,
             type: 'trending_topic' as DataPointType,
             content: `Trend: "${keyword}" is ${trendData.trend} (${trendData.growthPercentage}% growth)`,
@@ -573,29 +615,25 @@ class DeepContextBuilderService {
             },
             timestamp: new Date().toISOString(),
             confidence: 0.8
-          });
-        }
-      } catch (err) {
-        console.warn('[DeepContext/Serper] Trends fetch failed');
-      }
+          }];
+        })(),
 
-      // 3. Autocomplete (for content ideas)
-      try {
-        const query = `${brandData.industry} how to`;
-        const cacheKey = `serper:autocomplete:${query}`;
-        let suggestions = await intelligenceCache.get(cacheKey);
+        // 3. Autocomplete
+        (async () => {
+          const query = `${brandData.industry} how to`;
+          const cacheKey = `serper:autocomplete:${query}`;
+          let suggestions = await intelligenceCache.get(cacheKey);
 
-        if (!suggestions) {
-          suggestions = await SerperAPI.getAutocomplete(query);
-          await intelligenceCache.set(cacheKey, suggestions, {
-            dataType: 'autocomplete',
-            sourceApi: 'serper',
-            brandId: brandData.id
-          });
-        }
+          if (!suggestions) {
+            suggestions = await SerperAPI.getAutocomplete(query);
+            await intelligenceCache.set(cacheKey, suggestions, {
+              dataType: 'autocomplete',
+              sourceApi: 'serper',
+              brandId: brandData.id
+            });
+          }
 
-        suggestions.slice(0, 3).forEach((suggestion: string) => {
-          dataPoints.push({
+          return suggestions.slice(0, 3).map((suggestion: string) => ({
             source: 'serper' as DataSource,
             type: 'customer_trigger' as DataPointType,
             content: suggestion,
@@ -605,15 +643,11 @@ class DeepContextBuilderService {
             },
             timestamp: new Date().toISOString(),
             confidence: 0.75
-          });
-        });
-      } catch (err) {
-        console.warn('[DeepContext/Serper] Autocomplete fetch failed');
-      }
+          }));
+        })(),
 
-      // 4. Places (if location-based business)
-      if (location) {
-        try {
+        // 4. Places
+        location ? (async () => {
           const cacheKey = intelligenceCache.cacheKeyPlaces(brandData.industry, location);
           let places = await intelligenceCache.get(cacheKey);
 
@@ -626,43 +660,37 @@ class DeepContextBuilderService {
             });
           }
 
-          places.slice(0, 3).forEach((place: any) => {
-            dataPoints.push({
-              source: 'serper' as DataSource,
-              type: 'competitive_gap' as DataPointType,
-              content: `Local competitor: ${place.name} (${place.rating}★, ${place.reviewCount} reviews)`,
-              metadata: {
-                competitor: place.name,
-                rating: place.rating,
-                reviewCount: place.reviewCount,
-                category: place.category
-              },
-              timestamp: new Date().toISOString(),
-              confidence: 0.8
+          return places.slice(0, 3).map((place: any) => ({
+            source: 'serper' as DataSource,
+            type: 'competitive_gap' as DataPointType,
+            content: `Local competitor: ${place.name} (${place.rating}★, ${place.reviewCount} reviews)`,
+            metadata: {
+              competitor: place.name,
+              rating: place.rating,
+              reviewCount: place.reviewCount,
+              category: place.category
+            },
+            timestamp: new Date().toISOString(),
+            confidence: 0.8
+          }));
+        })() : Promise.resolve([]),
+
+        // 5. Videos
+        (async () => {
+          const query = `${brandData.industry} tips`;
+          const cacheKey = intelligenceCache.cacheKeyVideos(query);
+          let videos = await intelligenceCache.get(cacheKey);
+
+          if (!videos) {
+            videos = await SerperAPI.getVideos(query);
+            await intelligenceCache.set(cacheKey, videos, {
+              dataType: 'youtube_videos',
+              sourceApi: 'serper',
+              brandId: brandData.id
             });
-          });
-        } catch (err) {
-          console.warn('[DeepContext/Serper] Places fetch failed');
-        }
-      }
+          }
 
-      // 5. Videos (for content gap analysis)
-      try {
-        const query = `${brandData.industry} tips`;
-        const cacheKey = intelligenceCache.cacheKeyVideos(query);
-        let videos = await intelligenceCache.get(cacheKey);
-
-        if (!videos) {
-          videos = await SerperAPI.getVideos(query);
-          await intelligenceCache.set(cacheKey, videos, {
-            dataType: 'youtube_videos',
-            sourceApi: 'serper',
-            brandId: brandData.id
-          });
-        }
-
-        videos.slice(0, 3).forEach((video: any) => {
-          dataPoints.push({
+          return videos.slice(0, 3).map((video: any) => ({
             source: 'serper' as DataSource,
             type: 'trending_topic' as DataPointType,
             content: video.title,
@@ -673,15 +701,62 @@ class DeepContextBuilderService {
             },
             timestamp: video.date,
             confidence: 0.7
+          }));
+        })(),
+
+        // 6. Images
+        (async () => {
+          const query = `${brandData.industry} inspiration`;
+          const cacheKey = `serper:images:${query}`;
+          let images = await intelligenceCache.get(cacheKey);
+
+          if (!images) {
+            images = await SerperAPI.getImages(query);
+            await intelligenceCache.set(cacheKey, images, {
+              dataType: 'images',
+              sourceApi: 'serper',
+              brandId: brandData.id
           });
-        });
-      } catch (err) {
-        console.warn('[DeepContext/Serper] Videos fetch failed');
+          }
+
+          return images.slice(0, 3).map((image: any) => ({
+            source: 'serper' as DataSource,
+            type: 'trending_topic' as DataPointType,
+            content: `Visual trend: ${image.title}`,
+            metadata: {
+              url: image.url,
+              imageUrl: image.imageUrl,
+              source: image.source
+            },
+            timestamp: new Date().toISOString(),
+            confidence: 0.7
+          }));
+        })()
+      ]);
+
+      // Collect all results
+      if (newsResult.status === 'fulfilled' && newsResult.value) {
+        dataPoints.push(...newsResult.value);
+      }
+      if (trendsResult.status === 'fulfilled' && trendsResult.value) {
+        dataPoints.push(...trendsResult.value);
+      }
+      if (autocompleteResult.status === 'fulfilled' && autocompleteResult.value) {
+        dataPoints.push(...autocompleteResult.value);
+      }
+      if (placesResult.status === 'fulfilled' && placesResult.value) {
+        dataPoints.push(...placesResult.value);
+      }
+      if (videosResult.status === 'fulfilled' && videosResult.value) {
+        dataPoints.push(...videosResult.value);
+      }
+      if (imagesResult.status === 'fulfilled' && imagesResult.value) {
+        dataPoints.push(...imagesResult.value);
       }
 
       dataSourcesUsed.push('serper');
 
-      console.log(`[DeepContext/Serper] ✅ Extracted ${dataPoints.length} data points from 8 endpoints`);
+      console.log(`[DeepContext/Serper] ✅ Extracted ${dataPoints.length} data points from 6 parallel endpoints`);
       return dataPoints;
 
     } catch (error) {
@@ -872,12 +947,319 @@ class DeepContextBuilderService {
   }
 
   /**
+   * Fetch Reddit intelligence (psychological triggers, customer insights)
+   */
+  private async fetchRedditIntelligence(
+    brandData: any,
+    errors: any[],
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/Reddit] Mining Reddit for psychological triggers...');
+
+      const dataPoints: DataPoint[] = [];
+
+      // Find relevant subreddits for this industry
+      const subreddits = await redditAPI.findRelevantSubreddits(brandData.industry);
+      console.log(`[DeepContext/Reddit] Targeting ${subreddits.length} subreddits:`, subreddits);
+
+      // Mine intelligence from Reddit
+      const searchQuery = `${brandData.industry} problems`;
+      const intelligence = await redditAPI.mineIntelligence(searchQuery, {
+        subreddits,
+        limit: 25,
+        commentsPerPost: 20,
+        sortBy: 'relevance',
+        timeFilter: 'month'
+      });
+
+      dataSourcesUsed.push('reddit');
+
+      // Convert psychological triggers to data points
+      intelligence.triggers.forEach(trigger => {
+        dataPoints.push({
+          source: 'reddit' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: trigger.text,
+          metadata: {
+            triggerType: trigger.type,
+            intensity: trigger.intensity,
+            subreddit: trigger.subreddit,
+            upvotes: trigger.upvotes,
+            url: trigger.url
+          },
+          timestamp: new Date().toISOString(),
+          confidence: trigger.intensity / 10 // Convert 1-10 to 0-1
+        });
+      });
+
+      // Convert customer insights (pain points & desires) to data points
+      intelligence.insights.forEach(insight => {
+        if (insight.painPoint) {
+          dataPoints.push({
+            source: 'reddit' as DataSource,
+            type: 'customer_trigger' as DataPointType,
+            content: `Pain Point: ${insight.painPoint}`,
+            metadata: {
+              insightType: 'pain_point',
+              subreddit: insight.subreddit,
+              upvotes: insight.upvotes,
+              url: insight.url,
+              context: insight.context
+            },
+            timestamp: new Date().toISOString(),
+            confidence: Math.min(0.9, insight.upvotes / 100)
+          });
+        }
+
+        if (insight.desire) {
+          dataPoints.push({
+            source: 'reddit' as DataSource,
+            type: 'customer_trigger' as DataPointType,
+            content: `Customer Desire: ${insight.desire}`,
+            metadata: {
+              insightType: 'desire',
+              subreddit: insight.subreddit,
+              upvotes: insight.upvotes,
+              url: insight.url,
+              context: insight.context
+            },
+            timestamp: new Date().toISOString(),
+            confidence: Math.min(0.9, insight.upvotes / 100)
+          });
+        }
+      });
+
+      console.log(`[DeepContext/Reddit] ✅ Extracted ${dataPoints.length} data points from ${intelligence.metadata.totalPosts} posts`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/Reddit] Error:', error);
+      errors.push({
+        source: 'reddit',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
+   * 9. Fetch Perplexity Intelligence - Local Events & Real-Time Insights
+   */
+  private async fetchPerplexityIntelligence(
+    brandData: any,
+    errors: Array<{ source: string; error: string; severity: 'warning' | 'error' }>,
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/Perplexity] Fetching local events and real-time insights...');
+
+      // Check if Perplexity API is available
+      const isAvailable = await perplexityAPI.isAvailable();
+      if (!isAvailable) {
+        console.warn('[DeepContext/Perplexity] Perplexity API not available (missing API key)');
+        return [];
+      }
+
+      // Format location from brandData
+      const location = brandData.location
+        ? typeof brandData.location === 'string'
+          ? brandData.location
+          : `${brandData.location.city}, ${brandData.location.state}`
+        : brandData.city || 'United States';
+
+      // Get current month for seasonal context
+      const now = new Date();
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
+      const currentMonth = monthNames[now.getMonth()];
+
+      // Query Perplexity for local events
+      const response = await perplexityAPI.getIndustryInsights({
+        query: `What local events, festivals, holidays, and community gatherings are happening in ${location} in ${currentMonth} ${now.getFullYear()} that would be relevant marketing opportunities for ${brandData.industry} businesses? Include specific dates if available.`,
+        context: {
+          industry: brandData.industry,
+          brand_name: brandData.name
+        },
+        max_results: 5
+      });
+
+      dataSourcesUsed.push('perplexity');
+
+      const dataPoints: DataPoint[] = [];
+
+      // Convert insights to data points
+      response.insights.forEach((insight, index) => {
+        dataPoints.push({
+          source: 'perplexity' as DataSource,
+          type: 'local_event' as DataPointType,
+          content: insight,
+          metadata: {
+            location,
+            month: currentMonth,
+            year: now.getFullYear(),
+            confidence: response.confidence
+          },
+          timestamp: new Date().toISOString(),
+          confidence: response.confidence
+        });
+      });
+
+      console.log(`[DeepContext/Perplexity] ✅ Extracted ${dataPoints.length} local event data points`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/Perplexity] Error:', error);
+      errors.push({
+        source: 'perplexity',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
+   * 10. Fetch LinkedIn Intelligence - B2B Insights, Trends, and Professional Content
+   */
+  private async fetchLinkedInIntelligence(
+    brandData: any,
+    errors: Array<{ source: string; error: string; severity: 'warning' | 'error' }>,
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/LinkedIn] Fetching B2B intelligence via OutScraper...');
+
+      const dataPoints: DataPoint[] = [];
+      const industry = brandData.industry;
+      const keywords = brandData.keywords || [industry];
+
+      // Parallelize LinkedIn API calls for maximum performance
+      const [postsResult, companiesResult] = await Promise.allSettled([
+        // 1. LinkedIn Posts (trending B2B topics and thought leadership)
+        (async () => {
+          try {
+            const cacheKey = `linkedin:posts:${industry}`;
+            let posts = await intelligenceCache.get(cacheKey);
+
+            if (!posts) {
+              // Search for industry-relevant posts
+              const query = `${industry} trends insights tips`;
+              posts = await OutScraperAPI.getLinkedInPosts(query, 10);
+
+              await intelligenceCache.set(cacheKey, posts, {
+                dataType: 'linkedin_posts',
+                sourceApi: 'outscraper',
+                brandId: brandData.id,
+                ttlMinutes: 120 // 2 hours
+              });
+            }
+
+            return posts.slice(0, 5).map((post: any) => ({
+              source: 'linkedin' as DataSource,
+              type: 'trending_topic' as DataPointType,
+              content: `LinkedIn post by ${post.author}: ${post.content}`,
+              metadata: {
+                author: post.author,
+                authorProfile: post.authorProfile,
+                link: post.postUrl,
+                date: post.publishedAt,
+                engagement: post.engagement
+              },
+              timestamp: post.publishedAt || new Date().toISOString(),
+              confidence: 0.80
+            }));
+          } catch (err) {
+            console.warn('[DeepContext/LinkedIn] Posts fetch failed:', err);
+            return [];
+          }
+        })(),
+
+        // 2. LinkedIn Companies (competitor intelligence)
+        (async () => {
+          try {
+            const cacheKey = `linkedin:companies:${industry}`;
+            let companies = await intelligenceCache.get(cacheKey);
+
+            if (!companies) {
+              // Search for industry competitors and leaders
+              const query = `${industry} companies`;
+              companies = await OutScraperAPI.getLinkedInCompanies(query, 10);
+
+              await intelligenceCache.set(cacheKey, companies, {
+                dataType: 'linkedin_companies',
+                sourceApi: 'outscraper',
+                brandId: brandData.id,
+                ttlMinutes: 240 // 4 hours
+              });
+            }
+
+            return companies.slice(0, 3).map((company: any) => ({
+              source: 'linkedin' as DataSource,
+              type: 'competitive_gap' as DataPointType,
+              content: `Competitor: ${company.name} - ${company.description}`,
+              metadata: {
+                company: company.name,
+                link: company.profileUrl,
+                industry: company.industry,
+                size: company.companySize,
+                location: company.location,
+                followers: company.followers
+              },
+              timestamp: new Date().toISOString(),
+              confidence: 0.75
+            }));
+          } catch (err) {
+            console.warn('[DeepContext/LinkedIn] Companies fetch failed:', err);
+            return [];
+          }
+        })()
+      ]);
+
+      // Collect all results
+      if (postsResult.status === 'fulfilled' && postsResult.value) {
+        dataPoints.push(...postsResult.value);
+      }
+      if (companiesResult.status === 'fulfilled' && companiesResult.value) {
+        dataPoints.push(...companiesResult.value);
+      }
+
+      dataSourcesUsed.push('linkedin');
+
+      console.log(`[DeepContext/LinkedIn] ✅ Extracted ${dataPoints.length} B2B intelligence data points`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/LinkedIn] Error:', error);
+      errors.push({
+        source: 'linkedin',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
    * Build DeepContext structure from brand data and data points
    */
   private async buildContextStructure(
     brandData: any,
     dataPoints: DataPoint[]
   ): Promise<DeepContext> {
+    // Extract website analysis data points
+    const valuePropositions = dataPoints.filter(dp => dp.type === 'value_proposition');
+    const customerSegments = dataPoints.filter(dp => dp.type === 'customer_segment');
+    const customerTriggers = dataPoints.filter(dp => dp.type === 'customer_trigger');
+    const competitiveGaps = dataPoints.filter(dp => dp.type === 'competitive_gap');
+
+    console.log('[DeepContext] Organizing data points:');
+    console.log('  - Value Propositions:', valuePropositions.length);
+    console.log('  - Customer Segments:', customerSegments.length);
+    console.log('  - Customer Triggers:', customerTriggers.length);
+    console.log('  - Competitive Gaps:', competitiveGaps.length);
+
     // Build basic structure - will be enhanced by AI synthesis
     const deepContext: DeepContext = {
       business: {
@@ -902,7 +1284,11 @@ class DeepContextBuilderService {
           avoidWords: [],
           signaturePhrases: []
         },
-        uniqueAdvantages: brandData.unique_selling_points || [],
+        // CRITICAL: Populate with actual website value propositions!
+        uniqueAdvantages: [
+          ...(brandData.unique_selling_points || []),
+          ...valuePropositions.map(dp => dp.content)
+        ],
         goals: []
       },
       industry: {
@@ -930,20 +1316,26 @@ class DeepContextBuilderService {
           byTopic: {},
           shifts: []
         },
-        events: [],
+        // CRITICAL: Populate with Perplexity local events!
+        events: dataPoints
+          .filter(dp => dp.type === 'local_event')
+          .map(dp => dp.content),
         viralContent: []
       },
       competitiveIntel: {
         blindSpots: [],
         mistakes: [],
-        opportunities: [],
+        // CRITICAL: Populate with website differentiators!
+        opportunities: competitiveGaps.map(dp => dp.content),
         contentGaps: [],
         positioningWeaknesses: []
       },
       customerPsychology: {
-        unarticulated: [],
+        // CRITICAL: Populate with customer segments!
+        unarticulated: customerSegments.map(dp => dp.content),
         emotional: [],
-        behavioral: [],
+        // CRITICAL: Populate with customer triggers (pain points)!
+        behavioral: customerTriggers.map(dp => dp.content),
         identityDesires: [],
         purchaseMotivations: [],
         objections: []

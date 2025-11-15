@@ -12,14 +12,9 @@
  * - Buyer persona insights
  */
 
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import type { ContentIdea, Platform } from './calendar-population.service'
 import type { SpecialtyDetection } from './specialty-detection.service'
-
-const supabase = createClient(
-  process.env.VITE_SUPABASE_URL!,
-  process.env.VITE_SUPABASE_ANON_KEY!
-)
 
 /**
  * Platform-specific content

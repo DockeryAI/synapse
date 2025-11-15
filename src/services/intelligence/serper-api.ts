@@ -39,6 +39,15 @@ interface PlaceResult {
   website?: string
   category?: string
   placeId?: string
+  _raw?: any  // Keep raw Serper response for debugging
+}
+
+interface PlaceReview {
+  author: string
+  rating: number
+  text: string
+  date: string
+  snippet?: string
 }
 
 interface ImageResult {
@@ -68,6 +77,51 @@ interface ShoppingResult {
   reviewCount?: number
   imageUrl?: string
   inStock?: boolean
+}
+
+interface LinkedInProfile {
+  name: string
+  headline: string
+  link: string
+  location?: string
+  company?: string
+  snippet?: string
+}
+
+interface LinkedInCompany {
+  name: string
+  link: string
+  description: string
+  industry?: string
+  size?: string
+  location?: string
+  followers?: number
+  snippet?: string
+}
+
+interface LinkedInPost {
+  author: string
+  authorProfile?: string
+  content: string
+  link: string
+  date?: string
+  engagement?: {
+    likes?: number
+    comments?: number
+    shares?: number
+  }
+  snippet?: string
+}
+
+interface LinkedInJob {
+  title: string
+  company: string
+  location: string
+  link: string
+  description?: string
+  posted?: string
+  seniority?: string
+  employmentType?: string
 }
 
 class SerperAPIService {
@@ -307,19 +361,73 @@ class SerperAPIService {
 
       const data = await response.json()
 
-      return (data.places || []).map((place: any) => ({
-        name: place.title || place.name || '',
-        address: place.address || '',
-        rating: place.rating || undefined,
-        reviewCount: place.reviews || place.ratingCount || undefined,
-        phone: place.phoneNumber || place.phone || undefined,
-        website: place.website || undefined,
-        category: place.category || place.type || undefined,
-        placeId: place.placeId || undefined
-      }))
+      return (data.places || []).map((place: any) => {
+        // Try multiple possible field names for place ID
+        const placeId = place.placeId || place.place_id || place.cid || place.data_id || place.dataId
+
+        return {
+          name: place.title || place.name || '',
+          address: place.address || '',
+          rating: place.rating || undefined,
+          reviewCount: place.reviews || place.ratingCount || undefined,
+          phone: place.phoneNumber || place.phone || undefined,
+          website: place.website || undefined,
+          category: place.category || place.type || undefined,
+          placeId: placeId,
+          // Keep raw data for debugging
+          _raw: place
+        }
+      })
     } catch (error) {
       console.error('[Serper Places] Error:', error)
       throw error
+    }
+  }
+
+  /**
+   * Get reviews for a specific place by place_id
+   * Fast fallback for when OutScraper doesn't have cached reviews
+   */
+  async getPlaceReviews(placeId: string): Promise<PlaceReview[]> {
+    if (!SERPER_API_KEY) {
+      throw new Error('Serper API key not configured')
+    }
+
+    try {
+      console.log('[Serper] Fetching reviews for place_id:', placeId)
+
+      const response = await fetch('https://google.serper.dev/places', {
+        method: 'POST',
+        headers: {
+          'X-API-KEY': SERPER_API_KEY,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          q: `place_id:${placeId}`
+        })
+      })
+
+      if (!response.ok) {
+        throw new Error(`Serper Places API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      // Serper returns reviews in the 'reviews' array
+      const reviews = data.reviews || []
+
+      console.log('[Serper] Found', reviews.length, 'reviews')
+
+      return reviews.map((review: any) => ({
+        author: review.author || review.name || 'Anonymous',
+        rating: review.rating || 0,
+        text: review.snippet || review.text || '',
+        date: review.date || review.publishedAtDate || new Date().toISOString(),
+        snippet: review.snippet
+      }))
+    } catch (error) {
+      console.error('[Serper] Error fetching reviews:', error)
+      return [] // Return empty array instead of throwing
     }
   }
 
@@ -455,6 +563,7 @@ export type {
   NewsResult,
   TrendData,
   PlaceResult,
+  PlaceReview,
   ImageResult,
   VideoResult,
   ShoppingResult

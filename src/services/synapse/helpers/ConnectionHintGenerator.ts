@@ -259,73 +259,73 @@ export function formatHintsForPrompt(result: ConnectionHintResult): string {
 }
 
 /**
- * Helper: Create data sources from business intelligence
+ * Helper: Create data sources from business intelligence (DeepContext)
  */
 export function createDataSourcesFromIntelligence(intelligence: any): DataSource[] {
   const sources: DataSource[] = [];
 
-  // Weather signals
-  if (intelligence.realTimeSignals?.weather?.triggers) {
-    for (const trigger of intelligence.realTimeSignals.weather.triggers) {
-      sources.push({
-        type: 'weather',
-        text: `${trigger.type}: ${trigger.description}`,
-        metadata: trigger
-      });
-    }
-  }
-
-  // Local events
-  if (intelligence.localIntelligence?.localEvents) {
-    for (const event of intelligence.localIntelligence.localEvents) {
-      sources.push({
-        type: 'event',
-        text: `${event.title} - ${event.date}`,
-        metadata: event
-      });
-    }
-  }
-
-  // Review pain points
-  if (intelligence.reviewData?.painPoints) {
-    for (const painPoint of intelligence.reviewData.painPoints.slice(0, 5)) {
-      sources.push({
-        type: 'review',
-        text: painPoint.concern || painPoint,
-        metadata: painPoint
-      });
-    }
-  }
-
-  // Trending topics
-  if (intelligence.culturalSnapshot?.trendingTopics) {
-    for (const topic of intelligence.culturalSnapshot.trendingTopics.slice(0, 5)) {
+  // Trending topics from realTimeCultural
+  if (intelligence.realTimeCultural?.trending?.topics) {
+    for (const topic of intelligence.realTimeCultural.trending.topics.slice(0, 10)) {
       sources.push({
         type: 'trend',
-        text: topic.term || topic,
+        text: typeof topic === 'string' ? topic : topic.term || topic.topic,
         metadata: topic
       });
     }
   }
 
-  // Search keywords
-  if (intelligence.searchData?.opportunityKeywords) {
-    for (const keyword of intelligence.searchData.opportunityKeywords.slice(0, 5)) {
+  // Competitive opportunities/gaps
+  if (intelligence.competitiveIntel?.opportunities) {
+    for (const opportunity of intelligence.competitiveIntel.opportunities.slice(0, 10)) {
       sources.push({
-        type: 'keyword',
-        text: keyword.keyword || keyword,
-        metadata: keyword
+        type: 'competitive',
+        text: typeof opportunity === 'string' ? opportunity : opportunity.description || opportunity,
+        metadata: opportunity
       });
     }
   }
 
-  // Social insights
-  if (intelligence.realTimeSignals?.socialBuzz) {
-    for (const buzz of intelligence.realTimeSignals.socialBuzz.slice(0, 3)) {
+  // Customer psychology - behavioral triggers (pain points, desires)
+  if (intelligence.customerPsychology?.behavioral) {
+    for (const trigger of intelligence.customerPsychology.behavioral.slice(0, 8)) {
       sources.push({
-        type: 'social',
-        text: buzz.topic || buzz,
-        metadata: buzz
+        type: 'customer',
+        text: typeof trigger === 'string' ? trigger : trigger.trigger || trigger.description || trigger,
+        metadata: trigger
+      });
+    }
+  }
+
+  // Customer segments - unarticulated needs
+  if (intelligence.customerPsychology?.unarticulated) {
+    for (const need of intelligence.customerPsychology.unarticulated.slice(0, 5)) {
+      sources.push({
+        type: 'customer_need',
+        text: typeof need === 'string' ? need : need.need || need.description || need,
+        metadata: need
+      });
+    }
+  }
+
+  // Business unique advantages
+  if (intelligence.business?.uniqueAdvantages) {
+    for (const advantage of intelligence.business.uniqueAdvantages.slice(0, 5)) {
+      sources.push({
+        type: 'advantage',
+        text: typeof advantage === 'string' ? advantage : advantage.advantage || advantage.description || advantage,
+        metadata: advantage
+      });
+    }
+  }
+
+  // Synthesis insights
+  if (intelligence.synthesis?.keyInsights) {
+    for (const insight of intelligence.synthesis.keyInsights.slice(0, 5)) {
+      sources.push({
+        type: 'insight',
+        text: typeof insight === 'string' ? insight : insight.insight || insight.description || insight,
+        metadata: insight
       });
     }
   }

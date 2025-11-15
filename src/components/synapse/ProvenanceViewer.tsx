@@ -21,6 +21,14 @@ interface ProvenanceViewerProps {
 
 export function ProvenanceViewer({ provenance }: ProvenanceViewerProps) {
   const [expanded, setExpanded] = useState(true);  // Start expanded by default
+  const [expandedSources, setExpandedSources] = useState<Record<string, boolean>>({});
+
+  const toggleSource = (source: string) => {
+    setExpandedSources(prev => ({
+      ...prev,
+      [source]: !prev[source]
+    }));
+  };
 
   return (
     <div className="border-t border-gray-200 dark:border-slate-700 pt-4 mt-4">
@@ -183,6 +191,79 @@ export function ProvenanceViewer({ provenance }: ProvenanceViewerProps) {
                         <div className="text-gray-600 dark:text-gray-400 italic">{platform.contributionToFinalContent}</div>
                       </div>
                     </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Detailed Data Sources - Every Data Point */}
+          {provenance.detailedDataSources && provenance.detailedDataSources.length > 0 && (
+            <div className="bg-white dark:bg-slate-900 p-4 rounded-lg border-l-4 border-indigo-500">
+              <div className="font-bold text-indigo-700 dark:text-indigo-300 mb-2 flex items-center gap-2">
+                🔍 Complete Data Source Breakdown
+              </div>
+              <p className="text-xs text-indigo-600 dark:text-indigo-400 mb-3">
+                Every single data point used from each source (click to expand)
+              </p>
+              <div className="space-y-2">
+                {provenance.detailedDataSources.map((sourceGroup, idx) => (
+                  <div key={idx} className="border border-indigo-200 dark:border-indigo-800 rounded-lg overflow-hidden">
+                    <button
+                      onClick={() => toggleSource(sourceGroup.source)}
+                      className="w-full flex items-center justify-between p-3 bg-indigo-50 dark:bg-indigo-900/20 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition-colors"
+                    >
+                      <div className="flex items-center gap-2">
+                        {expandedSources[sourceGroup.source] ? (
+                          <ChevronDown className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                        ) : (
+                          <ChevronRight className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                        )}
+                        <span className="font-semibold text-indigo-700 dark:text-indigo-300 capitalize">
+                          {sourceGroup.source}
+                        </span>
+                      </div>
+                      <span className="px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded text-xs font-bold">
+                        {sourceGroup.dataPoints.length} data points
+                      </span>
+                    </button>
+
+                    {expandedSources[sourceGroup.source] && (
+                      <div className="p-3 space-y-2 bg-white dark:bg-slate-900">
+                        {sourceGroup.dataPoints.map((dataPoint, dpIdx) => (
+                          <div key={dpIdx} className="pl-4 border-l-2 border-indigo-300 dark:border-indigo-700 bg-indigo-50/50 dark:bg-indigo-900/10 p-2 rounded">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900 text-indigo-700 dark:text-indigo-200 rounded text-xs font-medium">
+                                {dataPoint.type.replace(/_/g, ' ')}
+                              </span>
+                              {dataPoint.confidence !== undefined && (
+                                <span className="px-2 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded text-xs">
+                                  {Math.round(dataPoint.confidence * 100)}% confidence
+                                </span>
+                              )}
+                            </div>
+                            <div className="text-gray-700 dark:text-gray-300 text-sm italic">
+                              "{dataPoint.content}"
+                            </div>
+                            {dataPoint.metadata && Object.keys(dataPoint.metadata).length > 0 && (
+                              <details className="mt-2">
+                                <summary className="text-xs text-indigo-600 dark:text-indigo-400 cursor-pointer hover:text-indigo-800 dark:hover:text-indigo-200">
+                                  View metadata
+                                </summary>
+                                <pre className="text-xs bg-gray-100 dark:bg-gray-800 p-2 rounded mt-1 overflow-x-auto">
+                                  {JSON.stringify(dataPoint.metadata, null, 2)}
+                                </pre>
+                              </details>
+                            )}
+                            {dataPoint.timestamp && (
+                              <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                {new Date(dataPoint.timestamp).toLocaleString()}
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

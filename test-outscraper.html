@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OutScraper API Test</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      border-bottom: 3px solid #4CAF50;
+      padding-bottom: 10px;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #f9f9f9;
+      border-left: 4px solid #4CAF50;
+      border-radius: 4px;
+    }
+    .test-section h3 {
+      margin-top: 0;
+      color: #4CAF50;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 5px 10px 0;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+    .status {
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+    .status.pending { background: #fff3cd; color: #856404; }
+    .status.success { background: #d4edda; color: #155724; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .result {
+      margin: 15px 0;
+      padding: 15px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .business-card {
+      background: #f8f9fa;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 6px;
+      border: 1px solid #dee2e6;
+    }
+    .business-name {
+      font-weight: bold;
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .business-info {
+      color: #666;
+      margin: 4px 0;
+    }
+    .rating {
+      color: #f39c12;
+      font-weight: bold;
+    }
+    pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔍 OutScraper API Test</h1>
+
+    <div class="test-section">
+      <h3>API Key Status</h3>
+      <div id="apiKeyStatus" class="status pending">Checking...</div>
+    </div>
+
+    <div class="test-section">
+      <h3>Test 1: Business Search</h3>
+      <p>Search for businesses using OutScraper's Google Maps API</p>
+      <button id="testSearch" onclick="testBusinessSearch()">Run Business Search Test</button>
+      <div id="searchStatus"></div>
+      <div id="searchResult"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>Console Output</h3>
+      <p>Check browser console (F12) for detailed API logs</p>
+    </div>
+  </div>
+
+  <script type="module">
+    // Import the OutScraper API
+    import { OutScraperAPI } from './src/services/intelligence/outscraper-api.ts';
+
+    // Check API key status
+    const OUTSCRAPER_API_KEY = import.meta.env.VITE_OUTSCRAPER_API_KEY;
+    const apiKeyStatus = document.getElementById('apiKeyStatus');
+
+    if (OUTSCRAPER_API_KEY) {
+      apiKeyStatus.textContent = `✅ API Key Configured (${OUTSCRAPER_API_KEY.substring(0, 10)}...)`;
+      apiKeyStatus.className = 'status success';
+      console.log('[OutScraper Test] API Key is set');
+    } else {
+      apiKeyStatus.textContent = '❌ API Key NOT SET';
+      apiKeyStatus.className = 'status error';
+      console.error('[OutScraper Test] VITE_OUTSCRAPER_API_KEY is not set!');
+    }
+
+    // Test 1: Business Search
+    window.testBusinessSearch = async function() {
+      const button = document.getElementById('testSearch');
+      const statusDiv = document.getElementById('searchStatus');
+      const resultDiv = document.getElementById('searchResult');
+
+      button.disabled = true;
+      statusDiv.innerHTML = '<div class="status pending">⏳ Searching for coffee shops in San Francisco...</div>';
+      resultDiv.innerHTML = '';
+
+      try {
+        console.log('[OutScraper Test] Starting business search test...');
+
+        const results = await OutScraperAPI.getBusinessListings({
+          query: 'coffee shop',
+          location: 'San Francisco, CA',
+          limit: 5
+        });
+
+        console.log('[OutScraper Test] Results:', results);
+
+        if (results && results.length > 0) {
+          statusDiv.innerHTML = `<div class="status success">✅ Found ${results.length} businesses!</div>`;
+
+          let html = '<h4>Results:</h4>';
+          results.forEach((business, index) => {
+            html += `
+              <div class="business-card">
+                <div class="business-name">${index + 1}. ${business.name}</div>
+                <div class="business-info">📍 ${business.address}</div>
+                <div class="business-info">⭐ <span class="rating">${business.rating}</span> (${business.reviews_count} reviews)</div>
+                <div class="business-info">📂 ${business.category.join(', ')}</div>
+                ${business.phone ? `<div class="business-info">📞 ${business.phone}</div>` : ''}
+                ${business.website ? `<div class="business-info">🌐 <a href="${business.website}" target="_blank">${business.website}</a></div>` : ''}
+                <div class="business-info">🆔 ${business.place_id}</div>
+              </div>
+            `;
+          });
+
+          resultDiv.innerHTML = html;
+        } else {
+          statusDiv.innerHTML = '<div class="status error">⚠️ No results returned (check console for details)</div>';
+          resultDiv.innerHTML = '<pre>' + JSON.stringify(results, null, 2) + '</pre>';
+        }
+      } catch (error) {
+        console.error('[OutScraper Test] Error:', error);
+        statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+        resultDiv.innerHTML = `<pre>${error.stack || error.message}</pre>`;
+      } finally {
+        button.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>

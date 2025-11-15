@@ -13,6 +13,7 @@ interface WeatherData {
   description: string
   humidity: number
   wind_speed: number
+  location?: string
   forecast: ForecastDay[]
 }
 
@@ -52,30 +53,37 @@ class WeatherAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!WEATHER_API_KEY) {
-      throw new Error(
-        'Weather API key not configured. Add VITE_WEATHER_API_KEY to your .env file. ' +
-        'Get a free API key from https://openweathermap.org/api'
-      )
-    }
-
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&units=imperial&appid=${WEATHER_API_KEY}`
+      // Use Edge Function to bypass CORS
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-      const response = await fetch(url)
-      if (!response.ok) throw new Error(`Weather API error: ${response.statusText}`)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          type: 'current',
+          location
+        })
+      })
 
-      const data = await response.json()
-
-      const weather: WeatherData = {
-        temperature: data.main.temp,
-        feels_like: data.main.feels_like,
-        condition: data.weather[0].main,
-        description: data.weather[0].description,
-        humidity: data.main.humidity,
-        wind_speed: data.wind.speed,
-        forecast: []
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        console.error(`[WeatherAPI] ❌ Edge Function error (${response.status}): ${errorData.error || response.statusText}`)
+        console.error('[WeatherAPI] This likely means WEATHER_API_KEY is not configured in Supabase Edge Function secrets')
+        throw new Error(`Weather Edge Function error (${response.status}): ${errorData.error || response.statusText}`)
       }
+
+      const result = await response.json()
+      if (!result.success) {
+        console.error('[WeatherAPI] ❌ Edge Function returned error:', result.error)
+        throw new Error(`Weather Edge Function error: ${result.error}`)
+      }
+
+      const weather: WeatherData = result.data
 
       this.setCache(cacheKey, weather)
       return weather
@@ -90,43 +98,40 @@ class WeatherAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!WEATHER_API_KEY) {
-      throw new Error(
-        'Weather API key not configured. Add VITE_WEATHER_API_KEY to your .env file. ' +
-        'Get a free API key from https://openweathermap.org/api'
-      )
-    }
-
     try {
-      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=imperial&appid=${WEATHER_API_KEY}`
+      // Use Edge Function to bypass CORS
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-      const response = await fetch(url)
-      if (!response.ok) throw new Error(`Weather API error: ${response.statusText}`)
-
-      const data = await response.json()
-
-      const dailyForecasts: ForecastDay[] = []
-      const grouped: Record<string, any[]> = {}
-
-      data.list.forEach((item: any) => {
-        const date = item.dt_txt.split(' ')[0]
-        if (!grouped[date]) grouped[date] = []
-        grouped[date].push(item)
-      })
-
-      Object.entries(grouped).forEach(([date, items]) => {
-        const temps = items.map(i => i.main.temp)
-        dailyForecasts.push({
-          date,
-          temp_max: Math.max(...temps),
-          temp_min: Math.min(...temps),
-          condition: items[0].weather[0].main,
-          precipitation_chance: items[0].pop * 100
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          type: 'forecast',
+          location
         })
       })
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        console.error(`[WeatherAPI] ❌ Edge Function error (${response.status}): ${errorData.error || response.statusText}`)
+        console.error('[WeatherAPI] This likely means WEATHER_API_KEY is not configured in Supabase Edge Function secrets')
+        throw new Error(`Weather Edge Function error (${response.status}): ${errorData.error || response.statusText}`)
+      }
+
+      const result = await response.json()
+      if (!result.success) {
+        console.error('[WeatherAPI] ❌ Edge Function returned error:', result.error)
+        throw new Error(`Weather Edge Function error: ${result.error}`)
+      }
+
+      const dailyForecasts: ForecastDay[] = result.data
+
       this.setCache(cacheKey, dailyForecasts)
-      return dailyForecasts.slice(0, 5)
+      return dailyForecasts
     } catch (error) {
       console.error('[Weather API] Error:', error)
       throw error
@@ -138,14 +143,17 @@ class WeatherAPIService {
     const forecast = await this.get5DayForecast(location)
 
     const opportunities: WeatherOpportunity[] = []
+    const temp = weather.temperature
+
+    // EXTREME CONDITIONS (High priority)
 
     // Heat wave detection (HVAC, pools, cooling)
-    if (weather.temperature > 90) {
+    if (temp > 90) {
       opportunities.push({
         type: 'heat_wave',
         urgency: 'critical',
         title: 'Heat Wave Alert',
-        description: `Temperature ${Math.round(weather.temperature)}°F - High demand for cooling services`,
+        description: `Temperature ${Math.round(temp)}°F - High demand for cooling services`,
         impact_score: 95,
         suggested_actions: [
           'Promote emergency AC repair services',
@@ -157,12 +165,12 @@ class WeatherAPIService {
     }
 
     // Cold snap (heating, insulation)
-    if (weather.temperature < 32) {
+    if (temp < 32) {
       opportunities.push({
         type: 'cold_snap',
         urgency: 'high',
         title: 'Freezing Temperatures',
-        description: `Temperature ${Math.round(weather.temperature)}°F - Heating system demand`,
+        description: `Temperature ${Math.round(temp)}°F - Heating system demand`,
         impact_score: 90,
         suggested_actions: [
           'Promote heating system checks',
@@ -172,23 +180,227 @@ class WeatherAPIService {
       })
     }
 
-    // Storm/precipitation
-    const upcomingRain = forecast.some(day => day.precipitation_chance > 60)
-    if (upcomingRain) {
+    // MODERATE CONDITIONS (Medium priority)
+
+    // Warm weather opportunities (75-90°F)
+    if (temp >= 75 && temp <= 90) {
       opportunities.push({
-        type: 'precipitation',
+        type: 'heat_wave',
         urgency: 'medium',
-        title: 'Heavy Rain Forecast',
-        description: 'Rain expected - opportunity for weather-related services',
-        impact_score: 70,
+        title: 'Warm Weather Window',
+        description: `Temperature ${Math.round(temp)}°F - Ideal for AC tune-ups and outdoor services`,
+        impact_score: 65,
         suggested_actions: [
-          'Promote waterproofing services',
-          'Offer gutter cleaning',
-          'Target flood prevention messaging'
+          'Promote preventive AC maintenance before peak heat',
+          'Offer outdoor service specials',
+          'Remind customers about summer preparation',
+          'Target lawn care, exterior painting, roofing'
         ]
       })
     }
 
+    // Cool weather opportunities (50-65°F)
+    if (temp >= 50 && temp < 65) {
+      opportunities.push({
+        type: 'seasonal',
+        urgency: 'medium',
+        title: 'Perfect Service Weather',
+        description: `Temperature ${Math.round(temp)}°F - Comfortable conditions for outdoor work`,
+        impact_score: 60,
+        suggested_actions: [
+          'Promote seasonal maintenance (HVAC, landscaping)',
+          'Offer exterior home services (painting, roofing, windows)',
+          'Target spring/fall preparation messaging',
+          'Schedule outdoor installations while weather is mild'
+        ]
+      })
+    }
+
+    // Chilly weather (32-50°F)
+    if (temp >= 32 && temp < 50) {
+      opportunities.push({
+        type: 'cold_snap',
+        urgency: 'medium',
+        title: 'Heating Season Active',
+        description: `Temperature ${Math.round(temp)}°F - Heating systems in regular use`,
+        impact_score: 55,
+        suggested_actions: [
+          'Promote heating system maintenance',
+          'Offer insulation and weatherproofing',
+          'Target energy efficiency messaging',
+          'Remind customers about heating tune-ups'
+        ]
+      })
+    }
+
+    // PRECIPITATION & STORMS
+
+    // Current rain/snow
+    const isRaining = weather.condition.toLowerCase().includes('rain') ||
+                     weather.condition.toLowerCase().includes('drizzle')
+    const isSnowing = weather.condition.toLowerCase().includes('snow')
+
+    if (isSnowing) {
+      opportunities.push({
+        type: 'precipitation',
+        urgency: 'high',
+        title: 'Active Snowfall',
+        description: 'Snow conditions - high demand for winter services',
+        impact_score: 85,
+        suggested_actions: [
+          'Promote snow removal services',
+          'Offer emergency heating repairs',
+          'Target winterization and insulation',
+          'Send winter safety tips'
+        ]
+      })
+    } else if (isRaining) {
+      opportunities.push({
+        type: 'precipitation',
+        urgency: 'medium',
+        title: 'Active Rainfall',
+        description: 'Current rain - opportunity for water-related services',
+        impact_score: 60,
+        suggested_actions: [
+          'Promote waterproofing and drainage',
+          'Offer roof and gutter inspections',
+          'Target basement waterproofing',
+          'Send maintenance reminders'
+        ]
+      })
+    }
+
+    // Forecast-based opportunities
+    const upcomingHeavyRain = forecast.some(day => day.precipitation_chance > 60)
+    const upcomingModerateRain = forecast.some(day => day.precipitation_chance > 30 && day.precipitation_chance <= 60)
+
+    if (upcomingHeavyRain && !isRaining) {
+      opportunities.push({
+        type: 'precipitation',
+        urgency: 'medium',
+        title: 'Heavy Rain Forecast',
+        description: 'Significant rain expected - prepare customers now',
+        impact_score: 70,
+        suggested_actions: [
+          'Promote waterproofing services',
+          'Offer gutter cleaning before rain',
+          'Target flood prevention messaging',
+          'Send weather alert emails'
+        ]
+      })
+    } else if (upcomingModerateRain && !isRaining && !upcomingHeavyRain) {
+      opportunities.push({
+        type: 'precipitation',
+        urgency: 'low',
+        title: 'Rain in Forecast',
+        description: 'Moderate rain expected - good time for preventive services',
+        impact_score: 45,
+        suggested_actions: [
+          'Remind customers about drainage checks',
+          'Offer preventive maintenance',
+          'Target outdoor project completion messaging'
+        ]
+      })
+    }
+
+    // TEMPERATURE SWINGS
+
+    // Check for significant day/night or week temperature changes
+    const tempSwing = forecast.reduce((maxSwing, day) => {
+      const swing = day.temp_max - day.temp_min
+      return Math.max(maxSwing, swing)
+    }, 0)
+
+    if (tempSwing > 30) {
+      opportunities.push({
+        type: 'seasonal',
+        urgency: 'low',
+        title: 'Temperature Fluctuations',
+        description: `Large temperature swings (${Math.round(tempSwing)}°F) can strain HVAC systems`,
+        impact_score: 50,
+        suggested_actions: [
+          'Promote HVAC system checks',
+          'Offer multi-season maintenance packages',
+          'Target energy efficiency messaging',
+          'Remind customers about system stress during swings'
+        ]
+      })
+    }
+
+    // SEASONAL MESSAGING (always include at least one)
+
+    // If no specific opportunities, provide seasonal baseline
+    if (opportunities.length === 0) {
+      const month = new Date().getMonth() + 1 // 1-12
+
+      let seasonalOpp: WeatherOpportunity
+
+      if (month >= 6 && month <= 8) {
+        // Summer
+        seasonalOpp = {
+          type: 'seasonal',
+          urgency: 'low',
+          title: 'Summer Season',
+          description: `Temperature ${Math.round(temp)}°F - Summer service opportunities`,
+          impact_score: 40,
+          suggested_actions: [
+            'Promote AC maintenance and tune-ups',
+            'Offer summer service packages',
+            'Target outdoor services (landscaping, exterior work)',
+            'Send seasonal maintenance reminders'
+          ]
+        }
+      } else if (month >= 12 || month <= 2) {
+        // Winter
+        seasonalOpp = {
+          type: 'seasonal',
+          urgency: 'low',
+          title: 'Winter Season',
+          description: `Temperature ${Math.round(temp)}°F - Winter service opportunities`,
+          impact_score: 40,
+          suggested_actions: [
+            'Promote heating system maintenance',
+            'Offer winterization services',
+            'Target indoor home improvement projects',
+            'Send winter preparation tips'
+          ]
+        }
+      } else if (month >= 3 && month <= 5) {
+        // Spring
+        seasonalOpp = {
+          type: 'seasonal',
+          urgency: 'low',
+          title: 'Spring Season',
+          description: `Temperature ${Math.round(temp)}°F - Spring preparation opportunities`,
+          impact_score: 40,
+          suggested_actions: [
+            'Promote spring AC tune-ups before summer',
+            'Offer exterior home services (painting, roofing)',
+            'Target landscaping and outdoor projects',
+            'Send spring cleaning and maintenance reminders'
+          ]
+        }
+      } else {
+        // Fall
+        seasonalOpp = {
+          type: 'seasonal',
+          urgency: 'low',
+          title: 'Fall Season',
+          description: `Temperature ${Math.round(temp)}°F - Fall preparation opportunities`,
+          impact_score: 40,
+          suggested_actions: [
+            'Promote heating system tune-ups before winter',
+            'Offer winterization and insulation',
+            'Target gutter cleaning and exterior prep',
+            'Send fall maintenance reminders'
+          ]
+        }
+      }
+
+      opportunities.push(seasonalOpp)
+    }
+
+    console.log(`[WeatherAPI] 🌤️ Detected ${opportunities.length} weather opportunities for ${location}`)
     return opportunities
   }
 }

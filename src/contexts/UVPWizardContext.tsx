@@ -11,7 +11,7 @@ import * as React from 'react'
 import { supabase } from '@/lib/supabase'
 import {
   UVP,
-  UVPWizardContext,
+  UVPWizardContext as UVPWizardContextType,
   WizardStep,
   WizardProgress,
   DraggableSuggestion,
@@ -63,7 +63,7 @@ const INITIAL_VALIDATION: ValidationResult = {
 /**
  * Create the context
  */
-const UVPWizardContext = React.createContext<UVPWizardContext | undefined>(undefined)
+const UVPWizardContext = React.createContext<UVPWizardContextType | undefined>(undefined)
 
 /**
  * UVP Wizard Context Provider Props

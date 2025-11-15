@@ -15,7 +15,8 @@
  * - Benchmarks against industry standards
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { supabase } from '@/lib/supabase';
+import type { SupabaseClient } from '@supabase/supabase-js';
 import { Platform } from '../types/content-calendar.types';
 import { SpecialtyDetection } from './synapse-calendar-bridge.service';
 import { MappedIntelligence } from './intelligence-data-mapper.service';
@@ -95,14 +96,11 @@ export interface IndustryProfile {
 // ============================================================================
 
 export class EnhancedContentGenerator {
-  private supabase: SupabaseClient;
+  private supabase: typeof supabase;
 
   constructor() {
-    // Initialize Supabase client
-    const supabaseUrl = process.env.VITE_SUPABASE_URL || '';
-    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || '';
-
-    this.supabase = createClient(supabaseUrl, supabaseKey);
+    // Use shared Supabase client
+    this.supabase = supabase;
   }
 
   /**

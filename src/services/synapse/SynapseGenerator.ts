@@ -32,6 +32,7 @@ export interface SynapseInput {
     services?: ServiceCost[];
   };
   intelligence: any; // BusinessIntelligence or similar
+  detailedDataPoints?: any[]; // Raw data points from DeepContext for provenance
 }
 
 export interface SynapseResult {
@@ -110,6 +111,36 @@ function cleanMetaInstructions(text: string): string {
 }
 
 /**
+ * Transform raw data points into detailed data sources for provenance
+ */
+function transformToDetailedDataSources(dataPoints: any[]): any[] {
+  if (!dataPoints || dataPoints.length === 0) return [];
+
+  // Group data points by source
+  const grouped = new Map<string, any[]>();
+
+  for (const point of dataPoints) {
+    const source = point.source || 'unknown';
+    if (!grouped.has(source)) {
+      grouped.set(source, []);
+    }
+    grouped.get(source)!.push({
+      type: point.type,
+      content: point.content,
+      metadata: point.metadata,
+      confidence: point.confidence,
+      timestamp: point.timestamp
+    });
+  }
+
+  // Convert to array format
+  return Array.from(grouped.entries()).map(([source, dataPoints]) => ({
+    source,
+    dataPoints
+  }));
+}
+
+/**
  * Generate synapses using simple single-model approach
  */
 export async function generateSynapses(
@@ -117,6 +148,17 @@ export async function generateSynapses(
 ): Promise<SynapseResult> {
   const startTime = Date.now();
   console.log(`[Synapse] Starting generation for ${input.business.name}...`);
+
+  // ==========================================================================
+  // STEP 0: Transform detailed data points for provenance
+  // ==========================================================================
+  const detailedDataSources = input.detailedDataPoints
+    ? transformToDetailedDataSources(input.detailedDataPoints)
+    : [];
+
+  if (detailedDataSources.length > 0) {
+    console.log(`[Synapse] Transformed ${input.detailedDataPoints?.length} data points into ${detailedDataSources.length} source groups for provenance`);
+  }
 
   // ==========================================================================
   // STEP 1: Calculate Cost Equivalences
@@ -180,7 +222,7 @@ export async function generateSynapses(
   // ==========================================================================
   console.log('[Synapse] Step 6: Parsing response...');
 
-  const synapses = parseClaudeResponse(claudeResponse, input.business);
+  const synapses = parseClaudeResponse(claudeResponse, input.business, detailedDataSources);
 
   const generationTimeMs = Date.now() - startTime;
   const totalCost = connectionResult.cost + (claudeResponse.usage?.total_tokens || 0) * 0.000015; // Sonnet pricing
@@ -201,61 +243,159 @@ export async function generateSynapses(
 }
 
 /**
+ * Extract business specialization from DeepContext
+ */
+function extractBusinessSpecialization(intelligence: any): {
+  specialization: string;
+  targetAudience: string[];
+  valueProps: string[];
+  differentiators: string[];
+} {
+  const result = {
+    specialization: '',
+    targetAudience: [] as string[],
+    valueProps: [] as string[],
+    differentiators: [] as string[]
+  };
+
+  console.log('[SynapseGenerator] Extracting specialization from DeepContext...');
+  console.log('[SynapseGenerator] Available sections:', Object.keys(intelligence || {}));
+
+  // Try multiple possible locations for website data
+  const sections = [
+    intelligence?.business?.uniqueAdvantages || [],
+    intelligence?.competitiveIntel?.opportunities || [],
+    intelligence?.competitiveIntel?.blindSpots || [],
+    intelligence?.customerPsychology?.behavioral || [],
+    intelligence?.customerPsychology?.unarticulated || [],
+    intelligence?.customerPsychology?.emotional || [],
+    intelligence?.synthesis?.keyInsights || []
+  ];
+
+  sections.forEach(section => {
+    if (Array.isArray(section)) {
+      section.forEach((item: any) => {
+        const content = typeof item === 'string' ? item : item.content || item;
+        if (!content || typeof content !== 'string') return;
+
+        const lower = content.toLowerCase();
+
+        // Target audience patterns (broader)
+        if (lower.match(/(owner|collector|enthusiast|client|customer|reader|book lover|community|local|neighborhood)/i)) {
+          result.targetAudience.push(content);
+        }
+
+        // Specialization/differentiator patterns (MUCH BROADER)
+        if (lower.match(/(specialist|expert|premium|luxury|rare|classic|exotic|vintage|unique|specialized|exclusive|independent|locally[-\s]owned|curated|handpicked|personal|custom|boutique|artisan|family[-\s]owned|authentic|original|established|trusted|experienced|dedicated|passionate|community|local)/i)) {
+          result.differentiators.push(content);
+        }
+
+        // Value prop patterns (broader)
+        if (lower.match(/(coverage|protection|value|service|guarantee|ensure|support|help|provide|offer|deliver|create|experience|selection|quality|expertise|knowledge|advice|guidance)/i)) {
+          result.valueProps.push(content);
+        }
+
+        // If no matches but content seems valuable, add to differentiators anyway
+        if (!lower.match(/(owner|collector|enthusiast|client|customer|reader|book lover|community|local|neighborhood|specialist|expert|premium|luxury|rare|classic|exotic|vintage|unique|specialized|exclusive|independent|locally[-\s]owned|curated|handpicked|personal|custom|boutique|artisan|family[-\s]owned|authentic|original|established|trusted|experienced|dedicated|passionate|community|local|coverage|protection|value|service|guarantee|ensure|support|help|provide|offer|deliver|create|experience|selection|quality|expertise|knowledge|advice|guidance)/i) &&
+            content.length > 20 && content.length < 200) {
+          result.differentiators.push(content);
+        }
+      });
+    }
+  });
+
+  // Build specialization from differentiators
+  if (result.differentiators.length > 0) {
+    result.specialization = result.differentiators[0];
+    console.log('[SynapseGenerator] Found specialization:', result.specialization);
+  } else {
+    console.warn('[SynapseGenerator] NO SPECIALIZATION FOUND - will use generic industry');
+  }
+
+  console.log('[SynapseGenerator] Extraction results:', {
+    specialization: result.specialization,
+    targetAudience: result.targetAudience.length,
+    valueProps: result.valueProps.length,
+    differentiators: result.differentiators.length
+  });
+
+  return result;
+}
+
+/**
  * Build data context from intelligence
  */
 function buildDataContext(intelligence: any): string {
   let context = '';
 
-  // Weather
-  if (intelligence.realTimeSignals?.weather?.triggers) {
-    context += '### Weather Context\n';
-    for (const trigger of intelligence.realTimeSignals.weather.triggers.slice(0, 3)) {
-      context += `- ${trigger.type}: ${trigger.description}\n`;
+  // CRITICAL: Extract business specialization from website analysis FIRST
+  const specialization = extractBusinessSpecialization(intelligence);
+
+  if (specialization.specialization || specialization.targetAudience.length > 0 ||
+      specialization.valueProps.length > 0 || specialization.differentiators.length > 0) {
+    context += '### BUSINESS SPECIALIZATION (from website analysis)\n';
+
+    if (specialization.specialization) {
+      context += `**What They Actually Specialize In:** ${specialization.specialization}\n`;
     }
-    context += '\n';
+
+    if (specialization.targetAudience.length > 0) {
+      context += `**Their Actual Target Audience:** ${specialization.targetAudience.slice(0, 3).join(', ')}\n`;
+    }
+
+    if (specialization.differentiators.length > 0) {
+      context += `**What Makes Them Unique:** ${specialization.differentiators.slice(0, 3).join(', ')}\n`;
+    }
+
+    context += '\n**CRITICAL: Generate content about THEIR SPECIALIZATION, not generic industry content!**\n\n';
   }
 
-  // Local Events
-  if (intelligence.localIntelligence?.localEvents) {
-    context += '### Local Events\n';
-    for (const event of intelligence.localIntelligence.localEvents.slice(0, 5)) {
-      context += `- ${event.title} (${event.date}): ${event.relevance || ''}\n`;
-    }
-    context += '\n';
-  }
-
-  // Review Pain Points
-  if (intelligence.reviewData?.painPoints) {
-    context += '### Customer Pain Points (from reviews)\n';
-    for (const pain of intelligence.reviewData.painPoints.slice(0, 5)) {
-      context += `- ${pain.concern || pain}\n`;
-    }
-    context += '\n';
-  }
-
-  // Trending Topics
-  if (intelligence.culturalSnapshot?.trendingTopics) {
+  // Trending Topics (from realTimeCultural)
+  if (intelligence.realTimeCultural?.trending?.topics && intelligence.realTimeCultural.trending.topics.length > 0) {
     context += '### Trending Topics\n';
-    for (const topic of intelligence.culturalSnapshot.trendingTopics.slice(0, 5)) {
-      context += `- ${topic.term || topic} (${topic.volume || 'N/A'} mentions)\n`;
+    for (const topic of intelligence.realTimeCultural.trending.topics.slice(0, 10)) {
+      const topicText = typeof topic === 'string' ? topic : topic.term || topic.topic || topic;
+      context += `- ${topicText}\n`;
     }
     context += '\n';
   }
 
-  // Search Keywords
-  if (intelligence.searchData?.opportunityKeywords) {
-    context += '### Search Opportunity Keywords\n';
-    for (const kw of intelligence.searchData.opportunityKeywords.slice(0, 5)) {
-      context += `- ${kw.keyword || kw} (position ${kw.position || 'N/A'})\n`;
+  // Competitive Opportunities (from competitiveIntel)
+  if (intelligence.competitiveIntel?.opportunities && intelligence.competitiveIntel.opportunities.length > 0) {
+    context += '### What Competitors Are Missing (Opportunities)\n';
+    for (const opp of intelligence.competitiveIntel.opportunities.slice(0, 10)) {
+      const oppText = typeof opp === 'string' ? opp : opp.opportunity || opp.description || opp;
+      context += `- ${oppText}\n`;
     }
     context += '\n';
   }
 
-  // Competitive Gaps
-  if (intelligence.competitive?.contentGaps) {
-    context += '### What Competitors Are Missing\n';
-    for (const gap of intelligence.competitive.contentGaps.slice(0, 5)) {
-      context += `- ${gap.gap || gap}\n`;
+  // Customer Psychology - Behavioral Triggers
+  if (intelligence.customerPsychology?.behavioral && intelligence.customerPsychology.behavioral.length > 0) {
+    context += '### Customer Behavioral Triggers\n';
+    for (const trigger of intelligence.customerPsychology.behavioral.slice(0, 8)) {
+      const triggerText = typeof trigger === 'string' ? trigger : trigger.trigger || trigger.description || trigger;
+      context += `- ${triggerText}\n`;
+    }
+    context += '\n';
+  }
+
+  // Customer Psychology - Unarticulated Needs
+  if (intelligence.customerPsychology?.unarticulated && intelligence.customerPsychology.unarticulated.length > 0) {
+    context += '### Customer Unarticulated Needs\n';
+    for (const need of intelligence.customerPsychology.unarticulated.slice(0, 5)) {
+      const needText = typeof need === 'string' ? need : need.need || need.description || need;
+      context += `- ${needText}\n`;
+    }
+    context += '\n';
+  }
+
+  // Synthesis Insights
+  if (intelligence.synthesis?.keyInsights && intelligence.synthesis.keyInsights.length > 0) {
+    context += '### Key Insights\n';
+    for (const insight of intelligence.synthesis.keyInsights.slice(0, 5)) {
+      const insightText = typeof insight === 'string' ? insight : insight.insight || insight;
+      context += `- ${insightText}\n`;
     }
     context += '\n';
   }
@@ -380,45 +520,23 @@ OUTPUT FORMAT (JSON):
         "rawDataSources": [
           {
             "platform": "google-reviews",
-            "type": "review",
-            "content": "Actual quote from review/comment/post that triggered this insight",
-            "sentiment": "negative",
-            "relevanceScore": 0.9
+            "content": "Actual quote from review that triggered this",
+            "sentiment": "negative"
           }
         ],
-        "psychologySelection": {
-          "selectedPrinciple": "The psychology principle chosen",
-          "selectionReasoning": "Why this principle was selected based on the data",
-          "dataPointsThatTriggered": ["Review about X", "Comment mentioning Y"]
-        },
-        "topicCorrelation": {
-          "primaryTopic": "Main topic identified",
-          "relatedTopics": [
-            {"topic": "Related topic 1", "similarityScore": 0.85, "source": "reviews"}
-          ]
-        },
-        "platformBreakdown": [
-          {
-            "platform": "Google Reviews",
-            "dataPoints": 3,
-            "keyInsights": ["Pain point about X", "Positive mention of Y"],
-            "contributionToFinalContent": "Drove the hook about timing anxiety"
-          }
-        ],
-        "decisionPipeline": [
-          {"step": 1, "action": "Analyzed review sentiment", "input": "5 reviews mentioning X", "output": "85% negative sentiment", "reasoning": "High pain point signal"},
-          {"step": 2, "action": "Selected psychology principle", "input": "Negative sentiment + urgency timing", "output": "Cognitive Dissonance", "reasoning": "Gap between customer expectation and reality"}
-        ]
+        "reasoning": "1-2 sentence explanation of how the data led to this insight"
       }
     }
   ]
 }
 
-CRITICAL: Make whyNow 2-3 full sentences with specific details, NOT just one short sentence. Include evidencePoints with 2-3 concrete examples or proof points that support the insight.
+CRITICAL REQUIREMENTS:
+1. Make whyNow 2-3 full sentences with specific details
+2. Include evidencePoints with 2-3 concrete examples
+3. Include provenance with 1-2 actual data quotes and brief reasoning
+4. Each synapse should be complete but concise
 
-DEEP PROVENANCE: Include the provenance object showing exactly what data triggered this insight - quote actual reviews/comments/posts, show psychology selection reasoning, include platform breakdown, and document the complete decision pipeline.
-
-Generate 3 business-focused insights that DRIVE CUSTOMER ACTION. Content must be engaging but professional, with clear CTAs that lead to visits, bookings, or inquiries.`;
+Generate EXACTLY 3 business-focused insights that DRIVE CUSTOMER ACTION. Content must be engaging but professional, with clear CTAs that lead to visits, bookings, or inquiries.`;
 }
 
 /**
@@ -441,7 +559,7 @@ async function callClaude(prompt: string): Promise<any> {
     },
     body: JSON.stringify({
       model: 'anthropic/claude-3.5-sonnet',
-      max_tokens: 4096,
+      max_tokens: 16384,  // Increased to allow 3 synapses with full provenance (~5k tokens each)
       temperature: 0.8,
       messages: [{
         role: 'user',
@@ -462,18 +580,29 @@ async function callClaude(prompt: string): Promise<any> {
     throw new Error('No response from OpenRouter');
   }
 
+  // Log finish reason to detect truncation
+  const finishReason = data.choices[0].finish_reason;
+  if (finishReason === 'length') {
+    console.warn('[Synapse] ⚠️ Response truncated due to max_tokens limit!');
+    console.warn('[Synapse] Consider increasing max_tokens or simplifying the prompt');
+  }
+
+  console.log('[Synapse] Response finish_reason:', finishReason);
+  console.log('[Synapse] Response length:', data.choices[0].message.content.length, 'characters');
+
   // Return in the same format as before
   return {
     content: [{
       text: data.choices[0].message.content
-    }]
+    }],
+    usage: data.usage
   };
 }
 
 /**
  * Parse Claude response into SynapseInsight objects
  */
-function parseClaudeResponse(response: any, business: any): SynapseInsight[] {
+function parseClaudeResponse(response: any, business: any, detailedDataSources: any[]): SynapseInsight[] {
   try {
     // Extract text content
     const content = response.content[0]?.text || '';
@@ -494,15 +623,41 @@ function parseClaudeResponse(response: any, business: any): SynapseInsight[] {
       console.error('[Synapse] Initial JSON parse failed, attempting recovery...');
       let fixedJson = jsonMatch[0];
 
-      // Fix trailing commas
+      // 1. Remove comments (both // and /* */)
+      fixedJson = fixedJson.replace(/\/\/.*$/gm, ''); // Remove // comments
+      fixedJson = fixedJson.replace(/\/\*[\s\S]*?\*\//g, ''); // Remove /* */ comments
+
+      // 2. Fix trailing commas
       fixedJson = fixedJson.replace(/,(\s*[}\]])/g, '$1');
+
+      // 3. Handle incomplete JSON by trying to close arrays/objects
+      const openBraces = (fixedJson.match(/{/g) || []).length;
+      const closeBraces = (fixedJson.match(/}/g) || []).length;
+      const openBrackets = (fixedJson.match(/\[/g) || []).length;
+      const closeBrackets = (fixedJson.match(/\]/g) || []).length;
+
+      // Add missing closing brackets
+      if (openBrackets > closeBrackets) {
+        for (let i = 0; i < openBrackets - closeBrackets; i++) {
+          fixedJson += ']';
+        }
+      }
+
+      // Add missing closing braces
+      if (openBraces > closeBraces) {
+        for (let i = 0; i < openBraces - closeBraces; i++) {
+          fixedJson += '}';
+        }
+      }
 
       try {
         parsed = JSON.parse(fixedJson);
-        console.log('[Synapse] JSON recovery successful!');
+        console.log('[Synapse] ✅ JSON recovery successful!');
       } catch (secondError) {
-        console.error('[Synapse] JSON recovery failed');
-        console.error('[Synapse] Malformed JSON (first 1000 chars):', jsonMatch[0].substring(0, 1000));
+        console.error('[Synapse] ❌ JSON recovery failed after fixes');
+        console.error('[Synapse] JSON length:', jsonMatch[0].length, 'characters');
+        console.error('[Synapse] First 1000 chars:', jsonMatch[0].substring(0, 1000));
+        console.error('[Synapse] Last 500 chars:', jsonMatch[0].substring(jsonMatch[0].length - 500));
         return [];
       }
     }
@@ -534,8 +689,11 @@ function parseClaudeResponse(response: any, business: any): SynapseInsight[] {
       dataUsed: bt.dataUsed,
       callToAction: bt.callToAction,  // Capture CTA from prompt response
 
-      // DEEP PROVENANCE: Capture the provenance data from Claude
-      deepProvenance: bt.provenance || null
+      // DEEP PROVENANCE: Capture the provenance data from Claude + add detailedDataSources
+      deepProvenance: {
+        ...(bt.provenance || {}),
+        detailedDataSources  // Add the transformed data sources for complete transparency
+      }
     } as any));
 
   } catch (error) {

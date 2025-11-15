@@ -99,29 +99,43 @@ class WebsiteAnalyzerService {
       // Truncate content to avoid token limits (keep first ~20,000 chars)
       const truncatedContent = websiteContent.slice(0, 20000)
 
-      const prompt = `You are a brand strategist analyzing a business's website content.
+      const prompt = `You are a brand strategist analyzing a business's website content to understand EXACTLY what they sell and who they serve.
 
 Business: ${businessName}
 Website Content:
 ${truncatedContent}
 
-Extract the following business-specific information. CRITICAL: Only include what they EXPLICITLY state. DO NOT use generic industry assumptions. If not mentioned, use empty array.
+Extract the following business-specific information. CRITICAL RULES:
+- Only include what they EXPLICITLY state on their website
+- Use their EXACT words and phrases whenever possible
+- DO NOT use generic industry assumptions
+- If something is not mentioned, use empty array
+- FOCUS on finding their SPECIALIZATION (niche, specific services, unique focus)
 
-1. VALUE PROPOSITIONS: What unique benefits, guarantees, or promises do they explicitly mention?
-2. TARGET AUDIENCE: Who are they explicitly talking to? Use their exact language.
-3. CUSTOMER PROBLEMS: What specific problems do they say their customers face?
-4. THEIR SOLUTION: How do they describe solving those problems?
-5. PROOF POINTS: What credentials, experience, results, or stats do they cite?
-6. DIFFERENTIATORS: What makes them different from competitors in their own words?
+1. VALUE PROPOSITIONS: What unique benefits, guarantees, or promises do they explicitly mention? Their exact value statements.
+
+2. TARGET AUDIENCE: Who EXACTLY are they talking to? Look for specific demographics, industries, types of customers. Use their exact language. Examples: "luxury car owners", "classic car collectors", "high-net-worth individuals", "exotic vehicle enthusiasts", "young families", "first-time homebuyers", etc.
+
+3. CUSTOMER PROBLEMS: What specific problems, pain points, or challenges do they say their customers face? Use their exact words.
+
+4. THEIR SOLUTION: How do they describe solving those problems? What specific services or products do they offer? BE SPECIFIC about what they sell.
+
+5. PROOF POINTS: What credentials, experience, results, testimonials, certifications, awards, or stats do they cite?
+
+6. DIFFERENTIATORS: What makes them different or specialized? Look for:
+   - Niche focus (e.g., "rare cars", "vintage vehicles", "luxury homes", "commercial properties")
+   - Specific expertise (e.g., "25 years insuring classic cars", "certified appraisers for collectibles")
+   - Unique services (e.g., "agreed value coverage", "restoration specialists", "concierge service")
+   - Market position (e.g., "only provider in X", "largest X in Y")
 
 Return ONLY valid JSON (no markdown, no explanations):
 {
   "valuePropositions": ["exact quote 1", "exact quote 2"],
-  "targetAudience": ["exact audience description"],
-  "customerProblems": ["problem 1 in their words"],
-  "solutions": ["how they solve it"],
-  "proofPoints": ["credential 1", "stat 1"],
-  "differentiators": ["unique factor 1"]
+  "targetAudience": ["exact audience description 1", "exact audience 2"],
+  "customerProblems": ["problem 1 in their words", "problem 2"],
+  "solutions": ["specific service/product 1", "specific service 2"],
+  "proofPoints": ["credential 1", "stat 1", "testimonial theme"],
+  "differentiators": ["unique specialization 1", "niche focus 2", "unique service 3"]
 }`
 
       const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
