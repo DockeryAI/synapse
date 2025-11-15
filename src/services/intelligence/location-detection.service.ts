@@ -9,15 +9,15 @@
  * 5. IP-based Geolocation (fallback)
  *
  * Supports international address formats: US, UK, CA, AU, EU
- * Uses Google Maps API for geocoding and validation
+ * Uses OutScraper API for geocoding (leverages existing subscription)
  * Results cached for 30 days
  */
 
 import axios from 'axios'
 import * as cheerio from 'cheerio'
-import { Client as GoogleMapsClient } from '@googlemaps/google-maps-services-js'
 import { z } from 'zod'
-import { urlParser } from './url-parser.service'
+import { urlParser } from '../url-parser.service'
+import { OutScraperAPI } from './outscraper-api'
 import { callAPIWithRetry, parallelAPICalls } from '@/lib/api-helpers'
 import { SimpleCache } from '@/lib/cache'
 import { log, timeOperation } from '@/lib/debug-helpers'
@@ -34,9 +34,6 @@ import {
 // Cache location results for 30 days (locations don't change often)
 const locationCache = new SimpleCache<BusinessLocation>()
 const TTL_30_DAYS = 30 * 24 * 60 * 60 // seconds
-
-// Google Maps client
-const googleMaps = new GoogleMapsClient({})
 
 /**
  * Address Regex Patterns for 50+ Countries
@@ -503,66 +500,40 @@ export function parseAddressString(text: string): ParsedAddress | null {
 }
 
 /**
- * Geocode address using Google Maps API
+ * Geocode address using OutScraper (uses existing API subscription)
+ * Better than Google Maps because we're already paying for it!
  */
 export async function geocodeAddress(address: string): Promise<GeocodedLocation | null> {
-  const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-
-  if (!apiKey) {
-    log('geocodeAddress', { error: 'Google Maps API key not configured' }, 'error')
-    return null
-  }
-
   return await callAPIWithRetry(
     async () => {
-      const response = await googleMaps.geocode({
-        params: {
-          address,
-          key: apiKey
-        },
-        timeout: 5000
+      // Use OutScraper to search for this address
+      const results = await OutScraperAPI.getBusinessListings({
+        query: address,
+        limit: 1
       })
 
-      if (response.data.results.length === 0) {
+      if (results.length === 0) {
         return null
       }
 
-      const result = response.data.results[0]
-      const components: any = {}
+      const business = results[0]
 
-      // Extract address components
-      result.address_components.forEach(component => {
-        if (component.types.includes('street_number') || component.types.includes('route')) {
-          components.street = (components.street || '') + ' ' + component.long_name
-        }
-        if (component.types.includes('locality')) {
-          components.city = component.long_name
-        }
-        if (component.types.includes('administrative_area_level_1')) {
-          components.state = component.short_name
-        }
-        if (component.types.includes('country')) {
-          components.country = component.long_name
-        }
-        if (component.types.includes('postal_code')) {
-          components.postalCode = component.long_name
-        }
-      })
+      // Parse address into components (basic - could be improved)
+      const addressParts = business.address.split(',').map(p => p.trim())
 
       const geocoded: GeocodedLocation = {
-        formattedAddress: result.formatted_address,
+        formattedAddress: business.address,
         coordinates: {
-          lat: result.geometry.location.lat,
-          lng: result.geometry.location.lng
+          lat: business.latitude || 0,
+          lng: business.longitude || 0
         },
         components: {
-          street: components.street?.trim(),
-          city: components.city,
-          state: components.state,
-          country: components.country,
-          postalCode: components.postalCode
+          street: addressParts[0],
+          city: addressParts[1],
+          state: addressParts[2],
+          country: addressParts[addressParts.length - 1]
         },
-        confidence: result.geometry.location_type === 'ROOFTOP' ? 1.0 : 0.8
+        confidence: (business.latitude && business.longitude) ? 0.9 : 0.5
       }
 
       return GeocodedLocationSchema.parse(geocoded)
