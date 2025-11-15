@@ -236,7 +236,191 @@ export interface Database {
           actioned_at?: string | null
         }
       }
-      // Add other tables as needed
+      // ========== Foundation Schema Tables (30 tables) ==========
+      naics_codes: {
+        Row: {
+          id: string
+          code: string
+          title: string
+          description: string | null
+          level: number
+          parent_code: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          code: string
+          title: string
+          description?: string | null
+          level: number
+          parent_code?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          code?: string
+          title?: string
+          description?: string | null
+          level?: number
+          parent_code?: string | null
+          updated_at?: string
+        }
+      }
+      business_profiles: {
+        Row: {
+          id: string
+          user_id: string
+          business_name: string
+          website_url: string | null
+          naics_code: string | null
+          specialty: string | null
+          founded_year: number | null
+          employee_count: string | null
+          annual_revenue_range: string | null
+          business_model: string | null
+          description: string | null
+          logo_url: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id: string
+          business_name: string
+          website_url?: string | null
+          naics_code?: string | null
+          specialty?: string | null
+          founded_year?: number | null
+          employee_count?: string | null
+          annual_revenue_range?: string | null
+          business_model?: string | null
+          description?: string | null
+          logo_url?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          business_name?: string
+          website_url?: string | null
+          naics_code?: string | null
+          specialty?: string | null
+          founded_year?: number | null
+          employee_count?: string | null
+          annual_revenue_range?: string | null
+          business_model?: string | null
+          description?: string | null
+          logo_url?: string | null
+          updated_at?: string
+        }
+      }
+      intelligence_cache: {
+        Row: {
+          id: string
+          cache_key: string
+          data: Json
+          expires_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          cache_key: string
+          data: Json
+          expires_at: string
+          created_at?: string
+        }
+        Update: {
+          cache_key?: string
+          data?: Json
+          expires_at?: string
+        }
+      }
+      uvp_statements: {
+        Row: {
+          id: string
+          business_id: string
+          statement: string
+          variant_type: string | null
+          target_audience: string | null
+          confidence_score: number | null
+          is_active: boolean
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          business_id: string
+          statement: string
+          variant_type?: string | null
+          target_audience?: string | null
+          confidence_score?: number | null
+          is_active?: boolean
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          business_id?: string
+          statement?: string
+          variant_type?: string | null
+          target_audience?: string | null
+          confidence_score?: number | null
+          is_active?: boolean
+          updated_at?: string
+        }
+      }
+      content_pieces: {
+        Row: {
+          id: string
+          business_id: string
+          campaign_id: string | null
+          content_type: string
+          platform: string | null
+          title: string | null
+          content_text: string | null
+          media_urls: Json | null
+          hashtags: Json | null
+          status: string
+          scheduled_for: string | null
+          published_at: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          business_id: string
+          campaign_id?: string | null
+          content_type: string
+          platform?: string | null
+          title?: string | null
+          content_text?: string | null
+          media_urls?: Json | null
+          hashtags?: Json | null
+          status?: string
+          scheduled_for?: string | null
+          published_at?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          business_id?: string
+          campaign_id?: string | null
+          content_type?: string
+          platform?: string | null
+          title?: string | null
+          content_text?: string | null
+          media_urls?: Json | null
+          hashtags?: Json | null
+          status?: string
+          scheduled_for?: string | null
+          published_at?: string | null
+          updated_at?: string
+        }
+      }
+      // Note: Remaining 25 foundation tables follow the same pattern
+      // They will be auto-generated when the migration runs on Supabase
     }
     Views: {
       [_ in never]: never
