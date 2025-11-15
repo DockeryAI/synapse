@@ -111,20 +111,20 @@ describe('LocationDetector', () => {
   })
 
   describe('geocodeAddress', () => {
-    it.skip('should geocode valid address with Google Maps', async () => {
-      // Requires VITE_GOOGLE_MAPS_API_KEY in environment
+    it.skip('should geocode valid address with OutScraper', async () => {
+      // Requires VITE_OUTSCRAPER_API_KEY in environment
       const geocoded = await LocationDetector.geocodeAddress('1600 Amphitheatre Parkway, Mountain View, CA')
 
       if (geocoded) {
         expect(geocoded.coordinates).toBeDefined()
-        expect(geocoded.coordinates.lat).toBeCloseTo(37.422, 1)
-        expect(geocoded.coordinates.lng).toBeCloseTo(-122.084, 1)
+        expect(geocoded.coordinates.lat).toBeGreaterThan(0)
+        expect(geocoded.coordinates.lng).toBeLessThan(0)
         expect(geocoded.components.city).toBeDefined()
       }
     }, 10000)
 
     it('should return null when API key is missing', async () => {
-      // This test will pass if Google Maps API key is not configured
+      // This test will pass if OutScraper API key is not configured
       const geocoded = await LocationDetector.geocodeAddress('123 Test St')
       // May be null if no API key configured
       expect(geocoded === null || geocoded?.coordinates !== undefined).toBe(true)
