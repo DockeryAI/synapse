@@ -618,3 +618,7 @@ export const LocationDetector = {
   geocodeAddress,
   parseAddressString
 }
+
+// Export as default and named export for compatibility
+export const locationDetectionService = LocationDetector
+export default LocationDetector
