@@ -7,7 +7,7 @@
  */
 
 import { describe, it, expect } from 'vitest'
-import { LocationDetector } from '../location-detection.service'
+import { LocationDetector } from '../intelligence/location-detection.service'
 
 describe('LocationDetector', () => {
   describe('parseAddressString', () => {
