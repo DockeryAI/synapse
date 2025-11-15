@@ -12,6 +12,7 @@ import {
   Calendar,
   BarChart3,
   Lightbulb,
+  Palette,
   Settings,
   Menu,
   X
@@ -33,10 +34,10 @@ const navItems: NavItem[] = [
     description: 'Platform overview'
   },
   {
-    label: 'Synapse',
-    path: '/synapse',
+    label: 'MIRROR',
+    path: '/mirror',
     icon: <Target className="h-4 w-4" />,
-    description: 'Intelligent SMB onboarding'
+    description: 'Strategic framework'
   },
   {
     label: 'Content Calendar',
@@ -55,6 +56,12 @@ const navItems: NavItem[] = [
     path: '/intelligence',
     icon: <Lightbulb className="h-4 w-4" />,
     description: 'Opportunity detection'
+  },
+  {
+    label: 'Design Studio',
+    path: '/design-studio',
+    icon: <Palette className="h-4 w-4" />,
+    description: 'Visual content creation'
   },
   {
     label: 'Admin',
@@ -87,7 +94,7 @@ export const MainNav: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl">
             <Sparkles className="h-6 w-6 text-primary" />
-            <span>Synapse</span>
+            <span>MARBA.ai</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -12,7 +12,11 @@ export type DataSource =
   | 'serper'
   | 'reddit'
   | 'twitter'
-  | 'apify';
+  | 'apify'
+  | 'perplexity'
+  | 'semrush'
+  | 'website'
+  | 'linkedin';  // LinkedIn via Serper
 
 // Data point types for categorization
 export type DataPointType =
@@ -22,7 +26,8 @@ export type DataPointType =
   | 'timing'
   | 'market_trend'
   | 'sentiment'
-  | 'behavior_pattern';
+  | 'behavior_pattern'
+  | 'local_event';
 
 // Embedding model configuration
 export const EMBEDDING_MODEL = 'text-embedding-3-small';

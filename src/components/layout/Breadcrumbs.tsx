@@ -6,6 +6,7 @@
 import * as React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { ChevronRight, Home } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface BreadcrumbItem {
   label: string
@@ -14,10 +15,11 @@ interface BreadcrumbItem {
 
 const routeLabels: Record<string, string> = {
   '': 'Home',
-  'synapse': 'Synapse Platform',
+  'mirror': 'MIRROR Framework',
   'content-calendar': 'Content Calendar',
   'analytics': 'Analytics',
   'intelligence': 'Intelligence Hub',
+  'design-studio': 'Design Studio',
   'admin': 'Admin'
 }
 

@@ -10,13 +10,8 @@
  * - "vegan restaurant" not just "restaurant"
  */
 
-import { createClient } from '@supabase/supabase-js'
+import { supabase } from '@/lib/supabase'
 import type { IntelligenceResult } from './parallel-intelligence.service'
-
-const supabase = createClient(
-  process.env.VITE_SUPABASE_URL!,
-  process.env.VITE_SUPABASE_ANON_KEY!
-)
 
 /**
  * Detected specialty information

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OutScraper Reviews API Direct Test</title>
+  <style>
+    body {
+      font-family: monospace;
+      padding: 20px;
+      background: #1a1a1a;
+      color: #00ff00;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 15px;
+      border: 1px solid #333;
+      background: #0a0a0a;
+    }
+    .success { color: #00ff00; }
+    .error { color: #ff0000; }
+    .warning { color: #ffaa00; }
+    pre {
+      background: #000;
+      padding: 10px;
+      overflow-x: auto;
+      max-height: 500px;
+    }
+    button {
+      background: #333;
+      color: #00ff00;
+      border: 1px solid #00ff00;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-family: monospace;
+      margin: 5px;
+    }
+    button:hover {
+      background: #00ff00;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <h1>OutScraper Reviews API Direct Test</h1>
+  <p>This tests OutScraper's API endpoints directly to diagnose review fetching issues.</p>
+
+  <div class="test-section">
+    <h2>Configuration</h2>
+    <p>API Key: <span id="api-key-status"></span></p>
+    <p>Test Place ID: <code>ChIJ--acWvtHDW0RF5miQ2HvAAU</code> (Famous restaurant)</p>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 1: Reviews Endpoint (reviews-v2)</h2>
+    <button onclick="testReviewsEndpoint()">Test Reviews Endpoint</button>
+    <div id="reviews-endpoint-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 2: Maps Search Endpoint (search-v2) WITHOUT reviewsLimit</h2>
+    <button onclick="testMapsSearchNoReviews()">Test Maps Search (No Reviews)</button>
+    <div id="maps-search-no-reviews-result"></div>
+  </div>
+
+  <div class="test-section">
+    <h2>Test 3: Maps Search Endpoint (search-v2) WITH reviewsLimit</h2>
+    <button onclick="testMapsSearchWithReviews()">Test Maps Search (With Reviews)</button>
+    <div id="maps-search-with-reviews-result"></div>
+  </div>
+
+  <script type="module">
+    import dotenv from 'https://cdn.skypack.dev/@dotenvx/dotenvx';
+
+    const OUTSCRAPER_API_KEY = import.meta.env.VITE_OUTSCRAPER_API_KEY;
+    const OUTSCRAPER_API_URL = 'https://api.app.outscraper.com';
+
+    // Check API key
+    const apiKeyStatus = document.getElementById('api-key-status');
+    if (OUTSCRAPER_API_KEY) {
+      apiKeyStatus.innerHTML = '<span class="success">✅ Configured</span>';
+    } else {
+      apiKeyStatus.innerHTML = '<span class="error">❌ Missing (set VITE_OUTSCRAPER_API_KEY)</span>';
+    }
+
+    window.testReviewsEndpoint = async function() {
+      const resultDiv = document.getElementById('reviews-endpoint-result');
+      resultDiv.innerHTML = '<p class="warning">⏳ Testing reviews-v2 endpoint...</p>';
+
+      try {
+        const url = new URL(`${OUTSCRAPER_API_URL}/maps/reviews-v2`);
+        url.searchParams.append('query', 'ChIJ--acWvtHDW0RF5miQ2HvAAU');
+        url.searchParams.append('reviewsLimit', '10');
+        url.searchParams.append('language', 'en');
+
+        console.log('[Test] Reviews endpoint URL:', url.toString());
+
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'X-API-KEY': OUTSCRAPER_API_KEY,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        console.log('[Test] Reviews endpoint response:', data);
+
+        let html = `<p class="success">✅ Status: ${response.status}</p>`;
+        html += `<p>Response structure:</p>`;
+        html += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+
+        // Analyze response
+        const results = data.data?.[0];
+        if (results) {
+          html += `<p class="success">✅ Found data array</p>`;
+          if (results.reviews_data) {
+            html += `<p class="success">✅ reviews_data exists with ${results.reviews_data.length} reviews</p>`;
+          } else if (results.reviews) {
+            html += `<p class="warning">⚠️ Found 'reviews' property instead of 'reviews_data'</p>`;
+          } else {
+            html += `<p class="error">❌ No reviews_data or reviews property found</p>`;
+            html += `<p>Available properties: ${Object.keys(results).join(', ')}</p>`;
+          }
+        } else {
+          html += `<p class="error">❌ No data array in response</p>`;
+        }
+
+        resultDiv.innerHTML = html;
+      } catch (error) {
+        resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p><pre>${error.stack}</pre>`;
+        console.error('[Test] Reviews endpoint error:', error);
+      }
+    };
+
+    window.testMapsSearchNoReviews = async function() {
+      const resultDiv = document.getElementById('maps-search-no-reviews-result');
+      resultDiv.innerHTML = '<p class="warning">⏳ Testing search-v2 endpoint WITHOUT reviewsLimit...</p>';
+
+      try {
+        const url = new URL(`${OUTSCRAPER_API_URL}/maps/search-v2`);
+        url.searchParams.append('query', 'ChIJ--acWvtHDW0RF5miQ2HvAAU');
+        url.searchParams.append('limit', '1');
+        url.searchParams.append('language', 'en');
+        url.searchParams.append('async', 'false');
+
+        console.log('[Test] Maps Search (no reviews) URL:', url.toString());
+
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'X-API-KEY': OUTSCRAPER_API_KEY,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        console.log('[Test] Maps Search (no reviews) response:', data);
+
+        let html = `<p class="success">✅ Status: ${response.status}</p>`;
+        html += `<p>Response structure:</p>`;
+        html += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+
+        const results = data.data?.[0];
+        const business = results?.[0];
+        if (business) {
+          html += `<p class="success">✅ Found business: ${business.name}</p>`;
+          html += `<p>Business properties: ${Object.keys(business).join(', ')}</p>`;
+          if (business.reviews_data) {
+            html += `<p class="warning">⚠️ Unexpected: reviews_data exists without requesting it</p>`;
+          } else {
+            html += `<p class="success">✅ Expected: no reviews_data (not requested)</p>`;
+          }
+        }
+
+        resultDiv.innerHTML = html;
+      } catch (error) {
+        resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p><pre>${error.stack}</pre>`;
+        console.error('[Test] Maps Search (no reviews) error:', error);
+      }
+    };
+
+    window.testMapsSearchWithReviews = async function() {
+      const resultDiv = document.getElementById('maps-search-with-reviews-result');
+      resultDiv.innerHTML = '<p class="warning">⏳ Testing search-v2 endpoint WITH reviewsLimit...</p>';
+
+      try {
+        const url = new URL(`${OUTSCRAPER_API_URL}/maps/search-v2`);
+        url.searchParams.append('query', 'ChIJ--acWvtHDW0RF5miQ2HvAAU');
+        url.searchParams.append('limit', '1');
+        url.searchParams.append('reviewsLimit', '10');
+        url.searchParams.append('language', 'en');
+        url.searchParams.append('async', 'false');
+
+        console.log('[Test] Maps Search (with reviews) URL:', url.toString());
+
+        const response = await fetch(url.toString(), {
+          method: 'GET',
+          headers: {
+            'X-API-KEY': OUTSCRAPER_API_KEY,
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        console.log('[Test] Maps Search (with reviews) response:', data);
+
+        let html = `<p class="success">✅ Status: ${response.status}</p>`;
+        html += `<p>Response structure:</p>`;
+        html += `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+
+        const results = data.data?.[0];
+        const business = results?.[0];
+        if (business) {
+          html += `<p class="success">✅ Found business: ${business.name}</p>`;
+          html += `<p>Business properties: ${Object.keys(business).join(', ')}</p>`;
+
+          // Check various possible review properties
+          if (business.reviews_data) {
+            html += `<p class="success">✅ reviews_data exists with ${business.reviews_data.length} reviews</p>`;
+          } else if (business.reviews) {
+            html += `<p class="warning">⚠️ Found 'reviews' property: ${typeof business.reviews}</p>`;
+            if (Array.isArray(business.reviews)) {
+              html += `<p class="success">✅ reviews is an array with ${business.reviews.length} items</p>`;
+            }
+          } else if (business.google_reviews) {
+            html += `<p class="warning">⚠️ Found 'google_reviews' property with ${business.google_reviews.length} reviews</p>`;
+          } else {
+            html += `<p class="error">❌ No reviews_data, reviews, or google_reviews property found</p>`;
+          }
+        }
+
+        resultDiv.innerHTML = html;
+      } catch (error) {
+        resultDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p><pre>${error.stack}</pre>`;
+        console.error('[Test] Maps Search (with reviews) error:', error);
+      }
+    };
+  </script>
+</body>
+</html>

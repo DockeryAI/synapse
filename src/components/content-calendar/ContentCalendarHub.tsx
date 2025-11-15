@@ -50,23 +50,16 @@ import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.
 import { generateSynapses } from '@/services/synapse/SynapseGenerator';
 import { SynapseContentGenerator } from '@/services/synapse/generation/SynapseContentGenerator';
 import { supabase } from '@/lib/supabase';
-import { useCalendarGeneration, getCalendarStepName, getCalendarStepDescription } from '@/hooks/useCalendarGeneration';
 import type { ContentItem, ContentPillar, Platform } from '@/types/content-calendar.types';
 import type { SynapseContent } from '@/types/synapse/synapseContent.types';
-import type { SpecialtyDetection } from '@/services/specialty-detection.service';
-import type { IntelligenceResult } from '@/services/parallel-intelligence.service';
 
 interface ContentCalendarHubProps {
   brandId: string;
   userId: string;
   pillars?: ContentPillar[];
-  /** Specialty data from onboarding flow */
-  specialty?: SpecialtyDetection;
-  /** Intelligence data from onboarding flow */
-  intelligence?: IntelligenceResult[];
 }
 
-export function ContentCalendarHub({ brandId, userId, pillars = [], specialty, intelligence }: ContentCalendarHubProps) {
+export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCalendarHubProps) {
   const [activeTab, setActiveTab] = useState<'calendar' | 'queue' | 'generator' | 'opportunities' | 'insights'>(
     'calendar'
   );
@@ -81,17 +74,7 @@ export function ContentCalendarHub({ brandId, userId, pillars = [], specialty, i
   const [brandUrl, setBrandUrl] = useState<string>('');
   const [generationFrequency, setGenerationFrequency] = useState<'post' | 'day' | 'week' | 'month'>('month');
 
-  // Calendar generation hook
-  const {
-    calendar: generatedCalendar,
-    loading: calendarLoading,
-    currentStep: calendarStep,
-    error: calendarError,
-    generate: generateCalendar,
-    progress: calendarProgress
-  } = useCalendarGeneration();
-
-  // Progress indicator (for Magic Generation)
+  // Progress indicator
   const { progress, startProgress, updateProgress, completeProgress, closeProgress } =
     useGenerationProgress();
 
@@ -407,47 +390,6 @@ export function ContentCalendarHub({ brandId, userId, pillars = [], specialty, i
   };
 
   /**
-   * Handle 30-Day Calendar Generation using specialty data
-   */
-  const handle30DayCalendar = async () => {
-    if (!specialty) {
-      alert('Please complete onboarding first to generate a 30-day calendar');
-      return;
-    }
-
-    try {
-      console.log('[30-Day Calendar] Generating calendar for:', specialty.specialty);
-
-      // Generate the calendar using the hook
-      const result = await generateCalendar(specialty, intelligence);
-
-      console.log(`[30-Day Calendar] Generated ${result.items.length} content items`);
-      console.log(`[30-Day Calendar] Distribution:`, result.stats);
-
-      // Save generated calendar items to database
-      for (const item of result.items) {
-        await ContentCalendarService.createContentItem({
-          brand_id: brandId,
-          user_id: userId,
-          platform: item.idea.platform as Platform,
-          content_text: item.idea.description,
-          generation_mode: 'ai-calendar',
-          status: 'draft',
-          scheduled_time: new Date(Date.now() + (item.day - 1) * 24 * 60 * 60 * 1000).toISOString(),
-        });
-      }
-
-      // Refresh calendar view
-      handleRefresh();
-
-      alert(`Successfully generated ${result.items.length} content items for your 30-day calendar!`);
-    } catch (error) {
-      console.error('[30-Day Calendar] Generation failed:', error);
-      alert('Calendar generation failed. Please try again.');
-    }
-  };
-
-  /**
    * Clear all content for this brand
    */
   const handleClearAll = async () => {
@@ -745,29 +687,6 @@ export function ContentCalendarHub({ brandId, userId, pillars = [], specialty, i
               )}
             </Button>
           </div>
-
-          {/* 30-Day Calendar Generation (when specialty data is available) */}
-          {specialty && (
-            <Button
-              size="lg"
-              onClick={handle30DayCalendar}
-              disabled={calendarLoading}
-              className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700"
-            >
-              {calendarLoading ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  {getCalendarStepName(calendarStep)}
-                </>
-              ) : (
-                <>
-                  <CalendarIcon className="w-4 h-4 mr-2" />
-                  Generate 30-Day Calendar
-                </>
-              )}
-            </Button>
-          )}
-
           <Button onClick={() => setShowContentGenerator(true)}>
             <Plus className="w-4 h-4 mr-2" />
             New Content

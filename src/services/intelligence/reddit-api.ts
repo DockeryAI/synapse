@@ -111,7 +111,7 @@ export class RedditAPI {
   // ==========================================================================
 
   /**
-   * Get or refresh OAuth access token
+   * Get or refresh OAuth access token (via Supabase Edge Function to avoid CORS)
    */
   private async getAccessToken(): Promise<string> {
     // Return cached token if still valid
@@ -119,37 +119,56 @@ export class RedditAPI {
       return this.accessToken.accessToken;
     }
 
-    console.log('[RedditAPI] Fetching new access token...');
+    console.log('[RedditAPI] Fetching new access token via Edge Function...');
 
-    // Request new token using client credentials flow
-    const auth = btoa(`${this.clientId}:${this.clientSecret}`);
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration missing');
+    }
+
+    if (!this.clientId || !this.clientSecret) {
+      throw new Error('Reddit API credentials not configured');
+    }
 
     try {
-      const response = await fetch('https://www.reddit.com/api/v1/access_token', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Basic ${auth}`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'User-Agent': this.userAgent
-        },
-        body: 'grant_type=client_credentials'
-      });
+      const response = await fetch(
+        `${SUPABASE_URL}/functions/v1/reddit-oauth`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            endpoint: '/oauth/token',
+            userAgent: this.userAgent
+          })
+        }
+      );
 
       if (!response.ok) {
-        throw new Error(`Reddit OAuth failed: ${response.status} ${response.statusText}`);
+        const errorText = await response.text();
+        console.error('[RedditAPI] Edge Function error:', response.status, errorText);
+        throw new Error(`Edge Function failed: ${response.status}`);
       }
 
       const data = await response.json();
 
+      if (!data.success) {
+        throw new Error(data.error || 'Unknown error from Edge Function');
+      }
+
       this.accessToken = {
-        accessToken: data.access_token,
-        tokenType: data.token_type,
-        expiresIn: data.expires_in,
+        accessToken: data.accessToken,
+        tokenType: data.tokenType,
+        expiresIn: data.expiresIn,
         scope: data.scope,
-        expiresAt: Date.now() + (data.expires_in * 1000) - 60000 // 1 min buffer
+        expiresAt: Date.now() + (data.expiresIn * 1000) - 60000 // 1 min buffer
       };
 
-      console.log('[RedditAPI] ✅ Access token obtained, expires in', data.expires_in, 'seconds');
+      console.log('[RedditAPI] ✅ Access token obtained via Edge Function, expires in', data.expiresIn, 'seconds');
 
       return this.accessToken.accessToken;
     } catch (error) {
@@ -159,35 +178,58 @@ export class RedditAPI {
   }
 
   /**
-   * Make authenticated API request
+   * Make authenticated API request (via Supabase Edge Function to avoid CORS)
+   * Falls back to public API if auth fails
    */
   private async fetchAPI(endpoint: string, useAuth = true): Promise<any> {
-    const url = useAuth
-      ? `https://oauth.reddit.com${endpoint}`
-      : `https://www.reddit.com${endpoint}.json`;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    const headers: Record<string, string> = {
-      'User-Agent': this.userAgent
-    };
-
-    if (useAuth) {
-      const token = await this.getAccessToken();
-      headers['Authorization'] = `Bearer ${token}`;
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration missing');
     }
 
     try {
-      const response = await fetch(url, { headers });
-
-      if (!response.ok) {
-        // If auth fails, try public API
-        if (useAuth && response.status === 403) {
-          console.warn('[RedditAPI] Auth failed, falling back to public API');
-          return this.fetchAPI(endpoint, false);
+      let accessToken = '';
+      if (useAuth) {
+        try {
+          accessToken = await this.getAccessToken();
+        } catch (authError) {
+          console.warn('[RedditAPI] OAuth failed, falling back to public API:', authError);
+          useAuth = false; // Fall back to public API
         }
-        throw new Error(`Reddit API error: ${response.status}`);
       }
 
-      return await response.json();
+      const response = await fetch(
+        `${SUPABASE_URL}/functions/v1/reddit-oauth`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            endpoint,
+            accessToken,
+            userAgent: this.userAgent,
+            useAuth
+          })
+        }
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('[RedditAPI] Edge Function error:', response.status, errorText);
+        throw new Error(`Edge Function failed: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (!result.success) {
+        throw new Error(result.error || 'Unknown error from Edge Function');
+      }
+
+      return result.data;
     } catch (error) {
       console.error('[RedditAPI] Fetch error:', error);
       throw error;

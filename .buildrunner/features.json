@@ -2,11 +2,85 @@
   "project": "synapse-smb-platform",
   "version": "1.0.0",
   "status": "in_progress",
-  "last_updated": "2025-11-14T00:00:00Z",
-  "description": "Synapse SMB Platform - Fast, intelligent SMB onboarding combining smart UVP wizard with content automation. 3-minute onboarding → 1-minute content generation → automated scheduling to SocialPilot.",
+  "last_updated": "2025-11-15T00:00:00Z",
+  "description": "Synapse SMB Platform - UVP-first intelligent onboarding with 20+ source business intelligence. Smart UVP wizard → product/service detection → YouTube content analysis → social media intelligence → campaign generation with Bannerbear templates → auto-scheduling to SocialPilot. 3-minute onboarding → AI-powered campaigns → 1-click deployment.",
   "repository": "https://github.com/DockeryAI/synapse",
   "local_path": "~/Projects/Synapse",
   "features": [
+    {
+      "id": "authentication-authorization",
+      "name": "User Authentication & Admin Access",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Complete authentication system with user sign up, login, session management, and admin access. Users can create accounts, save their profiles, and return anytime. Admin account (admin@dockeryai.com) can access any user session for support and monitoring.",
+      "components": [
+        "components/auth/LoginPage.tsx",
+        "components/auth/SignUpPage.tsx",
+        "components/auth/ProtectedRoute.tsx",
+        "components/auth/AdminDashboard.tsx",
+        "components/auth/UserSessionViewer.tsx",
+        "services/auth.service.ts",
+        "services/admin.service.ts"
+      ],
+      "apis": [
+        "Supabase Auth"
+      ],
+      "database_tables": [
+        "users (Supabase auth.users)",
+        "user_profiles",
+        "user_sessions",
+        "admin_access_log"
+      ],
+      "lineOfCode": 0,
+      "features": [
+        "User sign up with email/password",
+        "User login with session persistence",
+        "Logout functionality",
+        "Protected routes (must be logged in)",
+        "Profile persistence per user",
+        "Admin login (admin@dockeryai.com / admin123)",
+        "Admin dashboard to view all users",
+        "Admin can impersonate/view any user session",
+        "Admin access logging",
+        "Password reset flow",
+        "Email verification"
+      ],
+      "authentication": {
+        "provider": "Supabase Auth",
+        "features": [
+          "Email/password authentication",
+          "Session management",
+          "Row Level Security (RLS) policies",
+          "JWT token handling",
+          "Automatic token refresh"
+        ]
+      },
+      "adminAccess": {
+        "email": "admin@dockeryai.com",
+        "password": "admin123",
+        "capabilities": [
+          "View all user accounts",
+          "View any user's business profile",
+          "View any user's campaigns",
+          "Access user sessions (read-only)",
+          "View system analytics",
+          "Access logs for admin actions"
+        ]
+      },
+      "userExperience": {
+        "signup": "Email + password → Email verification → Auto-login → Onboarding wizard",
+        "login": "Email + password → Dashboard (or last page visited)",
+        "persistence": "All UVP data, products, campaigns saved to user account",
+        "multiDevice": "Login from anywhere, see your data"
+      },
+      "security": {
+        "passwordRequirements": "Min 8 characters, at least 1 number",
+        "sessionDuration": "7 days",
+        "adminAuditLog": "All admin access logged with timestamp and action",
+        "rlsPolicies": "Users can only access their own data (except admin)"
+      }
+    },
     {
       "id": "universal-url-parser",
       "name": "Universal URL Parser",
@@ -109,32 +183,1110 @@
     },
     {
       "id": "enhanced-uvp-wizard",
-      "name": "Enhanced UVP Wizard with Evidence",
+      "name": "Intelligence-Driven UVP Wizard 2.0",
+      "status": "pending",
+      "version": "2.0.0",
+      "priority": "critical",
+      "description": "AI-powered UVP wizard that auto-discovers business intelligence from 20+ sources before user sees a single question. Pre-populates products/services, customer transformations, differentiation, and proof points from website, YouTube, social media, reviews, and competitive data. User validates/tweaks instead of writing from scratch. 80% validation, 20% input. 5 minutes vs 20+ minutes traditional.",
+      "components": [
+        "components/uvp-wizard/IntelligentUVPWizard.tsx",
+        "components/uvp-wizard/PreDiscoveryLoader.tsx",
+        "components/uvp-wizard/TransformationSelector.tsx",
+        "components/uvp-wizard/DifferentiationOptions.tsx",
+        "components/uvp-wizard/ProofPointSelector.tsx",
+        "components/uvp-wizard/PatternRecognition.tsx",
+        "services/uvp-intelligence.service.ts",
+        "services/transformation-extractor.service.ts",
+        "services/differentiation-analyzer.service.ts"
+      ],
+      "apis": [
+        "Website Analyzer (messaging, testimonials, case studies)",
+        "Apify (product/service pages, pricing)",
+        "YouTube Data API (video themes, comments, transformations)",
+        "Social Media Intelligence (bios, posts, engagement)",
+        "OutScraper (review transformations, before/after stories)",
+        "Competitive Intelligence (gap analysis)",
+        "SEMrush (keyword opportunities, positioning)",
+        "OpenRouter (pattern recognition, suggestion generation)"
+      ],
+      "database_tables": [
+        "uvp_intelligence",
+        "transformation_patterns",
+        "differentiation_signals",
+        "proof_points",
+        "detected_products",
+        "detected_services"
+      ],
+      "lineOfCode": 0,
+      "fourStepProcess": {
+        "step1": {
+          "name": "Smart Business Discovery",
+          "autoPopulated": [
+            "Company description (website About page)",
+            "Products/services (navigation, services page)",
+            "Target audience (hero text)",
+            "Social bios (LinkedIn, Facebook, Instagram)",
+            "Mission statement"
+          ],
+          "userAction": "Check boxes for correct items, add any missing",
+          "timeEstimate": "1 minute"
+        },
+        "step2": {
+          "name": "Customer Transformation Discovery",
+          "intelligence": [
+            "Website testimonials (before/after language)",
+            "YouTube comments (customer pain points)",
+            "Reviews (transformation stories)",
+            "Social media success posts",
+            "Case study results"
+          ],
+          "userAction": "Select primary transformation from 3-5 options",
+          "timeEstimate": "1 minute"
+        },
+        "step3": {
+          "name": "Differentiation with Proof",
+          "dataSources": [
+            "Competitive gaps (what they don't offer)",
+            "SEMrush keyword opportunities",
+            "Review themes (what customers love)",
+            "YouTube unique content",
+            "Social voice analysis"
+          ],
+          "userAction": "Pick top 3 differentiators from suggestions",
+          "timeEstimate": "2 minutes"
+        },
+        "step4": {
+          "name": "Evidence Selection",
+          "autoGathered": [
+            "Years in business (website)",
+            "Subscriber/follower counts (social/YouTube)",
+            "Review ratings and count",
+            "Client logos, testimonials",
+            "Certifications, awards",
+            "Engagement metrics"
+          ],
+          "userAction": "Check boxes for proof to emphasize",
+          "timeEstimate": "1 minute"
+        }
+      },
+      "patternRecognition": [
+        "Transformation: Website 'streamline' + Reviews 'saved time' + Social 'efficiency' = Time transformation",
+        "Differentiation: Website 'local' + Reviews 'knows our area' + Social local hashtags = Local expert",
+        "Authority: YouTube tutorials + Website resources + Social Q&A = Education-based authority",
+        "Service Priority: Most reviewed service = Core offering",
+        "Hidden Gems: High-rated but undermarketed services"
+      ],
+      "features": [
+        "Pre-discovery intelligence gathering (runs before wizard starts)",
+        "Smart auto-population from 20+ data sources",
+        "Pattern recognition across all intelligence",
+        "Transformation-based messaging (vs feature-based)",
+        "Data-driven differentiation options",
+        "Automatic proof point gathering",
+        "Service-transformation mapping",
+        "Competitive gap integration",
+        "Voice-of-customer language extraction",
+        "Review sentiment analysis",
+        "YouTube content theme detection",
+        "Social media voice analysis",
+        "Real-time evidence citations",
+        "Interactive validation workflow",
+        "5-minute completion time"
+      ],
+      "keyInnovations": [
+        "80% less typing (validation vs creation)",
+        "10x more relevant (data-driven vs guessing)",
+        "Reflects reality (what customers say) not aspiration",
+        "UVP emerges from data patterns",
+        "Transformation-focused (before/after) not feature lists",
+        "Proof-backed differentiation"
+      ]
+    },
+    {
+      "id": "product-service-intelligence",
+      "name": "Product/Service Intelligence Scanner",
       "status": "pending",
       "version": "1.0.0",
       "priority": "critical",
-      "description": "Interactive UVP building wizard with real-time evidence citations showing where each suggestion came from. 'Found on your About page', 'Mentioned 47 times on your site', etc.",
+      "description": "Automatically scans customer websites to extract products, services, pricing tiers, and promotional offers. Maps each to content pillars for targeted promotional campaigns. Runs during UVP wizard as background process.",
       "components": [
-        "components/uvp-wizard/EnhancedUVPWizard.tsx",
-        "components/uvp-wizard/screens/SimpleWizardStepScreen.tsx",
-        "components/uvp-wizard/EvidenceTag.tsx"
+        "services/product-scanner.service.ts",
+        "services/service-mapper.service.ts",
+        "services/promotional-detector.service.ts"
       ],
       "apis": [
-        "OpenRouter (suggestion generation)"
+        "Apify (page scraping)",
+        "OpenRouter (product classification)"
       ],
       "database_tables": [
-        "uvp_suggestions",
-        "evidence_citations"
+        "products",
+        "services",
+        "pricing_tiers",
+        "promotional_offers"
+      ],
+      "lineOfCode": 0,
+      "capabilities": [
+        "Scrape service/product pages",
+        "Extract pricing and SKUs",
+        "Detect seasonal products",
+        "Identify promotional offers",
+        "Map products to content pillars",
+        "Generate promotional hooks",
+        "Service tier classification"
+      ]
+    },
+    {
+      "id": "social-media-analyzer",
+      "name": "Social Media Intelligence & Content Analyzer",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Comprehensive social media analysis combining YouTube content intelligence, light social scraping, SocialPilot metadata, and learning loop from generated content. Analyzes what topics work, optimal timing, content patterns, and continuously improves based on campaign performance.",
+      "components": [
+        "services/social-analyzer.service.ts",
+        "services/youtube-content-analyzer.service.ts",
+        "services/social-scraper.service.ts",
+        "services/engagement-pattern-detector.service.ts",
+        "services/content-learning-loop.service.ts",
+        "components/analytics/SocialPerformanceInsights.tsx",
+        "components/analytics/YouTubeInsights.tsx",
+        "components/social/YouTubeConnection.tsx"
+      ],
+      "apis": [
+        "YouTube Data API v3 (full access)",
+        "SocialPilot API (metadata)",
+        "Apify (light social scraping)",
+        "OutScraper (Google Business reviews - content focus)"
+      ],
+      "database_tables": [
+        "social_performance_data",
+        "engagement_patterns",
+        "optimal_posting_times",
+        "youtube_channels",
+        "youtube_video_performance",
+        "social_content_samples",
+        "content_performance_tracking",
+        "learning_insights"
+      ],
+      "lineOfCode": 0,
+      "capabilities": [
+        "YouTube content analysis (videos, engagement, topics, keywords)",
+        "Light public social scraping (FB, IG - 10-20 recent posts)",
+        "SocialPilot metadata analysis (timing, format, frequency)",
+        "Google Business review content mining",
+        "Generated content performance tracking",
+        "Topic/keyword effectiveness analysis",
+        "Continuous learning loop",
+        "Content repurposing recommendations"
+      ],
+      "youtubeAnalysis": {
+        "features": [
+          "Full video history scan (last 100 videos)",
+          "Engagement pattern detection (views/day, likes/views)",
+          "Top-performing topic identification",
+          "Keyword extraction from titles/descriptions",
+          "Caption/transcript analysis (if available)",
+          "Comment mining for audience questions",
+          "Posting frequency and timing analysis",
+          "Video thumbnail analysis",
+          "Content repurposing suggestions"
+        ],
+        "outputs": [
+          "Top 10 performing videos",
+          "Winning topics and themes",
+          "High-value keywords",
+          "Audience questions from comments",
+          "Optimal posting days/times",
+          "Content gap analysis"
+        ]
+      },
+      "socialScraping": {
+        "platforms": ["Facebook (public pages)", "Instagram (public business)", "Twitter/X (public)"],
+        "limitations": "10-20 recent posts, public data only, graceful degradation if blocked",
+        "extracted": [
+          "Post text/captions",
+          "Hashtags used",
+          "Post types (image, video, link)",
+          "Engagement counts (likes, comments, shares)",
+          "Posting frequency patterns",
+          "Brand voice samples"
+        ]
+      },
+      "learningLoop": {
+        "description": "Tracks performance of all generated content to continuously improve",
+        "process": [
+          "Generate campaign content",
+          "Schedule via SocialPilot",
+          "Track engagement metrics",
+          "Analyze what worked (Authority vs Promotional vs Educational)",
+          "Feed insights back into next campaign",
+          "Improve content quality over time"
+        ],
+        "metrics": [
+          "Content type performance (7 types tracked)",
+          "Topic effectiveness",
+          "Tone/voice resonance",
+          "CTA conversion patterns",
+          "Platform-specific optimization"
+        ]
+      },
+      "insights": [
+        "YouTube: 'How-to' videos get 3x more views - create social posts on these topics",
+        "Reviews: Customers mention 'fast service' 47x - use in content",
+        "Facebook: Last 10 posts used #localbusiness - continue pattern",
+        "Generated: Educational posts get 2x engagement vs promotional",
+        "Timing: Tuesday 2pm posts perform best across platforms",
+        "Format: Image posts get 45% more engagement than links",
+        "Opportunity: Competitors post about X but you don't - gap to fill"
+      ],
+      "contentEnhancement": [
+        "Mirror existing brand voice from scraped samples",
+        "Address pain points from review analysis",
+        "Repurpose top YouTube topics into social posts",
+        "Fill competitive content gaps",
+        "Use winning hashtags and keywords",
+        "Optimize posting schedule based on all data sources"
+      ]
+    },
+    {
+      "id": "perplexity-local-intelligence",
+      "name": "Perplexity Local Intelligence & Events",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Real-time local event discovery and community intelligence using Perplexity API. Powers Local Pulse campaigns with timely, location-specific content opportunities including festivals, community events, local news, and trending topics.",
+      "components": [
+        "services/perplexity-local.service.ts",
+        "services/local-event-detector.service.ts",
+        "components/local/EventOpportunities.tsx"
+      ],
+      "apis": [
+        "Perplexity API (local search and events)"
+      ],
+      "database_tables": [
+        "local_events",
+        "local_news",
+        "event_opportunities"
+      ],
+      "lineOfCode": 0,
+      "capabilities": [
+        "Real-time local event discovery",
+        "Community news monitoring",
+        "Festival and celebration detection",
+        "Local cause and charity identification",
+        "Seasonal trend tracking",
+        "Neighborhood-specific insights"
+      ],
+      "useCases": [
+        "Discover upcoming local festivals for partnership opportunities",
+        "Monitor community news for relevant engagement topics",
+        "Identify local causes for business support",
+        "Detect trending local topics for timely content",
+        "Find seasonal events specific to location"
+      ],
+      "integrationPoints": {
+        "localPulseCampaign": "Primary data source for Local Pulse campaign type",
+        "contentGenerator": "Feeds timely local angles into all campaigns",
+        "weatherData": "Combines with weather for hyper-local relevance"
+      },
+      "examples": [
+        "Detected: 'Annual Food Festival this weekend' → Generate: 'Join us before/after the festival!'",
+        "Detected: 'Local charity drive for shelter' → Generate: 'Proud to support [charity name]'",
+        "Detected: 'Record snowfall expected' → Generate: 'Stay warm with our cozy [product/service]'"
+      ],
+      "mvpFeature": true
+    },
+    {
+      "id": "competitive-intelligence-integration",
+      "name": "Competitive Intelligence Integration (MVP)",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Integration of existing Competitive Intelligence Service into campaign generation. Uses Serper, SEMrush, Apify, and Website Analyzer to identify competitor gaps, messaging opportunities, and content differentiation angles. Powers Competitor Crusher campaign type.",
+      "components": [
+        "services/competitive-intelligence-integrator.service.ts",
+        "services/semrush-enhanced.service.ts",
+        "components/competitive/CompetitorGaps.tsx",
+        "components/competitive/KeywordOpportunities.tsx"
+      ],
+      "apis": [
+        "Competitive Intelligence Service (existing)",
+        "SEMrush (enhanced usage: keyword opportunities, quick wins, traffic comparison)",
+        "Serper (competitor rankings, news, videos)",
+        "Apify (competitor reviews, website content)",
+        "Website Analyzer (competitor messaging)"
+      ],
+      "database_tables": [
+        "competitor_profiles",
+        "keyword_opportunities",
+        "content_gaps",
+        "competitive_insights"
+      ],
+      "lineOfCode": 0,
+      "capabilities": [
+        "Competitor content gap analysis",
+        "SEMrush keyword opportunity detection (quick wins, high-value, long-term)",
+        "Competitor messaging extraction and analysis",
+        "Market positioning insights",
+        "Counter-messaging suggestions",
+        "Differentiation angle generation"
+      ],
+      "semrushEnhancements": {
+        "newMethods": [
+          "getKeywordOpportunities() - Identifies quick wins (position 11-20), high-value keywords (high volume, low rank), long-term opportunities",
+          "getDomainOverview() - Authority score, backlinks, competitive strength",
+          "getDetailedKeywordMetrics() - Enriched rankings with trends and seasonality"
+        ],
+        "currentlyUsed": "Basic keyword rankings only",
+        "mvpAddition": "Full keyword opportunity suite for gap identification"
+      },
+      "integrationPoints": {
+        "competitorCrusherCampaign": "Primary intelligence source",
+        "allCampaigns": "Injects differentiation angles into every campaign type",
+        "contentGenerator": "Feeds gap-filling content suggestions"
+      },
+      "outputs": [
+        "Content gaps competitors aren't covering",
+        "Messaging opportunities to stand out",
+        "Keywords to target (quick wins + long-term)",
+        "Counter-messaging angles",
+        "Unique value propositions relative to competition"
+      ],
+      "mvpFeature": true,
+      "existingCode": "Competitive Intelligence Service already built at src/services/intelligence/competitive-intelligence.service.ts - just needs integration into campaign flow"
+    },
+    {
+      "id": "campaign-generator",
+      "name": "AI Campaign Generation Engine",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Generates complete content campaigns combining UVP, products/services, YouTube content intelligence, social insights, local intelligence, and competitive intelligence. Offers 4 strategic campaign types in MVP with AI suggestions based on business goals. Uses all 20+ data sources including Perplexity for local events and Competitive Intelligence Service for gap analysis. One-click deployment to SocialPilot.",
+      "components": [
+        "services/campaign-generator.service.ts",
+        "services/campaign-optimizer.service.ts",
+        "services/campaign-suggester.service.ts",
+        "components/campaigns/CampaignBuilder.tsx",
+        "components/campaigns/CampaignPreview.tsx",
+        "components/campaigns/CampaignSelector.tsx",
+        "components/campaigns/CampaignTypeCards.tsx"
+      ],
+      "apis": [
+        "OpenRouter (campaign content generation)",
+        "SocialPilot (scheduling)",
+        "Perplexity API (local events)",
+        "SEMrush (keyword opportunities, competitor gaps)",
+        "Competitive Intelligence Service (existing - now integrated)"
+      ],
+      "database_tables": [
+        "campaigns",
+        "campaign_posts",
+        "campaign_templates",
+        "campaign_performance"
+      ],
+      "lineOfCode": 0,
+      "mvpCampaignTypes": [
+        {
+          "type": "Authority Builder",
+          "goal": "Build industry expertise and thought leadership",
+          "dataSources": [
+            "DeepContext (Reddit, News, Reviews)",
+            "YouTube content analysis",
+            "Industry-specific insights"
+          ],
+          "triggers": [
+            "Default for new users",
+            "AI suggests for service businesses",
+            "User selects 'establish expertise' goal"
+          ],
+          "contentMix": "Educational posts, industry insights, expertise demonstration, thought leadership",
+          "idealFor": "Professional services, consultants, B2B companies",
+          "duration": "30 days",
+          "postCount": "20-30 posts"
+        },
+        {
+          "type": "Local Pulse",
+          "goal": "Drive local traffic and community engagement",
+          "dataSources": [
+            "Perplexity API (local events)",
+            "Weather patterns",
+            "Local news",
+            "Google Reviews (community feedback)"
+          ],
+          "triggers": [
+            "AI detects local business (brick-and-mortar)",
+            "User selects 'local focus' goal",
+            "High local search intent detected"
+          ],
+          "contentMix": "Event tie-ins, community involvement, seasonal relevance, local partnerships",
+          "idealFor": "Restaurants, retail, local services, franchises",
+          "duration": "30 days",
+          "postCount": "20-30 posts",
+          "examples": [
+            "Join us at [local festival detected by Perplexity]",
+            "Supporting [local cause from news]",
+            "[Weather]-inspired special offer"
+          ]
+        },
+        {
+          "type": "Social Proof",
+          "goal": "Build trust and credibility",
+          "dataSources": [
+            "Google Reviews analysis",
+            "Testimonials extraction",
+            "Customer success stories",
+            "Case study patterns"
+          ],
+          "triggers": [
+            "Low trust score detected",
+            "New businesses (<2 years)",
+            "User selects 'build credibility' goal",
+            "High competition detected"
+          ],
+          "contentMix": "Review highlights, customer stories, testimonials, before/after transformations",
+          "idealFor": "New businesses, high-consideration purchases, competitive markets",
+          "duration": "30 days",
+          "postCount": "15-25 posts"
+        },
+        {
+          "type": "Competitor Crusher",
+          "goal": "Fill content gaps and differentiate from competitors",
+          "dataSources": [
+            "Competitive Intelligence Service (already built)",
+            "SEMrush keyword gap analysis",
+            "Competitor content patterns",
+            "Market opportunity detection"
+          ],
+          "triggers": [
+            "AI detects competitors during onboarding",
+            "User requests 'beat competitors' goal",
+            "SEMrush identifies keyword opportunities",
+            "Content gaps discovered"
+          ],
+          "contentMix": "Gap-filling content, counter-messaging, differentiation posts, unique value emphasis",
+          "idealFor": "Competitive markets, established businesses, differentiation needs",
+          "duration": "30 days",
+          "postCount": "20-30 posts",
+          "examples": [
+            "Unlike [competitor trend], we believe in [unique angle]",
+            "Addressing the [pain point competitors ignore]",
+            "Why we don't [common competitor practice]"
+          ],
+          "intelligenceSources": [
+            "Serper (competitor rankings, news, videos)",
+            "SEMrush (keyword gaps, traffic comparison, quick wins)",
+            "Apify (competitor reviews, website content)",
+            "Website Analyzer (competitor messaging)"
+          ]
+        }
+      ],
+      "userExperience": {
+        "onboarding": "Simple question: 'What's your primary goal?' → Build authority / Drive local traffic / Build trust / Beat competitors",
+        "aiSuggestion": "Based on business type + location + goals, AI recommends best campaign type",
+        "campaignSelection": "Card-based UI showing all 4 types with descriptions, ideal use cases, and estimated results",
+        "preview": "See sample posts before deployment",
+        "deployment": "One-click publish to SocialPilot calendar"
+      },
+      "aiSuggestionLogic": {
+        "mvp": "Rule-based: If restaurant → Local Pulse, If consultant → Authority Builder, If new business → Social Proof, If competitors detected → Competitor Crusher",
+        "future": "ML-based performance predictions, multi-campaign orchestration, automatic campaign switching"
+      },
+      "durationOptions": [
+        {
+          "type": "Quick Win",
+          "duration": "7 days",
+          "postCount": "7-14 posts",
+          "description": "Test a campaign type with low commitment"
+        },
+        {
+          "type": "Standard",
+          "duration": "30 days",
+          "postCount": "20-30 posts",
+          "description": "Full month coverage (default for MVP)"
+        },
+        {
+          "type": "Extended",
+          "duration": "90 days",
+          "postCount": "60-90 posts",
+          "description": "Long-term evergreen content library"
+        }
+      ],
+      "contentTypes": [
+        "Authority Posts (UVP-based)",
+        "Local Event Tie-ins (Perplexity)",
+        "Problem/Solution Series (review insights)",
+        "Competitor Gap Content (Competitive Intelligence)",
+        "Social Proof Amplification (reviews)",
+        "Educational Series (industry expertise)",
+        "Seasonal/Weather Content (local relevance)"
+      ],
+      "integrations": {
+        "perplexity": "Real-time local event discovery, community news, trending local topics",
+        "competitiveIntelligence": "Existing service now fully integrated - competitor profiling, gap analysis, opportunity detection",
+        "semrush": "Enhanced usage - keyword opportunities (quick wins, high-value, long-term), domain authority, keyword trends",
+        "socialPilot": "Auto-scheduling with optimal timing based on performance data"
+      }
+    },
+    {
+      "id": "bannerbear-templates",
+      "name": "Bannerbear Universal Template System",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "Industry-agnostic visual template system using Bannerbear API. Auto-populates templates with business data, adapts visual elements based on industry, and generates multi-platform versions (1:1, 16:9, 9:16). Reusable across all campaigns.",
+      "components": [
+        "services/bannerbear.service.ts",
+        "services/template-adapter.service.ts",
+        "components/templates/TemplateSelector.tsx",
+        "components/templates/TemplatePreview.tsx"
+      ],
+      "apis": [
+        "Bannerbear API"
+      ],
+      "database_tables": [
+        "template_library",
+        "generated_visuals"
+      ],
+      "lineOfCode": 0,
+      "templateVariables": [
+        "{business_name}",
+        "{specialty}",
+        "{location}",
+        "{offer}",
+        "{pain_point}",
+        "{testimonial}",
+        "{stat}",
+        "{cta}"
+      ],
+      "visualLayers": [
+        "Background (industry-specific colors)",
+        "Logo placement",
+        "Icon adaptation (auto-detected)",
+        "CTA button",
+        "Text blocks",
+        "Image overlays"
+      ],
+      "templateTypes": [
+        "Testimonial cards",
+        "Service grids",
+        "Before/after comparisons",
+        "Statistics showcase",
+        "Quote graphics",
+        "Promotional offers",
+        "Educational infographics"
+      ]
+    },
+    {
+      "id": "video-editor-multi-platform",
+      "name": "Multi-Platform Video Editor with Auto-Formatting",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Browser-based video editor comparable to TikTok/Instagram capabilities with automatic platform formatting. Trim, add text overlays, music, transitions, filters, auto-captions. One video automatically formatted for all major platforms (9:16, 16:9, 1:1, 4:5). Uses open-source stack (FFmpeg, Remotion) for zero monthly costs.",
+      "components": [
+        "components/video/VideoEditor.tsx",
+        "components/video/VideoTimeline.tsx",
+        "components/video/TextOverlayEditor.tsx",
+        "components/video/FilterSelector.tsx",
+        "components/video/PlatformFormatter.tsx",
+        "components/video/AutoCaptionGenerator.tsx",
+        "services/video/video-processing.service.ts",
+        "services/video/platform-optimizer.service.ts",
+        "services/video/auto-caption.service.ts"
+      ],
+      "apis": [
+        "Whisper API (free, OpenAI) - Auto-transcription",
+        "Pexels API (free) - Stock footage/music"
+      ],
+      "database_tables": [
+        "video_projects",
+        "video_exports",
+        "video_templates"
+      ],
+      "lineOfCode": 0,
+      "mvpFeatures": [
+        "Trim and cut clips",
+        "Text overlays with animations",
+        "Music/audio overlay",
+        "Transitions (fade, slide, zoom)",
+        "Filters and effects",
+        "Speed control (slow-mo, time-lapse)",
+        "Stickers and emojis",
+        "Auto-generated captions",
+        "Platform auto-formatting (9:16, 16:9, 1:1, 4:5)",
+        "Safe zone overlays",
+        "Batch export for all platforms",
+        "Watermark management",
+        "Direct export to SocialPilot"
+      ],
+      "platformFormats": [
+        {
+          "platform": "LinkedIn",
+          "aspectRatio": "16:9 or 1:1",
+          "maxDuration": "10 minutes",
+          "subtitles": "Bottom third"
+        },
+        {
+          "platform": "Instagram Feed",
+          "aspectRatio": "1:1",
+          "maxDuration": "60 seconds",
+          "subtitles": "Bottom with extra padding"
+        },
+        {
+          "platform": "Instagram Reel",
+          "aspectRatio": "9:16",
+          "maxDuration": "90 seconds",
+          "subtitles": "Center-bottom"
+        },
+        {
+          "platform": "TikTok",
+          "aspectRatio": "9:16",
+          "maxDuration": "10 minutes",
+          "subtitles": "Center-bottom with TikTok safe zones"
+        },
+        {
+          "platform": "YouTube Shorts",
+          "aspectRatio": "9:16",
+          "maxDuration": "60 seconds",
+          "subtitles": "Bottom third"
+        },
+        {
+          "platform": "Twitter",
+          "aspectRatio": "16:9",
+          "maxDuration": "2:20 minutes",
+          "subtitles": "Bottom"
+        },
+        {
+          "platform": "Facebook",
+          "aspectRatio": "1:1 or 16:9",
+          "maxDuration": "240 minutes",
+          "subtitles": "Bottom with padding"
+        }
+      ],
+      "techStack": {
+        "frontend": [
+          "FFmpeg.wasm (free) - Browser video processing",
+          "Remotion (free) - React-based video creation",
+          "VideoJS (free) - Video player",
+          "Canvas API (native) - Overlays and effects"
+        ],
+        "backend": [
+          "FFmpeg (free) - Core video processing",
+          "OpenCV (free) - Computer vision",
+          "Whisper (free) - Auto-transcription",
+          "MoviePy (free) - Video editing automation"
+        ]
+      },
+      "futureFeatures": [
+        "AI auto-editor (find best moments)",
+        "Scene detection and auto-cutting",
+        "Highlight extraction",
+        "Avatar generation",
+        "B-roll suggestion and insertion",
+        "Music beat matching",
+        "Performance prediction"
+      ],
+      "costAnalysis": {
+        "mvp": "$0/month (all open-source)",
+        "infrastructure": "$200/month (GPU server for processing)",
+        "storage": "$100/month (video file storage)",
+        "totalMVP": "$300/month"
+      }
+    },
+    {
+      "id": "long-form-content-generator",
+      "name": "Newsletter & Blog Content Generator",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "Convert campaign posts into full blog articles (500-2000 words) and newsletters. Email-optimized formatting, SEO basics, direct export to email platforms. Repurposes existing content for high-value long-form formats.",
+      "components": [
+        "components/content/BlogExpander.tsx",
+        "components/content/NewsletterBuilder.tsx",
+        "components/content/EmailPreview.tsx",
+        "services/content/long-form-generator.service.ts",
+        "services/content/newsletter-compiler.service.ts",
+        "services/content/email-export.service.ts"
+      ],
+      "apis": [
+        "OpenRouter (existing - content expansion)",
+        "Mailchimp API (optional export)",
+        "ConvertKit API (optional export)",
+        "Substack API (optional export)"
+      ],
+      "database_tables": [
+        "blog_articles",
+        "newsletters",
+        "newsletter_templates"
+      ],
+      "lineOfCode": 0,
+      "mvpFeatures": [
+        "Expand any campaign post to full blog article",
+        "Newsletter template builder (3-5 layouts)",
+        "Email-optimized formatting (mobile-friendly)",
+        "Weekly newsletter digest compiler",
+        "Basic subject line optimizer",
+        "Email client preview",
+        "SEO meta description generator",
+        "Direct export to email platforms",
+        "Newsletter draft management"
+      ],
+      "futureFeatures": [
+        "AI newsletter curator (auto-select top posts)",
+        "Personalization tokens",
+        "A/B subject line testing",
+        "Optimal send time detection",
+        "Click/open tracking integration",
+        "Content series generator",
+        "Internal linking suggestions",
+        "FAQ section auto-generation"
+      ],
+      "costAnalysis": {
+        "mvp": "$0/month (uses existing OpenRouter)",
+        "futureAPIs": "$0-50/month (email platform integrations)"
+      }
+    },
+    {
+      "id": "landing-page-lead-capture",
+      "name": "Landing Page Generator & Lead Capture",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "One-click landing page generation from business profile with 5 templates. Mobile-responsive, basic form builder, lead capture to database, email notifications. Instant professional web presence with lead generation capability.",
+      "components": [
+        "components/landing/LandingPageBuilder.tsx",
+        "components/landing/TemplateSelector.tsx",
+        "components/landing/FormBuilder.tsx",
+        "components/landing/LeadDashboard.tsx",
+        "services/landing/page-generator.service.ts",
+        "services/landing/lead-capture.service.ts"
+      ],
+      "apis": [
+        "None (self-hosted)"
+      ],
+      "database_tables": [
+        "landing_pages",
+        "landing_page_templates",
+        "leads",
+        "form_submissions"
+      ],
+      "lineOfCode": 0,
+      "mvpFeatures": [
+        "5 landing page templates (Service, Product, Event, Webinar, Download)",
+        "Auto-populate from business profile",
+        "Mobile-responsive design",
+        "Drag-and-drop form builder",
+        "Lead capture to database",
+        "Email notification on new leads",
+        "CSV export of leads",
+        "Thank you page with redirect",
+        "Host on Synapse subdomain or export HTML",
+        "UTM parameter tracking",
+        "Basic GDPR compliance (consent checkbox)"
+      ],
+      "templates": [
+        {
+          "name": "Service Landing Page",
+          "sections": ["Hero", "Benefits", "Features", "Testimonials", "CTA Form"]
+        },
+        {
+          "name": "Product Landing Page",
+          "sections": ["Hero", "Product Showcase", "Pricing", "Reviews", "CTA Form"]
+        },
+        {
+          "name": "Event Landing Page",
+          "sections": ["Hero", "Event Details", "Speakers", "Schedule", "Registration Form"]
+        },
+        {
+          "name": "Webinar Landing Page",
+          "sections": ["Hero", "What You'll Learn", "Host Bio", "Date/Time", "Registration Form"]
+        },
+        {
+          "name": "Download/Lead Magnet",
+          "sections": ["Hero", "What's Inside", "Preview", "Author Bio", "Download Form"]
+        }
+      ],
+      "futureFeatures": [
+        "Dynamic content based on traffic source",
+        "Heatmap integration",
+        "Exit-intent popups",
+        "Multi-step forms",
+        "Social proof widgets",
+        "A/B testing framework",
+        "Lead scoring",
+        "Company identification from IP",
+        "Auto-enrichment (LinkedIn lookup)",
+        "CRM webhooks (Salesforce, HubSpot)"
+      ],
+      "costAnalysis": {
+        "mvp": "$0/month (self-hosted on Supabase)",
+        "hosting": "Included in existing infrastructure"
+      }
+    },
+    {
+      "id": "seo-intelligence-optimizer",
+      "name": "SEO Intelligence & Content Optimizer",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "high",
+      "description": "SEMrush-powered SEO optimization for all content. Real-time SEO scoring, keyword optimization, local SEO domination, quick win finder. Every piece of content automatically optimized for search engines without requiring SEO knowledge.",
+      "components": [
+        "components/seo/SEOContentOptimizer.tsx",
+        "components/seo/LocalSEODominator.tsx",
+        "components/seo/QuickWinFinder.tsx",
+        "components/seo/SERPPreview.tsx",
+        "services/seo/content-optimizer.service.ts",
+        "services/seo/local-seo.service.ts",
+        "services/seo/keyword-finder.service.ts"
+      ],
+      "apis": [
+        "SEMrush API (enhanced usage)",
+        "OpenRouter (existing - content optimization)"
+      ],
+      "database_tables": [
+        "seo_keywords",
+        "keyword_rankings",
+        "seo_optimizations",
+        "local_seo_pages"
+      ],
+      "lineOfCode": 0,
+      "mvpFeatures": [
+        "Real-time SEO scoring for all content",
+        "Keyword density optimization (primary, secondary, LSI)",
+        "Meta title/description generator with SERP preview",
+        "Header structure optimization (H1, H2, H3)",
+        "Internal linking suggestions",
+        "Schema markup generator (automatic)",
+        "Local keyword injection (city, neighborhood, 'near me')",
+        "Location-specific landing page generator",
+        "NAP consistency checker (Name, Address, Phone)",
+        "Google My Business post generator",
+        "Quick win identifier (keywords ranking position 11-20)",
+        "Featured snippet opportunity finder",
+        "People Also Ask content generator",
+        "Low competition keyword alerts"
+      ],
+      "localSEOFeatures": [
+        "Auto-inject local modifiers to all content",
+        "Create location pages for each service area",
+        "Generate directions content",
+        "Local schema markup",
+        "Review-based SEO content",
+        "Local event content optimizer (from Perplexity)"
+      ],
+      "quickWins": [
+        "Identify page 2 keywords (position 11-20)",
+        "Auto-generate content to push to page 1",
+        "Featured snippet opportunities",
+        "People Also Ask boxes",
+        "Low-hanging fruit keywords"
+      ],
+      "futureFeatures": [
+        "Content refresh engine (monitor ranking drops)",
+        "Seasonal content updater",
+        "Competitor content monitoring",
+        "Backlink opportunity finder",
+        "Technical SEO monitor",
+        "Topic cluster builder",
+        "SERP feature dominator",
+        "AI SEO strategist (predictive ranking)"
+      ],
+      "semrushAPIs": {
+        "mvp": [
+          "Keyword Magic Tool API - Find variations",
+          "Keyword Difficulty API - Pick winnable keywords",
+          "Keyword Rankings API - Track progress",
+          "Topic Research API - Content ideas with search volume",
+          "SEO Content Template API - Optimization guidelines",
+          "On-Page SEO Checker API - Real-time optimization",
+          "Local Pack Tracker - Track local rankings"
+        ],
+        "phase2": [
+          "Backlink Analytics API - Find link opportunities",
+          "Backlink Audit API - Monitor link profile",
+          "Site Audit API - Technical SEO issues",
+          "Core Web Vitals API - Google ranking factors"
+        ]
+      },
+      "costAnalysis": {
+        "mvp": "$50-100/month (enhanced SEMrush usage)",
+        "phase2": "$200/month (full SEMrush suite)",
+        "value": "Replace $1,000-3,000/month SEO agency"
+      },
+      "businessImpact": {
+        "smbs": "50% of mobile searches are local - capture 'near me' traffic",
+        "influencers": "Build topic authority, rank for personal brand, passive traffic from search",
+        "savings": "$12,000-36,000/year vs hiring SEO agency"
+      }
+    },
+    {
+      "id": "industry-profile-auto-generation",
+      "name": "Dynamic Industry Profile Auto-Generation",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Automatically detects and generates comprehensive industry profiles for unknown industries using Claude Opus. NAICS code detection with user confirmation, real-time progress tracking during 2-3 minute profile build, permanent database storage. Eliminates manual profile creation.",
+      "components": [
+        "services/industry-profile-generator.service.ts",
+        "services/naics-detector.service.ts",
+        "components/industry/ProfileGenerationProgress.tsx",
+        "components/industry/NAICSConfirmation.tsx"
+      ],
+      "apis": [
+        "OpenRouter (Opus for profile generation)"
+      ],
+      "database_tables": [
+        "industry_profiles",
+        "naics_codes",
+        "naics_mappings",
+        "profile_generation_queue"
+      ],
+      "lineOfCode": 0,
+      "workflow": [
+        {
+          "step": 1,
+          "name": "Industry Input & Detection",
+          "description": "User enters industry → Query database for NAICS match",
+          "scenarios": [
+            "NAICS found + profile exists → Load immediately",
+            "NAICS found + no profile → Generate profile",
+            "No NAICS found → Detect NAICS code"
+          ]
+        },
+        {
+          "step": 2,
+          "name": "NAICS Discovery",
+          "description": "Use Opus to analyze industry and suggest NAICS code → User confirms or corrects → Save mapping to database"
+        },
+        {
+          "step": 3,
+          "name": "Profile Generation",
+          "description": "Real-time progress UI with 8 research phases, estimated completion time, live status updates"
+        },
+        {
+          "step": 4,
+          "name": "Permanent Storage",
+          "description": "Save complete profile to database with metadata → Available for all future users in this industry"
+        }
+      ],
+      "profileSections": [
+        "Industry Overview (10-15s)",
+        "Target Demographics (15-20s)",
+        "Competitive Landscape (20-25s)",
+        "Customer Psychology & Pain Points (25-30s)",
+        "Content Pillars & Topics (20-25s)",
+        "Seasonal Trends & Events (15-20s)",
+        "Platform Preferences (10-15s)",
+        "Messaging Framework (15-20s)"
+      ],
+      "userExperience": [
+        "Modal overlay with progress bar",
+        "Real-time section-by-section updates",
+        "Time elapsed and ETA display",
+        "Visual icons for each research phase",
+        "Confetti celebration on completion",
+        "Option to customize profile after generation"
+      ],
+      "edgeCases": [
+        "Multiple users requesting same industry → Queue system",
+        "Opus API failure → Retry logic with partial progress save",
+        "User abandons → Background completion with notification",
+        "Incorrect NAICS → Allow re-run with different code"
+      ]
+    },
+    {
+      "id": "business-profile-management",
+      "name": "Business Profile Management & Product Campaign Selection",
+      "status": "pending",
+      "version": "1.0.0",
+      "priority": "critical",
+      "description": "Persistent storage and management of UVP, products, services, and promotional offers. Full CRUD interface for manual editing, product selection for targeted campaigns, website re-scan with diff view, version history with rollback. Enables product-specific campaign generation.",
+      "components": [
+        "components/profile/BusinessProfileDashboard.tsx",
+        "components/profile/ProductEditor.tsx",
+        "components/profile/ServiceEditor.tsx",
+        "components/profile/UVPEditor.tsx",
+        "components/profile/ProductSelector.tsx",
+        "components/profile/WebsiteRescan.tsx",
+        "components/profile/VersionHistory.tsx"
+      ],
+      "apis": [
+        "Apify (re-scan functionality)"
+      ],
+      "database_tables": [
+        "business_profiles",
+        "products",
+        "services",
+        "promotional_offers",
+        "profile_versions",
+        "profile_changes_log"
       ],
       "lineOfCode": 0,
       "features": [
-        "Step-by-step UVP building",
-        "Real-time evidence citations",
-        "AI-powered suggestions",
-        "Interactive editing",
-        "Progress tracking",
-        "Preview mode"
-      ]
+        "UVP data persistence and editing",
+        "Product/service CRUD operations",
+        "Promotional offer management",
+        "Website re-scan with diff view",
+        "Manual product/service additions",
+        "Bulk product selection for campaigns",
+        "Category-based campaign creation",
+        "Change tracking and version history",
+        "Rollback to previous versions",
+        "Evidence citation preservation"
+      ],
+      "productManagement": {
+        "fields": [
+          "Name",
+          "Description",
+          "SKU",
+          "Price",
+          "Category",
+          "Status (Active/Inactive)",
+          "Promotional flags (Featured, On Sale, Seasonal)",
+          "Source (auto-detected vs manual)"
+        ],
+        "bulkActions": [
+          "Mark active/inactive",
+          "Delete selected",
+          "Create campaign from selected",
+          "Export product list"
+        ]
+      },
+      "campaignSelection": {
+        "selectionModes": [
+          "Single product campaign",
+          "Multi-product campaign (user selects)",
+          "Category-based campaign",
+          "All products campaign"
+        ],
+        "campaignTypes": [
+          "New Product Launch",
+          "Seasonal Promotion",
+          "Product Showcase Series",
+          "Sale/Discount Blitz",
+          "Product Comparison"
+        ],
+        "intelligence": [
+          "Auto-suggest high-performing products",
+          "Seasonal relevance detection",
+          "New product launch campaigns",
+          "Product-specific engagement metrics"
+        ]
+      },
+      "rescanFunctionality": {
+        "process": "User clicks 'Re-scan website' → Runs product/service detection → Shows diff view (new, updated, unchanged) → User approves changes → Merges with manual edits",
+        "conflictResolution": "Flags conflicts where auto-detected data differs from manual edits → User chooses which to keep"
+      },
+      "dataStructure": {
+        "businessProfile": {
+          "uvp_data": "JSON (complete wizard answers)",
+          "products": "Array of product objects",
+          "services": "Array of service objects",
+          "promotional_offers": "Array of offer objects",
+          "last_synced_at": "Timestamp",
+          "profile_version": "Integer"
+        }
+      }
     },
     {
       "id": "synapse-page-enhanced",
@@ -300,6 +1452,6 @@
     "infrastructure": ["Supabase", "PostgreSQL", "Netlify"],
     "tools": ["Git", "BuildRunner 3.0"],
     "ui_libraries": ["Framer Motion", "Lucide React"],
-    "ai_integrations": ["Claude via OpenRouter", "Apify", "OutScraper", "Serper"]
+    "ai_integrations": ["Claude via OpenRouter", "Apify", "OutScraper", "Serper", "Bannerbear", "YouTube Data API v3"]
   }
 }

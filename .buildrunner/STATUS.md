@@ -3,7 +3,7 @@
 **Repository:** https://github.com/DockeryAI/synapse
 **Version:** 1.0.0
 **Status:** In Progress
-**Last Updated:** 2025-11-14
+**Last Updated:** 2025-11-15
 **Completion:** 15%
 
 ## Quick Stats
@@ -17,7 +17,7 @@
 
 ## Description
 
-Synapse SMB Platform - Fast, intelligent SMB onboarding combining smart UVP wizard with content automation. 3-minute onboarding → 1-minute content generation → automated scheduling to SocialPilot.
+Synapse SMB Platform - UVP-first intelligent onboarding with 20+ source business intelligence. Smart UVP wizard → product/service detection → YouTube content analysis → social media intelligence → campaign generation with Bannerbear templates → auto-scheduling to SocialPilot. 3-minute onboarding → AI-powered campaigns → 1-click deployment.
 
 ---
 
@@ -133,5 +133,5 @@ Support for franchises and multi-location businesses with location-specific cont
 
 ---
 
-*Generated from `.buildrunner/features.json` on 2025-11-14T22:40:45.593Z*
+*Generated from `.buildrunner/features.json` on 2025-11-15T14:38:54.580Z*
 *Generator: `.buildrunner/scripts/generate-status.mjs`*
