@@ -1,381 +1,862 @@
 /**
- * Parallel Intelligence Orchestrator
+ * Parallel Intelligence Gathering System
  *
- * Gathers business intelligence from 17 data sources in parallel with
- * graceful degradation and intelligent caching.
+ * Runs 8 data sources in parallel for ultra-fast business intelligence.
+ * Target: <30 seconds completion time with graceful degradation.
  *
- * Performance: Completes in <30 seconds with minimum 8 sources required
+ * Data Sources:
+ * 1. Website scraping (Apify)
+ * 2. Google Business Profile (OutScraper)
+ * 3. Google Reviews (OutScraper)
+ * 4. Search presence (Serper)
+ * 5. Competitor detection (Serper)
+ * 6. Service page analysis (Apify)
+ * 7. Social media profiles (Apify)
+ * 8. AI synthesis (OpenRouter - Claude Opus)
  */
 
-import type { ParsedURL } from './url-parser.service';
-import { ApifyAPI } from './intelligence/apify-api';
-import { OutScraperAPI } from './intelligence/outscraper-api';
-import { SerperAPI } from './intelligence/serper-api';
-import { SemrushAPI } from './intelligence/semrush-api';
-import { YouTubeAPI } from './intelligence/youtube-api';
-import { NewsAPI } from './intelligence/news-api';
-import { WeatherAPI } from './intelligence/weather-api';
+import { z } from 'zod'
+import axios from 'axios'
+import { ApifyClient } from 'apify-client'
+import { callAPIWithRetry, parallelAPICalls } from '@/lib/api-helpers'
+import { SimpleCache } from '@/lib/cache'
+import { RateLimiter } from '@/lib/rate-limiter'
+import { log, timeOperation } from '@/lib/debug-helpers'
+import { sanitizeUserInput, validateURL } from '@/lib/security'
 
-/**
- * Result from a single intelligence source
- */
+// ============================================================================
+// ZOD SCHEMAS - Type Validation for All Data Sources
+// ============================================================================
+
+const WebsiteDataSchema = z.object({
+  pages: z.array(z.object({
+    url: z.string().url(),
+    title: z.string(),
+    content: z.string(),
+    wordCount: z.number().optional()
+  })),
+  totalPages: z.number(),
+  keyContent: z.array(z.string()),
+  images: z.array(z.string().url()),
+  links: z.array(z.string().url())
+})
+
+const GBPDataSchema = z.object({
+  name: z.string(),
+  address: z.string().optional(),
+  phone: z.string().optional(),
+  hours: z.record(z.string()).optional(),
+  categories: z.array(z.string()),
+  rating: z.number().min(0).max(5).optional(),
+  reviewCount: z.number().optional()
+})
+
+const ReviewDataSchema = z.object({
+  id: z.string(),
+  author: z.string(),
+  rating: z.number().min(1).max(5),
+  text: z.string(),
+  date: z.string(),
+  sentiment: z.enum(['positive', 'negative', 'neutral']).optional(),
+  keywords: z.array(z.string()).optional()
+})
+
+const SearchDataSchema = z.object({
+  rankings: z.array(z.object({
+    keyword: z.string(),
+    position: z.number(),
+    url: z.string().url()
+  })),
+  featuredSnippets: z.array(z.string()),
+  knowledgePanel: z.boolean(),
+  visibility: z.number().min(0).max(100)
+})
+
+const CompetitorSchema = z.object({
+  name: z.string(),
+  website: z.string().url().optional(),
+  description: z.string().optional(),
+  distance: z.string().optional(),
+  rating: z.number().optional()
+})
+
+const ServiceDataSchema = z.object({
+  name: z.string(),
+  description: z.string(),
+  pricing: z.string().optional(),
+  category: z.string().optional()
+})
+
+const SocialProfilesSchema = z.object({
+  facebook: z.string().url().optional(),
+  instagram: z.string().url().optional(),
+  linkedin: z.string().url().optional(),
+  twitter: z.string().url().optional(),
+  youtube: z.string().url().optional()
+})
+
+const AIInsightsSchema = z.object({
+  strengths: z.array(z.string()),
+  targetAudience: z.string(),
+  contentOpportunities: z.array(z.string()),
+  uniqueValue: z.string(),
+  tone: z.string()
+})
+
+const IntelligenceReportSchema = z.object({
+  websiteData: WebsiteDataSchema.nullable(),
+  googleBusiness: GBPDataSchema.nullable(),
+  reviews: z.array(ReviewDataSchema),
+  searchPresence: SearchDataSchema.nullable(),
+  competitors: z.array(CompetitorSchema),
+  services: z.array(ServiceDataSchema),
+  socialProfiles: SocialProfilesSchema.nullable(),
+  aiInsights: AIInsightsSchema.nullable(),
+  completedAt: z.date(),
+  duration: z.number(),
+  successfulSources: z.number(),
+  failedSources: z.array(z.string())
+})
+
+// Type exports
+export type IntelligenceReport = z.infer<typeof IntelligenceReportSchema>
+export type WebsiteData = z.infer<typeof WebsiteDataSchema>
+export type GBPData = z.infer<typeof GBPDataSchema>
+export type ReviewData = z.infer<typeof ReviewDataSchema>
+export type SearchData = z.infer<typeof SearchDataSchema>
+export type Competitor = z.infer<typeof CompetitorSchema>
+export type ServiceData = z.infer<typeof ServiceDataSchema>
+export type SocialProfiles = z.infer<typeof SocialProfilesSchema>
+export type AIInsights = z.infer<typeof AIInsightsSchema>
+
+// Legacy export for backwards compatibility
 export interface IntelligenceResult {
-  /** Data source name */
-  source: string;
-  /** Raw data from the source */
-  data: any;
-  /** Whether the fetch was successful */
-  success: boolean;
-  /** Error if fetch failed */
-  error?: Error;
-  /** Time taken in milliseconds */
-  duration: number;
-  /** Priority level of this source */
-  priority: 'critical' | 'important' | 'optional';
+  source: string
+  data: any
+  success: boolean
+  error?: Error
+  duration: number
+  priority: 'critical' | 'important' | 'optional'
+}
+
+// ============================================================================
+// CACHE & RATE LIMITING
+// ============================================================================
+
+const intelligenceCache = new SimpleCache<IntelligenceReport>()
+const rateLimiter = new RateLimiter(10, 60000) // 10 requests per minute
+
+// ============================================================================
+// HELPER FUNCTIONS
+// ============================================================================
+
+/**
+ * Extract business name from URL if not provided
+ */
+function extractBusinessName(url: string): string {
+  try {
+    const urlObj = new URL(url)
+    // Extract domain without TLD: example.com -> example
+    const domain = urlObj.hostname.replace(/^www\./, '').split('.')[0]
+    return domain.charAt(0).toUpperCase() + domain.slice(1)
+  } catch {
+    return 'Business'
+  }
 }
 
 /**
- * Aggregated intelligence from all sources
+ * Sanitize business name for API calls
  */
+function sanitizeBusinessName(name: string): string {
+  return name
+    .replace(/[<>]/g, '') // Remove HTML tags
+    .replace(/[^\w\s-]/g, '') // Remove special chars except spaces and hyphens
+    .trim()
+    .substring(0, 200)
+}
+
+/**
+ * Extract key content from scraped pages
+ */
+function extractKeyContent(items: any[]): string[] {
+  return items
+    .flatMap(item => item.headings || [])
+    .filter(Boolean)
+    .slice(0, 20)
+}
+
+/**
+ * Extract images from scraped pages
+ */
+function extractImages(items: any[]): string[] {
+  return items
+    .flatMap(item => item.images || [])
+    .filter(img => typeof img === 'string' && img.startsWith('http'))
+    .slice(0, 10)
+}
+
+/**
+ * Extract links from scraped pages
+ */
+function extractLinks(items: any[]): string[] {
+  return items
+    .flatMap(item => item.links || [])
+    .filter(link => typeof link === 'string' && link.startsWith('http'))
+    .slice(0, 20)
+}
+
+/**
+ * Simple sentiment analysis
+ */
+function analyzeSentiment(text: string): 'positive' | 'negative' | 'neutral' {
+  const positiveWords = ['great', 'excellent', 'amazing', 'wonderful', 'best', 'love', 'perfect', 'fantastic']
+  const negativeWords = ['bad', 'terrible', 'worst', 'awful', 'poor', 'horrible', 'disappointing']
+
+  const lowerText = text.toLowerCase()
+  const positiveCount = positiveWords.filter(word => lowerText.includes(word)).length
+  const negativeCount = negativeWords.filter(word => lowerText.includes(word)).length
+
+  if (positiveCount > negativeCount) return 'positive'
+  if (negativeCount > positiveCount) return 'negative'
+  return 'neutral'
+}
+
+/**
+ * Extract keywords from text
+ */
+function extractKeywords(text: string): string[] {
+  const words = text.toLowerCase().split(/\s+/)
+  const stopWords = ['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'is', 'was', 'were']
+  return words
+    .filter(word => word.length > 4 && !stopWords.includes(word))
+    .slice(0, 5)
+}
+
+// Legacy aggregated intelligence interface for backwards compatibility
 export interface AggregatedIntelligence {
-  /** URL that was analyzed */
-  url: string;
-  /** Parsed URL components */
-  parsedUrl: ParsedURL;
-  /** Results from each source */
-  results: IntelligenceResult[];
-  /** Number of successful sources */
-  successCount: number;
-  /** Total sources attempted */
-  totalCount: number;
-  /** Total time taken */
-  totalDuration: number;
-  /** Whether minimum viable data threshold was met */
-  isViable: boolean;
-  /** Timestamp of gathering */
-  timestamp: Date;
+  url: string
+  results: IntelligenceResult[]
+  successCount: number
+  totalCount: number
+  totalDuration: number
+  isViable: boolean
+  timestamp: Date
 }
 
-/**
- * Error thrown when insufficient data sources succeed
- */
-export class InsufficientDataError extends Error {
-  constructor(
-    message: string,
-    public successCount: number,
-    public requiredCount: number
-  ) {
-    super(message);
-    this.name = 'InsufficientDataError';
-  }
-}
+// ============================================================================
+// DATA SOURCE FUNCTIONS (8 Sources)
+// ============================================================================
 
 /**
- * Parallel Intelligence Service
- *
- * Orchestrates 17 intelligence APIs in parallel with graceful degradation
+ * 1. WEBSITE SCRAPING (Apify)
+ * Scrapes website content, structure, images, and links
  */
-export class ParallelIntelligenceService {
-  private readonly API_TIMEOUT = 15000; // 15 seconds per API
-  private readonly MIN_SOURCES = 8; // Minimum successful sources
-  private readonly CACHE_TTL = 3600000; // 1 hour in milliseconds
-
-  private cache = new Map<string, { data: AggregatedIntelligence; expires: number }>();
-
-  /**
-   * Gather intelligence from all sources in parallel
-   *
-   * @param parsedUrl - Parsed URL to analyze
-   * @param options - Gathering options
-   * @returns Aggregated intelligence
-   */
-  async gather(
-    parsedUrl: ParsedURL,
-    options: {
-      forceRefresh?: boolean;
-      timeout?: number;
-    } = {}
-  ): Promise<AggregatedIntelligence> {
-    const { forceRefresh = false, timeout = this.API_TIMEOUT } = options;
-
-    // Check cache
-    if (!forceRefresh) {
-      const cached = this.getCached(parsedUrl.normalized);
-      if (cached) {
-        console.log(`📦 Using cached intelligence for ${parsedUrl.domain}`);
-        return cached;
+async function scrapeWebsite(url: string): Promise<WebsiteData | null> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!validateURL(url)) {
+        throw new Error('Invalid URL format')
       }
+
+      const apifyClient = new ApifyClient({
+        token: import.meta.env.VITE_APIFY_API_KEY
+      })
+
+      const run = await apifyClient.actor('apify/website-content-crawler').call({
+        startUrls: [{ url }],
+        maxCrawlDepth: 2,
+        maxCrawlPages: 10
+      })
+
+      const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+
+      if (!items || items.length === 0) {
+        log('Website Scraping', 'No items returned from Apify', 'warn')
+        return null
+      }
+
+      const data: WebsiteData = {
+        pages: items.map(item => ({
+          url: item.url || url,
+          title: item.title || '',
+          content: item.text || '',
+          wordCount: item.text?.split(' ').length || 0
+        })),
+        totalPages: items.length,
+        keyContent: extractKeyContent(items),
+        images: extractImages(items),
+        links: extractLinks(items)
+      }
+
+      return WebsiteDataSchema.parse(data)
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: null,
+      onError: (error) => log('Website Scraping', error, 'error')
+    }
+  )
+}
+
+/**
+ * 2. GOOGLE BUSINESS PROFILE (OutScraper)
+ * Fetches Google Business Profile data
+ */
+async function fetchGoogleBusiness(
+  businessName: string,
+  location?: string
+): Promise<GBPData | null> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!businessName || businessName.trim().length === 0) {
+        return null
+      }
+
+      const sanitizedName = sanitizeBusinessName(businessName)
+      const query = location ? `${sanitizedName} ${location}` : sanitizedName
+
+      const response = await axios.post(
+        'https://api.app.outscraper.com/maps/search-v2',
+        {
+          query: [query],
+          limit: 1,
+          language: 'en'
+        },
+        {
+          headers: {
+            'X-API-KEY': import.meta.env.VITE_OUTSCRAPER_API_KEY
+          },
+          timeout: 10000
+        }
+      )
+
+      if (!response.data || response.data.length === 0 || !response.data[0][0]) {
+        log('Google Business Fetch', 'No results found', 'warn')
+        return null
+      }
+
+      const business = response.data[0][0]
+      const data: GBPData = {
+        name: business.name || businessName,
+        address: business.address || undefined,
+        phone: business.phone || undefined,
+        hours: business.working_hours || undefined,
+        categories: business.categories || [],
+        rating: business.rating || undefined,
+        reviewCount: business.reviews || undefined
+      }
+
+      return GBPDataSchema.parse(data)
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: null,
+      onError: (error) => log('Google Business Fetch', error, 'error')
+    }
+  )
+}
+
+/**
+ * 3. GOOGLE REVIEWS (OutScraper)
+ * Fetches Google reviews with sentiment analysis
+ */
+async function fetchGoogleReviews(businessName: string): Promise<ReviewData[]> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!businessName || businessName.trim().length === 0) {
+        return []
+      }
+
+      const sanitizedName = sanitizeBusinessName(businessName)
+
+      const response = await axios.post(
+        'https://api.app.outscraper.com/maps/reviews-v3',
+        {
+          query: [sanitizedName],
+          reviewsLimit: 50,
+          language: 'en'
+        },
+        {
+          headers: {
+            'X-API-KEY': import.meta.env.VITE_OUTSCRAPER_API_KEY
+          },
+          timeout: 15000
+        }
+      )
+
+      if (!response.data || response.data.length === 0 || !response.data[0]?.reviews_data) {
+        log('Google Reviews Fetch', 'No reviews found', 'warn')
+        return []
+      }
+
+      const reviews = response.data[0].reviews_data || []
+
+      const validatedReviews = reviews.map((review: any) =>
+        ReviewDataSchema.parse({
+          id: review.review_id || `${Date.now()}-${Math.random()}`,
+          author: review.author_title || 'Anonymous',
+          rating: review.review_rating || 5,
+          text: review.review_text || '',
+          date: review.review_datetime_utc || new Date().toISOString(),
+          sentiment: analyzeSentiment(review.review_text || ''),
+          keywords: extractKeywords(review.review_text || '')
+        })
+      )
+
+      return validatedReviews
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: [],
+      onError: (error) => log('Google Reviews Fetch', error, 'error')
+    }
+  )
+}
+
+/**
+ * 4. SEARCH PRESENCE (Serper)
+ * Analyzes search engine presence and rankings
+ */
+async function analyzeSearchPresence(
+  businessName: string,
+  location: string
+): Promise<SearchData | null> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!businessName || businessName.trim().length === 0) {
+        return null
+      }
+
+      const sanitizedName = sanitizeBusinessName(businessName)
+      const query = location ? `${sanitizedName} ${location}` : sanitizedName
+
+      const response = await axios.post(
+        'https://google.serper.dev/search',
+        {
+          q: query,
+          num: 10
+        },
+        {
+          headers: {
+            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
+            'Content-Type': 'application/json'
+          },
+          timeout: 10000
+        }
+      )
+
+      if (!response.data) {
+        return null
+      }
+
+      const data: SearchData = {
+        rankings: (response.data.organic || []).slice(0, 10).map((result: any, index: number) => ({
+          keyword: query,
+          position: index + 1,
+          url: result.link || ''
+        })),
+        featuredSnippets: response.data.answerBox ? [response.data.answerBox.snippet || ''] : [],
+        knowledgePanel: !!response.data.knowledgeGraph,
+        visibility: response.data.organic?.length || 0
+      }
+
+      return SearchDataSchema.parse(data)
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: null,
+      onError: (error) => log('Search Presence Analysis', error, 'error')
+    }
+  )
+}
+
+/**
+ * 5. COMPETITOR DETECTION (Serper)
+ * Identifies competitors in the same market
+ */
+async function detectCompetitors(
+  businessName: string,
+  industry: string,
+  location: string
+): Promise<Competitor[]> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!businessName || businessName.trim().length === 0) {
+        return []
+      }
+
+      const sanitizedName = sanitizeBusinessName(businessName)
+      const query = `${industry || 'businesses'} ${location || 'near me'}`
+
+      const response = await axios.post(
+        'https://google.serper.dev/search',
+        {
+          q: query,
+          num: 10
+        },
+        {
+          headers: {
+            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
+            'Content-Type': 'application/json'
+          },
+          timeout: 10000
+        }
+      )
+
+      if (!response.data || !response.data.organic) {
+        return []
+      }
+
+      const competitors = (response.data.organic || [])
+        .slice(0, 5)
+        .filter((result: any) => result.title.toLowerCase() !== sanitizedName.toLowerCase())
+        .map((result: any) => CompetitorSchema.parse({
+          name: result.title || '',
+          website: result.link || undefined,
+          description: result.snippet || undefined,
+          distance: undefined,
+          rating: undefined
+        }))
+
+      return competitors
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: [],
+      onError: (error) => log('Competitor Detection', error, 'error')
+    }
+  )
+}
+
+/**
+ * 6. SERVICE PAGE ANALYSIS (Apify)
+ * Analyzes service and product pages
+ */
+async function analyzeServicePages(url: string): Promise<ServiceData[]> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!validateURL(url)) {
+        throw new Error('Invalid URL format')
+      }
+
+      const apifyClient = new ApifyClient({
+        token: import.meta.env.VITE_APIFY_API_KEY
+      })
+
+      const run = await apifyClient.actor('apify/website-content-crawler').call({
+        startUrls: [{ url }],
+        maxCrawlDepth: 2,
+        maxCrawlPages: 20,
+        crawlAllUrls: true
+      })
+
+      const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+
+      if (!items || items.length === 0) {
+        return []
+      }
+
+      const servicePages = items.filter((item: any) =>
+        item.url?.includes('/service') ||
+        item.url?.includes('/product') ||
+        item.url?.includes('/offering')
+      )
+
+      const services = servicePages.slice(0, 10).map((page: any) =>
+        ServiceDataSchema.parse({
+          name: page.title || 'Service',
+          description: page.text?.slice(0, 200) || '',
+          pricing: undefined,
+          category: undefined
+        })
+      )
+
+      return services
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: [],
+      onError: (error) => log('Service Page Analysis', error, 'error')
+    }
+  )
+}
+
+/**
+ * 7. SOCIAL MEDIA PROFILES (Apify)
+ * Discovers social media profiles
+ */
+async function findSocialProfiles(
+  businessName: string,
+  websiteUrl: string
+): Promise<SocialProfiles | null> {
+  return await callAPIWithRetry(
+    async () => {
+      if (!businessName || businessName.trim().length === 0) {
+        return null
+      }
+
+      const sanitizedName = sanitizeBusinessName(businessName)
+
+      const response = await axios.post(
+        'https://google.serper.dev/search',
+        {
+          q: `${sanitizedName} social media facebook instagram linkedin`,
+          num: 10
+        },
+        {
+          headers: {
+            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
+            'Content-Type': 'application/json'
+          },
+          timeout: 10000
+        }
+      )
+
+      if (!response.data || !response.data.organic) {
+        return null
+      }
+
+      const results = response.data.organic || []
+      const profiles: SocialProfiles = {}
+
+      results.forEach((result: any) => {
+        const link = result.link || ''
+        if (link.includes('facebook.com/')) profiles.facebook = link
+        if (link.includes('instagram.com/')) profiles.instagram = link
+        if (link.includes('linkedin.com/')) profiles.linkedin = link
+        if (link.includes('twitter.com/') || link.includes('x.com/')) profiles.twitter = link
+        if (link.includes('youtube.com/')) profiles.youtube = link
+      })
+
+      if (Object.keys(profiles).length === 0) {
+        return null
+      }
+
+      return SocialProfilesSchema.parse(profiles)
+    },
+    {
+      maxRetries: 3,
+      fallbackValue: null,
+      onError: (error) => log('Social Profile Discovery', error, 'error')
+    }
+  )
+}
+
+/**
+ * 8. AI SYNTHESIS (OpenRouter - Claude Opus)
+ * Synthesizes all intelligence into actionable insights
+ */
+async function synthesizeIntelligence(
+  rawData: Partial<IntelligenceReport>
+): Promise<AIInsights | null> {
+  return await callAPIWithRetry(
+    async () => {
+      const prompt = `Analyze this business intelligence and provide insights:
+
+Business Data:
+${JSON.stringify(rawData, null, 2)}
+
+Provide:
+1. Top 3 unique strengths
+2. Primary target audience (be specific)
+3. 5 content opportunities
+4. Unique value proposition (1 sentence)
+5. Recommended brand tone
+
+Return ONLY valid JSON matching this structure:
+{
+  "strengths": ["strength1", "strength2", "strength3"],
+  "targetAudience": "specific audience description",
+  "contentOpportunities": ["opp1", "opp2", "opp3", "opp4", "opp5"],
+  "uniqueValue": "one sentence UVP",
+  "tone": "brand voice tone"
+}`
+
+      const response = await axios.post(
+        'https://openrouter.ai/api/v1/chat/completions',
+        {
+          model: 'anthropic/claude-opus',
+          messages: [{ role: 'user', content: prompt }],
+          temperature: 0.7
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          timeout: 30000
+        }
+      )
+
+      const content = response.data.choices[0].message.content
+
+      let jsonStr = content
+      const jsonMatch = content.match(/\{[\s\S]*\}/)
+      if (jsonMatch) {
+        jsonStr = jsonMatch[0]
+      }
+
+      const insights = JSON.parse(jsonStr)
+      return AIInsightsSchema.parse(insights)
+    },
+    {
+      maxRetries: 2,
+      fallbackValue: null,
+      onError: (error) => log('AI Synthesis', error, 'error')
+    }
+  )
+}
+
+// ============================================================================
+// MAIN ORCHESTRATOR
+// ============================================================================
+
+/**
+ * Gather intelligence from all 8 sources in parallel
+ */
+export async function gatherIntelligence(
+  websiteUrl: string,
+  businessName?: string,
+  location?: string,
+  industry?: string
+): Promise<IntelligenceReport> {
+  return await timeOperation('Intelligence Gathering', async () => {
+    const cacheKey = `intelligence:${websiteUrl}`
+    const cached = intelligenceCache.get(cacheKey)
+    if (cached) {
+      log('Intelligence Gathering', 'Using cached data', 'info')
+      return cached
     }
 
-    const startTime = Date.now();
+    if (!rateLimiter.canMakeRequest()) {
+      throw new Error('Rate limit exceeded. Please wait before gathering more intelligence.')
+    }
+    rateLimiter.recordRequest()
 
-    console.log(`🔍 Gathering intelligence for ${parsedUrl.domain}...`);
-    console.log(`   Using ${17} parallel data sources`);
-
-    // Execute all sources in parallel
-    const results = await Promise.allSettled([
-      this.fetchWithTimeout('Apify', 'critical', () =>
-        ApifyAPI.scrapeWebsite(parsedUrl.normalized)
-      , timeout),
-
-      this.fetchWithTimeout('OutScraper-Business', 'critical', () =>
-        OutScraperAPI.getBusinessProfile(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('OutScraper-Reviews', 'important', () =>
-        OutScraperAPI.getReviews(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Search', 'critical', () =>
-        SerperAPI.search(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-News', 'optional', () =>
-        SerperAPI.news(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Trends', 'optional', () =>
-        SerperAPI.trends(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Autocomplete', 'optional', () =>
-        SerperAPI.autocomplete(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Places', 'important', () =>
-        SerperAPI.places(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Images', 'optional', () =>
-        SerperAPI.images(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Videos', 'optional', () =>
-        SerperAPI.videos(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Serper-Shopping', 'optional', () =>
-        SerperAPI.shopping(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('SEMrush', 'important', () =>
-        SemrushAPI.getKeywords(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('YouTube', 'optional', () =>
-        YouTubeAPI.getTrendingTopics(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('NewsAPI', 'optional', () =>
-        NewsAPI.getArticles(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Weather', 'optional', () =>
-        WeatherAPI.getForecast(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Google-Maps', 'important', () =>
-        this.fetchGoogleMaps(parsedUrl.domain)
-      , timeout),
-
-      this.fetchWithTimeout('Reddit', 'important', () =>
-        this.fetchReddit(parsedUrl.domain)
-      , timeout),
-    ]);
-
-    // Process results
-    const processedResults = this.processResults(results);
-
-    const totalDuration = Date.now() - startTime;
-    const successCount = processedResults.filter(r => r.success).length;
-
-    console.log(`   ✅ Completed: ${successCount}/17 sources in ${totalDuration}ms`);
-
-    // Build aggregated intelligence
-    const intelligence: AggregatedIntelligence = {
-      url: parsedUrl.normalized,
-      parsedUrl,
-      results: processedResults,
-      successCount,
-      totalCount: 17,
-      totalDuration,
-      isViable: successCount >= this.MIN_SOURCES,
-      timestamp: new Date()
-    };
-
-    // Verify minimum viable data
-    if (!intelligence.isViable) {
-      const criticalFailed = processedResults
-        .filter(r => r.priority === 'critical' && !r.success)
-        .map(r => r.source);
-
-      throw new InsufficientDataError(
-        `Only ${successCount} sources succeeded. Need at least ${this.MIN_SOURCES}. Critical failures: ${criticalFailed.join(', ')}`,
-        successCount,
-        this.MIN_SOURCES
-      );
+    if (!websiteUrl || websiteUrl.trim().length === 0) {
+      throw new Error('Website URL is required')
     }
 
-    // Cache the result
-    this.setCached(parsedUrl.normalized, intelligence);
+    if (!validateURL(websiteUrl)) {
+      throw new Error('Invalid website URL format')
+    }
 
-    return intelligence;
-  }
+    const effectiveBusinessName = businessName || extractBusinessName(websiteUrl)
+    const sanitizedBusinessName = sanitizeBusinessName(effectiveBusinessName)
 
-  /**
-   * Fetch data with timeout wrapper
-   */
-  private async fetchWithTimeout<T>(
-    source: string,
-    priority: 'critical' | 'important' | 'optional',
-    fetcher: () => Promise<T>,
-    timeout: number
-  ): Promise<IntelligenceResult> {
-    const startTime = Date.now();
+    log('Intelligence Gathering', {
+      url: websiteUrl,
+      businessName: sanitizedBusinessName,
+      location,
+      industry
+    }, 'info')
+
+    const startTime = Date.now()
+    const failedSources: string[] = []
 
     try {
-      const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error(`Timeout after ${timeout}ms`)), timeout)
-      );
+      const sources = [
+        () => scrapeWebsite(websiteUrl),
+        () => fetchGoogleBusiness(sanitizedBusinessName, location),
+        () => fetchGoogleReviews(sanitizedBusinessName),
+        () => analyzeSearchPresence(sanitizedBusinessName, location || ''),
+        () => detectCompetitors(sanitizedBusinessName, industry || '', location || ''),
+        () => analyzeServicePages(websiteUrl),
+        () => findSocialProfiles(sanitizedBusinessName, websiteUrl)
+      ]
 
-      const data = await Promise.race([fetcher(), timeoutPromise]) as T;
+      const results = await parallelAPICalls(sources, {
+        timeout: 30000,
+        allowPartialFailure: true
+      })
 
-      return {
-        source,
-        priority,
-        data,
-        success: true,
-        duration: Date.now() - startTime
-      };
-    } catch (error) {
-      return {
-        source,
-        priority,
-        data: null,
-        success: false,
-        error: error instanceof Error ? error : new Error(String(error)),
-        duration: Date.now() - startTime
-      };
-    }
-  }
+      const [
+        websiteData,
+        googleBusiness,
+        reviews,
+        searchPresence,
+        competitors,
+        services,
+        socialProfiles
+      ] = results
 
-  /**
-   * Process settled promise results
-   */
-  private processResults(results: PromiseSettledResult<IntelligenceResult>[]): IntelligenceResult[] {
-    return results.map(result => {
-      if (result.status === 'fulfilled') {
-        return result.value;
-      } else {
-        // Promise.allSettled should never reject, but handle just in case
-        return {
-          source: 'unknown',
-          priority: 'optional' as const,
-          data: null,
-          success: false,
-          error: result.reason instanceof Error ? result.reason : new Error(String(result.reason)),
-          duration: 0
-        };
+      if (!websiteData) failedSources.push('website-scraping')
+      if (!googleBusiness) failedSources.push('google-business')
+      if (!reviews || reviews.length === 0) failedSources.push('google-reviews')
+      if (!searchPresence) failedSources.push('search-presence')
+      if (!competitors || competitors.length === 0) failedSources.push('competitors')
+      if (!services || services.length === 0) failedSources.push('services')
+      if (!socialProfiles) failedSources.push('social-profiles')
+
+      const partialReport = {
+        websiteData: websiteData as WebsiteData | null,
+        googleBusiness: googleBusiness as GBPData | null,
+        reviews: (reviews || []) as ReviewData[],
+        searchPresence: searchPresence as SearchData | null,
+        competitors: (competitors || []) as Competitor[],
+        services: (services || []) as ServiceData[],
+        socialProfiles: socialProfiles as SocialProfiles | null
       }
-    });
-  }
 
-  /**
-   * Get cached intelligence if available and not expired
-   */
-  private getCached(url: string): AggregatedIntelligence | null {
-    const cached = this.cache.get(url);
-    if (!cached) return null;
+      const aiInsights = await synthesizeIntelligence(partialReport)
+      if (!aiInsights) failedSources.push('ai-synthesis')
 
-    if (Date.now() > cached.expires) {
-      this.cache.delete(url);
-      return null;
+      const duration = Date.now() - startTime
+      const successfulSources = 8 - failedSources.length
+
+      const report: IntelligenceReport = {
+        ...partialReport,
+        aiInsights,
+        completedAt: new Date(),
+        duration,
+        successfulSources,
+        failedSources
+      }
+
+      const validatedReport = IntelligenceReportSchema.parse(report)
+      intelligenceCache.set(cacheKey, validatedReport, 7 * 24 * 60 * 60)
+
+      log('Intelligence Gathering', {
+        duration: `${duration}ms`,
+        successfulSources,
+        failedSources
+      }, 'info')
+
+      return validatedReport
+    } catch (error) {
+      log('Intelligence Gathering', error, 'error')
+      throw new Error(`Intelligence gathering failed: ${error}`)
     }
+  })
+}
 
-    return cached.data;
-  }
+export function clearIntelligenceCache(): void {
+  intelligenceCache.clear()
+  log('Cache', 'Intelligence cache cleared', 'info')
+}
 
-  /**
-   * Cache intelligence result
-   */
-  private setCached(url: string, intelligence: AggregatedIntelligence): void {
-    this.cache.set(url, {
-      data: intelligence,
-      expires: Date.now() + this.CACHE_TTL
-    });
-  }
-
-  /**
-   * Clear cache for specific URL or all
-   */
-  clearCache(url?: string): void {
-    if (url) {
-      this.cache.delete(url);
-    } else {
-      this.cache.clear();
-    }
-  }
-
-  /**
-   * Get cache statistics
-   */
-  getCacheStats(): { size: number; keys: string[] } {
-    return {
-      size: this.cache.size,
-      keys: Array.from(this.cache.keys())
-    };
-  }
-
-  /**
-   * Placeholder for Google Maps API
-   * TODO: Implement proper Google Maps geocoding
-   */
-  private async fetchGoogleMaps(domain: string): Promise<any> {
-    // Placeholder implementation
-    return {
-      address: null,
-      coordinates: null,
-      note: 'Google Maps integration pending'
-    };
-  }
-
-  /**
-   * Placeholder for Reddit API
-   * TODO: Will be implemented in TASK 6
-   */
-  private async fetchReddit(domain: string): Promise<any> {
-    // Placeholder implementation
-    return {
-      opportunities: [],
-      communities: [],
-      note: 'Reddit integration pending (TASK 6)'
-    };
-  }
-
-  /**
-   * Get results by priority level
-   */
-  getResultsByPriority(
-    intelligence: AggregatedIntelligence,
-    priority: 'critical' | 'important' | 'optional'
-  ): IntelligenceResult[] {
-    return intelligence.results.filter(r => r.priority === priority);
-  }
-
-  /**
-   * Get successful results only
-   */
-  getSuccessfulResults(intelligence: AggregatedIntelligence): IntelligenceResult[] {
-    return intelligence.results.filter(r => r.success);
-  }
-
-  /**
-   * Get failed results only
-   */
-  getFailedResults(intelligence: AggregatedIntelligence): IntelligenceResult[] {
-    return intelligence.results.filter(r => !r.success);
+export function getRateLimiterStatus(): { remaining: number; max: number } {
+  return {
+    remaining: rateLimiter.getRemainingRequests(),
+    max: 10
   }
 }
 
-// Export singleton instance
-export const parallelIntelligence = new ParallelIntelligenceService();
+// Legacy class for backwards compatibility
+export class ParallelIntelligenceService {
+  async gather(parsedUrl: any): Promise<AggregatedIntelligence> {
+    const report = await gatherIntelligence(parsedUrl.normalized || parsedUrl.url)
+    return {
+      url: parsedUrl.normalized || parsedUrl.url,
+      results: [],
+      successCount: report.successfulSources,
+      totalCount: 8,
+      totalDuration: report.duration,
+      isViable: report.successfulSources >= 5,
+      timestamp: report.completedAt
+    }
+  }
+  clearCache(): void { clearIntelligenceCache() }
+}
+
+export const parallelIntelligence = new ParallelIntelligenceService()
