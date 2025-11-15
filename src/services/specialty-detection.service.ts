@@ -1,5 +1,6 @@
 /**
  * Specialty Detection Engine
+ * Following PATTERNS.md and IMPLEMENTATION_STANDARDS.md
  *
  * Identifies business niche vs generic industry using AI analysis combined
  * with the industry database (380 NAICS codes + 147 profiles).
@@ -10,13 +11,52 @@
  * - "vegan restaurant" not just "restaurant"
  */
 
+import { z } from 'zod'
+import axios from 'axios'
 import { createClient } from '@supabase/supabase-js'
+import { callAPIWithRetry } from '../lib/api-helpers'
+import { log, timeOperation } from '../lib/debug-helpers'
+import { sanitizeUserInput } from '../lib/security'
 import type { IntelligenceResult } from './parallel-intelligence.service'
 
 const supabase = createClient(
   process.env.VITE_SUPABASE_URL!,
   process.env.VITE_SUPABASE_ANON_KEY!
 )
+
+// Zod Schemas for validation
+
+const NAICSCodeSchema = z.object({
+  code: z.string(),
+  title: z.string(),
+  category: z.string(),
+  keywords: z.array(z.string()),
+  has_full_profile: z.boolean(),
+  popularity: z.number(),
+  level: z.number()
+})
+
+const IndustryProfileSchema = z.object({
+  id: z.string(),
+  naics_code: z.string(),
+  industry: z.string(),
+  industry_name: z.string(),
+  category: z.string(),
+  power_words: z.array(z.string()).optional(),
+  customer_segments: z.any().optional()
+})
+
+const SpecialtyDetectionSchema = z.object({
+  industry: z.string(),
+  naicsCode: z.string(),
+  industryProfileId: z.string().optional(),
+  specialty: z.string(),
+  nicheKeywords: z.array(z.string()),
+  targetMarket: z.string(),
+  confidence: z.number().min(0).max(100),
+  reasoning: z.string(),
+  hasSpecialty: z.boolean()
+})
 
 /**
  * Detected specialty information
@@ -87,53 +127,92 @@ export class SpecialtyDetectionService {
     businessName: string,
     websiteUrl?: string
   ): Promise<SpecialtyDetection> {
-    console.log(`🔍 Detecting specialty for ${businessName}...`)
+    return await timeOperation('Specialty Detection', async () => {
+      try {
+        // 1. Validate inputs
+        if (!businessName || businessName.trim().length === 0) {
+          throw new Error('Business name is required')
+        }
 
-    // 1. Extract keywords from all intelligence sources
-    const keywords = this.extractKeywords(intelligenceData, businessName)
-    console.log(`   Extracted ${keywords.length} keywords`)
+        if (!intelligenceData || intelligenceData.length === 0) {
+          log('detectSpecialty', 'No intelligence data provided', 'warn')
+        }
 
-    // 2. Match to NAICS code using keyword search
-    const naicsMatch = await this.matchNAICSCode(keywords)
-    console.log(`   Matched to NAICS: ${naicsMatch?.code} - ${naicsMatch?.title}`)
+        // 2. Sanitize business name
+        const sanitizedName = sanitizeUserInput(businessName)
+        log('detectSpecialty', `Detecting specialty for ${sanitizedName}`, 'info')
 
-    // 3. Try to fetch industry profile
-    let industryProfile: IndustryProfile | null = null
-    if (naicsMatch?.has_full_profile) {
-      industryProfile = await this.getIndustryProfile(naicsMatch.code)
-      console.log(`   Found industry profile: ${industryProfile?.industry_name}`)
-    }
+        // 3. Extract keywords from all intelligence sources
+        const keywords = this.extractKeywords(intelligenceData, sanitizedName)
+        log('detectSpecialty', `Extracted ${keywords.length} keywords`, 'info')
 
-    // 4. Detect specialty within the industry
-    const specialtyInfo = await this.detectNiche(
-      intelligenceData,
-      keywords,
-      naicsMatch,
-      industryProfile
-    )
+        // 4. Match to NAICS code using keyword search
+        const naicsMatch = await this.matchNAICSCode(keywords)
+        log('detectSpecialty', `Matched to NAICS: ${naicsMatch?.code} - ${naicsMatch?.title}`, 'info')
 
-    // 5. Determine target market
-    const targetMarket = this.extractTargetMarket(intelligenceData, specialtyInfo.specialty)
+        // 5. Try to fetch industry profile
+        let industryProfile: IndustryProfile | null = null
+        if (naicsMatch?.has_full_profile) {
+          industryProfile = await this.getIndustryProfile(naicsMatch.code)
+          if (industryProfile) {
+            log('detectSpecialty', `Found industry profile: ${industryProfile.industry_name}`, 'info')
+          }
+        }
 
-    // 6. Calculate confidence
-    const confidence = this.calculateConfidence(
-      naicsMatch,
-      industryProfile,
-      specialtyInfo,
-      intelligenceData
-    )
+        // 6. Detect specialty within the industry
+        const specialtyInfo = await this.detectNiche(
+          intelligenceData,
+          keywords,
+          naicsMatch,
+          industryProfile
+        )
 
-    return {
-      industry: naicsMatch?.category || 'Unknown',
-      naicsCode: naicsMatch?.code || 'generic',
-      industryProfileId: industryProfile?.id,
-      specialty: specialtyInfo.specialty,
-      nicheKeywords: specialtyInfo.keywords,
-      targetMarket,
-      confidence,
-      reasoning: specialtyInfo.reasoning,
-      hasSpecialty: specialtyInfo.isSpecific
-    }
+        // 7. Determine target market
+        const targetMarket = this.extractTargetMarket(intelligenceData, specialtyInfo.specialty)
+
+        // 8. Calculate confidence
+        const confidence = this.calculateConfidence(
+          naicsMatch,
+          industryProfile,
+          specialtyInfo,
+          intelligenceData
+        )
+
+        // 9. Build and validate result
+        const result: SpecialtyDetection = {
+          industry: naicsMatch?.category || 'Unknown',
+          naicsCode: naicsMatch?.code || 'generic',
+          industryProfileId: industryProfile?.id,
+          specialty: specialtyInfo.specialty,
+          nicheKeywords: specialtyInfo.keywords,
+          targetMarket,
+          confidence,
+          reasoning: specialtyInfo.reasoning,
+          hasSpecialty: specialtyInfo.isSpecific
+        }
+
+        // 10. Validate with Zod
+        const validated = SpecialtyDetectionSchema.parse(result)
+
+        log('detectSpecialty', `Detected: ${validated.specialty} (${validated.confidence}% confidence)`, 'info')
+
+        return validated
+
+      } catch (error) {
+        log('detectSpecialty', error, 'error')
+        // Return fallback result
+        return {
+          industry: 'Unknown',
+          naicsCode: 'generic',
+          specialty: businessName,
+          nicheKeywords: [],
+          targetMarket: 'General market',
+          confidence: 0,
+          reasoning: 'Error during specialty detection',
+          hasSpecialty: false
+        }
+      }
+    })
   }
 
   /**
