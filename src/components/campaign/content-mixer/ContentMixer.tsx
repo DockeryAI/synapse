@@ -8,6 +8,8 @@
  */
 
 import { useState, useCallback } from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles, Zap } from 'lucide-react';
 import {
   DndContext,
   DragEndEvent,
@@ -154,55 +156,86 @@ export function ContentMixer({ pool, onGenerate, maxInsights = 5 }: ContentMixer
   }, [selectedInsights, onGenerate]);
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
-      {/* 3-Column Layout */}
-      <div className="h-full flex flex-col lg:flex-row gap-0">
-        {/* Left Column: Insight Pool */}
-        <div className="w-full lg:w-80 xl:w-96 lg:h-full flex-shrink-0">
-          <InsightPool
-            pool={pool}
-            selectedInsightIds={selectedInsights.map(i => i.id)}
-          />
+    <div className="h-full bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="px-6 py-4 border-b border-purple-200 dark:border-purple-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
+      >
+        <div className="flex items-center gap-3">
+          <motion.div
+            whileHover={{ rotate: 360, scale: 1.1 }}
+            transition={{ duration: 0.5 }}
+            className="p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg shadow-lg"
+          >
+            <Sparkles className="text-white" size={24} />
+          </motion.div>
+          <div>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Content Mixer
+            </h2>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              Drag insights to create your perfect campaign mix
+            </p>
+          </div>
         </div>
+      </motion.div>
 
-        {/* Middle Column: Selection Area */}
-        <div className="w-full lg:w-80 xl:w-96 lg:h-full flex-shrink-0">
-          <SelectionArea
-            selectedInsights={selectedInsights}
-            maxInsights={maxInsights}
-            onRemoveInsight={handleRemoveInsight}
-            onClearAll={handleClearAll}
-          />
-        </div>
-
-        {/* Right Column: Live Preview */}
-        <div className="flex-1 lg:h-full">
-          <LivePreview
-            selectedInsights={selectedInsights}
-            platform={platform}
-            onPlatformChange={setPlatform}
-            onGenerate={handleGenerate}
-          />
-        </div>
-      </div>
-
-      {/* Drag Overlay (shows while dragging) */}
-      <DragOverlay>
-        {activeInsight ? (
-          <div className="rotate-3 scale-105 opacity-90">
-            <InsightCard
-              insight={activeInsight}
-              draggable={false}
-              inSelection={false}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        {/* 3-Column Layout */}
+        <div className="h-[calc(100%-80px)] flex flex-col lg:flex-row gap-0">
+          {/* Left Column: Insight Pool */}
+          <div className="w-full lg:w-80 xl:w-96 lg:h-full flex-shrink-0">
+            <InsightPool
+              pool={pool}
+              selectedInsightIds={selectedInsights.map(i => i.id)}
             />
           </div>
-        ) : null}
-      </DragOverlay>
-    </DndContext>
+
+          {/* Middle Column: Selection Area */}
+          <div className="w-full lg:w-80 xl:w-96 lg:h-full flex-shrink-0 border-x border-purple-200 dark:border-purple-700">
+            <SelectionArea
+              selectedInsights={selectedInsights}
+              maxInsights={maxInsights}
+              onRemoveInsight={handleRemoveInsight}
+              onClearAll={handleClearAll}
+            />
+          </div>
+
+          {/* Right Column: Live Preview */}
+          <div className="flex-1 lg:h-full">
+            <LivePreview
+              selectedInsights={selectedInsights}
+              platform={platform}
+              onPlatformChange={setPlatform}
+              onGenerate={handleGenerate}
+            />
+          </div>
+        </div>
+
+        {/* Drag Overlay (shows while dragging) */}
+        <DragOverlay>
+          {activeInsight ? (
+            <motion.div
+              initial={{ rotate: 0, scale: 1 }}
+              animate={{ rotate: 3, scale: 1.05 }}
+              className="opacity-90"
+            >
+              <InsightCard
+                insight={activeInsight}
+                draggable={false}
+                inSelection={false}
+              />
+            </motion.div>
+          ) : null}
+        </DragOverlay>
+      </DndContext>
+    </div>
   );
 }
