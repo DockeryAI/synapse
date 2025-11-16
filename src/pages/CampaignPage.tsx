@@ -209,9 +209,9 @@ export function CampaignPage() {
   }, []);
 
   // Handle campaign type selection
-  const handleCampaignTypeSelect = (campaignType: CampaignType) => {
+  const handleCampaignTypeSelect = (campaignTypeId: string) => {
     try {
-      const updatedSession = campaignOrchestrator.selectCampaignType(campaignType.id);
+      const updatedSession = campaignOrchestrator.selectCampaignType(campaignTypeId);
       setSession(updatedSession);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to select campaign type');
@@ -376,7 +376,7 @@ export function CampaignPage() {
           {currentStep === 'IDLE' && session.context && (
             <CampaignTypeSelector
               context={session.context}
-              onSelectType={handleCampaignTypeSelect}
+              onContinue={handleCampaignTypeSelect}
             />
           )}
 
