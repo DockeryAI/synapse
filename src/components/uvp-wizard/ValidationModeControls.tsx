@@ -99,7 +99,7 @@ export const ValidationModeControls: React.FC<ValidationModeControlsProps> = ({
             size="sm"
             variant="outline"
             onClick={onAccept}
-            className="text-green-700 border-green-200 hover:bg-green-50"
+            className="text-green-700 dark:text-green-300 border-green-200 dark:border-green-700 hover:bg-green-50 dark:hover:bg-green-900/30"
           >
             <span className="mr-1">✓</span>
             Accept
@@ -109,7 +109,7 @@ export const ValidationModeControls: React.FC<ValidationModeControlsProps> = ({
             size="sm"
             variant="outline"
             onClick={onReject}
-            className="text-red-700 border-red-200 hover:bg-red-50"
+            className="text-red-700 dark:text-red-300 border-red-200 dark:border-red-700 hover:bg-red-50 dark:hover:bg-red-900/30"
           >
             <span className="mr-1">✗</span>
             Reject
@@ -120,7 +120,7 @@ export const ValidationModeControls: React.FC<ValidationModeControlsProps> = ({
               size="sm"
               variant="outline"
               onClick={onEdit}
-              className="text-blue-700 border-blue-200 hover:bg-blue-50"
+              className="text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-blue-900/30"
             >
               <span className="mr-1">✏️</span>
               Edit
@@ -159,14 +159,14 @@ export const CompactValidationControls: React.FC<ValidationModeControlsProps> = 
     <div className={cn('flex items-center gap-1', className)}>
       <button
         onClick={onAccept}
-        className="text-green-600 hover:text-green-700 p-1 rounded hover:bg-green-50 transition-colors"
+        className="text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 p-1 rounded hover:bg-green-50 dark:hover:bg-green-900/30 transition-colors"
         title="Accept AI suggestion"
       >
         ✓
       </button>
       <button
         onClick={onReject}
-        className="text-red-600 hover:text-red-700 p-1 rounded hover:bg-red-50 transition-colors"
+        className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 p-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
         title="Reject AI suggestion"
       >
         ✗
@@ -224,17 +224,17 @@ export const ValidationStatsDashboard: React.FC<ValidationStatsDashboardProps> =
         <StatCard
           label="Pending"
           value={stats.pending}
-          className="bg-orange-50 text-orange-700"
+          className="bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300"
         />
         <StatCard
           label="Accepted"
           value={stats.accepted}
-          className="bg-green-50 text-green-700"
+          className="bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300"
         />
         <StatCard
           label="Reviewed"
           value={stats.rejected + stats.edited}
-          className="bg-blue-50 text-blue-700"
+          className="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300"
         />
       </div>
     </div>

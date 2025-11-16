@@ -197,24 +197,24 @@ export const AIBadgeWithEvidence: React.FC<AIBadgeWithEvidenceProps> = ({
 
 /**
  * Validation Status Badge
- * Shows user validation status for AI suggestions
+ * Shows user validation status for AI suggestions (with dark mode support)
  */
 const ValidationBadge: React.FC<{ status: 'accepted' | 'rejected' | 'edited' }> = ({ status }) => {
   const config = {
     accepted: {
       icon: '✓',
       label: 'Accepted',
-      className: 'bg-green-50 text-green-700 border-green-200'
+      className: 'bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700'
     },
     rejected: {
       icon: '✗',
       label: 'Rejected',
-      className: 'bg-red-50 text-red-700 border-red-200'
+      className: 'bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700'
     },
     edited: {
       icon: '✏️',
       label: 'Edited',
-      className: 'bg-blue-50 text-blue-700 border-blue-200'
+      className: 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700'
     }
   }[status]
 
@@ -244,24 +244,24 @@ function getConfidenceLevel(confidence: number): 'high' | 'medium' | 'low' {
 }
 
 /**
- * Get confidence level color classes
+ * Get confidence level color classes (with dark mode support)
  */
 function getConfidenceColor(level: 'high' | 'medium' | 'low') {
   const colors = {
     high: {
-      bg: 'bg-green-50',
-      text: 'text-green-700',
-      border: 'border-green-200'
+      bg: 'bg-green-50 dark:bg-green-900/30',
+      text: 'text-green-700 dark:text-green-300',
+      border: 'border-green-200 dark:border-green-700'
     },
     medium: {
-      bg: 'bg-yellow-50',
-      text: 'text-yellow-700',
-      border: 'border-yellow-200'
+      bg: 'bg-yellow-50 dark:bg-yellow-900/30',
+      text: 'text-yellow-700 dark:text-yellow-300',
+      border: 'border-yellow-200 dark:border-yellow-700'
     },
     low: {
-      bg: 'bg-orange-50',
-      text: 'text-orange-700',
-      border: 'border-orange-200'
+      bg: 'bg-orange-50 dark:bg-orange-900/30',
+      text: 'text-orange-700 dark:text-orange-300',
+      border: 'border-orange-200 dark:border-orange-700'
     }
   }
 
