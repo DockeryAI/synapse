@@ -116,7 +116,7 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
             </div>
           </div>
 
-          <CardDescription className="mt-3 text-sm">
+          <CardDescription className="mt-3 text-sm text-gray-600 dark:text-gray-300">
             {type.description}
           </CardDescription>
         </CardHeader>
@@ -125,7 +125,7 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
           {/* Recommendation Reason */}
           {type.recommendationReason && (
             <div className="bg-gradient-to-br from-purple-50/50 to-blue-50/50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg p-3 text-sm border border-purple-100 dark:border-purple-800">
-              <p className="text-muted-foreground">
+              <p className="text-gray-700 dark:text-gray-300">
                 <span className="font-medium text-purple-700 dark:text-purple-300">Why this works: </span>
                 {type.recommendationReason}
               </p>
@@ -134,13 +134,13 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
 
           {/* Ideal For */}
           <div>
-            <h4 className="text-sm font-medium mb-2 text-purple-700 dark:text-purple-300">Best for:</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Best for:</h4>
             <div className="flex flex-wrap gap-1.5">
               {type.idealFor.slice(0, 3).map((ideal, idx) => (
                 <Badge
                   key={idx}
                   variant="secondary"
-                  className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-900/50"
+                  className="text-xs bg-purple-100 text-purple-800 dark:bg-purple-800/40 dark:text-purple-200 hover:bg-purple-200 dark:hover:bg-purple-800/60 border-0"
                 >
                   {ideal}
                 </Badge>
@@ -148,7 +148,7 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
               {type.idealFor.length > 3 && (
                 <Badge
                   variant="secondary"
-                  className="text-xs bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300"
+                  className="text-xs bg-purple-100 text-purple-800 dark:bg-purple-800/40 dark:text-purple-200 border-0"
                 >
                   +{type.idealFor.length - 3} more
                 </Badge>
@@ -158,13 +158,13 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
 
           {/* Platforms */}
           <div>
-            <h4 className="text-sm font-medium mb-2 text-purple-700 dark:text-purple-300">Top platforms:</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Top platforms:</h4>
             <div className="flex flex-wrap gap-1.5">
               {type.platforms.slice(0, 4).map((platform, idx) => (
                 <Badge
                   key={idx}
                   variant="outline"
-                  className="text-xs border-purple-300 text-purple-700 dark:border-purple-700 dark:text-purple-300"
+                  className="text-xs border-purple-300 text-purple-800 dark:border-purple-600 dark:text-purple-300 bg-transparent"
                 >
                   {platform}
                 </Badge>
