@@ -6,6 +6,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -29,7 +30,7 @@ import {
 } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import type { Product, ProductType } from '../../types/product.types';
-import * as Icons from 'lucide-react';
+import { AlertCircle, Check, DollarSign, Clock, Edit2, Trash2, Plus, Loader2, ArrowRight, Star, Sparkles } from 'lucide-react';
 
 export interface ProductReviewProps {
   products: Product[];
@@ -55,11 +56,11 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
     setProducts(initialProducts);
   }, [initialProducts]);
 
-  // Product type icons
-  const typeIcons = {
-    product: Icons.Package,
-    service: Icons.Briefcase,
-    hybrid: Icons.Layers
+  // Product type icons (emojis for Synapse consistency)
+  const typeEmojis = {
+    product: '📦',
+    service: '💼',
+    hybrid: '🎯'
   };
 
   // Product type colors
@@ -130,16 +131,19 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
       {/* Products Grid */}
       {products.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {products.map((product, index) => {
-            const TypeIcon = typeIcons[product.type];
-
-            return (
-              <Card key={index} className="relative">
+          {products.map((product, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+            >
+              <Card className="relative hover:shadow-lg transition-shadow duration-200">
                 {/* Confidence Badge */}
                 {product.confidence < 0.7 && (
                   <div className="absolute top-3 right-3">
                     <Badge variant="outline" className="text-xs">
-                      <Icons.AlertCircle className="w-3 h-3 mr-1" />
+                      <AlertCircle className="w-3 h-3 mr-1" />
                       Low confidence
                     </Badge>
                   </div>
@@ -148,10 +152,10 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                 <CardHeader className="pb-3">
                   <div className="flex items-start gap-3">
                     <div className={cn(
-                      'w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0',
+                      'w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0 text-2xl',
                       typeColors[product.type]
                     )}>
-                      <TypeIcon className="w-5 h-5" />
+                      {typeEmojis[product.type]}
                     </div>
                     <div className="flex-1 min-w-0">
                       <CardTitle className="text-lg line-clamp-2">
@@ -179,7 +183,7 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                     )}
                     {product.category === 'primary' && (
                       <Badge className="bg-amber-500">
-                        <Icons.Star className="w-3 h-3 mr-1" />
+                        <Star className="w-3 h-3 mr-1" />
                         Primary
                       </Badge>
                     )}
@@ -189,13 +193,13 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                   <div className="text-sm space-y-1">
                     {product.priceRange && (
                       <div className="flex items-center gap-2 text-muted-foreground">
-                        <Icons.DollarSign className="w-4 h-4" />
+                        <DollarSign className="w-4 h-4" />
                         <span>{product.priceRange}</span>
                       </div>
                     )}
                     {product.durationMinutes && (
                       <div className="flex items-center gap-2 text-muted-foreground">
-                        <Icons.Clock className="w-4 h-4" />
+                        <Clock className="w-4 h-4" />
                         <span>{product.durationMinutes} min</span>
                       </div>
                     )}
@@ -206,7 +210,7 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                     <div className="text-xs space-y-1">
                       {product.features.slice(0, 3).map((feature, idx) => (
                         <div key={idx} className="flex items-start gap-1.5">
-                          <Icons.Check className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
+                          <Check className="w-3 h-3 text-green-600 mt-0.5 flex-shrink-0" />
                           <span className="line-clamp-1">{feature}</span>
                         </div>
                       ))}
@@ -226,7 +230,7 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                       className="flex-1"
                       onClick={() => handleEdit(product)}
                     >
-                      <Icons.Edit2 className="w-3 h-3 mr-1" />
+                      <Edit2 className="w-3 h-3 mr-1" />
                       Edit
                     </Button>
                     <Button
@@ -234,7 +238,7 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                       size="sm"
                       onClick={() => handleRemove(index)}
                     >
-                      <Icons.Trash2 className="w-3 h-3" />
+                      <Trash2 className="w-3 h-3" />
                     </Button>
                   </div>
                 </CardContent>
@@ -243,25 +247,38 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
           })}
         </div>
       ) : (
-        <Card className="border-dashed">
-          <CardContent className="flex flex-col items-center justify-center py-12 text-center">
-            <Icons.Package className="w-12 h-12 text-muted-foreground mb-4" />
-            <p className="text-muted-foreground mb-4">
-              No products or services found. Add them manually.
-            </p>
-            <Button onClick={handleAddNew}>
-              <Icons.Plus className="w-4 h-4 mr-2" />
-              Add Product/Service
-            </Button>
-          </CardContent>
-        </Card>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+        >
+          <Card className="border-dashed border-2">
+            <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ type: "spring", delay: 0.1 }}
+                className="text-6xl mb-4"
+              >
+                📦
+              </motion.div>
+              <h3 className="text-lg font-semibold mb-2">No Products Found</h3>
+              <p className="text-muted-foreground mb-6 max-w-sm">
+                We couldn't find any products or services on your website. Add them manually below.
+              </p>
+              <Button onClick={handleAddNew} size="lg">
+                <Plus className="w-4 h-4 mr-2" />
+                Add Product/Service
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
       )}
 
       {/* Add New Button */}
       {products.length > 0 && (
         <div className="flex justify-center">
           <Button variant="outline" onClick={handleAddNew}>
-            <Icons.Plus className="w-4 h-4 mr-2" />
+            <Plus className="w-4 h-4 mr-2" />
             Add Another Product/Service
           </Button>
         </div>
@@ -381,13 +398,13 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
           >
             {isLoading ? (
               <>
-                <Icons.Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
                 Saving...
               </>
             ) : (
               <>
                 Confirm {products.length} Product{products.length !== 1 ? 's' : ''}
-                <Icons.ArrowRight className="w-4 h-4 ml-2" />
+                <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}
           </Button>
