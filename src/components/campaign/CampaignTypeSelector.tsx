@@ -95,7 +95,7 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
               <Button
                 variant="outline"
                 size="sm"
-                className="border-purple-200 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-300 transition-colors"
+                className="border-purple-300 text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-400 dark:border-purple-700 dark:text-gray-300 dark:hover:bg-purple-900/20 dark:hover:text-purple-300 dark:hover:border-purple-600 transition-colors"
               >
                 <HelpCircle className="w-4 h-4 mr-2" />
                 Why these recommendations?
@@ -103,7 +103,7 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
               <DialogHeader>
-                <DialogTitle className="text-2xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <DialogTitle className="text-2xl text-gray-900 dark:text-white">
                   How We Recommend Campaign Types
                 </DialogTitle>
                 <DialogDescription className="space-y-4 pt-4">
