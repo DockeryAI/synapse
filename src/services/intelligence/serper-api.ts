@@ -266,8 +266,8 @@ class SerperAPIService {
 
       // Simple trend estimation based on result count and recency
       const hasRecentResults = searchResults.some(r =>
-        r.snippet.toLowerCase().includes('trending') ||
-        r.snippet.toLowerCase().includes('popular')
+        r.snippet?.toLowerCase().includes('trending') ||
+        r.snippet?.toLowerCase().includes('popular')
       )
 
       return {

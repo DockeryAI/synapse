@@ -8,6 +8,7 @@
  */
 
 import { supabase } from '@/lib/supabase';
+import { IndustryMatchingService } from './IndustryMatchingService';
 
 export interface GenerationProgress {
   stage: string;
@@ -168,11 +169,14 @@ export class OnDemandProfileGenerator {
       profile = await this.callOpusAPI(prompt, (apiProgress) => {
         // Map API progress to overall progress (60% to 90%)
         const overallProgress = 60 + (apiProgress * 0.3);
+        const ESTIMATED_API_DURATION = 240; // 4 minutes in seconds
+        const remainingTime = Math.max(5, Math.round(ESTIMATED_API_DURATION * (1 - apiProgress)));
+
         onProgress?.({
           stage: 'generating',
           progress: overallProgress,
           message: 'AI is analyzing industry patterns and customer psychology...',
-          estimatedTimeRemaining: Math.max(10, 60 * (1 - apiProgress))
+          estimatedTimeRemaining: remainingTime
         });
       });
     } catch (error) {
@@ -195,12 +199,28 @@ export class OnDemandProfileGenerator {
       estimatedTimeRemaining: 8
     });
 
-    // Store in Supabase
-    try {
-      await this.saveProfile(profile, naicsCode);
-    } catch (error) {
-      console.error('[OnDemand] Failed to save profile, but continuing');
-      // Don't throw - we have the profile even if save failed
+    // Store in Supabase with retry logic
+    let saveSuccess = false;
+    let saveAttempts = 0;
+    const MAX_SAVE_ATTEMPTS = 3;
+
+    while (!saveSuccess && saveAttempts < MAX_SAVE_ATTEMPTS) {
+      try {
+        saveAttempts++;
+        console.log(`[OnDemand] Save attempt ${saveAttempts}/${MAX_SAVE_ATTEMPTS}...`);
+        await this.saveProfile(profile, naicsCode);
+        saveSuccess = true;
+        console.log('[OnDemand] ✅ Profile saved successfully to database');
+      } catch (error) {
+        console.error(`[OnDemand] Save attempt ${saveAttempts} failed:`, error);
+        if (saveAttempts < MAX_SAVE_ATTEMPTS) {
+          console.log('[OnDemand] Retrying in 2 seconds...');
+          await this.sleep(2000);
+        } else {
+          console.error('[OnDemand] ❌ All save attempts failed - throwing error');
+          throw new Error(`Failed to save profile to database after ${MAX_SAVE_ATTEMPTS} attempts: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      }
     }
 
     // Complete
@@ -229,11 +249,15 @@ export class OnDemandProfileGenerator {
       throw new Error('OpenRouter API key not configured');
     }
 
-    // Simulate progress during API call
+    // Track real progress during API call
+    const apiStartTime = Date.now();
+    const ESTIMATED_DURATION = 240000; // 4 minutes average (between 3-5 min)
+
     const progressInterval = setInterval(() => {
-      const currentProgress = Math.random() * 0.2 + 0.3; // 30-50%
-      onProgress?.(currentProgress);
-    }, 3000);
+      const elapsed = Date.now() - apiStartTime;
+      const estimatedProgress = Math.min(0.85, elapsed / ESTIMATED_DURATION); // Cap at 85% until complete
+      onProgress?.(estimatedProgress);
+    }, 2000); // Update every 2 seconds
 
     try {
       console.log('[OnDemand] ===== STARTING API CALL =====');
@@ -290,9 +314,9 @@ export class OnDemandProfileGenerator {
       let data;
 
       try {
-        // Create timeout for reading text (30 seconds)
+        // Create timeout for reading text (10 minutes - Opus needs 3-5 minutes for full profiles)
         const textTimeout = new Promise<never>((_, reject) =>
-          setTimeout(() => reject(new Error('Reading response text timed out after 30 seconds')), 30000)
+          setTimeout(() => reject(new Error('Reading response text timed out after 10 minutes')), 600000)
         );
 
         const textReadStartTime = Date.now();
@@ -363,17 +387,62 @@ export class OnDemandProfileGenerator {
             // Try 3: Clean up common JSON errors and retry
             try {
               console.log('[OnDemand] Attempting to clean and re-parse JSON...');
-              let cleaned = jsonObjectMatch[0]
-                .replace(/,(\s*[}\]])/g, '$1')  // Remove trailing commas
-                .replace(/\n/g, ' ')            // Remove newlines
-                .replace(/\r/g, '');            // Remove carriage returns
+              let cleaned = jsonObjectMatch[0];
+
+              // Fix common JSON issues
+              cleaned = cleaned
+                // Remove trailing commas before closing brackets
+                .replace(/,(\s*[}\]])/g, '$1')
+                // Fix unescaped newlines inside strings (preserve array structure)
+                .replace(/: "([^"]*)\n([^"]*?)"/g, (match, before, after) => {
+                  return `: "${before}\\n${after}"`;
+                })
+                // Remove comments
+                .replace(/\/\*[\s\S]*?\*\//g, '')
+                .replace(/\/\/.*/g, '');
 
               profile = JSON.parse(cleaned);
               console.log('[OnDemand] Successfully parsed cleaned JSON');
             } catch (e2) {
-              console.error('[OnDemand] All JSON parsing attempts failed');
-              console.error('[OnDemand] Raw content preview:', content.substring(0, 500));
-              throw new Error(`Failed to parse JSON response after multiple attempts: ${e2}`);
+              // Try 4: Use a more aggressive fix - truncate at error position
+              try {
+                console.log('[OnDemand] Attempting aggressive JSON repair...');
+                const errorMatch = (e2 as Error).message.match(/position (\d+)/);
+                if (errorMatch) {
+                  const errorPos = parseInt(errorMatch[1]);
+                  console.log(`[OnDemand] Error at position ${errorPos}, attempting to find valid JSON before error`);
+
+                  // Try to find the last complete object before the error
+                  let testJson = jsonObjectMatch[0].substring(0, errorPos);
+
+                  // Add closing brackets to try to complete the JSON
+                  const openBraces = (testJson.match(/\{/g) || []).length;
+                  const closeBraces = (testJson.match(/\}/g) || []).length;
+                  const openBrackets = (testJson.match(/\[/g) || []).length;
+                  const closeBrackets = (testJson.match(/\]/g) || []).length;
+
+                  // Close any unclosed arrays/objects
+                  for (let i = 0; i < (openBrackets - closeBrackets); i++) {
+                    testJson += ']';
+                  }
+                  for (let i = 0; i < (openBraces - closeBraces); i++) {
+                    testJson += '}';
+                  }
+
+                  // Clean and parse
+                  testJson = testJson.replace(/,(\s*[}\]])/g, '$1');
+                  profile = JSON.parse(testJson);
+                  console.log('[OnDemand] ✅ Successfully recovered partial JSON');
+                  console.warn('[OnDemand] ⚠️  Using partial profile - some fields may be missing');
+                } else {
+                  throw e2;
+                }
+              } catch (e3) {
+                console.error('[OnDemand] All JSON parsing attempts failed');
+                console.error('[OnDemand] Raw content preview:', content.substring(0, 500));
+                console.error('[OnDemand] Content around error position:', content.substring(13400, 13500));
+                throw new Error(`Failed to parse JSON response after multiple attempts: ${e2}`);
+              }
             }
           }
         }
@@ -411,19 +480,36 @@ export class OnDemandProfileGenerator {
 
   /**
    * Save generated profile to Supabase
+   * Database schema: { naics_code, title, description, profile_data (JSONB), avoid_words, generated_on_demand, generated_at }
    */
   private static async saveProfile(profile: any, naicsCode: string): Promise<void> {
     console.log('[OnDemand] Attempting to save profile for NAICS:', naicsCode);
     console.log('[OnDemand] Profile keys:', Object.keys(profile));
 
+    // Extract avoid_words (separate column) and prepare data for JSONB schema
+    const { avoid_words, industry, ...profileData} = profile;
+
+    const record = {
+      naics_code: naicsCode,
+      title: industry || profile.industry_name || 'Industry Profile',
+      description: profile.transformation_approach || null,
+      profile_data: profileData, // All other fields go into JSONB
+      avoid_words: avoid_words || null,
+      generated_on_demand: true,
+      generated_at: new Date().toISOString()
+    };
+
+    console.log('[OnDemand] Formatted record for database:', {
+      naics_code: record.naics_code,
+      title: record.title,
+      has_profile_data: !!record.profile_data,
+      profile_data_keys: Object.keys(record.profile_data || {}).length
+    });
+
+    // Save profile
     const { data, error } = await supabase
       .from('industry_profiles')
-      .upsert({
-        ...profile,
-        naics_code: naicsCode,
-        generated_on_demand: true,
-        generated_at: new Date().toISOString()
-      })
+      .upsert(record)
       .select();
 
     if (error) {
@@ -436,25 +522,105 @@ export class OnDemandProfileGenerator {
       throw error;
     }
 
-    console.log('[OnDemand] Profile saved successfully');
-    console.log('[OnDemand] Saved data:', data);
+    console.log('[OnDemand] ✅ Profile saved successfully');
+
+    // ALSO update naics_codes table with keywords for fuzzy matching
+    await this.updateNAICSKeywords(naicsCode, record.title, profile);
+  }
+
+  /**
+   * Update NAICS codes table with searchable keywords
+   * This enables fuzzy matching for on-demand generated profiles
+   */
+  private static async updateNAICSKeywords(naicsCode: string, title: string, profile: any): Promise<void> {
+    try {
+      // Extract keywords from the profile
+      const keywords = new Set<string>();
+
+      // Add words from title
+      const titleWords = title.toLowerCase().split(/\W+/).filter(w => w.length > 3);
+      titleWords.forEach(w => keywords.add(w));
+
+      // Add category/subcategory
+      if (profile.category) keywords.add(profile.category.toLowerCase());
+      if (profile.subcategory) keywords.add(profile.subcategory.toLowerCase());
+
+      // Add industry name variations
+      if (profile.industry_name) {
+        profile.industry_name.toLowerCase().split(/\W+/).filter((w: string) => w.length > 3).forEach((w: string) => keywords.add(w));
+      }
+
+      // Convert to array and limit
+      const keywordsArray = Array.from(keywords).slice(0, 20);
+
+      console.log('[OnDemand] Updating naics_codes with keywords:', keywordsArray);
+
+      // Upsert to naics_codes table
+      await supabase
+        .from('naics_codes')
+        .upsert({
+          code: naicsCode,
+          title: title,
+          category: profile.category || 'Other Services',
+          keywords: keywordsArray,
+          has_full_profile: true,
+          level: 6, // 6-digit NAICS code
+          is_standard: true
+        });
+
+      console.log('[OnDemand] ✅ Keywords updated for fuzzy matching');
+
+      // Clear the IndustryMatchingService cache so it picks up new keywords
+      IndustryMatchingService.clearCache();
+    } catch (error) {
+      console.error('[OnDemand] Failed to update keywords (non-critical):', error);
+      // Don't throw - this is non-critical
+    }
   }
 
   /**
    * Check if profile exists in cache
+   * Database schema: { naics_code, title, description, profile_data (JSONB), avoid_words, generated_on_demand, generated_at }
    */
   static async checkCachedProfile(naicsCode: string): Promise<any | null> {
-    const { data, error } = await supabase
-      .from('industry_profiles')
-      .select('*')
-      .eq('naics_code', naicsCode)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('industry_profiles')
+        .select('*')
+        .eq('naics_code', naicsCode)
+        .single();
 
-    if (error || !data) {
+      if (error) {
+        // Log RLS/permission errors but don't treat as fatal
+        if (error.message?.includes('406') || error.message?.includes('Not Acceptable')) {
+          console.warn(`[OnDemand] Database RLS policy blocking access to industry_profiles table`);
+          console.warn(`[OnDemand] This is expected for demo mode - will generate profile on-demand`);
+        } else if (error.code !== 'PGRST116') { // PGRST116 = no rows returned, which is expected
+          console.error(`[OnDemand] Database error checking profile for ${naicsCode}:`, error);
+        }
+        return null;
+      }
+
+      if (!data) {
+        return null;
+      }
+
+      console.log(`[OnDemand] ✅ Found cached profile for NAICS ${naicsCode}`);
+
+      // Merge profile_data JSONB back into a flat object for compatibility
+      const { profile_data, title, avoid_words, ...metadata } = data;
+      const mergedProfile = {
+        ...profile_data,
+        industry: title,
+        avoid_words,
+        ...metadata
+      };
+
+      return mergedProfile;
+    } catch (error) {
+      console.error(`[OnDemand] Exception checking cached profile:`, error);
       return null;
     }
-
-    return data;
   }
 
   private static sleep(ms: number): Promise<void> {
