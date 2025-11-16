@@ -11,7 +11,8 @@
  */
 
 import React from 'react'
-import { Sparkles, TrendingUp, Clock, CheckCircle2, ChevronRight } from 'lucide-react'
+import { motion } from 'framer-motion'
+import { Sparkles, TrendingUp, Clock, CheckCircle2, ChevronRight, Zap } from 'lucide-react'
 import type { SmartPick } from '@/types/smart-picks.types'
 
 // Icon mapping for data sources
@@ -39,11 +40,11 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
   const confidencePercent = Math.round(pick.confidence * 100)
   const overallScorePercent = Math.round(pick.overallScore * 100)
 
-  // Determine badge color based on score
+  // Determine badge color based on score (purple/blue theme)
   const getBadgeColor = (score: number) => {
-    if (score >= 0.8) return 'bg-green-100 text-green-800 border-green-200'
-    if (score >= 0.6) return 'bg-blue-100 text-blue-800 border-blue-200'
-    return 'bg-gray-100 text-gray-800 border-gray-200'
+    if (score >= 0.8) return 'bg-gradient-to-r from-purple-100 to-blue-100 text-purple-800 border-purple-200 dark:from-purple-900/30 dark:to-blue-900/30 dark:text-purple-300 dark:border-purple-700'
+    if (score >= 0.6) return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-700'
+    return 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-700'
   }
 
   // Check if time-sensitive
@@ -53,25 +54,39 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
   )
 
   return (
-    <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 relative">
+    <motion.div
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ duration: 0.2 }}
+      className="bg-white dark:bg-slate-800 rounded-xl border border-purple-200 dark:border-purple-700 hover:border-purple-300 dark:hover:border-purple-600 shadow-lg hover:shadow-xl transition-all p-6 relative"
+    >
       {/* Rank badge (if provided) */}
       {rank && (
-        <div className="absolute top-4 right-4">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-blue-500 flex items-center justify-center text-white font-bold text-sm">
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200, delay: 0.1 }}
+          className="absolute top-4 right-4"
+        >
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center text-white font-bold text-sm shadow-lg">
             {rank}
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* Header: Title and Campaign Type */}
       <div className="mb-4">
         <div className="flex items-start gap-2 mb-2">
-          <Sparkles className="text-purple-500 flex-shrink-0 mt-1" size={20} />
+          <motion.div
+            animate={{ rotate: [0, 10, -10, 0] }}
+            transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+          >
+            <Sparkles className="text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" size={20} />
+          </motion.div>
           <div>
-            <h3 className="font-semibold text-gray-900 text-lg leading-tight">
+            <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg leading-tight">
               {pick.title}
             </h3>
-            <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full bg-purple-100 text-purple-700">
+            <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 dark:from-purple-900/40 dark:to-blue-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
               {pick.campaignType.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
             </span>
           </div>
@@ -80,17 +95,23 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
 
       {/* Preview Content */}
       {pick.preview.headline && (
-        <div className="mb-4 p-3 bg-gray-50 rounded-lg border border-gray-100">
-          <p className="font-semibold text-gray-800 mb-1">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+          className="mb-4 p-3 bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-700 dark:via-slate-700 dark:to-slate-600 rounded-lg border border-purple-200 dark:border-purple-700"
+        >
+          <p className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
             {pick.preview.headline}
           </p>
-          <p className="text-sm text-gray-600 line-clamp-2">
+          <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
             {pick.preview.hook}
           </p>
-          <span className="inline-block mt-2 text-xs text-gray-500">
+          <span className="inline-block mt-2 text-xs text-purple-600 dark:text-purple-400 flex items-center gap-1">
+            <Zap size={12} />
             Optimized for {pick.preview.platform}
           </span>
-        </div>
+        </motion.div>
       )}
 
       {/* Confidence and Quality Indicators */}
@@ -102,7 +123,7 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
         </div>
 
         {/* Confidence */}
-        <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-gray-200 bg-gray-50 text-xs font-medium text-gray-700">
+        <div className="inline-flex items-center gap-1 px-2 py-1 rounded-full border border-purple-200 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/30 text-xs font-medium text-purple-700 dark:text-purple-300">
           <TrendingUp size={12} />
           <span>{confidencePercent}% Confidence</span>
         </div>
@@ -141,47 +162,59 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
       </div>
 
       {/* Expected Performance */}
-      <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-100">
-        <p className="text-xs font-medium text-blue-900 mb-1">Expected Performance</p>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.3 }}
+        className="mb-4 p-3 bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-700 dark:via-slate-700 dark:to-slate-600 rounded-lg border border-purple-200 dark:border-purple-700"
+      >
+        <p className="text-xs font-medium text-purple-900 dark:text-purple-200 mb-1 flex items-center gap-1">
+          <Zap size={12} className="text-purple-600 dark:text-purple-400" />
+          Expected Performance
+        </p>
         <div className="flex gap-4 text-xs">
           <div>
-            <span className="text-gray-600">Engagement:</span>{' '}
-            <span className="font-medium text-blue-700 capitalize">{pick.expectedPerformance.engagement}</span>
+            <span className="text-gray-600 dark:text-gray-400">Engagement:</span>{' '}
+            <span className="font-medium text-purple-700 dark:text-purple-300 capitalize">{pick.expectedPerformance.engagement}</span>
           </div>
           <div>
-            <span className="text-gray-600">Reach:</span>{' '}
-            <span className="font-medium text-blue-700 capitalize">{pick.expectedPerformance.reach}</span>
+            <span className="text-gray-600 dark:text-gray-400">Reach:</span>{' '}
+            <span className="font-medium text-blue-700 dark:text-blue-300 capitalize">{pick.expectedPerformance.reach}</span>
           </div>
           <div>
-            <span className="text-gray-600">Conversions:</span>{' '}
-            <span className="font-medium text-blue-700 capitalize">{pick.expectedPerformance.conversions}</span>
+            <span className="text-gray-600 dark:text-gray-400">Conversions:</span>{' '}
+            <span className="font-medium text-purple-700 dark:text-purple-300 capitalize">{pick.expectedPerformance.conversions}</span>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Reasoning */}
-      <p className="text-sm text-gray-600 mb-4 line-clamp-2">
+      <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
         {pick.reasoning}
       </p>
 
       {/* Action Buttons */}
       <div className="flex gap-2">
-        <button
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
           onClick={() => onGenerate(pick)}
-          className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2.5 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-colors flex items-center justify-center gap-2"
+          className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2.5 rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg flex items-center justify-center gap-2"
         >
           <Sparkles size={16} />
           Generate This Campaign
-        </button>
-        <button
+        </motion.button>
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
           onClick={() => onPreview(pick)}
-          className="px-4 py-2.5 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center gap-1"
+          className="px-4 py-2.5 border-2 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300 rounded-lg font-medium hover:bg-purple-50 dark:hover:bg-purple-900/30 transition-all flex items-center gap-1"
           title="See full preview"
         >
           <span>Preview</span>
           <ChevronRight size={16} />
-        </button>
+        </motion.button>
       </div>
-    </div>
+    </motion.div>
   )
 }
