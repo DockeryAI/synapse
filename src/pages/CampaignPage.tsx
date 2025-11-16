@@ -322,7 +322,8 @@ export function CampaignPage() {
               <SmartPicks
                 context={session.context}
                 campaignType={session.selectedType}
-                onSelectPick={handleSmartPickSelect}
+                onGenerateCampaign={handleSmartPickSelect}
+                onSwitchToMixer={() => setSelectionMode('mixer')}
               />
             </motion.div>
           )}
