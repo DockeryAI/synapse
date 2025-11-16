@@ -98,7 +98,7 @@ export class CampaignRecommender {
     let factors = 0;
     
     // Check for industry expertise data
-    if (context.business?.specialty && context.business.specialty.length > 0) {
+    if (context.business?.profile?.industry) {
       score += 0.3;
       factors++;
     }
@@ -110,22 +110,22 @@ export class CampaignRecommender {
     }
     
     // Check for competitive intelligence
-    if (context.competitiveIntel?.gaps && context.competitiveIntel.gaps.length > 0) {
+    if (context.competitiveIntel?.opportunities && context.competitiveIntel.opportunities.length > 0) {
       score += 0.2;
       factors++;
     }
     
     // Check for synthesis insights (indicates strong analytical capacity)
-    if (context.synthesis?.insights && context.synthesis.insights.length > 3) {
+    if (context.synthesis?.keyInsights && context.synthesis.keyInsights.length > 3) {
       score += 0.15;
       factors++;
     }
     
     // B2B businesses score higher for authority
-    if (context.business?.industry && 
-        (context.business.industry.toLowerCase().includes('consulting') ||
-         context.business.industry.toLowerCase().includes('professional') ||
-         context.business.industry.toLowerCase().includes('service'))) {
+    if (context.business?.profile?.industry &&
+        (context.business.profile.industry.toLowerCase().includes('consulting') ||
+         context.business.profile.industry.toLowerCase().includes('professional') ||
+         context.business.profile.industry.toLowerCase().includes('service'))) {
       score += 0.15;
       factors++;
     }
@@ -143,8 +143,8 @@ export class CampaignRecommender {
     
     // Check for review data (OutScraper)
     // Note: DeepContext structure may vary, adapt as needed
-    const hasReviews = context.business?.reviews !== undefined && 
-                       context.business?.reviews !== null;
+    const hasReviews = context.realTimeCultural?.reviews !== undefined &&
+                       context.realTimeCultural?.reviews !== null;
     
     if (hasReviews) {
       score += 0.4; // Strong indicator
@@ -152,24 +152,24 @@ export class CampaignRecommender {
     }
     
     // Check for customer psychology insights
-    if (context.customerPsychology?.desires && 
-        context.customerPsychology.desires.length > 0) {
+    if (context.customerPsychology?.identityDesires &&
+        context.customerPsychology.identityDesires.length > 0) {
       score += 0.2;
       factors++;
     }
     
     // Check for testimonial-worthy insights
-    if (context.synthesis?.opportunities && 
-        context.synthesis.opportunities.some(opp => 
-          opp.toLowerCase().includes('customer') || 
-          opp.toLowerCase().includes('review')
+    if (context.synthesis?.keyInsights &&
+        context.synthesis.keyInsights.some(insight =>
+          insight.toLowerCase().includes('customer') ||
+          insight.toLowerCase().includes('review')
         )) {
       score += 0.2;
       factors++;
     }
     
     // Local businesses often have strong review presence
-    if (context.business?.location && context.business.location.city) {
+    if (context.business?.profile?.location && context.business.profile.location.city) {
       score += 0.2;
       factors++;
     }
@@ -186,7 +186,7 @@ export class CampaignRecommender {
     let factors = 0;
     
     // Strong location data is essential
-    if (context.business?.location && context.business.location.city) {
+    if (context.business?.profile?.location && context.business.profile.location.city) {
       score += 0.3;
       factors++;
     }
@@ -244,16 +244,16 @@ export class CampaignRecommender {
   ): string {
     const reasons: string[] = [];
     
-    if (context.business?.specialty) {
-      reasons.push(`Your specialized expertise in ${context.business.specialty} positions you as an authority`);
+    if (context.business?.profile?.industry) {
+      reasons.push(`Your specialized expertise in ${context.business.profile.industry} positions you as an authority`);
     }
     
     if (context.industry?.trends && context.industry.trends.length > 0) {
       reasons.push(`${context.industry.trends.length} industry trends detected for thought leadership content`);
     }
     
-    if (context.competitiveIntel?.gaps && context.competitiveIntel.gaps.length > 0) {
-      reasons.push(`Identified ${context.competitiveIntel.gaps.length} competitive gaps to address with expert content`);
+    if (context.competitiveIntel?.opportunities && context.competitiveIntel.opportunities.length > 0) {
+      reasons.push(`Identified ${context.competitiveIntel.opportunities.length} competitive gaps to address with expert content`);
     }
     
     if (reasons.length === 0) {
@@ -272,15 +272,15 @@ export class CampaignRecommender {
   ): string {
     const reasons: string[] = [];
     
-    if (context.business?.reviews) {
+    if (context.realTimeCultural?.reviews) {
       reasons.push('Strong customer review presence detected');
     }
-    
-    if (context.customerPsychology?.desires) {
-      reasons.push(`Understanding of ${context.customerPsychology.desires.length} customer desires enables compelling testimonial content`);
+
+    if (context.customerPsychology?.identityDesires) {
+      reasons.push(`Understanding of ${context.customerPsychology.identityDesires.length} customer desires enables compelling testimonial content`);
     }
-    
-    if (context.business?.location) {
+
+    if (context.business?.profile?.location) {
       reasons.push('Local business profile ideal for customer success stories');
     }
     
@@ -300,8 +300,8 @@ export class CampaignRecommender {
   ): string {
     const reasons: string[] = [];
     
-    if (context.business?.location?.city) {
-      reasons.push(`Strong local presence in ${context.business.location.city}`);
+    if (context.business?.profile?.location?.city) {
+      reasons.push(`Strong local presence in ${context.business.profile.location.city}`);
     }
     
     if (context.realTimeCultural?.weather) {
