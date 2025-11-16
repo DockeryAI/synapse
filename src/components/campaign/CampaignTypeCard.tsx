@@ -101,11 +101,11 @@ export const CampaignTypeCard: React.FC<CampaignTypeCardProps> = ({
                 <IconComponent className={cn('w-6 h-6', colors.icon)} />
               </div>
               <div>
-                <CardTitle className="text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                <CardTitle className="text-xl text-gray-900 dark:text-white">
                   {type.name}
                 </CardTitle>
                 {type.confidenceScore !== undefined && (
-                  <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mt-1 flex items-center gap-1">
                     <span className="font-semibold text-purple-600 dark:text-purple-400">
                       {Math.round(type.confidenceScore * 100)}%
                     </span>
