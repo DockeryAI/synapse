@@ -13,6 +13,7 @@
  */
 
 import React from 'react';
+import { motion } from 'framer-motion';
 import {
   type SupportedPlatform,
   type PreviewMode,
@@ -67,13 +68,15 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
   const config = PLATFORM_CONFIGS[platform];
 
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       onClick={onClick}
       className={`
-        relative flex items-center gap-2 px-4 py-3 rounded-t-lg border-b-2 transition-all
+        relative flex items-center gap-2 px-4 py-3 rounded-t-lg transition-all shadow-lg
         ${isActive
-          ? 'bg-white dark:bg-gray-800 border-blue-500 text-blue-600 dark:text-blue-400'
-          : 'bg-gray-50 dark:bg-gray-900 border-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+          ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
+          : 'bg-white/50 dark:bg-slate-800/50 text-gray-600 dark:text-gray-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
         }
       `}
       aria-current={isActive ? 'page' : undefined}
@@ -88,10 +91,12 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
 
       {/* Character Count Badge */}
       <span className={`
-        ml-2 px-2 py-0.5 rounded-full text-xs font-medium
+        ml-2 px-2 py-0.5 rounded-full text-xs font-medium border
         ${hasWarnings
-          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-          : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'
+          ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-red-300 dark:border-red-700'
+          : isActive
+          ? 'bg-white/20 text-white border-white/40'
+          : 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300 border-purple-300 dark:border-purple-700'
         }
       `}>
         {characterCount}
@@ -99,9 +104,13 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
 
       {/* Warning Indicator */}
       {hasWarnings && (
-        <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-gray-900" />
+        <motion.span
+          animate={{ scale: [1, 1.2, 1] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white dark:border-slate-900"
+        />
       )}
-    </button>
+    </motion.button>
   );
 };
 
@@ -127,7 +136,7 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
   onModeChange
 }) => {
   return (
-    <div className="w-full border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+    <div className="w-full border-b border-purple-200 dark:border-purple-700 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
       <div className="flex items-center justify-between px-4 py-2">
         {/* Platform Tabs */}
         <div className="flex gap-1 overflow-x-auto">
@@ -151,56 +160,60 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
 
         {/* Mode Toggle */}
         <div className="flex items-center gap-2 ml-4">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('preview')}
             className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all
+              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
               ${mode === 'preview'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
+                : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
               }
             `}
           >
             👁️ Preview
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('edit')}
             className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all
+              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
               ${mode === 'edit'
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
+                : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
               }
             `}
           >
             ✏️ Edit
-          </button>
+          </motion.button>
         </div>
       </div>
 
       {/* Active Platform Info */}
-      <div className="px-4 py-2 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+      <div className="px-4 py-2 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-t border-purple-200 dark:border-purple-700">
         <div className="flex items-center justify-between text-sm">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
             <span>Total Characters:</span>
-            <span className="font-medium text-gray-900 dark:text-gray-100">
+            <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               {platformContent[activePlatform]?.characterCounts?.total || 0}
             </span>
           </div>
 
           {/* Platform Capabilities */}
-          <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
             {PLATFORM_CONFIGS[activePlatform].supportsImages && (
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
                 🖼️ Images
               </span>
             )}
             {PLATFORM_CONFIGS[activePlatform].supportsVideo && (
-              <span className="flex items-center gap-1">
+              <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
                 🎥 Video
               </span>
             )}
-            <span className="flex items-center gap-1">
+            <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
               📐 {PLATFORM_CONFIGS[activePlatform].recommendedAspectRatio}
             </span>
           </div>
@@ -208,9 +221,19 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
 
         {/* Warnings Summary */}
         {platformContent[activePlatform]?.warnings && platformContent[activePlatform].warnings.length > 0 && (
-          <div className="mt-2 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="mt-2 p-2 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg shadow-lg"
+          >
             <div className="flex items-start gap-2">
-              <span className="text-red-500">⚠️</span>
+              <motion.span
+                animate={{ rotate: [0, -10, 10, 0] }}
+                transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 2 }}
+                className="text-red-500"
+              >
+                ⚠️
+              </motion.span>
               <div className="flex-1">
                 <p className="text-sm font-medium text-red-700 dark:text-red-400">
                   {platformContent[activePlatform].warnings.length} warning(s) for this platform
@@ -224,7 +247,7 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
                 </ul>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
     </div>

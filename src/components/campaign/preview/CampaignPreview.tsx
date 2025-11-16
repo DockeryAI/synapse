@@ -21,6 +21,8 @@
  */
 
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles, Zap } from 'lucide-react';
 import {
   type SupportedPlatform,
   type PreviewMode,
@@ -45,24 +47,27 @@ const CampaignTypeBadge: React.FC<CampaignTypeBadgeProps> = ({ type }) => {
   const badgeConfig = {
     'authority-builder': {
       label: '🎓 Authority Builder',
-      className: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
+      className: 'bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 dark:from-purple-900/30 dark:to-blue-900/30 dark:text-purple-400 border border-purple-200 dark:border-purple-700'
     },
     'social-proof': {
       label: '⭐ Social Proof',
-      className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400'
+      className: 'bg-gradient-to-r from-green-100 to-blue-100 text-green-700 dark:from-green-900/30 dark:to-blue-900/30 dark:text-green-400 border border-green-200 dark:border-green-700'
     },
     'local-pulse': {
       label: '📍 Local Pulse',
-      className: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
+      className: 'bg-gradient-to-r from-blue-100 to-purple-100 text-blue-700 dark:from-blue-900/30 dark:to-purple-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-700'
     }
   };
 
   const config = badgeConfig[type];
 
   return (
-    <span className={`px-3 py-1 rounded-full text-sm font-medium ${config.className}`}>
+    <motion.span
+      whileHover={{ scale: 1.05 }}
+      className={`px-3 py-1 rounded-full text-sm font-medium shadow-sm ${config.className}`}
+    >
       {config.label}
-    </span>
+    </motion.span>
   );
 };
 
@@ -82,29 +87,41 @@ const CampaignPreviewHeader: React.FC<CampaignPreviewHeaderProps> = ({
   createdAt
 }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6">
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-b border-purple-200 dark:border-purple-700 p-6"
+    >
       <div className="flex items-center justify-between">
         <div className="space-y-2">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
             {campaignName}
           </h1>
           <div className="flex items-center gap-3">
             <CampaignTypeBadge type={campaignType} />
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-gray-600 dark:text-gray-400">
               Created {new Date(createdAt).toLocaleDateString()}
             </span>
           </div>
         </div>
 
         {/* Campaign Status Indicator */}
-        <div className="flex items-center gap-2 px-4 py-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <span className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse" />
+        <motion.div
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1 }}
+          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg shadow-lg"
+        >
+          <motion.span
+            animate={{ scale: [1, 1.2, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-2 h-2 bg-yellow-500 rounded-full"
+          />
           <span className="text-sm font-medium text-yellow-700 dark:text-yellow-400">
             Awaiting Approval
           </span>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -130,49 +147,75 @@ const CampaignPreviewActions: React.FC<CampaignPreviewActionsProps> = ({
   isLoading
 }) => {
   return (
-    <div className="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 p-6">
+    <div className="sticky bottom-0 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-slate-800 dark:to-slate-700 border-t border-purple-200 dark:border-purple-700 p-6 shadow-lg">
       <div className="flex items-center justify-between">
         {/* Left Actions */}
         <div className="flex items-center gap-3">
           {!isEditing ? (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onEdit}
-              className="px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+              className="px-4 py-2 border-2 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all shadow-lg"
             >
               ✏️ Edit Content
-            </button>
+            </motion.button>
           ) : (
-            <button
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
               onClick={onEdit}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+              className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg"
             >
               👁️ Back to Preview
-            </button>
+            </motion.button>
           )}
 
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onRegenerateAll}
             disabled={isLoading}
-            className="px-4 py-2 border border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-400 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 border-2 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-400 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg flex items-center gap-2"
           >
-            {isLoading ? '⚙️ Regenerating...' : '🔄 Regenerate All'}
-          </button>
+            {isLoading ? (
+              <>
+                <motion.span
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                >
+                  ⚙️
+                </motion.span>
+                Regenerating...
+              </>
+            ) : (
+              <>
+                <Zap size={16} />
+                Regenerate All
+              </>
+            )}
+          </motion.button>
         </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-3">
-          <button
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onReject}
-            className="px-6 py-2 border border-red-300 dark:border-red-600 text-red-700 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+            className="px-6 py-2 border-2 border-red-300 dark:border-red-600 text-red-700 dark:text-red-400 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-all shadow-lg"
           >
             ❌ Reject
-          </button>
-          <button
+          </motion.button>
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={onApprove}
-            className="px-6 py-2 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 transition-all shadow-lg"
+            className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all shadow-lg flex items-center gap-2"
           >
-            ✅ Approve & Publish
-          </button>
+            <Sparkles size={18} />
+            Approve & Publish
+          </motion.button>
         </div>
       </div>
     </div>
@@ -275,7 +318,7 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
     : '';
 
   return (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="w-full min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
       {/* Header */}
       <CampaignPreviewHeader
         campaignName={editedContent.campaignName}
@@ -295,52 +338,68 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
 
       {/* Main Content Area */}
       <div className="container mx-auto px-6 py-8">
-        {mode === 'preview' ? (
-          // Preview Mode
-          <CampaignPreviewCard
-            content={currentPlatformContent}
-            platform={activePlatform}
-            editable={true}
-            showSocialPreview={true}
-            onEditSection={handleEditSection}
-          />
-        ) : (
-          // Edit Mode
-          <div className="space-y-6">
-            {/* Current Preview */}
-            <div className="bg-gray-100 dark:bg-gray-800 p-4 rounded-lg">
-              <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                Current Preview
-              </h3>
+        <AnimatePresence mode="wait">
+          {mode === 'preview' ? (
+            // Preview Mode
+            <motion.div
+              key="preview"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
               <CampaignPreviewCard
                 content={currentPlatformContent}
                 platform={activePlatform}
-                editable={false}
-                showSocialPreview={false}
+                editable={true}
+                showSocialPreview={true}
                 onEditSection={handleEditSection}
               />
-            </div>
-
-            {/* Editor */}
-            {editingSection ? (
-              <EditSection
-                section={editingSection}
-                value={currentSectionValue}
-                limit={currentPlatformContent.characterCounts[editingSection as keyof typeof currentPlatformContent.characterCounts]}
-                onChange={handleSectionValueChange}
-                onSave={handleSaveSection}
-                onCancel={handleCancelEdit}
-                onRegenerate={onSectionRegenerate ? handleSectionRegenerate : undefined}
-              />
-            ) : (
-              <div className="p-8 bg-white dark:bg-gray-800 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-600 text-center">
-                <p className="text-gray-500 dark:text-gray-400">
-                  Click "Edit" on any section above to start editing
-                </p>
+            </motion.div>
+          ) : (
+            // Edit Mode
+            <motion.div
+              key="edit"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="space-y-6"
+            >
+              {/* Current Preview */}
+              <div className="bg-gradient-to-br from-purple-50/50 via-blue-50/50 to-violet-50/50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-700 p-4 rounded-xl border border-purple-200 dark:border-purple-700 shadow-lg">
+                <h3 className="text-sm font-semibold text-purple-900 dark:text-purple-200 mb-3 flex items-center gap-2">
+                  <Sparkles size={16} />
+                  Current Preview
+                </h3>
+                <CampaignPreviewCard
+                  content={currentPlatformContent}
+                  platform={activePlatform}
+                  editable={false}
+                  showSocialPreview={false}
+                  onEditSection={handleEditSection}
+                />
               </div>
-            )}
-          </div>
-        )}
+
+              {/* Editor */}
+              {editingSection ? (
+                <EditSection
+                  section={editingSection}
+                  value={currentSectionValue}
+                  limit={currentPlatformContent.characterCounts[editingSection as keyof typeof currentPlatformContent.characterCounts]}
+                  onChange={handleSectionValueChange}
+                  onSave={handleSaveSection}
+                  onCancel={handleCancelEdit}
+                  onRegenerate={onSectionRegenerate ? handleSectionRegenerate : undefined}
+                />
+              ) : (
+                <div className="p-8 bg-white dark:bg-slate-800 rounded-xl border-2 border-dashed border-purple-300 dark:border-purple-700 text-center shadow-lg">
+                  <p className="text-gray-500 dark:text-gray-400">
+                    Click "Edit" on any section above to start editing
+                  </p>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Footer Actions */}
