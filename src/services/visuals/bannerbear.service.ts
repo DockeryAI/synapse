@@ -7,7 +7,16 @@
  * Philosophy: "Professional visuals, zero design effort"
  */
 
-import { BANNERBEAR_CONFIG, isBannerbearConfigured } from '../../config/bannerbear.config';
+import { BANNERBEAR_CONFIG, isBannerbearConfigured, PLATFORM_SPECS, PlatformKey } from '../../config/bannerbear.config';
+import { getTemplateForCampaignType, isTemplateConfigured } from '../../config/campaign-templates.config';
+import type {
+  GenerateCampaignVisualRequest,
+  GeneratedVisual,
+  GenerateAllPlatformsRequest,
+  BatchVisualResult,
+  CampaignTemplateConfig
+} from '../../types/campaign-visual.types';
+import type { CampaignTypeId } from '../../types/campaign.types';
 
 // ============================================================================
 // TYPES
@@ -59,6 +68,8 @@ class BannerbearService {
   private apiUrl: string;
   private apiKey: string;
   private requestQueue: Promise<any>[] = [];
+  private visualCache: Map<string, { visual: GeneratedVisual; timestamp: number }> = new Map();
+  private readonly CACHE_TTL = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   constructor() {
     this.apiUrl = BANNERBEAR_CONFIG.apiUrl;
@@ -161,6 +172,167 @@ class BannerbearService {
    */
   isConfigured(): boolean {
     return isBannerbearConfigured();
+  }
+
+  // ==========================================================================
+  // CAMPAIGN-SPECIFIC VISUAL GENERATION
+  // ==========================================================================
+
+  /**
+   * Generate a visual for a specific campaign type and platform
+   * Automatically maps campaign content to appropriate template
+   */
+  async generateCampaignVisual(request: GenerateCampaignVisualRequest): Promise<GeneratedVisual> {
+    this.validateConfig();
+    const startTime = Date.now();
+
+    // Check cache first
+    const cacheKey = this.getCacheKey(request);
+    const cached = this.getCachedVisual(cacheKey);
+    if (cached) {
+      console.log(`[Bannerbear] Cache hit for ${request.campaignType}/${request.platform}`);
+      return cached;
+    }
+
+    try {
+      // Get template config for campaign type
+      const templateConfig = getTemplateForCampaignType(request.campaignType);
+      const templateId = request.templateId || templateConfig.templateId;
+
+      // Check if template is configured
+      if (!isTemplateConfigured(request.campaignType) && !request.templateId) {
+        throw new Error(
+          `Template for ${request.campaignType} not configured in Bannerbear dashboard. ` +
+          `Please create template and update campaign-templates.config.ts`
+        );
+      }
+
+      // Map campaign content to template variables
+      const modifications = this.mapCampaignContentToTemplate(request.content, templateConfig, request.branding);
+
+      // Get platform-specific dimensions
+      const platformKey = request.platform as PlatformKey;
+      const format = request.format || 'feed';
+      const dimensions = PLATFORM_SPECS[platformKey]?.[format as keyof typeof PLATFORM_SPECS[typeof platformKey]];
+
+      if (!dimensions) {
+        throw new Error(`Invalid platform/format: ${request.platform}/${format}`);
+      }
+
+      // Generate image
+      console.log(`[Bannerbear] Generating ${request.campaignType} visual for ${request.platform}...`);
+      const response = await this.makeRequest<{ uid: string }>('/images', {
+        method: 'POST',
+        body: JSON.stringify({
+          template: templateId,
+          modifications: this.formatModifications(modifications),
+          metadata: {
+            campaign_type: request.campaignType,
+            platform: request.platform,
+            format: format,
+            brand_name: request.content.brandName,
+          },
+          webhook_url: null,
+        }),
+      });
+
+      // Poll for completion
+      const imageUrl = await this.pollForImage(response.uid);
+      const generationTime = Date.now() - startTime;
+
+      // Create result
+      const visual: GeneratedVisual = {
+        id: `visual_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        campaignType: request.campaignType,
+        platform: request.platform,
+        format: format,
+        imageUrl,
+        bannerbearUid: response.uid,
+        templateId,
+        metadata: {
+          generatedAt: new Date(),
+          generationTime,
+          dimensions: { width: dimensions.width, height: dimensions.height },
+          aspectRatio: dimensions.aspectRatio,
+        },
+        status: 'completed',
+      };
+
+      // Cache the result
+      this.cacheVisual(cacheKey, visual);
+
+      console.log(`[Bannerbear] ✓ Generated in ${generationTime}ms: ${imageUrl}`);
+      return visual;
+
+    } catch (error: any) {
+      console.error(`[Bannerbear] Failed to generate ${request.campaignType} visual:`, error);
+
+      // Return failed visual
+      return {
+        id: `visual_failed_${Date.now()}`,
+        campaignType: request.campaignType,
+        platform: request.platform,
+        format: request.format || 'feed',
+        imageUrl: '',
+        bannerbearUid: '',
+        templateId: '',
+        metadata: {
+          generatedAt: new Date(),
+          generationTime: Date.now() - startTime,
+          dimensions: { width: 0, height: 0 },
+          aspectRatio: '0:0',
+        },
+        status: 'failed',
+        error: error.message || 'Image generation failed',
+      };
+    }
+  }
+
+  /**
+   * Generate visuals for all platforms (batch generation)
+   * Returns results for each platform, with graceful failure handling
+   */
+  async generateAllPlatforms(request: GenerateAllPlatformsRequest): Promise<BatchVisualResult> {
+    const platforms = request.platforms || ['linkedin', 'facebook', 'instagram', 'twitter'];
+    const startTime = Date.now();
+
+    console.log(`[Bannerbear] Generating ${request.campaignType} visuals for ${platforms.length} platforms...`);
+
+    const visualPromises = platforms.map(platform =>
+      this.generateCampaignVisual({
+        campaignType: request.campaignType,
+        platform: platform as any,
+        content: request.content,
+        branding: request.branding,
+      }).catch(error => {
+        console.error(`[Bannerbear] Failed to generate for ${platform}:`, error);
+        return null;
+      })
+    );
+
+    // Generate with rate limiting
+    const visuals = await this.withRateLimit(visualPromises);
+
+    // Filter out nulls and separate completed/failed
+    const validVisuals = visuals.filter((v): v is GeneratedVisual => v !== null);
+    const completed = validVisuals.filter(v => v.status === 'completed').length;
+    const failed = validVisuals.filter(v => v.status === 'failed').length;
+    const errors = validVisuals
+      .filter(v => v.status === 'failed')
+      .map(v => ({ platform: v.platform, error: v.error || 'Unknown error' }));
+
+    const totalTime = Date.now() - startTime;
+    console.log(
+      `[Bannerbear] Batch complete in ${totalTime}ms: ${completed} succeeded, ${failed} failed`
+    );
+
+    return {
+      total: platforms.length,
+      completed,
+      failed,
+      visuals: validVisuals,
+      errors,
+    };
   }
 
   // ==========================================================================
@@ -283,6 +455,129 @@ class BannerbearService {
 
   private sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Map campaign content to template variables based on field mappings
+   */
+  private mapCampaignContentToTemplate(
+    content: GenerateCampaignVisualRequest['content'],
+    templateConfig: CampaignTemplateConfig,
+    branding?: GenerateCampaignVisualRequest['branding']
+  ): Record<string, string | number> {
+    const modifications: Record<string, string | number> = {};
+    const { fieldMappings, defaults } = templateConfig;
+
+    // Map headline (always required)
+    if (fieldMappings.headline) {
+      modifications[fieldMappings.headline] = content.headline;
+    }
+
+    // Map subheadline if present
+    if (fieldMappings.subheadline && content.subheadline) {
+      modifications[fieldMappings.subheadline] = content.subheadline;
+    }
+
+    // Map body text if present
+    if (fieldMappings.bodyText && content.bodyText) {
+      modifications[fieldMappings.bodyText] = content.bodyText;
+    }
+
+    // Campaign-specific fields
+    // Stats (Authority Builder)
+    if (fieldMappings.stat && content.stats && content.stats.length > 0) {
+      modifications[fieldMappings.stat] = content.stats[0];
+    }
+
+    // Testimonial & Customer Name (Social Proof)
+    if (fieldMappings.testimonial && content.testimonial) {
+      modifications[fieldMappings.testimonial] = content.testimonial;
+    }
+    if (fieldMappings.customerName && content.customerName) {
+      modifications[fieldMappings.customerName] = content.customerName;
+    }
+
+    // Location (Local Pulse)
+    if (fieldMappings.location && content.location) {
+      modifications[fieldMappings.location] = content.location;
+    }
+
+    // Branding
+    if (fieldMappings.logoUrl && branding?.logoUrl) {
+      modifications[fieldMappings.logoUrl] = branding.logoUrl;
+    }
+    if (fieldMappings.brandColor && branding?.primaryColor) {
+      modifications[fieldMappings.brandColor] = branding.primaryColor;
+    }
+
+    // Apply defaults for missing optional fields
+    if (defaults) {
+      Object.entries(defaults).forEach(([key, value]) => {
+        if (!modifications[key]) {
+          modifications[key] = value;
+        }
+      });
+    }
+
+    return modifications;
+  }
+
+  /**
+   * Generate cache key for a visual request
+   */
+  private getCacheKey(request: GenerateCampaignVisualRequest): string {
+    const parts = [
+      request.campaignType,
+      request.platform,
+      request.format || 'feed',
+      request.content.headline,
+      request.content.brandName,
+    ];
+    return parts.join('::');
+  }
+
+  /**
+   * Get cached visual if still valid
+   */
+  private getCachedVisual(cacheKey: string): GeneratedVisual | null {
+    const cached = this.visualCache.get(cacheKey);
+    if (!cached) return null;
+
+    // Check if expired
+    const age = Date.now() - cached.timestamp;
+    if (age > this.CACHE_TTL) {
+      this.visualCache.delete(cacheKey);
+      return null;
+    }
+
+    return cached.visual;
+  }
+
+  /**
+   * Cache a generated visual
+   */
+  private cacheVisual(cacheKey: string, visual: GeneratedVisual): void {
+    this.visualCache.set(cacheKey, {
+      visual,
+      timestamp: Date.now(),
+    });
+
+    // Periodic cleanup of expired entries (every 100 additions)
+    if (this.visualCache.size % 100 === 0) {
+      this.cleanupCache();
+    }
+  }
+
+  /**
+   * Remove expired entries from cache
+   */
+  private cleanupCache(): void {
+    const now = Date.now();
+    for (const [key, entry] of this.visualCache.entries()) {
+      if (now - entry.timestamp > this.CACHE_TTL) {
+        this.visualCache.delete(key);
+      }
+    }
   }
 }
 
