@@ -44,11 +44,11 @@
 
 ---
 
-## PHASE 1A: Core MVP (150 hours / 3 weeks)
+## PHASE 1A: Core MVP (183 hours / 3-4 weeks)
 
-**Goal:** Generate intelligent campaigns better than competitors
+**Goal:** Generate intelligent campaigns better than competitors with user control over content selection
 
-### Features (12 total)
+### Features (14 total)
 
 **Foundation (10 hours):**
 - Universal URL Parser (4h)
@@ -60,21 +60,30 @@
 - Social Media Intelligence (14h) - YouTube + scraping
 - Deep Specialty Detection (6h)
 
-**UVP & Profiles (50 hours):**
+**UVP & Profiles (58 hours):**
 - Dynamic Industry Profile Generator (10h)
 - Product/Service Scanner (8h)
+- Brand Voice Detection & Matching (8h)
 - Intelligence-Driven UVP Wizard 2.0 (18h)
 - Business Profile Management (14h)
 
-**Campaign Engine (40 hours):**
+**Campaign Engine (65 hours):**
 - Bannerbear Template System (10h)
 - Basic Competitive Intelligence (10h)
+- Content Selection Interface (25h)
+  - Smart Picks UI (8h) - AI-recommended content with one-click generation
+  - Content Mixer (12h) - Three-column interface for custom combinations
+  - Insight Pool & Categorization (5h) - Local/Trending/Seasonal/Industry tabs
 - AI Campaign Generator - 3 types (20h)
 
 **Core Campaign Types:**
 1. **Authority Builder** - Industry expertise
 2. **Social Proof** - Reviews + testimonials
 3. **Local Pulse** - Basic local content
+
+**Content Selection Modes:**
+- **Smart Picks** (Easy Button): AI pre-selects 3-5 best combinations with trust indicators
+- **Content Mixer** (Power User): Drag-and-drop interface to combine insights from multiple data sources
 
 ### Parallel Worktrees (Week 1-3)
 
@@ -98,15 +107,22 @@ git worktree add ../synapse-bannerbear feature/bannerbear
 ```bash
 git worktree add ../synapse-profile feature/profile-management
 git worktree add ../synapse-campaign feature/campaign-generator-core
+git worktree add ../synapse-content-selector feature/content-selection-interface
 ```
 
 ### Value to Customer
 - Enter URL → Get intelligent campaigns in 10 minutes
 - 20+ data sources inform content strategy
 - UVP auto-discovered (5 min vs 20+)
+- **Brand Voice Matching:** AI learns and matches your existing tone of voice
+- **Smart Picks:** AI selects best content combinations (one-click generation)
+- **Content Mixer:** Power users can combine local issues + trending topics + seasonal events
+- See ALL insights data before generating (not just 3 AI-picked ideas)
+- Mix and match data sources for custom content strategies
+- Content feels like YOUR team wrote it, not generic AI
 - 3 strategic campaign types
 - Better than manually creating posts
-- Better than Jasper (no intelligence)
+- Better than Jasper (no intelligence, no customization, generic tone)
 
 ### Ongoing API Costs
 - OpenRouter (Opus): $100/month (50 users)
@@ -387,9 +403,9 @@ git worktree add ../synapse-content-automation feature/content-intelligence
 
 ### Total Development Effort
 - **Phase 0:** 1 hour
-- **Phase 1 (A+B+C):** 300 hours (7 weeks)
+- **Phase 1 (A+B+C):** 333 hours (7-8 weeks)
 - **Phase 2 (A+B+C+D):** 383 hours (6-7 months)
-- **Total:** 684 hours
+- **Total:** 717 hours
 
 ### Timeline to Revenue
 - **Week 3:** Launch Core MVP, begin testing
@@ -415,7 +431,7 @@ git worktree add ../synapse-content-automation feature/content-intelligence
 - **Month 6:** $25,000-75,000 (agencies scale + SMB base)
 
 ### Competitive Advantages Per Phase
-**Phase 1A:** Intelligence-driven campaigns (no competitor has 20+ sources)
+**Phase 1A:** Intelligence-driven campaigns (no competitor has 20+ sources) + Brand Voice Matching + Smart Picks/Content Mixer (user control over data)
 **Phase 1B:** Complete content funnel (awareness → capture)
 **Phase 1C:** Only platform with intelligence + content + video
 **Phase 2A:** Professional operations (scale confidence)

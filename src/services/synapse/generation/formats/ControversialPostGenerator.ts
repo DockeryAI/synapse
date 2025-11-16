@@ -22,14 +22,17 @@ import type {
 import { PowerWordOptimizer } from '../PowerWordOptimizer';
 import { PROBLEM_AGITATE_SOLUTION, type ContentFramework } from '../ContentFrameworkLibrary';
 import { detectTargetAudience, getCleanEvidence } from '../utils/audienceDetection';
+import { PremiumContentWriter } from './PremiumContentWriter';
 
 export class ControversialPostGenerator {
   private powerWordOptimizer: PowerWordOptimizer;
   private framework: ContentFramework;
+  private premiumWriter: PremiumContentWriter;
 
   constructor() {
     this.powerWordOptimizer = new PowerWordOptimizer();
     this.framework = PROBLEM_AGITATE_SOLUTION;
+    this.premiumWriter = new PremiumContentWriter();
   }
 
   /**
@@ -37,7 +40,8 @@ export class ControversialPostGenerator {
    */
   async generate(
     insight: BreakthroughInsight,
-    business: BusinessProfile
+    business: BusinessProfile,
+    platform: 'linkedin' | 'facebook' | 'instagram' | 'twitter' = 'linkedin'
   ): Promise<SynapseContent> {
     // Detect actual target audience
     const targetAudience = detectTargetAudience(business);
@@ -45,11 +49,20 @@ export class ControversialPostGenerator {
     // Get clean evidence for provenance tracking
     const cleanEvidence = getCleanEvidence(insight.evidence, 3);
 
-    // Generate draft following Problem-Agitate-Solution framework
-    const draft = this.generateFrameworkGuidedDraft(insight, business, targetAudience);
+    // Use PremiumContentWriter for high-quality content generation
+    const premiumContent = await this.premiumWriter.generatePremiumContent(
+      insight,
+      business,
+      platform
+    );
 
-    // Optimize with power words (careful - don't make it clickbait)
-    const optimized = await this.powerWordOptimizer.optimize(draft, business);
+    // Extract the optimized content
+    const optimized = {
+      headline: premiumContent.headline,
+      hook: premiumContent.hook,
+      body: premiumContent.body,
+      cta: premiumContent.cta
+    };
 
     // Build complete content object
     const content: SynapseContent = {
@@ -62,7 +75,7 @@ export class ControversialPostGenerator {
         hook: optimized.hook,
         body: optimized.body,
         cta: optimized.cta,
-        hashtags: this.generateHashtags(insight, business)
+        hashtags: premiumContent.hashtags || this.generateHashtags(insight, business)
       },
 
       psychology: {
@@ -119,17 +132,17 @@ export class ControversialPostGenerator {
           {
             stage: 'Problem (Hook)',
             sourceField: insight.whyProfound && insight.whyProfound.length > 30 ? 'whyProfound' : 'insight',
-            content: draft.hook.substring(0, 100)
+            content: optimized.hook.substring(0, 100)
           },
           {
             stage: 'Agitate (Body)',
             sourceField: cleanEvidence.length > 0 ? 'evidence + whyNow' : 'insight + whyNow',
-            content: draft.body.substring(0, 100)
+            content: optimized.body.substring(0, 100)
           },
           {
             stage: 'Solution (CTA)',
             sourceField: 'business.industry (industry-specific CTA)',
-            content: draft.cta
+            content: optimized.cta
           }
         ],
 
@@ -262,10 +275,23 @@ export class ControversialPostGenerator {
     // This prevents repetition like "timing anxiety" in hook and "worry about timing" in body
 
     // Prioritize evidence (provides concrete substantiation without repeating concepts)
+    // Format evidence as cohesive paragraphs, not bullet points
     if (cleanEvidence.length > 0) {
-      cleanEvidence.forEach(evidence => {
-        parts.push(evidence);
-      });
+      // Group evidence into flowing narrative
+      if (cleanEvidence.length === 1) {
+        // Single evidence point - make it a complete sentence
+        const evidence = cleanEvidence[0];
+        parts.push(evidence.endsWith('.') ? evidence : evidence + '.');
+      } else if (cleanEvidence.length === 2) {
+        // Two evidence points - connect with transition
+        parts.push(`${cleanEvidence[0]}. ${cleanEvidence[1]}.`);
+      } else {
+        // Multiple evidence points - create flowing paragraph
+        const formatted = cleanEvidence
+          .map(e => e.endsWith('.') ? e : e + '.')
+          .join(' ');
+        parts.push(formatted);
+      }
     }
 
     // Add timing/urgency if present
@@ -407,14 +433,23 @@ export class ControversialPostGenerator {
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): string[] {
-    const industry = business.industry.toLowerCase().replace(/\s+/g, '');
+    // Extract meaningful keywords from industry name
+    const industryWords = business.industry
+      .toLowerCase()
+      .replace(/[()]/g, '') // Remove parentheses
+      .split(/\s+/)
+      .filter(word => word.length > 3) // Skip short words like "and", "of", "the"
+      .filter(word => !['except', 'other', 'services', 'general'].includes(word)); // Skip generic words
+
+    // Take top 2 industry keywords
+    const industryTags = industryWords.slice(0, 2);
+
+    // Add engaging hashtags based on content type
+    const engagementTags = ['truth', 'mindset', 'insights'];
 
     return [
-      industry,
-      'controversial',
-      'truth',
-      'mindset',
-      'debate'
+      ...industryTags,
+      ...engagementTags
     ].slice(0, 5);
   }
 

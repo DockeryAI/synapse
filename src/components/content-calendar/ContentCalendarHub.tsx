@@ -22,7 +22,6 @@ import {
 import {
   Plus,
   Grid,
-  Palette,
   Search,
   Filter,
   Calendar as CalendarIcon,
@@ -41,7 +40,6 @@ import { ContentGenerator } from './ContentGenerator';
 import { BulkContentGenerator } from './BulkContentGenerator';
 import { PublishingQueue } from './PublishingQueue';
 import { CompetitiveInsights } from './CompetitiveInsights';
-import { DesignStudio } from '@/components/design-studio';
 import { GenerationProgress, useGenerationProgress } from './GenerationProgress';
 import { IndustrySelector } from './IndustrySelector';
 import { ContentCalendarService } from '@/services/content-calendar.service';
@@ -65,9 +63,7 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
   );
   const [showContentGenerator, setShowContentGenerator] = useState(false);
   const [showBulkGenerator, setShowBulkGenerator] = useState(false);
-  const [showDesignStudio, setShowDesignStudio] = useState(false);
   const [selectedContent, setSelectedContent] = useState<ContentItem | null>(null);
-  const [editingContentId, setEditingContentId] = useState<string | undefined>();
   const [refreshKey, setRefreshKey] = useState(0);
   const [isGeneratingMagic, setIsGeneratingMagic] = useState(false);
   const [brandIndustry, setBrandIndustry] = useState<string>('');
@@ -162,21 +158,6 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
     loadStats();
   };
 
-  /**
-   * Open design studio for a content item
-   */
-  const handleOpenDesignStudio = (contentId?: string) => {
-    setEditingContentId(contentId);
-    setShowDesignStudio(true);
-  };
-
-  /**
-   * Handle design save
-   */
-  const handleDesignSave = () => {
-    handleRefresh();
-    setShowDesignStudio(false);
-  };
 
   /**
    * Get count based on frequency selection
@@ -695,10 +676,6 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
             <Grid className="w-4 h-4 mr-2" />
             Bulk Generate
           </Button>
-          <Button variant="outline" onClick={() => handleOpenDesignStudio()}>
-            <Palette className="w-4 h-4 mr-2" />
-            Design Studio
-          </Button>
           <Button variant="destructive" onClick={handleClearAll}>
             <Trash2 className="w-4 h-4 mr-2" />
             Clear All
@@ -819,20 +796,6 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
         pillars={pillars}
         onContentCreated={handleRefresh}
       />
-
-      {/* Design Studio Modal */}
-      <Dialog open={showDesignStudio} onOpenChange={setShowDesignStudio}>
-        <DialogContent className="max-w-[95vw] max-h-[95vh] h-[95vh] p-0">
-          <DesignStudio
-            contentItemId={editingContentId}
-            brandId={brandId}
-            userId={userId}
-            mode="modal"
-            onSave={handleDesignSave}
-            onClose={() => setShowDesignStudio(false)}
-          />
-        </DialogContent>
-      </Dialog>
 
       {/* Generation Progress Indicator */}
       <GenerationProgress

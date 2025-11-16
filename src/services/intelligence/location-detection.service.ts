@@ -1,624 +1,677 @@
 /**
- * Global Location Detection Engine
+ * Location Detection Service
  *
- * Detects business physical locations across 50+ countries using 5 parallel strategies:
- * 1. Contact Page Scraping
- * 2. Footer Address Extraction
- * 3. About Page Analysis
- * 4. Metadata Inspection
- * 5. IP-based Geolocation (fallback)
+ * Automatically detects business location (city, state) from URL and other signals
+ * Used to eliminate manual location entry in Synapse
  *
- * Supports international address formats: US, UK, CA, AU, EU
- * Uses OutScraper API for geocoding (leverages existing subscription)
- * Results cached for 30 days
+ * Detection methods:
+ * 1. Domain parsing (e.g., dallasplumbing.com → Dallas, TX)
+ * 2. WHOIS lookup (registrant address)
+ * 3. Website content scraping (contact pages, footer)
+ * 4. OpenAI inference from business context
+ *
+ * Created: 2025-11-13
  */
 
-import axios from 'axios'
-import * as cheerio from 'cheerio'
-import { z } from 'zod'
-import { urlParser } from '../url-parser.service'
-import { OutScraperAPI } from './outscraper-api'
-import { callAPIWithRetry, parallelAPICalls } from '@/lib/api-helpers'
-import { SimpleCache } from '@/lib/cache'
-import { log, timeOperation } from '@/lib/debug-helpers'
-import {
-  BusinessLocation,
-  AddressCandidate,
-  ParsedAddress,
-  GeocodedLocation,
-  BusinessLocationSchema,
-  AddressCandidateSchema,
-  GeocodedLocationSchema
-} from '@/types/location.types'
+import { supabase } from '@/lib/supabase';
+import { chat } from '@/lib/openrouter';
+import { OutScraperAPI } from './outscraper-api';
 
-// Cache location results for 30 days (locations don't change often)
-const locationCache = new SimpleCache<BusinessLocation>()
-const TTL_30_DAYS = 30 * 24 * 60 * 60 // seconds
-
-/**
- * Address Regex Patterns for 50+ Countries
- */
-const ADDRESS_PATTERNS = {
-  // US: 123 Main St, Austin, TX 78701
-  US: /(\d+\s+[\w\s]+(?:street|st|avenue|ave|road|rd|drive|dr|lane|ln|way|court|ct|boulevard|blvd|circle|cir|place|pl)[,\s]+)([\w\s]+),\s*([A-Z]{2})\s*(\d{5}(?:-\d{4})?)/gi,
-
-  // UK: 10 Downing Street, London SW1A 2AA
-  UK: /([\d]+\s+[\w\s]+),\s*([\w\s]+),?\s*([A-Z]{1,2}\d{1,2}[A-Z]?\s*\d[A-Z]{2})/gi,
-
-  // Canada: 123 King St, Toronto ON M5H 1A1
-  CA: /(\d+\s+[\w\s]+(?:street|st|avenue|ave|road|rd|drive|dr)[,\s]+)([\w\s]+),?\s*([A-Z]{2})\s*([A-Z]\d[A-Z]\s*\d[A-Z]\d)/gi,
-
-  // Australia: 123 Queen St, Melbourne VIC 3000
-  AU: /(\d+\s+[\w\s]+(?:street|st|avenue|ave|road|rd|drive|dr)[,\s]+)([\w\s]+),?\s*(VIC|NSW|QLD|WA|SA|TAS|ACT|NT)\s*(\d{4})/gi,
-
-  // Generic international pattern
-  GENERIC: /(\d+[\w\s,]+),\s*([\w\s]+),\s*([\w\s]+)(?:,\s*([\w\s]+))?/gi
+export interface LocationResult {
+  city: string;
+  state: string;
+  confidence: number; // 0-1
+  method: 'domain' | 'whois' | 'scraping' | 'ai' | 'website_scraping' | 'fallback';
+  reasoning?: string;
+  allLocations?: Array<{ city: string; state: string }>; // All detected locations if multiple exist
+  hasMultipleLocations?: boolean;
 }
 
-// Common contact page paths
-const CONTACT_PATHS = [
-  '/contact',
-  '/contact-us',
-  '/contactus',
-  '/contact.html',
-  '/locations',
-  '/find-us',
-  '/findus',
-  '/where-to-find-us',
-  '/store-locator',
-  '/get-in-touch'
-]
+class LocationDetectionService {
+  /**
+   * Main detection method - tries multiple strategies
+   */
+  async detectLocation(url: string, industryHint?: string): Promise<LocationResult> {
+    console.log('[LocationDetection] Starting detection for:', url);
 
-// Common about page paths
-const ABOUT_PATHS = [
-  '/about',
-  '/about-us',
-  '/aboutus',
-  '/about.html',
-  '/our-story',
-  '/company',
-  '/who-we-are'
-]
+    // Try methods in order of reliability
+    let result: LocationResult | null = null;
 
-/**
- * Main function: Detect business location using all 5 strategies
- */
-export async function detectLocation(websiteUrl: string): Promise<BusinessLocation | null> {
-  // Validate and normalize URL
-  const parsed = urlParser.parse(websiteUrl)
-  if (!parsed.isValid) {
-    log('LocationDetector', { error: 'Invalid URL', url: websiteUrl }, 'error')
-    return null
+    // Method 1: Domain parsing (fast, medium reliability)
+    result = this.detectFromDomain(url);
+    if (result && result.confidence > 0.7) {
+      console.log('[LocationDetection] ✅ Domain parsing succeeded:', result);
+      return result;
+    }
+
+    // Method 2: Supabase cache check (instant if cached)
+    result = await this.checkCache(url);
+    if (result) {
+      console.log('[LocationDetection] ✅ Cache hit:', result);
+      return result;
+    }
+    console.log('[LocationDetection] Cache miss, trying website scraping (most reliable)...');
+
+    // Method 3: Scrape website content FIRST (most businesses have location on homepage)
+    result = await this.detectFromWebsite(url, industryHint);
+    console.log('[LocationDetection] Website scraping result:', result);
+    if (result && result.confidence > 0.6) {
+      console.log('[LocationDetection] ✅ Website scraping succeeded:', result);
+      await this.cacheResult(url, result); // Cache for next time
+      return result;
+    }
+    console.log('[LocationDetection] Website scraping failed, trying AI detection...');
+
+    // Method 4: AI inference from URL + industry (domain-based)
+    result = await this.detectWithAI(url, industryHint);
+    console.log('[LocationDetection] AI detection result:', result);
+    if (result && result.confidence > 0.6) {
+      console.log('[LocationDetection] ✅ AI detection succeeded:', result);
+      await this.cacheResult(url, result); // Cache for next time
+      return result;
+    }
+    console.log('[LocationDetection] Domain-based AI detection failed, trying OutScraper...');
+
+    // Method 5: OutScraper Google Maps search (finds all locations)
+    result = await this.detectWithOutScraper(url, industryHint);
+    console.log('[LocationDetection] OutScraper detection result:', result);
+    if (result && result.confidence > 0.7) {
+      console.log('[LocationDetection] ✅ OutScraper detection succeeded:', result);
+      await this.cacheResult(url, result); // Cache for next time
+      return result;
+    }
+    console.log('[LocationDetection] ⚠️ All detection methods failed');
+
+    // No fallback - return null so user can manually enter location
+    return null;
   }
 
-  const normalizedUrl = parsed.normalized
-  const cacheKey = `location:${parsed.domain}`
-
-  // Check cache first
-  const cached = locationCache.get(cacheKey)
-  if (cached) {
-    log('LocationDetector', { message: 'Cache hit', url: normalizedUrl }, 'info')
-    return cached
-  }
-
-  // Run all 5 strategies in parallel
-  return await timeOperation('detectLocation', async () => {
+  /**
+   * Method 1: Parse location from domain name
+   * Examples: dallasplumbing.com, austinroofing.net, nycplumber.com
+   */
+  private detectFromDomain(url: string): LocationResult | null {
     try {
-      const candidates = await parallelAPICalls<AddressCandidate | null>(
-        [
-          () => scrapeContactPage(normalizedUrl),
-          () => extractFooterAddress(normalizedUrl),
-          () => analyzeAboutPage(normalizedUrl),
-          () => inspectMetadata(normalizedUrl),
-          () => geolocateByIP(normalizedUrl)
-        ],
-        {
-          timeout: 10000, // 10 seconds total
-          allowPartialFailure: true
+      // Normalize URL to ensure it has a protocol
+      const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
+      const domain = new URL(normalizedUrl).hostname.toLowerCase()
+        .replace('www.', '')
+        .split('.')[0]; // Get just the domain name
+
+      // City patterns
+      const cityPatterns: Record<string, { city: string; state: string }> = {
+        // Major cities
+        'nyc|newyork': { city: 'New York', state: 'NY' },
+        'dallas': { city: 'Dallas', state: 'TX' },
+        'austin': { city: 'Austin', state: 'TX' },
+        'houston': { city: 'Houston', state: 'TX' },
+        'sanantonio': { city: 'San Antonio', state: 'TX' },
+        'phoenix': { city: 'Phoenix', state: 'AZ' },
+        'philadelphia|philly': { city: 'Philadelphia', state: 'PA' },
+        'sandiego': { city: 'San Diego', state: 'CA' },
+        'sanjose': { city: 'San Jose', state: 'CA' },
+        'jacksonville': { city: 'Jacksonville', state: 'FL' },
+        'fortworth': { city: 'Fort Worth', state: 'TX' },
+        'columbus': { city: 'Columbus', state: 'OH' },
+        'charlotte': { city: 'Charlotte', state: 'NC' },
+        'sanfrancisco|sf': { city: 'San Francisco', state: 'CA' },
+        'indianapolis': { city: 'Indianapolis', state: 'IN' },
+        'seattle': { city: 'Seattle', state: 'WA' },
+        'denver': { city: 'Denver', state: 'CO' },
+        'washington|dc': { city: 'Washington', state: 'DC' },
+        'boston': { city: 'Boston', state: 'MA' },
+        'elpaso': { city: 'El Paso', state: 'TX' },
+        'nashville': { city: 'Nashville', state: 'TN' },
+        'detroit': { city: 'Detroit', state: 'MI' },
+        'memphis': { city: 'Memphis', state: 'TN' },
+        'portland': { city: 'Portland', state: 'OR' },
+        'oklahomacity': { city: 'Oklahoma City', state: 'OK' },
+        'lasvegas|vegas': { city: 'Las Vegas', state: 'NV' },
+        'louisville': { city: 'Louisville', state: 'KY' },
+        'baltimore': { city: 'Baltimore', state: 'MD' },
+        'milwaukee': { city: 'Milwaukee', state: 'WI' },
+        'albuquerque': { city: 'Albuquerque', state: 'NM' },
+        'tucson': { city: 'Tucson', state: 'AZ' },
+        'fresno': { city: 'Fresno', state: 'CA' },
+        'mesa': { city: 'Mesa', state: 'AZ' },
+        'sacramento': { city: 'Sacramento', state: 'CA' },
+        'atlanta': { city: 'Atlanta', state: 'GA' },
+        'kansascity': { city: 'Kansas City', state: 'MO' },
+        'colorado': { city: 'Denver', state: 'CO' },
+        'miami': { city: 'Miami', state: 'FL' },
+        'raleigh': { city: 'Raleigh', state: 'NC' },
+        'omaha': { city: 'Omaha', state: 'NE' },
+        'longbeach': { city: 'Long Beach', state: 'CA' },
+        'virginia': { city: 'Virginia Beach', state: 'VA' },
+        'oakland': { city: 'Oakland', state: 'CA' },
+        'minneapolis': { city: 'Minneapolis', state: 'MN' },
+        'tulsa': { city: 'Tulsa', state: 'OK' },
+        'tampa': { city: 'Tampa', state: 'FL' },
+        'arlington': { city: 'Arlington', state: 'TX' },
+        'neworleans': { city: 'New Orleans', state: 'LA' },
+        'chicago': { city: 'Chicago', state: 'IL' },
+        'losangeles|la': { city: 'Los Angeles', state: 'CA' },
+      };
+
+      for (const [pattern, location] of Object.entries(cityPatterns)) {
+        // Match only if city name is at the START of domain or is a complete word
+        // This prevents "thephoenix" from matching "phoenix"
+        const regex = new RegExp(`^${pattern}(?![a-z])`, 'i');
+        if (regex.test(domain)) {
+          return {
+            ...location,
+            confidence: 0.8,
+            method: 'domain',
+            reasoning: `Detected "${location.city}" in domain name`
+          };
         }
-      )
-
-      // Filter out null results
-      const validCandidates = candidates.filter((c): c is AddressCandidate => c !== null)
-
-      if (validCandidates.length === 0) {
-        log('LocationDetector', { message: 'No location found', url: normalizedUrl }, 'warn')
-        return null
       }
 
-      // Combine results and pick best candidate
-      const bestLocation = await combineResults(validCandidates, normalizedUrl)
+      return null;
+    } catch (error) {
+      console.error('[LocationDetection] Domain parsing error:', error);
+      return null;
+    }
+  }
 
-      if (bestLocation) {
-        // Cache the result
-        locationCache.set(cacheKey, bestLocation, TTL_30_DAYS)
+  /**
+   * Method 2: Check Supabase cache
+   */
+  private async checkCache(url: string): Promise<LocationResult | null> {
+    try {
+      // Normalize URL to ensure it has a protocol
+      const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
+      const domain = new URL(normalizedUrl).hostname;
+
+      const { data, error } = await supabase
+        .from('location_detection_cache')
+        .select('city, state, confidence, method, reasoning')
+        .eq('domain', domain)
+        .single();
+
+      if (error) {
+        // Log 406 errors for debugging
+        if (error.message?.includes('406')) {
+          console.log('[LocationDetection] ⚠️ Cache table not accessible (406) - PostgREST cache issue, falling through to AI detection');
+        }
+        // Silently fail - cache is optional, will use AI detection
+        return null;
       }
 
-      return bestLocation
+      if (!data) return null;
+
+      // Invalidate old cache entries that don't have multi-location support
+      if (data.hasMultipleLocations === undefined) {
+        console.log('[LocationDetection] Cache entry outdated (no multi-location support), invalidating...');
+        return null;
+      }
+
+      // Check if cache is still valid (30 days)
+      return data as LocationResult;
+    } catch (error) {
+      console.log('[LocationDetection] Cache check error:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Method 3: Use AI to infer location from URL and industry context
+   */
+  private async detectWithAI(url: string, industryHint?: string): Promise<LocationResult | null> {
+    console.log('[LocationDetection] Starting AI detection for:', url);
+    try {
+      // Ensure URL has protocol
+      const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+      const domain = new URL(fullUrl).hostname;
+
+      const prompt = `You are a location detection expert. Analyze this business URL and determine the most likely city and state.
+
+URL: ${url}
+Domain: ${domain}
+${industryHint ? `Industry: ${industryHint}` : ''}
+
+Look for location clues in:
+1. Domain name (e.g., "dallasplumbing.com" → Dallas, TX)
+2. Common city abbreviations or nicknames
+3. Regional service patterns
+
+Respond ONLY with valid JSON in this exact format:
+{
+  "city": "City Name",
+  "state": "XX",
+  "confidence": 0.0-1.0,
+  "reasoning": "brief explanation"
+}
+
+If you cannot detect a location with confidence > 0.5, respond with:
+{
+  "city": null,
+  "state": null,
+  "confidence": 0.0,
+  "reasoning": "Could not detect location from URL"
+}`;
+
+      console.log('[LocationDetection] Calling OpenRouter AI...');
+      const response = await chat([
+        {
+          role: 'user',
+          content: prompt
+        }
+      ], {
+        model: 'anthropic/claude-3.5-sonnet',
+        temperature: 0.3,
+        max_tokens: 200
+      });
+
+      console.log('[LocationDetection] AI response received:', response?.substring(0, 100));
+      const text = response.trim();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        console.error('[LocationDetection] No JSON in AI response:', text);
+        throw new Error('No JSON in AI response');
+      }
+
+      const result = JSON.parse(jsonMatch[0]);
+      console.log('[LocationDetection] Parsed AI result:', result);
+
+      if (!result.city || !result.state || result.confidence < 0.5) {
+        console.log('[LocationDetection] AI result rejected: city/state missing or confidence < 0.5');
+        return null;
+      }
+
+      return {
+        city: result.city,
+        state: result.state,
+        confidence: result.confidence,
+        method: 'ai',
+        reasoning: result.reasoning
+      };
+    } catch (error) {
+      console.error('[LocationDetection] AI inference error:', error);
+      return null;
+    }
+  }
+
+  /**
+   * Method 3.5: Use OutScraper to find business on Google Maps
+   */
+  private async detectWithOutScraper(url: string, industryHint?: string): Promise<LocationResult | null> {
+    console.log('[LocationDetection] Starting OutScraper detection for:', url);
+    try {
+      // Ensure URL has protocol
+      const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+      // Extract business name from domain
+      const domain = new URL(fullUrl).hostname.replace('www.', '').split('.')[0];
+
+      // Smart business name extraction
+      let businessName = domain.replace(/[-_]/g, ' ');
+
+      // Handle common suffixes (restaurant, cafe, bar, grill, etc.)
+      const suffixes = ['restaurant', 'cafe', 'bar', 'grill', 'bistro', 'eatery', 'kitchen', 'dining'];
+      for (const suffix of suffixes) {
+        // Match suffix at the end (case insensitive)
+        const regex = new RegExp(suffix + '$', 'i');
+        if (regex.test(businessName)) {
+          // Split it: "thehenryrestaurant" -> "thehenry restaurant"
+          businessName = businessName.replace(regex, ` ${suffix}`);
+          break;
+        }
+      }
+
+      // Handle "the" prefix: "the henry" -> "The Henry"
+      businessName = businessName.replace(/^the\s+/i, 'The ');
+
+      // Capitalize words
+      businessName = businessName
+        .split(' ')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join(' ')
+        .trim();
+
+      console.log('[LocationDetection] Searching Google Maps for:', businessName);
+
+      // Search Google Maps via OutScraper
+      const listings = await OutScraperAPI.getBusinessListings({
+        query: businessName,
+        limit: 50  // Get up to 50 results to find all locations
+      });
+
+      console.log('[LocationDetection] OutScraper found', listings.length, 'listings');
+
+      if (listings.length === 0) {
+        return null;
+      }
+
+      // Extract unique city/state pairs from addresses
+      const locationSet = new Set<string>();
+      const allLocations: Array<{ city: string; state: string }> = [];
+
+      for (const listing of listings) {
+        if (!listing.address) {
+          console.log('[LocationDetection] Skipping listing with no address:', listing.name);
+          continue;
+        }
+
+        console.log('[LocationDetection] Parsing address:', listing.address);
+
+        // Parse city/state from address
+        // Try multiple formats:
+        // 1. "123 Main St, Dallas, TX 75201, USA"
+        // 2. "123 Main St, Dallas, TX 75201"
+        // 3. "Dallas, TX 75201"
+        const addressParts = listing.address.split(',').map(p => p.trim());
+
+        console.log('[LocationDetection] Address parts:', addressParts);
+
+        let city = '';
+        let state = '';
+
+        // Try to find city and state
+        for (let i = addressParts.length - 1; i >= 0; i--) {
+          const part = addressParts[i];
+
+          // Check if this part contains state code (2 letters followed by optional zip)
+          const stateMatch = part.match(/\b([A-Z]{2})\b/);
+          if (stateMatch && !state) {
+            state = stateMatch[1];
+            // City is typically the part before the state
+            if (i > 0) {
+              city = addressParts[i - 1];
+            }
+            break;
+          }
+        }
+
+        if (city && state && state.length === 2) {
+          const key = `${city}|${state}`;
+          if (!locationSet.has(key)) {
+            locationSet.add(key);
+            allLocations.push({ city, state });
+            console.log('[LocationDetection] ✅ Extracted location:', { city, state });
+          }
+        } else {
+          console.log('[LocationDetection] ❌ Failed to extract location from:', listing.address);
+        }
+      }
+
+      console.log('[LocationDetection] Extracted', allLocations.length, 'unique locations from OutScraper');
+
+      if (allLocations.length === 0) {
+        return null;
+      }
+
+      // Single location
+      if (allLocations.length === 1) {
+        return {
+          city: allLocations[0].city,
+          state: allLocations[0].state,
+          confidence: 0.9,
+          method: 'ai',
+          reasoning: `Found single location via Google Maps: ${allLocations[0].city}, ${allLocations[0].state}`,
+          hasMultipleLocations: false
+        };
+      }
+
+      // Multiple locations
+      return {
+        city: allLocations[0].city,  // First as primary
+        state: allLocations[0].state,
+        confidence: 0.95,
+        method: 'ai',
+        reasoning: `Found ${allLocations.length} locations via Google Maps, primary: ${allLocations[0].city}, ${allLocations[0].state}`,
+        hasMultipleLocations: true,
+        allLocations
+      };
 
     } catch (error) {
-      log('LocationDetector', { error, url: normalizedUrl }, 'error')
-      return null
-    }
-  })
-}
-
-/**
- * Strategy 1: Scrape Contact Page
- */
-export async function scrapeContactPage(url: string): Promise<AddressCandidate | null> {
-  return await callAPIWithRetry(
-    async () => {
-      // Try each contact page path
-      for (const path of CONTACT_PATHS) {
-        try {
-          const contactUrl = new URL(path, url).toString()
-          const response = await axios.get(contactUrl, {
-            timeout: 5000,
-            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SynapseBot/1.0)' }
-          })
-
-          if (response.status === 200) {
-            const $ = cheerio.load(response.data)
-
-            // Look for address in common elements
-            const addressElements = $(
-              'address, [class*="address"], [id*="address"], ' +
-              '[class*="location"], [id*="location"], ' +
-              '[class*="contact"], [id*="contact"]'
-            )
-
-            for (let i = 0; i < addressElements.length; i++) {
-              const text = $(addressElements[i]).text()
-              const parsed = parseAddressString(text)
-
-              if (parsed && parsed.city && parsed.country) {
-                return {
-                  rawText: text,
-                  parsed,
-                  confidence: 0.9, // High confidence from contact page
-                  source: 'contact_page'
-                }
-              }
-            }
-
-            // Fallback: scan all text for address patterns
-            const bodyText = $('body').text()
-            const parsed = parseAddressString(bodyText)
-
-            if (parsed && parsed.city && parsed.country) {
-              return {
-                rawText: bodyText.substring(0, 500),
-                parsed,
-                confidence: 0.7,
-                source: 'contact_page'
-              }
-            }
-          }
-        } catch (error) {
-          // Continue to next path
-          continue
-        }
-      }
-
-      return null
-    },
-    {
-      maxRetries: 2,
-      fallbackValue: null,
-      onError: (error) => log('scrapeContactPage', error, 'warn')
-    }
-  )
-}
-
-/**
- * Strategy 2: Extract Footer Address
- */
-export async function extractFooterAddress(url: string): Promise<AddressCandidate | null> {
-  return await callAPIWithRetry(
-    async () => {
-      const response = await axios.get(url, {
-        timeout: 5000,
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SynapseBot/1.0)' }
-      })
-
-      const $ = cheerio.load(response.data)
-
-      // Check schema.org markup first (most reliable)
-      const schemaAddress = $('script[type="application/ld+json"]')
-      for (let i = 0; i < schemaAddress.length; i++) {
-        try {
-          const json = JSON.parse($(schemaAddress[i]).html() || '{}')
-          if (json.address || json['@type'] === 'Organization') {
-            const addr = json.address
-            if (addr && addr.addressLocality && addr.addressCountry) {
-              return {
-                rawText: JSON.stringify(addr),
-                parsed: {
-                  street: addr.streetAddress,
-                  city: addr.addressLocality,
-                  state: addr.addressRegion,
-                  postalCode: addr.postalCode,
-                  country: addr.addressCountry
-                },
-                confidence: 0.95, // Very high confidence from structured data
-                source: 'footer_schema'
-              }
-            }
-          }
-        } catch {
-          continue
-        }
-      }
-
-      // Check footer elements
-      const footerElements = $('footer, [class*="footer"], [id*="footer"]')
-      for (let i = 0; i < footerElements.length; i++) {
-        const text = $(footerElements[i]).text()
-        const parsed = parseAddressString(text)
-
-        if (parsed && parsed.city && parsed.country) {
-          return {
-            rawText: text,
-            parsed,
-            confidence: 0.8,
-            source: 'footer'
-          }
-        }
-      }
-
-      return null
-    },
-    {
-      maxRetries: 2,
-      fallbackValue: null,
-      onError: (error) => log('extractFooterAddress', error, 'warn')
-    }
-  )
-}
-
-/**
- * Strategy 3: Analyze About Page
- */
-export async function analyzeAboutPage(url: string): Promise<AddressCandidate | null> {
-  return await callAPIWithRetry(
-    async () => {
-      for (const path of ABOUT_PATHS) {
-        try {
-          const aboutUrl = new URL(path, url).toString()
-          const response = await axios.get(aboutUrl, {
-            timeout: 5000,
-            headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SynapseBot/1.0)' }
-          })
-
-          if (response.status === 200) {
-            const $ = cheerio.load(response.data)
-            const bodyText = $('body').text()
-
-            // Look for location mentions with frequency analysis
-            const parsed = parseAddressString(bodyText)
-
-            if (parsed && parsed.city) {
-              return {
-                rawText: bodyText.substring(0, 500),
-                parsed,
-                confidence: 0.6, // Lower confidence from about page
-                source: 'about'
-              }
-            }
-          }
-        } catch {
-          continue
-        }
-      }
-
-      return null
-    },
-    {
-      maxRetries: 2,
-      fallbackValue: null,
-      onError: (error) => log('analyzeAboutPage', error, 'warn')
-    }
-  )
-}
-
-/**
- * Strategy 4: Inspect Metadata
- */
-export async function inspectMetadata(url: string): Promise<AddressCandidate | null> {
-  return await callAPIWithRetry(
-    async () => {
-      const response = await axios.get(url, {
-        timeout: 5000,
-        headers: { 'User-Agent': 'Mozilla/5.0 (compatible; SynapseBot/1.0)' }
-      })
-
-      const $ = cheerio.load(response.data)
-
-      // Check OpenGraph tags
-      const ogLocality = $('meta[property="og:locality"]').attr('content')
-      const ogRegion = $('meta[property="og:region"]').attr('content')
-      const ogCountry = $('meta[property="og:country-name"]').attr('content')
-
-      if (ogLocality || ogRegion || ogCountry) {
-        return {
-          rawText: `${ogLocality || ''} ${ogRegion || ''} ${ogCountry || ''}`,
-          parsed: {
-            city: ogLocality,
-            state: ogRegion,
-            country: ogCountry
-          },
-          confidence: 0.7,
-          source: 'metadata_og'
-        }
-      }
-
-      // Check geo meta tags
-      const geoPosition = $('meta[name="geo.position"]').attr('content')
-      const geoPlacename = $('meta[name="geo.placename"]').attr('content')
-      const geoRegion = $('meta[name="geo.region"]').attr('content')
-
-      if (geoPlacename || geoRegion) {
-        return {
-          rawText: `${geoPlacename || ''} ${geoRegion || ''}`,
-          parsed: {
-            city: geoPlacename,
-            state: geoRegion
-          },
-          confidence: 0.65,
-          source: 'metadata_geo'
-        }
-      }
-
-      return null
-    },
-    {
-      maxRetries: 2,
-      fallbackValue: null,
-      onError: (error) => log('inspectMetadata', error, 'warn')
-    }
-  )
-}
-
-/**
- * Strategy 5: IP-based Geolocation (Fallback)
- */
-export async function geolocateByIP(url: string): Promise<AddressCandidate | null> {
-  return await callAPIWithRetry(
-    async () => {
-      // Extract domain from URL
-      const parsed = urlParser.parse(url)
-      if (!parsed.isValid) return null
-
-      // For MVP, we'll use a simple approach: return null
-      // In production, integrate with IP geolocation service (ipapi.co, ipinfo.io, etc)
-      // This is the weakest signal anyway - prefer actual address data
-
-      log('geolocateByIP', { message: 'IP geolocation not implemented in MVP' }, 'info')
-      return null
-    },
-    {
-      maxRetries: 1,
-      fallbackValue: null,
-      onError: (error) => log('geolocateByIP', error, 'warn')
-    }
-  )
-}
-
-/**
- * Parse address string into structured components
- * Handles US, UK, CA, AU, and generic international formats
- */
-export function parseAddressString(text: string): ParsedAddress | null {
-  if (!text || text.trim().length === 0) return null
-
-  // Clean up text
-  const cleaned = text
-    .replace(/\s+/g, ' ')
-    .replace(/\n/g, ', ')
-    .trim()
-
-  // Try US format
-  const usMatch = ADDRESS_PATTERNS.US.exec(cleaned)
-  if (usMatch) {
-    return {
-      street: usMatch[1].trim(),
-      city: usMatch[2].trim(),
-      state: usMatch[3].trim(),
-      postalCode: usMatch[4].trim(),
-      country: 'United States'
+      console.error('[LocationDetection] OutScraper detection error:', error);
+      return null;
     }
   }
 
-  // Try UK format
-  ADDRESS_PATTERNS.UK.lastIndex = 0
-  const ukMatch = ADDRESS_PATTERNS.UK.exec(cleaned)
-  if (ukMatch) {
-    return {
-      street: ukMatch[1].trim(),
-      city: ukMatch[2].trim(),
-      postalCode: ukMatch[3].trim(),
-      country: 'United Kingdom'
+  /**
+   * Method 4: Scrape website content and extract location
+   */
+  private async detectFromWebsite(url: string, industryHint?: string): Promise<LocationResult | null> {
+    console.log('[LocationDetection] Fetching website content...');
+
+    // Normalize URL to ensure it has a protocol
+    const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
+
+    // Try common location page URLs first (highest quality data)
+    const baseUrl = new URL(normalizedUrl).origin;
+    const locationPages = [
+      `${baseUrl}/locations`,
+      `${baseUrl}/locations-menus`,
+      `${baseUrl}/find-us`,
+      `${baseUrl}/contact`,
+      `${baseUrl}/store-locator`,
+      `${baseUrl}/our-locations`
+    ];
+
+    // Try each location page
+    for (const locationPageUrl of locationPages) {
+      console.log('[LocationDetection] Trying location page:', locationPageUrl);
+      const result = await this.scrapeAndAnalyze(locationPageUrl, industryHint);
+      if (result && result.confidence > 0.6) {
+        console.log('[LocationDetection] ✅ Found locations on dedicated page:', locationPageUrl);
+        return result;
+      }
     }
+
+    // Fallback to homepage if no location page found
+    console.log('[LocationDetection] No location page found, trying homepage...');
+    return await this.scrapeAndAnalyze(normalizedUrl, industryHint);
   }
 
-  // Try Canada format
-  ADDRESS_PATTERNS.CA.lastIndex = 0
-  const caMatch = ADDRESS_PATTERNS.CA.exec(cleaned)
-  if (caMatch) {
-    return {
-      street: caMatch[1].trim(),
-      city: caMatch[2].trim(),
-      province: caMatch[3].trim(),
-      postalCode: caMatch[4].trim(),
-      country: 'Canada'
-    }
-  }
+  /**
+   * Scrape a URL and analyze for locations
+   */
+  private async scrapeAndAnalyze(url: string, industryHint?: string): Promise<LocationResult | null> {
+    try {
+      // Use Supabase Edge Function to scrape website
+      const { data, error } = await supabase.functions.invoke('scrape-website', {
+        body: { url }
+      });
 
-  // Try Australia format
-  ADDRESS_PATTERNS.AU.lastIndex = 0
-  const auMatch = ADDRESS_PATTERNS.AU.exec(cleaned)
-  if (auMatch) {
-    return {
-      street: auMatch[1].trim(),
-      city: auMatch[2].trim(),
-      state: auMatch[3].trim(),
-      postalCode: auMatch[4].trim(),
-      country: 'Australia'
-    }
-  }
+      if (error || !data?.content) {
+        console.log('[LocationDetection] Scraping failed for:', url, error?.message || 'No content');
+        return null;
+      }
 
-  // Try generic pattern for other countries
-  ADDRESS_PATTERNS.GENERIC.lastIndex = 0
-  const genericMatch = ADDRESS_PATTERNS.GENERIC.exec(cleaned)
-  if (genericMatch) {
-    return {
-      street: genericMatch[1]?.trim(),
-      city: genericMatch[2]?.trim(),
-      state: genericMatch[3]?.trim(),
-      country: genericMatch[4]?.trim() || 'Unknown'
-    }
-  }
+      // Extract text from the structured content object
+      const contentObj = data.content;
 
-  // Last resort: try to extract city names from common patterns
-  const cityPattern = /(?:in|from|based in|located in)\s+([\w\s]+(?:,\s*[A-Z]{2,})?)/i
-  const cityMatch = cityPattern.exec(cleaned)
-  if (cityMatch) {
-    const location = cityMatch[1].trim()
-    const parts = location.split(',').map(p => p.trim())
+      // PRIORITIZE structured data (JSON-LD, script tags) then navigation, addresses
+      const structuredContent = [
+        '=== STRUCTURED DATA (JSON-LD, SCRIPT TAGS) ===',
+        contentObj.structuredData || '',
+        '',
+        '=== NAVIGATION & LOCATION SELECTORS ===',
+        contentObj.navigation || '',
+        '',
+        '=== ADDRESSES ===',
+        contentObj.addresses || '',
+        '',
+        '=== FOOTER ===',
+        contentObj.footer || '',
+        '',
+        '=== PAGE CONTENT ===',
+        contentObj.title || '',
+        contentObj.description || '',
+        ...(contentObj.headings || []),
+        contentObj.text || ''
+      ].join('\n');
 
-    if (parts.length >= 1) {
+      const content = structuredContent.substring(0, 8000); // Increased for JSON data
+      console.log('[LocationDetection] Website content fetched');
+      console.log('[LocationDetection] - Structured data length:', contentObj.structuredData?.length || 0);
+      console.log('[LocationDetection] - Navigation length:', contentObj.navigation?.length || 0);
+      console.log('[LocationDetection] - Addresses length:', contentObj.addresses?.length || 0);
+      console.log('[LocationDetection] - Footer length:', contentObj.footer?.length || 0);
+      console.log('[LocationDetection] - Total content length:', content.length);
+
+      const prompt = `You are a location detection expert. Analyze this website content and extract ALL physical business locations.
+
+URL: ${url}
+${industryHint ? `Industry: ${industryHint}` : ''}
+
+Website Content (prioritized sections):
+${content}
+
+CRITICAL INSTRUCTIONS:
+This may be a LOCATIONS PAGE or HOMEPAGE. Extract EVERY location mentioned.
+
+Look for:
+1. **STRUCTURED DATA (HIGHEST PRIORITY)** - JSON-LD, script tags with location arrays
+   - Look for JSON objects with "address", "location", "city", "state" fields
+   - Parse JavaScript data structures embedded in the page
+   - Example: {"locations": [{"city": "Dallas", "state": "TX"}, ...]}
+
+2. **LOCATION LISTS** - Lists of cities/states with addresses
+   - "Dallas, TX", "Houston, TX", "Miami, FL" etc.
+   - Full addresses: "123 Main St, Dallas, TX 75201"
+   - Location cards or sections
+
+3. **NAVIGATION & SELECTORS** - Dropdowns with city names
+
+4. **ADDRESSES** - Structured address elements
+
+5. **CONTACT INFO** - Footer addresses, phone numbers with area codes
+
+IGNORE:
+- Service areas without physical addresses
+- "Coming Soon" announcements
+- Promotional hero banners (these show NEWEST, not primary)
+
+Determine PRIMARY location:
+- First location listed on locations page
+- HQ or headquarters designation
+- Most detailed address info
+- NOT the promotional banner location
+
+Extract EVERY city and state pair you find. If you see 9 locations, return all 9.
+
+Respond ONLY with valid JSON in this exact format:
+
+If SINGLE location found:
+{
+  "city": "City Name",
+  "state": "XX",
+  "confidence": 0.0-1.0,
+  "hasMultipleLocations": false,
+  "reasoning": "explanation"
+}
+
+If MULTIPLE locations found:
+{
+  "city": "Primary City",
+  "state": "XX",
+  "confidence": 0.0-1.0,
+  "hasMultipleLocations": true,
+  "allLocations": [
+    {"city": "City1", "state": "XX"},
+    {"city": "City2", "state": "YY"}
+  ],
+  "reasoning": "Found N locations, primary is City1 based on..."
+}
+
+If NO location found:
+{
+  "city": null,
+  "state": null,
+  "confidence": 0.0,
+  "hasMultipleLocations": false,
+  "reasoning": "No location information found"
+}`;
+
+      console.log('[LocationDetection] Analyzing website content with AI...');
+      const response = await chat([
+        {
+          role: 'user',
+          content: prompt
+        }
+      ], {
+        model: 'anthropic/claude-3.5-sonnet',
+        temperature: 0.2,
+        max_tokens: 500  // Increased to handle multiple locations
+      });
+
+      console.log('[LocationDetection] Website analysis response:', response?.substring(0, 100));
+      const text = response.trim();
+      const jsonMatch = text.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) {
+        console.error('[LocationDetection] No JSON in website analysis response');
+        return null;
+      }
+
+      const result = JSON.parse(jsonMatch[0]);
+      console.log('[LocationDetection] Parsed website analysis result:', result);
+
+      if (!result.city || !result.state || result.confidence < 0.5) {
+        console.log('[LocationDetection] Website analysis rejected: insufficient confidence or missing data');
+        return null;
+      }
+
       return {
-        city: parts[0],
-        state: parts[1],
-        country: parts[2] || 'Unknown'
-      }
+        city: result.city,
+        state: result.state,
+        confidence: result.confidence,
+        method: 'website_scraping',
+        reasoning: result.reasoning,
+        hasMultipleLocations: result.hasMultipleLocations || false,
+        allLocations: result.allLocations || undefined
+      };
+    } catch (error) {
+      console.error('[LocationDetection] Website scraping error:', error);
+      return null;
     }
   }
 
-  return null
-}
+  /**
+   * Cache the result for future lookups
+   */
+  private async cacheResult(url: string, result: LocationResult): Promise<void> {
+    try {
+      // Normalize URL to ensure it has a protocol
+      const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
+      const domain = new URL(normalizedUrl).hostname;
 
-/**
- * Geocode address using OutScraper (uses existing API subscription)
- * Better than Google Maps because we're already paying for it!
- */
-export async function geocodeAddress(address: string): Promise<GeocodedLocation | null> {
-  return await callAPIWithRetry(
-    async () => {
-      // Use OutScraper to search for this address
-      const results = await OutScraperAPI.getBusinessListings({
-        query: address,
-        limit: 1
-      })
+      // Delete old entry first to avoid conflicts
+      await supabase
+        .from('location_detection_cache')
+        .delete()
+        .eq('domain', domain);
 
-      if (results.length === 0) {
-        return null
-      }
+      // Insert new entry
+      await supabase
+        .from('location_detection_cache')
+        .insert({
+          domain,
+          city: result.city,
+          state: result.state,
+          confidence: result.confidence,
+          method: result.method,
+          reasoning: result.reasoning,
+          hasMultipleLocations: result.hasMultipleLocations || false,
+          allLocations: result.allLocations || null,
+          updated_at: new Date().toISOString()
+        });
 
-      const business = results[0]
-
-      // Parse address into components (basic - could be improved)
-      const addressParts = business.address.split(',').map(p => p.trim())
-
-      const geocoded: GeocodedLocation = {
-        formattedAddress: business.address,
-        coordinates: {
-          lat: business.latitude || 0,
-          lng: business.longitude || 0
-        },
-        components: {
-          street: addressParts[0],
-          city: addressParts[1],
-          state: addressParts[2],
-          country: addressParts[addressParts.length - 1]
-        },
-        confidence: (business.latitude && business.longitude) ? 0.9 : 0.5
-      }
-
-      return GeocodedLocationSchema.parse(geocoded)
-    },
-    {
-      maxRetries: 3,
-      fallbackValue: null,
-      onError: (error) => log('geocodeAddress', error, 'error')
+      console.log('[LocationDetection] Cached result for:', domain);
+    } catch (error) {
+      // Silently fail - caching is optional
+      console.log('[LocationDetection] Cache save failed (non-critical):', error);
     }
-  )
-}
-
-/**
- * Combine results from multiple strategies and return best location
- */
-async function combineResults(
-  candidates: AddressCandidate[],
-  url: string
-): Promise<BusinessLocation | null> {
-  if (candidates.length === 0) return null
-
-  // Sort by confidence (highest first)
-  candidates.sort((a, b) => b.confidence - a.confidence)
-
-  // Take the highest confidence candidate
-  const best = candidates[0]
-
-  if (!best.parsed || !best.parsed.city) {
-    return null
   }
 
-  // Try to geocode for coordinates
-  let coordinates: { lat: number; lng: number } | undefined
-  const addressString = [
-    best.parsed.street,
-    best.parsed.city,
-    best.parsed.state || best.parsed.province,
-    best.parsed.postalCode,
-    best.parsed.country
-  ].filter(Boolean).join(', ')
-
-  const geocoded = await geocodeAddress(addressString)
-  if (geocoded) {
-    coordinates = geocoded.coordinates
-  }
-
-  // Build final BusinessLocation
-  const location: BusinessLocation = {
-    address: {
-      street: best.parsed.street,
-      city: best.parsed.city,
-      state: best.parsed.state,
-      province: best.parsed.province,
-      postalCode: best.parsed.postalCode,
-      country: best.parsed.country || 'Unknown'
-    },
-    coordinates,
-    confidence: best.confidence,
-    source: best.source as any,
-    detectedAt: new Date()
-  }
-
-  // Validate with Zod before returning
-  try {
-    return BusinessLocationSchema.parse(location)
-  } catch (error) {
-    log('combineResults', { error, location }, 'error')
-    return null
+  /**
+   * Format location as string
+   */
+  formatLocation(result: LocationResult): string {
+    return `${result.city}, ${result.state}`;
   }
 }
 
-/**
- * Export public API
- */
-export const LocationDetector = {
-  detectLocation,
-  scrapeContactPage,
-  extractFooterAddress,
-  analyzeAboutPage,
-  inspectMetadata,
-  geolocateByIP,
-  geocodeAddress,
-  parseAddressString
-}
-
-// Export as default and named export for compatibility
-export const locationDetectionService = LocationDetector
-export default LocationDetector
+export const locationDetectionService = new LocationDetectionService();
+export type { LocationResult };

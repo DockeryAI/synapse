@@ -40,6 +40,18 @@ export const DetailedResearchAnimation: React.FC<DetailedResearchAnimationProps>
   currentProgress,
   estimatedTimeRemaining,
 }) => {
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+
+  // Timer to track elapsed time
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      setElapsedSeconds(Math.floor((Date.now() - startTime) / 1000));
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   const [phases, setPhases] = useState<ResearchPhase[]>([
     {
       id: 'psychology',
@@ -175,6 +187,18 @@ export const DetailedResearchAnimation: React.FC<DetailedResearchAnimationProps>
           <p className="text-slate-600 dark:text-slate-400 text-lg">
             NAICS {naicsCode} • Deep Research In Progress
           </p>
+
+          {/* One-time generation message */}
+          <motion.div
+            className="mt-4 mx-auto max-w-lg p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <p className="text-sm text-blue-900 dark:text-blue-100 leading-relaxed">
+              <span className="font-semibold">✨ First-time generation:</span> We're creating a comprehensive industry profile tailored specifically for {industryName}. This is a one-time process that takes 3-5 minutes. Your profile will be saved and load instantly next time!
+            </p>
+          </motion.div>
         </div>
 
         {/* Overall Progress Bar */}
@@ -196,7 +220,10 @@ export const DetailedResearchAnimation: React.FC<DetailedResearchAnimationProps>
             />
           </div>
           <div className="flex items-center justify-center mt-3 text-sm font-medium text-slate-700 dark:text-slate-300">
-            ⏱️ About {formatTime(estimatedTimeRemaining)} remaining
+            <div className="flex items-center gap-2">
+              <span className="text-blue-600 dark:text-blue-400">🕐 Elapsed:</span>
+              <span className="font-bold text-blue-700 dark:text-blue-300">{formatTime(elapsedSeconds)}</span>
+            </div>
           </div>
         </div>
 

@@ -23,6 +23,7 @@ import { Loader2, Sparkles, AlertCircle, CheckCircle, Copy, Link as LinkIcon, X,
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { SynapseLoadingScreen } from '@/components/synapse/SynapseLoadingScreen';
 import { Badge } from '@/components/ui/badge';
 import { IndustrySelector } from '@/components/onboarding-v5/IndustrySelector';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
@@ -34,7 +35,7 @@ import { EdginessSlider } from '@/components/synapse/EdginessSlider';
 import { ContentEnhancements } from '@/components/synapse/ContentEnhancements';
 import { HumorOptimizer } from '@/services/synapse/generation/HumorOptimizer';
 import type { SynapseInsight } from '@/types/synapse.types';
-import type { SynapseContent, HumorEnhancementResult, EdginessLevel } from '@/types/synapseContent.types';
+import type { SynapseContent, HumorEnhancementResult, EdginessLevel, Platform } from '@/types/synapseContent.types';
 
 export function SynapsePage() {
   // Form inputs
@@ -44,6 +45,8 @@ export function SynapsePage() {
   const [selectedLocations, setSelectedLocations] = useState<Array<{ city: string; state: string }>>([]); // User's choices (multiple)
   const [manualLocationCity, setManualLocationCity] = useState('');
   const [manualLocationState, setManualLocationState] = useState('');
+  const [selectedPlatforms, setSelectedPlatforms] = useState<Platform[]>(['linkedin', 'facebook']); // Default platforms
+  const [viewingPlatform, setViewingPlatform] = useState<Platform>('linkedin'); // Platform currently being viewed in results
 
   // State
   const [loading, setLoading] = useState(false);
@@ -158,7 +161,7 @@ export function SynapsePage() {
           selectedIndustry?.displayName
         );
 
-        if (location.confidence > 0.5) {
+        if (location && location.confidence > 0.5) {
           setDetectedLocation(location); // Store full result
           // Auto-select all locations by default
           if (!location.hasMultipleLocations) {
@@ -174,6 +177,8 @@ export function SynapsePage() {
             }]);
           }
           console.log('[Synapse] Auto-detected location:', location);
+        } else {
+          console.log('[Synapse] Location detection returned no results (CORS blocked or not found)');
         }
       } catch (error) {
         console.error('[Synapse] Location detection failed:', error);
@@ -210,6 +215,7 @@ export function SynapsePage() {
       console.log('[Synapse] URL:', testUrl);
       console.log('[Synapse] Industry:', selectedIndustry.displayName);
       console.log('[Synapse] Selected Locations:', selectedLocations);
+      console.log('[Synapse] Target Platforms:', selectedPlatforms);
 
       // Use first selected location for demo (full multi-location support coming soon)
       const primaryLocation = selectedLocations[0] || { city: 'New York', state: 'NY' };
@@ -302,6 +308,7 @@ export function SynapsePage() {
           contentGoals: ['engagement', 'lead-generation', 'thought-leadership'] as const
         };
 
+        // Generate content for ALL selected platforms
         const contentResult = await contentGenerator.generate(
           synapseResult.synapses,
           businessProfile,
@@ -310,6 +317,8 @@ export function SynapsePage() {
             multiFormat: false,
             minImpactScore: 0.6,
             channel: 'all',
+            platform: selectedPlatforms[0] || 'linkedin' as 'linkedin' | 'twitter' | 'instagram' | 'facebook' | 'generic',
+            platforms: selectedPlatforms, // Pass all selected platforms
             useFrameworks: true
           }
         );
@@ -391,6 +400,11 @@ export function SynapsePage() {
       setEnhancingContent(null);
     }
   };
+
+  // Show loading screen during analysis
+  if (loading) {
+    return <SynapseLoadingScreen contentCount={15} platformCount={selectedPlatforms.length} />;
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 py-8 px-4">
@@ -611,10 +625,108 @@ export function SynapsePage() {
               </motion.div>
             )}
 
+            {/* Platform Selector */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-3">
+                Target Platforms
+                <span className="ml-2 text-xs text-gray-500 dark:text-slate-400">(Select at least one)</span>
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                {(['linkedin', 'facebook', 'instagram', 'x', 'tiktok', 'youtube'] as Platform[]).map((platform) => {
+                  const isSelected = selectedPlatforms.includes(platform);
+                  const platformConfig = {
+                    linkedin: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                      ),
+                      label: 'LinkedIn',
+                      color: 'blue'
+                    },
+                    facebook: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                      ),
+                      label: 'Facebook',
+                      color: 'indigo'
+                    },
+                    instagram: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                        </svg>
+                      ),
+                      label: 'Instagram',
+                      color: 'pink'
+                    },
+                    x: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                      ),
+                      label: 'X',
+                      color: 'slate'
+                    },
+                    tiktok: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                        </svg>
+                      ),
+                      label: 'TikTok',
+                      color: 'purple'
+                    },
+                    youtube: {
+                      icon: (
+                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                      ),
+                      label: 'YouTube',
+                      color: 'red'
+                    }
+                  }[platform];
+
+                  return (
+                    <button
+                      key={platform}
+                      type="button"
+                      onClick={() => {
+                        setSelectedPlatforms(prev =>
+                          prev.includes(platform)
+                            ? prev.filter(p => p !== platform)
+                            : [...prev, platform]
+                        );
+                      }}
+                      className={`
+                        px-4 py-3 rounded-lg border-2 font-medium text-sm transition-all flex flex-col items-center gap-2
+                        ${isSelected
+                          ? `border-${platformConfig.color}-500 bg-${platformConfig.color}-50 dark:bg-${platformConfig.color}-900/20 text-${platformConfig.color}-700 dark:text-${platformConfig.color}-300`
+                          : 'border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-gray-400 dark:hover:border-gray-500'
+                        }
+                      `}
+                    >
+                      {platformConfig.icon}
+                      {platformConfig.label}
+                    </button>
+                  );
+                })}
+              </div>
+              {selectedPlatforms.length === 0 && (
+                <p className="text-xs text-red-600 dark:text-red-400 mt-2">
+                  ⚠️ Please select at least one platform to generate optimized content
+                </p>
+              )}
+            </div>
+
             {/* Run Button */}
             <Button
               onClick={runSynapseDiscovery}
-              disabled={loading || !testUrl || !selectedIndustry}
+              disabled={loading || !testUrl || !selectedIndustry || selectedPlatforms.length === 0}
               size="lg"
               className="w-full h-14 text-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
             >
@@ -816,11 +928,92 @@ export function SynapsePage() {
             animate={{ opacity: 1, y: 0 }}
             className="space-y-4"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-                Generated Content ({generatedContent.length} pieces)
-              </h2>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  Generated Content ({generatedContent.length} pieces)
+                </h2>
+              </div>
+
+              {/* Platform Switcher */}
+              <div className="flex gap-2">
+                {(['linkedin', 'facebook', 'instagram', 'x', 'tiktok', 'youtube'] as Platform[]).map((platform) => {
+                  const platformConfig = {
+                    linkedin: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                      ),
+                      label: 'LinkedIn',
+                      color: 'blue'
+                    },
+                    facebook: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                      ),
+                      label: 'Facebook',
+                      color: 'indigo'
+                    },
+                    instagram: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                      ),
+                      label: 'Instagram',
+                      color: 'pink'
+                    },
+                    x: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                      ),
+                      label: 'X',
+                      color: 'slate'
+                    },
+                    tiktok: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+                        </svg>
+                      ),
+                      label: 'TikTok',
+                      color: 'purple'
+                    },
+                    youtube: {
+                      icon: (
+                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                      ),
+                      label: 'YouTube',
+                      color: 'red'
+                    }
+                  }[platform];
+
+                  const isActive = viewingPlatform === platform;
+
+                  return (
+                    <button
+                      key={platform}
+                      onClick={() => setViewingPlatform(platform)}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all ${
+                        isActive
+                          ? `bg-${platformConfig.color}-100 dark:bg-${platformConfig.color}-900/30 text-${platformConfig.color}-700 dark:text-${platformConfig.color}-300 border-2 border-${platformConfig.color}-500`
+                          : 'bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-400 border-2 border-transparent hover:border-gray-300 dark:hover:border-slate-600'
+                      }`}
+                    >
+                      {platformConfig.icon}
+                      <span className="text-sm">{platformConfig.label}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             <div className="grid gap-6">
@@ -834,13 +1027,77 @@ export function SynapsePage() {
                   <div className="space-y-4">
                     {/* Header: Format and Scores */}
                     <div className="flex items-center justify-between pb-4 border-b border-gray-200 dark:border-slate-700">
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 flex-wrap">
                         <Badge className="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300">
                           {content.format.toUpperCase()}
                         </Badge>
                         <span className="text-xs text-gray-500 dark:text-slate-400">
                           {content.meta.tone}
                         </span>
+                        {/* Platform badges */}
+                        <div className="flex gap-2">
+                          {selectedPlatforms.map((platform) => {
+                            const platformConfig = {
+                              linkedin: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                  </svg>
+                                ),
+                                label: 'LinkedIn'
+                              },
+                              facebook: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                  </svg>
+                                ),
+                                label: 'Facebook'
+                              },
+                              instagram: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06l.045.03zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793-.001 1.44.645 1.44 1.439z"/>
+                                  </svg>
+                                ),
+                                label: 'Instagram'
+                              },
+                              x: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                  </svg>
+                                ),
+                                label: 'X'
+                              },
+                              tiktok: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                  </svg>
+                                ),
+                                label: 'TikTok'
+                              },
+                              youtube: {
+                                icon: (
+                                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                                  </svg>
+                                ),
+                                label: 'YouTube'
+                              }
+                            }[platform];
+                            return (
+                              <Badge
+                                key={platform}
+                                variant="outline"
+                                className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-800 flex items-center gap-1"
+                              >
+                                {platformConfig.icon} {platformConfig.label}
+                              </Badge>
+                            );
+                          })}
+                        </div>
                       </div>
                       <div className="flex gap-4 text-sm">
                         <div className="text-center">
@@ -866,54 +1123,69 @@ export function SynapsePage() {
 
                     {/* Content Body */}
                     <div className="space-y-3">
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
-                          Headline
-                        </h4>
-                        <p className="text-lg font-bold text-gray-900 dark:text-white">
-                          {content.content.headline}
-                        </p>
-                      </div>
+                      {(() => {
+                        // Get platform-specific content or fall back to default
+                        const platformContent = (content as any).platformVariants?.[viewingPlatform] || content.content;
 
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
-                          Hook
-                        </h4>
-                        <p className="text-gray-700 dark:text-slate-300">
-                          {content.content.hook}
-                        </p>
-                      </div>
+                        // Debug logging
+                        console.log('[SynapsePage] Content object:', content);
+                        console.log('[SynapsePage] Viewing platform:', viewingPlatform);
+                        console.log('[SynapsePage] Platform variants:', (content as any).platformVariants);
+                        console.log('[SynapsePage] Platform content:', platformContent);
 
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
-                          Body
-                        </h4>
-                        <p className="text-gray-600 dark:text-slate-400 whitespace-pre-wrap">
-                          {content.content.body}
-                        </p>
-                      </div>
+                        return (
+                          <>
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
+                                Headline
+                              </h4>
+                              <p className="text-lg font-bold text-gray-900 dark:text-white">
+                                {platformContent.headline}
+                              </p>
+                            </div>
 
-                      <div>
-                        <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
-                          Call to Action
-                        </h4>
-                        <p className="text-gray-700 dark:text-slate-300 font-semibold">
-                          {content.content.cta}
-                        </p>
-                      </div>
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
+                                Hook
+                              </h4>
+                              <p className="text-gray-700 dark:text-slate-300">
+                                {platformContent.hook}
+                              </p>
+                            </div>
 
-                      {content.content.hashtags && content.content.hashtags.length > 0 && (
-                        <div className="flex gap-2 flex-wrap">
-                          {content.content.hashtags.map((tag, idx) => (
-                            <span
-                              key={idx}
-                              className="text-sm text-blue-600 dark:text-blue-400"
-                            >
-                              #{tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
+                                Body
+                              </h4>
+                              <p className="text-gray-600 dark:text-slate-400 whitespace-pre-wrap">
+                                {platformContent.body}
+                              </p>
+                            </div>
+
+                            <div>
+                              <h4 className="text-sm font-semibold text-gray-500 dark:text-slate-400 mb-1">
+                                Call to Action
+                              </h4>
+                              <p className="text-gray-700 dark:text-slate-300 font-semibold">
+                                {platformContent.cta}
+                              </p>
+                            </div>
+
+                            {platformContent.hashtags && platformContent.hashtags.length > 0 && (
+                              <div className="flex gap-2 flex-wrap">
+                                {platformContent.hashtags.map((tag: string, idx: number) => (
+                                  <span
+                                    key={idx}
+                                    className="text-sm text-blue-600 dark:text-blue-400"
+                                  >
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
 
                     {/* Psychology Section */}

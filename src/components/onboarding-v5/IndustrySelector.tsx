@@ -17,6 +17,7 @@ import { ProfileGenerationLoading } from './ProfileGenerationLoading';
 import { DetailedResearchAnimation } from './DetailedResearchAnimation';
 import { ConfirmCodeDetectionDialog } from './ConfirmCodeDetectionDialog';
 import type { GenerationProgress } from '../../services/industry/OnDemandProfileGeneration';
+import { supabase } from '@/lib/supabase';
 
 export interface IndustryOption {
   naicsCode: string;
@@ -64,8 +65,11 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
   const highlightedItemRef = useRef<HTMLButtonElement>(null);
 
-  // Convert NAICS options to IndustryOption format
-  const INDUSTRIES: IndustryOption[] = COMPLETE_NAICS_CODES.map(naics => ({
+  // Database industries (includes on-demand profiles)
+  const [databaseIndustries, setDatabaseIndustries] = useState<IndustryOption[]>([]);
+
+  // Convert NAICS options to IndustryOption format (fallback)
+  const STATIC_INDUSTRIES: IndustryOption[] = COMPLETE_NAICS_CODES.map(naics => ({
     naicsCode: naics.naics_code,
     displayName: naics.display_name,
     keywords: naics.keywords,
@@ -74,6 +78,42 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     category: naics.category,
     hasFullProfile: naics.has_full_profile
   }));
+
+  // Use database industries if loaded, otherwise fall back to static
+  const INDUSTRIES = databaseIndustries.length > 0 ? databaseIndustries : STATIC_INDUSTRIES;
+
+  // Load industries from database on mount (includes on-demand profiles)
+  useEffect(() => {
+    const loadIndustries = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('naics_codes')
+          .select('code, title, keywords, category, has_full_profile, popularity');
+
+        if (error) {
+          console.warn('[IndustrySelector] Failed to load from database, using static data:', error.message);
+          return;
+        }
+
+        const dbIndustries: IndustryOption[] = data.map(row => ({
+          naicsCode: row.code,
+          displayName: row.title,
+          keywords: row.keywords || [],
+          icon: '🏢',
+          popularity: row.popularity || 1,
+          category: row.category,
+          hasFullProfile: row.has_full_profile || false
+        }));
+
+        console.log(`[IndustrySelector] Loaded ${dbIndustries.length} industries from database`);
+        setDatabaseIndustries(dbIndustries);
+      } catch (err) {
+        console.warn('[IndustrySelector] Exception loading industries:', err);
+      }
+    };
+
+    loadIndustries();
+  }, []);
 
   // Smart domain-based suggestion - auto-populate textbox
   useEffect(() => {
@@ -120,7 +160,10 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   const filteredIndustries = searchTerm.length > 0
     ? INDUSTRIES.filter(industry =>
         industry.displayName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        industry.keywords.some(kw => kw.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        industry.keywords.some(kw =>
+          kw.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          searchTerm.toLowerCase().includes(kw.toLowerCase())
+        ) ||
         industry.category.toLowerCase().includes(searchTerm.toLowerCase())
       ).slice(0, 50) // Increased limit to show more results
     : INDUSTRIES.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 50); // Show top 50 by default (was 20)
@@ -157,7 +200,7 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     console.log(`[FreeForm] Processing: "${text}"`);
 
     // Step 1: Try fuzzy match
-    const match = IndustryMatchingService.findMatch(text);
+    const match = await IndustryMatchingService.findMatch(text);
 
     if (match.type === 'exact' || (match.type === 'fuzzy' && match.confidence > 0.7)) {
       // Strong match - proceed directly
@@ -215,14 +258,14 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
 
     if (!detectedCode) return;
 
-    // ALWAYS check database first - local file may be out of sync
+    // ALWAYS check database first - ONLY trust database, not local file
     console.log(`[Code Confirmed] Checking database for NAICS ${detectedCode.naics_code}...`);
     const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(detectedCode.naics_code);
     const existingIndustry = IndustryMatchingService.getByCode(detectedCode.naics_code);
 
-    if (cachedProfile || (existingIndustry && existingIndustry.has_full_profile)) {
-      // Profile exists in database OR local file - use it immediately
-      console.log('[Code Confirmed] Profile exists, loading instantly');
+    if (cachedProfile) {
+      // Profile exists in database - use it immediately
+      console.log('[Code Confirmed] ✅ Profile found in database, loading instantly');
       const industry: IndustryOption = {
         naicsCode: existingIndustry?.naics_code || detectedCode.naics_code,
         displayName: existingIndustry?.display_name || detectedCode.display_name,
@@ -233,8 +276,8 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
       };
       onIndustrySelected(industry);
     } else {
-      // Need to generate profile - start generation immediately
-      console.log('[Code Confirmed] Profile needs generation, starting immediately');
+      // Database returned null (either doesn't exist or RLS error) - always generate
+      console.log('[Code Confirmed] ❌ No profile in database (or RLS blocking access), generating new profile...');
       const industry: IndustryOption = {
         naicsCode: detectedCode.naics_code,
         displayName: detectedCode.display_name,
@@ -262,26 +305,22 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     setSearchTerm(industry.displayName);
     setShowDropdown(false);
 
-    // ALWAYS check database first - local file may be out of sync
+    // ALWAYS check database first - ONLY trust database, not local file
     console.log(`[IndustrySelector] Checking database for NAICS ${industry.naicsCode}...`);
     const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(industry.naicsCode);
 
     if (cachedProfile) {
       // Profile exists in database - use it
-      console.log(`[IndustrySelector] Profile found in database for "${industry.displayName}"`);
+      console.log(`[IndustrySelector] ✅ Profile found in database for "${industry.displayName}"`);
       onIndustrySelected({
         ...industry,
         hasFullProfile: true
       });
-    } else if (!industry.hasFullProfile) {
-      // No database profile AND local file says needs generation
-      console.log(`[OnDemand] Industry "${industry.displayName}" needs profile generation - starting immediately`);
+    } else {
+      // Database returned null (either doesn't exist or RLS error) - always generate
+      console.log(`[OnDemand] ❌ No profile in database for "${industry.displayName}", generating now...`);
       await performGeneration(industry);
       return;
-    } else {
-      // Profile should exist according to local file
-      console.log(`[IndustrySelector] Industry "${industry.displayName}" has pre-generated profile`);
-      onIndustrySelected(industry);
     }
 
     // Visual feedback

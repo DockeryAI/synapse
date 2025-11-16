@@ -43,7 +43,32 @@ serve(async (req) => {
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      // Return empty content for 404/403/etc instead of throwing error
+      console.log(`[scrape-website] HTTP ${response.status} for ${url}, returning empty content`);
+      return new Response(
+        JSON.stringify({
+          success: false,
+          content: {
+            title: '',
+            description: '',
+            text: '',
+            headings: [],
+            navigation: '',
+            footer: '',
+            addresses: '',
+            structuredData: '',
+          },
+          metadata: {
+            url,
+            httpStatus: response.status,
+            statusText: response.statusText,
+          },
+          timestamp: new Date().toISOString(),
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        }
+      );
     }
 
     const html = await response.text();

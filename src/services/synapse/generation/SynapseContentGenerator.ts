@@ -82,10 +82,14 @@ export class SynapseContentGenerator {
       maxContent: options.maxContent || 10,
       formats: options.formats || ['hook-post', 'story-post', 'data-post', 'controversial-post'],
       multiFormat: options.multiFormat !== undefined ? options.multiFormat : false,
-      minImpactScore: options.minImpactScore || 0.7
+      minImpactScore: options.minImpactScore || 0.7,
+      platform: (options as any).platform || 'linkedin'
     };
 
-    console.log(`🎨 Generating breakthrough content for ${insights.length} insights...`);
+    // Get all platforms to generate for
+    const platforms = (options as any).platforms || [opts.platform];
+
+    console.log(`🎨 Generating breakthrough content for ${insights.length} insights across ${platforms.length} platforms...`);
 
     // Generate content for each insight
     const allContent: SynapseContent[] = [];
@@ -97,15 +101,16 @@ export class SynapseContentGenerator {
           // Generate multiple formats for this insight
           const formats = this.selectFormats(insight, opts.formats);
           for (const format of formats) {
-            const content = await this.generateForFormat(insight, business, format);
+            // Generate for ALL selected platforms
+            const content = await this.generateForAllPlatforms(insight, business, format, platforms);
             if (content) {
               allContent.push(content);
             }
           }
         } else {
-          // Generate single best format
+          // Generate single best format for all platforms
           const format = this.selectBestFormat(insight, opts.formats);
-          const content = await this.generateForFormat(insight, business, format);
+          const content = await this.generateForAllPlatforms(insight, business, format, platforms);
           if (content) {
             allContent.push(content);
           }
@@ -212,12 +217,62 @@ export class SynapseContentGenerator {
   }
 
   /**
+   * Generate content for all platforms
+   */
+  private async generateForAllPlatforms(
+    insight: BreakthroughInsight,
+    business: BusinessProfile,
+    format: ContentFormat,
+    platforms: string[]
+  ): Promise<SynapseContent | null> {
+    // Generate for the first platform (primary)
+    const primaryPlatform = platforms[0] || 'linkedin';
+    const primaryContent = await this.generateForFormat(insight, business, format, primaryPlatform as any);
+
+    if (!primaryContent) {
+      return null;
+    }
+
+    // Generate platform-specific variations for ALL selected platforms
+    const platformVariants: Record<string, any> = {};
+
+    for (const platform of platforms) {
+      const platformKey = platform === 'x' ? 'twitter' : platform;
+      const variant = await this.generateForFormat(insight, business, format, platformKey as any);
+      console.log(`[SynapseContentGenerator] Variant generated for ${platform}:`, variant);
+      if (variant) {
+        // Extract content from the nested content property
+        const extractedContent = {
+          headline: variant.content.headline,
+          hook: variant.content.hook,
+          body: variant.content.body,
+          cta: variant.content.cta,
+          hashtags: variant.content.hashtags || []
+        };
+        console.log(`[SynapseContentGenerator] Extracted content for ${platform}:`, extractedContent);
+        platformVariants[platform] = extractedContent;
+      } else {
+        console.warn(`[SynapseContentGenerator] No variant generated for ${platform}`);
+      }
+    }
+
+    // Store all platform variants in the content metadata
+    return {
+      ...primaryContent,
+      platformVariants,
+      // Also store which platforms this content is for
+      platforms: platforms as Platform[]
+    };
+  }
+
+  /**
    * Generate content for a specific format
    */
   private async generateForFormat(
     insight: BreakthroughInsight,
     business: BusinessProfile,
-    format: ContentFormat
+    format: ContentFormat,
+    platform: 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'generic' = 'linkedin'
   ): Promise<SynapseContent | null> {
     try {
       switch (format) {
@@ -232,7 +287,7 @@ export class SynapseContentGenerator {
           return await this.dataGenerator.generate(insight, business);
 
         case 'controversial-post':
-          return await this.controversialGenerator.generate(insight, business);
+          return await this.controversialGenerator.generate(insight, business, platform as 'linkedin' | 'facebook' | 'instagram' | 'twitter');
 
         // Email Formats
         case 'email-newsletter':

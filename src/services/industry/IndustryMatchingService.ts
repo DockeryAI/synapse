@@ -6,6 +6,7 @@
  */
 
 import { COMPLETE_NAICS_CODES, type NAICSOption } from '@/data/complete-naics-codes';
+import { supabase } from '@/lib/supabase';
 
 export interface MatchResult {
   type: 'exact' | 'fuzzy' | 'none';
@@ -15,14 +16,62 @@ export interface MatchResult {
 }
 
 export class IndustryMatchingService {
+  private static cachedNAICS: NAICSOption[] | null = null;
+
+  /**
+   * Get all NAICS codes from database (with caching)
+   */
+  private static async getAllNAICS(): Promise<NAICSOption[]> {
+    // Return cached if available
+    if (this.cachedNAICS) {
+      return this.cachedNAICS;
+    }
+
+    try {
+      // Fetch from database (includes on-demand profiles)
+      const { data, error } = await supabase
+        .from('naics_codes')
+        .select('code, title, keywords, category, has_full_profile, popularity');
+
+      if (error) {
+        console.warn('[IndustryMatching] Database fetch failed, using static data:', error.message);
+        return COMPLETE_NAICS_CODES;
+      }
+
+      // Map to NAICSOption format
+      this.cachedNAICS = data.map(row => ({
+        naics_code: row.code,
+        display_name: row.title,
+        keywords: row.keywords || [],
+        category: row.category,
+        has_full_profile: row.has_full_profile || false,
+        popularity: row.popularity || 1
+      }));
+
+      console.log(`[IndustryMatching] Loaded ${this.cachedNAICS.length} NAICS codes from database`);
+      return this.cachedNAICS;
+    } catch (err) {
+      console.warn('[IndustryMatching] Exception loading NAICS:', err);
+      return COMPLETE_NAICS_CODES;
+    }
+  }
+
+  /**
+   * Clear cache (call after adding new on-demand profiles)
+   */
+  static clearCache(): void {
+    this.cachedNAICS = null;
+  }
+
   /**
    * Fuzzy match free-form industry text against our database
    */
-  static findMatch(freeformText: string): MatchResult {
+  static async findMatch(freeformText: string): Promise<MatchResult> {
     const cleaned = freeformText.toLowerCase().trim();
+    const allNAICS = await this.getAllNAICS();
 
     // 1. Exact display name match
-    const exactMatch = COMPLETE_NAICS_CODES.find(
+    const exactMatch = allNAICS.find(
       ind => ind.display_name.toLowerCase() === cleaned
     );
 
@@ -35,7 +84,7 @@ export class IndustryMatchingService {
     }
 
     // 2. Keyword match
-    const keywordMatches = COMPLETE_NAICS_CODES.filter(ind =>
+    const keywordMatches = allNAICS.filter(ind =>
       ind.keywords.some(kw =>
         cleaned.includes(kw.toLowerCase()) ||
         kw.toLowerCase().includes(cleaned)
@@ -64,7 +113,7 @@ export class IndustryMatchingService {
     }
 
     // 3. Partial text match in display name
-    const partialMatches = COMPLETE_NAICS_CODES.filter(ind =>
+    const partialMatches = allNAICS.filter(ind =>
       ind.display_name.toLowerCase().includes(cleaned) ||
       cleaned.includes(ind.display_name.toLowerCase())
     ).slice(0, 5);
