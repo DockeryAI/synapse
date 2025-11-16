@@ -85,7 +85,7 @@ Interactive product review interface:
 
 - **Grid Display:** Responsive card layout for all products
 - **Product Cards Show:**
-  - Type icon and color coding (product/service/hybrid)
+  - Type emoji icons (📦 product, 💼 service, 🎯 hybrid)
   - Confidence badges for low-confidence detections
   - Tier and category badges
   - Pricing and duration
@@ -103,6 +103,12 @@ Interactive product review interface:
   - Optional skip functionality
   - Loading state during save
 
+- **Animations:**
+  - Staggered card reveal (delay: index * 0.05s)
+  - Hover shadow transitions
+  - Spring animation for empty state
+  - Smooth fade-in for all elements
+
 **Props:**
 ```typescript
 {
@@ -119,19 +125,27 @@ Orchestrates the complete scanning workflow:
 
 - **Auto-Scan on Mount:** Automatically starts scanning
 - **Loading States:**
-  - Scanning animation with progress message
+  - Animated scanning with emoji stages (🔍, 📝, 💰, ⭐, 🎯)
+  - Pulsing lightning bolts (⚡) as activity indicators
+  - Rotating Sparkles spinner
   - Error state with retry option
   - Success state with review UI
 
 - **Confidence Banners:**
-  - Low confidence warning (< 50%)
-  - Primary offering highlight
+  - Low confidence warning (< 50%) with AnimatePresence
+  - Primary offering highlight with 🎯 emoji
   - Save error notifications
 
 - **Workflow Management:**
   - Triggers scan → displays results → saves to database
   - Error handling at each step
   - Skip functionality
+
+- **Animations:**
+  - Framer Motion for all state transitions
+  - Staggered reveal of scanning steps
+  - Spring animations for error/empty states
+  - Fade-in/fade-out with AnimatePresence
 
 **Props:**
 ```typescript
@@ -170,24 +184,76 @@ CREATE TABLE business_services (
 - **Load:** Retrieves all for business, ordered by featured status
 - **Featured:** Primary products marked as `is_featured = true`
 
+### 5. Design System Integration
+
+The Product Scanner follows Synapse's established design patterns for consistency:
+
+**Visual Design:**
+- **Emoji Icons:** Uses emojis instead of icon libraries for primary visual elements
+  - 📦 for products
+  - 💼 for services
+  - 🎯 for hybrid offerings
+  - 🔍 for scanning
+  - ⚡ for activity indicators
+  - ⚠️ for warnings
+
+- **Color System:** Leverages shadcn/ui design tokens
+  - `bg-blue-100/text-blue-700` for products
+  - `bg-green-100/text-green-700` for services
+  - `bg-purple-100/text-purple-700` for hybrid
+  - `text-muted-foreground` for secondary text
+  - `border-primary/20` for subtle borders
+
+**Animation Patterns:**
+- **Framer Motion:** All state transitions use framer-motion
+  - `initial={{ opacity: 0, y: 20 }}` for card entrance
+  - `animate={{ opacity: 1, y: 0 }}` for smooth reveal
+  - `transition={{ delay: index * 0.05 }}` for staggered lists
+  - `type: "spring"` for playful bounce effects
+
+- **Loading States:** Multi-stage animated progress
+  - Large emoji header (🔍)
+  - Descriptive title and subtitle
+  - Animated spinner (rotating Sparkles icon)
+  - Stage-based progress list with staggered reveals
+  - Pulsing activity indicators (⚡)
+  - Estimated time remaining
+
+- **AnimatePresence:** Smooth enter/exit for conditional UI
+  - Confidence banners
+  - Error messages
+  - Primary offering highlights
+
+**Component Patterns:**
+- **shadcn/ui Components:** Card, Button, Badge, Dialog, Input, Textarea, Select
+- **Responsive Grid:** `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
+- **Hover Effects:** `hover:shadow-lg transition-shadow duration-200`
+- **Dark Mode:** All colors support dark mode via Tailwind variants
+
+**Matches Existing Patterns From:**
+- `IndustrySelector.tsx` - Framer Motion animations, staggered reveals
+- `SynapseLoadingScreen.tsx` - Emoji-based loading stages
+- `ProfileGenerationLoading.tsx` - Multi-stage progress with emojis
+
 ## File Structure
 
 ```
 synapse-product-scanner/
 ├── src/
 │   ├── types/
-│   │   └── product.types.ts                 (79 lines)
+│   │   └── product.types.ts                 (68 lines)
 │   ├── services/
 │   │   └── intelligence/
-│   │       └── product-scanner.service.ts   (517 lines)
+│   │       └── product-scanner.service.ts   (465 lines)
 │   └── components/
 │       └── onboarding/
-│           ├── ProductReview.tsx            (379 lines)
-│           ├── ProductScanningStep.tsx      (203 lines)
+│           ├── ProductReview.tsx            (415 lines)
+│           ├── ProductScanningStep.tsx      (374 lines)
 │           └── index.ts                     (10 lines)
+├── PRODUCT_SCANNER_README.md                (529 lines)
 ```
 
-**Total:** 1,188 lines of code
+**Total:** 1,861 lines of code (+673 from design updates)
 
 ## Usage Example
 
