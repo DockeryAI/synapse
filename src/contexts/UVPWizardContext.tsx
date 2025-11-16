@@ -23,6 +23,7 @@ import { rhodesAI } from '@/services/uvp-wizard/rhodes-ai'
 import { uvpScoringService } from '@/services/uvp-wizard/uvp-scoring'
 import { websiteAnalyzer } from '@/services/uvp-wizard/website-analyzer'
 import { getStepConfig, isUVPComplete } from '@/config/uvp-wizard-steps'
+import { useIntelligenceData } from '@/services/uvp/intelligence-hooks'
 
 /**
  * Wizard step order
@@ -115,6 +116,9 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
 
   // Validation
   const [validation, setValidation] = React.useState<ValidationResult>(INITIAL_VALIDATION)
+
+  // Intelligence Integration (optional - backward compatible)
+  const intelligence = useIntelligenceData()
 
   /**
    * Load existing UVP from database
@@ -652,7 +656,7 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
   /**
    * Context value
    */
-  const value: UVPWizardContext = {
+  const value: UVPWizardContextType = {
     uvp,
     progress,
     is_loading: isLoading,
@@ -661,6 +665,15 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
     available_suggestions: availableSuggestions,
     selected_suggestions: selectedSuggestions,
     validation,
+    // Intelligence Integration (optional - backward compatible)
+    intelligenceData: intelligence.intelligenceData,
+    isApplyingIntelligence: intelligence.isApplyingIntelligence,
+    applyIntelligence: intelligence.applyIntelligence,
+    clearAutoPopulated: intelligence.clearAutoPopulated,
+    isFieldAIDetected: intelligence.isFieldAIDetected,
+    getFieldConfidenceScore: intelligence.getFieldConfidenceScore,
+    getFieldConfidenceLevel: intelligence.getFieldConfidenceLevel,
+    // Actions
     updateField,
     goToStep,
     goNext,

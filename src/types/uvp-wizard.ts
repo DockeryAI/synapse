@@ -381,6 +381,15 @@ export interface UVPWizardContext {
   // Validation
   validation: ValidationResult
 
+  // Intelligence Integration (optional - backward compatible)
+  intelligenceData?: any // UVPIntelligenceData from intelligence-hooks
+  isApplyingIntelligence?: boolean
+  applyIntelligence?: (context: any, onPopulated?: (uvp: Partial<UVP>) => void) => Promise<any>
+  clearAutoPopulated?: () => void
+  isFieldAIDetected?: (field: keyof UVP) => boolean
+  getFieldConfidenceScore?: (field: keyof UVP) => number
+  getFieldConfidenceLevel?: (field: keyof UVP) => 'high' | 'medium' | 'low'
+
   // Actions
   updateField: (field: keyof UVP, value: any) => void
   goToStep: (step: WizardStep) => void
