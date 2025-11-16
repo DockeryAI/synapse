@@ -191,7 +191,12 @@ export function CampaignPage() {
     );
   }
 
-  if (!session) return null;
+  if (!session) {
+    console.log('[CampaignPage] No session, returning null');
+    return null;
+  }
+
+  console.log('[CampaignPage] Rendering with state:', currentStep, 'selectionMode:', selectionMode);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
@@ -276,14 +281,14 @@ export function CampaignPage() {
                     onClick={() => setSelectionMode('smart-picks')}
                     className="group text-left p-6 border-2 border-purple-200 dark:border-purple-800 rounded-xl hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all"
                   >
-                    <Zap className="h-10 w-10 text-purple-600 mb-3 group-hover:scale-110 transition-transform" />
+                    <Zap className="h-10 w-10 text-purple-600 dark:text-purple-400 mb-3 group-hover:scale-110 transition-transform" />
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Smart Picks
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-slate-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       AI-curated campaign recommendations. Select one and go!
                     </p>
-                    <span className="inline-block mt-3 text-sm font-medium text-purple-600">
+                    <span className="inline-block mt-3 text-sm font-medium text-purple-600 dark:text-purple-400">
                       Recommended →
                     </span>
                   </button>
@@ -292,14 +297,14 @@ export function CampaignPage() {
                     onClick={() => setSelectionMode('mixer')}
                     className="group text-left p-6 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
                   >
-                    <Sparkles className="h-10 w-10 text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
+                    <Sparkles className="h-10 w-10 text-blue-600 dark:text-blue-400 mb-3 group-hover:scale-110 transition-transform" />
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Content Mixer
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-slate-400">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
                       Build custom campaigns by selecting specific insights
                     </p>
-                    <span className="inline-block mt-3 text-sm font-medium text-blue-600">
+                    <span className="inline-block mt-3 text-sm font-medium text-blue-600 dark:text-blue-400">
                       For custom campaigns →
                     </span>
                   </button>
