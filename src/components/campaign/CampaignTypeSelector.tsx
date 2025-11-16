@@ -82,10 +82,12 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
         transition={{ duration: 0.5, delay: 0.1 }}
       >
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent flex items-center gap-2">
-            <Sparkles className="h-8 w-8 text-purple-600" />
-            Choose Your Campaign Type
-          </h2>
+          <div className="flex items-center gap-3">
+            <Sparkles className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+              Choose Your Campaign Type
+            </h2>
+          </div>
 
           {/* Why this type? Dialog */}
           <Dialog>
@@ -167,7 +169,7 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
           </Dialog>
         </div>
 
-        <p className="text-muted-foreground text-lg">
+        <p className="text-gray-600 dark:text-gray-400 text-lg">
           Based on your business intelligence, we've analyzed the best campaign
           strategy for your goals. Select one to continue.
         </p>

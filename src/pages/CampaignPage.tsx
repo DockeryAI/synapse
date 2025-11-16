@@ -202,10 +202,12 @@ export function CampaignPage() {
                 <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-slate-400" />
               </button>
               <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent flex items-center gap-2">
-                  <Sparkles className="h-8 w-8 text-purple-600" />
-                  Campaign Builder
-                </h1>
+                <div className="flex items-center gap-3 mb-1">
+                  <Sparkles className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    Campaign Builder
+                  </h1>
+                </div>
                 <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">
                   {currentStep === 'IDLE' && 'Select your campaign type'}
                   {currentStep === 'TYPE_SELECTED' && 'Choose how to build your campaign'}
