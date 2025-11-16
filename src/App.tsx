@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { BrandProvider } from './contexts/BrandContext'
 import { SynapsePage } from './pages/SynapsePage'
 import { ContentCalendarPage } from './pages/ContentCalendarPage'
+import { CampaignPage } from './pages/CampaignPage'
 import { SocialPilotCallback } from './pages/SocialPilotCallback'
 // import LoginPage from './pages/LoginPage'
 // import SignUpPage from './pages/SignUpPage'
@@ -23,6 +24,7 @@ function App() {
           {/* Public Routes (temporarily - will be protected in Phase 0) */}
           <Route path="/" element={<SynapsePage />} />
           <Route path="/synapse" element={<SynapsePage />} />
+          <Route path="/campaign/new" element={<CampaignPage />} />
           <Route path="/content-calendar" element={<ContentCalendarPage />} />
           <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
 

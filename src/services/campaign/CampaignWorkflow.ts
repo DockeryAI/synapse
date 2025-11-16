@@ -7,6 +7,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { campaignStateMachine } from './CampaignState';
 import { campaignDB } from './CampaignDB';
+import { PremiumContentWriter } from '../synapse/generation/formats/PremiumContentWriter';
 import type {
   CampaignSession,
   CampaignType,
@@ -16,6 +17,7 @@ import type {
 } from '@/types/campaign-workflow.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { BreakthroughInsight } from '@/types/synapse/breakthrough.types';
+import type { BusinessProfile } from '@/types/synapseContent.types';
 
 // ============================================================================
 // DEFAULT CONFIGURATION
@@ -182,11 +184,11 @@ export class CampaignWorkflowService {
       let updatedSession = campaignStateMachine.transition(session, 'GENERATING');
       this.sessions.set(sessionId, updatedSession);
 
-      // TODO: Call actual content generation services
-      // For now, generate mock content
+      // Generate real content using PremiumContentWriter
       const generatedContent = await this.generateMockContent(
         session.selectedType!,
-        session.selectedInsights
+        session.selectedInsights || [],
+        session.context
       );
 
       // Transition to PREVIEW state
@@ -365,45 +367,95 @@ export class CampaignWorkflowService {
    */
   private async generateMockContent(
     campaignType: CampaignType,
-    insights: BreakthroughInsight[]
+    insights: BreakthroughInsight[],
+    context?: DeepContext
   ): Promise<GeneratedCampaignContent> {
-    // Simulate generation delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    // Use real content generation with PremiumContentWriter
+    const contentWriter = new PremiumContentWriter();
 
-    const platforms: PlatformContent[] = [
-      {
-        platform: 'linkedin',
-        content: {
-          headline: `${campaignType} Campaign - LinkedIn`,
-          hook: insights[0]?.insight || 'Compelling hook from insight',
-          body: 'Generated body content based on selected insights...',
-          cta: 'Learn more at our website',
-          hashtags: ['business', 'marketing', 'growth']
-        },
-        characterCount: 250
-      },
-      {
-        platform: 'facebook',
-        content: {
-          headline: `${campaignType} Campaign - Facebook`,
-          hook: insights[0]?.insight || 'Engaging hook for Facebook',
-          body: 'Generated body content optimized for Facebook...',
-          cta: 'Click to learn more',
-          hashtags: ['local', 'community']
-        },
-        characterCount: 280
-      }
+    // Extract business profile from context
+    const businessProfile: BusinessProfile = context ? {
+      id: context.business.profile.id,
+      name: context.business.profile.name,
+      industry: context.business.profile.industry,
+      location: context.business.profile.location,
+      website: context.business.profile.website
+    } : {
+      id: 'demo-business',
+      name: 'Demo Business',
+      industry: 'Professional Services',
+      location: { city: 'San Francisco', state: 'CA', country: 'USA' },
+      website: 'https://example.com'
+    };
+
+    // Select primary insight (first one or highest confidence)
+    const primaryInsight = insights.length > 0 ?
+      insights.reduce((prev, current) =>
+        (current.confidence > prev.confidence) ? current : prev
+      ) : {
+        id: 'fallback-insight',
+        insight: 'Industry expertise and thought leadership',
+        confidence: 0.7,
+        reasoning: 'Fallback insight for demonstration',
+        dataSource: 'System',
+        timestamp: new Date(),
+        score: 70,
+        metadata: {}
+      };
+
+    // Define platforms to generate content for
+    const platformsToGenerate: Array<'linkedin' | 'facebook' | 'instagram' | 'twitter'> = [
+      'linkedin',
+      'facebook',
+      'instagram',
+      'twitter'
     ];
+
+    // Generate content for each platform in parallel
+    const platformContentPromises = platformsToGenerate.map(async (platform) => {
+      try {
+        const content = await contentWriter.generatePremiumContent(
+          primaryInsight,
+          businessProfile,
+          platform
+        );
+
+        const fullText = `${content.headline}\n\n${content.hook}\n\n${content.body}\n\n${content.cta}`;
+        const characterCount = fullText.length;
+
+        return {
+          platform,
+          content,
+          characterCount
+        };
+      } catch (error) {
+        this.log(`Error generating content for ${platform}:`, error);
+        // Fallback to basic content if generation fails
+        return {
+          platform,
+          content: {
+            headline: `${campaignType} Campaign - ${platform}`,
+            hook: primaryInsight.insight,
+            body: 'Generated body content based on your business insights and industry expertise.',
+            cta: 'Learn more',
+            hashtags: ['business', 'growth']
+          },
+          characterCount: 200
+        };
+      }
+    });
+
+    const platforms = await Promise.all(platformContentPromises);
 
     return {
       campaignId: uuidv4(),
       campaignType,
-      platforms,
+      platforms: platforms as PlatformContent[],
       metadata: {
         insightsUsed: insights.map(i => i.id),
         generatedAt: new Date(),
         model: 'claude-sonnet-4.5',
-        confidence: 0.85
+        confidence: primaryInsight.confidence
       }
     };
   }
