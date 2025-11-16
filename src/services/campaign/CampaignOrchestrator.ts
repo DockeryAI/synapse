@@ -329,6 +329,26 @@ export class CampaignOrchestrator {
   // ============================================================================
 
   /**
+   * Subscribe to state changes (public method for components)
+   */
+  onStateChange(callback: (session: CampaignSession) => void): () => void {
+    this.config.onStateChange = callback;
+    return () => {
+      this.config.onStateChange = undefined;
+    };
+  }
+
+  /**
+   * Subscribe to progress updates (public method for components)
+   */
+  onProgress(callback: (progress: number, session: CampaignSession) => void): () => void {
+    this.config.onProgress = callback;
+    return () => {
+      this.config.onProgress = undefined;
+    };
+  }
+
+  /**
    * Require session ID or throw
    */
   private requireSessionId(): string {
