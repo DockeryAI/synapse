@@ -24,6 +24,11 @@ import { ArrowLeft, Loader2, Sparkles, CheckCircle, Zap } from 'lucide-react';
 import { Card } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 
+// Helper function to convert underscore IDs to hyphenated format for SmartPicks
+const convertCampaignTypeId = (id: string): string => {
+  return id.replace(/_/g, '-');
+};
+
 export function CampaignPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -321,7 +326,7 @@ export function CampaignPage() {
               </Button>
               <SmartPicks
                 context={session.context}
-                campaignType={session.selectedType}
+                campaignType={session.selectedType ? convertCampaignTypeId(session.selectedType) as any : undefined}
                 onGenerateCampaign={handleSmartPickSelect}
                 onSwitchToMixer={() => setSelectionMode('mixer')}
               />
