@@ -16,6 +16,9 @@ import {
   Shield,
   Link as LinkIcon,
   Edit3,
+  BookOpen,
+  Mail,
+  GraduationCap,
 } from 'lucide-react';
 
 export type PostType =
@@ -23,7 +26,10 @@ export type PostType =
   | 'service_spotlight'
   | 'problem_solution'
   | 'value_proposition'
-  | 'community_engagement';
+  | 'community_engagement'
+  | 'blog_article'
+  | 'newsletter'
+  | 'educational_tip';
 
 interface PostTypeOption {
   id: PostType;
@@ -82,6 +88,33 @@ const POST_TYPES: PostTypeOption[] = [
     badge: { text: 'Fact-Based', type: 'fact_based' },
     icon: <MessageCircle className="w-6 h-6" />,
     example: '"What\'s your biggest challenge with [Topic]?"',
+    requiresModal: false,
+  },
+  {
+    id: 'blog_article',
+    title: 'Blog Article',
+    description: 'In-depth article based on your expertise and verified content.',
+    badge: { text: 'Source Verified', type: 'source_verified' },
+    icon: <BookOpen className="w-6 h-6" />,
+    example: '"The Complete Guide to [Service/Topic]"',
+    requiresModal: false,
+  },
+  {
+    id: 'newsletter',
+    title: 'Newsletter Content',
+    description: 'Email newsletter with updates, tips, or insights from your business.',
+    badge: { text: 'Source Verified', type: 'source_verified' },
+    icon: <Mail className="w-6 h-6" />,
+    example: '"This month\'s updates and tips from [Business]"',
+    requiresModal: false,
+  },
+  {
+    id: 'educational_tip',
+    title: 'Educational Tip',
+    description: 'Quick, valuable tip or insight related to your expertise.',
+    badge: { text: 'Source Verified', type: 'source_verified' },
+    icon: <GraduationCap className="w-6 h-6" />,
+    example: '"Pro tip: [Expert advice from your experience]"',
     requiresModal: false,
   },
 ];
@@ -175,17 +208,6 @@ export const SinglePostTypeSelector: React.FC<SinglePostTypeSelectorProps> = ({ 
                       {postType.example}
                     </p>
                   </div>
-
-                  {/* Special Notice for Customer Success */}
-                  {postType.requiresModal && (
-                    <div className="mt-3 flex items-start gap-2 p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg border border-orange-200 dark:border-orange-800">
-                      <AlertCircle className="w-4 h-4 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-0.5" />
-                      <p className="text-xs text-orange-700 dark:text-orange-400">
-                        <strong>We never fabricate customer stories.</strong> You'll provide real
-                        details or a source link.
-                      </p>
-                    </div>
-                  )}
                 </div>
               </div>
             </motion.button>

@@ -13,6 +13,8 @@
  * 3b. Single post path → SinglePostTypeSelector
  * 4. Customer Success Stories → CustomerStoryInputModal (NO FABRICATION)
  * 5. ContentPreview - Display with SOURCE ATTRIBUTION always visible
+ * 6. InsightsDashboard - Display extracted business insights
+ * 7. SmartSuggestions - AI-generated campaign and post suggestions
  */
 
 export { OnboardingFlow } from './OnboardingFlow';
@@ -27,3 +29,9 @@ export type { PostType } from './SinglePostTypeSelector';
 export { CustomerStoryInputModal } from './CustomerStoryInputModal';
 
 export { ContentPreview } from './ContentPreview';
+
+export { InsightsDashboard } from './InsightsDashboard';
+export type { InsightsDashboardProps } from './InsightsDashboard';
+
+export { SmartSuggestions } from './SmartSuggestions';
+export type { SmartSuggestionsProps, CampaignSuggestion, PostSuggestion, SuggestionData } from './SmartSuggestions';
