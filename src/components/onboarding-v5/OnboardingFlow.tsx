@@ -17,10 +17,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { IndustrySelector, type IndustryOption } from './IndustrySelector';
 
 interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
-  onUrlSubmit?: (url: string) => void;
+  onUrlSubmit?: (url: string, industry: IndustryOption) => void;
 }
 
 interface DetectedBusinessData {
@@ -68,6 +69,7 @@ const DETECTION_STEPS: StatusStep[] = [
 
 export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUrlSubmit }) => {
   const [url, setUrl] = useState('');
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
   const [status, setStatus] = useState<DetectionStatus>('idle');
   const [error, setError] = useState<string | null>(null);
 
@@ -76,6 +78,11 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
 
     if (!url.trim()) {
       setError('Please enter your website URL');
+      return;
+    }
+
+    if (!selectedIndustry) {
+      setError('Please select your business type');
       return;
     }
 
@@ -92,7 +99,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
 
     // If onUrlSubmit is provided, use that (new flow with real extraction)
     if (onUrlSubmit) {
-      onUrlSubmit(fullUrl);
+      onUrlSubmit(fullUrl, selectedIndustry);
       return;
     }
 
@@ -197,16 +204,30 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                       autoFocus
                       disabled={isDetecting}
                     />
-                    {error && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-red-600 dark:text-red-400 text-sm mt-2 text-center"
-                      >
-                        {error}
-                      </motion.p>
-                    )}
                   </div>
+
+                  {/* Industry Selector */}
+                  <div>
+                    <IndustrySelector
+                      websiteUrl={url}
+                      onIndustrySelected={(industry) => {
+                        setSelectedIndustry(industry);
+                        setError(null);
+                      }}
+                      className="industry-selector-inline"
+                    />
+                  </div>
+
+                  {error && (
+                    <motion.p
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="text-red-600 dark:text-red-400 text-sm mt-2 text-center"
+                    >
+                      {error}
+                    </motion.p>
+                  )}
+
 
                   {/* Submit Button */}
                   <Button
