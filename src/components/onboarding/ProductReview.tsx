@@ -243,8 +243,8 @@ export const ProductReview: React.FC<ProductReviewProps> = ({
                   </div>
                 </CardContent>
               </Card>
-            );
-          })}
+            </motion.div>
+          ))}
         </div>
       ) : (
         <motion.div
