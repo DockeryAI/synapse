@@ -76,15 +76,15 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
     >
       {/* Header */}
       <motion.div
-        className="mb-8"
+        className="mb-6 sm:mb-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
       >
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Sparkles className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 dark:text-purple-400 flex-shrink-0" />
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">
               Choose Your Campaign Type
             </h2>
           </div>
@@ -95,10 +95,11 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
               <Button
                 variant="outline"
                 size="sm"
-                className="border-purple-300 text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-400 dark:border-purple-700 dark:text-gray-300 dark:hover:bg-purple-900/20 dark:hover:text-purple-300 dark:hover:border-purple-600 transition-colors"
+                className="border-purple-300 text-gray-700 hover:bg-purple-50 hover:text-purple-700 hover:border-purple-400 dark:border-purple-700 dark:text-gray-300 dark:hover:bg-purple-900/20 dark:hover:text-purple-300 dark:hover:border-purple-600 transition-colors w-full sm:w-auto min-h-[44px]"
               >
                 <HelpCircle className="w-4 h-4 mr-2" />
-                Why these recommendations?
+                <span className="hidden sm:inline">Why these recommendations?</span>
+                <span className="sm:hidden">Why these?</span>
               </Button>
             </DialogTrigger>
             <DialogContent className="max-w-2xl">
@@ -243,10 +244,15 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
           size="lg"
           disabled={!selectedType}
           onClick={handleContinue}
-          className="min-w-[200px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
+          className="w-full sm:w-auto sm:min-w-[200px] min-h-[44px] bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl transition-all duration-200"
         >
-          Continue with{' '}
-          {selectedType && campaignTypes.find(t => t.id === selectedType)?.name}
+          <span className="hidden sm:inline">
+            Continue with{' '}
+            {selectedType && campaignTypes.find(t => t.id === selectedType)?.name}
+          </span>
+          <span className="sm:hidden">
+            Continue
+          </span>
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </motion.div>

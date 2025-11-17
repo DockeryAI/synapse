@@ -73,7 +73,7 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
       className={`
-        relative flex items-center gap-2 px-4 py-3 rounded-t-lg transition-all shadow-lg
+        relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-t-lg transition-all shadow-lg min-h-[44px] flex-shrink-0
         ${isActive
           ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
           : 'bg-white/50 dark:bg-slate-800/50 text-gray-600 dark:text-gray-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
@@ -82,16 +82,16 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
       aria-current={isActive ? 'page' : undefined}
     >
       {/* Platform Icon */}
-      <PlatformIcon platform={platform} />
+      <PlatformIcon platform={platform} className="w-4 h-4 sm:w-5 sm:h-5" />
 
       {/* Platform Name */}
-      <span className="font-medium text-sm">
+      <span className="font-medium text-xs sm:text-sm whitespace-nowrap">
         {config.displayName}
       </span>
 
       {/* Character Count Badge */}
       <span className={`
-        ml-2 px-2 py-0.5 rounded-full text-xs font-medium border
+        px-1.5 sm:px-2 py-0.5 rounded-full text-xs font-medium border whitespace-nowrap
         ${hasWarnings
           ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-red-300 dark:border-red-700'
           : isActive
@@ -137,9 +137,9 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
 }) => {
   return (
     <div className="w-full border-b border-purple-200 dark:border-purple-700 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-slate-900 dark:to-slate-800">
-      <div className="flex items-center justify-between px-4 py-2">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 px-3 sm:px-4 py-2">
         {/* Platform Tabs */}
-        <div className="flex gap-1 overflow-x-auto">
+        <div className="flex gap-1 overflow-x-auto scrollbar-hide pb-1 sm:pb-0">
           {platforms.map((platform) => {
             const content = platformContent[platform];
             const hasWarnings = content?.warnings && content.warnings.length > 0;
@@ -159,61 +159,63 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex items-center gap-2 ml-4">
+        <div className="flex items-center gap-1.5 sm:gap-2 sm:ml-4 flex-shrink-0">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('preview')}
             className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
+              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0
               ${mode === 'preview'
                 ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                 : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
               }
             `}
           >
-            👁️ Preview
+            <span className="hidden sm:inline">👁️ Preview</span>
+            <span className="sm:hidden">👁️</span>
           </motion.button>
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('edit')}
             className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
+              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0
               ${mode === 'edit'
                 ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                 : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
               }
             `}
           >
-            ✏️ Edit
+            <span className="hidden sm:inline">✏️ Edit</span>
+            <span className="sm:hidden">✏️</span>
           </motion.button>
         </div>
       </div>
 
       {/* Active Platform Info */}
-      <div className="px-4 py-2 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-t border-purple-200 dark:border-purple-700">
-        <div className="flex items-center justify-between text-sm">
+      <div className="px-3 sm:px-4 py-2 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm border-t border-purple-200 dark:border-purple-700">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs sm:text-sm">
           <div className="flex items-center gap-2 text-purple-600 dark:text-purple-400">
-            <span>Total Characters:</span>
-            <span className="font-medium bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+            <span className="font-medium">Total Characters:</span>
+            <span className="font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               {platformContent[activePlatform]?.characterCounts?.total || 0}
             </span>
           </div>
 
           {/* Platform Capabilities */}
-          <div className="flex items-center gap-3 text-xs text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-xs text-gray-600 dark:text-gray-400 overflow-x-auto scrollbar-hide">
             {PLATFORM_CONFIGS[activePlatform].supportsImages && (
-              <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
-                🖼️ Images
+              <span className="flex items-center gap-1 px-1.5 sm:px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700 whitespace-nowrap flex-shrink-0">
+                🖼️ <span className="hidden sm:inline">Images</span>
               </span>
             )}
             {PLATFORM_CONFIGS[activePlatform].supportsVideo && (
-              <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
-                🎥 Video
+              <span className="flex items-center gap-1 px-1.5 sm:px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700 whitespace-nowrap flex-shrink-0">
+                🎥 <span className="hidden sm:inline">Video</span>
               </span>
             )}
-            <span className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700">
+            <span className="flex items-center gap-1 px-1.5 sm:px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded border border-purple-200 dark:border-purple-700 whitespace-nowrap flex-shrink-0">
               📐 {PLATFORM_CONFIGS[activePlatform].recommendedAspectRatio}
             </span>
           </div>
