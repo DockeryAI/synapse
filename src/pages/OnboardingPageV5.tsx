@@ -76,7 +76,7 @@ export const OnboardingPageV5: React.FC = () => {
       });
 
       // Step 2: Detect location
-      const locationResult = await locationDetectionService.detectLocationFromWebsite(url);
+      const locationResult = await locationDetectionService.detectLocation(url);
 
       console.log('[OnboardingPageV5] Location detected:', locationResult);
 
