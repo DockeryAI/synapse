@@ -8,6 +8,7 @@
  */
 
 import { scrapeWebsite } from '@/services/scraping/websiteScraper';
+import { ErrorHandlerService, RetryProgress } from '../errors/error-handler.service';
 import type {
   ExtractedUVPData,
   UVPExtractionOptions,
@@ -31,7 +32,10 @@ export class SmartUVPExtractor {
   /**
    * Extract UVP components from website with full source verification
    */
-  async extractUVP(options: UVPExtractionOptions): Promise<ExtractedUVPData> {
+  async extractUVP(
+    options: UVPExtractionOptions,
+    onProgress?: (progress: RetryProgress) => void
+  ): Promise<ExtractedUVPData> {
     console.log('[SmartUVPExtractor] Starting extraction for:', options.websiteUrl);
 
     const {
@@ -44,7 +48,11 @@ export class SmartUVPExtractor {
 
     try {
       // Step 1: Scrape the website
-      const scrapedData = await scrapeWebsite(websiteUrl);
+      const scrapedData = await ErrorHandlerService.executeWithRetry(
+        () => scrapeWebsite(websiteUrl),
+        { maxAttempts: 3 },
+        onProgress
+      );
       if (!scrapedData) {
         throw new Error('Failed to scrape website');
       }
@@ -56,7 +64,11 @@ export class SmartUVPExtractor {
       });
 
       // Step 2: Extract UVP components with AI + source tracking
-      const uvpData = await this.extractWithSources(websiteUrl, scrapedData);
+      const uvpData = await ErrorHandlerService.executeWithRetry(
+        () => this.extractWithSources(websiteUrl, scrapedData),
+        { maxAttempts: 3 },
+        onProgress
+      );
 
       // Step 3: Filter by minimum confidence
       uvpData.customerTypes = uvpData.customerTypes.filter((c) => c.confidence >= minConfidence);
@@ -108,8 +120,59 @@ export class SmartUVPExtractor {
       return uvpData;
     } catch (error) {
       console.error('[SmartUVPExtractor] Extraction failed:', error);
+      ErrorHandlerService.logError(error, { websiteUrl });
       throw this.createError('extraction', error);
     }
+  }
+
+  /**
+   * Extract UVP with cache fallback
+   */
+  async extractUVPWithCache(
+    options: UVPExtractionOptions,
+    onProgress?: (progress: RetryProgress) => void
+  ): Promise<ExtractedUVPData> {
+    const cacheKey = `uvp-${options.websiteUrl}`;
+
+    try {
+      return await ErrorHandlerService.executeWithRetry(
+        () => this.extractUVP(options, onProgress),
+        { maxAttempts: 3 },
+        onProgress,
+        [
+          ErrorHandlerService.createCacheFallback(
+            cacheKey,
+            async (key) => {
+              // Try to get from localStorage or intelligence cache
+              const cached = localStorage.getItem(key);
+              return cached ? JSON.parse(cached) : null;
+            }
+          )
+        ]
+      );
+    } catch (error) {
+      // If all retries and cache fail, return minimal data
+      console.error('[SmartUVPExtractor] All extraction attempts failed, using minimal data');
+      return this.createMinimalUVPData(options.websiteUrl);
+    }
+  }
+
+  private createMinimalUVPData(websiteUrl: string): ExtractedUVPData {
+    return {
+      websiteUrl,
+      extractedAt: new Date(),
+      customerTypes: [],
+      services: [],
+      problemsSolved: [],
+      testimonials: [],
+      differentiators: [],
+      overallConfidence: 0,
+      verificationRate: 0,
+      completeness: 0,
+      sourcesAnalyzed: [websiteUrl],
+      sourceQuality: 'low',
+      warnings: ['Extraction failed. Using minimal data. Please add details manually.'],
+    };
   }
 
   /**

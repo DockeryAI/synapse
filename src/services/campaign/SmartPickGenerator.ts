@@ -21,11 +21,12 @@ import type {
   SmartPickGenerationOptions,
   SmartPickGenerationResult,
   ScoringWeights,
-  DataSourceInfo,
-  DEFAULT_SCORING_WEIGHTS
+  DataSourceInfo
 } from '@/types/smart-picks.types'
+import { DEFAULT_SCORING_WEIGHTS } from '@/types/smart-picks.types'
 import { generateSynapses, type SynapseInput } from '@/services/synapse/SynapseGenerator'
 import { chat } from '@/lib/openrouter'
+import { ErrorHandlerService, logError } from '../errors/error-handler.service'
 
 // ============================================================================
 // MAIN API
@@ -56,54 +57,82 @@ export async function generateSmartPicks(
     includePreview = true
   } = options
 
-  // Step 1: Generate or use existing Synapse insights
-  const insights = await getOrGenerateInsights(context)
+  try {
+    // Step 1: Generate or use existing Synapse insights
+    const insights = await getOrGenerateInsights(context)
 
-  console.log(`[SmartPickGenerator] Found ${insights.length} total insights`)
+    console.log(`[SmartPickGenerator] Found ${insights.length} total insights`)
 
-  // Step 2: Filter low-confidence insights
-  const qualityInsights = insights.filter(i => i.confidence >= minConfidence)
+    // Step 2: Filter low-confidence insights
+    const qualityInsights = insights.filter(i => i.confidence >= minConfidence)
 
-  console.log(`[SmartPickGenerator] ${qualityInsights.length} insights meet confidence threshold (>=${minConfidence})`)
+    console.log(`[SmartPickGenerator] ${qualityInsights.length} insights meet confidence threshold (>=${minConfidence})`)
 
-  // Step 3: Generate candidates for each campaign type
-  const candidates: SmartPick[] = []
+    // Step 3: Generate candidates for each campaign type
+    const candidates: SmartPick[] = []
 
-  if (!campaignType || campaignType === 'authority-builder') {
-    candidates.push(...await generateAuthorityBuilderPicks(context, qualityInsights, includePreview))
-  }
+    if (!campaignType || campaignType === 'authority-builder') {
+      candidates.push(...await generateAuthorityBuilderPicks(context, qualityInsights, includePreview))
+    }
 
-  if (!campaignType || campaignType === 'social-proof') {
-    candidates.push(...await generateSocialProofPicks(context, qualityInsights, includePreview))
-  }
+    if (!campaignType || campaignType === 'social-proof') {
+      candidates.push(...await generateSocialProofPicks(context, qualityInsights, includePreview))
+    }
 
-  if (!campaignType || campaignType === 'local-pulse') {
-    candidates.push(...await generateLocalPulsePicks(context, qualityInsights, includePreview))
-  }
+    if (!campaignType || campaignType === 'local-pulse') {
+      candidates.push(...await generateLocalPulsePicks(context, qualityInsights, includePreview))
+    }
 
-  console.log(`[SmartPickGenerator] Generated ${candidates.length} candidate picks`)
+    console.log(`[SmartPickGenerator] Generated ${candidates.length} candidate picks`)
 
-  // Step 4: Score all candidates
-  const scoredPicks = candidates.map(pick => scoreSmartPick(pick, context, preferTimely))
+    // Step 4: Score all candidates
+    const scoredPicks = candidates.map(pick => scoreSmartPick(pick, context, preferTimely))
 
-  // Step 5: Sort by overall score
-  scoredPicks.sort((a, b) => b.overallScore - a.overallScore)
+    // Step 5: Sort by overall score
+    scoredPicks.sort((a, b) => b.overallScore - a.overallScore)
 
-  // Step 6: Take top N
-  const topPicks = scoredPicks.slice(0, maxPicks)
+    // Step 6: Take top N
+    const topPicks = scoredPicks.slice(0, maxPicks)
 
-  const generationTimeMs = Date.now() - startTime
+    const generationTimeMs = Date.now() - startTime
 
-  console.log(`[SmartPickGenerator] Selected ${topPicks.length} top picks in ${generationTimeMs}ms`)
+    console.log(`[SmartPickGenerator] Selected ${topPicks.length} top picks in ${generationTimeMs}ms`)
 
-  return {
-    picks: topPicks,
-    context,
-    metadata: {
-      totalCandidates: candidates.length,
-      picksGenerated: topPicks.length,
-      generationTimeMs,
-      strategiesUsed: ['authority-builder', 'social-proof', 'local-pulse']
+    return {
+      picks: topPicks,
+      context,
+      metadata: {
+        totalCandidates: candidates.length,
+        picksGenerated: topPicks.length,
+        generationTimeMs,
+        strategiesUsed: ['authority-builder', 'social-proof', 'local-pulse']
+      }
+    }
+  } catch (error) {
+    console.error('[SmartPickGenerator] Generation failed:', error)
+    logError(error, { campaignType, businessId: context.business?.profile?.name })
+
+    // Return template-based picks as fallback
+    const fallbackPicks = campaignType
+      ? generateTemplatePicks(context, campaignType)
+      : [
+          ...generateTemplatePicks(context, 'authority-builder'),
+          ...generateTemplatePicks(context, 'social-proof'),
+          ...generateTemplatePicks(context, 'local-pulse')
+        ].slice(0, maxPicks)
+
+    const generationTimeMs = Date.now() - startTime
+
+    return {
+      picks: fallbackPicks,
+      context,
+      metadata: {
+        totalCandidates: 0,
+        picksGenerated: fallbackPicks.length,
+        generationTimeMs,
+        strategiesUsed: ['template-fallback'],
+        fallback: true
+      }
     }
   }
 }
@@ -594,11 +623,33 @@ Format your response as JSON:
 Make it specific to the business and actionable.`
 
   try {
-    const response = await chat([{ role: 'user', content: prompt }], {
-      model: 'anthropic/claude-3.5-sonnet',
-      temperature: 0.8,
-      max_tokens: 300
-    })
+    const response = await ErrorHandlerService.executeWithRetry(
+      async () => {
+        return await chat([{ role: 'user', content: prompt }], {
+          model: 'anthropic/claude-3.5-sonnet',
+          temperature: 0.8,
+          max_tokens: 300
+        })
+      },
+      {
+        maxAttempts: 3,
+        initialDelayMs: 2000,
+      },
+      undefined,
+      [
+        // Fallback: Return template-based preview
+        {
+          name: 'template_fallback',
+          description: 'Generate preview from template',
+          execute: async () => {
+            return JSON.stringify({
+              headline: insight.contentAngle,
+              hook: insight.insight.substring(0, 100)
+            })
+          }
+        }
+      ]
+    )
 
     const parsed = JSON.parse(response)
 
@@ -609,6 +660,7 @@ Make it specific to the business and actionable.`
     }
   } catch (error) {
     console.error('[SmartPickGenerator] Preview generation failed:', error)
+    logError(error, { campaignType, insightId: insight.id })
 
     // Fallback
     return {
@@ -617,6 +669,111 @@ Make it specific to the business and actionable.`
       platform
     }
   }
+}
+
+// ============================================================================
+// TEMPLATE FALLBACK
+// ============================================================================
+
+/**
+ * Generate template-based smart picks as fallback when AI generation fails
+ */
+function generateTemplatePicks(
+  context: DeepContext,
+  campaignType: CampaignType
+): SmartPick[] {
+  // Generate basic smart picks from templates as fallback
+  const templates: Record<CampaignType, SmartPick[]> = {
+    'authority-builder': [
+      {
+        id: 'smart-pick-authority-1',
+        campaignType: 'authority-builder',
+        title: 'Industry Insights Campaign',
+        insights: [],
+        preview: {
+          headline: 'Share Your Expertise',
+          hook: 'Educational content that positions you as an industry expert',
+          platform: 'LinkedIn'
+        },
+        confidence: 0.5,
+        relevance: 0.5,
+        timeliness: 0.5,
+        evidenceQuality: 0.5,
+        overallScore: 0.5,
+        dataSources: [],
+        reasoning: 'Template-generated smart pick',
+        expectedPerformance: {
+          engagement: 'medium',
+          reach: 'medium',
+          conversions: 'low'
+        },
+        metadata: {
+          generatedAt: new Date(),
+          fallback: true
+        }
+      }
+    ],
+    'social-proof': [
+      {
+        id: 'smart-pick-trust-1',
+        campaignType: 'social-proof',
+        title: 'Customer Success Stories',
+        insights: [],
+        preview: {
+          headline: 'See Real Results',
+          hook: 'Showcase authentic customer testimonials and success stories',
+          platform: 'Facebook'
+        },
+        confidence: 0.5,
+        relevance: 0.5,
+        timeliness: 0.5,
+        evidenceQuality: 0.5,
+        overallScore: 0.5,
+        dataSources: [],
+        reasoning: 'Template-generated smart pick',
+        expectedPerformance: {
+          engagement: 'high',
+          reach: 'high',
+          conversions: 'medium'
+        },
+        metadata: {
+          generatedAt: new Date(),
+          fallback: true
+        }
+      }
+    ],
+    'local-pulse': [
+      {
+        id: 'smart-pick-local-1',
+        campaignType: 'local-pulse',
+        title: 'Local Community Connection',
+        insights: [],
+        preview: {
+          headline: 'Supporting Our Local Community',
+          hook: 'Connect with local events and community initiatives',
+          platform: 'Instagram'
+        },
+        confidence: 0.5,
+        relevance: 0.5,
+        timeliness: 0.5,
+        evidenceQuality: 0.5,
+        overallScore: 0.5,
+        dataSources: [],
+        reasoning: 'Template-generated smart pick',
+        expectedPerformance: {
+          engagement: 'high',
+          reach: 'medium',
+          conversions: 'medium'
+        },
+        metadata: {
+          generatedAt: new Date(),
+          fallback: true
+        }
+      }
+    ]
+  }
+
+  return templates[campaignType] || templates['authority-builder']
 }
 
 // ============================================================================
