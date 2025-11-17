@@ -44,13 +44,13 @@ export const AUTHORITY_BUILDER_TEMPLATE: CampaignTemplateConfig = {
 };
 
 /**
- * Social Proof Template
- * Testimonial-focused design highlighting customer success
+ * Trust Builder Template
+ * Testimonial-focused design highlighting customer success and transformations
  */
-export const SOCIAL_PROOF_TEMPLATE: CampaignTemplateConfig = {
-  campaignType: 'social_proof',
-  templateId: 'TEMPLATE_SOCIAL_001', // Placeholder - set after Bannerbear dashboard creation
-  name: 'Social Proof - Testimonial',
+export const TRUST_BUILDER_TEMPLATE: CampaignTemplateConfig = {
+  campaignType: 'trust_builder',
+  templateId: 'TEMPLATE_TRUST_001', // Placeholder - set after Bannerbear dashboard creation
+  name: 'Trust Builder - Testimonial',
   description: 'Warm, trustworthy design featuring customer testimonials and ratings. Emphasizes real results and satisfaction.',
 
   fieldMappings: {
@@ -75,13 +75,13 @@ export const SOCIAL_PROOF_TEMPLATE: CampaignTemplateConfig = {
 };
 
 /**
- * Local Pulse Template
- * Location-focused design emphasizing local relevance
+ * Community Champion Template
+ * Location-focused design emphasizing local relevance and community connection
  */
-export const LOCAL_PULSE_TEMPLATE: CampaignTemplateConfig = {
-  campaignType: 'local_pulse',
-  templateId: 'TEMPLATE_LOCAL_001', // Placeholder - set after Bannerbear dashboard creation
-  name: 'Local Pulse - Community',
+export const COMMUNITY_CHAMPION_TEMPLATE: CampaignTemplateConfig = {
+  campaignType: 'community_champion',
+  templateId: 'TEMPLATE_COMMUNITY_001', // Placeholder - set after Bannerbear dashboard creation
+  name: 'Community Champion - Local',
   description: 'Vibrant, community-focused design highlighting local events and timing. Features location emphasis and timely messaging.',
 
   fieldMappings: {
@@ -106,6 +106,67 @@ export const LOCAL_PULSE_TEMPLATE: CampaignTemplateConfig = {
   }
 };
 
+/**
+ * Revenue Rush Template
+ * Social commerce design for immediate sales and shoppable posts
+ */
+export const REVENUE_RUSH_TEMPLATE: CampaignTemplateConfig = {
+  campaignType: 'revenue_rush',
+  templateId: 'TEMPLATE_REVENUE_001', // Placeholder - set after Bannerbear dashboard creation
+  name: 'Revenue Rush - Commerce',
+  description: 'Bold, urgency-driven design for social commerce. Features product focus, pricing, and clear CTAs for immediate sales.',
+
+  fieldMappings: {
+    headline: 'headline',
+    price: 'price_text',
+    offer: 'offer_text',
+    bodyText: 'product_description',
+    logoUrl: 'logo',
+    brandColor: 'primary_color'
+  },
+
+  defaults: {
+    offer_text: 'Limited Time Offer',
+    product_description: 'Shop now and save'
+  },
+
+  style: {
+    colorScheme: 'bold',
+    layout: 'product-focused',
+    typography: 'impactful'
+  }
+};
+
+/**
+ * Viral Spark Template
+ * Video-first, trending content design for massive reach
+ */
+export const VIRAL_SPARK_TEMPLATE: CampaignTemplateConfig = {
+  campaignType: 'viral_spark',
+  templateId: 'TEMPLATE_VIRAL_001', // Placeholder - set after Bannerbear dashboard creation
+  name: 'Viral Spark - Trending',
+  description: 'Dynamic, attention-grabbing design for video-first content. Features bold text overlays and trending aesthetics.',
+
+  fieldMappings: {
+    headline: 'headline',
+    trendingText: 'trending_text',
+    bodyText: 'hook_text',
+    logoUrl: 'logo',
+    brandColor: 'primary_color'
+  },
+
+  defaults: {
+    trending_text: 'POV:',
+    hook_text: 'Watch till the end'
+  },
+
+  style: {
+    colorScheme: 'dynamic',
+    layout: 'vertical-video',
+    typography: 'bold'
+  }
+};
+
 // ============================================================================
 // TEMPLATE REGISTRY
 // ============================================================================
@@ -115,8 +176,10 @@ export const LOCAL_PULSE_TEMPLATE: CampaignTemplateConfig = {
  */
 export const CAMPAIGN_TEMPLATES: Record<CampaignTypeId, CampaignTemplateConfig> = {
   authority_builder: AUTHORITY_BUILDER_TEMPLATE,
-  social_proof: SOCIAL_PROOF_TEMPLATE,
-  local_pulse: LOCAL_PULSE_TEMPLATE
+  trust_builder: TRUST_BUILDER_TEMPLATE,
+  community_champion: COMMUNITY_CHAMPION_TEMPLATE,
+  revenue_rush: REVENUE_RUSH_TEMPLATE,
+  viral_spark: VIRAL_SPARK_TEMPLATE
 };
 
 /**
