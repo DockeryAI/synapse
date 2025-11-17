@@ -266,6 +266,78 @@ Execute all tasks following the atomic task list. Work in parallel using worktre
 
 ---
 
+## WEEK 6: AI ASSISTANT - FULL IMPLEMENTATION
+
+**Status:** After Week 5 alpha testing
+**Action:** Claude-powered business partner with persistent memory
+
+### Prompt:
+
+```
+Read .buildrunner/WEEK6_ATOMIC_TASKS.md and execute the build plan using git worktrees for parallel development.
+
+Context:
+- Week 5 delivered: Chat widget, conversation history, voice input
+- Week 6 goal: AI that acts like a 24/7 marketing expert
+- Focus: Persistent memory + natural language commands
+- 2 PARALLEL worktrees (work on both simultaneously)
+
+WORKFLOW:
+1. Create 2 worktrees from main branch:
+   - git worktree add -b feature/ai-persistent-memory ../synapse-ai-memory
+   - git worktree add -b feature/ai-commands ../synapse-ai-commands
+
+2. Work in parallel:
+   - Worktree 1 (Mon-Wed, 24h): Persistent Memory + Learning
+   - Worktree 2 (Thu-Fri, 16h): Natural Language Commands + Proactive Intelligence
+
+3. Merge worktrees sequentially (Fri PM, 4h):
+   - Merge feature/ai-persistent-memory → main
+   - Merge feature/ai-commands → main
+   - Resolve conflicts, test integration
+   - Remove worktrees: git worktree remove ../synapse-ai-*
+
+Key deliverables:
+1. Persistent Memory System
+   - Tone preferences ("make it funnier" applies to ALL content forever)
+   - Business context (industry, location, brand voice)
+   - Content pattern learning (track what works)
+   - Preferences auto-save and persist across sessions
+   - Context injected into every AI conversation
+
+2. Natural Language Commands
+   - Campaign creation: "Create a viral campaign for my bakery"
+   - Content modification: "Make this week's posts more casual"
+   - Topic exploration: "Find trending topics about shoes"
+   - Performance analysis: "Why did this post do well?"
+   - Campaign ideas: "Give me ideas for my taco truck's new menu"
+
+3. Proactive Intelligence
+   - Monitor performance continuously
+   - Suggest improvements when engagement drops
+   - Alert on local events and opportunities
+   - Recommend content types based on learnings
+   - One-click apply suggestions
+
+4. Voice Input (Already Built in Week 5)
+   - Use existing react-speech-recognition integration
+   - Connect voice to command parser
+   - Voice commands work for all features
+
+Success criteria:
+✅ Tone preferences persist and apply to all content
+✅ "Make it funnier" changes all future content automatically
+✅ Natural language → complete campaigns generated
+✅ AI learns from successful content patterns
+✅ Proactive suggestions based on performance
+✅ Voice commands work everywhere
+✅ Zero re-configuration needed
+
+Execute all tasks following the atomic task list. Work in parallel using worktrees. Test with real user scenarios. Report completion and readiness for beta expansion.
+```
+
+---
+
 ## Quick Reference: Prompt Usage
 
 **Step 1: Week 2 Merge (Do First)**
