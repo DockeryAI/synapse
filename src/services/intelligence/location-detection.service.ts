@@ -608,13 +608,17 @@ If NO location found:
       const result = JSON.parse(jsonMatch[0]);
       console.log('[LocationDetection] Parsed website analysis result:', result);
 
-      if (!result.city || !result.state || result.confidence < 0.5) {
+      // Accept if we have both city and state with good confidence
+      // OR if we have state-only with very high confidence (0.7+)
+      const hasRequiredData = (result.city && result.state) || (result.state && result.confidence >= 0.7);
+
+      if (!hasRequiredData || result.confidence < 0.5) {
         console.log('[LocationDetection] Website analysis rejected: insufficient confidence or missing data');
         return null;
       }
 
       return {
-        city: result.city,
+        city: result.city || null, // Allow null for state-only results
         state: result.state,
         confidence: result.confidence,
         method: 'website_scraping',
