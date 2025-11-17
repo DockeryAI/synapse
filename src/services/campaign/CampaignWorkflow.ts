@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { campaignStateMachine } from './CampaignState';
 import { campaignDB } from './CampaignDB';
 import { PremiumContentWriter } from '../synapse/generation/formats/PremiumContentWriter';
+import { campaignGenerator } from './CampaignGenerator';
 import type {
   CampaignSession,
   CampaignType,
@@ -18,6 +19,7 @@ import type {
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { BreakthroughInsight } from '@/types/synapse/breakthrough.types';
 import type { BusinessProfile } from '@/types/synapseContent.types';
+import type { CampaignGenerationInput } from '@/types/campaign-generation.types';
 
 // ============================================================================
 // DEFAULT CONFIGURATION
@@ -184,12 +186,48 @@ export class CampaignWorkflowService {
       let updatedSession = campaignStateMachine.transition(session, 'GENERATING');
       this.sessions.set(sessionId, updatedSession);
 
-      // Generate real content using PremiumContentWriter
-      const generatedContent = await this.generateMockContent(
-        session.selectedType!,
-        session.selectedInsights || [],
-        session.context
-      );
+      // Generate real content using CampaignGenerator
+      const input: CampaignGenerationInput = {
+        campaignId: sessionId,
+        campaignType: session.selectedType!,
+        businessContext: {
+          businessData: session.context.businessProfile as any, // TODO: Type adapter
+          uvpData: session.context.uvpData as any, // TODO: Type adapter
+          websiteAnalysis: null,
+          specialization: session.context.businessProfile?.specialization,
+        },
+        options: {
+          postsPerCampaign: 7,
+          platforms: ['linkedin', 'facebook'],
+          includeVisuals: true,
+          saveToDatabase: true,
+        },
+      };
+
+      const generatedCampaign = await campaignGenerator.generateCampaign(input);
+
+      // Convert GeneratedCampaign to GeneratedCampaignContent for session
+      const generatedContent: GeneratedCampaignContent = {
+        campaignName: generatedCampaign.name,
+        posts: generatedCampaign.posts.map((post) => ({
+          id: post.id,
+          platform: post.platform,
+          content: {
+            headline: post.content.headline || '',
+            body: post.content.body,
+            hashtags: post.content.hashtags,
+            cta: post.content.callToAction || '',
+          },
+          visuals: post.visuals,
+          scheduledDate: post.scheduledFor?.toISOString(),
+          status: post.status,
+        })),
+        metadata: {
+          totalPosts: generatedCampaign.totalPosts,
+          generatedAt: generatedCampaign.createdAt.toISOString(),
+          confidence: generatedCampaign.metadata.confidence,
+        },
+      };
 
       // Transition to PREVIEW state
       updatedSession = campaignStateMachine.transition(
