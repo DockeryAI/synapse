@@ -419,6 +419,64 @@ export interface Database {
           updated_at?: string
         }
       }
+      generated_visuals: {
+        Row: {
+          id: string
+          brand_id: string
+          campaign_id: string | null
+          campaign_type: string
+          platform: string
+          format: string
+          image_url: string
+          bannerbear_uid: string
+          template_id: string
+          content_snapshot: Json
+          dimensions: Json
+          aspect_ratio: string
+          generation_time_ms: number
+          status: string
+          error_message: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          brand_id: string
+          campaign_id?: string | null
+          campaign_type: string
+          platform: string
+          format: string
+          image_url: string
+          bannerbear_uid: string
+          template_id: string
+          content_snapshot?: Json
+          dimensions: Json
+          aspect_ratio: string
+          generation_time_ms: number
+          status: string
+          error_message?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          brand_id?: string
+          campaign_id?: string | null
+          campaign_type?: string
+          platform?: string
+          format?: string
+          image_url?: string
+          bannerbear_uid?: string
+          template_id?: string
+          content_snapshot?: Json
+          dimensions?: Json
+          aspect_ratio?: string
+          generation_time_ms?: number
+          status?: string
+          error_message?: string | null
+          updated_at?: string
+        }
+      }
       // Note: Remaining 25 foundation tables follow the same pattern
       // They will be auto-generated when the migration runs on Supabase
     }
