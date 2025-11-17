@@ -526,7 +526,7 @@ export function SynapsePage() {
                             className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
                           />
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300 flex-1">
-                            {loc.city}, {loc.state}
+                            {loc.city ? `${loc.city}, ${loc.state}` : loc.state}
                           </span>
                           <button
                             onClick={(e) => { e.preventDefault(); removeLocation(loc); }}
@@ -547,11 +547,11 @@ export function SynapsePage() {
                     <div className="flex items-center gap-2">
                       <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
                       <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                        {detectedLocation.city}, {detectedLocation.state}
+                        {detectedLocation.city ? `${detectedLocation.city}, ${detectedLocation.state}` : detectedLocation.state}
                       </span>
                     </div>
                     <button
-                      onClick={() => removeLocation({ city: detectedLocation.city, state: detectedLocation.state })}
+                      onClick={() => removeLocation({ city: detectedLocation.city || '', state: detectedLocation.state })}
                       className="p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded transition-colors"
                       title="Remove location"
                     >
@@ -608,7 +608,7 @@ export function SynapsePage() {
                           className="flex items-center justify-between px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg"
                         >
                           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                            {loc.city}, {loc.state}
+                            {loc.city ? `${loc.city}, ${loc.state}` : loc.state}
                           </span>
                           <button
                             onClick={() => removeLocation(loc)}
