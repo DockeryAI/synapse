@@ -82,16 +82,17 @@ const ContentSectionDisplay: React.FC<ContentSectionDisplayProps> = ({
     <div className="space-y-2">
       {/* Section Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <h4 className="font-semibold text-base text-gray-900 dark:text-white">
+        <div className="flex items-center gap-2">
+          <h4 className="font-semibold text-sm text-gray-700 dark:text-gray-300">
             {sectionLabels[section]}
           </h4>
-          {editable && onEdit && (
+          {editable && (
             <button
               onClick={onEdit}
-              className="px-4 py-2 text-sm font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-lg transition-all shadow-md hover:shadow-lg transform hover:scale-105"
+              className="px-3 py-2 min-h-[44px] min-w-[44px] text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded transition-colors flex items-center justify-center gap-1"
             >
-              ✏️ Edit
+              <span>✏️</span>
+              <span className="hidden sm:inline">Edit</span>
             </button>
           )}
         </div>
@@ -200,19 +201,19 @@ const SocialMediaPreview: React.FC<SocialMediaPreviewProps> = ({ platform, conte
       )}
 
       {/* Post Footer (simulated) */}
-      <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-          <button className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+      <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
             <span>👍</span>
-            <span>Like</span>
+            <span className="hidden sm:inline">Like</span>
           </button>
-          <button className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
             <span>💬</span>
-            <span>Comment</span>
+            <span className="hidden sm:inline">Comment</span>
           </button>
-          <button className="flex items-center gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
             <span>🔄</span>
-            <span>Share</span>
+            <span className="hidden sm:inline">Share</span>
           </button>
         </div>
       </div>
@@ -272,16 +273,9 @@ export const CampaignPreviewCard: React.FC<CampaignPreviewCardProps> = ({
 
       {/* Detailed Section Breakdown */}
       <div>
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-            📝 Content Breakdown
-          </h3>
-          {editable && (
-            <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
-              Click ✏️ Edit buttons below to modify sections
-            </span>
-          )}
-        </div>
+        <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
+          📝 Content Breakdown
+        </h3>
         <div className="space-y-4 bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
           {/* Headline (if exists) */}
           {sections.headline && (
