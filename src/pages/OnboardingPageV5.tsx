@@ -3,28 +3,48 @@
  *
  * Week 7: Orchestrates the complete onboarding flow with source verification
  *
- * Flow: URL Input → UVP Extraction → Smart Confirmation → Quick Refinement →
- *       Path Selection → Content Generation → Preview → Email Capture
+ * Flow: URL Input → UVP Extraction → Smart Confirmation → Insights Dashboard →
+ *       Smart Suggestions → Content Generation → Preview → Email Capture
  */
 
 import React, { useState } from 'react';
 import { OnboardingFlow } from '@/components/onboarding-v5/OnboardingFlow';
+import { SmartConfirmation, type RefinedBusinessData } from '@/components/onboarding-v5/SmartConfirmation';
+import { InsightsDashboard } from '@/components/onboarding-v5/InsightsDashboard';
+import { SmartSuggestions } from '@/components/onboarding-v5/SmartSuggestions';
 import { PathSelector, ContentPath } from '@/components/onboarding-v5/PathSelector';
 import { SinglePostTypeSelector, PostType } from '@/components/onboarding-v5/SinglePostTypeSelector';
 import { ContentPreview } from '@/components/onboarding-v5/ContentPreview';
+import { GenerationProgressComponent } from '@/components/onboarding-v5/GenerationProgress';
+import { OnboardingCampaignPreview } from '@/components/onboarding-v5/OnboardingCampaignPreview';
+import { OnboardingSinglePostPreview } from '@/components/onboarding-v5/OnboardingSinglePostPreview';
 import { useNavigate } from 'react-router-dom';
 import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
-import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
+import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
+import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
+import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
+import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
+import type {
+  GeneratedCampaign,
+  GeneratedPost,
+  CampaignGenerationInput,
+  PostGenerationInput,
+  GenerationProgress,
+} from '@/types/campaign-generation.types';
+import { mapCampaignIdToType, mapPostIdToType } from '@/types/campaign-generation.types';
 
 type FlowStep =
   | 'url_input'
   | 'uvp_extraction'
   | 'smart_confirmation'
   | 'quick_refinement'
+  | 'insights'
+  | 'suggestions'
   | 'path_selection'
   | 'post_type_selection'
+  | 'content_generation'
   | 'content_preview'
   | 'complete';
 
@@ -32,7 +52,9 @@ interface DetectedBusinessData {
   url: string;
   businessName: string;
   industry: string;
-  location: string;
+  industryCode: string;
+  specialization: string;
+  location?: string;
   services: string[];
   competitors: string[];
   uvpData?: ExtractedUVPData;
@@ -47,11 +69,17 @@ export const OnboardingPageV5: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<FlowStep>('url_input');
   const [websiteUrl, setWebsiteUrl] = useState<string>('');
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
+  const [websiteAnalysis, setWebsiteAnalysis] = useState<WebsiteMessagingAnalysis | null>(null);
+  const [refinedData, setRefinedData] = useState<RefinedBusinessData | null>(null);
   const [selectedPath, setSelectedPath] = useState<ContentPath | null>(null);
   const [selectedPostType, setSelectedPostType] = useState<PostType | null>(null);
   const [isExtracting, setIsExtracting] = useState(false);
   const [extractionError, setExtractionError] = useState<string | null>(null);
   const [progressSteps, setProgressSteps] = useState<Array<{step: string; status: 'pending' | 'in_progress' | 'complete' | 'error'; details?: string}>>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [generatedCampaign, setGeneratedCampaign] = useState<GeneratedCampaign | null>(null);
+  const [generatedPost, setGeneratedPost] = useState<GeneratedPost | null>(null);
+  const [generationProgress, setGenerationProgress] = useState<GenerationProgress | null>(null);
 
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
@@ -63,23 +91,24 @@ export const OnboardingPageV5: React.FC = () => {
     });
   };
 
-  // Handle URL submission - START UVP extraction process
-  const handleUrlSubmit = async (url: string) => {
+  // Handle URL submission - START multi-engine detection process
+  const handleUrlSubmit = async (url: string, industry: IndustryOption) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
+    console.log('[OnboardingPageV5] Industry selected:', industry.displayName);
     setWebsiteUrl(url);
     setCurrentStep('uvp_extraction');
     setIsExtracting(true);
     setExtractionError(null);
     setProgressSteps([
-      { step: 'Extracting UVP Data', status: 'pending' },
-      { step: 'Detecting Location', status: 'pending' },
-      { step: 'Detecting Industry', status: 'pending' },
-      { step: 'Finalizing Discovery', status: 'pending' },
+      { step: 'Understanding your unique offerings', status: 'pending' },
+      { step: 'Identifying your customers', status: 'pending' },
+      { step: 'Analyzing what makes you different', status: 'pending' },
+      { step: 'Finalizing your business profile', status: 'pending' },
     ]);
 
     try {
-      // Step 1: Extract UVP data with source verification
-      addProgressStep('Extracting UVP Data', 'in_progress', 'Analyzing website content...');
+      // Step 1: Analyze website and extract business data
+      addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
       const extractor = new SmartUVPExtractor();
       const uvpData = await extractor.extractUVP({
         websiteUrl: url,
@@ -87,47 +116,46 @@ export const OnboardingPageV5: React.FC = () => {
         minConfidence: 0.6,
       });
 
-      addProgressStep('Extracting UVP Data', 'complete', `Found ${uvpData.customerTypes.length} customers, ${uvpData.services.length} services, ${uvpData.problemsSolved.length} problems`);
-      console.log('[OnboardingPageV5] UVP extracted:', {
+      addProgressStep('Understanding your unique offerings', 'complete', `Found ${uvpData.services.length} services and offerings`);
+      console.log('[OnboardingPageV5] Website analyzed:', {
         customers: uvpData.customerTypes.length,
         services: uvpData.services.length,
         problems: uvpData.problemsSolved.length,
       });
 
-      // Step 2: Detect location
-      addProgressStep('Detecting Location', 'in_progress', 'Analyzing website for location data...');
-      const locationResult = await locationDetectionService.detectLocation(url);
+      // Step 2: Identify customers using extracted data
+      addProgressStep('Identifying your customers', 'in_progress', 'Finding who you serve...');
+      const analysis = await websiteAnalyzer.analyzeWebsite(url);
+      setWebsiteAnalysis(analysis); // Save for confirmation step
 
-      const locationStr = locationResult
-        ? (locationResult.city ? `${locationResult.city}, ${locationResult.state}` : locationResult.state)
-        : 'Not detected';
-      addProgressStep('Detecting Location', 'complete', locationStr);
-      console.log('[OnboardingPageV5] Location detected:', locationResult);
-
-      // Step 3: Detect industry
-      addProgressStep('Detecting Industry', 'in_progress', 'Matching services to industry codes...');
-      let industry = 'General Business';
-
-      if (uvpData.services.length > 0) {
-        const industryMatch = await IndustryMatchingService.findMatch(
-          uvpData.services.map(s => s.text).join(', ')
-        );
-        if (industryMatch && industryMatch.match) {
-          industry = industryMatch.match.display_name;
-        }
+      let specialization = 'General ' + industry.displayName;
+      if (analysis.differentiators.length > 0) {
+        specialization = analysis.differentiators[0];
+      } else if (analysis.targetAudience.length > 0) {
+        specialization = analysis.targetAudience[0] + ' specialist';
       }
 
-      addProgressStep('Detecting Industry', 'complete', industry);
-      console.log('[OnboardingPageV5] Industry detected:', industry);
+      const customerSummary = uvpData.customerTypes.length > 0
+        ? `Serving ${uvpData.customerTypes.length} customer types`
+        : 'Customer types identified';
+      addProgressStep('Identifying your customers', 'complete', customerSummary);
+      console.log('[OnboardingPageV5] Specialization detected:', specialization);
+
+      // Step 3: Analyze differentiators
+      addProgressStep('Analyzing what makes you different', 'in_progress', 'Finding your unique advantages...');
+      const differentiatorSummary = uvpData.differentiators.length > 0
+        ? `Found ${uvpData.differentiators.length} differentiators`
+        : 'Differentiators identified';
+      addProgressStep('Analyzing what makes you different', 'complete', differentiatorSummary);
+      console.log('[OnboardingPageV5] Differentiators analyzed:', uvpData.differentiators.length);
 
       // Combine all detected data
       const detectedData: DetectedBusinessData = {
         url,
         businessName: uvpData.businessName || 'Your Business',
-        industry,
-        location: locationResult
-          ? (locationResult.city ? `${locationResult.city}, ${locationResult.state}` : locationResult.state)
-          : 'Location not detected',
+        industry: industry.displayName,
+        industryCode: industry.naicsCode,
+        specialization,
         services: uvpData.services.map(s => s.text),
         competitors: [], // TODO: Add competitor detection
         uvpData,
@@ -137,19 +165,18 @@ export const OnboardingPageV5: React.FC = () => {
         },
       };
 
-      addProgressStep('Finalizing Discovery', 'in_progress', 'Preparing summary...');
+      addProgressStep('Finalizing your business profile', 'in_progress', 'Putting everything together...');
       setBusinessData(detectedData);
 
-      addProgressStep('Finalizing Discovery', 'complete', 'Discovery complete!');
+      addProgressStep('Finalizing your business profile', 'complete', 'Your profile is ready!');
 
       // Wait a moment to show completed state
       await new Promise(resolve => setTimeout(resolve, 1000));
 
       setIsExtracting(false);
 
-      // Auto-transition to path selection (skipping confirmation for now)
-      // TODO: Add SmartConfirmation and QuickRefinement steps
-      setCurrentStep('path_selection');
+      // Transition to smart confirmation
+      setCurrentStep('smart_confirmation');
 
     } catch (error) {
       console.error('[OnboardingPageV5] Extraction error:', error);
@@ -164,6 +191,310 @@ export const OnboardingPageV5: React.FC = () => {
     console.log('[OnboardingPageV5] Business detected (legacy):', data);
     setBusinessData(data);
     setCurrentStep('path_selection');
+  };
+
+  // Handle smart confirmation - user has reviewed and confirmed/refined data
+  const handleSmartConfirmation = async (refined: RefinedBusinessData) => {
+    console.log('[OnboardingPageV5] User confirmed data:', refined);
+    setRefinedData(refined);
+
+    // Update business data with refined values
+    if (businessData) {
+      setBusinessData({
+        ...businessData,
+        businessName: refined.businessName,
+        location: refined.location,
+        services: refined.selectedServices,
+      });
+    }
+
+    // Move to insights dashboard (NEW FLOW)
+    setCurrentStep('insights');
+  };
+
+  // Handle insights continue - user reviewed insights, move to suggestions
+  const handleInsightsContinue = () => {
+    console.log('[OnboardingPageV5] Insights reviewed, moving to suggestions');
+    setCurrentStep('suggestions');
+  };
+
+  // Handle campaign selection from SmartSuggestions
+  const handleCampaignSelected = async (campaignId: string) => {
+    console.log('[OnboardingPageV5] Campaign selected:', campaignId);
+
+    if (!refinedData || !businessData || !websiteAnalysis) {
+      console.error('[OnboardingPageV5] Missing required data for campaign generation');
+      return;
+    }
+
+    // Transition to content generation step
+    setCurrentStep('content_generation');
+    setIsGenerating(true);
+
+    // Initialize progress
+    const sessionId = `campaign-${Date.now()}`;
+    const totalPosts = 7;
+
+    setGenerationProgress({
+      sessionId,
+      stage: 'initializing',
+      progress: 0,
+      totalPosts,
+      errors: [],
+    });
+
+    try {
+      const campaignType = mapCampaignIdToType(campaignId);
+
+      // Update progress stages
+      setGenerationProgress({
+        sessionId,
+        stage: 'analyzing_business',
+        progress: 15,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+
+      setGenerationProgress({
+        sessionId,
+        stage: 'selecting_insights',
+        progress: 30,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      setGenerationProgress({
+        sessionId,
+        stage: 'generating_content',
+        progress: 50,
+        currentPost: 1,
+        totalPosts,
+        estimatedTimeRemaining: 20,
+        errors: [],
+      });
+
+      const input: CampaignGenerationInput = {
+        campaignId: sessionId,
+        campaignType,
+        businessContext: {
+          businessData: refinedData,
+          uvpData: businessData.uvpData!,
+          websiteAnalysis,
+          specialization: businessData.specialization,
+        },
+        options: {
+          postsPerCampaign: totalPosts,
+          platforms: ['linkedin', 'facebook'],
+          includeVisuals: true,
+          saveToDatabase: true,
+        },
+      };
+
+      const campaign = await campaignGenerator.generateCampaign(input);
+
+      // Update progress for visuals
+      setGenerationProgress({
+        sessionId,
+        stage: 'generating_visuals',
+        progress: 80,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Update progress for saving
+      setGenerationProgress({
+        sessionId,
+        stage: 'saving_to_database',
+        progress: 95,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Complete
+      setGenerationProgress({
+        sessionId,
+        stage: 'complete',
+        progress: 100,
+        totalPosts,
+        errors: [],
+      });
+
+      setGeneratedCampaign(campaign);
+      console.log('[OnboardingPageV5] Campaign generated:', campaign);
+
+      // Small delay before transitioning to preview
+      await new Promise(resolve => setTimeout(resolve, 800));
+      setCurrentStep('content_preview');
+    } catch (error) {
+      console.error('[OnboardingPageV5] Campaign generation failed:', error);
+      setGenerationProgress({
+        sessionId,
+        stage: 'failed',
+        progress: 0,
+        totalPosts,
+        errors: [
+          {
+            stage: 'generating_content',
+            message: error instanceof Error ? error.message : 'Failed to generate campaign',
+            timestamp: new Date(),
+            retryable: true,
+          },
+        ],
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Handle post selection from SmartSuggestions
+  const handlePostSelected = async (postId: string) => {
+    console.log('[OnboardingPageV5] Post selected:', postId);
+
+    if (!refinedData || !businessData || !websiteAnalysis) {
+      console.error('[OnboardingPageV5] Missing required data for post generation');
+      return;
+    }
+
+    // Transition to content generation step
+    setCurrentStep('content_generation');
+    setIsGenerating(true);
+
+    // Initialize progress
+    const sessionId = `post-${Date.now()}`;
+    const totalPosts = 1;
+
+    setGenerationProgress({
+      sessionId,
+      stage: 'initializing',
+      progress: 0,
+      totalPosts,
+      errors: [],
+    });
+
+    try {
+      const postType = mapPostIdToType(postId);
+      setSelectedPostType(postType);
+
+      // Update progress stages
+      setGenerationProgress({
+        sessionId,
+        stage: 'analyzing_business',
+        progress: 20,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      setGenerationProgress({
+        sessionId,
+        stage: 'selecting_insights',
+        progress: 40,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 600));
+
+      setGenerationProgress({
+        sessionId,
+        stage: 'generating_content',
+        progress: 60,
+        currentPost: 1,
+        totalPosts,
+        estimatedTimeRemaining: 10,
+        errors: [],
+      });
+
+      const input: PostGenerationInput = {
+        postType,
+        businessContext: {
+          businessData: refinedData,
+          uvpData: businessData.uvpData!,
+          websiteAnalysis,
+          specialization: businessData.specialization,
+        },
+        platforms: ['linkedin', 'facebook'],
+        options: {
+          includeVisuals: true,
+          saveToDatabase: true,
+        },
+      };
+
+      const post = await campaignGenerator.generatePost(input);
+
+      // Update progress for visuals
+      setGenerationProgress({
+        sessionId,
+        stage: 'generating_visuals',
+        progress: 85,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Update progress for saving
+      setGenerationProgress({
+        sessionId,
+        stage: 'saving_to_database',
+        progress: 95,
+        totalPosts,
+        errors: [],
+      });
+
+      await new Promise(resolve => setTimeout(resolve, 400));
+
+      // Complete
+      setGenerationProgress({
+        sessionId,
+        stage: 'complete',
+        progress: 100,
+        totalPosts,
+        errors: [],
+      });
+
+      setGeneratedPost(post);
+      console.log('[OnboardingPageV5] Post generated:', post);
+
+      // Small delay before transitioning to preview
+      await new Promise(resolve => setTimeout(resolve, 600));
+      setCurrentStep('content_preview');
+    } catch (error) {
+      console.error('[OnboardingPageV5] Post generation failed:', error);
+      setGenerationProgress({
+        sessionId,
+        stage: 'failed',
+        progress: 0,
+        totalPosts,
+        errors: [
+          {
+            stage: 'generating_content',
+            message: error instanceof Error ? error.message : 'Failed to generate post',
+            timestamp: new Date(),
+            retryable: true,
+          },
+        ],
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Handle custom builder from SmartSuggestions
+  const handleBuildCustom = () => {
+    console.log('[OnboardingPageV5] Building custom content');
+    setSelectedPath('single_post');
+    // Show post type selector for custom building
+    setCurrentStep('post_type_selection');
   };
 
   // Handle path selection
@@ -197,8 +528,10 @@ export const OnboardingPageV5: React.FC = () => {
 
   // Generate single post
   const generateSinglePost = async (postType: PostType, storyData?: any) => {
-    console.log('[OnboardingPageV5] Generating single post:', postType);
-    // TODO: Wire to content generation + calendar integration
+    console.log('[OnboardingPageV5] Generating single post:', postType, storyData);
+    // Store the selected post type for content preview
+    setSelectedPostType(postType);
+    // TODO: Wire to actual content generation + calendar integration
     setCurrentStep('content_preview');
   };
 
@@ -227,6 +560,37 @@ export const OnboardingPageV5: React.FC = () => {
     // TODO: Analytics tracking
   };
 
+  // Handle schedule campaign - transitions to complete, navigates to calendar
+  const handleScheduleCampaign = () => {
+    console.log('[OnboardingPageV5] Scheduling campaign...');
+    setCurrentStep('complete');
+
+    // Navigate to calendar after a brief delay
+    setTimeout(() => {
+      navigate('/calendar');
+    }, 2000);
+  };
+
+  // Handle schedule single post - saves post, navigates to calendar
+  const handleScheduleSinglePost = () => {
+    console.log('[OnboardingPageV5] Scheduling single post...');
+    setCurrentStep('complete');
+
+    // Navigate to calendar after a brief delay
+    setTimeout(() => {
+      navigate('/calendar');
+    }, 2000);
+  };
+
+  // Handle back to suggestions - goes back to suggestions step
+  const handleBackToSuggestions = () => {
+    console.log('[OnboardingPageV5] Going back to suggestions');
+    setCurrentStep('suggestions');
+    setGeneratedCampaign(null);
+    setGeneratedPost(null);
+    setGenerationProgress(null);
+  };
+
   return (
     <div className="min-h-screen">
       {currentStep === 'url_input' && (
@@ -239,10 +603,10 @@ export const OnboardingPageV5: React.FC = () => {
             <div className="text-center mb-8">
               <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                Discovering Your Business...
+                Learning About Your Business...
               </h2>
               <p className="text-gray-600 dark:text-gray-400">
-                AI-powered analysis in progress
+                Analyzing your website to understand what makes you unique
               </p>
             </div>
 
@@ -317,33 +681,70 @@ export const OnboardingPageV5: React.FC = () => {
         </div>
       )}
 
+      {currentStep === 'smart_confirmation' && businessData && websiteAnalysis && (
+        <SmartConfirmation
+          businessName={businessData.businessName}
+          specialization={businessData.specialization}
+          location={businessData.location}
+          uvpData={businessData.uvpData!}
+          websiteAnalysis={websiteAnalysis}
+          onConfirm={handleSmartConfirmation}
+          onBack={() => setCurrentStep('url_input')}
+        />
+      )}
+
+      {currentStep === 'insights' && businessData && websiteAnalysis && refinedData && (
+        <InsightsDashboard
+          refinedData={refinedData}
+          uvpData={businessData.uvpData!}
+          websiteAnalysis={websiteAnalysis}
+          specialization={businessData.specialization}
+          onContinue={handleInsightsContinue}
+        />
+      )}
+
+      {currentStep === 'suggestions' && businessData && websiteAnalysis && refinedData && (
+        <SmartSuggestions
+          refinedData={refinedData}
+          uvpData={businessData.uvpData!}
+          websiteAnalysis={websiteAnalysis}
+          onSelectCampaign={handleCampaignSelected}
+          onSelectPost={handlePostSelected}
+          onBuildCustom={handleBuildCustom}
+        />
+      )}
+
       {currentStep === 'path_selection' && businessData && (
         <div>
           <div className="bg-white dark:bg-slate-800 shadow-lg rounded-lg p-6 max-w-4xl mx-auto my-8">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              Discovery Complete! 🎉
+              Your Business Profile is Ready!
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Business</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Business Name</p>
                 <p className="font-medium text-gray-900 dark:text-white">{businessData.businessName}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Industry</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Business Type</p>
                 <p className="font-medium text-gray-900 dark:text-white">{businessData.industry}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Specialization</p>
+                <p className="font-medium text-gray-900 dark:text-white">{businessData.specialization}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Service Area</p>
                 <p className="font-medium text-gray-900 dark:text-white">{businessData.location}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Services Found</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Services Identified</p>
                 <p className="font-medium text-gray-900 dark:text-white">{businessData.services.length}</p>
               </div>
             </div>
             {businessData.uvpData && (
               <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">UVP Data Extracted:</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">What We Found:</p>
                 <div className="text-sm space-y-1">
                   <p className="text-gray-700 dark:text-gray-300">
                     • {businessData.uvpData.customerTypes.length} customer types
@@ -352,13 +753,13 @@ export const OnboardingPageV5: React.FC = () => {
                     • {businessData.uvpData.services.length} services
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    • {businessData.uvpData.problemsSolved.length} problems solved
+                    • {businessData.uvpData.problemsSolved.length} problems you solve
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    • {businessData.uvpData.testimonials.length} testimonials
+                    • {businessData.uvpData.testimonials.length} customer testimonials
                   </p>
                   <p className="text-gray-700 dark:text-gray-300">
-                    • Verification Rate: {((businessData.uvpData.verificationRate || 0) * 100).toFixed(0)}%
+                    • {((businessData.uvpData.verificationRate || 0) * 100).toFixed(0)}% verified from your website
                   </p>
                 </div>
               </div>
@@ -369,28 +770,48 @@ export const OnboardingPageV5: React.FC = () => {
       )}
 
       {currentStep === 'post_type_selection' && (
-        <SinglePostTypeSelector onSelectPostType={handlePostTypeSelected} />
+        <SinglePostTypeSelector onSelectType={handlePostTypeSelected} />
+      )}
+
+      {currentStep === 'content_generation' && generationProgress && (
+        <GenerationProgressComponent progress={generationProgress} />
       )}
 
       {currentStep === 'content_preview' && (
-        <ContentPreview
-          content={{
-            type: selectedPath === 'campaign' ? 'campaign' : 'single_post',
-            content: 'Generated content will appear here...',
-            sources: businessData?.sources.website
-              ? [
-                  {
-                    url: businessData.sources.website,
-                    title: businessData.businessName,
-                    type: 'website',
-                  },
-                ]
-              : [],
-          }}
-          onCopy={handleCopy}
-          onSaveToCalendar={handleSaveToCalendar}
-          onEmailCapture={handleEmailCapture}
-        />
+        <>
+          {generatedCampaign ? (
+            <OnboardingCampaignPreview
+              campaign={generatedCampaign}
+              onSchedule={handleScheduleCampaign}
+              onBack={handleBackToSuggestions}
+            />
+          ) : generatedPost ? (
+            <OnboardingSinglePostPreview
+              post={generatedPost}
+              onSchedule={handleScheduleSinglePost}
+              onBack={handleBackToSuggestions}
+            />
+          ) : (
+            <ContentPreview
+              content={{
+                type: selectedPath === 'campaign' ? 'campaign' : 'single_post',
+                content: 'Generated content will appear here...',
+                sources: businessData?.sources.website
+                  ? [
+                      {
+                        url: businessData.sources.website,
+                        title: businessData.businessName,
+                        type: 'website',
+                      },
+                    ]
+                  : [],
+              }}
+              onCopy={handleCopy}
+              onSaveToCalendar={handleSaveToCalendar}
+              onEmailCapture={handleEmailCapture}
+            />
+          )}
+        </>
       )}
 
       {currentStep === 'complete' && (
@@ -400,7 +821,7 @@ export const OnboardingPageV5: React.FC = () => {
               All Set! 🎉
             </h2>
             <p className="text-gray-600 dark:text-gray-400">
-              Redirecting to your campaign...
+              Redirecting to your calendar...
             </p>
           </div>
         </div>
