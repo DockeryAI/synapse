@@ -204,21 +204,22 @@ export function CampaignPage() {
       <div className="border-b border-purple-100 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={() => navigate(-1)}
-                className="p-2 hover:bg-purple-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+                className="p-2 hover:bg-purple-100 dark:hover:bg-slate-800 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center flex-shrink-0"
+                aria-label="Go back"
               >
                 <ArrowLeft className="h-5 w-5 text-gray-600 dark:text-slate-400" />
               </button>
-              <div>
-                <div className="flex items-center gap-3 mb-1">
-                  <Sparkles className="h-8 w-8 text-purple-600 dark:text-purple-400" />
-                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-2 sm:gap-3 mb-1">
+                  <Sparkles className="h-6 w-6 sm:h-8 sm:w-8 text-purple-600 dark:text-purple-400 flex-shrink-0" />
+                  <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 dark:text-white truncate">
                     Campaign Builder
                   </h1>
                 </div>
-                <p className="text-sm text-gray-600 dark:text-slate-400 mt-1">
+                <p className="text-xs sm:text-sm text-gray-600 dark:text-slate-400 mt-1 line-clamp-1">
                   {currentStep === 'IDLE' && 'Select your campaign type'}
                   {currentStep === 'TYPE_SELECTED' && 'Choose how to build your campaign'}
                   {currentStep === 'GENERATING' && 'Creating your campaign content...'}
@@ -228,11 +229,11 @@ export function CampaignPage() {
             </div>
 
             {/* Progress */}
-            <div className="flex items-center gap-3">
-              <span className="text-sm font-medium text-gray-600 dark:text-slate-400">
+            <div className="flex flex-col sm:flex-row items-end sm:items-center gap-2 sm:gap-3 flex-shrink-0">
+              <span className="text-xs sm:text-sm font-medium text-gray-600 dark:text-slate-400 whitespace-nowrap">
                 {session.progress}% Complete
               </span>
-              <div className="w-32 h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
+              <div className="w-24 sm:w-32 h-2 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${session.progress}%` }}
@@ -276,35 +277,35 @@ export function CampaignPage() {
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
                   How would you like to build your campaign?
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <button
                     onClick={() => setSelectionMode('smart-picks')}
-                    className="group text-left p-6 border-2 border-purple-200 dark:border-purple-800 rounded-xl hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all"
+                    className="group text-left p-4 sm:p-6 border-2 border-purple-200 dark:border-purple-800 rounded-xl hover:border-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all min-h-[160px]"
                   >
-                    <Zap className="h-10 w-10 text-purple-600 dark:text-purple-400 mb-3 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <Zap className="h-8 w-8 sm:h-10 sm:w-10 text-purple-600 dark:text-purple-400 mb-3 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Smart Picks
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                       AI-curated campaign recommendations. Select one and go!
                     </p>
-                    <span className="inline-block mt-3 text-sm font-medium text-purple-600 dark:text-purple-400">
+                    <span className="inline-block mt-2 sm:mt-3 text-xs sm:text-sm font-medium text-purple-600 dark:text-purple-400">
                       Recommended →
                     </span>
                   </button>
 
                   <button
                     onClick={() => setSelectionMode('mixer')}
-                    className="group text-left p-6 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all"
+                    className="group text-left p-4 sm:p-6 border-2 border-blue-200 dark:border-blue-800 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all min-h-[160px]"
                   >
-                    <Sparkles className="h-10 w-10 text-blue-600 dark:text-blue-400 mb-3 group-hover:scale-110 transition-transform" />
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                    <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600 dark:text-blue-400 mb-3 group-hover:scale-110 transition-transform" />
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-2">
                       Content Mixer
                     </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                    <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">
                       Build custom campaigns by selecting specific insights
                     </p>
-                    <span className="inline-block mt-3 text-sm font-medium text-blue-600 dark:text-blue-400">
+                    <span className="inline-block mt-2 sm:mt-3 text-xs sm:text-sm font-medium text-blue-600 dark:text-blue-400">
                       For custom campaigns →
                     </span>
                   </button>

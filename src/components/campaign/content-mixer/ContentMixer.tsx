@@ -16,6 +16,8 @@ import {
   DragOverlay,
   DragStartEvent,
   PointerSensor,
+  TouchSensor,
+  MouseSensor,
   useSensor,
   useSensors,
   closestCenter
@@ -43,11 +45,17 @@ export function ContentMixer({ pool, onGenerate, maxInsights = 5 }: ContentMixer
   const [activeInsight, setActiveInsight] = useState<CategorizedInsight | null>(null);
   const [platform, setPlatform] = useState<'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'tiktok'>('linkedin');
 
-  // Configure drag sensors
+  // Configure drag sensors - optimized for both mouse and touch
   const sensors = useSensors(
-    useSensor(PointerSensor, {
+    useSensor(MouseSensor, {
       activationConstraint: {
-        distance: 8 // 8px movement required to start drag
+        distance: 8 // 8px movement required to start drag on desktop
+      }
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        delay: 200, // 200ms hold before drag starts on touch
+        tolerance: 5 // Allow 5px of movement during hold
       }
     })
   );
@@ -161,21 +169,21 @@ export function ContentMixer({ pool, onGenerate, maxInsights = 5 }: ContentMixer
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="px-6 py-4 border-b border-purple-200 dark:border-purple-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
+        className="px-4 sm:px-6 py-3 sm:py-4 border-b border-purple-200 dark:border-purple-700 bg-white/50 dark:bg-slate-800/50 backdrop-blur-sm"
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <motion.div
             whileHover={{ rotate: 360, scale: 1.1 }}
             transition={{ duration: 0.5 }}
-            className="p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg shadow-lg"
+            className="p-1.5 sm:p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg shadow-lg flex-shrink-0"
           >
-            <Sparkles className="text-white" size={24} />
+            <Sparkles className="text-white" size={20} />
           </motion.div>
-          <div>
-            <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <div className="min-w-0">
+            <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
               Content Mixer
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 truncate">
               Drag insights to create your perfect campaign mix
             </p>
           </div>
