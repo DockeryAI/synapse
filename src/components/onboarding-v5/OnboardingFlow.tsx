@@ -19,7 +19,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
 interface OnboardingFlowProps {
-  onComplete: (businessData: DetectedBusinessData) => void;
+  onComplete?: (businessData: DetectedBusinessData) => void;
+  onUrlSubmit?: (url: string) => void;
 }
 
 interface DetectedBusinessData {
@@ -65,7 +66,7 @@ const DETECTION_STEPS: StatusStep[] = [
   { id: 'complete', label: 'Detection complete!', icon: <CheckCircle className="w-5 h-5" /> },
 ];
 
-export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
+export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUrlSubmit }) => {
   const [url, setUrl] = useState('');
   const [status, setStatus] = useState<DetectionStatus>('idle');
   const [error, setError] = useState<string | null>(null);
@@ -79,15 +80,24 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) =>
     }
 
     // Validate URL format
+    const fullUrl = url.startsWith('http') ? url : `https://${url}`;
     try {
-      new URL(url.startsWith('http') ? url : `https://${url}`);
+      new URL(fullUrl);
     } catch {
       setError('Please enter a valid website URL');
       return;
     }
 
     setError(null);
-    await runDetection(url);
+
+    // If onUrlSubmit is provided, use that (new flow with real extraction)
+    if (onUrlSubmit) {
+      onUrlSubmit(fullUrl);
+      return;
+    }
+
+    // Otherwise fall back to legacy simulation
+    await runDetection(fullUrl);
   };
 
   const runDetection = async (websiteUrl: string) => {

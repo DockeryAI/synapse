@@ -3,7 +3,8 @@
  *
  * Week 7: Orchestrates the complete onboarding flow with source verification
  *
- * Flow: URL Input → Path Selection → Content Generation → Preview → Email Capture
+ * Flow: URL Input → UVP Extraction → Smart Confirmation → Quick Refinement →
+ *       Path Selection → Content Generation → Preview → Email Capture
  */
 
 import React, { useState } from 'react';
@@ -12,8 +13,20 @@ import { PathSelector, ContentPath } from '@/components/onboarding-v5/PathSelect
 import { SinglePostTypeSelector, PostType } from '@/components/onboarding-v5/SinglePostTypeSelector';
 import { ContentPreview } from '@/components/onboarding-v5/ContentPreview';
 import { useNavigate } from 'react-router-dom';
+import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
+import { locationDetectionService } from '@/services/intelligence/location-detection.service';
+import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
+import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 
-type FlowStep = 'url_input' | 'path_selection' | 'post_type_selection' | 'content_preview' | 'complete';
+type FlowStep =
+  | 'url_input'
+  | 'uvp_extraction'
+  | 'smart_confirmation'
+  | 'quick_refinement'
+  | 'path_selection'
+  | 'post_type_selection'
+  | 'content_preview'
+  | 'complete';
 
 interface DetectedBusinessData {
   url: string;
@@ -22,6 +35,7 @@ interface DetectedBusinessData {
   location: string;
   services: string[];
   competitors: string[];
+  uvpData?: ExtractedUVPData;
   sources: {
     website: string;
     verified: boolean;
@@ -31,13 +45,91 @@ interface DetectedBusinessData {
 export const OnboardingPageV5: React.FC = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState<FlowStep>('url_input');
+  const [websiteUrl, setWebsiteUrl] = useState<string>('');
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
   const [selectedPath, setSelectedPath] = useState<ContentPath | null>(null);
   const [selectedPostType, setSelectedPostType] = useState<PostType | null>(null);
+  const [isExtracting, setIsExtracting] = useState(false);
+  const [extractionError, setExtractionError] = useState<string | null>(null);
 
-  // Handle URL input completion
+  // Handle URL submission - START UVP extraction process
+  const handleUrlSubmit = async (url: string) => {
+    console.log('[OnboardingPageV5] URL submitted:', url);
+    setWebsiteUrl(url);
+    setCurrentStep('uvp_extraction');
+    setIsExtracting(true);
+    setExtractionError(null);
+
+    try {
+      // Step 1: Extract UVP data with source verification
+      const extractor = new SmartUVPExtractor();
+      const uvpData = await extractor.extractUVP({
+        websiteUrl: url,
+        requireSources: true,
+        minConfidence: 0.6,
+      });
+
+      console.log('[OnboardingPageV5] UVP extracted:', {
+        customers: uvpData.customerTypes.length,
+        services: uvpData.services.length,
+        problems: uvpData.problemsSolved.length,
+      });
+
+      // Step 2: Detect location
+      const locationResult = await locationDetectionService.detectLocationFromWebsite(url);
+
+      console.log('[OnboardingPageV5] Location detected:', locationResult);
+
+      // Step 3: Detect industry
+      const industryService = new IndustryMatchingService();
+      let industry = 'General Business';
+
+      if (uvpData.services.length > 0) {
+        const industryMatch = await industryService.matchIndustry(
+          uvpData.services.map(s => s.text).join(', ')
+        );
+        if (industryMatch) {
+          industry = industryMatch.name;
+        }
+      }
+
+      console.log('[OnboardingPageV5] Industry detected:', industry);
+
+      // Combine all detected data
+      const detectedData: DetectedBusinessData = {
+        url,
+        businessName: uvpData.businessName || 'Your Business',
+        industry,
+        location: locationResult
+          ? (locationResult.city ? `${locationResult.city}, ${locationResult.state}` : locationResult.state)
+          : 'Location not detected',
+        services: uvpData.services.map(s => s.text),
+        competitors: [], // TODO: Add competitor detection
+        uvpData,
+        sources: {
+          website: url,
+          verified: uvpData.verificationRate > 0.7,
+        },
+      };
+
+      setBusinessData(detectedData);
+      setIsExtracting(false);
+
+      // Auto-transition to path selection (skipping confirmation for now)
+      // TODO: Add SmartConfirmation and QuickRefinement steps
+      setCurrentStep('path_selection');
+
+    } catch (error) {
+      console.error('[OnboardingPageV5] Extraction error:', error);
+      setExtractionError(error instanceof Error ? error.message : 'Failed to analyze website');
+      setIsExtracting(false);
+      setCurrentStep('url_input');
+    }
+  };
+
+  // Legacy handler for OnboardingFlow component
   const handleBusinessDetected = (data: DetectedBusinessData) => {
-    console.log('[OnboardingPageV5] Business detected:', data);
+    console.log('[OnboardingPageV5] Business detected (legacy):', data);
     setBusinessData(data);
     setCurrentStep('path_selection');
   };
@@ -106,11 +198,83 @@ export const OnboardingPageV5: React.FC = () => {
   return (
     <div className="min-h-screen">
       {currentStep === 'url_input' && (
-        <OnboardingFlow onComplete={handleBusinessDetected} />
+        <OnboardingFlow onUrlSubmit={handleUrlSubmit} onComplete={handleBusinessDetected} />
       )}
 
-      {currentStep === 'path_selection' && (
-        <PathSelector onSelectPath={handlePathSelected} />
+      {currentStep === 'uvp_extraction' && (
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              Analyzing Your Business...
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              Extracting UVP, detecting location & industry
+            </p>
+            {extractionError && (
+              <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <p className="text-red-600 dark:text-red-400">{extractionError}</p>
+                <button
+                  onClick={() => setCurrentStep('url_input')}
+                  className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                >
+                  Try Again
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {currentStep === 'path_selection' && businessData && (
+        <div>
+          <div className="bg-white dark:bg-slate-800 shadow-lg rounded-lg p-6 max-w-4xl mx-auto my-8">
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+              Discovery Complete! 🎉
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Business</p>
+                <p className="font-medium text-gray-900 dark:text-white">{businessData.businessName}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Industry</p>
+                <p className="font-medium text-gray-900 dark:text-white">{businessData.industry}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Location</p>
+                <p className="font-medium text-gray-900 dark:text-white">{businessData.location}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Services Found</p>
+                <p className="font-medium text-gray-900 dark:text-white">{businessData.services.length}</p>
+              </div>
+            </div>
+            {businessData.uvpData && (
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">UVP Data Extracted:</p>
+                <div className="text-sm space-y-1">
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • {businessData.uvpData.customerTypes.length} customer types
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • {businessData.uvpData.services.length} services
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • {businessData.uvpData.problemsSolved.length} problems solved
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • {businessData.uvpData.testimonials.length} testimonials
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    • Verification Rate: {((businessData.uvpData.verificationRate || 0) * 100).toFixed(0)}%
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+          <PathSelector onSelectPath={handlePathSelected} />
+        </div>
       )}
 
       {currentStep === 'post_type_selection' && (
