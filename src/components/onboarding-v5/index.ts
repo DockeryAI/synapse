@@ -15,6 +15,7 @@
  * 5. ContentPreview - Display with SOURCE ATTRIBUTION always visible
  * 6. InsightsDashboard - Display extracted business insights
  * 7. SmartSuggestions - AI-generated campaign and post suggestions
+ * 8. ScheduleConfirmation - Show scheduling results with analytics
  */
 
 export { OnboardingFlow } from './OnboardingFlow';
@@ -35,3 +36,6 @@ export type { InsightsDashboardProps } from './InsightsDashboard';
 
 export { SmartSuggestions } from './SmartSuggestions';
 export type { SmartSuggestionsProps, CampaignSuggestion, PostSuggestion, SuggestionData } from './SmartSuggestions';
+
+export { ScheduleConfirmation } from './ScheduleConfirmation';
+export type { ScheduleConfirmationProps } from './ScheduleConfirmation';
