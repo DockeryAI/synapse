@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { BrandProvider } from './contexts/BrandContext'
 import { SynapsePage } from './pages/SynapsePage'
+import { OnboardingPageV5 } from './pages/OnboardingPageV5'
 import { ContentCalendarPage } from './pages/ContentCalendarPage'
 import { CampaignPage } from './pages/CampaignPage'
 import { SocialPilotCallback } from './pages/SocialPilotCallback'
@@ -22,8 +23,13 @@ function App() {
           {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
           {/* Public Routes (temporarily - will be protected in Phase 0) */}
-          <Route path="/" element={<SynapsePage />} />
+          {/* Week 7: New onboarding flow as default */}
+          <Route path="/" element={<OnboardingPageV5 />} />
+          <Route path="/onboarding" element={<OnboardingPageV5 />} />
+
+          {/* Legacy routes */}
           <Route path="/synapse" element={<SynapsePage />} />
+          <Route path="/synapse-old" element={<SynapsePage />} />
           <Route path="/campaign/new" element={<CampaignPage />} />
           <Route path="/content-calendar" element={<ContentCalendarPage />} />
           <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
