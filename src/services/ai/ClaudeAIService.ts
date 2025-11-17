@@ -1,9 +1,9 @@
 /**
- * Claude AI Service
- * Integration with Anthropic Claude Sonnet 4.5 API
+ * Claude AI Service (via OpenRouter)
+ * Integration with Claude Sonnet 4.5 via OpenRouter API
  *
  * Features:
- * - Direct API integration with streaming support
+ * - OpenRouter API integration (no direct Anthropic key needed)
  * - Business context injection
  * - Conversation history management
  * - Intent detection
@@ -23,8 +23,8 @@ import {
 
 export class ClaudeAIService {
   private config: AIServiceConfig;
-  private readonly API_URL = 'https://api.anthropic.com/v1/messages';
-  private readonly DEFAULT_MODEL = 'claude-sonnet-4-5-20250929';
+  private readonly API_URL = 'https://openrouter.ai/api/v1/chat/completions';
+  private readonly DEFAULT_MODEL = 'anthropic/claude-sonnet-4-5-20250929';
   private readonly DEFAULT_MAX_TOKENS = 4096;
 
   constructor(config: AIServiceConfig) {
@@ -44,19 +44,25 @@ export class ClaudeAIService {
       const messages = this.prepareMessages(request);
       const systemPrompt = this.buildSystemPrompt(request.context);
 
+      // Add system prompt as first message for OpenRouter
+      const openRouterMessages = [
+        { role: 'system', content: systemPrompt },
+        ...messages
+      ];
+
       const response = await fetch(this.API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.config.apiKey,
-          'anthropic-version': '2023-06-01',
+          'Authorization': `Bearer ${this.config.apiKey}`,
+          'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://synapse.app',
+          'X-Title': 'Synapse SMB Platform',
         },
         body: JSON.stringify({
           model: this.config.model,
           max_tokens: this.config.maxTokens,
           temperature: this.config.temperature,
-          system: systemPrompt,
-          messages,
+          messages: openRouterMessages,
         }),
       });
 
@@ -70,7 +76,7 @@ export class ClaudeAIService {
       const chatMessage: ChatMessage = {
         id: this.generateId(),
         role: 'assistant',
-        content: data.content[0].text,
+        content: data.choices[0].message.content,
         timestamp: new Date(),
         metadata: {
           model: this.config.model,
@@ -83,8 +89,8 @@ export class ClaudeAIService {
         data: {
           message: chatMessage,
           usage: {
-            inputTokens: data.usage.input_tokens,
-            outputTokens: data.usage.output_tokens,
+            inputTokens: data.usage?.prompt_tokens || 0,
+            outputTokens: data.usage?.completion_tokens || 0,
             totalCost: this.calculateCost(data.usage),
           },
         },
@@ -105,19 +111,25 @@ export class ClaudeAIService {
       const messages = this.prepareMessages(request);
       const systemPrompt = this.buildSystemPrompt(request.context);
 
+      // Add system prompt as first message for OpenRouter
+      const openRouterMessages = [
+        { role: 'system', content: systemPrompt },
+        ...messages
+      ];
+
       const response = await fetch(this.API_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': this.config.apiKey,
-          'anthropic-version': '2023-06-01',
+          'Authorization': `Bearer ${this.config.apiKey}`,
+          'HTTP-Referer': typeof window !== 'undefined' ? window.location.origin : 'https://synapse.app',
+          'X-Title': 'Synapse SMB Platform',
         },
         body: JSON.stringify({
           model: this.config.model,
           max_tokens: this.config.maxTokens,
           temperature: this.config.temperature,
-          system: systemPrompt,
-          messages,
+          messages: openRouterMessages,
           stream: true,
         }),
       });
