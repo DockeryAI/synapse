@@ -17,6 +17,8 @@ import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
+import type { RetryProgress } from '@/services/errors/error-handler.service';
+import { RetryProgress as RetryProgressComponent } from '@/components/onboarding-v5/RetryProgress';
 
 type FlowStep =
   | 'url_input'
@@ -52,6 +54,7 @@ export const OnboardingPageV5: React.FC = () => {
   const [isExtracting, setIsExtracting] = useState(false);
   const [extractionError, setExtractionError] = useState<string | null>(null);
   const [progressSteps, setProgressSteps] = useState<Array<{step: string; status: 'pending' | 'in_progress' | 'complete' | 'error'; details?: string}>>([]);
+  const [retryProgress, setRetryProgress] = useState<RetryProgress | null>(null);
 
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
@@ -78,16 +81,35 @@ export const OnboardingPageV5: React.FC = () => {
     ]);
 
     try {
-      // Step 1: Extract UVP data with source verification
-      addProgressStep('Extracting UVP Data', 'in_progress', 'Analyzing website content...');
-      const extractor = new SmartUVPExtractor();
-      const uvpData = await extractor.extractUVP({
-        websiteUrl: url,
-        requireSources: true,
-        minConfidence: 0.6,
-      });
+      // Step 1: Extract UVP with retry and cache fallback
+      addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
 
-      addProgressStep('Extracting UVP Data', 'complete', `Found ${uvpData.customerTypes.length} customers, ${uvpData.services.length} services, ${uvpData.problemsSolved.length} problems`);
+      const smartUVPExtractor = new SmartUVPExtractor();
+      const uvpData = await smartUVPExtractor.extractUVPWithCache(
+        {
+          websiteUrl: url,
+          minConfidence: 0.6,
+          requireSources: true,
+        },
+        (progress) => {
+          // Update retry progress state
+          setRetryProgress(progress);
+
+          // Update UI message based on retry state
+          if (progress.attempt > 1) {
+            addProgressStep(
+              'Understanding your unique offerings',
+              'in_progress',
+              `Retry attempt ${progress.attempt}/${progress.maxAttempts}...`
+            );
+          }
+        }
+      );
+
+      // Clear retry progress after successful extraction
+      setRetryProgress(null);
+
+      addProgressStep('Understanding your unique offerings', 'complete', `Found ${uvpData.customerTypes.length} customers, ${uvpData.services.length} services, ${uvpData.problemsSolved.length} problems`);
       console.log('[OnboardingPageV5] UVP extracted:', {
         customers: uvpData.customerTypes.length,
         services: uvpData.services.length,
@@ -147,15 +169,35 @@ export const OnboardingPageV5: React.FC = () => {
 
       setIsExtracting(false);
 
+      // Clear retry progress on success
+      setRetryProgress(null);
+
       // Auto-transition to path selection (skipping confirmation for now)
       // TODO: Add SmartConfirmation and QuickRefinement steps
       setCurrentStep('path_selection');
 
     } catch (error) {
-      console.error('[OnboardingPageV5] Extraction error:', error);
-      setExtractionError(error instanceof Error ? error.message : 'Failed to analyze website');
+      console.error('[OnboardingPageV5] URL submission error:', error);
       setIsExtracting(false);
+
+      // Check if we got retry error information
+      if (retryProgress && retryProgress.error) {
+        setExtractionError(retryProgress.error.userMessage);
+      } else {
+        setExtractionError(
+          error instanceof Error
+            ? error.message
+            : 'Failed to analyze website. Please try again or check the URL.'
+        );
+      }
+
       setCurrentStep('url_input');
+
+      // Clear retry progress
+      setRetryProgress(null);
+
+      // Update progress steps to show error
+      addProgressStep('Understanding your unique offerings', 'error', 'Analysis failed');
     }
   };
 
@@ -301,6 +343,16 @@ export const OnboardingPageV5: React.FC = () => {
                 </div>
               ))}
             </div>
+
+            {/* Retry Progress (if retrying) */}
+            {retryProgress && retryProgress.attempt > 1 && (
+              <div className="mt-4">
+                <RetryProgressComponent
+                  progress={retryProgress}
+                  operation="website analysis"
+                />
+              </div>
+            )}
 
             {extractionError && (
               <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
