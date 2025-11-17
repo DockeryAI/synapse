@@ -9,6 +9,7 @@
 
 import { campaignWorkflow } from './CampaignWorkflow';
 import { campaignStateMachine } from './CampaignState';
+import { ErrorHandlerService, logError } from '../errors/error-handler.service';
 import type {
   CampaignSession,
   CampaignType,
@@ -150,13 +151,17 @@ export class CampaignOrchestrator {
     this.log('Generating campaign content');
 
     try {
-      const session = await campaignWorkflow.generateCampaign(this.requireSessionId());
+      const session = await ErrorHandlerService.executeWithRetry(
+        () => campaignWorkflow.generateCampaign(this.requireSessionId()),
+        { maxAttempts: 3 }
+      );
 
       this.notifyStateChange(session);
       this.notifyProgress(session);
 
       return session;
     } catch (error) {
+      logError(error, { sessionId: this.currentSessionId, operation: 'generateCampaign' });
       this.handleError(error);
       throw error;
     }
@@ -213,9 +218,9 @@ export class CampaignOrchestrator {
     this.log('Publishing campaign to platforms:', platforms);
 
     try {
-      const session = await campaignWorkflow.publishCampaign(
-        this.requireSessionId(),
-        platforms
+      const session = await ErrorHandlerService.executeWithRetry(
+        () => campaignWorkflow.publishCampaign(this.requireSessionId(), platforms),
+        { maxAttempts: 2 }, // Fewer retries for publishing
       );
 
       this.notifyStateChange(session);
@@ -223,6 +228,7 @@ export class CampaignOrchestrator {
 
       return session;
     } catch (error) {
+      logError(error, { sessionId: this.currentSessionId, platforms, operation: 'publishCampaign' });
       this.handleError(error);
       throw error;
     }
