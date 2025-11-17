@@ -557,11 +557,11 @@
     },
     {
       "id": "campaign-generator",
-      "name": "AI Campaign Generation Engine",
-      "status": "pending",
-      "version": "1.0.0",
+      "name": "Multi-Touch Campaign Intelligence System",
+      "status": "in_progress",
+      "version": "2.0.0",
       "priority": "critical",
-      "description": "Generates complete content campaigns combining UVP, products/services, YouTube content intelligence, social insights, local intelligence, and competitive intelligence. Offers 4 strategic campaign types in MVP with AI suggestions based on business goals. Uses all 20+ data sources including Perplexity for local events and Competitive Intelligence Service for gap analysis. One-click deployment to SocialPilot.",
+      "description": "Goal-first campaign system generating multi-touch story arcs (7-14 posts over 2-4 weeks) instead of single posts. Combines UVP, products/services, YouTube intelligence, social insights, local events, and competitive gaps into narrative sequences. Cross-platform orchestration (LinkedIn awareness → Email nurture → Instagram social proof). AI suggests campaign strategies based on business goals, then generates complete campaign calendars with psychological sequencing. One-click deployment to SocialPilot with calendar scheduling.",
       "components": [
         "services/campaign-generator.service.ts",
         "services/campaign-optimizer.service.ts",
@@ -588,104 +588,192 @@
       "mvpCampaignTypes": [
         {
           "type": "Authority Builder",
-          "goal": "Build industry expertise and thought leadership",
+          "goal": "7 days to visible expert",
+          "storyArc": {
+            "phase1": "Days 1-2: Problem awareness (video + text)",
+            "phase2": "Days 3-5: Education/insights (tutorials, tips)",
+            "phase3": "Days 6-7: Proof + CTA (testimonials, offer)"
+          },
           "dataSources": [
-            "DeepContext (Reddit, News, Reviews)",
-            "YouTube content analysis",
-            "Industry-specific insights"
+            "DeepContext (Reddit pain points, News trends)",
+            "YouTube content analysis (top performing topics)",
+            "Industry-specific insights",
+            "Review mining (customer language)"
           ],
           "triggers": [
             "Default for new users",
             "AI suggests for service businesses",
             "User selects 'establish expertise' goal"
           ],
-          "contentMix": "Educational posts, industry insights, expertise demonstration, thought leadership",
-          "idealFor": "Professional services, consultants, B2B companies",
-          "duration": "30 days",
-          "postCount": "20-30 posts"
+          "contentMix": "Sequential narrative: Problem identification → Educational content → Social proof → Call to action",
+          "psychologicalSequencing": "Awareness → Interest → Desire → Action (AIDA framework)",
+          "platformOrchestration": "LinkedIn + Facebook (84% of SMBs use Facebook), video-first content",
+          "contentFormat": "Video tutorials, behind-the-scenes, quick tips (TikTok/Reels/Shorts)",
+          "idealFor": "Professional services, consultants, B2B companies, new market entrants",
+          "duration": "7 days",
+          "postCount": "7-10 posts",
+          "touchpoints": "4-5 per platform",
+          "narrativeCoherence": "Each post references previous posts, building momentum"
         },
         {
-          "type": "Local Pulse",
-          "goal": "Drive local traffic and community engagement",
+          "type": "Community Champion",
+          "goal": "Local community leader in 14 days",
+          "storyArc": {
+            "days1-4": "Local spotlight + community connection",
+            "days5-10": "Customer stories + involvement",
+            "days11-14": "Local exclusive offer + urgency"
+          },
           "dataSources": [
-            "Perplexity API (local events)",
-            "Weather patterns",
+            "Perplexity API (local events, community news)",
+            "Weather patterns (timely relevance)",
             "Local news",
-            "Google Reviews (community feedback)"
+            "Google Reviews (community feedback, local language)"
           ],
           "triggers": [
             "AI detects local business (brick-and-mortar)",
             "User selects 'local focus' goal",
-            "High local search intent detected"
+            "High local search intent detected",
+            "Perplexity finds local events"
           ],
-          "contentMix": "Event tie-ins, community involvement, seasonal relevance, local partnerships",
-          "idealFor": "Restaurants, retail, local services, franchises",
-          "duration": "30 days",
-          "postCount": "20-30 posts",
+          "contentMix": "Sequential local narrative: Problem → Involvement → Proof → Offer",
+          "psychologicalSequencing": "Community connection → Trust building → Social proof → Local urgency",
+          "platformOrchestration": "Facebook (community hub) + Instagram (Stories/Reels) + Google Business",
+          "contentFormat": "Behind-the-scenes videos, local event coverage, customer spotlights",
+          "idealFor": "Restaurants, retail, local services, franchises, neighborhood businesses",
+          "duration": "14 days",
+          "postCount": "14-18 posts",
+          "touchpoints": "5-6 per platform",
+          "narrativeCoherence": "Builds from community observer → active participant → local authority",
           "examples": [
-            "Join us at [local festival detected by Perplexity]",
-            "Supporting [local cause from news]",
-            "[Weather]-inspired special offer"
+            "Week 1: 'Downtown parking problem affecting our neighbors'",
+            "Week 2: 'Partnering with [local festival from Perplexity]'",
+            "Week 3: 'How we helped Sarah from Main Street save $2000'",
+            "Week 4: 'Exclusive for our neighbors: 20% off this weekend'"
           ]
         },
         {
-          "type": "Social Proof",
-          "goal": "Build trust and credibility",
+          "type": "Trust Builder",
+          "goal": "Build credibility in 10 days",
+          "storyArc": {
+            "days1-3": "Problem identification + empathy",
+            "days4-7": "Customer transformation stories (video testimonials)",
+            "days8-10": "Social proof + trust signals + offer"
+          },
           "dataSources": [
-            "Google Reviews analysis",
-            "Testimonials extraction",
-            "Customer success stories",
-            "Case study patterns"
+            "Google Reviews analysis (transformation language)",
+            "Testimonials extraction (results, not features)",
+            "Customer success stories (narrative patterns)",
+            "Case study patterns (before/after framework)",
+            "Video testimonial mining (YouTube comments)"
           ],
           "triggers": [
             "Low trust score detected",
             "New businesses (<2 years)",
             "User selects 'build credibility' goal",
-            "High competition detected"
+            "High competition detected",
+            "Few reviews or testimonials"
           ],
-          "contentMix": "Review highlights, customer stories, testimonials, before/after transformations",
-          "idealFor": "New businesses, high-consideration purchases, competitive markets",
-          "duration": "30 days",
-          "postCount": "15-25 posts"
+          "contentMix": "Narrative sequence: Customer pain → Transformation journey → Results + proof",
+          "psychologicalSequencing": "Empathy → Hope → Belief → Trust",
+          "platformOrchestration": "Facebook + Instagram (video testimonials prioritized)",
+          "contentFormat": "Customer video testimonials, before/after photos, review highlights",
+          "idealFor": "New businesses, high-consideration purchases, competitive markets, service businesses",
+          "duration": "10 days",
+          "postCount": "10-15 posts",
+          "touchpoints": "5-7 per platform",
+          "narrativeCoherence": "Each customer story builds on previous, creating pattern of consistent results",
+          "trustSignals": [
+            "Third-party validation (reviews, ratings)",
+            "Specific numbers (180% ROI, 4.9/5 stars)",
+            "Customer names and locations (with permission)",
+            "Visual proof (before/after images)",
+            "Time-based credibility (years in business, customer count)"
+          ]
         },
         {
-          "type": "Competitor Crusher",
-          "goal": "Fill content gaps and differentiate from competitors",
+          "type": "Revenue Rush",
+          "goal": "Drive immediate sales in 5 days",
+          "storyArc": {
+            "days1-2": "Problem agitation + solution tease",
+            "days3-4": "Product showcase + social proof",
+            "day5": "Limited offer + urgency"
+          },
           "dataSources": [
-            "Competitive Intelligence Service (already built)",
-            "SEMrush keyword gap analysis",
-            "Competitor content patterns",
-            "Market opportunity detection"
+            "Product Scanner (Week 2 tree)",
+            "Review mining (social proof)",
+            "Seasonal triggers (urgency)",
+            "Competitive pricing intelligence"
           ],
           "triggers": [
-            "AI detects competitors during onboarding",
-            "User requests 'beat competitors' goal",
-            "SEMrush identifies keyword opportunities",
-            "Content gaps discovered"
+            "User selects 'drive sales' goal",
+            "Seasonal opportunity detected",
+            "Product launch detected",
+            "Low sales period identified"
           ],
-          "contentMix": "Gap-filling content, counter-messaging, differentiation posts, unique value emphasis",
-          "idealFor": "Competitive markets, established businesses, differentiation needs",
-          "duration": "30 days",
-          "postCount": "20-30 posts",
-          "examples": [
-            "Unlike [competitor trend], we believe in [unique angle]",
-            "Addressing the [pain point competitors ignore]",
-            "Why we don't [common competitor practice]"
+          "contentMix": "Product demos, customer results, shoppable posts, limited-time offers",
+          "psychologicalSequencing": "Desire → Proof → Urgency → Action",
+          "platformOrchestration": "Instagram (Shoppable posts) + Facebook Shop",
+          "contentFormat": "Product videos, demo reels, customer unboxings, countdown posts",
+          "idealFor": "E-commerce, retail, service packages, seasonal businesses",
+          "duration": "5 days",
+          "postCount": "8-12 posts",
+          "touchpoints": "4-6 per platform",
+          "narrativeCoherence": "Fast-paced sequence building urgency to buy now",
+          "socialCommerce": [
+            "Instagram Shopping tags",
+            "Facebook Shop integration",
+            "Shoppable posts/Stories",
+            "Direct checkout links",
+            "Product tagging in posts"
+          ]
+        },
+        {
+          "type": "Viral Spark",
+          "goal": "Massive reach in 7 days",
+          "storyArc": {
+            "days1-2": "Trending audio/challenge participation",
+            "days3-5": "Behind-the-scenes + personality content",
+            "days6-7": "CTA + follow-up engagement"
+          },
+          "dataSources": [
+            "TikTok/Instagram trending sounds",
+            "Viral challenge patterns",
+            "YouTube Shorts analytics",
+            "Competitor viral content analysis"
           ],
-          "intelligenceSources": [
-            "Serper (competitor rankings, news, videos)",
-            "SEMrush (keyword gaps, traffic comparison, quick wins)",
-            "Apify (competitor reviews, website content)",
-            "Website Analyzer (competitor messaging)"
+          "triggers": [
+            "User selects 'increase awareness' goal",
+            "Low follower count detected",
+            "Video content capability confirmed",
+            "Trending opportunity identified"
+          ],
+          "contentMix": "Trending challenges, relatable moments, behind-the-scenes, personality-driven content",
+          "psychologicalSequencing": "Stop scroll → Relatability → Entertainment → Connection → Follow",
+          "platformOrchestration": "TikTok + Instagram Reels (video-first platforms)",
+          "contentFormat": "Short-form vertical video (15-60 seconds), trending audio, captions required",
+          "idealFor": "All SMBs seeking visibility, especially B2C, local, and personality-driven brands",
+          "duration": "7 days",
+          "postCount": "10-14 posts (1-2 per day)",
+          "touchpoints": "5-7 per platform",
+          "narrativeCoherence": "Authenticity over polish, show personality and humanity",
+          "videoRequirements": [
+            "Mobile-shot (authenticity over production)",
+            "Trending audio integration",
+            "Auto-captions (accessibility + engagement)",
+            "Hook in first 3 seconds",
+            "Clear CTA in description"
           ]
         }
       ],
       "userExperience": {
-        "onboarding": "Simple question: 'What's your primary goal?' → Build authority / Drive local traffic / Build trust / Beat competitors",
-        "aiSuggestion": "Based on business type + location + goals, AI recommends best campaign type",
-        "campaignSelection": "Card-based UI showing all 4 types with descriptions, ideal use cases, and estimated results",
-        "preview": "See sample posts before deployment",
-        "deployment": "One-click publish to SocialPilot calendar"
+        "step1GoalSelection": "User selects primary business goal from 4 options (Build Authority / Drive Local Traffic / Build Trust / Dominate Market)",
+        "step2AISuggestion": "AI suggests 3 campaign strategies based on goal + business data, with confidence scores and reasoning",
+        "step3CampaignBuilder": "User picks or customizes campaign strategy",
+        "step4CalendarPreview": "Full campaign calendar showing all touchpoints, story arc, and cross-platform orchestration",
+        "step5EditAndApprove": "Edit individual posts, adjust timing, preview all platforms",
+        "step6Schedule": "One-click publish entire campaign calendar to SocialPilot",
+        "narrativeVisualization": "Timeline view showing how story unfolds over days/weeks",
+        "coherenceIndicator": "Shows how posts reference each other and build momentum"
       },
       "aiSuggestionLogic": {
         "mvp": "Rule-based: If restaurant → Local Pulse, If consultant → Authority Builder, If new business → Social Proof, If competitors detected → Competitor Crusher",
@@ -693,32 +781,51 @@
       },
       "durationOptions": [
         {
-          "type": "Quick Win",
+          "type": "Flash",
+          "duration": "3-5 days",
+          "postCount": "8-12 posts",
+          "description": "Urgent campaigns - sales, events, time-sensitive"
+        },
+        {
+          "type": "Sprint",
           "duration": "7 days",
-          "postCount": "7-14 posts",
-          "description": "Test a campaign type with low commitment"
+          "postCount": "7-10 posts",
+          "description": "Standard campaign - most popular (DEFAULT)"
         },
         {
-          "type": "Standard",
-          "duration": "30 days",
-          "postCount": "20-30 posts",
-          "description": "Full month coverage (default for MVP)"
-        },
-        {
-          "type": "Extended",
-          "duration": "90 days",
-          "postCount": "60-90 posts",
-          "description": "Long-term evergreen content library"
+          "type": "Campaign",
+          "duration": "14 days",
+          "postCount": "14-18 posts",
+          "description": "Extended campaign - bigger goals"
         }
       ],
+      "campaignArchitecture": {
+        "baselineLayer": "Always-on presence: 3-5 posts/week between campaigns for visibility",
+        "campaignSprints": "5-14 day focused campaigns on top of baseline",
+        "videoFirst": "Video content prioritized (TikTok, Reels, Shorts) - 2025 SMB requirement",
+        "platformLimit": "2-3 platforms max per campaign (84% use Facebook, prioritize video platforms)",
+        "mobileOptimized": "All content designed mobile-first (thumb-stopping scroll tests)",
+        "socialCommerce": "Shoppable posts, product tags, direct checkout integration",
+        "aiAutomation": "Auto-respond DMs, optimal scheduling, A/B testing, real-time optimization",
+        "psychologicalSequencing": "Posts ordered by psychological impact (AIDA, trust ladders, urgency)",
+        "narrativeCoherence": "Each post builds on previous, creating momentum",
+        "quickCheckpoints": "Day 3 effectiveness check, pivot if underperforming",
+        "authenticityFirst": "Real over perfect - behind-the-scenes, personality, transparency"
+      },
       "contentTypes": [
-        "Authority Posts (UVP-based)",
-        "Local Event Tie-ins (Perplexity)",
-        "Problem/Solution Series (review insights)",
-        "Competitor Gap Content (Competitive Intelligence)",
-        "Social Proof Amplification (reviews)",
-        "Educational Series (industry expertise)",
-        "Seasonal/Weather Content (local relevance)"
+        "Short-form Video (TikTok, Reels, Shorts) - PRIMARY FORMAT",
+        "Behind-the-scenes clips (authenticity)",
+        "Product demos and tutorials",
+        "Customer video testimonials",
+        "Trending audio/challenge participation",
+        "Shoppable posts (Instagram Shopping, Facebook Shop)",
+        "Story sequences (Instagram/Facebook Stories)",
+        "Local Event Tie-ins (Perplexity real-time)",
+        "Social Proof Amplification (before/after)",
+        "Google My Business posts (2x/week)",
+        "User-generated content contests",
+        "Mobile-optimized carousels",
+        "User-generated content reposts"
       ],
       "integrations": {
         "perplexity": "Real-time local event discovery, community news, trending local topics",

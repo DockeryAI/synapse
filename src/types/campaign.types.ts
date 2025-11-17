@@ -1,13 +1,15 @@
 /**
- * Campaign Type Definitions
- * 
- * Defines the three core campaign types for Synapse:
- * - Authority Builder: Positions business as industry expert
- * - Social Proof: Leverages customer reviews and testimonials
- * - Local Pulse: Capitalizes on local events and timing
+ * Campaign Type Definitions (V3 - Research-Validated)
+ *
+ * Defines the five V3 campaign types for Synapse (5-14 days each):
+ * - Authority Builder (7 days): Positions business as industry expert
+ * - Community Champion (14 days): Local community connection and engagement
+ * - Trust Builder (10 days): Leverages customer reviews and testimonials
+ * - Revenue Rush (5 days): Social commerce for immediate sales
+ * - Viral Spark (7 days): Video-first content for massive reach
  */
 
-export type CampaignTypeId = 'authority_builder' | 'social_proof' | 'local_pulse';
+export type CampaignTypeId = 'authority_builder' | 'community_champion' | 'trust_builder' | 'revenue_rush' | 'viral_spark';
 
 /**
  * Campaign Type Metadata
@@ -35,64 +37,94 @@ export interface CampaignType extends CampaignTypeMetadata {
 }
 
 /**
- * Campaign Type Registry
- * Complete definitions for all three campaign types
+ * Campaign Type Registry (V3)
+ * Complete definitions for all five V3 campaign types
  */
 export const CAMPAIGN_TYPES: Record<CampaignTypeId, CampaignTypeMetadata> = {
   authority_builder: {
     id: 'authority_builder',
     name: 'Authority Builder',
-    description: 'Position your business as the go-to expert in your industry through thought leadership content',
+    description: '7 days to visible expert - thought leadership content positioning you as the go-to industry authority',
     icon: 'GraduationCap',
     idealFor: [
+      'B2B businesses and professional services',
+      'Consultants and service providers',
       'Businesses with deep industry expertise',
-      'Service providers and consultants',
-      'B2B companies',
-      'Professional services',
       'Technical or specialized fields'
     ],
-    platforms: ['LinkedIn', 'X (Twitter)', 'Blog', 'Email'],
+    platforms: ['LinkedIn', 'Facebook'],
     contentFormats: [
+      'Video tutorials (15-60 seconds)',
       'Industry insights and trends',
-      'Expert analysis and commentary',
-      'How-to guides and tutorials',
-      'Case studies',
-      'Research-backed content'
+      'How-to guides',
+      'Behind-the-scenes expertise',
+      'Quick tips and tutorials'
     ],
     exampleOutputs: [
-      '"5 Industry Trends Every [Industry] Should Watch in 2024"',
-      '"Why Most [Industry] Companies Get [Problem] Wrong (And How to Fix It)"',
-      '"The Data-Driven Approach to [Service]: Our 10-Year Study Results"'
+      '"5 Industry Trends Every [Industry] Should Watch"',
+      '"Why Most Companies Get [Problem] Wrong (And How to Fix It)"',
+      '"Quick Tutorial: How to [Solve Problem] in 60 Seconds"'
     ],
     dataSources: [
-      'Industry trends (SEMrush)',
-      'Competitive intelligence',
-      'News & publications',
-      'Search trends (Serper)',
-      'Website expertise analysis'
+      'YouTube content analysis',
+      'Industry trends',
+      'Website expertise',
+      'Review insights'
     ],
     color: 'blue'
   },
-  
-  social_proof: {
-    id: 'social_proof',
-    name: 'Social Proof',
-    description: 'Leverage customer success stories, reviews, and testimonials to build trust and credibility',
+
+  community_champion: {
+    id: 'community_champion',
+    name: 'Community Champion',
+    description: 'Local community leader in 14 days - connection, customer stories, and local exclusive offers',
+    icon: 'MapPin',
+    idealFor: [
+      'Local businesses (restaurant, salon, retail)',
+      'Brick-and-mortar stores',
+      'Service area businesses',
+      'Neighborhood businesses'
+    ],
+    platforms: ['Facebook', 'Instagram', 'Google Business'],
+    contentFormats: [
+      'Behind-the-scenes videos',
+      'Local event coverage',
+      'Customer spotlights',
+      'Community involvement posts',
+      'Local exclusive offers'
+    ],
+    exampleOutputs: [
+      '"Downtown parking problem affecting our neighbors"',
+      '"Partnering with [local festival from Perplexity]"',
+      '"How we helped Sarah from Main Street save $2000"'
+    ],
+    dataSources: [
+      'Perplexity (local events)',
+      'Weather patterns',
+      'Local news',
+      'Google Reviews'
+    ],
+    color: 'orange'
+  },
+
+  trust_builder: {
+    id: 'trust_builder',
+    name: 'Trust Builder',
+    description: 'Build credibility in 10 days - customer transformation stories and video testimonials',
     icon: 'Award',
     idealFor: [
-      'Businesses with strong customer reviews',
-      'Service-based companies',
-      'Local businesses',
-      'Companies with case studies',
-      'High customer satisfaction scores'
+      'New businesses (< 2 years)',
+      'High-consideration purchases',
+      'Competitive markets',
+      'Service businesses'
     ],
-    platforms: ['Facebook', 'Instagram', 'Google Business', 'TikTok'],
+    platforms: ['Facebook', 'Instagram'],
     contentFormats: [
-      'Customer testimonial features',
-      'Before/after success stories',
+      'Customer video testimonials',
+      'Before/after photos',
       'Review highlights',
-      'User-generated content',
-      'Achievement announcements'
+      'Transformation stories',
+      'Social proof amplification'
     ],
     exampleOutputs: [
       '"How [Customer Name] Achieved [Result] in Just [Timeframe]"',
@@ -100,48 +132,78 @@ export const CAMPAIGN_TYPES: Record<CampaignTypeId, CampaignTypeMetadata> = {
       '"Real Results: [Customer] Saved $X Using Our [Service]"'
     ],
     dataSources: [
-      'Google reviews (OutScraper)',
-      'Social media mentions',
+      'Google Reviews',
       'Customer testimonials',
-      'Rating data',
-      'Success metrics'
+      'YouTube comments',
+      'Social media mentions'
     ],
     color: 'green'
   },
-  
-  local_pulse: {
-    id: 'local_pulse',
-    name: 'Local Pulse',
-    description: 'Capitalize on local events, weather, and timely opportunities to connect with your community',
-    icon: 'MapPin',
+
+  revenue_rush: {
+    id: 'revenue_rush',
+    name: 'Revenue Rush',
+    description: 'Drive immediate sales in 5 days - shoppable posts and limited offers with social commerce',
+    icon: 'DollarSign',
     idealFor: [
-      'Local businesses',
-      'Brick-and-mortar stores',
-      'Service area businesses',
-      'Event-based businesses',
-      'Weather-dependent services'
+      'E-commerce businesses',
+      'Retail stores',
+      'Service packages',
+      'Seasonal businesses'
     ],
-    platforms: ['Facebook', 'Instagram', 'Google Business', 'Nextdoor'],
+    platforms: ['Instagram Shopping', 'Facebook Shop'],
     contentFormats: [
-      'Event tie-ins',
-      'Weather-based offers',
-      'Local news commentary',
-      'Community involvement',
-      'Time-sensitive promotions'
+      'Product videos and demos',
+      'Customer unboxings',
+      'Shoppable posts/Stories',
+      'Limited-time offers',
+      'Countdown posts'
     ],
     exampleOutputs: [
-      '"[Weather Event] Coming? Here\'s How We Can Help"',
-      '"Supporting [Local Event]: Special Offer for Attendees"',
-      '"As Seen at [Local News]: Our Take on [Topic]"'
+      '"Flash Sale: 48 Hours Only - Shop Now"',
+      '"Customer Favorite: See Why Everyone Loves This"',
+      '"Limited Stock: Only 10 Left - Tag to Purchase"'
     ],
     dataSources: [
-      'Weather data',
-      'Local events (Perplexity)',
-      'Local news',
-      'Trending topics',
-      'Location data'
+      'Product Scanner',
+      'Review mining',
+      'Seasonal triggers',
+      'Competitive pricing'
     ],
-    color: 'orange'
+    color: 'purple'
+  },
+
+  viral_spark: {
+    id: 'viral_spark',
+    name: 'Viral Spark',
+    description: 'Massive reach in 7 days - trending TikTok/Reels content with authenticity over polish',
+    icon: 'Sparkles',
+    idealFor: [
+      'All SMBs seeking visibility',
+      'B2C businesses',
+      'Local businesses',
+      'Personality-driven brands'
+    ],
+    platforms: ['TikTok', 'Instagram Reels'],
+    contentFormats: [
+      'Trending challenges',
+      'Behind-the-scenes moments',
+      'Relatable content',
+      'Personality-driven videos',
+      'Trending audio participation'
+    ],
+    exampleOutputs: [
+      '"POV: You walk into [Business] and see this"',
+      '"Things you didn\'t know about [Industry]"',
+      '"Trying the viral [trend] at our [business]"'
+    ],
+    dataSources: [
+      'TikTok/Instagram trending sounds',
+      'Viral challenge patterns',
+      'YouTube Shorts analytics',
+      'Competitor viral content'
+    ],
+    color: 'pink'
   }
 };
 
