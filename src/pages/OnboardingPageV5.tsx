@@ -7,7 +7,7 @@
  *       Path Selection → Content Generation → Preview → Email Capture
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { OnboardingFlow } from '@/components/onboarding-v5/OnboardingFlow';
 import { PathSelector, ContentPath } from '@/components/onboarding-v5/PathSelector';
 import { SinglePostTypeSelector, PostType } from '@/components/onboarding-v5/SinglePostTypeSelector';
@@ -16,8 +16,11 @@ import { useNavigate } from 'react-router-dom';
 import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
+import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
+import { getFunnelTracker, type OnboardingStep } from '@/services/analytics/funnel-tracker.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { RetryProgress } from '@/services/errors/error-handler.service';
+import type { GenerationProgress } from '@/types/campaign-generation.types';
 import { RetryProgress as RetryProgressComponent } from '@/components/onboarding-v5/RetryProgress';
 
 type FlowStep =
@@ -55,6 +58,11 @@ export const OnboardingPageV5: React.FC = () => {
   const [extractionError, setExtractionError] = useState<string | null>(null);
   const [progressSteps, setProgressSteps] = useState<Array<{step: string; status: 'pending' | 'in_progress' | 'complete' | 'error'; details?: string}>>([]);
   const [retryProgress, setRetryProgress] = useState<RetryProgress | null>(null);
+  const [generationProgress, setGenerationProgress] = useState<GenerationProgress | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  // Initialize funnel tracker
+  const funnelTracker = getFunnelTracker();
 
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
@@ -69,6 +77,10 @@ export const OnboardingPageV5: React.FC = () => {
   // Handle URL submission - START UVP extraction process
   const handleUrlSubmit = async (url: string) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
+
+    // Track analytics: URL input
+    await funnelTracker.trackOnboardingStep('url_input', { url });
+
     setWebsiteUrl(url);
     setCurrentStep('uvp_extraction');
     setIsExtracting(true);
@@ -81,6 +93,9 @@ export const OnboardingPageV5: React.FC = () => {
     ]);
 
     try {
+      // Track analytics: Extraction started
+      await funnelTracker.trackOnboardingStep('extraction_started', { url });
+
       // Step 1: Extract UVP with retry and cache fallback
       addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
 
@@ -142,10 +157,22 @@ export const OnboardingPageV5: React.FC = () => {
       addProgressStep('Detecting Industry', 'complete', industry);
       console.log('[OnboardingPageV5] Industry detected:', industry);
 
+      // Extract business name from URL or use a generic name
+      const extractBusinessName = (url: string): string => {
+        try {
+          const hostname = new URL(url).hostname;
+          const parts = hostname.split('.');
+          const mainPart = parts.length > 2 ? parts[parts.length - 2] : parts[0];
+          return mainPart.charAt(0).toUpperCase() + mainPart.slice(1);
+        } catch {
+          return 'Your Business';
+        }
+      };
+
       // Combine all detected data
       const detectedData: DetectedBusinessData = {
         url,
-        businessName: uvpData.businessName || 'Your Business',
+        businessName: extractBusinessName(url),
         industry,
         location: locationResult
           ? (locationResult.city ? `${locationResult.city}, ${locationResult.state}` : locationResult.state)
@@ -171,6 +198,13 @@ export const OnboardingPageV5: React.FC = () => {
 
       // Clear retry progress on success
       setRetryProgress(null);
+
+      // Track analytics: Extraction complete
+      await funnelTracker.trackOnboardingStep('extraction_complete', {
+        customersFound: detectedData.uvpData?.customerTypes.length,
+        servicesFound: detectedData.uvpData?.services.length,
+        problemsFound: detectedData.uvpData?.problemsSolved.length,
+      });
 
       // Auto-transition to path selection (skipping confirmation for now)
       // TODO: Add SmartConfirmation and QuickRefinement steps
@@ -209,14 +243,17 @@ export const OnboardingPageV5: React.FC = () => {
   };
 
   // Handle path selection
-  const handlePathSelected = (path: ContentPath) => {
+  const handlePathSelected = async (path: ContentPath) => {
     console.log('[OnboardingPageV5] Path selected:', path);
     setSelectedPath(path);
 
+    // Track analytics: Path selected
     if (path === 'campaign') {
-      // Campaign path: Generate full campaign via CampaignTypeEngine
-      generateCampaign();
+      await funnelTracker.trackOnboardingStep('campaign_selected', { path });
+      // Campaign path: Generate full campaign
+      await generateCampaign();
     } else {
+      await funnelTracker.trackOnboardingStep('post_selected', { path });
       // Single post path: Show post type selector
       setCurrentStep('post_type_selection');
     }
@@ -232,9 +269,96 @@ export const OnboardingPageV5: React.FC = () => {
   // Generate full campaign
   const generateCampaign = async () => {
     console.log('[OnboardingPageV5] Generating campaign...');
-    // TODO: Wire to CampaignTypeEngine
-    // For now, show placeholder content
-    setCurrentStep('content_preview');
+
+    if (!businessData || !businessData.uvpData) {
+      console.error('[OnboardingPageV5] No business data available for generation');
+      return;
+    }
+
+    setIsGenerating(true);
+
+    // Track analytics: Generation started
+    await funnelTracker.trackOnboardingStep('generation_started', {
+      campaignType: 'authority_builder', // Default type
+      businessName: businessData.businessName,
+    });
+
+    try {
+      // Prepare business context for campaign generator
+      const businessContext = {
+        businessData: {
+          businessName: businessData.businessName,
+          specialization: businessData.industry,
+          location: businessData.location,
+          selectedServices: businessData.services,
+          selectedCustomers: businessData.uvpData.customerTypes.map(c => c.text),
+          selectedValueProps: businessData.uvpData.differentiators.map(d => d.text),
+          selectedTestimonials: businessData.uvpData.testimonials.map(t => t.text),
+        },
+        uvpData: businessData.uvpData,
+        websiteAnalysis: null, // Not available yet in onboarding flow
+        specialization: businessData.industry,
+      };
+
+      // Generate campaign with progress tracking
+      const campaign = await campaignGenerator.generateCampaign(
+        {
+          campaignId: `campaign-${Date.now()}`,
+          campaignType: 'authority_builder', // Default to authority builder
+          businessContext,
+          options: {
+            postsPerCampaign: 5, // Start with 5 posts for faster generation
+            platforms: ['linkedin', 'facebook'],
+            includeVisuals: false, // Disable visuals for now (Bannerbear not configured)
+            saveToDatabase: false, // Don't save yet
+          },
+        },
+        (progress) => {
+          // Update generation progress UI
+          setGenerationProgress(progress);
+          console.log(`[OnboardingPageV5] Generation progress: ${progress.progress}% - ${progress.stage}`);
+        },
+        (retry) => {
+          // Update retry progress UI
+          setRetryProgress(retry);
+          console.log(`[OnboardingPageV5] Retry attempt: ${retry.attempt}/${retry.maxAttempts}`);
+        }
+      );
+
+      console.log('[OnboardingPageV5] Campaign generated:', campaign);
+
+      // Track analytics: Generation complete
+      await funnelTracker.trackOnboardingStep('generation_complete', {
+        campaignId: campaign.id,
+        postsGenerated: campaign.posts.length,
+        campaignType: campaign.campaignType,
+      });
+
+      setIsGenerating(false);
+      setGenerationProgress(null);
+      setRetryProgress(null);
+
+      // Transition to preview
+      setCurrentStep('content_preview');
+
+      // Track analytics: Preview viewed
+      await funnelTracker.trackOnboardingStep('preview_viewed', {
+        campaignId: campaign.id,
+      });
+
+    } catch (error) {
+      console.error('[OnboardingPageV5] Campaign generation failed:', error);
+      setIsGenerating(false);
+      setGenerationProgress(null);
+      setRetryProgress(null);
+
+      // Show error to user
+      setExtractionError(
+        error instanceof Error
+          ? error.message
+          : 'Failed to generate campaign. Please try again.'
+      );
+    }
   };
 
   // Generate single post
@@ -369,7 +493,55 @@ export const OnboardingPageV5: React.FC = () => {
         </div>
       )}
 
-      {currentStep === 'path_selection' && businessData && (
+      {/* Campaign Generation Loading State */}
+      {isGenerating && generationProgress && (
+        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
+          <div className="max-w-2xl w-full">
+            <div className="text-center mb-8">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Generating Your Campaign...
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                AI is crafting {generationProgress.totalPosts} personalized posts
+              </p>
+            </div>
+
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6">
+              <div className="mb-4">
+                <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400 mb-2">
+                  <span className="capitalize">{generationProgress.stage.replace(/_/g, ' ')}</span>
+                  <span>{generationProgress.progress}%</span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                  <div
+                    className="bg-gradient-to-r from-purple-600 to-blue-600 h-3 rounded-full transition-all duration-500"
+                    style={{ width: `${generationProgress.progress}%` }}
+                  ></div>
+                </div>
+              </div>
+
+              {generationProgress.currentPost && generationProgress.currentPost > 0 && (
+                <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
+                  Generating post {generationProgress.currentPost} of {generationProgress.totalPosts}
+                </p>
+              )}
+            </div>
+
+            {/* Retry Progress (if retrying) */}
+            {retryProgress && retryProgress.attempt > 1 && (
+              <div className="mt-4">
+                <RetryProgressComponent
+                  progress={retryProgress}
+                  operation="content generation"
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {currentStep === 'path_selection' && businessData && !isGenerating && (
         <div>
           <div className="bg-white dark:bg-slate-800 shadow-lg rounded-lg p-6 max-w-4xl mx-auto my-8">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
@@ -421,7 +593,7 @@ export const OnboardingPageV5: React.FC = () => {
       )}
 
       {currentStep === 'post_type_selection' && (
-        <SinglePostTypeSelector onSelectPostType={handlePostTypeSelected} />
+        <SinglePostTypeSelector onSelectType={handlePostTypeSelected} />
       )}
 
       {currentStep === 'content_preview' && (
