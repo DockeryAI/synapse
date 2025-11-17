@@ -158,36 +158,11 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
           })}
         </div>
 
-        {/* Mode Toggle */}
+        {/* Mode indicator (read-only, no toggle buttons) */}
         <div className="flex items-center gap-2 ml-4">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onModeChange('preview')}
-            className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
-              ${mode === 'preview'
-                ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
-              }
-            `}
-          >
-            👁️ Preview
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => onModeChange('edit')}
-            className={`
-              px-3 py-1.5 rounded-lg text-sm font-medium transition-all shadow-lg
-              ${mode === 'edit'
-                ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
-                : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
-              }
-            `}
-          >
-            ✏️ Edit
-          </motion.button>
+          <span className="text-xs text-gray-600 dark:text-gray-400">
+            {mode === 'preview' ? '👁️ Preview Mode' : '✏️ Edit Mode'}
+          </span>
         </div>
       </div>
 

@@ -151,16 +151,7 @@ const CampaignPreviewActions: React.FC<CampaignPreviewActionsProps> = ({
       <div className="flex items-center justify-between">
         {/* Left Actions */}
         <div className="flex items-center gap-3">
-          {!isEditing ? (
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={onEdit}
-              className="px-4 py-2 border-2 border-purple-300 dark:border-purple-600 text-purple-700 dark:text-purple-300 rounded-lg hover:bg-purple-50 dark:hover:bg-purple-900/20 transition-all shadow-lg"
-            >
-              ✏️ Edit Content
-            </motion.button>
-          ) : (
+          {isEditing && (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}

@@ -68,12 +68,7 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
   };
 
   return (
-    <motion.div
-      className={className}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-    >
+    <div className={className}>
       {/* Header */}
       <motion.div
         className="mb-8"
@@ -250,7 +245,7 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
           <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </motion.div>
-    </motion.div>
+    </div>
   );
 };
 
