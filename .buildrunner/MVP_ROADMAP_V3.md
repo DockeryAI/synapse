@@ -199,17 +199,44 @@
 
 ---
 
-### **Week 5: Polish & Testing**
+### **Week 5: Polish & Testing + AI Chat**
 **Monday-Wednesday:**
 - End-to-end testing
 - Mobile optimization
 - Video generation testing
 - Social commerce testing
+- **AI Chat Widget** (bottom-right corner)
+- **Conversation Memory System** (Supabase storage)
+- **Voice Input Integration** (react-speech-recognition + Whisper)
 
 **Thursday-Friday:**
-- Alpha test with 5 users
+- Alpha test with 5 users (including AI assistant)
 - Fix critical issues
 - Prepare for beta
+
+---
+
+### **Week 6: AI Assistant - Full Implementation** ⭐ NEW
+**Monday-Wednesday (Worktree 1):**
+- Persistent memory system (tone preferences, business context)
+- Content pattern learning (track what works)
+- Preference persistence (Supabase tables)
+- Context injection (business context in every AI prompt)
+
+**Thursday-Friday (Worktree 2):**
+- Natural language commands (campaign creation, content modification)
+- Topic explorer ("Find trending topics about X")
+- Campaign idea generator ("Give me ideas for Y")
+- Proactive suggestions (engagement drops → suggest video)
+- Visual understanding (upload image → suggest campaign)
+
+**Key Features:**
+- Talk to AI like a marketing expert
+- "Make it funnier" → applies to ALL content forever
+- "Create campaign for X" → complete campaign generated
+- AI learns from successful content patterns
+- Voice commands work everywhere
+- Zero re-configuration needed
 
 ---
 

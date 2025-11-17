@@ -70,7 +70,15 @@
    - [ ] Simplified flow (no complex multi-step)
    - [ ] Clear CTAs: "Continue", "Generate Campaign"
 
-7. **Testing & Verification (1h)**
+7. **AI Assistant Foundation (2h)**
+   - [ ] Create `src/services/ai/AssistantService.ts`
+   - [ ] Natural language → campaign type selection
+   - [ ] Examples: "Create a viral campaign for my bakery"
+   - [ ] Parse intent and map to campaign types
+   - [ ] Connect to existing Claude Sonnet 4.5 integration
+   - [ ] Store conversation context in memory
+
+8. **Testing & Verification (1h)**
    - [ ] Test all 5 campaign types
    - [ ] Verify platform selection logic
    - [ ] Test goal-first flow
@@ -144,7 +152,15 @@
    - [ ] Timezone detection (business location)
    - [ ] Auto-schedule campaign posts at optimal times
 
-7. **Testing & Verification (1h)**
+7. **AI Benchmark Insights (2h)**
+   - [ ] Create `src/services/ai/BenchmarkExplainerService.ts`
+   - [ ] Natural language explanations of benchmark data
+   - [ ] Examples: "Why am I below average?", "How do I improve engagement?"
+   - [ ] Context-aware responses based on campaign performance
+   - [ ] Proactive suggestions when below benchmark
+   - [ ] Connect to Claude Sonnet 4.5 for intelligent explanations
+
+8. **Testing & Verification (1h)**
    - [ ] Test benchmark data display
    - [ ] Verify Day 3 pivot logic
    - [ ] Test performance tracking
@@ -214,7 +230,15 @@
    - [ ] GMB post types: Update, Offer, Event
    - [ ] Preview GMB post in calendar
 
-7. **Testing & Verification (30min)**
+7. **AI Calendar Editor (2h)**
+   - [ ] Create `src/services/ai/CalendarEditorService.ts`
+   - [ ] Natural language calendar modifications
+   - [ ] Examples: "Make next week more casual", "Add more videos"
+   - [ ] Parse intent and update calendar posts
+   - [ ] Preserve campaign narrative arc
+   - [ ] Connect to Claude Sonnet 4.5 for intelligent editing
+
+8. **Testing & Verification (30min)**
    - [ ] Test calendar generation (5, 7, 10, 14 day campaigns)
    - [ ] Verify platform orchestration (2-3 platforms)
    - [ ] Test edit/approve workflow

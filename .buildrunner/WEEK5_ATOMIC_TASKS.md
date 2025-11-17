@@ -88,15 +88,17 @@
 
 ---
 
-## Worktree 2: Polish & Optimization (Mon-Wed, 20h)
+## Worktree 2: Polish & Optimization + AI Chat (Mon-Wed, 24h)
 **Branch:** `feature/polish-optimization`
 **Path:** `../synapse-polish`
 
 ### Atomic Tasks:
 
-1. **Setup & Dependencies (30min)**
+1. **Setup & Dependencies (1h)**
    - [ ] Create worktree from main
    - [ ] Create directory: `src/polish/`
+   - [ ] Install: `react-speech-recognition`, `@humeai/voice-react`
+   - [ ] Create directory: `src/services/ai/`, `src/components/ai/`
 
 2. **Mobile UX Optimization (4h)**
    - [ ] Audit all campaign components on mobile
@@ -154,6 +156,30 @@
    - [ ] Add alt text to all images
    - [ ] Improve color contrast (WCAG AA)
    - [ ] Test with screen reader (VoiceOver)
+
+9. **AI Chat Widget (4h)**
+   - [ ] Create `src/components/ai/ChatWidget.tsx`
+   - [ ] Bottom-right corner chat button (fixed position)
+   - [ ] Expandable chat panel (mobile-responsive)
+   - [ ] Message history display
+   - [ ] Text input + voice input (using react-speech-recognition)
+   - [ ] Connect to Claude Sonnet 4.5 API
+   - [ ] Store conversation history in Supabase
+
+10. **Conversation Memory System (3h)**
+   - [ ] Create Supabase table: `ai_conversations`
+   - [ ] Schema: user_id, message, role, timestamp, campaign_context
+   - [ ] Store all user messages and AI responses
+   - [ ] Retrieve conversation history on page load
+   - [ ] Include business context in AI prompts
+   - [ ] Persist tone preferences and learnings
+
+11. **Voice Input Integration (2h)**
+   - [ ] Implement VoiceProvider from pasted code
+   - [ ] Add microphone button to chat widget
+   - [ ] Real-time transcription (OpenAI Whisper)
+   - [ ] Visual feedback during recording
+   - [ ] Fallback to text input if voice fails
 
 ---
 
