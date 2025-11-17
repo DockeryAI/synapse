@@ -51,6 +51,17 @@ export const OnboardingPageV5: React.FC = () => {
   const [selectedPostType, setSelectedPostType] = useState<PostType | null>(null);
   const [isExtracting, setIsExtracting] = useState(false);
   const [extractionError, setExtractionError] = useState<string | null>(null);
+  const [progressSteps, setProgressSteps] = useState<Array<{step: string; status: 'pending' | 'in_progress' | 'complete' | 'error'; details?: string}>>([]);
+
+  const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
+    setProgressSteps(prev => {
+      const existing = prev.find(s => s.step === step);
+      if (existing) {
+        return prev.map(s => s.step === step ? { ...s, status, details } : s);
+      }
+      return [...prev, { step, status, details }];
+    });
+  };
 
   // Handle URL submission - START UVP extraction process
   const handleUrlSubmit = async (url: string) => {
@@ -59,9 +70,16 @@ export const OnboardingPageV5: React.FC = () => {
     setCurrentStep('uvp_extraction');
     setIsExtracting(true);
     setExtractionError(null);
+    setProgressSteps([
+      { step: 'Extracting UVP Data', status: 'pending' },
+      { step: 'Detecting Location', status: 'pending' },
+      { step: 'Detecting Industry', status: 'pending' },
+      { step: 'Finalizing Discovery', status: 'pending' },
+    ]);
 
     try {
       // Step 1: Extract UVP data with source verification
+      addProgressStep('Extracting UVP Data', 'in_progress', 'Analyzing website content...');
       const extractor = new SmartUVPExtractor();
       const uvpData = await extractor.extractUVP({
         websiteUrl: url,
@@ -69,6 +87,7 @@ export const OnboardingPageV5: React.FC = () => {
         minConfidence: 0.6,
       });
 
+      addProgressStep('Extracting UVP Data', 'complete', `Found ${uvpData.customerTypes.length} customers, ${uvpData.services.length} services, ${uvpData.problemsSolved.length} problems`);
       console.log('[OnboardingPageV5] UVP extracted:', {
         customers: uvpData.customerTypes.length,
         services: uvpData.services.length,
@@ -76,23 +95,29 @@ export const OnboardingPageV5: React.FC = () => {
       });
 
       // Step 2: Detect location
+      addProgressStep('Detecting Location', 'in_progress', 'Analyzing website for location data...');
       const locationResult = await locationDetectionService.detectLocation(url);
 
+      const locationStr = locationResult
+        ? (locationResult.city ? `${locationResult.city}, ${locationResult.state}` : locationResult.state)
+        : 'Not detected';
+      addProgressStep('Detecting Location', 'complete', locationStr);
       console.log('[OnboardingPageV5] Location detected:', locationResult);
 
       // Step 3: Detect industry
-      const industryService = new IndustryMatchingService();
+      addProgressStep('Detecting Industry', 'in_progress', 'Matching services to industry codes...');
       let industry = 'General Business';
 
       if (uvpData.services.length > 0) {
-        const industryMatch = await industryService.matchIndustry(
+        const industryMatch = await IndustryMatchingService.findMatch(
           uvpData.services.map(s => s.text).join(', ')
         );
-        if (industryMatch) {
-          industry = industryMatch.name;
+        if (industryMatch && industryMatch.match) {
+          industry = industryMatch.match.display_name;
         }
       }
 
+      addProgressStep('Detecting Industry', 'complete', industry);
       console.log('[OnboardingPageV5] Industry detected:', industry);
 
       // Combine all detected data
@@ -112,7 +137,14 @@ export const OnboardingPageV5: React.FC = () => {
         },
       };
 
+      addProgressStep('Finalizing Discovery', 'in_progress', 'Preparing summary...');
       setBusinessData(detectedData);
+
+      addProgressStep('Finalizing Discovery', 'complete', 'Discovery complete!');
+
+      // Wait a moment to show completed state
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       setIsExtracting(false);
 
       // Auto-transition to path selection (skipping confirmation for now)
@@ -203,20 +235,79 @@ export const OnboardingPageV5: React.FC = () => {
 
       {currentStep === 'uvp_extraction' && (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              Analyzing Your Business...
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
-              Extracting UVP, detecting location & industry
-            </p>
+          <div className="max-w-2xl w-full">
+            <div className="text-center mb-8">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                Discovering Your Business...
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                AI-powered analysis in progress
+              </p>
+            </div>
+
+            {/* Progress Steps */}
+            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 space-y-4">
+              {progressSteps.map((step, index) => (
+                <div
+                  key={step.step}
+                  className={`flex items-start gap-4 pb-4 ${
+                    index < progressSteps.length - 1 ? 'border-b border-gray-200 dark:border-gray-700' : ''
+                  }`}
+                >
+                  {/* Status Icon */}
+                  <div className="flex-shrink-0 mt-1">
+                    {step.status === 'pending' && (
+                      <div className="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
+                    )}
+                    {step.status === 'in_progress' && (
+                      <div className="w-6 h-6 rounded-full border-2 border-purple-600 border-t-transparent animate-spin"></div>
+                    )}
+                    {step.status === 'complete' && (
+                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      </div>
+                    )}
+                    {step.status === 'error' && (
+                      <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
+                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Step Info */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className={`text-lg font-semibold ${
+                      step.status === 'in_progress'
+                        ? 'text-purple-600 dark:text-purple-400'
+                        : step.status === 'complete'
+                        ? 'text-green-600 dark:text-green-400'
+                        : step.status === 'error'
+                        ? 'text-red-600 dark:text-red-400'
+                        : 'text-gray-500 dark:text-gray-400'
+                    }`}>
+                      {step.step}
+                    </h3>
+                    {step.details && (
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        {step.details}
+                      </p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+
             {extractionError && (
-              <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                <p className="text-red-600 dark:text-red-400">{extractionError}</p>
+              <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
+                <p className="text-red-600 dark:text-red-400 mb-3">{extractionError}</p>
                 <button
                   onClick={() => setCurrentStep('url_input')}
-                  className="mt-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                 >
                   Try Again
                 </button>
