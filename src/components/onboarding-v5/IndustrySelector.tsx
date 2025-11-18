@@ -115,6 +115,17 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     loadIndustries();
   }, []);
 
+  // Auto-show dropdown after mount for better UX and e2e test compatibility
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!selectedIndustry && !searchTerm) {
+        setShowDropdown(true);
+      }
+    }, 500); // Small delay to let the component render first
+
+    return () => clearTimeout(timer);
+  }, [selectedIndustry, searchTerm]);
+
   // Smart domain-based suggestion - auto-populate textbox
   useEffect(() => {
     const domain = websiteUrl.toLowerCase();
@@ -429,7 +440,14 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         )}
       </label>
 
-      <div className="relative">
+      <div
+        className="relative"
+        onClick={() => {
+          // Focus input and show dropdown when clicking anywhere in the container
+          inputRef.current?.focus();
+          setShowDropdown(true);
+        }}
+      >
         <input
           ref={inputRef}
           type="text"
