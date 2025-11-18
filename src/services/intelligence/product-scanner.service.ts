@@ -16,7 +16,6 @@ import type {
 } from '../../types/product.types';
 import { createClient } from '@supabase/supabase-js';
 
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -39,8 +38,8 @@ class ProductScannerService {
   ): Promise<ProductScanResult> {
     console.log('[ProductScanner] Starting product scan for:', businessName);
 
-    if (!OPENROUTER_API_KEY) {
-      console.warn('[ProductScanner] No OpenRouter API key - returning empty results');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('[ProductScanner] No Supabase configuration - returning empty results');
       return {
         products: [],
         primaryOffering: undefined,

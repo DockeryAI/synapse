@@ -3,7 +3,6 @@
  * Uses Claude AI via OpenRouter to extract business messaging from website content
  */
 
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
@@ -80,8 +79,8 @@ class WebsiteAnalyzerService {
     websiteContent: string,
     businessName: string
   ): Promise<WebsiteMessagingAnalysis> {
-    if (!OPENROUTER_API_KEY) {
-      console.warn('[WebsiteAnalyzer] No OpenRouter API key configured - returning empty analysis')
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('[WebsiteAnalyzer] No Supabase configuration - returning empty analysis')
       return {
         valuePropositions: [],
         targetAudience: [],

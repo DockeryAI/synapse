@@ -24,12 +24,14 @@ export class ConnectionDiscoveryEngine {
   ): Promise<ConnectionDiscoveryResult> {
     const startTime = Date.now()
 
-    // Check for API key
-    if (!import.meta.env.VITE_OPENROUTER_API_KEY) {
+    // Check for Supabase configuration (ai-proxy uses OPENROUTER_API_KEY as server-side secret)
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       throw new Error(
-        'Connection Discovery requires OpenRouter API key. ' +
-        'Add VITE_OPENROUTER_API_KEY to your .env file. ' +
-        'Get a free key from https://openrouter.ai/'
+        'Connection Discovery requires Supabase configuration. ' +
+        'Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.'
       )
     }
 

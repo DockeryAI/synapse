@@ -21,10 +21,11 @@ import type {
   EDGINESS_RANGES
 } from '@/types/synapseContent.types';
 
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!OPENROUTER_API_KEY) {
-  throw new Error('VITE_OPENROUTER_API_KEY is not set in .env file');
+if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+  throw new Error('Supabase configuration is missing');
 }
 
 export class HumorOptimizer {
@@ -43,15 +44,14 @@ export class HumorOptimizer {
     console.log('[HumorOptimizer] Enhancing content with edginess level:', edginessLevel, edginessLabel);
 
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'MARBA Synapse Humor Optimizer'
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: 'anthropic/claude-3.5-sonnet',
           messages: [
             {
@@ -59,8 +59,8 @@ export class HumorOptimizer {
               content: prompt
             }
           ],
-          temperature: 0.7,
-          max_tokens: 2000
+          max_tokens: 2000,
+          temperature: 0.7
         })
       });
 
