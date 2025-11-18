@@ -521,7 +521,7 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
               setShowDropdown(false);
             }, 200);
           }}
-          placeholder="e.g., Real Estate, Plumbing, Accounting..."
+          placeholder={searchTerm ? "e.g., Real Estate, Plumbing, Accounting..." : "Start typing..."}
           className={`w-full h-14 px-4 pr-12 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${selectedIndustry ? 'bg-green-50 border-green-500' : ''}`}
           autoComplete="off"
         />

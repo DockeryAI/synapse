@@ -203,17 +203,25 @@ export const OnboardingPageV5: React.FC = () => {
       // Extract business name from website metadata
       let businessName = 'Your Business';
       if (scrapedData?.metadata?.title) {
-        // Try to extract business name from title (remove common suffixes)
-        businessName = scrapedData.metadata.title
-          .replace(/\s*[-|–]\s*(Home|About|Services|Welcome).*$/i, '')
-          .replace(/\s*\|\s*.*$/i, '')
+        // Clean and extract business name from title
+        // First normalize whitespace (replace multiple whitespace with single space)
+        let cleanTitle = scrapedData.metadata.title
+          .replace(/\s+/g, ' ')
           .trim();
 
-        // If title is too long or still generic, check for first h1
-        if (businessName.length > 50 || businessName.toLowerCase().includes('home') || businessName.toLowerCase().includes('welcome')) {
-          const firstH1 = scrapedData.content?.headings?.find((h: string) => h && h.length < 50);
+        // Try to extract business name from title (remove common suffixes and extract before pipe/dash)
+        businessName = cleanTitle
+          .replace(/\s*[-|–]\s*(Home|About|Services|Welcome).*$/i, '')
+          .split(/\s*[|–-]\s*/)[0]  // Get text before first pipe or dash
+          .trim();
+
+        // Only fallback to h1 if extraction failed (empty or too generic)
+        if (!businessName || businessName.length < 3 || businessName.toLowerCase() === 'home') {
+          const firstH1 = scrapedData.content?.headings?.find((h: string) => h && h.length < 50 && h.length > 3);
           if (firstH1) {
             businessName = firstH1.trim();
+          } else {
+            businessName = 'Your Business';
           }
         }
       }
