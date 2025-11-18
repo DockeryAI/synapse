@@ -21,10 +21,11 @@ export class IndustryCodeDetectionService {
   static async detectCode(
     freeformIndustry: string
   ): Promise<CodeDetectionResult> {
-    const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (!OPENROUTER_API_KEY) {
-      throw new Error('OpenRouter API key not configured');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found');
     }
 
     const prompt = `You are an expert in NAICS (North American Industry Classification System) codes and SMB business classification.
@@ -55,15 +56,16 @@ Important:
 - Keywords should be natural search terms people use`;
 
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'HTTP-Referer': window.location.origin,
           'X-Title': 'BranDock Industry Code Detection'
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: 'anthropic/claude-opus-4.1',
           messages: [
             {

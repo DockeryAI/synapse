@@ -243,10 +243,11 @@ export class OnDemandProfileGenerator {
     prompt: string,
     onProgress?: (progress: number) => void
   ): Promise<any> {
-    const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (!OPENROUTER_API_KEY) {
-      throw new Error('OpenRouter API key not configured');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found');
     }
 
     // Track real progress during API call
@@ -261,11 +262,11 @@ export class OnDemandProfileGenerator {
 
     try {
       console.log('[OnDemand] ===== STARTING API CALL =====');
-      console.log('[OnDemand] API Key present:', !!OPENROUTER_API_KEY);
-      console.log('[OnDemand] API Key length:', OPENROUTER_API_KEY?.length);
+      console.log('[OnDemand] Using ai-proxy Edge Function');
       console.log('[OnDemand] Prompt length:', prompt.length);
 
       const requestBody = {
+        provider: 'openrouter',
         model: 'anthropic/claude-opus-4.1', // OPUS 4.1 - ALWAYS USE OPUS FOR ONBOARDING
         messages: [
           {
@@ -278,15 +279,15 @@ export class OnDemandProfileGenerator {
       };
 
       console.log('[OnDemand] Request body:', JSON.stringify(requestBody, null, 2).substring(0, 500));
-      console.log('[OnDemand] Making fetch request to OpenRouter...');
+      console.log('[OnDemand] Making fetch request to ai-proxy...');
 
       const fetchStartTime = Date.now();
 
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'HTTP-Referer': window.location.origin,
           'X-Title': 'BranDock Industry Profile Generator'
         },

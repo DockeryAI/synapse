@@ -141,10 +141,11 @@ export class NAICSDetectorService {
     freeformIndustry: string,
     fuzzyMatches: NAICSOption[]
   ): Promise<NAICSCandidate> {
-    const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (!OPENROUTER_API_KEY) {
-      throw new Error('OpenRouter API key not configured');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found');
     }
 
     const fuzzyContext = fuzzyMatches.length > 0
@@ -184,15 +185,16 @@ Important:
 
     const rawResult = await callAPIWithRetry(
       async () => {
-        const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
             'HTTP-Referer': window.location.origin,
             'X-Title': 'Synapse NAICS Detection'
           },
           body: JSON.stringify({
+            provider: 'openrouter',
             model: 'anthropic/claude-opus-4.1',
             messages: [{ role: 'user', content: prompt }],
             temperature: 0.3, // Lower temperature for more deterministic results

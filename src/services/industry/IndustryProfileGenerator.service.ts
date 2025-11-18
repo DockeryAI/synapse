@@ -295,13 +295,14 @@ export class IndustryProfileGenerator {
     prompt: string,
     onProgress?: (progress: number) => void
   ): Promise<any> {
-    const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-    if (!OPENROUTER_API_KEY) {
-      throw new Error('OpenRouter API key not configured');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found');
     }
 
-    console.log('[IndustryProfileGenerator] Calling Opus API...');
+    console.log('[IndustryProfileGenerator] Using ai-proxy Edge Function');
 
     // Simulate progress during API call
     const progressInterval = setInterval(() => {
@@ -312,15 +313,16 @@ export class IndustryProfileGenerator {
     try {
       const response = await callAPIWithRetry(
         async () => {
-          const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+          const res = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
               'HTTP-Referer': window.location.origin,
               'X-Title': 'Synapse Industry Profile Generator'
             },
             body: JSON.stringify({
+              provider: 'openrouter',
               model: 'anthropic/claude-opus-4.1',
               messages: [{ role: 'user', content: prompt }],
               temperature: 0.7,
