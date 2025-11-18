@@ -18,23 +18,11 @@ import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight } fr
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { IndustrySelector, type IndustryOption } from './IndustrySelector';
+import type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
 
 interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
   onUrlSubmit?: (url: string, industry: IndustryOption) => void;
-}
-
-interface DetectedBusinessData {
-  url: string;
-  businessName: string;
-  industry: string;
-  location: string;
-  services: string[];
-  competitors: string[];
-  sources: {
-    website: string;
-    verified: boolean;
-  };
 }
 
 type DetectionStatus =
@@ -129,6 +117,8 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
       url: websiteUrl,
       businessName: 'Acme Business',
       industry: 'Professional Services',
+      industryCode: '541990',
+      specialization: 'Business Consulting',
       location: 'San Francisco, CA',
       services: ['Service A', 'Service B', 'Service C'],
       competitors: ['Competitor 1', 'Competitor 2'],

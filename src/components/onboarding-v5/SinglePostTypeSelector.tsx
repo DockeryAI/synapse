@@ -20,16 +20,7 @@ import {
   Mail,
   GraduationCap,
 } from 'lucide-react';
-
-export type PostType =
-  | 'customer_success'
-  | 'service_spotlight'
-  | 'problem_solution'
-  | 'value_proposition'
-  | 'community_engagement'
-  | 'blog_article'
-  | 'newsletter'
-  | 'educational_tip';
+import type { PostType } from '@/types/campaign-generation.types';
 
 interface PostTypeOption {
   id: PostType;
@@ -91,8 +82,8 @@ const POST_TYPES: PostTypeOption[] = [
     requiresModal: false,
   },
   {
-    id: 'blog_article',
-    title: 'Blog Article',
+    id: 'educational',
+    title: 'Educational Content',
     description: 'In-depth article based on your expertise and verified content.',
     badge: { text: 'Source Verified', type: 'source_verified' },
     icon: <BookOpen className="w-6 h-6" />,
@@ -100,21 +91,21 @@ const POST_TYPES: PostTypeOption[] = [
     requiresModal: false,
   },
   {
-    id: 'newsletter',
-    title: 'Newsletter Content',
-    description: 'Email newsletter with updates, tips, or insights from your business.',
+    id: 'promotional',
+    title: 'Promotional Content',
+    description: 'Promotional content highlighting your services or offerings.',
     badge: { text: 'Source Verified', type: 'source_verified' },
     icon: <Mail className="w-6 h-6" />,
-    example: '"This month\'s updates and tips from [Business]"',
+    example: '"Special offer: [Service/Product]"',
     requiresModal: false,
   },
   {
-    id: 'educational_tip',
-    title: 'Educational Tip',
-    description: 'Quick, valuable tip or insight related to your expertise.',
+    id: 'behind_the_scenes',
+    title: 'Behind the Scenes',
+    description: 'Share insights about your process or business operations.',
     badge: { text: 'Source Verified', type: 'source_verified' },
     icon: <GraduationCap className="w-6 h-6" />,
-    example: '"Pro tip: [Expert advice from your experience]"',
+    example: '"How we [Process/Method]"',
     requiresModal: false,
   },
 ];

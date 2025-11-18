@@ -13,7 +13,7 @@ import { SmartConfirmation, type RefinedBusinessData } from '@/components/onboar
 import { InsightsDashboard } from '@/components/onboarding-v5/InsightsDashboard';
 import { SmartSuggestions } from '@/components/onboarding-v5/SmartSuggestions';
 import { PathSelector, ContentPath } from '@/components/onboarding-v5/PathSelector';
-import { SinglePostTypeSelector, PostType } from '@/components/onboarding-v5/SinglePostTypeSelector';
+import { SinglePostTypeSelector } from '@/components/onboarding-v5/SinglePostTypeSelector';
 import { ContentPreview } from '@/components/onboarding-v5/ContentPreview';
 import { GenerationProgressComponent } from '@/components/onboarding-v5/GenerationProgress';
 import { OnboardingCampaignPreview } from '@/components/onboarding-v5/OnboardingCampaignPreview';
@@ -33,7 +33,7 @@ import type {
   PostGenerationInput,
   GenerationProgress,
 } from '@/types/campaign-generation.types';
-import { mapCampaignIdToType, mapPostIdToType } from '@/types/campaign-generation.types';
+import { mapCampaignIdToType, mapPostIdToType, PostType } from '@/types/campaign-generation.types';
 
 type FlowStep =
   | 'url_input'
@@ -48,7 +48,7 @@ type FlowStep =
   | 'content_preview'
   | 'complete';
 
-interface DetectedBusinessData {
+export interface DetectedBusinessData {
   url: string;
   businessName: string;
   industry: string;
@@ -152,7 +152,7 @@ export const OnboardingPageV5: React.FC = () => {
       // Combine all detected data
       const detectedData: DetectedBusinessData = {
         url,
-        businessName: uvpData.businessName || 'Your Business',
+        businessName: 'Your Business', // ExtractedUVPData doesn't include businessName
         industry: industry.displayName,
         industryCode: industry.naicsCode,
         specialization,
@@ -187,9 +187,9 @@ export const OnboardingPageV5: React.FC = () => {
   };
 
   // Legacy handler for OnboardingFlow component
-  const handleBusinessDetected = (data: DetectedBusinessData) => {
-    console.log('[OnboardingPageV5] Business detected (legacy):', data);
-    setBusinessData(data);
+  const handleBusinessDetected = (businessData: DetectedBusinessData) => {
+    console.log('[OnboardingPageV5] Business detected (legacy):', businessData);
+    setBusinessData(businessData);
     setCurrentStep('path_selection');
   };
 
@@ -380,8 +380,8 @@ export const OnboardingPageV5: React.FC = () => {
     });
 
     try {
-      const postType = mapPostIdToType(postId);
-      setSelectedPostType(postType);
+      const postType: PostType = mapPostIdToType(postId);
+      setSelectedPostType(postType as PostType);
 
       // Update progress stages
       setGenerationProgress({
