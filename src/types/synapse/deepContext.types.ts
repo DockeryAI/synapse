@@ -8,7 +8,14 @@
  * Created: 2025-11-10
  */
 
-import { NormalizedCulturalData } from './culturalIntelligence.types';
+// Temporary stub for cultural intelligence data
+// TODO: Create proper culturalIntelligence.types.ts file
+export interface NormalizedCulturalData {
+  trends?: any[];
+  moments?: any[];
+  signals?: any[];
+  [key: string]: any;
+}
 
 // ============================================================================
 // BUSINESS CONTEXT
@@ -463,28 +470,6 @@ export interface AggregatorOptions {
 }
 
 // ============================================================================
-// EXPORTS
+// NOTE: All types are already exported with 'export interface' above
+// No need for duplicate export type block
 // ============================================================================
-
-export type {
-  DeepContext,
-  BusinessContext,
-  IndustryContext,
-  CompetitiveIntelligence,
-  CustomerPsychology,
-  Synthesis,
-  Pattern,
-  ContentAngle,
-  CompetitorBlindSpot,
-  CompetitorMistake,
-  MarketGap,
-  ContentOpportunity,
-  UnarticuatedNeed,
-  EmotionalTrigger,
-  BehaviorPattern,
-  IdentityDesire,
-  PurchaseMotivation,
-  CustomerObjection,
-  EnrichedContext,
-  AggregatorOptions
-};

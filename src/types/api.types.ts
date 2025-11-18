@@ -1,7 +1,17 @@
 // Type definitions for API requests and responses
 
 import type { ContentGenerationMode, ContentPlatform } from './content.types';
-import type { MirrorSectionType } from './mirror.types';
+
+// Temporary stub for Mirror types (TODO: Create proper mirror.types.ts file)
+export type MirrorSectionType =
+  | 'brand_health'
+  | 'market_position'
+  | 'audience'
+  | 'objectives'
+  | 'strategy'
+  | 'tactics'
+  | 'performance'
+  | string;
 
 // Generic API Response
 export interface APIResponse<T = any> {

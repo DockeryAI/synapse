@@ -195,14 +195,23 @@ export interface OptimalTimeRecommendation {
 }
 
 /**
+ * Queue status
+ */
+export type QueueStatus = 'pending' | 'publishing' | 'published' | 'failed';
+
+/**
  * Publishing queue item
  */
 export interface PublishingQueueItem {
   content: ContentItem;
-  status: 'pending' | 'publishing' | 'published' | 'failed';
+  status: QueueStatus;
   retry_count?: number;
   next_retry?: string;
   error?: string;
+  created_at?: string;
+  updated_at?: string;
+  published_at?: string;
+  platform_post_id?: string;
 }
 
 /**

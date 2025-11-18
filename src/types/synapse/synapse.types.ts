@@ -7,7 +7,7 @@
  * Created: 2025-11-10
  */
 
-import { Connection } from './connections.types';
+import { Connection } from '../connections.types';
 import { DeepContext } from './deepContext.types';
 
 // ============================================================================

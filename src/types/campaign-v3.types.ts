@@ -385,18 +385,6 @@ export interface ContentTemplate {
 }
 
 // ============================================================================
-// EXPORT TYPES FOR CONVENIENCE
+// NOTE: All types are already exported above
+// No need for duplicate export block
 // ============================================================================
-
-export type {
-  // Main types
-  CampaignTypeV3 as CampaignType,
-  CampaignV3Config as Campaign,
-  CampaignPostV3 as Post,
-
-  // Selection types
-  BusinessGoal,
-  PlatformV3 as Platform,
-  BusinessType,
-  CampaignDuration,
-};

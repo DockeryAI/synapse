@@ -10,7 +10,13 @@
  */
 
 import type { Template, Platform, ContentType } from './template.types';
-import type { SynapseScore } from './synapse.types';
+
+// Temporary stub for SynapseScore - TODO: Create proper definition
+export interface SynapseScore {
+  overall: number;
+  breakdown?: Record<string, number>;
+  [key: string]: any;
+}
 
 // ============================================================================
 // GENERATION REQUESTS

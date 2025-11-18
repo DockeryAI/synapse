@@ -12,23 +12,11 @@ export type {
   ThinkingStyle,
   InsightType,
   ModelConfig,
-  SynapseScore,
-  PowerWord,
-  PowerWordCategory,
-  PowerWordAnalysis,
-  EmotionalTrigger,
-  EmotionalTriggerType,
-  EmotionalTriggerAnalysis,
-  ReadabilityScore,
-  CallToActionAnalysis,
-  CTAType,
-  ContentOptimizationRequest,
-  ContentOptimizationResult,
-  OptimizationImprovement,
-  SynapseConfig,
-  ContentQualityIndicator,
-  SynapseBreakdown
+  // Note: The following types were removed as they don't exist in synapse/synapse.types.ts:
+  // SynapseScore, PowerWord, PowerWordCategory, PowerWordAnalysis,
+  // EmotionalTrigger, EmotionalTriggerType, EmotionalTriggerAnalysis,
+  // ReadabilityScore, CallToActionAnalysis, CTAType,
+  // ContentOptimizationRequest, ContentOptimizationResult, OptimizationImprovement,
+  // SynapseConfig, ContentQualityIndicator, SynapseBreakdown
+  // synapseToUserFacing function
 } from './synapse/synapse.types';
-
-// Re-export the conversion function
-export { synapseToUserFacing } from './synapse/synapse.types';
