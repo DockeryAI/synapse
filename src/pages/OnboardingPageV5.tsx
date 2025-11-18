@@ -25,7 +25,7 @@ import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.servic
 import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
 import { scrapeWebsite } from '@/services/scraping/websiteScraper';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
-import { ProductScannerService } from '@/services/intelligence/product-scanner.service';
+import { productScannerService } from '@/services/intelligence/product-scanner.service';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -256,8 +256,6 @@ export const OnboardingPageV5: React.FC = () => {
       let comprehensiveServices: string[] = uvpData.services.map(s => s.text);
 
       try {
-        const productScanner = new ProductScannerService();
-
         // Format website content for scanning
         const websiteContentText = [
           scrapedData.content.headings.join('\n'),
@@ -266,7 +264,7 @@ export const OnboardingPageV5: React.FC = () => {
         ].join('\n\n');
 
         console.log('[OnboardingPageV5] Starting comprehensive product scan...');
-        const productScanResult = await productScanner.scanProducts(
+        const productScanResult = await productScannerService.scanProducts(
           websiteContentText,
           businessName,
           industry.displayName
