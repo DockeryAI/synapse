@@ -24,7 +24,11 @@ export type InsightType =
   | 'cultural_moment'
   | 'hidden_pattern'
   | 'strategic_implication'
-  | 'behavioral_contradiction';
+  | 'behavioral_contradiction'
+  | 'audience'
+  | 'differentiator'
+  | 'problem'
+  | 'service';
 
 // ============================================================================
 // AI MODEL CONFIGURATION
