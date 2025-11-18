@@ -89,7 +89,8 @@ const ContentSectionDisplay: React.FC<ContentSectionDisplayProps> = ({
           {editable && (
             <button
               onClick={onEdit}
-              className="px-3 py-2 min-h-[44px] min-w-[44px] text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded transition-colors flex items-center justify-center gap-1"
+              aria-label={`Edit ${sectionLabels[section]}`}
+              className="px-3 py-2 min-h-[44px] min-w-[44px] text-xs bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300 rounded transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 flex items-center justify-center gap-1"
             >
               <span>✏️</span>
               <span className="hidden sm:inline">Edit</span>
@@ -203,15 +204,24 @@ const SocialMediaPreview: React.FC<SocialMediaPreviewProps> = ({ platform, conte
       {/* Post Footer (simulated) */}
       <div className="p-3 sm:p-4 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500 dark:text-gray-400">
-          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
+          <button
+            aria-label="Like this post"
+            className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] px-2 rounded"
+          >
             <span>👍</span>
             <span className="hidden sm:inline">Like</span>
           </button>
-          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
+          <button
+            aria-label="Comment on this post"
+            className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] px-2 rounded"
+          >
             <span>💬</span>
             <span className="hidden sm:inline">Comment</span>
           </button>
-          <button className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors min-h-[44px] px-2">
+          <button
+            aria-label="Share this post"
+            className="flex items-center gap-1.5 sm:gap-2 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-200 hover:scale-105 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 min-h-[44px] px-2 rounded"
+          >
             <span>🔄</span>
             <span className="hidden sm:inline">Share</span>
           </button>
