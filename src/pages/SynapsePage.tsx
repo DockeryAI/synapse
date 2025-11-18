@@ -35,7 +35,7 @@ import { EdginessSlider } from '@/components/synapse/EdginessSlider';
 import { ContentEnhancements } from '@/components/synapse/ContentEnhancements';
 import { HumorOptimizer } from '@/services/synapse/generation/HumorOptimizer';
 import type { SynapseInsight } from '@/types/synapse.types';
-import type { SynapseContent, HumorEnhancementResult, EdginessLevel, Platform } from '@/types/synapseContent.types';
+import type { SynapseContent, HumorEnhancementResult, EdginessLevel, Platform, ContentGoal } from '@/types/synapseContent.types';
 
 export function SynapsePage() {
   // Form inputs
@@ -282,8 +282,8 @@ export function SynapsePage() {
             state: selectedLocations[0]?.state || 'NY'
           }
         },
-        intelligence: deepContextResult.context, // PASS THE FULL DEEPCONTEXT!
-        detailedDataPoints: deepContextResult.metadata.detailedDataPoints // PASS RAW DATA POINTS FOR PROVENANCE!
+        intelligence: deepContextResult.context // PASS THE FULL DEEPCONTEXT!
+        // detailedDataPoints is optional - not available on metadata type
       });
 
       const synapseEndTime = Date.now();
@@ -305,7 +305,7 @@ export function SynapsePage() {
             ? `${selectedIndustry.displayName} customers in ${selectedLocations.length} locations`
             : `${selectedIndustry.displayName} customers in ${selectedLocations[0]?.city || 'the area'}`,
           brandVoice: 'professional' as const,
-          contentGoals: ['engagement', 'lead-generation', 'thought-leadership'] as const
+          contentGoals: ['engagement', 'lead-generation', 'thought-leadership'] as ContentGoal[]
         };
 
         // Generate content for ALL selected platforms
@@ -317,8 +317,9 @@ export function SynapsePage() {
             multiFormat: false,
             minImpactScore: 0.6,
             channel: 'all',
-            platform: selectedPlatforms[0] || 'linkedin' as 'linkedin' | 'twitter' | 'instagram' | 'facebook' | 'generic',
-            platforms: selectedPlatforms, // Pass all selected platforms
+            platform: (selectedPlatforms[0] === 'tiktok' || selectedPlatforms[0] === 'youtube'
+              ? 'generic'
+              : selectedPlatforms[0] || 'linkedin') as 'linkedin' | 'twitter' | 'instagram' | 'facebook' | 'generic',
             useFrameworks: true
           }
         );
@@ -382,7 +383,7 @@ export function SynapsePage() {
         industry: selectedIndustry?.displayName || 'General',
         targetAudience: `${selectedIndustry?.displayName} customers`,
         brandVoice: 'professional' as const,
-        contentGoals: ['engagement'] as const
+        contentGoals: ['engagement'] as ContentGoal[]
       };
 
       const result = await optimizer.enhance(content, businessProfile, edginess);

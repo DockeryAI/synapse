@@ -63,7 +63,7 @@ export function ProfileGenerationProgress({
 
   const getCurrentPhaseIndex = () => {
     if (isComplete) return phases.length;
-    if (isError) return phases.indexOf(stage);
+    if (isError) return -1; // Error state doesn't have an index
     return phases.indexOf(stage as typeof phases[number]);
   };
 

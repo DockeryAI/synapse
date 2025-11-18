@@ -44,7 +44,7 @@ export function ContentEnhancements({
   const generator = new SynapseContentGenerator();
 
   // Validate character counts
-  const validation = generator.validateContent(content, ['LinkedIn', 'Twitter']);
+  const validation = generator.validateContent(content, ['linkedin', 'twitter']);
   const charCounts = generator.getCharacterSummary(content);
 
   // Handle section regeneration
@@ -123,7 +123,7 @@ export function ContentEnhancements({
       <div className="space-y-3">
         {(['headline', 'hook', 'body', 'cta'] as ContentSection[]).map((section) => {
           const result = regenerationResults[section];
-          const sectionValidation = validation.validations.find(v => v.section === section && v.platform === 'LinkedIn');
+          const sectionValidation = validation.validations.find(v => v.section === section && v.platform === 'linkedin');
 
           return (
             <div key={section} className="border border-gray-200 dark:border-slate-700 rounded-lg p-3">

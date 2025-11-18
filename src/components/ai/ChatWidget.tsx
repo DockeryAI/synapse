@@ -53,7 +53,10 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
   onMessage,
 }) => {
   // Services
-  const aiService = useRef(new ClaudeAIService({ apiKey }));
+  const aiService = useRef(new ClaudeAIService({
+    apiKey,
+    model: 'claude-sonnet-4-5-20250929'
+  }));
   const storageService = useRef(
     new ConversationStorageService(supabaseUrl, supabaseKey)
   );
@@ -111,7 +114,6 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
     setState((prev) => ({ ...prev, isLoading: true }));
 
     const context: ConversationContext = {
-      businessContext: businessContext ? JSON.stringify(businessContext) : undefined,
       currentPage: window.location.pathname,
     };
 
@@ -159,7 +161,7 @@ export const ChatWidget: React.FC<ChatWidgetProps> = ({
         message: content,
         conversationHistory: messages,
         context: {
-          businessContext: businessContext ? JSON.stringify(businessContext) : undefined,
+          currentPage: window.location.pathname,
         },
       });
 
