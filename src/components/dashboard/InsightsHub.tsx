@@ -170,7 +170,7 @@ export function InsightsHub({ insights }: InsightsHubProps) {
 
         {/* Location Data */}
         {insights.locationData && (
-          <Section title="Location & Service Area" icon={<MapPin className="w-5 h-5" />}>
+          <Section title="Location" icon={<MapPin className="w-5 h-5" />}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {insights.locationData.address && (
                 <div>

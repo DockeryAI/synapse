@@ -585,10 +585,10 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
                 )}
               </div>
 
-              {/* Service Area */}
+              {/* Location */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Service Area
+                  Location
                 </label>
                 {isEditingLocation ? (
                   <div className="flex gap-2">

@@ -24,6 +24,7 @@ import { IndustryMatchingService } from '@/services/industry/IndustryMatchingSer
 import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
 import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
 import { scrapeWebsite } from '@/services/scraping/websiteScraper';
+import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -226,25 +227,19 @@ export const OnboardingPageV5: React.FC = () => {
         }
       }
 
-      // Extract potential service area from footer or contact sections
+      // Detect location using location detection service
       let serviceArea: string | undefined;
-      if (scrapedData?.content?.paragraphs) {
-        // Look for location patterns in last 10 paragraphs (usually footer)
-        const footerParagraphs = scrapedData.content.paragraphs.slice(-10);
-        for (const para of footerParagraphs) {
-          // Match patterns like "Serving Dallas, TX" or "Located in San Francisco"
-          const locationMatch = para.match(/(?:Serving|Located in|Based in|Service Area:?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*,?\s+[A-Z]{2})/i);
-          if (locationMatch) {
-            serviceArea = locationMatch[1].trim();
-            break;
-          }
+      try {
+        const locationResult = await locationDetectionService.detectLocation(url, industry.displayName);
+        if (locationResult && locationResult.confidence > 0.5) {
+          serviceArea = `${locationResult.city}, ${locationResult.state}`;
+          console.log('[OnboardingPageV5] Location detected:', serviceArea, 'via', locationResult.method, `(${Math.round(locationResult.confidence * 100)}% confidence)`);
         }
+      } catch (error) {
+        console.warn('[OnboardingPageV5] Location detection failed:', error);
       }
 
       console.log('[OnboardingPageV5] Extracted business name:', businessName);
-      if (serviceArea) {
-        console.log('[OnboardingPageV5] Detected service area:', serviceArea);
-      }
 
       // Step 2: Analyze website and extract UVP data
       const extractor = new SmartUVPExtractor();
@@ -465,12 +460,13 @@ export const OnboardingPageV5: React.FC = () => {
       setCurrentBrand(brandData);
       console.log('[OnboardingPageV5] Brand set in context');
 
-      // Step 5: Move to suggestions
-      setCurrentStep('suggestions');
+      // Step 5: Navigate to dashboard
+      console.log('[OnboardingPageV5] Onboarding complete - redirecting to dashboard');
+      navigate('/dashboard');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save insights:', error);
-      // Continue anyway to prevent blocking the user
-      setCurrentStep('suggestions');
+      // Navigate to dashboard anyway to prevent blocking the user
+      navigate('/dashboard');
     }
   };
 
