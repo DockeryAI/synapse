@@ -340,11 +340,15 @@ export const OnboardingPageV5: React.FC = () => {
       });
     }
 
-    // Set refined data and move to insights
+    // Set refined data and immediately save to database and navigate to dashboard
     setRefinedData(refined);
-    console.log('[OnboardingPageV5] Setting currentStep to insights');
-    setCurrentStep('insights');
-    console.log('[OnboardingPageV5] currentStep set to insights');
+    console.log('[OnboardingPageV5] Refined data set, now saving and navigating to dashboard');
+
+    // Call handleInsightsContinue to save data and navigate
+    // Use setTimeout to ensure state updates complete
+    setTimeout(() => {
+      handleInsightsContinue();
+    }, 0);
   };
 
   // Handle insights continue - user reviewed insights, save to database and move to suggestions

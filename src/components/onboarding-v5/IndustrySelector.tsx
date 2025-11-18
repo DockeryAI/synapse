@@ -466,9 +466,8 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
       <div
         className="relative"
         onClick={() => {
-          // Focus input and show dropdown when clicking anywhere in the container
+          // Focus input when clicking anywhere in the container
           inputRef.current?.focus();
-          setShowDropdown(true);
         }}
       >
         <input
@@ -476,8 +475,10 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           type="text"
           value={searchTerm}
           onFocus={() => {
-            // Show dropdown on focus so users can see options
-            setShowDropdown(true);
+            // Only show dropdown if user has typed something
+            if (searchTerm.length > 0) {
+              setShowDropdown(true);
+            }
           }}
           onChange={(e) => {
             const value = e.target.value;
