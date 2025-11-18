@@ -19,6 +19,13 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
     // Complete onboarding flow
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+
+    // Click the input to open dropdown (auto-show has 500ms delay)
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+
+    // Wait for dropdown option to appear
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
@@ -142,6 +149,13 @@ test.describe('Campaign Preview and Editing', () => {
     await page.goto('/onboarding-v5');
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+
+    // Click the input to open dropdown
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+
+    // Wait for dropdown option to appear
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     

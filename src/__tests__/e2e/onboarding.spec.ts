@@ -23,6 +23,13 @@ test.describe('Onboarding Flow', () => {
     
     // Select industry (wait for industry selector to load)
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+
+    // Click the input to open dropdown
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+
+    // Wait for dropdown option to appear
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     
     // Click Get Started
@@ -78,6 +85,9 @@ test.describe('Onboarding Flow', () => {
     
     // Select industry
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     
     // Try to submit
@@ -107,6 +117,9 @@ test.describe('Onboarding Flow', () => {
     // Complete URL input
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
@@ -134,6 +147,9 @@ test.describe('Onboarding Flow', () => {
     // Complete URL input
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
@@ -156,6 +172,9 @@ test.describe('Onboarding Flow', () => {
     // Complete URL input
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
@@ -175,6 +194,9 @@ test.describe('Multi-select Functionality', () => {
     // Skip to confirmation (assuming URL submitted successfully)
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
@@ -202,6 +224,9 @@ test.describe('Multi-select Functionality', () => {
     
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
+    const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
+    await industryInput.click();
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
     await page.click('[data-testid="industry-option-restaurant"]');
     await page.click('button:has-text("Get Started")');
     
