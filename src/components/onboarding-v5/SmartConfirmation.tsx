@@ -170,6 +170,13 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
   };
 
   const handleConfirm = () => {
+    console.log('[SmartConfirmation] handleConfirm called');
+    console.log('[SmartConfirmation] Data:', {
+      selectedServices,
+      selectedCustomers,
+      selectedValueProps,
+      canContinue: selectedServices.length > 0 && selectedCustomers.length > 0 && selectedValueProps.length > 0
+    });
     onConfirm({
       businessName: editedBusinessName,
       specialization,
@@ -182,6 +189,11 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
   };
 
   const canContinue = selectedServices.length > 0 && selectedCustomers.length > 0 && selectedValueProps.length > 0;
+  console.log('[SmartConfirmation] canContinue:', canContinue, {
+    services: selectedServices.length,
+    customers: selectedCustomers.length,
+    valueProps: selectedValueProps.length
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 p-4 py-8">
@@ -223,11 +235,13 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             </div>
 
             <div className="flex flex-wrap gap-2 mb-3">
-              {allServices.map((service) => {
+              {allServices.map((service, index) => {
                 const isSelected = selectedServices.includes(service);
                 return (
                   <button
                     key={service}
+                    data-testid={`service-chip-${index}`}
+                    aria-pressed={isSelected}
                     onClick={() => toggleService(service)}
                     className={`
                       px-4 py-2 rounded-lg border-2 transition-all min-h-[44px]

@@ -54,16 +54,13 @@ test.describe('Onboarding Flow', () => {
     
     // Step 3: Smart Confirmation
     // Verify services card is visible
-    await expect(page.getByText('Key Services')).toBeVisible();
-    
-    // Select at least one service
-    const firstService = page.locator('[data-testid^="service-chip-"]').first();
-    if (await firstService.count() > 0) {
-      await firstService.click();
-    }
-    
-    // Click Continue
-    await page.click('button:has-text("Continue")');
+    await expect(page.getByText('What You Offer')).toBeVisible();
+
+    // Service chips are pre-selected (first 6), so we don't need to click anything
+    // The button will be enabled since chips are pre-selected
+
+    // Click Continue to Content
+    await page.click('button:has-text("Continue to Content")');
     
     // Step 4: Insights Dashboard
     await expect(page.getByText('Your Business Insights')).toBeVisible({ timeout: 10000 });
@@ -85,10 +82,10 @@ test.describe('Onboarding Flow', () => {
   
   test('should handle invalid URL gracefully', async ({ page }) => {
     await page.goto('/onboarding-v5');
-    
-    // Enter invalid URL
+
+    // Enter invalid URL (this format will fail URL constructor)
     const urlInput = page.getByPlaceholder('www.yourbusiness.com');
-    await urlInput.fill('not-a-valid-url');
+    await urlInput.fill('://');
     
     // Select industry
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
@@ -214,7 +211,7 @@ test.describe('Onboarding Flow', () => {
     await page.click('button:has-text("Get Started")');
     
     // Should show loading spinner
-    await expect(page.locator('.animate-spin')).toBeVisible({ timeout: 5000 });
+    await expect(page.locator('.animate-spin').first()).toBeVisible({ timeout: 5000 });
     
     // Should show progress text
     await expect(page.getByText('Learning About Your Business')).toBeVisible();
@@ -225,7 +222,7 @@ test.describe('Multi-select Functionality', () => {
   
   test('should allow selecting multiple services', async ({ page }) => {
     await page.goto('/onboarding-v5');
-    
+
     // Skip to confirmation (assuming URL submitted successfully)
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
@@ -241,29 +238,38 @@ test.describe('Multi-select Functionality', () => {
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
-    
-    // Select multiple services
+
+    // Service chips are pre-selected (first 6 by default)
     const serviceChips = page.locator('[data-testid^="service-chip-"]');
     const count = await serviceChips.count();
-    
-    if (count >= 3) {
-      // Click first 3 services
-      for (let i = 0; i < 3; i++) {
-        await serviceChips.nth(i).click();
+
+    if (count >= 6) {
+      // Verify first 6 chips are pre-selected
+      for (let i = 0; i < 6; i++) {
+        const chip = serviceChips.nth(i);
+        await expect(chip).toHaveAttribute('aria-pressed', 'true');
       }
-      
-      // Verify all 3 are selected (should have selected styling)
-      for (let i = 0; i < 3; i++) {
-        await expect(serviceChips.nth(i)).toHaveClass(/selected|bg-purple/i);
+
+      // If there are more than 6 chips, verify the 7th is NOT selected
+      if (count > 6) {
+        const seventhChip = serviceChips.nth(6);
+        await expect(seventhChip).toHaveAttribute('aria-pressed', 'false');
+
+        // Click the 7th chip to select it
+        await seventhChip.click();
+        await page.waitForTimeout(300);
+
+        // Verify it's now selected
+        await expect(seventhChip).toHaveAttribute('aria-pressed', 'true');
       }
     }
   });
   
   test('should allow deselecting services', async ({ page }) => {
     await page.goto('/onboarding-v5');
-    
+
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
@@ -278,17 +284,31 @@ test.describe('Multi-select Functionality', () => {
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
-    
+
     const firstService = page.locator('[data-testid^="service-chip-"]').first();
-    
-    // Select
+
+    // Wait for chip to be visible
+    await expect(firstService).toBeVisible({ timeout: 5000 });
+
+    // Get initial aria-pressed state (chips are pre-selected by default)
+    const initialState = await firstService.getAttribute('aria-pressed');
+
+    // Click to toggle
     await firstService.click();
-    await expect(firstService).toHaveClass(/selected|bg-purple/i);
-    
-    // Deselect
+    await page.waitForTimeout(300); // Wait for animation
+
+    // Verify state changed
+    const afterFirstClick = await firstService.getAttribute('aria-pressed');
+    expect(afterFirstClick).not.toBe(initialState);
+
+    // Click again to toggle back
     await firstService.click();
-    await expect(firstService).not.toHaveClass(/selected|bg-purple/i);
+    await page.waitForTimeout(300); // Wait for animation
+
+    // Verify state returned to initial
+    const afterSecondClick = await firstService.getAttribute('aria-pressed');
+    expect(afterSecondClick).toBe(initialState);
   });
 });

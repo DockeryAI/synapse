@@ -23,6 +23,7 @@ import type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
 interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
   onUrlSubmit?: (url: string, industry: IndustryOption) => void;
+  error?: string | null;
 }
 
 type DetectionStatus =
@@ -55,22 +56,25 @@ const DETECTION_STEPS: StatusStep[] = [
   { id: 'complete', label: 'Detection complete!', icon: <CheckCircle className="w-5 h-5" /> },
 ];
 
-export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUrlSubmit }) => {
+export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUrlSubmit, error: propError }) => {
   const [url, setUrl] = useState('');
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
   const [status, setStatus] = useState<DetectionStatus>('idle');
-  const [error, setError] = useState<string | null>(null);
+  const [localError, setLocalError] = useState<string | null>(null);
+
+  // Use prop error if provided, otherwise use local error
+  const error = propError || localError;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!url.trim()) {
-      setError('Please enter your website URL');
+      setLocalError('Please enter your website URL');
       return;
     }
 
     if (!selectedIndustry) {
-      setError('Please select your business type');
+      setLocalError('Please select your business type');
       return;
     }
 
@@ -79,11 +83,11 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
     try {
       new URL(fullUrl);
     } catch {
-      setError('Please enter a valid website URL');
+      setLocalError('Please enter a valid website URL');
       return;
     }
 
-    setError(null);
+    setLocalError(null);
 
     // If onUrlSubmit is provided, use that (new flow with real extraction)
     if (onUrlSubmit) {
@@ -202,7 +206,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                       websiteUrl={url}
                       onIndustrySelected={(industry) => {
                         setSelectedIndustry(industry);
-                        setError(null);
+                        setLocalError(null);
                       }}
                       className="industry-selector-inline"
                     />

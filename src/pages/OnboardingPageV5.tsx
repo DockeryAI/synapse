@@ -95,6 +95,16 @@ export const OnboardingPageV5: React.FC = () => {
   const handleUrlSubmit = async (url: string, industry: IndustryOption) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
     console.log('[OnboardingPageV5] Industry selected:', industry.displayName);
+
+    // Validate URL format
+    try {
+      const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+      new URL(fullUrl);
+    } catch {
+      setExtractionError('Please enter a valid website URL');
+      return;
+    }
+
     setWebsiteUrl(url);
     setCurrentStep('uvp_extraction');
     setIsExtracting(true);
@@ -134,14 +144,22 @@ export const OnboardingPageV5: React.FC = () => {
         industry: industry.displayName,
         industryCode: industry.naicsCode,
         specialization: `Test ${industry.displayName}`,
+        location: 'Test City, USA',
         services: ['Service 1', 'Service 2', 'Service 3'],
         competitors: [],
         uvpData: {
+          websiteUrl: url,
+          extractedAt: new Date(),
           customerTypes: [{ text: 'Customer Type 1', confidence: 0.9, source: url }, { text: 'Customer Type 2', confidence: 0.8, source: url }],
           problemsSolved: [{ text: 'Problem 1', confidence: 0.9, source: url }],
           differentiators: [{ text: 'Differentiator 1', confidence: 0.9, source: url }, { text: 'Differentiator 2', confidence: 0.8, source: url }],
           services: [{ text: 'Service 1', confidence: 0.9, source: url }, { text: 'Service 2', confidence: 0.8, source: url }, { text: 'Service 3', confidence: 0.7, source: url }],
+          testimonials: [],
+          overallConfidence: 0.85,
           verificationRate: 0.9,
+          completeness: 0.8,
+          sourcesAnalyzed: [url],
+          sourceQuality: 'high' as const,
         },
         sources: {
           website: url,
@@ -153,9 +171,15 @@ export const OnboardingPageV5: React.FC = () => {
 
       // Mock website analysis for suggestions step
       setWebsiteAnalysis({
-        targetAudience: ['Test Audience'],
+        targetAudience: ['Test Audience 1', 'Test Audience 2'],
         differentiators: ['Test Specialization'],
         brandVoice: 'professional',
+        solutions: ['Test Solution 1', 'Test Solution 2'],
+        valuePropositions: ['Test Value Prop 1', 'Test Value Prop 2'],
+        testimonials: [],
+        customerProblems: ['Test Problem 1', 'Test Problem 2'],
+        proofPoints: ['Test Proof 1'],
+        confidence: 0.85,
       });
 
       addProgressStep('Finalizing your business profile', 'complete', 'Your profile is ready!');
@@ -255,9 +279,7 @@ export const OnboardingPageV5: React.FC = () => {
 
   // Handle smart confirmation - user has reviewed and confirmed/refined data
   const handleSmartConfirmation = async (refined: RefinedBusinessData) => {
-    console.log('[OnboardingPageV5] User confirmed data:', refined);
-    setRefinedData(refined);
-
+    console.log('[OnboardingPageV5] handleSmartConfirmation called with:', refined);
     // Update business data with refined values
     if (businessData) {
       setBusinessData({
@@ -268,13 +290,15 @@ export const OnboardingPageV5: React.FC = () => {
       });
     }
 
-    // Move to insights dashboard (NEW FLOW)
+    // Set refined data and move to insights
+    setRefinedData(refined);
+    console.log('[OnboardingPageV5] Setting currentStep to insights');
     setCurrentStep('insights');
+    console.log('[OnboardingPageV5] currentStep set to insights');
   };
 
   // Handle insights continue - user reviewed insights, move to suggestions
   const handleInsightsContinue = () => {
-    console.log('[OnboardingPageV5] Insights reviewed, moving to suggestions');
     setCurrentStep('suggestions');
   };
 
@@ -654,7 +678,11 @@ export const OnboardingPageV5: React.FC = () => {
   return (
     <div className="min-h-screen">
       {currentStep === 'url_input' && (
-        <OnboardingFlow onUrlSubmit={handleUrlSubmit} onComplete={handleBusinessDetected} />
+        <OnboardingFlow
+          onUrlSubmit={handleUrlSubmit}
+          onComplete={handleBusinessDetected}
+          error={extractionError}
+        />
       )}
 
       {currentStep === 'uvp_extraction' && (
@@ -745,7 +773,7 @@ export const OnboardingPageV5: React.FC = () => {
         <SmartConfirmation
           businessName={businessData.businessName}
           specialization={businessData.specialization}
-          location={businessData.location}
+          location={businessData.location || ''}
           uvpData={businessData.uvpData!}
           websiteAnalysis={websiteAnalysis}
           onConfirm={handleSmartConfirmation}
