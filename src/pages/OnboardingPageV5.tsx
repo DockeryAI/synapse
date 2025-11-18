@@ -23,6 +23,9 @@ import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
 import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
 import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
+import { useBrand } from '@/contexts/BrandContext';
+import { supabase } from '@/lib/supabase';
+import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
 import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
@@ -66,6 +69,7 @@ export interface DetectedBusinessData {
 
 export const OnboardingPageV5: React.FC = () => {
   const navigate = useNavigate();
+  const { setCurrentBrand } = useBrand();
   const [currentStep, setCurrentStep] = useState<FlowStep>('url_input');
   const [websiteUrl, setWebsiteUrl] = useState<string>('');
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
@@ -191,8 +195,49 @@ export const OnboardingPageV5: React.FC = () => {
     }
 
     try {
-      // Step 1: Analyze website and extract business data
+      // Step 1: Scrape website to get basic metadata
       addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
+      const scrapedData = await scrapeWebsite(url);
+
+      // Extract business name from website metadata
+      let businessName = 'Your Business';
+      if (scrapedData?.metadata?.title) {
+        // Try to extract business name from title (remove common suffixes)
+        businessName = scrapedData.metadata.title
+          .replace(/\s*[-|–]\s*(Home|About|Services|Welcome).*$/i, '')
+          .replace(/\s*\|\s*.*$/i, '')
+          .trim();
+
+        // If title is too long or still generic, check for first h1
+        if (businessName.length > 50 || businessName.toLowerCase().includes('home') || businessName.toLowerCase().includes('welcome')) {
+          const firstH1 = scrapedData.content?.headings?.find((h: string) => h && h.length < 50);
+          if (firstH1) {
+            businessName = firstH1.trim();
+          }
+        }
+      }
+
+      // Extract potential service area from footer or contact sections
+      let serviceArea: string | undefined;
+      if (scrapedData?.content?.paragraphs) {
+        // Look for location patterns in last 10 paragraphs (usually footer)
+        const footerParagraphs = scrapedData.content.paragraphs.slice(-10);
+        for (const para of footerParagraphs) {
+          // Match patterns like "Serving Dallas, TX" or "Located in San Francisco"
+          const locationMatch = para.match(/(?:Serving|Located in|Based in|Service Area:?)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*,?\s+[A-Z]{2})/i);
+          if (locationMatch) {
+            serviceArea = locationMatch[1].trim();
+            break;
+          }
+        }
+      }
+
+      console.log('[OnboardingPageV5] Extracted business name:', businessName);
+      if (serviceArea) {
+        console.log('[OnboardingPageV5] Detected service area:', serviceArea);
+      }
+
+      // Step 2: Analyze website and extract UVP data
       const extractor = new SmartUVPExtractor();
       const uvpData = await extractor.extractUVP({
         websiteUrl: url,
@@ -207,7 +252,7 @@ export const OnboardingPageV5: React.FC = () => {
         problems: uvpData.problemsSolved.length,
       });
 
-      // Step 2: Identify customers using extracted data
+      // Step 3: Identify customers using extracted data
       addProgressStep('Identifying your customers', 'in_progress', 'Finding who you serve...');
       const analysis = await websiteAnalyzer.analyzeWebsite(url);
       setWebsiteAnalysis(analysis); // Save for confirmation step
@@ -225,7 +270,7 @@ export const OnboardingPageV5: React.FC = () => {
       addProgressStep('Identifying your customers', 'complete', customerSummary);
       console.log('[OnboardingPageV5] Specialization detected:', specialization);
 
-      // Step 3: Analyze differentiators
+      // Step 4: Analyze differentiators
       addProgressStep('Analyzing what makes you different', 'in_progress', 'Finding your unique advantages...');
       const differentiatorSummary = uvpData.differentiators.length > 0
         ? `Found ${uvpData.differentiators.length} differentiators`
@@ -236,10 +281,11 @@ export const OnboardingPageV5: React.FC = () => {
       // Combine all detected data
       const detectedData: DetectedBusinessData = {
         url,
-        businessName: 'Your Business', // ExtractedUVPData doesn't include businessName
+        businessName, // Auto-detected from website title/h1
         industry: industry.displayName,
         industryCode: industry.naicsCode,
         specialization,
+        location: serviceArea, // Auto-detected from footer/contact
         services: uvpData.services.map(s => s.text),
         competitors: [], // TODO: Add competitor detection
         uvpData,
@@ -297,9 +343,126 @@ export const OnboardingPageV5: React.FC = () => {
     console.log('[OnboardingPageV5] currentStep set to insights');
   };
 
-  // Handle insights continue - user reviewed insights, move to suggestions
-  const handleInsightsContinue = () => {
-    setCurrentStep('suggestions');
+  // Handle insights continue - user reviewed insights, save to database and move to suggestions
+  const handleInsightsContinue = async () => {
+    if (!refinedData || !businessData || !websiteAnalysis) {
+      console.error('[OnboardingPageV5] Missing data for saving insights');
+      setCurrentStep('suggestions');
+      return;
+    }
+
+    try {
+      console.log('[OnboardingPageV5] Creating/updating brand and saving insights...');
+
+      // Step 1: Create or update brand in Supabase
+      const { data: existingBrand, error: checkError } = await supabase
+        .from('brands')
+        .select('id')
+        .eq('name', refinedData.businessName)
+        .maybeSingle();
+
+      if (checkError) {
+        console.error('[OnboardingPageV5] Error checking for existing brand:', checkError);
+      }
+
+      let brandId: string;
+
+      if (existingBrand) {
+        // Update existing brand
+        brandId = existingBrand.id;
+        console.log('[OnboardingPageV5] Updating existing brand:', brandId);
+
+        const { error: updateError } = await supabase
+          .from('brands')
+          .update({
+            industry: businessData.industry,
+            website: businessData.url,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', brandId);
+
+        if (updateError) {
+          console.error('[OnboardingPageV5] Error updating brand:', updateError);
+        }
+      } else {
+        // Create new brand
+        console.log('[OnboardingPageV5] Creating new brand');
+
+        const { data: newBrand, error: createError } = await supabase
+          .from('brands')
+          .insert({
+            name: refinedData.businessName,
+            industry: businessData.industry,
+            website: businessData.url,
+            description: businessData.specialization,
+          })
+          .select()
+          .single();
+
+        if (createError || !newBrand) {
+          console.error('[OnboardingPageV5] Error creating brand:', createError);
+          throw new Error('Failed to create brand');
+        }
+
+        brandId = newBrand.id;
+        console.log('[OnboardingPageV5] Created new brand:', brandId);
+      }
+
+      // Step 2: Build BusinessInsights object from gathered data
+      const insights: BusinessInsights = {
+        websiteAnalysis: {
+          uvps: websiteAnalysis.valuePropositions || [],
+          keyMessages: websiteAnalysis.solutions || [],
+          brandVoice: websiteAnalysis.targetAudience.join(', ') || 'professional',
+          contentThemes: websiteAnalysis.differentiators || [],
+        },
+        locationData: refinedData.location ? {
+          city: refinedData.location.split(',')[0]?.trim() || '',
+          state: refinedData.location.split(',')[1]?.trim() || '',
+          serviceArea: [],
+        } : undefined,
+        servicesProducts: refinedData.selectedServices.map(name => ({
+          name,
+          description: '',
+        })),
+        customerTriggers: refinedData.selectedCustomers.map(customer => ({
+          trigger: customer,
+          painPoint: websiteAnalysis.customerProblems[0] || 'Unknown pain point',
+          desire: websiteAnalysis.solutions[0] || 'Unknown desire',
+          source: 'website_analysis',
+        })),
+        marketTrends: [],
+        competitorData: [],
+        brandVoice: {
+          personality: websiteAnalysis.targetAudience[0] || 'professional',
+          tone: websiteAnalysis.differentiators || [],
+        },
+      };
+
+      // Step 3: Save insights to database
+      console.log('[OnboardingPageV5] Saving insights to database...');
+      await insightsStorageService.saveInsights(brandId, insights);
+      console.log('[OnboardingPageV5] Insights saved successfully');
+
+      // Step 4: Set brand in context for use across the app
+      const brandData = {
+        id: brandId,
+        name: refinedData.businessName,
+        industry: businessData.industry,
+        description: businessData.specialization,
+        website: businessData.url,
+      };
+
+      setCurrentBrand(brandData);
+      console.log('[OnboardingPageV5] Brand set in context');
+
+      // Step 5: Move to suggestions
+      setCurrentStep('suggestions');
+    } catch (error) {
+      console.error('[OnboardingPageV5] Failed to save insights:', error);
+      // Continue anyway to prevent blocking the user
+      setCurrentStep('suggestions');
+    }
   };
 
   // Handle campaign selection from SmartSuggestions

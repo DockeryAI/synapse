@@ -249,26 +249,26 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-                        45s
+                        AI-Powered
                       </div>
                       <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Average setup time
+                        Intelligent analysis
                       </div>
                     </div>
                     <div>
                       <div className="text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                        100%
+                        14+ Sources
                       </div>
                       <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Source verified
+                        Deep intelligence
                       </div>
                     </div>
                     <div>
                       <div className="text-2xl sm:text-3xl font-bold text-violet-600 dark:text-violet-400 mb-1">
-                        No BS
+                        Real Insights
                       </div>
                       <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Real data only
+                        Data-driven content
                       </div>
                     </div>
                   </div>

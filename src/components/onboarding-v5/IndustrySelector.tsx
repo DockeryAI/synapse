@@ -118,16 +118,8 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     loadIndustries();
   }, []);
 
-  // Auto-show dropdown after mount for better UX and e2e test compatibility
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!selectedIndustry && !searchTerm) {
-        setShowDropdown(true);
-      }
-    }, 100); // Very small delay to let the component render first (100ms for stability)
-
-    return () => clearTimeout(timer);
-  }, [selectedIndustry, searchTerm]);
+  // Only show dropdown when user starts typing
+  // Removed auto-show behavior for cleaner UX
 
   // Smart domain-based suggestion - auto-populate textbox
   useEffect(() => {

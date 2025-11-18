@@ -6,6 +6,7 @@ import { LoadingSpinner } from './components/ui/LoadingSpinner'
 // Lazy-loaded pages for code splitting
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
 const OnboardingPageV5 = lazy(() => import('./pages/OnboardingPageV5').then(m => ({ default: m.OnboardingPageV5 })))
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
 const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').then(m => ({ default: m.ContentCalendarPage })))
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
@@ -41,6 +42,9 @@ function App() {
               <Route path="/" element={<OnboardingPageV5 />} />
               <Route path="/onboarding" element={<OnboardingPageV5 />} />
               <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
+
+              {/* Dashboard / Command Center */}
+              <Route path="/dashboard" element={<DashboardPage />} />
 
               {/* Legacy routes */}
               <Route path="/synapse" element={<SynapsePage />} />
