@@ -25,6 +25,7 @@ import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.servic
 import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
 import { scrapeWebsite } from '@/services/scraping/websiteScraper';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
+import { ProductScannerService } from '@/services/intelligence/product-scanner.service';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -249,10 +250,52 @@ export const OnboardingPageV5: React.FC = () => {
         minConfidence: 0.6,
       });
 
-      addProgressStep('Understanding your unique offerings', 'complete', `Found ${uvpData.services.length} services and offerings`);
+      // Step 2.5: Comprehensive product/service scan using AI
+      addProgressStep('Scanning all products and services', 'in_progress', 'Analyzing your complete offerings...');
+
+      let comprehensiveServices: string[] = uvpData.services.map(s => s.text);
+
+      try {
+        const productScanner = new ProductScannerService();
+
+        // Format website content for scanning
+        const websiteContentText = [
+          scrapedData.content.headings.join('\n'),
+          scrapedData.content.paragraphs.join('\n'),
+          scrapedData.metadata.description,
+        ].join('\n\n');
+
+        console.log('[OnboardingPageV5] Starting comprehensive product scan...');
+        const productScanResult = await productScanner.scanProducts(
+          websiteContentText,
+          businessName,
+          industry.displayName
+        );
+
+        // Merge ProductScanner results with uvpData.services for comprehensive coverage
+        const aiExtractedServices = productScanResult.products.map(p => p.name);
+
+        // Combine both sources, removing duplicates
+        const allServices = [...new Set([...aiExtractedServices, ...comprehensiveServices])];
+        comprehensiveServices = allServices;
+
+        console.log('[OnboardingPageV5] Comprehensive scan complete:', {
+          aiExtracted: aiExtractedServices.length,
+          uvpExtracted: uvpData.services.length,
+          totalUnique: comprehensiveServices.length,
+          confidence: (productScanResult.confidence * 100).toFixed(0) + '%'
+        });
+
+        addProgressStep('Scanning all products and services', 'complete', `Found ${comprehensiveServices.length} products and services`);
+      } catch (error) {
+        console.warn('[OnboardingPageV5] Product scan failed, using UVP data only:', error);
+        addProgressStep('Scanning all products and services', 'complete', `Found ${uvpData.services.length} services`);
+      }
+
+      addProgressStep('Understanding your unique offerings', 'complete', `Analyzed ${comprehensiveServices.length} offerings`);
       console.log('[OnboardingPageV5] Website analyzed:', {
         customers: uvpData.customerTypes.length,
-        services: uvpData.services.length,
+        services: comprehensiveServices.length,
         problems: uvpData.problemsSolved.length,
       });
 
@@ -290,7 +333,7 @@ export const OnboardingPageV5: React.FC = () => {
         industryCode: industry.naicsCode,
         specialization,
         location: serviceArea, // Auto-detected from footer/contact
-        services: uvpData.services.map(s => s.text),
+        services: comprehensiveServices, // Using AI-enhanced comprehensive service list
         competitors: [], // TODO: Add competitor detection
         uvpData,
         sources: {
