@@ -145,7 +145,7 @@ export class CampaignGenerator {
       const generatedContent = await this.contentGenerator.generate(insights, businessProfile, {
         maxContent: 1,
         formats: [this.mapPostTypeToFormat(input.postType)],
-        platforms: input.platforms || [platform],
+        platform: (input.platforms?.[0] || platform) as 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'generic',
       });
 
       if (!generatedContent.content || generatedContent.content.length === 0) {
@@ -160,19 +160,19 @@ export class CampaignGenerator {
         type: input.postType,
         platform,
         content: {
-          headline: synapseContent.platformContent[platform]?.headline,
-          hook: synapseContent.platformContent[platform]?.hook,
-          body: synapseContent.platformContent[platform]?.body || '',
-          hashtags: synapseContent.platformContent[platform]?.hashtags || [],
-          callToAction: synapseContent.platformContent[platform]?.cta,
+          headline: synapseContent.content.headline,
+          hook: synapseContent.content.hook,
+          body: synapseContent.content.body || '',
+          hashtags: synapseContent.content.hashtags || [],
+          callToAction: synapseContent.content.cta,
         },
         visuals: [],
         status: 'draft',
-        sources: this.createSources(input.businessContext, synapseContent.insight),
+        sources: this.createSources(input.businessContext, synapseContent.insightId),
         metadata: {
           impactScore: synapseContent.metadata.impactScore,
-          psychologyTriggers: synapseContent.metadata.psychologyTriggers,
-          tone: synapseContent.metadata.tone,
+          psychologyTriggers: undefined, // Not available in SynapseContent
+          tone: undefined, // Not available in SynapseContent
           generatedAt: new Date(),
           model: 'synapse',
         },
@@ -292,7 +292,7 @@ export class CampaignGenerator {
           {
             maxContent: 1,
             formats: [this.mapPostTypeToFormat(postType)],
-            platforms: [platform],
+            platform: platform as 'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'generic',
           }
         );
 
@@ -304,19 +304,19 @@ export class CampaignGenerator {
             type: postType,
             platform,
             content: {
-              headline: synapseContent.platformContent[platform]?.headline,
-              hook: synapseContent.platformContent[platform]?.hook,
-              body: synapseContent.platformContent[platform]?.body || '',
-              hashtags: synapseContent.platformContent[platform]?.hashtags || [],
-              callToAction: synapseContent.platformContent[platform]?.cta,
+              headline: synapseContent.content.headline,
+              hook: synapseContent.content.hook,
+              body: synapseContent.content.body || '',
+              hashtags: synapseContent.content.hashtags || [],
+              callToAction: synapseContent.content.cta,
             },
             visuals: [],
             status: 'draft',
-            sources: this.createSources(context, synapseContent.insight),
+            sources: this.createSources(context, synapseContent.insightId),
             metadata: {
               impactScore: synapseContent.metadata.impactScore,
-              psychologyTriggers: synapseContent.metadata.psychologyTriggers,
-              tone: synapseContent.metadata.tone,
+              psychologyTriggers: undefined, // Not available in SynapseContent
+              tone: undefined, // Not available in SynapseContent
               generatedAt: new Date(),
               model: 'synapse',
               templateUsed: template.id,
@@ -347,12 +347,18 @@ export class CampaignGenerator {
         insights.push({
           id: `customer-${index}`,
           type: 'audience',
-          discovery: customer.text,
-          implication: `Target messaging for ${customer.text}`,
-          actionableHook: `${customer.text} face unique challenges we can address`,
+          thinkingStyle: 'analytical',
+          insight: customer.text,
+          whyProfound: `Target messaging for ${customer.text}`,
+          whyNow: 'Current market demands personalization',
+          contentAngle: `${customer.text} face unique challenges we can address`,
+          expectedReaction: 'Recognition and engagement',
+          evidence: [customer.source.sourceUrl],
           confidence: customer.confidence,
-          sources: [customer.source.sourceUrl],
-          targetAudience: customer.text,
+          metadata: {
+            generatedAt: new Date(),
+            model: 'uvp-extraction',
+          },
         });
       });
 
@@ -361,11 +367,18 @@ export class CampaignGenerator {
         insights.push({
           id: `differentiator-${index}`,
           type: 'differentiator',
-          discovery: diff.text,
-          implication: 'Unique value proposition',
-          actionableHook: diff.text,
+          thinkingStyle: 'creative',
+          insight: diff.text,
+          whyProfound: 'Unique value proposition',
+          whyNow: 'Market differentiation is critical',
+          contentAngle: diff.text,
+          expectedReaction: 'Interest and curiosity',
+          evidence: [diff.source.sourceUrl],
           confidence: diff.confidence,
-          sources: [diff.source.sourceUrl],
+          metadata: {
+            generatedAt: new Date(),
+            model: 'uvp-extraction',
+          },
         });
       });
 
@@ -374,11 +387,18 @@ export class CampaignGenerator {
         insights.push({
           id: `problem-${index}`,
           type: 'problem',
-          discovery: problem.text,
-          implication: 'Customer pain point to address',
-          actionableHook: `Solve ${problem.text} effectively`,
+          thinkingStyle: 'lateral',
+          insight: problem.text,
+          whyProfound: 'Customer pain point to address',
+          whyNow: 'Problems need immediate solutions',
+          contentAngle: `Solve ${problem.text} effectively`,
+          expectedReaction: 'Relief and trust',
+          evidence: [problem.source.sourceUrl],
           confidence: problem.confidence,
-          sources: [problem.source.sourceUrl],
+          metadata: {
+            generatedAt: new Date(),
+            model: 'uvp-extraction',
+          },
         });
       });
     }
@@ -389,11 +409,18 @@ export class CampaignGenerator {
       insights.push({
         id: 'generic-1',
         type: 'service',
-        discovery: `${context.businessData.businessName} provides quality services`,
-        implication: 'Build trust with service quality messaging',
-        actionableHook: 'Expert service you can trust',
+        thinkingStyle: 'analytical',
+        insight: `${context.businessData.businessName} provides quality services`,
+        whyProfound: 'Build trust with service quality messaging',
+        whyNow: 'Quality matters in competitive markets',
+        contentAngle: 'Expert service you can trust',
+        expectedReaction: 'Trust and confidence',
+        evidence: [],
         confidence: 0.7,
-        sources: [context.businessData.websiteUrl],
+        metadata: {
+          generatedAt: new Date(),
+          model: 'generic-fallback',
+        },
       });
     }
 
@@ -405,13 +432,11 @@ export class CampaignGenerator {
    */
   private createBusinessProfile(context: BusinessContext): BusinessProfile {
     return {
-      businessName: context.businessData.businessName,
-      industry: context.businessData.industry || 'General',
-      specialization: context.specialization || 'Professional Services',
-      targetAudience: context.businessData.primaryCustomer || 'Business Owners',
-      tone: context.websiteAnalysis?.tone || 'professional',
-      services: context.businessData.selectedServices || [],
-      location: context.businessData.location || '',
+      name: context.businessData.businessName || 'Business',
+      industry: context.businessData.specialization || 'General',
+      targetAudience: context.businessData.selectedCustomers?.[0] || 'Business Owners',
+      brandVoice: 'professional',
+      contentGoals: ['engagement', 'brand-awareness'],
     };
   }
 
@@ -451,22 +476,23 @@ export class CampaignGenerator {
    */
   private createSources(
     context: BusinessContext,
-    insight?: BreakthroughInsight
+    insightId?: string
   ): ContentSource[] {
     const sources: ContentSource[] = [];
 
-    sources.push({
-      type: 'website',
-      url: context.businessData.websiteUrl,
-      confidence: 1.0,
-    });
+    // Website URL not available in RefinedBusinessData
+    // sources.push({
+    //   type: 'website',
+    //   url: 'unknown',
+    //   confidence: 1.0,
+    // });
 
-    if (insight) {
+    if (insightId) {
       sources.push({
         type: 'insight',
-        insightId: insight.id,
-        excerpt: insight.discovery,
-        confidence: insight.confidence,
+        insightId: insightId,
+        excerpt: '', // Excerpt not available from insightId alone
+        confidence: 0.8,
       });
     }
 
@@ -509,8 +535,8 @@ export class CampaignGenerator {
   private async generateVisualsForPost(post: GeneratedPost): Promise<PostVisual[]> {
     try {
       // Use Bannerbear to generate visual
-      const visual = await bannerbearService.generateImage({
-        template: this.selectBannerbearTemplate(post.platform, post.type),
+      const imageUrl = await bannerbearService.createImage({
+        templateId: this.selectBannerbearTemplate(post.platform, post.type),
         modifications: {
           headline: post.content.headline || '',
           body: post.content.body.substring(0, 200), // First 200 chars
@@ -518,14 +544,14 @@ export class CampaignGenerator {
         },
       });
 
-      if (visual && visual.image_url) {
+      if (imageUrl) {
         return [
           {
-            id: visual.uid,
-            url: visual.image_url,
+            id: `visual-${Date.now()}`,
+            url: imageUrl,
             type: 'image',
-            bannerbearTemplateId: visual.template,
-            bannerbearImageId: visual.uid,
+            bannerbearTemplateId: this.selectBannerbearTemplate(post.platform, post.type),
+            bannerbearImageId: `image-${Date.now()}`,
             altText: post.content.headline || 'Generated visual',
           },
         ];
