@@ -138,15 +138,14 @@ Return ONLY valid JSON (no markdown, no explanations):
   "differentiators": ["unique specialization 1", "niche focus 2", "unique service 3"]
 }`
 
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-          'HTTP-Referer': 'https://marba.ai',
-          'X-Title': 'MARBA Intelligence',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: 'anthropic/claude-3.5-sonnet',
           messages: [{
             role: 'user',
