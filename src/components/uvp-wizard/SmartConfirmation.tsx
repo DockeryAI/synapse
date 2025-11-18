@@ -16,8 +16,6 @@ import type {
   Testimonial,
   Differentiator,
   UserConfirmationState,
-  getConfidenceColor,
-  getConfidenceLevel,
 } from '@/types/smart-uvp.types';
 
 interface SmartConfirmationProps {

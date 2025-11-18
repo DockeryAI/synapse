@@ -215,13 +215,13 @@ export const CampaignTypeSelector: React.FC<CampaignTypeSelectorProps> = ({
               />
               <DataStrengthBar
                 label="Social Proof Data"
-                score={campaignTypes.find(t => t.id === 'social_proof')?.confidenceScore || 0}
-                active={selectedType === 'social_proof'}
+                score={campaignTypes.find(t => t.id === 'trust_builder')?.confidenceScore || 0}
+                active={selectedType === 'trust_builder'}
               />
               <DataStrengthBar
                 label="Local Pulse Data"
-                score={campaignTypes.find(t => t.id === 'local_pulse')?.confidenceScore || 0}
-                active={selectedType === 'local_pulse'}
+                score={campaignTypes.find(t => t.id === 'community_champion')?.confidenceScore || 0}
+                active={selectedType === 'community_champion'}
               />
             </div>
           </motion.div>

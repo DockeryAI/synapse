@@ -16,7 +16,7 @@ import { SmartPicks } from '../components/campaign/smart-picks/SmartPicks';
 import { ContentMixer } from '../components/campaign/content-mixer/ContentMixer';
 import { CampaignPreview } from '../components/campaign/preview/CampaignPreview';
 import { campaignOrchestrator } from '../services/campaign';
-import type { CampaignSession, CampaignState } from '../types/campaign-workflow.types';
+import type { CampaignSession, CampaignState, CampaignType } from '../types/campaign-workflow.types';
 import type { SmartPick } from '../types/smart-picks.types';
 import type { CategorizedInsight, InsightPool } from '../types/content-mixer.types';
 import type { DeepContext } from '../types/synapse/deepContext.types';
@@ -69,13 +69,14 @@ export function CampaignPage() {
   const mockInsightPool: InsightPool = {
     byCategory: {
       local: [],
-      trending: [{ id: 'trending-1', category: 'trending', insight: 'Digital transformation spending expected to reach $3.4T', displayTitle: 'Digital Transformation Growth', confidence: 0.9, dataSource: 'IDC Research', timestamp: new Date(), metadata: {} }],
+      trending: [{ id: 'trending-1', type: 'predictive_opportunity', thinkingStyle: 'analytical', category: 'trending', insight: 'Digital transformation spending expected to reach $3.4T', whyProfound: 'Massive market shift', whyNow: 'Post-pandemic acceleration', contentAngle: 'Industry leadership', expectedReaction: 'High engagement', evidence: ['IDC Research'], displayTitle: 'Digital Transformation Growth', confidence: 0.9, dataSource: 'IDC Research', metadata: { generatedAt: new Date(), model: 'mock' } }],
       seasonal: [],
-      industry: [{ id: 'industry-1', category: 'industry', insight: 'Professional services seeing 40% increase in demand', displayTitle: 'Consulting Demand Surge', confidence: 0.85, dataSource: 'Industry Analysis', timestamp: new Date(), metadata: {} }],
+      industry: [{ id: 'industry-1', type: 'strategic_implication', thinkingStyle: 'analytical', category: 'industry', insight: 'Professional services seeing 40% increase in demand', whyProfound: 'Sustained growth trend', whyNow: 'Economic recovery', contentAngle: 'Market opportunity', expectedReaction: 'Business interest', evidence: ['Industry Analysis'], displayTitle: 'Consulting Demand Surge', confidence: 0.85, dataSource: 'Industry Analysis', metadata: { generatedAt: new Date(), model: 'mock' } }],
       reviews: [],
       competitive: []
     },
-    all: []
+    totalCount: 2,
+    countByCategory: { local: 0, trending: 1, seasonal: 0, industry: 1, reviews: 0, competitive: 0 }
   };
 
   useEffect(() => {
@@ -105,7 +106,7 @@ export function CampaignPage() {
 
   const handleCampaignTypeSelect = (campaignTypeId: string) => {
     try {
-      const updatedSession = campaignOrchestrator.selectCampaignType(campaignTypeId);
+      const updatedSession = campaignOrchestrator.selectCampaignType(campaignTypeId as CampaignType);
       setSession(updatedSession);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to select campaign type');
@@ -124,17 +125,9 @@ export function CampaignPage() {
 
   const handleMixerGenerate = async (selectedInsights: CategorizedInsight[]) => {
     try {
-      const mockInsights = selectedInsights.map((insight) => ({
-        id: insight.id,
-        insight: insight.insight,
-        confidence: insight.confidence,
-        reasoning: `From ${insight.category}`,
-        dataSource: insight.dataSource,
-        timestamp: insight.timestamp,
-        score: insight.confidence * 100,
-        metadata: insight.metadata
-      }));
-      await campaignOrchestrator.selectCustomInsights(mockInsights);
+      // Convert CategorizedInsight to SynapseInsight by passing the original insights
+      // which already have all required properties
+      await campaignOrchestrator.selectCustomInsights(selectedInsights);
       await campaignOrchestrator.generateCampaign();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to generate campaign');

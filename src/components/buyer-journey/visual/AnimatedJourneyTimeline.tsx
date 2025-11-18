@@ -110,7 +110,6 @@ export const AnimatedJourneyTimeline: React.FC<AnimatedJourneyTimelineProps> = (
                   )}
                   style={{
                     backgroundColor: stage.color,
-                    ringColor: isCurrent ? stage.color : undefined,
                   }}
                 >
                   <Icon className="h-8 w-8 text-white" />

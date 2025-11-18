@@ -15,7 +15,8 @@ import { locationDetectionService } from '@/services/intelligence/location-detec
 import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service';
 import { generateSynapses } from '@/services/synapse/SynapseGenerator';
 import { SynapseContentGenerator } from '@/services/synapse/generation/SynapseContentGenerator';
-import type { SynapseInsight, SynapseContent } from '@/types/synapse/synapseContent.types';
+import type { SynapseInsight } from '@/types/synapse/synapse.types';
+import type { SynapseContent } from '@/types/synapse/synapseContent.types';
 import type { LocationResult } from '@/services/intelligence/location-detection.service';
 
 interface SynapseContentDiscoveryProps {
@@ -86,27 +87,29 @@ export function SynapseContentDiscovery({
         }
       });
 
-      setProgress(`Collected ${intelligence.dataPoints?.length || 0} data points`);
+      setProgress(`Collected intelligence data`);
 
       // Step 2.2: Generate breakthrough insights
       setStep('insights');
       setProgress('Discovering breakthrough connections...');
 
       const discoveredInsights = await generateSynapses({
-        brandName: businessName,
-        industry,
-        location: location?.city || 'New York',
-        deepContext: intelligence
+        business: {
+          name: businessName,
+          industry,
+          location: location || { city: 'New York', state: 'NY' }
+        },
+        intelligence: intelligence
       });
 
-      if (discoveredInsights.length === 0) {
+      if (discoveredInsights.synapses.length === 0) {
         setError('No breakthrough insights discovered. Try a different URL or industry.');
         setStep('input');
         return;
       }
 
-      setInsights(discoveredInsights);
-      setProgress(`Found ${discoveredInsights.length} breakthrough insights!`);
+      setInsights(discoveredInsights.synapses);
+      setProgress(`Found ${discoveredInsights.synapses.length} breakthrough insights!`);
 
     } catch (err) {
       console.error('Discovery failed:', err);
@@ -129,19 +132,28 @@ export function SynapseContentDiscovery({
       setError(null);
       setProgress('Generating breakthrough content...');
 
+      // Extract business name from URL
+      const businessName = new URL(url).hostname.replace('www.', '').split('.')[0];
+
       const selectedInsightObjects = insights.filter(i => selectedInsights.has(i.id));
 
       const contentGenerator = new SynapseContentGenerator();
       const generatedContent: SynapseContent[] = [];
 
       for (const insight of selectedInsightObjects) {
-        const content = await contentGenerator.generateContent(insight, {
-          formats: ['standard'],
-          platforms: ['linkedin', 'twitter'],
-          edginess: 0.7
+        const result = await contentGenerator.generate([insight], {
+          name: businessName,
+          industry: industry,
+          targetAudience: 'business owners',
+          brandVoice: 'professional',
+          contentGoals: ['engagement']
+        }, {
+          maxContent: 2,
+          formats: ['hook-post'],
+          platform: 'linkedin'
         });
 
-        generatedContent.push(...content);
+        generatedContent.push(...result.content);
       }
 
       setProgress(`Generated ${generatedContent.length} content pieces!`);
@@ -219,6 +231,7 @@ export function SynapseContentDiscovery({
             <div className="space-y-2">
               <label className="text-sm font-medium">Industry</label>
               <IndustrySelector
+                brandId={brandId}
                 value={industry}
                 onChange={setIndustry}
               />
@@ -292,7 +305,7 @@ export function SynapseContentDiscovery({
               <CardHeader>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <CardTitle className="text-base">{insight.title || insight.insight}</CardTitle>
+                    <CardTitle className="text-base">{insight.insight}</CardTitle>
                     <CardDescription className="mt-2">{insight.whyProfound}</CardDescription>
                   </div>
                   <Badge variant={selectedInsights.has(insight.id) ? 'default' : 'outline'}>

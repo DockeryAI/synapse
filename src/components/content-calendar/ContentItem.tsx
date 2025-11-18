@@ -220,7 +220,7 @@ export function ContentItem({
         meta: {
           platform: [item.platform as any],
           targetAudience: 'General',
-          tone: 'professional'
+          tone: 'authoritative' as const
         },
         prediction: {
           engagementScore: 0.8,
@@ -301,7 +301,7 @@ export function ContentItem({
         meta: {
           platform: [item.platform as any],
           targetAudience: 'General',
-          tone: 'professional'
+          tone: 'authoritative' as const
         },
         prediction: {
           engagementScore: 0.8,
@@ -327,11 +327,19 @@ export function ContentItem({
 
       const mockInsight: BreakthroughInsight = {
         id: 'mock-insight',
+        type: 'unexpected_connection',
+        thinkingStyle: 'lateral',
         insight: 'Content insight',
+        whyProfound: 'This insight is meaningful',
+        whyNow: 'Timely and relevant',
         contentAngle: 'Engagement',
-        emotionalHook: 'Curiosity',
-        connectionToAudience: 'Professionals',
-        score: 8.5
+        expectedReaction: 'High engagement',
+        evidence: ['Supporting data'],
+        confidence: 0.85,
+        metadata: {
+          generatedAt: new Date(),
+          model: 'mock-model'
+        }
       };
 
       const result = await sectionRegenerator.regenerateSection(
@@ -368,7 +376,7 @@ export function ContentItem({
       },
       psychology: { principle: 'Curiosity Gap', trigger: { type: 'curiosity', strength: 0.8 }, persuasionTechnique: 'Pattern Interrupt', expectedReaction: '' },
       optimization: { powerWords: [], framingDevice: '', narrativeStructure: 'Hook → Story → Lesson', pacing: 'medium' },
-      meta: { platform: [item.platform as any], targetAudience: '', tone: 'professional' },
+      meta: { platform: [item.platform as any], targetAudience: '', tone: 'authoritative' as const },
       prediction: { engagementScore: 0, viralPotential: 0, leadGeneration: 0, brandImpact: 'neutral', confidenceLevel: 0 },
       metadata: { generatedAt: new Date(), model: '', iterationCount: 0 }
     };
