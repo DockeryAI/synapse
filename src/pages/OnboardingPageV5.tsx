@@ -23,6 +23,7 @@ import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
 import { websiteAnalyzer } from '@/services/intelligence/website-analyzer.service';
 import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
+import { scrapeWebsite } from '@/services/scraping/websiteScraper';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
