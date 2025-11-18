@@ -29,8 +29,15 @@ test.describe('Onboarding Flow', () => {
     await industryInput.click();
 
     // Wait for dropdown option to appear
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     
     // Click Get Started
     await page.click('button:has-text("Get Started")');
@@ -87,8 +94,15 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     
     // Try to submit
     await page.click('button:has-text("Get Started")');
@@ -119,8 +133,15 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
     
     // Wait for confirmation
@@ -149,8 +170,15 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
     
     // Wait for confirmation
@@ -174,8 +202,15 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
     
     // Should show loading spinner
@@ -196,8 +231,15 @@ test.describe('Multi-select Functionality', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
     
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
@@ -226,8 +268,15 @@ test.describe('Multi-select Functionality', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
     
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });

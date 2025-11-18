@@ -24,11 +24,20 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
 
-    // Wait for dropdown option to appear
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    // Wait for dropdown option to appear and become stable
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
+
     await page.click('button:has-text("Get Started")');
-    
+
     // Wait for confirmation
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
     
@@ -154,11 +163,18 @@ test.describe('Campaign Preview and Editing', () => {
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
 
-    // Wait for dropdown option to appear
-    await page.waitForSelector('[data-testid="industry-option-restaurant"]', { timeout: 2000 });
+    // Wait for dropdown option to appear and become stable
+    await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
+      timeout: 5000,
+      state: 'visible'
+    });
+    // Small wait for animation to complete
+    await page.waitForTimeout(300);
     await page.click('[data-testid="industry-option-restaurant"]');
+    // Wait for selection to be reflected in UI
+    await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
     const firstService = page.locator('[data-testid^="service-chip-"]').first();
     if (await firstService.count() > 0) await firstService.click();

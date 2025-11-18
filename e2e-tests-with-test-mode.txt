@@ -1,0 +1,527 @@
+
+> synapse-smb-platform@1.0.0 test:e2e
+> playwright test
+
+
+Running 31 tests using 5 workers
+
+[1A[2K[1/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:132:3 › Campaign Generation from Smart Suggestions › should show post suggestion previews
+[1A[2K[2/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:103:3 › Campaign Generation from Smart Suggestions › should navigate to custom builder
+[1A[2K[3/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:59:3 › Campaign Generation from Smart Suggestions › should generate campaign from suggested campaign
+[1A[2K[4/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:82:3 › Campaign Generation from Smart Suggestions › should generate single post from quick post suggestion
+[1A[2K[5/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:118:3 › Campaign Generation from Smart Suggestions › should show campaign details correctly
+[1A[2K  1) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:118:3 › Campaign Generation from Smart Suggestions › should show campaign details correctly 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      40 |
+      41 |     // Wait for confirmation
+    > 42 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      43 |     
+      44 |     // Select a service and continue
+      45 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+        at navigateToSuggestions (/Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:42:67)
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:119:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-84ca4--campaign-details-correctly-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-84ca4--campaign-details-correctly-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  2) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:132:3 › Campaign Generation from Smart Suggestions › should show post suggestion previews 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      40 |
+      41 |     // Wait for confirmation
+    > 42 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      43 |     
+      44 |     // Select a service and continue
+      45 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+        at navigateToSuggestions (/Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:42:67)
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:133:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-630b9-ow-post-suggestion-previews-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-630b9-ow-post-suggestion-previews-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  3) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:103:3 › Campaign Generation from Smart Suggestions › should navigate to custom builder 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      40 |
+      41 |     // Wait for confirmation
+    > 42 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      43 |     
+      44 |     // Select a service and continue
+      45 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+        at navigateToSuggestions (/Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:42:67)
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:104:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-c861f--navigate-to-custom-builder-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-c861f--navigate-to-custom-builder-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  4) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:59:3 › Campaign Generation from Smart Suggestions › should generate campaign from suggested campaign 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      40 |
+      41 |     // Wait for confirmation
+    > 42 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      43 |     
+      44 |     // Select a service and continue
+      45 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+        at navigateToSuggestions (/Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:42:67)
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:60:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-6ee41-ign-from-suggested-campaign-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-6ee41-ign-from-suggested-campaign-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  5) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:82:3 › Campaign Generation from Smart Suggestions › should generate single post from quick post suggestion 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      40 |
+      41 |     // Wait for confirmation
+    > 42 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      43 |     
+      44 |     // Select a service and continue
+      45 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+        at navigateToSuggestions (/Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:42:67)
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:83:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-b426f--from-quick-post-suggestion-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-b426f--from-quick-post-suggestion-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[6/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:156:3 › Campaign Preview and Editing › should allow editing campaign post content
+[1A[2K[7/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:12:3 › Onboarding Flow › should complete full onboarding flow with URL input
+[1A[2K[8/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:214:3 › Campaign Preview and Editing › should show campaign schedule preview
+[1A[2K[9/31] [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:232:3 › Content Mixer Flow › should allow building custom campaign with content mixer
+[1A[2K[10/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:86:3 › Onboarding Flow › should handle invalid URL gracefully
+[1A[2K[11/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:114:3 › Onboarding Flow › should require industry selection
+[1A[2K[12/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:128:3 › Onboarding Flow › should allow editing during confirmation
+[1A[2K[13/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:165:3 › Onboarding Flow › should allow going back from any step
+[1A[2K  6) [chromium] › src/__tests__/e2e/onboarding.spec.ts:86:3 › Onboarding Flow › should handle invalid URL gracefully 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/valid website URL/i)
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for getByText(/valid website URL/i)[22m
+
+
+      109 |     
+      110 |     // Should show error message
+    > 111 |     await expect(page.getByText(/valid website URL/i)).toBeVisible({ timeout: 5000 });
+          |                                                        ^
+      112 |   });
+      113 |   
+      114 |   test('should require industry selection', async ({ page }) => {
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:111:56
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-84a3a-ndle-invalid-URL-gracefully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-84a3a-ndle-invalid-URL-gracefully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/onboarding-Onboarding-Flow-84a3a-ndle-invalid-URL-gracefully-chromium/error-context.md
+
+
+[1A[2K[14/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:197:3 › Onboarding Flow › should show proper loading states
+[1A[2K  7) [chromium] › src/__tests__/e2e/onboarding.spec.ts:197:3 › Onboarding Flow › should show proper loading states 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('.animate-spin')
+    Expected: visible
+    Error: strict mode violation: locator('.animate-spin') resolved to 2 elements:
+        1) <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div> aka locator('.animate-spin').first()
+        2) <div class="w-6 h-6 rounded-full border-2 border-purple-600 border-t-transparent animate-spin"></div> aka locator('.w-6').first()
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('.animate-spin')[22m
+
+
+      215 |     
+      216 |     // Should show loading spinner
+    > 217 |     await expect(page.locator('.animate-spin')).toBeVisible({ timeout: 5000 });
+          |                                                 ^
+      218 |     
+      219 |     // Should show progress text
+      220 |     await expect(page.getByText('Learning About Your Business')).toBeVisible();
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:217:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-should-show-proper-loading-states-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-should-show-proper-loading-states-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/onboarding-Onboarding-Flow-should-show-proper-loading-states-chromium/error-context.md
+
+
+[1A[2K[15/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:226:3 › Multi-select Functionality › should allow selecting multiple services
+[1A[2K  8) [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:156:3 › Campaign Preview and Editing › should allow editing campaign post content 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      176 |     await page.click('button:has-text("Get Started")');
+      177 |
+    > 178 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+          |                                                                   ^
+      179 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+      180 |     if (await firstService.count() > 0) await firstService.click();
+      181 |     await page.click('button:has-text("Continue")');
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/campaign-generation.spec.ts:178:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-2336f-iting-campaign-post-content-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/campaign-generation-Campai-2336f-iting-campaign-post-content-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  9) [chromium] › src/__tests__/e2e/onboarding.spec.ts:12:3 › Onboarding Flow › should complete full onboarding flow with URL input 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      51 |     
+      52 |     // Wait for confirmation screen (may take up to 60 seconds for API calls)
+    > 53 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+         |                                                                   ^
+      54 |     
+      55 |     // Step 3: Smart Confirmation
+      56 |     // Verify services card is visible
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:53:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-717bb-oarding-flow-with-URL-input-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-717bb-oarding-flow-with-URL-input-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[16/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:15:3 › Campaign Scheduling › should schedule campaign after generation
+[1A[2K[17/31] [chromium] › src/__tests__/e2e/onboarding.spec.ts:264:3 › Multi-select Functionality › should allow deselecting services
+[1A[2K[18/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:40:3 › Campaign Scheduling › should show scheduling progress
+[1A[2K[19/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:52:3 › Campaign Scheduling › should display schedule confirmation with details
+[1A[2K[20/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:68:3 › Campaign Scheduling › should allow viewing full calendar after scheduling
+[1A[2K[21/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:82:3 › Single Post Scheduling › should schedule single post
+[1A[2K  10) [chromium] › src/__tests__/e2e/onboarding.spec.ts:128:3 › Onboarding Flow › should allow editing during confirmation 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      146 |     
+      147 |     // Wait for confirmation
+    > 148 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+          |                                                                   ^
+      149 |     
+      150 |     // Try to add custom service
+      151 |     const addServiceButton = page.getByText('Add Custom Service');
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:148:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-fcdb5-editing-during-confirmation-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-fcdb5-editing-during-confirmation-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[22/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:108:3 › Single Post Scheduling › should allow selecting platforms
+[1A[2K[23/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:128:3 › Publishing Queue › should display publishing queue
+[1A[2K[24/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:96:3 › Single Post Scheduling › should allow selecting posting time
+[1A[2K  11) [chromium] › src/__tests__/e2e/onboarding.spec.ts:165:3 › Onboarding Flow › should allow going back from any step 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      183 |     
+      184 |     // Wait for confirmation
+    > 185 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+          |                                                                   ^
+      186 |     
+      187 |     // Click back button if it exists
+      188 |     const backButton = page.getByText('Back');
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:185:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-196e8-ow-going-back-from-any-step-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Onboarding-Flow-196e8-ow-going-back-from-any-step-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K[25/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:163:3 › Publishing Queue › should allow canceling scheduled post
+[1A[2K[26/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:193:3 › Error Handling › should handle scheduling failures gracefully
+[1A[2K[27/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:208:3 › Error Handling › should retry failed publishing
+[1A[2K[28/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:143:3 › Publishing Queue › should show post status in queue
+[1A[2K[29/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:219:3 › Error Handling › should show publishing analytics
+[1A[2K[30/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:237:3 › Platform-Specific Scheduling › should respect platform posting limits
+[1A[2K[31/31] [chromium] › src/__tests__/e2e/publishing.spec.ts:249:3 › Platform-Specific Scheduling › should show optimal posting times by platform
+[1A[2K  12) [chromium] › src/__tests__/e2e/onboarding.spec.ts:226:3 › Multi-select Functionality › should allow selecting multiple services 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      243 |     await page.click('button:has-text("Get Started")');
+      244 |     
+    > 245 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+          |                                                                   ^
+      246 |     
+      247 |     // Select multiple services
+      248 |     const serviceChips = page.locator('[data-testid^="service-chip-"]');
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:245:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Multi-select-Fu-d4f1f-selecting-multiple-services-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Multi-select-Fu-d4f1f-selecting-multiple-services-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  13) [chromium] › src/__tests__/e2e/publishing.spec.ts:128:3 › Publishing Queue › should display publishing queue 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText(/content calendar/i)
+    Expected: visible
+    Timeout: 10000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 10000ms[22m
+    [2m  - waiting for getByText(/content calendar/i)[22m
+
+
+      130 |     
+      131 |     // Should show calendar view
+    > 132 |     await expect(page.getByText(/content calendar/i)).toBeVisible({ timeout: 10000 });
+          |                                                       ^
+      133 |     
+      134 |     // Look for publishing queue section
+      135 |     const queue = page.locator('[data-testid="publishing-queue"]');
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/publishing.spec.ts:132:55
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/publishing-Publishing-Queue-should-display-publishing-queue-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/publishing-Publishing-Queue-should-display-publishing-queue-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/publishing-Publishing-Queue-should-display-publishing-queue-chromium/error-context.md
+
+
+[1A[2K  14) [chromium] › src/__tests__/e2e/onboarding.spec.ts:264:3 › Multi-select Functionality › should allow deselecting services 
+
+    [31mTest timeout of 30000ms exceeded.[39m
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: getByText('Confirm Your Business Details')
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 90000ms[22m
+    [2m  - waiting for getByText('Confirm Your Business Details')[22m
+
+
+      280 |     await page.click('button:has-text("Get Started")');
+      281 |     
+    > 282 |     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+          |                                                                   ^
+      283 |     
+      284 |     const firstService = page.locator('[data-testid^="service-chip-"]').first();
+      285 |     
+        at /Users/byronhudson/Projects/Synapse/src/__tests__/e2e/onboarding.spec.ts:282:67
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/onboarding-Multi-select-Fu-07375--allow-deselecting-services-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/onboarding-Multi-select-Fu-07375--allow-deselecting-services-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+
+[1A[2K  14 failed
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:59:3 › Campaign Generation from Smart Suggestions › should generate campaign from suggested campaign 
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:82:3 › Campaign Generation from Smart Suggestions › should generate single post from quick post suggestion 
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:103:3 › Campaign Generation from Smart Suggestions › should navigate to custom builder 
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:118:3 › Campaign Generation from Smart Suggestions › should show campaign details correctly 
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:132:3 › Campaign Generation from Smart Suggestions › should show post suggestion previews 
+    [chromium] › src/__tests__/e2e/campaign-generation.spec.ts:156:3 › Campaign Preview and Editing › should allow editing campaign post content 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:12:3 › Onboarding Flow › should complete full onboarding flow with URL input 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:86:3 › Onboarding Flow › should handle invalid URL gracefully 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:128:3 › Onboarding Flow › should allow editing during confirmation 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:165:3 › Onboarding Flow › should allow going back from any step 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:197:3 › Onboarding Flow › should show proper loading states 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:226:3 › Multi-select Functionality › should allow selecting multiple services 
+    [chromium] › src/__tests__/e2e/onboarding.spec.ts:264:3 › Multi-select Functionality › should allow deselecting services 
+    [chromium] › src/__tests__/e2e/publishing.spec.ts:128:3 › Publishing Queue › should display publishing queue 
+  17 passed (1.6m)
+
+[36m  Serving HTML report at http://localhost:61433. Press Ctrl+C to quit.[39m
