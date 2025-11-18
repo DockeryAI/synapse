@@ -40,6 +40,7 @@ function App() {
               {/* Week 7: New onboarding flow as default */}
               <Route path="/" element={<OnboardingPageV5 />} />
               <Route path="/onboarding" element={<OnboardingPageV5 />} />
+              <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
 
               {/* Legacy routes */}
               <Route path="/synapse" element={<SynapsePage />} />
