@@ -414,7 +414,7 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   }
 
   return (
-    <div className={`industry-selector-clean ${className}`}>
+    <div className={`industry-selector-clean ${className}`} data-testid="industry-selector">
       <label className="block text-sm font-medium text-gray-700 mb-2">
         What business are you in?
         {suggestedIndustry && !selectedIndustry && (
@@ -524,6 +524,7 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
                         onMouseEnter={() => setHighlightedIndex(itemIndex)}
                         whileHover={{ x: 4 }}
                         type="button"
+                        data-testid={`industry-option-${industry.displayName.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
                         style={{
                           display: 'flex',
                           alignItems: 'center',
