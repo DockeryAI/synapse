@@ -16,6 +16,9 @@ export interface NAICSOption {
 }
 
 export const COMPLETE_NAICS_CODES: NAICSOption[] = [
+  // ===== COMMON TEST/DEMO INDUSTRIES =====
+  { naics_code: '722511', display_name: 'Restaurant', category: 'Food Service', has_full_profile: true, keywords: ['restaurant', 'dining', 'food service'], popularity: 100 },
+
   // ===== 140 PRE-GENERATED PROFILES (OPUS 4.1) =====
 
   { naics_code: '541519', display_name: 'MSP (Managed Service Provider)', category: 'Technology', has_full_profile: true, keywords: ["msp (managed service provider)","msp","(managed","service","provider)"], popularity: 100 },

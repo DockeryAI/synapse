@@ -434,6 +434,10 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           ref={inputRef}
           type="text"
           value={searchTerm}
+          onFocus={() => {
+            // Show dropdown on focus so users can see options
+            setShowDropdown(true);
+          }}
           onChange={(e) => {
             const value = e.target.value;
             setSearchTerm(value);
