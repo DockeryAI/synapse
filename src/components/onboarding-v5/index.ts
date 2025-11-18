@@ -19,13 +19,13 @@
  */
 
 export { OnboardingFlow } from './OnboardingFlow';
-export type { DetectedBusinessData } from './OnboardingFlow';
+export type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
 
 export { PathSelector } from './PathSelector';
 export type { ContentPath } from './PathSelector';
 
 export { SinglePostTypeSelector } from './SinglePostTypeSelector';
-export type { PostType } from './SinglePostTypeSelector';
+export type { PostType } from '@/types/campaign-generation.types';
 
 export { CustomerStoryInputModal } from './CustomerStoryInputModal';
 
