@@ -58,14 +58,18 @@ interface ValidationResult {
 // ============================================================================
 
 export class BuyerJourneyAI {
-  private apiKey: string | null = null
+  private supabaseAnonKey: string | null = null
+  private aiProxyUrl: string | null = null
   private model: string = 'anthropic/claude-opus-4.1'
 
   constructor() {
-    this.apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || null
+    this.supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || null
+    this.aiProxyUrl = import.meta.env.VITE_SUPABASE_URL
+      ? `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`
+      : null
 
-    if (!this.apiKey) {
-      console.warn('[BuyerJourneyAI] No API key found - AI features will be limited')
+    if (!this.supabaseAnonKey || !this.aiProxyUrl) {
+      console.warn('[BuyerJourneyAI] Supabase configuration missing - AI features will be limited')
     }
   }
 
@@ -501,14 +505,14 @@ Return ONLY a JSON array of exactly 5 strings.`
   }
 
   /**
-   * Call OpenRouter API with timeout
+   * Call AI Proxy with timeout
    */
   private async callOpenRouter(prompt: string): Promise<string[]> {
-    if (!this.apiKey) {
-      throw new Error('OpenRouter API key not configured')
+    if (!this.supabaseAnonKey || !this.aiProxyUrl) {
+      throw new Error('Supabase configuration is missing')
     }
 
-    console.log('[BuyerJourneyAI] 🌐 Making API call to OpenRouter...')
+    console.log('[BuyerJourneyAI] 🌐 Making API call via AI Proxy...')
 
     // Create abort controller for timeout
     const controller = new AbortController()
@@ -518,15 +522,14 @@ Return ONLY a JSON array of exactly 5 strings.`
     }, 30000) // 30 second timeout
 
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(this.aiProxyUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`,
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'MARBA Buyer Journey'
+          'Authorization': `Bearer ${this.supabaseAnonKey}`,
         },
         body: JSON.stringify({
+          provider: 'openrouter',  // Route through ai-proxy to OpenRouter
           model: this.model,
           messages: [
             {

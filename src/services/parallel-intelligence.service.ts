@@ -643,7 +643,7 @@ async function findSocialProfiles(
 }
 
 /**
- * 8. AI SYNTHESIS (OpenRouter - Claude Opus)
+ * 8. AI SYNTHESIS (AI Proxy - Claude Opus via OpenRouter)
  * Synthesizes all intelligence into actionable insights
  */
 async function synthesizeIntelligence(
@@ -651,6 +651,13 @@ async function synthesizeIntelligence(
 ): Promise<AIInsights | null> {
   return await callAPIWithRetry(
     async () => {
+      const aiProxyUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseAnonKey) {
+        throw new Error('Supabase configuration is missing');
+      }
+
       const prompt = `Analyze this business intelligence and provide insights:
 
 Business Data:
@@ -673,15 +680,16 @@ Return ONLY valid JSON matching this structure:
 }`
 
       const response = await axios.post(
-        'https://openrouter.ai/api/v1/chat/completions',
+        aiProxyUrl,
         {
+          provider: 'openrouter',  // Route through ai-proxy to OpenRouter
           model: 'anthropic/claude-opus',
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.7
         },
         {
           headers: {
-            'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
+            'Authorization': `Bearer ${supabaseAnonKey}`,
             'Content-Type': 'application/json'
           },
           timeout: 30000

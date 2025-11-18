@@ -540,24 +540,24 @@ Generate EXACTLY 3 business-focused insights that DRIVE CUSTOMER ACTION. Content
 }
 
 /**
- * Call Claude 3.5 Sonnet via OpenRouter
+ * Call Claude 3.5 Sonnet via AI Proxy Edge Function
  */
 async function callClaude(prompt: string): Promise<any> {
-  const openRouterKey = import.meta.env.VITE_OPENROUTER_API_KEY;
+  const aiProxyUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-  if (!openRouterKey) {
-    throw new Error('No OpenRouter API key found');
+  if (!supabaseAnonKey) {
+    throw new Error('Supabase configuration is missing');
   }
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const response = await fetch(aiProxyUrl, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${openRouterKey}`,
+      'Authorization': `Bearer ${supabaseAnonKey}`,
       'Content-Type': 'application/json',
-      'HTTP-Referer': 'https://marba-agent.app',
-      'X-Title': 'MARBA.ai Synapse Generator'
     },
     body: JSON.stringify({
+      provider: 'openrouter',  // Route through ai-proxy to OpenRouter
       model: 'anthropic/claude-3.5-sonnet',
       max_tokens: 16384,  // Increased to allow 3 synapses with full provenance (~5k tokens each)
       temperature: 0.8,

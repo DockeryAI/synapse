@@ -3,13 +3,14 @@
 import type { OpenRouterRequest, OpenRouterResponse, OpenRouterMessage } from '@/types';
 import { OPENROUTER_MODELS } from './constants';
 
-const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions';
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+// AI Proxy configuration - secure server-side API calls
+const AI_PROXY_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-console.log('[OpenRouter] API Key loaded:', OPENROUTER_API_KEY ? `${OPENROUTER_API_KEY.substring(0, 20)}...` : 'NOT SET');
+console.log('[OpenRouter] Using AI Proxy:', AI_PROXY_URL ? 'configured' : 'NOT SET');
 
-if (!OPENROUTER_API_KEY) {
-  console.warn('VITE_OPENROUTER_API_KEY is not set. Content generation will not work.');
+if (!SUPABASE_ANON_KEY) {
+  console.warn('VITE_SUPABASE_ANON_KEY is not set. Content generation will not work.');
 }
 
 interface ChatOptions {
@@ -27,8 +28,8 @@ export async function chat(
   messages: OpenRouterMessage[],
   options: ChatOptions = {}
 ): Promise<string> {
-  if (!OPENROUTER_API_KEY) {
-    throw new Error('OpenRouter API key is not configured');
+  if (!SUPABASE_ANON_KEY) {
+    throw new Error('Supabase configuration is missing');
   }
 
   const {
@@ -39,7 +40,8 @@ export async function chat(
     stream = false,
   } = options;
 
-  const requestBody: OpenRouterRequest = {
+  const requestBody = {
+    provider: 'openrouter',  // Route through ai-proxy to OpenRouter
     model,
     messages,
     temperature,
@@ -48,21 +50,18 @@ export async function chat(
     stream,
   };
 
-  console.log('[OpenRouter] Making API request:', {
+  console.log('[OpenRouter] Making API request via ai-proxy:', {
     model,
     messageCount: messages.length,
-    hasApiKey: !!OPENROUTER_API_KEY,
-    apiKeyPrefix: OPENROUTER_API_KEY?.substring(0, 20)
+    provider: 'openrouter'
   });
 
   try {
-    const response = await fetch(OPENROUTER_API_URL, {
+    const response = await fetch(AI_PROXY_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'MARBA',
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
       },
       body: JSON.stringify(requestBody),
     });
@@ -73,19 +72,19 @@ export async function chat(
       const errorData = await response.json().catch(() => ({}));
       console.error('[OpenRouter] Error response:', errorData);
       throw new Error(
-        `OpenRouter API error: ${response.status} - ${errorData.error?.message || response.statusText}`
+        `AI Proxy error: ${response.status} - ${errorData.error || response.statusText}`
       );
     }
 
     const data: OpenRouterResponse = await response.json();
 
     if (!data.choices || data.choices.length === 0) {
-      throw new Error('No response from OpenRouter API');
+      throw new Error('No response from AI Proxy');
     }
 
     return data.choices[0].message.content;
   } catch (error) {
-    console.error('OpenRouter API error:', error);
+    console.error('AI Proxy error:', error);
     throw error;
   }
 }

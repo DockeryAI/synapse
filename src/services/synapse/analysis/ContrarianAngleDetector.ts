@@ -15,10 +15,12 @@ import type {
   ContrarianDetectionResult
 } from '@/types/synapseContent.types';
 
-const OPENROUTER_API_KEY = import.meta.env.VITE_OPENROUTER_API_KEY;
+// AI Proxy configuration - secure server-side API calls
+const AI_PROXY_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!OPENROUTER_API_KEY) {
-  throw new Error('VITE_OPENROUTER_API_KEY is not set in .env file');
+if (!SUPABASE_ANON_KEY) {
+  throw new Error('VITE_SUPABASE_ANON_KEY is not set in .env file');
 }
 
 export class ContrarianAngleDetector {
@@ -150,15 +152,14 @@ export class ContrarianAngleDetector {
     const prompt = this.buildContrarianPrompt(claim, insights);
 
     try {
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(AI_PROXY_URL, {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${OPENROUTER_API_KEY}`,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'MARBA Contrarian Detector'
         },
         body: JSON.stringify({
+          provider: 'openrouter',  // Route through ai-proxy to OpenRouter
           model: 'anthropic/claude-3.5-sonnet',
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.7,
