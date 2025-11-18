@@ -342,7 +342,8 @@ class BannerbearService {
   private validateConfig(): void {
     if (!this.apiKey) {
       throw new Error(
-        'Bannerbear API key not configured. Please set VITE_BANNERBEAR_API_KEY in your .env file.'
+        'Bannerbear visual generation is not configured. ' +
+        'This feature is optional for MVP and will be added in a future release.'
       );
     }
   }

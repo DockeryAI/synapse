@@ -7,7 +7,9 @@
 
 export const BANNERBEAR_CONFIG = {
   apiUrl: 'https://api.bannerbear.com/v2',
-  apiKey: import.meta.env.VITE_BANNERBEAR_API_KEY || '',
+  // API key should be handled server-side via Edge Function
+  // Client-side Bannerbear integration is optional for MVP
+  apiKey: '',
   timeout: 60000, // 60 seconds for image generation
   retry: {
     maxAttempts: 3,

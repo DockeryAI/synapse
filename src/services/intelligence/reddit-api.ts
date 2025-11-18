@@ -91,19 +91,14 @@ export class RedditAPI {
   private accessToken: RedditAccessToken | null = null;
 
   constructor(config?: RedditAuthConfig) {
-    // Load from environment if not provided
-    this.clientId = config?.clientId ||
-      import.meta.env.VITE_REDDIT_CLIENT_ID ||
-      import.meta.env.REDDIT_CLIENT_ID || '';
+    // Reddit credentials are managed server-side by reddit-oauth Edge Function
+    // Client-side code doesn't need direct access to credentials
+    this.clientId = config?.clientId || '';
+    this.clientSecret = config?.clientSecret || '';
+    this.userAgent = config?.userAgent || 'Synapse/1.0';
 
-    this.clientSecret = config?.clientSecret ||
-      import.meta.env.VITE_REDDIT_CLIENT_SECRET ||
-      import.meta.env.REDDIT_CLIENT_SECRET || '';
-
-    this.userAgent = config?.userAgent ||
-      import.meta.env.VITE_REDDIT_USER_AGENT ||
-      import.meta.env.REDDIT_USER_AGENT ||
-      'Synapse/1.0';
+    // Note: All Reddit API calls go through Supabase Edge Function (reddit-oauth)
+    // which securely handles authentication using server-side secrets
   }
 
   // ==========================================================================
