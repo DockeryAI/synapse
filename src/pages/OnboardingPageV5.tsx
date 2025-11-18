@@ -18,6 +18,10 @@ import { ContentPreview } from '@/components/onboarding-v5/ContentPreview';
 import { GenerationProgressComponent } from '@/components/onboarding-v5/GenerationProgress';
 import { OnboardingCampaignPreview } from '@/components/onboarding-v5/OnboardingCampaignPreview';
 import { OnboardingSinglePostPreview } from '@/components/onboarding-v5/OnboardingSinglePostPreview';
+import { ValuePropositionPage, type ValueProposition } from '@/components/onboarding-v5/ValuePropositionPage';
+import { BuyerIntelligencePage, type CustomerTrigger, type BuyerPersona } from '@/components/onboarding-v5/BuyerIntelligencePage';
+import { CoreTruthPage, type CoreTruth } from '@/components/onboarding-v5/CoreTruthPage';
+import type { Transformation } from '@/components/onboarding-v5/TransformationCascade';
 import { useNavigate } from 'react-router-dom';
 import { SmartUVPExtractor } from '@/services/uvp-wizard/SmartUVPExtractor';
 import { IndustryMatchingService } from '@/services/industry/IndustryMatchingService';
@@ -26,6 +30,8 @@ import { campaignGenerator } from '@/services/campaign/CampaignGenerator';
 import { scrapeWebsite } from '@/services/scraping/websiteScraper';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { productScannerService } from '@/services/intelligence/product-scanner.service';
+import { dataCollectionService, type OnboardingDataPackage } from '@/services/onboarding-v5/data-collection.service';
+import { onboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -43,6 +49,10 @@ import { mapCampaignIdToType, mapPostIdToType, PostType } from '@/types/campaign
 
 type FlowStep =
   | 'url_input'
+  | 'data_collection'
+  | 'value_propositions'
+  | 'buyer_intelligence'
+  | 'core_truth'
   | 'uvp_extraction'
   | 'smart_confirmation'
   | 'quick_refinement'
@@ -88,6 +98,12 @@ export const OnboardingPageV5: React.FC = () => {
   const [generatedPost, setGeneratedPost] = useState<GeneratedPost | null>(null);
   const [generationProgress, setGenerationProgress] = useState<GenerationProgress | null>(null);
 
+  // New state for Week 2 3-page flow
+  const [collectedData, setCollectedData] = useState<OnboardingDataPackage | null>(null);
+  const [validatedValueProps, setValidatedValueProps] = useState<Set<string>>(new Set());
+  const [validatedTriggers, setValidatedTriggers] = useState<Set<string>>(new Set());
+  const [validatedPersonas, setValidatedPersonas] = useState<Set<string>>(new Set());
+
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
       const existing = prev.find(s => s.step === step);
@@ -98,7 +114,7 @@ export const OnboardingPageV5: React.FC = () => {
     });
   };
 
-  // Handle URL submission - START multi-engine detection process
+  // Handle URL submission - START Track E MARBA data collection
   const handleUrlSubmit = async (url: string, industry: IndustryOption) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
     console.log('[OnboardingPageV5] Industry selected:', industry.displayName);
@@ -113,111 +129,37 @@ export const OnboardingPageV5: React.FC = () => {
     }
 
     setWebsiteUrl(url);
-    setCurrentStep('uvp_extraction');
+    setCurrentStep('data_collection');
     setIsExtracting(true);
     setExtractionError(null);
     setProgressSteps([
-      { step: 'Understanding your unique offerings', status: 'pending' },
-      { step: 'Identifying your customers', status: 'pending' },
-      { step: 'Analyzing what makes you different', status: 'pending' },
-      { step: 'Finalizing your business profile', status: 'pending' },
+      { step: 'Scanning website content', status: 'pending' },
+      { step: 'Extracting value propositions', status: 'pending' },
+      { step: 'Analyzing buyer intelligence', status: 'pending' },
+      { step: 'Synthesizing brand narrative', status: 'pending' },
     ]);
 
-    // E2E test mode: Skip real extraction for test URLs
-    const isTestMode = url.includes('example.com') || url.includes('test.com');
-
-    if (isTestMode) {
-      console.log('[OnboardingPageV5] Test mode detected, using mock data');
-
-      // Simulate quick extraction with mock data
-      addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
-      await new Promise(resolve => setTimeout(resolve, 500));
-      addProgressStep('Understanding your unique offerings', 'complete', 'Found 3 services and offerings');
-
-      addProgressStep('Identifying your customers', 'in_progress', 'Finding who you serve...');
-      await new Promise(resolve => setTimeout(resolve, 300));
-      addProgressStep('Identifying your customers', 'complete', 'Serving 2 customer types');
-
-      addProgressStep('Analyzing what makes you different', 'in_progress', 'Finding your unique advantages...');
-      await new Promise(resolve => setTimeout(resolve, 300));
-      addProgressStep('Analyzing what makes you different', 'complete', 'Found 2 differentiators');
-
-      addProgressStep('Finalizing your business profile', 'in_progress', 'Putting everything together...');
-
-      // Create mock business data for testing
-      const mockDetectedData: DetectedBusinessData = {
-        url,
-        businessName: 'Test Business',
-        industry: industry.displayName,
-        industryCode: industry.naicsCode,
-        specialization: `Test ${industry.displayName}`,
-        location: 'Test City, USA',
-        services: ['Service 1', 'Service 2', 'Service 3'],
-        competitors: [],
-        uvpData: {
-          websiteUrl: url,
-          extractedAt: new Date(),
-          customerTypes: [{ text: 'Customer Type 1', confidence: 0.9, source: url }, { text: 'Customer Type 2', confidence: 0.8, source: url }],
-          problemsSolved: [{ text: 'Problem 1', confidence: 0.9, source: url }],
-          differentiators: [{ text: 'Differentiator 1', confidence: 0.9, source: url }, { text: 'Differentiator 2', confidence: 0.8, source: url }],
-          services: [{ text: 'Service 1', confidence: 0.9, source: url }, { text: 'Service 2', confidence: 0.8, source: url }, { text: 'Service 3', confidence: 0.7, source: url }],
-          testimonials: [],
-          overallConfidence: 0.85,
-          verificationRate: 0.9,
-          completeness: 0.8,
-          sourcesAnalyzed: [url],
-          sourceQuality: 'high' as const,
-        },
-        sources: {
-          website: url,
-          verified: true,
-        },
-      };
-
-      setBusinessData(mockDetectedData);
-
-      // Mock website analysis for suggestions step
-      setWebsiteAnalysis({
-        targetAudience: ['Test Audience 1', 'Test Audience 2'],
-        differentiators: ['Test Specialization'],
-        brandVoice: 'professional',
-        solutions: ['Test Solution 1', 'Test Solution 2'],
-        valuePropositions: ['Test Value Prop 1', 'Test Value Prop 2'],
-        testimonials: [],
-        customerProblems: ['Test Problem 1', 'Test Problem 2'],
-        proofPoints: ['Test Proof 1'],
-        confidence: 0.85,
-      });
-
-      addProgressStep('Finalizing your business profile', 'complete', 'Your profile is ready!');
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      setIsExtracting(false);
-      setCurrentStep('smart_confirmation');
-      return;
-    }
-
     try {
-      // Step 1: Scrape website to get basic metadata
-      addProgressStep('Understanding your unique offerings', 'in_progress', 'Reading your website content...');
+      // Step 1: Scrape website to get content
+      addProgressStep('Scanning website content', 'in_progress', 'Reading your website...');
       const scrapedData = await scrapeWebsite(url);
+      addProgressStep('Scanning website content', 'complete', 'Website scanned successfully');
 
       // Extract business name from website metadata
       let businessName = 'Your Business';
       if (scrapedData?.metadata?.title) {
         // Clean and extract business name from title
-        // First normalize whitespace (replace multiple whitespace with single space)
         let cleanTitle = scrapedData.metadata.title
           .replace(/\s+/g, ' ')
           .trim();
 
-        // Try to extract business name from title (remove common suffixes and extract before pipe/dash)
+        // Extract business name from title (remove common suffixes)
         businessName = cleanTitle
           .replace(/\s*[-|–]\s*(Home|About|Services|Welcome).*$/i, '')
-          .split(/\s*[|–-]\s*/)[0]  // Get text before first pipe or dash
+          .split(/\s*[|–-]\s*/)[0]
           .trim();
 
-        // Only fallback to h1 if extraction failed (empty or too generic)
+        // Fallback to h1 if extraction failed
         if (!businessName || businessName.length < 3 || businessName.toLowerCase() === 'home') {
           const firstH1 = scrapedData.content?.headings?.find((h: string) => h && h.length < 50 && h.length > 3);
           if (firstH1) {
@@ -228,134 +170,45 @@ export const OnboardingPageV5: React.FC = () => {
         }
       }
 
-      // Detect location using location detection service
-      let serviceArea: string | undefined;
-      try {
-        const locationResult = await locationDetectionService.detectLocation(url, industry.displayName);
-        if (locationResult && locationResult.confidence > 0.5) {
-          serviceArea = `${locationResult.city}, ${locationResult.state}`;
-          console.log('[OnboardingPageV5] Location detected:', serviceArea, 'via', locationResult.method, `(${Math.round(locationResult.confidence * 100)}% confidence)`);
-        }
-      } catch (error) {
-        console.warn('[OnboardingPageV5] Location detection failed:', error);
-      }
-
       console.log('[OnboardingPageV5] Extracted business name:', businessName);
 
-      // Step 2: Analyze website and extract UVP data
-      const extractor = new SmartUVPExtractor();
-      const uvpData = await extractor.extractUVP({
-        websiteUrl: url,
-        requireSources: true,
-        minConfidence: 0.6,
+      // Step 2-4: Run comprehensive MARBA data collection
+      const collectedOnboardingData = await dataCollectionService.collectOnboardingData(
+        scrapedData,
+        businessName,
+        industry.displayName,
+        (progress) => {
+          // Map DataCollectionProgress to addProgressStep format
+          addProgressStep(
+            progress.message,
+            progress.progress >= 100 ? 'complete' : 'in_progress',
+            progress.details
+          );
+        }
+      );
+
+      console.log('[OnboardingPageV5] Data collection complete:', {
+        valueProps: collectedOnboardingData.valuePropositions.length,
+        personas: collectedOnboardingData.buyerPersonas.length,
+        triggers: collectedOnboardingData.customerTriggers.length,
+        transformations: collectedOnboardingData.transformations.length,
+        hasCoreTruth: !!collectedOnboardingData.coreTruth,
       });
 
-      // Step 2.5: Comprehensive product/service scan using AI
-      addProgressStep('Scanning all products and services', 'in_progress', 'Analyzing your complete offerings...');
-
-      let comprehensiveServices: string[] = uvpData.services.map(s => s.text);
-
-      try {
-        // Format website content for scanning
-        const websiteContentText = [
-          scrapedData.content.headings.join('\n'),
-          scrapedData.content.paragraphs.join('\n'),
-          scrapedData.metadata.description,
-        ].join('\n\n');
-
-        console.log('[OnboardingPageV5] Starting comprehensive product scan...');
-        const productScanResult = await productScannerService.scanProducts(
-          websiteContentText,
-          businessName,
-          industry.displayName
-        );
-
-        // Merge ProductScanner results with uvpData.services for comprehensive coverage
-        const aiExtractedServices = productScanResult.products.map(p => p.name);
-
-        // Combine both sources, removing duplicates
-        const allServices = [...new Set([...aiExtractedServices, ...comprehensiveServices])];
-        comprehensiveServices = allServices;
-
-        console.log('[OnboardingPageV5] Comprehensive scan complete:', {
-          aiExtracted: aiExtractedServices.length,
-          uvpExtracted: uvpData.services.length,
-          totalUnique: comprehensiveServices.length,
-          confidence: (productScanResult.confidence * 100).toFixed(0) + '%'
-        });
-
-        addProgressStep('Scanning all products and services', 'complete', `Found ${comprehensiveServices.length} products and services`);
-      } catch (error) {
-        console.warn('[OnboardingPageV5] Product scan failed, using UVP data only:', error);
-        addProgressStep('Scanning all products and services', 'complete', `Found ${uvpData.services.length} services`);
-      }
-
-      addProgressStep('Understanding your unique offerings', 'complete', `Analyzed ${comprehensiveServices.length} offerings`);
-      console.log('[OnboardingPageV5] Website analyzed:', {
-        customers: uvpData.customerTypes.length,
-        services: comprehensiveServices.length,
-        problems: uvpData.problemsSolved.length,
-      });
-
-      // Step 3: Identify customers using extracted data
-      addProgressStep('Identifying your customers', 'in_progress', 'Finding who you serve...');
-      const analysis = await websiteAnalyzer.analyzeWebsite(url);
-      setWebsiteAnalysis(analysis); // Save for confirmation step
-
-      let specialization = 'General ' + industry.displayName;
-      if (analysis.differentiators.length > 0) {
-        specialization = analysis.differentiators[0];
-      } else if (analysis.targetAudience.length > 0) {
-        specialization = analysis.targetAudience[0] + ' specialist';
-      }
-
-      const customerSummary = uvpData.customerTypes.length > 0
-        ? `Serving ${uvpData.customerTypes.length} customer types`
-        : 'Customer types identified';
-      addProgressStep('Identifying your customers', 'complete', customerSummary);
-      console.log('[OnboardingPageV5] Specialization detected:', specialization);
-
-      // Step 4: Analyze differentiators
-      addProgressStep('Analyzing what makes you different', 'in_progress', 'Finding your unique advantages...');
-      const differentiatorSummary = uvpData.differentiators.length > 0
-        ? `Found ${uvpData.differentiators.length} differentiators`
-        : 'Differentiators identified';
-      addProgressStep('Analyzing what makes you different', 'complete', differentiatorSummary);
-      console.log('[OnboardingPageV5] Differentiators analyzed:', uvpData.differentiators.length);
-
-      // Combine all detected data
-      const detectedData: DetectedBusinessData = {
-        url,
-        businessName, // Auto-detected from website title/h1
-        industry: industry.displayName,
-        industryCode: industry.naicsCode,
-        specialization,
-        location: serviceArea, // Auto-detected from footer/contact
-        services: comprehensiveServices, // Using AI-enhanced comprehensive service list
-        competitors: [], // TODO: Add competitor detection
-        uvpData,
-        sources: {
-          website: url,
-          verified: uvpData.verificationRate > 0.7,
-        },
-      };
-
-      addProgressStep('Finalizing your business profile', 'in_progress', 'Putting everything together...');
-      setBusinessData(detectedData);
-
-      addProgressStep('Finalizing your business profile', 'complete', 'Your profile is ready!');
+      // Set the collected data for the 3-page review flow
+      setCollectedData(collectedOnboardingData);
 
       // Wait a moment to show completed state
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       setIsExtracting(false);
 
-      // Transition to smart confirmation
-      setCurrentStep('smart_confirmation');
+      // Transition to Track E 3-page flow: value_propositions → buyer_intelligence → core_truth
+      setCurrentStep('value_propositions');
 
     } catch (error) {
-      console.error('[OnboardingPageV5] Extraction error:', error);
-      setExtractionError(error instanceof Error ? error.message : 'Failed to analyze website');
+      console.error('[OnboardingPageV5] Data collection error:', error);
+      setExtractionError(error instanceof Error ? error.message : 'Failed to collect onboarding data');
       setIsExtracting(false);
       setCurrentStep('url_input');
     }
@@ -513,6 +366,180 @@ export const OnboardingPageV5: React.FC = () => {
       // Navigate to dashboard anyway to prevent blocking the user
       navigate('/dashboard');
     }
+  };
+
+  // Track E Navigation Handlers - Value Propositions Page
+  const handleValidateValueProp = (id: string) => {
+    console.log('[OnboardingPageV5] Validating value prop:', id);
+    setValidatedValueProps(prev => new Set(prev).add(id));
+  };
+
+  const handleRejectValueProp = (id: string) => {
+    console.log('[OnboardingPageV5] Rejecting value prop:', id);
+    if (!collectedData) return;
+
+    setCollectedData({
+      ...collectedData,
+      valuePropositions: collectedData.valuePropositions.filter(vp => vp.id !== id),
+    });
+  };
+
+  const handleEditValueProp = (id: string, text: string) => {
+    console.log('[OnboardingPageV5] Editing value prop:', id, text);
+    if (!collectedData) return;
+
+    setCollectedData({
+      ...collectedData,
+      valuePropositions: collectedData.valuePropositions.map(vp =>
+        vp.id === id ? { ...vp, text } : vp
+      ),
+    });
+  };
+
+  const handleRegenerateAllValueProps = () => {
+    console.log('[OnboardingPageV5] Regenerating all value props - placeholder');
+    // TODO: Implement regeneration logic
+  };
+
+  const handleValuePropsNext = () => {
+    console.log('[OnboardingPageV5] Moving to buyer intelligence');
+    setCurrentStep('buyer_intelligence');
+  };
+
+  // Track E Navigation Handlers - Buyer Intelligence Page
+  const handleValidateTrigger = (id: string) => {
+    console.log('[OnboardingPageV5] Validating trigger:', id);
+    setValidatedTriggers(prev => new Set(prev).add(id));
+  };
+
+  const handleValidatePersona = (id: string) => {
+    console.log('[OnboardingPageV5] Validating persona:', id);
+    setValidatedPersonas(prev => new Set(prev).add(id));
+  };
+
+  const handleBuyerIntelNext = () => {
+    console.log('[OnboardingPageV5] Moving to core truth');
+    setCurrentStep('core_truth');
+  };
+
+  const handleBackFromBuyerIntel = () => {
+    console.log('[OnboardingPageV5] Going back to value propositions');
+    setCurrentStep('value_propositions');
+  };
+
+  // Track E Navigation Handlers - Core Truth Page
+  const handleCoreTruthComplete = async () => {
+    console.log('[OnboardingPageV5] Completing core truth and saving to database');
+
+    if (!collectedData || !businessData || !refinedData) {
+      console.error('[OnboardingPageV5] Missing required data for saving');
+      navigate('/dashboard');
+      return;
+    }
+
+    try {
+      // Step 1: Create or update brand in Supabase
+      const { data: existingBrand, error: checkError } = await supabase
+        .from('brands')
+        .select('id')
+        .eq('name', refinedData.businessName)
+        .maybeSingle();
+
+      if (checkError) {
+        console.error('[OnboardingPageV5] Error checking for existing brand:', checkError);
+      }
+
+      let brandId: string;
+
+      if (existingBrand) {
+        // Update existing brand
+        brandId = existingBrand.id;
+        console.log('[OnboardingPageV5] Updating existing brand:', brandId);
+
+        const { error: updateError } = await supabase
+          .from('brands')
+          .update({
+            industry: businessData.industry,
+            website: businessData.url,
+            updated_at: new Date().toISOString(),
+          })
+          .eq('id', brandId);
+
+        if (updateError) {
+          console.error('[OnboardingPageV5] Error updating brand:', updateError);
+        }
+      } else {
+        // Create new brand
+        console.log('[OnboardingPageV5] Creating new brand');
+
+        const { data: newBrand, error: createError } = await supabase
+          .from('brands')
+          .insert({
+            name: refinedData.businessName,
+            industry: businessData.industry,
+            website: businessData.url,
+            description: businessData.specialization,
+          })
+          .select()
+          .single();
+
+        if (createError || !newBrand) {
+          console.error('[OnboardingPageV5] Error creating brand:', createError);
+          throw new Error('Failed to create brand');
+        }
+
+        brandId = newBrand.id;
+        console.log('[OnboardingPageV5] Created new brand:', brandId);
+      }
+
+      // Step 2: Save validated value propositions
+      const validatedProps = collectedData.valuePropositions.filter(vp =>
+        validatedValueProps.has(vp.id)
+      );
+      await onboardingV5DataService.saveValuePropositions(brandId, validatedProps as any);
+      console.log('[OnboardingPageV5] Saved', validatedProps.length, 'value propositions');
+
+      // Step 3: Save validated buyer personas
+      const validatedPersonasData = collectedData.buyerPersonas.filter(persona =>
+        validatedPersonas.has(persona.id)
+      );
+      await onboardingV5DataService.saveBuyerPersonas(brandId, validatedPersonasData as any);
+      console.log('[OnboardingPageV5] Saved', validatedPersonasData.length, 'buyer personas');
+
+      // Step 4: Save core truth insight
+      await onboardingV5DataService.saveCoreTruthInsight(brandId, collectedData.coreTruth);
+      console.log('[OnboardingPageV5] Saved core truth insight');
+
+      // Step 5: Set brand in context
+      const brandData = {
+        id: brandId,
+        name: refinedData.businessName,
+        industry: businessData.industry,
+        description: businessData.specialization,
+        website: businessData.url,
+      };
+
+      setCurrentBrand(brandData);
+      console.log('[OnboardingPageV5] Brand set in context');
+
+      // Step 6: Navigate to dashboard
+      console.log('[OnboardingPageV5] Track E onboarding complete - redirecting to dashboard');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('[OnboardingPageV5] Failed to save Track E data:', error);
+      // Navigate to dashboard anyway to prevent blocking the user
+      navigate('/dashboard');
+    }
+  };
+
+  const handleCoreTruthExport = () => {
+    console.log('[OnboardingPageV5] Exporting core truth - placeholder');
+    // TODO: Implement export logic
+  };
+
+  const handleBackFromCoreTruth = () => {
+    console.log('[OnboardingPageV5] Going back to buyer intelligence');
+    setCurrentStep('buyer_intelligence');
   };
 
   // Handle campaign selection from SmartSuggestions
@@ -980,6 +1007,48 @@ export const OnboardingPageV5: React.FC = () => {
             )}
           </div>
         </div>
+      )}
+
+      {currentStep === 'value_propositions' && collectedData && (
+        <ValuePropositionPage
+          {...{
+            valuePropositions: collectedData.valuePropositions,
+            validatedIds: validatedValueProps,
+            onValidate: handleValidateValueProp,
+            onReject: handleRejectValueProp,
+            onEdit: handleEditValueProp,
+            onRegenerateAll: handleRegenerateAllValueProps,
+            onNext: handleValuePropsNext,
+          } as any}
+        />
+      )}
+
+      {currentStep === 'buyer_intelligence' && collectedData && (
+        <BuyerIntelligencePage
+          {...{
+            triggers: collectedData.customerTriggers,
+            personas: collectedData.buyerPersonas,
+            validatedTriggerIds: validatedTriggers,
+            validatedPersonaIds: validatedPersonas,
+            onValidateTrigger: handleValidateTrigger,
+            onValidatePersona: handleValidatePersona,
+            onNext: handleBuyerIntelNext,
+            onBack: handleBackFromBuyerIntel,
+          } as any}
+        />
+      )}
+
+      {currentStep === 'core_truth' && collectedData && (
+        <CoreTruthPage
+          {...{
+            coreTruth: collectedData.coreTruth,
+            transformations: collectedData.transformations,
+            industryEQScore: collectedData.industryEQScore,
+            onComplete: handleCoreTruthComplete,
+            onExport: handleCoreTruthExport,
+            onBack: handleBackFromCoreTruth,
+          } as any}
+        />
       )}
 
       {currentStep === 'smart_confirmation' && businessData && websiteAnalysis && (

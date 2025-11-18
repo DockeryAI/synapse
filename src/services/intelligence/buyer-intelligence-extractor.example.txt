@@ -1,0 +1,299 @@
+/**
+ * BuyerIntelligenceExtractor - Usage Examples
+ *
+ * This service analyzes website content to extract WHO buys and WHY.
+ * It uses Claude AI to identify buyer personas from testimonials, case studies, and customer language.
+ */
+
+import { buyerIntelligenceExtractor } from './buyer-intelligence-extractor.service'
+import type { WebsiteData } from './buyer-intelligence-extractor.service'
+import type { BuyerIntelligenceResult, BuyerPersona } from '@/types/buyer-persona.types'
+
+/**
+ * EXAMPLE 1: Basic usage with website content
+ */
+async function example1_BasicExtraction() {
+  const websiteData: WebsiteData = {
+    url: 'https://example.com',
+    content: `
+      Our clients love us!
+
+      "I was wasting 15 hours every week on manual reporting before finding this tool.
+       Now I spend 2 hours. As a Marketing Director at a fast-growing SaaS company,
+       I finally have time to be strategic instead of drowning in spreadsheets."
+       - Sarah Chen, Marketing Director, TechCorp (50 employees)
+
+      "We tried 3 other solutions before this. Too expensive, too complicated.
+       This just works. Saved us $20k in the first quarter."
+       - Mike Rodriguez, CEO, Small Manufacturing Company (15 employees)
+    `,
+    testimonials: [
+      "I was wasting 15 hours every week on manual reporting before finding this tool. Now I spend 2 hours. As a Marketing Director at a fast-growing SaaS company, I finally have time to be strategic instead of drowning in spreadsheets.",
+      "We tried 3 other solutions before this. Too expensive, too complicated. This just works. Saved us $20k in the first quarter."
+    ]
+  }
+
+  const result: BuyerIntelligenceResult = await buyerIntelligenceExtractor.extractBuyerPersonas(websiteData)
+
+  console.log('Extraction Results:')
+  console.log(`- Found ${result.personas.length} personas`)
+  console.log(`- Quality: ${result.extraction_quality}`)
+  console.log(`- Evidence points: ${result.total_evidence_points}`)
+
+  result.personas.forEach((persona, index) => {
+    console.log(`\nPersona ${index + 1}: ${persona.persona_name}`)
+    console.log(`  Role: ${persona.role.title} (${persona.role.seniority})`)
+    console.log(`  Company: ${persona.company_type}, ${persona.company_size}`)
+    console.log(`  Industry: ${persona.industry.primary_industry}`)
+    console.log(`  Confidence: ${persona.confidence_score}%`)
+    console.log(`  Top Pain Points:`)
+    persona.pain_points.slice(0, 3).forEach(pain => {
+      console.log(`    - ${pain.description} (${pain.category}, ${pain.intensity})`)
+    })
+  })
+
+  return result
+}
+
+/**
+ * EXAMPLE 2: Integration with existing Website Analyzer
+ */
+async function example2_IntegrateWithWebsiteAnalyzer() {
+  // Assuming you already have website content from website-analyzer.service.ts
+  import { websiteAnalyzer } from './website-analyzer.service'
+
+  const url = 'https://example-company.com'
+
+  // Step 1: Extract website content
+  const websiteContent = await websiteAnalyzer.extractWebsiteContent(url)
+
+  // Step 2: Extract buyer personas
+  const websiteData: WebsiteData = {
+    url,
+    content: websiteContent
+  }
+
+  const personas = await buyerIntelligenceExtractor.extractBuyerPersonas(websiteData)
+
+  return personas
+}
+
+/**
+ * EXAMPLE 3: Full extraction with all data sources
+ */
+async function example3_FullExtraction() {
+  const websiteData: WebsiteData = {
+    url: 'https://example.com',
+    content: 'Main website content here...',
+    testimonials: [
+      'Testimonial 1 with customer role, pain point, and outcome',
+      'Testimonial 2...',
+      'Testimonial 3...'
+    ],
+    case_studies: [
+      'Case study 1: Company X increased revenue by 30% in 6 months',
+      'Case study 2: How Company Y saved $50k annually'
+    ],
+    about_page: 'About page content that might mention target customers...',
+    services: [
+      'Service 1: Marketing automation for SaaS companies',
+      'Service 2: Analytics dashboards for tech startups'
+    ]
+  }
+
+  const result = await buyerIntelligenceExtractor.extractBuyerPersonas(websiteData)
+
+  // Check quality and data gaps
+  if (result.extraction_quality === 'poor') {
+    console.warn('Low quality extraction. Data gaps:', result.data_gaps)
+    console.warn('Assumptions made:', result.assumptions_made)
+  }
+
+  // Common patterns across all personas
+  console.log('\nCommon Pain Points:')
+  result.common_pain_points.forEach(pain => {
+    console.log(`- ${pain.description} (appears ${pain.frequency}x)`)
+  })
+
+  console.log('\nCommon Desired Outcomes:')
+  result.common_outcomes.forEach(outcome => {
+    console.log(`- ${outcome.description}`)
+  })
+
+  console.log('\nIndustry Patterns:')
+  result.industry_patterns.forEach(pattern => {
+    console.log(`- ${pattern}`)
+  })
+
+  return result
+}
+
+/**
+ * EXAMPLE 4: Using persona data for campaign targeting
+ */
+async function example4_CampaignTargeting() {
+  const result = await buyerIntelligenceExtractor.extractBuyerPersonas({
+    url: 'https://example.com',
+    content: 'Website content...'
+  })
+
+  // Find high-confidence personas with urgent needs
+  const urgentPersonas = result.personas.filter(persona =>
+    persona.confidence_score >= 70 &&
+    persona.urgency_signals.some(signal => signal.severity === 'critical' || signal.severity === 'high')
+  )
+
+  urgentPersonas.forEach(persona => {
+    console.log(`\nHigh-priority persona: ${persona.persona_name}`)
+    console.log('Create campaign targeting:')
+    console.log(`- Role: ${persona.role.title} at ${persona.company_type} (${persona.company_size})`)
+    console.log(`- Industry: ${persona.industry.primary_industry}`)
+
+    // Address their top pain point
+    const topPain = persona.pain_points.sort((a, b) =>
+      (b.intensity === 'critical' ? 3 : b.intensity === 'high' ? 2 : 1) -
+      (a.intensity === 'critical' ? 3 : a.intensity === 'high' ? 2 : 1)
+    )[0]
+
+    console.log(`- Lead with: "Tired of ${topPain.description}?"`)
+
+    // Promise their desired outcome
+    const topOutcome = persona.desired_outcomes[0]
+    console.log(`- Promise: ${topOutcome.description}`)
+
+    // Use urgency signal
+    const topUrgency = persona.urgency_signals[0]
+    if (topUrgency) {
+      console.log(`- Urgency: ${topUrgency.trigger}`)
+    }
+
+    // Social proof with actual metrics
+    const metrics = persona.success_metrics
+    if (metrics.length > 0) {
+      console.log(`- Social proof: "Customers like you achieved ${metrics[0].improvement}"`)
+    }
+  })
+}
+
+/**
+ * EXAMPLE 5: Persona confidence scoring
+ */
+function example5_ConfidenceScoring(persona: BuyerPersona) {
+  console.log(`Persona: ${persona.persona_name}`)
+  console.log(`Overall Confidence: ${persona.confidence_score}%`)
+  console.log(`Sample Size: ${persona.sample_size} testimonials/case studies`)
+  console.log(`Evidence Sources: ${persona.evidence_sources.length}`)
+
+  // Check data richness
+  const dataRichness = {
+    painPoints: persona.pain_points.length,
+    outcomes: persona.desired_outcomes.length,
+    urgencySignals: persona.urgency_signals.length,
+    successMetrics: persona.success_metrics.length,
+    quotes: persona.representative_quotes.length
+  }
+
+  console.log('\nData Richness:')
+  console.log(`- Pain Points: ${dataRichness.painPoints}`)
+  console.log(`- Desired Outcomes: ${dataRichness.outcomes}`)
+  console.log(`- Urgency Signals: ${dataRichness.urgencySignals}`)
+  console.log(`- Success Metrics: ${dataRichness.successMetrics}`)
+  console.log(`- Representative Quotes: ${dataRichness.quotes}`)
+
+  // Recommendations based on confidence
+  if (persona.confidence_score >= 80) {
+    console.log('\n✅ HIGH CONFIDENCE - Use for primary campaign targeting')
+  } else if (persona.confidence_score >= 60) {
+    console.log('\n⚠️  MEDIUM CONFIDENCE - Validate with customer interviews before major investment')
+  } else {
+    console.log('\n❌ LOW CONFIDENCE - Needs more evidence. Add testimonials or case studies.')
+  }
+}
+
+/**
+ * EXAMPLE 6: Export personas for content generation
+ */
+function example6_ExportForContentGeneration(result: BuyerIntelligenceResult) {
+  // Create content briefs for each persona
+  result.personas.forEach(persona => {
+    const brief = {
+      target_audience: `${persona.role.title} at ${persona.company_type} companies (${persona.company_size})`,
+      industry: persona.industry.primary_industry,
+      sub_industry: persona.industry.sub_industry,
+
+      // Hook (lead with pain)
+      hook: `Are you ${persona.pain_points[0].description.toLowerCase()}?`,
+
+      // Value proposition (promise outcome)
+      value_prop: persona.desired_outcomes[0]?.description || 'Solve your biggest challenges',
+
+      // Urgency (create FOMO)
+      urgency: persona.urgency_signals[0]?.trigger || 'Don\'t wait',
+
+      // Social proof (use real metrics)
+      social_proof: persona.success_metrics[0]?.improvement || 'Join hundreds of satisfied customers',
+
+      // Voice/Tone (match their buying behavior)
+      tone: persona.buying_behavior.relationship_vs_transactional === 'relationship'
+        ? 'warm, consultative, educational'
+        : 'direct, results-focused, ROI-driven',
+
+      // CTA
+      cta: persona.buying_behavior.decision_speed === 'fast' || persona.buying_behavior.decision_speed === 'impulse'
+        ? 'Start Free Trial Now'
+        : 'Schedule a Demo',
+
+      // Exact customer language to use
+      customer_language: persona.representative_quotes
+    }
+
+    console.log('\n=== Content Brief ===')
+    console.log(JSON.stringify(brief, null, 2))
+  })
+}
+
+/**
+ * HOW TO RUN THESE EXAMPLES:
+ *
+ * 1. Import this file in your component/service
+ * 2. Call any example function
+ * 3. Use the extracted personas for campaign targeting, content generation, etc.
+ *
+ * Example usage in a React component:
+ *
+ * ```typescript
+ * import { buyerIntelligenceExtractor } from '@/services/intelligence/buyer-intelligence-extractor.service'
+ *
+ * const MyComponent = () => {
+ *   const [personas, setPersonas] = useState([])
+ *
+ *   useEffect(() => {
+ *     async function extractPersonas() {
+ *       const result = await buyerIntelligenceExtractor.extractBuyerPersonas({
+ *         url: userWebsite,
+ *         content: websiteContent
+ *       })
+ *       setPersonas(result.personas)
+ *     }
+ *     extractPersonas()
+ *   }, [])
+ *
+ *   return (
+ *     <div>
+ *       {personas.map(persona => (
+ *         <PersonaCard key={persona.id} persona={persona} />
+ *       ))}
+ *     </div>
+ *   )
+ * }
+ * ```
+ */
+
+export {
+  example1_BasicExtraction,
+  example2_IntegrateWithWebsiteAnalyzer,
+  example3_FullExtraction,
+  example4_CampaignTargeting,
+  example5_ConfidenceScoring,
+  example6_ExportForContentGeneration
+}
