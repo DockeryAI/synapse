@@ -21,28 +21,38 @@ function App() {
   return (
     <BrandProvider>
       <div className="min-h-screen bg-gray-50">
+        {/* Accessibility: Skip to main content link */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded-md focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
+
         <Suspense fallback={<LoadingSpinner />}>
-          <Routes>
-            {/* AUTHENTICATION DISABLED FOR NOW - Will be enabled in Phase 0 */}
-            {/* <Route path="/login" element={<LoginPage />} /> */}
-            {/* <Route path="/signup" element={<SignUpPage />} /> */}
+          <main id="main-content" className="animate-fade-in">
+            <Routes>
+              {/* AUTHENTICATION DISABLED FOR NOW - Will be enabled in Phase 0 */}
+              {/* <Route path="/login" element={<LoginPage />} /> */}
+              {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
-            {/* Public Routes (temporarily - will be protected in Phase 0) */}
-            {/* Week 7: New onboarding flow as default */}
-            <Route path="/" element={<OnboardingPageV5 />} />
-            <Route path="/onboarding" element={<OnboardingPageV5 />} />
+              {/* Public Routes (temporarily - will be protected in Phase 0) */}
+              {/* Week 7: New onboarding flow as default */}
+              <Route path="/" element={<OnboardingPageV5 />} />
+              <Route path="/onboarding" element={<OnboardingPageV5 />} />
 
-            {/* Legacy routes */}
-            <Route path="/synapse" element={<SynapsePage />} />
-            <Route path="/synapse-old" element={<SynapsePage />} />
-            <Route path="/campaign/new" element={<CampaignPage />} />
-            <Route path="/content-calendar" element={<ContentCalendarPage />} />
-            <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
+              {/* Legacy routes */}
+              <Route path="/synapse" element={<SynapsePage />} />
+              <Route path="/synapse-old" element={<SynapsePage />} />
+              <Route path="/campaign/new" element={<CampaignPage />} />
+              <Route path="/content-calendar" element={<ContentCalendarPage />} />
+              <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
 
-            {/* Admin Routes - Commented out until authentication is enabled */}
-            {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
-            {/* <Route path="/admin/user/:userId" element={<ProtectedRoute adminOnly><UserSessionViewer /></ProtectedRoute>} /> */}
-          </Routes>
+              {/* Admin Routes - Commented out until authentication is enabled */}
+              {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
+              {/* <Route path="/admin/user/:userId" element={<ProtectedRoute adminOnly><UserSessionViewer /></ProtectedRoute>} /> */}
+            </Routes>
+          </main>
         </Suspense>
       </div>
     </BrandProvider>

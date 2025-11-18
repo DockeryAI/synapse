@@ -72,8 +72,9 @@ const PlatformTab: React.FC<PlatformTabProps> = ({
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
+      aria-label={`${config.displayName} platform${isActive ? ' (selected)' : ''}${hasWarnings ? ' - has warnings' : ''}`}
       className={`
-        relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-t-lg transition-all shadow-lg min-h-[44px] flex-shrink-0
+        relative flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-t-lg transition-all shadow-lg min-h-[44px] flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
         ${isActive
           ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
           : 'bg-white/50 dark:bg-slate-800/50 text-gray-600 dark:text-gray-400 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
@@ -159,13 +160,15 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
         </div>
 
         {/* Mode Toggle */}
-        <div className="flex items-center gap-1.5 sm:gap-2 sm:ml-4 flex-shrink-0">
+        <div className="flex items-center gap-1.5 sm:gap-2 sm:ml-4 flex-shrink-0" role="group" aria-label="View mode">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('preview')}
+            aria-label="Preview mode"
+            aria-pressed={mode === 'preview'}
             className={`
-              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0
+              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
               ${mode === 'preview'
                 ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                 : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
@@ -179,8 +182,10 @@ export const PlatformTabs: React.FC<PlatformTabsProps> = ({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => onModeChange('edit')}
+            aria-label="Edit mode"
+            aria-pressed={mode === 'edit'}
             className={`
-              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0
+              flex-1 sm:flex-none px-2.5 sm:px-3 py-2 sm:py-1.5 rounded-lg text-xs sm:text-sm font-medium transition-all shadow-lg min-h-[44px] sm:min-h-0 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
               ${mode === 'edit'
                 ? 'bg-gradient-to-r from-purple-600 to-blue-600 text-white'
                 : 'bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-purple-50 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700'
