@@ -93,10 +93,10 @@ class WebsiteAnalyzer {
         links: scrapedData.content.links.length
       })
 
-      // Use OpenRouter AI to analyze the scraped content
-      const apiKey = import.meta.env.VITE_OPENROUTER_API_KEY
+      // Use ai-proxy to analyze the scraped content
+      const apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY
       if (!apiKey) {
-        console.error('[WebsiteAnalyzer] No OpenRouter API key found')
+        console.error('[WebsiteAnalyzer] No Supabase anon key found')
         return null
       }
 
@@ -155,16 +155,15 @@ IMPORTANT: Extract ONLY what is actually present in the content above. Do NOT ma
 If information is not found in the content, use empty arrays [] or null.
 Be specific and use the actual wording from the website where possible.`
 
-      // Call OpenRouter API
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      // Call ai-proxy
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${apiKey}`,
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'MARBA Website Analyzer',
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: 'anthropic/claude-opus-4.1',
           messages: [
             {

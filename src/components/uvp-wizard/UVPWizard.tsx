@@ -376,15 +376,14 @@ Return ONLY a JSON object in this exact format:
   "sweetSpot": "2-3 clear, concise sentences"
 }`
 
-      const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
-          'HTTP-Referer': window.location.origin,
-          'X-Title': 'MARBA UVP Wizard'
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({
+          provider: 'openrouter',
           model: 'anthropic/claude-opus-4.1',
           messages: [
             {

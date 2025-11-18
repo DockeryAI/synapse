@@ -24,9 +24,11 @@ import type {
 
 export class SmartUVPExtractor {
   private apiKey: string;
+  private endpoint: string;
 
   constructor() {
-    this.apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || '';
+    this.apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+    this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`;
   }
 
   /**
@@ -181,14 +183,14 @@ export class SmartUVPExtractor {
   private async extractWithSources(websiteUrl: string, scrapedData: any): Promise<ExtractedUVPData> {
     const prompt = this.buildExtractionPrompt(websiteUrl, scrapedData);
 
-    const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const response = await fetch(this.endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.apiKey}`,
-        'HTTP-Referer': window.location.origin,
       },
       body: JSON.stringify({
+        provider: 'openrouter',
         model: 'anthropic/claude-3.5-sonnet',
         messages: [
           {

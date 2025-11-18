@@ -33,7 +33,7 @@ interface RhodesAIConfig {
  * Default configuration
  */
 const DEFAULT_CONFIG: RhodesAIConfig = {
-  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY || '',
+  apiKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
   model: 'claude-sonnet-4', // Balance of speed and quality
   temperature: 0.7,
   maxTokens: 2000,
@@ -44,13 +44,14 @@ const DEFAULT_CONFIG: RhodesAIConfig = {
  */
 export class RhodesAI {
   private config: RhodesAIConfig
-  private endpoint = 'https://openrouter.ai/api/v1/chat/completions'
+  private endpoint: string
 
   constructor(config?: Partial<RhodesAIConfig>) {
     this.config = { ...DEFAULT_CONFIG, ...config }
+    this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`
 
     if (!this.config.apiKey) {
-      console.warn('[RhodesAI] No API key provided. Set VITE_OPENROUTER_API_KEY.')
+      console.warn('[RhodesAI] No API key provided. Set VITE_SUPABASE_ANON_KEY.')
     }
   }
 
@@ -301,7 +302,7 @@ Extract and enhance the core message. Return JSON:
   }
 
   /**
-   * Make API request to Claude via OpenRouter
+   * Make API request to Claude via ai-proxy
    */
   private async makeRequest(systemPrompt: string, userPrompt: string): Promise<string> {
     const modelName = this.mapModelName(this.config.model)
@@ -311,10 +312,9 @@ Extract and enhance the core message. Return JSON:
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.config.apiKey}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'MARBA UVP Wizard',
       },
       body: JSON.stringify({
+        provider: 'openrouter',
         model: modelName,
         messages: [
           {

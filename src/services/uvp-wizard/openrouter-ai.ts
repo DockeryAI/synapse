@@ -31,16 +31,14 @@ const MODELS = {
 
 class OpenRouterAI {
   private apiKey: string
-  private endpoint = 'https://openrouter.ai/api/v1/chat/completions'
+  private endpoint: string
   private model = MODELS.CLAUDE_OPUS_41 // Using Claude Opus 4.1 - HIGHEST QUALITY
 
   constructor() {
-    this.apiKey = import.meta.env.VITE_OPENROUTER_API_KEY || ''
-    console.log('[OpenRouterAI] Initialized with Claude Opus 4.1 - HIGHEST QUALITY:', {
+    this.apiKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
+    this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`
+    console.log('[OpenRouterAI] Initialized with Claude Opus 4.1 - HIGHEST QUALITY via ai-proxy:', {
       hasApiKey: !!this.apiKey,
-      apiKeyLength: this.apiKey.length,
-      apiKeyPrefix: this.apiKey.substring(0, 20),
-      apiKeySuffix: this.apiKey.substring(this.apiKey.length - 10),
       model: this.model,
       endpoint: this.endpoint
     })
@@ -523,10 +521,11 @@ Format your response as a JSON array of exactly 5 strings based ONLY on the diff
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.apiKey}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'MARBA UVP Wizard'
       },
-      body: JSON.stringify(requestBody)
+      body: JSON.stringify({
+        provider: 'openrouter',
+        ...requestBody
+      })
     })
 
     console.log('[OpenRouterAI] Response status:', response.status)

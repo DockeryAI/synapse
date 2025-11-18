@@ -32,7 +32,7 @@ interface PerplexityConfig {
  * Default configuration
  */
 const DEFAULT_CONFIG: PerplexityConfig = {
-  apiKey: import.meta.env.VITE_OPENROUTER_API_KEY || import.meta.env.VITE_OPENAI_API_KEY || '',
+  apiKey: import.meta.env.VITE_SUPABASE_ANON_KEY || '',
   model: 'sonar-pro', // Best for deep research
   temperature: 0.7,
   maxTokens: 2000,
@@ -43,13 +43,14 @@ const DEFAULT_CONFIG: PerplexityConfig = {
  */
 export class PerplexityAPI {
   private config: PerplexityConfig
-  private endpoint = 'https://openrouter.ai/api/v1/chat/completions'
+  private endpoint: string
 
   constructor(config?: Partial<PerplexityConfig>) {
     this.config = { ...DEFAULT_CONFIG, ...config }
+    this.endpoint = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-proxy`
 
     if (!this.config.apiKey) {
-      console.warn('[PerplexityAPI] No API key provided. Set VITE_OPENROUTER_API_KEY.')
+      console.warn('[PerplexityAPI] No API key provided. Set VITE_SUPABASE_ANON_KEY.')
     }
   }
 
@@ -262,7 +263,7 @@ export class PerplexityAPI {
   }
 
   /**
-   * Make API request to Perplexity via OpenRouter
+   * Make API request to Perplexity via ai-proxy
    */
   private async makeRequest(prompt: string): Promise<any> {
     const modelName = this.mapModelName(this.config.model)
@@ -272,10 +273,9 @@ export class PerplexityAPI {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${this.config.apiKey}`,
-        'HTTP-Referer': window.location.origin,
-        'X-Title': 'MARBA UVP Wizard',
       },
       body: JSON.stringify({
+        provider: 'perplexity',
         model: modelName,
         messages: [
           {
