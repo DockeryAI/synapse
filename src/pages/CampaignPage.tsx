@@ -384,11 +384,10 @@ export function CampaignPage() {
               animate={{ opacity: 1, y: 0 }}
             >
               <CampaignPreview
-                content={session.generatedContent}
+                campaignData={session.generatedContent}
                 onApprove={handleApprove}
-                onPublish={handlePublish}
-                onEdit={(sectionId, newContent) => console.log('Edit:', sectionId)}
-                onRegenerate={(sectionId) => console.log('Regenerate:', sectionId)}
+                onReject={() => console.log('Rejected')}
+                onRegenerateAll={async () => console.log('Regenerate all')}
               />
             </motion.div>
           )}

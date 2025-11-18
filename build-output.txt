@@ -1,0 +1,21 @@
+
+> synapse-smb-platform@1.0.0 build
+> vite build
+
+vite v5.4.21 building for production...
+transforming...
+✓ 2041 modules transformed.
+[plugin:vite:reporter] [plugin vite:reporter] 
+(!) /Users/byronhudson/Projects/Synapse/src/lib/supabase.ts is dynamically imported by /Users/byronhudson/Projects/Synapse/src/contexts/BrandContext.tsx but also statically imported by /Users/byronhudson/Projects/Synapse/src/components/content-calendar/ContentCalendarHub.tsx, /Users/byronhudson/Projects/Synapse/src/components/content-calendar/IndustrySelector.tsx, /Users/byronhudson/Projects/Synapse/src/components/onboarding-v5/IndustrySelector.tsx, /Users/byronhudson/Projects/Synapse/src/services/analytics/funnel-tracker.service.ts, /Users/byronhudson/Projects/Synapse/src/services/campaign/CampaignDB.ts, /Users/byronhudson/Projects/Synapse/src/services/content-calendar.service.ts, /Users/byronhudson/Projects/Synapse/src/services/industry/IndustryMatchingService.ts, /Users/byronhudson/Projects/Synapse/src/services/industry/OnDemandProfileGeneration.ts, /Users/byronhudson/Projects/Synapse/src/services/intelligence/deepcontext-builder.service.ts, /Users/byronhudson/Projects/Synapse/src/services/intelligence/intelligence-cache.service.ts, /Users/byronhudson/Projects/Synapse/src/services/intelligence/location-detection.service.ts, /Users/byronhudson/Projects/Synapse/src/services/intelligence/semrush-api.ts, /Users/byronhudson/Projects/Synapse/src/services/opportunity-detector.service.ts, /Users/byronhudson/Projects/Synapse/src/services/socialpilot.service.ts, dynamic import will not move module into another chunk.
+
+rendering chunks...
+computing gzip size...
+dist/index.html                     0.59 kB │ gzip:   0.36 kB
+dist/assets/index-Bfd3_VCv.css    107.93 kB │ gzip:  15.24 kB
+dist/assets/index-Bz1e1JAN.js   2,063.97 kB │ gzip: 580.49 kB │ map: 7,234.92 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 2.88s
