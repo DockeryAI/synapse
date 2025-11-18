@@ -132,7 +132,7 @@ export function ContentGenerator({
         meta: {
           platform: [platform as any],
           targetAudience: '',
-          tone: 'professional'
+          tone: 'authoritative' as const
         },
         prediction: {
           engagementScore: 0,

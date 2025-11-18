@@ -239,15 +239,20 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
       updateProgress(Math.floor(count * 0.3), 'Discovering breakthrough connections...');
 
       const insights = await generateSynapses({
-        brandName: businessName,
-        industry: brandIndustry,
-        location: 'New York',
-        deepContext: intelligence
+        business: {
+          name: businessName,
+          industry: brandIndustry,
+          location: {
+            city: 'New York',
+            state: 'NY'
+          }
+        },
+        intelligence: intelligence
       });
 
-      console.log(`[Synapse] Found ${insights.length} breakthrough insights`);
+      console.log(`[Synapse] Found ${insights.synapses.length} breakthrough insights`);
 
-      if (insights.length === 0) {
+      if (insights.synapses.length === 0) {
         closeProgress();
         alert('No breakthrough insights discovered. Try a different URL or industry.');
         return;
@@ -260,15 +265,21 @@ export function ContentCalendarHub({ brandId, userId, pillars = [] }: ContentCal
       const allContent: SynapseContent[] = [];
 
       // Generate content from each insight until we have enough
-      for (let i = 0; i < Math.min(insights.length, count); i++) {
-        const insight = insights[i];
-        const content = await contentGenerator.generateContent(insight, {
-          formats: ['standard'],
-          platforms: ['linkedin', 'twitter'],
-          edginess: 0.7
+      for (let i = 0; i < Math.min(insights.synapses.length, count); i++) {
+        const insight = insights.synapses[i];
+        const generationResult = await contentGenerator.generate([insight], {
+          name: businessName,
+          industry: brandIndustry,
+          targetAudience: 'business owners',
+          brandVoice: 'professional',
+          contentGoals: ['engagement']
+        }, {
+          maxContent: 2,
+          formats: ['hook-post'],
+          platform: 'linkedin'
         });
 
-        allContent.push(...content);
+        allContent.push(...generationResult.content);
         updateProgress(Math.floor(count * 0.5) + i, `Generated ${allContent.length} pieces...`);
       }
 

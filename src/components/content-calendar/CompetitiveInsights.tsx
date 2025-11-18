@@ -254,6 +254,7 @@ export function CompetitiveInsights({
               <div className="space-y-2">
                 <label className="text-sm font-medium">Industry</label>
                 <IndustrySelector
+                  brandId={brandId}
                   value={industry}
                   onChange={setIndustry}
                 />

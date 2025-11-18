@@ -79,6 +79,7 @@ export type WizardStep =
  */
 export interface WizardStepConfig {
   id: WizardStep
+  step: string
   title: string
   subtitle: string
   description: string
@@ -89,9 +90,11 @@ export interface WizardStepConfig {
   field_name: keyof UVP
   placeholder: string
   helper_text: string
+  prompt: string
 
   // Validation
   required: boolean
+  optional?: boolean
   min_length?: number
   max_length?: number
 

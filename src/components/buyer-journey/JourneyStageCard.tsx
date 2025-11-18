@@ -16,6 +16,8 @@ import {
   Search,
   ShoppingCart,
   CreditCard,
+  Truck,
+  Star,
   Heart,
   Check,
   AlertCircle,
@@ -59,6 +61,18 @@ const STAGE_CONFIG: Record<JourneyStage, {
     label: 'Purchase',
     description: 'Buying & onboarding',
     color: 'orange',
+  },
+  delivery: {
+    icon: Truck,
+    label: 'Delivery',
+    description: 'Receiving service',
+    color: 'indigo',
+  },
+  'post-purchase': {
+    icon: Star,
+    label: 'Post-Purchase',
+    description: 'After service complete',
+    color: 'violet',
   },
   advocacy: {
     icon: Heart,
