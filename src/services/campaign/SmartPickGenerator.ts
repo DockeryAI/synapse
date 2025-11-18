@@ -130,8 +130,7 @@ export async function generateSmartPicks(
         totalCandidates: 0,
         picksGenerated: fallbackPicks.length,
         generationTimeMs,
-        strategiesUsed: ['template-fallback'],
-        fallback: true
+        strategiesUsed: ['template-fallback']
       }
     }
   }
@@ -142,12 +141,6 @@ export async function generateSmartPicks(
 // ============================================================================
 
 async function getOrGenerateInsights(context: DeepContext): Promise<SynapseInsight[]> {
-  // Check if insights already exist in context
-  if (context.synthesis?.insights && context.synthesis.insights.length > 0) {
-    console.log('[SmartPickGenerator] Using existing insights from context')
-    return context.synthesis.insights
-  }
-
   // Generate new insights using Synapse Generator
   console.log('[SmartPickGenerator] Generating new insights...')
 
@@ -283,8 +276,8 @@ async function generateLocalPulsePicks(
 ): Promise<SmartPick[]> {
   // Check if we have location-based intelligence
   const hasLocation = context.business.profile.location.city
-  const hasWeather = context.cultural?.currentContext?.some(c => c.source === 'weather')
-  const hasLocalNews = context.cultural?.currentContext?.some(c => c.source === 'local_news')
+  const hasWeather = context.realTimeCultural?.currentContext?.some(c => c.source === 'weather')
+  const hasLocalNews = context.realTimeCultural?.currentContext?.some(c => c.source === 'local_news')
 
   if (!hasLocation) {
     console.log('[SmartPickGenerator] No location data for local pulse picks')
@@ -628,7 +621,7 @@ Make it specific to the business and actionable.`
         return await chat([{ role: 'user', content: prompt }], {
           model: 'anthropic/claude-3.5-sonnet',
           temperature: 0.8,
-          max_tokens: 300
+          maxTokens: 300
         })
       },
       {
@@ -708,8 +701,7 @@ function generateTemplatePicks(
           conversions: 'low'
         },
         metadata: {
-          generatedAt: new Date(),
-          fallback: true
+          generatedAt: new Date()
         }
       }
     ],
@@ -737,8 +729,7 @@ function generateTemplatePicks(
           conversions: 'medium'
         },
         metadata: {
-          generatedAt: new Date(),
-          fallback: true
+          generatedAt: new Date()
         }
       }
     ],
@@ -766,8 +757,7 @@ function generateTemplatePicks(
           conversions: 'medium'
         },
         metadata: {
-          generatedAt: new Date(),
-          fallback: true
+          generatedAt: new Date()
         }
       }
     ]
