@@ -118,8 +118,7 @@ export const REVENUE_RUSH_TEMPLATE: CampaignTemplateConfig = {
 
   fieldMappings: {
     headline: 'headline',
-    price: 'price_text',
-    offer: 'offer_text',
+    subheadline: 'offer_text',
     bodyText: 'product_description',
     logoUrl: 'logo',
     brandColor: 'primary_color'
@@ -131,9 +130,9 @@ export const REVENUE_RUSH_TEMPLATE: CampaignTemplateConfig = {
   },
 
   style: {
-    colorScheme: 'bold',
-    layout: 'product-focused',
-    typography: 'impactful'
+    colorScheme: 'vibrant',
+    layout: 'centered',
+    typography: 'bold'
   }
 };
 
@@ -149,7 +148,7 @@ export const VIRAL_SPARK_TEMPLATE: CampaignTemplateConfig = {
 
   fieldMappings: {
     headline: 'headline',
-    trendingText: 'trending_text',
+    subheadline: 'trending_text',
     bodyText: 'hook_text',
     logoUrl: 'logo',
     brandColor: 'primary_color'
@@ -161,8 +160,8 @@ export const VIRAL_SPARK_TEMPLATE: CampaignTemplateConfig = {
   },
 
   style: {
-    colorScheme: 'dynamic',
-    layout: 'vertical-video',
+    colorScheme: 'vibrant',
+    layout: 'overlay',
     typography: 'bold'
   }
 };
