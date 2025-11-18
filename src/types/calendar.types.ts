@@ -489,14 +489,6 @@ export interface PlatformLimits {
 }
 
 // ============================================================================
-// EXPORT ALL
+// NOTE: All types are already exported with 'export interface' above
+// No need for duplicate export type block
 // ============================================================================
-
-export type {
-  CampaignCalendar,
-  CalendarPost,
-  PostContent,
-  OrchestrationConfig,
-  ApprovalInfo,
-  SchedulingInfo,
-};

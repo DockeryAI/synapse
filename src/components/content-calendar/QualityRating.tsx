@@ -6,7 +6,15 @@
 
 import React from 'react';
 import { Star } from 'lucide-react';
-import { synapseToUserFacing } from '@/types/synapse.types';
+
+// Helper function to convert Synapse score to user-friendly rating
+function synapseToUserFacing(score: number): { rating: number; label: string; color: string } {
+  if (score >= 90) return { rating: 5, label: 'Excellent', color: 'text-green-600' };
+  if (score >= 75) return { rating: 4, label: 'Great', color: 'text-blue-600' };
+  if (score >= 60) return { rating: 3, label: 'Good', color: 'text-yellow-600' };
+  if (score >= 40) return { rating: 2, label: 'Fair', color: 'text-orange-600' };
+  return { rating: 1, label: 'Poor', color: 'text-red-600' };
+}
 
 export interface QualityRatingProps {
   score: number; // 0-100 Synapse score

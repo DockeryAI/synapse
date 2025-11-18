@@ -1,30 +1,6 @@
 // Central export file for all type definitions
 
-// Mirror types
-export type {
-  MirrorSectionType,
-  MirrorSection,
-  BrandHealth,
-  MarketPosition,
-  CompetitorInsight,
-  CompetitiveLandscape,
-  CurrentAsset,
-  CurrentAssets,
-  AudienceInsight,
-  AudienceProfile,
-  Objective,
-  ObjectiveMilestone,
-  ContentPillar,
-  ChannelStrategy,
-  BrandStrategy,
-  TacticalCampaign,
-  ActionTask,
-  KPIMetric,
-  PerformanceDashboard,
-  LearningInsight,
-  EnrichmentSchedule,
-  IntelligenceOpportunity,
-} from './mirror.types';
+// Note: mirror.types.ts has been removed/consolidated into other type files
 
 // UVP (Unique Value Proposition) types
 export type {
@@ -56,20 +32,8 @@ export type {
   UVPGenerationResponse,
 } from './uvp.types';
 
-// Marbs AI Assistant types
-export type {
-  MarbsMessage,
-  MarbsConversation,
-  MarbsContext,
-  MarbsAction,
-  MarbsActionType,
-  MarbsSuggestion,
-  MarbsCapability,
-  MarbsState,
-  MarbsRequest,
-  MarbsResponse,
-  MarbsAnalysisResult,
-} from './marbs.types';
+// Note: Marbs AI Assistant types removed - marbs.types.ts file doesn't exist
+// TODO: Create marbs.types.ts if Marbs functionality is needed
 
 // Content types
 export type {
@@ -80,7 +44,7 @@ export type {
   ContentCalendarItem,
   ContentVariation,
   EngagementMetrics,
-  DesignData,
+  // DesignData moved to design-studio.types
   DesignObject,
   TextData,
   ImageData,
@@ -94,7 +58,7 @@ export type {
   SynapseConnection,
   PublishRequest,
   PublishResponse,
-  ContentPerformance,
+  // ContentPerformance moved to analytics.types
   BenchmarkComparison,
   CalendarView,
   CalendarFilters,
@@ -142,8 +106,7 @@ export type {
   OpportunityType,
   OpportunitySource,
   SuggestedAction,
-  LearningPattern,
-  PatternEvidence,
+  // LearningPattern and PatternEvidence moved to analytics.types
   CompetitiveSnapshot,
   CompetitorMetrics,
   CompetitorContentAnalysis,

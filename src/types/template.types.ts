@@ -8,7 +8,7 @@
  * We know: Psychology-optimized structures with trigger placement
  */
 
-import type { SynapseScore } from './synapse.types';
+import type { SynapseScore } from './content-generation.types';
 
 // ============================================================================
 // CORE TEMPLATE TYPES

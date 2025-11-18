@@ -128,7 +128,7 @@ export function validateIndustryProfile(data: unknown): IndustryProfileFull {
     return IndustryProfileFullSchema.parse(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const issues = error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
+      const issues = error.issues.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
       throw new Error(`Industry profile validation failed: ${issues}`);
     }
     throw error;
@@ -140,7 +140,7 @@ export function validateNAICSCandidate(data: unknown): NAICSCandidate {
     return NAICSCandidateSchema.parse(data);
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const issues = error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
+      const issues = error.issues.map(e => `${e.path.join('.')}: ${e.message}`).join(', ');
       throw new Error(`NAICS candidate validation failed: ${issues}`);
     }
     throw error;

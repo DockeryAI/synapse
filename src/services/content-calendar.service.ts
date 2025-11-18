@@ -14,6 +14,8 @@ import type {
   SchedulingConflict,
   PlatformLimits,
   AutoScheduleStrategy,
+  ContentStatus,
+  GenerationMode,
 } from '@/types/content-calendar.types';
 
 /**

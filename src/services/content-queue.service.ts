@@ -470,7 +470,8 @@ export async function processScheduledItems(): Promise<void> {
 
   // Find items that should be published now
   const itemsToPublish = items.filter(item => {
-    if (item.status !== 'pending' && item.status !== 'scheduled') {
+    // Only publish pending items
+    if (item.status !== 'pending') {
       return false;
     }
 

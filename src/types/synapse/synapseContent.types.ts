@@ -8,7 +8,15 @@
  */
 
 import type { SynapseInsight } from './synapse.types';
-import type { HolyShitScore } from './scoring.types';
+
+// Temporary stub for scoring - TODO: Create proper scoring.types.ts
+export interface HolyShitScore {
+  overall: number;
+  breakthrough: number;
+  relevance: number;
+  impact: number;
+  [key: string]: number;
+}
 
 /**
  * Content format types
