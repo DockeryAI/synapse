@@ -96,7 +96,21 @@ export class CampaignDatabaseService {
 
     const { data, error } = await supabase
       .from('marketing_campaigns')
-      .select('*')
+      .select(`
+        id,
+        business_id,
+        campaign_name,
+        campaign_type,
+        status,
+        start_date,
+        end_date,
+        budget_usd,
+        goals,
+        target_audience,
+        content_data,
+        created_at,
+        updated_at
+      `)
       .eq('id', campaignId)
       .single();
 
@@ -125,7 +139,21 @@ export class CampaignDatabaseService {
 
     let query = supabase
       .from('marketing_campaigns')
-      .select('*', { count: 'exact' })
+      .select(`
+        id,
+        business_id,
+        campaign_name,
+        campaign_type,
+        status,
+        start_date,
+        end_date,
+        budget_usd,
+        goals,
+        target_audience,
+        content_data,
+        created_at,
+        updated_at
+      `, { count: 'exact' })
       .eq('business_id', params.businessId)
       .order('created_at', { ascending: false });
 
@@ -217,7 +245,22 @@ export class CampaignDatabaseService {
 
     const { data, error } = await supabase
       .from('content_pieces')
-      .select('*')
+      .select(`
+        id,
+        business_id,
+        campaign_id,
+        content_type,
+        platform,
+        title,
+        content_text,
+        media_urls,
+        hashtags,
+        status,
+        scheduled_for,
+        published_at,
+        created_at,
+        updated_at
+      `)
       .eq('campaign_id', campaignId)
       .order('created_at', { ascending: true });
 
