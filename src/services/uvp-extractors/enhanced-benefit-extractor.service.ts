@@ -28,6 +28,7 @@ interface BenefitExtractionResult {
     overall: number;
     dataQuality: number;
     modelAgreement: number;
+    sourceCount?: number;
   };
 }
 
@@ -312,15 +313,33 @@ function parseBenefits(response: string): KeyBenefit[] {
           metric: m.metric || '',
           value: m.value || '',
           timeframe: m.timeframe,
-          source: { type: 'website' as const, url: '' },
+          source: {
+            id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            type: 'website',
+            name: 'Website Content',
+            url: '',
+            extractedAt: new Date(),
+            reliability: 85,
+            dataPoints: 1
+          },
         })),
-        sources: [{ type: 'website' as const, url: '' }],
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Website Content',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 85,
+          dataPoints: 1
+        }],
         isManualInput: false,
-        confidence: b.confidence || {
-          overall: 70,
-          dataQuality: 70,
-          modelAgreement: 70,
-          sourceCount: 1,
+        confidence: {
+          ...b.confidence || {
+            overall: 70,
+            dataQuality: 70,
+            modelAgreement: 70,
+          },
+          sourceCount: b.confidence?.sourceCount ?? 1,
         },
       };
     });
@@ -342,11 +361,6 @@ function ensureOutcomeBalance(
 ): KeyBenefit[] {
   const result = [...benefits];
 
-  // Count by outcome type
-  const functional = result.filter(b => b.outcomeType === 'functional');
-  const emotional = result.filter(b => b.outcomeType === 'emotional');
-  const social = result.filter(b => b.outcomeType === 'social');
-
   // Ensure at least one quantifiable outcome
   if (result.filter(b => b.outcomeType === 'quantifiable').length === 0) {
     const metric = metrics[0] || '30% improvement';
@@ -360,15 +374,31 @@ function ensureOutcomeBalance(
         metric: 'Improvement',
         value: metric,
         timeframe: '90 days',
-        source: { type: 'api' as const, url: '' },
+        source: {
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'api',
+          name: 'Industry Profile',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 70,
+          dataPoints: 1
+        },
       }],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Profile',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      }],
       isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
-        sourceCount: 0,
+        sourceCount: 1,
       },
     });
   }
@@ -384,13 +414,21 @@ function ensureOutcomeBalance(
       statement: `Experience ${emotionalOutcome} knowing you made the right ${industry} choice`,
       outcomeType: 'qualitative',
       eqFraming: 'emotional',
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Profile',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      }],
       isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
-        sourceCount: 0,
+        sourceCount: 1,
       },
     });
   }
@@ -402,13 +440,21 @@ function ensureOutcomeBalance(
       statement: `Be recognized as a savvy decision-maker who found exceptional ${industry} value`,
       outcomeType: 'mixed',
       eqFraming: 'balanced',
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Profile',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      }],
       isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
-        sourceCount: 0,
+        sourceCount: 1,
       },
     });
   }
@@ -437,15 +483,31 @@ function generateIndustryBasedOutcomes(
       metric: 'ROI',
       value: 'Positive',
       timeframe: '90 days',
-      source: { type: 'api' as const, url: '' },
+      source: {
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Profile',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      },
     }],
-    sources: [{ type: 'api' as const, url: '' }],
+    sources: [{
+      id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      type: 'api',
+      name: 'Industry Profile',
+      url: '',
+      extractedAt: new Date(),
+      reliability: 70,
+      dataPoints: 1
+    }],
     isManualInput: false,
     confidence: {
       overall: 60,
       dataQuality: 40,
       modelAgreement: 80,
-      sourceCount: 0,
+      sourceCount: 1,
     },
   });
 
@@ -457,13 +519,21 @@ function generateIndustryBasedOutcomes(
       statement: `Experience ${emotion} knowing you have expert ${industry} support`,
       outcomeType: 'qualitative',
       eqFraming: 'emotional',
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Profile',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      }],
       isManualInput: false,
       confidence: {
         overall: 60,
         dataQuality: 40,
         modelAgreement: 80,
-        sourceCount: 0,
+        sourceCount: 1,
       },
     });
   }

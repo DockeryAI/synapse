@@ -9,7 +9,7 @@
  */
 
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
-import { homeServicesPersonas, healthcarePersonas, restaurantPersonas } from '@/data/buyer-personas';
+import { getPersonasForIndustry } from '@/data/buyer-personas';
 import type { CustomerProfile } from '@/types/uvp-flow.types';
 import type { CustomerPersona } from '@/types/buyer-journey';
 
@@ -32,78 +32,6 @@ interface EnhancedCustomerExtractionResult {
 }
 
 /**
- * Get relevant buyer personas for the industry
- */
-function getIndustryPersonas(industry: string): CustomerPersona[] {
-  const normalizedIndustry = industry.toLowerCase();
-
-  if (normalizedIndustry.includes('home') || normalizedIndustry.includes('repair') ||
-      normalizedIndustry.includes('plumb') || normalizedIndustry.includes('hvac')) {
-    return homeServicesPersonas;
-  }
-
-  if (normalizedIndustry.includes('health') || normalizedIndustry.includes('medical') ||
-      normalizedIndustry.includes('dental') || normalizedIndustry.includes('clinic')) {
-    return healthcarePersonas;
-  }
-
-  if (normalizedIndustry.includes('restaurant') || normalizedIndustry.includes('food') ||
-      normalizedIndustry.includes('cafe') || normalizedIndustry.includes('bar')) {
-    return restaurantPersonas;
-  }
-
-  // Default generic personas
-  return [
-    {
-      id: 'generic-consumer',
-      name: 'Individual Consumers',
-      avatar_color: '#3b82f6',
-      industry: industry,
-      quick_description: 'Individuals seeking personal solutions',
-      key_traits: ['Value-conscious', 'Quality-focused', 'Convenience-seeking'],
-      demographics: {
-        age_range: '25-65',
-        income_range: '$40k-$150k',
-        location_type: 'Various',
-      },
-      pain_points: [
-        'Finding trustworthy providers',
-        'Getting fair pricing',
-        'Ensuring quality service',
-      ],
-      goals: [
-        'Solve their immediate problem',
-        'Get good value for money',
-        'Have a positive experience',
-      ],
-    },
-    {
-      id: 'generic-business',
-      name: 'Business Buyers',
-      avatar_color: '#8b5cf6',
-      industry: industry,
-      quick_description: 'Businesses needing B2B solutions',
-      key_traits: ['ROI-focused', 'Process-driven', 'Risk-aware'],
-      demographics: {
-        age_range: 'N/A',
-        income_range: 'Various',
-        location_type: 'Commercial',
-      },
-      pain_points: [
-        'Managing vendor relationships',
-        'Controlling costs',
-        'Ensuring reliability',
-      ],
-      goals: [
-        'Improve operational efficiency',
-        'Reduce costs',
-        'Minimize disruption',
-      ],
-    },
-  ];
-}
-
-/**
  * Extract customer profiles with industry intelligence
  */
 export async function extractEnhancedCustomers(
@@ -118,7 +46,7 @@ export async function extractEnhancedCustomers(
 
   try {
     // Get industry personas
-    const industryPersonas = getIndustryPersonas(industry);
+    const industryPersonas = getPersonasForIndustry(industry);
     console.log(`[EnhancedCustomerExtractor] Found ${industryPersonas.length} industry personas`);
 
     // Note: Industry profile integration can be added later if needed
@@ -245,24 +173,34 @@ Focus on REAL customer segments found on the website, not generic personas.`;
     console.error('[EnhancedCustomerExtractor] Extraction failed:', error);
 
     // Return industry personas as fallback
-    const fallbackProfiles = industryPersonas.map(persona => ({
+    const fallbackPersonas = getPersonasForIndustry(industry);
+    const fallbackProfiles = fallbackPersonas.map(persona => ({
       id: persona.id,
       statement: `${persona.name}: ${persona.quick_description}`,
       painPoints: persona.pain_points,
       goals: persona.goals,
       demographics: persona.demographics,
       evidenceQuotes: [],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Personas',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 75,
+        dataPoints: 1
+      }],
       confidence: {
         overall: 60,
         dataQuality: 40,
         modelAgreement: 80,
+        sourceCount: 1,
       },
     }));
 
     return {
       profiles: fallbackProfiles,
-      industryPersonas,
+      industryPersonas: fallbackPersonas,
       confidence: {
         overall: 60,
         dataQuality: 40,
@@ -295,11 +233,22 @@ function parseCustomerProfiles(response: string): CustomerProfile[] {
       goals: p.goals || [],
       buyingCriteria: p.buyingCriteria || [],
       evidenceQuotes: p.evidenceQuotes || [],
-      sources: [{ type: 'website' as const, url: '' }],
-      confidence: p.confidence || {
-        overall: 70,
-        dataQuality: 70,
-        modelAgreement: 70,
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'website',
+        name: 'Website Content',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 85,
+        dataPoints: 1
+      }],
+      confidence: {
+        ...p.confidence || {
+          overall: 70,
+          dataQuality: 70,
+          modelAgreement: 70,
+        },
+        sourceCount: p.confidence?.sourceCount ?? 1,
       },
     }));
   } catch (error) {
@@ -339,11 +288,20 @@ function mergeWithIndustryPersonas(
         goals: persona.goals,
         demographics: persona.demographics,
         evidenceQuotes: [],
-        sources: [{ type: 'api' as const, url: '' }],
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'api',
+          name: 'Industry Personas',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 75,
+          dataPoints: 1
+        }],
         confidence: {
           overall: 75,
           dataQuality: 60,
           modelAgreement: 90,
+          sourceCount: 1,
         },
       });
     }

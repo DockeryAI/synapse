@@ -15,6 +15,21 @@ import type { EmotionalGoal } from '@/types/jtbd.types';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+/**
+ * Create a properly formatted DataSource object
+ */
+function createDataSource(type: 'website' | 'api', name: string, url: string = ''): any {
+  return {
+    id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+    type,
+    name,
+    url,
+    extractedAt: new Date(),
+    reliability: type === 'website' ? 85 : 70,
+    dataPoints: 1,
+  };
+}
+
 interface CustomerQuote {
   quote: string;
   source: string;
@@ -28,6 +43,7 @@ interface TransformationExtractionResult {
     overall: number;
     dataQuality: number;
     modelAgreement: number;
+    sourceCount?: number;
   };
 }
 
@@ -166,7 +182,7 @@ INDUSTRY CONTEXT:
 - JTBD Focus: ${industryEQ.jtbd_focus}
 - Purchase Mindset: ${industryEQ.purchase_mindset}
 - Fear/Anxiety: ${industryEQ.decision_drivers.fear}%
-- Status/Recognition: ${industryEQ.decision_drivers.status}%
+- Aspiration/Status: ${industryEQ.decision_drivers.aspiration}%
 
 CUSTOMER QUOTES FOUND:
 ${quotesText || 'No quotes found'}
@@ -254,6 +270,7 @@ Focus on what customers REALLY care about based on the evidence.`;
       overall: calculateConfidence(enhancedTransformations, quotes),
       dataQuality: quotes.length > 0 ? 85 : 50,
       modelAgreement: 80,
+      sourceCount: enhancedTransformations.length,
     };
 
     return {
@@ -280,6 +297,7 @@ Focus on what customers REALLY care about based on the evidence.`;
         overall: 60,
         dataQuality: 40,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     };
   }
@@ -305,11 +323,14 @@ function parseTransformations(response: string, industryEQ: any): Transformation
       emotionalDrivers: t.emotionalDrivers || [],
       functionalDrivers: t.functionalDrivers || [],
       evidenceQuotes: t.evidence ? [t.evidence] : [],
-      sources: [{ type: 'website' as const, url: '' }],
-      confidence: t.confidence || {
-        overall: 70,
-        dataQuality: 70,
-        modelAgreement: 70,
+      sources: [createDataSource('website', 'Website Content')],
+      confidence: {
+        ...t.confidence || {
+          overall: 70,
+          dataQuality: 70,
+          modelAgreement: 70,
+        },
+        sourceCount: t.confidence?.sourceCount ?? 1,
       },
     }));
   } catch (error) {
@@ -343,11 +364,12 @@ function ensureDimensionCoverage(
       functionalDrivers: ['Time savings', 'Cost reduction', 'Efficiency gains'],
       emotionalDrivers: [],
       evidenceQuotes: [],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [createDataSource('api', 'Industry Profile')],
       confidence: {
         overall: 70,
         dataQuality: 60,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
@@ -365,11 +387,12 @@ function ensureDimensionCoverage(
       functionalDrivers: [],
       emotionalDrivers: [emotionalOutcome],
       evidenceQuotes: [],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [createDataSource('api', 'Industry Profile')],
       confidence: {
         overall: 70,
         dataQuality: 60,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
@@ -396,11 +419,12 @@ function generateIndustryBasedTransformations(
     functionalDrivers: ['Time savings', 'Cost reduction', 'Quality improvement'],
     emotionalDrivers: [],
     evidenceQuotes: [],
-    sources: [{ type: 'api' as const, url: '' }],
+    sources: [createDataSource('api', 'Industry Profile')],
     confidence: {
       overall: 65,
       dataQuality: 50,
       modelAgreement: 80,
+        sourceCount: 0,
     },
   });
 
@@ -418,11 +442,12 @@ function generateIndustryBasedTransformations(
       functionalDrivers: [],
       emotionalDrivers: [emotionalOutcome, 'Trust', 'Relief'],
       evidenceQuotes: [],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [createDataSource('api', 'Industry Profile')],
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
@@ -437,11 +462,12 @@ function generateIndustryBasedTransformations(
       functionalDrivers: [],
       emotionalDrivers: ['Pride', 'Recognition'],
       evidenceQuotes: [],
-      sources: [{ type: 'api' as const, url: '' }],
+      sources: [createDataSource('api', 'Industry Profile')],
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }

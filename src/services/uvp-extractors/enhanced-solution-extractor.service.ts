@@ -26,6 +26,7 @@ interface SolutionExtractionResult {
     overall: number;
     dataQuality: number;
     modelAgreement: number;
+    sourceCount?: number;
   };
 }
 
@@ -258,15 +259,34 @@ function parseSolutions(response: string): UniqueSolution[] {
           category: d.category || 'approach',
           evidence: d.evidence || '',
           strengthScore: d.strengthScore || 70,
-          sources: [{ type: 'website' as const, url: '' }],
+          sources: [{
+            id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+            type: 'website',
+            name: 'Website Content',
+            url: '',
+            extractedAt: new Date(),
+            reliability: 85,
+            dataPoints: 1
+          }],
         })),
         competitiveAdvantage: s.competitiveAdvantage || '',
         evidenceQuotes: s.evidenceQuotes || [],
-        sources: [{ type: 'website' as const, url: '' }],
-        confidence: s.confidence || {
-          overall: 70,
-          dataQuality: 70,
-          modelAgreement: 70,
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Website Content',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 85,
+          dataPoints: 1
+        }],
+        confidence: {
+          ...s.confidence || {
+            overall: 70,
+            dataQuality: 70,
+            modelAgreement: 70,
+          },
+          sourceCount: s.confidence?.sourceCount ?? 1,
         },
       };
     }).filter(Boolean); // Remove nulls
