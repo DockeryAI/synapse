@@ -87,10 +87,11 @@ export function KeyBenefitPage({
   }, [industry]);
 
   useEffect(() => {
-    if (websiteContent.length > 0 && suggestions.length === 0) {
+    if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
+      console.log('[KeyBenefitPage] Auto-generating suggestions on mount');
       handleGenerateSuggestions();
     }
-  }, []);
+  }, [websiteContent]);
 
   const handleGenerateSuggestions = async () => {
     setIsGenerating(true);

@@ -81,10 +81,11 @@ export function TransformationGoalPage({
 
   // Auto-extract on mount if we have website content
   useEffect(() => {
-    if (websiteContent.length > 0 && suggestions.length === 0) {
+    if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
+      console.log('[TransformationGoalPage] Auto-generating suggestions on mount');
       handleGenerateSuggestions();
     }
-  }, []);
+  }, [websiteContent]);
 
   /**
    * Extract customer quotes from website content

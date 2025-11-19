@@ -78,10 +78,11 @@ export function TargetCustomerPage({
   }, [industry]);
 
   useEffect(() => {
-    if (websiteContent.length > 0 && suggestions.length === 0) {
+    if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
+      console.log('[TargetCustomerPage] Auto-generating suggestions on mount');
       handleGenerateSuggestions();
     }
-  }, []);
+  }, [websiteContent]);
 
   const handleGenerateSuggestions = async () => {
     setIsGenerating(true);
@@ -89,7 +90,7 @@ export function TargetCustomerPage({
     try {
       console.log('[TargetCustomerPage] Generating suggestions...');
 
-      const extraction = await extractTargetCustomer(websiteContent, websiteUrls, businessName);
+      const extraction = await extractTargetCustomer(websiteContent, [], [], businessName);
 
       console.log('[TargetCustomerPage] Extraction complete:', extraction);
 
