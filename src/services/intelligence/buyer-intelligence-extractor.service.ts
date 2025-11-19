@@ -381,7 +381,7 @@ Return ONLY valid JSON (no markdown, no explanations):
       }
 
       // Transform pain points
-      const pain_points: PainPoint[] = rawPersona.pain_points.map(pp => ({
+      const pain_points: PainPoint[] = (rawPersona.pain_points || []).map(pp => ({
         description: pp.description,
         category: pp.category as any, // Type assertion - Claude should return valid categories
         intensity: pp.intensity as any,
@@ -390,7 +390,7 @@ Return ONLY valid JSON (no markdown, no explanations):
       }))
 
       // Transform desired outcomes
-      const desired_outcomes: DesiredOutcome[] = rawPersona.desired_outcomes.map(outcome => ({
+      const desired_outcomes: DesiredOutcome[] = (rawPersona.desired_outcomes || []).map(outcome => ({
         description: outcome.description,
         metric: outcome.metric,
         emotional_benefit: outcome.emotional_benefit,
@@ -398,7 +398,7 @@ Return ONLY valid JSON (no markdown, no explanations):
       }))
 
       // Transform urgency signals
-      const urgency_signals: UrgencySignal[] = rawPersona.urgency_signals.map(signal => ({
+      const urgency_signals: UrgencySignal[] = (rawPersona.urgency_signals || []).map(signal => ({
         trigger: signal.trigger,
         signal_type: signal.signal_type as any,
         severity: signal.severity as any,
@@ -407,15 +407,15 @@ Return ONLY valid JSON (no markdown, no explanations):
 
       // Transform buying behavior
       const buying_behavior: BuyingBehavior = {
-        decision_speed: rawPersona.buying_behavior.decision_speed as any,
-        research_intensity: rawPersona.buying_behavior.research_intensity as any,
-        price_sensitivity: rawPersona.buying_behavior.price_sensitivity as any,
-        relationship_vs_transactional: rawPersona.buying_behavior.relationship_vs_transactional as any,
-        evidence: rawPersona.sample_quotes
+        decision_speed: rawPersona.buying_behavior?.decision_speed as any || 'moderate',
+        research_intensity: rawPersona.buying_behavior?.research_intensity as any || 'moderate',
+        price_sensitivity: rawPersona.buying_behavior?.price_sensitivity as any || 'moderate',
+        relationship_vs_transactional: rawPersona.buying_behavior?.relationship_vs_transactional as any || 'balanced',
+        evidence: rawPersona.sample_quotes || []
       }
 
       // Transform success metrics
-      const success_metrics: SuccessMetrics[] = rawPersona.success_metrics.map(metric => ({
+      const success_metrics: SuccessMetrics[] = (rawPersona.success_metrics || []).map(metric => ({
         metric: metric.metric,
         baseline: metric.baseline,
         achieved: metric.achieved,
@@ -428,7 +428,7 @@ Return ONLY valid JSON (no markdown, no explanations):
         pain_points: pain_points.length,
         outcomes: desired_outcomes.length,
         urgency: urgency_signals.length,
-        quotes: rawPersona.sample_quotes.length,
+        quotes: rawPersona.sample_quotes?.length || 0,
         metrics: success_metrics.length
       })
 
@@ -461,9 +461,9 @@ Return ONLY valid JSON (no markdown, no explanations):
         buying_behavior,
         success_metrics,
         confidence_score,
-        sample_size: rawPersona.sample_quotes.length,
+        sample_size: rawPersona.sample_quotes?.length || 0,
         evidence_sources,
-        representative_quotes: rawPersona.sample_quotes.slice(0, 3)
+        representative_quotes: rawPersona.sample_quotes?.slice(0, 3) || []
       }
 
       return persona
