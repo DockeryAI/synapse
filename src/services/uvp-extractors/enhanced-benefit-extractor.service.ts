@@ -360,9 +360,9 @@ function ensureOutcomeBalance(
         metric: 'Improvement',
         value: metric,
         timeframe: '90 days',
-        source: { type: 'industry-profile' as const, url: '' },
+        source: { type: 'api' as const, url: '' },
       }],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       isManualInput: false,
       confidence: {
         overall: 65,
@@ -384,7 +384,7 @@ function ensureOutcomeBalance(
       statement: `Experience ${emotionalOutcome} knowing you made the right ${industry} choice`,
       outcomeType: 'qualitative',
       eqFraming: 'emotional',
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       isManualInput: false,
       confidence: {
         overall: 65,
@@ -402,7 +402,7 @@ function ensureOutcomeBalance(
       statement: `Be recognized as a savvy decision-maker who found exceptional ${industry} value`,
       outcomeType: 'mixed',
       eqFraming: 'balanced',
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       isManualInput: false,
       confidence: {
         overall: 65,
@@ -437,9 +437,9 @@ function generateIndustryBasedOutcomes(
       metric: 'ROI',
       value: 'Positive',
       timeframe: '90 days',
-      source: { type: 'industry-profile' as const, url: '' },
+      source: { type: 'api' as const, url: '' },
     }],
-    sources: [{ type: 'industry-profile' as const, url: '' }],
+    sources: [{ type: 'api' as const, url: '' }],
     isManualInput: false,
     confidence: {
       overall: 60,
@@ -457,7 +457,7 @@ function generateIndustryBasedOutcomes(
       statement: `Experience ${emotion} knowing you have expert ${industry} support`,
       outcomeType: 'qualitative',
       eqFraming: 'emotional',
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       isManualInput: false,
       confidence: {
         overall: 60,

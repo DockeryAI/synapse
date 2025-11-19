@@ -252,7 +252,7 @@ Focus on REAL customer segments found on the website, not generic personas.`;
       goals: persona.goals,
       demographics: persona.demographics,
       evidenceQuotes: [],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       confidence: {
         overall: 60,
         dataQuality: 40,
@@ -339,7 +339,7 @@ function mergeWithIndustryPersonas(
         goals: persona.goals,
         demographics: persona.demographics,
         evidenceQuotes: [],
-        sources: [{ type: 'industry-profile' as const, url: '' }],
+        sources: [{ type: 'api' as const, url: '' }],
         confidence: {
           overall: 75,
           dataQuality: 60,

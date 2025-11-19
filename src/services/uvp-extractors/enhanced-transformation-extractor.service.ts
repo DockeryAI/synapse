@@ -343,7 +343,7 @@ function ensureDimensionCoverage(
       functionalDrivers: ['Time savings', 'Cost reduction', 'Efficiency gains'],
       emotionalDrivers: [],
       evidenceQuotes: [],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       confidence: {
         overall: 70,
         dataQuality: 60,
@@ -365,7 +365,7 @@ function ensureDimensionCoverage(
       functionalDrivers: [],
       emotionalDrivers: [emotionalOutcome],
       evidenceQuotes: [],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       confidence: {
         overall: 70,
         dataQuality: 60,
@@ -396,7 +396,7 @@ function generateIndustryBasedTransformations(
     functionalDrivers: ['Time savings', 'Cost reduction', 'Quality improvement'],
     emotionalDrivers: [],
     evidenceQuotes: [],
-    sources: [{ type: 'industry-profile' as const, url: '' }],
+    sources: [{ type: 'api' as const, url: '' }],
     confidence: {
       overall: 65,
       dataQuality: 50,
@@ -418,7 +418,7 @@ function generateIndustryBasedTransformations(
       functionalDrivers: [],
       emotionalDrivers: [emotionalOutcome, 'Trust', 'Relief'],
       evidenceQuotes: [],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       confidence: {
         overall: 65,
         dataQuality: 50,
@@ -437,7 +437,7 @@ function generateIndustryBasedTransformations(
       functionalDrivers: [],
       emotionalDrivers: ['Pride', 'Recognition'],
       evidenceQuotes: [],
-      sources: [{ type: 'industry-profile' as const, url: '' }],
+      sources: [{ type: 'api' as const, url: '' }],
       confidence: {
         overall: 65,
         dataQuality: 50,
