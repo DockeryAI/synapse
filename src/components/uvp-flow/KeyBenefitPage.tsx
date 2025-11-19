@@ -99,7 +99,7 @@ export function KeyBenefitPage({
     try {
       console.log('[KeyBenefitPage] Generating suggestions...');
 
-      const extraction = await extractBenefits(websiteContent, websiteUrls, businessName);
+      const extraction = await extractBenefits([], [], websiteContent, businessName, industry);
 
       console.log('[KeyBenefitPage] Extraction complete:', extraction);
 
