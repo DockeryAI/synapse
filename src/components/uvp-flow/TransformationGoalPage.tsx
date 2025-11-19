@@ -88,114 +88,40 @@ export function TransformationGoalPage({
   }, [websiteContent]);
 
   /**
-   * Extract customer quotes from website content
-   * Looks for testimonials, reviews, case studies, quote sections
-   */
-  const extractCustomerQuotes = (content: string[], urls: string[]): CustomerQuoteInput[] => {
-    const quotes: CustomerQuoteInput[] = [];
-
-    content.forEach((pageContent, index) => {
-      const url = urls[index] || websiteUrl;
-
-      // Look for testimonial sections
-      const testimonialPatterns = [
-        /<div[^>]*(?:class|id)="[^"]*testimonial[^"]*"[^>]*>([\s\S]*?)<\/div>/gi,
-        /<blockquote[^>]*>([\s\S]*?)<\/blockquote>/gi,
-        /"([^"]{50,300})"/g, // Quoted text between 50-300 chars
-      ];
-
-      testimonialPatterns.forEach(pattern => {
-        const matches = pageContent.matchAll(pattern);
-        for (const match of matches) {
-          const quoteText = match[1]
-            .replace(/<[^>]+>/g, '') // Remove HTML tags
-            .replace(/\s+/g, ' ') // Normalize whitespace
-            .trim();
-
-          // Filter out quotes that are too short or look like code/markup
-          if (quoteText.length >= 50 && quoteText.length <= 500 && !quoteText.includes('{') && !quoteText.includes('[')) {
-            quotes.push({
-              text: quoteText,
-              source: 'testimonial',
-              sourceUrl: url
-            });
-          }
-        }
-      });
-
-      // Look for review-like patterns ("I was...", "We went from...", "Before..., now...")
-      const transformationPatterns = [
-        /(?:I|We|They)\s+(?:was|were|used to|had)\s+[^.!?]{20,200}[.!?]/gi,
-        /Before\s+[^,]{10,100},\s+(?:now|today|after)[^.!?]{10,100}[.!?]/gi,
-        /(?:went from|transformed from)\s+[^.!?]{20,200}[.!?]/gi,
-      ];
-
-      transformationPatterns.forEach(pattern => {
-        const matches = pageContent.matchAll(pattern);
-        for (const match of matches) {
-          const quoteText = match[0]
-            .replace(/<[^>]+>/g, '')
-            .replace(/\s+/g, ' ')
-            .trim();
-
-          if (quoteText.length >= 50 && !quoteText.includes('{')) {
-            quotes.push({
-              text: quoteText,
-              source: 'website',
-              sourceUrl: url
-            });
-          }
-        }
-      });
-    });
-
-    // Deduplicate quotes
-    const uniqueQuotes = Array.from(
-      new Map(quotes.map(q => [q.text, q])).values()
-    );
-
-    console.log(`[TransformationGoalPage] Extracted ${uniqueQuotes.length} customer quotes from ${content.length} pages`);
-
-    return uniqueQuotes;
-  };
-
-  /**
-   * Generate AI suggestions using transformation analyzer + industry EQ
+   * Generate AI suggestions using enhanced extractor + industry EQ
    */
   const handleGenerateSuggestions = async () => {
     setIsGenerating(true);
 
     try {
-      console.log('[TransformationGoalPage] Generating suggestions...');
+      console.log('[TransformationGoalPage] Generating suggestions with enhanced extractor...');
 
-      // Extract customer quotes from website
-      const customerQuotes = extractCustomerQuotes(websiteContent, websiteUrls);
+      // Use enhanced extractor
+      const extraction = await extractEnhancedTransformations(
+        websiteContent,
+        businessName,
+        industry
+      );
 
-      // Analyze transformation language
-      const analysis = await analyzeTransformationLanguage(customerQuotes, businessName);
+      console.log('[TransformationGoalPage] Extraction complete:', extraction);
+      console.log(`  - Transformations: ${extraction.transformations.length}`);
+      console.log(`  - Quotes: ${extraction.quotes.length}`);
 
-      console.log('[TransformationGoalPage] Analysis complete:', analysis);
-
-      // Convert analyzed goals to suggestions
-      const analyzedSuggestions: DraggableSuggestion[] = analysis.goals.map((goal, index) => ({
-        id: `transformation-${goal.id || index}`,
+      // Convert transformations to suggestions
+      const analyzedSuggestions: DraggableSuggestion[] = extraction.transformations.map((transformation, index) => ({
+        id: `transformation-${transformation.id || index}`,
         type: 'problem',
-        content: goal.statement || '',
-        source: 'ai-generated',
-        confidence: (goal.confidence?.overall || 0) / 100,
+        content: transformation.statement || '',
+        source: transformation.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
+        confidence: (transformation.confidence?.overall || 0) / 100,
         tags: [
           'transformation_goal',
-          ...(goal.emotionalDrivers || []).slice(0, 2).map(d => `emotional:${d.toLowerCase().replace(/\s+/g, '_')}`),
-          ...(goal.functionalDrivers || []).slice(0, 2).map(d => `functional:${d.toLowerCase().replace(/\s+/g, '_')}`)
+          ...(transformation.emotionalDrivers || []).slice(0, 2).map(d => `emotional:${d.toLowerCase().replace(/\s+/g, '_')}`),
+          ...(transformation.functionalDrivers || []).slice(0, 2).map(d => `functional:${d.toLowerCase().replace(/\s+/g, '_')}`)
         ],
         is_selected: false,
         is_customizable: true
       }));
-
-      // Set EQ score from first goal if available
-      if (analysis.goals.length > 0 && analysis.goals[0].eqScore) {
-        setEqScore(analysis.goals[0].eqScore);
-      }
 
       // Generate additional industry-based suggestions using EQ
       if (industryEQ) {

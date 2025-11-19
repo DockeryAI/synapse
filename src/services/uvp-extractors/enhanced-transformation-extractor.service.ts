@@ -8,10 +8,12 @@
  * - JTBD emotional/functional/social dimensions
  */
 
-import { claudeAIService } from '@/services/ai/ClaudeAIService';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 import type { TransformationGoal } from '@/types/uvp-flow.types';
 import type { EmotionalGoal } from '@/types/jtbd.types';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface CustomerQuote {
   quote: string;
@@ -208,8 +210,37 @@ Return JSON array with this exact structure:
 Make transformations SPECIFIC to this business, not generic templates.
 Focus on what customers REALLY care about based on the evidence.`;
 
-    const response = await claudeAIService.generateContent(prompt);
-    const transformations = parseTransformations(response, industryEQ);
+    // Call AI via Supabase edge function
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
+          role: 'user',
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.2
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const analysisText = data.choices[0]?.message?.content;
+
+    if (!analysisText) {
+      throw new Error('No response from AI');
+    }
+
+    const transformations = parseTransformations(analysisText, industryEQ);
 
     // Ensure we have good coverage across dimensions
     const enhancedTransformations = ensureDimensionCoverage(

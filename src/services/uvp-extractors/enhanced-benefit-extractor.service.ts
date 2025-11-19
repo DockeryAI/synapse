@@ -11,10 +11,11 @@
  * - Social outcomes: how customers are perceived
  */
 
-import { claudeAIService } from '@/services/ai/ClaudeAIService';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
-import { getIndustryProfile } from '@/services/industry/IndustryProfileGenerator.service';
 import type { KeyBenefit, BenefitMetric } from '@/types/uvp-flow.types';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface BenefitExtractionResult {
   benefits: KeyBenefit[];
@@ -89,12 +90,6 @@ export async function extractEnhancedBenefits(
 
     // Get industry intelligence
     const industryEQ = await getIndustryEQ(industry);
-    let industryProfile;
-    try {
-      industryProfile = await getIndustryProfile(industry);
-    } catch (e) {
-      console.log('[EnhancedBenefitExtractor] Industry profile not available');
-    }
 
     // Prepare content
     const fullContent = websiteContent.join('\n\n').substring(0, 10000);
@@ -117,7 +112,6 @@ ${uniqueSolution ? `SOLUTION: ${uniqueSolution}` : ''}
 INDUSTRY INSIGHTS:
 - EQ: ${industryEQ.emotional_weight}% emotional, ${100 - industryEQ.emotional_weight}% rational
 - JTBD Focus: ${industryEQ.jtbd_focus}
-${industryProfile?.success_metrics ? `- Typical Metrics: ${industryProfile.success_metrics.slice(0, 3).join(', ')}` : ''}
 
 METRICS FOUND ON WEBSITE:
 ${metricsText || 'No specific metrics found'}
@@ -179,8 +173,37 @@ Return JSON array:
 
 Every benefit MUST be from customer perspective and show THEIR progress, not your capabilities.`;
 
-    const response = await claudeAIService.generateContent(prompt);
-    const benefits = parseBenefits(response);
+    // Call AI via Supabase edge function
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
+          role: 'user',
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.2
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const analysisText = data.choices[0]?.message?.content;
+
+    if (!analysisText) {
+      throw new Error('No response from AI');
+    }
+
+    const benefits = parseBenefits(analysisText);
 
     // Ensure balanced coverage across outcome types
     const enhancedBenefits = ensureOutcomeBalance(
@@ -199,11 +222,11 @@ Every benefit MUST be from customer perspective and show THEIR progress, not you
 
     return {
       benefits: enhancedBenefits,
-      industryBenchmarks: industryProfile ? {
-        typical_roi: industryProfile.success_metrics?.slice(0, 3) || [],
+      industryBenchmarks: {
+        typical_roi: [],
         typical_timeframes: ['30 days', '90 days', '6 months'],
         typical_metrics: metrics,
-      } : undefined,
+      },
       confidence,
     };
 
@@ -264,25 +287,40 @@ function parseBenefits(response: string): KeyBenefit[] {
         // This will be filtered in the balance check
       }
 
+      // Map JTBD outcome types to KeyBenefit types
+      const outcomeTypeMap: Record<string, 'quantifiable' | 'qualitative' | 'mixed'> = {
+        'functional': 'quantifiable',
+        'emotional': 'qualitative',
+        'social': 'qualitative',
+      };
+
+      const eqFramingMap: Record<string, 'emotional' | 'rational' | 'balanced'> = {
+        'functional': 'rational',
+        'emotional': 'emotional',
+        'social': 'balanced',
+      };
+
+      const jtbdType = b.outcomeType || 'functional';
+
       return {
         id: b.id || `benefit-${Date.now()}-${Math.random()}`,
         statement: statement,
-        outcomeType: b.outcomeType || 'functional',
+        outcomeType: outcomeTypeMap[jtbdType] || 'mixed',
+        eqFraming: eqFramingMap[jtbdType] || 'balanced',
         metrics: (b.metrics || []).map((m: any) => ({
           id: m.id || `metric-${Date.now()}-${Math.random()}`,
           metric: m.metric || '',
           value: m.value || '',
           timeframe: m.timeframe,
-          evidence: m.evidence,
+          source: { type: 'website' as const, url: '' },
         })),
-        emotionalPayoff: b.emotionalPayoff,
-        socialProof: b.socialProof,
-        evidenceQuotes: b.evidence ? [b.evidence] : [],
         sources: [{ type: 'website' as const, url: '' }],
+        isManualInput: false,
         confidence: b.confidence || {
           overall: 70,
           dataQuality: 70,
           modelAgreement: 70,
+          sourceCount: 1,
         },
       };
     });
@@ -309,31 +347,34 @@ function ensureOutcomeBalance(
   const emotional = result.filter(b => b.outcomeType === 'emotional');
   const social = result.filter(b => b.outcomeType === 'social');
 
-  // Ensure at least one functional outcome
-  if (functional.length === 0) {
+  // Ensure at least one quantifiable outcome
+  if (result.filter(b => b.outcomeType === 'quantifiable').length === 0) {
     const metric = metrics[0] || '30% improvement';
     result.push({
       id: 'functional-fallback',
       statement: `Achieve measurable ${industry} improvements with ${metric}`,
-      outcomeType: 'functional',
+      outcomeType: 'quantifiable',
+      eqFraming: 'rational',
       metrics: [{
         id: 'metric-1',
         metric: 'Improvement',
         value: metric,
         timeframe: '90 days',
+        source: { type: 'industry-profile' as const, url: '' },
       }],
-      evidenceQuotes: [],
       sources: [{ type: 'industry-profile' as const, url: '' }],
+      isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
 
   // Add emotional outcome if industry is emotional and missing
-  if (emotional.length === 0 && industryEQ.emotional_weight > 50) {
+  if (result.filter(b => b.eqFraming === 'emotional').length === 0 && industryEQ.emotional_weight > 50) {
     const emotionalOutcome = industryEQ.decision_drivers.fear > 30
       ? 'peace of mind and confidence'
       : 'satisfaction and excitement';
@@ -341,31 +382,33 @@ function ensureOutcomeBalance(
     result.push({
       id: 'emotional-fallback',
       statement: `Experience ${emotionalOutcome} knowing you made the right ${industry} choice`,
-      outcomeType: 'emotional',
-      emotionalPayoff: emotionalOutcome,
-      evidenceQuotes: [],
+      outcomeType: 'qualitative',
+      eqFraming: 'emotional',
       sources: [{ type: 'industry-profile' as const, url: '' }],
+      isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
 
-  // Add social outcome if industry values status
-  if (social.length === 0 && industryEQ.decision_drivers.status > 15) {
+  // Add balanced outcome if missing
+  if (result.filter(b => b.eqFraming === 'balanced').length === 0 && industryEQ.decision_drivers.status > 15) {
     result.push({
-      id: 'social-fallback',
+      id: 'balanced-fallback',
       statement: `Be recognized as a savvy decision-maker who found exceptional ${industry} value`,
-      outcomeType: 'social',
-      socialProof: 'Respected for smart decisions',
-      evidenceQuotes: [],
+      outcomeType: 'mixed',
+      eqFraming: 'balanced',
       sources: [{ type: 'industry-profile' as const, url: '' }],
+      isManualInput: false,
       confidence: {
         overall: 65,
         dataQuality: 50,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }
@@ -387,19 +430,22 @@ function generateIndustryBasedOutcomes(
   benefits.push({
     id: 'industry-functional',
     statement: `Achieve measurable ${industry} results with proven ROI and efficiency gains`,
-    outcomeType: 'functional',
+    outcomeType: 'quantifiable',
+    eqFraming: 'rational',
     metrics: [{
       id: 'metric-1',
       metric: 'ROI',
       value: 'Positive',
       timeframe: '90 days',
+      source: { type: 'industry-profile' as const, url: '' },
     }],
-    evidenceQuotes: [],
     sources: [{ type: 'industry-profile' as const, url: '' }],
+    isManualInput: false,
     confidence: {
       overall: 60,
       dataQuality: 40,
       modelAgreement: 80,
+      sourceCount: 0,
     },
   });
 
@@ -409,14 +455,15 @@ function generateIndustryBasedOutcomes(
     benefits.push({
       id: 'industry-emotional',
       statement: `Experience ${emotion} knowing you have expert ${industry} support`,
-      outcomeType: 'emotional',
-      emotionalPayoff: emotion,
-      evidenceQuotes: [],
+      outcomeType: 'qualitative',
+      eqFraming: 'emotional',
       sources: [{ type: 'industry-profile' as const, url: '' }],
+      isManualInput: false,
       confidence: {
         overall: 60,
         dataQuality: 40,
         modelAgreement: 80,
+        sourceCount: 0,
       },
     });
   }

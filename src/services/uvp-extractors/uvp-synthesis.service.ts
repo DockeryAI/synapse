@@ -5,9 +5,11 @@
  * using JTBD framework and industry intelligence
  */
 
-import { claudeAIService } from '@/services/ai/ClaudeAIService';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit } from '@/types/uvp-flow.types';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface UVPSynthesisInput {
   customer: CustomerProfile;
@@ -92,8 +94,37 @@ Return JSON:
 
 Make it powerful, specific, and customer-focused.`;
 
-    const response = await claudeAIService.generateContent(prompt);
-    const synthesis = parseSynthesis(response);
+    // Call AI via Supabase edge function
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
+          role: 'user',
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.3
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const analysisText = data.choices[0]?.message?.content;
+
+    if (!analysisText) {
+      throw new Error('No response from AI');
+    }
+
+    const synthesis = parseSynthesis(analysisText);
 
     // Build complete UVP object
     const completeUVP: CompleteUVP = {

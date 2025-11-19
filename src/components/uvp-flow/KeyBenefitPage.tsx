@@ -23,7 +23,7 @@ import { DraggableItem } from '@/components/uvp-wizard/DraggableItem';
 import { CompactWizardProgress } from '@/components/uvp-wizard/WizardProgress';
 import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-wizard';
 import type { KeyBenefit } from '@/types/uvp-flow.types';
-import { extractBenefits } from '@/services/uvp-extractors/benefit-extractor.service';
+import { extractEnhancedBenefits } from '@/services/uvp-extractors/enhanced-benefit-extractor.service';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 
 interface KeyBenefitPageProps {
@@ -97,9 +97,13 @@ export function KeyBenefitPage({
     setIsGenerating(true);
 
     try {
-      console.log('[KeyBenefitPage] Generating suggestions...');
+      console.log('[KeyBenefitPage] Generating suggestions with enhanced extractor...');
 
-      const extraction = await extractBenefits([], [], websiteContent, businessName, industry);
+      const extraction = await extractEnhancedBenefits(
+        websiteContent,
+        businessName,
+        industry
+      );
 
       console.log('[KeyBenefitPage] Extraction complete:', extraction);
 

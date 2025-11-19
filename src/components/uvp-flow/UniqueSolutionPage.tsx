@@ -23,8 +23,8 @@ import { DraggableItem } from '@/components/uvp-wizard/DraggableItem';
 import { CompactWizardProgress } from '@/components/uvp-wizard/WizardProgress';
 import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-wizard';
 import type { UniqueSolution } from '@/types/uvp-flow.types';
-import { extractDifferentiators } from '@/services/uvp-extractors/differentiator-extractor.service';
-import { getIndustryEQ, adjustSuggestionPrompt } from '@/services/uvp-wizard/emotional-quotient';
+import { extractEnhancedSolutions } from '@/services/uvp-extractors/enhanced-solution-extractor.service';
+import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 
 interface UniqueSolutionPageProps {
   businessName: string;
@@ -95,26 +95,27 @@ export function UniqueSolutionPage({
     setIsGenerating(true);
 
     try {
-      console.log('[UniqueSolutionPage] Generating suggestions...');
+      console.log('[UniqueSolutionPage] Generating suggestions with enhanced extractor...');
 
-      // Extract differentiators from website
-      const extraction = await extractDifferentiators(
+      // Extract solutions using enhanced extractor
+      const extraction = await extractEnhancedSolutions(
         websiteContent,
-        websiteUrls,
-        competitorInfo,
-        businessName
+        businessName,
+        industry
       );
 
-      console.log('[UniqueSolutionPage] Extracted differentiators:', extraction);
+      console.log('[UniqueSolutionPage] Enhanced extraction complete:', extraction);
+      console.log(`  - Solutions: ${extraction.solutions.length}`);
+      console.log(`  - Differentiators: ${extraction.differentiators.length}`);
 
-      // Convert extracted differentiators to suggestions
-      const extractedSuggestions: DraggableSuggestion[] = extraction.differentiators.map((diff, index) => ({
-        id: `diff-${diff.id || index}`,
+      // Convert extracted solutions to suggestions
+      const extractedSuggestions: DraggableSuggestion[] = extraction.solutions.map((solution, index) => ({
+        id: `solution-${solution.id || index}`,
         type: 'solution',
-        content: diff.statement,
-        source: 'ai-generated',
-        confidence: diff.strengthScore / 100, // Convert 0-100 to 0-1
-        tags: ['differentiator', `strength-${diff.strengthScore}`],
+        content: solution.statement,
+        source: solution.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
+        confidence: (solution.confidence?.overall || 70) / 100,
+        tags: ['solution', 'methodology'],
         is_selected: false,
         is_customizable: true
       }));
@@ -133,19 +134,7 @@ export function UniqueSolutionPage({
         });
       }
 
-      // Add proprietary approach as a suggestion if present
-      if (extraction.proprietaryApproach) {
-        extractedSuggestions.push({
-          id: `proprietary-${Date.now()}`,
-          type: 'solution',
-          content: extraction.proprietaryApproach,
-          source: 'ai-generated',
-          confidence: 0.9,
-          tags: ['proprietary_approach'],
-          is_selected: false,
-          is_customizable: true
-        });
-      }
+      // Note: proprietaryApproach is now part of solutions array
 
       // Sort by confidence
       extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));

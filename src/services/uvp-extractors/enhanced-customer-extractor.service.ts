@@ -8,13 +8,13 @@
  * - JTBD framework
  */
 
-import { claudeAIService } from '@/services/ai/ClaudeAIService';
-import { getIndustryProfile } from '@/services/industry/IndustryProfileGenerator.service';
 import { locationDetectionService } from '@/services/intelligence/location-detection.service';
 import { homeServicesPersonas, healthcarePersonas, restaurantPersonas } from '@/data/buyer-personas';
 import type { CustomerProfile } from '@/types/uvp-flow.types';
 import type { CustomerPersona } from '@/types/buyer-journey';
-import type { IndustryProfileFull } from '@/types/industry-profile.types';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface EnhancedCustomerExtractionResult {
   profiles: CustomerProfile[];
@@ -121,14 +121,7 @@ export async function extractEnhancedCustomers(
     const industryPersonas = getIndustryPersonas(industry);
     console.log(`[EnhancedCustomerExtractor] Found ${industryPersonas.length} industry personas`);
 
-    // Get industry profile for deeper insights
-    let industryProfile: IndustryProfileFull | null = null;
-    try {
-      industryProfile = await getIndustryProfile(industry);
-      console.log('[EnhancedCustomerExtractor] Industry profile loaded');
-    } catch (error) {
-      console.log('[EnhancedCustomerExtractor] Industry profile not available');
-    }
+    // Note: Industry profile integration can be added later if needed
 
     // Extract location data if available
     let locationData = undefined;
@@ -158,13 +151,6 @@ export async function extractEnhancedCustomers(
 BUSINESS: ${businessName}
 INDUSTRY: ${industry}
 ${locationData ? `LOCATION: ${locationData.city}, ${locationData.state}` : ''}
-
-${industryProfile ? `
-INDUSTRY INSIGHTS:
-- Typical buyers: ${industryProfile.demographic_insights || 'Various demographics'}
-- Customer triggers: ${industryProfile.customer_triggers?.slice(0, 3).join(', ') || 'Multiple triggers'}
-- Journey stages: ${industryProfile.customer_journey || 'Standard journey'}
-` : ''}
 
 WEBSITE CONTENT:
 ${contentForAnalysis.substring(0, 8000)}
@@ -203,21 +189,49 @@ Return a JSON array of customer profiles, each with:
 
 Focus on REAL customer segments found on the website, not generic personas.`;
 
-    const response = await claudeAIService.generateContent(prompt);
-    const extractedProfiles = parseCustomerProfiles(response);
+    // Call AI via Supabase edge function
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
+          role: 'user',
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.2
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const analysisText = data.choices[0]?.message?.content;
+
+    if (!analysisText) {
+      throw new Error('No response from AI');
+    }
+
+    const extractedProfiles = parseCustomerProfiles(analysisText);
 
     // Merge extracted profiles with industry personas
     const enhancedProfiles = mergeWithIndustryPersonas(
       extractedProfiles,
-      industryPersonas,
-      industryProfile
+      industryPersonas
     );
 
     // Calculate confidence scores
     const confidence = {
       overall: calculateOverallConfidence(enhancedProfiles, industryPersonas),
       dataQuality: websiteContent.length > 0 ? 80 : 40,
-      industryMatch: industryProfile ? 90 : 60,
+      industryMatch: 70,
     };
 
     return {
@@ -299,8 +313,7 @@ function parseCustomerProfiles(response: string): CustomerProfile[] {
  */
 function mergeWithIndustryPersonas(
   extractedProfiles: CustomerProfile[],
-  industryPersonas: CustomerPersona[],
-  industryProfile: IndustryProfileFull | null
+  industryPersonas: CustomerPersona[]
 ): CustomerProfile[] {
   // If we have good extracted profiles, use them
   if (extractedProfiles.length >= 3) {
