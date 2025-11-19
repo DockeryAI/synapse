@@ -10,6 +10,7 @@ import { test, expect } from '@playwright/test';
 test.describe('Onboarding Flow', () => {
   
   test('should complete full onboarding flow with URL input', async ({ page }) => {
+    test.setTimeout(150000);
     // Navigate to onboarding page
     await page.goto('/onboarding-v5');
     
@@ -45,43 +46,34 @@ test.describe('Onboarding Flow', () => {
     
     // Step 2: UVP Extraction - Wait for analysis to complete
     await expect(page.getByText('Learning About Your Business')).toBeVisible({ timeout: 10000 });
-    
-    // Wait for extraction to complete (should show progress steps)
-    await expect(page.getByText('Understanding your unique offerings')).toBeVisible();
-    await expect(page.getByText('Identifying your customers')).toBeVisible();
-    
-    // Wait for confirmation screen (may take up to 60 seconds for API calls)
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+
+    // Wait for extraction to start (should show progress steps)
+    await expect(page.getByText('Scanning website content')).toBeVisible({ timeout: 5000 });
+
+    // Wait for confirmation screen (extraction takes 60-90 seconds for real API calls)
+    // This includes: scanning, extracting value props, analyzing buyer intelligence, synthesizing narrative
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 120000 });
     
     // Step 3: Smart Confirmation
-    // Verify services card is visible
-    await expect(page.getByText('What You Offer')).toBeVisible();
+    // Verify services section is visible
+    await expect(page.getByText('Core Services')).toBeVisible();
 
     // Service chips are pre-selected (first 6), so we don't need to click anything
     // The button will be enabled since chips are pre-selected
 
-    // Click Continue to Content
-    await page.click('button:has-text("Continue to Content")');
+    // Click Continue button
+    await page.click('button:has-text("Continue")');
     
-    // Step 4: Insights Dashboard
-    await expect(page.getByText('Your Business Insights')).toBeVisible({ timeout: 10000 });
-    await expect(page.getByText('Business Profile')).toBeVisible();
-    await expect(page.getByText('Key Insights')).toBeVisible();
-    await expect(page.getByText('Content Opportunities')).toBeVisible();
-    
-    // Click Continue to Smart Suggestions
-    await page.click('button:has-text("Continue to Smart Suggestions")');
-    
-    // Step 5: Smart Suggestions
-    await expect(page.getByText('Smart Content Suggestions')).toBeVisible({ timeout: 10000 });
-    await expect(page.getByText('Suggested Campaigns')).toBeVisible();
-    await expect(page.getByText('Quick Posts')).toBeVisible();
-    
-    // Test complete - user is at suggestions screen
+    // Step 4: UVP Wizard Flow - Target Customer
+    await expect(page.getByText('Who is Your Target Customer?')).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('AI Suggestions')).toBeVisible();
+
+    // Test complete - user has progressed through confirmation to UVP wizard
     expect(page.url()).toContain('/onboarding-v5');
   });
   
   test('should handle invalid URL gracefully', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
 
     // Enter invalid URL (this format will fail URL constructor)
@@ -111,6 +103,7 @@ test.describe('Onboarding Flow', () => {
   });
   
   test('should require industry selection', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
     
     // Enter valid URL but don't select industry
@@ -125,6 +118,7 @@ test.describe('Onboarding Flow', () => {
   });
   
   test('should allow editing during confirmation', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
     
     // Complete URL input
@@ -145,7 +139,7 @@ test.describe('Onboarding Flow', () => {
     await page.click('button:has-text("Get Started")');
 
     // Wait for confirmation
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 120000 });
 
     // Try to add custom service
     const addServiceButton = page.getByText('Add Custom Service');
@@ -163,6 +157,7 @@ test.describe('Onboarding Flow', () => {
   });
   
   test('should allow going back from any step', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
     
     // Complete URL input
@@ -183,7 +178,7 @@ test.describe('Onboarding Flow', () => {
     await page.click('button:has-text("Get Started")');
 
     // Wait for confirmation
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 120000 });
 
     // Click back button if it exists
     const backButton = page.getByText('Back');
@@ -196,6 +191,7 @@ test.describe('Onboarding Flow', () => {
   });
   
   test('should show proper loading states', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
     
     // Complete URL input
@@ -226,6 +222,7 @@ test.describe('Onboarding Flow', () => {
 test.describe('Multi-select Functionality', () => {
   
   test('should allow selecting multiple services', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
 
     // Skip to confirmation (assuming URL submitted successfully)
@@ -245,7 +242,7 @@ test.describe('Multi-select Functionality', () => {
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
 
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 120000 });
 
     // Service chips are pre-selected (first 6 by default)
     const serviceChips = page.locator('[data-testid^="service-chip-"]');
@@ -274,6 +271,7 @@ test.describe('Multi-select Functionality', () => {
   });
   
   test('should allow deselecting services', async ({ page }) => {
+    test.setTimeout(150000);
     await page.goto('/onboarding-v5');
 
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
@@ -292,12 +290,15 @@ test.describe('Multi-select Functionality', () => {
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
 
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 120000 });
+
+    // Wait for services section to load
+    await expect(page.getByText('Core Services')).toBeVisible({ timeout: 10000 });
 
     const firstService = page.locator('[data-testid^="service-chip-"]').first();
 
     // Wait for chip to be visible
-    await expect(firstService).toBeVisible({ timeout: 5000 });
+    await expect(firstService).toBeVisible({ timeout: 10000 });
 
     // Get initial aria-pressed state (chips are pre-selected by default)
     const initialState = await firstService.getAttribute('aria-pressed');
