@@ -52,6 +52,13 @@ export const DropZone: React.FC<DropZoneProps> = ({
   const [isEditingCustom, setIsEditingCustom] = React.useState(false)
   const [customText, setCustomText] = React.useState(customValue || '')
 
+  // Sync customText with customValue from parent
+  React.useEffect(() => {
+    if (customValue !== undefined && customValue !== customText) {
+      setCustomText(customValue)
+    }
+  }, [customValue])
+
   // Check if the dragged item can be dropped here
   const canDrop = active
     ? zone.accepts.includes(active.data.current?.type)

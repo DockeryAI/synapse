@@ -132,8 +132,8 @@ export function KeyBenefitPage({
     } catch (error) {
       console.error('[KeyBenefitPage] Failed to generate suggestions:', error);
 
-      const fallbackSuggestions = generateFallbackSuggestions(industry, eqRecommendation);
-      setSuggestions(fallbackSuggestions);
+      // No template fallbacks - only show real extraction + industry data
+      setSuggestions([]);
     } finally {
       setIsGenerating(false);
     }

@@ -147,17 +147,6 @@ export function UniqueSolutionPage({
         });
       }
 
-      // Generate additional industry-based suggestions using EQ
-      if (industryEQ) {
-        const industrySuggestions = await generateIndustryBasedSuggestions(
-          businessName,
-          industry,
-          industryEQ,
-          extractedSuggestions
-        );
-        extractedSuggestions.push(...industrySuggestions);
-      }
-
       // Sort by confidence
       extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
 
@@ -168,9 +157,8 @@ export function UniqueSolutionPage({
     } catch (error) {
       console.error('[UniqueSolutionPage] Failed to generate suggestions:', error);
 
-      // Fallback: Generate generic industry suggestions
-      const fallbackSuggestions = generateFallbackSuggestions(industry, industryEQ);
-      setSuggestions(fallbackSuggestions);
+      // No fallbacks - only show what we can extract from the website
+      setSuggestions([]);
     } finally {
       setIsGenerating(false);
     }

@@ -1849,10 +1849,26 @@ export const OnboardingPageV5: React.FC = () => {
               else if (step === 'solution') setCurrentStep('uvp_solution');
               else if (step === 'benefit') setCurrentStep('uvp_benefit');
             }}
-            onSave={() => {
-              // The component should call onComplete with the full UVP
-              // For now, we'll just log it
-              console.log('[UVP Flow] Save clicked from synthesis page');
+            onSave={async () => {
+              console.log('[UVP Flow] Saving complete UVP...');
+
+              if (!currentBrand?.id) {
+                console.error('[UVP Flow] No brand ID available for saving UVP');
+                return;
+              }
+
+              try {
+                const result = await saveCompleteUVP(tempUVP, currentBrand.id);
+
+                if (result.success) {
+                  console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
+                  setCurrentStep('complete');
+                } else {
+                  console.error('[UVP Flow] Failed to save UVP:', result.error);
+                }
+              } catch (error) {
+                console.error('[UVP Flow] Error saving UVP:', error);
+              }
             }}
             onDownload={handleUVPExport}
             onShare={() => {
