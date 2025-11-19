@@ -349,9 +349,9 @@ export function UniqueSolutionPage({
         <div className="mb-6">
           <CompactWizardProgress
             progress={{
-              current_step: 4,
-              completed_steps: [1, 2, 3],
-              total_steps: 6,
+              current_step: 'unique-solution',
+              completed_steps: ['welcome', 'target-customer', 'customer-problem'],
+              total_steps: 8,
               progress_percentage: progressPercentage,
               is_valid: isValid,
               validation_errors: {},

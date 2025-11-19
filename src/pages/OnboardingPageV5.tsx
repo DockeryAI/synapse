@@ -146,6 +146,10 @@ export const OnboardingPageV5: React.FC = () => {
   const [selectedBenefit, setSelectedBenefit] = useState<KeyBenefit | null>(null);
   const [completeUVP, setCompleteUVP] = useState<CompleteUVP | null>(null);
 
+  // Scraped website content for extraction services
+  const [scrapedWebsiteContent, setScrapedWebsiteContent] = useState<string[]>([]);
+  const [scrapedWebsiteUrls, setScrapedWebsiteUrls] = useState<string[]>([]);
+
   // AI Suggestions state for UVP Flow
   const [customerSuggestions, setCustomerSuggestions] = useState<CustomerProfile[]>([]);
   const [transformationSuggestions, setTransformationSuggestions] = useState<TransformationGoal[]>([]);
@@ -256,6 +260,10 @@ export const OnboardingPageV5: React.FC = () => {
       ].filter(c => c.length > 0);
 
       const websiteUrls = [url];
+
+      // Save to state for UVP flow pages
+      setScrapedWebsiteContent(websiteContent);
+      setScrapedWebsiteUrls(websiteUrls);
 
       // Extract products/services from website content
       console.log('[OnboardingPageV5] Extracting products/services...');
@@ -1682,12 +1690,38 @@ export const OnboardingPageV5: React.FC = () => {
       {currentStep === 'uvp_solution' && (
         <UniqueSolutionPage
           businessName={businessData?.businessName || 'Your Business'}
-          isLoading={false}
-          websiteExcerpts={[]}  // TODO: Extract methodology mentions
-          aiSuggestions={solutionSuggestions}
-          onAccept={handleSolutionAccept}
-          onManualSubmit={handleSolutionManualSubmit}
+          industry={businessData?.industry || ''}
+          websiteUrl={websiteUrl}
+          websiteContent={scrapedWebsiteContent}
+          websiteUrls={scrapedWebsiteUrls}
+          competitorInfo={[]}
+          value={selectedSolution?.statement || ''}
+          onChange={(value) => {
+            // Update selected solution with new value
+            if (selectedSolution) {
+              setSelectedSolution({ ...selectedSolution, statement: value });
+            } else {
+              // Create new solution if none exists
+              setSelectedSolution({
+                id: `manual-${Date.now()}`,
+                statement: value,
+                differentiators: [],
+                confidence: {
+                  overall: 100,
+                  dataQuality: 100,
+                  sourceCount: 1,
+                  modelAgreement: 100,
+                  reasoning: 'Manual input'
+                },
+                sources: [],
+                isManualInput: true
+              });
+            }
+          }}
           onNext={handleSolutionNext}
+          onBack={() => setCurrentStep('uvp_transformation')}
+          showProgress={true}
+          progressPercentage={60}
         />
       )}
 
