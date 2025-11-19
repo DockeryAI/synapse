@@ -184,11 +184,13 @@ export const OnboardingPageV5: React.FC = () => {
     setCurrentStep('data_collection');
     setIsExtracting(true);
     setExtractionError(null);
+    // Pre-define ALL steps in logical order from top to bottom
     setProgressSteps([
       { step: 'Scanning website content', status: 'pending' },
+      { step: 'Scanning website for services and products', status: 'pending' },
+      { step: 'Analyzing customer testimonials and case studies', status: 'pending' },
       { step: 'Extracting value propositions', status: 'pending' },
-      { step: 'Analyzing buyer intelligence', status: 'pending' },
-      { step: 'Synthesizing brand narrative', status: 'pending' },
+      { step: 'Extracting products and services', status: 'pending' },
     ]);
 
     try {

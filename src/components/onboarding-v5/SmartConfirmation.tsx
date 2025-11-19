@@ -207,7 +207,7 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-3">
-            Confirm Your Business Details
+            Confirm Your Offerings
           </h1>
           <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400">
             We found this information from your website. Please confirm it's accurate.
@@ -227,7 +227,7 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
                 <Building2 className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               </div>
               <div>
-                <h3 className="text-lg font-bold text-gray-900 dark:text-white">What You Offer</h3>
+                <h3 className="text-lg font-bold text-gray-900 dark:text-white">Core Services</h3>
                 <p className="text-sm text-gray-600 dark:text-gray-400">
                   Select the services you want to promote
                 </p>
@@ -261,10 +261,10 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             {!isAddingService ? (
               <button
                 onClick={() => setIsAddingService(true)}
-                className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 min-h-[44px]"
+                className="px-4 py-2 bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 rounded-lg border-2 border-blue-200 dark:border-blue-800 transition-all flex items-center gap-2 min-h-[44px] font-medium"
               >
                 <Plus className="w-4 h-4" />
-                Add a service we missed
+                Add Missing
               </button>
             ) : (
               <div className="flex gap-2">
@@ -335,10 +335,10 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             {!isAddingCustomer ? (
               <button
                 onClick={() => setIsAddingCustomer(true)}
-                className="text-sm text-purple-600 dark:text-purple-400 hover:underline flex items-center gap-1 min-h-[44px]"
+                className="px-4 py-2 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 hover:bg-purple-100 dark:hover:bg-purple-900/30 rounded-lg border-2 border-purple-200 dark:border-purple-800 transition-all flex items-center gap-2 min-h-[44px] font-medium"
               >
                 <Plus className="w-4 h-4" />
-                Add a customer type we missed
+                Add Missing
               </button>
             ) : (
               <div className="flex gap-2">
@@ -409,10 +409,10 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             {!isAddingValueProp ? (
               <button
                 onClick={() => setIsAddingValueProp(true)}
-                className="text-sm text-green-600 dark:text-green-400 hover:underline flex items-center gap-1 min-h-[44px]"
+                className="px-4 py-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg border-2 border-green-200 dark:border-green-800 transition-all flex items-center gap-2 min-h-[44px] font-medium"
               >
                 <Plus className="w-4 h-4" />
-                Add your own value proposition
+                Add Missing
               </button>
             ) : (
               <div className="flex gap-2">
@@ -493,10 +493,10 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
               {!isAddingTestimonial ? (
                 <button
                   onClick={() => setIsAddingTestimonial(true)}
-                  className="text-sm text-yellow-600 dark:text-yellow-400 hover:underline flex items-center gap-1 min-h-[44px]"
+                  className="px-4 py-2 bg-yellow-50 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 rounded-lg border-2 border-yellow-200 dark:border-yellow-800 transition-all flex items-center gap-2 min-h-[44px] font-medium"
                 >
                   <Plus className="w-4 h-4" />
-                  Add your own testimonial or case study
+                  Add Missing
                 </button>
               ) : (
                 <div className="flex gap-2">
@@ -648,7 +648,7 @@ export const SmartConfirmation: React.FC<SmartConfirmationProps> = ({
             disabled={!canContinue}
             className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 min-h-[56px] disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Continue to Content
+            Continue
           </Button>
         </div>
 

@@ -30,14 +30,18 @@ import type {
  * Service language patterns to detect services
  */
 const SERVICE_PATTERNS: ServicePattern[] = [
-  { pattern: /we (help|assist|provide|offer|deliver)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
-  { pattern: /our services (include|are|offer)/gi, confidenceBoost: 0.4, categoryHint: 'primary' },
-  { pattern: /what we (do|offer|provide)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
+  { pattern: /we (help|assist|provide|offer|deliver|specialize in)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
+  { pattern: /our services (include|are|offer|feature)/gi, confidenceBoost: 0.4, categoryHint: 'primary' },
+  { pattern: /what we (do|offer|provide|specialize in)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
   { pattern: /specializing in/gi, confidenceBoost: 0.35, categoryHint: 'primary' },
+  { pattern: /we're (experts|specialists) in/gi, confidenceBoost: 0.35, categoryHint: 'primary' },
   { pattern: /services?:?\s+/gi, confidenceBoost: 0.25 },
   { pattern: /packages?:?\s+/gi, confidenceBoost: 0.3, categoryHint: 'package' },
   { pattern: /pricing plans?/gi, confidenceBoost: 0.35, categoryHint: 'tier' },
   { pattern: /add-?ons?/gi, confidenceBoost: 0.2, categoryHint: 'addon' },
+  { pattern: /our (menu|catalog|portfolio) (includes?|features?)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
+  { pattern: /we (work with|cater to|serve|support)/gi, confidenceBoost: 0.25, categoryHint: 'primary' },
+  { pattern: /(treatment|program|course|procedure)s? (available|offered)/gi, confidenceBoost: 0.3, categoryHint: 'primary' },
 ];
 
 /**
@@ -46,7 +50,10 @@ const SERVICE_PATTERNS: ServicePattern[] = [
 const SERVICE_KEYWORDS = [
   'service', 'services', 'product', 'products', 'offering', 'offerings',
   'solution', 'solutions', 'package', 'packages', 'plan', 'plans',
-  'pricing', 'what we do', 'how we help', 'capabilities'
+  'pricing', 'what we do', 'how we help', 'capabilities', 'features',
+  'specialties', 'expertise', 'portfolio', 'menu', 'catalog',
+  'programs', 'courses', 'treatments', 'procedures', 'options',
+  'categories', 'types', 'specialization', 'areas', 'focus'
 ];
 
 /**
@@ -765,18 +772,21 @@ export class DeepWebsiteScannerService {
   private extractServicesFromText(text: string): string[] {
     const services: string[] = [];
 
-    // Split by common delimiters
-    const parts = text.split(/[,;]|\band\b/i);
+    // Split by common delimiters including bullet points and line breaks
+    const parts = text.split(/[,;]|\band\b|[•\-\*]\s|[\r\n]+/i);
 
     parts.forEach(part => {
       const trimmed = part.trim();
       // Only include parts that look like service names (reasonable length, starts with letter/capital)
-      if (trimmed.length > 5 && trimmed.length < 60 && /^[A-Za-z]/.test(trimmed)) {
-        services.push(trimmed);
+      if (trimmed.length > 5 && trimmed.length < 80 && /^[A-Za-z]/.test(trimmed)) {
+        // Filter out common noise phrases
+        if (!/(^(the|a|an|our|we|you|this|that|these|those)\s)/i.test(trimmed)) {
+          services.push(trimmed);
+        }
       }
     });
 
-    return services.slice(0, 5); // Limit to 5 services per text block
+    return services.slice(0, 20); // Allow up to 20 services per text block (increased from 5)
   }
 }
 
