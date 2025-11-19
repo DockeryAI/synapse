@@ -23,7 +23,7 @@ import { DraggableItem } from '@/components/uvp-wizard/DraggableItem';
 import { CompactWizardProgress } from '@/components/uvp-wizard/WizardProgress';
 import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-wizard';
 import type { CustomerProfile } from '@/types/uvp-flow.types';
-import { extractTargetCustomer } from '@/services/uvp-extractors/customer-extractor.service';
+import { extractEnhancedCustomers } from '@/services/uvp-extractors/enhanced-customer-extractor.service';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 
 interface TargetCustomerPageProps {
@@ -88,32 +88,36 @@ export function TargetCustomerPage({
     setIsGenerating(true);
 
     try {
-      console.log('[TargetCustomerPage] Generating suggestions...');
+      console.log('[TargetCustomerPage] Generating suggestions with enhanced extractor...');
 
-      const extraction = await extractTargetCustomer(websiteContent, [], [], businessName);
+      const extraction = await extractEnhancedCustomers(
+        websiteContent,
+        businessName,
+        industry,
+        websiteUrl
+      );
 
-      console.log('[TargetCustomerPage] Extraction complete:', extraction);
+      console.log('[TargetCustomerPage] Enhanced extraction complete:', extraction);
+      console.log(`  - Profiles: ${extraction.profiles.length}`);
+      console.log(`  - Industry personas: ${extraction.industryPersonas.length}`);
+      console.log(`  - Location: ${extraction.locationData?.city || 'N/A'}`);
 
       const extractedSuggestions: DraggableSuggestion[] = extraction.profiles.map((profile, index) => ({
         id: `customer-${profile.id || index}`,
         type: 'customer-segment',
         content: profile.statement || '',
-        source: 'ai-generated',
+        source: profile.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
         confidence: (profile.confidence?.overall || 0) / 100,
         tags: [
           'target_customer',
           ...(profile.industry ? [`industry:${profile.industry.toLowerCase()}`] : []),
           ...(profile.companySize ? [`size:${profile.companySize.toLowerCase()}`] : []),
-          ...(profile.role ? [`role:${profile.role.toLowerCase()}`] : [])
+          ...(profile.role ? [`role:${profile.role.toLowerCase()}`] : []),
+          ...(extraction.locationData ? [`location:${extraction.locationData.city.toLowerCase()}`] : [])
         ],
         is_selected: false,
         is_customizable: true
       }));
-
-      if (industryEQ) {
-        const industrySuggestions = generateIndustryBasedSuggestions(businessName, industry, industryEQ);
-        extractedSuggestions.push(...industrySuggestions);
-      }
 
       extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
 

@@ -23,7 +23,7 @@ import { DraggableItem } from '@/components/uvp-wizard/DraggableItem';
 import { CompactWizardProgress } from '@/components/uvp-wizard/WizardProgress';
 import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-wizard';
 import type { TransformationGoal } from '@/types/uvp-flow.types';
-import { analyzeTransformationLanguage, type CustomerQuoteInput } from '@/services/uvp-extractors/transformation-analyzer.service';
+import { extractEnhancedTransformations } from '@/services/uvp-extractors/enhanced-transformation-extractor.service';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 
 interface TransformationGoalPageProps {
