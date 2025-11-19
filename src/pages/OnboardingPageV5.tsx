@@ -47,6 +47,24 @@ import type {
 } from '@/types/campaign-generation.types';
 import { mapCampaignIdToType, mapPostIdToType, PostType } from '@/types/campaign-generation.types';
 
+// UVP Flow imports
+import { ProductServiceDiscoveryPage } from '@/components/uvp-flow/ProductServiceDiscoveryPage';
+import { TargetCustomerPage } from '@/components/uvp-flow/TargetCustomerPage';
+import { TransformationGoalPage } from '@/components/uvp-flow/TransformationGoalPage';
+import { UniqueSolutionPage } from '@/components/uvp-flow/UniqueSolutionPage';
+import { KeyBenefitPage } from '@/components/uvp-flow/KeyBenefitPage';
+import { UVPSynthesisPage } from '@/components/uvp-flow/UVPSynthesisPage';
+import type {
+  ProductServiceData,
+  ProductService,
+  CustomerProfile,
+  TransformationGoal,
+  UniqueSolution,
+  KeyBenefit,
+  CompleteUVP,
+  UVPFlowState,
+} from '@/types/uvp-flow.types';
+
 type FlowStep =
   | 'url_input'
   | 'data_collection'
@@ -62,7 +80,14 @@ type FlowStep =
   | 'post_type_selection'
   | 'content_generation'
   | 'content_preview'
-  | 'complete';
+  | 'complete'
+  // UVP Flow steps
+  | 'uvp_products'
+  | 'uvp_customer'
+  | 'uvp_transformation'
+  | 'uvp_solution'
+  | 'uvp_benefit'
+  | 'uvp_synthesis';
 
 export interface DetectedBusinessData {
   url: string;
@@ -103,6 +128,15 @@ export const OnboardingPageV5: React.FC = () => {
   const [validatedValueProps, setValidatedValueProps] = useState<Set<string>>(new Set());
   const [validatedTriggers, setValidatedTriggers] = useState<Set<string>>(new Set());
   const [validatedPersonas, setValidatedPersonas] = useState<Set<string>>(new Set());
+
+  // UVP Flow state
+  const [uvpFlowData, setUVPFlowData] = useState<Partial<UVPFlowState> | null>(null);
+  const [productServiceData, setProductServiceData] = useState<ProductServiceData | null>(null);
+  const [selectedCustomerProfile, setSelectedCustomerProfile] = useState<CustomerProfile | null>(null);
+  const [selectedTransformation, setSelectedTransformation] = useState<TransformationGoal | null>(null);
+  const [selectedSolution, setSelectedSolution] = useState<UniqueSolution | null>(null);
+  const [selectedBenefit, setSelectedBenefit] = useState<KeyBenefit | null>(null);
+  const [completeUVP, setCompleteUVP] = useState<CompleteUVP | null>(null);
 
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
@@ -203,8 +237,24 @@ export const OnboardingPageV5: React.FC = () => {
 
       setIsExtracting(false);
 
-      // Transition to Track E 3-page flow: value_propositions → buyer_intelligence → core_truth
-      setCurrentStep('value_propositions');
+      // Transition to UVP Flow (6 steps)
+      setCurrentStep('uvp_products');
+
+      // Initialize UVP flow data
+      setUVPFlowData({
+        currentStep: 'products',
+        productsServices: undefined,  // Will be populated by extraction service
+        isComplete: false,
+      });
+
+      // Initialize productServiceData with empty structure
+      // TODO: Replace with actual product/service extraction
+      setProductServiceData({
+        categories: [],
+        extractionComplete: false,
+        extractionConfidence: 0,
+        sources: [],
+      });
 
     } catch (error) {
       console.error('[OnboardingPageV5] Data collection error:', error);
@@ -371,6 +421,17 @@ export const OnboardingPageV5: React.FC = () => {
   // Track E Navigation Handlers - Value Propositions Page
   const handleValidateValueProp = (id: string) => {
     console.log('[OnboardingPageV5] Validating value prop:', id);
+    if (!collectedData) return;
+
+    // Update the validated property on the proposition object
+    setCollectedData({
+      ...collectedData,
+      valuePropositions: collectedData.valuePropositions.map(vp =>
+        vp.id === id ? { ...vp, validated: true } : vp
+      ),
+    });
+
+    // Also track in the Set for convenience
     setValidatedValueProps(prev => new Set(prev).add(id));
   };
 
@@ -378,20 +439,38 @@ export const OnboardingPageV5: React.FC = () => {
     console.log('[OnboardingPageV5] Rejecting value prop:', id);
     if (!collectedData) return;
 
-    setCollectedData({
-      ...collectedData,
-      valuePropositions: collectedData.valuePropositions.filter(vp => vp.id !== id),
-    });
+    // Check if this proposition is currently validated (unvalidate it)
+    const prop = collectedData.valuePropositions.find(vp => vp.id === id);
+    if (prop?.validated) {
+      // Unvalidate it
+      setCollectedData({
+        ...collectedData,
+        valuePropositions: collectedData.valuePropositions.map(vp =>
+          vp.id === id ? { ...vp, validated: false } : vp
+        ),
+      });
+      setValidatedValueProps(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(id);
+        return newSet;
+      });
+    } else {
+      // Remove it entirely
+      setCollectedData({
+        ...collectedData,
+        valuePropositions: collectedData.valuePropositions.filter(vp => vp.id !== id),
+      });
+    }
   };
 
-  const handleEditValueProp = (id: string, text: string) => {
-    console.log('[OnboardingPageV5] Editing value prop:', id, text);
+  const handleEditValueProp = (id: string, newStatement: string) => {
+    console.log('[OnboardingPageV5] Editing value prop:', id, newStatement);
     if (!collectedData) return;
 
     setCollectedData({
       ...collectedData,
       valuePropositions: collectedData.valuePropositions.map(vp =>
-        vp.id === id ? { ...vp, text } : vp
+        vp.id === id ? { ...vp, statement: newStatement, userEdited: true } : vp
       ),
     });
   };
@@ -540,6 +619,208 @@ export const OnboardingPageV5: React.FC = () => {
   const handleBackFromCoreTruth = () => {
     console.log('[OnboardingPageV5] Going back to buyer intelligence');
     setCurrentStep('buyer_intelligence');
+  };
+
+  // ==================== UVP FLOW HANDLERS ====================
+
+  // UVP Step 1: Products/Services
+  const handleProductsConfirm = (confirmedItems: ProductService[]) => {
+    console.log('[UVP Flow] Products confirmed:', confirmedItems.length);
+    setProductServiceData(prev => ({
+      ...prev!,
+      categories: prev!.categories.map(cat => ({
+        ...cat,
+        items: cat.items.map(item => ({
+          ...item,
+          confirmed: confirmedItems.some(ci => ci.id === item.id),
+        })),
+      })),
+    }));
+  };
+
+  const handleProductsAddManual = (item: Partial<ProductService>) => {
+    console.log('[UVP Flow] Manual product added:', item);
+    // Add to existing categories or create "Manual Additions" category
+    setProductServiceData(prev => {
+      if (!prev) return prev;
+
+      const manualCat = prev.categories.find(c => c.name === 'Manual Additions');
+      const newItem: ProductService = {
+        id: `manual-${Date.now()}`,
+        name: item.name || '',
+        description: item.description || '',
+        category: item.category || 'Other',
+        confidence: 100,
+        source: 'manual',
+        confirmed: true,
+      };
+
+      if (manualCat) {
+        return {
+          ...prev,
+          categories: prev.categories.map(cat =>
+            cat.name === 'Manual Additions'
+              ? { ...cat, items: [...cat.items, newItem] }
+              : cat
+          ),
+        };
+      } else {
+        return {
+          ...prev,
+          categories: [
+            ...prev.categories,
+            {
+              id: 'manual',
+              name: 'Manual Additions',
+              items: [newItem],
+            },
+          ],
+        };
+      }
+    });
+  };
+
+  const handleProductsNext = () => {
+    console.log('[UVP Flow] Moving to customer step');
+    setCurrentStep('uvp_customer');
+  };
+
+  // UVP Step 2: Target Customer
+  const handleCustomerAccept = (profile: CustomerProfile) => {
+    console.log('[UVP Flow] Customer profile accepted:', profile.id);
+    setSelectedCustomerProfile(profile);
+  };
+
+  const handleCustomerManualSubmit = (profile: Partial<CustomerProfile>) => {
+    console.log('[UVP Flow] Manual customer profile submitted');
+    const newProfile: CustomerProfile = {
+      id: `manual-${Date.now()}`,
+      statement: profile.statement || '',
+      industry: profile.industry,
+      companySize: profile.companySize,
+      role: profile.role,
+      confidence: 100,
+      sources: [],
+      evidenceQuotes: [],
+      isManualInput: true,
+    };
+    setSelectedCustomerProfile(newProfile);
+  };
+
+  const handleCustomerNext = () => {
+    console.log('[UVP Flow] Moving to transformation step');
+    setCurrentStep('uvp_transformation');
+  };
+
+  // UVP Step 3: Transformation Goal
+  const handleTransformationAccept = (goal: TransformationGoal) => {
+    console.log('[UVP Flow] Transformation goal accepted:', goal.id);
+    setSelectedTransformation(goal);
+  };
+
+  const handleTransformationManualSubmit = (goal: Partial<TransformationGoal>) => {
+    console.log('[UVP Flow] Manual transformation goal submitted');
+    const newGoal: TransformationGoal = {
+      id: `manual-${Date.now()}`,
+      statement: goal.statement || '',
+      emotionalDrivers: goal.emotionalDrivers || [],
+      functionalDrivers: goal.functionalDrivers || [],
+      eqScore: {
+        emotional: 50,
+        rational: 50,
+        overall: 50,
+      },
+      confidence: 100,
+      sources: [],
+      customerQuotes: [],
+      isManualInput: true,
+    };
+    setSelectedTransformation(newGoal);
+  };
+
+  const handleTransformationNext = () => {
+    console.log('[UVP Flow] Moving to solution step');
+    setCurrentStep('uvp_solution');
+  };
+
+  // UVP Step 4: Unique Solution
+  const handleSolutionAccept = (solution: UniqueSolution) => {
+    console.log('[UVP Flow] Solution accepted:', solution.id);
+    setSelectedSolution(solution);
+  };
+
+  const handleSolutionManualSubmit = (solution: Partial<UniqueSolution>) => {
+    console.log('[UVP Flow] Manual solution submitted');
+    const newSolution: UniqueSolution = {
+      id: `manual-${Date.now()}`,
+      statement: solution.statement || '',
+      differentiators: solution.differentiators || [],
+      methodology: solution.methodology,
+      proprietaryApproach: solution.proprietaryApproach,
+      confidence: 100,
+      sources: [],
+      isManualInput: true,
+    };
+    setSelectedSolution(newSolution);
+  };
+
+  const handleSolutionNext = () => {
+    console.log('[UVP Flow] Moving to benefit step');
+    setCurrentStep('uvp_benefit');
+  };
+
+  // UVP Step 5: Key Benefit
+  const handleBenefitAccept = (benefit: KeyBenefit) => {
+    console.log('[UVP Flow] Benefit accepted:', benefit.id);
+    setSelectedBenefit(benefit);
+  };
+
+  const handleBenefitManualSubmit = (benefit: Partial<KeyBenefit>) => {
+    console.log('[UVP Flow] Manual benefit submitted');
+    const newBenefit: KeyBenefit = {
+      id: `manual-${Date.now()}`,
+      statement: benefit.statement || '',
+      outcomeType: benefit.outcomeType || 'qualitative',
+      metrics: benefit.metrics,
+      industryComparison: benefit.industryComparison,
+      eqFraming: benefit.eqFraming || 'balanced',
+      confidence: 100,
+      sources: [],
+      isManualInput: true,
+    };
+    setSelectedBenefit(newBenefit);
+  };
+
+  const handleBenefitNext = () => {
+    console.log('[UVP Flow] Moving to synthesis step');
+    setCurrentStep('uvp_synthesis');
+  };
+
+  // UVP Step 6: Synthesis
+  const handleUVPComplete = async (uvp: CompleteUVP) => {
+    console.log('[UVP Flow] UVP complete, saving to database');
+    setCompleteUVP(uvp);
+
+    // Save to database and navigate to dashboard
+    // TODO: Implement UVP database save
+    try {
+      // For now, just navigate to dashboard
+      console.log('[UVP Flow] UVP saved successfully');
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('[UVP Flow] Failed to save UVP:', error);
+      navigate('/dashboard');
+    }
+  };
+
+  const handleUVPExport = () => {
+    console.log('[UVP Flow] Exporting UVP');
+    // TODO: Implement export functionality
+  };
+
+  const handleUVPBack = () => {
+    console.log('[UVP Flow] Going back from synthesis');
+    setCurrentStep('uvp_benefit');
   };
 
   // Handle campaign selection from SmartSuggestions
@@ -925,7 +1206,7 @@ export const OnboardingPageV5: React.FC = () => {
         />
       )}
 
-      {currentStep === 'uvp_extraction' && (
+      {(currentStep === 'data_collection' || currentStep === 'uvp_extraction') && (
         <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
           <div className="max-w-2xl w-full">
             <div className="text-center mb-8">
@@ -1012,7 +1293,7 @@ export const OnboardingPageV5: React.FC = () => {
       {currentStep === 'value_propositions' && collectedData && (
         <ValuePropositionPage
           {...{
-            valuePropositions: collectedData.valuePropositions,
+            propositions: collectedData.valuePropositions,
             validatedIds: validatedValueProps,
             onValidate: handleValidateValueProp,
             onReject: handleRejectValueProp,
@@ -1145,6 +1426,77 @@ export const OnboardingPageV5: React.FC = () => {
 
       {currentStep === 'content_generation' && generationProgress && (
         <GenerationProgressComponent progress={generationProgress} />
+      )}
+
+      {/* ==================== UVP FLOW PAGES ==================== */}
+
+      {currentStep === 'uvp_products' && productServiceData && (
+        <ProductServiceDiscoveryPage
+          businessName={businessData?.businessName || 'Your Business'}
+          isLoading={false}
+          data={productServiceData}
+          onConfirm={handleProductsConfirm}
+          onAddManual={handleProductsAddManual}
+          onNext={handleProductsNext}
+        />
+      )}
+
+      {currentStep === 'uvp_customer' && (
+        <TargetCustomerPage
+          businessName={businessData?.businessName || 'Your Business'}
+          isLoading={false}
+          aiSuggestions={[]}  // TODO: Wire up customer extraction service
+          onAccept={handleCustomerAccept}
+          onManualSubmit={handleCustomerManualSubmit}
+          onNext={handleCustomerNext}
+        />
+      )}
+
+      {currentStep === 'uvp_transformation' && (
+        <TransformationGoalPage
+          businessName={businessData?.businessName || 'Your Business'}
+          isLoading={false}
+          aiSuggestions={[]}  // TODO: Wire up transformation analyzer
+          onAccept={handleTransformationAccept}
+          onManualSubmit={handleTransformationManualSubmit}
+          onNext={handleTransformationNext}
+        />
+      )}
+
+      {currentStep === 'uvp_solution' && (
+        <UniqueSolutionPage
+          businessName={businessData?.businessName || 'Your Business'}
+          isLoading={false}
+          websiteExcerpts={[]}  // TODO: Extract methodology mentions
+          aiSuggestions={[]}  // TODO: Wire up differentiator extractor
+          onAccept={handleSolutionAccept}
+          onManualSubmit={handleSolutionManualSubmit}
+          onNext={handleSolutionNext}
+        />
+      )}
+
+      {currentStep === 'uvp_benefit' && (
+        <KeyBenefitPage
+          businessName={businessData?.businessName || 'Your Business'}
+          isLoading={false}
+          aiSuggestions={[]}  // TODO: Wire up benefit extractor
+          onAccept={handleBenefitAccept}
+          onManualSubmit={handleBenefitManualSubmit}
+          onNext={handleBenefitNext}
+        />
+      )}
+
+      {currentStep === 'uvp_synthesis' && selectedCustomerProfile && selectedTransformation && selectedSolution && selectedBenefit && (
+        <UVPSynthesisPage
+          businessName={businessData?.businessName || 'Your Business'}
+          targetCustomer={selectedCustomerProfile}
+          transformationGoal={selectedTransformation}
+          uniqueSolution={selectedSolution}
+          keyBenefit={selectedBenefit}
+          onComplete={handleUVPComplete}
+          onExport={handleUVPExport}
+          onBack={handleUVPBack}
+        />
       )}
 
       {currentStep === 'content_preview' && (
