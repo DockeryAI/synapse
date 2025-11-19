@@ -1,408 +1,376 @@
 /**
  * Target Customer Page - UVP Flow Step 2
  *
- * Displays AI-extracted customer profiles or manual input form
- * Question: "Who is Your Target Customer?"
+ * Matches MARBA UVP Wizard design pattern with:
+ * - Split-screen layout (SuggestionPanel + DropZone)
+ * - Customer profile extraction from website
+ * - Industry-based suggestions
+ * - Drag-and-drop interaction
  *
  * Created: 2025-11-18
+ * Updated: 2025-11-18 (Rebuilt to match MARBA UVP wizard pattern)
  */
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Sparkles,
-  CheckCircle2,
-  ArrowRight,
-  Users,
-  AlertCircle,
-  Edit3,
-  Quote
-} from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
+import { motion } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Users, Lightbulb, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { ConfidenceMeter } from '@/components/onboarding-v5/ConfidenceMeter';
-import { SourceCitation } from '@/components/onboarding-v5/SourceCitation';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { SuggestionPanel } from '@/components/uvp-wizard/SuggestionPanel';
+import { DropZone } from '@/components/uvp-wizard/DropZone';
+import { DraggableItem } from '@/components/uvp-wizard/DraggableItem';
+import { CompactWizardProgress } from '@/components/uvp-wizard/WizardProgress';
+import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-wizard';
 import type { CustomerProfile } from '@/types/uvp-flow.types';
+import { extractTargetCustomer } from '@/services/uvp-extractors/customer-extractor.service';
+import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 
 interface TargetCustomerPageProps {
   businessName: string;
-  isLoading?: boolean;
-  aiSuggestions?: CustomerProfile[];
-  onAccept: (profile: CustomerProfile) => void;
-  onManualSubmit: (profile: Partial<CustomerProfile>) => void;
+  industry?: string;
+  websiteUrl?: string;
+  websiteContent?: string[];
+  websiteUrls?: string[];
+  value?: string;
+  onChange?: (value: string) => void;
   onNext: () => void;
+  onBack?: () => void;
+  showProgress?: boolean;
+  progressPercentage?: number;
+  className?: string;
 }
 
 export function TargetCustomerPage({
   businessName,
-  isLoading = false,
-  aiSuggestions = [],
-  onAccept,
-  onManualSubmit,
-  onNext
+  industry = '',
+  websiteUrl = '',
+  websiteContent = [],
+  websiteUrls = [],
+  value = '',
+  onChange,
+  onNext,
+  onBack,
+  showProgress = true,
+  progressPercentage = 20,
+  className = ''
 }: TargetCustomerPageProps) {
-  const [inputMode, setInputMode] = useState<'ai' | 'manual'>(aiSuggestions.length > 0 ? 'ai' : 'manual');
-  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
+  const [suggestions, setSuggestions] = useState<DraggableSuggestion[]>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [activeDragId, setActiveDragId] = useState<string | null>(null);
+  const [inputValue, setInputValue] = useState(value);
 
-  // Manual input state
-  const [customerDescription, setCustomerDescription] = useState('');
-  const [industry, setIndustry] = useState('');
-  const [companySize, setCompanySize] = useState('');
-  const [role, setRole] = useState('');
+  const [dropZone, setDropZone] = useState<DropZoneType>({
+    id: 'target-customer-drop-zone',
+    accepts: ['customer-segment'],
+    items: [],
+    is_active: false,
+    is_over: false,
+    can_drop: false
+  });
 
-  const handleAcceptProfile = (profile: CustomerProfile) => {
-    setSelectedProfileId(profile.id);
-    onAccept(profile);
-  };
-
-  const handleManualSubmit = () => {
-    if (!customerDescription.trim()) return;
-
-    onManualSubmit({
-      statement: customerDescription,
-      industry: industry || undefined,
-      companySize: companySize || undefined,
-      role: role || undefined,
-      isManualInput: true
+  const [industryEQ, setIndustryEQ] = useState<any>(null);
+  useEffect(() => {
+    getIndustryEQ(industry).then(eq => {
+      console.log('[TargetCustomerPage] Industry EQ loaded:', eq);
+      setIndustryEQ(eq);
     });
+  }, [industry]);
+
+  useEffect(() => {
+    if (websiteContent.length > 0 && suggestions.length === 0) {
+      handleGenerateSuggestions();
+    }
+  }, []);
+
+  const handleGenerateSuggestions = async () => {
+    setIsGenerating(true);
+
+    try {
+      console.log('[TargetCustomerPage] Generating suggestions...');
+
+      const extraction = await extractTargetCustomer(websiteContent, websiteUrls, businessName);
+
+      console.log('[TargetCustomerPage] Extraction complete:', extraction);
+
+      const extractedSuggestions: DraggableSuggestion[] = extraction.profiles.map((profile, index) => ({
+        id: `customer-${profile.id || index}`,
+        type: 'customer-segment',
+        content: profile.statement || '',
+        source: 'ai-generated',
+        confidence: (profile.confidence?.overall || 0) / 100,
+        tags: [
+          'target_customer',
+          ...(profile.industry ? [`industry:${profile.industry.toLowerCase()}`] : []),
+          ...(profile.companySize ? [`size:${profile.companySize.toLowerCase()}`] : []),
+          ...(profile.role ? [`role:${profile.role.toLowerCase()}`] : [])
+        ],
+        is_selected: false,
+        is_customizable: true
+      }));
+
+      if (industryEQ) {
+        const industrySuggestions = generateIndustryBasedSuggestions(businessName, industry, industryEQ);
+        extractedSuggestions.push(...industrySuggestions);
+      }
+
+      extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+
+      setSuggestions(extractedSuggestions);
+
+      console.log('[TargetCustomerPage] Generated suggestions:', extractedSuggestions.length);
+
+    } catch (error) {
+      console.error('[TargetCustomerPage] Failed to generate suggestions:', error);
+
+      const fallbackSuggestions = generateFallbackSuggestions(industry);
+      setSuggestions(fallbackSuggestions);
+    } finally {
+      setIsGenerating(false);
+    }
   };
 
-  const canProceed = selectedProfileId !== null || customerDescription.trim().length > 0;
-  const hasAISuggestions = aiSuggestions.length > 0;
+  const generateIndustryBasedSuggestions = (
+    businessName: string,
+    industry: string,
+    eq: any
+  ): DraggableSuggestion[] => {
+    const industrySuggestions: DraggableSuggestion[] = [];
+
+    if (eq.typical_company_size) {
+      industrySuggestions.push({
+        id: `eq-company-${Date.now()}`,
+        type: 'customer-segment',
+        content: `${eq.typical_company_size} companies in ${industry} looking to ${eq.jtbd_focus === 'emotional' ? 'transform their approach' : 'improve efficiency'}`,
+        source: 'industry-profile',
+        confidence: 0.7,
+        tags: ['industry_based', 'eq_aligned'],
+        is_selected: false,
+        is_customizable: true
+      });
+    }
+
+    if (eq.typical_buyer_role) {
+      industrySuggestions.push({
+        id: `eq-role-${Date.now()}`,
+        type: 'customer-segment',
+        content: `${eq.typical_buyer_role}s in ${industry} who need to ${eq.purchase_mindset.toLowerCase()}`,
+        source: 'industry-profile',
+        confidence: 0.7,
+        tags: ['industry_based', 'eq_aligned'],
+        is_selected: false,
+        is_customizable: true
+      });
+    }
+
+    return industrySuggestions;
+  };
+
+  const generateFallbackSuggestions = (industry: string): DraggableSuggestion[] => {
+    const fallbacks: DraggableSuggestion[] = [
+      {
+        id: 'fallback-1',
+        type: 'customer-segment',
+        content: `[Role/Title] at [Company Size] ${industry || 'companies'} who [specific need or challenge]`,
+        source: 'user-custom',
+        confidence: 0.5,
+        tags: ['template'],
+        is_selected: false,
+        is_customizable: true
+      },
+      {
+        id: 'fallback-2',
+        type: 'customer-segment',
+        content: `${industry || 'Business'} owners or [decision makers] struggling with [specific problem]`,
+        source: 'user-custom',
+        confidence: 0.5,
+        tags: ['template'],
+        is_selected: false,
+        is_customizable: true
+      },
+      {
+        id: 'fallback-3',
+        type: 'customer-segment',
+        content: `[Industry] professionals in [role] who want to [desired outcome]`,
+        source: 'user-custom',
+        confidence: 0.5,
+        tags: ['template'],
+        is_selected: false,
+        is_customizable: true
+      }
+    ];
+
+    return fallbacks;
+  };
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveDragId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && over.id === 'target-customer-drop-zone') {
+      const suggestion = suggestions.find((s) => s.id === active.id);
+      if (suggestion) {
+        handleSelectSuggestion(suggestion);
+      }
+    }
+
+    setActiveDragId(null);
+  };
+
+  const handleSelectSuggestion = (suggestion: DraggableSuggestion) => {
+    const newValue = inputValue
+      ? `${inputValue}\n\n${suggestion.content}`
+      : suggestion.content;
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+  };
+
+  const handleCustomInput = (text: string) => {
+    setInputValue(text);
+    if (onChange) {
+      onChange(text);
+    }
+  };
+
+  const activeSuggestion = activeDragId
+    ? suggestions.find((s) => s.id === activeDragId)
+    : null;
+
+  const isValid = inputValue.length >= 20;
+  const showWarning = inputValue.length > 0 && !isValid;
+  const canGoNext = isValid;
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-4"
-      >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/20 rounded-full">
+    <div className={`flex flex-col h-full ${className}`}>
+      {showProgress && (
+        <div className="mb-6">
+          <CompactWizardProgress
+            progress={{
+              current_step: 'target-customer',
+              completed_steps: ['welcome'],
+              total_steps: 8,
+              progress_percentage: progressPercentage,
+              is_valid: isValid,
+              validation_errors: {},
+              can_go_back: true,
+              can_go_forward: canGoNext,
+              can_submit: false
+            }}
+          />
+        </div>
+      )}
+
+      <div className="mb-8">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/20 rounded-full mb-4">
           <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
           <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
             UVP Step 2 of 6: Target Customer
           </span>
         </div>
 
-        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-          Who is Your Target Customer?
-        </h1>
-
-        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-          Be specific: Industry, company size, role
+        <h2 className="text-2xl font-bold mb-2">Who is Your Target Customer?</h2>
+        <p className="text-muted-foreground mb-4">
+          Be specific: Industry, company size, role, and the challenge they face
         </p>
-      </motion.div>
 
-      {/* Toggle between AI and Manual */}
-      {hasAISuggestions && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="flex items-center justify-center gap-2"
-        >
-          <Button
-            variant={inputMode === 'ai' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setInputMode('ai')}
-            className="gap-2"
-          >
-            <Sparkles className="w-4 h-4" />
-            AI Suggestions
-          </Button>
-          <Button
-            variant={inputMode === 'manual' ? 'default' : 'outline'}
-            size="sm"
-            onClick={() => setInputMode('manual')}
-            className="gap-2"
-          >
-            <Edit3 className="w-4 h-4" />
-            Manual Input
-          </Button>
-        </motion.div>
-      )}
+        {industryEQ && (
+          <Alert>
+            <Lightbulb className="h-4 w-4" />
+            <AlertDescription className="text-sm">
+              <strong>{industryEQ.industry} buyers:</strong> {industryEQ.purchase_mindset}
+              {industryEQ.typical_buyer_role && ` Typically ${industryEQ.typical_buyer_role}s.`}
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
 
-      {/* Continue Button (always visible when can proceed) */}
-      {canProceed && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex justify-center"
-        >
-          <Button
-            onClick={onNext}
-            size="lg"
-            className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
-          >
-            Continue
-            <ArrowRight className="w-5 h-5" />
-          </Button>
-        </motion.div>
-      )}
-
-      {/* Loading State */}
-      {isLoading && (
-        <div className="space-y-6">
-          {[1, 2].map((i) => (
-            <div key={i} className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6">
-              <Skeleton className="h-6 w-48 mb-4" />
-              <Skeleton className="h-20 w-full mb-4" />
-              <div className="flex gap-4">
-                <Skeleton className="h-24 flex-1" />
-                <Skeleton className="h-24 flex-1" />
-              </div>
-            </div>
-          ))}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 overflow-hidden">
+        <div className="lg:col-span-1 overflow-hidden">
+          <SuggestionPanel
+            suggestions={suggestions}
+            type="customer-segment"
+            onSelect={handleSelectSuggestion}
+            onGenerate={handleGenerateSuggestions}
+            isLoading={isGenerating}
+            title="AI Suggestions"
+            description="Drag suggestions to the right or click to add"
+          />
         </div>
-      )}
 
-      {/* AI Suggestions View */}
-      {!isLoading && inputMode === 'ai' && hasAISuggestions && (
-        <AnimatePresence mode="popLayout">
-          {aiSuggestions.map((profile, index) => {
-            const isSelected = selectedProfileId === profile.id;
+        <div className="lg:col-span-2">
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <div className="h-full flex flex-col">
+              <h3 className="text-sm font-semibold mb-3">Your Target Customer</h3>
 
-            return (
-              <motion.div
-                key={profile.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, x: -100 }}
-                transition={{ delay: index * 0.1 }}
-                className={`
-                  bg-white dark:bg-slate-800 rounded-2xl border-2 p-6 transition-all
-                  ${isSelected
-                    ? 'border-green-500 shadow-lg shadow-green-500/20'
-                    : 'border-gray-200 dark:border-slate-700'
-                  }
-                `}
-              >
-                {/* Profile Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                    <Users className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-                      Customer Profile {index + 1}
-                    </h2>
-                  </div>
-                  {isSelected && (
-                    <CheckCircle2 className="w-6 h-6 text-green-600 dark:text-green-400" />
-                  )}
-                </div>
-
-                {/* Profile Statement */}
-                <div className="mb-6">
-                  <p className="text-lg font-medium text-gray-900 dark:text-white leading-relaxed">
-                    {profile.statement}
-                  </p>
-                </div>
-
-                {/* Details Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  {profile.industry && (
-                    <div>
-                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">
-                        Industry
-                      </h4>
-                      <p className="text-sm text-gray-900 dark:text-white">
-                        {profile.industry}
-                      </p>
-                    </div>
-                  )}
-                  {profile.companySize && (
-                    <div>
-                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">
-                        Company Size
-                      </h4>
-                      <p className="text-sm text-gray-900 dark:text-white">
-                        {profile.companySize}
-                      </p>
-                    </div>
-                  )}
-                  {profile.role && (
-                    <div>
-                      <h4 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase mb-1">
-                        Role
-                      </h4>
-                      <p className="text-sm text-gray-900 dark:text-white">
-                        {profile.role}
-                      </p>
-                    </div>
-                  )}
-                </div>
-
-                {/* Evidence Quotes */}
-                {profile.evidenceQuotes && profile.evidenceQuotes.length > 0 && (
-                  <div className="mb-6 bg-purple-50 dark:bg-purple-900/10 rounded-xl p-4">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Quote className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                      <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
-                        Supporting Evidence
-                      </h4>
-                    </div>
-                    <div className="space-y-2">
-                      {profile.evidenceQuotes.map((quote, i) => (
-                        <p key={i} className="text-sm text-gray-600 dark:text-gray-400 italic">
-                          "{quote}"
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Confidence Score & Sources */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6 pt-4 border-t border-gray-200 dark:border-slate-700">
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                      Confidence Score
-                    </h4>
-                    <ConfidenceMeter score={profile.confidence} compact />
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
-                      Data Sources
-                    </h4>
-                    <SourceCitation sources={profile.sources} compact />
-                  </div>
-                </div>
-
-                {/* Accept Button */}
-                <div className="flex justify-end">
-                  {!isSelected ? (
-                    <Button
-                      onClick={() => handleAcceptProfile(profile)}
-                      className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
-                    >
-                      <CheckCircle2 className="w-4 h-4" />
-                      Select This Profile
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      onClick={() => setSelectedProfileId(null)}
-                    >
-                      Deselect
-                    </Button>
-                  )}
-                </div>
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
-      )}
-
-      {/* Manual Input View */}
-      {!isLoading && inputMode === 'manual' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
-        >
-          <div className="flex items-center gap-2 mb-6">
-            <Edit3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Define Your Target Customer
-            </h2>
-          </div>
-
-          <div className="space-y-6">
-            {/* Customer Description (Required) */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Target Customer Description *
-              </label>
-              <textarea
-                value={customerDescription}
-                onChange={(e) => setCustomerDescription(e.target.value)}
-                className="w-full p-4 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
-                rows={4}
-                placeholder="e.g., Mid-sized B2B SaaS companies with 50-200 employees, typically led by VPs of Marketing or Growth who are struggling to scale their content operations..."
+              <DropZone
+                zone={dropZone}
+                onDrop={handleSelectSuggestion}
+                onRemove={() => {}}
+                onCustomInput={handleCustomInput}
+                customValue={inputValue}
+                placeholder="Describe your ideal target customer. Be specific about:&#10;&#10;- Industry or sector&#10;- Company size&#10;- Role/title of decision maker&#10;- Specific challenge or need they have&#10;&#10;Examples:&#10;- 'VP of Marketing at mid-sized B2B SaaS companies struggling to generate qualified leads'&#10;- 'Small business owners in healthcare who need to automate patient scheduling'&#10;&#10;The more specific, the better your messaging will be."
+                className="flex-1"
               />
-              <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                Be as specific as possible about who your ideal customer is
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {/* Industry (Optional) */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Industry (optional)
-                </label>
-                <input
-                  type="text"
-                  value={industry}
-                  onChange={(e) => setIndustry(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
-                  placeholder="e.g., SaaS, Healthcare"
-                />
-              </div>
+              {showWarning && (
+                <Alert variant="destructive" className="mt-4">
+                  <AlertDescription>
+                    Please write at least 20 characters for a complete customer profile
+                  </AlertDescription>
+                </Alert>
+              )}
 
-              {/* Company Size (Optional) */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Company Size (optional)
-                </label>
-                <input
-                  type="text"
-                  value={companySize}
-                  onChange={(e) => setCompanySize(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
-                  placeholder="e.g., 50-200 employees"
-                />
-              </div>
-
-              {/* Role (Optional) */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Role (optional)
-                </label>
-                <input
-                  type="text"
-                  value={role}
-                  onChange={(e) => setRole(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
-                  placeholder="e.g., VP of Marketing"
-                />
+              <div className="mt-4 text-sm text-muted-foreground">
+                {inputValue.length} characters (minimum: 20)
               </div>
             </div>
 
-            <div className="flex justify-end">
-              <Button
-                onClick={handleManualSubmit}
-                disabled={!customerDescription.trim()}
-                className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                Confirm Customer Profile
-              </Button>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
-      {/* Empty State (No AI data, not in manual mode) */}
-      {!isLoading && !hasAISuggestions && inputMode === 'ai' && (
-        <div className="text-center py-12 space-y-4">
-          <AlertCircle className="w-16 h-16 text-gray-400 mx-auto" />
-          <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-            No customer profiles found
-          </h3>
-          <p className="text-gray-600 dark:text-gray-400">
-            We couldn't extract target customer information from {businessName}'s website.
-            Switch to manual input to define your target customer.
-          </p>
-          <Button
-            onClick={() => setInputMode('manual')}
-            className="gap-2"
-          >
-            <Edit3 className="w-4 h-4" />
-            Enter Manually
-          </Button>
+            <DragOverlay>
+              {activeSuggestion && (
+                <DraggableItem
+                  suggestion={activeSuggestion}
+                  className="shadow-2xl opacity-90"
+                />
+              )}
+            </DragOverlay>
+          </DndContext>
         </div>
-      )}
+      </div>
+
+      <div className="flex items-center justify-between pt-6 border-t">
+        <Button
+          variant="outline"
+          onClick={onBack}
+          disabled={!onBack}
+          className="min-w-[120px]"
+        >
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back
+        </Button>
+
+        <div className="text-sm text-muted-foreground">
+          {isValid ? (
+            <span className="text-green-600 font-medium">Ready to continue</span>
+          ) : (
+            <span>Fill in your target customer to continue</span>
+          )}
+        </div>
+
+        <Button
+          onClick={onNext}
+          disabled={!canGoNext}
+          className="min-w-[120px]"
+        >
+          Continue
+          <ArrowRight className="h-4 w-4 ml-2" />
+        </Button>
+      </div>
     </div>
   );
 }

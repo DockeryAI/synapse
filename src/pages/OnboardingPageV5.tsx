@@ -1668,11 +1668,38 @@ export const OnboardingPageV5: React.FC = () => {
       {currentStep === 'uvp_customer' && (
         <TargetCustomerPage
           businessName={businessData?.businessName || 'Your Business'}
-          isLoading={false}
-          aiSuggestions={customerSuggestions}
-          onAccept={handleCustomerAccept}
-          onManualSubmit={handleCustomerManualSubmit}
+          industry={businessData?.industry || ''}
+          websiteUrl={websiteUrl}
+          websiteContent={scrapedWebsiteContent}
+          websiteUrls={scrapedWebsiteUrls}
+          value={selectedCustomerProfile?.statement || ''}
+          onChange={(value) => {
+            if (selectedCustomerProfile) {
+              setSelectedCustomerProfile({ ...selectedCustomerProfile, statement: value });
+            } else {
+              setSelectedCustomerProfile({
+                id: `manual-${Date.now()}`,
+                statement: value,
+                industry: businessData?.industry,
+                companySize: undefined,
+                role: undefined,
+                confidence: {
+                  overall: 100,
+                  dataQuality: 100,
+                  sourceCount: 1,
+                  modelAgreement: 100,
+                  reasoning: 'Manual input'
+                },
+                sources: [],
+                evidenceQuotes: [],
+                isManualInput: true
+              });
+            }
+          }}
           onNext={handleCustomerNext}
+          onBack={() => setCurrentStep('uvp_products')}
+          showProgress={true}
+          progressPercentage={20}
         />
       )}
 
@@ -1755,11 +1782,38 @@ export const OnboardingPageV5: React.FC = () => {
       {currentStep === 'uvp_benefit' && (
         <KeyBenefitPage
           businessName={businessData?.businessName || 'Your Business'}
-          isLoading={false}
-          aiSuggestions={benefitSuggestions}
-          onAccept={handleBenefitAccept}
-          onManualSubmit={handleBenefitManualSubmit}
+          industry={businessData?.industry || ''}
+          websiteUrl={websiteUrl}
+          websiteContent={scrapedWebsiteContent}
+          websiteUrls={scrapedWebsiteUrls}
+          value={selectedBenefit?.statement || ''}
+          onChange={(value) => {
+            if (selectedBenefit) {
+              setSelectedBenefit({ ...selectedBenefit, statement: value });
+            } else {
+              setSelectedBenefit({
+                id: `manual-${Date.now()}`,
+                statement: value,
+                outcomeType: 'mixed',
+                metrics: [],
+                industryComparison: undefined,
+                eqFraming: 'balanced',
+                confidence: {
+                  overall: 100,
+                  dataQuality: 100,
+                  sourceCount: 1,
+                  modelAgreement: 100,
+                  reasoning: 'Manual input'
+                },
+                sources: [],
+                isManualInput: true
+              });
+            }
+          }}
           onNext={handleBenefitNext}
+          onBack={() => setCurrentStep('uvp_solution')}
+          showProgress={true}
+          progressPercentage={80}
         />
       )}
 
