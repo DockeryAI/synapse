@@ -12,6 +12,9 @@
 import type { BenefitExtractionResult, BenefitMetric, KeyBenefit } from '@/types/uvp-flow.types';
 import type { ConfidenceScore, DataSource } from '@/types/uvp-flow.types';
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
 /**
  * Extract benefits and outcomes from case studies and testimonials
  */
@@ -41,6 +44,17 @@ export async function extractBenefits(
       metrics: [],
       confidence: createLowConfidenceScore('No content provided for analysis'),
       sources: []
+    };
+  }
+
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.warn('[BenefitExtractor] No Supabase configuration - returning fallback result');
+    const fallbackResult = fallbackRegexExtraction(allContent);
+    return {
+      benefits: fallbackResult.benefits,
+      metrics: fallbackResult.metrics,
+      confidence: createLowConfidenceScore('No Supabase configuration - using fallback extraction'),
+      sources: createDataSources(allContent, fallbackResult.metrics)
     };
   }
 
@@ -95,7 +109,7 @@ export async function extractBenefits(
 }
 
 /**
- * Call Claude API to extract metrics and benefits
+ * Call Claude API via Supabase Edge Function to extract metrics and benefits
  */
 async function extractMetricsWithClaude(
   content: string,
@@ -104,15 +118,14 @@ async function extractMetricsWithClaude(
 ): Promise<any> {
   const prompt = buildExtractionPrompt(content, businessName, industry);
 
-  const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY}`,
-      'HTTP-Referer': window.location.origin,
-      'X-Title': 'Synapse - Benefit Extraction'
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Content-Type': 'application/json'
     },
     body: JSON.stringify({
+      provider: 'openrouter',
       model: 'anthropic/claude-3.5-sonnet',
       messages: [
         {
@@ -130,7 +143,9 @@ async function extractMetricsWithClaude(
   });
 
   if (!response.ok) {
-    throw new Error(`OpenRouter API error: ${response.status} ${response.statusText}`);
+    const errorText = await response.text();
+    console.error('[BenefitExtractor] AI proxy error:', errorText);
+    throw new Error(`AI proxy error: ${response.status} ${response.statusText}`);
   }
 
   const data = await response.json();

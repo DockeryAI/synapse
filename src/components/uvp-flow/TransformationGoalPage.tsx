@@ -208,7 +208,7 @@ export function TransformationGoalPage({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-6 border-2 border-purple-200 dark:border-purple-700"
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 shadow-lg"
         >
           <div className="space-y-4">
             <div className="flex items-center justify-between">
@@ -271,7 +271,7 @@ export function TransformationGoalPage({
             </div>
 
             {/* Explanation */}
-            <div className="bg-white/50 dark:bg-slate-800/50 rounded-lg p-4 border border-purple-200 dark:border-purple-700">
+            <div className="bg-gray-50 dark:bg-slate-900/50 rounded-lg p-4 border border-gray-200 dark:border-slate-700">
               <p className="text-sm text-gray-700 dark:text-gray-300">
                 {eqScore.emotional > 70 && (
                   <>
@@ -302,7 +302,7 @@ export function TransformationGoalPage({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6"
+          className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
@@ -326,7 +326,7 @@ export function TransformationGoalPage({
                 className="space-y-4"
               >
                 {/* Quote Text with Highlighting */}
-                <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/10 dark:to-blue-900/10 rounded-xl p-6 border border-purple-200 dark:border-purple-700">
+                <div className="bg-gray-50 dark:bg-slate-900/50 rounded-xl p-6 border border-gray-200 dark:border-slate-700">
                   <p
                     className="text-lg text-gray-900 dark:text-white leading-relaxed"
                     dangerouslySetInnerHTML={{

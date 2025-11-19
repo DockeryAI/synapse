@@ -11,7 +11,6 @@ import type {
   CustomerExtractionResult,
   CustomerProfile
 } from '@/types/uvp-flow.types';
-import type { ConfidenceScore } from '@/components/onboarding-v5/ConfidenceMeter';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;

@@ -234,7 +234,7 @@ export function KeyBenefitPage({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-6 border-2 border-purple-200 dark:border-purple-700"
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 shadow-lg"
         >
           <div className="flex items-center gap-2 mb-4">
             <BarChart3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -341,7 +341,7 @@ export function KeyBenefitPage({
             {outcomeEvidence.map((evidence) => (
               <div
                 key={evidence.id}
-                className="bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 rounded-lg p-4 border border-blue-200 dark:border-blue-800"
+                className="bg-gray-50 dark:bg-slate-900/50 rounded-lg p-4 border border-gray-200 dark:border-slate-700"
               >
                 <div className="flex items-start gap-3">
                   <Target className="w-5 h-5 text-blue-600 dark:text-blue-400 mt-0.5" />
@@ -442,7 +442,7 @@ export function KeyBenefitPage({
               className={`p-4 rounded-lg border-2 transition-all text-left ${
                 selectedFraming === 'balanced'
                   ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20'
-                  : 'border-gray-200 dark:border-slate-700 hover:border-purple-300'
+                  : 'border-gray-200 dark:border-slate-700 hover:border-gray-300'
               }`}
             >
               <div className="flex items-center gap-2 mb-2">
@@ -461,7 +461,7 @@ export function KeyBenefitPage({
 
           {/* Preview */}
           {benefitStatement && (
-            <div className="bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-700">
+            <div className="bg-gray-50 dark:bg-slate-900/50 rounded-lg p-4 border border-gray-200 dark:border-slate-700">
               <div className="text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Preview with {selectedFraming} framing:
               </div>

@@ -317,6 +317,10 @@ Return ONLY valid JSON (no markdown, no explanations):
 }`
 
     try {
+      // Add timeout to prevent hanging (60 seconds for large extraction)
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 60000)
+
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
@@ -332,8 +336,11 @@ Return ONLY valid JSON (no markdown, no explanations):
           }],
           max_tokens: 8192,
           temperature: 0.3
-        })
+        }),
+        signal: controller.signal
       })
+
+      clearTimeout(timeoutId)
 
       if (!response.ok) {
         const errorText = await response.text()
@@ -351,6 +358,10 @@ Return ONLY valid JSON (no markdown, no explanations):
       return extraction
 
     } catch (error) {
+      if (error instanceof Error && error.name === 'AbortError') {
+        console.error('[BuyerIntelligence] Request timed out after 60 seconds')
+        throw new Error('Buyer intelligence extraction timed out - website content may be too large')
+      }
       console.error('[BuyerIntelligence] Claude analysis failed:', error)
       throw error
     }

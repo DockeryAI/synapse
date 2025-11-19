@@ -7,7 +7,7 @@
  * Created: 2025-11-18
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Sparkles,
@@ -41,11 +41,25 @@ export function ProductServiceDiscoveryPage({
   onAddManual,
   onNext
 }: ProductServiceDiscoveryPageProps) {
-  const [confirmedIds, setConfirmedIds] = useState<Set<string>>(new Set());
+  // Auto-confirm all extracted products on initial load (high confidence extractions)
+  const [confirmedIds, setConfirmedIds] = useState<Set<string>>(() => {
+    if (!data) return new Set();
+    const allItems = data.categories.flatMap(cat => cat.items);
+    return new Set(allItems.map(item => item.id));
+  });
   const [showAddForm, setShowAddForm] = useState(false);
   const [newItemName, setNewItemName] = useState('');
   const [newItemDescription, setNewItemDescription] = useState('');
   const [newItemCategory, setNewItemCategory] = useState('');
+
+  // Notify parent of auto-confirmed items on mount
+  useEffect(() => {
+    if (data && confirmedIds.size > 0) {
+      const allItems = data.categories.flatMap(cat => cat.items);
+      const confirmed = allItems.filter(item => confirmedIds.has(item.id));
+      onConfirm(confirmed);
+    }
+  }, [data]); // Only run when data changes
 
   const toggleConfirm = (id: string) => {
     const newSet = new Set(confirmedIds);
@@ -95,9 +109,9 @@ export function ProductServiceDiscoveryPage({
         animate={{ opacity: 1, y: 0 }}
         className="text-center space-y-4"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/20 rounded-full">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full shadow-sm">
           <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-          <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
             UVP Step 1 of 6: Product & Service Discovery
           </span>
         </div>
@@ -117,7 +131,7 @@ export function ProductServiceDiscoveryPage({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-2xl p-6 border-2 border-purple-200 dark:border-purple-700"
+          className="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-gray-200 dark:border-slate-700 shadow-lg"
         >
           <div className="flex items-center justify-between mb-4">
             <div className="space-y-1">
@@ -162,7 +176,7 @@ export function ProductServiceDiscoveryPage({
 
           {/* Extraction Confidence */}
           {data.extractionConfidence && (
-            <div className="mt-4 pt-4 border-t border-purple-200 dark:border-purple-700">
+            <div className="mt-4 pt-4 border-t border-gray-200 dark:border-slate-700">
               <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
                 Extraction Confidence
               </h4>
@@ -195,7 +209,7 @@ export function ProductServiceDiscoveryPage({
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="bg-blue-50 dark:bg-blue-900/20 rounded-2xl border-2 border-blue-300 dark:border-blue-700 p-6"
+            className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
           >
             <div className="flex items-start justify-between mb-4">
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
@@ -219,7 +233,7 @@ export function ProductServiceDiscoveryPage({
                   type="text"
                   value={newItemName}
                   onChange={(e) => setNewItemName(e.target.value)}
-                  className="w-full p-3 border-2 border-blue-300 dark:border-blue-700 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                   placeholder="e.g., Website Design"
                 />
               </div>
@@ -231,7 +245,7 @@ export function ProductServiceDiscoveryPage({
                 <textarea
                   value={newItemDescription}
                   onChange={(e) => setNewItemDescription(e.target.value)}
-                  className="w-full p-3 border-2 border-blue-300 dark:border-blue-700 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
                   rows={2}
                   placeholder="Brief description of this offering"
                 />
@@ -245,7 +259,7 @@ export function ProductServiceDiscoveryPage({
                   type="text"
                   value={newItemCategory}
                   onChange={(e) => setNewItemCategory(e.target.value)}
-                  className="w-full p-3 border-2 border-blue-300 dark:border-blue-700 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                   placeholder="e.g., Core Services"
                 />
               </div>
@@ -281,7 +295,7 @@ export function ProductServiceDiscoveryPage({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, x: -100 }}
             transition={{ delay: catIndex * 0.1 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6"
+            className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
           >
             {/* Category Header */}
             <div className="flex items-center gap-2 mb-4">
@@ -304,10 +318,10 @@ export function ProductServiceDiscoveryPage({
                     key={item.id}
                     layout
                     className={`
-                      p-4 rounded-lg border-2 transition-all cursor-pointer
+                      p-4 rounded-lg border transition-all cursor-pointer
                       ${isConfirmed
                         ? 'border-green-500 bg-green-50 dark:bg-green-900/20'
-                        : 'border-gray-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-700'
+                        : 'border-gray-200 dark:border-slate-700 hover:border-gray-300 dark:hover:border-slate-600'
                       }
                     `}
                     onClick={() => toggleConfirm(item.id)}

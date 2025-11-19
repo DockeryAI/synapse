@@ -204,7 +204,7 @@ export function UVPSynthesisPage({
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="bg-gradient-to-br from-purple-50 via-pink-50 to-blue-50 dark:from-purple-900/20 dark:via-pink-900/20 dark:to-blue-900/20 rounded-3xl p-8 border-2 border-purple-200 dark:border-purple-700 shadow-xl"
+        className="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 shadow-xl"
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -249,7 +249,7 @@ export function UVPSynthesisPage({
             <textarea
               value={editedVP}
               onChange={(e) => setEditedVP(e.target.value)}
-              className="w-full p-4 border-2 border-purple-300 dark:border-purple-700 rounded-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white text-lg leading-relaxed resize-none"
+              className="w-full p-4 border border-gray-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white text-lg leading-relaxed resize-none"
               rows={4}
             />
             <Button
@@ -423,7 +423,7 @@ export function UVPSynthesisPage({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.8 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-200 dark:border-purple-700 p-6 space-y-4"
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6 space-y-4"
           >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
@@ -465,7 +465,7 @@ export function UVPSynthesisPage({
                 <textarea
                   value={editedHow}
                   onChange={(e) => setEditedHow(e.target.value)}
-                  className="w-full p-3 border-2 border-purple-300 dark:border-purple-700 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white text-sm resize-none"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white text-sm resize-none"
                   rows={4}
                 />
                 <Button
@@ -516,7 +516,7 @@ export function UVPSynthesisPage({
                   Evidence:
                 </p>
                 {completeUVP.targetCustomer.evidenceQuotes.map((quote, idx) => (
-                  <p key={idx} className="text-sm text-gray-600 dark:text-gray-400 italic pl-4 border-l-2 border-purple-300 dark:border-purple-700">
+                  <p key={idx} className="text-sm text-gray-600 dark:text-gray-400 italic pl-4 border-l-2 border-gray-300 dark:border-slate-600">
                     "{quote}"
                   </p>
                 ))}

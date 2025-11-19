@@ -5,7 +5,7 @@
  * CRITICAL: Only extracts explicitly mentioned offerings - never suggests or infers.
  *
  * Features:
- * - Claude Sonnet 4.5 analysis
+ * - Claude Sonnet 3.5 analysis via Supabase Edge Function
  * - Intelligent categorization (Core Services, Products, Add-ons, Packages)
  * - Evidence-based extraction with exact quotes
  * - Confidence scoring based on explicitness
@@ -15,13 +15,14 @@
  * Created: 2025-11-18 (Track C - Product/Service Extraction)
  */
 
-import Anthropic from '@anthropic-ai/sdk';
 import type {
   ProductServiceExtractionResult,
   ProductService,
 } from '@/types/uvp-flow.types';
-import type { ConfidenceScore } from '@/components/onboarding-v5/ConfidenceMeter';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 /**
  * Extract products and services from website content
@@ -47,13 +48,10 @@ export async function extractProductsServices(
   console.log(`  Business: ${businessName}`);
   console.log(`  Pages: ${websiteContent.length}`);
 
-  // Get API key from environment
-  const apiKey = import.meta?.env?.VITE_ANTHROPIC_API_KEY || process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    throw new Error('Anthropic API key not found. Set VITE_ANTHROPIC_API_KEY or ANTHROPIC_API_KEY.');
+  if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+    console.warn('[ProductServiceExtractor] No Supabase configuration - returning empty result');
+    return createEmptyResult();
   }
-
-  const anthropic = new Anthropic({ apiKey });
 
   try {
     // Combine website content with source attribution
@@ -64,21 +62,35 @@ export async function extractProductsServices(
       })
       .join('\n---\n');
 
-    // Call Claude to extract products/services
-    const message = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 4096,
-      temperature: 0.1, // Low temperature for factual extraction
-      messages: [
-        {
+    const prompt = buildExtractionPrompt(businessName, combinedContent);
+
+    // Call Claude via Supabase Edge Function
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
           role: 'user',
-          content: buildExtractionPrompt(businessName, combinedContent),
-        },
-      ],
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.1 // Low temperature for factual extraction
+      })
     });
 
-    // Parse Claude's response
-    const responseText = message.content[0].type === 'text' ? message.content[0].text : '';
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('[ProductServiceExtractor] AI proxy error:', errorText);
+      return createEmptyResult();
+    }
+
+    const data = await response.json();
+    const responseText = data.choices?.[0]?.message?.content || '';
     const extractionData = parseClaudeResponse(responseText, websiteUrls);
 
     // Calculate overall confidence
@@ -267,6 +279,17 @@ function determineSourceType(url: string): DataSource['type'] {
   if (lowerUrl.includes('/testimonial')) return 'testimonials';
 
   return 'website';
+}
+
+/**
+ * Create an empty result for cases where extraction fails or config is missing
+ */
+function createEmptyResult(): ProductServiceExtractionResult {
+  return {
+    categories: [],
+    extractionConfidence: 50,
+    sources: []
+  };
 }
 
 /**

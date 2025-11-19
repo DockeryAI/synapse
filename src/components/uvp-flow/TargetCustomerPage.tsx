@@ -298,7 +298,7 @@ export function TargetCustomerPage({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-200 dark:border-purple-700 p-6"
+          className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
         >
           <div className="flex items-center gap-2 mb-6">
             <Edit3 className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -316,7 +316,7 @@ export function TargetCustomerPage({
               <textarea
                 value={customerDescription}
                 onChange={(e) => setCustomerDescription(e.target.value)}
-                className="w-full p-4 border-2 border-purple-300 dark:border-purple-700 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
+                className="w-full p-4 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
                 rows={4}
                 placeholder="e.g., Mid-sized B2B SaaS companies with 50-200 employees, typically led by VPs of Marketing or Growth who are struggling to scale their content operations..."
               />
@@ -335,7 +335,7 @@ export function TargetCustomerPage({
                   type="text"
                   value={industry}
                   onChange={(e) => setIndustry(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                   placeholder="e.g., SaaS, Healthcare"
                 />
               </div>
@@ -349,7 +349,7 @@ export function TargetCustomerPage({
                   type="text"
                   value={companySize}
                   onChange={(e) => setCompanySize(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                   placeholder="e.g., 50-200 employees"
                 />
               </div>
@@ -363,7 +363,7 @@ export function TargetCustomerPage({
                   type="text"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
+                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                   placeholder="e.g., VP of Marketing"
                 />
               </div>
