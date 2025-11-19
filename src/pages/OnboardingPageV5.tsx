@@ -1679,11 +1679,38 @@ export const OnboardingPageV5: React.FC = () => {
       {currentStep === 'uvp_transformation' && (
         <TransformationGoalPage
           businessName={businessData?.businessName || 'Your Business'}
-          isLoading={false}
-          aiSuggestions={transformationSuggestions}
-          onAccept={handleTransformationAccept}
-          onManualSubmit={handleTransformationManualSubmit}
+          industry={businessData?.industry || ''}
+          websiteUrl={websiteUrl}
+          websiteContent={scrapedWebsiteContent}
+          websiteUrls={scrapedWebsiteUrls}
+          value={selectedTransformation?.statement || ''}
+          onChange={(value) => {
+            if (selectedTransformation) {
+              setSelectedTransformation({ ...selectedTransformation, statement: value });
+            } else {
+              setSelectedTransformation({
+                id: `manual-${Date.now()}`,
+                statement: value,
+                emotionalDrivers: [],
+                functionalDrivers: [],
+                eqScore: { emotional: 50, rational: 50, overall: 50 },
+                confidence: {
+                  overall: 100,
+                  dataQuality: 100,
+                  sourceCount: 1,
+                  modelAgreement: 100,
+                  reasoning: 'Manual input'
+                },
+                sources: [],
+                customerQuotes: [],
+                isManualInput: true
+              });
+            }
+          }}
           onNext={handleTransformationNext}
+          onBack={() => setCurrentStep('uvp_customer')}
+          showProgress={true}
+          progressPercentage={40}
         />
       )}
 
