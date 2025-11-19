@@ -101,10 +101,12 @@ export function UniqueSolutionPage({
         statement,
         evidence: 'User provided',
         source: {
+          id: `manual-source-${index}`,
           type: 'manual' as const,
-          url: '',
-          title: 'Manual Input',
-          lastUpdated: new Date(),
+          name: 'Manual Input',
+          extractedAt: new Date(),
+          reliability: 100,
+          dataPoints: 1,
         },
         strengthScore: 100,
       }));
