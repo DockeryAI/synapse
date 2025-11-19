@@ -24,9 +24,10 @@ test.describe('Onboarding Flow', () => {
     // Select industry (wait for industry selector to load)
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
 
-    // Click the input to open dropdown
+    // Type in the industry search field to show dropdown
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
 
     // Wait for dropdown option to appear
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
@@ -91,6 +92,7 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
@@ -100,10 +102,10 @@ test.describe('Onboarding Flow', () => {
     await page.click('[data-testid="industry-option-restaurant"]');
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
-    
+
     // Try to submit
     await page.click('button:has-text("Get Started")');
-    
+
     // Should show error message
     await expect(page.getByText(/valid website URL/i)).toBeVisible({ timeout: 5000 });
   });
@@ -130,6 +132,7 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
@@ -140,10 +143,10 @@ test.describe('Onboarding Flow', () => {
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     // Wait for confirmation
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
-    
+
     // Try to add custom service
     const addServiceButton = page.getByText('Add Custom Service');
     if (await addServiceButton.isVisible()) {
@@ -167,6 +170,7 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
@@ -177,10 +181,10 @@ test.describe('Onboarding Flow', () => {
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     // Wait for confirmation
     await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
-    
+
     // Click back button if it exists
     const backButton = page.getByText('Back');
     if (await backButton.isVisible()) {
@@ -199,6 +203,7 @@ test.describe('Onboarding Flow', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
@@ -209,7 +214,7 @@ test.describe('Onboarding Flow', () => {
     // Wait for selection to be reflected in UI
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
-    
+
     // Should show loading spinner
     await expect(page.locator('.animate-spin').first()).toBeVisible({ timeout: 5000 });
     
@@ -228,6 +233,7 @@ test.describe('Multi-select Functionality', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
@@ -274,6 +280,7 @@ test.describe('Multi-select Functionality', () => {
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
       timeout: 5000,
       state: 'visible'
