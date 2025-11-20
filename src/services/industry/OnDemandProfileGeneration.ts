@@ -169,7 +169,7 @@ export class OnDemandProfileGenerator {
       profile = await this.callOpusAPI(prompt, (apiProgress) => {
         // Map API progress to overall progress (60% to 90%)
         const overallProgress = 60 + (apiProgress * 0.3);
-        const ESTIMATED_API_DURATION = 240; // 4 minutes in seconds
+        const ESTIMATED_API_DURATION = 120; // 2 minutes for Opus via OpenRouter
         const remainingTime = Math.max(5, Math.round(ESTIMATED_API_DURATION * (1 - apiProgress)));
 
         onProgress?.({
@@ -252,7 +252,7 @@ export class OnDemandProfileGenerator {
 
     // Track real progress during API call
     const apiStartTime = Date.now();
-    const ESTIMATED_DURATION = 240000; // 4 minutes average (between 3-5 min)
+    const ESTIMATED_DURATION = 120000; // 2 minutes for Opus via OpenRouter
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - apiStartTime;
@@ -267,7 +267,7 @@ export class OnDemandProfileGenerator {
 
       const requestBody = {
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1', // OPUS 4.1 - ALWAYS USE OPUS FOR ONBOARDING
+        model: 'anthropic/claude-opus-4.1', // OPUS 4.1 - Best quality for industry profiles
         messages: [
           {
             role: 'user',
