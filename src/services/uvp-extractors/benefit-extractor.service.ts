@@ -29,12 +29,14 @@ export async function extractBenefits(
   solutions: any[],
   websiteContent: string[],
   businessName: string,
-  industry: string
+  industry: string,
+  customers?: any[]
 ): Promise<BenefitExtractionResult> {
   console.log('[BenefitExtractor] Starting OUTCOME extraction...');
   console.log(`  - Industry: ${industry}`);
   console.log(`  - Transformations: ${transformations.length}`);
   console.log(`  - Solutions: ${solutions.length}`);
+  console.log(`  - Customers: ${customers?.length || 0}`);
   console.log(`  - Website content: ${websiteContent.length} sections`);
 
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -54,12 +56,18 @@ export async function extractBenefits(
     const transformationContext = transformations.map(t => t.statement || t.fromState + ' → ' + t.toState).join('\n');
     const solutionContext = solutions.map(s => s.statement || s.methodology).join('\n');
 
+    // Build customer context
+    const customerContext = customers && customers.length > 0
+      ? customers.map(c => c.statement || c.description).join('\n')
+      : '';
+
     const prompt = buildOutcomeExtractionPrompt(
       businessName,
       industry,
       contentForAnalysis,
       transformationContext,
       solutionContext,
+      customerContext,
       industryEQ
     );
 
@@ -119,6 +127,7 @@ function buildOutcomeExtractionPrompt(
   websiteContent: string,
   transformationContext: string,
   solutionContext: string,
+  customerContext: string,
   industryEQ: any
 ): string {
   const emotionalWeight = industryEQ.emotional_weight;
@@ -140,6 +149,9 @@ function buildOutcomeExtractionPrompt(
 - "Be recognized as a trusted advisor by your clients" (social)
 - "Save 10 hours per month on policy management" (functional + metric)
 
+**CUSTOMER PROFILES** (Extract benefits for ALL these customer types):
+${customerContext || 'Not provided - extract benefits for ALL customer types mentioned in website'}
+
 **TRANSFORMATION CONTEXT** (Benefits must DELIVER ON these transformations):
 ${transformationContext || 'Not provided'}
 
@@ -156,6 +168,9 @@ ${websiteContent}
 - Key drivers: Fear ${industryEQ.decision_drivers.fear}%, Aspiration ${industryEQ.decision_drivers.aspiration}%
 
 **EXTRACTION REQUIREMENTS**:
+
+CRITICAL: If multiple customer types are provided, extract benefits that cover ALL customer segments (not just one type).
+For example, if customers include "daily patrons", "catering customers", and "coffee lovers", extract benefits for EACH type.
 
 Extract 5-8 benefits across these JTBD dimensions:
 

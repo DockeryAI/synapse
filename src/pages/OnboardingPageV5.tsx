@@ -9,7 +9,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { Sparkles, Loader2 } from 'lucide-react';
 import { OnboardingFlow } from '@/components/onboarding-v5/OnboardingFlow';
 import { SmartConfirmation, type RefinedBusinessData } from '@/components/onboarding-v5/SmartConfirmation';
 import { InsightsDashboard } from '@/components/onboarding-v5/InsightsDashboard';
@@ -645,17 +645,44 @@ export const OnboardingPageV5: React.FC = () => {
           industry.displayName // Pass industry for context-aware extraction
         ).then(result => {
           console.log('[OnboardingPageV5] Differentiator extraction complete:', result.differentiators.length);
-          // Create UniqueSolution objects from differentiators
-          const suggestions = [{
-            id: `solution-${Date.now()}`,
-            statement: result.methodology || 'Our unique approach',
-            differentiators: result.differentiators,
-            methodology: result.methodology,
-            proprietaryApproach: result.proprietaryApproach,
-            confidence: result.confidence,
-            sources: result.sources,
-            isManualInput: false,
-          }] as UniqueSolution[];
+
+          // Create UniqueSolution suggestions from actual differentiators (not hardcoded)
+          const suggestions: UniqueSolution[] = result.differentiators
+            .filter(diff => diff.strengthScore >= 60) // Only include quality differentiators
+            .map((diff, index) => ({
+              id: `solution-${Date.now()}-${index}`,
+              statement: diff.statement, // Use ACTUAL differentiator statement
+              differentiators: [diff],
+              methodology: index === 0 ? result.methodology : undefined, // First one gets methodology
+              proprietaryApproach: index === 0 ? result.proprietaryApproach : undefined,
+              confidence: {
+                overall: diff.strengthScore,
+                dataQuality: diff.strengthScore,
+                sourceCount: 1,
+                modelAgreement: diff.strengthScore,
+              },
+              sources: [diff.source],
+              isManualInput: false,
+            }));
+
+          // If no quality differentiators found, create a simple fallback
+          if (suggestions.length === 0) {
+            console.warn('[OnboardingPageV5] No quality differentiators found, creating minimal fallback');
+            suggestions.push({
+              id: `solution-fallback-${Date.now()}`,
+              statement: `${businessName} provides quality ${industry.displayName.toLowerCase()} services`,
+              differentiators: [],
+              confidence: {
+                overall: 30,
+                dataQuality: 30,
+                sourceCount: 0,
+                modelAgreement: 30,
+              },
+              sources: [],
+              isManualInput: false,
+            });
+          }
+
           setSolutionSuggestions(suggestions);
         }).catch(err => {
           console.error('[OnboardingPageV5] Differentiator extraction failed:', err);
@@ -2248,39 +2275,25 @@ export const OnboardingPageV5: React.FC = () => {
 
       {/* UVP Synthesis Loading Screen - Show regardless of step when synthesizing */}
       {isSynthesizingUVP && (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-6 fixed inset-0 z-50">
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-900 flex flex-col items-center justify-center p-6 fixed inset-0 z-50">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             className="text-center space-y-6"
           >
-            <div className="relative">
-              <div className="w-32 h-32 mx-auto">
-                <div className="absolute inset-0 border-4 border-purple-500/20 rounded-full"></div>
-                <div className="absolute inset-0 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"></div>
-                <Sparkles className="w-16 h-16 text-purple-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 animate-pulse" />
-              </div>
+            {/* Simple single spinner */}
+            <div className="relative w-16 h-16 mx-auto">
+              <Loader2 className="w-16 h-16 text-slate-400 dark:text-slate-500 animate-spin" />
             </div>
 
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold text-white">Crafting Your Value Proposition</h2>
-              <p className="text-xl text-gray-300">Synthesizing your complete UVP with Golden Circle framework...</p>
-              <p className="text-sm text-gray-500">This may take a few moments</p>
-            </div>
-
-            <div className="flex flex-col items-center gap-2 text-sm text-gray-400">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
-                <span>Analyzing your unique solution and customer benefits</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-75"></div>
-                <span>Generating 15-word maximum value proposition</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse delay-150"></div>
-                <span>Building WHY/WHAT/HOW framework</span>
-              </div>
+            {/* Clean simple text */}
+            <div className="space-y-2">
+              <h2 className="text-2xl font-semibold text-slate-700 dark:text-slate-300">
+                Crafting Your Value Proposition
+              </h2>
+              <p className="text-base text-slate-500 dark:text-slate-400">
+                This will take just a moment...
+              </p>
             </div>
           </motion.div>
         </div>

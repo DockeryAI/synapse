@@ -40,6 +40,7 @@ export async function synthesizeCompleteUVP(input: UVPSynthesisInput): Promise<C
 
 BUSINESS: ${input.businessName}
 INDUSTRY: ${input.industry}
+NUMBER OF CUSTOMER TYPES: ${customers.length}
 
 **EXTRACTED DATA:**
 
@@ -87,7 +88,13 @@ Template: "The only [location] [provider] who [contrarian approach]"
 Example: "The only Houston advisor who refuses commission-based products"
 Word count: 9 words
 
+**FORMULA 4 - CORE VALUES** (Best for diverse customer base):
+Template: "[Core value 1] and [core value 2] through [what you do]"
+Example: "Handcrafted excellence and community connection through daily artisan baking"
+Word count: 10 words
+
 **PICK THE BEST FORMULA** based on data quality:
+- If multiple customer types (diverse audience) → Use Formula 4 (Core Values)
 - If benefit has numbers → Use Formula 1 (Outcome)
 - If transformation has specific pain → Use Formula 2 (Transformation)
 - If solution has contrarian approach → Use Formula 3 (Only)
@@ -122,7 +129,7 @@ Example: "Using 70-year-old sourdough starter and overnight fermentation"
 Return ONLY valid JSON:
 {
   "uvp": "10-15 word statement using ONE formula",
-  "formulaUsed": "outcome" | "transformation" | "only",
+  "formulaUsed": "outcome" | "transformation" | "only" | "values",
   "wordCount": actual_number,
   "goldenCircle": {
     "why": "10 word max belief/purpose statement",
