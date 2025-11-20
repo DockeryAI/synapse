@@ -56,15 +56,15 @@ export function SessionManagerPage() {
         if (pendingUVP && sessionId) {
           console.log('[SessionManagerPage] Found pending localStorage session:', sessionId);
 
-          // Create a session item from localStorage data
+          // Create a session item from localStorage data matching SessionListItem interface
           const localStorageSession: SessionListItem = {
             id: sessionId,
-            brandId: 'localStorage',
-            currentStep: 'synthesis', // Assume synthesis since UVP is complete
-            progress: 100,
-            lastSavedAt: new Date(),
-            createdAt: new Date(),
-            businessName: pendingUVP.targetCustomer?.statement || 'Your Business',
+            session_name: pendingUVP.targetCustomer?.statement || 'Your Business',
+            website_url: 'localStorage',
+            current_step: 'synthesis', // Assume synthesis since UVP is complete
+            progress_percentage: 100,
+            last_accessed: new Date(),
+            created_at: new Date(),
             metadata: {
               source: 'localStorage',
               isPending: true

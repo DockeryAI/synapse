@@ -109,4 +109,9 @@ export interface SessionListItem {
   progress_percentage: number;
   last_accessed: Date;
   created_at: Date;
+  metadata?: {
+    source?: 'database' | 'localStorage';
+    isPending?: boolean;
+    [key: string]: any;
+  };
 }
