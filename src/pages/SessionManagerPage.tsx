@@ -25,6 +25,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { sessionManager } from '@/services/uvp/session-manager.service';
 import { useBrand } from '@/contexts/BrandContext';
+import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
 import type { SessionListItem } from '@/types/session.types';
 
 export function SessionManagerPage() {
@@ -37,28 +38,60 @@ export function SessionManagerPage() {
 
   // Load sessions on mount
   useEffect(() => {
-    if (!currentBrand?.id) {
-      setError('No brand selected');
-      setIsLoading(false);
-      return;
-    }
-
     loadSessions();
   }, [currentBrand?.id]);
 
   const loadSessions = async () => {
-    if (!currentBrand?.id) return;
-
     setIsLoading(true);
     setError(null);
 
     try {
-      const result = await sessionManager.listSessions(currentBrand.id);
+      const allSessions: SessionListItem[] = [];
 
-      if (result.success && result.sessions) {
-        setSessions(result.sessions);
-      } else {
-        setError(result.error || 'Failed to load sessions');
+      // Check for localStorage pending session (for non-authenticated users)
+      if (hasPendingUVP()) {
+        const pendingUVP = getPendingUVP();
+        const sessionId = localStorage.getItem('marba_session_id');
+
+        if (pendingUVP && sessionId) {
+          console.log('[SessionManagerPage] Found pending localStorage session:', sessionId);
+
+          // Create a session item from localStorage data
+          const localStorageSession: SessionListItem = {
+            id: sessionId,
+            brandId: 'localStorage',
+            currentStep: 'synthesis', // Assume synthesis since UVP is complete
+            progress: 100,
+            lastSavedAt: new Date(),
+            createdAt: new Date(),
+            businessName: pendingUVP.targetCustomer?.statement || 'Your Business',
+            metadata: {
+              source: 'localStorage',
+              isPending: true
+            }
+          };
+
+          allSessions.push(localStorageSession);
+        }
+      }
+
+      // If we have a brand, also load database sessions
+      if (currentBrand?.id) {
+        const result = await sessionManager.listSessions(currentBrand.id);
+
+        if (result.success && result.sessions) {
+          allSessions.push(...result.sessions);
+        } else if (allSessions.length === 0) {
+          // Only show error if we have no localStorage sessions either
+          setError(result.error || 'Failed to load sessions');
+        }
+      }
+
+      setSessions(allSessions);
+
+      // If we have no sessions at all, show appropriate message
+      if (allSessions.length === 0 && !currentBrand?.id) {
+        setError('No saved sessions. Start a new UVP to begin!');
       }
     } catch (err) {
       console.error('[SessionManagerPage] Error loading sessions:', err);
@@ -69,8 +102,18 @@ export function SessionManagerPage() {
   };
 
   const handleResumeSession = (sessionId: string) => {
-    // Navigate to onboarding page with session ID to restore state
-    navigate(`/onboarding-v5?sessionId=${sessionId}`);
+    // Check if this is a localStorage session
+    const session = sessions.find(s => s.id === sessionId);
+
+    if (session?.metadata?.source === 'localStorage') {
+      // For localStorage sessions, just navigate to dashboard
+      // The data is already in localStorage and will be picked up
+      console.log('[SessionManagerPage] Resuming localStorage session - navigating to dashboard');
+      navigate('/dashboard');
+    } else {
+      // For database sessions, navigate with sessionId parameter
+      navigate(`/onboarding-v5?sessionId=${sessionId}`);
+    }
   };
 
   const handleDeleteSession = async (sessionId: string) => {
@@ -81,13 +124,28 @@ export function SessionManagerPage() {
     setDeletingSessionId(sessionId);
 
     try {
-      const result = await sessionManager.deleteSession(sessionId);
+      // Check if this is a localStorage session
+      const session = sessions.find(s => s.id === sessionId);
 
-      if (result.success) {
+      if (session?.metadata?.source === 'localStorage') {
+        // Delete from localStorage
+        console.log('[SessionManagerPage] Deleting localStorage session');
+        localStorage.removeItem(`marba_uvp_${sessionId}`);
+        localStorage.removeItem('marba_session_id');
+        localStorage.removeItem('marba_uvp_pending');
+
         // Remove from local state
         setSessions(prev => prev.filter(s => s.id !== sessionId));
       } else {
-        alert(`Failed to delete session: ${result.error}`);
+        // Delete from database
+        const result = await sessionManager.deleteSession(sessionId);
+
+        if (result.success) {
+          // Remove from local state
+          setSessions(prev => prev.filter(s => s.id !== sessionId));
+        } else {
+          alert(`Failed to delete session: ${result.error}`);
+        }
       }
     } catch (err) {
       console.error('[SessionManagerPage] Error deleting session:', err);
