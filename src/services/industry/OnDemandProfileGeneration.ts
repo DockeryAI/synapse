@@ -38,28 +38,28 @@ Generate ALL 40 fields with rich, actionable data:
 ## CUSTOMER PSYCHOLOGY & TRIGGERS (8 fields)
 **CRITICAL: All of these are from the perspective of the END CUSTOMER (the person/business buying from this industry), NOT the business owner**
 
-6. customer_triggers: [10+ specific situations that make END CUSTOMERS urgently need to buy from businesses in this industry]
+6. customer_triggers: [5 specific situations that make END CUSTOMERS urgently need to buy from businesses in this industry]
    Example for Food Truck: "Last-minute event catering need", "Want to impress party guests", "Office lunch monotony"
 
-7. customer_journey: [Detailed map of how END CUSTOMERS go from awareness to purchase to advocacy]
+7. customer_journey: [Map of how END CUSTOMERS go from awareness to purchase to advocacy]
 
-8. transformations: [10+ emotional before→after transformations that END CUSTOMERS experience when buying from this industry]
-   Example for Food Truck: "From 'my event will have boring catering' → 'I look like a hero who found this amazing food'", "From 'stressed about party planning' → 'confident my guests will love this'"
+8. transformations: [5 emotional before→after transformations that END CUSTOMERS experience when buying from this industry]
+   Example for Food Truck: "From 'my event will have boring catering' → 'I look like a hero who found this amazing food'"
 
-9. success_metrics: [10+ ways END CUSTOMERS measure if their purchase was successful]
-   Example for Food Truck: "Guests asking where I found the caterer", "Event went smoothly", "Instagram-worthy food"
+9. success_metrics: [5 ways END CUSTOMERS measure if their purchase was successful]
+   Example for Food Truck: "Guests asking where I found the caterer", "Event went smoothly"
 
-10. urgency_drivers: [10+ factors that make END CUSTOMERS need to buy RIGHT NOW]
+10. urgency_drivers: [5 factors that make END CUSTOMERS need to buy RIGHT NOW]
 
-11. objection_handlers: [10+ common objections END CUSTOMERS have with proven responses]
+11. objection_handlers: [5 common objections END CUSTOMERS have with proven responses]
 
-12. risk_reversal: [Guarantees, warranties, and risk-reduction strategies that make END CUSTOMERS feel safe buying]
+12. risk_reversal: [Guarantees and risk-reduction strategies that make END CUSTOMERS feel safe buying]
 
-13. customer_language_dictionary: [50+ phrases/terms END CUSTOMERS actually use when describing their needs, problems, and desired outcomes]
+13. customer_language_dictionary: [15 phrases/terms END CUSTOMERS actually use when describing their needs, problems, and desired outcomes]
 
 ## VALUE PROPOSITION & DIFFERENTIATION (7 fields)
-14. value_propositions: [10+ unique value propositions ranked by impact]
-15. differentiators: [10+ ways businesses in this industry differentiate]
+14. value_propositions: [5 unique value propositions ranked by impact]
+15. differentiators: [5 ways businesses in this industry differentiate]
 16. competitive_advantages: [Sustainable advantages businesses can build]
 17. pricing_strategies: [Common pricing models and positioning strategies]
 18. service_delivery_models: [How service is typically delivered]
@@ -67,12 +67,12 @@ Generate ALL 40 fields with rich, actionable data:
 20. brand_positioning_templates: [Pre-built positioning strategies]
 
 ## MESSAGING & COMMUNICATION (9 fields)
-21. power_words: [50+ high-converting words for this industry]
-22. avoid_words: [20+ words to avoid - clichés, jargon, red flags]
-23. headline_templates: [20+ proven headline formulas]
-24. call_to_action_templates: [15+ CTAs optimized for different stages]
-25. email_subject_line_templates: [20+ subject line formulas]
-26. social_media_hooks: [30+ attention-grabbing opening hooks]
+21. power_words: [15 high-converting words for this industry]
+22. avoid_words: [10 words to avoid - clichés, jargon, red flags]
+23. headline_templates: [8 proven headline formulas]
+24. call_to_action_templates: [5 CTAs optimized for different stages]
+25. email_subject_line_templates: [8 subject line formulas]
+26. social_media_hooks: [10 attention-grabbing opening hooks]
 27. pain_point_language: [How to articulate pain points authentically]
 28. solution_language: [How to present solutions compellingly]
 29. proof_point_frameworks: [How to structure credibility elements]
@@ -94,7 +94,7 @@ Generate ALL 40 fields with rich, actionable data:
 
 For each field, provide:
 - DEPTH: Not generic advice - specific, actionable insights
-- QUANTITY: Hit or exceed target counts (e.g., "10+ triggers" means give 12-15)
+- QUANTITY: Hit the exact target counts specified (e.g., "5 triggers" means exactly 5)
 - QUALITY: Based on real market research, customer behavior, industry analysis
 - USABILITY: Written to be directly used in marketing message generation
 
@@ -156,7 +156,7 @@ export class OnDemandProfileGenerator {
       stage: 'generating',
       progress: 60,
       message: 'Generating comprehensive profile with AI...',
-      estimatedTimeRemaining: 75
+      estimatedTimeRemaining: 20
     });
 
     // Make the actual API call
@@ -252,7 +252,7 @@ export class OnDemandProfileGenerator {
 
     // Track real progress during API call
     const apiStartTime = Date.now();
-    const ESTIMATED_DURATION = 120000; // 2 minutes for Opus via OpenRouter
+    const ESTIMATED_DURATION = 20000; // 20 seconds for Opus with reduced prompt
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - apiStartTime;
@@ -267,7 +267,7 @@ export class OnDemandProfileGenerator {
 
       const requestBody = {
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1', // OPUS 4.1 - Best quality for industry profiles
+        model: 'anthropic/claude-opus-4.1', // Back to Opus for highest quality
         messages: [
           {
             role: 'user',
@@ -275,7 +275,7 @@ export class OnDemandProfileGenerator {
           }
         ],
         temperature: 0.7,
-        max_tokens: 16000
+        max_tokens: 32000 // Increased to give Opus more headroom
       };
 
       console.log('[OnDemand] Request body:', JSON.stringify(requestBody, null, 2).substring(0, 500));
