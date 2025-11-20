@@ -56,11 +56,32 @@ export function SessionManagerPage() {
         if (pendingUVP && sessionId) {
           console.log('[SessionManagerPage] Found pending localStorage session:', sessionId);
 
+          // Try to get business name from localStorage or UVP data
+          let businessName = 'Your Business';
+
+          // Check localStorage for business name
+          const storedBusinessName = localStorage.getItem('business_name');
+          const storedWebsiteUrl = localStorage.getItem('website_url');
+
+          if (storedBusinessName) {
+            businessName = storedBusinessName;
+          } else if (pendingUVP.metadata?.businessName) {
+            businessName = pendingUVP.metadata.businessName;
+          } else if (storedWebsiteUrl) {
+            // Extract domain name from URL as fallback
+            try {
+              const url = new URL(storedWebsiteUrl.startsWith('http') ? storedWebsiteUrl : `https://${storedWebsiteUrl}`);
+              businessName = url.hostname.replace('www.', '');
+            } catch {
+              businessName = storedWebsiteUrl;
+            }
+          }
+
           // Create a session item from localStorage data matching SessionListItem interface
           const localStorageSession: SessionListItem = {
             id: sessionId,
-            session_name: pendingUVP.targetCustomer?.statement || 'Your Business',
-            website_url: 'localStorage',
+            session_name: businessName,
+            website_url: storedWebsiteUrl || 'localStorage',
             current_step: 'synthesis', // Assume synthesis since UVP is complete
             progress_percentage: 100,
             last_accessed: new Date(),

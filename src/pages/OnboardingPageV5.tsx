@@ -2645,6 +2645,14 @@ export const OnboardingPageV5: React.FC = () => {
               if (!user) {
                 console.log('[UVP Flow] No authenticated user, saving to localStorage');
 
+                // Save business metadata to localStorage for session display
+                if (extractedBusinessName) {
+                  localStorage.setItem('business_name', extractedBusinessName);
+                }
+                if (websiteUrl) {
+                  localStorage.setItem('website_url', websiteUrl);
+                }
+
                 const result = await saveCompleteUVP(uvpToDisplay, undefined);
 
                 if (result.success) {
