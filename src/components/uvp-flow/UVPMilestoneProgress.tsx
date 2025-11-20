@@ -32,7 +32,7 @@ interface UVPMilestoneProgressProps {
 const STEPS: { key: UVPStep; label: string; shortLabel: string }[] = [
   { key: 'products', label: 'Products & Services', shortLabel: 'Products' },
   { key: 'customer', label: 'Target Customer', shortLabel: 'Customer' },
-  { key: 'transformation', label: 'Transformation', shortLabel: 'Transform' },
+  { key: 'transformation', label: 'Customer Goal', shortLabel: 'Goal' },
   { key: 'solution', label: 'Unique Solution', shortLabel: 'Solution' },
   { key: 'benefit', label: 'Key Benefit', shortLabel: 'Benefit' },
   { key: 'synthesis', label: 'Complete Story', shortLabel: 'Complete' },

@@ -105,6 +105,12 @@ export async function extractBenefits(
 
     console.log(`[BenefitExtractor] Extracted ${benefits.length} outcome-focused benefits`);
 
+    // If no benefits were extracted, return industry-specific fallbacks
+    if (benefits.length === 0) {
+      console.log('[BenefitExtractor] No benefits extracted, using industry-specific fallbacks');
+      return createFallbackBenefits(industry);
+    }
+
     return {
       benefits,
       metrics: benefits.flatMap(b => b.metrics || []),

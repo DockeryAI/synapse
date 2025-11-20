@@ -277,15 +277,12 @@ export function TransformationGoalPage({
               `}
               onClick={() => handleSelectGoal(goal)}
             >
-              <div className="flex items-start justify-between">
+              <div className="flex items-start gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                       {formatTransformationStatement(goal.statement)}
                     </h3>
-                    {isSelected && (
-                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0" />
-                    )}
                   </div>
 
                   <div className="grid md:grid-cols-2 gap-4 mb-4">
@@ -359,6 +356,13 @@ export function TransformationGoalPage({
                         Confidence: {goal.confidence.overall}%
                       </span>
                     </div>
+                  )}
+                </div>
+
+                {/* Selection Indicator */}
+                <div className="flex-shrink-0">
+                  {isSelected && (
+                    <CheckCircle2 className="w-6 h-6 text-green-600" />
                   )}
                 </div>
               </div>
