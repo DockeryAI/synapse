@@ -64,6 +64,9 @@ export function TargetCustomerPage({
   const [showAddForm, setShowAddForm] = useState(false);
   const [newCustomerSegment, setNewCustomerSegment] = useState('');
 
+  // Multi-select state
+  const [checkedIds, setCheckedIds] = useState<string[]>([]);
+
   // Track if we've already loaded preloaded data to prevent double-loading
   const hasLoadedPreloadedData = useRef(false);
 
@@ -355,6 +358,40 @@ export function TargetCustomerPage({
     setShowAddForm(false);
   };
 
+  // Handle editing a suggestion
+  const handleEditSuggestion = (id: string, newContent: string) => {
+    setSuggestions(suggestions.map(s =>
+      s.id === id ? { ...s, content: newContent } : s
+    ));
+  };
+
+  // Handle checkbox changes for multi-select
+  const handleCheckChange = (id: string, checked: boolean) => {
+    if (checked) {
+      setCheckedIds([...checkedIds, id]);
+    } else {
+      setCheckedIds(checkedIds.filter(cid => cid !== id));
+    }
+  };
+
+  // Handle adding all selected suggestions
+  const handleAddSelected = () => {
+    const selectedSuggestions = suggestions.filter(s => checkedIds.includes(s.id));
+    const newContent = selectedSuggestions.map(s => s.content).join('\n\n');
+
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newContent}`
+      : newContent;
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Clear selections
+    setCheckedIds([]);
+  };
+
   const activeSuggestion = activeDragId
     ? suggestions.find((s) => s.id === activeDragId)
     : null;
@@ -452,10 +489,15 @@ export function TargetCustomerPage({
             suggestions={suggestions}
             type="customer-segment"
             onSelect={handleSelectSuggestion}
+            onEdit={handleEditSuggestion}
             onGenerate={handleGenerateSuggestions}
             isLoading={isGenerating}
             title="AI Suggestions"
-            description="Drag suggestions to the right or click to add"
+            description="Drag, edit, or select multiple suggestions"
+            showCheckboxes={true}
+            checkedIds={checkedIds}
+            onCheckChange={handleCheckChange}
+            onAddSelected={handleAddSelected}
           />
         </div>
 

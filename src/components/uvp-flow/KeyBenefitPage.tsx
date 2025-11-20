@@ -13,8 +13,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, TrendingUp, Lightbulb, Sparkles, Heart, Brain } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ArrowRight, TrendingUp, Lightbulb, Sparkles, Heart, Brain, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { SuggestionPanel } from '@/components/uvp-wizard/SuggestionPanel';
@@ -60,6 +60,11 @@ export function KeyBenefitPage({
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState(value);
   const [eqRecommendation, setEqRecommendation] = useState<'emotional' | 'rational' | 'balanced'>('balanced');
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newBenefit, setNewBenefit] = useState('');
+
+  // Multi-select state
+  const [checkedIds, setCheckedIds] = useState<string[]>([]);
 
   const [dropZone, setDropZone] = useState<DropZoneType>({
     id: 'key-benefit-drop-zone',
@@ -275,6 +280,72 @@ export function KeyBenefitPage({
     }
   };
 
+  const handleAddManualBenefit = () => {
+    if (!newBenefit.trim()) return;
+
+    // Add the new benefit as a suggestion
+    const newSuggestion: DraggableSuggestion = {
+      id: `manual-${Date.now()}`,
+      type: 'benefit',
+      content: newBenefit.trim(),
+      source: 'manual-input',
+      confidence: 100,
+      tags: ['manual'],
+      is_selected: false,
+      is_customizable: true
+    };
+
+    setSuggestions([newSuggestion, ...suggestions]);
+
+    // Also add to the drop zone/input
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newBenefit.trim()}`
+      : newBenefit.trim();
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Reset form
+    setNewBenefit('');
+    setShowAddForm(false);
+  };
+
+  // Handle editing a suggestion
+  const handleEditSuggestion = (id: string, newContent: string) => {
+    setSuggestions(suggestions.map(s =>
+      s.id === id ? { ...s, content: newContent } : s
+    ));
+  };
+
+  // Handle checkbox changes for multi-select
+  const handleCheckChange = (id: string, checked: boolean) => {
+    if (checked) {
+      setCheckedIds([...checkedIds, id]);
+    } else {
+      setCheckedIds(checkedIds.filter(cid => cid !== id));
+    }
+  };
+
+  // Handle adding all selected suggestions
+  const handleAddSelected = () => {
+    const selectedSuggestions = suggestions.filter(s => checkedIds.includes(s.id));
+    const newContent = selectedSuggestions.map(s => s.content).join('\n\n');
+
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newContent}`
+      : newContent;
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Clear selections
+    setCheckedIds([]);
+  };
+
   const activeSuggestion = activeDragId
     ? suggestions.find((s) => s.id === activeDragId)
     : null;
@@ -350,10 +421,15 @@ export function KeyBenefitPage({
             suggestions={suggestions}
             type="benefit"
             onSelect={handleSelectSuggestion}
+            onEdit={handleEditSuggestion}
             onGenerate={handleGenerateSuggestions}
             isLoading={isGenerating}
             title="AI Suggestions"
-            description="Drag suggestions to the right or click to add"
+            description="Drag, edit, or select multiple suggestions"
+            showCheckboxes={true}
+            checkedIds={checkedIds}
+            onCheckChange={handleCheckChange}
+            onAddSelected={handleAddSelected}
           />
         </div>
 
@@ -397,6 +473,74 @@ export function KeyBenefitPage({
         </div>
       </div>
 
+      {/* Add Manual Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-500 dark:border-purple-400 p-6 shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Add Key Benefit
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Benefit Description
+                </label>
+                <textarea
+                  value={newBenefit}
+                  onChange={(e) => setNewBenefit(e.target.value)}
+                  placeholder="e.g., 40% increase in qualified leads within 90 days"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none"
+                  rows={3}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.metaKey) {
+                      handleAddManualBenefit();
+                    }
+                  }}
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Press ⌘+Enter to add
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleAddManualBenefit}
+                  disabled={!newBenefit.trim()}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Benefit
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewBenefit('');
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="flex items-center justify-between pt-6 border-t">
         <Button
           variant="outline"
@@ -408,12 +552,24 @@ export function KeyBenefitPage({
           Back
         </Button>
 
-        <div className="text-sm text-muted-foreground">
-          {isValid ? (
-            <span className="text-green-600 font-medium">Ready to continue</span>
-          ) : (
-            <span>Fill in your key benefit to continue</span>
-          )}
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-muted-foreground">
+            {isValid ? (
+              <span className="text-green-600 font-medium">Ready to continue</span>
+            ) : (
+              <span>Fill in your key benefit to continue</span>
+            )}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowAddForm(true)}
+            className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4" />
+            <span className="font-medium">Add Manually</span>
+          </Button>
         </div>
 
         <Button

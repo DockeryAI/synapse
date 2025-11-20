@@ -13,8 +13,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Info, Lightbulb } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Info, Lightbulb, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { SuggestionPanel } from '@/components/uvp-wizard/SuggestionPanel';
@@ -61,6 +61,11 @@ export function UniqueSolutionPage({
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState(value);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newSolution, setNewSolution] = useState('');
+
+  // Multi-select state
+  const [checkedIds, setCheckedIds] = useState<string[]>([]);
 
   const [dropZone, setDropZone] = useState<DropZoneType>({
     id: 'unique-solution-drop-zone',
@@ -310,6 +315,72 @@ export function UniqueSolutionPage({
     }
   };
 
+  const handleAddManualSolution = () => {
+    if (!newSolution.trim()) return;
+
+    // Add the new solution as a suggestion
+    const newSuggestion: DraggableSuggestion = {
+      id: `manual-${Date.now()}`,
+      type: 'solution',
+      content: newSolution.trim(),
+      source: 'manual-input',
+      confidence: 100,
+      tags: ['manual'],
+      is_selected: false,
+      is_customizable: true
+    };
+
+    setSuggestions([newSuggestion, ...suggestions]);
+
+    // Also add to the drop zone/input
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newSolution.trim()}`
+      : newSolution.trim();
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Reset form
+    setNewSolution('');
+    setShowAddForm(false);
+  };
+
+  // Handle editing a suggestion
+  const handleEditSuggestion = (id: string, newContent: string) => {
+    setSuggestions(suggestions.map(s =>
+      s.id === id ? { ...s, content: newContent } : s
+    ));
+  };
+
+  // Handle checkbox changes for multi-select
+  const handleCheckChange = (id: string, checked: boolean) => {
+    if (checked) {
+      setCheckedIds([...checkedIds, id]);
+    } else {
+      setCheckedIds(checkedIds.filter(cid => cid !== id));
+    }
+  };
+
+  // Handle adding all selected suggestions
+  const handleAddSelected = () => {
+    const selectedSuggestions = suggestions.filter(s => checkedIds.includes(s.id));
+    const newContent = selectedSuggestions.map(s => s.content).join('\n\n');
+
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newContent}`
+      : newContent;
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Clear selections
+    setCheckedIds([]);
+  };
+
   // Get active suggestion for drag overlay
   const activeSuggestion = activeDragId
     ? suggestions.find((s) => s.id === activeDragId)
@@ -370,10 +441,15 @@ export function UniqueSolutionPage({
             suggestions={suggestions}
             type="solution"
             onSelect={handleSelectSuggestion}
+            onEdit={handleEditSuggestion}
             onGenerate={handleGenerateSuggestions}
             isLoading={isGenerating}
             title="AI Suggestions"
-            description="Drag suggestions to the right or click to add"
+            description="Drag, edit, or select multiple suggestions"
+            showCheckboxes={true}
+            checkedIds={checkedIds}
+            onCheckChange={handleCheckChange}
+            onAddSelected={handleAddSelected}
           />
         </div>
 
@@ -421,6 +497,74 @@ export function UniqueSolutionPage({
         </div>
       </div>
 
+      {/* Add Manual Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-500 dark:border-purple-400 p-6 shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Add Unique Solution
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Solution Description
+                </label>
+                <textarea
+                  value={newSolution}
+                  onChange={(e) => setNewSolution(e.target.value)}
+                  placeholder="e.g., Our proprietary 5-Step Framework combines X, Y, and Z..."
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none"
+                  rows={3}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.metaKey) {
+                      handleAddManualSolution();
+                    }
+                  }}
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Press ⌘+Enter to add
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleAddManualSolution}
+                  disabled={!newSolution.trim()}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Solution
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewSolution('');
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Navigation */}
       <div className="flex items-center justify-between pt-6 border-t">
         <Button
@@ -433,12 +577,24 @@ export function UniqueSolutionPage({
           Back
         </Button>
 
-        <div className="text-sm text-muted-foreground">
-          {isValid ? (
-            <span className="text-green-600 font-medium">Ready to continue</span>
-          ) : (
-            <span>Fill in your unique solution to continue</span>
-          )}
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-muted-foreground">
+            {isValid ? (
+              <span className="text-green-600 font-medium">Ready to continue</span>
+            ) : (
+              <span>Fill in your unique solution to continue</span>
+            )}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowAddForm(true)}
+            className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4" />
+            <span className="font-medium">Add Manually</span>
+          </Button>
         </div>
 
         <Button

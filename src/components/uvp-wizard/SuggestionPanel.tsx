@@ -29,12 +29,18 @@ interface SuggestionPanelProps {
   type: SuggestionType
   onSelect: (suggestion: DraggableSuggestion) => void
   onCustomize?: (suggestion: DraggableSuggestion) => void
+  onEdit?: (id: string, newContent: string) => void
   onGenerate: () => void
   isLoading?: boolean
   disabled?: boolean
   title?: string
   description?: string
   className?: string
+  // Multi-select support
+  showCheckboxes?: boolean
+  checkedIds?: string[]
+  onCheckChange?: (id: string, checked: boolean) => void
+  onAddSelected?: () => void
 }
 
 /**
@@ -45,12 +51,17 @@ export const SuggestionPanel: React.FC<SuggestionPanelProps> = ({
   type,
   onSelect,
   onCustomize,
+  onEdit,
   onGenerate,
   isLoading = false,
   disabled = false,
   title = 'Suggestions',
   description = 'Drag suggestions to your answer or click to select',
   className,
+  showCheckboxes = false,
+  checkedIds = [],
+  onCheckChange,
+  onAddSelected,
 }) => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [sourceFilter, setSourceFilter] = React.useState<SuggestionSource | 'all'>('all')
@@ -207,7 +218,11 @@ export const SuggestionPanel: React.FC<SuggestionPanelProps> = ({
                 suggestion={suggestion}
                 onSelect={onSelect}
                 onCustomize={onCustomize}
+                onEdit={onEdit}
                 disabled={disabled}
+                showCheckbox={showCheckboxes}
+                isChecked={checkedIds.includes(suggestion.id)}
+                onCheckChange={onCheckChange}
               />
             ))}
           </>
@@ -219,19 +234,39 @@ export const SuggestionPanel: React.FC<SuggestionPanelProps> = ({
         <div className="p-3 border-t bg-card">
           <div className="flex items-center justify-between text-xs text-muted-foreground">
             <span>
-              {filteredSuggestions.length}{' '}
-              {filteredSuggestions.length === 1 ? 'suggestion' : 'suggestions'}
+              {showCheckboxes && checkedIds.length > 0 ? (
+                <span className="font-semibold text-primary">
+                  {checkedIds.length} selected
+                </span>
+              ) : (
+                <>
+                  {filteredSuggestions.length}{' '}
+                  {filteredSuggestions.length === 1 ? 'suggestion' : 'suggestions'}
+                </>
+              )}
             </span>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onGenerate}
-              disabled={isLoading || disabled}
-              className="h-7 text-xs"
-            >
-              <RefreshCw className="h-3 w-3 mr-1" />
-              Regenerate
-            </Button>
+            <div className="flex gap-2">
+              {showCheckboxes && onAddSelected && checkedIds.length > 0 && (
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={onAddSelected}
+                  className="h-7 text-xs"
+                >
+                  Add Selected ({checkedIds.length})
+                </Button>
+              )}
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={onGenerate}
+                disabled={isLoading || disabled}
+                className="h-7 text-xs"
+              >
+                <RefreshCw className="h-3 w-3 mr-1" />
+                Regenerate
+              </Button>
+            </div>
           </div>
         </div>
       )}
