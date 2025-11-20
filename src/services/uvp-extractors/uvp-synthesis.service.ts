@@ -12,7 +12,7 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 interface UVPSynthesisInput {
-  customer: CustomerProfile;
+  customer: CustomerProfile | CustomerProfile[];
   transformation: TransformationGoal;
   solution: UniqueSolution;
   benefit: KeyBenefit;
@@ -30,6 +30,11 @@ export async function synthesizeCompleteUVP(input: UVPSynthesisInput): Promise<C
     // Get industry EQ for tone/style guidance
     const industryEQ = await getIndustryEQ(input.industry);
 
+    // Handle multiple customer profiles
+    const customers = Array.isArray(input.customer) ? input.customer : [input.customer];
+    const customerStatements = customers.map(c => c.statement).join(' AND ');
+    const primaryCustomer = customers[0]; // For backward compatibility
+
     // Build synthesis prompt
     const prompt = `You are a value proposition expert. Extract the SINGLE core job and create ONE powerful 10-15 word UVP.
 
@@ -38,7 +43,7 @@ INDUSTRY: ${input.industry}
 
 **EXTRACTED DATA:**
 
-CUSTOMER: ${input.customer.statement}
+CUSTOMER${customers.length > 1 ? 'S' : ''}: ${customerStatements}
 TRANSFORMATION: ${input.transformation.statement}
 APPROACH: ${input.solution.statement}
 BENEFIT: ${input.benefit.statement}
@@ -54,10 +59,10 @@ BENEFIT: ${input.benefit.statement}
    - Specific enough that competitors CAN'T say it
    - Remove ALL filler words
 
-3. **Golden Circle**: ONE sentence each
-   - WHY: Your contrarian belief about the industry (not customer deserving)
-   - WHAT: Proof it works (numbers/metrics)
-   - HOW: What you do INSTEAD of industry standard
+3. **Golden Circle** (Simon Sinek Framework): ONE sentence each
+   - WHY: The belief/purpose that drives you (why you exist beyond making money)
+   - WHAT: The actual products/services you provide (what you do)
+   - HOW: Your unique process/approach that brings the WHY to life (how you're different)
 
 **BRUTAL CONSTRAINTS:**
 - UVP: 15 words MAXIMUM (not 16, not 17, MAXIMUM 15)
@@ -88,16 +93,16 @@ Word count: 9 words
 - If solution has contrarian approach → Use Formula 3 (Only)
 - If data is too generic → Return "Unable to create unique positioning"
 
-**GOLDEN CIRCLE** (10 words max each):
+**GOLDEN CIRCLE** (10 words max each, aligned with Simon Sinek):
 
-WHY: "We believe [contrarian view]"
-Example: "We believe wealth builders shouldn't die at their desk"
+WHY (Belief/Purpose): "We believe [core belief about the world]"
+Example: "We believe every celebration deserves handcrafted, not mass-produced"
 
-WHAT: "[Number/percentage] achieve [outcome]"
-Example: "73% retire before 60 with $4M+ preserved"
+WHAT (Products/Services): "We [provide/create/offer] [specific products/services]"
+Example: "We bake artisan breads, custom cakes, and pastries daily"
 
-HOW: "By [doing X] not [industry standard Y]"
-Example: "By planning life-backward not product-forward"
+HOW (Unique Process): "[Our unique method/approach/differentiator]"
+Example: "Using 70-year-old sourdough starter and overnight fermentation"
 
 **EXTRACTION RULES:**
 1. Extract the ONE core transformation (not 3, not 5, ONE)
@@ -120,9 +125,9 @@ Return ONLY valid JSON:
   "formulaUsed": "outcome" | "transformation" | "only",
   "wordCount": actual_number,
   "goldenCircle": {
-    "why": "10 word max contrarian belief",
-    "what": "10 word max proof with numbers",
-    "how": "10 word max contrarian method"
+    "why": "10 word max belief/purpose statement",
+    "what": "10 word max description of actual products/services",
+    "how": "10 word max unique process/method"
   },
   "passesCompetitorTest": true/false,
   "confidence": {
@@ -175,7 +180,7 @@ If unable to create unique positioning in 15 words, return:
     // Build complete UVP object
     const completeUVP: CompleteUVP = {
       id: `uvp-${Date.now()}`,
-      targetCustomer: input.customer,
+      targetCustomer: primaryCustomer,
       transformationGoal: input.transformation,
       uniqueSolution: input.solution,
       keyBenefit: input.benefit,
@@ -348,12 +353,15 @@ function parseSynthesis(response: string): {
 function generateFallbackSynthesis(input: UVPSynthesisInput): CompleteUVP {
   console.warn('[UVPSynthesis] Falling back - extracted data too generic for unique positioning');
 
+  // Handle multiple customers
+  const primaryCustomer = Array.isArray(input.customer) ? input.customer[0] : input.customer;
+
   // Instead of generating more generic content, be honest
   const vpStatement = `Unable to extract unique value proposition from website. ${input.businessName} uses industry-standard ${input.industry} messaging.`;
 
   return {
     id: `uvp-${Date.now()}`,
-    targetCustomer: input.customer,
+    targetCustomer: primaryCustomer,
     transformationGoal: input.transformation,
     uniqueSolution: input.solution,
     keyBenefit: input.benefit,

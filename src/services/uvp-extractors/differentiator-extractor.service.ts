@@ -52,13 +52,15 @@ interface RawDifferentiatorExtraction {
  * @param websiteUrls - Corresponding URLs for each content piece
  * @param competitorInfo - Array of competitor context (optional)
  * @param businessName - Business name for context
+ * @param industry - Industry/business type for context
  * @returns DifferentiatorExtractionResult
  */
 export async function extractDifferentiators(
   websiteContent: string[],
   websiteUrls: string[],
   competitorInfo: string[] = [],
-  businessName: string
+  businessName: string,
+  industry?: string
 ): Promise<DifferentiatorExtractionResult> {
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.warn('[DifferentiatorExtractor] No Supabase configuration - returning empty result');
@@ -80,7 +82,7 @@ export async function extractDifferentiators(
     );
 
     // Call Claude AI to extract differentiators
-    const rawExtraction = await analyzeWithClaude(analysisContent, businessName);
+    const rawExtraction = await analyzeWithClaude(analysisContent, businessName, industry);
 
     // Extract location from URL if possible
     let location = '';
@@ -156,13 +158,21 @@ function prepareContentForAnalysis(
  */
 async function analyzeWithClaude(
   content: string,
-  businessName: string
+  businessName: string,
+  industry?: string
 ): Promise<RawDifferentiatorExtraction> {
+  // Adjust examples based on industry
+  const isBakery = industry?.toLowerCase().includes('bakery') ||
+                   industry?.toLowerCase().includes('food') ||
+                   industry?.toLowerCase().includes('restaurant');
+
+  const industryContext = industry ? `\nINDUSTRY: ${industry}` : '';
+
   const prompt = `You are an expert at finding what makes businesses truly different by focusing on their beliefs, philosophy, and customer transformation.
 
 Your task: Find REAL differentiators that show WHY they exist and what life changes they create for customers.
 
-BUSINESS: ${businessName}
+BUSINESS: ${businessName}${industryContext}
 
 CONTENT:
 ${content}
@@ -212,7 +222,28 @@ STRENGTH SCORING (0-100):
 
 EXAMPLES OF WHAT TO EXTRACT:
 
-EXCELLENT (90-100):
+${isBakery ? `EXCELLENT (90-100) FOR ${industry?.toUpperCase()}:
+- "We believe every celebration deserves bread made with love, not factories"
+  Evidence: [exact quote]
+  Category: philosophy
+  Strength: 95
+
+- "Unlike mass-produced bakeries, we start baking at 3am so you get bread still warm from the oven"
+  Evidence: [exact quote]
+  Category: contrarian_approach
+  Strength: 85
+
+GOOD (70-89):
+- "Our sourdough starter has been alive since 1952, creating flavors you can't find anywhere else"
+  Evidence: [exact quote]
+  Category: unique_feature
+  Strength: 80
+
+WEAK (Don't prioritize these):
+- "We use commercial ovens" (just equipment)
+- "Our bakers have culinary degrees" (just credentials)
+- "We offer fresh baked goods" (too generic)` :
+`EXCELLENT (90-100):
 - "We believe successful professionals shouldn't have to choose between wealth growth and making an impact"
   Evidence: [exact quote]
   Category: philosophy
@@ -232,7 +263,7 @@ GOOD (70-89):
 WEAK (Don't prioritize these):
 - "We use eMoney and Morningstar for planning" (just tools)
 - "Our team has 50 years combined experience" (just credentials)
-- "We provide comprehensive service" (too generic)
+- "We provide comprehensive service" (too generic)`}
 
 CRITICAL: If you find beliefs/philosophy, score them 80+. If only tools/credentials, score 40 or below.
 

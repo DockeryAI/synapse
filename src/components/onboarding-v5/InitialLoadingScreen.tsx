@@ -32,42 +32,42 @@ const STEPS = [
     label: 'Products',
     description: 'Scanning products & services',
     icon: Package,
-    duration: 1500
+    duration: 1650
   },
   {
     key: 'customer',
     label: 'Customer',
     description: 'Identifying target customers',
     icon: Users,
-    duration: 1500
+    duration: 1650
   },
   {
     key: 'transformation',
     label: 'Transform',
     description: 'Discovering transformations',
     icon: Zap,
-    duration: 1500
+    duration: 1650
   },
   {
     key: 'solution',
     label: 'Solution',
     description: 'Extracting unique solutions',
     icon: Lightbulb,
-    duration: 1500
+    duration: 1650
   },
   {
     key: 'benefit',
     label: 'Benefit',
     description: 'Analyzing key benefits',
     icon: Award,
-    duration: 1500
+    duration: 1650
   },
   {
     key: 'synthesis',
     label: 'Synthesis',
     description: 'Crafting value proposition',
     icon: Sparkles,
-    duration: 1500
+    duration: 1650
   },
 ];
 
@@ -95,7 +95,7 @@ export function InitialLoadingScreen({
           return prev;
         }
       });
-    }, 1500); // Each step takes 1.5 seconds (total ~9 seconds)
+    }, 1650); // Each step takes 1.65 seconds (total ~9.9 seconds)
 
     return () => clearInterval(timer);
   }, []);

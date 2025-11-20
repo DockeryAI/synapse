@@ -641,7 +641,8 @@ export const OnboardingPageV5: React.FC = () => {
           websiteContent,
           websiteUrls,
           [], // competitor info - not available yet
-          businessName
+          businessName,
+          industry.displayName // Pass industry for context-aware extraction
         ).then(result => {
           console.log('[OnboardingPageV5] Differentiator extraction complete:', result.differentiators.length);
           // Create UniqueSolution objects from differentiators
@@ -2245,9 +2246,9 @@ export const OnboardingPageV5: React.FC = () => {
         />
       )}
 
-      {/* UVP Synthesis Loading Screen */}
+      {/* UVP Synthesis Loading Screen - Show regardless of step when synthesizing */}
       {isSynthesizingUVP && (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-6">
+        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-6 fixed inset-0 z-50">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
