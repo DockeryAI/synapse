@@ -14,19 +14,21 @@ import type { DeepServiceData } from '@/types/deep-service.types';
  * Garbage patterns that indicate text is NOT a product/service
  */
 const GARBAGE_STARTING_WORDS = [
-  // Common sentence starters
-  'here', 'there', 'our', 'we', 'the', 'from', 'with', 'at', 'in', 'on',
+  // Common sentence starters (but allow "Your" for services like "Your Attorneys")
+  'here', 'there', 'we', 'the', 'from', 'with', 'at', 'in', 'on',
   'if', 'when', 'whether', 'about', 'for', 'to', 'by', 'and', 'or',
+  // Testimonial indicators
+  'i', 'my', 'they', 'their', 'his', 'her', 'he', 'she',
   // Navigation/page elements (but NOT 'home' - that's valid for "Home Insurance")
   'faq', 'about', 'contact', 'links', 'back', 'next', 'previous',
   'login', 'signup', 'subscribe', 'newsletter', 'blog', 'news',
   'quick links', // Navigation garbage
   // Marketing fluff
   'meet', 'discover', 'learn', 'explore', 'see', 'view', 'read',
-  // Job titles (not services)
+  // Job titles (not services) - but allow standalone titles that might be services
   'account manager', 'business manager', 'executive', 'director',
-  // Generic location names
-  'texas', 'california', 'new york', 'florida', 'usa', 'america'
+  // Generic location names (but these could be part of location-specific services)
+  'usa', 'america'
 ];
 
 /**
@@ -44,15 +46,37 @@ const MARKETING_PHRASE_PATTERNS = [
 ];
 
 /**
+ * Testimonial/Review patterns - CRITICAL for filtering out customer quotes
+ */
+const TESTIMONIAL_PATTERNS = [
+  // Personal pronouns indicating testimonial
+  /\b(i|my|we|our|me|us)\b.*\b(was|were|had|got|received|found)\b/i,
+  // Team references (e.g., "Tanya & her team", "his team", "their approach")
+  /\b(her|his|their)\s+(team|approach|service|work|help)\b/i,
+  // Past tense verbs common in testimonials
+  /\b(took|made|helped|guided|ensured|provided|delivered|went)\b.*\b(us|me|our)\b/i,
+  // Quote/review indicators
+  /^["'].*["']$/,  // Wrapped in quotes
+  /\.{3}/,         // Contains ellipsis
+  // Common testimonial phrases
+  /\b(recently|pleasure of|highly recommend|would recommend|can't recommend|couldn't be happier)\b/i,
+  // Sentence structure with people doing things
+  /\b[A-Z][a-z]+\s+(helped|took|made|went|was|were)\b/i,  // "Tanya helped", "John was"
+  // Conditional/hypothetical statements
+  /^(whether|if you|when you|should you)\b/i,
+  // Experience descriptions
+  /\b(experience|working with|felt|feeling)\b/i
+];
+
+/**
  * Words/phrases that should never be standalone products
  */
 const INVALID_STANDALONE_WORDS = [
-  'texas', 'here', 'there', 'protected', 'services', 'service',
-  'insurance', 'coverage', 'frequently asked questions', 'faq',
+  'here', 'there', 'protected',
+  'frequently asked questions', 'faq',
   'get in touch', 'contact us', 'about us', 'quick links',
-  'new business', 'knowledge', 'stories', 'tips',
-  'account manager', 'business manager', 'manager', 'executive',
-  'director', 'specialist', 'consultant' // Job titles
+  'knowledge', 'stories', 'tips',
+  'manager', 'executive', 'director' // Generic job titles
 ];
 
 /**
@@ -101,7 +125,62 @@ const VALID_PRODUCT_INDICATORS = [
   /development$/i,
   /marketing$/i,
   /seo$/i,
-  /optimization$/i
+  /optimization$/i,
+
+  // Legal/Professional services
+  /attorneys?$/i,
+  /lawyers?$/i,
+  /legal$/i,
+  /representation$/i,
+  /litigation$/i,
+  /defense$/i,
+  /prosecution$/i,
+  /counsel$/i,
+  /advocacy$/i,
+  /evaluation$/i,
+  /consultation$/i,
+  /compensation$/i,
+  /settlement$/i,
+  /accident$/i,
+  /injury$/i,
+  /claim$/i,
+
+  // Add retail/physical product indicators
+  /toys?$/i,
+  /games?$/i,
+  /books?$/i,
+  /gifts?$/i,
+  /products?$/i,
+  /items?$/i,
+  /collections?$/i,
+  /supplies$/i,
+  /equipment$/i,
+  /accessories$/i,
+  /merchandise$/i,
+
+  // Food/Bakery products
+  /cakes?$/i,
+  /pastries$/i,
+  /breads?$/i,
+  /cookies?$/i,
+  /croissants?$/i,
+  /desserts?$/i,
+  /treats?$/i,
+  /menu$/i,
+  /catering$/i,
+  /beverages?$/i,
+  /coffee$/i,
+  /drinks?$/i,
+
+  // General retail categories
+  /apparel$/i,
+  /clothing$/i,
+  /jewelry$/i,
+  /electronics$/i,
+  /furniture$/i,
+  /decor$/i,
+  /art$/i,
+  /crafts?$/i
 ];
 
 export interface ValidationResult {
@@ -165,7 +244,17 @@ export class ProductValidationService {
       };
     }
 
-    // 2. Check for garbage starting words
+    // 2. Check for testimonial patterns (CRITICAL - do this early)
+    for (const pattern of TESTIMONIAL_PATTERNS) {
+      if (pattern.test(trimmedName)) {
+        return {
+          isValid: false,
+          reason: 'Testimonial/review detected, not a product'
+        };
+      }
+    }
+
+    // 3. Check for garbage starting words
     const firstWord = words[0].toLowerCase();
     if (GARBAGE_STARTING_WORDS.includes(firstWord)) {
       return {
@@ -174,7 +263,25 @@ export class ProductValidationService {
       };
     }
 
-    // 3. Check for marketing phrase patterns
+    // 3.5. Check if it's just a location name
+    const locationNames = ['austin', 'dallas', 'houston', 'fort worth', 'el paso', 'san antonio', 'mesquite', 'pearland', 'plano'];
+    if (locationNames.includes(lowerName)) {
+      return {
+        isValid: false,
+        reason: 'Location name, not a service'
+      };
+    }
+
+    // 3.6. Check if it's a navigation/meta phrase or company/person name
+    const metaPhrases = ['as seen on', 'your attorneys', 'angel reyes', 'highly rated', 'maximize your compensation', 'call us for a free consultation'];
+    if (metaPhrases.includes(lowerName)) {
+      return {
+        isValid: false,
+        reason: 'Navigation/marketing phrase, not a service'
+      };
+    }
+
+    // 4. Check for marketing phrase patterns
     for (const pattern of MARKETING_PHRASE_PATTERNS) {
       if (pattern.test(trimmedName)) {
         return {
@@ -184,7 +291,7 @@ export class ProductValidationService {
       }
     }
 
-    // 4. Check for incomplete sentences
+    // 5. Check for incomplete sentences
     for (const pattern of INCOMPLETE_SENTENCE_PATTERNS) {
       if (pattern.test(trimmedName)) {
         return {
@@ -278,7 +385,7 @@ export class ProductValidationService {
     // Everything else is rejected
     return {
       isValid: false,
-      reason: 'Does not match product/service naming patterns (must end with insurance/coverage/service/plan/etc.)'
+      reason: 'Does not match product/service naming patterns'
     };
   }
 

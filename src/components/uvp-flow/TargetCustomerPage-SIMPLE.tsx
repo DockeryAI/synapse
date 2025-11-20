@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Users, Sparkles, CheckCircle2, AlertCircle, Plus, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Users, Sparkles, CheckCircle2, AlertCircle, Plus, X, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
@@ -284,7 +284,23 @@ export function TargetCustomerPage({
 
       {/* Loading State */}
       {isLoading && (
-        <div className="space-y-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="space-y-6"
+        >
+          <div className="bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-800 dark:via-purple-900/10 dark:to-blue-900/10 rounded-xl p-6 border-2 border-purple-200 dark:border-purple-700">
+            <div className="flex items-center gap-3 mb-4">
+              <Loader2 className="w-5 h-5 animate-spin text-purple-600 dark:text-purple-400" />
+              <p className="font-medium text-gray-900 dark:text-white">
+                Analyzing customer profiles from your website...
+              </p>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              We're extracting and categorizing your target audiences to understand who you serve best.
+            </p>
+          </div>
+
           {[1, 2, 3, 4, 5].map((i) => (
             <div key={i} className="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 p-6">
               <Skeleton className="h-6 w-3/4 mb-3" />
@@ -292,7 +308,7 @@ export function TargetCustomerPage({
               <Skeleton className="h-4 w-2/3" />
             </div>
           ))}
-        </div>
+        </motion.div>
       )}
 
       {/* Add Manual Form */}

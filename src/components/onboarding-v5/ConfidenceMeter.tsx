@@ -39,12 +39,14 @@ interface ConfidenceMeterProps {
  * Animated number counter
  */
 function AnimatedNumber({ value }: { value: number }) {
-  const [displayValue, setDisplayValue] = useState(value);
+  // Ensure we have a valid number, default to 0 if NaN or undefined
+  const safeValue = isNaN(value) || value === undefined || value === null ? 0 : Math.round(value);
+  const [displayValue, setDisplayValue] = useState(safeValue);
 
   // Simplified animation using requestAnimationFrame
   useEffect(() => {
     const startValue = displayValue;
-    const endValue = value;
+    const endValue = safeValue;
     const duration = 800; // ms
     const startTime = Date.now();
 
@@ -72,7 +74,7 @@ function AnimatedNumber({ value }: { value: number }) {
         cancelAnimationFrame(animationFrame);
       }
     };
-  }, [value]);
+  }, [safeValue]);
 
   return <span>{displayValue}</span>;
 }

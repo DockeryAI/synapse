@@ -111,6 +111,70 @@ export async function extractBenefits(
       return createFallbackBenefits(industry);
     }
 
+    // For bakeries/food businesses, ensure we have diverse segment coverage
+    const isBakery = industry?.toLowerCase().includes('bakery') ||
+                     industry?.toLowerCase().includes('cafe') ||
+                     industry?.toLowerCase().includes('food') ||
+                     industry?.toLowerCase().includes('restaurant');
+
+    if (isBakery && benefits.length < 6) {
+      console.log(`[BenefitExtractor] Bakery has only ${benefits.length} benefits, adding segment-specific benefits`);
+
+      // Get the full set of bakery benefits
+      const fallbackResult = createFallbackBenefits(industry);
+      const fallbackBenefits = fallbackResult.benefits;
+
+      // Check which segments are already covered
+      const hasCorpCatering = benefits.some(b =>
+        b.statement.toLowerCase().includes('colleague') ||
+        b.statement.toLowerCase().includes('office') ||
+        b.statement.toLowerCase().includes('catering') ||
+        b.statement.toLowerCase().includes('team')
+      );
+
+      const hasEvent = benefits.some(b =>
+        b.statement.toLowerCase().includes('celebration') ||
+        b.statement.toLowerCase().includes('event') ||
+        b.statement.toLowerCase().includes('wedding') ||
+        b.statement.toLowerCase().includes('custom')
+      );
+
+      const hasDietary = benefits.some(b =>
+        b.statement.toLowerCase().includes('dietary') ||
+        b.statement.toLowerCase().includes('restriction') ||
+        b.statement.toLowerCase().includes('gluten') ||
+        b.statement.toLowerCase().includes('vegan')
+      );
+
+      // Add missing segments
+      if (!hasCorpCatering) {
+        const corpBenefits = fallbackBenefits.filter(b =>
+          b.statement.toLowerCase().includes('colleague') ||
+          b.statement.toLowerCase().includes('office') ||
+          b.statement.toLowerCase().includes('catering')
+        ) as KeyBenefit[];  // Type assertion - fallback benefits are complete KeyBenefit objects
+        benefits.push(...corpBenefits);
+      }
+
+      if (!hasEvent) {
+        const eventBenefits = fallbackBenefits.filter(b =>
+          b.statement.toLowerCase().includes('celebration') ||
+          b.statement.toLowerCase().includes('centerpiece')
+        ) as KeyBenefit[];  // Type assertion - fallback benefits are complete KeyBenefit objects
+        benefits.push(...eventBenefits);
+      }
+
+      if (!hasDietary) {
+        const dietaryBenefits = fallbackBenefits.filter(b =>
+          b.statement.toLowerCase().includes('dietary') ||
+          b.statement.toLowerCase().includes('restriction')
+        ) as KeyBenefit[];  // Type assertion - fallback benefits are complete KeyBenefit objects
+        benefits.push(...dietaryBenefits);
+      }
+
+      console.log(`[BenefitExtractor] Expanded to ${benefits.length} benefits for full segment coverage`);
+    }
+
     return {
       benefits,
       metrics: benefits.flatMap(b => b.metrics || []),
@@ -303,8 +367,21 @@ function validateOutcome(outcome: any): boolean {
     return false;
   }
 
-  // Green flags: outcome words
-  const outcomeWords = ['save', 'reduce', 'increase', 'achieve', 'get', 'gain', 'feel', 'eliminate', 'never worry', 'peace of mind', 'confidence', 'faster', 'better'];
+  // Green flags: outcome words (expanded for retail/fashion/social outcomes)
+  const outcomeWords = [
+    // Financial/efficiency outcomes
+    'save', 'reduce', 'increase', 'achieve', 'get', 'gain', 'faster', 'better',
+    // Emotional outcomes
+    'feel', 'eliminate', 'never worry', 'peace of mind', 'confidence', 'enjoy', 'experience',
+    'never miss', 'miss out', 'discover', 'explore', 'delight',
+    // Social outcomes
+    'be recognized', 'be seen', 'be perceived', 'look', 'appear', 'impress', 'stand out',
+    'attract', 'gain respect', 'build reputation', 'be known',
+    // Fashion/retail/creative outcomes
+    'wear', 'create', 'coordinate', 'style', 'express', 'showcase', 'display',
+    // Convenience/ease outcomes
+    'effortlessly', 'easily', 'quickly', 'conveniently', 'hassle-free', 'seamlessly'
+  ];
   const hasOutcomeLanguage = outcomeWords.some(word => statement.includes(word));
 
   if (!hasOutcomeLanguage && !outcome.metrics?.length) {

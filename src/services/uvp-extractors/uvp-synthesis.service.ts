@@ -36,11 +36,12 @@ export async function synthesizeCompleteUVP(input: UVPSynthesisInput): Promise<C
     const primaryCustomer = customers[0]; // For backward compatibility
 
     // Build synthesis prompt
-    const prompt = `You are a value proposition expert. Extract the SINGLE core job and create ONE powerful 10-15 word UVP.
+    const prompt = `You are a value proposition expert. Create ONE powerful 10-15 word UVP using core values that resonate with ALL customer segments.
 
 BUSINESS: ${input.businessName}
 INDUSTRY: ${input.industry}
 NUMBER OF CUSTOMER TYPES: ${customers.length}
+IMPORTANT: ALWAYS USE FORMULA 4 (CORE VALUES) - This creates inclusive messaging that appeals to the entire customer base
 
 **EXTRACTED DATA:**
 
@@ -71,34 +72,48 @@ BENEFIT: ${input.benefit.statement}
 - NO generic terms: professionals, executives, financial freedom, confidence, peace of mind
 - If you can't make it unique in 15 words, return "Unable to create unique positioning"
 
-**YOUR TASK: Pick ONE formula and fill it (15 words max)**
+**YOUR TASK: Create a value proposition using FORMULA 4 (15 words max)**
 
-**FORMULA 1 - OUTCOME FOCUS** (Best for rational buyers):
-Template: "[Location/Industry] [customer] get [specific outcome + number] through [unique method]"
-Example: "Houston executives retire by 55 through life-backward planning"
-Word count: 10 words
-
-**FORMULA 2 - TRANSFORMATION FOCUS** (Best for emotional buyers):
-Template: "From [specific pain] to [specific outcome] for [specific who]"
-Example: "From 70-hour weeks to optional work by 55 for Houston founders"
-Word count: 12 words
-
-**FORMULA 3 - ONLY POSITION** (Best for competitive markets):
-Template: "The only [location] [provider] who [contrarian approach]"
-Example: "The only Houston advisor who refuses commission-based products"
-Word count: 9 words
-
-**FORMULA 4 - CORE VALUES** (Best for diverse customer base):
+**FORMULA 4 - CORE VALUES** (ALWAYS USE THIS):
 Template: "[Core value 1] and [core value 2] through [what you do]"
-Example: "Handcrafted excellence and community connection through daily artisan baking"
-Word count: 10 words
 
-**PICK THE BEST FORMULA** based on data quality:
-- If multiple customer types (diverse audience) → Use Formula 4 (Core Values)
-- If benefit has numbers → Use Formula 1 (Outcome)
-- If transformation has specific pain → Use Formula 2 (Transformation)
-- If solution has contrarian approach → Use Formula 3 (Only)
-- If data is too generic → Return "Unable to create unique positioning"
+This formula works because:
+- Speaks to what the business stands for (not what customers transform from/to)
+- Appeals to ALL customer segments (B2B, B2C, different demographics)
+- Focuses on the business's strengths and values
+- Creates inclusive messaging that doesn't alienate any customer type
+
+Examples by industry (FOCUS ON BUSINESS VALUES):
+- Bakery: "Quality craftsmanship and community warmth through artisan baking"
+- Real Estate: "Local knowledge and personal commitment through property expertise"
+- Financial: "Informed decisions and financial peace through independent advisory"
+- Healthcare: "Patient-first care and medical excellence through comprehensive wellness"
+- Tech: "Reliable innovation and seamless integration through technology solutions"
+- Consulting: "Strategic clarity and measurable impact through expert guidance"
+- Construction: "Built-to-last quality and transparent process through construction expertise"
+- Legal: "Protected interests and clear direction through legal advocacy"
+- Marketing: "Brand growth and market presence through creative strategy"
+
+CRITICAL RULES FOR FORMULA 4:
+1. First value = TANGIBLE business strength (expertise, quality, precision, innovation, reliability)
+2. Second value = EMOTIONAL outcome (trust, confidence, peace, connection, empowerment)
+3. Method = WHAT the business does (NOT how customers change)
+4. NEVER use transformation words: "transform", "from", "to", "become", "journey"
+5. NEVER describe customer problems or pain points
+6. ALWAYS focus on what the BUSINESS provides, not what CUSTOMERS achieve
+7. Test: Could this describe the business on their best day AND worst day? (Values are constant)
+
+BAD Examples (transformation-focused):
+✗ "Transform uncertainty into confidence through financial planning"
+✗ "From overwhelmed to organized through real estate guidance"
+✗ "Helping families find their dream homes"
+
+GOOD Examples (values-focused):
+✓ "Expert guidance and lasting relationships through real estate services"
+✓ "Technical excellence and reliable support through IT solutions"
+✓ "Crafted quality and personal service through custom woodworking"
+
+IMPORTANT: ALL businesses should use Formula 4 to create inclusive, values-based messaging.
 
 **GOLDEN CIRCLE** (10 words max each, aligned with Simon Sinek):
 
@@ -112,12 +127,13 @@ HOW (Unique Process): "[Our unique method/approach/differentiator]"
 Example: "Using 70-year-old sourdough starter and overnight fermentation"
 
 **EXTRACTION RULES:**
-1. Extract the ONE core transformation (not 3, not 5, ONE)
-2. Extract location from customer data if present
-3. Extract any numbers from benefit data
-4. Extract contrarian approach from solution data
+1. Extract the TWO core values the business embodies
+2. First value = tangible delivery (quality, expertise, precision, innovation)
+3. Second value = emotional resonance (trust, connection, peace, confidence)
+4. Method = clear description of service/product category
 5. Count words BEFORE returning
 6. If over 15 words, REJECT and try again
+7. Test: Would this appeal to ALL customer types mentioned?
 
 **AUTO-REJECT if contains:**
 - "professionals" or "executives" without location/industry
@@ -128,8 +144,8 @@ Example: "Using 70-year-old sourdough starter and overnight fermentation"
 
 Return ONLY valid JSON:
 {
-  "uvp": "10-15 word statement using ONE formula",
-  "formulaUsed": "outcome" | "transformation" | "only" | "values",
+  "uvp": "10-15 word value proposition using Formula 4 (Core Values)",
+  "formulaUsed": "values",
   "wordCount": actual_number,
   "goldenCircle": {
     "why": "10 word max belief/purpose statement",
@@ -140,7 +156,7 @@ Return ONLY valid JSON:
   "confidence": {
     "overall": 90 if passes test + under 15 words, 20 if generic/over limit,
     "dataQuality": 0-100,
-    "reasoning": "Why this passed or failed"
+    "reasoning": "Why this creates inclusive messaging for all customer segments"
   }
 }
 
@@ -327,9 +343,10 @@ function parseSynthesis(response: string): {
     }
 
     // Log formula used and competitor test result
-    console.log('[UVPSynthesis] Formula used:', parsed.formulaUsed || 'unknown');
+    console.log('[UVPSynthesis] Formula used: values (Formula 4 - Core Values)');
     console.log('[UVPSynthesis] Word count:', wordCount);
     console.log('[UVPSynthesis] Passes competitor test:', parsed.passesCompetitorTest);
+    console.log('[UVPSynthesis] Value Prop:', uvpStatement);
 
     // Check if WHY needs "We believe" prefix
     let finalWhy = whyStatement;

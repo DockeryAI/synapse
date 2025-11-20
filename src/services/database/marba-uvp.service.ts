@@ -114,6 +114,7 @@ export async function saveCompleteUVP(
     if (existingData) {
       // Update existing record
       console.log('[MarbaUVPService] Updating existing UVP:', existingData.id);
+      console.log('[MarbaUVPService] Update data:', JSON.stringify(row, null, 2));
 
       const { data: updateData, error: updateError } = await supabase
         .from('marba_uvps')
@@ -124,9 +125,10 @@ export async function saveCompleteUVP(
 
       if (updateError) {
         console.error('[MarbaUVPService] Update error:', updateError);
+        console.error('[MarbaUVPService] Error details:', JSON.stringify(updateError, null, 2));
         return {
           success: false,
-          error: `Failed to update UVP: ${updateError.message}`,
+          error: `Failed to update UVP: ${updateError.message}${updateError.details ? ` (${updateError.details})` : ''}${updateError.hint ? ` Hint: ${updateError.hint}` : ''}`,
         };
       }
 
@@ -134,6 +136,7 @@ export async function saveCompleteUVP(
     } else {
       // Insert new record
       console.log('[MarbaUVPService] Inserting new UVP');
+      console.log('[MarbaUVPService] Insert data:', JSON.stringify(row, null, 2));
 
       const { data: insertData, error: insertError } = await supabase
         .from('marba_uvps')
@@ -143,9 +146,10 @@ export async function saveCompleteUVP(
 
       if (insertError) {
         console.error('[MarbaUVPService] Insert error:', insertError);
+        console.error('[MarbaUVPService] Error details:', JSON.stringify(insertError, null, 2));
         return {
           success: false,
-          error: `Failed to save UVP: ${insertError.message}`,
+          error: `Failed to save UVP: ${insertError.message}${insertError.details ? ` (${insertError.details})` : ''}${insertError.hint ? ` Hint: ${insertError.hint}` : ''}`,
         };
       }
 

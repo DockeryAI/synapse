@@ -241,6 +241,9 @@ export const OnboardingPageV5: React.FC = () => {
   const [solutionSuggestions, setSolutionSuggestions] = useState<UniqueSolution[]>([]);
   const [benefitSuggestions, setBenefitSuggestions] = useState<KeyBenefit[]>([]);
 
+  // Track if AI suggestions are still loading
+  const [aiSuggestionsLoading, setAiSuggestionsLoading] = useState(false);
+
   // Business info state (editable)
   const [extractedBusinessName, setExtractedBusinessName] = useState<string>('');
   const [extractedLocation, setExtractedLocation] = useState<string>('');
@@ -470,6 +473,57 @@ export const OnboardingPageV5: React.FC = () => {
       setScrapedWebsiteContent(websiteContent);
       setScrapedWebsiteUrls(websiteUrls);
 
+      // Create brand in database for UVP saving
+      // This ensures we have a brand ID available when the user saves
+      if (!currentBrand) {
+        try {
+          console.log('[OnboardingPageV5] Creating brand in database...');
+          const { supabase } = await import('@/lib/supabase');
+
+          const { data: brandData, error: brandError } = await supabase
+            .from('brands')
+            .insert({
+              name: businessName,
+              industry: industry.displayName,
+              website: url,
+              user_id: (await supabase.auth.getUser()).data.user?.id
+            })
+            .select()
+            .single();
+
+          if (brandError) {
+            console.error('[OnboardingPageV5] Failed to create brand in database:', brandError);
+            // Fallback to temporary brand
+            const tempBrand = {
+              id: `brand-temp-${Date.now()}`,
+              name: businessName,
+              industry: industry.displayName,
+              website: url,
+              created_at: new Date().toISOString(),
+              updated_at: new Date().toISOString()
+            };
+            setCurrentBrand(tempBrand);
+            console.log('[OnboardingPageV5] Using temporary brand fallback:', tempBrand.id);
+          } else {
+            setCurrentBrand(brandData);
+            console.log('[OnboardingPageV5] Brand created in database:', brandData.id);
+          }
+        } catch (err) {
+          console.error('[OnboardingPageV5] Error creating brand:', err);
+          // Fallback to temporary brand
+          const tempBrand = {
+            id: `brand-temp-${Date.now()}`,
+            name: businessName,
+            industry: industry.displayName,
+            website: url,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
+          };
+          setCurrentBrand(tempBrand);
+          console.log('[OnboardingPageV5] Using temporary brand after error:', tempBrand.id);
+        }
+      }
+
       // Extract products/services from website content using comprehensive scanner
       console.log('[OnboardingPageV5] Extracting products/services with comprehensive scanner...');
       addProgressStep('Extracting products and services', 'in_progress', 'Analyzing your offerings across multiple pages...');
@@ -506,14 +560,28 @@ export const OnboardingPageV5: React.FC = () => {
             items: extractedProducts.products.filter(p => p.category === cat)
           })),
           extractionComplete: true,
-          extractionConfidence: typeof extractedProducts.confidence === 'number'
+          extractionConfidence: typeof extractedProducts.confidence === 'number' && !isNaN(extractedProducts.confidence)
             ? {
                 overall: extractedProducts.confidence,
                 dataQuality: extractedProducts.confidence,
                 sourceCount: extractedProducts.sources.length,
                 modelAgreement: extractedProducts.confidence,
               }
-            : extractedProducts.confidence,
+            : (typeof extractedProducts.confidence === 'object' && extractedProducts.confidence !== null)
+              ? {
+                  overall: isNaN(extractedProducts.confidence.overall) ? 0 : extractedProducts.confidence.overall,
+                  dataQuality: isNaN(extractedProducts.confidence.dataQuality) ? 0 : extractedProducts.confidence.dataQuality,
+                  sourceCount: isNaN(extractedProducts.confidence.sourceCount) ? 0 : extractedProducts.confidence.sourceCount,
+                  modelAgreement: isNaN(extractedProducts.confidence.modelAgreement) ? 0 : extractedProducts.confidence.modelAgreement,
+                  reasoning: extractedProducts.confidence.reasoning
+                }
+              : {
+                  overall: 0,
+                  dataQuality: 0,
+                  sourceCount: 0,
+                  modelAgreement: 0,
+                  reasoning: 'Confidence data unavailable'
+                },
           sources: extractedProducts.sources,
         });
 
@@ -539,6 +607,7 @@ export const OnboardingPageV5: React.FC = () => {
       // Extract customer profiles, transformations, solutions, and benefits in parallel
       // This runs in the background and populates AI suggestions for later steps
       console.log('[OnboardingPageV5] Extracting AI suggestions for UVP steps...');
+      setAiSuggestionsLoading(true);
 
       Promise.all([
         // Extract customer profiles
@@ -801,8 +870,10 @@ export const OnboardingPageV5: React.FC = () => {
         }),
       ]).then(() => {
         console.log('[OnboardingPageV5] All AI extractions complete');
+        setAiSuggestionsLoading(false);
       }).catch(err => {
         console.error('[OnboardingPageV5] AI extraction error:', err);
+        setAiSuggestionsLoading(false);
       });
 
       setIsExtracting(false);
@@ -2203,7 +2274,7 @@ export const OnboardingPageV5: React.FC = () => {
           websiteUrl={websiteUrl}
           websiteContent={scrapedWebsiteContent}
           websiteUrls={scrapedWebsiteUrls}
-          preloadedData={{ profiles: customerSuggestions, loading: false }}
+          preloadedData={{ profiles: customerSuggestions, loading: aiSuggestionsLoading }}
           value={selectedCustomerProfile?.statement || ''}
           onChange={(value) => {
             if (selectedCustomerProfile) {
@@ -2436,27 +2507,73 @@ export const OnboardingPageV5: React.FC = () => {
             }}
             onSave={async () => {
               console.log('[UVP Flow] Saving complete UVP...');
+              console.log('[UVP Flow] UVP data:', JSON.stringify(uvpToDisplay, null, 2));
 
-              if (!currentBrand?.id) {
-                console.error('[UVP Flow] No brand ID available for saving UVP');
-                alert('Unable to save: No brand found. Please try again.');
+              // Validate UVP data first
+              if (!uvpToDisplay.targetCustomer || !uvpToDisplay.transformationGoal || !uvpToDisplay.uniqueSolution || !uvpToDisplay.keyBenefit) {
+                console.error('[UVP Flow] Incomplete UVP data:', {
+                  hasCustomer: !!uvpToDisplay.targetCustomer,
+                  hasTransformation: !!uvpToDisplay.transformationGoal,
+                  hasSolution: !!uvpToDisplay.uniqueSolution,
+                  hasBenefit: !!uvpToDisplay.keyBenefit,
+                });
+                alert('Unable to save: Some UVP components are missing. Please complete all steps.');
                 return;
               }
 
+              // Check if brand exists, create if needed
+              let brandId = currentBrand?.id;
+
+              if (!brandId || brandId.startsWith('brand-temp-')) {
+                console.warn('[UVP Flow] No valid brand found or using temp brand, creating in database...');
+                try {
+                  const { supabase } = await import('@/lib/supabase');
+
+                  const { data: brandData, error: brandError } = await supabase
+                    .from('brands')
+                    .insert({
+                      name: extractedBusinessName || 'My Business',
+                      industry: currentBrand?.industry || 'General',
+                      website: websiteUrl || '',
+                      user_id: (await supabase.auth.getUser()).data.user?.id
+                    })
+                    .select()
+                    .single();
+
+                  if (brandError) {
+                    console.error('[UVP Flow] Failed to create brand:', brandError);
+                    alert('Unable to save: Could not create business profile. Please contact support.');
+                    return;
+                  }
+
+                  brandId = brandData.id;
+                  setCurrentBrand(brandData);
+                  console.log('[UVP Flow] Brand created successfully:', brandId);
+                } catch (err) {
+                  console.error('[UVP Flow] Error creating brand:', err);
+                  alert('An error occurred while creating your business profile. Please try again.');
+                  return;
+                }
+              }
+
+              // Now save UVP with valid brand ID
               try {
-                const result = await saveCompleteUVP(uvpToDisplay, currentBrand.id);
+                console.log('[UVP Flow] Calling saveCompleteUVP with brand ID:', brandId);
+                const result = await saveCompleteUVP(uvpToDisplay, brandId);
 
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
+                  alert('Your Value Proposition has been saved successfully!');
                   // Navigate to dashboard after successful save
                   navigate('/dashboard');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);
-                  alert(`Failed to save UVP: ${result.error}`);
+                  alert(`Failed to save UVP: ${result.error}\n\nPlease check the console for more details.`);
                 }
               } catch (error) {
                 console.error('[UVP Flow] Error saving UVP:', error);
-                alert('An error occurred while saving. Please try again.');
+                console.error('[UVP Flow] Error stack:', error instanceof Error ? error.stack : 'No stack trace');
+                alert(`An error occurred while saving: ${error instanceof Error ? error.message : 'Unknown error'}\n\nPlease check the console for more details.`);
               }
             }}
             onDownload={handleUVPExport}

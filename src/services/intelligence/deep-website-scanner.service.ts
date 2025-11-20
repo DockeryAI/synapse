@@ -236,7 +236,7 @@ export class DeepWebsiteScannerService {
         if (serviceName) {
           const service: DeepServiceData = {
             id: `pattern-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-            name: serviceName,
+            name: this.cleanServiceName(serviceName),
             description: context.substring(0, 200),
             category: pattern.categoryHint || 'secondary',
             pricing: undefined,
@@ -273,7 +273,7 @@ export class DeepWebsiteScannerService {
       table.tiers.forEach((tier, tierIndex) => {
         const service: DeepServiceData = {
           id: `pricing-${Date.now()}-${tableIndex}-${tierIndex}`,
-          name: tier.name,
+          name: this.cleanServiceName(tier.name),
           description: `Pricing tier: ${tier.name}`,
           category: 'tier',
           pricing: tier.price,
@@ -319,7 +319,7 @@ export class DeepWebsiteScannerService {
         extractedServices.forEach((serviceName, serviceIndex) => {
           const service: DeepServiceData = {
             id: `structure-${Date.now()}-${index}-${serviceIndex}`,
-            name: serviceName,
+            name: this.cleanServiceName(serviceName),
             description: followingText.substring(0, 200),
             category: 'secondary',
             pricing: this.extractPricingFromText(followingText),
@@ -408,6 +408,20 @@ export class DeepWebsiteScannerService {
     const keywords: string[] = [];
     let confidence = 0;
 
+    // Common non-service navigation items (exclude these)
+    const commonNavItems = ['home', 'about', 'contact', 'blog', 'news', 'faq', 'login', 'signup', 'cart', 'account'];
+    const isCommonNav = commonNavItems.includes(lowerText);
+
+    if (isCommonNav) {
+      return {
+        text: linkText,
+        href: '',
+        isServiceLink: false,
+        confidence: 0,
+        keywords: [],
+      };
+    }
+
     // Check for service keywords
     SERVICE_KEYWORDS.forEach(keyword => {
       if (lowerText.includes(keyword)) {
@@ -419,6 +433,26 @@ export class DeepWebsiteScannerService {
     // Boost confidence for specific patterns
     if (lowerText.match(/^(our\s+)?(services?|products?|offerings?)$/)) {
       confidence += 0.3;
+    }
+
+    // NEW: Treat capitalized multi-word navigation items as potential services
+    // Example: "Web Design", "SEO Services", "Digital Marketing"
+    const words = linkText.trim().split(/\s+/);
+    const isCapitalized = /^[A-Z]/.test(linkText);
+    const isMultiWord = words.length >= 2;
+    const appearsServiceLike = isCapitalized && isMultiWord && words.length <= 4;
+
+    if (appearsServiceLike) {
+      // Boost confidence for capitalized multi-word items
+      if (confidence === 0) {
+        // No keywords found, but looks like a service name
+        confidence = 0.6;
+        keywords.push('inferred-service');
+      } else if (confidence < 0.6) {
+        // Has some keywords but below threshold - boost to make it viable
+        confidence = 0.6;
+        keywords.push('inferred-service-boost');
+      }
     }
 
     const isServiceLink = confidence > 0.2;
@@ -643,6 +677,16 @@ export class DeepWebsiteScannerService {
    * Helper: Clean service name
    */
   private cleanServiceName(name: string): string {
+    // If contains newlines, take only the first meaningful line
+    if (name.includes('\n')) {
+      const lines = name.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+      // Find first line that isn't just "Services" or "Products"
+      const meaningfulLine = lines.find(line =>
+        !line.toLowerCase().match(/^(our\s+)?(services?|products?|offerings?)$/)
+      ) || lines[0];
+      name = meaningfulLine || name;
+    }
+
     return name
       .replace(/^(our\s+)?/i, '')
       .replace(/\s+(services?|products?)$/i, '')

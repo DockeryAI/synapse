@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Target, CheckCircle2, AlertCircle, TrendingUp, Heart, Zap } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Target, CheckCircle2, AlertCircle, TrendingUp, Heart, Zap, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
@@ -55,6 +55,8 @@ export function KeyBenefitPage({
   // Start as loading if we don't have data yet
   const [isLoading, setIsLoading] = useState(!preloadedData || (preloadedData as any).loading === true);
   const hasLoadedPreloadedData = useRef(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newBenefitStatement, setNewBenefitStatement] = useState('');
 
   // Load preloaded data - ONLY use preloaded data, never auto-generate
   useEffect(() => {
@@ -129,6 +131,38 @@ export function KeyBenefitPage({
 
       return updated;
     });
+  };
+
+  const handleAddManualBenefit = () => {
+    if (!newBenefitStatement.trim()) return;
+
+    // Create new benefit
+    const newBenefit: KeyBenefit = {
+      id: `manual-${Date.now()}`,
+      statement: newBenefitStatement.trim(),
+      confidence: { overall: 100, dataQuality: 100, sourceCount: 1, modelAgreement: 100 },
+      sources: [{
+        id: `source-${Date.now()}`,
+        type: 'manual-input' as const,
+        name: 'Manual Input',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 100,
+        dataPoints: 1
+      }],
+      evidenceQuotes: [],
+      isManualInput: true
+    };
+
+    // Add to benefits list
+    setBenefits(prev => [newBenefit, ...prev]);
+
+    // Auto-select it
+    setSelectedBenefits(prev => [newBenefit, ...prev]);
+
+    // Reset form
+    setNewBenefitStatement('');
+    setShowAddForm(false);
   };
 
   const handleContinue = () => {
@@ -218,6 +252,16 @@ export function KeyBenefitPage({
               )}
 
               <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAddForm(true)}
+                className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 whitespace-nowrap"
+              >
+                <Plus className="w-4 h-4" />
+                <span className="font-medium">Add Manually</span>
+              </Button>
+
+              <Button
                 onClick={handleContinue}
                 disabled={!canProceed}
                 className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
@@ -251,6 +295,74 @@ export function KeyBenefitPage({
           ))}
         </div>
       )}
+
+      {/* Add Manual Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-500 dark:border-purple-400 p-6 shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Add Key Benefit
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Benefit Statement
+                </label>
+                <textarea
+                  value={newBenefitStatement}
+                  onChange={(e) => setNewBenefitStatement(e.target.value)}
+                  placeholder="e.g., Reduce operational costs by up to 40% while improving efficiency"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none"
+                  rows={3}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.metaKey) {
+                      handleAddManualBenefit();
+                    }
+                  }}
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Press ⌘+Enter to add
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleAddManualBenefit}
+                  disabled={!newBenefitStatement.trim()}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Benefit
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewBenefitStatement('');
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Key Benefits */}
       <AnimatePresence mode="popLayout">

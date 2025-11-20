@@ -170,8 +170,15 @@ export async function extractProductsServices(
     console.log('[ProductServiceExtractor] Extracted', extractionData.products.length, 'products before validation');
 
     // Validate products to remove garbage
-    const validatedProducts = productValidationService.validateProducts(extractionData.products, businessName);
+    let validatedProducts = productValidationService.validateProducts(extractionData.products, businessName);
     console.log('[ProductServiceExtractor] Validated', validatedProducts.length, 'products after filtering');
+
+    // FALLBACK: If we got 0 valid products (likely all testimonials), use industry defaults
+    if (validatedProducts.length === 0 && industry) {
+      console.log('[ProductServiceExtractor] No valid products found, using industry fallback services');
+      validatedProducts = getIndustryFallbackServices(industry, businessName);
+      console.log('[ProductServiceExtractor] Added', validatedProducts.length, 'fallback services from industry profile');
+    }
 
     // Calculate overall confidence
     const overallConfidence = calculateOverallConfidence(validatedProducts);
@@ -407,6 +414,98 @@ function createEmptyResult(): ProductServiceExtractionResult {
     sources: [],
     extractionTimestamp: new Date()
   };
+}
+
+/**
+ * Get industry-standard fallback services when extraction fails
+ */
+function getIndustryFallbackServices(industry: string, businessName: string): ProductService[] {
+  const lowerIndustry = industry.toLowerCase();
+
+  // Map common industries to standard services
+  const industryServices: Record<string, string[]> = {
+    'real estate': [
+      'Buyer Representation',
+      'Seller Services',
+      'Property Valuation',
+      'Market Analysis',
+      'Luxury Properties',
+      'Commercial Real Estate'
+    ],
+    'residential real estate': [
+      'Buyer Representation',
+      'Seller Services',
+      'First-Time Home Buyers',
+      'Property Valuation',
+      'Market Analysis'
+    ],
+    'it managed services': [
+      'Network Management',
+      'Cloud Services',
+      'Cybersecurity',
+      'Help Desk Support',
+      'Data Backup and Recovery',
+      'IT Consulting'
+    ],
+    'financial advisory': [
+      'Wealth Management',
+      'Retirement Planning',
+      'Investment Advisory',
+      'Tax Planning',
+      'Estate Planning',
+      'Risk Management'
+    ],
+    'bakery': [
+      'Custom Cakes',
+      'Artisan Breads',
+      'Pastries and Desserts',
+      'Catering Services',
+      'Wedding Cakes',
+      'Corporate Orders'
+    ],
+    'dental': [
+      'General Dentistry',
+      'Cosmetic Dentistry',
+      'Teeth Whitening',
+      'Dental Implants',
+      'Orthodontics',
+      'Emergency Dental Care'
+    ]
+  };
+
+  // Find matching industry services
+  let services: string[] = [];
+  for (const [key, value] of Object.entries(industryServices)) {
+    if (lowerIndustry.includes(key)) {
+      services = value;
+      break;
+    }
+  }
+
+  // If no match, use generic services
+  if (services.length === 0) {
+    services = [
+      'Consultation Services',
+      'Professional Services',
+      'Custom Solutions',
+      'Support Services',
+      'Specialized Services'
+    ];
+  }
+
+  // Convert to ProductService objects
+  return services.map((name, index) => ({
+    id: `fallback-${index}`,
+    name,
+    description: `Standard ${name.toLowerCase()} offered in the ${industry} industry`,
+    category: 'Professional Services',
+    confidence: 60, // Lower confidence for fallback services
+    sourceUrl: '',
+    metadata: {
+      extractionMethod: 'industry_fallback',
+      businessName
+    }
+  }));
 }
 
 /**
