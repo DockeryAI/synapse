@@ -625,6 +625,90 @@ export const OnboardingPageV5: React.FC = () => {
               method: result.method
             });
 
+            // For bakeries, ensure we have ALL customer segments covered
+            const isBakery = industry.displayName?.toLowerCase().includes('bakery') ||
+                             industry.displayName?.toLowerCase().includes('food') ||
+                             industry.displayName?.toLowerCase().includes('cafe') ||
+                             industry.displayName?.toLowerCase().includes('restaurant');
+
+            if (isBakery) {
+              console.log('[OnboardingPageV5] Bakery detected, ensuring all customer segments covered');
+
+              // Check which segments are already covered
+              const hasCorpCatering = result.goals.some(g =>
+                g.statement.toLowerCase().includes('office') ||
+                g.statement.toLowerCase().includes('corporate') ||
+                g.statement.toLowerCase().includes('catering') ||
+                g.statement.toLowerCase().includes('colleagues')
+              );
+
+              const hasEvents = result.goals.some(g =>
+                g.statement.toLowerCase().includes('wedding') ||
+                g.statement.toLowerCase().includes('celebration') ||
+                g.statement.toLowerCase().includes('party') ||
+                g.statement.toLowerCase().includes('event')
+              );
+
+              const hasDietary = result.goals.some(g =>
+                g.statement.toLowerCase().includes('dietary') ||
+                g.statement.toLowerCase().includes('gluten') ||
+                g.statement.toLowerCase().includes('vegan') ||
+                g.statement.toLowerCase().includes('restriction')
+              );
+
+              const additionalGoals: TransformationGoal[] = [];
+
+              // Add missing corporate catering segment
+              if (!hasCorpCatering) {
+                additionalGoals.push({
+                  id: `bakery-corp-${Date.now()}`,
+                  statement: `From "struggling to coordinate lunch for the office" → To "being the hero who brings in fresh, delicious options" through our Delivery Service`,
+                  functionalDrivers: ['convenient ordering', 'reliable delivery timing'],
+                  emotionalDrivers: ['desire to impress colleagues', 'relief from coordination stress'],
+                  eqScore: { emotional: 60, rational: 40, overall: 70 },
+                  customerQuotes: [],
+                  sources: [],
+                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
+                  isManualInput: false
+                });
+              }
+
+              // Add missing events segment
+              if (!hasEvents) {
+                additionalGoals.push({
+                  id: `bakery-event-${Date.now()}`,
+                  statement: `From "worried about finding the perfect centerpiece for the celebration" → To "wowing guests with an artisan custom cake"`,
+                  functionalDrivers: ['custom design', 'reliable quality'],
+                  emotionalDrivers: ['desire to impress', 'pride in hosting'],
+                  eqScore: { emotional: 70, rational: 30, overall: 75 },
+                  customerQuotes: [],
+                  sources: [],
+                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
+                  isManualInput: false
+                });
+              }
+
+              // Add missing dietary segment
+              if (!hasDietary) {
+                additionalGoals.push({
+                  id: `bakery-dietary-${Date.now()}`,
+                  statement: `From "frustrated by lack of quality options for dietary restrictions" → To "enjoying delicious treats that meet dietary needs without compromise"`,
+                  functionalDrivers: ['dietary accommodations', 'ingredient transparency'],
+                  emotionalDrivers: ['inclusion', 'relief from restrictions'],
+                  eqScore: { emotional: 65, rational: 35, overall: 72 },
+                  customerQuotes: [],
+                  sources: [],
+                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
+                  isManualInput: false
+                });
+              }
+
+              if (additionalGoals.length > 0) {
+                console.log(`[OnboardingPageV5] Adding ${additionalGoals.length} missing bakery segments`);
+                result.goals = [...result.goals, ...additionalGoals];
+              }
+            }
+
             setTransformationSuggestions(result.goals);
             return result;
           } catch (err) {
@@ -1449,9 +1533,28 @@ export const OnboardingPageV5: React.FC = () => {
     // Synthesize complete UVP with AI before showing synthesis page
     if (selectedCustomerProfile && selectedTransformation && selectedSolution && selectedBenefit) {
       try {
+        // Pass ALL selected transformations for inclusive synthesis
+        const transformationsToUse = selectedTransformations.length > 0
+          ? selectedTransformations
+          : [selectedTransformation];
+
+        // For synthesis, we still need a primary transformation for backward compatibility
+        // but we'll include context from all selected transformations
+        const primaryTransformation = selectedTransformation || selectedTransformations[0];
+
+        // Create a combined transformation that represents all segments
+        const combinedTransformation: TransformationGoal = {
+          ...primaryTransformation,
+          statement: transformationsToUse.length > 1
+            ? `Multiple transformations: ${transformationsToUse.map(t => t.statement).join(' AND ')}`
+            : primaryTransformation.statement,
+          emotionalDrivers: [...new Set(transformationsToUse.flatMap(t => t.emotionalDrivers || []))],
+          functionalDrivers: [...new Set(transformationsToUse.flatMap(t => t.functionalDrivers || []))]
+        };
+
         const synthesizedUVP = await synthesizeCompleteUVP({
           customer: selectedCustomerProfile,
-          transformation: selectedTransformation,
+          transformation: combinedTransformation,
           solution: selectedSolution,
           benefit: selectedBenefit,
           businessName: refinedData?.businessName || extractedBusinessName || 'Your Business',

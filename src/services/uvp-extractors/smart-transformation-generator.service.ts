@@ -216,6 +216,12 @@ function buildTestimonialPrompt(
   const eqRatio = industryEQ || { emotional: 50, rational: 50 };
   const testimonials = input.testimonials!.join('\n\n');
 
+  // For bakeries/food services, need more segments to cover B2B and B2C
+  const isBakery = input.industry?.toLowerCase().includes('bakery') ||
+                   input.industry?.toLowerCase().includes('food') ||
+                   input.industry?.toLowerCase().includes('cafe') ||
+                   input.industry?.toLowerCase().includes('restaurant');
+
   return `You are analyzing transformation goals for "${input.businessName}", a ${input.industry || 'business'}.
 
 TESTIMONIALS FROM WEBSITE:
@@ -230,7 +236,7 @@ Decision Triggers: ${industryProfile.commonBuyingTriggers.join(', ')}
 EMOTIONAL QUOTIENT TARGET: ${eqRatio.emotional}% emotional, ${eqRatio.rational}% rational
 
 TASK:
-Extract 3-5 transformation goals from the testimonials. Each transformation should describe:
+Extract ${isBakery ? '6-8' : '3-5'} transformation goals from the testimonials. Each transformation should describe:
 - BEFORE state: The problem/pain the customer had
 - AFTER state: The transformation they achieved
 
@@ -266,6 +272,12 @@ function buildIndustryServicesPrompt(
   const services = input.services!.map(s => `- ${s.name}: ${s.description || 'No description'}`).join('\n');
   const customers = input.customers?.map(c => `- ${c.statement}`).join('\n') || 'No buyer personas extracted';
   const testimonials = input.testimonials?.join('\n\n') || 'No testimonials available';
+
+  // For bakeries/food services, need more segments to cover B2B and B2C
+  const isBakery = input.industry?.toLowerCase().includes('bakery') ||
+                   input.industry?.toLowerCase().includes('food') ||
+                   input.industry?.toLowerCase().includes('cafe') ||
+                   input.industry?.toLowerCase().includes('restaurant');
 
   return `You are generating customer transformation goals using a specific data-driven methodology. Follow this EXACT process:
 
@@ -313,11 +325,21 @@ LAYER 2: Personalization
 - Use decision triggers to frame the "to" state
 
 LAYER 3: Synthesis
-Generate 4-6 transformation goals where EACH:
+Generate ${isBakery ? '8-10' : '4-6'} transformation goals where EACH:
 - Maps to a detected service from the list above
 - Addresses an industry pain point using customer's natural language
 - Matches the ${eqRatio.emotional}% emotional / ${eqRatio.rational}% rational balance
 - Uses decision drivers and triggers from psychology profile
+
+${isBakery ? `
+REQUIRED CUSTOMER SEGMENTS FOR BAKERY/FOOD:
+Include transformations for EACH of these segments:
+- Individual customers (daily treats, indulgence)
+- Corporate/catering (office lunches, meetings, events)
+- Celebrations/events (weddings, birthdays, custom orders)
+- Regular customers (daily/weekly rituals)
+- Dietary restrictions (gluten-free, vegan, allergies)
+` : ''}
 
 OUTPUT FORMAT (JSON):
 {
@@ -361,6 +383,12 @@ function buildIndustryBaselinePrompt(
 ): string {
   const eqRatio = industryEQ || { emotional: 50, rational: 50 };
 
+  // For bakeries/food services, need more segments to cover B2B and B2C
+  const isBakery = input.industry?.toLowerCase().includes('bakery') ||
+                   input.industry?.toLowerCase().includes('food') ||
+                   input.industry?.toLowerCase().includes('cafe') ||
+                   input.industry?.toLowerCase().includes('restaurant');
+
   return `You are creating transformation goals for "${input.businessName}", a ${input.industry}.
 
 INDUSTRY PAIN POINTS:
@@ -378,7 +406,7 @@ Trust Importance: ${industryProfile.psychologyProfile.trustImportance}
 EMOTIONAL QUOTIENT TARGET: ${eqRatio.emotional}% emotional, ${eqRatio.rational}% rational
 
 TASK:
-Generate 3-5 transformation goals based on common industry patterns. Each should address:
+Generate ${isBakery ? '6-8' : '3-5'} transformation goals based on common industry patterns. Each should address:
 - A major industry pain point
 - A common decision trigger
 - The buyer psychology (fears, desires, objections)
@@ -410,6 +438,12 @@ function buildServicesWebsitePrompt(input: SmartTransformationInput): string {
   const websiteContext = input.websiteParagraphs?.slice(0, 10).join('\n\n') || '';
   const testimonials = input.testimonials?.join('\n\n') || 'No testimonials available';
   const customers = input.customers?.map(c => `- ${c.statement}`).join('\n') || 'No buyer personas extracted';
+
+  // For bakeries/food services, need more segments to cover B2B and B2C
+  const isBakery = input.industry?.toLowerCase().includes('bakery') ||
+                   input.industry?.toLowerCase().includes('food') ||
+                   input.industry?.toLowerCase().includes('cafe') ||
+                   input.industry?.toLowerCase().includes('restaurant');
 
   return `You are generating customer transformation goals using a specific data-driven methodology. Follow this EXACT process:
 
@@ -446,7 +480,7 @@ LAYER 2: Personalization
 - Apply appropriate emotional/functional balance (60% emotional, 40% functional as default)
 
 LAYER 3: Synthesis
-Generate 3-5 transformation goals where EACH:
+Generate ${isBakery ? '6-8' : '3-5'} transformation goals where EACH:
 - Maps to a specific detected service (use the exact service name)
 - Addresses a pain point in the customer's natural language (not generic business speak)
 - Matches emotional/functional balance
@@ -489,7 +523,15 @@ function buildGenericPrompt(input: SmartTransformationInput): string {
   const services = input.services?.map(s => `- ${s.name}`).join('\n') || 'Services not specified';
   const websiteContext = input.websiteParagraphs?.slice(0, 5).join('\n') || 'No website content available';
 
-  return `Create 3 transformation goals for "${input.businessName}", a ${input.industry || 'business'}.
+  // For bakeries/food services, need more segments to cover B2B and B2C
+  const isBakery = input.industry?.toLowerCase().includes('bakery') ||
+                   input.industry?.toLowerCase().includes('food') ||
+                   input.industry?.toLowerCase().includes('cafe') ||
+                   input.industry?.toLowerCase().includes('restaurant');
+
+  const goalCount = isBakery ? "6-8" : "3";
+
+  return `Create ${goalCount} transformation goals for "${input.businessName}", a ${input.industry || 'business'}.
 
 AVAILABLE SERVICES:
 ${services}
@@ -498,6 +540,19 @@ WEBSITE CONTEXT:
 ${websiteContext}
 
 Each transformation should describe a journey from a problem state to a solution state, using the actual services and context above.
+
+${isBakery ? `
+IMPORTANT FOR BAKERY/FOOD BUSINESSES:
+You MUST include transformations for ALL these customer segments:
+1. Individual customers (daily treats, special occasions, indulgence)
+2. Corporate/office catering (team lunches, meetings, impress colleagues)
+3. Event customers (weddings, parties, celebrations)
+4. Regular/loyal customers (daily rituals, weekly visits)
+5. Dietary needs customers (gluten-free, vegan, allergies)
+6. Seasonal/specialty customers (holidays, limited offerings)
+
+Make sure to cover B2B (corporate catering) AND B2C segments!
+` : ''}
 
 Format as JSON:
 {
