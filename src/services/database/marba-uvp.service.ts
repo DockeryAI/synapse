@@ -46,21 +46,62 @@ interface MarbaUVPRow {
  * Save complete UVP to database
  *
  * @param uvp - Complete UVP data from all 6 steps
- * @param brandId - Brand ID to associate UVP with
+ * @param brandId - Brand ID to associate UVP with (optional for onboarding)
  * @returns Success status and UVP ID if successful
  */
 export async function saveCompleteUVP(
   uvp: CompleteUVP,
-  brandId: string
-): Promise<{ success: boolean; uvpId?: string; error?: string }> {
-  console.log('[MarbaUVPService] Saving complete UVP for brand:', brandId);
+  brandId?: string  // Made optional for onboarding
+): Promise<{ success: boolean; uvpId?: string; sessionId?: string; error?: string }> {
+  console.log('[MarbaUVPService] Saving complete UVP for brand:', brandId || 'onboarding session');
 
   try {
-    // Validate inputs
+    // If no brandId, save to sessions table for onboarding
     if (!brandId) {
+      const sessionId = localStorage.getItem('marba_session_id') || crypto.randomUUID();
+      localStorage.setItem('marba_session_id', sessionId);
+
+      const sessionData = {
+        id: sessionId,
+        brand_id: null,
+        session_name: 'Onboarding UVP Session',
+        website_url: uvp.businessInfo?.website || '',
+        current_step: 'complete',
+        products_data: uvp.products || null,
+        customer_data: uvp.targetCustomer,
+        transformation_data: uvp.transformationGoal,
+        solution_data: uvp.uniqueSolution,
+        benefit_data: uvp.keyBenefit,
+        complete_uvp: {
+          valuePropositionStatement: uvp.valuePropositionStatement,
+          whyStatement: uvp.whyStatement,
+          whatStatement: uvp.whatStatement,
+          howStatement: uvp.howStatement,
+          overallConfidence: uvp.overallConfidence,
+        },
+        completed_steps: ['products', 'customer', 'transformation', 'solution', 'benefit'],
+        progress_percentage: 100,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { data, error } = await supabase
+        .from('uvp_sessions')
+        .upsert(sessionData)
+        .select('id')
+        .single();
+
+      if (error) {
+        console.error('[MarbaUVPService] Session save error:', error);
+        return {
+          success: false,
+          error: `Failed to save session: ${error.message}`,
+        };
+      }
+
+      console.log('[MarbaUVPService] Session saved successfully:', data.id);
       return {
-        success: false,
-        error: 'Brand ID is required',
+        success: true,
+        sessionId: data.id,
       };
     }
 

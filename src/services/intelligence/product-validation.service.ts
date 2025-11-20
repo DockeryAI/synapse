@@ -145,6 +145,24 @@ const VALID_PRODUCT_INDICATORS = [
   /injury$/i,
   /claim$/i,
 
+  // Tax/Financial services
+  /tax$/i,
+  /taxes$/i,
+  /filing$/i,
+  /preparation$/i,
+  /resolution$/i,
+  /audit$/i,
+  /bookkeeping$/i,
+  /accounting$/i,
+  /payroll$/i,
+  /\birs\b/i,  // IRS services
+  /payment plan$/i,
+  /setup$/i,
+  /negotiation$/i,
+  /representation$/i,
+  /compliance$/i,
+  /returns?$/i,
+
   // Add retail/physical product indicators
   /toys?$/i,
   /games?$/i,
@@ -199,7 +217,31 @@ export class ProductValidationService {
     const words = trimmedName.split(/\s+/);
     const wordCount = words.length;
 
-    // 0. Check if product name is EXACTLY the business name (not just containing it)
+    // 0.1 CRITICAL: Reject URL paths
+    if (trimmedName.startsWith('/') || trimmedName.includes('http://') || trimmedName.includes('https://')) {
+      return {
+        isValid: false,
+        reason: 'URL or path, not a service name'
+      };
+    }
+
+    // 0.2 Reject common marketing/navigation phrases
+    const marketingPhrases = [
+      'serving our', 'where we', 'we specialize', 'our mission', 'our goal',
+      'meet our', 'about our', 'contact our', 'why choose', 'welcome to',
+      'proudly serving', 'dedicated to', 'committed to', 'we are', 'we have'
+    ];
+
+    for (const phrase of marketingPhrases) {
+      if (lowerName.startsWith(phrase)) {
+        return {
+          isValid: false,
+          reason: 'Marketing phrase, not a service'
+        };
+      }
+    }
+
+    // 0.3 Check if product name is EXACTLY the business name (not just containing it)
     if (businessName) {
       const lowerBusinessName = businessName.toLowerCase();
 
@@ -373,6 +415,31 @@ export class ProductValidationService {
     // This prevents generic phrases like "exotic cars", "commercial buildings" from passing
     if (hasProductIndicator) {
       return { isValid: true };
+    }
+
+    // 8.5 Check for compound service names (common in professional services)
+    // e.g., "IRS Payment Plan Setup", "Tax Resolution Services", "Estate Planning"
+    const serviceKeywords = [
+      'irs', 'tax', 'legal', 'audit', 'compliance', 'filing', 'estate',
+      'trust', 'probate', 'bankruptcy', 'debt', 'credit', 'financial',
+      'insurance', 'claims', 'settlement', 'compensation', 'disability',
+      'social security', 'medicare', 'medicaid', 'workers comp',
+      'personal injury', 'car accident', 'slip and fall', 'wrongful death',
+      'medical malpractice', 'product liability', 'premises liability'
+    ];
+
+    // Check if name contains any service keywords
+    const hasServiceKeyword = serviceKeywords.some(keyword =>
+      lowerName.includes(keyword)
+    );
+
+    // Accept if it has service keywords and is 2-6 words
+    if (hasServiceKeyword && wordCount >= 2 && wordCount <= 6) {
+      // But still reject if it starts with garbage words
+      const firstWord = words[0].toLowerCase();
+      if (!GARBAGE_STARTING_WORDS.includes(firstWord)) {
+        return { isValid: true };
+      }
     }
 
     // Special case: Proper nouns with clear capitalization (e.g., "SEO Services" without "Services" at end)

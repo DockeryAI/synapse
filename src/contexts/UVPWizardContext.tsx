@@ -71,7 +71,7 @@ const UVPWizardContext = React.createContext<UVPWizardContextType | undefined>(u
  */
 interface UVPWizardProviderProps {
   children: React.ReactNode
-  brandId: string
+  brandId?: string  // Made optional for onboarding
   brandData?: any
   initialUVP?: Partial<UVP>
   onComplete?: (uvp: UVP) => void
@@ -242,19 +242,46 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
   const saveUVP = async () => {
     setIsSaving(true)
     try {
-      const { error } = await supabase.from('brand_uvps').upsert({
-        brand_id: brandId,
-        ...uvp,
-        current_step: currentStep,
-        is_complete: isUVPComplete(uvp),
-        updated_at: new Date().toISOString(),
-      })
+      // If no brandId, save to sessions table for onboarding
+      if (!brandId) {
+        // Generate a session ID or use existing one
+        const sessionId = localStorage.getItem('uvp_session_id') || crypto.randomUUID()
+        localStorage.setItem('uvp_session_id', sessionId)
 
-      if (error) throw error
+        const { error } = await supabase.from('uvp_sessions').upsert({
+          id: sessionId,
+          brand_id: null, // No brand yet during onboarding
+          session_name: 'Onboarding Session',
+          website_url: uvp.website_url || '',
+          current_step: currentStep,
+          products_data: uvp.products_services ? JSON.stringify(uvp.products_services) : null,
+          customer_data: uvp.target_customer ? JSON.stringify({ target_customer: uvp.target_customer }) : null,
+          transformation_data: uvp.customer_problem ? JSON.stringify({ customer_problem: uvp.customer_problem }) : null,
+          solution_data: uvp.unique_solution ? JSON.stringify({ unique_solution: uvp.unique_solution }) : null,
+          benefit_data: uvp.key_benefit ? JSON.stringify({ key_benefit: uvp.key_benefit }) : null,
+          complete_uvp: JSON.stringify(uvp),
+          completed_steps: WIZARD_STEPS.filter((_, index) => index <= WIZARD_STEPS.indexOf(currentStep)),
+          progress_percentage: Math.round((WIZARD_STEPS.indexOf(currentStep) / (WIZARD_STEPS.length - 1)) * 100),
+          updated_at: new Date().toISOString(),
+        })
 
-      console.log('[UVPWizardContext] UVP saved successfully')
+        if (error) throw error
+        console.log('[UVPWizardContext] Session saved successfully')
+      } else {
+        // Save to brand_uvps if we have a brandId
+        const { error } = await supabase.from('brand_uvps').upsert({
+          brand_id: brandId,
+          ...uvp,
+          current_step: currentStep,
+          is_complete: isUVPComplete(uvp),
+          updated_at: new Date().toISOString(),
+        })
+
+        if (error) throw error
+        console.log('[UVPWizardContext] UVP saved successfully')
+      }
     } catch (error) {
-      console.error('[UVPWizardContext] Failed to save UVP:', error)
+      console.error('[UVPWizardContext] Failed to save:', error)
       throw error
     } finally {
       setIsSaving(false)
