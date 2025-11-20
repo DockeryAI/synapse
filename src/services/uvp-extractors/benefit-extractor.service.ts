@@ -374,6 +374,7 @@ function createFallbackBenefits(industry: string): BenefitExtractionResult {
 
   if (isBakery) {
     fallbackBenefits = [
+      // Individual customer - quality/freshness
       {
         id: 'benefit-functional-1',
         statement: 'Enjoy fresh, high-quality baked goods made daily with premium ingredients',
@@ -397,12 +398,109 @@ function createFallbackBenefits(industry: string): BenefitExtractionResult {
         }],
         isManualInput: false
       },
+      // Individual customer - emotional connection
       {
         id: 'benefit-emotional-1',
         statement: 'Experience the comfort and nostalgia of authentic, handcrafted baking',
         outcomeType: 'qualitative',
         metrics: [],
         eqFraming: 'emotional',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      },
+      // Corporate/office catering benefit
+      {
+        id: 'benefit-corporate-1',
+        statement: 'Impress colleagues and clients with reliable, high-quality catering that makes you look good',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'emotional',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      },
+      // Corporate - convenience
+      {
+        id: 'benefit-corporate-2',
+        statement: 'Save time with hassle-free ordering and on-time delivery for team events and office meetings',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'rational',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      },
+      // Event/celebration benefit
+      {
+        id: 'benefit-event-1',
+        statement: 'Create unforgettable moments with custom cakes and desserts that become the centerpiece of your celebration',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'emotional',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      },
+      // Dietary needs benefit
+      {
+        id: 'benefit-dietary-1',
+        statement: 'Enjoy delicious treats that accommodate dietary restrictions without sacrificing taste or quality',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'rational',
         confidence: {
           overall: 50,
           dataQuality: 40,

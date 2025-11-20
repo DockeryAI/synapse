@@ -497,7 +497,7 @@ function ensureDimensionCoverage(
     });
   }
 
-  return result.slice(0, 7); // Max 7 transformations
+  return result.slice(0, 10); // Max 10 transformations to show diverse customer segments
 }
 
 /**
@@ -588,6 +588,42 @@ function generateIndustryBasedTransformations(
       functionalDrivers: ['custom design', 'reliable quality'],
       emotionalDrivers: ['desire to impress', 'pride in hosting'],
       eqScore: { emotional: 70, rational: 30, overall: 75 },
+      customerQuotes: [],
+      sources: [createDataSource('api', 'Bakery Industry Profile')],
+      confidence: {
+        overall: 80,
+        dataQuality: 75,
+        modelAgreement: 85,
+        sourceCount: 1,
+      },
+      isManualInput: false
+    });
+
+    // Daily/weekly regular customer transformation
+    transformations.push({
+      id: `bakery-regular-${Date.now()}`,
+      statement: `From "starting the day rushed with mediocre coffee shop options" → To "enjoying a daily ritual of artisan pastries and quality coffee"`,
+      functionalDrivers: ['consistent quality', 'convenient location'],
+      emotionalDrivers: ['ritual and routine', 'self-care'],
+      eqScore: { emotional: 55, rational: 45, overall: 70 },
+      customerQuotes: [],
+      sources: [createDataSource('api', 'Bakery Industry Profile')],
+      confidence: {
+        overall: 80,
+        dataQuality: 75,
+        modelAgreement: 85,
+        sourceCount: 1,
+      },
+      isManualInput: false
+    });
+
+    // Special dietary needs transformation
+    transformations.push({
+      id: `bakery-dietary-${Date.now()}`,
+      statement: `From "frustrated by lack of quality options for dietary restrictions" → To "enjoying delicious treats that meet dietary needs without compromise"`,
+      functionalDrivers: ['dietary accommodations', 'ingredient transparency'],
+      emotionalDrivers: ['inclusion', 'relief from restrictions'],
+      eqScore: { emotional: 65, rational: 35, overall: 72 },
       customerQuotes: [],
       sources: [createDataSource('api', 'Bakery Industry Profile')],
       confidence: {

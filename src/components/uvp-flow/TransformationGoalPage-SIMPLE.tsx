@@ -121,9 +121,19 @@ export function TransformationGoalPage({
       return;
     }
 
-    // If we get here, preloadedData exists but has no goals - show empty state
-    console.log('[TransformationGoalPage-SIMPLE] No goals found in preloaded data');
-    setIsLoading(false);
+    // If we get here, preloadedData exists but has no goals
+    // IMPORTANT: Only show empty state if loading is explicitly complete
+    // Check if there's a 'complete' or 'error' flag, otherwise keep loading
+    const isExplicitlyComplete = (preloadedData as any).complete === true ||
+                                  (preloadedData as any).error !== undefined;
+
+    if (isExplicitlyComplete) {
+      console.log('[TransformationGoalPage-SIMPLE] Loading complete, no goals found in preloaded data');
+      setIsLoading(false);
+    } else {
+      console.log('[TransformationGoalPage-SIMPLE] ⏳ Preloaded data exists but incomplete, continuing to wait...');
+      setIsLoading(true);
+    }
   }, [preloadedData]);
 
   const handleSelectGoal = (goal: TransformationGoal) => {

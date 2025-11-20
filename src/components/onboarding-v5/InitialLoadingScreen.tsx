@@ -43,8 +43,8 @@ const STEPS = [
   },
   {
     key: 'transformation',
-    label: 'Goal',
-    description: 'Discovering customer goals',
+    label: 'Value',
+    description: 'Discovering customer value',
     icon: Zap,
     duration: 3346
   },

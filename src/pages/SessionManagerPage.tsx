@@ -116,7 +116,7 @@ export function SessionManagerPage() {
     const labels: Record<string, string> = {
       products: 'Products & Services',
       customer: 'Target Customer',
-      transformation: 'Customer Goal',
+      transformation: 'Customer Value',
       solution: 'Unique Solution',
       benefit: 'Key Benefit',
       synthesis: 'Complete Story',

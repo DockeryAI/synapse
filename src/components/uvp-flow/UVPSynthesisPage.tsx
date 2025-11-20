@@ -240,7 +240,7 @@ export function UVPSynthesisPage({
             transition={{ delay: 0.2 }}
             className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
           >
-            🎉 Your UVP is Complete!
+            🎉 Your Value Proposition is Complete!
           </motion.h1>
 
           <motion.p

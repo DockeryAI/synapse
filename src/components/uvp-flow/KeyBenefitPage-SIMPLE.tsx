@@ -94,9 +94,19 @@ export function KeyBenefitPage({
       return;
     }
 
-    // If we get here, preloadedData exists but has no benefits - show empty state
-    console.log('[KeyBenefitPage-SIMPLE] No benefits found in preloaded data');
-    setIsLoading(false);
+    // If we get here, preloadedData exists but has no benefits
+    // IMPORTANT: Only show empty state if loading is explicitly complete
+    // Check if there's a 'complete' or 'error' flag, otherwise keep loading
+    const isExplicitlyComplete = (preloadedData as any).complete === true ||
+                                  (preloadedData as any).error !== undefined;
+
+    if (isExplicitlyComplete) {
+      console.log('[KeyBenefitPage-SIMPLE] Loading complete, no benefits found in preloaded data');
+      setIsLoading(false);
+    } else {
+      console.log('[KeyBenefitPage-SIMPLE] ⏳ Preloaded data exists but incomplete, continuing to wait...');
+      setIsLoading(true);
+    }
   }, [preloadedData]);
 
   const handleSelectBenefit = (benefit: KeyBenefit) => {
