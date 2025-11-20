@@ -57,31 +57,27 @@ export async function saveCompleteUVP(
   console.log('[MarbaUVPService] Saving complete UVP...');
 
   try {
-    // Get or create temporary brand if no brandId provided
-    let effectiveBrandId = brandId;
-
+    // If no brandId, save to localStorage for onboarding
     if (!brandId) {
-      console.log('[MarbaUVPService] No brand ID provided, creating temporary brand for onboarding');
-      const tempBrandResult = await getOrCreateTempBrand();
+      console.log('[MarbaUVPService] No brand ID - saving to localStorage for onboarding');
 
-      if (!tempBrandResult.success || !tempBrandResult.brandId) {
-        return {
-          success: false,
-          error: tempBrandResult.error || 'Failed to create temporary brand'
-        };
-      }
+      // Save to localStorage
+      const sessionId = localStorage.getItem('marba_session_id') || crypto.randomUUID();
+      localStorage.setItem('marba_session_id', sessionId);
+      localStorage.setItem(`marba_uvp_${sessionId}`, JSON.stringify(uvp));
+      localStorage.setItem('marba_uvp_pending', 'true');
 
-      effectiveBrandId = tempBrandResult.brandId;
-      console.log('[MarbaUVPService] Using temporary brand:', effectiveBrandId);
-    }
+      console.log('[MarbaUVPService] Saved to localStorage with session:', sessionId);
 
-    // Now we always have a brand_id to satisfy RLS policies
-    if (!effectiveBrandId) {
       return {
-        success: false,
-        error: 'No brand ID available'
+        success: true,
+        sessionId,
+        error: undefined
       };
     }
+
+    // If we have a brandId, save to database normally
+    const effectiveBrandId = brandId;
 
     if (!uvp.targetCustomer || !uvp.transformationGoal || !uvp.uniqueSolution || !uvp.keyBenefit) {
       return {

@@ -18,10 +18,27 @@ export interface TempBrandResult {
  */
 export async function getOrCreateTempBrand(): Promise<TempBrandResult> {
   try {
+    // Check if user is authenticated
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      // No authenticated user - return a localStorage-based temporary ID
+      // This won't work with RLS, but we'll save to localStorage instead
+      const tempId = localStorage.getItem('temp_brand_id') || `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      localStorage.setItem('temp_brand_id', tempId);
+
+      console.log('[TempBrand] No authenticated user, using localStorage temp ID:', tempId);
+
+      return {
+        success: true,
+        brandId: tempId
+      };
+    }
+
     // Check if we already have a temp brand in localStorage
     const existingTempBrandId = localStorage.getItem('temp_brand_id');
 
-    if (existingTempBrandId) {
+    if (existingTempBrandId && !existingTempBrandId.startsWith('temp_')) {
       // Verify it still exists in database
       const { data: existingBrand } = await supabase
         .from('brands')
@@ -35,37 +52,9 @@ export async function getOrCreateTempBrand(): Promise<TempBrandResult> {
       }
     }
 
-    // Check if user is authenticated
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      // Create anonymous session for onboarding
-      const { data: anonData, error: anonError } = await supabase.auth.signInAnonymously();
-
-      if (anonError || !anonData.user) {
-        console.error('[TempBrand] Failed to create anonymous session:', anonError);
-        return {
-          success: false,
-          error: 'Failed to create session for onboarding'
-        };
-      }
-
-      console.log('[TempBrand] Created anonymous session:', anonData.user.id);
-    }
-
-    // Get current user (anonymous or real)
-    const { data: { user: currentUser } } = await supabase.auth.getUser();
-
-    if (!currentUser) {
-      return {
-        success: false,
-        error: 'No authenticated session available'
-      };
-    }
-
     // Create temporary brand
     const tempBrandData = {
-      user_id: currentUser.id,
+      user_id: user.id,
       name: 'Onboarding Business',
       industry: 'onboarding',
       website: 'https://onboarding.temp',
@@ -90,7 +79,7 @@ export async function getOrCreateTempBrand(): Promise<TempBrandResult> {
 
     // Store in localStorage
     localStorage.setItem('temp_brand_id', newBrand.id);
-    localStorage.setItem('temp_brand_user_id', currentUser.id);
+    localStorage.setItem('temp_brand_user_id', user.id);
 
     console.log('[TempBrand] Created new temp brand:', newBrand.id);
 

@@ -36,6 +36,7 @@ import { comprehensiveProductScannerService } from '@/services/intelligence/comp
 import { dataCollectionService, type OnboardingDataPackage } from '@/services/onboarding-v5/data-collection.service';
 import { onboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
 import { saveCompleteUVP } from '@/services/database/marba-uvp.service';
+import { hasPendingUVP, migratePendingUVP } from '@/services/database/marba-uvp-migration.service';
 import { synthesizeCompleteUVP } from '@/services/uvp-extractors/uvp-synthesis.service';
 import { sessionManager } from '@/services/uvp/session-manager.service';
 import { useSessionAutoSave } from '@/hooks/useSessionAutoSave';
@@ -135,6 +136,29 @@ export const OnboardingPageV5: React.FC = () => {
     if (sessionId && currentBrand?.id) {
       restoreSession(sessionId);
     }
+  }, [currentBrand?.id]);
+
+  // Check for and migrate pending UVP data after authentication
+  React.useEffect(() => {
+    const checkPendingUVP = async () => {
+      if (!hasPendingUVP()) return;
+
+      // Check if user is authenticated
+      const { data: { user } } = await supabase.auth.getUser();
+
+      if (user && currentBrand?.id) {
+        console.log('[OnboardingPageV5] Migrating pending UVP data...');
+        const success = await migratePendingUVP(currentBrand.id);
+
+        if (success) {
+          console.log('[OnboardingPageV5] Successfully migrated UVP data');
+        } else {
+          console.error('[OnboardingPageV5] Failed to migrate UVP data');
+        }
+      }
+    };
+
+    checkPendingUVP();
   }, [currentBrand?.id]);
 
   // Restore session from ID
@@ -2614,21 +2638,39 @@ export const OnboardingPageV5: React.FC = () => {
                 return;
               }
 
+              // Check if user is authenticated first
+              const { data: { user } } = await supabase.auth.getUser();
+
+              // If no authenticated user, save to localStorage for onboarding
+              if (!user) {
+                console.log('[UVP Flow] No authenticated user, saving to localStorage');
+
+                const result = await saveCompleteUVP(uvpToDisplay, undefined);
+
+                if (result.success) {
+                  console.log('[UVP Flow] Successfully saved to localStorage, session:', result.sessionId);
+                  alert('Your UVP has been saved. It will be synced to your account when you sign up.');
+                  setCurrentStep('uvp_synthesis');
+                } else {
+                  console.error('[UVP Flow] Failed to save:', result.error);
+                  alert(`Failed to save UVP: ${result.error}`);
+                }
+                return;
+              }
+
               // Check if brand exists, create if needed
               let brandId = currentBrand?.id;
 
               if (!brandId || brandId.startsWith('brand-temp-')) {
                 console.warn('[UVP Flow] No valid brand found or using temp brand, creating in database...');
                 try {
-                  const { supabase } = await import('@/lib/supabase');
-
                   const { data: brandData, error: brandError } = await supabase
                     .from('brands')
                     .insert({
                       name: extractedBusinessName || 'My Business',
                       industry: currentBrand?.industry || 'General',
                       website: websiteUrl || '',
-                      user_id: (await supabase.auth.getUser()).data.user?.id
+                      user_id: user.id
                     })
                     .select()
                     .single();
