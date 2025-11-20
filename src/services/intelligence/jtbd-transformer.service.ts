@@ -210,7 +210,7 @@ PRIORITIZATION:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-3.5-sonnet',
+          model: 'anthropic/claude-opus-4-20250514', // Using Opus for highest quality transformations
           messages: [{
             role: 'user',
             content: prompt
