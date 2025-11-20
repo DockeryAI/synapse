@@ -16,6 +16,7 @@ import type { WebsiteData } from '@/services/scraping/websiteScraper';
 import { deepWebsiteScannerService } from '@/services/intelligence/deep-website-scanner.service';
 import { buyerIntelligenceExtractor } from '@/services/intelligence/buyer-intelligence-extractor.service';
 import { eqCalculator } from '@/services/ai/eq-calculator.service';
+import { jtbdTransformer } from '@/services/intelligence/jtbd-transformer.service';
 import type { ValueProposition } from '@/components/onboarding-v5/ValuePropositionPage';
 import type { CustomerTrigger, BuyerPersona } from '@/components/onboarding-v5/BuyerIntelligencePage';
 import type { CoreTruth, MessagingPillar } from '@/components/onboarding-v5/CoreTruthPage';
@@ -159,7 +160,24 @@ class DataCollectionService {
       });
 
       // Transform all data into UI component formats
-      const valuePropositions = this.transformToValuePropositions(scanResult, businessName, websiteData.url);
+      let valuePropositions = this.transformToValuePropositions(scanResult, businessName, websiteData.url);
+
+      // =========================================================================
+      // ✨ JTBD TRANSFORMATION: Convert feature props to outcome-focused
+      // =========================================================================
+      try {
+        console.log('[DataCollection] Applying JTBD transformation to value propositions...');
+        valuePropositions = await this.enrichValuePropositionsWithJTBD(
+          valuePropositions,
+          businessName,
+          industry
+        );
+        console.log('[DataCollection] JTBD transformation complete');
+      } catch (error) {
+        console.error('[DataCollection] JTBD transformation failed (non-critical):', error);
+        // Continue with untransformed props - graceful degradation
+      }
+
       const customerTriggers = this.transformToCustomerTriggers(buyerData, websiteData.url);
       const buyerPersonas = this.transformToBuyerPersonas(buyerData);
       const transformations = this.transformToTransformations(buyerData);
@@ -220,6 +238,7 @@ class DataCollectionService {
 
   /**
    * Transform deep scan results to value propositions
+   * NOW WITH JTBD TRANSFORMATION: Feature-focused → Outcome-focused
    */
   private transformToValuePropositions(
     scanResult: any,
@@ -252,18 +271,96 @@ class DataCollectionService {
       const proposition: ValueProposition = {
         id: `vp-${Date.now()}-${index}`,
         statement: `We help businesses ${service.description.toLowerCase()}`,
+        // outcomeStatement will be populated by enrichValuePropositionsWithJTBD() later
+        outcomeStatement: undefined,
         category: index === 0 ? 'core' : 'secondary',
         confidence,
         sources,
         marketPosition: service.pricing ? 'Premium specialist' : 'Value leader',
         differentiators: service.features.slice(0, 3),
-        validated: false
+        validated: false,
+        jtbdInsights: undefined
       };
 
       propositions.push(proposition);
     });
 
     return propositions;
+  }
+
+  /**
+   * Enrich value propositions with JTBD outcome-focused transformations
+   */
+  private async enrichValuePropositionsWithJTBD(
+    propositions: ValueProposition[],
+    businessName: string,
+    industry: string
+  ): Promise<ValueProposition[]> {
+    if (propositions.length === 0) {
+      return propositions;
+    }
+
+    try {
+      // Extract feature statements
+      const featureStatements = propositions.map(p => p.statement);
+
+      // Apply JTBD transformation
+      const transformed = await jtbdTransformer.transformValuePropositions(
+        featureStatements,
+        {
+          businessName,
+          industry,
+          // Pass additional context if available
+          targetAudience: [], // Could be enriched with data from buyerData
+          customerProblems: [],
+          solutions: featureStatements,
+          differentiators: propositions[0]?.differentiators || []
+        }
+      );
+
+      // Enrich propositions with outcome statements
+      const enriched = propositions.map((prop, index) => {
+        // Primary gets the primary transformation
+        if (index === 0 && transformed.primary) {
+          return {
+            ...prop,
+            outcomeStatement: transformed.primary.outcomeStatement,
+            jtbdInsights: {
+              functionalJob: transformed.primary.jtbd.functionalJob,
+              emotionalJob: transformed.primary.jtbd.emotionalJob,
+              painReliever: transformed.primary.value.painReliever,
+              gainCreator: transformed.primary.value.gainCreator
+            }
+          };
+        }
+
+        // Supporting props get supporting transformations
+        const supportingIndex = index - 1;
+        if (supportingIndex >= 0 && supportingIndex < transformed.supporting.length) {
+          const supporting = transformed.supporting[supportingIndex];
+          return {
+            ...prop,
+            outcomeStatement: supporting.outcomeStatement,
+            jtbdInsights: {
+              functionalJob: supporting.jtbd.functionalJob,
+              emotionalJob: supporting.jtbd.emotionalJob,
+              painReliever: supporting.value.painReliever,
+              gainCreator: supporting.value.gainCreator
+            }
+          };
+        }
+
+        // Fallback: no transformation available
+        return prop;
+      });
+
+      return enriched;
+
+    } catch (error) {
+      console.error('[DataCollection] JTBD enrichment failed:', error);
+      // Return original propositions if transformation fails
+      return propositions;
+    }
   }
 
   /**

@@ -26,7 +26,8 @@ import { Button } from '@/components/ui/button';
 
 export interface ValueProposition {
   id: string;
-  statement: string;
+  statement: string; // Original feature-focused statement
+  outcomeStatement?: string; // NEW: JTBD-transformed outcome-focused statement
   category: 'core' | 'secondary' | 'aspirational';
   confidence: ConfidenceScore;
   sources: DataSource[];
@@ -34,6 +35,14 @@ export interface ValueProposition {
   differentiators: string[]; // Key differentiators
   validated: boolean;
   userEdited?: boolean;
+
+  // NEW: JTBD framework data (optional, for deeper insights)
+  jtbdInsights?: {
+    functionalJob?: string;
+    emotionalJob?: string;
+    painReliever?: string;
+    gainCreator?: string;
+  };
 }
 
 interface ValuePropositionPageProps {
@@ -278,9 +287,38 @@ export function ValuePropositionPage({
                         </div>
                       </div>
                     ) : (
-                      <p className="text-lg font-medium text-gray-900 dark:text-white leading-relaxed">
-                        {prop.statement}
-                      </p>
+                      <div className="space-y-2">
+                        {/* PRIMARY: Outcome-focused statement (JTBD-transformed) */}
+                        <p className="text-lg font-medium text-gray-900 dark:text-white leading-relaxed">
+                          {prop.outcomeStatement || prop.statement}
+                        </p>
+
+                        {/* If outcome statement exists, show JTBD insights */}
+                        {prop.outcomeStatement && prop.jtbdInsights && (
+                          <div className="pl-4 border-l-2 border-purple-200 dark:border-purple-700 space-y-1">
+                            {prop.jtbdInsights.painReliever && (
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <span className="font-semibold text-red-600 dark:text-red-400">Eliminates:</span> {prop.jtbdInsights.painReliever}
+                              </p>
+                            )}
+                            {prop.jtbdInsights.gainCreator && (
+                              <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <span className="font-semibold text-green-600 dark:text-green-400">Enables:</span> {prop.jtbdInsights.gainCreator}
+                              </p>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Show original feature statement as secondary info (if transformed) */}
+                        {prop.outcomeStatement && prop.outcomeStatement !== prop.statement && (
+                          <details className="text-xs text-gray-500 dark:text-gray-500">
+                            <summary className="cursor-pointer hover:text-gray-700 dark:hover:text-gray-300">
+                              Original feature statement
+                            </summary>
+                            <p className="mt-1 pl-2 italic">{prop.statement}</p>
+                          </details>
+                        )}
+                      </div>
                     )}
                   </div>
 

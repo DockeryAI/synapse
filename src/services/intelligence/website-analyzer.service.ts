@@ -1,13 +1,24 @@
 /**
  * Website Analyzer Service
  * Uses Claude AI via OpenRouter to extract business messaging from website content
+ *
+ * NOW WITH JTBD TRANSFORMATION:
+ * - Extracts feature-focused value props from website
+ * - Transforms them into outcome-focused messaging using JTBD framework
  */
+
+import { jtbdTransformer, type TransformedValueProps } from './jtbd-transformer.service'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 export interface WebsiteMessagingAnalysis {
+  // Original feature-focused props
   valuePropositions: string[]
+
+  // NEW: Outcome-focused transformations
+  outcomeFocusedProps?: TransformedValueProps
+
   targetAudience: string[]
   customerProblems: string[]
   solutions: string[]
@@ -191,8 +202,40 @@ Return ONLY valid JSON (no markdown, no explanations):
       console.log('  - Differentiators:', analysis.differentiators?.length || 0)
       console.log('  - Confidence:', confidence + '%')
 
+      // =========================================================================
+      // ✨ JTBD TRANSFORMATION: Convert feature props to outcome-focused
+      // =========================================================================
+      let outcomeFocusedProps: TransformedValueProps | undefined
+
+      if (analysis.valuePropositions && analysis.valuePropositions.length > 0) {
+        try {
+          console.log('[WebsiteAnalyzer] Applying JTBD transformation to value props...')
+
+          outcomeFocusedProps = await jtbdTransformer.transformValuePropositions(
+            analysis.valuePropositions,
+            {
+              businessName,
+              targetAudience: analysis.targetAudience,
+              customerProblems: analysis.customerProblems,
+              solutions: analysis.solutions,
+              differentiators: analysis.differentiators
+            }
+          )
+
+          console.log('[WebsiteAnalyzer] JTBD transformation complete:')
+          console.log('  - Primary outcome:', outcomeFocusedProps.primary.outcomeStatement.substring(0, 80) + '...')
+          console.log('  - Supporting outcomes:', outcomeFocusedProps.supporting.length)
+          console.log('  - Transformation quality:', outcomeFocusedProps.transformationQuality.score)
+
+        } catch (error) {
+          console.error('[WebsiteAnalyzer] JTBD transformation failed (non-critical):', error)
+          // Continue without transformation - graceful degradation
+        }
+      }
+
       return {
         valuePropositions: analysis.valuePropositions || [],
+        outcomeFocusedProps,
         targetAudience: analysis.targetAudience || [],
         customerProblems: analysis.customerProblems || [],
         solutions: analysis.solutions || [],
@@ -206,6 +249,7 @@ Return ONLY valid JSON (no markdown, no explanations):
       // Return empty analysis on error (graceful fallback)
       return {
         valuePropositions: [],
+        outcomeFocusedProps: undefined,
         targetAudience: [],
         customerProblems: [],
         solutions: [],
