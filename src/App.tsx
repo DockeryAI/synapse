@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BrandProvider } from './contexts/BrandContext'
 import { LoadingSpinner } from './components/ui/LoadingSpinner'
+import { AppLayout } from './components/layout/AppLayout'
 
 // Lazy-loaded pages for code splitting
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
@@ -38,28 +39,32 @@ function App() {
               {/* <Route path="/login" element={<LoginPage />} /> */}
               {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
-              {/* Public Routes (temporarily - will be protected in Phase 0) */}
-              {/* Week 7: New onboarding flow as default */}
+              {/* Routes with sidebar navigation */}
+              <Route element={<AppLayout />}>
+                {/* Dashboard / Command Center */}
+                <Route path="/dashboard" element={<DashboardPage />} />
+
+                {/* Session Management */}
+                <Route path="/sessions" element={<SessionManagerPage />} />
+
+                {/* Synapse Content Generation */}
+                <Route path="/synapse" element={<SynapsePage />} />
+                <Route path="/synapse-old" element={<SynapsePage />} />
+                <Route path="/campaign/new" element={<CampaignPage />} />
+                <Route path="/content-calendar" element={<ContentCalendarPage />} />
+
+                {/* Admin Routes - Commented out until authentication is enabled */}
+                {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
+                {/* <Route path="/admin/user/:userId" element={<ProtectedRoute adminOnly><UserSessionViewer /></ProtectedRoute>} /> */}
+              </Route>
+
+              {/* Routes without sidebar (onboarding flow) */}
               <Route path="/" element={<OnboardingPageV5 />} />
               <Route path="/onboarding" element={<OnboardingPageV5 />} />
               <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
 
-              {/* Session Management */}
-              <Route path="/sessions" element={<SessionManagerPage />} />
-
-              {/* Dashboard / Command Center */}
-              <Route path="/dashboard" element={<DashboardPage />} />
-
-              {/* Legacy routes */}
-              <Route path="/synapse" element={<SynapsePage />} />
-              <Route path="/synapse-old" element={<SynapsePage />} />
-              <Route path="/campaign/new" element={<CampaignPage />} />
-              <Route path="/content-calendar" element={<ContentCalendarPage />} />
+              {/* OAuth callbacks */}
               <Route path="/auth/socialpilot/callback" element={<SocialPilotCallback />} />
-
-              {/* Admin Routes - Commented out until authentication is enabled */}
-              {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
-              {/* <Route path="/admin/user/:userId" element={<ProtectedRoute adminOnly><UserSessionViewer /></ProtectedRoute>} /> */}
             </Routes>
           </main>
         </Suspense>

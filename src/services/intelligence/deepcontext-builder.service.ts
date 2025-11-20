@@ -31,6 +31,7 @@ import { websiteAnalyzer } from './website-analyzer.service';
 import { redditAPI } from './reddit-api';
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { intelligenceCache } from './intelligence-cache.service';
+import { insightSynthesis } from './insight-synthesis.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type {
   DataPoint,
@@ -1401,34 +1402,14 @@ class DeepContextBuilderService {
   }
 
   /**
-   * Synthesize insights using AI (placeholder for now)
+   * Synthesize insights using AI
    */
   private async synthesizeInsights(
     deepContext: DeepContext,
     dataPoints: DataPoint[]
   ): Promise<void> {
-    // Extract key insights from data points
-    const customerTriggers = dataPoints.filter(dp => dp.type === 'customer_trigger');
-    const trendingTopics = dataPoints.filter(dp => dp.type === 'trending_topic');
-    const timingSignals = dataPoints.filter(dp => dp.type === 'timing');
-
-    // Basic synthesis (can be enhanced with OpenAI later)
-    deepContext.synthesis.keyInsights = [
-      `Found ${customerTriggers.length} customer psychological triggers`,
-      `Identified ${trendingTopics.length} trending topics`,
-      `Detected ${timingSignals.length} timing-based opportunities`,
-      `Total data points: ${dataPoints.length} from ${deepContext.metadata.dataSourcesUsed.length} sources`
-    ];
-
-    deepContext.synthesis.opportunityScore = Math.min(
-      100,
-      50 + (dataPoints.length * 2)
-    );
-
-    deepContext.synthesis.confidenceLevel = Math.min(
-      1,
-      0.5 + (dataPoints.length / 100)
-    );
+    // Use AI-powered synthesis service to extract specific, actionable insights
+    await insightSynthesis.synthesizeAllInsights(deepContext, dataPoints);
   }
 
   /**

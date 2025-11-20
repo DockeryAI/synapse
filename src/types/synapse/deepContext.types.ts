@@ -70,7 +70,11 @@ export interface IndustryTrend {
   strength: number; // 0-1
   timeframe: string;
   impact: 'high' | 'medium' | 'low';
-  sources: string[];
+  source?: string; // Platform name (e.g., "Google Reviews", "YouTube")
+  sources?: string[]; // Deprecated: use source and evidence instead
+  evidence?: string | string[]; // Actual quotes or data points
+  timestamp?: string; // When this was observed
+  sampleSize?: number; // How many data points support this
 }
 
 export interface SeasonalPattern {
@@ -118,19 +122,31 @@ export interface CompetitorBlindSpot {
   topic: string;
 
   /** Customer interest level (0-1) */
-  customerInterest: number;
+  customerInterest?: number;
 
   /** How often customers ask about this */
-  frequency: number;
+  frequency?: number;
 
   /** Opportunity score (0-100) */
-  opportunityScore: number;
+  opportunityScore?: number;
 
   /** Why this is a blind spot */
-  reasoning: string;
+  reasoning?: string;
 
   /** Evidence from customer data */
-  evidence: string[];
+  evidence?: string | string[];
+
+  /** Actionable insight */
+  actionableInsight?: string;
+
+  /** Platform source (e.g., "Google Reviews", "YouTube") */
+  source?: string;
+
+  /** When this was observed */
+  timestamp?: string;
+
+  /** Sample size supporting this insight */
+  sampleSize?: number;
 }
 
 export interface CompetitorMistake {
@@ -155,16 +171,31 @@ export interface MarketGap {
   gap: string;
 
   /** Market size/potential */
-  marketSize: 'large' | 'medium' | 'small';
+  marketSize?: 'large' | 'medium' | 'small';
 
   /** How defensible this position is */
-  defensibility: 'high' | 'medium' | 'low';
+  defensibility?: 'high' | 'medium' | 'low';
 
   /** Difficulty to execute */
-  difficulty: 'easy' | 'medium' | 'hard';
+  difficulty?: 'easy' | 'medium' | 'hard';
 
   /** Recommended positioning */
-  positioning: string;
+  positioning?: string;
+
+  /** Evidence from customer data */
+  evidence?: string | string[];
+
+  /** Platform source (e.g., "Google Reviews", "YouTube") */
+  source?: string;
+
+  /** When this was observed */
+  timestamp?: string;
+
+  /** Sample size supporting this insight */
+  sampleSize?: number;
+
+  /** Confidence in this insight (0-1) */
+  confidence?: number;
 }
 
 export interface ContentOpportunity {
@@ -213,13 +244,25 @@ export interface UnarticuatedNeed {
   confidence: number;
 
   /** Evidence supporting this */
-  evidence: string[];
+  evidence: string | string[];
 
   /** How to address this need */
-  approach: string;
+  approach?: string;
+
+  /** Marketing angle */
+  marketingAngle?: string;
 
   /** Emotional driver behind this */
-  emotionalDriver: string;
+  emotionalDriver?: string;
+
+  /** Platform source (e.g., "Google Reviews", "YouTube") */
+  source?: string;
+
+  /** When this was observed */
+  timestamp?: string;
+
+  /** Sample size supporting this insight */
+  sampleSize?: number;
 }
 
 export interface EmotionalTrigger {

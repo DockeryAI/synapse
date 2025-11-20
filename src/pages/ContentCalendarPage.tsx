@@ -4,8 +4,8 @@
  */
 
 import * as React from 'react'
-import { AppLayout } from '@/components/layout/AppLayout'
 import { ContentCalendarHub } from '@/components/content-calendar/ContentCalendarHub'
+import { FloatingActionButtons } from '@/components/shared/FloatingActionButtons'
 import type { ContentPillar } from '@/types/content-calendar.types'
 
 export const ContentCalendarPage: React.FC = () => {
@@ -43,21 +43,22 @@ export const ContentCalendarPage: React.FC = () => {
   ]
 
   return (
-    <AppLayout showBreadcrumbs={true}>
-      <div className="space-y-6">
-        <div>
-          <h1 className="text-3xl font-bold mb-2">Content Calendar</h1>
-          <p className="text-muted-foreground">
-            Plan, create, schedule, and publish your content across all platforms
-          </p>
-        </div>
-
-        <ContentCalendarHub
-          brandId={brandId}
-          userId={userId}
-          pillars={pillars}
-        />
+    <div className="p-8 space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold mb-2">Content Calendar</h1>
+        <p className="text-muted-foreground">
+          Plan, create, schedule, and publish your content across all platforms
+        </p>
       </div>
-    </AppLayout>
+
+      <ContentCalendarHub
+        brandId={brandId}
+        userId={userId}
+        pillars={pillars}
+      />
+
+      {/* Floating Action Buttons */}
+      <FloatingActionButtons />
+    </div>
   )
 }

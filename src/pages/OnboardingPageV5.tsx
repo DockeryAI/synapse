@@ -498,57 +498,35 @@ export const OnboardingPageV5: React.FC = () => {
       setScrapedWebsiteContent(websiteContent);
       setScrapedWebsiteUrls(websiteUrls);
 
-      // Create brand in database for UVP saving
-      // This ensures we have a brand ID available when the user saves
+      // Create REAL brand in database - no temp brand bullshit
+      // Every onboarding creates a real brand so intelligence system can run
       if (!currentBrand) {
-        try {
-          console.log('[OnboardingPageV5] Creating brand in database...');
-          const { supabase } = await import('@/lib/supabase');
+        console.log('[OnboardingPageV5] Creating REAL brand in database...');
+        const { supabase } = await import('@/lib/supabase');
 
-          const { data: brandData, error: brandError } = await supabase
-            .from('brands')
-            .insert({
-              name: businessName,
-              industry: industry.displayName,
-              website: url,
-              user_id: (await supabase.auth.getUser()).data.user?.id,
-              emotional_quotient: null, // Will be set after EQ calculation
-              eq_calculated_at: null,
-            })
-            .select()
-            .single();
+        // Get user if authenticated, null if not (user_id is nullable)
+        const { data: { user } } = await supabase.auth.getUser();
 
-          if (brandError) {
-            console.error('[OnboardingPageV5] Failed to create brand in database:', brandError);
-            // Fallback to temporary brand
-            const tempBrand = {
-              id: `brand-temp-${Date.now()}`,
-              name: businessName,
-              industry: industry.displayName,
-              website: url,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString()
-            };
-            setCurrentBrand(tempBrand);
-            console.log('[OnboardingPageV5] Using temporary brand fallback:', tempBrand.id);
-          } else {
-            setCurrentBrand(brandData);
-            console.log('[OnboardingPageV5] Brand created in database:', brandData.id);
-          }
-        } catch (err) {
-          console.error('[OnboardingPageV5] Error creating brand:', err);
-          // Fallback to temporary brand
-          const tempBrand = {
-            id: `brand-temp-${Date.now()}`,
+        const { data: brandData, error: brandError } = await supabase
+          .from('brands')
+          .insert({
             name: businessName,
             industry: industry.displayName,
             website: url,
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString()
-          };
-          setCurrentBrand(tempBrand);
-          console.log('[OnboardingPageV5] Using temporary brand after error:', tempBrand.id);
+            user_id: user?.id || null, // Nullable - allows unauthenticated onboarding
+            emotional_quotient: null, // Will be set after EQ calculation
+            eq_calculated_at: null,
+          })
+          .select()
+          .single();
+
+        if (brandError) {
+          console.error('[OnboardingPageV5] FAILED to create brand in database:', brandError);
+          throw new Error(`Brand creation failed: ${brandError.message}. Cannot continue without real brand.`);
         }
+
+        setCurrentBrand(brandData);
+        console.log('[OnboardingPageV5] ✅ REAL brand created in database:', brandData.id);
       }
 
       // Extract products/services from website content using comprehensive scanner
@@ -2671,8 +2649,8 @@ export const OnboardingPageV5: React.FC = () => {
               // Check if brand exists, create if needed
               let brandId = currentBrand?.id;
 
-              if (!brandId || brandId.startsWith('brand-temp-')) {
-                console.warn('[UVP Flow] No valid brand found or using temp brand, creating in database...');
+              if (!brandId) {
+                console.warn('[UVP Flow] No brand found, creating in database...');
                 try {
                   const { data: brandData, error: brandError } = await supabase
                     .from('brands')

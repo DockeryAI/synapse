@@ -481,36 +481,44 @@ export class OnDemandProfileGenerator {
 
   /**
    * Save generated profile to Supabase
-   * Database schema: { naics_code, title, description, profile_data (JSONB), avoid_words, generated_on_demand, generated_at }
+   * Database schema: { id (TEXT PK), name, naics_code, profile_data (JSONB), is_active, business_count, template_count, created_at, updated_at }
    */
   private static async saveProfile(profile: any, naicsCode: string): Promise<void> {
     console.log('[OnDemand] Attempting to save profile for NAICS:', naicsCode);
     console.log('[OnDemand] Profile keys:', Object.keys(profile));
 
-    // Extract avoid_words (separate column) and prepare data for JSONB schema
-    const { avoid_words, industry, ...profileData} = profile;
+    // Generate a unique ID for this profile (lowercase, hyphenated)
+    const industryName = profile.industry || profile.industry_name || 'Industry Profile';
+    const profileId = industryName.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
 
+    // Prepare record matching actual schema (20251113000040_add_templates_and_synapse.sql)
     const record = {
-      naics_code: naicsCode,
-      title: industry || profile.industry_name || 'Industry Profile',
-      description: profile.transformation_approach || null,
-      profile_data: profileData, // All other fields go into JSONB
-      avoid_words: avoid_words || null,
-      generated_on_demand: true,
-      generated_at: new Date().toISOString()
+      id: profileId, // TEXT PRIMARY KEY - REQUIRED
+      name: industryName, // TEXT NOT NULL - REQUIRED
+      naics_code: naicsCode, // TEXT
+      profile_data: profile, // JSONB - Store entire profile
+      is_active: true, // BOOLEAN - Required for RLS policy
+      business_count: 0,
+      template_count: 0
     };
 
     console.log('[OnDemand] Formatted record for database:', {
+      id: record.id,
+      name: record.name,
       naics_code: record.naics_code,
-      title: record.title,
       has_profile_data: !!record.profile_data,
-      profile_data_keys: Object.keys(record.profile_data || {}).length
+      profile_data_keys: Object.keys(record.profile_data || {}).length,
+      is_active: record.is_active
     });
 
-    // Save profile
+    // Save profile with upsert (in case it already exists)
     const { data, error } = await supabase
       .from('industry_profiles')
-      .upsert(record)
+      .upsert(record, {
+        onConflict: 'id' // Use id as conflict resolution key
+      })
       .select();
 
     if (error) {
@@ -523,10 +531,10 @@ export class OnDemandProfileGenerator {
       throw error;
     }
 
-    console.log('[OnDemand] ✅ Profile saved successfully');
+    console.log('[OnDemand] ✅ Profile saved successfully with id:', profileId);
 
     // ALSO update naics_codes table with keywords for fuzzy matching
-    await this.updateNAICSKeywords(naicsCode, record.title, profile);
+    await this.updateNAICSKeywords(naicsCode, industryName, profile);
   }
 
   /**
@@ -581,15 +589,18 @@ export class OnDemandProfileGenerator {
 
   /**
    * Check if profile exists in cache
-   * Database schema: { naics_code, title, description, profile_data (JSONB), avoid_words, generated_on_demand, generated_at }
+   * Database schema: { id, name, naics_code, profile_data (JSONB), is_active, business_count, template_count, created_at, updated_at }
    */
   static async checkCachedProfile(naicsCode: string): Promise<any | null> {
     try {
+      console.log(`[OnDemand] Checking database for NAICS ${naicsCode}...`);
+
       const { data, error } = await supabase
         .from('industry_profiles')
         .select('*')
         .eq('naics_code', naicsCode)
-        .single();
+        .eq('is_active', true) // Explicitly filter by is_active to match RLS policy
+        .maybeSingle(); // Use maybeSingle() instead of single() to avoid error when not found
 
       if (error) {
         // Log RLS/permission errors but don't treat as fatal
@@ -603,21 +614,22 @@ export class OnDemandProfileGenerator {
       }
 
       if (!data) {
+        console.log(`[OnDemand] No cached profile found for NAICS ${naicsCode}`);
         return null;
       }
 
-      console.log(`[OnDemand] ✅ Found cached profile for NAICS ${naicsCode}`);
+      console.log(`[OnDemand] ✅ Found cached profile for NAICS ${naicsCode} (id: ${data.id}, name: ${data.name})`);
 
-      // Merge profile_data JSONB back into a flat object for compatibility
-      const { profile_data, title, avoid_words, ...metadata } = data;
-      const mergedProfile = {
-        ...profile_data,
-        industry: title,
-        avoid_words,
-        ...metadata
-      };
+      // Return the profile_data JSONB object (contains the full generated profile)
+      const profile = data.profile_data;
 
-      return mergedProfile;
+      // Ensure it has the expected structure
+      if (!profile || typeof profile !== 'object') {
+        console.warn(`[OnDemand] Profile data is invalid for NAICS ${naicsCode}, will regenerate`);
+        return null;
+      }
+
+      return profile;
     } catch (error) {
       console.error(`[OnDemand] Exception checking cached profile:`, error);
       return null;

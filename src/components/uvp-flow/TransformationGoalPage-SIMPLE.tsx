@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Zap, CheckCircle2, AlertCircle } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Zap, CheckCircle2, AlertCircle, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
@@ -79,6 +79,8 @@ export function TransformationGoalPage({
   // Start as loading if we don't have data yet
   const [isLoading, setIsLoading] = useState(!preloadedData || (preloadedData as any).loading === true);
   const hasLoadedPreloadedData = useRef(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newTransformationStatement, setNewTransformationStatement] = useState('');
 
   // Load preloaded data - ONLY use preloaded data, never auto-generate
   useEffect(() => {
@@ -158,6 +160,40 @@ export function TransformationGoalPage({
     });
   };
 
+  const handleAddManualTransformation = () => {
+    if (!newTransformationStatement.trim()) return;
+
+    // Create new transformation goal
+    const newGoal: TransformationGoal = {
+      id: `manual-${Date.now()}`,
+      statement: newTransformationStatement.trim(),
+      emotionalDrivers: [],
+      functionalDrivers: [],
+      confidence: { overall: 100, dataQuality: 100, sourceCount: 1, modelAgreement: 100 },
+      sources: [{
+        id: `source-${Date.now()}`,
+        type: 'manual-input' as const,
+        name: 'Manual Input',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 100,
+        dataPoints: 1
+      }],
+      customerQuotes: [],
+      isManualInput: true
+    };
+
+    // Add to goals list
+    setGoals(prev => [newGoal, ...prev]);
+
+    // Auto-select it
+    setSelectedGoals(prev => [newGoal, ...prev]);
+
+    // Reset form
+    setNewTransformationStatement('');
+    setShowAddForm(false);
+  };
+
   const handleContinue = () => {
     // Ensure parent has latest selections before proceeding
     if (onGoalsSelected) {
@@ -231,6 +267,16 @@ export function TransformationGoalPage({
               )}
 
               <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAddForm(true)}
+                className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 whitespace-nowrap"
+              >
+                <Plus className="w-4 h-4" />
+                <span className="font-medium">Add Manually</span>
+              </Button>
+
+              <Button
                 onClick={handleContinue}
                 disabled={!canProceed}
                 className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
@@ -251,6 +297,74 @@ export function TransformationGoalPage({
           </div>
         </motion.div>
       )}
+
+      {/* Manual Add Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-500 dark:border-purple-400 p-6 shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Add Transformation Goal
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Transformation Statement
+                </label>
+                <textarea
+                  value={newTransformationStatement}
+                  onChange={(e) => setNewTransformationStatement(e.target.value)}
+                  placeholder="e.g., From financial stress and uncertainty to peace of mind with a clear financial plan"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none"
+                  rows={3}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.metaKey) {
+                      handleAddManualTransformation();
+                    }
+                  }}
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Press ⌘+Enter to add
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleAddManualTransformation}
+                  disabled={!newTransformationStatement.trim()}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Transformation
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewTransformationStatement('');
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Loading State */}
       {isLoading && (

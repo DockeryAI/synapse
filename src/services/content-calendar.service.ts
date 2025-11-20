@@ -148,6 +148,11 @@ export class ContentCalendarService {
 
     if (error) {
       console.error('Failed to fetch content items:', error);
+      // Return empty array if table doesn't exist
+      if (error.code === 'PGRST205') {
+        console.warn('content_calendar_items table does not exist yet. Returning empty array.');
+        return [];
+      }
       throw error;
     }
 
@@ -166,6 +171,10 @@ export class ContentCalendarService {
 
     if (error) {
       if (error.code === 'PGRST116') return null; // Not found
+      if (error.code === 'PGRST205') {
+        console.warn('content_calendar_items table does not exist yet.');
+        return null;
+      }
       console.error('Failed to get content item:', error);
       throw error;
     }
@@ -202,6 +211,10 @@ export class ContentCalendarService {
 
     if (error) {
       console.error('[ContentCalendarService] Failed to create content item:', error);
+      if (error.code === 'PGRST205') {
+        console.warn('content_calendar_items table does not exist yet. Cannot create item.');
+        throw new Error('Calendar feature is not yet available. Please try again later.');
+      }
       throw error;
     }
 

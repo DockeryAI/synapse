@@ -34,6 +34,7 @@ import { ProvenanceViewer } from '@/components/synapse/ProvenanceViewer';
 import { EdginessSlider } from '@/components/synapse/EdginessSlider';
 import { ContentEnhancements } from '@/components/synapse/ContentEnhancements';
 import { HumorOptimizer } from '@/services/synapse/generation/HumorOptimizer';
+import { FloatingActionButtons } from '@/components/shared/FloatingActionButtons';
 import type { SynapseInsight } from '@/types/synapse.types';
 import type { SynapseContent, HumorEnhancementResult, EdginessLevel, Platform, ContentGoal } from '@/types/synapseContent.types';
 

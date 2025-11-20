@@ -43,7 +43,7 @@ import { ErrorHandlerService, logError } from '../errors/error-handler.service'
 export async function generateSmartPicks(
   context: DeepContext,
   campaignType?: CampaignType,
-  options: SmartPickGenerationOptions = {}
+  options: SmartPickGenerationOptions & { cachedSynapses?: SynapseInsight[] } = {}
 ): Promise<SmartPickGenerationResult> {
   const startTime = Date.now()
 
@@ -54,12 +54,13 @@ export async function generateSmartPicks(
     maxPicks = 5,
     minConfidence = 0.6,
     preferTimely = true,
-    includePreview = true
+    includePreview = true,
+    cachedSynapses
   } = options
 
   try {
     // Step 1: Generate or use existing Synapse insights
-    const insights = await getOrGenerateInsights(context)
+    const insights = await getOrGenerateInsights(context, cachedSynapses)
 
     console.log(`[SmartPickGenerator] Found ${insights.length} total insights`)
 
@@ -71,16 +72,25 @@ export async function generateSmartPicks(
     // Step 3: Generate candidates for each campaign type
     const candidates: SmartPick[] = []
 
-    if (!campaignType || campaignType === 'authority-builder') {
+    // Handle multi-post and single-post campaign types
+    if (campaignType === 'multi-post' || campaignType === 'single-post') {
+      // For multi-post and single-post, generate all types
       candidates.push(...await generateAuthorityBuilderPicks(context, qualityInsights, includePreview))
-    }
-
-    if (!campaignType || campaignType === 'social-proof') {
       candidates.push(...await generateSocialProofPicks(context, qualityInsights, includePreview))
-    }
-
-    if (!campaignType || campaignType === 'local-pulse') {
       candidates.push(...await generateLocalPulsePicks(context, qualityInsights, includePreview))
+    } else {
+      // Handle specific campaign types
+      if (!campaignType || campaignType === 'authority-builder') {
+        candidates.push(...await generateAuthorityBuilderPicks(context, qualityInsights, includePreview))
+      }
+
+      if (!campaignType || campaignType === 'social-proof') {
+        candidates.push(...await generateSocialProofPicks(context, qualityInsights, includePreview))
+      }
+
+      if (!campaignType || campaignType === 'local-pulse') {
+        candidates.push(...await generateLocalPulsePicks(context, qualityInsights, includePreview))
+      }
     }
 
     console.log(`[SmartPickGenerator] Generated ${candidates.length} candidate picks`)
@@ -140,7 +150,13 @@ export async function generateSmartPicks(
 // INSIGHT GENERATION
 // ============================================================================
 
-async function getOrGenerateInsights(context: DeepContext): Promise<SynapseInsight[]> {
+async function getOrGenerateInsights(context: DeepContext, cachedSynapses?: SynapseInsight[]): Promise<SynapseInsight[]> {
+  // Use cached synapses if provided
+  if (cachedSynapses && cachedSynapses.length > 0) {
+    console.log('[SmartPickGenerator] Using cached Synapse insights:', cachedSynapses.length, 'insights')
+    return cachedSynapses
+  }
+
   // Generate new insights using Synapse Generator
   console.log('[SmartPickGenerator] Generating new insights...')
 
@@ -226,11 +242,13 @@ async function generateSocialProofPicks(
 ): Promise<SmartPick[]> {
   // Look for insights related to customer psychology or social validation
   const socialInsights = insights.filter(insight =>
+    insight.type === 'counter_intuitive' ||  // Accept Synapse insights
     insight.type === 'deep_psychology' ||
     insight.type === 'cultural_moment' ||
     (insight.insight.toLowerCase().includes('customer') ||
      insight.insight.toLowerCase().includes('review') ||
-     insight.insight.toLowerCase().includes('testimonial'))
+     insight.insight.toLowerCase().includes('testimonial') ||
+     insight.whyProfound)  // Any profound insight can work for social proof
   )
 
   const picks: SmartPick[] = []
@@ -281,19 +299,22 @@ async function generateLocalPulsePicks(
   const hasWeather = context.realTimeCultural?.currentContext?.some(c => c.source === 'weather')
   const hasLocalNews = context.realTimeCultural?.currentContext?.some(c => c.source === 'local_news')
 
-  if (!hasLocation) {
-    console.log('[SmartPickGenerator] No location data for local pulse picks')
-    return []
-  }
-
-  // Look for time-sensitive, location-relevant insights
+  // Look for time-sensitive insights (work even without specific location)
   const localInsights = insights.filter(insight =>
+    insight.type === 'counter_intuitive' ||  // Accept Synapse insights
     insight.whyNow.toLowerCase().includes('now') ||
     insight.whyNow.toLowerCase().includes('today') ||
     insight.whyNow.toLowerCase().includes('week') ||
+    insight.whyNow.toLowerCase().includes('current') ||  // Current trends/events
     (hasWeather && insight.insight.toLowerCase().includes('weather')) ||
     (hasLocalNews && insight.type === 'cultural_moment')
   )
+
+  // If no location but we have time-sensitive insights, still use them
+  if (!hasLocation && localInsights.length === 0) {
+    console.log('[SmartPickGenerator] No location data and no time-sensitive insights for local pulse')
+    return []
+  }
 
   const picks: SmartPick[] = []
 
@@ -316,7 +337,7 @@ async function generateLocalPulsePicks(
       evidenceQuality: calculateEvidenceQuality(insight),
       overallScore: 0,
       dataSources: extractDataSources(context, insight),
-      reasoning: `Time-sensitive local content for ${context.business.profile.location.city}. Best posted within 48 hours.`,
+      reasoning: `Time-sensitive content${context.business.profile.location.city ? ` for ${context.business.profile.location.city}` : ''}. Best posted within 48 hours.`,
       expectedPerformance: {
         engagement: 'high',
         reach: 'medium',

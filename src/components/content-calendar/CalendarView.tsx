@@ -346,21 +346,59 @@ export function CalendarView({ brandId, onEventClick, onEventDrop }: CalendarVie
           background-color: rgba(0, 0, 0, 0.05);
         }
         .fc .fc-button {
-          background-color: hsl(var(--primary));
-          border-color: hsl(var(--primary));
+          background-color: #7c3aed;
+          border-color: #7c3aed;
         }
         .fc .fc-button:hover {
-          background-color: hsl(var(--primary) / 0.9);
+          background-color: #6d28d9;
         }
         .fc .fc-button:disabled {
           opacity: 0.5;
         }
         .fc-theme-standard td,
         .fc-theme-standard th {
-          border-color: hsl(var(--border));
+          border-color: #e5e7eb;
         }
         .fc-theme-standard .fc-scrollgrid {
-          border-color: hsl(var(--border));
+          border-color: #e5e7eb;
+        }
+        /* Fix visibility of calendar cells */
+        .fc-daygrid-day {
+          background-color: white;
+          min-height: 80px;
+        }
+        .fc-daygrid-day-frame {
+          padding: 4px;
+        }
+        .fc-col-header-cell {
+          background-color: #f3f4f6;
+          font-weight: 600;
+        }
+        .fc-day-today {
+          background-color: #fef3c7 !important;
+        }
+        .fc-daygrid-day-number {
+          color: #374151;
+          font-weight: 500;
+        }
+        /* Dark mode support */
+        @media (prefers-color-scheme: dark) {
+          .fc-daygrid-day {
+            background-color: #1f2937;
+          }
+          .fc-col-header-cell {
+            background-color: #111827;
+          }
+          .fc-day-today {
+            background-color: #312e81 !important;
+          }
+          .fc-daygrid-day-number {
+            color: #e5e7eb;
+          }
+          .fc-theme-standard td,
+          .fc-theme-standard th {
+            border-color: #374151;
+          }
         }
       `}</style>
     </Card>
