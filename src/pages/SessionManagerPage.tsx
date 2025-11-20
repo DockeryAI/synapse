@@ -119,7 +119,7 @@ export function SessionManagerPage() {
       transformation: 'Transformation Goal',
       solution: 'Unique Solution',
       benefit: 'Key Benefit',
-      synthesis: 'UVP Synthesis',
+      synthesis: 'Complete Story',
     };
     return labels[step] || step;
   };

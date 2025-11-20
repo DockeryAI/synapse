@@ -354,65 +354,154 @@ function calculateConfidence(benefits: KeyBenefit[], contentSections: number): C
 function createFallbackBenefits(industry: string): BenefitExtractionResult {
   console.log('[BenefitExtractor] Creating industry-based fallback benefits');
 
-  // Generic outcome-focused benefits by industry type
-  const fallbackBenefits: KeyBenefit[] = [
-    {
-      id: 'benefit-functional-1',
-      statement: `Achieve measurable results in your ${industry} operations`,
-      outcomeType: 'quantifiable',
-      metrics: [],
-      eqFraming: 'rational',
-      confidence: {
-        overall: 60,
-        dataQuality: 50,
-        sourceCount: 1,
-        modelAgreement: 60
+  // Industry-aware fallback benefits
+  const isBakery = industry?.toLowerCase().includes('bakery') ||
+                   industry?.toLowerCase().includes('cafe') ||
+                   industry?.toLowerCase().includes('food') ||
+                   industry?.toLowerCase().includes('restaurant');
+
+  const isFinancial = industry?.toLowerCase().includes('financial') ||
+                      industry?.toLowerCase().includes('advisor') ||
+                      industry?.toLowerCase().includes('wealth');
+
+  let fallbackBenefits: KeyBenefit[];
+
+  if (isBakery) {
+    fallbackBenefits = [
+      {
+        id: 'benefit-functional-1',
+        statement: 'Enjoy fresh, high-quality baked goods made daily with premium ingredients',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'rational',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
       },
-      sources: [{
-        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        type: 'api',
-        name: 'Industry Data',
-        url: '',
-        extractedAt: new Date(),
-        reliability: 60,
-        dataPoints: 1
-      }],
-      isManualInput: false
-    },
-    {
-      id: 'benefit-emotional-1',
-      statement: `Gain peace of mind knowing your ${industry} needs are handled`,
-      outcomeType: 'qualitative',
-      metrics: [],
-      eqFraming: 'emotional',
-      confidence: {
-        overall: 60,
-        dataQuality: 50,
-        sourceCount: 1,
-        modelAgreement: 60
+      {
+        id: 'benefit-emotional-1',
+        statement: 'Experience the comfort and nostalgia of authentic, handcrafted baking',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'emotional',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      }
+    ];
+  } else if (isFinancial) {
+    fallbackBenefits = [
+      {
+        id: 'benefit-functional-1',
+        statement: 'Achieve your financial goals with personalized planning and guidance',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'rational',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
       },
-      sources: [{
-        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        type: 'api',
-        name: 'Industry Data',
-        url: '',
-        extractedAt: new Date(),
-        reliability: 60,
-        dataPoints: 1
-      }],
-      isManualInput: false
-    }
-  ];
+      {
+        id: 'benefit-emotional-1',
+        statement: 'Gain confidence and peace of mind about your financial future',
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'emotional',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      }
+    ];
+  } else {
+    // Generic fallbacks for other industries
+    fallbackBenefits = [
+      {
+        id: 'benefit-functional-1',
+        statement: `Get high-quality ${industry || 'services'} that meet your specific needs`,
+        outcomeType: 'qualitative',
+        metrics: [],
+        eqFraming: 'rational',
+        confidence: {
+          overall: 50,
+          dataQuality: 40,
+          sourceCount: 1,
+          modelAgreement: 50
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website',
+          name: 'Generated Fallback',
+          url: '',
+          extractedAt: new Date(),
+          reliability: 50,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      }
+    ];
+  }
 
   return {
     benefits: fallbackBenefits,
     metrics: [],
     confidence: {
-      overall: 60,
-      dataQuality: 50,
-      sourceCount: 0,
-      modelAgreement: 60,
-      reasoning: 'Using industry-based fallback benefits'
+      overall: 50,
+      dataQuality: 40,
+      sourceCount: 1,
+      modelAgreement: 50,
+      reasoning: `Generated industry-aware fallback benefits for ${industry || 'business'} (website content may need more detail)`
     },
     sources: fallbackBenefits.flatMap(b => b.sources || [])
   };

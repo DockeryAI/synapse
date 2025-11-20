@@ -102,7 +102,7 @@ export async function extractDifferentiators(
     }
 
     // Transform raw extraction into typed result
-    const result = transformToResult(rawExtraction, websiteUrls, businessName, location);
+    const result = transformToResult(rawExtraction, websiteUrls, businessName, location, industry);
 
     console.log('[DifferentiatorExtractor] Extraction complete:');
     console.log(`  - Differentiators found: ${result.differentiators.length}`);
@@ -344,7 +344,8 @@ function transformToResult(
   raw: RawDifferentiatorExtraction,
   websiteUrls: string[],
   businessName?: string,
-  location?: string
+  location?: string,
+  industry?: string
 ): DifferentiatorExtractionResult {
   // Transform differentiators
   let differentiators: Differentiator[] = raw.differentiators.map((diff, index) => {
@@ -378,27 +379,49 @@ function transformToResult(
 
   // Generate fallback if no quality differentiators found
   if (!hasQualityDifferentiators || hasOnlyGeneric || differentiators.length === 0) {
-    console.log('[DifferentiatorExtractor] No quality differentiators found, generating fallback');
+    console.log('[DifferentiatorExtractor] No quality differentiators found, generating industry-aware fallback');
 
-    // Create belief-based fallback
-    const fallbackStatement = location
-      ? `We believe ${location} professionals deserve fiduciary guidance that puts their life goals ahead of financial products`
-      : `We believe clients deserve transparent, fiduciary advice that starts with their dreams, not our products`;
+    // Create industry-aware fallback statement
+    const isBakery = industry?.toLowerCase().includes('bakery') ||
+                     industry?.toLowerCase().includes('food') ||
+                     industry?.toLowerCase().includes('cafe') ||
+                     industry?.toLowerCase().includes('restaurant');
+
+    const isFinancial = industry?.toLowerCase().includes('financial') ||
+                        industry?.toLowerCase().includes('advisor') ||
+                        industry?.toLowerCase().includes('wealth');
+
+    let fallbackStatement: string;
+
+    if (isBakery) {
+      fallbackStatement = location
+        ? `We believe ${location} deserves handcrafted quality and community connection through daily artisan baking`
+        : `We believe every customer deserves freshly made, quality baked goods crafted with care`;
+    } else if (isFinancial) {
+      fallbackStatement = location
+        ? `We believe ${location} professionals deserve fiduciary guidance that puts their life goals ahead of financial products`
+        : `We believe clients deserve transparent, fiduciary advice that starts with their dreams, not our products`;
+    } else {
+      // Generic but not industry-specific
+      fallbackStatement = location
+        ? `${businessName} provides quality ${industry || 'services'} with a unique approach in ${location}`
+        : `${businessName} delivers exceptional ${industry || 'services'} with a customer-first philosophy`;
+    }
 
     const fallbackDifferentiator: Differentiator = {
       id: `diff-fallback-${Date.now()}`,
       statement: fallbackStatement,
-      evidence: 'Generated from fiduciary commitment and client-first philosophy',
+      evidence: `Generated industry-aware fallback for ${industry || 'business'}`,
       source: {
         id: `source-fallback-${Date.now()}`,
         type: 'website',
         name: 'Generated Philosophy',
         url: websiteUrls[0] || '',
         extractedAt: new Date(),
-        reliability: 70,
+        reliability: 50,  // Lower reliability for fallback
         dataPoints: 1
       },
-      strengthScore: 75
+      strengthScore: 50  // Lower score for fallback
     };
 
     differentiators = [fallbackDifferentiator];

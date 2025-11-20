@@ -35,7 +35,7 @@ const STEPS: { key: UVPStep; label: string; shortLabel: string }[] = [
   { key: 'transformation', label: 'Transformation', shortLabel: 'Transform' },
   { key: 'solution', label: 'Unique Solution', shortLabel: 'Solution' },
   { key: 'benefit', label: 'Key Benefit', shortLabel: 'Benefit' },
-  { key: 'synthesis', label: 'Complete UVP', shortLabel: 'Synthesis' },
+  { key: 'synthesis', label: 'Complete Story', shortLabel: 'Complete' },
 ];
 
 export function UVPMilestoneProgress({

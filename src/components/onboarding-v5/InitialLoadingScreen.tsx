@@ -32,42 +32,42 @@ const STEPS = [
     label: 'Products',
     description: 'Scanning products & services',
     icon: Package,
-    duration: 1980
+    duration: 2574
   },
   {
     key: 'customer',
     label: 'Customer',
     description: 'Identifying target customers',
     icon: Users,
-    duration: 1980
+    duration: 2574
   },
   {
     key: 'transformation',
     label: 'Transform',
     description: 'Discovering transformations',
     icon: Zap,
-    duration: 1980
+    duration: 2574
   },
   {
     key: 'solution',
     label: 'Solution',
     description: 'Extracting unique solutions',
     icon: Lightbulb,
-    duration: 1980
+    duration: 2574
   },
   {
     key: 'benefit',
     label: 'Benefit',
     description: 'Analyzing key benefits',
     icon: Award,
-    duration: 1980
+    duration: 2574
   },
   {
     key: 'synthesis',
-    label: 'Synthesis',
-    description: 'Crafting value proposition',
+    label: 'Complete',
+    description: 'Crafting your value proposition',
     icon: Sparkles,
-    duration: 1980
+    duration: 2574
   },
 ];
 
@@ -95,7 +95,7 @@ export function InitialLoadingScreen({
           return prev;
         }
       });
-    }, 1980); // Each step takes 1.98 seconds (total ~11.9 seconds)
+    }, 2574); // Each step takes 2.57 seconds (total ~15.4 seconds)
 
     return () => clearInterval(timer);
   }, []);
@@ -228,7 +228,7 @@ export function InitialLoadingScreen({
           className="text-center text-sm text-gray-500"
         >
           <p>Using AI to extract insights from your website...</p>
-          <p className="mt-1">This usually takes 10-12 seconds</p>
+          <p className="mt-1">This usually takes 12-15 seconds</p>
         </motion.div>
       </motion.div>
     </div>
