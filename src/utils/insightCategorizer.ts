@@ -25,33 +25,35 @@ export function categorizeInsight(insight: SynapseInsight, context?: DeepContext
   // Determine category based on insight type and content
   if (insight.sourceConnection) {
     const connection = insight.sourceConnection;
+    // Handle both Connection and simplified connection structures
+    const connectionType = connection.type || 'cross_domain';
 
     // Check for local/location-based insights
-    if (connection.category === 'location' || connection.category === 'local') {
+    if (connectionType === 'location_event' || connectionType === 'local_trend') {
       category = 'local';
       displayTitle = `Local: ${insight.contentAngle}`;
       dataSource = 'Location Intelligence';
     }
     // Check for trending/cultural insights
-    else if (connection.category === 'trending' || connection.category === 'cultural') {
+    else if (connectionType === 'cultural_moment' || connectionType === 'trending_topic') {
       category = 'trending';
       displayTitle = `Trending: ${insight.contentAngle}`;
       dataSource = 'Cultural Intelligence';
     }
     // Check for seasonal insights
-    else if (connection.category === 'temporal' || connection.category === 'seasonal') {
+    else if (connectionType === 'seasonal_pattern') {
       category = 'seasonal';
       displayTitle = `Seasonal: ${insight.contentAngle}`;
       dataSource = 'Seasonal Patterns';
     }
     // Check for competitive insights
-    else if (connection.category === 'competitive') {
+    else if (connectionType === 'competitive_gap') {
       category = 'competitive';
       displayTitle = `Competitive: ${insight.contentAngle}`;
       dataSource = 'Competitive Analysis';
     }
     // Check for review-based insights
-    else if (connection.category === 'social_proof' || connection.category === 'reviews') {
+    else if (connectionType === 'customer_insight') {
       category = 'reviews';
       displayTitle = `Review Insight: ${insight.contentAngle}`;
       dataSource = 'Customer Reviews';
@@ -145,12 +147,15 @@ export function createMockInsightPool(): InsightPool {
       confidence: 0.85,
       sourceConnection: {
         id: 'c1',
-        category: 'local',
-        type: 'location',
-        from: 'market',
-        to: 'health',
-        strength: 0.8,
-        reasoning: 'Local market trend'
+        type: 'location_event',
+        sources: {
+          primary: { id: 'dp1', source: 'outscraper' as any, type: 'local_event', content: 'market', metadata: {}, createdAt: new Date() },
+          secondary: { id: 'dp2', source: 'website' as any, type: 'trending_topic', content: 'health', metadata: {}, createdAt: new Date() },
+        },
+        relationship: { semanticSimilarity: 0.8, unexpectedness: 0.7, strength: 'strong' as any, explanation: 'Local market trend' },
+        breakthroughPotential: { score: 85, reasoning: ['Local market trend'], contentAngle: 'Health-Conscious Community Trend', expectedImpact: 'high' as any },
+        discoveredAt: new Date(),
+        confidence: 0.85,
       },
       metadata: {
         generatedAt: new Date(),
@@ -170,12 +175,15 @@ export function createMockInsightPool(): InsightPool {
       confidence: 0.92,
       sourceConnection: {
         id: 'c2',
-        category: 'trending',
-        type: 'viral_moment',
-        from: 'tiktok',
-        to: 'engagement',
-        strength: 0.9,
-        reasoning: 'Viral content opportunity'
+        type: 'cultural_moment',
+        sources: {
+          primary: { id: 'dp3', source: 'tiktok' as any, type: 'trending_topic', content: 'tiktok', metadata: {}, createdAt: new Date() },
+          secondary: { id: 'dp4', source: 'website' as any, type: 'customer_trigger', content: 'engagement', metadata: {}, createdAt: new Date() },
+        },
+        relationship: { semanticSimilarity: 0.9, unexpectedness: 0.85, strength: 'strong' as any, explanation: 'Viral content opportunity' },
+        breakthroughPotential: { score: 92, reasoning: ['Viral content opportunity'], contentAngle: 'Viral TikTok Moment', expectedImpact: 'high' as any },
+        discoveredAt: new Date(),
+        confidence: 0.92,
       },
       metadata: {
         generatedAt: new Date(),
@@ -195,12 +203,15 @@ export function createMockInsightPool(): InsightPool {
       confidence: 0.78,
       sourceConnection: {
         id: 'c3',
-        category: 'seasonal',
-        type: 'temporal',
-        from: 'q4',
-        to: 'bookings',
-        strength: 0.75,
-        reasoning: 'Seasonal pattern'
+        type: 'seasonal_pattern',
+        sources: {
+          primary: { id: 'dp5', source: 'google_trends' as any, type: 'market_trend', content: 'q4', metadata: {}, createdAt: new Date() },
+          secondary: { id: 'dp6', source: 'website' as any, type: 'timing', content: 'bookings', metadata: {}, createdAt: new Date() },
+        },
+        relationship: { semanticSimilarity: 0.75, unexpectedness: 0.6, strength: 'moderate' as any, explanation: 'Seasonal pattern' },
+        breakthroughPotential: { score: 78, reasoning: ['Seasonal pattern'], contentAngle: 'Q4 Booking Surge', expectedImpact: 'medium' as any },
+        discoveredAt: new Date(),
+        confidence: 0.78,
       },
       metadata: {
         generatedAt: new Date(),

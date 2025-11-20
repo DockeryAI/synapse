@@ -25,6 +25,7 @@ import type { DraggableSuggestion, DropZone as DropZoneType } from '@/types/uvp-
 import type { TransformationGoal } from '@/types/uvp-flow.types';
 import { extractEnhancedTransformations } from '@/services/uvp-extractors/enhanced-transformation-extractor.service';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
+import { industryRegistry } from '@/data/industries';
 
 interface TransformationGoalPageProps {
   businessName: string;
@@ -32,6 +33,7 @@ interface TransformationGoalPageProps {
   websiteUrl?: string;
   websiteContent?: string[]; // Content from different pages
   websiteUrls?: string[]; // URLs for each content piece
+  preloadedData?: any; // Pre-loaded extraction data from parent
   value?: string; // Current transformation goal text
   onChange?: (value: string) => void;
   onNext: () => void;
@@ -47,6 +49,7 @@ export function TransformationGoalPage({
   websiteUrl = '',
   websiteContent = [],
   websiteUrls = [],
+  preloadedData,
   value = '',
   onChange,
   onNext,
@@ -81,11 +84,62 @@ export function TransformationGoalPage({
 
   // Auto-extract on mount if we have website content
   useEffect(() => {
+    // If we have pre-loaded data, use it immediately
+    if (preloadedData && suggestions.length === 0) {
+      console.log('[TransformationGoalPage] Using pre-loaded data');
+      const extractedSuggestions = convertExtractionToSuggestions(preloadedData);
+      setSuggestions(extractedSuggestions);
+      return;
+    }
+
+    // Otherwise, auto-generate on mount if we have website content
     if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
       console.log('[TransformationGoalPage] Auto-generating suggestions on mount');
       handleGenerateSuggestions();
     }
-  }, [websiteContent]);
+  }, [websiteContent, preloadedData]);
+
+  // Helper to convert extraction data to suggestions
+  const convertExtractionToSuggestions = (extraction: any): DraggableSuggestion[] => {
+    if (!extraction || !extraction.transformations || extraction.transformations.length === 0) {
+      console.warn('[TransformationGoalPage] No transformations in extraction, using fallback');
+      return generateFallbackSuggestions(industry, industryEQ);
+    }
+
+    // Convert transformations to suggestions
+    const analyzedSuggestions: DraggableSuggestion[] = extraction.transformations.map((transformation: any, index: number) => ({
+      id: `transformation-${transformation.id || index}`,
+      type: 'problem',
+      content: transformation.statement || '',
+      source: transformation.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
+      confidence: (transformation.confidence?.overall || 0) / 100,
+      tags: [
+        'transformation_goal',
+        ...(transformation.emotionalDrivers || []).slice(0, 2).map((d: string) => `emotional:${d.toLowerCase().replace(/\s+/g, '_')}`),
+        ...(transformation.functionalDrivers || []).slice(0, 2).map((d: string) => `functional:${d.toLowerCase().replace(/\s+/g, '_')}`)
+      ],
+      is_selected: false,
+      is_customizable: true
+    }));
+
+    // Generate additional industry-based suggestions using EQ
+    if (industryEQ) {
+      const industrySuggestions = generateIndustryBasedSuggestions(
+        businessName,
+        industry,
+        industryEQ,
+        analyzedSuggestions
+      );
+      analyzedSuggestions.push(...industrySuggestions);
+    }
+
+    // Sort by confidence
+    analyzedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+
+    console.log('[TransformationGoalPage] Converted extraction to suggestions:', analyzedSuggestions.length);
+
+    return analyzedSuggestions;
+  };
 
   /**
    * Generate AI suggestions using enhanced extractor + industry EQ
@@ -107,39 +161,8 @@ export function TransformationGoalPage({
       console.log(`  - Transformations: ${extraction.transformations.length}`);
       console.log(`  - Quotes: ${extraction.quotes.length}`);
 
-      // Convert transformations to suggestions
-      const analyzedSuggestions: DraggableSuggestion[] = extraction.transformations.map((transformation, index) => ({
-        id: `transformation-${transformation.id || index}`,
-        type: 'problem',
-        content: transformation.statement || '',
-        source: transformation.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
-        confidence: (transformation.confidence?.overall || 0) / 100,
-        tags: [
-          'transformation_goal',
-          ...(transformation.emotionalDrivers || []).slice(0, 2).map(d => `emotional:${d.toLowerCase().replace(/\s+/g, '_')}`),
-          ...(transformation.functionalDrivers || []).slice(0, 2).map(d => `functional:${d.toLowerCase().replace(/\s+/g, '_')}`)
-        ],
-        is_selected: false,
-        is_customizable: true
-      }));
-
-      // Generate additional industry-based suggestions using EQ
-      if (industryEQ) {
-        const industrySuggestions = generateIndustryBasedSuggestions(
-          businessName,
-          industry,
-          industryEQ,
-          analyzedSuggestions
-        );
-        analyzedSuggestions.push(...industrySuggestions);
-      }
-
-      // Sort by confidence
-      analyzedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
-
+      const analyzedSuggestions = convertExtractionToSuggestions(extraction);
       setSuggestions(analyzedSuggestions);
-
-      console.log('[TransformationGoalPage] Generated suggestions:', analyzedSuggestions.length);
 
     } catch (error) {
       console.error('[TransformationGoalPage] Failed to generate suggestions:', error);
@@ -203,41 +226,107 @@ export function TransformationGoalPage({
   };
 
   /**
-   * Generate fallback suggestions when extraction fails
+   * Generate fallback suggestions using industry profile data
    */
   const generateFallbackSuggestions = (industry: string, eq: any): DraggableSuggestion[] => {
-    const fallbacks: DraggableSuggestion[] = [
-      {
-        id: 'fallback-1',
-        type: 'problem',
-        content: `Help ${industry || 'customers'} go from [current frustrating state] to [desired transformation], achieving [key outcome] they're seeking`,
-        source: 'user-custom',
-        confidence: 0.5,
-        tags: ['template'],
-        is_selected: false,
-        is_customizable: true
-      },
-      {
-        id: 'fallback-2',
-        type: 'problem',
-        content: `Transform from struggling with [specific problem] to confidently [desired state] with peace of mind and measurable results`,
-        source: 'user-custom',
-        confidence: 0.5,
-        tags: ['template'],
-        is_selected: false,
-        is_customizable: true
-      },
-      {
-        id: 'fallback-3',
-        type: 'problem',
-        content: `Guide clients through the journey from [pain point] to [aspiration], helping them finally achieve what they've been seeking`,
-        source: 'user-custom',
-        confidence: 0.5,
-        tags: ['template'],
-        is_selected: false,
-        is_customizable: true
+    const fallbacks: DraggableSuggestion[] = [];
+
+    // Find industry profile
+    const profile = industryRegistry.search(industry)[0] ||
+                    industryRegistry.getById('consultant');
+
+    if (profile) {
+      const painPoints = profile.commonPainPoints || [];
+      const triggers = profile.commonBuyingTriggers || [];
+      const psychology = profile.psychologyProfile;
+
+      // Generate specific suggestions from profile data
+      if (painPoints.length > 0) {
+        fallbacks.push({
+          id: 'profile-fallback-1',
+          type: 'problem',
+          content: `From "${painPoints[0]}" → To confidently achieving their goals with peace of mind`,
+          source: 'industry-profile',
+          confidence: 0.8,
+          tags: ['industry_specific', 'emotional'],
+          is_selected: false,
+          is_customizable: true
+        });
       }
-    ];
+
+      if (painPoints.length > 1) {
+        fallbacks.push({
+          id: 'profile-fallback-2',
+          type: 'problem',
+          content: `From "${painPoints[1]}" → To having clarity and a proven plan that works`,
+          source: 'industry-profile',
+          confidence: 0.75,
+          tags: ['industry_specific', 'functional'],
+          is_selected: false,
+          is_customizable: true
+        });
+      }
+
+      if (triggers.length > 0) {
+        fallbacks.push({
+          id: 'profile-fallback-3',
+          type: 'problem',
+          content: `Transform clients facing "${triggers[0].toLowerCase()}" into confident decision-makers with expert support`,
+          source: 'industry-profile',
+          confidence: 0.7,
+          tags: ['industry_specific', 'trust'],
+          is_selected: false,
+          is_customizable: true
+        });
+      }
+
+      // Add EQ-aligned suggestion
+      if (eq) {
+        const emotionalWeight = eq.emotional_weight || 50;
+        const focusType = eq.jtbd_focus || 'balanced';
+
+        fallbacks.push({
+          id: 'eq-fallback',
+          type: 'problem',
+          content: focusType === 'emotional'
+            ? `From feeling overwhelmed and uncertain → To confident and empowered in their ${industry} journey`
+            : focusType === 'functional'
+            ? `From inefficient processes and wasted time → To streamlined operations with measurable results`
+            : `From stuck and frustrated → To confident and achieving real progress`,
+          source: 'industry-profile',
+          confidence: 0.7,
+          tags: ['eq_aligned', focusType],
+          is_selected: false,
+          is_customizable: true
+        });
+      }
+    }
+
+    // If no profile found, use generic but helpful templates
+    if (fallbacks.length === 0) {
+      fallbacks.push(
+        {
+          id: 'generic-1',
+          type: 'problem',
+          content: `Help ${industry || 'customers'} go from [current frustrating state] to [desired transformation]`,
+          source: 'user-custom',
+          confidence: 0.5,
+          tags: ['template'],
+          is_selected: false,
+          is_customizable: true
+        },
+        {
+          id: 'generic-2',
+          type: 'problem',
+          content: `Transform from struggling with [specific problem] to confidently [desired state] with peace of mind`,
+          source: 'user-custom',
+          confidence: 0.5,
+          tags: ['template'],
+          is_selected: false,
+          is_customizable: true
+        }
+      );
+    }
 
     return fallbacks;
   };

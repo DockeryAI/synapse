@@ -66,8 +66,7 @@ export class StoryPostGenerator {
         principle: 'Narrative Transportation',
         trigger: {
           type: 'aspiration',
-          strength: 0.85,
-          target: 'connection'
+          strength: 0.85
         },
         persuasionTechnique: 'Storytelling',
         expectedReaction: insight.expectedReaction || 'I can relate to this journey'
@@ -79,11 +78,11 @@ export class StoryPostGenerator {
         ),
         framingDevice: this.framework.name,
         narrativeStructure: this.framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Medium (story-driven)'
+        pacing: 'medium'
       },
 
       meta: {
-        platform: ['LinkedIn', 'Facebook'],
+        platform: ['linkedin', 'facebook'],
         tone: 'inspirational',
         targetAudience
       },

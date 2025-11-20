@@ -95,7 +95,14 @@ export class GMBService {
       const locations = await this.listLocations(account.name);
 
       // Save connection to database
-      const connection = await this.saveConnection(userId, account, tokens, locations);
+      const gmbTokens: GMBAuthTokens = {
+        access_token: tokens.access_token || '',
+        refresh_token: tokens.refresh_token || '',
+        expiry_date: tokens.expiry_date,
+        scope: tokens.scope || '',
+        token_type: tokens.token_type || 'Bearer',
+      };
+      const connection = await this.saveConnection(userId, account, gmbTokens, locations);
 
       return connection;
     } catch (error) {
@@ -263,7 +270,7 @@ export class GMBService {
     const post: Partial<GMBPost> = {
       languageCode: 'en-US',
       summary,
-      callToAction,
+      callToAction: callToAction as any, // GMBCallToAction type mismatch - API accepts this structure
       media: mediaUrls?.map(url => ({
         mediaFormat: 'PHOTO',
         sourceUrl: url,

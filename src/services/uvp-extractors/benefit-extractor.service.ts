@@ -1,14 +1,20 @@
 /**
- * Benefit/Outcome Extraction Service
+ * Benefit/Outcome Extraction Service - JTBD Framework
  *
- * Extracts quantifiable outcomes and benefits from case studies, testimonials,
- * and results content. Uses Claude API to identify real metrics without estimation.
+ * Extracts REAL customer outcomes using Jobs-to-be-Done framework:
+ * - Functional outcomes: What customers can DO/ACHIEVE
+ * - Emotional outcomes: How customers FEEL
+ * - Social outcomes: How customers are PERCEIVED
  *
- * CRITICAL: Only extracts actual metrics found in content - NEVER estimates or makes up numbers.
+ * CRITICAL: Extracts OUTCOMES not FEATURES
+ * ❌ "Independent financial advisory" = feature
+ * ✅ "Save 25% on premiums while improving coverage" = outcome
  *
  * Created: 2025-11-18
+ * Enhanced: 2025-11-19
  */
 
+import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 import type { BenefitExtractionResult, BenefitMetric, KeyBenefit } from '@/types/uvp-flow.types';
 import type { ConfidenceScore, DataSource } from '@/types/uvp-flow.types';
 
@@ -16,603 +22,389 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 /**
- * Extract benefits and outcomes from case studies and testimonials
+ * Extract benefits and outcomes from content using JTBD framework
  */
 export async function extractBenefits(
-  caseStudies: string[],
-  testimonials: string[],
-  resultsContent: string[],
+  transformations: any[],
+  solutions: any[],
+  websiteContent: string[],
   businessName: string,
   industry: string
 ): Promise<BenefitExtractionResult> {
-  console.log('[BenefitExtractor] Starting benefit extraction...');
-  console.log(`  - Case studies: ${caseStudies.length}`);
-  console.log(`  - Testimonials: ${testimonials.length}`);
-  console.log(`  - Results content: ${resultsContent.length}`);
-
-  // Combine all content for analysis
-  const allContent = [
-    ...caseStudies.map(cs => `[CASE STUDY]\n${cs}`),
-    ...testimonials.map(t => `[TESTIMONIAL]\n${t}`),
-    ...resultsContent.map(r => `[RESULTS]\n${r}`)
-  ];
-
-  if (allContent.length === 0) {
-    console.warn('[BenefitExtractor] No content provided - returning empty result');
-    return {
-      benefits: [],
-      metrics: [],
-      confidence: createLowConfidenceScore('No content provided for analysis'),
-      sources: []
-    };
-  }
+  console.log('[BenefitExtractor] Starting OUTCOME extraction...');
+  console.log(`  - Industry: ${industry}`);
+  console.log(`  - Transformations: ${transformations.length}`);
+  console.log(`  - Solutions: ${solutions.length}`);
+  console.log(`  - Website content: ${websiteContent.length} sections`);
 
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-    console.warn('[BenefitExtractor] No Supabase configuration - returning fallback result');
-    const fallbackResult = fallbackRegexExtraction(allContent);
-    return {
-      benefits: fallbackResult.benefits,
-      metrics: fallbackResult.metrics,
-      confidence: createLowConfidenceScore('No Supabase configuration - using fallback extraction'),
-      sources: createDataSources(allContent, fallbackResult.metrics)
-    };
+    console.warn('[BenefitExtractor] No Supabase configuration - returning fallback');
+    return createFallbackBenefits(industry);
   }
 
   try {
-    // Call Claude API for extraction
-    const extractionResult = await extractMetricsWithClaude(
-      allContent.join('\n\n---\n\n'),
+    // Get industry EQ for outcome weighting
+    const industryEQ = await getIndustryEQ(industry);
+    console.log(`[BenefitExtractor] Industry EQ: ${industryEQ.emotional_weight}% emotional`);
+
+    // Combine content for analysis (limit size)
+    const contentForAnalysis = websiteContent.join('\n\n').substring(0, 10000);
+
+    // Build context from transformations and solutions
+    const transformationContext = transformations.map(t => t.statement || t.fromState + ' → ' + t.toState).join('\n');
+    const solutionContext = solutions.map(s => s.statement || s.methodology).join('\n');
+
+    const prompt = buildOutcomeExtractionPrompt(
       businessName,
-      industry
+      industry,
+      contentForAnalysis,
+      transformationContext,
+      solutionContext,
+      industryEQ
     );
 
-    // Transform Claude response to typed results
-    const metrics = extractionResult.metrics.map((m: any, index: number) =>
-      createBenefitMetric(m, extractionResult.sources[index] || 'content')
-    );
+    // Call Claude API
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        provider: 'openrouter',
+        model: 'anthropic/claude-3.5-sonnet',
+        messages: [{
+          role: 'user',
+          content: prompt
+        }],
+        max_tokens: 4096,
+        temperature: 0.2
+      })
+    });
 
-    const benefits = groupMetricsIntoBenefits(metrics, extractionResult.qualitative_benefits);
+    if (!response.ok) {
+      throw new Error(`AI API error: ${response.status}`);
+    }
 
-    const confidence = calculateExtractionConfidence(
-      metrics.length,
-      extractionResult.quality_indicators
-    );
+    const data = await response.json();
+    const analysisText = data.choices[0]?.message?.content;
 
-    const sources = createDataSources(allContent, metrics);
+    if (!analysisText) {
+      throw new Error('No response from AI');
+    }
 
-    console.log('[BenefitExtractor] Extraction complete:');
-    console.log(`  - Quantifiable metrics: ${metrics.length}`);
-    console.log(`  - Benefits identified: ${benefits.length}`);
-    console.log(`  - Confidence: ${confidence.overall}%`);
+    const benefits = parseOutcomeResponse(analysisText, industryEQ);
+
+    console.log(`[BenefitExtractor] Extracted ${benefits.length} outcome-focused benefits`);
 
     return {
       benefits,
-      metrics,
-      confidence,
-      sources
+      metrics: benefits.flatMap(b => b.metrics || []),
+      confidence: calculateConfidence(benefits, websiteContent.length),
+      sources: benefits.flatMap(b => b.sources || [])
     };
 
   } catch (error) {
     console.error('[BenefitExtractor] Extraction failed:', error);
-
-    // Fallback: try basic regex extraction
-    console.log('[BenefitExtractor] Attempting fallback regex extraction...');
-    const fallbackResult = fallbackRegexExtraction(allContent);
-
-    return {
-      benefits: fallbackResult.benefits,
-      metrics: fallbackResult.metrics,
-      confidence: createLowConfidenceScore('Using fallback extraction due to API failure'),
-      sources: createDataSources(allContent, fallbackResult.metrics)
-    };
+    return createFallbackBenefits(industry);
   }
 }
 
 /**
- * Call Claude API via Supabase Edge Function to extract metrics and benefits
+ * Build prompt for outcome extraction using JTBD
  */
-async function extractMetricsWithClaude(
-  content: string,
+function buildOutcomeExtractionPrompt(
   businessName: string,
-  industry: string
-): Promise<any> {
-  const prompt = buildExtractionPrompt(content, businessName, industry);
+  industry: string,
+  websiteContent: string,
+  transformationContext: string,
+  solutionContext: string,
+  industryEQ: any
+): string {
+  const emotionalWeight = industryEQ.emotional_weight;
+  const functionalWeight = 100 - emotionalWeight;
 
-  const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      provider: 'openrouter',
-      model: 'anthropic/claude-3.5-sonnet',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are an expert at extracting quantifiable business outcomes and benefits from testimonials, case studies, and results content. You ONLY extract metrics that are explicitly stated - you NEVER estimate or make up numbers.'
-        },
-        {
-          role: 'user',
-          content: prompt
-        }
-      ],
-      temperature: 0.1, // Low temperature for factual extraction
-      max_tokens: 2000
-    })
-  });
+  return `Extract customer OUTCOMES (not features) for ${businessName} in the ${industry} industry using the Jobs-to-be-Done framework.
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    console.error('[BenefitExtractor] AI proxy error:', errorText);
-    throw new Error(`AI proxy error: ${response.status} ${response.statusText}`);
-  }
+**CRITICAL: OUTCOMES vs FEATURES**
 
-  const data = await response.json();
-  const rawResponse = data.choices[0]?.message?.content;
+❌ WRONG (these are features/services):
+- "Independent financial advisory services"
+- "Fiduciary commitment to clients"
+- "Comprehensive insurance solutions"
+- "24/7 customer support"
 
-  if (!rawResponse) {
-    throw new Error('No response from Claude API');
-  }
+✅ RIGHT (these are customer outcomes):
+- "Cut insurance costs by 25% without sacrificing coverage" (functional)
+- "Sleep soundly knowing your family's future is protected" (emotional)
+- "Be recognized as a trusted advisor by your clients" (social)
+- "Save 10 hours per month on policy management" (functional + metric)
 
-  // Parse JSON response from Claude
-  try {
-    const jsonMatch = rawResponse.match(/```json\n([\s\S]*?)\n```/) || rawResponse.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) {
-      throw new Error('No JSON found in Claude response');
-    }
+**TRANSFORMATION CONTEXT** (Benefits must DELIVER ON these transformations):
+${transformationContext || 'Not provided'}
 
-    const jsonStr = jsonMatch[1] || jsonMatch[0];
-    return JSON.parse(jsonStr);
-  } catch (parseError) {
-    console.error('[BenefitExtractor] Failed to parse Claude response:', rawResponse);
-    throw new Error('Failed to parse Claude API response as JSON');
-  }
-}
+**SOLUTION CONTEXT** (Benefits come FROM these solutions):
+${solutionContext || 'Not provided'}
 
-/**
- * Build extraction prompt for Claude
- */
-function buildExtractionPrompt(content: string, businessName: string, industry: string): string {
-  return `# Benefit & Outcome Extraction Task
+**WEBSITE CONTENT**:
+${websiteContent}
 
-Extract quantifiable metrics and qualitative benefits from the following content about ${businessName} (${industry} industry).
+**INDUSTRY INTELLIGENCE**:
+- Emotional weight: ${emotionalWeight}% (${emotionalWeight > 60 ? 'high - emphasize feelings' : 'moderate - balance rational and emotional'})
+- Functional weight: ${functionalWeight}%
+- Purchase mindset: ${industryEQ.purchase_mindset}
+- Key drivers: Fear ${industryEQ.decision_drivers.fear}%, Aspiration ${industryEQ.decision_drivers.aspiration}%
 
-## CRITICAL RULES:
-1. ONLY extract metrics that are EXPLICITLY STATED in the content
-2. NEVER estimate, infer, or make up numbers
-3. Include the exact quote as evidence for each metric
-4. If no specific numbers are found, return empty metrics array
-5. Extract timeframes only if explicitly mentioned
-6. Preserve exact numerical values (don't round or approximate)
+**EXTRACTION REQUIREMENTS**:
 
-## Content to Analyze:
+Extract 5-8 benefits across these JTBD dimensions:
 
-${content}
+1. **FUNCTIONAL OUTCOMES** (${functionalWeight}% weight):
+   - What customers can DO or ACHIEVE
+   - Measurable improvements (time/money saved, efficiency gained)
+   - Quantify when possible: "Save X hours", "Reduce costs by Y%", "Increase Z by 50%"
+   - Examples: "Process claims 3x faster", "Cut premiums by 20%", "Get approved in 24 hours"
 
-## Required JSON Response Format:
+2. **EMOTIONAL OUTCOMES** (${emotionalWeight}% weight):
+   - How customers FEEL after using the solution
+   - Focus on: ${industryEQ.decision_drivers.fear > 30 ? 'relief from anxiety, peace of mind, confidence, security' : 'satisfaction, excitement, pride, joy'}
+   - Examples: "Never lose sleep over coverage gaps", "Feel confident your assets are protected", "Eliminate the stress of claims"
 
+3. **SOCIAL OUTCOMES** (10% weight):
+   - How customers are PERCEIVED
+   - Status, recognition, reputation, trust
+   - Examples: "Be seen as a responsible business owner", "Gain respect from your community", "Build a reputation for taking care of your team"
+
+**OUTCOME VALIDATION**:
+- Does it describe what the customer GETS (outcome) not what you DO (feature)?
+- Is it specific to THIS business based on website content?
+- Does it complete a transformation story (from problem → to outcome)?
+- Can a customer picture themselves experiencing this benefit?
+
+Return JSON with this structure:
 \`\`\`json
 {
-  "metrics": [
+  "outcomes": [
     {
-      "metric_name": "Revenue growth",
-      "value": "40%",
-      "value_numeric": 40,
-      "unit": "percent",
-      "timeframe": "6 months",
-      "quote": "We saw a 40% increase in revenue within 6 months",
-      "source_type": "case_study | testimonial | results",
-      "confidence": 95
+      "id": "unique-id",
+      "statement": "Clear outcome statement (not feature description)",
+      "outcomeType": "functional" | "emotional" | "social" | "mixed",
+      "metrics": ["Specific metric if mentioned"],
+      "eqFraming": "emotional" | "rational" | "balanced",
+      "evidence": "Quote from website showing this outcome",
+      "confidence": 0-100,
+      "reasoning": "Why this is an outcome not a feature"
     }
-  ],
-  "qualitative_benefits": [
-    {
-      "benefit": "Better sleep and reduced stress",
-      "category": "quality_of_life | efficiency | satisfaction | trust | expertise",
-      "quote": "I finally sleep well at night knowing our systems are secure",
-      "emotional_weight": 80
-    }
-  ],
-  "industry_comparable_metrics": [
-    "Revenue growth",
-    "Time saved",
-    "Cost reduction"
-  ],
-  "quality_indicators": {
-    "total_metrics_found": 5,
-    "metrics_with_numbers": 5,
-    "metrics_with_timeframes": 3,
-    "has_qualitative_benefits": true,
-    "content_quality": "excellent | good | fair | poor"
-  },
-  "sources": [
-    "case_study",
-    "testimonial"
   ]
 }
 \`\`\`
 
-## Metric Extraction Guidelines:
-
-**Look for:**
-- Revenue/sales increases: "increased revenue by 30%", "grew sales from $X to $Y"
-- Time saved: "reduced processing time by 2 hours", "saved 10 hours per week"
-- Cost reduction: "cut costs by $50k", "20% reduction in expenses"
-- Efficiency gains: "doubled productivity", "50% faster delivery"
-- Quality improvements: "reduced errors by 90%", "increased accuracy to 99%"
-- Customer metrics: "NPS score increased from 40 to 75", "retention up 25%"
-- Team metrics: "employee satisfaction up 40%", "turnover reduced by half"
-- Growth metrics: "expanded from 5 to 50 clients", "tripled our capacity"
-
-**Extract exactly as stated:**
-- ✅ "40% increase in revenue" → metric: "Revenue growth", value: "40%"
-- ✅ "saved 10 hours per week" → metric: "Time saved", value: "10 hours", timeframe: "per week"
-- ✅ "grew from $100k to $150k" → metric: "Revenue growth", value: "50%", calculate if clear
-- ❌ "significantly improved" → NO METRIC (no specific number)
-- ❌ "much faster" → NO METRIC (no quantification)
-- ❌ "great results" → qualitative benefit only
-
-**Timeframes:**
-- Only extract if explicitly stated: "in 3 months", "within 6 weeks", "per year"
-- ✅ "40% growth in 6 months" → timeframe: "6 months"
-- ❌ "40% growth recently" → timeframe: undefined (not specific)
-
-**Industry Comparability:**
-Identify metrics that can be compared to ${industry} industry benchmarks:
-- Revenue/profit metrics
-- Customer acquisition/retention
-- Operational efficiency
-- Quality/satisfaction scores
-- Time-to-value metrics
-
-Return your response as valid JSON only. No additional commentary.`;
+REMEMBER: Extract OUTCOMES (what customers achieve/feel) NOT FEATURES (what you offer).`;
 }
 
 /**
- * Create BenefitMetric from extracted data
+ * Parse AI response into outcome-based benefits
  */
-function createBenefitMetric(extractedMetric: any, source: string): BenefitMetric {
-  return {
-    id: `metric-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-    metric: extractedMetric.metric_name,
-    value: extractedMetric.value,
-    timeframe: extractedMetric.timeframe || undefined,
-    source: {
-      type: mapSourceType(extractedMetric.source_type),
-      url: '', // Filled in later by createDataSources
-      snippet: extractedMetric.quote,
-      confidence: extractedMetric.confidence || 85
+function parseOutcomeResponse(response: string, industryEQ: any): KeyBenefit[] {
+  try {
+    const jsonMatch = response.match(/\[[\s\S]*\]/) || response.match(/\{[\s\S]*"outcomes"[\s\S]*\}/);
+    if (!jsonMatch) {
+      throw new Error('No JSON found');
     }
-  };
-}
 
-/**
- * Map source type string to DataSource type
- */
-function mapSourceType(sourceType: string): DataSource['type'] {
-  switch (sourceType?.toLowerCase()) {
-    case 'case_study':
-    case 'case-study':
-      return 'case-study';
-    case 'testimonial':
-      return 'testimonial';
-    case 'results':
-    case 'analytics':
-      return 'analytics';
-    default:
-      return 'website';
+    const parsed = JSON.parse(jsonMatch[0]);
+    const outcomes = Array.isArray(parsed) ? parsed : parsed.outcomes || [];
+
+    return outcomes
+      .filter(validateOutcome) // Filter out feature-based "benefits"
+      .map((outcome: any) => ({
+        id: outcome.id || `benefit-${Date.now()}-${Math.random()}`,
+        statement: outcome.statement,
+        outcomeType: outcome.outcomeType === 'functional' ? 'quantifiable' : (outcome.outcomeType === 'emotional' ? 'qualitative' : outcome.outcomeType),
+        metrics: parseMetrics(outcome.metrics),
+        eqFraming: outcome.eqFraming || 'balanced',
+        confidence: {
+          overall: outcome.confidence || 75,
+          dataQuality: 70,
+          sourceCount: 1,
+          modelAgreement: 75
+        },
+        sources: [{
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'website' as const,
+          name: 'Website Content',
+          url: '',
+          extractedAt: new Date(),
+          reliability: outcome.confidence || 75,
+          dataPoints: 1
+        }],
+        isManualInput: false
+      }));
+
+  } catch (error) {
+    console.error('[BenefitExtractor] Parse error:', error);
+    return [];
   }
 }
 
 /**
- * Group metrics into benefit statements
+ * Validate that extracted benefit is an OUTCOME not a FEATURE
  */
-function groupMetricsIntoBenefits(
-  metrics: BenefitMetric[],
-  qualitativeBenefits: any[]
-): Partial<KeyBenefit>[] {
-  const benefits: Partial<KeyBenefit>[] = [];
+function validateOutcome(outcome: any): boolean {
+  if (!outcome.statement) return false;
 
-  // Group quantifiable metrics
-  if (metrics.length > 0) {
-    const primaryMetrics = metrics.slice(0, 3);
+  const statement = outcome.statement.toLowerCase();
 
-    benefits.push({
-      id: `benefit-quantifiable-${Date.now()}`,
-      statement: generateBenefitStatement(primaryMetrics),
-      outcomeType: 'quantifiable',
-      metrics: primaryMetrics,
-      eqFraming: 'rational',
-      confidence: {
-        overall: Math.round(primaryMetrics.reduce((sum, m) => sum + (m.source.confidence || 85), 0) / primaryMetrics.length),
-        dataQuality: primaryMetrics.length >= 3 ? 85 : 70,
-        sourceCount: primaryMetrics.length,
-        modelAgreement: 80,
-        reasoning: `Based on ${primaryMetrics.length} quantifiable metrics extracted from content`
-      },
-      sources: primaryMetrics.map(m => m.source),
-      isManualInput: false
-    });
-  }
-
-  // Add qualitative benefits
-  qualitativeBenefits?.forEach((qb: any) => {
-    benefits.push({
-      id: `benefit-qualitative-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      statement: qb.benefit,
-      outcomeType: 'qualitative',
-      metrics: [],
-      eqFraming: qb.emotional_weight > 60 ? 'emotional' : 'balanced',
-      confidence: {
-        overall: 75,
-        dataQuality: 70,
-        sourceCount: 1,
-        modelAgreement: 75,
-        reasoning: 'Qualitative benefit extracted from customer feedback'
-      },
-      sources: [{
-        type: 'testimonial',
-        url: '',
-        snippet: qb.quote,
-        confidence: 75
-      }],
-      isManualInput: false
-    });
-  });
-
-  // Mixed benefits (both quantitative and qualitative)
-  if (metrics.length > 0 && qualitativeBenefits?.length > 0) {
-    const topMetric = metrics[0];
-    const topQualitative = qualitativeBenefits[0];
-
-    benefits.push({
-      id: `benefit-mixed-${Date.now()}`,
-      statement: `${topQualitative.benefit} with ${topMetric.value} ${topMetric.metric.toLowerCase()}`,
-      outcomeType: 'mixed',
-      metrics: [topMetric],
-      eqFraming: 'balanced',
-      confidence: {
-        overall: 80,
-        dataQuality: 75,
-        sourceCount: 2,
-        modelAgreement: 80,
-        reasoning: 'Combined quantifiable and qualitative benefits'
-      },
-      sources: [topMetric.source, {
-        type: 'testimonial',
-        url: '',
-        snippet: topQualitative.quote,
-        confidence: 75
-      }],
-      isManualInput: false
-    });
-  }
-
-  return benefits;
-}
-
-/**
- * Generate benefit statement from metrics
- */
-function generateBenefitStatement(metrics: BenefitMetric[]): string {
-  if (metrics.length === 0) return 'Measurable results';
-  if (metrics.length === 1) {
-    return `${metrics[0].value} ${metrics[0].metric}${metrics[0].timeframe ? ` in ${metrics[0].timeframe}` : ''}`;
-  }
-
-  const metricsList = metrics.slice(0, 2).map(m => `${m.value} ${m.metric.toLowerCase()}`).join(' and ');
-  return `Achieve ${metricsList}`;
-}
-
-/**
- * Calculate extraction confidence
- */
-function calculateExtractionConfidence(
-  metricsCount: number,
-  qualityIndicators: any
-): ConfidenceScore {
-  let overall = 50; // Base score
-
-  // More metrics = higher confidence
-  if (metricsCount >= 5) overall += 20;
-  else if (metricsCount >= 3) overall += 15;
-  else if (metricsCount >= 1) overall += 10;
-
-  // Quality indicators boost
-  if (qualityIndicators?.metrics_with_numbers === qualityIndicators?.total_metrics_found) {
-    overall += 15; // All metrics have numbers
-  }
-
-  if (qualityIndicators?.metrics_with_timeframes > 0) {
-    overall += 10; // Has timeframes
-  }
-
-  if (qualityIndicators?.content_quality === 'excellent') {
-    overall += 10;
-  }
-
-  overall = Math.min(overall, 95); // Cap at 95%
-
-  return {
-    overall,
-    dataQuality: qualityIndicators?.content_quality === 'excellent' ? 90 :
-                 qualityIndicators?.content_quality === 'good' ? 75 :
-                 qualityIndicators?.content_quality === 'fair' ? 60 : 50,
-    sourceCount: metricsCount,
-    modelAgreement: overall,
-    reasoning: metricsCount > 0
-      ? `Extracted ${metricsCount} quantifiable metrics from content`
-      : 'No quantifiable metrics found in content'
-  };
-}
-
-/**
- * Create data sources from content
- */
-function createDataSources(content: string[], metrics: BenefitMetric[]): DataSource[] {
-  const sources: DataSource[] = [];
-
-  metrics.forEach(metric => {
-    // Try to find which content piece contained this metric
-    const contentPiece = content.find(c => c.includes(metric.source.snippet || metric.value));
-
-    if (contentPiece) {
-      const sourceType = contentPiece.startsWith('[CASE STUDY]') ? 'case-study' :
-                        contentPiece.startsWith('[TESTIMONIAL]') ? 'testimonial' :
-                        'website';
-
-      sources.push({
-        type: sourceType,
-        url: '', // Could be populated if we tracked source URLs
-        snippet: metric.source.snippet,
-        confidence: metric.source.confidence
-      });
-    }
-  });
-
-  return sources;
-}
-
-/**
- * Create low confidence score for errors
- */
-function createLowConfidenceScore(reason: string): ConfidenceScore {
-  return {
-    overall: 20,
-    dataQuality: 20,
-    sourceCount: 0,
-    modelAgreement: 20,
-    reasoning: reason
-  };
-}
-
-/**
- * Fallback regex extraction (when Claude API fails)
- */
-function fallbackRegexExtraction(content: string[]): {
-  metrics: BenefitMetric[];
-  benefits: Partial<KeyBenefit>[];
-} {
-  console.log('[BenefitExtractor] Using fallback regex extraction...');
-
-  const metrics: BenefitMetric[] = [];
-  const contentStr = content.join('\n');
-
-  // Common metric patterns
-  const patterns = [
-    // Percentage increases: "40% increase in revenue", "revenue increased by 30%"
-    /(\d+)%\s+(?:increase|growth|improvement|boost|rise)\s+(?:in\s+)?([a-z\s]+)/gi,
-    /([a-z\s]+)\s+(?:increased|grew|improved|boosted)\s+(?:by\s+)?(\d+)%/gi,
-
-    // Time saved: "saved 10 hours", "reduced time by 5 hours"
-    /(?:saved|reduced|cut)\s+(\d+)\s+(hours?|minutes?|days?|weeks?|months?)/gi,
-
-    // Cost reduction: "reduced costs by $50k", "saved $10,000"
-    /(?:reduced|saved|cut)\s+(?:costs?\s+)?(?:by\s+)?\$?([\d,]+)k?/gi,
-
-    // Growth metrics: "from 5 to 50", "doubled", "tripled"
-    /(?:from|grew from)\s+(\d+)\s+to\s+(\d+)/gi,
-    /(doubled|tripled|quadrupled)/gi
+  // Red flags: feature words
+  const featureWords = [
+    'services',
+    'solutions',
+    'platform',
+    'system',
+    'tool',
+    'software',
+    'commitment',
+    'approach',
+    'methodology',
+    'process',
+    'advisory',
+    'consulting'
   ];
 
-  patterns.forEach(pattern => {
-    const matches = contentStr.matchAll(pattern);
-    for (const match of matches) {
-      if (match[0].length < 200) { // Avoid matching huge text blocks
-        metrics.push({
-          id: `metric-fallback-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-          metric: extractMetricName(match[0]),
-          value: extractMetricValue(match[0]),
-          timeframe: extractTimeframe(match[0]),
-          source: {
-            type: 'website',
-            url: '',
-            snippet: match[0].trim(),
-            confidence: 60 // Lower confidence for regex extraction
-          }
-        });
-      }
-    }
+  // If statement starts with or heavily contains feature words, reject it
+  const hasFeatureLanguage = featureWords.some(word => {
+    const regex = new RegExp(`\\b${word}\\b`, 'i');
+    return statement.startsWith(word) || (statement.match(regex) && statement.length < 50);
   });
 
-  // Remove duplicates based on similar snippets
-  const uniqueMetrics = deduplicateMetrics(metrics);
-
-  console.log(`[BenefitExtractor] Fallback extraction found ${uniqueMetrics.length} metrics`);
-
-  const benefits = groupMetricsIntoBenefits(uniqueMetrics, []);
-
-  return { metrics: uniqueMetrics, benefits };
-}
-
-/**
- * Extract metric name from matched text
- */
-function extractMetricName(text: string): string {
-  // Try to identify what metric this is
-  const lower = text.toLowerCase();
-
-  if (lower.includes('revenue') || lower.includes('sales')) return 'Revenue growth';
-  if (lower.includes('time') || lower.includes('hours') || lower.includes('faster')) return 'Time saved';
-  if (lower.includes('cost') || lower.includes('expense')) return 'Cost reduction';
-  if (lower.includes('productivity') || lower.includes('efficiency')) return 'Productivity increase';
-  if (lower.includes('customer') || lower.includes('client')) return 'Customer growth';
-  if (lower.includes('profit')) return 'Profit increase';
-  if (lower.includes('quality') || lower.includes('accuracy')) return 'Quality improvement';
-
-  return 'Performance improvement';
-}
-
-/**
- * Extract metric value from matched text
- */
-function extractMetricValue(text: string): string {
-  // Extract the number and unit
-  const percentMatch = text.match(/(\d+)%/);
-  if (percentMatch) return percentMatch[0];
-
-  const numberMatch = text.match(/(\d+)\s*(hours?|minutes?|days?|weeks?|months?|k|\$)/i);
-  if (numberMatch) return numberMatch[0];
-
-  const rangeMatch = text.match(/from\s+(\d+)\s+to\s+(\d+)/i);
-  if (rangeMatch) {
-    const from = parseInt(rangeMatch[1]);
-    const to = parseInt(rangeMatch[2]);
-    const increase = Math.round(((to - from) / from) * 100);
-    return `${increase}%`;
+  if (hasFeatureLanguage) {
+    console.log(`[BenefitExtractor] ⚠️ Rejected feature-based benefit: "${outcome.statement}"`);
+    return false;
   }
 
-  if (text.toLowerCase().includes('doubled')) return '100%';
-  if (text.toLowerCase().includes('tripled')) return '200%';
-  if (text.toLowerCase().includes('quadrupled')) return '300%';
+  // Green flags: outcome words
+  const outcomeWords = ['save', 'reduce', 'increase', 'achieve', 'get', 'gain', 'feel', 'eliminate', 'never worry', 'peace of mind', 'confidence', 'faster', 'better'];
+  const hasOutcomeLanguage = outcomeWords.some(word => statement.includes(word));
 
-  return 'significant increase';
+  if (!hasOutcomeLanguage && !outcome.metrics?.length) {
+    console.log(`[BenefitExtractor] ⚠️ Rejected vague benefit: "${outcome.statement}"`);
+    return false;
+  }
+
+  return true;
 }
 
 /**
- * Extract timeframe from matched text
+ * Parse metrics from various formats
  */
-function extractTimeframe(text: string): string | undefined {
-  const timeframeMatch = text.match(/(?:in|within|over|after)\s+(\d+\s+(?:hours?|days?|weeks?|months?|years?))/i);
-  return timeframeMatch?.[1] || undefined;
+function parseMetrics(metrics: any): any[] {
+  if (!metrics) return [];
+  if (typeof metrics === 'string') return [metrics];
+  if (Array.isArray(metrics)) return metrics;
+  return [];
 }
 
 /**
- * Deduplicate metrics based on similar content
+ * Calculate confidence based on outcome quality
  */
-function deduplicateMetrics(metrics: BenefitMetric[]): BenefitMetric[] {
-  const seen = new Set<string>();
-  return metrics.filter(m => {
-    const key = `${m.metric}-${m.value}`.toLowerCase();
-    if (seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
+function calculateConfidence(benefits: KeyBenefit[], contentSections: number): ConfidenceScore {
+  if (benefits.length === 0) {
+    return {
+      overall: 0,
+      dataQuality: 0,
+      sourceCount: 0,
+      modelAgreement: 0,
+      reasoning: 'No benefits extracted'
+    };
+  }
+
+  const avgConfidence = benefits.reduce((sum, b) => {
+    const conf = typeof b.confidence === 'number' ? b.confidence : (b.confidence?.overall || 0);
+    return sum + conf;
+  }, 0) / benefits.length;
+  const hasMetrics = benefits.filter(b => b.metrics && b.metrics.length > 0).length;
+
+  return {
+    overall: Math.round(avgConfidence),
+    dataQuality: contentSections > 3 ? 80 : 60,
+    sourceCount: benefits.length,
+    modelAgreement: hasMetrics > 0 ? 85 : 70,
+    reasoning: `Extracted ${benefits.length} outcome-focused benefits, ${hasMetrics} with metrics`
+  };
 }
 
 /**
- * Export singleton pattern (matching existing services)
+ * Create fallback benefits based on industry
+ */
+function createFallbackBenefits(industry: string): BenefitExtractionResult {
+  console.log('[BenefitExtractor] Creating industry-based fallback benefits');
+
+  // Generic outcome-focused benefits by industry type
+  const fallbackBenefits: KeyBenefit[] = [
+    {
+      id: 'benefit-functional-1',
+      statement: `Achieve measurable results in your ${industry} operations`,
+      outcomeType: 'quantifiable',
+      metrics: [],
+      eqFraming: 'rational',
+      confidence: {
+        overall: 60,
+        dataQuality: 50,
+        sourceCount: 1,
+        modelAgreement: 60
+      },
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Data',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 60,
+        dataPoints: 1
+      }],
+      isManualInput: false
+    },
+    {
+      id: 'benefit-emotional-1',
+      statement: `Gain peace of mind knowing your ${industry} needs are handled`,
+      outcomeType: 'qualitative',
+      metrics: [],
+      eqFraming: 'emotional',
+      confidence: {
+        overall: 60,
+        dataQuality: 50,
+        sourceCount: 1,
+        modelAgreement: 60
+      },
+      sources: [{
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+        type: 'api',
+        name: 'Industry Data',
+        url: '',
+        extractedAt: new Date(),
+        reliability: 60,
+        dataPoints: 1
+      }],
+      isManualInput: false
+    }
+  ];
+
+  return {
+    benefits: fallbackBenefits,
+    metrics: [],
+    confidence: {
+      overall: 60,
+      dataQuality: 50,
+      sourceCount: 0,
+      modelAgreement: 60,
+      reasoning: 'Using industry-based fallback benefits'
+    },
+    sources: fallbackBenefits.flatMap(b => b.sources || [])
+  };
+}
+
+/**
+ * Export singleton pattern
  */
 export const benefitExtractorService = {
   extractBenefits

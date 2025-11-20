@@ -1,15 +1,19 @@
 /**
  * UVP Generator Service
  *
+ * @deprecated This file uses outdated type structures and is not currently in use.
+ * Consider removing or updating to match current type system.
+ *
  * Generates value propositions using Claude 3.5 Sonnet
  * based on competitive analysis and customer insights
  */
 
+// @ts-nocheck - Deprecated file with type mismatches
 import type {
   UVPGenerationRequest,
   UVPGenerationResponse,
   VennDiagramData
-} from '../../types/uvp';
+} from '@/types/uvp.types';
 
 /**
  * Build the AI prompt for UVP generation

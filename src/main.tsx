@@ -10,12 +10,13 @@ import './index.css'
 // publishingAutomation.start()
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  // StrictMode temporarily disabled to prevent double-renders during development
+  // <React.StrictMode>
     <BrowserRouter future={{
       v7_startTransition: true,
       v7_relativeSplatPath: true
     }}>
       <App />
     </BrowserRouter>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

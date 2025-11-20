@@ -24,6 +24,8 @@ export interface Database {
           uvp_completed: boolean
           onboarding_completed: boolean
           last_enriched_at: string | null
+          emotional_quotient: number | null
+          eq_calculated_at: string | null
           created_at: string
           updated_at: string
         }
@@ -37,6 +39,8 @@ export interface Database {
           uvp_completed?: boolean
           onboarding_completed?: boolean
           last_enriched_at?: string | null
+          emotional_quotient?: number | null
+          eq_calculated_at?: string | null
           created_at?: string
           updated_at?: string
         }
@@ -50,8 +54,246 @@ export interface Database {
           uvp_completed?: boolean
           onboarding_completed?: boolean
           last_enriched_at?: string | null
+          emotional_quotient?: number | null
+          eq_calculated_at?: string | null
           created_at?: string
           updated_at?: string
+        }
+      }
+      brand_eq_scores: {
+        Row: {
+          id: string
+          brand_id: string
+          emotional_quotient: number
+          rational_quotient: number
+          overall_eq: number
+          confidence_score: number
+          calculation_method: string
+          specialty: string | null
+          industry: string | null
+          is_passion_product: boolean
+          specialty_contribution: Json | null
+          pattern_contribution: Json | null
+          content_contribution: Json | null
+          detected_signals: Json | null
+          recommendations: Json | null
+          calculation_id: string
+          calculated_at: string
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          brand_id: string
+          emotional_quotient: number
+          rational_quotient: number
+          overall_eq: number
+          confidence_score: number
+          calculation_method: string
+          specialty?: string | null
+          industry?: string | null
+          is_passion_product?: boolean
+          specialty_contribution?: Json | null
+          pattern_contribution?: Json | null
+          content_contribution?: Json | null
+          detected_signals?: Json | null
+          recommendations?: Json | null
+          calculation_id: string
+          calculated_at?: string
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          brand_id?: string
+          emotional_quotient?: number
+          rational_quotient?: number
+          overall_eq?: number
+          confidence_score?: number
+          calculation_method?: string
+          specialty?: string | null
+          industry?: string | null
+          is_passion_product?: boolean
+          specialty_contribution?: Json | null
+          pattern_contribution?: Json | null
+          content_contribution?: Json | null
+          detected_signals?: Json | null
+          recommendations?: Json | null
+          calculation_id?: string
+          calculated_at?: string
+          created_at?: string
+          updated_at?: string
+        }
+      }
+      eq_patterns: {
+        Row: {
+          id: string
+          pattern_id: string
+          pattern_type: string
+          detected_keywords: string[]
+          keyword_density: Json
+          has_testimonials: boolean
+          has_forums: boolean
+          has_pricing_tables: boolean
+          has_comparison_charts: boolean
+          has_contact_only_pricing: boolean
+          calculated_eq: number
+          confidence_score: number
+          business_name: string | null
+          specialty: string | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          pattern_id: string
+          pattern_type: string
+          detected_keywords: string[]
+          keyword_density: Json
+          has_testimonials?: boolean
+          has_forums?: boolean
+          has_pricing_tables?: boolean
+          has_comparison_charts?: boolean
+          has_contact_only_pricing?: boolean
+          calculated_eq: number
+          confidence_score: number
+          business_name?: string | null
+          specialty?: string | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          pattern_id?: string
+          pattern_type?: string
+          detected_keywords?: string[]
+          keyword_density?: Json
+          has_testimonials?: boolean
+          has_forums?: boolean
+          has_pricing_tables?: boolean
+          has_comparison_charts?: boolean
+          has_contact_only_pricing?: boolean
+          calculated_eq?: number
+          confidence_score?: number
+          business_name?: string | null
+          specialty?: string | null
+          created_at?: string
+        }
+      }
+      eq_specialty_baselines: {
+        Row: {
+          id: string
+          specialty: string
+          base_eq: number
+          is_passion_product: boolean
+          sample_size: number
+          confidence_score: number
+          example_businesses: string[]
+          avg_emotional_density: number | null
+          avg_rational_density: number | null
+          common_signals: string[]
+          first_learned_at: string
+          last_updated_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          specialty: string
+          base_eq: number
+          is_passion_product?: boolean
+          sample_size?: number
+          confidence_score: number
+          example_businesses?: string[]
+          avg_emotional_density?: number | null
+          avg_rational_density?: number | null
+          common_signals?: string[]
+          first_learned_at?: string
+          last_updated_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          specialty?: string
+          base_eq?: number
+          is_passion_product?: boolean
+          sample_size?: number
+          confidence_score?: number
+          example_businesses?: string[]
+          avg_emotional_density?: number | null
+          avg_rational_density?: number | null
+          common_signals?: string[]
+          first_learned_at?: string
+          last_updated_at?: string
+          created_at?: string
+        }
+      }
+      eq_performance_metrics: {
+        Row: {
+          id: string
+          brand_id: string
+          content_id: string | null
+          content_type: string
+          platform: string
+          content_eq: number
+          target_eq: number | null
+          eq_variance: number | null
+          platform_adjustment: number
+          seasonal_adjustment: number
+          campaign_type_adjustment: number
+          impressions: number
+          engagement_count: number
+          engagement_rate: number | null
+          click_count: number
+          click_rate: number | null
+          conversion_count: number
+          conversion_rate: number | null
+          published_at: string | null
+          measured_at: string
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          brand_id: string
+          content_id?: string | null
+          content_type: string
+          platform: string
+          content_eq: number
+          target_eq?: number | null
+          eq_variance?: number | null
+          platform_adjustment?: number
+          seasonal_adjustment?: number
+          campaign_type_adjustment?: number
+          impressions?: number
+          engagement_count?: number
+          engagement_rate?: number | null
+          click_count?: number
+          click_rate?: number | null
+          conversion_count?: number
+          conversion_rate?: number | null
+          published_at?: string | null
+          measured_at?: string
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          brand_id?: string
+          content_id?: string | null
+          content_type?: string
+          platform?: string
+          content_eq?: number
+          target_eq?: number | null
+          eq_variance?: number | null
+          platform_adjustment?: number
+          seasonal_adjustment?: number
+          campaign_type_adjustment?: number
+          impressions?: number
+          engagement_count?: number
+          engagement_rate?: number | null
+          click_count?: number
+          click_rate?: number | null
+          conversion_count?: number
+          conversion_rate?: number | null
+          published_at?: string | null
+          measured_at?: string
+          created_at?: string
         }
       }
       mirror_sections: {

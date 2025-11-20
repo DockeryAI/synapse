@@ -56,14 +56,29 @@ export interface CampaignSession {
 // ============================================================================
 
 export interface GeneratedCampaignContent {
-  campaignId: string;
-  campaignType: CampaignType;
-  platforms: PlatformContent[];
+  campaignId?: string;
+  campaignName?: string;
+  campaignType?: CampaignType;
+  platforms?: PlatformContent[];
+  posts?: Array<{
+    id: string;
+    platform: string;
+    content: {
+      headline?: string;
+      body: string;
+      hashtags?: string[];
+      cta?: string;
+    };
+    visuals?: any;
+    scheduledDate?: Date;
+    status: string;
+  }>;
   metadata: {
-    insightsUsed: string[];
-    generatedAt: Date;
-    model: string;
-    confidence: number;
+    insightsUsed?: string[];
+    generatedAt: string | Date;
+    totalPosts?: number;
+    model?: string;
+    confidence?: number;
   };
 }
 

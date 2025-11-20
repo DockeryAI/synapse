@@ -74,8 +74,8 @@ export class PlatformOrchestrator {
     baseContent: PostContent,
     platforms: SocialPlatform[],
     contentType: string
-  ): Promise<Record<SocialPlatform, PlatformContent>> {
-    const variants: Record<SocialPlatform, PlatformContent> = {} as any;
+  ): Promise<Partial<Record<SocialPlatform, PlatformContent>>> {
+    const variants: Partial<Record<SocialPlatform, PlatformContent>> = {};
 
     for (const platform of platforms) {
       variants[platform] = await this.adaptContentForPlatform(
@@ -287,12 +287,14 @@ export class PlatformOrchestrator {
    */
   private static detectAdaptations(
     baseContent: PostContent,
-    variants: Record<SocialPlatform, PlatformContent>
+    variants: Partial<Record<SocialPlatform, PlatformContent>>
   ): ContentAdaptation[] {
     const adaptations: ContentAdaptation[] = [];
     const baseText = baseContent.hook + baseContent.body + baseContent.cta;
 
     for (const [platform, variant] of Object.entries(variants)) {
+      if (!variant) continue;
+
       const changes: string[] = [];
 
       // Check for truncation
@@ -473,7 +475,7 @@ export class PlatformOrchestrator {
               isScheduled: false,
               status: 'pending',
             },
-          },
+          } as Partial<Record<SocialPlatform, any>>,
           schedulingAttempts: [],
         },
         metadata: {

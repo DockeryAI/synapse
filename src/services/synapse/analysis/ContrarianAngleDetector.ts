@@ -8,8 +8,8 @@
  * Created: 2025-11-11
  */
 
+import type { BreakthroughInsight } from '@/types/synapse/breakthrough.types';
 import type {
-  BreakthroughInsight,
   CompetitorClaim,
   ContrarianAngle,
   ContrarianDetectionResult
@@ -52,11 +52,12 @@ export class ContrarianAngleDetector {
     // Rank by differentiation potential
     const ranked = this.rankByDifferentiation(contrarianAngles);
 
+    // Return the first angle as topAngle if available
     return {
-      competitorClaims,
+      insightId: insights[0]?.id || '',
       contrarianAngles: ranked,
-      topOpportunity: ranked[0] || null
-    };
+      topAngle: ranked[0],
+    } as ContrarianDetectionResult;
   }
 
   /**
@@ -369,6 +370,6 @@ EXAMPLES OF GOOD CONTRARIAN ANGLES:
     insight: BreakthroughInsight
   ): Promise<ContrarianAngle | null> {
     const result = await this.detectContrarianAngles([insight]);
-    return result.topOpportunity;
+    return result.contrarianAngles[0] || null;
   }
 }

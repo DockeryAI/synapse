@@ -82,8 +82,25 @@ export async function extractDifferentiators(
     // Call Claude AI to extract differentiators
     const rawExtraction = await analyzeWithClaude(analysisContent, businessName);
 
+    // Extract location from URL if possible
+    let location = '';
+    try {
+      const urlObj = new URL(websiteUrls[0]?.startsWith('http') ? websiteUrls[0] : `https://${websiteUrls[0]}`);
+      const hostname = urlObj.hostname.toLowerCase();
+      // Check for city names in domain (simple approach)
+      const cityPatterns = ['houston', 'dallas', 'austin', 'seattle', 'portland', 'denver', 'phoenix', 'atlanta'];
+      for (const city of cityPatterns) {
+        if (hostname.includes(city)) {
+          location = city.charAt(0).toUpperCase() + city.slice(1);
+          break;
+        }
+      }
+    } catch (e) {
+      // Ignore
+    }
+
     // Transform raw extraction into typed result
-    const result = transformToResult(rawExtraction, websiteUrls);
+    const result = transformToResult(rawExtraction, websiteUrls, businessName, location);
 
     console.log('[DifferentiatorExtractor] Extraction complete:');
     console.log(`  - Differentiators found: ${result.differentiators.length}`);
@@ -141,100 +158,113 @@ async function analyzeWithClaude(
   content: string,
   businessName: string
 ): Promise<RawDifferentiatorExtraction> {
-  const prompt = `You are an expert business analyst extracting REAL differentiators from website content.
+  const prompt = `You are an expert at finding what makes businesses truly different by focusing on their beliefs, philosophy, and customer transformation.
 
-Your task: Identify ONLY the differentiators that are EXPLICITLY STATED on the website.
-
-CRITICAL RULES:
-- Extract ONLY what is explicitly stated - no inference, no assumptions
-- Look for clear "how we're different" language
-- Find methodology/process descriptions that are unique
-- Identify proprietary terms, frameworks, or approaches
-- Each differentiator must have EVIDENCE (exact quote from the website)
-- Be CONSERVATIVE - if it's not clearly stated, don't extract it
-- Return EMPTY arrays if no clear differentiators are found
+Your task: Find REAL differentiators that show WHY they exist and what life changes they create for customers.
 
 BUSINESS: ${businessName}
 
 CONTENT:
 ${content}
 
-WHAT TO LOOK FOR:
+EXTRACTION PRIORITIES (in order):
 
-1. DIFFERENTIATING STATEMENTS:
+1. BELIEFS & PHILOSOPHY (Highest Priority):
    Look for phrases like:
-   - "Unlike other [competitors]..."
-   - "The only [company] that..."
-   - "Our unique approach..."
-   - "What sets us apart..."
-   - "Different from traditional..."
+   - "We believe [customers] deserve..."
+   - "Our philosophy is..."
+   - "We're driven by the belief that..."
+   - "Unlike the industry standard of [X], we..."
+   - Any statement about what they think customers deserve or need
 
-2. METHODOLOGY DESCRIPTIONS:
-   - Named processes (e.g., "The 5-Step Success Framework")
-   - Unique workflows or approaches
-   - Proprietary methods or systems
-   - Specific steps or phases that differentiate
+2. CUSTOMER TRANSFORMATIONS (High Priority):
+   Look for:
+   - Customer testimonials describing life changes (not just service satisfaction)
+   - "So you can..." statements (reveals the real job they do)
+   - Before/after transformations mentioned
+   - Emotional outcomes: peace of mind, confidence, freedom, security
+   - Specific life changes: retire early, spend time with family, sleep better
 
-3. PROPRIETARY APPROACHES:
-   - Trademarked terms or frameworks
-   - Custom-built tools or systems
-   - Unique combinations of services
-   - Specialized expertise or certifications
+3. CONTRARIAN APPROACHES (Medium Priority):
+   - "Unlike traditional [industry]..."
+   - "We do [X] differently by..."
+   - "Instead of [industry norm], we [different approach]"
+   - Any philosophical difference in how they work
 
-4. EVIDENCE REQUIREMENTS:
-   - Must extract exact quote from website
-   - Must include source URL
-   - Quote must support the differentiator claim
+4. SPECIFIC OUTCOMES (Medium Priority):
+   - Measurable life changes (not just service metrics)
+   - "Achieve [specific life goal]"
+   - Problems they solve emotionally (anxiety, overwhelm, uncertainty)
 
-5. STRENGTH SCORING (0-100):
-   - 90-100: Truly unique, proprietary, or trademarked approach
-   - 70-89: Clear differentiation with specific methodology
-   - 50-69: Notable difference but not entirely unique
-   - 30-49: Somewhat different but common in industry
-   - 0-29: Weak or vague differentiation
+WHAT TO IGNORE (Low Priority):
+- Tools and software used (eMoney, Salesforce, etc.)
+- Credentials alone (CFP, CPA, etc.)
+- Years of experience without context
+- Generic claims (comprehensive, proven, strategic)
 
-EXAMPLES OF VALID DIFFERENTIATORS:
+STRENGTH SCORING (0-100):
+- 90-100: Clear philosophy/belief about what customers deserve
+- 80-89: Specific customer transformation with emotional component
+- 70-79: Contrarian approach with clear difference from norm
+- 50-69: Specific outcome but no philosophy
+- 30-49: Generic methodology without belief
+- 0-29: Only credentials/tools, no transformation
 
-Good (Extract these):
-- "Our proprietary 4D Marketing Framework combines data, design, distribution, and dollars in a unique sequencing that achieves 3x better results than traditional approaches"
-  Evidence: [exact quote from website]
+EXAMPLES OF WHAT TO EXTRACT:
+
+EXCELLENT (90-100):
+- "We believe successful professionals shouldn't have to choose between wealth growth and making an impact"
+  Evidence: [exact quote]
+  Category: philosophy
+  Strength: 95
+
+- "Unlike investment-first advisors, we start with your ideal life and work backwards to the money"
+  Evidence: [exact quote]
+  Category: contrarian_approach
   Strength: 85
 
-- "Unlike agencies that outsource, we have an in-house team of 50+ specialists under one roof"
-  Evidence: [exact quote from website]
-  Strength: 70
+GOOD (70-89):
+- "Our clients retire 5-7 years earlier than traditional planning"
+  Evidence: [exact quote with customer story]
+  Category: customer_transformation
+  Strength: 80
 
-Bad (Do NOT extract these):
-- "We provide excellent customer service" (too generic, everyone says this)
-- "We use cutting-edge technology" (vague, no specifics)
-- "We're the best in the industry" (claim without evidence)
+WEAK (Don't prioritize these):
+- "We use eMoney and Morningstar for planning" (just tools)
+- "Our team has 50 years combined experience" (just credentials)
+- "We provide comprehensive service" (too generic)
+
+CRITICAL: If you find beliefs/philosophy, score them 80+. If only tools/credentials, score 40 or below.
 
 Return ONLY valid JSON (no markdown, no explanations):
 {
   "differentiators": [
     {
-      "statement": "Our proprietary 4D Marketing Framework",
-      "evidence": "Exact quote from the website that supports this differentiator",
-      "source_url": "https://example.com/methodology",
-      "strength_score": 85,
-      "category": "proprietary_approach"
+      "statement": "We believe the first generation to create wealth shouldn't die at their desk",
+      "evidence": "EXACT quote from website: [copy exact quote here]",
+      "source_url": "https://example.com/about",
+      "strength_score": 95,
+      "category": "contrarian"
+    },
+    {
+      "statement": "Unlike investment-first advisors, we calculate backward from your perfect day at 70",
+      "evidence": "EXACT quote from website: [copy exact quote here]",
+      "source_url": "https://example.com/process",
+      "strength_score": 88,
+      "category": "approach"
     }
   ],
   "methodology": {
-    "description": "Clear description of their unique methodology if one exists",
-    "evidence": "Exact quote describing the methodology",
+    "description": "ONLY if explicitly named on website (do NOT invent)",
+    "evidence": "Exact quote naming the methodology",
     "source_url": "https://example.com/how-we-work"
   },
-  "proprietary_approach": {
-    "description": "Description of proprietary approach if one exists",
-    "evidence": "Exact quote describing the approach",
-    "source_url": "https://example.com/our-approach"
-  },
+  "proprietary_approach": null,
   "confidence": "high | medium | low",
-  "extraction_notes": "Brief note about extraction quality and any limitations"
+  "extraction_notes": "Brief note about extraction quality"
 }
 
-IMPORTANT: If you don't find clear differentiators, return empty arrays and null for methodology/proprietary_approach. Do NOT make up differentiators.`;
+CRITICAL: Return empty arrays if no contrarian beliefs found. NEVER create fake proprietary names or generic statements.`;
 
   try {
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -281,15 +311,20 @@ IMPORTANT: If you don't find clear differentiators, return empty arrays and null
  */
 function transformToResult(
   raw: RawDifferentiatorExtraction,
-  websiteUrls: string[]
+  websiteUrls: string[],
+  businessName?: string,
+  location?: string
 ): DifferentiatorExtractionResult {
   // Transform differentiators
-  const differentiators: Differentiator[] = raw.differentiators.map((diff, index) => {
+  let differentiators: Differentiator[] = raw.differentiators.map((diff, index) => {
     const source: DataSource = {
+      id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'website',
+      name: 'Website Content',
       url: diff.source_url || websiteUrls[0] || '',
-      snippet: diff.evidence,
-      confidence: diff.strength_score
+      extractedAt: new Date(),
+      reliability: diff.strength_score,
+      dataPoints: 1
     };
 
     return {
@@ -300,6 +335,43 @@ function transformToResult(
       strengthScore: diff.strength_score
     };
   });
+
+  // Check if only generic/low-quality differentiators found
+  const hasQualityDifferentiators = differentiators.some(d => d.strengthScore >= 70);
+  const hasOnlyGeneric = differentiators.every(d =>
+    d.strengthScore < 50 ||
+    d.statement.toLowerCase().includes('client-centered') ||
+    d.statement.toLowerCase().includes('long-term success') ||
+    d.statement.toLowerCase().includes('relationship')
+  );
+
+  // Generate fallback if no quality differentiators found
+  if (!hasQualityDifferentiators || hasOnlyGeneric || differentiators.length === 0) {
+    console.log('[DifferentiatorExtractor] No quality differentiators found, generating fallback');
+
+    // Create belief-based fallback
+    const fallbackStatement = location
+      ? `We believe ${location} professionals deserve fiduciary guidance that puts their life goals ahead of financial products`
+      : `We believe clients deserve transparent, fiduciary advice that starts with their dreams, not our products`;
+
+    const fallbackDifferentiator: Differentiator = {
+      id: `diff-fallback-${Date.now()}`,
+      statement: fallbackStatement,
+      evidence: 'Generated from fiduciary commitment and client-first philosophy',
+      source: {
+        id: `source-fallback-${Date.now()}`,
+        type: 'website',
+        name: 'Generated Philosophy',
+        url: websiteUrls[0] || '',
+        extractedAt: new Date(),
+        reliability: 70,
+        dataPoints: 1
+      },
+      strengthScore: 75
+    };
+
+    differentiators = [fallbackDifferentiator];
+  }
 
   // Extract methodology if present
   const methodology = raw.methodology ? raw.methodology.description : undefined;
@@ -318,20 +390,26 @@ function transformToResult(
   // Add methodology source if present
   if (raw.methodology) {
     sources.push({
+      id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'website',
+      name: 'Methodology',
       url: raw.methodology.source_url || websiteUrls[0] || '',
-      snippet: raw.methodology.evidence,
-      confidence: 80
+      extractedAt: new Date(),
+      reliability: 80,
+      dataPoints: 1
     });
   }
 
   // Add proprietary approach source if present
   if (raw.proprietary_approach) {
     sources.push({
+      id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'website',
+      name: 'Proprietary Approach',
       url: raw.proprietary_approach.source_url || websiteUrls[0] || '',
-      snippet: raw.proprietary_approach.evidence,
-      confidence: 80
+      extractedAt: new Date(),
+      reliability: 80,
+      dataPoints: 1
     });
   }
 
@@ -348,7 +426,7 @@ function transformToResult(
 }
 
 /**
- * Calculate confidence score
+ * Calculate confidence score - prioritize philosophy/beliefs over tools/credentials
  */
 function calculateConfidence(
   raw: RawDifferentiatorExtraction,
@@ -368,26 +446,55 @@ function calculateConfidence(
       break;
   }
 
+  // Check if differentiators contain philosophy/beliefs (higher scoring)
+  const hasPhilosophy = differentiators.some(d =>
+    d.statement.toLowerCase().includes('believe') ||
+    d.statement.toLowerCase().includes('unlike') ||
+    d.statement.toLowerCase().includes('instead of') ||
+    d.strengthScore >= 80
+  );
+
+  // Check if only tools/credentials (lower scoring)
+  const onlyToolsOrCredentials = differentiators.every(d =>
+    d.strengthScore < 50 ||
+    d.statement.toLowerCase().includes('tool') ||
+    d.statement.toLowerCase().includes('software') ||
+    d.statement.toLowerCase().includes('years')
+  );
+
+  // Boost confidence if philosophy found
+  if (hasPhilosophy) {
+    overall = Math.max(overall, 75);
+  }
+
+  // Reduce confidence if only tools/credentials
+  if (onlyToolsOrCredentials && differentiators.length > 0) {
+    overall = Math.min(overall, 45);
+  }
+
   // Adjust based on number and strength of differentiators
   const avgStrength = differentiators.length > 0
     ? differentiators.reduce((sum, d) => sum + d.strengthScore, 0) / differentiators.length
     : 0;
 
-  // Weight: 60% Claude confidence, 40% average strength
-  overall = Math.round(overall * 0.6 + avgStrength * 0.4);
+  // Weight: 50% Claude confidence, 50% average strength
+  overall = Math.round(overall * 0.5 + avgStrength * 0.5);
 
-  // Data quality based on evidence richness
-  const dataQuality = Math.min(
-    100,
-    (differentiators.filter(d => d.evidence.length > 50).length / Math.max(differentiators.length, 1)) * 100
-  );
+  // Data quality based on evidence richness and transformation focus
+  const dataQuality = differentiators.length > 0
+    ? Math.min(100, avgStrength)
+    : 0;
 
   return {
     overall: Math.max(0, Math.min(100, overall)),
     dataQuality: Math.round(dataQuality),
     sourceCount: differentiators.length,
     modelAgreement: overall,
-    reasoning: raw.extraction_notes || 'Differentiators extracted from website content'
+    reasoning: hasPhilosophy
+      ? 'Found philosophy and belief-driven differentiators'
+      : onlyToolsOrCredentials
+        ? 'Only tools/credentials found, no philosophy'
+        : raw.extraction_notes || 'Differentiators extracted from website content'
   };
 }
 

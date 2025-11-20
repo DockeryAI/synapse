@@ -6,7 +6,7 @@
  */
 
 import { chat } from '@/lib/openrouter';
-import type { BreakthroughInsight } from '@/types/synapse.types';
+import type { SynapseInsight } from '@/types/synapse/synapse.types';
 import type { BusinessProfile } from '@/types/synapseContent.types';
 
 export interface PremiumContent {
@@ -22,7 +22,7 @@ export class PremiumContentWriter {
    * Generate high-quality content using Claude Opus for superior writing
    */
   async generatePremiumContent(
-    insight: BreakthroughInsight,
+    insight: SynapseInsight,
     business: BusinessProfile,
     platform: 'linkedin' | 'facebook' | 'instagram' | 'twitter'
   ): Promise<PremiumContent> {
@@ -38,7 +38,7 @@ export class PremiumContentWriter {
       ], {
         model: 'anthropic/claude-sonnet-4.5',
         temperature: 0.7,
-        max_tokens: 1500
+        maxTokens: 1500
       });
 
       return this.parseResponse(response);
@@ -50,7 +50,7 @@ export class PremiumContentWriter {
   }
 
   private buildPremiumPrompt(
-    insight: BreakthroughInsight,
+    insight: SynapseInsight,
     business: BusinessProfile,
     platform: string
   ): string {
@@ -88,7 +88,6 @@ export class PremiumContentWriter {
 BUSINESS CONTEXT:
 - Business: ${business.name}
 - Industry: ${business.industry}
-- Location: ${business.location?.city}, ${business.location?.state}
 
 BREAKTHROUGH INSIGHT TO LEVERAGE:
 - Core Insight: ${insight.insight}
@@ -245,7 +244,7 @@ CRITICAL: Respond with ONLY valid JSON. No preamble, no explanation, no markdown
   }
 
   private generateFallbackContent(
-    insight: BreakthroughInsight,
+    insight: SynapseInsight,
     business: BusinessProfile
   ): PremiumContent {
     // Basic fallback if API fails
@@ -309,7 +308,7 @@ CRITICAL: Respond with ONLY valid JSON. No preamble, no explanation, no markdown
       ], {
         model: 'anthropic/claude-sonnet-4.5',
         temperature: 0.7,
-        max_tokens: 1000
+        maxTokens: 1000
       });
 
       return this.parseResponse(response);

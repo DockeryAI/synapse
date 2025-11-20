@@ -9,7 +9,8 @@
 
 import type {
   CustomerExtractionResult,
-  CustomerProfile
+  CustomerProfile,
+  ConfidenceScore
 } from '@/types/uvp-flow.types';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
 
@@ -150,81 +151,78 @@ async function analyzeWithClaude(
   content: string,
   businessName: string
 ): Promise<RawCustomerExtraction> {
-  const prompt = `You are an expert market researcher analyzing website content to identify target customer profiles.
+  const prompt = `You are an expert market researcher analyzing website content to identify ALL possible target customer profiles.
 
-Your task: Extract WHO this business serves based on EVIDENCE ONLY.
+Your task: Extract EVERY potential customer segment this business could serve - aim for 5-10 specific profiles.
 
 Business: ${businessName}
 
-CRITICAL INSTRUCTIONS - READ CAREFULLY:
+CRITICAL INSTRUCTIONS:
 
-1. EVIDENCE-ONLY EXTRACTION:
-   - ONLY extract customer profiles when you find CLEAR EVIDENCE
-   - Evidence = testimonials with job titles, case studies with company info, explicit "we serve..." statements
-   - If you find NO clear evidence, return EMPTY profiles array
-   - NEVER infer or assume customer types without supporting quotes
+1. EXTRACT COMPREHENSIVELY:
+   - Look for EVERY mention of customers, even indirect references
+   - Include both explicit evidence AND reasonable inferences from context
+   - Analyze language, tone, and industry context to identify likely customers
+   - If website says "For businesses", extract specific business types they'd serve
+   - Extract AT LEAST 5 different customer profiles, more if applicable
 
-2. LOOK FOR EXPLICIT MENTIONS:
-   - Job titles/roles: "As a CEO...", "As a marketing director...", "I'm a small business owner..."
-   - Industries: "in the healthcare space", "SaaS company", "retail business"
-   - Company size: "10-person team", "enterprise", "solo entrepreneur", "startup"
-   - Demographics: "homeowner", "parent", "professional", "student"
+2. LOOK FOR ALL CUSTOMER SIGNALS:
+   - Direct mentions: "As a CEO...", "marketing directors", "small business owners"
+   - Indirect clues: Industry jargon (SaaS terms → serves tech companies), pricing tiers (enterprise → large companies)
+   - Problem statements: "Struggling with X" → people with problem X
+   - Use cases: "Perfect for agencies" → agencies are customers
+   - Social proof: Client logos, testimonials, case studies
+   - Language/tone: Formal → enterprises, casual → startups/SMBs
 
-3. SUPPORTING QUOTES ARE MANDATORY:
-   - Every profile MUST have at least 2-3 evidence quotes
-   - Quotes must be ACTUAL text from the content (not paraphrased)
-   - If you can't find quotes, don't create the profile
+3. CREATE SPECIFIC SEGMENTS:
+   - Don't just say "Business owners" - break into segments: "Solopreneurs", "SMB owners 10-50 employees", "Enterprise executives"
+   - Don't just say "Marketers" - break into: "Agency owners", "In-house marketing directors", "Freelance consultants"
+   - Include role, industry, company size, and specific challenges when possible
 
-4. GROUP SIMILAR CUSTOMERS:
-   - If you see 5 testimonials from "marketing directors at SaaS companies", that's ONE profile
-   - Don't create separate profiles for each testimonial
-   - Look for PATTERNS across multiple data points
+4. CONFIDENCE LEVELS (Be generous):
+   - HIGH: Multiple explicit mentions OR clear industry context
+   - MEDIUM: Some evidence OR reasonable inference from positioning
+   - LOW: Educated guess based on product features / industry norms
 
-5. CONFIDENCE LEVELS:
-   - HIGH: Multiple explicit mentions with job titles, industries, company sizes
-   - MEDIUM: Some explicit mentions but missing some details
-   - LOW: Only vague hints, few quotes, uncertain
+5. EVIDENCE QUOTES:
+   - Include ANY supporting text - testimonials, product descriptions, use cases
+   - If no direct quotes, use contextual evidence: "Pricing page shows enterprise tier" OR "Uses technical jargon suggesting tech audience"
+   - 1-3 quotes minimum, but context clues work too
 
-6. WHEN TO RETURN EMPTY:
-   - No testimonials or case studies
-   - No clear customer mentions in content
-   - Only generic marketing language ("anyone can use this!")
-   - Content focuses on product features, not customers
+6. EXAMPLES OF GOOD EXTRACTION:
+   From "Marketing automation for growing teams":
+   - "Marketing managers at 50-200 person companies"
+   - "Marketing agencies managing multiple clients"
+   - "In-house marketing teams at tech startups"
+   - "CMOs at mid-market B2B companies"
+   - "Marketing operations professionals"
 
 ANALYSIS CONTENT:
 ${content}
 
-OUTPUT FORMAT - Return ONLY valid JSON (no markdown, no explanations):
+OUTPUT FORMAT - Return ONLY valid JSON (no markdown):
 {
   "profiles": [
     {
-      "statement": "Marketing Directors at B2B SaaS companies with 20-100 employees",
-      "industry": "B2B SaaS / Technology",
-      "company_size": "20-100 employees",
-      "role": "Marketing Director / VP Marketing",
-      "evidence_quotes": [
-        "As a marketing director at a fast-growing SaaS startup, I was drowning in data",
-        "I'm responsible for marketing at a 50-person software company",
-        "We're a B2B SaaS business serving mid-market companies"
-      ],
-      "confidence_level": "high",
-      "source_sections": ["testimonials", "case_studies"]
+      "statement": "[Specific role] at [company type] with [size/characteristic]",
+      "industry": "Specific industry",
+      "company_size": "Size range",
+      "role": "Specific job title/function",
+      "evidence_quotes": ["Quote or context clue 1", "Quote or context clue 2"],
+      "confidence_level": "high | medium | low",
+      "source_sections": ["website", "testimonials", "case_studies", "pricing"]
     }
   ],
   "overall_confidence": "high | medium | low",
   "data_quality": "excellent | good | fair | poor",
-  "warnings": [
-    "Only found customer mentions in testimonials, none in main content",
-    "Industry information is vague - mostly generic",
-    "No explicit company size mentions found"
-  ]
+  "warnings": []
 }
 
 REMEMBER:
-- Empty profiles array is BETTER than guessing
-- Quality over quantity - one well-evidenced profile beats three weak ones
-- Evidence quotes are MANDATORY
-- Never assume or infer - only extract what's explicitly stated`;
+- Extract 5-10 profiles minimum - be thorough and comprehensive
+- Include medium and low confidence profiles - user can filter later
+- Use industry context and reasonable inferences
+- Break broad categories into specific segments`;
 
   try {
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -240,8 +238,8 @@ REMEMBER:
           role: 'user',
           content: prompt
         }],
-        max_tokens: 4096,
-        temperature: 0.2 // Low temperature for factual extraction
+        max_tokens: 8192, // Increased for more comprehensive extraction
+        temperature: 0.4 // Higher temperature for more creative segmentation
       })
     });
 
@@ -299,18 +297,15 @@ function transformRawProfiles(raw: RawCustomerExtraction): Partial<CustomerProfi
 
   return raw.profiles
     .filter(profile => {
-      // Filter out profiles without evidence quotes
+      // ONLY filter out profiles with absolutely NO evidence
+      // We want to show 5-10 profiles, so be lenient with filtering
       if (!profile.evidence_quotes || profile.evidence_quotes.length === 0) {
-        console.warn('[CustomerExtractor] Skipping profile without evidence quotes:', profile.statement);
+        console.warn('[CustomerExtractor] Skipping profile without any evidence quotes:', profile.statement);
         return false;
       }
 
-      // Filter out profiles with low confidence and minimal evidence
-      if (profile.confidence_level === 'low' && profile.evidence_quotes.length < 2) {
-        console.warn('[CustomerExtractor] Skipping low-confidence profile with insufficient evidence');
-        return false;
-      }
-
+      // Allow all profiles with at least 1 evidence quote, regardless of confidence
+      // User can decide which profiles are relevant
       return true;
     })
     .map((rawProfile, index) => {

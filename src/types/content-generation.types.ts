@@ -10,13 +10,7 @@
  */
 
 import type { Template, Platform, ContentType } from './template.types';
-
-// Temporary stub for SynapseScore - TODO: Create proper definition
-export interface SynapseScore {
-  overall: number;
-  breakdown?: Record<string, number>;
-  [key: string]: any;
-}
+import type { SynapseScore } from './synapse/synapse.types';
 
 // ============================================================================
 // GENERATION REQUESTS
@@ -41,7 +35,9 @@ export interface SingleGenerationParams {
 
 export interface RegenerationParams {
   contentId: string;
+  brandId: string;
   feedback: string; // What to improve
+  platform?: string;
   preserveStructure?: boolean;
 }
 
@@ -274,6 +270,7 @@ export interface AIGenerationOptions {
   minScore: number; // Minimum Synapse score to accept
   maxRetries: number; // How many times to retry if score is too low
   enhanceWithAI: boolean; // Use AI to enhance template output
+  systemMessage?: string; // Optional system message override
 }
 
 // Defaults

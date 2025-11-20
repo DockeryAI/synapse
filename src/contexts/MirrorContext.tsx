@@ -246,7 +246,11 @@ export const MirrorProvider: React.FC<MirrorProviderProps> = ({
         const loadedState: Partial<MirrorState> = {}
         sections.forEach(s => {
           if (s.section && s.data) {
-            loadedState[s.section as keyof MirrorState] = s.data
+            const sectionKey = s.section as keyof Omit<MirrorState, 'lastSaved' | 'isDirty'>
+            if (sectionKey === 'measure' || sectionKey === 'intend' || sectionKey === 'reimagine' ||
+                sectionKey === 'reach' || sectionKey === 'optimize' || sectionKey === 'reflect') {
+              loadedState[sectionKey] = s.data
+            }
           }
         })
 

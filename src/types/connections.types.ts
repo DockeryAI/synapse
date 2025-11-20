@@ -16,7 +16,9 @@ export type DataSource =
   | 'perplexity'
   | 'semrush'
   | 'website'
-  | 'linkedin';  // LinkedIn via Serper
+  | 'linkedin'
+  | 'tiktok'
+  | 'google_trends';
 
 // Data point types for categorization
 export type DataPointType =
@@ -27,7 +29,16 @@ export type DataPointType =
   | 'market_trend'
   | 'sentiment'
   | 'behavior_pattern'
-  | 'local_event';
+  | 'local_event'
+  | 'pain_point'
+  | 'unarticulated_need'
+  | 'competitor_weakness'
+  | 'keyword_gap'
+  | 'question'
+  | 'people_also_ask'
+  | 'search_intent'
+  | 'news_story'
+  | 'weather_trigger';
 
 // Embedding model configuration
 export const EMBEDDING_MODEL = 'text-embedding-3-small';
@@ -36,12 +47,21 @@ export const EMBEDDING_COST_PER_1M_TOKENS = 0.02;
 
 // Data point interface with embeddings
 export interface DataPoint {
+  id: string;
   source: DataSource;
   type: DataPointType;
   content: string;
-  metadata?: Record<string, any>;
-  timestamp: string;
-  confidence: number;
+  metadata: {
+    domain?: 'psychology' | 'timing' | 'competitive' | 'content_gap' | 'search_intent';
+    sentiment?: 'positive' | 'negative' | 'neutral';
+    volume?: number;
+    relevance?: number;
+    timing?: 'immediate' | 'soon' | 'seasonal';
+    competition?: 'low' | 'medium' | 'high';
+    certainty?: number;
+    [key: string]: any;
+  };
+  createdAt: Date;
   embedding?: number[];
 }
 
@@ -61,7 +81,69 @@ export interface EmbeddingCacheStats {
   totalCost: number;
 }
 
+// Connection type
+export type ConnectionType =
+  | 'cross_domain'
+  | 'temporal'
+  | 'causal'
+  | 'contradictory'
+  | 'location_event'
+  | 'local_trend'
+  | 'cultural_moment'
+  | 'trending_topic'
+  | 'seasonal_pattern'
+  | 'competitive_gap'
+  | 'customer_insight';
+
+// Connection strength
+export type ConnectionStrength =
+  | 'weak'
+  | 'moderate'
+  | 'strong';
+
+// Expected impact
+export type ExpectedImpact =
+  | 'low'
+  | 'medium'
+  | 'high'
+  | 'holy shit';
+
+// Connection relationship details
+export interface ConnectionRelationship {
+  semanticSimilarity: number;
+  unexpectedness: number;
+  strength: ConnectionStrength;
+  explanation: string;
+}
+
+// Breakthrough potential assessment
+export interface BreakthroughPotential {
+  score: number;
+  reasoning: string[];
+  contentAngle: string;
+  expectedImpact: ExpectedImpact;
+}
+
+// Connection sources (2-way or 3-way)
+export interface ConnectionSources {
+  primary: DataPoint;
+  secondary: DataPoint;
+  tertiary?: DataPoint;
+}
+
+// Main Connection interface
 export interface Connection {
+  id: string;
+  type: ConnectionType;
+  sources: ConnectionSources;
+  relationship: ConnectionRelationship;
+  breakthroughPotential: BreakthroughPotential;
+  discoveredAt: Date;
+  confidence: number;
+}
+
+// Legacy Connection interface for backwards compatibility
+export interface LegacyConnection {
   id: string
   brand_id: string
   type: '2-way' | '3-way' | '4-way' | '5-way'
@@ -84,40 +166,62 @@ export interface Connection {
   expires_at?: string
 }
 
-export interface DeepContext {
-  brand_id: string
-  industry: string
-  keywords: string[]
-  triggers: string[]
-  competitors: any[]
-  content_gaps: any[]
-  current_opportunities: any[]
-  seo_data: any
-  weather_data: any
-  trend_data: any
-  archetype: string
-  brand_voice: string
-  target_personas: any[]
-  benchmarks: any
-}
+// Re-export DeepContext from the main types file
+export type { DeepContext } from './synapse/deepContext.types';
 
 export interface ConnectionDiscoveryOptions {
-  minBreakthroughScore?: number // 0-1, default 0.7
+  minBreakthroughScore?: number // 0-100, default 70
   maxConnections?: number // default 20
   includeWeakSignals?: boolean // default true
   focusAreas?: Array<'customer_psychology' | 'market_trends' | 'competitive_gaps' | 'timing' | 'channels'>
+  minSimilarity?: number // 0-1, default 0.6
+  requireDifferentSources?: boolean // default true
+  enableThreeWay?: boolean // default true
+  maxPerPair?: number // default 10
 }
 
 // Default options for connection discovery
 export const DEFAULT_DISCOVERY_OPTIONS: Required<ConnectionDiscoveryOptions> = {
-  minBreakthroughScore: 0.7,
+  minBreakthroughScore: 70,
   maxConnections: 20,
   includeWeakSignals: true,
-  focusAreas: ['customer_psychology', 'market_trends', 'competitive_gaps', 'timing', 'channels']
+  focusAreas: ['customer_psychology', 'market_trends', 'competitive_gaps', 'timing', 'channels'],
+  minSimilarity: 0.6,
+  requireDifferentSources: true,
+  enableThreeWay: true,
+  maxPerPair: 10
 }
 
+// Connection discovery result statistics
+export interface ConnectionDiscoveryStats {
+  totalDataPoints: number;
+  twoWayConnections: number;
+  threeWayConnections: number;
+  averageSimilarity: number;
+  averageBreakthroughScore: number;
+  holyShitCount: number;
+}
+
+// Connection discovery result metadata
+export interface ConnectionDiscoveryMetadata {
+  discoveredAt: Date;
+  processingTimeMs: number;
+  embeddingsCached: number;
+  embeddingsGenerated: number;
+  estimatedCost: number;
+}
+
+// Main discovery result
 export interface ConnectionDiscoveryResult {
-  connections: Connection[]
+  connections: Connection[];
+  breakthroughs: Connection[];
+  stats: ConnectionDiscoveryStats;
+  metadata: ConnectionDiscoveryMetadata;
+}
+
+// Legacy result for backwards compatibility
+export interface LegacyConnectionDiscoveryResult {
+  connections: LegacyConnection[]
   summary: {
     total_connections: number
     high_confidence_count: number
@@ -132,34 +236,18 @@ export interface ConnectionDiscoveryResult {
 export interface ScoringWeights {
   semanticSimilarity: number;
   unexpectedness: number;
-  psychologyInvolvement: number;
-  competitiveAdvantage: number;
+  psychology: number;
+  competitive: number;
   timeliness: number;
-  threeWayBonus: number;
+  threeWay: number;
 }
 
-// Default scoring weights (must sum to ~100%)
+// Default scoring weights (multipliers for weighted scoring)
 export const DEFAULT_SCORING_WEIGHTS: ScoringWeights = {
-  semanticSimilarity: 0.30,
-  unexpectedness: 0.25,
-  psychologyInvolvement: 0.15,
-  competitiveAdvantage: 0.15,
-  timeliness: 0.10,
-  threeWayBonus: 0.40, // Applied separately for 3+ way connections
+  semanticSimilarity: 1.0,
+  unexpectedness: 1.0,
+  psychology: 1.0,
+  competitive: 1.0,
+  timeliness: 1.0,
+  threeWay: 1.0,
 };
-
-// Breakthrough potential assessment
-export interface BreakthroughPotential {
-  score: number; // 0-1
-  reasoning: string;
-  factors: {
-    semanticSimilarity: number;
-    unexpectedness: number;
-    psychologyInvolvement: number;
-    competitiveAdvantage: number;
-    timeliness: number;
-  };
-}
-
-// Expected impact categories
-export type ExpectedImpact = 'low' | 'medium' | 'high' | 'breakthrough';

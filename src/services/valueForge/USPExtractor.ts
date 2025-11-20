@@ -5,8 +5,7 @@
  * and generates alternative formulations
  */
 
-import type { BVPFormula } from '@/components/valueForge/BVPBuilder';
-import type { ValueForgeContext } from '@/types/valueForge';
+import type { BVPFormula, ValueForgeContext } from '@/types/valueForge';
 
 export interface USPOption {
   id: string;

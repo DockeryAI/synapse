@@ -42,6 +42,14 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   onTextChange,
   className = ''
 }) => {
+  // Debug: Track component lifecycle
+  useEffect(() => {
+    console.log('[IndustrySelector] Component MOUNTED');
+    return () => {
+      console.log('[IndustrySelector] Component UNMOUNTING - this should NOT happen during generation!');
+    };
+  }, []);
+
   const [searchTerm, setSearchTerm] = useState('');
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
@@ -264,30 +272,21 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
 
     if (!detectedCode) return;
 
-    const existingIndustry = IndustryMatchingService.getByCode(detectedCode.naics_code);
+    console.log('🔍 [Code Confirmed] Starting profile check...');
+    console.log('   Detected Code:', detectedCode.naics_code, '-', detectedCode.display_name);
 
-    // If existing industry has full profile, use it directly
-    if (existingIndustry?.has_full_profile) {
-      console.log('[Code Confirmed] ✅ Using pre-configured profile');
-      const industry: IndustryOption = {
-        naicsCode: existingIndustry.naics_code,
-        displayName: existingIndustry.display_name,
-        keywords: existingIndustry.keywords,
-        category: existingIndustry.category,
-        hasFullProfile: true,
-        popularity: existingIndustry.popularity,
-      };
-      onIndustrySelected(industry);
-      return;
-    }
+    // IMPORTANT: Opus detection means fuzzy match failed = new industry variation
+    // ALWAYS check database and generate if needed (never trust static flags)
 
-    // ALWAYS check database first - ONLY trust database, not local file
-    console.log(`[Code Confirmed] Checking database for NAICS ${detectedCode.naics_code}...`);
-    const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(detectedCode.naics_code);
+    try {
+      console.log(`[Code Confirmed] Step 1: Checking database for NAICS ${detectedCode.naics_code}...`);
+      const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(detectedCode.naics_code);
+      console.log('[Code Confirmed] Database check result:', cachedProfile ? 'FOUND' : 'NOT FOUND');
 
     if (cachedProfile) {
-      // Profile exists in database - use it immediately
-      console.log('[Code Confirmed] ✅ Profile found in database, loading instantly');
+      // Profile exists in database - use it immediately and auto-proceed
+      console.log('[Code Confirmed] ✅ CACHED PROFILE EXISTS - Using existing profile');
+      const existingIndustry = IndustryMatchingService.getByCode(detectedCode.naics_code);
       const industry: IndustryOption = {
         naicsCode: existingIndustry?.naics_code || detectedCode.naics_code,
         displayName: existingIndustry?.display_name || detectedCode.display_name,
@@ -296,10 +295,11 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         hasFullProfile: true,
         popularity: existingIndustry?.popularity,
       };
-      onIndustrySelected(industry);
+      console.log('[Code Confirmed] Auto-proceeding to website scan (skipScanning=true)');
+      onIndustrySelected(industry, true);
     } else {
-      // Database returned null (either doesn't exist or RLS error) - always generate
-      console.log('[Code Confirmed] ❌ No profile in database (or RLS blocking access), generating new profile...');
+      // No cached profile - MUST GENERATE
+      console.log('[Code Confirmed] ❌ NO CACHED PROFILE - Triggering profile generation...');
       const industry: IndustryOption = {
         naicsCode: detectedCode.naics_code,
         displayName: detectedCode.display_name,
@@ -308,6 +308,26 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         hasFullProfile: false,
       };
       setSelectedIndustry(industry);
+      console.log('[Code Confirmed] Calling performGeneration() - user should see animation...');
+      await performGeneration(industry);
+    }
+    } catch (error) {
+      console.error('[Code Confirmed] ❌ ERROR during profile check:', error);
+      console.error('[Code Confirmed] Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
+
+      // On error, still proceed with generation - the profile might not exist in DB yet
+      const industry: IndustryOption = {
+        naicsCode: detectedCode.naics_code,
+        displayName: detectedCode.display_name,
+        keywords: detectedCode.keywords,
+        category: detectedCode.category,
+        hasFullProfile: false,
+      };
+      setSelectedIndustry(industry);
+      console.log('[Code Confirmed] Proceeding with generation despite error...');
       await performGeneration(industry);
     }
   };
@@ -339,27 +359,39 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
       return;
     }
 
-    // ALWAYS check database first - ONLY trust database, not local file
-    console.log(`[IndustrySelector] Checking database for NAICS ${industry.naicsCode}...`);
-    const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(industry.naicsCode);
+    try {
+      // ALWAYS check database first - ONLY trust database, not local file
+      console.log(`[IndustrySelector] Checking database for NAICS ${industry.naicsCode}...`);
+      const cachedProfile = await OnDemandProfileGenerator.checkCachedProfile(industry.naicsCode);
 
-    if (cachedProfile) {
-      // Profile exists in database - use it
-      console.log(`[IndustrySelector] ✅ Profile found in database for "${industry.displayName}"`);
-      onIndustrySelected({
-        ...industry,
-        hasFullProfile: true
+      if (cachedProfile) {
+        // Profile exists in database - use it
+        console.log(`[IndustrySelector] ✅ Profile found in database for "${industry.displayName}"`);
+        onIndustrySelected({
+          ...industry,
+          hasFullProfile: true
+        });
+      } else {
+        // Database returned null (either doesn't exist or RLS error) - always generate
+        console.log(`[OnDemand] ❌ No profile in database for "${industry.displayName}", generating now...`);
+        await performGeneration(industry);
+        return;
+      }
+
+      // Visual feedback
+      if (window.navigator.vibrate) {
+        window.navigator.vibrate(50);
+      }
+    } catch (error) {
+      console.error(`[IndustrySelector] ❌ ERROR checking profile for "${industry.displayName}":`, error);
+      console.error('[IndustrySelector] Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
       });
-    } else {
-      // Database returned null (either doesn't exist or RLS error) - always generate
-      console.log(`[OnDemand] ❌ No profile in database for "${industry.displayName}", generating now...`);
-      await performGeneration(industry);
-      return;
-    }
 
-    // Visual feedback
-    if (window.navigator.vibrate) {
-      window.navigator.vibrate(50);
+      // On error, proceed with generation
+      console.log('[IndustrySelector] Proceeding with generation due to error...');
+      await performGeneration(industry);
     }
   };
 
@@ -367,9 +399,12 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
    * Actually generate the profile after user confirms
    */
   const performGeneration = async (industry: IndustryOption) => {
+    console.log('[performGeneration] Starting for:', industry.displayName);
     setIsGenerating(true);
 
     try {
+      console.log('[performGeneration] Calling OnDemandProfileGenerator.generateProfile...');
+
       // Generate profile on-demand with 10 minute timeout
       const timeoutPromise = new Promise((_, reject) =>
         setTimeout(() => reject(new Error('Profile generation timed out after 10 minutes')), 600000)
@@ -380,14 +415,15 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           industry.displayName,
           industry.naicsCode,
           (progress) => {
+            console.log('[performGeneration] Progress update:', progress);
             setGenerationProgress(progress);
           }
         ),
         timeoutPromise
       ]);
 
-      console.log(`[OnDemand] Profile generated successfully for ${industry.displayName}`);
-      console.log(`[OnDemand] Profile saved to database, ready for immediate use`);
+      console.log(`[performGeneration] ✅ SUCCESS - Profile generated for ${industry.displayName}`);
+      console.log(`[performGeneration] Profile saved to database, calling onIndustrySelected...`);
       setIsGenerating(false);
 
       // Call onIndustrySelected with skip flag = true
@@ -397,12 +433,16 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         hasFullProfile: true
       }, true); // Skip scanning - profile already generated and saved
     } catch (error) {
-      console.error('[OnDemand] Failed to generate profile:', error);
+      console.error('[performGeneration] ❌ ERROR - Profile generation failed:', error);
+      console.error('[performGeneration] Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
       setIsGenerating(false);
 
       // Show error message but still proceed to onboarding flow
       // The flow can work with fallback data if profile generation failed
-      console.log('[OnDemand] Profile generation failed, proceeding with fallback data');
+      console.log('[performGeneration] Proceeding with fallback data despite error');
 
       // Call with skipScan = true to go straight to JTBD flow even on error
       onIndustrySelected({
@@ -626,36 +666,38 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
               ));
             })()}
 
-            {filteredIndustries.length === 0 && searchTerm.length > 0 && (
+            {searchTerm.length >= 3 && (
               <div style={{
-                padding: '16px',
-                background: '#F0F9FF',
-                border: '1px solid #BFDBFE',
-                borderRadius: '8px',
+                padding: '12px 16px',
+                background: filteredIndustries.length === 0 ? '#F0F9FF' : '#F9FAFB',
+                border: filteredIndustries.length === 0 ? '1px solid #BFDBFE' : '1px solid #E5E7EB',
+                borderTop: filteredIndustries.length > 0 ? '1px solid #E5E7EB' : undefined,
+                borderRadius: filteredIndustries.length === 0 ? '8px' : '0 0 8px 8px',
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: '12px',
-                margin: '8px'
+                margin: filteredIndustries.length === 0 ? '8px' : '0',
+                marginTop: filteredIndustries.length > 0 ? '8px' : undefined
               }}>
-                <Sparkles size={20} style={{ flexShrink: 0, color: '#2563EB', marginTop: '2px' }} />
+                <Sparkles size={18} style={{ flexShrink: 0, color: filteredIndustries.length === 0 ? '#2563EB' : '#6B7280', marginTop: '2px' }} />
                 <div>
                   <p style={{
                     margin: '0 0 4px 0',
-                    fontSize: '14px',
+                    fontSize: '13px',
                     fontWeight: 600,
-                    color: '#1E40AF',
+                    color: filteredIndustries.length === 0 ? '#1E40AF' : '#374151',
                     fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
                   }}>
-                    Don't see your industry?
+                    {filteredIndustries.length === 0 ? "Don't see your industry?" : "Not seeing the right match?"}
                   </p>
                   <p style={{
                     margin: 0,
-                    fontSize: '13px',
-                    color: '#1E40AF',
+                    fontSize: '12px',
+                    color: filteredIndustries.length === 0 ? '#1E40AF' : '#6B7280',
                     lineHeight: '1.5',
                     fontFamily: 'Inter, system-ui, -apple-system, sans-serif'
                   }}>
-                    Type it in anyway! Press <strong>Enter</strong> and we'll research and add it to our database in 3-5 minutes.
+                    <strong>Type any industry</strong> and press <strong>Enter</strong> — our AI will detect the right code and build a custom profile in 3-5 minutes.
                   </p>
                 </div>
               </div>
@@ -695,3 +737,4 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     </div>
   );
 };
+// Cache bust: 1763570934

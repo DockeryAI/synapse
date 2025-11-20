@@ -3,13 +3,14 @@
  * 50+ test cases covering all edge cases and international TLDs
  */
 
-import { URLParserService } from './url-parser.service';
+import { describe, test, expect, beforeEach } from 'vitest';
+import { urlParser } from './url-parser.service';
 
 describe('URLParserService', () => {
-  let parser: URLParserService;
+  const parser = urlParser;
 
   beforeEach(() => {
-    parser = new URLParserService();
+    // No initialization needed - using singleton
   });
 
   describe('Basic URL Parsing', () => {

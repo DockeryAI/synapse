@@ -8,7 +8,7 @@
 import { EmbeddingService } from '../connections/EmbeddingService';
 
 export interface DataSource {
-  type: 'weather' | 'event' | 'review' | 'trend' | 'keyword' | 'social' | 'news';
+  type: 'weather' | 'event' | 'review' | 'trend' | 'keyword' | 'social' | 'news' | 'competitive' | 'customer' | 'customer_need' | 'advantage' | 'insight';
   text: string;
   metadata?: any;
 }

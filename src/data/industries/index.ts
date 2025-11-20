@@ -12,6 +12,7 @@ import { CPAProfile } from './cpa.profile';
 import { RealtorProfile } from './realtor.profile';
 import { DentistProfile } from './dentist.profile';
 import { ConsultantProfile } from './consultant.profile';
+import { FinancialAdvisorProfile } from './financial-advisor.profile';
 
 // ============================================================================
 // ALL PROFILES
@@ -23,6 +24,7 @@ export const ALL_INDUSTRIES: IndustryProfile[] = [
   RealtorProfile,
   DentistProfile,
   ConsultantProfile,
+  FinancialAdvisorProfile,
 ];
 
 // ============================================================================
@@ -80,6 +82,7 @@ export { CPAProfile } from './cpa.profile';
 export { RealtorProfile } from './realtor.profile';
 export { DentistProfile } from './dentist.profile';
 export { ConsultantProfile } from './consultant.profile';
+export { FinancialAdvisorProfile } from './financial-advisor.profile';
 
 // ============================================================================
 // HELPER FUNCTIONS

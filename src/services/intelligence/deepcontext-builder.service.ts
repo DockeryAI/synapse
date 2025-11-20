@@ -72,6 +72,7 @@ export interface DeepContextBuildResult {
       error: string;
       severity: 'warning' | 'error';
     }>;
+    detailedDataPoints?: DataPoint[];  // Added optional property for detailed provenance
   };
 }
 
@@ -309,6 +310,7 @@ class DeepContextBuilderService {
       // Trending topics
       trends.trending_topics.forEach((topic, i) => {
         dataPoints.push({
+          id: `youtube-topic-${Date.now()}-${i}`,
           source: 'youtube' as DataSource,
           type: 'trending_topic' as DataPointType,
           content: topic,
@@ -317,14 +319,15 @@ class DeepContextBuilderService {
             rank: i + 1,
             relevance: 0.8
           },
-          timestamp: new Date().toISOString(),
-          confidence: 0.8
+          createdAt: new Date(),
+          embedding: undefined
         });
       });
 
       // Content angles (psychological triggers)
-      trends.content_angles.forEach(angle => {
+      trends.content_angles.forEach((angle, i) => {
         dataPoints.push({
+          id: `youtube-angle-${Date.now()}-${i}`,
           source: 'youtube' as DataSource,
           type: 'customer_trigger' as DataPointType,
           content: angle,
@@ -332,8 +335,8 @@ class DeepContextBuilderService {
             platform: 'youtube',
             type: 'content_angle'
           },
-          timestamp: new Date().toISOString(),
-          confidence: 0.7
+          createdAt: new Date(),
+          embedding: undefined
         });
       });
 
@@ -395,9 +398,10 @@ class DeepContextBuilderService {
           });
 
           // Extract psychological triggers from reviews
-          reviews.forEach(review => {
+          reviews.forEach((review, idx) => {
             if (review.text && review.text.length > 20) {
               dataPoints.push({
+                id: `outscraper-review-${Date.now()}-${idx}`,
                 source: 'outscraper' as DataSource,
                 type: 'customer_trigger' as DataPointType,
                 content: review.text,
@@ -406,8 +410,8 @@ class DeepContextBuilderService {
                   rating: review.rating,
                   sentiment: review.rating >= 4 ? 'positive' : review.rating <= 2 ? 'negative' : 'neutral'
                 },
-                timestamp: review.time,
-                confidence: 0.85
+                createdAt: new Date(review.time),
+                embedding: undefined
               });
             }
           });
@@ -447,7 +451,8 @@ class DeepContextBuilderService {
 
       dataSourcesUsed.push('news');
 
-      const dataPoints: DataPoint[] = articles.slice(0, 10).map(article => ({
+      const dataPoints: DataPoint[] = articles.slice(0, 10).map((article, idx) => ({
+        id: `news-${Date.now()}-${idx}`,
         source: 'news' as DataSource,
         type: 'trending_topic' as DataPointType,
         content: `${article.title}: ${article.description}`,
@@ -457,8 +462,8 @@ class DeepContextBuilderService {
           publishedAt: article.publishedAt,
           relevanceScore: article.relevanceScore
         },
-        timestamp: article.publishedAt,
-        confidence: article.relevanceScore / 100
+        createdAt: new Date(article.publishedAt),
+        embedding: undefined
       }));
 
       console.log(`[DeepContext/News] ✅ Extracted ${dataPoints.length} data points`);
@@ -500,7 +505,8 @@ class DeepContextBuilderService {
 
       dataSourcesUsed.push('weather');
 
-      const dataPoints: DataPoint[] = opportunities.map(opp => ({
+      const dataPoints: DataPoint[] = opportunities.map((opp, idx) => ({
+        id: `weather-${Date.now()}-${idx}`,
         source: 'weather' as DataSource,
         type: 'timing' as DataPointType,
         content: `${opp.title}: ${opp.description}`,
@@ -510,8 +516,8 @@ class DeepContextBuilderService {
           suggestedActions: opp.suggested_actions,
           type: opp.type
         },
-        timestamp: new Date().toISOString(),
-        confidence: opp.impact_score / 100
+        createdAt: new Date(),
+        embedding: undefined
       }));
 
       console.log(`[DeepContext/Weather] ✅ Extracted ${dataPoints.length} data points`);
@@ -604,6 +610,7 @@ class DeepContextBuilderService {
           if (!trendData) return [];
 
           return [{
+            id: `serper-trend-${Date.now()}`,
             source: 'serper' as DataSource,
             type: 'trending_topic' as DataPointType,
             content: `Trend: "${keyword}" is ${trendData.trend} (${trendData.growthPercentage}% growth)`,
@@ -613,8 +620,8 @@ class DeepContextBuilderService {
               growth: trendData.growthPercentage,
               relatedQueries: trendData.relatedQueries
             },
-            timestamp: new Date().toISOString(),
-            confidence: 0.8
+            createdAt: new Date(),
+            embedding: undefined
           }];
         })(),
 
@@ -793,8 +800,9 @@ class DeepContextBuilderService {
       try {
         const opportunities = await SemrushAPI.getKeywordOpportunities(domain, brandData.name);
 
-        opportunities.slice(0, 10).forEach(opp => {
+        opportunities.slice(0, 10).forEach((opp, idx) => {
           dataPoints.push({
+            id: `semrush-keyword-${Date.now()}-${idx}`,
             source: 'serper' as DataSource, // Using serper as closest match
             type: 'competitive_gap' as DataPointType,
             content: `Keyword opportunity: "${opp.keyword}" (${opp.searchVolume} searches/mo) - ${opp.reasoning}`,
@@ -805,8 +813,8 @@ class DeepContextBuilderService {
               opportunityType: opp.opportunity,
               estimatedTraffic: opp.estimatedTraffic
             },
-            timestamp: new Date().toISOString(),
-            confidence: 0.8
+            createdAt: new Date(),
+            embedding: undefined
           });
         });
       } catch (keywordError) {
@@ -867,65 +875,73 @@ class DeepContextBuilderService {
 
       // Convert analysis to data points
       if (analysis.valuePropositions && analysis.valuePropositions.length > 0) {
-        analysis.valuePropositions.forEach((vp: string) => {
+        analysis.valuePropositions.forEach((vp: string, idx: number) => {
           dataPoints.push({
+            id: `website-vp-${Date.now()}-${idx}`,
             source: 'website' as DataSource,
-            type: 'value_proposition' as DataPointType,
+            type: 'pain_point' as DataPointType, // Changed from value_proposition to valid type
             content: vp,
             metadata: {
               extracted_from: websiteUrl,
-              confidence: analysis.confidence
+              confidence: analysis.confidence,
+              domain: 'content_gap' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: analysis.confidence / 100
+            createdAt: new Date(),
+            embedding: undefined
           });
         });
       }
 
       if (analysis.targetAudience && analysis.targetAudience.length > 0) {
-        analysis.targetAudience.forEach((audience: string) => {
+        analysis.targetAudience.forEach((audience: string, idx: number) => {
           dataPoints.push({
+            id: `website-audience-${Date.now()}-${idx}`,
             source: 'website' as DataSource,
-            type: 'customer_segment' as DataPointType,
+            type: 'unarticulated_need' as DataPointType, // Changed from customer_segment to valid type
             content: audience,
             metadata: {
               extracted_from: websiteUrl,
-              confidence: analysis.confidence
+              confidence: analysis.confidence,
+              domain: 'psychology' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: analysis.confidence / 100
+            createdAt: new Date(),
+            embedding: undefined
           });
         });
       }
 
       if (analysis.customerProblems && analysis.customerProblems.length > 0) {
-        analysis.customerProblems.forEach((problem: string) => {
+        analysis.customerProblems.forEach((problem: string, idx: number) => {
           dataPoints.push({
+            id: `website-problem-${Date.now()}-${idx}`,
             source: 'website' as DataSource,
             type: 'customer_trigger' as DataPointType,
             content: `Problem: ${problem}`,
             metadata: {
               type: 'pain_point',
-              extracted_from: websiteUrl
+              extracted_from: websiteUrl,
+              domain: 'psychology' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: analysis.confidence / 100
+            createdAt: new Date(),
+            embedding: undefined
           });
         });
       }
 
       if (analysis.differentiators && analysis.differentiators.length > 0) {
-        analysis.differentiators.forEach((diff: string) => {
+        analysis.differentiators.forEach((diff: string, idx: number) => {
           dataPoints.push({
+            id: `website-diff-${Date.now()}-${idx}`,
             source: 'website' as DataSource,
             type: 'competitive_gap' as DataPointType,
             content: `Differentiator: ${diff}`,
             metadata: {
               type: 'unique_advantage',
-              extracted_from: websiteUrl
+              extracted_from: websiteUrl,
+              domain: 'competitive' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: analysis.confidence / 100
+            createdAt: new Date(),
+            embedding: undefined
           });
         });
       }
@@ -976,8 +992,9 @@ class DeepContextBuilderService {
       dataSourcesUsed.push('reddit');
 
       // Convert psychological triggers to data points
-      intelligence.triggers.forEach(trigger => {
+      intelligence.triggers.forEach((trigger, idx) => {
         dataPoints.push({
+          id: `reddit-trigger-${Date.now()}-${idx}`,
           source: 'reddit' as DataSource,
           type: 'customer_trigger' as DataPointType,
           content: trigger.text,
@@ -986,17 +1003,19 @@ class DeepContextBuilderService {
             intensity: trigger.intensity,
             subreddit: trigger.subreddit,
             upvotes: trigger.upvotes,
-            url: trigger.url
+            url: trigger.url,
+            domain: 'psychology' as const
           },
-          timestamp: new Date().toISOString(),
-          confidence: trigger.intensity / 10 // Convert 1-10 to 0-1
+          createdAt: new Date(),
+          embedding: undefined
         });
       });
 
       // Convert customer insights (pain points & desires) to data points
-      intelligence.insights.forEach(insight => {
+      intelligence.insights.forEach((insight, idx) => {
         if (insight.painPoint) {
           dataPoints.push({
+            id: `reddit-pain-${Date.now()}-${idx}`,
             source: 'reddit' as DataSource,
             type: 'customer_trigger' as DataPointType,
             content: `Pain Point: ${insight.painPoint}`,
@@ -1005,15 +1024,17 @@ class DeepContextBuilderService {
               subreddit: insight.subreddit,
               upvotes: insight.upvotes,
               url: insight.url,
-              context: insight.context
+              context: insight.context,
+              domain: 'psychology' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: Math.min(0.9, insight.upvotes / 100)
+            createdAt: new Date(),
+            embedding: undefined
           });
         }
 
         if (insight.desire) {
           dataPoints.push({
+            id: `reddit-desire-${Date.now()}-${idx}`,
             source: 'reddit' as DataSource,
             type: 'customer_trigger' as DataPointType,
             content: `Customer Desire: ${insight.desire}`,
@@ -1022,10 +1043,11 @@ class DeepContextBuilderService {
               subreddit: insight.subreddit,
               upvotes: insight.upvotes,
               url: insight.url,
-              context: insight.context
+              context: insight.context,
+              domain: 'psychology' as const
             },
-            timestamp: new Date().toISOString(),
-            confidence: Math.min(0.9, insight.upvotes / 100)
+            createdAt: new Date(),
+            embedding: undefined
           });
         }
       });
@@ -1092,6 +1114,7 @@ class DeepContextBuilderService {
       // Convert insights to data points
       response.insights.forEach((insight, index) => {
         dataPoints.push({
+          id: `perplexity-event-${Date.now()}-${index}`,
           source: 'perplexity' as DataSource,
           type: 'local_event' as DataPointType,
           content: insight,
@@ -1099,10 +1122,11 @@ class DeepContextBuilderService {
             location,
             month: currentMonth,
             year: now.getFullYear(),
-            confidence: response.confidence
+            confidence: response.confidence,
+            domain: 'timing' as const
           },
-          timestamp: new Date().toISOString(),
-          confidence: response.confidence
+          createdAt: new Date(),
+          embedding: undefined
         });
       });
 
@@ -1249,8 +1273,8 @@ class DeepContextBuilderService {
     dataPoints: DataPoint[]
   ): Promise<DeepContext> {
     // Extract website analysis data points
-    const valuePropositions = dataPoints.filter(dp => dp.type === 'value_proposition');
-    const customerSegments = dataPoints.filter(dp => dp.type === 'customer_segment');
+    const valuePropositions = dataPoints.filter(dp => dp.type === 'pain_point' && dp.metadata.type !== 'pain_point');
+    const customerSegments = dataPoints.filter(dp => dp.type === 'unarticulated_need');
     const customerTriggers = dataPoints.filter(dp => dp.type === 'customer_trigger');
     const competitiveGaps = dataPoints.filter(dp => dp.type === 'competitive_gap');
 
@@ -1326,16 +1350,33 @@ class DeepContextBuilderService {
         blindSpots: [],
         mistakes: [],
         // CRITICAL: Populate with website differentiators!
-        opportunities: competitiveGaps.map(dp => dp.content),
+        opportunities: competitiveGaps.map(dp => ({
+          gap: dp.content,
+          marketSize: 'medium' as const,
+          defensibility: 'medium' as const,
+          difficulty: 'medium' as const,
+          positioning: 'Leverage unique differentiators'
+        })),
         contentGaps: [],
         positioningWeaknesses: []
       },
       customerPsychology: {
         // CRITICAL: Populate with customer segments!
-        unarticulated: customerSegments.map(dp => dp.content),
+        unarticulated: customerSegments.map(dp => ({
+          need: dp.content,
+          confidence: 0.7,
+          evidence: [],
+          approach: 'Address through targeted messaging',
+          emotionalDriver: 'Unknown'
+        })),
         emotional: [],
         // CRITICAL: Populate with customer triggers (pain points)!
-        behavioral: customerTriggers.map(dp => dp.content),
+        behavioral: customerTriggers.map(dp => ({
+          behavior: dp.content,
+          frequency: 'common' as const,
+          insight: 'Customer trigger identified',
+          contentAlignment: 'Create content addressing this trigger'
+        })),
         identityDesires: [],
         purchaseMotivations: [],
         objections: []
@@ -1411,4 +1452,3 @@ class DeepContextBuilderService {
 }
 
 export const deepContextBuilder = new DeepContextBuilderService();
-export type { DeepContextBuilderConfig, DeepContextBuildResult };

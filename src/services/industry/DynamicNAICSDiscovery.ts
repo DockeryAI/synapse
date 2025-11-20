@@ -191,11 +191,9 @@ IMPORTANT:
 - Description should be specific enough to differentiate from similar industries
 - All hierarchy levels must be valid NAICS codes`;
 
-    const response = await llmService.call(prompt, {
-      model: 'anthropic/claude-3-5-sonnet',
-      temperature: 0.1, // Very low for accuracy
-      maxTokens: 800
-    });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
 
     try {
       const result = JSON.parse(response.content);

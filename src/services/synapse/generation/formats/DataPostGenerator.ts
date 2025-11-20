@@ -70,8 +70,7 @@ export class DataPostGenerator {
         principle: 'Social Proof + Authority',
         trigger: {
           type: 'curiosity',
-          strength: 0.8,
-          target: 'credibility'
+          strength: 0.8
         },
         persuasionTechnique: 'Data-Driven Authority',
         expectedReaction: insight.expectedReaction || 'These numbers tell a compelling story'
@@ -83,11 +82,11 @@ export class DataPostGenerator {
         ),
         framingDevice: this.framework.name,
         narrativeStructure: this.framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Medium-Fast (data-driven)'
+        pacing: 'medium'
       },
 
       meta: {
-        platform: ['LinkedIn', 'Twitter'],
+        platform: ['linkedin', 'twitter'],
         tone: 'authoritative',
         targetAudience
       },
@@ -112,9 +111,9 @@ export class DataPostGenerator {
         ...((insight as any).deepProvenance || {}),
 
         // Standard provenance tracking
-        dataSourcesUsed: insight.dataUsed || [],
+        dataSourcesUsed: (insight as any).dataUsed || [],
         psychologyTrigger: 'Social Proof + Authority - Data-driven credibility',
-        trendingTopicMatched: insight.title,
+        trendingTopicMatched: (insight as any).title,
 
         frameworkStagesUsed: [
           {

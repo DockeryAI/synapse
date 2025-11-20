@@ -8,9 +8,11 @@
 import { chat } from '@/lib/openrouter'
 import type {
   Connection,
+  LegacyConnection,
   DeepContext,
   ConnectionDiscoveryOptions,
   ConnectionDiscoveryResult,
+  LegacyConnectionDiscoveryResult,
   DataPoint
 } from '@/types/connections.types'
 
@@ -21,7 +23,7 @@ export class ConnectionDiscoveryEngine {
   static async discoverConnections(
     context: DeepContext,
     options: ConnectionDiscoveryOptions = {}
-  ): Promise<ConnectionDiscoveryResult> {
+  ): Promise<LegacyConnectionDiscoveryResult> {
     const startTime = Date.now()
 
     // Check for Supabase configuration (ai-proxy uses OPENROUTER_API_KEY as server-side secret)
@@ -83,10 +85,10 @@ Return ONLY valid JSON matching the schema provided.`
       // Parse response
       const result = JSON.parse(response)
 
-      // Map to our Connection type
-      const connections: Connection[] = result.connections.map((conn: any, index: number) => ({
-        id: `conn_${context.brand_id}_${Date.now()}_${index}`,
-        brand_id: context.brand_id,
+      // Map to our LegacyConnection type (since this uses legacy format)
+      const connections: LegacyConnection[] = result.connections.map((conn: any, index: number) => ({
+        id: `conn_${context.business.profile.id}_${Date.now()}_${index}`,
+        brand_id: context.business.profile.id,
         type: conn.type || '2-way',
         title: conn.title,
         description: conn.description,
@@ -145,19 +147,19 @@ Return ONLY valid JSON matching the schema provided.`
     return `Analyze this brand's data and discover unexpected, high-value connections:
 
 **BRAND CONTEXT:**
-Industry: ${context.industry}
-Archetype: ${context.archetype}
-Brand Voice: ${context.brand_voice}
-Keywords: ${context.keywords.join(', ')}
+Industry: ${context.industry.profile?.name || 'Unknown'}
+Brand: ${context.business.profile.name}
+Brand Voice: ${context.business.brandVoice.tone.join(', ')}
+Keywords: ${context.business.profile.keywords.join(', ')}
 
 **CUSTOMER PSYCHOLOGY:**
-Emotional Triggers: ${context.triggers.slice(0, 5).join(', ')}
-Target Personas: ${context.target_personas?.length || 0} defined personas
+Emotional Triggers: ${context.customerPsychology.emotional.slice(0, 5).map(e => e.trigger).join(', ')}
+Unarticulated Needs: ${context.customerPsychology.unarticulated.length} identified
 
 **MARKET INTELLIGENCE:**
-Competitors Analyzed: ${context.competitors?.length || 0}
-Content Gaps: ${context.content_gaps?.length || 0}
-Current Opportunities: ${context.current_opportunities?.length || 0}
+Competitors Analyzed: ${context.industry.competitiveLandscape.topCompetitors.length}
+Content Gaps: ${context.competitiveIntel.contentGaps.length}
+Market Opportunities: ${context.competitiveIntel.opportunities.length}
 
 **AVAILABLE DATA POINTS:**
 ${this.summarizeDataPoints(context)}
@@ -212,26 +214,26 @@ Find connections like this - unexpected, actionable, and high-impact.`
   private static summarizeDataPoints(context: DeepContext): string {
     const points: string[] = []
 
-    if (context.weather_data) {
-      points.push('- Weather forecasts and historical patterns')
+    if (context.industry.trends && context.industry.trends.length > 0) {
+      points.push(`- ${context.industry.trends.length} industry trends analyzed`)
     }
-    if (context.trend_data) {
-      points.push('- Google Trends and search volume data')
+    if (context.industry.seasonality && context.industry.seasonality.length > 0) {
+      points.push(`- ${context.industry.seasonality.length} seasonal patterns mapped`)
     }
-    if (context.seo_data) {
-      points.push('- SEO keyword opportunities and rankings')
+    if (context.industry.competitiveLandscape.topCompetitors.length > 0) {
+      points.push(`- ${context.industry.competitiveLandscape.topCompetitors.length} competitor profiles with detailed analysis`)
     }
-    if (context.competitors && context.competitors.length > 0) {
-      points.push(`- ${context.competitors.length} competitor profiles with weaknesses`)
+    if (context.competitiveIntel.contentGaps && context.competitiveIntel.contentGaps.length > 0) {
+      points.push(`- ${context.competitiveIntel.contentGaps.length} content gap opportunities`)
     }
-    if (context.content_gaps && context.content_gaps.length > 0) {
-      points.push(`- ${context.content_gaps.length} content gap opportunities`)
+    if (context.competitiveIntel.opportunities && context.competitiveIntel.opportunities.length > 0) {
+      points.push(`- ${context.competitiveIntel.opportunities.length} market gap opportunities`)
     }
-    if (context.current_opportunities && context.current_opportunities.length > 0) {
-      points.push(`- ${context.current_opportunities.length} active market opportunities`)
+    if (context.customerPsychology.emotional && context.customerPsychology.emotional.length > 0) {
+      points.push(`- ${context.customerPsychology.emotional.length} identified emotional triggers`)
     }
-    if (context.benchmarks) {
-      points.push('- Industry benchmark comparisons')
+    if (context.industry.economicFactors && context.industry.economicFactors.length > 0) {
+      points.push('- Economic indicators and impact analysis')
     }
 
     return points.length > 0 ? points.join('\n') : '- Limited data available (analysis may be constrained)'
@@ -240,7 +242,7 @@ Find connections like this - unexpected, actionable, and high-impact.`
   /**
    * Categorize connections by type
    */
-  private static categorizeConnections(connections: Connection[]): Record<string, number> {
+  private static categorizeConnections(connections: LegacyConnection[]): Record<string, number> {
     const categories: Record<string, number> = {
       timing: 0,
       competitive: 0,
@@ -276,14 +278,15 @@ Find connections like this - unexpected, actionable, and high-impact.`
    * Extract list of data sources used
    */
   private static extractDataSources(context: DeepContext): string[] {
-    const sources: string[] = ['brand_profile', 'customer_triggers']
+    const sources: string[] = ['business_profile', 'customer_psychology']
 
-    if (context.weather_data) sources.push('weather_api')
-    if (context.trend_data) sources.push('google_trends')
-    if (context.seo_data) sources.push('seo_analysis')
-    if (context.competitors?.length) sources.push('competitive_intelligence')
-    if (context.content_gaps?.length) sources.push('content_gap_analysis')
-    if (context.benchmarks) sources.push('industry_benchmarks')
+    if (context.industry.trends?.length) sources.push('industry_trends')
+    if (context.industry.seasonality?.length) sources.push('seasonal_analysis')
+    if (context.industry.competitiveLandscape?.topCompetitors?.length) sources.push('competitive_intelligence')
+    if (context.competitiveIntel.contentGaps?.length) sources.push('content_gap_analysis')
+    if (context.competitiveIntel.opportunities?.length) sources.push('market_opportunity_analysis')
+    if (context.industry.economicFactors?.length) sources.push('economic_factors')
+    if (context.metadata?.dataSourcesUsed?.length) sources.push(...context.metadata.dataSourcesUsed)
 
     return sources
   }

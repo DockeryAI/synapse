@@ -353,8 +353,28 @@ Return ONLY valid JSON (no markdown, no explanations):
 
       console.log('[BuyerIntelligence] Raw Claude response:', analysisText.substring(0, 500) + '...')
 
-      // Parse JSON response
-      const extraction: RawPersonaExtraction = JSON.parse(analysisText)
+      // Parse JSON response - handle potential markdown wrapping or extra text
+      let jsonText = analysisText.trim()
+
+      // Remove markdown code blocks if present
+      if (jsonText.startsWith('```json')) {
+        jsonText = jsonText.slice(7)
+      } else if (jsonText.startsWith('```')) {
+        jsonText = jsonText.slice(3)
+      }
+      if (jsonText.endsWith('```')) {
+        jsonText = jsonText.slice(0, -3)
+      }
+      jsonText = jsonText.trim()
+
+      // Find the JSON object boundaries if there's extra text
+      const jsonStart = jsonText.indexOf('{')
+      const jsonEnd = jsonText.lastIndexOf('}')
+      if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+        jsonText = jsonText.substring(jsonStart, jsonEnd + 1)
+      }
+
+      const extraction: RawPersonaExtraction = JSON.parse(jsonText)
       return extraction
 
     } catch (error) {

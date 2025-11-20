@@ -349,7 +349,7 @@ export class CalendarGenerator {
               isScheduled: false,
               status: 'pending',
             },
-          } as any,
+          },
           schedulingAttempts: [],
         },
         metadata: {

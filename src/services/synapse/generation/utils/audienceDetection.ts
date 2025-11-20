@@ -8,7 +8,7 @@
  */
 
 import type { BusinessProfile as SynapseBusinessProfile } from '@/types/synapseContent.types';
-import type { BusinessProfile as DeepBusinessProfile } from '@/types/deepContext.types';
+import type { BusinessProfile as DeepBusinessProfile } from '@/types/synapse/deepContext.types';
 
 /**
  * Detect the actual target audience from business data

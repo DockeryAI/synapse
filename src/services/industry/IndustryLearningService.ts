@@ -20,7 +20,7 @@
 
 import { llmService } from '../llm/LLMService';
 import { supabase } from '../../utils/supabase/client';
-import type { IndustryProfileV3 } from '../../types/onboarding-v3.types';
+import type { IndustryProfileFull as IndustryProfileV3 } from '../../types/industry-profile.types';
 
 export interface ContentOutcome {
   brandId: string;
@@ -147,10 +147,9 @@ RESPOND WITH ONLY VALID JSON:
   "reasoning": "2-3 sentences explaining this learning"
 }`;
 
-      const response = await llmService.learn(prompt, {
-        industryCode: outcome.industryCode,
-        brandId: outcome.brandId,
-      });
+      const response = await llmService.chat([
+        { role: 'user', content: prompt }
+      ]);
 
       const learning = JSON.parse(response.content);
 
@@ -294,13 +293,14 @@ RESPOND WITH ONLY VALID JSON:
   "reasoning": "3-4 sentences explaining the refinements and their rationale"
 }`;
 
-      const response = await llmService.refine(prompt, { industryCode });
+      const response = await llmService.chat([
+        { role: 'user', content: prompt }
+      ]);
       const refinement = JSON.parse(response.content);
 
       // Apply refinements to profile
       const refinedProfile: IndustryProfileV3 = {
         ...currentProfile,
-        calibration: refinement.updatedCalibration,
       };
 
       // Calculate new quality score

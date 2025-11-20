@@ -298,8 +298,11 @@ describe('DeepWebsiteScanner', () => {
     it('should identify primary service correctly', async () => {
       // Create mock data where SEO is clearly the primary focus
       const mockData: WebsiteData = createMockScrapedData({
-        title: 'Best SEO Agency - Search Engine Optimization Services',
-        description: 'Leading SEO company providing search engine optimization',
+        metadata: {
+          title: 'Best SEO Agency - Search Engine Optimization Services',
+          description: 'Leading SEO company providing search engine optimization',
+          keywords: ['seo', 'search engine optimization']
+        },
         structure: {
           navigation: ['SEO Services', 'SEO Packages', 'Web Design', 'Contact'],
           sections: ['Our SEO Services', 'SEO Pricing', 'Why Choose Our SEO']

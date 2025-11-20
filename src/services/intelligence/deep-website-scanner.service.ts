@@ -25,6 +25,7 @@ import type {
   ServicePattern,
   SimilarityMatch,
 } from '@/types/deep-service.types';
+import { productValidationService } from './product-validation.service';
 
 /**
  * Service language patterns to detect services
@@ -53,7 +54,9 @@ const SERVICE_KEYWORDS = [
   'pricing', 'what we do', 'how we help', 'capabilities', 'features',
   'specialties', 'expertise', 'portfolio', 'menu', 'catalog',
   'programs', 'courses', 'treatments', 'procedures', 'options',
-  'categories', 'types', 'specialization', 'areas', 'focus'
+  'categories', 'types', 'specialization', 'areas', 'focus',
+  // Insurance-specific keywords
+  'insurance', 'coverage', 'protection', 'policy', 'policies'
 ];
 
 /**
@@ -74,6 +77,7 @@ export class DeepWebsiteScannerService {
       extractPricing = true,
       deduplicate = true,
       deduplicationThreshold = 0.8,
+      businessName,
     } = options;
 
     const startTime = Date.now();
@@ -118,6 +122,13 @@ export class DeepWebsiteScannerService {
       // Step 6: Filter by minimum confidence
       finalServices = finalServices.filter(s => s.confidence >= minConfidence);
       console.log('[DeepScanner] After confidence filter:', finalServices.length, 'services');
+
+      // Step 6.5: Validate service names to remove garbage
+      console.log('[DeepScanner] Validating service quality...');
+      const preValidationCount = finalServices.length;
+      finalServices = productValidationService.validateDeepServices(finalServices, businessName);
+      const validationRemoved = preValidationCount - finalServices.length;
+      console.log('[DeepScanner] Validation removed', validationRemoved, 'invalid services');
 
       // Step 7: Identify primary services
       const primaryServices = this.identifyPrimaryServices(finalServices);

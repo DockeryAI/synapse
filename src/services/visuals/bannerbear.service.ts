@@ -213,8 +213,14 @@ class BannerbearService {
       // Get platform-specific dimensions
       const platformKey = request.platform as PlatformKey;
       const format = request.format || 'feed';
-      const dimensions = PLATFORM_SPECS[platformKey]?.[format as keyof typeof PLATFORM_SPECS[typeof platformKey]];
 
+      // Type-safe dimension lookup
+      const platformSpec = PLATFORM_SPECS[platformKey];
+      if (!platformSpec) {
+        throw new Error(`Invalid platform: ${request.platform}`);
+      }
+
+      const dimensions = (platformSpec as any)[format];
       if (!dimensions) {
         throw new Error(`Invalid platform/format: ${request.platform}/${format}`);
       }

@@ -260,7 +260,7 @@ If you cannot detect a location with confidence > 0.5, respond with:
       ], {
         model: 'anthropic/claude-3.5-sonnet',
         temperature: 0.3,
-        max_tokens: 200
+        maxTokens: 200
       });
 
       console.log('[LocationDetection] AI response received:', response?.substring(0, 100));
@@ -594,7 +594,7 @@ If NO location found:
       ], {
         model: 'anthropic/claude-3.5-sonnet',
         temperature: 0.2,
-        max_tokens: 500  // Increased to handle multiple locations
+        maxTokens: 500  // Increased to handle multiple locations
       });
 
       console.log('[LocationDetection] Website analysis response:', response?.substring(0, 100));
@@ -678,4 +678,4 @@ If NO location found:
 }
 
 export const locationDetectionService = new LocationDetectionService();
-export type { LocationResult };
+// LocationResult is already exported as interface above

@@ -82,8 +82,7 @@ export class ControversialPostGenerator {
         principle: 'Cognitive Dissonance',
         trigger: {
           type: 'anger',
-          strength: 0.85,
-          target: 'engagement'
+          strength: 0.85
         },
         persuasionTechnique: 'Contrarian Challenge',
         expectedReaction: insight.expectedReaction || 'This challenges what I believe... let me think about it'
@@ -95,11 +94,11 @@ export class ControversialPostGenerator {
         ),
         framingDevice: this.framework.name,
         narrativeStructure: this.framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Fast (debate-driving)'
+        pacing: 'fast'
       },
 
       meta: {
-        platform: ['LinkedIn', 'Twitter'],
+        platform: ['linkedin', 'twitter'],
         tone: 'controversial',
         targetAudience
       },
@@ -124,9 +123,9 @@ export class ControversialPostGenerator {
         ...((insight as any).deepProvenance || {}),
 
         // Standard provenance tracking
-        dataSourcesUsed: insight.dataUsed || [],
+        dataSourcesUsed: (insight as any).dataUsed || [],
         psychologyTrigger: 'Cognitive Dissonance - Challenge conventional wisdom',
-        trendingTopicMatched: insight.title,
+        trendingTopicMatched: (insight as any).title,
 
         frameworkStagesUsed: [
           {

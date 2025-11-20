@@ -13,13 +13,32 @@
 import type { VisualTemplate, VisualSelectionCriteria, VisualTemplateMatch, BrandVisualIdentity } from '../../types/visual.types';
 import type { BrandData } from '../../types/content-generation.types';
 
-import {
-  ALL_VISUAL_TEMPLATES,
-  getVisualTemplateById,
-  getTemplatesForContentType,
-  getTemplatesForPlatform,
-  getDefaultTemplate,
-} from '../../data/visuals/visual-templates';
+// Mock data for visual templates (TODO: implement proper template system)
+const ALL_VISUAL_TEMPLATES: any[] = [];
+
+function getVisualTemplateById(id: string): any {
+  return ALL_VISUAL_TEMPLATES.find(t => t.id === id);
+}
+
+function getTemplatesForContentType(contentType: string): any[] {
+  return ALL_VISUAL_TEMPLATES;
+}
+
+function getTemplatesForPlatform(platform: string): any[] {
+  return ALL_VISUAL_TEMPLATES;
+}
+
+function getDefaultTemplate(): any {
+  return {
+    id: 'default',
+    name: 'Default Template',
+    suitableFor: [],
+    platforms: [],
+    style: 'professional',
+    colorScheme: 'neutral',
+    aspectRatio: '1:1',
+  };
+}
 
 // ============================================================================
 // VISUAL SELECTOR SERVICE

@@ -195,15 +195,15 @@ export class BusinessContextService {
 
     const updatedPreferences: CampaignPreferences = {
       preferred_campaign_types:
-        preferences.preferred_campaign_types || existingPreferences.preferred_campaign_types || [],
+        preferences.preferred_campaign_types || (existingPreferences as CampaignPreferences).preferred_campaign_types || [],
       preferred_platforms:
-        preferences.preferred_platforms || existingPreferences.preferred_platforms || [],
+        preferences.preferred_platforms || (existingPreferences as CampaignPreferences).preferred_platforms || [],
       preferred_content_types:
-        preferences.preferred_content_types || existingPreferences.preferred_content_types || [],
+        preferences.preferred_content_types || (existingPreferences as CampaignPreferences).preferred_content_types || [],
       preferred_durations:
-        preferences.preferred_durations || existingPreferences.preferred_durations || [],
-      avoid_topics: preferences.avoid_topics || existingPreferences.avoid_topics,
-      must_include_topics: preferences.must_include_topics || existingPreferences.must_include_topics,
+        preferences.preferred_durations || (existingPreferences as CampaignPreferences).preferred_durations || [],
+      avoid_topics: preferences.avoid_topics || (existingPreferences as CampaignPreferences).avoid_topics,
+      must_include_topics: preferences.must_include_topics || (existingPreferences as CampaignPreferences).must_include_topics,
     };
 
     const { error } = await supabase

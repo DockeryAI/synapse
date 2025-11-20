@@ -187,4 +187,6 @@ export interface DeepScanOptions {
   deduplicate?: boolean
   /** Similarity threshold for deduplication (0-1) */
   deduplicationThreshold?: number
+  /** Business name for filtering out company name from products */
+  businessName?: string
 }

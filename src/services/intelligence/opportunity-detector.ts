@@ -180,7 +180,7 @@ export class OpportunityDetector {
             type: 'local_news',
             title: `Industry News: ${article.title}`,
             description: article.description,
-            source: 'news_api',
+            source: 'news_apis',
             source_data: {
               url: article.url,
               published_at: article.publishedAt,
@@ -214,7 +214,7 @@ export class OpportunityDetector {
           type: 'local_news',
           title: `Local News: ${article.title}`,
           description: article.description,
-          source: 'news_api',
+          source: 'news_apis',
           source_data: {
             url: article.url,
             published_at: article.publishedAt,

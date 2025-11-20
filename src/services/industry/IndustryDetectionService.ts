@@ -630,20 +630,21 @@ Examples:
 ✅ "Primary Care Physician" (not "Healthcare Provider")`;
 
     try {
-      // CRITICAL: Use Claude Opus 4.1 via OpenRouter for industry classification
-      const { callOpenRouter } = await import('../../utils/openrouter');
-      const openRouterResponse = await callOpenRouter(
-        'brand_onboarding', // Uses Claude Opus 4.1
-        prompt,
-        'Return ONLY the JSON object with no explanation or markdown.'
-      );
+      // CRITICAL: Use Claude 3.5 Sonnet via OpenRouter for industry classification
+      const { chat } = await import('../../lib/openrouter');
+      const openRouterResponse = await chat([
+        { role: 'user', content: prompt }
+      ], {
+        temperature: 0.1,
+        maxTokens: 2000
+      });
 
-      if (!openRouterResponse.success || !openRouterResponse.content) {
+      if (!openRouterResponse) {
         throw new Error('Industry classification failed');
       }
 
       // Parse JSON with robust error handling
-      const result = this.parseJSONResponse(openRouterResponse.content);
+      const result = this.parseJSONResponse(openRouterResponse);
 
       // AUTO-DISCOVERY: Check if this NAICS code exists in our database
       let naicsCode = getNAICSCode(result.code);

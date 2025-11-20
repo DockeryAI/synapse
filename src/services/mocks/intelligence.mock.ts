@@ -283,7 +283,8 @@ export const failedIntelligenceMock: IntelligenceResult[] = [
     source: 'apify',
     success: false,
     duration: 30000,
-    error: 'Timeout after 30 seconds'
+    error: 'Timeout after 30 seconds',
+    data: null
   },
   {
     source: 'outscaper',

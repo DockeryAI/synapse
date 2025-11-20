@@ -94,7 +94,7 @@ export interface PostContent {
   mentions?: string[];
   mediaUrls?: string[];
   linkUrl?: string;
-  platformVariants?: Record<SocialPlatform, PlatformContent>;
+  platformVariants?: Partial<Record<SocialPlatform, PlatformContent>>;
 }
 
 export interface PlatformContent {
@@ -180,7 +180,7 @@ export interface BulkApprovalRequest {
 
 export interface SchedulingInfo {
   isScheduled: boolean;
-  scheduledToPlatforms: Record<SocialPlatform, PlatformSchedulingStatus>;
+  scheduledToPlatforms: Partial<Record<SocialPlatform, PlatformSchedulingStatus>>;
   socialPilotPostId?: string;
   schedulingAttempts: SchedulingAttempt[];
   lastSchedulingError?: string;

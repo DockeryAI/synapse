@@ -96,7 +96,7 @@ export const mockAuthorityBuilderVisual: GeneratedVisual = {
  */
 export const mockSocialProofVisual: GeneratedVisual = {
   id: 'visual_social_001',
-  campaignType: 'social_proof',
+  campaignType: 'trust_builder',
   platform: 'instagram',
   format: 'feed',
   imageUrl: 'https://cdn.bannerbear.com/sample/social_proof_instagram.png',
@@ -116,7 +116,7 @@ export const mockSocialProofVisual: GeneratedVisual = {
  */
 export const mockLocalPulseVisual: GeneratedVisual = {
   id: 'visual_local_001',
-  campaignType: 'local_pulse',
+  campaignType: 'community_champion',
   platform: 'facebook',
   format: 'feed',
   imageUrl: 'https://cdn.bannerbear.com/sample/local_pulse_facebook.png',
@@ -221,7 +221,7 @@ export function createMockAuthorityBuilderRequest(): GenerateCampaignVisualReque
  */
 export function createMockSocialProofRequest(): GenerateCampaignVisualRequest {
   return {
-    campaignType: 'social_proof',
+    campaignType: 'trust_builder',
     platform: 'instagram',
     format: 'feed',
     content: {
@@ -242,7 +242,7 @@ export function createMockSocialProofRequest(): GenerateCampaignVisualRequest {
  */
 export function createMockLocalPulseRequest(): GenerateCampaignVisualRequest {
   return {
-    campaignType: 'local_pulse',
+    campaignType: 'community_champion',
     platform: 'facebook',
     format: 'feed',
     content: {
@@ -276,9 +276,9 @@ export class MockBannerbearService {
     switch (request.campaignType) {
       case 'authority_builder':
         return { ...mockAuthorityBuilderVisual, platform: request.platform };
-      case 'social_proof':
+      case 'trust_builder':
         return { ...mockSocialProofVisual, platform: request.platform };
-      case 'local_pulse':
+      case 'community_champion':
         return { ...mockLocalPulseVisual, platform: request.platform };
       default:
         return mockFailedVisual;

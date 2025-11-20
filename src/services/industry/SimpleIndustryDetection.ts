@@ -6,7 +6,7 @@
  * NO NAICS CODES - just simple, human-readable industry names.
  */
 
-import { callOpenRouter } from '../../utils/openrouter';
+import { chat } from '../../lib/openrouter';
 
 interface IndustryPattern {
   keywords: string[];
@@ -328,12 +328,14 @@ Examples: "Cybersecurity Services", "Dental Practice", "Real Estate Agent", "HVA
 Industry:`;
 
     try {
-      const response = await callOpenRouter('brand_onboarding', prompt, {
-        max_tokens: 50,
+      const response = await chat([
+        { role: 'user', content: prompt }
+      ], {
+        maxTokens: 50,
         temperature: 0.1
       });
 
-      const industry = response.content.trim();
+      const industry = response.trim();
       console.log('[SimpleDetection] AI detected:', industry);
 
       return this.createResult(industry, 0.75, 'ai_detection');

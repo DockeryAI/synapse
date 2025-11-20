@@ -38,7 +38,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 2       // Some financial consideration
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Buying a home is buying a future, a lifestyle, and security for loved ones'
+    purchase_mindset: 'Buying a home is buying a future, a lifestyle, and security for loved ones',
+    urgency_score: 8
   },
 
   'Healthcare': {
@@ -52,7 +53,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Some cost/benefit analysis
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Seeking peace of mind, relief from suffering, and hope for better health'
+    purchase_mindset: 'Seeking peace of mind, relief from suffering, and hope for better health',
+    urgency_score: 10
   },
 
   'Financial Services': {
@@ -66,7 +68,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 20      // ROI and performance metrics
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Protecting what matters most and building a secure future'
+    purchase_mindset: 'Protecting what matters most and building a secure future',
+    urgency_score: 5
   },
 
   'Technology': {
@@ -80,7 +83,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 60      // Features, performance, ROI
     },
     jtbd_focus: 'functional',
-    purchase_mindset: 'Solving specific problems efficiently and staying competitive'
+    purchase_mindset: 'Solving specific problems efficiently and staying competitive',
+    urgency_score: 5
   },
 
   'IT Services': {
@@ -94,7 +98,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 30      // Cost-effectiveness, capabilities
     },
     jtbd_focus: 'functional',
-    purchase_mindset: 'Ensuring reliable technology operations and enabling business growth'
+    purchase_mindset: 'Ensuring reliable technology operations and enabling business growth',
+    urgency_score: 15
   },
 
   'Information Technology': {
@@ -108,7 +113,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 30      // Technical specs, ROI
     },
     jtbd_focus: 'functional',
-    purchase_mindset: 'Maintaining operational excellence and driving digital innovation'
+    purchase_mindset: 'Maintaining operational excellence and driving digital innovation',
+    urgency_score: 15
   },
 
   'B2B Software': {
@@ -122,7 +128,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 65      // ROI, features, integration
     },
     jtbd_focus: 'functional',
-    purchase_mindset: 'Improving operations and delivering measurable business outcomes'
+    purchase_mindset: 'Improving operations and delivering measurable business outcomes',
+    urgency_score: 5
   },
 
   'Retail': {
@@ -136,7 +143,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 25      // Price, value, features
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Expressing identity and improving daily life'
+    purchase_mindset: 'Expressing identity and improving daily life',
+    urgency_score: 20
   },
 
   'Automotive': {
@@ -150,7 +158,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 20      // Features, fuel economy
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Buying freedom, status, and an extension of personality'
+    purchase_mindset: 'Buying freedom, status, and an extension of personality',
+    urgency_score: 10
   },
 
   'Education': {
@@ -164,7 +173,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Some ROI consideration
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Investing in potential and opening doors to opportunity'
+    purchase_mindset: 'Investing in potential and opening doors to opportunity',
+    urgency_score: 10
   },
 
   'Fashion': {
@@ -178,7 +188,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Price considerations
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Expressing who I am and feeling confident in how I look'
+    purchase_mindset: 'Expressing who I am and feeling confident in how I look',
+    urgency_score: 15
   },
 
   'Clothing': {
@@ -192,7 +203,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 10      // Practicality, durability
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Looking good, feeling confident, and expressing personal style'
+    purchase_mindset: 'Looking good, feeling confident, and expressing personal style',
+    urgency_score: 10
   },
 
   'Apparel': {
@@ -206,7 +218,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 10      // Value, versatility
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Curating a wardrobe that makes me feel amazing'
+    purchase_mindset: 'Curating a wardrobe that makes me feel amazing',
+    urgency_score: 10
   },
 
   'Restaurants': {
@@ -220,7 +233,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Price/value
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Creating memorable experiences and enjoying life\'s pleasures'
+    purchase_mindset: 'Creating memorable experiences and enjoying life\'s pleasures',
+    urgency_score: 15
   },
 
   'Food & Beverage': {
@@ -234,7 +248,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 10      // Nutrition, value
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Satisfying cravings and enjoying life\'s simple pleasures'
+    purchase_mindset: 'Satisfying cravings and enjoying life\'s simple pleasures',
+    urgency_score: 20
   },
 
   'Bars & Nightlife': {
@@ -248,7 +263,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Cover charge, drink prices
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Escaping routine, connecting with friends, and creating memories'
+    purchase_mindset: 'Escaping routine, connecting with friends, and creating memories',
+    urgency_score: 20
   },
 
   'Entertainment': {
@@ -262,7 +278,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Ticket price
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Escaping reality and experiencing joy'
+    purchase_mindset: 'Escaping reality and experiencing joy',
+    urgency_score: 20
   },
 
   'Beauty & Cosmetics': {
@@ -276,7 +293,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 10      // Results, value
     },
     jtbd_focus: 'social',
-    purchase_mindset: 'Enhancing natural beauty and feeling confident'
+    purchase_mindset: 'Enhancing natural beauty and feeling confident',
+    urgency_score: 10
   },
 
   'Wellness & Spa': {
@@ -290,7 +308,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 5       // Treatment benefits
     },
     jtbd_focus: 'emotional',
-    purchase_mindset: 'Investing in self-care and finding peace'
+    purchase_mindset: 'Investing in self-care and finding peace',
+    urgency_score: 10
   },
 
   'default': {
@@ -304,7 +323,8 @@ export const INDUSTRY_EQ_MAP: Record<string, IndustryEQ> = {
       logic: 30
     },
     jtbd_focus: 'functional',
-    purchase_mindset: 'Solving problems and improving outcomes'
+    purchase_mindset: 'Solving problems and improving outcomes',
+    urgency_score: 5
   }
 }
 
@@ -426,12 +446,12 @@ export async function getIndustryEQ(industry: string, naicsCode?: string): Promi
 /**
  * Generate JTBD-focused prompts based on industry EQ
  */
-export function getJTBDPrompts(industry: string): {
+export async function getJTBDPrompts(industry: string): Promise<{
   problem_prompt: string
   solution_prompt: string
   benefit_prompt: string
-} {
-  const eq = getIndustryEQ(industry)
+}> {
+  const eq = await getIndustryEQ(industry)
 
   if (eq.emotional_weight > 70) {
     // Highly emotional industries
@@ -460,8 +480,8 @@ export function getJTBDPrompts(industry: string): {
 /**
  * Adjust suggestion generation based on emotional quotient
  */
-export function adjustSuggestionPrompt(basePrompt: string, industry: string, step: string): string {
-  const eq = getIndustryEQ(industry)
+export async function adjustSuggestionPrompt(basePrompt: string, industry: string, step: string): Promise<string> {
+  const eq = await getIndustryEQ(industry)
 
   let adjustedPrompt = basePrompt
 
@@ -494,8 +514,8 @@ export function adjustSuggestionPrompt(basePrompt: string, industry: string, ste
 /**
  * Transform a standard question to be more JTBD-centric based on industry
  */
-export function makeQuestionJTBD(originalQuestion: string, industry: string, step: string): string {
-  const eq = getIndustryEQ(industry)
+export async function makeQuestionJTBD(originalQuestion: string, industry: string, step: string): Promise<string> {
+  const eq = await getIndustryEQ(industry)
 
   const jtbdQuestions: Record<string, Record<string, string>> = {
     'customer-problem': {

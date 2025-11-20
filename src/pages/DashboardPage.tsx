@@ -40,7 +40,7 @@ type ViewMode = 'dashboard' | 'insights_hub';
 
 export function DashboardPage() {
   const navigate = useNavigate();
-  const { brand } = useBrand();
+  const { currentBrand: brand } = useBrand();
   const [insights, setInsights] = useState<BusinessInsights | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
@@ -73,56 +73,76 @@ export function DashboardPage() {
         const context: DeepContext = {
           business: {
             profile: {
+              id: brand.id,
               name: brand.name || data.websiteAnalysis.brandVoice || 'Your Business',
               industry: data.websiteAnalysis.contentThemes?.[0] || 'General',
-              location: data.locationData?.city || '',
-              description: data.websiteAnalysis.brandVoice || '',
+              naicsCode: '',
+              website: brand.website || '',
+              location: {
+                city: data.locationData?.city || '',
+                state: data.locationData?.state || '',
+                country: data.locationData?.country || 'USA',
+              },
+              keywords: data.websiteAnalysis?.contentThemes || [],
+              competitors: data.competitorData?.map(c => c.name) || [],
             },
-            services: data.servicesProducts?.map((s) => ({
-              name: s.name,
-              description: s.description || '',
-              targetCustomers: [],
-              competitors: data.competitorData?.map((c) => c.name) || [],
-            })) || [],
-            targetCustomers: data.customerTriggers?.map((t) => ({
-              profile: t.trigger,
-              painPoints: [t.painPoint],
-              desires: [t.desire],
-              commonObjections: [],
-            })) || [],
-            valuePropositions: data.websiteAnalysis?.uvps || [],
+            brandVoice: {
+              tone: ['professional'],
+              values: [],
+              personality: [],
+              avoidWords: [],
+              signaturePhrases: [],
+            },
+            uniqueAdvantages: [],
+            goals: [],
           },
-          intelligence: {
-            customerInsights: data.customerTriggers?.map((t) => ({
-              source: t.source,
-              insight: t.painPoint,
-              relevance: 'high',
-              verifiedAt: new Date().toISOString(),
-            })) || [],
-            marketTrends: data.marketTrends?.map((t) => ({
-              trend: t.trend,
-              description: t.description,
-              relevance: t.relevance,
-              source: t.source,
-            })) || [],
-            competitorGaps: data.competitorData?.flatMap((c) =>
-              c.differentiators.map((d) => ({
-                gap: d,
-                opportunity: `Differentiate from ${c.name}`,
-                competitors: [c.name],
-                evidence: [],
-              }))
-            ) || [],
+          industry: {
+            profile: null,
+            trends: [],
+            seasonality: [],
+            competitiveLandscape: {
+              topCompetitors: [],
+              marketConcentration: 'moderate',
+              barrierToEntry: 'medium',
+            },
+            economicFactors: [],
           },
-          verification: {
-            sources: [{
-              type: 'website' as const,
-              url: brand.website || '',
-              extractedAt: new Date().toISOString(),
-              confidence: 0.9,
-            }],
-            confidenceScore: 0.85,
-            lastUpdated: new Date().toISOString(),
+          realTimeCultural: {
+            weather: null,
+            localEvents: [],
+            trendingTopics: [],
+            culturalMoments: [],
+            seasonalContext: null,
+            reviews: null,
+          },
+          competitiveIntel: {
+            blindSpots: [],
+            mistakes: [],
+            opportunities: [],
+            contentGaps: [],
+            positioningWeaknesses: [],
+          },
+          customerPsychology: {
+            unarticulated: [],
+            emotional: [],
+            behavioral: [],
+            identityDesires: [],
+            purchaseMotivations: [],
+            objections: [],
+          },
+          synthesis: {
+            keyInsights: [],
+            hiddenPatterns: [],
+            opportunityScore: 70,
+            recommendedAngles: [],
+            confidenceLevel: 0.7,
+            generatedAt: new Date(),
+          },
+          metadata: {
+            aggregatedAt: new Date(),
+            dataSourcesUsed: ['website'],
+            processingTimeMs: 0,
+            version: '1.0.0',
           },
         };
 

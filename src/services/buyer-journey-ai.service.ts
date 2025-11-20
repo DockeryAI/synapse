@@ -73,6 +73,10 @@ export class BuyerJourneyAI {
     }
   }
 
+  private get apiKey(): string | null {
+    return this.supabaseAnonKey;
+  }
+
   /**
    * PRE-POPULATE: Extract initial data from UVP
    */
@@ -410,10 +414,12 @@ Return ONLY a JSON array of exactly 5 strings.`
       consideration: ['Website visit', 'Reviews/testimonials', 'Comparison research', 'Email inquiry'],
       decision: ['Consultation call', 'Proposal review', 'Pricing discussion', 'References check'],
       purchase: ['Contract signing', 'Onboarding', 'Payment process', 'Welcome email'],
-      advocacy: ['Follow-up check-in', 'Review request', 'Referral program', 'Community engagement'],
+      delivery: ['Service delivery', 'Product shipment', 'Implementation', 'Training'],
+      'post-purchase': ['Follow-up check-in', 'Support access', 'Usage tips', 'Satisfaction survey'],
+      advocacy: ['Review request', 'Referral program', 'Community engagement', 'Case study opportunity'],
     }
 
-    const templates = touchpointTemplates[stage] || []
+    const templates = touchpointTemplates[stage] || touchpointTemplates.awareness
 
     return templates.map(name => ({
       name,

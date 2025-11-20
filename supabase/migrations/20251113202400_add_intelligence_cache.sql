@@ -15,14 +15,14 @@ CREATE TABLE IF NOT EXISTS intelligence_cache (
 );
 
 -- Indexes for efficient lookups
-CREATE INDEX idx_intelligence_cache_key ON intelligence_cache(cache_key);
-CREATE INDEX idx_intelligence_cache_expires_at ON intelligence_cache(expires_at);
-CREATE INDEX idx_intelligence_cache_data_type ON intelligence_cache(data_type);
-CREATE INDEX idx_intelligence_cache_source_api ON intelligence_cache(source_api);
-CREATE INDEX idx_intelligence_cache_brand_id ON intelligence_cache(brand_id);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_key ON intelligence_cache(cache_key);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_expires_at ON intelligence_cache(expires_at);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_data_type ON intelligence_cache(data_type);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_source_api ON intelligence_cache(source_api);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_brand_id ON intelligence_cache(brand_id);
 
 -- Composite index for brand-specific lookups
-CREATE INDEX idx_intelligence_cache_brand_type ON intelligence_cache(brand_id, data_type);
+CREATE INDEX IF NOT EXISTS idx_intelligence_cache_brand_type ON intelligence_cache(brand_id, data_type);
 
 -- Enable RLS
 ALTER TABLE intelligence_cache ENABLE ROW LEVEL SECURITY;

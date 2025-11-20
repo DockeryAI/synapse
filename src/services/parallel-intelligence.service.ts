@@ -45,7 +45,7 @@ const GBPDataSchema = z.object({
   name: z.string(),
   address: z.string().optional(),
   phone: z.string().optional(),
-  hours: z.record(z.string()).optional(),
+  hours: z.record(z.string(), z.string()).optional(),
   categories: z.array(z.string()),
   rating: z.number().min(0).max(5).optional(),
   reviewCount: z.number().optional()
@@ -275,13 +275,15 @@ async function scrapeWebsite(url: string): Promise<WebsiteData | null> {
         return null
       }
 
+      const pages = items.map((item: any) => ({
+        url: (item.url || url) as string,
+        title: (item.title || '') as string,
+        content: (item.text || '') as string,
+        wordCount: typeof item.text === 'string' ? item.text.split(' ').length : 0
+      }));
+
       const data: WebsiteData = {
-        pages: items.map(item => ({
-          url: item.url || url,
-          title: item.title || '',
-          content: item.text || '',
-          wordCount: item.text?.split(' ').length || 0
-        })),
+        pages,
         totalPages: items.length,
         keyContent: extractKeyContent(items),
         images: extractImages(items),
@@ -509,14 +511,15 @@ async function detectCompetitors(
 
       const competitors = (response.data.organic || [])
         .slice(0, 5)
-        .filter((result: any) => result.title.toLowerCase() !== sanitizedName.toLowerCase())
-        .map((result: any) => CompetitorSchema.parse({
+        .filter((result: any) => result.title && result.title.toLowerCase() !== sanitizedName.toLowerCase())
+        .map((result: any) => ({
           name: result.title || '',
           website: result.link || undefined,
           description: result.snippet || undefined,
           distance: undefined,
           rating: undefined
         }))
+        .map(comp => CompetitorSchema.parse(comp))
 
       return competitors
     },
@@ -773,20 +776,31 @@ export async function gatherIntelligence(
         () => findSocialProfiles(sanitizedBusinessName, websiteUrl)
       ]
 
-      const results = await parallelAPICalls(sources, {
+      type SourceResult = WebsiteData | GBPData | ReviewData[] | SearchData | Competitor[] | ServiceData[] | SocialProfiles | null;
+
+      const results = await parallelAPICalls<SourceResult>(sources as Array<() => Promise<SourceResult>>, {
         timeout: 30000,
         allowPartialFailure: true
       })
 
       const [
-        websiteData,
-        googleBusiness,
-        reviews,
-        searchPresence,
-        competitors,
-        services,
-        socialProfiles
+        websiteDataRaw,
+        googleBusinessRaw,
+        reviewsRaw,
+        searchPresenceRaw,
+        competitorsRaw,
+        servicesRaw,
+        socialProfilesRaw
       ] = results
+
+      // Type guard and cast results
+      const websiteData = websiteDataRaw as WebsiteData | null
+      const googleBusiness = googleBusinessRaw as GBPData | null
+      const reviews = Array.isArray(reviewsRaw) ? reviewsRaw as ReviewData[] : []
+      const searchPresence = searchPresenceRaw as SearchData | null
+      const competitors = Array.isArray(competitorsRaw) ? competitorsRaw as Competitor[] : []
+      const services = Array.isArray(servicesRaw) ? servicesRaw as ServiceData[] : []
+      const socialProfiles = socialProfilesRaw as SocialProfiles | null
 
       if (!websiteData) failedSources.push('website-scraping')
       if (!googleBusiness) failedSources.push('google-business')
@@ -797,13 +811,13 @@ export async function gatherIntelligence(
       if (!socialProfiles) failedSources.push('social-profiles')
 
       const partialReport = {
-        websiteData: websiteData as WebsiteData | null,
-        googleBusiness: googleBusiness as GBPData | null,
-        reviews: (reviews || []) as ReviewData[],
-        searchPresence: searchPresence as SearchData | null,
-        competitors: (competitors || []) as Competitor[],
-        services: (services || []) as ServiceData[],
-        socialProfiles: socialProfiles as SocialProfiles | null
+        websiteData: websiteData,
+        googleBusiness: googleBusiness,
+        reviews: reviews || [],
+        searchPresence: searchPresence,
+        competitors: competitors || [],
+        services: services || [],
+        socialProfiles: socialProfiles
       }
 
       const aiInsights = await synthesizeIntelligence(partialReport)

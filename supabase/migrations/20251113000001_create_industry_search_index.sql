@@ -121,8 +121,8 @@ INSERT INTO industry_search_index (naics_code, display_name, category, keywords,
 -- Insurance & Financial
 ('524210', 'Insurance Agency', 'Financial Services', ARRAY['insurance', 'insurance agent', 'insurance broker', 'coverage', 'policy'], true, 41),
 ('524126', 'Direct Property & Casualty Insurance', 'Financial Services', ARRAY['insurance', 'property insurance', 'casualty', 'home insurance', 'auto insurance'], true, 14),
-('523930', 'Investment Advisor', 'Financial Services', ARRAY['investment', 'financial advisor', 'wealth management', 'portfolio', 'investing'], true, 25),
-('523920', 'Financial Planning', 'Financial Services', ARRAY['financial planning', 'financial planner', 'retirement planning', 'wealth'], true, 26),
+('523930', 'Financial Advisor', 'Professional Services', ARRAY['financial advisor', 'financial planner', 'wealth manager', 'investment advisor', 'financial planning', 'wealth management', 'retirement planning'], true, 31),
+('523930', 'Investment Advisory', 'Professional Services', ARRAY['investment advisory', 'investment', 'advisory', 'investment advice', 'portfolio management'], true, 30),
 
 -- Add more entries here...
 -- Note: This is a subset. The full migration would include all 384 entries from complete-naics-codes.ts

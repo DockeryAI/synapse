@@ -8,13 +8,13 @@
  * - Drag-and-drop interaction
  *
  * Created: 2025-11-18
- * Updated: 2025-11-18 (Rebuilt to match MARBA UVP wizard pattern)
+ * Updated: 2025-11-19 (Fixed progressive loading and data reversion)
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DndContext, DragEndEvent, DragOverlay, DragStartEvent } from '@dnd-kit/core';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Users, Lightbulb, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowLeft, ArrowRight, Users, Lightbulb, Sparkles, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { SuggestionPanel } from '@/components/uvp-wizard/SuggestionPanel';
@@ -32,6 +32,7 @@ interface TargetCustomerPageProps {
   websiteUrl?: string;
   websiteContent?: string[];
   websiteUrls?: string[];
+  preloadedData?: any; // Pre-loaded extraction data from parent
   value?: string;
   onChange?: (value: string) => void;
   onNext: () => void;
@@ -47,6 +48,7 @@ export function TargetCustomerPage({
   websiteUrl = '',
   websiteContent = [],
   websiteUrls = [],
+  preloadedData,
   value = '',
   onChange,
   onNext,
@@ -59,6 +61,11 @@ export function TargetCustomerPage({
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeDragId, setActiveDragId] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState(value);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newCustomerSegment, setNewCustomerSegment] = useState('');
+
+  // Track if we've already loaded preloaded data to prevent double-loading
+  const hasLoadedPreloadedData = useRef(false);
 
   const [dropZone, setDropZone] = useState<DropZoneType>({
     id: 'target-customer-drop-zone',
@@ -77,12 +84,105 @@ export function TargetCustomerPage({
     });
   }, [industry]);
 
+  // Progressive loading effect - handles preloaded data from background
   useEffect(() => {
-    if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
-      console.log('[TargetCustomerPage] Auto-generating suggestions on mount');
-      handleGenerateSuggestions();
+    console.log('[TargetCustomerPage] useEffect triggered', {
+      hasPreloadedData: !!preloadedData,
+      isLoading: preloadedData && (preloadedData as any).loading,
+      hasProfiles: preloadedData && preloadedData.profiles && preloadedData.profiles.length,
+      suggestionsCount: suggestions.length,
+      hasLoadedBefore: hasLoadedPreloadedData.current
+    });
+
+    // Check if data is still loading in background
+    if (preloadedData && (preloadedData as any).loading) {
+      console.log('[TargetCustomerPage] ⏳ Data is loading in background...');
+      setIsGenerating(true);
+      return;
     }
-  }, [websiteContent]);
+
+    // If we have pre-loaded data with profiles AND haven't loaded it before
+    if (preloadedData && preloadedData.profiles && preloadedData.profiles.length > 0) {
+      // Skip if we've already loaded this data
+      if (hasLoadedPreloadedData.current && suggestions.length > 0) {
+        console.log('[TargetCustomerPage] ✓ Data already loaded, skipping');
+        return;
+      }
+
+      console.log('[TargetCustomerPage] 📥 Loading pre-loaded data:', preloadedData.profiles.length, 'profiles');
+      const extractedSuggestions = convertExtractionToSuggestions(preloadedData);
+
+      if (extractedSuggestions && extractedSuggestions.length > 0) {
+        console.log('[TargetCustomerPage] ✓ Conversion successful:', extractedSuggestions.length, 'suggestions');
+        setSuggestions(extractedSuggestions);
+        setIsGenerating(false);
+        hasLoadedPreloadedData.current = true; // Mark as loaded
+      } else {
+        console.warn('[TargetCustomerPage] ⚠️ Conversion returned empty array');
+      }
+      return;
+    }
+
+    // Only auto-generate if no preloaded data AND we have website content
+    if (!preloadedData || (!preloadedData.profiles && !(preloadedData as any).loading)) {
+      if (websiteContent.length > 0 && suggestions.length === 0 && !isGenerating) {
+        console.log('[TargetCustomerPage] 🤖 Auto-generating suggestions from website content');
+        handleGenerateSuggestions();
+      }
+    }
+  }, [preloadedData]); // Only depend on preloadedData (memoized in parent)
+
+  // Helper to convert extraction data to suggestions
+  const convertExtractionToSuggestions = (extraction: any): DraggableSuggestion[] => {
+    console.log('[TargetCustomerPage] Converting extraction:', {
+      hasExtraction: !!extraction,
+      hasProfiles: !!(extraction?.profiles),
+      profilesLength: extraction?.profiles?.length || 0
+    });
+
+    if (!extraction || !extraction.profiles || extraction.profiles.length === 0) {
+      console.warn('[TargetCustomerPage] ⚠️ No profiles in extraction');
+      return []; // Return empty instead of fallback to prevent data reversion
+    }
+
+    try {
+      const extractedSuggestions: DraggableSuggestion[] = extraction.profiles.map((profile: any, index: number) => {
+        // Handle confidence - could be number or object
+        let confidenceValue = 0;
+        if (typeof profile.confidence === 'number') {
+          confidenceValue = profile.confidence / 100;
+        } else if (typeof profile.confidence === 'object' && profile.confidence?.overall) {
+          confidenceValue = profile.confidence.overall / 100;
+        }
+
+        return {
+          id: `customer-${profile.id || index}`,
+          type: 'customer-segment',
+          content: profile.statement || profile.content || '', // Try both fields
+          source: profile.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
+          confidence: confidenceValue,
+          tags: [
+            'target_customer',
+            ...(profile.industry ? [`industry:${profile.industry.toLowerCase()}`] : []),
+            ...(profile.companySize ? [`size:${profile.companySize.toLowerCase()}`] : []),
+            ...(profile.role ? [`role:${profile.role.toLowerCase()}`] : []),
+            ...(extraction.locationData ? [`location:${extraction.locationData.city.toLowerCase()}`] : [])
+          ],
+          is_selected: false,
+          is_customizable: true
+        };
+      });
+
+      extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
+
+      console.log('[TargetCustomerPage] ✓ Converted extraction to suggestions:', extractedSuggestions.length);
+
+      return extractedSuggestions;
+    } catch (error) {
+      console.error('[TargetCustomerPage] ❌ Error converting extraction:', error);
+      return []; // Return empty instead of fallback
+    }
+  };
 
   const handleGenerateSuggestions = async () => {
     setIsGenerating(true);
@@ -102,28 +202,8 @@ export function TargetCustomerPage({
       console.log(`  - Industry personas: ${extraction.industryPersonas.length}`);
       console.log(`  - Location: ${extraction.locationData?.city || 'N/A'}`);
 
-      const extractedSuggestions: DraggableSuggestion[] = extraction.profiles.map((profile, index) => ({
-        id: `customer-${profile.id || index}`,
-        type: 'customer-segment',
-        content: profile.statement || '',
-        source: profile.sources?.[0]?.type === 'website' ? 'ai-generated' : 'industry-profile',
-        confidence: (profile.confidence?.overall || 0) / 100,
-        tags: [
-          'target_customer',
-          ...(profile.industry ? [`industry:${profile.industry.toLowerCase()}`] : []),
-          ...(profile.companySize ? [`size:${profile.companySize.toLowerCase()}`] : []),
-          ...(profile.role ? [`role:${profile.role.toLowerCase()}`] : []),
-          ...(extraction.locationData ? [`location:${extraction.locationData.city.toLowerCase()}`] : [])
-        ],
-        is_selected: false,
-        is_customizable: true
-      }));
-
-      extractedSuggestions.sort((a, b) => (b.confidence || 0) - (a.confidence || 0));
-
+      const extractedSuggestions = convertExtractionToSuggestions(extraction);
       setSuggestions(extractedSuggestions);
-
-      console.log('[TargetCustomerPage] Generated suggestions:', extractedSuggestions.length);
 
     } catch (error) {
       console.error('[TargetCustomerPage] Failed to generate suggestions:', error);
@@ -243,6 +323,38 @@ export function TargetCustomerPage({
     }
   };
 
+  const handleAddManualCustomer = () => {
+    if (!newCustomerSegment.trim()) return;
+
+    // Add the new customer as a suggestion
+    const newSuggestion: DraggableSuggestion = {
+      id: `manual-${Date.now()}`,
+      type: 'customer-segment',
+      content: newCustomerSegment.trim(),
+      source: 'manual-input',
+      confidence: 100,
+      tags: ['manual'],
+      is_selected: false,
+      is_customizable: true
+    };
+
+    setSuggestions([newSuggestion, ...suggestions]);
+
+    // Also add to the drop zone/input
+    const newValue = inputValue
+      ? `${inputValue}\n\n${newCustomerSegment.trim()}`
+      : newCustomerSegment.trim();
+
+    setInputValue(newValue);
+    if (onChange) {
+      onChange(newValue);
+    }
+
+    // Reset form
+    setNewCustomerSegment('');
+    setShowAddForm(false);
+  };
+
   const activeSuggestion = activeDragId
     ? suggestions.find((s) => s.id === activeDragId)
     : null;
@@ -251,8 +363,39 @@ export function TargetCustomerPage({
   const showWarning = inputValue.length > 0 && !isValid;
   const canGoNext = isValid;
 
+  // Show loading state when generating suggestions
+  if (isGenerating && suggestions.length === 0) {
+    return (
+      <div className={`min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col items-center justify-center p-6 ${className}`}>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="text-center space-y-6"
+        >
+          <div className="relative">
+            <div className="w-24 h-24 mx-auto">
+              <div className="absolute inset-0 border-4 border-purple-500/20 rounded-full"></div>
+              <div className="absolute inset-0 border-4 border-transparent border-t-purple-500 rounded-full animate-spin"></div>
+              <Users className="w-12 h-12 text-purple-400 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-2xl font-bold text-white">Analyzing Your Target Customers</h2>
+            <p className="text-gray-400">Extracting customer profiles from {businessName}...</p>
+          </div>
+
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
+            <Sparkles className="w-4 h-4 animate-pulse" />
+            <span>Using AI to identify your ideal customer segments</span>
+          </div>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className={`flex flex-col h-full ${className}`}>
+    <div className={`max-w-5xl mx-auto px-4 py-8 space-y-8 ${className}`}>
       {showProgress && (
         <div className="mb-6">
           <CompactWizardProgress
@@ -271,21 +414,29 @@ export function TargetCustomerPage({
         </div>
       )}
 
-      <div className="mb-8">
-        <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-100 dark:bg-purple-900/20 rounded-full mb-4">
-          <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-          <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-center space-y-4 mb-8"
+      >
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full shadow-sm">
+          <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
             UVP Step 2 of 6: Target Customer
           </span>
         </div>
 
-        <h2 className="text-2xl font-bold mb-2">Who is Your Target Customer?</h2>
-        <p className="text-muted-foreground mb-4">
-          Be specific: Industry, company size, role, and the challenge they face
+        <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          Who is Your Target Customer?
+        </h1>
+
+        <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          We've identified these potential customer segments for {businessName}.
+          Review the suggestions below and drag them to customize your target customer profile.
         </p>
 
         {industryEQ && (
-          <Alert>
+          <Alert className="max-w-2xl mx-auto">
             <Lightbulb className="h-4 w-4" />
             <AlertDescription className="text-sm">
               <strong>{industryEQ.industry} buyers:</strong> {industryEQ.purchase_mindset}
@@ -293,7 +444,7 @@ export function TargetCustomerPage({
             </AlertDescription>
           </Alert>
         )}
-      </div>
+      </motion.div>
 
       <div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 overflow-hidden">
         <div className="lg:col-span-1 overflow-hidden">
@@ -348,6 +499,74 @@ export function TargetCustomerPage({
         </div>
       </div>
 
+      {/* Add Manual Form */}
+      <AnimatePresence>
+        {showAddForm && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-purple-500 dark:border-purple-400 p-6 shadow-lg"
+          >
+            <div className="flex items-start justify-between mb-4">
+              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
+                Add Customer Segment
+              </h3>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowAddForm(false)}
+              >
+                <X className="w-4 h-4" />
+              </Button>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                  Customer Segment Description
+                </label>
+                <textarea
+                  value={newCustomerSegment}
+                  onChange={(e) => setNewCustomerSegment(e.target.value)}
+                  placeholder="e.g., Classic car collectors and enthusiasts with valuable vintage vehicles"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none"
+                  rows={3}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && e.metaKey) {
+                      handleAddManualCustomer();
+                    }
+                  }}
+                />
+                <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  Press ⌘+Enter to add
+                </p>
+              </div>
+
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleAddManualCustomer}
+                  disabled={!newCustomerSegment.trim()}
+                  className="gap-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  Add Customer
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowAddForm(false);
+                    setNewCustomerSegment('');
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <div className="flex items-center justify-between pt-6 border-t">
         <Button
           variant="outline"
@@ -359,12 +578,24 @@ export function TargetCustomerPage({
           Back
         </Button>
 
-        <div className="text-sm text-muted-foreground">
-          {isValid ? (
-            <span className="text-green-600 font-medium">Ready to continue</span>
-          ) : (
-            <span>Fill in your target customer to continue</span>
-          )}
+        <div className="flex items-center gap-3">
+          <div className="text-sm text-muted-foreground">
+            {isValid ? (
+              <span className="text-green-600 font-medium">Ready to continue</span>
+            ) : (
+              <span>Fill in your target customer to continue</span>
+            )}
+          </div>
+
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowAddForm(true)}
+            className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20 whitespace-nowrap"
+          >
+            <Plus className="w-4 h-4" />
+            <span className="font-medium">Add Manually</span>
+          </Button>
         </div>
 
         <Button

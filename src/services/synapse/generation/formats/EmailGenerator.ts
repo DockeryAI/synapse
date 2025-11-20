@@ -62,10 +62,9 @@ export class EmailGenerator {
         principle: framework.id === 'email-pas' ? 'Loss Aversion' : 'Curiosity Gap',
         trigger: {
           type: framework.id === 'email-pas' ? 'fear' : 'curiosity',
-          strength: 0.85,
-          target: 'conversion'
+          strength: 0.85
         },
-        persuasionTechnique: framework.id === 'email-pas' ? 'Problem Amplification' : 'AIDA',
+        persuasionTechnique: framework.id === 'email-pas' ? 'Contrarian Challenge' : 'Data-Driven Authority',
         expectedReaction: 'I need to click this and learn more'
       },
 
@@ -73,12 +72,12 @@ export class EmailGenerator {
         powerWords: this.extractPowerWords(subjectLine + body),
         framingDevice: framework.name,
         narrativeStructure: framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Medium (email-optimized)'
+        pacing: 'medium'
       },
 
       meta: {
-        platform: ['Email'],
-        tone: 'professional',
+        platform: ['linkedin'],
+        tone: 'educational',
         targetAudience: business.targetAudience
       },
 

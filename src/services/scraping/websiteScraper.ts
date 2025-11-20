@@ -36,7 +36,14 @@ export async function scrapeWebsite(domain: string): Promise<WebsiteData> {
 
   try {
     // Ensure domain has protocol
-    const url = domain.startsWith('http') ? domain : `https://${domain}`
+    let url = domain.startsWith('http') ? domain : `https://${domain}`
+
+    // Decode URL first to avoid double-encoding (URLs from <a> tags might already be encoded)
+    try {
+      url = decodeURIComponent(url);
+    } catch (e) {
+      // If decoding fails, URL was not encoded, use as-is
+    }
 
     console.log('[websiteScraper] Fetching:', url)
 
@@ -163,13 +170,18 @@ function extractContent(doc: Document): WebsiteData['content'] {
     }
   })
 
-  // Get links
+  // Get links (extract href attributes, not text)
   const links: string[] = []
   doc.querySelectorAll('a[href]').forEach(a => {
     const href = a.getAttribute('href')
-    const text = a.textContent?.trim()
-    if (text && href) {
-      links.push(text)
+    if (href) {
+      // Decode URL to prevent double-encoding
+      try {
+        links.push(decodeURIComponent(href))
+      } catch (e) {
+        // If decoding fails, use as-is
+        links.push(href)
+      }
     }
   })
 
@@ -261,11 +273,17 @@ function extractStructure(doc: Document): WebsiteData['structure'] {
     }
   })
 
-  // Get navigation links
+  // Get navigation links (extract href attributes, not text)
   doc.querySelectorAll('nav a, header a').forEach(a => {
-    const text = a.textContent?.trim()
-    if (text && text.length < 50) { // Reasonable nav link length
-      navigation.push(text)
+    const href = a.getAttribute('href')
+    if (href) {
+      // Decode URL to prevent double-encoding
+      try {
+        navigation.push(decodeURIComponent(href))
+      } catch (e) {
+        // If decoding fails, use as-is
+        navigation.push(href)
+      }
     }
   })
 

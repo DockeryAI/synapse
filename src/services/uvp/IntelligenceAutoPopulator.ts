@@ -135,18 +135,18 @@ async function extractTargetCustomer(
   const evidence: string[] = []
   const segments: string[] = []
 
-  // Check for explicit customer psychology
-  if (context.customer?.psychologicalProfile?.desires) {
-    const desires = context.customer.psychologicalProfile.desires.slice(0, 2)
+  // Check for identity desires from customer psychology
+  if (context.customerPsychology?.identityDesires) {
+    const desires = context.customerPsychology.identityDesires.slice(0, 2)
     segments.push(...desires.map(d => d.desire))
     evidence.push(`Customer desires: ${desires.map(d => d.desire).join(', ')}`)
   }
 
-  // Check for pain points (indicates who has these problems)
-  if (context.customer?.painPoints) {
-    const topPain = context.customer.painPoints[0]
-    if (topPain) {
-      evidence.push(`Primary pain point: ${topPain.painPoint}`)
+  // Check for unarticulated needs
+  if (context.customerPsychology?.unarticulated && context.customerPsychology.unarticulated.length > 0) {
+    const topNeed = context.customerPsychology.unarticulated[0]
+    if (topNeed) {
+      evidence.push(`Unarticulated need: ${topNeed.need}`)
     }
   }
 
@@ -196,20 +196,20 @@ async function extractCustomerProblem(
   const evidence: string[] = []
   const problems: string[] = []
 
-  // Primary source: customer pain points
-  if (context.customer?.painPoints && context.customer.painPoints.length > 0) {
-    const topPain = context.customer.painPoints[0]
-    problems.push(topPain.painPoint)
-    evidence.push(`Pain point: ${topPain.painPoint}`)
+  // Primary source: unarticulated customer needs
+  if (context.customerPsychology?.unarticulated && context.customerPsychology.unarticulated.length > 0) {
+    const topNeed = context.customerPsychology.unarticulated[0]
+    problems.push(topNeed.need)
+    evidence.push(`Unarticulated need: ${topNeed.need}`)
 
-    if (topPain.frequency > 0.7) {
-      evidence.push(`High frequency issue (${Math.round(topPain.frequency * 100)}% of customers)`)
+    if (topNeed.confidence > 0.7) {
+      evidence.push(`High confidence need (AI is confident about this)`)
     }
   }
 
   // Secondary source: competitive blind spots (problems competitors ignore)
-  if (context.competitive?.blindSpots && context.competitive.blindSpots.length > 0) {
-    const blindSpot = context.competitive.blindSpots[0]
+  if (context.competitiveIntel?.blindSpots && context.competitiveIntel.blindSpots.length > 0) {
+    const blindSpot = context.competitiveIntel.blindSpots[0]
     if (blindSpot.customerInterest > 0.6) {
       problems.push(blindSpot.topic)
       evidence.push(`Unmet need: ${blindSpot.topic}`)
@@ -252,12 +252,12 @@ async function extractUniqueSolution(
     evidence.push(`Unique advantage: ${topAdvantage}`)
   }
 
-  // Secondary: competitive advantages from gaps
-  if (context.competitive?.gaps && context.competitive.gaps.length > 0) {
-    const gap = context.competitive.gaps[0]
-    if (gap.opportunity && solutions.length === 0) {
-      solutions.push(gap.opportunity)
-      evidence.push(`Market gap opportunity: ${gap.opportunity}`)
+  // Secondary: competitive advantages from opportunities
+  if (context.competitiveIntel?.opportunities && context.competitiveIntel.opportunities.length > 0) {
+    const gap = context.competitiveIntel.opportunities[0]
+    if (gap.gap && solutions.length === 0) {
+      solutions.push(gap.gap)
+      evidence.push(`Market gap opportunity: ${gap.gap}`)
     }
   }
 
@@ -290,14 +290,14 @@ async function extractKeyBenefit(
   const evidence: string[] = []
   const benefits: string[] = []
 
-  // Primary: customer desires (what they want to achieve)
-  if (context.customer?.psychologicalProfile?.desires && context.customer.psychologicalProfile.desires.length > 0) {
-    const topDesire = context.customer.psychologicalProfile.desires[0]
-    benefits.push(topDesire.outcome || topDesire.desire)
+  // Primary: customer identity desires (what they want to become)
+  if (context.customerPsychology?.identityDesires && context.customerPsychology.identityDesires.length > 0) {
+    const topDesire = context.customerPsychology.identityDesires[0]
+    benefits.push(topDesire.desire)
     evidence.push(`Customer desire: ${topDesire.desire}`)
 
-    if (topDesire.intensity > 0.7) {
-      evidence.push(`High intensity desire (${Math.round(topDesire.intensity * 100)}%)`)
+    if (topDesire.strength > 0.7) {
+      evidence.push(`Strong identity desire (${Math.round(topDesire.strength * 100)}% strength)`)
     }
   }
 
@@ -340,15 +340,15 @@ async function extractDifferentiation(
   const differentiators: string[] = []
 
   // Primary: competitor mistakes we don't make
-  if (context.competitive?.mistakes && context.competitive.mistakes.length > 0) {
-    const mistake = context.competitive.mistakes[0]
+  if (context.competitiveIntel?.mistakes && context.competitiveIntel.mistakes.length > 0) {
+    const mistake = context.competitiveIntel.mistakes[0]
     differentiators.push(`Unlike competitors who ${mistake.mistake.toLowerCase()}, we ${mistake.opportunity.toLowerCase()}`)
     evidence.push(`Competitor mistake: ${mistake.mistake}`)
   }
 
   // Secondary: blind spots we address
-  if (context.competitive?.blindSpots && context.competitive.blindSpots.length > 0) {
-    const blindSpot = context.competitive.blindSpots[0]
+  if (context.competitiveIntel?.blindSpots && context.competitiveIntel.blindSpots.length > 0) {
+    const blindSpot = context.competitiveIntel.blindSpots[0]
     if (differentiators.length === 0) {
       differentiators.push(`We focus on ${blindSpot.topic.toLowerCase()}, which competitors overlook`)
       evidence.push(`Blind spot: ${blindSpot.topic}`)
@@ -407,11 +407,11 @@ function countDataPoints(context: DeepContext): number {
   if (context.business?.profile) count++
   if (context.business?.uniqueAdvantages?.length) count++
   if (context.business?.brandVoice) count++
-  if (context.customer?.painPoints?.length) count++
-  if (context.customer?.psychologicalProfile?.desires?.length) count++
-  if (context.competitive?.blindSpots?.length) count++
-  if (context.competitive?.gaps?.length) count++
-  if (context.competitive?.mistakes?.length) count++
+  if (context.customerPsychology?.unarticulated?.length) count++
+  if (context.customerPsychology?.identityDesires?.length) count++
+  if (context.competitiveIntel?.blindSpots?.length) count++
+  if (context.competitiveIntel?.opportunities?.length) count++
+  if (context.competitiveIntel?.mistakes?.length) count++
   if (context.industry?.profile) count++
   if (context.industry?.trends?.length) count++
 
@@ -424,9 +424,9 @@ function countDataPoints(context: DeepContext): number {
 function extractDataSources(context: DeepContext): string[] {
   const sources: string[] = []
 
-  if (context.customer?.painPoints?.length) sources.push('Customer Pain Points')
-  if (context.customer?.psychologicalProfile) sources.push('Customer Psychology')
-  if (context.competitive?.blindSpots?.length) sources.push('Competitive Analysis')
+  if (context.customerPsychology?.unarticulated?.length) sources.push('Customer Psychology')
+  if (context.customerPsychology?.identityDesires?.length) sources.push('Customer Identity')
+  if (context.competitiveIntel?.blindSpots?.length) sources.push('Competitive Analysis')
   if (context.business?.uniqueAdvantages?.length) sources.push('Business Profile')
   if (context.industry?.profile) sources.push('Industry Data')
 

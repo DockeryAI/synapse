@@ -32,8 +32,7 @@ export function adaptToValueForgeContext(businessIntel: any): ValueForgeContext 
   });
 
   return {
-    businessIntel,
-    analysis: businessIntel,
+    businessIntel: businessIntel,
     industryProfile: industryProfile,
     businessName: businessIntel.business?.name || '',
     businessUrl: businessIntel.business?.url || '',
@@ -42,6 +41,7 @@ export function adaptToValueForgeContext(businessIntel: any): ValueForgeContext 
     detectedArchetype: businessIntel.voice_archetype?.id || businessIntel.voiceArchetype?.id,
     detectedValueProps: businessIntel.website_analysis?.value_propositions || businessIntel.websiteAnalysis?.valuePropositions || [],
     detectedDifferentiators: businessIntel.website_analysis?.differentiators || businessIntel.websiteAnalysis?.differentiators || [],
-    competitiveGaps: businessIntel.competitive
+    competitiveGaps: businessIntel.competitive,
+    analysis: businessIntel
   };
 }

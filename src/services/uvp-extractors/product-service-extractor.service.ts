@@ -18,8 +18,11 @@
 import type {
   ProductServiceExtractionResult,
   ProductService,
+  ConfidenceScore
 } from '@/types/uvp-flow.types';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
+import type { WebsiteData } from '@/services/scraping/websiteScraper';
+import { productValidationService } from '@/services/intelligence/product-validation.service';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -27,12 +30,19 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 /**
  * Extract products and services from website content
  *
- * @param websiteContent - Array of content strings from website pages
- * @param websiteUrls - Array of URLs corresponding to content
+ * ENHANCED VERSION: Now accepts full WebsiteData for comprehensive extraction
+ * including navigation menus, links, and page structure
+ *
+ * @param websiteDataOrContent - WebsiteData object OR array of content strings (backward compatible)
+ * @param websiteUrls - Array of URLs corresponding to content (optional if WebsiteData provided)
  * @param businessName - Name of the business
  * @returns Structured extraction result with products, categories, confidence
  *
  * @example
+ * // New way (recommended): Pass full WebsiteData
+ * const result = await extractProductsServices(scrapedData, [], 'Acme Corp');
+ *
+ * // Old way (backward compatible): Pass content arrays
  * const result = await extractProductsServices(
  *   ['Homepage content...', 'Services page content...'],
  *   ['https://example.com', 'https://example.com/services'],
@@ -40,13 +50,58 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
  * );
  */
 export async function extractProductsServices(
-  websiteContent: string[],
+  websiteDataOrContent: WebsiteData | string[],
   websiteUrls: string[],
   businessName: string
 ): Promise<ProductServiceExtractionResult> {
   console.log('[ProductServiceExtractor] Starting extraction...');
   console.log(`  Business: ${businessName}`);
-  console.log(`  Pages: ${websiteContent.length}`);
+
+  // Detect input type and prepare comprehensive content
+  const isWebsiteData = !Array.isArray(websiteDataOrContent);
+  let websiteContent: string[];
+  let finalUrls: string[];
+
+  if (isWebsiteData) {
+    const data = websiteDataOrContent as WebsiteData;
+    console.log('[ProductServiceExtractor] Using enhanced WebsiteData extraction');
+
+    // Extract ALL available content sources
+    websiteContent = [
+      // Navigation menus (products/services often listed here)
+      `NAVIGATION MENU:\n${data.structure.navigation.join('\n')}`,
+
+      // Page sections
+      `PAGE SECTIONS:\n${data.structure.sections.join('\n')}`,
+
+      // Headings (service/product titles)
+      `HEADINGS:\n${data.content.headings.join('\n')}`,
+
+      // Main content
+      `CONTENT:\n${data.content.paragraphs.join('\n\n')}`,
+
+      // Links (often contain /services, /products, /pricing)
+      `LINKS:\n${data.content.links.filter(link =>
+        link.toLowerCase().includes('service') ||
+        link.toLowerCase().includes('product') ||
+        link.toLowerCase().includes('pricing') ||
+        link.toLowerCase().includes('plan')
+      ).join('\n')}`,
+
+      // Metadata
+      `METADATA:\nTitle: ${data.metadata.title}\nDescription: ${data.metadata.description}\nKeywords: ${data.metadata.keywords.join(', ')}`
+    ].filter(section => section.length > 20); // Only include sections with content
+
+    finalUrls = [data.url];
+    console.log('[ProductServiceExtractor] Extracted from', websiteContent.length, 'content sources');
+  } else {
+    // Legacy mode: array of content strings
+    console.log('[ProductServiceExtractor] Using legacy content array extraction');
+    websiteContent = websiteDataOrContent as string[];
+    finalUrls = websiteUrls;
+  }
+
+  console.log(`  Content sections: ${websiteContent.length}`);
 
   if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
     console.warn('[ProductServiceExtractor] No Supabase configuration - returning empty result');
@@ -55,14 +110,33 @@ export async function extractProductsServices(
 
   try {
     // Combine website content with source attribution
+    // Ensure we include substantial content for analysis
     const combinedContent = websiteContent
       .map((content, index) => {
-        const url = websiteUrls[index] || 'unknown';
-        return `[SOURCE: ${url}]\n${content}\n`;
+        const url = finalUrls[index] || finalUrls[0] || 'unknown';
+        // Clean and normalize content
+        const cleanContent = content
+          .replace(/\s+/g, ' ') // Normalize whitespace
+          .replace(/\n{3,}/g, '\n\n') // Reduce excessive newlines
+          .trim();
+        return `[SOURCE: ${url}]\n${cleanContent}\n`;
       })
       .join('\n---\n');
 
-    const prompt = buildExtractionPrompt(businessName, combinedContent);
+    // Log content size for debugging
+    console.log(`[ProductServiceExtractor] Combined content length: ${combinedContent.length} chars`);
+
+    // Truncate if too long (Claude context limit), but keep as much as possible
+    const maxContentLength = 50000; // ~12k tokens
+    const truncatedContent = combinedContent.length > maxContentLength
+      ? combinedContent.substring(0, maxContentLength) + '\n\n[Content truncated for length]'
+      : combinedContent;
+
+    if (combinedContent.length > maxContentLength) {
+      console.warn(`[ProductServiceExtractor] Content truncated from ${combinedContent.length} to ${maxContentLength} chars`);
+    }
+
+    const prompt = buildExtractionPrompt(businessName, truncatedContent);
 
     // Call Claude via Supabase Edge Function
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -78,8 +152,8 @@ export async function extractProductsServices(
           role: 'user',
           content: prompt
         }],
-        max_tokens: 4096,
-        temperature: 0.1 // Low temperature for factual extraction
+        max_tokens: 8192, // Increased for comprehensive extraction
+        temperature: 0.2 // Slightly higher for better coverage
       })
     });
 
@@ -91,32 +165,38 @@ export async function extractProductsServices(
 
     const data = await response.json();
     const responseText = data.choices?.[0]?.message?.content || '';
-    const extractionData = parseClaudeResponse(responseText, websiteUrls);
+    const extractionData = parseClaudeResponse(responseText, finalUrls);
+
+    console.log('[ProductServiceExtractor] Extracted', extractionData.products.length, 'products before validation');
+
+    // Validate products to remove garbage
+    const validatedProducts = productValidationService.validateProducts(extractionData.products, businessName);
+    console.log('[ProductServiceExtractor] Validated', validatedProducts.length, 'products after filtering');
 
     // Calculate overall confidence
-    const overallConfidence = calculateOverallConfidence(extractionData.products);
+    const overallConfidence = calculateOverallConfidence(validatedProducts);
 
     // Create data sources
-    const sources: DataSource[] = websiteUrls.map((url, index) => ({
+    const sources: DataSource[] = finalUrls.map((url, index) => ({
       id: `source-${index}`,
       type: determineSourceType(url),
       name: url.split('/').pop() || 'homepage',
       url,
       extractedAt: new Date(),
       reliability: 90, // High reliability for direct website content
-      dataPoints: extractionData.products.filter((p) =>
+      dataPoints: validatedProducts.filter((p) =>
         p.sourceUrl?.includes(url)
       ).length,
       excerpt: websiteContent[index]?.slice(0, 200),
     }));
 
     console.log('[ProductServiceExtractor] Extraction complete');
-    console.log(`  Products/Services found: ${extractionData.products.length}`);
+    console.log(`  Products/Services found: ${validatedProducts.length}`);
     console.log(`  Categories: ${extractionData.categories.length}`);
     console.log(`  Overall confidence: ${overallConfidence.overall}%`);
 
     return {
-      products: extractionData.products,
+      products: validatedProducts,
       categories: extractionData.categories,
       confidence: overallConfidence,
       sources,
@@ -132,7 +212,7 @@ export async function extractProductsServices(
       confidence: {
         overall: 0,
         dataQuality: 0,
-        sourceCount: websiteUrls.length,
+        sourceCount: finalUrls.length,
         modelAgreement: 0,
         reasoning: `Extraction failed: ${error instanceof Error ? error.message : 'Unknown error'}`,
       },
@@ -144,23 +224,53 @@ export async function extractProductsServices(
 
 /**
  * Build the extraction prompt for Claude
- * Instructs to ONLY extract explicitly mentioned offerings
+ * Instructs to extract ALL explicitly mentioned offerings comprehensively
  */
 function buildExtractionPrompt(businessName: string, content: string): string {
-  return `You are analyzing the website content for "${businessName}" to extract their products and services.
+  return `You are analyzing the website content for "${businessName}" to extract ALL their products and services.
 
-**CRITICAL INSTRUCTIONS:**
-1. ONLY extract products/services that are EXPLICITLY mentioned
-2. DO NOT suggest, infer, or hallucinate offerings not found
-3. Provide exact quotes as evidence for each finding
-4. Score confidence based on how explicitly each offering is stated:
-   - 100 = Clearly listed in navigation, pricing table, or dedicated section
-   - 80-90 = Mentioned multiple times with details
-   - 60-79 = Mentioned once with some detail
-   - 40-59 = Mentioned in passing or implied
-   - 0-39 = Not confident / too vague
-5. Categorize offerings into logical groups (e.g., Core Services, Products, Add-ons, Packages)
-6. If you find NOTHING explicit, return an empty array - DO NOT MAKE UP OFFERINGS
+**YOUR GOAL: Find EVERY product and service mentioned on this website.**
+
+**EXTRACTION INSTRUCTIONS:**
+1. Extract ALL products, services, packages, plans, add-ons, and offerings mentioned
+2. Be THOROUGH - scan every section including navigation, headers, lists, pricing tables, service descriptions
+3. Include variations and tiers (e.g., Basic Plan, Pro Plan, Enterprise)
+4. Include add-ons, upgrades, and supplementary services
+5. Include both standalone items AND items mentioned in packages
+6. Look for offerings in: navigation menus, headings, bullet lists, pricing tables, service pages, case studies
+7. Provide exact quotes as evidence for each finding
+
+**WHERE TO LOOK (prioritize these sources):**
+- NAVIGATION MENU: Services/products are often listed in main navigation
+- PAGE SECTIONS: Dedicated service/product sections
+- HEADINGS: Look for H1, H2, H3 that name specific offerings
+- PRICING TABLES: Tiers, plans, packages with pricing
+- LINKS: URLs containing /services, /products, /pricing, /plans
+- TESTIMONIALS/CASE STUDIES: Services mentioned in customer stories
+- FOOTER: Additional services often listed here
+- METADATA: Title and description may summarize offerings
+
+**DON'T MISS:**
+- Hidden tiers mentioned only in pricing comparisons
+- Add-ons mentioned in fine print
+- Seasonal or limited-time products
+- Industry-specific services (use technical terminology from the site)
+- Bundled offerings (extract individual components)
+- Consultation/custom services mentioned separately
+
+**CONFIDENCE SCORING:**
+- 100 = Clearly listed in navigation, pricing table, or dedicated section
+- 80-90 = Mentioned multiple times with details
+- 60-79 = Mentioned once with some detail
+- 40-59 = Mentioned in passing
+
+**CATEGORIZATION:**
+Group offerings into logical categories such as:
+- Core Services (main offerings)
+- Products (physical or digital products)
+- Packages/Plans (bundled offerings with tiers)
+- Add-ons/Upgrades (supplementary services)
+- Specializations (niche services)
 
 **WEBSITE CONTENT:**
 ${content}
@@ -171,20 +281,20 @@ ${content}
     {
       "name": "Exact name of product/service",
       "description": "Brief description (from website)",
-      "category": "Category name (Core Services, Products, Add-ons, etc.)",
+      "category": "Category name",
       "confidence": 85,
       "sourceExcerpt": "Exact quote from website showing this offering",
-      "sourceUrl": "URL where this was found (from [SOURCE: ...] tags)",
-      "reasoning": "Why this confidence score (e.g., 'Listed in main navigation and pricing table')"
+      "sourceUrl": "URL where this was found",
+      "reasoning": "Why this confidence score"
     }
   ],
   "categories": ["Core Services", "Products", "Add-ons"],
   "totalFound": 5,
   "extractionQuality": "excellent | good | fair | poor",
-  "warnings": ["Any issues encountered, or empty array if none"]
+  "warnings": []
 }
 
-Extract the products and services now. Remember: ONLY what you explicitly find.`;
+BE COMPREHENSIVE. Extract ALL offerings you can find. It's better to include something borderline than to miss a real product/service.`;
 }
 
 /**
@@ -286,9 +396,16 @@ function determineSourceType(url: string): DataSource['type'] {
  */
 function createEmptyResult(): ProductServiceExtractionResult {
   return {
+    products: [],
     categories: [],
-    extractionConfidence: 50,
-    sources: []
+    confidence: {
+      overall: 50,
+      dataQuality: 0,
+      sourceCount: 0,
+      modelAgreement: 50
+    },
+    sources: [],
+    extractionTimestamp: new Date()
   };
 }
 

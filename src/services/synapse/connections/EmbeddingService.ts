@@ -240,9 +240,9 @@ export class EmbeddingService {
 
     return {
       size: this.cache.size,
-      hitRate,
-      costSaved,
-      memoryMB
+      hits: this.cacheHits,
+      misses: this.cacheMisses,
+      totalCost: this.totalCost
     };
   }
 

@@ -22,7 +22,7 @@ import {
   DEFAULT_SCORING_WEIGHTS,
   DataPoint
 } from '../../../types/connections.types';
-import { DeepContext } from '../../../types/deepContext.types';
+import { DeepContext } from '../../../types/synapse/deepContext.types';
 
 export class ConnectionScorer {
   private weights: ScoringWeights;

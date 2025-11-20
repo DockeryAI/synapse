@@ -150,7 +150,7 @@ Remember: In ${industry}, customers are ${eq.purchase_mindset.toLowerCase()}
 
 Format your response as a JSON array of exactly 5 strings. Each should be 1-2 powerful sentences.`
 
-        const adjustedPrompt = adjustSuggestionPrompt(prompt, industry, 'customer-problem')
+        const adjustedPrompt = await adjustSuggestionPrompt(prompt, industry, 'customer-problem')
         const suggestions = await this.callOpenRouter(adjustedPrompt)
         return this.formatSuggestions(suggestions, 'problem')
       }

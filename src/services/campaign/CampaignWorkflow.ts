@@ -18,6 +18,7 @@ import type {
 } from '@/types/campaign-workflow.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { BreakthroughInsight } from '@/types/synapse/breakthrough.types';
+import type { SynapseInsight } from '@/types/synapse/synapse.types';
 import type { BusinessProfile } from '@/types/synapseContent.types';
 import type { CampaignGenerationInput } from '@/types/campaign-generation.types';
 
@@ -189,12 +190,12 @@ export class CampaignWorkflowService {
       // Generate real content using CampaignGenerator
       const input: CampaignGenerationInput = {
         campaignId: sessionId,
-        campaignType: session.selectedType!,
+        campaignType: session.selectedType! as any, // Campaign types differ between workflow and generation
         businessContext: {
-          businessData: session.context.businessProfile as any, // TODO: Type adapter
-          uvpData: session.context.uvpData as any, // TODO: Type adapter
+          businessData: session.context.business?.profile as any, // Access from business context
+          uvpData: session.context.synthesis as any, // Use synthesis data as UVP
           websiteAnalysis: null,
-          specialization: session.context.businessProfile?.specialization,
+          specialization: session.context.business?.profile?.industry,
         },
         options: {
           postsPerCampaign: 7,
@@ -219,7 +220,7 @@ export class CampaignWorkflowService {
             cta: post.content.callToAction || '',
           },
           visuals: post.visuals,
-          scheduledDate: post.scheduledFor?.toISOString(),
+          scheduledDate: post.scheduledFor ? new Date(post.scheduledFor) : undefined,
           status: post.status,
         })),
         metadata: {
@@ -413,17 +414,17 @@ export class CampaignWorkflowService {
 
     // Extract business profile from context
     const businessProfile: BusinessProfile = context ? {
-      id: context.business.profile.id,
       name: context.business.profile.name,
       industry: context.business.profile.industry,
-      location: context.business.profile.location,
-      website: context.business.profile.website
+      targetAudience: 'General public',
+      brandVoice: 'professional',
+      contentGoals: ['engagement', 'brand-awareness']
     } : {
-      id: 'demo-business',
       name: 'Demo Business',
       industry: 'Professional Services',
-      location: { city: 'San Francisco', state: 'CA', country: 'USA' },
-      website: 'https://example.com'
+      targetAudience: 'General public',
+      brandVoice: 'professional',
+      contentGoals: ['engagement', 'brand-awareness']
     };
 
     // Select primary insight (first one or highest confidence)
@@ -432,14 +433,20 @@ export class CampaignWorkflowService {
         (current.confidence > prev.confidence) ? current : prev
       ) : {
         id: 'fallback-insight',
+        type: 'differentiator',
+        thinkingStyle: 'analytical',
         insight: 'Industry expertise and thought leadership',
+        whyProfound: 'Deep industry knowledge sets apart from competitors',
+        whyNow: 'Timeliness: Immediate demonstration of expertise',
+        contentAngle: 'Position as thought leader in your industry',
+        expectedReaction: 'Build trust and credibility',
+        evidence: ['Industry leadership', 'Proven track record'],
         confidence: 0.7,
-        reasoning: 'Fallback insight for demonstration',
-        dataSource: 'System',
-        timestamp: new Date(),
-        score: 70,
-        metadata: {}
-      };
+        metadata: {
+          generatedAt: new Date(),
+          model: 'fallback',
+        }
+      } as SynapseInsight;
 
     // Define platforms to generate content for
     const platformsToGenerate: Array<'linkedin' | 'facebook' | 'instagram' | 'twitter'> = [

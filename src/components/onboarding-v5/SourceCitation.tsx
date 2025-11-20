@@ -40,7 +40,7 @@ import { ConfidenceBadge } from './ConfidenceMeter';
 
 export interface DataSource {
   id: string;
-  type: 'website' | 'reviews' | 'youtube' | 'social' | 'competitor' | 'api' | 'manual' | 'testimonials' | 'about' | 'services';
+  type: 'website' | 'reviews' | 'youtube' | 'social' | 'competitor' | 'api' | 'manual' | 'manual-input' | 'testimonials' | 'about' | 'services';
   name: string;
   url?: string;
   extractedAt: Date;
@@ -84,6 +84,7 @@ export function SourceCitation({
         return <Shield className="w-4 h-4" />;
       case 'api':
       case 'manual':
+      case 'manual-input':
         return <FileText className="w-4 h-4" />;
     }
   };
@@ -100,6 +101,7 @@ export function SourceCitation({
       competitor: 'Competitor Analysis',
       api: 'API Data',
       manual: 'Manual Entry',
+      'manual-input': 'Manual Input',
     };
     return labels[type] || type;
   };
@@ -135,28 +137,29 @@ export function SourceCitation({
   }
 
   return (
-    <div className={`space-y-3 ${className}`}>
-      {/* Summary */}
-      <div className="flex items-center justify-between">
-        <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
-          Data Sources
-        </h4>
-        <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
-          <span>{totalDataPoints} data points</span>
-          <span>•</span>
-          <span className="font-medium text-gray-900 dark:text-white">{avgReliability}% avg reliability</span>
+    <TooltipProvider delayDuration={300}>
+      <div className={`space-y-3 ${className}`}>
+        {/* Summary */}
+        <div className="flex items-center justify-between">
+          <h4 className="text-sm font-semibold text-gray-900 dark:text-white">
+            Data Sources
+          </h4>
+          <div className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400">
+            <span>{totalDataPoints} data points</span>
+            <span>•</span>
+            <span className="font-medium text-gray-900 dark:text-white">{avgReliability}% avg reliability</span>
+          </div>
         </div>
-      </div>
 
-      {/* Source List */}
-      <div className="space-y-2">
-        {sources.map((source) => {
-          const isExpanded = expandedId === source.id;
-          const reliabilityBadge = getReliabilityBadge(source.reliability);
+        {/* Source List */}
+        <div className="space-y-2">
+          {sources.map((source) => {
+            const isExpanded = expandedId === source.id;
+            const reliabilityBadge = getReliabilityBadge(source.reliability);
 
-          return (
-            <TooltipProvider key={source.id} delayDuration={300}>
+            return (
               <div
+                key={source.id}
                 className="bg-gray-50 dark:bg-slate-700/50 rounded-lg border border-gray-200 dark:border-slate-600 overflow-hidden transition-all hover:border-purple-300 dark:hover:border-purple-600"
               >
                 {/* Source Header */}
@@ -249,22 +252,22 @@ export function SourceCitation({
                   )}
                 </AnimatePresence>
               </div>
-            </TooltipProvider>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
 
-      {/* Provenance Footer */}
-      <div className="pt-3 border-t border-gray-200 dark:border-slate-700">
-        <div className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
-          <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
-          <p>
-            All data extracted using AI analysis and verified against multiple sources.
-            Sources are ranked by reliability and data quality.
-          </p>
+        {/* Provenance Footer */}
+        <div className="pt-3 border-t border-gray-200 dark:border-slate-700">
+          <div className="flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
+            <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" />
+            <p>
+              All data extracted using AI analysis and verified against multiple sources.
+              Sources are ranked by reliability and data quality.
+            </p>
+          </div>
         </div>
       </div>
-    </div>
+    </TooltipProvider>
   );
 }
 

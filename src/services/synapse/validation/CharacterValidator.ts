@@ -45,7 +45,6 @@ export class CharacterValidator {
 
     return {
       contentId: content.id,
-      isValid: !hasErrors,
       validations,
       overallStatus,
       recommendations
@@ -304,7 +303,7 @@ export class CharacterValidator {
    */
   isValidForPlatform(content: SynapseContent, platform: Platform): boolean {
     const result = this.validateContent(content, [platform]);
-    return result.isValid;
+    return result.overallStatus === 'valid';
   }
 
   /**

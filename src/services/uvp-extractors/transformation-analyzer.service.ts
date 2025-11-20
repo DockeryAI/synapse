@@ -407,15 +407,23 @@ IMPORTANT:
 
     if (found) {
       return {
+        id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
         type: this.mapSourceType(found.source),
+        name: found.source,
         url: found.sourceUrl,
-        extractedAt: new Date().toISOString()
+        extractedAt: new Date(),
+        reliability: 85,
+        dataPoints: 1
       }
     }
 
     return {
+      id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       type: 'website',
-      extractedAt: new Date().toISOString()
+      name: 'Website Content',
+      extractedAt: new Date(),
+      reliability: 70,
+      dataPoints: 1
     }
   }
 
@@ -424,11 +432,11 @@ IMPORTANT:
    */
   private mapSourceType(source: string): DataSource['type'] {
     const lower = source.toLowerCase()
-    if (lower.includes('review')) return 'google_review'
-    if (lower.includes('testimonial')) return 'testimonial'
-    if (lower.includes('case')) return 'case_study'
+    if (lower.includes('review')) return 'reviews'
+    if (lower.includes('testimonial')) return 'testimonials'
+    if (lower.includes('case')) return 'website'
     if (lower.includes('youtube')) return 'youtube'
-    if (lower.includes('social')) return 'social_media'
+    if (lower.includes('social')) return 'social'
     return 'website'
   }
 
@@ -442,9 +450,13 @@ IMPORTANT:
       const key = `${q.source}-${q.sourceUrl || 'unknown'}`
       if (!uniqueSources.has(key)) {
         uniqueSources.set(key, {
+          id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           type: this.mapSourceType(q.source),
+          name: q.source,
           url: q.sourceUrl,
-          extractedAt: new Date().toISOString()
+          extractedAt: new Date(),
+          reliability: 85,
+          dataPoints: 1
         })
       }
     })
@@ -472,8 +484,10 @@ IMPORTANT:
     const score = Math.round(quoteScore + eqScore + claudeScore)
 
     return {
-      score,
-      level: score >= 80 ? 'high' : score >= 60 ? 'medium' : 'low',
+      overall: score,
+      dataQuality: Math.min(eqTotal, 100),
+      sourceCount: quoteCount,
+      modelAgreement: claudeConfidence,
       reasoning: `Based on ${quoteCount} supporting quotes with ${Math.round(eqTotal / 2)}% average EQ`
     }
   }
@@ -504,8 +518,10 @@ IMPORTANT:
     }
 
     return {
-      score: Math.round(score),
-      level: score >= 80 ? 'high' : score >= 60 ? 'medium' : 'low',
+      overall: Math.round(score),
+      dataQuality: quoteCount >= 10 ? 90 : quoteCount >= 5 ? 70 : 50,
+      sourceCount: quoteCount,
+      modelAgreement: claudeScore,
       reasoning: `Analysis of ${quoteCount} customer quotes identifying ${goalCount} transformation patterns`
     }
   }
@@ -520,8 +536,10 @@ IMPORTANT:
       emotionalDrivers: [],
       functionalDrivers: [],
       confidence: {
-        score: 0,
-        level: 'low',
+        overall: 0,
+        dataQuality: 0,
+        sourceCount: 0,
+        modelAgreement: 0,
         reasoning: 'No customer quotes available for analysis'
       },
       sources: []

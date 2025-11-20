@@ -1,13 +1,72 @@
-import type {
-  BrandHealthScore,
-  MARBAScores,
-  BrandMirrorScores,
-  ScoreBreakdown,
-  ScoreFactor,
-  ScoreInsight,
-  ScoreHistory,
-} from '@/types/MARBAScore';
-import type { CompleteBrandAnalysis } from '@/types/BrandMirror';
+// Local type definitions (TODO: align with marba-score.types.ts)
+export interface BrandHealthScore {
+  total: number;
+  status: 'excellent' | 'good' | 'fair' | 'needs-work';
+  marbaBreakdown: MARBAScores;
+  mirrorBreakdown: BrandMirrorScores;
+  categoryDetails: ScoreBreakdown[];
+  insights: ScoreInsight[];
+  lastCalculated: string;
+  trend?: { previousScore: number; change: number; period: string };
+}
+
+export interface MARBAScores {
+  messaging: number;
+  audience: number;
+  reviews: number;
+  brand: number;
+  ads: number;
+}
+
+export interface BrandMirrorScores {
+  goldenCircle: number;
+  archetype: number;
+  tone: number;
+  competitive: number;
+}
+
+export interface ScoreBreakdown {
+  category: string;
+  score: number;
+  maxScore: number;
+  factors: ScoreFactor[];
+  status: 'excellent' | 'good' | 'fair' | 'needs-work';
+}
+
+export interface ScoreFactor {
+  name: string;
+  points: number;
+  maxPoints: number;
+  status: 'complete' | 'partial' | 'missing';
+  description?: string;
+  suggestion?: string;
+}
+
+export interface ScoreInsight {
+  type: 'strength' | 'opportunity' | 'warning';
+  category: string;
+  message: string;
+  action?: string;
+}
+
+export interface ScoreHistory {
+  total: number;
+  timestamp: string;
+}
+
+// Placeholder for CompleteBrandAnalysis (TODO: implement proper type)
+export interface CompleteBrandAnalysis {
+  positioning?: any;
+  voice?: any;
+  messaging?: any;
+  audience?: any;
+  industry?: any;
+  brandHealth?: any;
+  archetype?: any;
+  visualAssets?: any;
+  goldenCircle?: any;
+  competitive?: any;
+}
 
 /**
  * MARBA Scoring Service
@@ -134,7 +193,10 @@ export class MARBAScoring {
   }
 
   private calculateToneScore(analysis: CompleteBrandAnalysis): number {
-    const toneValues = Object.values(analysis.voice?.toneDimensions || {});
+    const toneDimensions = analysis.voice?.toneDimensions;
+    if (!toneDimensions) return 0;
+
+    const toneValues = Object.values(toneDimensions).filter((v): v is number => typeof v === 'number');
     if (toneValues.length === 0) return 0;
     return Math.round(toneValues.reduce((a, b) => a + b, 0) / toneValues.length);
   }
@@ -242,7 +304,8 @@ export class MARBAScoring {
     analysis: CompleteBrandAnalysis
   ): ScoreInsight[] {
     const insights: ScoreInsight[] = [];
-    Object.entries(marba).forEach(([category, score]) => {
+    Object.entries(marba).forEach(([category, scoreValue]) => {
+      const score = typeof scoreValue === 'number' ? scoreValue : 0;
       if (score >= 85) {
         insights.push({
           type: 'strength',

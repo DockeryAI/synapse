@@ -325,6 +325,13 @@ export class BackgroundJobScheduler {
    */
   static async triggerJob(jobName: string): Promise<void> {
     try {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+      if (!supabaseUrl || !supabaseAnonKey) {
+        throw new Error('Supabase configuration missing');
+      }
+
       const response = await fetch(`${supabaseUrl}/functions/v1/${jobName}`, {
         method: 'POST',
         headers: {

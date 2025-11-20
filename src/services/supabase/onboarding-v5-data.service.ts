@@ -23,7 +23,7 @@ import type { CoreTruthInsight } from '@/types/core-truth.types';
 
 interface ValuePropositionRow {
   id: string;
-  business_id: string;
+  brand_id: string;
   statement: string;
   category: 'core' | 'secondary' | 'aspirational';
   market_position: string | null;
@@ -39,7 +39,7 @@ interface ValuePropositionRow {
 
 interface BuyerPersonaRow {
   id: string;
-  business_id: string;
+  brand_id: string;
   name: string;
   role: string | null;
   company_type: string | null;
@@ -56,7 +56,7 @@ interface BuyerPersonaRow {
 
 interface CoreTruthInsightRow {
   id: string;
-  business_id: string;
+  brand_id: string;
   core_truth: string;
   psychological_drivers: any;
   transformation_promise: string | null;
@@ -94,7 +94,7 @@ export class OnboardingV5DataService {
    * Replaces all existing propositions (full sync)
    */
   static async saveValuePropositions(
-    businessId: string,
+    brandId: string,
     propositions: ValueProposition[]
   ): Promise<void> {
     try {
@@ -102,7 +102,7 @@ export class OnboardingV5DataService {
       const { error: deleteError } = await supabase
         .from('value_propositions')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (deleteError) {
         console.error('Error deleting existing value propositions:', deleteError);
@@ -112,7 +112,7 @@ export class OnboardingV5DataService {
       // Insert new propositions
       if (propositions.length > 0) {
         const rows: Partial<ValuePropositionRow>[] = propositions.map(vp => ({
-          business_id: businessId,
+          brand_id: brandId,
           statement: vp.surface, // Using surface layer as statement
           category: this.inferVPCategory(vp),
           market_position: vp.functional || null,
@@ -145,12 +145,12 @@ export class OnboardingV5DataService {
   /**
    * Load value propositions for a business
    */
-  static async loadValuePropositions(businessId: string): Promise<ValueProposition[]> {
+  static async loadValuePropositions(brandId: string): Promise<ValueProposition[]> {
     try {
       const { data, error } = await supabase
         .from('value_propositions')
         .select('*')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -200,7 +200,7 @@ export class OnboardingV5DataService {
    * Replaces all existing personas (full sync)
    */
   static async saveBuyerPersonas(
-    businessId: string,
+    brandId: string,
     personas: BuyerPersona[]
   ): Promise<void> {
     try {
@@ -208,7 +208,7 @@ export class OnboardingV5DataService {
       const { error: deleteError } = await supabase
         .from('buyer_personas')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (deleteError) {
         console.error('Error deleting existing buyer personas:', deleteError);
@@ -218,7 +218,7 @@ export class OnboardingV5DataService {
       // Insert new personas
       if (personas.length > 0) {
         const rows: Partial<BuyerPersonaRow>[] = personas.map(persona => ({
-          business_id: businessId,
+          brand_id: brandId,
           name: persona.persona_name,
           role: persona.role.title || null,
           company_type: persona.company_type || null,
@@ -249,12 +249,12 @@ export class OnboardingV5DataService {
   /**
    * Load buyer personas for a business
    */
-  static async loadBuyerPersonas(businessId: string): Promise<BuyerPersona[]> {
+  static async loadBuyerPersonas(brandId: string): Promise<BuyerPersona[]> {
     try {
       const { data, error } = await supabase
         .from('buyer_personas')
         .select('*')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .order('created_at', { ascending: false });
 
       if (error) {
@@ -316,7 +316,7 @@ export class OnboardingV5DataService {
    * Only stores ONE core truth per business (latest wins)
    */
   static async saveCoreTruthInsight(
-    businessId: string,
+    brandId: string,
     insight: CoreTruthInsight
   ): Promise<void> {
     try {
@@ -324,7 +324,7 @@ export class OnboardingV5DataService {
       const { error: deleteError } = await supabase
         .from('core_truth_insights')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (deleteError) {
         console.error('Error deleting existing core truth insight:', deleteError);
@@ -333,7 +333,7 @@ export class OnboardingV5DataService {
 
       // Insert new core truth
       const row: Partial<CoreTruthInsightRow> = {
-        business_id: businessId,
+        brand_id: brandId,
         core_truth: insight.core_truth,
         psychological_drivers: JSON.stringify(insight.psychological_drivers),
         transformation_promise: insight.transformation_promise || null,
@@ -360,12 +360,12 @@ export class OnboardingV5DataService {
    * Load core truth insight for a business
    * Returns null if not found
    */
-  static async loadCoreTruthInsight(businessId: string): Promise<CoreTruthInsight | null> {
+  static async loadCoreTruthInsight(brandId: string): Promise<CoreTruthInsight | null> {
     try {
       const { data, error } = await supabase
         .from('core_truth_insights')
         .select('*')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .order('created_at', { ascending: false })
         .limit(1)
         .single();
@@ -387,7 +387,7 @@ export class OnboardingV5DataService {
 
       return {
         id: row.id,
-        business_id: row.business_id,
+        business_id: row.brand_id,
         core_truth: row.core_truth,
         psychological_drivers: this.parseJSON(row.psychological_drivers, []),
         transformation_promise: row.transformation_promise || '',
@@ -411,13 +411,13 @@ export class OnboardingV5DataService {
    * Get onboarding progress for a business
    * Checks what data has been saved and calculates completion
    */
-  static async getOnboardingProgress(businessId: string): Promise<OnboardingProgress> {
+  static async getOnboardingProgress(brandId: string): Promise<OnboardingProgress> {
     try {
       // Check value propositions
       const { data: vpData, error: vpError } = await supabase
         .from('value_propositions')
         .select('id')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .limit(1);
 
       if (vpError) throw vpError;
@@ -426,7 +426,7 @@ export class OnboardingV5DataService {
       const { data: personaData, error: personaError } = await supabase
         .from('buyer_personas')
         .select('id')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .limit(1);
 
       if (personaError) throw personaError;
@@ -435,7 +435,7 @@ export class OnboardingV5DataService {
       const { data: truthData, error: truthError } = await supabase
         .from('core_truth_insights')
         .select('id')
-        .eq('business_id', businessId)
+        .eq('brand_id', brandId)
         .limit(1);
 
       if (truthError) throw truthError;
@@ -477,13 +477,13 @@ export class OnboardingV5DataService {
    * Clear all onboarding data for a business
    * Use this when user wants to restart onboarding
    */
-  static async clearOnboardingData(businessId: string): Promise<void> {
+  static async clearOnboardingData(brandId: string): Promise<void> {
     try {
       // Delete value propositions
       const { error: vpError } = await supabase
         .from('value_propositions')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (vpError) {
         console.error('Error clearing value propositions:', vpError);
@@ -494,7 +494,7 @@ export class OnboardingV5DataService {
       const { error: personaError } = await supabase
         .from('buyer_personas')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (personaError) {
         console.error('Error clearing buyer personas:', personaError);
@@ -505,7 +505,7 @@ export class OnboardingV5DataService {
       const { error: truthError } = await supabase
         .from('core_truth_insights')
         .delete()
-        .eq('business_id', businessId);
+        .eq('brand_id', brandId);
 
       if (truthError) {
         console.error('Error clearing core truth:', truthError);

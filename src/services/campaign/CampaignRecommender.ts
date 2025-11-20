@@ -44,10 +44,10 @@ export class CampaignRecommender {
       recommendedId = 'authority_builder';
       reasoning = this.getAuthorityReasoning(context, scores);
     } else if (scores.socialProof === highestScore) {
-      recommendedId = 'social_proof';
+      recommendedId = 'trust_builder';
       reasoning = this.getSocialProofReasoning(context, scores);
     } else {
-      recommendedId = 'local_pulse';
+      recommendedId = 'community_champion';
       reasoning = this.getLocalPulseReasoning(context, scores);
     }
     
@@ -220,15 +220,15 @@ export class CampaignRecommender {
    * Get confidence score for a specific type
    */
   private getConfidenceForType(
-    typeId: CampaignTypeId, 
+    typeId: CampaignTypeId,
     scores: { authority: number; socialProof: number; localPulse: number }
   ): number {
     switch (typeId) {
       case 'authority_builder':
         return scores.authority;
-      case 'social_proof':
+      case 'trust_builder':
         return scores.socialProof;
-      case 'local_pulse':
+      case 'community_champion':
         return scores.localPulse;
       default:
         return 0.5;

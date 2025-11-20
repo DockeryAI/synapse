@@ -360,11 +360,12 @@ GOOD CTAs:
     return {
       contentId: content.id,
       section: result.section,
-      timestamp: new Date(),
-      original: result.original,
-      regenerated: result.regenerated,
-      selected: result.regenerated[selectedIndex],
-      reason: result.reasoning
+      history: [{
+        timestamp: new Date(),
+        original: result.original,
+        regenerated: result.regenerated[selectedIndex],
+        reason: result.reasoning
+      }]
     };
   }
 

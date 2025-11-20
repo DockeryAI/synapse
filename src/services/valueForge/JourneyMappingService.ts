@@ -5,9 +5,8 @@
  * and generates stage-specific messaging
  */
 
-import type { ValueForgeContext, BuyerPersona } from '@/types/valueForge';
+import type { ValueForgeContext, BuyerPersona, BVPFormula } from '@/types/valueForge';
 import type { DiscoveryPathScore } from './DiscoveryPathAnalyzer';
-import type { BVPFormula } from '@/components/valueForge/BVPBuilder';
 
 export interface AIDAStage {
   stage: 'awareness' | 'interest' | 'desire' | 'action';

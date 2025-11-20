@@ -53,10 +53,9 @@ export class BlogGenerator {
         principle: 'Social Proof + Authority',
         trigger: {
           type: 'curiosity',
-          strength: 0.75,
-          target: 'education'
+          strength: 0.75
         },
-        persuasionTechnique: 'Educational Authority',
+        persuasionTechnique: 'Data-Driven Authority',
         expectedReaction: 'This is valuable, actionable content'
       },
 
@@ -64,11 +63,11 @@ export class BlogGenerator {
         powerWords: this.extractPowerWords(headline + body),
         framingDevice: framework.name,
         narrativeStructure: framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Slow (comprehensive)'
+        pacing: 'slow'
       },
 
       meta: {
-        platform: ['Blog', 'LinkedIn'],
+        platform: ['linkedin'],
         tone: 'educational',
         targetAudience: business.targetAudience
       },

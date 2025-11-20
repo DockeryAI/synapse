@@ -147,6 +147,43 @@
 
 ---
 
+---
+
+### **NEXT TO BUILD: EQ Calculator v2.0 Integration (2 hours)**
+
+**Priority:** CRITICAL - Blocks campaign quality improvement
+**Effort:** 2 hours for MVP (18 hours for full feature)
+**Value:** 15-30% engagement lift, Phoenix Insurance fix (29→75 EQ)
+**Status:** Core complete (60%), ready for integration
+
+**What It Does:**
+- Automatically calculates optimal emotional vs rational balance for any brand
+- Phoenix Insurance (classic cars) = 75 EQ (not 29 like old calculator)
+- Enterprise software = 25 EQ (data-driven)
+- Platform adjustments (LinkedIn -20, Instagram +15)
+- Auto-learning (no manual config for new specialties)
+
+**MVP Tasks (2 hours):**
+1. Apply database migration (5 min)
+2. Modify OnboardingPageV5.tsx - Add EQ calculation (30 min)
+3. Add EQDashboardWidget to DashboardPage.tsx (15 min)
+4. Update type definitions (15 min)
+5. Test end-to-end (30 min)
+6. Verify Phoenix Insurance = 75 EQ (15 min)
+
+**Files Built (Ready):**
+- ✅ Core calculation engine (7 files, 2,800 lines)
+- ✅ Database schema (4 tables)
+- ✅ Dashboard widget component
+- ✅ Integration services
+- ✅ Complete documentation (5 guides)
+
+**Deliverable:** EQ calculation during onboarding + display in dashboard
+
+**Documentation:** `.buildrunner/FEATURE_EQ_CALCULATOR_V2.md`
+
+---
+
 ### **Week 3: V3 Foundation**
 **Monday-Tuesday: Video Content System**
 - Video template service (15-60 seconds)

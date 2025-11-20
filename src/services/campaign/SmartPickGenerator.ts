@@ -188,6 +188,7 @@ async function generateAuthorityBuilderPicks(
       id: `authority-${insight.id}`,
       campaignType: 'authority-builder',
       title: `Industry Insight: ${truncate(insight.insight, 60)}`,
+      description: insight.insight,
       insights: [insight],
       preview: includePreview
         ? await generatePreview(insight, context, 'authority-builder')
@@ -239,6 +240,7 @@ async function generateSocialProofPicks(
       id: `social-${insight.id}`,
       campaignType: 'social-proof',
       title: `Customer Story: ${truncate(insight.insight, 60)}`,
+      description: insight.insight,
       insights: [insight],
       preview: includePreview
         ? await generatePreview(insight, context, 'social-proof')
@@ -303,6 +305,7 @@ async function generateLocalPulsePicks(
       id: `local-${insight.id}`,
       campaignType: 'local-pulse',
       title: `Local Moment: ${truncate(insight.insight, 60)}`,
+      description: insight.insight,
       insights: [insight],
       preview: includePreview
         ? await generatePreview(insight, context, 'local-pulse')
@@ -682,6 +685,7 @@ function generateTemplatePicks(
         id: 'smart-pick-authority-1',
         campaignType: 'authority-builder',
         title: 'Industry Insights Campaign',
+        description: 'Educational content that positions you as an industry expert',
         insights: [],
         preview: {
           headline: 'Share Your Expertise',
@@ -710,6 +714,7 @@ function generateTemplatePicks(
         id: 'smart-pick-trust-1',
         campaignType: 'social-proof',
         title: 'Customer Success Stories',
+        description: 'Showcase authentic customer testimonials and success stories',
         insights: [],
         preview: {
           headline: 'See Real Results',
@@ -738,6 +743,7 @@ function generateTemplatePicks(
         id: 'smart-pick-local-1',
         campaignType: 'local-pulse',
         title: 'Local Community Connection',
+        description: 'Connect with local events and community initiatives',
         insights: [],
         preview: {
           headline: 'Supporting Our Local Community',
@@ -760,7 +766,9 @@ function generateTemplatePicks(
           generatedAt: new Date()
         }
       }
-    ]
+    ],
+    'multi-post': [],
+    'single-post': []
   }
 
   return templates[campaignType] || templates['authority-builder']

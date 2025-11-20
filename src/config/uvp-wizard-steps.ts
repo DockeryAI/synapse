@@ -13,6 +13,7 @@ import { WizardStep, WizardStepConfig, UVP } from '@/types/uvp-wizard'
 export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
   welcome: {
     id: 'welcome',
+    step: 'welcome',
     title: 'Welcome to Your UVP Wizard',
     subtitle: 'Build a compelling value proposition in 5 minutes',
     description:
@@ -22,12 +23,14 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
     field_name: 'target_customer', // Dummy field since welcome doesn't have a specific field
     placeholder: '',
     helper_text: '',
+    prompt: '',
     required: false,
     supports_ai_suggestions: false,
   },
 
   'target-customer': {
     id: 'target-customer',
+    step: 'target-customer',
     title: 'Who is Your Target Customer?',
     subtitle: 'Define your ideal customer segment',
     description:
@@ -38,6 +41,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
     placeholder: 'e.g., Small business owners in the tech industry with 10-50 employees...',
     helper_text:
       'Great target customers are specific and measurable. Include role, industry, company size, or key characteristics.',
+    prompt: 'Describe your target customer in detail',
     required: true,
     min_length: 10,
     max_length: 500,
@@ -48,6 +52,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
 
   'customer-problem': {
     id: 'customer-problem',
+    step: 'customer-problem',
     title: 'What Are They REALLY Trying to Achieve?',
     subtitle: 'Uncover the deeper job to be done',
     description:
@@ -59,6 +64,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
       'e.g., They want to feel proud of their home and confident they\'re building generational wealth for their family...',
     helper_text:
       'Go deeper than features. What emotional or social job are they hiring you to do? What does success really look like in their life?',
+    prompt: 'What deeper transformation or progress are they trying to achieve?',
     required: true,
     min_length: 10,
     max_length: 1000,
@@ -69,6 +75,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
 
   'unique-solution': {
     id: 'unique-solution',
+    step: 'unique-solution',
     title: 'How Do You Solve It Differently?',
     subtitle: 'Your unique solution and what makes it special',
     description:
@@ -80,6 +87,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
       'e.g., AI-powered marketing platform that learns from your data, with proprietary algorithms that predict ROI before you launch campaigns - the only solution built specifically for small teams...',
     helper_text:
       'Combine your solution with what makes it unique. This is both what you do AND why you\'re the best choice.',
+    prompt: 'Describe your unique solution and approach',
     required: true,
     min_length: 10,
     max_length: 800,
@@ -90,6 +98,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
 
   'key-benefit': {
     id: 'key-benefit',
+    step: 'key-benefit',
     title: 'What\'s the Key Benefit?',
     subtitle: 'The measurable outcome your customers achieve',
     description:
@@ -101,6 +110,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
       'e.g., Increase marketing ROI by 40% while reducing time spent on reporting by 10 hours per week...',
     helper_text:
       'Quantify the benefit when possible. Time saved, money earned, problems eliminated, etc.',
+    prompt: 'What measurable benefits do customers achieve?',
     required: true,
     min_length: 10,
     max_length: 500,
@@ -111,6 +121,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
 
   differentiation: {
     id: 'differentiation',
+    step: 'differentiation',
     title: 'What Makes You Different?',
     subtitle: 'Your competitive advantage',
     description:
@@ -122,17 +133,19 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
       'e.g., Only platform built specifically for small teams with AI-powered insights and no learning curve...',
     helper_text:
       'Think about what you do differently or better than competitors. Be honest and specific.',
+    prompt: 'What sets you apart from competitors?',
     required: false, // Make optional since it's combined with solution
+    optional: true,
     min_length: 0,
     max_length: 500,
     supports_ai_suggestions: true,
     suggestion_prompt:
       'Generate 5 ways a company can differentiate itself in this industry from competitors',
-    skip: true, // Mark as skipped in the wizard flow
   },
 
   review: {
     id: 'review',
+    step: 'review',
     title: 'Review Your UVP',
     subtitle: 'See your complete value proposition',
     description:
@@ -142,12 +155,14 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
     field_name: 'target_customer', // Dummy field since review shows all fields
     placeholder: '',
     helper_text: '',
+    prompt: '',
     required: false,
     supports_ai_suggestions: false,
   },
 
   complete: {
     id: 'complete',
+    step: 'complete',
     title: 'UVP Complete!',
     subtitle: 'Your value proposition is ready',
     description:
@@ -157,6 +172,7 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
     field_name: 'target_customer', // Dummy field
     placeholder: '',
     helper_text: '',
+    prompt: '',
     required: false,
     supports_ai_suggestions: false,
   },
@@ -166,15 +182,15 @@ export const WIZARD_STEP_CONFIGS: Record<WizardStep, WizardStepConfig> = {
  * Ordered list of wizard steps
  */
 export const WIZARD_STEPS: WizardStep[] = Object.values(WIZARD_STEP_CONFIGS)
-  .filter((config) => !(config as any).skip) // Filter out skipped steps
+  .filter((config) => config.id !== 'differentiation') // Filter out differentiation step (combined with unique-solution)
   .sort((a, b) => a.order - b.order)
   .map((config) => config.id)
 
 /**
  * Get configuration for a specific step
  */
-export function getStepConfig(step: WizardStep): WizardStepConfig {
-  return WIZARD_STEP_CONFIGS[step]
+export function getStepConfig(step: WizardStep | string): WizardStepConfig {
+  return WIZARD_STEP_CONFIGS[step as WizardStep]
 }
 
 /**

@@ -66,8 +66,7 @@ export class HookPostGenerator {
         principle: 'Curiosity Gap',
         trigger: {
           type: 'curiosity',
-          strength: 0.9,
-          target: 'discovery'
+          strength: 0.9
         },
         persuasionTechnique: 'Pattern Interrupt',
         expectedReaction: insight.expectedReaction || 'I need to know more about this'
@@ -79,12 +78,12 @@ export class HookPostGenerator {
         ),
         framingDevice: this.framework.name,
         narrativeStructure: this.framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Fast (curiosity-driven)'
+        pacing: 'fast'
       },
 
       meta: {
-        platform: ['LinkedIn', 'Instagram'],
-        tone: 'professional',
+        platform: ['linkedin', 'instagram'],
+        tone: 'educational',
         targetAudience
       },
 

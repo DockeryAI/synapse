@@ -14,7 +14,7 @@ import type { DeepContext } from './synapse/deepContext.types'
 // CAMPAIGN TYPES
 // ============================================================================
 
-export type CampaignType = 'authority-builder' | 'social-proof' | 'local-pulse'
+export type CampaignType = 'authority-builder' | 'social-proof' | 'local-pulse' | 'multi-post' | 'single-post'
 
 export interface CampaignTypeMetadata {
   id: CampaignType
@@ -53,6 +53,24 @@ export const CAMPAIGN_TYPES: Record<CampaignType, CampaignTypeMetadata> = {
     idealFor: ['Local retailers', 'Restaurants', 'Service businesses', 'Community-focused brands'],
     platforms: ['Facebook', 'Instagram', 'Nextdoor'],
     color: 'green'
+  },
+  'multi-post': {
+    id: 'multi-post',
+    name: 'Multi-Post Campaign',
+    description: 'Coordinated series of related posts',
+    icon: 'Grid',
+    idealFor: ['All businesses'],
+    platforms: ['All platforms'],
+    color: 'purple'
+  },
+  'single-post': {
+    id: 'single-post',
+    name: 'Single Post',
+    description: 'Individual standalone post',
+    icon: 'FileText',
+    idealFor: ['All businesses'],
+    platforms: ['All platforms'],
+    color: 'gray'
   }
 }
 
@@ -69,6 +87,9 @@ export interface SmartPick {
 
   /** Human-readable title for the pick */
   title: string
+
+  /** Description of the smart pick */
+  description: string
 
   /** The core insight combination */
   insights: SynapseInsight[]
@@ -94,6 +115,22 @@ export interface SmartPick {
 
   /** Overall pick score (weighted combination) */
   overallScore: number
+
+  /** Opportunity score for this pick */
+  opportunityScore?: number
+
+  /** Psychological trigger information */
+  psychologicalTrigger?: {
+    painPoint: string
+    desire: string
+    source: string
+  }
+
+  /** Evidence sources used */
+  evidenceSources?: string[]
+
+  /** Rationale for why this pick works */
+  rationale?: string
 
   /** Data sources used */
   dataSources: DataSourceInfo[]

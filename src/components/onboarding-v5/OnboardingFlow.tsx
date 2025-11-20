@@ -204,9 +204,19 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                   <div>
                     <IndustrySelector
                       websiteUrl={url}
-                      onIndustrySelected={(industry) => {
+                      onIndustrySelected={(industry, skipScanning) => {
                         setSelectedIndustry(industry);
                         setLocalError(null);
+
+                        // If skipScanning is true, profile is ready - proceed immediately
+                        // This happens when:
+                        // 1. Profile generation completes (DetailedResearchAnimation already shown)
+                        // 2. Cached profile found (no generation needed)
+                        if (skipScanning && onUrlSubmit) {
+                          const fullUrl = url.startsWith('http') ? url : `https://${url}`;
+                          // Proceed immediately - no timeout needed since profile is ready
+                          onUrlSubmit(fullUrl, industry);
+                        }
                       }}
                       className="industry-selector-inline"
                     />

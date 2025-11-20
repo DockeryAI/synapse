@@ -31,8 +31,8 @@ import {
   DEFAULT_DISCOVERY_OPTIONS
 } from '../../../types/connections.types';
 
-import { DeepContext } from '../../../types/deepContext.types';
-import { NormalizedCulturalData } from '../../../types/culturalIntelligence.types';
+import { DeepContext } from '../../../types/synapse/deepContext.types';
+import type { NormalizedCulturalData } from '../../../types/synapse/deepContext.types';
 
 import { EmbeddingService } from './EmbeddingService';
 import { SimilarityCalculator } from './SimilarityCalculator';
@@ -266,10 +266,10 @@ export class ConnectionDiscoveryEngine {
             id: generateId(),
             source: 'semrush',
             type: 'keyword_gap',
-            content: gap.topic,
+            content: gap.contentType || 'content gap',
             metadata: {
               domain: 'content_gap',
-              competition: gap.competitorCoverage === 'none' ? 'low' : gap.competitorCoverage === 'some' ? 'medium' : 'high',
+              competition: gap.competition,
               volume: gap.searchVolume
             },
             createdAt: new Date()
@@ -299,9 +299,9 @@ export class ConnectionDiscoveryEngine {
         });
       }
 
-      // Hidden objections
-      if (psychology.hiddenObjections) {
-        psychology.hiddenObjections.slice(0, 5).forEach(obj => {
+      // Customer objections
+      if (psychology.objections) {
+        psychology.objections.slice(0, 5).forEach(obj => {
           dataPoints.push({
             id: generateId(),
             source: 'outscraper',
@@ -309,8 +309,7 @@ export class ConnectionDiscoveryEngine {
             content: obj.objection,
             metadata: {
               domain: 'psychology',
-              sentiment: 'negative',
-              certainty: obj.confidence
+              sentiment: 'negative'
             },
             createdAt: new Date()
           });
@@ -318,38 +317,18 @@ export class ConnectionDiscoveryEngine {
       }
     }
 
-    // Extract from business context (search data)
-    if (context.business?.searchData) {
-      const search = context.business.searchData;
-
-      // People Also Ask questions
-      if (search.peopleAlsoAsk) {
-        search.peopleAlsoAsk.slice(0, 10).forEach(q => {
-          dataPoints.push({
-            id: generateId(),
-            source: 'serper',
-            type: 'people_also_ask',
-            content: q.question,
-            metadata: {
-              domain: 'search_intent'
-            },
-            createdAt: new Date()
-          });
-        });
-      }
-    }
-
-    // Extract from industry context
-    if (context.industry?.emergingTrends) {
-      context.industry.emergingTrends.slice(0, 5).forEach(trend => {
+    // Extract from industry trends
+    if (context.industry?.trends) {
+      context.industry.trends.slice(0, 5).forEach(trend => {
         dataPoints.push({
           id: generateId(),
           source: 'google_trends',
           type: 'trending_topic',
-          content: trend,
+          content: trend.trend,
           metadata: {
             domain: 'timing',
-            timing: 'soon'
+            timing: trend.timeframe === 'short-term' || trend.direction === 'rising' ? 'soon' : 'seasonal',
+            relevance: trend.strength
           },
           createdAt: new Date()
         });

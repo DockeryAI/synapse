@@ -74,7 +74,7 @@ export async function extractEnhancedCustomers(
     const contentForAnalysis = websiteContent.join('\n\n');
 
     // Build enhanced prompt with industry context
-    const prompt = `Analyze this ${industry} business website to identify their target customers.
+    const prompt = `Extract SPECIFIC customer segments from this ${industry} business website.
 
 BUSINESS: ${businessName}
 INDUSTRY: ${industry}
@@ -83,39 +83,60 @@ ${locationData ? `LOCATION: ${locationData.city}, ${locationData.state}` : ''}
 WEBSITE CONTENT:
 ${contentForAnalysis.substring(0, 8000)}
 
-Extract 3-5 specific customer profiles. For each profile:
+**CRITICAL REQUIREMENTS - EVERY profile MUST have at least ONE of:**
+1. LOCATION/GEOGRAPHY: "${locationData?.city || '[City]'} area", "Texas", "Southwest region"
+2. INDUSTRY-SPECIFIC: "energy executives", "practice-owning dentists", "Series B founders"
+3. NET WORTH/SIZE: "$2M+ net worth", "50-200 employees", "$10M ARR"
+4. AGE/STAGE: "45-60 year olds", "pre-retirees", "second-generation owners"
+5. TRIGGER EVENT: "recently sold", "post-IPO", "inherited practice"
 
-1. WHO they are (demographics, role, company type)
-2. WHAT specific problem they have
-3. WHY they need this solution now
-4. WHERE they are in their journey
-5. HOW they make decisions
+**BANNED GENERIC TERMS - Reject profiles with:**
+- "busy professionals" → MUST specify industry/role
+- "successful executives" → MUST specify what industry/level
+- "business owners" → MUST specify what kind of business
+- "high net worth individuals" → MUST specify how much/industry
+- "growing companies" → MUST specify size/industry
 
-Consider:
-- Who is mentioned on the website (testimonials, case studies, "we serve")
-- Industry-typical buyers for ${industry}
-- Local market characteristics ${locationData ? `in ${locationData.city}` : ''}
-- Service/product offerings that indicate customer types
+**MINE FOR SPECIFICS:**
+1. Look for testimonials: Who gave them? What's their title/company?
+2. Look for case studies: What industry? What size? What location?
+3. Look for "we serve" statements: Extract exact language
+4. Look for service pricing: Indicates customer financial level
+5. Look for founder story: Often mentions specific customer type
 
-Return a JSON array of customer profiles, each with:
-{
-  "id": "unique-id",
-  "statement": "Clear, specific description of this customer segment",
-  "industry": "Their industry/sector",
-  "companySize": "Size if B2B",
-  "role": "Decision maker role",
-  "painPoints": ["specific", "pain", "points"],
-  "goals": ["what", "they", "want"],
-  "buyingCriteria": ["how", "they", "evaluate"],
-  "evidenceQuotes": ["quotes from website"],
-  "confidence": {
-    "overall": 0-100,
-    "dataQuality": 0-100,
-    "industryMatch": 0-100
+**COMPETITOR TEST:**
+Could any competitor use this exact same customer description?
+- If YES → Too generic, add specifics or REJECT
+- If NO → Good, it's unique to this business
+
+**EXTRACT REAL LANGUAGE:**
+Use the EXACT phrases from the website, not your interpretations.
+If they say "Houston energy executives", use that exact phrase.
+If they say "practice-owning physicians", use that exact phrase.
+
+Return JSON array with 2-4 profiles (quality over quantity):
+[
+  {
+    "id": "unique-id",
+    "statement": "SPECIFIC segment with location/industry/size/age detail",
+    "industry": "Their specific industry",
+    "companySize": "Exact size if B2B",
+    "role": "Specific decision-maker role",
+    "painPoints": ["specific pain with numbers/details", "not generic anxiety"],
+    "goals": ["specific outcome they want", "with timeline or metric"],
+    "buyingCriteria": ["how they evaluate"],
+    "evidenceQuotes": ["EXACT quotes from website that prove this segment exists"],
+    "confidence": {
+      "overall": 90 if specific, 40 if generic,
+      "dataQuality": based on quote evidence,
+      "industryMatch": 0-100
+    }
   }
-}
+]
 
-Focus on REAL customer segments found on the website, not generic personas.`;
+**If no specific segments found, return EMPTY ARRAY [] - do NOT invent generic personas.**
+
+Focus on EVIDENCE from the website, not assumptions about the industry.`;
 
     // Call AI via Supabase edge function
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -177,17 +198,15 @@ Focus on REAL customer segments found on the website, not generic personas.`;
     const fallbackProfiles = fallbackPersonas.map(persona => ({
       id: persona.id,
       statement: `${persona.name}: ${persona.quick_description}`,
-      painPoints: persona.pain_points,
-      goals: persona.goals,
-      demographics: persona.demographics,
+      industry: persona.industry,
       evidenceQuotes: [],
       sources: [{
         id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        type: 'api',
+        type: 'api' as const,
         name: 'Industry Personas',
         url: '',
         extractedAt: new Date(),
-        reliability: 75,
+        reliability: 60,
         dataPoints: 1
       }],
       confidence: {
@@ -196,6 +215,7 @@ Focus on REAL customer segments found on the website, not generic personas.`;
         modelAgreement: 80,
         sourceCount: 1,
       },
+      isManualInput: false
     }));
 
     return {
@@ -229,9 +249,6 @@ function parseCustomerProfiles(response: string): CustomerProfile[] {
       industry: p.industry,
       companySize: p.companySize,
       role: p.role,
-      painPoints: p.painPoints || [],
-      goals: p.goals || [],
-      buyingCriteria: p.buyingCriteria || [],
       evidenceQuotes: p.evidenceQuotes || [],
       sources: [{
         id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -239,7 +256,7 @@ function parseCustomerProfiles(response: string): CustomerProfile[] {
         name: 'Website Content',
         url: '',
         extractedAt: new Date(),
-        reliability: 85,
+        reliability: p.confidence?.overall || 70,
         dataPoints: 1
       }],
       confidence: {
@@ -250,6 +267,7 @@ function parseCustomerProfiles(response: string): CustomerProfile[] {
         },
         sourceCount: p.confidence?.sourceCount ?? 1,
       },
+      isManualInput: false
     }));
   } catch (error) {
     console.error('[EnhancedCustomerExtractor] Parse error:', error);
@@ -284,9 +302,6 @@ function mergeWithIndustryPersonas(
         statement: `${persona.name}: ${persona.quick_description}`,
         industry: persona.industry,
         role: persona.demographics.age_range,
-        painPoints: persona.pain_points,
-        goals: persona.goals,
-        demographics: persona.demographics,
         evidenceQuotes: [],
         sources: [{
           id: `source-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -303,6 +318,7 @@ function mergeWithIndustryPersonas(
           modelAgreement: 90,
           sourceCount: 1,
         },
+        isManualInput: false
       });
     }
   });

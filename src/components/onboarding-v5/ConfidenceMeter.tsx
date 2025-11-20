@@ -39,20 +39,40 @@ interface ConfidenceMeterProps {
  * Animated number counter
  */
 function AnimatedNumber({ value }: { value: number }) {
-  const spring = useSpring(0, { stiffness: 75, damping: 15 });
-  const display = useTransform(spring, (current) => Math.round(current));
-  const [displayValue, setDisplayValue] = useState(0);
+  const [displayValue, setDisplayValue] = useState(value);
 
+  // Simplified animation using requestAnimationFrame
   useEffect(() => {
-    spring.set(value);
-  }, [spring, value]);
+    const startValue = displayValue;
+    const endValue = value;
+    const duration = 800; // ms
+    const startTime = Date.now();
 
-  useEffect(() => {
-    const unsubscribe = display.on('change', (latest) => {
-      setDisplayValue(latest);
-    });
-    return () => unsubscribe();
-  }, [display]);
+    let animationFrame: number;
+
+    const animate = () => {
+      const now = Date.now();
+      const progress = Math.min((now - startTime) / duration, 1);
+
+      // Easing function (ease-out)
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+
+      const currentValue = Math.round(startValue + (endValue - startValue) * easeProgress);
+      setDisplayValue(currentValue);
+
+      if (progress < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      }
+    };
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => {
+      if (animationFrame) {
+        cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, [value]);
 
   return <span>{displayValue}</span>;
 }

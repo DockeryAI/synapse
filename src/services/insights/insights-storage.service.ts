@@ -385,7 +385,7 @@ class InsightsStorageService {
         evidence: trigger.evidence,
         persona: trigger.persona,
         timing: trigger.timing,
-        priority_score: trigger.priority_score,
+        priority_score: (trigger as any).priority_score,
       })
       .select()
       .single();
@@ -695,7 +695,7 @@ class InsightsStorageService {
     const { data, error } = await supabase
       .from('trigger_clusters')
       .insert({
-        brand_id: cluster.brand_id,
+        brand_id: (cluster as any).brand_id,
         name: cluster.name,
         description: cluster.description,
         trigger_ids: cluster.triggers.map((t) => t.id).filter(Boolean),

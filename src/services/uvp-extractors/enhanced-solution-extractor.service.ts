@@ -31,6 +31,37 @@ interface SolutionExtractionResult {
 }
 
 /**
+ * Extract contrarian statements directly from content (MARBA-style quote mining)
+ */
+function extractContrarianStatements(websiteContent: string[]): string[] {
+  const contrarian: string[] = [];
+
+  websiteContent.forEach(content => {
+    // Look for contrarian language patterns
+    const contrarianPatterns = [
+      /Unlike\s+(?:most|traditional|other)\s+([^.!?]{15,200})[.!?]/gi,
+      /Instead\s+of\s+([^,]{10,150}),\s+we\s+([^.!?]{10,150})[.!?]/gi,
+      /We\s+refuse\s+to\s+([^.!?]{15,150})[.!?]/gi,
+      /(?:We|Our)\s+believe\s+([^.!?]{15,200})[.!?]/gi,
+      /The\s+problem\s+with\s+(?:traditional|most)\s+([^.!?]{15,150})[.!?]/gi,
+      /What\s+makes\s+us\s+different\s+(?:is|:)\s+([^.!?]{15,200})[.!?]/gi,
+    ];
+
+    contrarianPatterns.forEach(pattern => {
+      const matches = content.matchAll(pattern);
+      for (const match of matches) {
+        const statement = match[0].trim();
+        if (statement.length >= 30 && statement.length < 300) {
+          contrarian.push(statement);
+        }
+      }
+    });
+  });
+
+  return contrarian.slice(0, 10); // Top 10 contrarian statements
+}
+
+/**
  * Find process/methodology content in website
  */
 function findMethodologyContent(websiteContent: string[]): string[] {
@@ -87,6 +118,10 @@ export async function extractEnhancedSolutions(
   console.log(`  - Focus: HOW they solve, not WHO they serve`);
 
   try {
+    // MARBA-style: Extract contrarian statements FIRST using regex
+    const contrarianStatements = extractContrarianStatements(websiteContent);
+    console.log(`[EnhancedSolutionExtractor] Found ${contrarianStatements.length} contrarian statements via regex`);
+
     // Find methodology-specific content
     const methodologyContent = findMethodologyContent(websiteContent);
     console.log(`[EnhancedSolutionExtractor] Found ${methodologyContent.length} methodology sections`);
@@ -97,63 +132,99 @@ export async function extractEnhancedSolutions(
     // Prepare content for analysis
     const fullContent = websiteContent.join('\n\n').substring(0, 10000);
     const methodologyText = methodologyContent.join('\n\n');
+    const contrarianText = contrarianStatements.length > 0
+      ? contrarianStatements.map((s, i) => `${i + 1}. "${s}"`).join('\n')
+      : 'No contrarian statements found via regex mining';
 
-    // Build extraction prompt - VERY CLEAR about HOW not WHO
-    const prompt = `Analyze this ${industry} business website to extract their UNIQUE SOLUTION/APPROACH.
-
-CRITICAL: Extract HOW they solve problems, NOT WHO they serve!
-- WRONG: "We serve car collectors" (that's a customer)
-- RIGHT: "We use a proprietary 3-step authentication process" (that's a solution)
+    // Build extraction prompt - Focus on contrarian beliefs
+    const prompt = `Find what makes ${businessName} CONTRARIAN in the ${industry} industry - what do they refuse to do that everyone else does?
 
 BUSINESS: ${businessName}
 INDUSTRY: ${industry}
 
-LOOK FOR:
-1. **Process/Methodology**: "Our 5-step process", "How we work", "Our approach"
-2. **Proprietary Systems**: "Our unique method", "Proprietary technology", "Exclusive process"
-3. **Differentiators**: "Unlike other ${industry} providers, we...", "Only ${industry} company that..."
-4. **Approach/Philosophy**: "We believe in...", "Our method focuses on..."
+**CONTRARIAN STATEMENTS FOUND (via quote mining):**
+${contrarianText}
 
-METHODOLOGY CONTENT FOUND:
-${methodologyText || 'No specific methodology content found'}
-
-FULL WEBSITE:
+WEBSITE CONTENT:
 ${fullContent}
 
-Extract 3-5 unique solutions that describe HOW they work. For each solution:
+METHODOLOGY CONTENT:
+${methodologyText || 'No methodology section found'}
 
-**Required Elements:**
-1. Clear description of the METHOD/PROCESS/APPROACH
-2. What makes it UNIQUE or DIFFERENT from alternatives
-3. The MECHANISM of how it works
-4. Why this approach is BETTER
+**FIND THE CONTRARIAN BELIEF:**
 
-Return JSON array:
+Not "We believe clients deserve great service" (everyone says this)
+But "We believe the first generation to create wealth shouldn't die at their desk" (contrarian belief)
+
+**LOOK FOR (in priority order):**
+
+1. **WHAT PISSES THEM OFF about their industry:**
+   - "Unlike most [industry], we..."
+   - "We refuse to..."
+   - "The problem with traditional [industry] is..."
+   - "Other [industry] do X, but we believe..."
+
+2. **THEIR FOUNDING STORY/PHILOSOPHY:**
+   - Why did they start this business?
+   - What problem with the industry made them angry?
+   - What do they believe customers deserve that they aren't getting?
+
+3. **THEIR DIFFERENT APPROACH:**
+   - "Instead of [industry standard], we..."
+   - "We start with [X], not [Y like everyone else]"
+   - Specific methodology with evidence (NOT invented)
+
+**MINE FOR EVIDENCE:**
+- Look for "We believe..." statements
+- Look for "Unlike..." comparisons
+- Look for founder story explaining their WHY
+- Look for process names that are ACTUALLY STATED (not invented)
+
+**CONTRARIAN EXAMPLES:**
+
+GOOD:
+- "We believe wealth advisors should eat last - your returns before our fees"
+- "Unlike investment-first advisors, we calculate backward from your perfect day at 70"
+- "We refuse to take commissions on products we recommend"
+
+BAD (Generic):
+- "We put clients first" (everyone says this)
+- "Our unique approach" (meaningless)
+- "Comprehensive methodology" (banned corporate speak)
+
+Return JSON array with 1-2 solutions (quality over quantity):
 [
   {
     "id": "unique-id",
-    "statement": "Clear description of HOW they solve the problem differently",
-    "methodology": "The process/method/system they use",
+    "statement": "CONTRARIAN belief or philosophy (use exact quote if possible)",
+    "methodology": "ONLY if they actually name their process/methodology with evidence",
     "differentiators": [
       {
         "id": "diff-id",
-        "statement": "Specific differentiator",
-        "category": "process" | "technology" | "approach" | "expertise" | "speed" | "quality",
-        "evidence": "Evidence from website",
-        "strengthScore": 0-100
+        "statement": "What they do INSTEAD of industry standard",
+        "category": "contrarian" | "philosophy" | "approach",
+        "evidence": "EXACT quote from website",
+        "strengthScore": 90 if contrarian, 40 if generic
       }
     ],
-    "competitiveAdvantage": "Why this is better than alternatives",
-    "evidenceQuotes": ["supporting quotes"],
+    "competitiveAdvantage": "Why this contrarian belief matters to customers",
+    "evidenceQuotes": ["EXACT quotes from website"],
     "confidence": {
-      "overall": 0-100,
-      "dataQuality": 0-100,
+      "overall": 90 if has evidence, 40 if generic,
+      "dataQuality": 90 if quoted, 40 if inferred,
       "modelAgreement": 0-100
     }
   }
 ]
 
-ONLY include SOLUTIONS (how they work), NOT customer segments!`;
+**COMPETITOR TEST:**
+Could any competitor use this exact same statement?
+- If YES → Too generic, find the contrarian angle or REJECT
+- If NO → Good, it's unique
+
+**If no contrarian beliefs found, return EMPTY ARRAY [] - do NOT invent generic philosophy.**
+
+CRITICAL: NEVER create fake proprietary names, trademarks, or methodology names!`;
 
     // Call AI via Supabase edge function
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {

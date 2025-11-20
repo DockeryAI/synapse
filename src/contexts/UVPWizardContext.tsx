@@ -692,7 +692,7 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
 /**
  * Hook to use UVP Wizard context
  */
-export const useUVPWizard = (): UVPWizardContext => {
+export const useUVPWizard = (): UVPWizardContextType => {
   const context = React.useContext(UVPWizardContext)
 
   if (!context) {

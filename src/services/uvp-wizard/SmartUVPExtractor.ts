@@ -123,7 +123,7 @@ export class SmartUVPExtractor {
     } catch (error) {
       console.error('[SmartUVPExtractor] Extraction failed:', error);
       ErrorHandlerService.logError(error, { websiteUrl });
-      throw this.createError('extraction', error);
+      throw this.createError('unknown', error);
     }
   }
 
@@ -513,7 +513,7 @@ CRITICAL REQUIREMENTS:
   /**
    * Create structured error
    */
-  private createError(type: UVPExtractionError['type'], error: any): UVPExtractionError {
+  private createError(type: 'network' | 'parsing' | 'verification' | 'ai' | 'unknown', error: any): UVPExtractionError {
     return {
       type,
       message: error.message || 'Unknown error',

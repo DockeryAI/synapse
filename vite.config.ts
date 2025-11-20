@@ -13,7 +13,11 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
+    hmr: {
+      overlay: false, // Disable error overlay
+    },
   },
+  logLevel: 'info', // Show startup info for debugging
   build: {
     outDir: 'dist',
     sourcemap: true,

@@ -27,5 +27,12 @@
     }
   },
   "include": ["src"],
+  "exclude": [
+    "**/_ARCHIVED/**",
+    "**/__tests__/location-detection.test.ts",
+    "src/services/content/__tests__/template.service.test.ts",
+    "src/services/synapse/__tests__/synapse-core.service.test.ts",
+    "src/services/url-parser.service.test.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

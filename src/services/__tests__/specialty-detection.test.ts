@@ -22,14 +22,18 @@ describe('SpecialtyDetectionService', () => {
         success: true,
         data: {
           text: 'wedding cakes custom vegan bakery specializing in wedding events celebrations'
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       },
       {
         source: 'OutScraper-Business',
         success: true,
         data: {
           description: 'We create beautiful wedding cakes for your special day'
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 
@@ -50,7 +54,9 @@ describe('SpecialtyDetectionService', () => {
         success: true,
         data: {
           text: 'general business services consulting'
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 
@@ -89,7 +95,9 @@ describe('SpecialtyDetectionService', () => {
         success: true,
         data: {
           text: 'luxury premium boutique handmade artisan custom luxury premium boutique'
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 
@@ -107,7 +115,9 @@ describe('SpecialtyDetectionService', () => {
         success: true,
         data: {
           text: 'pediatric dental care for children and families'
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 
@@ -123,12 +133,16 @@ describe('SpecialtyDetectionService', () => {
       {
         source: 'Apify',
         success: true,
-        data: { text: 'vegan organic wedding cakes' }
+        data: { text: 'vegan organic wedding cakes' },
+        duration: 100,
+        priority: 'important' as const
       },
       {
         source: 'OutScraper-Business',
         success: true,
-        data: { description: 'specializing in vegan wedding cakes' }
+        data: { description: 'specializing in vegan wedding cakes' },
+        duration: 100,
+        priority: 'important' as const
       },
       {
         source: 'Serper-Search',
@@ -137,7 +151,9 @@ describe('SpecialtyDetectionService', () => {
           organic: [
             { snippet: 'vegan wedding cake specialist' }
           ]
-        }
+        },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 
@@ -153,7 +169,9 @@ describe('SpecialtyDetectionService', () => {
       {
         source: 'Apify',
         success: true,
-        data: { text: 'bakery cakes bread pastries' }
+        data: { text: 'bakery cakes bread pastries' },
+        duration: 100,
+        priority: 'important' as const
       }
     ]
 

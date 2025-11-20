@@ -556,7 +556,7 @@ export class InstagramShoppingService {
         })
         .eq('user_id', userId);
 
-      return result;
+      return { synced: result.success, failed: result.failed };
     } catch (error) {
       console.error('Error syncing products:', error);
       throw error;

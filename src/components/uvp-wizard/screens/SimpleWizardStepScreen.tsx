@@ -11,7 +11,7 @@ import { ArrowLeft, ArrowRight, Info, Sparkles, Edit3, Check } from 'lucide-reac
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { WizardStepConfig, DraggableSuggestion } from '@/types/uvp-wizard'
+import { WizardStepConfig, DraggableSuggestion, WizardStep } from '@/types/uvp-wizard'
 import { SelectableSuggestion } from '../SelectableSuggestion'
 import { EditableSuggestion } from '../EditableSuggestion'
 import { CompactWizardProgress } from '../WizardProgress'
@@ -179,7 +179,7 @@ export const SimpleWizardStepScreen: React.FC<SimpleWizardStepScreenProps> = ({
       <div className="space-y-4 mb-6">
         {showProgress && (
           <CompactWizardProgress
-            currentStep={config.step}
+            currentStep={config.step as WizardStep}
             completedSteps={[]}
             percentage={progressPercentage}
           />

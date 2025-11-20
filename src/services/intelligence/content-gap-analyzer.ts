@@ -23,6 +23,7 @@ export interface ContentGap {
   estimated_monthly_revenue: number
   content_pieces_needed: number
   quick_win: boolean
+  opportunity_score: number  // Added missing property
 }
 
 export interface ContentGapAnalysis {

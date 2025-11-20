@@ -120,59 +120,81 @@ ${metricsText || 'No specific metrics found'}
 WEBSITE CONTENT:
 ${fullContent}
 
-Extract 4-6 key benefits using the THREE outcome dimensions:
+**BANNED GENERIC BENEFITS - Reject these:**
+- "peace of mind" (vague, overused)
+- "confidence" (meaningless without context)
+- "financial freedom" (cliché)
+- "success" (undefined)
+- "better results" (not specific)
 
-**FUNCTIONAL OUTCOMES** (measurable results):
-- Format: "Achieve [specific metric] in [timeframe]"
-- Examples:
-  * "Save 30% on insurance costs within 90 days"
-  * "Cut processing time from 2 weeks to 3 days"
-  * "Increase qualified leads by 40% in first quarter"
-- Must include: metric, timeframe, specificity
+**REQUIRED - Each benefit MUST have at least ONE:**
+1. SPECIFIC NUMBER: "save $50K/year", "retire 5 years early", "reduce by 40%"
+2. SPECIFIC TIMELINE: "within 90 days", "by age 58", "in first quarter"
+3. SPECIFIC SITUATION: "work becomes optional", "kids' college funded", "outlive your money impossible"
 
-**EMOTIONAL OUTCOMES** (how they feel):
-- Format: "Experience [emotional state] knowing [reason]"
-- Examples:
-  * "Sleep better knowing your coverage has zero gaps"
-  * "Feel confident your investment is protected"
-  * "Enjoy peace of mind with 24/7 expert support"
-- Must include: emotion, assurance/proof
+Extract 3-5 key benefits using THREE outcome dimensions:
 
-**SOCIAL OUTCOMES** (how they're perceived):
-- Format: "Be recognized as [identity] who [achievement]"
-- Examples:
-  * "Be the colleague who found incredible savings"
-  * "Gain reputation as savvy decision-maker"
-  * "Join 500+ local businesses who trust our expertise"
-- Must include: identity, social proof
+**FUNCTIONAL OUTCOMES** (measurable, specific results):
+GOOD: "Work becomes optional by age 58 with $4M+ preserved"
+BAD: "Achieve financial independence"
 
-Return JSON array:
+Requirements:
+- Must have SPECIFIC number or metric from website
+- Must have timeline or age
+- Must use customer language from quotes
+
+**EMOTIONAL OUTCOMES** (specific feelings with reason):
+GOOD: "Stop losing sleep about running out of money at 85"
+BAD: "Peace of mind about retirement"
+
+Requirements:
+- Must be SPECIFIC emotion/situation (not generic "confidence")
+- Must include the REASON why they feel this way
+- Must come from actual customer quotes if possible
+
+**SOCIAL OUTCOMES** (how they're perceived, with proof):
+GOOD: "Join the 73% of our clients who retired before 60"
+BAD: "Be recognized as successful"
+
+Requirements:
+- Must have social proof (percentages, numbers, comparisons)
+- Must be specific identity or achievement
+- Must come from website data
+
+Return JSON array (2-4 benefits, quality over quantity):
 [
   {
     "id": "unique-id",
-    "statement": "Complete benefit statement from customer POV",
+    "statement": "Specific outcome with number/timeline from customer POV",
     "outcomeType": "functional" | "emotional" | "social",
     "metrics": [
       {
         "id": "metric-id",
-        "metric": "What's measured",
-        "value": "The number/result",
-        "timeframe": "When achieved",
-        "evidence": "Where this came from"
+        "metric": "Specific thing measured",
+        "value": "The actual number/result from website",
+        "timeframe": "Specific timeline",
+        "evidence": "EXACT quote from website"
       }
     ],
-    "emotionalPayoff": "How this makes customer feel",
-    "socialProof": "Why others will notice/respect this",
-    "evidence": "Website quote supporting this",
+    "emotionalPayoff": "Specific emotion (not generic confidence/peace)",
+    "socialProof": "Actual numbers/percentages/comparisons from website",
+    "evidence": "EXACT website quote proving this benefit",
     "confidence": {
-      "overall": 0-100,
-      "dataQuality": 0-100,
+      "overall": 90 if has numbers, 40 if generic,
+      "dataQuality": 90 if quoted, 40 if inferred,
       "modelAgreement": 0-100
     }
   }
 ]
 
-Every benefit MUST be from customer perspective and show THEIR progress, not your capabilities.`;
+**COMPETITOR TEST:**
+Could any competitor claim this exact same benefit?
+- If YES → Too generic, add specific numbers or REJECT
+- If NO → Good, it's unique to this business
+
+**If no specific benefits with numbers found, return EMPTY ARRAY [] - do NOT invent generic outcomes.**
+
+Every benefit MUST be from customer perspective with EVIDENCE from website.`;
 
     // Call AI via Supabase edge function
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {

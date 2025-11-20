@@ -373,6 +373,7 @@ export class ClaudeAIService {
 export const createClaudeAI = (apiKey: string, config?: Partial<AIServiceConfig>): ClaudeAIService => {
   return new ClaudeAIService({
     apiKey,
+    model: config?.model || 'anthropic/claude-sonnet-4-5-20250929',
     ...config,
-  });
+  } as AIServiceConfig);
 };

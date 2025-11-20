@@ -8,7 +8,7 @@
  * We know: Psychology-optimized structures with trigger placement
  */
 
-import type { SynapseScore } from './content-generation.types';
+import type { SynapseScore } from './synapse/synapse.types';
 
 // ============================================================================
 // CORE TEMPLATE TYPES
@@ -39,6 +39,10 @@ export interface Template {
   // Pre-calculated performance
   averageSynapseScore?: number; // Historical average
   useCount?: number; // How many times used
+
+  // Timestamps
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type ContentType =

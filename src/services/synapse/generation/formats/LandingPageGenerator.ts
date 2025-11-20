@@ -48,13 +48,12 @@ export class LandingPageGenerator {
       },
 
       psychology: {
-        principle: pageType === 'sales' ? 'Loss Aversion' : 'Clarity + Relevance',
+        principle: pageType === 'sales' ? 'Loss Aversion' : 'Social Proof + Authority',
         trigger: {
           type: pageType === 'sales' ? 'fear' : 'aspiration',
-          strength: 0.95,
-          target: 'conversion'
+          strength: 0.95
         },
-        persuasionTechnique: framework.name,
+        persuasionTechnique: 'Data-Driven Authority',
         expectedReaction: 'This is exactly what I need'
       },
 
@@ -62,12 +61,12 @@ export class LandingPageGenerator {
         powerWords: this.extractPowerWords(headline + body),
         framingDevice: framework.name,
         narrativeStructure: framework.stages.map(s => s.name).join(' → '),
-        pacing: 'Fast (conversion-focused)'
+        pacing: 'fast'
       },
 
       meta: {
-        platform: ['Web'],
-        tone: 'professional',
+        platform: ['linkedin'],
+        tone: 'educational',
         targetAudience: business.targetAudience
       },
 

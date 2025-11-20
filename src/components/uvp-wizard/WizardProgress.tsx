@@ -29,9 +29,9 @@ export const WizardProgress: React.FC<WizardProgressProps> = ({
   className,
 }) => {
   // Filter out welcome and complete steps from progress bar
-  const progressSteps = WIZARD_STEPS.filter(
-    (step) => step !== 'welcome' && step !== 'complete'
-  )
+  const progressSteps: WizardStep[] = WIZARD_STEPS.filter(
+    (step) => step !== 'welcome' && step !== 'complete' && step !== 'differentiation'
+  ) as WizardStep[]
 
   return (
     <div className={cn('w-full', className)}>

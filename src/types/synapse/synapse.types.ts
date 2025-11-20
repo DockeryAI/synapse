@@ -479,3 +479,212 @@ export interface InsightCluster {
 
 // All types and constants are already exported inline above
 // No need for additional export statements
+
+// ============================================================================
+// LEGACY TYPES FOR SYNAPSE-CORE.SERVICE.TS (Psychology Analysis)
+// ============================================================================
+
+export type PowerWordCategory =
+  | 'urgency'
+  | 'exclusivity'
+  | 'trust'
+  | 'emotion'
+  | 'action'
+  | 'social'
+  | 'authority';
+
+export interface PowerWord {
+  word: string;
+  category: PowerWordCategory;
+  intensity: number;
+  emotionalImpact: 'positive' | 'negative' | 'neutral';
+}
+
+export interface PowerWordAnalysis {
+  totalCount: number;
+  density: number;
+  byCategory: Record<PowerWordCategory, number>;
+  detectedWords: PowerWord[];
+  score: number;
+  isBalanced: boolean;
+  warning?: string;
+}
+
+export type EmotionalTriggerType =
+  | 'curiosity'
+  | 'fear'
+  | 'desire'
+  | 'belonging'
+  | 'achievement'
+  | 'trust'
+  | 'urgency';
+
+export interface EmotionalTrigger {
+  type: EmotionalTriggerType;
+  text: string;
+  intensity: number;
+  position: number;
+}
+
+export interface EmotionalTriggerAnalysis {
+  triggers: EmotionalTrigger[];
+  dominantEmotion: EmotionalTriggerType | null;
+  emotionalBalance: Record<EmotionalTriggerType, number>;
+  score: number;
+}
+
+export interface ReadabilityScore {
+  fleschReadingEase: number;
+  fleschKincaidGrade: number;
+  averageSentenceLength: number;
+  averageWordLength: number;
+  complexWordCount: number;
+  level: 'very-easy' | 'easy' | 'moderate' | 'difficult' | 'very-difficult';
+  score: number;
+}
+
+export type CTAType = 'soft' | 'medium' | 'hard' | 'social';
+
+export interface CallToActionAnalysis {
+  hasCTA: boolean;
+  ctaText?: string;
+  ctaType?: CTAType;
+  position: 'start' | 'middle' | 'end' | 'none';
+  strength: number;
+  clarity: number;
+  suggestions: string[];
+}
+
+export interface SynapseBreakdown {
+  powerWordCount: number;
+  emotionalTriggerCount: number;
+  sentenceComplexity: number;
+  wordCount: number;
+  averageWordLength: number;
+  fleschReadingEase: number;
+  hasUrgency: boolean;
+  hasSocialProof: boolean;
+  hasAuthority: boolean;
+  hasScarcity: boolean;
+  hasReciprocity: boolean;
+}
+
+export interface SynapseScore {
+  overall: number;
+  powerWords: number;
+  emotionalTriggers: number;
+  readability: number;
+  callToAction: number;
+  urgency: number;
+  trust: number;
+  breakdown: SynapseBreakdown;
+  suggestions: string[];
+}
+
+export interface ContentOptimizationRequest {
+  content: string;
+  targetScore: number;
+  focusAreas?: Array<'power-words' | 'emotional' | 'readability' | 'cta'>;
+}
+
+export interface OptimizationImprovement {
+  type: 'power-word' | 'cta' | 'readability' | 'emotional';
+  description: string;
+  impact: number;
+  position: number;
+}
+
+export interface ContentOptimizationResult {
+  original: string;
+  optimized: string;
+  improvements: OptimizationImprovement[];
+  scoreBefore: SynapseScore;
+  scoreAfter: SynapseScore;
+  changesMade: number;
+  significantChanges: boolean;
+}
+
+export interface SynapseConfig {
+  weights: {
+    powerWords: number;
+    emotionalTriggers: number;
+    readability: number;
+    callToAction: number;
+    urgency: number;
+    trust: number;
+  };
+  thresholds: {
+    excellent: number;
+    good: number;
+    acceptable: number;
+    poor: number;
+  };
+  powerWordDensity: {
+    min: number;
+    max: number;
+    optimal: number;
+  };
+}
+
+export interface ContentQualityIndicator {
+  rating: 1 | 2 | 3 | 4 | 5;
+  label: 'Poor' | 'Fair' | 'Good' | 'Very Good' | 'Excellent';
+  strengths: string[];
+  improvements: string[];
+  simpleMetrics: {
+    readability: 'Easy' | 'Moderate' | 'Complex';
+    engagement: 'Low' | 'Medium' | 'High';
+    clarity: 'Unclear' | 'Clear' | 'Very Clear';
+  };
+}
+
+export function synapseToUserFacing(score: SynapseScore): ContentQualityIndicator {
+  const overall = score.overall;
+
+  let rating: 1 | 2 | 3 | 4 | 5;
+  let label: 'Poor' | 'Fair' | 'Good' | 'Very Good' | 'Excellent';
+
+  if (overall >= 85) {
+    rating = 5;
+    label = 'Excellent';
+  } else if (overall >= 70) {
+    rating = 4;
+    label = 'Very Good';
+  } else if (overall >= 50) {
+    rating = 3;
+    label = 'Good';
+  } else if (overall >= 30) {
+    rating = 2;
+    label = 'Fair';
+  } else {
+    rating = 1;
+    label = 'Poor';
+  }
+
+  const strengths: string[] = [];
+  const improvements: string[] = [];
+
+  if (score.powerWords >= 70) strengths.push('Strong word choice');
+  else improvements.push('Use more compelling language');
+
+  if (score.emotionalTriggers >= 70) strengths.push('Good emotional appeal');
+  else improvements.push('Add more emotional connection');
+
+  if (score.readability >= 70) strengths.push('Easy to read');
+  else improvements.push('Simplify language');
+
+  if (score.callToAction >= 70) strengths.push('Clear call-to-action');
+  else improvements.push('Strengthen call-to-action');
+
+  return {
+    rating,
+    label,
+    strengths,
+    improvements,
+    simpleMetrics: {
+      readability: score.readability >= 70 ? 'Easy' : score.readability >= 50 ? 'Moderate' : 'Complex',
+      engagement: score.emotionalTriggers >= 70 ? 'High' : score.emotionalTriggers >= 50 ? 'Medium' : 'Low',
+      clarity: score.callToAction >= 70 ? 'Very Clear' : score.callToAction >= 50 ? 'Clear' : 'Unclear'
+    }
+  };
+}

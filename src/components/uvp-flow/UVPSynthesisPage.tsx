@@ -58,6 +58,7 @@ export function UVPSynthesisPage({
   const [isEditingWhy, setIsEditingWhy] = useState(false);
   const [isEditingWhat, setIsEditingWhat] = useState(false);
   const [isEditingHow, setIsEditingHow] = useState(false);
+  const [isGeneratingStatements, setIsGeneratingStatements] = useState(false);
   const [editedVP, setEditedVP] = useState(completeUVP.valuePropositionStatement);
   const [editedWhy, setEditedWhy] = useState(completeUVP.whyStatement);
   const [editedWhat, setEditedWhat] = useState(completeUVP.whatStatement);
@@ -86,6 +87,47 @@ export function UVPSynthesisPage({
     const timer = setTimeout(() => setShowConfetti(false), 5000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Auto-generate statements if they're empty (fallback for incomplete data)
+  useEffect(() => {
+    const generateStatements = async () => {
+      // Check if statements are missing
+      const needsGeneration =
+        !completeUVP.valuePropositionStatement ||
+        !completeUVP.whyStatement ||
+        !completeUVP.whatStatement ||
+        !completeUVP.howStatement;
+
+      if (!needsGeneration) return;
+
+      console.log('[UVPSynthesis Page] Statements missing, generating...');
+      setIsGeneratingStatements(true);
+
+      try {
+        // Generate simple fallback statements from components
+        const vp = `For ${completeUVP.targetCustomer.statement || 'our customers'}, ` +
+                   `we ${completeUVP.uniqueSolution.statement || 'provide solutions'} ` +
+                   `so you can ${completeUVP.keyBenefit.statement || 'achieve your goals'}.`;
+
+        const why = completeUVP.transformationGoal.statement || 'We believe in creating transformation through exceptional service.';
+        const what = completeUVP.uniqueSolution.statement || 'We provide comprehensive solutions tailored to your needs.';
+        const how = completeUVP.uniqueSolution.differentiators?.[0]?.statement || 'We deliver through our proven methodology and expertise.';
+
+        setEditedVP(vp);
+        setEditedWhy(why);
+        setEditedWhat(what);
+        setEditedHow(how);
+
+        console.log('[UVPSynthesis Page] Fallback statements generated');
+      } catch (error) {
+        console.error('[UVPSynthesis Page] Failed to generate statements:', error);
+      } finally {
+        setIsGeneratingStatements(false);
+      }
+    };
+
+    generateStatements();
+  }, [completeUVP]);
 
   const copyToClipboard = async (text: string, type: 'vp' | 'why' | 'what' | 'how') => {
     try {
@@ -149,63 +191,64 @@ export function UVPSynthesisPage({
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
-      {/* Confetti Celebration */}
-      {showConfetti && (
-        <Confetti
-          width={windowSize.width}
-          height={windowSize.height}
-          recycle={false}
-          numberOfPieces={500}
-          gravity={0.3}
-        />
-      )}
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
+      <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        {/* Confetti Celebration */}
+        {showConfetti && (
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            recycle={false}
+            numberOfPieces={500}
+            gravity={0.3}
+          />
+        )}
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center space-y-4"
-      >
+        {/* Header */}
         <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 rounded-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center space-y-4"
         >
-          <Trophy className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-          <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
-            UVP Step 6 of 6: Your Complete Value Proposition
-          </span>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 rounded-full border border-purple-200 dark:border-purple-700"
+          >
+            <Trophy className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+            <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
+              UVP Step 6 of 6: Your Complete Value Proposition
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
+          >
+            🎉 Your UVP is Complete!
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
+          >
+            We've synthesized your complete value proposition from real data.
+            Review, edit, and deploy it across your marketing.
+          </motion.p>
         </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.2 }}
-          className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent"
+        {/* Main Value Proposition Statement */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="bg-gradient-to-br from-white via-purple-50/30 to-blue-50/30 dark:from-slate-800 dark:via-purple-900/10 dark:to-blue-900/10 rounded-3xl p-8 border-2 border-purple-200 dark:border-purple-700 shadow-xl"
         >
-          🎉 Your UVP is Complete!
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-        >
-          We've synthesized your complete value proposition from real data.
-          Review, edit, and deploy it across your marketing.
-        </motion.p>
-      </motion.div>
-
-      {/* Main Value Proposition Statement */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="bg-white dark:bg-slate-800 rounded-3xl p-8 border border-gray-200 dark:border-slate-700 shadow-xl"
-      >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-6 h-6 text-purple-600 dark:text-purple-400" />
@@ -218,7 +261,7 @@ export function UVPSynthesisPage({
               variant="outline"
               size="sm"
               onClick={() => setIsEditingVP(!isEditingVP)}
-              className="gap-2"
+              className="gap-2 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600"
             >
               <Edit className="w-4 h-4" />
               {isEditingVP ? 'Cancel' : 'Edit'}
@@ -227,11 +270,11 @@ export function UVPSynthesisPage({
               variant="outline"
               size="sm"
               onClick={() => copyToClipboard(editedVP, 'vp')}
-              className="gap-2"
+              className="gap-2 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600"
             >
               {copiedVP ? (
                 <>
-                  <Check className="w-4 h-4 text-green-600" />
+                  <Check className="w-4 h-4 text-green-600 dark:text-green-400" />
                   Copied!
                 </>
               ) : (
@@ -267,32 +310,32 @@ export function UVPSynthesisPage({
         )}
       </motion.div>
 
-      {/* Why/What/How Framework */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="space-y-4"
-      >
-        <div className="flex items-center gap-2 mb-4">
-          <Award className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
-            Why/What/How Framework
-          </h2>
-          <InfoTooltip
-            title="Golden Circle Framework"
-            content="Simon Sinek's Why/What/How framework helps you communicate your value proposition at three levels: purpose (why), offering (what), and approach (how)."
-          />
-        </div>
+        {/* Why/What/How Framework */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="space-y-4"
+        >
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              Why/What/How Framework
+            </h2>
+            <InfoTooltip
+              title="Golden Circle Framework"
+              content="Simon Sinek's Why/What/How framework helps you communicate your value proposition at three levels: purpose (why), offering (what), and approach (how)."
+            />
+          </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
-          {/* Why Statement */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-pink-200 dark:border-pink-700 p-6 space-y-4"
-          >
+          <div className="grid gap-4 md:grid-cols-3">
+            {/* Why Statement */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.6 }}
+              className="bg-gradient-to-br from-pink-50 via-purple-50 to-pink-50/50 dark:from-pink-900/20 dark:via-purple-900/20 dark:to-pink-900/10 rounded-2xl border-2 border-pink-200 dark:border-pink-700 p-6 space-y-4 shadow-lg"
+            >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Heart className="w-5 h-5 text-pink-600 dark:text-pink-400" />
@@ -352,13 +395,13 @@ export function UVPSynthesisPage({
             )}
           </motion.div>
 
-          {/* What Statement */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-blue-200 dark:border-blue-700 p-6 space-y-4"
-          >
+            {/* What Statement */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7 }}
+              className="bg-gradient-to-br from-blue-50 via-violet-50 to-blue-50/50 dark:from-blue-900/20 dark:via-violet-900/20 dark:to-blue-900/10 rounded-2xl border-2 border-blue-200 dark:border-blue-700 p-6 space-y-4 shadow-lg"
+            >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Target className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -418,13 +461,13 @@ export function UVPSynthesisPage({
             )}
           </motion.div>
 
-          {/* How Statement */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.8 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6 space-y-4"
-          >
+            {/* How Statement */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.8 }}
+              className="bg-gradient-to-br from-purple-50 via-violet-50 to-purple-50/50 dark:from-purple-900/20 dark:via-violet-900/20 dark:to-purple-900/10 rounded-2xl border-2 border-purple-200 dark:border-purple-700 p-6 space-y-4 shadow-lg"
+            >
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <Zap className="w-5 h-5 text-purple-600 dark:text-purple-400" />
@@ -483,16 +526,16 @@ export function UVPSynthesisPage({
               </p>
             )}
           </motion.div>
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
 
-      {/* Complete UVP Summary */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.9 }}
-        className="bg-white dark:bg-slate-800 rounded-2xl border-2 border-gray-200 dark:border-slate-700 p-6 space-y-4"
-      >
+        {/* Complete UVP Summary */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.9 }}
+          className="bg-gradient-to-br from-white via-blue-50/30 to-violet-50/30 dark:from-slate-800 dark:via-blue-900/10 dark:to-violet-900/10 rounded-2xl border-2 border-purple-200 dark:border-purple-700 p-6 space-y-4 shadow-lg"
+        >
         <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
           <TrendingUp className="w-6 h-6 text-green-600 dark:text-green-400" />
           Complete UVP Breakdown
@@ -619,18 +662,26 @@ export function UVPSynthesisPage({
                   Metrics:
                 </p>
                 <div className="grid md:grid-cols-2 gap-2">
-                  {completeUVP.keyBenefit.metrics.map((metric) => (
-                    <div key={metric.id} className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
-                      <p className="text-sm text-gray-900 dark:text-white font-medium">
-                        {metric.metric}
-                      </p>
-                      <p className="text-lg font-bold text-green-700 dark:text-green-400">
-                        {metric.value}
-                      </p>
-                      {metric.timeframe && (
-                        <p className="text-xs text-gray-600 dark:text-gray-400">
-                          in {metric.timeframe}
+                  {completeUVP.keyBenefit.metrics.map((metric, idx) => (
+                    <div key={typeof metric === 'object' && metric.id ? metric.id : `metric-${idx}`} className="bg-green-50 dark:bg-green-900/20 rounded-lg p-3">
+                      {typeof metric === 'string' ? (
+                        <p className="text-sm text-gray-900 dark:text-white font-medium">
+                          {metric}
                         </p>
+                      ) : (
+                        <>
+                          <p className="text-sm text-gray-900 dark:text-white font-medium">
+                            {metric.metric}
+                          </p>
+                          <p className="text-lg font-bold text-green-700 dark:text-green-400">
+                            {metric.value}
+                          </p>
+                          {metric.timeframe && (
+                            <p className="text-xs text-gray-600 dark:text-gray-400">
+                              in {metric.timeframe}
+                            </p>
+                          )}
+                        </>
                       )}
                     </div>
                   ))}
@@ -639,15 +690,15 @@ export function UVPSynthesisPage({
             )}
           </CollapsibleSection>
         </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Overall Confidence Score */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.0 }}
-        className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border-2 border-green-200 dark:border-green-700"
-      >
+        {/* Overall Confidence Score */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border-2 border-green-200 dark:border-green-700"
+        >
         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
           <Award className="w-6 h-6 text-green-600 dark:text-green-400" />
           Overall Confidence Score
@@ -685,15 +736,15 @@ export function UVPSynthesisPage({
             </div>
           </div>
         </div>
-      </motion.div>
+        </motion.div>
 
-      {/* Action Buttons */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.1 }}
-        className="flex flex-wrap items-center justify-center gap-4 py-8"
-      >
+        {/* Action Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.1 }}
+          className="flex flex-wrap items-center justify-center gap-4 py-8"
+        >
         <Button
           onClick={onSave}
           size="lg"
@@ -706,7 +757,7 @@ export function UVPSynthesisPage({
           onClick={onDownload}
           size="lg"
           variant="outline"
-          className="gap-2 text-lg px-8"
+          className="gap-2 text-lg px-8 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 border-2 border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600"
         >
           <Download className="w-5 h-5" />
           Download as PDF
@@ -715,28 +766,29 @@ export function UVPSynthesisPage({
           onClick={onShare}
           size="lg"
           variant="outline"
-          className="gap-2 text-lg px-8"
+          className="gap-2 text-lg px-8 bg-white dark:bg-slate-700 text-gray-700 dark:text-gray-200 border-2 border-gray-300 dark:border-slate-600 hover:bg-gray-50 dark:hover:bg-slate-600"
         >
           <Share2 className="w-5 h-5" />
           Share
         </Button>
-      </motion.div>
+        </motion.div>
 
-      {/* Source Citations Summary */}
-      {allSources.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.2 }}
-          className="bg-gray-50 dark:bg-slate-800/50 rounded-2xl p-6"
-        >
+        {/* Source Citations Summary */}
+        {allSources.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2 }}
+            className="bg-gradient-to-br from-purple-50/50 via-blue-50/50 to-violet-50/50 dark:from-slate-800/50 dark:via-purple-900/10 dark:to-blue-900/10 rounded-2xl p-6 border border-purple-200 dark:border-purple-700"
+          >
           <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 flex items-center gap-2">
             <Info className="w-4 h-4" />
             Data Sources ({allSources.length})
           </h3>
-          <SourceCitation sources={allSources} />
-        </motion.div>
-      )}
+            <SourceCitation sources={allSources} />
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
@@ -762,10 +814,10 @@ function CollapsibleSection({
   children,
 }: CollapsibleSectionProps) {
   return (
-    <div className="border-2 border-gray-200 dark:border-slate-700 rounded-xl overflow-hidden">
+    <div className="border-2 border-purple-200 dark:border-purple-700 rounded-xl overflow-hidden bg-gradient-to-br from-white via-purple-50/20 to-blue-50/20 dark:from-slate-800 dark:via-purple-900/10 dark:to-blue-900/10">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors"
+        className="w-full flex items-center justify-between p-4 hover:bg-purple-50/50 dark:hover:bg-purple-900/20 transition-colors"
       >
         <div className="flex items-center gap-3">
           <h3 className="font-semibold text-gray-900 dark:text-white">
@@ -776,18 +828,16 @@ function CollapsibleSection({
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="sm"
+          <span
             onClick={(e) => {
               e.stopPropagation();
               onEdit();
             }}
-            className="gap-1"
+            className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-slate-600 rounded-md transition-colors cursor-pointer"
           >
             <Edit className="w-3 h-3" />
             Edit
-          </Button>
+          </span>
           {isExpanded ? (
             <ChevronUp className="w-5 h-5 text-gray-500" />
           ) : (

@@ -384,7 +384,37 @@ export function CampaignPage() {
               animate={{ opacity: 1, y: 0 }}
             >
               <CampaignPreview
-                campaignData={session.generatedContent}
+                campaignData={{
+                  ...session.generatedContent,
+                  campaignId: session.generatedContent.campaignId || session.id,
+                  campaignName: session.generatedContent.campaignName || 'New Campaign',
+                  campaignType: session.generatedContent.campaignType || session.selectedType || 'authority-builder',
+                  platforms: (session.generatedContent.platforms?.map(p => p.platform) || ['linkedin']) as any,
+                  content: session.generatedContent.platforms?.reduce((acc, p) => {
+                    acc[p.platform] = {
+                      platform: p.platform,
+                      sections: {
+                        headline: p.content.headline,
+                        hook: p.content.hook,
+                        body: p.content.body,
+                        cta: p.content.cta,
+                        hashtags: p.content.hashtags || []
+                      },
+                      characterCounts: {
+                        headline: p.content.headline?.length || 0,
+                        hook: p.content.hook.length,
+                        body: p.content.body.length,
+                        cta: p.content.cta.length,
+                        total: p.characterCount
+                      },
+                      warnings: [],
+                      mediaUrls: p.mediaUrls
+                    };
+                    return acc;
+                  }, {} as any) || {},
+                  createdAt: new Date(session.createdAt),
+                  updatedAt: new Date(session.updatedAt),
+                }}
                 onApprove={handleApprove}
                 onReject={() => console.log('Rejected')}
                 onRegenerateAll={async () => console.log('Regenerate all')}

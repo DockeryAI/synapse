@@ -163,6 +163,9 @@ export type SuggestionSource =
   | 'competitor-analysis'
   | 'ai-generated'
   | 'user-custom'
+  | 'fallback'
+  | 'manual-input-required'
+  | 'manual-input'
 
 /**
  * Drop zone configuration

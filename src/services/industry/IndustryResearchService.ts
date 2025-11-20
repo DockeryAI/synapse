@@ -20,7 +20,7 @@
 
 import { llmService } from '../llm/LLMService';
 import { supabase } from '../../utils/supabase/client';
-import type { IndustryProfileV3 } from '../../types/onboarding-v3.types';
+import type { IndustryProfileFull as IndustryProfileV3 } from '../../types/industry-profile.types';
 import type { IndustryDetection } from './IndustryDetectionService';
 import { getNAICSCode, getNAICSHierarchy } from '../../data/naics-codes';
 
@@ -128,7 +128,7 @@ export class IndustryResearchService {
         console.log(`[IndustryResearch] Cache hit in hierarchy`);
 
         // If we found a parent profile but user has specific sub-industry, enhance it
-        if (cached.profile.industryCode !== primaryCode && websiteData) {
+        if (cached.profile.naics_code !== primaryCode && websiteData) {
           return await this.enhanceWithSubIndustry(cached, industryDetection, websiteData);
         }
 
@@ -172,12 +172,12 @@ export class IndustryResearchService {
     console.log(`[IndustryResearch] Enhancing parent profile for sub-industry: ${industryDetection.customerLanguage}`);
 
     const naicsInfo = getNAICSCode(industryDetection.primaryNAICS);
-    const parentNAICS = getNAICSCode(parentResult.profile.industryCode);
+    const parentNAICS = getNAICSCode(parentResult.profile.naics_code);
 
     // Create enhancement prompt
     const prompt = `You are enhancing an industry profile for a SPECIFIC sub-industry.
 
-PARENT INDUSTRY: ${parentNAICS?.title || parentResult.profile.displayName}
+PARENT INDUSTRY: ${parentNAICS?.title || parentResult.profile.industry_name}
 SUB-INDUSTRY: ${naicsInfo?.title || industryDetection.customerLanguage}
 CUSTOMER LANGUAGE: "${industryDetection.customerLanguage}"
 
@@ -186,7 +186,7 @@ ${JSON.stringify(websiteData, null, 2).substring(0, 1000)}
 
 TASK: Provide SUB-INDUSTRY SPECIFIC enhancements to the parent profile.
 
-IMPORTANT: A "${industryDetection.customerLanguage}" is VERY DIFFERENT from a generic "${parentResult.profile.displayName}".
+IMPORTANT: A "${industryDetection.customerLanguage}" is VERY DIFFERENT from a generic "${parentResult.profile.industry_name}".
 For example, a Construction Consultant focuses on construction projects, risk management, contractor relationships.
 A Software Consultant focuses on technology, digital transformation, development processes.
 
@@ -217,24 +217,16 @@ RESPOND WITH ONLY VALID JSON:
 }`;
 
     try {
-      const response = await llmService.research(prompt, { industryCode: industryDetection.primaryNAICS });
+      const response = await llmService.chat([
+        { role: 'user', content: prompt }
+      ]);
       const enhancements = this.parseResearchResponse(response.content, 'Industry Learning Enhancement');
 
       // Merge enhancements into profile
       const enhancedProfile: IndustryProfileV3 = {
         ...parentResult.profile,
-        industryCode: industryDetection.primaryNAICS,
-        displayName: industryDetection.customerLanguage,
-        commonNames: [
-          industryDetection.customerLanguage,
-          industryDetection.customerLanguage.toLowerCase(),
-          ...parentResult.profile.commonNames
-        ],
-        calibration: {
-          ...parentResult.profile.calibration,
-          ...enhancements.calibrationAdjustments,
-          subIndustryInsights: enhancements.subIndustryInsights
-        }
+        naics_code: industryDetection.primaryNAICS,
+        industry_name: industryDetection.customerLanguage,
       };
 
       const enhancedResult: ResearchResult = {
@@ -440,7 +432,9 @@ RESPOND WITH ONLY VALID JSON in this exact structure:
   }
 }`;
 
-    const response = await llmService.research(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Customer Psychology');
   }
 
@@ -502,7 +496,9 @@ RESPOND WITH ONLY VALID JSON:
   }
 }`;
 
-    const response = await llmService.research(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Business Model');
   }
 
@@ -554,7 +550,9 @@ RESPOND WITH ONLY VALID JSON:
   }
 }`;
 
-    const response = await llmService.research(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Competitive Landscape');
   }
 
@@ -611,7 +609,9 @@ RESPOND WITH ONLY VALID JSON:
   }
 }`;
 
-    const response = await llmService.research(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Success Patterns');
   }
 
@@ -697,7 +697,9 @@ RESPOND WITH ONLY VALID JSON:
   }
 }`;
 
-    const response = await llmService.research(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Marketing Intelligence');
   }
 
@@ -771,7 +773,9 @@ RESPOND WITH ONLY VALID JSON:
   "reasoning": "2-3 sentence explanation of these settings"
 }`;
 
-    const response = await llmService.calibrate(prompt, { industryCode });
+    const response = await llmService.chat([
+      { role: 'user', content: prompt }
+    ]);
     return this.parseResearchResponse(response.content, 'Calibration');
   }
 
@@ -793,37 +797,63 @@ RESPOND WITH ONLY VALID JSON:
     const industryCode = industryDetection.primaryNAICS;
     const displayName = industryDetection.customerLanguage;
 
-    // Build comprehensive profile
+    // Build comprehensive profile matching IndustryProfileFull schema
     const profile: IndustryProfileV3 = {
-      industryCode,
-      displayName,
-      commonNames: [
-        industryDetection.customerLanguage,
-        industryDetection.customerLanguage.toLowerCase(),
-        ...industryDetection.industryChain.map(code => this.formatDisplayName(code))
-      ],
+      // CORE IDENTIFICATION
+      industry: displayName,
+      industry_name: displayName,
+      naics_code: industryCode,
+      category: research.customerResearch?.insights?.primaryMotivation || 'Professional Services',
 
-      typicalCustomers: {
-        b2c: research.customerResearch.segments.b2c,
-        b2b: research.customerResearch.segments.b2b,
-      },
+      // CUSTOMER PSYCHOLOGY & TRIGGERS
+      customer_triggers: research.customerResearch?.segments?.b2c?.[0]?.emotionalTriggers || ['trust', 'quality', 'expertise', 'results', 'value'],
+      customer_journey: research.customerResearch?.segments?.b2c?.[0]?.typicalJourney || 'Awareness → Consideration → Decision',
+      transformations: research.successPatterns?.successIndicators?.map((s: any) => s.indicator) || ['Improved outcomes', 'Better results', 'Enhanced performance', 'Increased efficiency', 'Greater success'],
+      success_metrics: research.successPatterns?.criticalSuccessFactors || ['Quality', 'Reliability', 'Expertise', 'Results', 'Value'],
+      urgency_drivers: research.customerResearch?.insights?.trustBuilders || ['Limited availability', 'Timely service', 'Quick results', 'Immediate value', 'Fast response'],
+      objection_handlers: research.customerResearch?.segments?.b2c?.[0]?.commonObjections || ['Cost concerns', 'Trust issues', 'Time commitment', 'Value uncertainty', 'Quality doubts'],
+      risk_reversal: research.customerResearch?.insights?.dealBreakers || ['Guarantee', 'Money-back promise', 'Free trial'],
+      customer_language_dictionary: research.calibration?.powerWords || ['expert', 'proven', 'trusted', 'professional', 'quality', 'reliable', 'experienced', 'certified', 'specialized', 'comprehensive', 'dedicated', 'exceptional', 'innovative', 'effective', 'efficient', 'superior', 'premium', 'elite', 'outstanding', 'renowned'],
 
-      contentThatWorks: research.marketingIntelligence.contentThatWorks,
+      // VALUE PROPOSITION & DIFFERENTIATION
+      value_propositions: research.competitiveResearch?.competitiveAdvantages || ['Superior quality', 'Expert service', 'Proven results', 'Trusted reputation', 'Comprehensive solutions'],
+      differentiators: research.competitiveResearch?.differentiationStrategies?.map((s: any) => s.strategy) || ['Specialized expertise', 'Personalized approach', 'Proven track record', 'Comprehensive service', 'Industry leadership'],
+      competitive_advantages: research.competitiveResearch?.competitiveAdvantages || ['Experience', 'Quality', 'Service'],
+      pricing_strategies: research.businessModelResearch?.pricingStructures?.map((s: any) => s.structure) || ['Value-based', 'Competitive'],
+      service_delivery_models: research.businessModelResearch?.revenueModels?.map((s: any) => s.model) || ['Project-based', 'Ongoing service'],
+      unique_selling_propositions: research.competitiveResearch?.insights?.howToStandOut ? [research.competitiveResearch.insights.howToStandOut] : ['Industry expertise', 'Quality service', 'Proven results'],
+      brand_positioning_templates: ['Leading provider of ' + displayName, 'Trusted ' + displayName + ' expert'],
 
-      marketingChannels: research.marketingIntelligence.marketingChannels,
+      // MESSAGING & COMMUNICATION
+      power_words: research.calibration?.powerWords || ['expert', 'proven', 'trusted', 'professional', 'quality', 'reliable', 'experienced', 'certified', 'specialized', 'comprehensive', 'dedicated', 'exceptional', 'innovative', 'effective', 'efficient', 'superior', 'premium', 'elite', 'outstanding', 'renowned'],
+      avoid_words: research.calibration?.avoidPhrases || ['cheap', 'discount', 'amateur', 'inexperienced', 'basic', 'simple', 'easy', 'quick', 'fast', 'guaranteed'],
+      headline_templates: research.marketingIntelligence?.contentThatWorks?.hooks || ['Transform Your Results', 'Expert Solutions', 'Proven Success', 'Quality Service', 'Trusted Partner', 'Professional Excellence', 'Industry Leader', 'Specialized Expertise', 'Comprehensive Support', 'Exceptional Results'],
+      call_to_action_templates: research.marketingIntelligence?.messagingStrategies?.callsToAction || ['Contact us today', 'Schedule consultation', 'Get started now', 'Learn more', 'Request quote', 'Book appointment', 'Get in touch', 'Discover how'],
+      email_subject_line_templates: ['Expert ' + displayName + ' Services', 'Transform Your Results', 'Proven Solutions', 'Quality You Can Trust', 'Professional Excellence', 'Specialized Expertise', 'Comprehensive Support', 'Industry-Leading Service', 'Your Success Partner', 'Trusted Professional'],
+      social_media_hooks: research.marketingIntelligence?.contentThatWorks?.hooks || ['Did you know...', 'Industry secret:', 'Pro tip:', 'Common mistake:', 'Success story:', 'Expert insight:', 'Game changer:', 'Transform your...', 'Discover how...', 'Learn why...', 'Find out...', 'See how...', 'Unlock the...', 'Master the...', 'Achieve your...'],
+      pain_point_language: research.customerResearch?.segments?.b2c?.[0]?.painPoints || ['Struggling with results', 'Need better solutions', 'Facing challenges', 'Looking for expertise', 'Seeking quality'],
+      solution_language: research.customerResearch?.segments?.b2c?.[0]?.goals || ['Achieve your goals', 'Get better results', 'Find the right solution', 'Work with experts', 'Experience quality'],
+      proof_point_frameworks: research.marketingIntelligence?.messagingStrategies?.proofPoints || ['Years of experience', 'Satisfied clients', 'Proven results'],
 
-      seasonality: research.marketingIntelligence.seasonality,
+      // MARKET INTELLIGENCE
+      seasonal_patterns: research.marketingIntelligence?.seasonality?.keyDates || [{period: 'Year-round', description: 'Consistent demand'}],
+      geographic_variations: research.marketingIntelligence?.demographicInsights || ['Urban markets', 'Suburban areas'],
+      demographic_insights: research.customerResearch?.segments?.b2c?.map((s: any) => ({segment: s.name, characteristics: s.demographics})) || [{segment: 'Primary', characteristics: 'Broad market'}],
+      psychographic_profiles: research.customerResearch?.segments?.b2c?.map((s: any) => ({profile: s.name, traits: s.psychographics})) || [{profile: 'Primary', traits: 'Value-focused'}],
+      market_trends: research.competitiveResearch?.marketStructure ? [research.competitiveResearch.marketStructure.description] : ['Growing demand', 'Increased competition', 'Quality focus'],
+      innovation_opportunities: research.successPatterns?.growthTrajectories?.accelerators || ['Technology adoption', 'Service expansion'],
 
-      compliance: research.marketingIntelligence.compliance,
+      // OPERATIONAL CONTEXT
+      typical_business_models: research.businessModelResearch?.revenueModels?.map((s: any) => s.model) || ['Service-based', 'Project-based'],
+      common_challenges: research.successPatterns?.failurePatterns?.map((s: any) => s.pattern) || ['Competition', 'Client acquisition', 'Quality consistency'],
+      growth_strategies: research.successPatterns?.growthTrajectories?.accelerators || ['Market expansion', 'Service diversification', 'Quality enhancement'],
+      technology_stack_recommendations: ['CRM system', 'Project management tool', 'Communication platform'],
+      industry_associations_resources: ['Industry association', 'Professional network'],
 
-      kpis: {
-        primary: this.extractKPIs(research.successPatterns),
-        benchmarks: this.extractBenchmarks(research.businessModelResearch),
-      },
-
-      questions: this.generateIndustryQuestions(displayName),
-
-      calibration: research.calibration,
+      // METADATA
+      generated_on_demand: true,
+      generated_at: new Date().toISOString(),
+      profile_version: '1.0'
     };
 
     return profile;
@@ -907,32 +937,29 @@ RESPOND WITH ONLY VALID JSON:
     let score = 0;
     let maxScore = 0;
 
-    // Customer segments (20 points)
+    // Power words (20 points)
     maxScore += 20;
-    const customerCount = (profile.typicalCustomers.b2c?.length || 0) + (profile.typicalCustomers.b2b?.length || 0);
-    score += Math.min(customerCount * 10, 20);
+    score += Math.min(profile.power_words.length * 2, 20);
 
-    // Content topics (20 points)
+    // Headline templates (20 points)
     maxScore += 20;
-    score += Math.min(profile.contentThatWorks.topics.length * 5, 20);
+    score += Math.min(profile.headline_templates.length * 2, 20);
 
-    // Marketing channels (15 points)
+    // Social hooks (15 points)
     maxScore += 15;
-    score += Math.min(profile.marketingChannels.primary.length * 5, 15);
+    score += Math.min(profile.social_media_hooks.length, 15);
 
-    // Calibration (25 points)
+    // Value propositions (25 points)
     maxScore += 25;
-    if (profile.calibration) {
-      score += 25;
-    }
+    score += Math.min(profile.value_propositions.length * 5, 25);
 
-    // KPIs (10 points)
+    // Success metrics (10 points)
     maxScore += 10;
-    score += Math.min(profile.kpis.primary.length * 2, 10);
+    score += Math.min(profile.success_metrics.length * 2, 10);
 
-    // Benchmarks (10 points)
+    // Customer triggers (10 points)
     maxScore += 10;
-    score += Math.min(profile.kpis.benchmarks.length * 5, 10);
+    score += Math.min(profile.customer_triggers.length * 2, 10);
 
     return Math.min(score / maxScore, 1);
   }
@@ -989,26 +1016,14 @@ RESPOND WITH ONLY VALID JSON:
     }
   ): Promise<void> {
     try {
-      // Separate profile_data from research_insights
-      const profileData = {
-        typicalCustomers: profile.typicalCustomers,
-        contentThatWorks: profile.contentThatWorks,
-        marketingChannels: profile.marketingChannels,
-        seasonality: profile.seasonality,
-        compliance: profile.compliance,
-        kpis: profile.kpis,
-        questions: profile.questions,
-        calibration: profile.calibration,
-      };
-
       await supabase.from('industry_profiles').upsert({
         industry_code: industryCode,
-        display_name: profile.displayName,
-        common_names: profile.commonNames,
+        display_name: profile.industry_name,
+        common_names: [profile.industry, profile.industry_name],
         research_version: 1,
         research_quality_score: metadata.researchQuality,
         research_completed_at: new Date().toISOString(),
-        profile_data: profileData,
+        profile_data: profile,
         research_insights: {}, // Will be populated with raw research data if needed
         total_uses: 0,
         successful_outcomes: 0,
@@ -1100,7 +1115,7 @@ RESPOND WITH ONLY VALID JSON:
 
     // Also save to database if available (fire and forget)
     if (!jobId.startsWith('local-')) {
-      supabase
+      void supabase
         .from('research_jobs')
         .update({
           status: 'analyzing',
@@ -1108,9 +1123,7 @@ RESPOND WITH ONLY VALID JSON:
           progress_percent: progressPercent,
           phases_completed: phasesCompleted,
         })
-        .eq('id', jobId)
-        .then(() => {})
-        .catch(() => {}); // Ignore database errors
+        .eq('id', jobId);
     }
   }
 
@@ -1133,7 +1146,7 @@ RESPOND WITH ONLY VALID JSON:
 
     // Also save to database if available (fire and forget)
     if (!jobId.startsWith('local-')) {
-      supabase
+      void supabase
         .from('research_jobs')
         .update({
           status,
@@ -1141,13 +1154,7 @@ RESPOND WITH ONLY VALID JSON:
           completed_at: new Date().toISOString(),
           error_message: errorMessage,
         })
-        .eq('id', jobId)
-        .then(() => {
-          // Success - database updated
-        })
-        .catch(() => {
-          // Ignore database errors
-        });
+        .eq('id', jobId);
     }
   }
 

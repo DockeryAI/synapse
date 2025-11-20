@@ -8,14 +8,17 @@
  */
 
 import type {
-  BreakthroughContent,
+  SynapseContent,
   PsychologyExplanation,
   PsychologicalPrinciple,
   PersuasionTechnique,
   TimingRecommendation,
   BusinessProfile
-} from '@/types/breakthroughContent.types';
+} from '@/types/synapse/synapseContent.types';
 import type { BreakthroughInsight } from '@/types/breakthrough.types';
+
+// Type alias for backwards compatibility
+type BreakthroughContent = SynapseContent;
 
 export class ContentPsychologyEngine {
   /**
