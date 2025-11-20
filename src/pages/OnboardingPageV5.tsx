@@ -58,10 +58,10 @@ import { mapCampaignIdToType, mapPostIdToType, PostType } from '@/types/campaign
 
 // UVP Flow imports - Using SIMPLE versions with progressive loading
 import { ProductServiceDiscoveryPage } from '@/components/uvp-flow/ProductServiceDiscoveryPage';
-import { TargetCustomerPage } from '@/components/uvp-flow/TargetCustomerPage';
-import { TransformationGoalPage } from '@/components/uvp-flow/TransformationGoalPage';
-import { UniqueSolutionPage } from '@/components/uvp-flow/UniqueSolutionPage';
-import { KeyBenefitPage } from '@/components/uvp-flow/KeyBenefitPage';
+import { TargetCustomerPage } from '@/components/uvp-flow/TargetCustomerPage-SIMPLE';
+import { TransformationGoalPage } from '@/components/uvp-flow/TransformationGoalPage-SIMPLE';
+import { UniqueSolutionPage } from '@/components/uvp-flow/UniqueSolutionPage-SIMPLE';
+import { KeyBenefitPage } from '@/components/uvp-flow/KeyBenefitPage-SIMPLE';
 import { UVPSynthesisPage } from '@/components/uvp-flow/UVPSynthesisPage';
 import { UVPMilestoneProgress, type UVPStep } from '@/components/uvp-flow/UVPMilestoneProgress';
 import { InitialLoadingScreen } from '@/components/onboarding-v5/InitialLoadingScreen';
