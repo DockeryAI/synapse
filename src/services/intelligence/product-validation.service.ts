@@ -491,6 +491,120 @@ export class ProductValidationService {
   }
 
   /**
+   * Deduplicate services by removing redundant/overlapping entries
+   * Prefers more specific service names over generic ones
+   */
+  private deduplicateServices(products: ProductService[]): ProductService[] {
+    if (products.length <= 1) return products;
+
+    const deduplicated: ProductService[] = [];
+    const processedNames = new Set<string>();
+
+    // Sort by specificity (longer names first) and confidence
+    const sorted = [...products].sort((a, b) => {
+      // First sort by name length (more specific first)
+      const lengthDiff = b.name.length - a.name.length;
+      if (lengthDiff !== 0) return lengthDiff;
+
+      // Then by confidence
+      return (b.confidence || 0) - (a.confidence || 0);
+    });
+
+    for (const product of sorted) {
+      const normalizedName = product.name.toLowerCase().trim();
+
+      // Skip if we've already processed this exact name (case-insensitive)
+      if (processedNames.has(normalizedName)) {
+        console.log(`[ProductValidation] Skipping duplicate: "${product.name}"`);
+        continue;
+      }
+
+      // Check if this is a subset of an already added service
+      let isRedundant = false;
+      for (const existing of deduplicated) {
+        const existingNormalized = existing.name.toLowerCase();
+
+        // Check if current name is contained in existing (e.g., "Services" in "Tax Resolution Services")
+        if (existingNormalized.includes(normalizedName)) {
+          console.log(`[ProductValidation] Skipping "${product.name}" - subset of "${existing.name}"`);
+          isRedundant = true;
+          break;
+        }
+
+        // Check if it's just a case variation (e.g., "services" vs "Services")
+        if (existingNormalized === normalizedName) {
+          console.log(`[ProductValidation] Skipping case variation: "${product.name}"`);
+          isRedundant = true;
+          break;
+        }
+
+        // Check for common redundant patterns
+        const redundantPatterns = [
+          { generic: 'services', specific: /\w+\s+services?$/i },
+          { generic: 'products', specific: /\w+\s+products?$/i },
+          { generic: 'solutions', specific: /\w+\s+solutions?$/i },
+          { generic: 'consulting', specific: /\w+\s+consulting$/i },
+          { generic: 'management', specific: /\w+\s+management$/i },
+        ];
+
+        for (const pattern of redundantPatterns) {
+          // If current is generic and existing matches specific pattern
+          if (normalizedName === pattern.generic && pattern.specific.test(existingNormalized)) {
+            console.log(`[ProductValidation] Skipping generic "${product.name}" - have specific "${existing.name}"`);
+            isRedundant = true;
+            break;
+          }
+        }
+
+        if (isRedundant) break;
+      }
+
+      if (!isRedundant) {
+        // Also check if any existing service is a subset of this one
+        const toRemove: number[] = [];
+        for (let i = 0; i < deduplicated.length; i++) {
+          const existingNormalized = deduplicated[i].name.toLowerCase();
+
+          // If existing is contained in current (current is more specific)
+          if (normalizedName.includes(existingNormalized)) {
+            console.log(`[ProductValidation] Replacing generic "${deduplicated[i].name}" with specific "${product.name}"`);
+            toRemove.push(i);
+          }
+        }
+
+        // Remove less specific versions
+        for (let i = toRemove.length - 1; i >= 0; i--) {
+          deduplicated.splice(toRemove[i], 1);
+        }
+
+        deduplicated.push(product);
+        processedNames.add(normalizedName);
+      }
+    }
+
+    // Additional cleanup: Remove generic terms if we have specific services
+    const hasSpecificServices = deduplicated.some(p =>
+      p.name.toLowerCase() !== 'services' &&
+      p.name.toLowerCase().includes('service')
+    );
+
+    if (hasSpecificServices) {
+      return deduplicated.filter(p => {
+        const isGenericService = p.name.toLowerCase() === 'services' ||
+                                  p.name.toLowerCase() === 'service';
+        if (isGenericService) {
+          console.log(`[ProductValidation] Removing generic: "${p.name}"`);
+          return false;
+        }
+        return true;
+      });
+    }
+
+    console.log(`[ProductValidation] Deduplicated from ${products.length} to ${deduplicated.length} services`);
+    return deduplicated;
+  }
+
+  /**
    * Validate and filter an array of products
    */
   validateProducts(products: ProductService[], businessName?: string): ProductService[] {
@@ -503,7 +617,10 @@ export class ProductValidationService {
       console.log(`[ProductValidation] Filtered out ${rejected} invalid products`);
     }
 
-    return validated;
+    // Deduplicate the validated products
+    const deduplicated = this.deduplicateServices(validated);
+
+    return deduplicated;
   }
 
   /**

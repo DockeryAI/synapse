@@ -2651,6 +2651,10 @@ export const OnboardingPageV5: React.FC = () => {
                   console.log('[UVP Flow] Successfully saved to localStorage, session:', result.sessionId);
                   alert('Your UVP has been saved. It will be synced to your account when you sign up.');
                   setCurrentStep('uvp_synthesis');
+
+                  // Navigate to dashboard after successful save
+                  console.log('[UVP Flow] Navigating to dashboard after localStorage save');
+                  navigate('/dashboard');
                 } else {
                   console.error('[UVP Flow] Failed to save:', result.error);
                   alert(`Failed to save UVP: ${result.error}`);

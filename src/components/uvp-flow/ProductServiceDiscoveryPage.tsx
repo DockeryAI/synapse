@@ -27,6 +27,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { ConfidenceMeter } from '@/components/onboarding-v5/ConfidenceMeter';
 import { SourceCitation } from '@/components/onboarding-v5/SourceCitation';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
+import { ManualServiceInput } from './ManualServiceInput';
 import type { ProductServiceData, ProductService } from '@/types/uvp-flow.types';
 
 interface ProductServiceDiscoveryPageProps {
@@ -65,9 +66,6 @@ export function ProductServiceDiscoveryPage({
     return new Set(allItems.map(item => item.id));
   });
   const [showAddForm, setShowAddForm] = useState(false);
-  const [newItemName, setNewItemName] = useState('');
-  const [newItemDescription, setNewItemDescription] = useState('');
-  const [newItemCategory, setNewItemCategory] = useState('');
 
   // Business info editing state
   const [editedBusinessName, setEditedBusinessName] = useState(businessName);
@@ -107,23 +105,28 @@ export function ProductServiceDiscoveryPage({
     }
   };
 
-  const handleAddManual = () => {
-    if (!newItemName.trim()) return;
-
+  const handleAddManual = (service: ProductService) => {
+    // Add the service with high confidence
     onAddManual({
-      name: newItemName,
-      description: newItemDescription,
-      category: newItemCategory || 'Other',
+      ...service,
       source: 'manual',
       confidence: 100,
       confirmed: true
     });
 
-    // Reset form
-    setNewItemName('');
-    setNewItemDescription('');
-    setNewItemCategory('');
-    setShowAddForm(false);
+    // Auto-confirm the added service
+    if (service.id) {
+      setConfirmedIds(prev => new Set([...prev, service.id!]));
+    }
+
+    // Notify parent of the new confirmed item
+    if (data) {
+      const allItems = [...data.categories.flatMap(cat => cat.items), service];
+      const confirmed = allItems.filter(item =>
+        item.id ? confirmedIds.has(item.id) || item.id === service.id : false
+      );
+      onConfirm(confirmed);
+    }
   };
 
   // Sync local business info state when props change
@@ -328,16 +331,6 @@ export function ProductServiceDiscoveryPage({
 
             <div className="flex items-center gap-3">
               <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowAddForm(true)}
-                className="gap-2 border-purple-600 text-purple-700 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-900/20"
-              >
-                <Plus className="w-4 h-4" />
-                Add Missing
-              </Button>
-
-              <Button
                 onClick={onNext}
                 disabled={!canProceed}
                 className="gap-2 bg-gradient-to-r from-purple-600 to-blue-600"
@@ -385,88 +378,12 @@ export function ProductServiceDiscoveryPage({
         </div>
       )}
 
-      {/* Add Manual Form */}
-      <AnimatePresence>
-        {showAddForm && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 shadow-md"
-          >
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                Add Product/Service
-              </h3>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowAddForm(false)}
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
-
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  value={newItemName}
-                  onChange={(e) => setNewItemName(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
-                  placeholder="e.g., Website Design"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Description (optional)
-                </label>
-                <textarea
-                  value={newItemDescription}
-                  onChange={(e) => setNewItemDescription(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white resize-none"
-                  rows={2}
-                  placeholder="Brief description of this offering"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Category (optional)
-                </label>
-                <input
-                  type="text"
-                  value={newItemCategory}
-                  onChange={(e) => setNewItemCategory(e.target.value)}
-                  className="w-full p-3 border border-gray-300 dark:border-slate-600 rounded-lg bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
-                  placeholder="e.g., Core Services"
-                />
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  onClick={handleAddManual}
-                  disabled={!newItemName.trim()}
-                  className="gap-2"
-                >
-                  <Plus className="w-4 h-4" />
-                  Add Item
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setShowAddForm(false)}
-                >
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* ManualServiceInput Component */}
+      <ManualServiceInput
+        onAdd={handleAddManual}
+        existingServices={data?.categories.flatMap(cat => cat.items) || []}
+        businessName={businessName}
+      />
 
       {/* Categories */}
       <AnimatePresence mode="popLayout">
@@ -581,10 +498,9 @@ export function ProductServiceDiscoveryPage({
             We couldn't extract any offerings from your website.
             Add them manually to continue.
           </p>
-          <Button onClick={() => setShowAddForm(true)} className="gap-2">
-            <Plus className="w-4 h-4" />
-            Add Product/Service
-          </Button>
+          <p className="text-sm text-gray-500 dark:text-gray-500">
+            Use the button below to add your services
+          </p>
         </div>
       )}
 
