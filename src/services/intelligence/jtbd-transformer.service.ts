@@ -231,8 +231,21 @@ PRIORITIZATION:
 
       console.log('[JTBD Transformer] Raw transformation:', transformationText.substring(0, 200) + '...');
 
+      // Clean the response - remove markdown code blocks if present
+      let cleanedText = transformationText;
+      if (transformationText.includes('```json')) {
+        cleanedText = transformationText
+          .replace(/```json\s*/g, '')
+          .replace(/```\s*/g, '')
+          .trim();
+      } else if (transformationText.includes('```')) {
+        cleanedText = transformationText
+          .replace(/```\s*/g, '')
+          .trim();
+      }
+
       // Parse JSON response
-      const transformed = JSON.parse(transformationText);
+      const transformed = JSON.parse(cleanedText);
 
       console.log('[JTBD Transformer] Transformation complete:');
       console.log('  - Primary outcome:', transformed.primary?.outcomeStatement?.substring(0, 80) + '...');

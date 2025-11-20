@@ -60,6 +60,7 @@ export interface CustomerProfile {
 export interface TransformationGoal {
   id: string;
   statement: string; // What are they REALLY trying to achieve?
+  outcomeStatement?: string; // JTBD-transformed outcome-focused version
   emotionalDrivers: string[];
   functionalDrivers: string[];
   eqScore: {
@@ -87,6 +88,7 @@ export interface CustomerQuote {
 export interface UniqueSolution {
   id: string;
   statement: string; // How do you solve it differently?
+  outcomeStatement?: string; // JTBD-transformed outcome-focused version
   differentiators: Differentiator[];
   methodology?: string;
   proprietaryApproach?: string;
@@ -109,6 +111,7 @@ export interface Differentiator {
 export interface KeyBenefit {
   id: string;
   statement: string; // What's the key benefit?
+  outcomeStatement?: string; // JTBD-transformed outcome-focused version
   outcomeType: 'quantifiable' | 'qualitative' | 'mixed';
   metrics?: BenefitMetric[];
   industryComparison?: IndustryBenchmark;

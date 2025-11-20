@@ -52,9 +52,9 @@ export async function extractBenefits(
     // Combine content for analysis (limit size)
     const contentForAnalysis = websiteContent.join('\n\n').substring(0, 10000);
 
-    // Build context from transformations and solutions
-    const transformationContext = transformations.map(t => t.statement || t.fromState + ' → ' + t.toState).join('\n');
-    const solutionContext = solutions.map(s => s.statement || s.methodology).join('\n');
+    // Build context from transformations and solutions (prefer JTBD outcome statements)
+    const transformationContext = transformations.map(t => t.outcomeStatement || t.statement || t.fromState + ' → ' + t.toState).join('\n');
+    const solutionContext = solutions.map(s => s.outcomeStatement || s.statement || s.methodology).join('\n');
 
     // Build customer context
     const customerContext = customers && customers.length > 0

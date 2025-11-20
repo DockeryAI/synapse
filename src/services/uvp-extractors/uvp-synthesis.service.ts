@@ -35,6 +35,11 @@ export async function synthesizeCompleteUVP(input: UVPSynthesisInput): Promise<C
     const customerStatements = customers.map(c => c.statement).join(' AND ');
     const primaryCustomer = customers[0]; // For backward compatibility
 
+    // Prefer JTBD outcome statements when available
+    const transformationText = input.transformation.outcomeStatement || input.transformation.statement;
+    const solutionText = input.solution.outcomeStatement || input.solution.statement;
+    const benefitText = input.benefit.outcomeStatement || input.benefit.statement;
+
     // Build synthesis prompt
     const prompt = `You are a value proposition expert. Create ONE powerful 10-15 word UVP using core values that resonate with ALL customer segments.
 
@@ -46,9 +51,9 @@ IMPORTANT: ALWAYS USE FORMULA 4 (CORE VALUES) - This creates inclusive messaging
 **EXTRACTED DATA:**
 
 CUSTOMER${customers.length > 1 ? 'S' : ''}: ${customerStatements}
-TRANSFORMATION: ${input.transformation.statement}
-APPROACH: ${input.solution.statement}
-BENEFIT: ${input.benefit.statement}
+TRANSFORMATION: ${transformationText}
+APPROACH: ${solutionText}
+BENEFIT: ${benefitText}
 
 **CORE PRINCIPLES:**
 
