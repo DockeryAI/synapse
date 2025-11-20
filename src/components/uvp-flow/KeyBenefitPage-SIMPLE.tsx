@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Target, CheckCircle2, AlertCircle, TrendingUp, Heart, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { KeyBenefit } from '@/types/uvp-flow.types';
 
 interface KeyBenefitPageProps {
@@ -27,6 +28,8 @@ interface KeyBenefitPageProps {
   showProgress?: boolean;
   progressPercentage?: number;
   className?: string;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function KeyBenefitPage({
@@ -43,7 +46,9 @@ export function KeyBenefitPage({
   onBack,
   showProgress = true,
   progressPercentage = 80,
-  className = ''
+  className = '',
+  completedSteps = [],
+  onStepClick
 }: KeyBenefitPageProps) {
   const [benefits, setBenefits] = useState<KeyBenefit[]>([]);
   const [selectedBenefits, setSelectedBenefits] = useState<KeyBenefit[]>([]);
@@ -142,6 +147,13 @@ export function KeyBenefitPage({
   return (
     <div className={`min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 ${className}`}>
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="benefit"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

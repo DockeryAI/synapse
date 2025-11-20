@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Zap, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { TransformationGoal } from '@/types/uvp-flow.types';
 
 /**
@@ -51,6 +52,8 @@ interface TransformationGoalPageProps {
   showProgress?: boolean;
   progressPercentage?: number;
   className?: string;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function TransformationGoalPage({
@@ -67,7 +70,9 @@ export function TransformationGoalPage({
   onBack,
   showProgress = true,
   progressPercentage = 40,
-  className = ''
+  className = '',
+  completedSteps = [],
+  onStepClick
 }: TransformationGoalPageProps) {
   const [goals, setGoals] = useState<TransformationGoal[]>([]);
   const [selectedGoals, setSelectedGoals] = useState<TransformationGoal[]>([]);
@@ -156,6 +161,13 @@ export function TransformationGoalPage({
   return (
     <div className={`min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 ${className}`}>
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="transformation"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

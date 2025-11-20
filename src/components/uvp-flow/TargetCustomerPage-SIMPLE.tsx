@@ -10,6 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Users, Sparkles, CheckCircle2, AlertCircle, Plus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { CustomerProfile } from '@/types/uvp-flow.types';
 import { extractTargetCustomer } from '@/services/uvp-extractors/customer-extractor.service';
 
@@ -28,6 +29,8 @@ interface TargetCustomerPageProps {
   showProgress?: boolean;
   progressPercentage?: number;
   className?: string;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function TargetCustomerPage({
@@ -44,7 +47,9 @@ export function TargetCustomerPage({
   onBack,
   showProgress = true,
   progressPercentage = 20,
-  className = ''
+  className = '',
+  completedSteps = [],
+  onStepClick
 }: TargetCustomerPageProps) {
   const [profiles, setProfiles] = useState<CustomerProfile[]>([]);
   const [selectedProfiles, setSelectedProfiles] = useState<CustomerProfile[]>([]);
@@ -185,6 +190,13 @@ export function TargetCustomerPage({
   return (
     <div className={`min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 ${className}`}>
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="customer"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

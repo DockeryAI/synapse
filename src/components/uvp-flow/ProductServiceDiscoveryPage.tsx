@@ -26,6 +26,7 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { ConfidenceMeter } from '@/components/onboarding-v5/ConfidenceMeter';
 import { SourceCitation } from '@/components/onboarding-v5/SourceCitation';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { ProductServiceData, ProductService } from '@/types/uvp-flow.types';
 
 interface ProductServiceDiscoveryPageProps {
@@ -37,6 +38,8 @@ interface ProductServiceDiscoveryPageProps {
   onAddManual: (item: Partial<ProductService>) => void;
   onNext: () => void;
   onBusinessInfoUpdate?: (businessName: string, location: string) => void;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function ProductServiceDiscoveryPage({
@@ -47,7 +50,9 @@ export function ProductServiceDiscoveryPage({
   onConfirm,
   onAddManual,
   onNext,
-  onBusinessInfoUpdate
+  onBusinessInfoUpdate,
+  completedSteps = [],
+  onStepClick
 }: ProductServiceDiscoveryPageProps) {
   // Track if we've done initial notification to prevent infinite loops
   const hasNotifiedParent = useRef(false);
@@ -152,6 +157,13 @@ export function ProductServiceDiscoveryPage({
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="products"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

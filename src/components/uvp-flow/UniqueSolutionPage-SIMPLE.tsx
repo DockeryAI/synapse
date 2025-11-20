@@ -11,6 +11,7 @@ import { ArrowLeft, ArrowRight, Lightbulb, CheckCircle2, AlertCircle, Plus, X } 
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Textarea } from '@/components/ui/textarea';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { UniqueSolution } from '@/types/uvp-flow.types';
 
 interface UniqueSolutionPageProps {
@@ -29,6 +30,8 @@ interface UniqueSolutionPageProps {
   showProgress?: boolean;
   progressPercentage?: number;
   className?: string;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function UniqueSolutionPage({
@@ -46,7 +49,9 @@ export function UniqueSolutionPage({
   onBack,
   showProgress = true,
   progressPercentage = 60,
-  className = ''
+  className = '',
+  completedSteps = [],
+  onStepClick
 }: UniqueSolutionPageProps) {
   const [solutions, setSolutions] = useState<UniqueSolution[]>([]);
   const [selectedSolutions, setSelectedSolutions] = useState<UniqueSolution[]>([]);
@@ -171,6 +176,13 @@ export function UniqueSolutionPage({
   return (
     <div className={`min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 ${className}`}>
       <div className="max-w-5xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="solution"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

@@ -32,6 +32,7 @@ import { Button } from '@/components/ui/button';
 import { ConfidenceMeter } from '@/components/onboarding-v5/ConfidenceMeter';
 import { SourceCitation } from '@/components/onboarding-v5/SourceCitation';
 import { InfoTooltip } from '@/components/onboarding-v5/InfoTooltip';
+import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 interface UVPSynthesisPageProps {
@@ -40,6 +41,8 @@ interface UVPSynthesisPageProps {
   onSave: () => void;
   onDownload: () => void;
   onShare: () => void;
+  completedSteps?: UVPStep[];
+  onStepClick?: (step: UVPStep) => void;
 }
 
 export function UVPSynthesisPage({
@@ -47,7 +50,9 @@ export function UVPSynthesisPage({
   onEdit,
   onSave,
   onDownload,
-  onShare
+  onShare,
+  completedSteps = [],
+  onStepClick
 }: UVPSynthesisPageProps) {
   const [showConfetti, setShowConfetti] = useState(true);
   const [copiedVP, setCopiedVP] = useState(false);
@@ -193,6 +198,13 @@ export function UVPSynthesisPage({
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900">
       <div className="max-w-6xl mx-auto px-4 py-8 space-y-8">
+        {/* Milestone Progress */}
+        <UVPMilestoneProgress
+          currentStep="synthesis"
+          completedSteps={completedSteps}
+          onStepClick={onStepClick}
+        />
+
         {/* Confetti Celebration */}
         {showConfetti && (
           <Confetti

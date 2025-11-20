@@ -14,10 +14,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight } from 'lucide-react';
+import { Globe, Search, Users, TrendingUp, CheckCircle, Loader2, ArrowRight, History } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { IndustrySelector, type IndustryOption } from './IndustrySelector';
+import { Link } from 'react-router-dom';
 import type { DetectedBusinessData } from '@/pages/OnboardingPageV5';
 
 interface OnboardingFlowProps {
@@ -252,6 +253,21 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                       </>
                     )}
                   </Button>
+
+                  {/* Resume Sessions Link */}
+                  <div className="mt-4 text-center">
+                    <Link to="/sessions">
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="sm"
+                        className="gap-2 text-gray-600 dark:text-gray-400 hover:text-purple-600 dark:hover:text-purple-400"
+                      >
+                        <History className="w-4 h-4" />
+                        Resume Previous Sessions
+                      </Button>
+                    </Link>
+                  </div>
                 </form>
 
                 {/* Trust Indicators */}

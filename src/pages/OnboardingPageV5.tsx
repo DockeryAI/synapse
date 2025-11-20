@@ -37,6 +37,9 @@ import { dataCollectionService, type OnboardingDataPackage } from '@/services/on
 import { onboardingV5DataService } from '@/services/supabase/onboarding-v5-data.service';
 import { saveCompleteUVP } from '@/services/database/marba-uvp.service';
 import { synthesizeCompleteUVP } from '@/services/uvp-extractors/uvp-synthesis.service';
+import { sessionManager } from '@/services/uvp/session-manager.service';
+import { useSessionAutoSave } from '@/hooks/useSessionAutoSave';
+import type { UVPStepKey } from '@/types/session.types';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -60,6 +63,7 @@ import { UniqueSolutionPage } from '@/components/uvp-flow/UniqueSolutionPage-SIM
 import { KeyBenefitPage } from '@/components/uvp-flow/KeyBenefitPage-SIMPLE';
 import { UVPSynthesisPage } from '@/components/uvp-flow/UVPSynthesisPage';
 import { UVPMilestoneProgress, type UVPStep } from '@/components/uvp-flow/UVPMilestoneProgress';
+import { InitialLoadingScreen } from '@/components/onboarding-v5/InitialLoadingScreen';
 
 // UVP Extraction services
 import { extractProductsServices } from '@/services/uvp-extractors/product-service-extractor.service';
@@ -122,6 +126,73 @@ export const OnboardingPageV5: React.FC = () => {
   const navigate = useNavigate();
   const { currentBrand, setCurrentBrand } = useBrand();
   const [currentStep, setCurrentStep] = useState<FlowStep>('url_input');
+
+  // Check for session ID in URL params for restoration
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const sessionId = searchParams.get('sessionId');
+
+    if (sessionId && currentBrand?.id) {
+      restoreSession(sessionId);
+    }
+  }, [currentBrand?.id]);
+
+  // Restore session from ID
+  const restoreSession = async (sessionId: string) => {
+    console.log('[OnboardingPageV5] Restoring session:', sessionId);
+
+    try {
+      const result = await sessionManager.getSession(sessionId);
+
+      if (result.success && result.session) {
+        const session = result.session;
+
+        // Set session ID
+        setCurrentSessionId(session.id);
+
+        // Restore business data
+        if (session.business_info) {
+          setExtractedBusinessName(session.business_info.name);
+          setExtractedLocation(session.business_info.location || '');
+        }
+
+        // Restore scraped content
+        if (session.scraped_content) {
+          setScrapedWebsiteContent(session.scraped_content.content || []);
+          setScrapedWebsiteUrls(session.scraped_content.urls || []);
+        }
+
+        // Restore UVP data
+        if (session.products_data) setProductServiceData(session.products_data as any);
+        if (session.customer_data?.selected) setSelectedCustomerProfile(session.customer_data.selected as any);
+        if (session.transformation_data?.selected) setSelectedTransformation(session.transformation_data.selected as any);
+        if (session.solution_data?.selected) setSelectedSolution(session.solution_data.selected as any);
+        if (session.benefit_data?.selected) setSelectedBenefit(session.benefit_data.selected as any);
+        if (session.complete_uvp) setCompleteUVP(session.complete_uvp as any);
+
+        // Restore completed steps
+        setCompletedUVPSteps(session.completed_steps as any);
+
+        // Navigate to current step
+        const stepMap: Record<UVPStepKey, FlowStep> = {
+          'products': 'uvp_products',
+          'customer': 'uvp_customer',
+          'transformation': 'uvp_transformation',
+          'solution': 'uvp_solution',
+          'benefit': 'uvp_benefit',
+          'synthesis': 'uvp_synthesis',
+        };
+        setCurrentStep(stepMap[session.current_step] || 'uvp_products');
+        setWebsiteUrl(session.website_url);
+
+        console.log('[OnboardingPageV5] Session restored successfully');
+      } else {
+        console.error('[OnboardingPageV5] Failed to restore session:', result.error);
+      }
+    } catch (error) {
+      console.error('[OnboardingPageV5] Error restoring session:', error);
+    }
+  };
   const [websiteUrl, setWebsiteUrl] = useState<string>('');
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
   const [websiteAnalysis, setWebsiteAnalysis] = useState<WebsiteMessagingAnalysis | null>(null);
@@ -157,6 +228,9 @@ export const OnboardingPageV5: React.FC = () => {
   // Track completed UVP steps for navigation
   const [completedUVPSteps, setCompletedUVPSteps] = useState<('products' | 'customer' | 'transformation' | 'solution' | 'benefit' | 'synthesis')[]>([]);
 
+  // Session management state
+  const [currentSessionId, setCurrentSessionId] = useState<string | null>(null);
+
   // Scraped website content for extraction services
   const [scrapedWebsiteContent, setScrapedWebsiteContent] = useState<string[]>([]);
   const [scrapedWebsiteUrls, setScrapedWebsiteUrls] = useState<string[]>([]);
@@ -170,6 +244,50 @@ export const OnboardingPageV5: React.FC = () => {
   // Business info state (editable)
   const [extractedBusinessName, setExtractedBusinessName] = useState<string>('');
   const [extractedLocation, setExtractedLocation] = useState<string>('');
+
+  // Get current UVP step key based on flow step
+  const getCurrentUVPStepKey = (): UVPStepKey | null => {
+    const stepMap: Record<string, UVPStepKey> = {
+      'uvp_products': 'products',
+      'uvp_customer': 'customer',
+      'uvp_transformation': 'transformation',
+      'uvp_solution': 'solution',
+      'uvp_benefit': 'benefit',
+      'uvp_synthesis': 'synthesis',
+    };
+    return stepMap[currentStep] || null;
+  };
+
+  // Initialize auto-save hook
+  const { saveSession, saveImmediately } = useSessionAutoSave({
+    sessionId: currentSessionId,
+    currentStep: getCurrentUVPStepKey() || 'products',
+    onSaveSuccess: () => console.log('[OnboardingPageV5] Session auto-saved'),
+    onSaveError: (error) => console.error('[OnboardingPageV5] Session save error:', error),
+  });
+
+  // Handle milestone click navigation
+  const handleMilestoneClick = (step: UVPStep) => {
+    console.log('[OnboardingPageV5] Navigating to step:', step);
+
+    // Only allow navigation to completed steps
+    if (!completedUVPSteps.includes(step as any)) {
+      console.warn('[OnboardingPageV5] Cannot navigate to incomplete step:', step);
+      return;
+    }
+
+    // Map UVP step to flow step
+    const stepMap: Record<UVPStep, FlowStep> = {
+      'products': 'uvp_products',
+      'customer': 'uvp_customer',
+      'transformation': 'uvp_transformation',
+      'solution': 'uvp_solution',
+      'benefit': 'uvp_benefit',
+      'synthesis': 'uvp_synthesis',
+    };
+
+    setCurrentStep(stepMap[step]);
+  };
 
   const addProgressStep = (step: string, status: 'pending' | 'in_progress' | 'complete' | 'error', details?: string) => {
     setProgressSteps(prev => {
@@ -576,6 +694,46 @@ export const OnboardingPageV5: React.FC = () => {
       });
 
       setIsExtracting(false);
+
+      // Create or find session for this URL
+      if (currentBrand?.id && !currentSessionId) {
+        const normalizedUrl = url.startsWith('http') ? url : `https://${url}`;
+        console.log('[OnboardingPageV5] Creating/finding session for URL:', normalizedUrl);
+        try {
+          const sessionResult = await sessionManager.findOrCreateSession(
+            currentBrand.id,
+            normalizedUrl,
+            extractedBusinessName || 'Business'
+          );
+
+          if (sessionResult.success && sessionResult.session) {
+            setCurrentSessionId(sessionResult.session.id);
+            console.log('[OnboardingPageV5] Session created/found:', sessionResult.session.id, 'IsNew:', sessionResult.isNew);
+
+            // Save initial scraped content
+            if (sessionResult.isNew) {
+              await sessionManager.updateSession({
+                session_id: sessionResult.session.id,
+                scraped_content: {
+                  content: websiteContent,
+                  urls: websiteUrls,
+                },
+                business_info: {
+                  name: extractedBusinessName || 'Business',
+                  location: extractedLocation || '',
+                },
+                industry_info: {
+                  industry: industry.displayName,
+                  specialization: '',
+                  naics_code: industry.naicsCode,
+                },
+              });
+            }
+          }
+        } catch (error) {
+          console.error('[OnboardingPageV5] Failed to create/find session:', error);
+        }
+      }
 
       // Transition to UVP Flow (6 steps)
       console.log('[OnboardingPageV5] Transitioning to uvp_products step', {
@@ -1022,6 +1180,27 @@ export const OnboardingPageV5: React.FC = () => {
 
   const handleProductsNext = () => {
     console.log('[UVP Flow] Moving to customer step');
+
+    // Mark products step as completed
+    const newCompletedSteps = [...completedUVPSteps, 'products'] as UVPStepKey[];
+    setCompletedUVPSteps(newCompletedSteps);
+
+    // Auto-save session
+    if (currentSessionId) {
+      saveSession({
+        session_id: currentSessionId,
+        current_step: 'customer',
+        products_data: productServiceData ? {
+          categories: productServiceData.categories,
+          selectedProducts: productServiceData.categories.flatMap(cat =>
+            cat.items.filter(item => item.confirmed)
+          ),
+        } : undefined,
+        completed_steps: newCompletedSteps,
+        progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
     setCurrentStep('uvp_customer');
   };
 
@@ -1061,6 +1240,25 @@ export const OnboardingPageV5: React.FC = () => {
 
   const handleCustomerNext = () => {
     console.log('[UVP Flow] Moving to transformation step');
+
+    // Mark customer step as completed
+    const newCompletedSteps = [...completedUVPSteps, 'customer'] as UVPStepKey[];
+    setCompletedUVPSteps(newCompletedSteps);
+
+    // Auto-save session
+    if (currentSessionId && selectedCustomerProfile) {
+      saveSession({
+        session_id: currentSessionId,
+        current_step: 'transformation',
+        customer_data: {
+          selected: selectedCustomerProfile,
+          suggestions: customerSuggestions,
+        },
+        completed_steps: newCompletedSteps,
+        progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
     setCurrentStep('uvp_transformation');
   };
 
@@ -1097,6 +1295,25 @@ export const OnboardingPageV5: React.FC = () => {
 
   const handleTransformationNext = () => {
     console.log('[UVP Flow] Moving to solution step');
+
+    // Mark transformation step as completed
+    const newCompletedSteps = [...completedUVPSteps, 'transformation'] as UVPStepKey[];
+    setCompletedUVPSteps(newCompletedSteps);
+
+    // Auto-save session
+    if (currentSessionId && selectedTransformation) {
+      saveSession({
+        session_id: currentSessionId,
+        current_step: 'solution',
+        transformation_data: {
+          selected: selectedTransformation,
+          suggestions: transformationSuggestions,
+        },
+        completed_steps: newCompletedSteps,
+        progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
     setCurrentStep('uvp_solution');
   };
 
@@ -1128,6 +1345,25 @@ export const OnboardingPageV5: React.FC = () => {
 
   const handleSolutionNext = () => {
     console.log('[UVP Flow] Moving to benefit step');
+
+    // Mark solution step as completed
+    const newCompletedSteps = [...completedUVPSteps, 'solution'] as UVPStepKey[];
+    setCompletedUVPSteps(newCompletedSteps);
+
+    // Auto-save session
+    if (currentSessionId && selectedSolution) {
+      saveSession({
+        session_id: currentSessionId,
+        current_step: 'benefit',
+        solution_data: {
+          selected: selectedSolution,
+          suggestions: solutionSuggestions,
+        },
+        completed_steps: newCompletedSteps,
+        progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
     setCurrentStep('uvp_benefit');
   };
 
@@ -1161,6 +1397,24 @@ export const OnboardingPageV5: React.FC = () => {
   const handleBenefitNext = async () => {
     console.log('[UVP Flow] Moving to synthesis step, generating UVP statements...');
 
+    // Mark benefit step as completed
+    const newCompletedSteps = [...completedUVPSteps, 'benefit'] as UVPStepKey[];
+    setCompletedUVPSteps(newCompletedSteps);
+
+    // Auto-save session
+    if (currentSessionId && selectedBenefit) {
+      saveSession({
+        session_id: currentSessionId,
+        current_step: 'synthesis',
+        benefit_data: {
+          selected: selectedBenefit,
+          suggestions: benefitSuggestions,
+        },
+        completed_steps: newCompletedSteps,
+        progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
     // Show loading screen immediately
     setIsSynthesizingUVP(true);
 
@@ -1178,6 +1432,15 @@ export const OnboardingPageV5: React.FC = () => {
 
         console.log('[UVP Flow] Synthesis complete, UVP:', synthesizedUVP.valuePropositionStatement);
         setCompleteUVP(synthesizedUVP);
+
+        // Save complete UVP to session
+        if (currentSessionId) {
+          await saveImmediately({
+            session_id: currentSessionId,
+            complete_uvp: synthesizedUVP,
+          });
+        }
+
         setIsSynthesizingUVP(false);
         setCurrentStep('uvp_synthesis');
       } catch (error) {
@@ -1214,6 +1477,19 @@ export const OnboardingPageV5: React.FC = () => {
 
       if (result.success) {
         console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
+
+        // Mark synthesis as completed and update session to 100%
+        const finalSteps = [...completedUVPSteps, 'synthesis'] as UVPStepKey[];
+        setCompletedUVPSteps(finalSteps);
+
+        if (currentSessionId) {
+          await saveImmediately({
+            session_id: currentSessionId,
+            completed_steps: finalSteps,
+            progress_percentage: 100,
+          });
+        }
+
         navigate('/dashboard');
       } else {
         throw new Error(result.error || 'Failed to save UVP');
@@ -1618,87 +1894,10 @@ export const OnboardingPageV5: React.FC = () => {
       )}
 
       {(currentStep === 'data_collection' || currentStep === 'uvp_extraction') && (
-        <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-4">
-          <div className="max-w-2xl w-full">
-            <div className="text-center mb-8">
-              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-purple-600 mx-auto mb-6"></div>
-              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                Learning About Your Business...
-              </h2>
-              <p className="text-gray-600 dark:text-gray-400">
-                Analyzing your website to understand what makes you unique
-              </p>
-            </div>
-
-            {/* Progress Steps */}
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 space-y-4">
-              {progressSteps.map((step, index) => (
-                <div
-                  key={step.step}
-                  className={`flex items-start gap-4 pb-4 ${
-                    index < progressSteps.length - 1 ? 'border-b border-gray-200 dark:border-gray-700' : ''
-                  }`}
-                >
-                  {/* Status Icon */}
-                  <div className="flex-shrink-0 mt-1">
-                    {step.status === 'pending' && (
-                      <div className="w-6 h-6 rounded-full border-2 border-gray-300 dark:border-gray-600"></div>
-                    )}
-                    {step.status === 'in_progress' && (
-                      <div className="w-6 h-6 rounded-full border-2 border-purple-600 border-t-transparent animate-spin"></div>
-                    )}
-                    {step.status === 'complete' && (
-                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </div>
-                    )}
-                    {step.status === 'error' && (
-                      <div className="w-6 h-6 rounded-full bg-red-500 flex items-center justify-center">
-                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Step Info */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className={`text-lg font-semibold ${
-                      step.status === 'in_progress'
-                        ? 'text-purple-600 dark:text-purple-400'
-                        : step.status === 'complete'
-                        ? 'text-green-600 dark:text-green-400'
-                        : step.status === 'error'
-                        ? 'text-red-600 dark:text-red-400'
-                        : 'text-gray-500 dark:text-gray-400'
-                    }`}>
-                      {step.step}
-                    </h3>
-                    {step.details && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                        {step.details}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {extractionError && (
-              <div className="mt-6 p-4 bg-red-50 dark:bg-red-900/20 rounded-lg">
-                <p className="text-red-600 dark:text-red-400 mb-3">{extractionError}</p>
-                <button
-                  onClick={() => setCurrentStep('url_input')}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                >
-                  Try Again
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
+        <InitialLoadingScreen
+          websiteUrl={websiteUrl}
+          businessName={extractedBusinessName || businessData?.businessName}
+        />
       )}
 
       {currentStep === 'value_propositions' && collectedData && (
@@ -1859,6 +2058,8 @@ export const OnboardingPageV5: React.FC = () => {
               onAddManual={handleProductsAddManual}
               onNext={handleProductsNext}
               onBusinessInfoUpdate={handleBusinessInfoUpdate}
+              completedSteps={completedUVPSteps as any}
+              onStepClick={handleMilestoneClick}
             />
           )}
         </>
@@ -1900,6 +2101,8 @@ export const OnboardingPageV5: React.FC = () => {
           onBack={() => setCurrentStep('uvp_products')}
           showProgress={true}
           progressPercentage={20}
+          completedSteps={completedUVPSteps as any}
+          onStepClick={handleMilestoneClick}
         />
       )}
 
@@ -1947,6 +2150,8 @@ export const OnboardingPageV5: React.FC = () => {
           onBack={() => setCurrentStep('uvp_customer')}
           showProgress={true}
           progressPercentage={40}
+          completedSteps={completedUVPSteps as any}
+          onStepClick={handleMilestoneClick}
         />
       )}
 
@@ -1994,6 +2199,8 @@ export const OnboardingPageV5: React.FC = () => {
           onBack={() => setCurrentStep('uvp_transformation')}
           showProgress={true}
           progressPercentage={60}
+          completedSteps={completedUVPSteps as any}
+          onStepClick={handleMilestoneClick}
         />
       )}
 
@@ -2033,6 +2240,8 @@ export const OnboardingPageV5: React.FC = () => {
           onBack={() => setCurrentStep('uvp_solution')}
           showProgress={true}
           progressPercentage={80}
+          completedSteps={completedUVPSteps as any}
+          onStepClick={handleMilestoneClick}
         />
       )}
 
@@ -2137,6 +2346,8 @@ export const OnboardingPageV5: React.FC = () => {
             onShare={() => {
               console.log('[UVP Flow] Share clicked');
             }}
+            completedSteps={completedUVPSteps as any}
+            onStepClick={handleMilestoneClick}
           />
         );
       })()}
