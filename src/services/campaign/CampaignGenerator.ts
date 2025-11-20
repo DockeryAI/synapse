@@ -72,7 +72,7 @@ export class CampaignGenerator {
       this.updateProgress(sessionId, 'selecting_insights', 20);
       const insights = await this.extractInsights(input.businessContext);
 
-      // Stage 4: Generate posts
+      // Stage 4: Generate posts (✨ EQ v2.0: With emotional intelligence)
       this.updateProgress(sessionId, 'generating_content', 30);
       const posts = await this.generateCampaignPosts(
         input.campaignType,
@@ -81,7 +81,8 @@ export class CampaignGenerator {
         insights,
         input.options?.postsPerCampaign || template.recommendedCount,
         input.options?.platforms || ['linkedin', 'facebook'],
-        sessionId
+        sessionId,
+        input.brandId
       );
 
       // Stage 5: Generate visuals (if enabled)
@@ -138,8 +139,8 @@ export class CampaignGenerator {
         input.selectedInsights ||
         (await this.extractInsights(input.businessContext));
 
-      // Generate content
-      const businessProfile = this.createBusinessProfile(input.businessContext);
+      // Generate content (✨ EQ v2.0: Enriched with emotional intelligence)
+      const businessProfile = await this.createBusinessProfile(input.businessContext, input.brandId);
       const platform = input.platforms?.[0] || 'linkedin';
 
       const generatedContent = await this.contentGenerator.generate(insights, businessProfile, {
@@ -260,6 +261,7 @@ export class CampaignGenerator {
 
   /**
    * Generate multiple posts for a campaign
+   * ✨ EQ v2.0: Enriches profile with emotional intelligence when brandId provided
    */
   private async generateCampaignPosts(
     campaignType: CampaignType,
@@ -268,10 +270,11 @@ export class CampaignGenerator {
     insights: BreakthroughInsight[],
     count: number,
     platforms: Platform[],
-    sessionId: string
+    sessionId: string,
+    brandId?: string
   ): Promise<GeneratedPost[]> {
     const posts: GeneratedPost[] = [];
-    const businessProfile = this.createBusinessProfile(context);
+    const businessProfile = await this.createBusinessProfile(context, brandId);
 
     // Distribute post types according to template
     const postTypes = this.distributePostTypes(template.postTypes, count);
@@ -429,15 +432,54 @@ export class CampaignGenerator {
 
   /**
    * Create business profile from context
+   * ✨ EQ v2.0: Enriches with emotional intelligence when brandId is provided
    */
-  private createBusinessProfile(context: BusinessContext): BusinessProfile {
-    return {
+  private async createBusinessProfile(
+    context: BusinessContext,
+    brandId?: string
+  ): Promise<BusinessProfile> {
+    const baseProfile: BusinessProfile = {
       name: context.businessData.businessName || 'Business',
       industry: context.businessData.specialization || 'General',
       targetAudience: context.businessData.selectedCustomers?.[0] || 'Business Owners',
       brandVoice: 'professional',
       contentGoals: ['engagement', 'brand-awareness'],
     };
+
+    // ✨ EQ v2.0: Enrich with emotional intelligence if brandId available
+    if (brandId) {
+      try {
+        const { eqCampaignIntegration } = await import('@/services/eq-v2/eq-campaign-integration.service');
+
+        // Prepare website content from context
+        const websiteContent: string[] = [];
+        if (context.websiteAnalysis?.messaging) {
+          websiteContent.push(context.websiteAnalysis.messaging);
+        }
+        if (context.uvpData?.valueProposition) {
+          websiteContent.push(context.uvpData.valueProposition);
+        }
+        context.uvpData?.differentiators?.forEach((diff) => websiteContent.push(diff.text));
+
+        const enrichedProfile = await eqCampaignIntegration.enrichBusinessProfile(
+          baseProfile,
+          brandId,
+          {
+            websiteContent: websiteContent.length > 0 ? websiteContent : undefined,
+            specialty: context.specialization || context.businessData.specialization,
+          }
+        );
+
+        console.log('[CampaignGenerator] Profile enriched with EQ:', enrichedProfile.eqContext?.overall_eq);
+        return enrichedProfile;
+      } catch (error) {
+        console.error('[CampaignGenerator] Failed to enrich profile with EQ:', error);
+        // Fall back to base profile without EQ
+        return baseProfile;
+      }
+    }
+
+    return baseProfile;
   }
 
   /**

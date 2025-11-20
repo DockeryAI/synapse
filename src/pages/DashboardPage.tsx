@@ -33,6 +33,7 @@ import { insightsStorageService, type BusinessInsights } from '@/services/insigh
 import { DashboardSmartPicks } from '@/components/dashboard/DashboardSmartPicks';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
+import { EQDashboardWidget } from '@/components/eq/EQDashboardWidget';
 import type { SmartPick } from '@/types/smart-picks.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 
@@ -375,34 +376,61 @@ export function DashboardPage() {
                 </motion.button>
               </motion.div>
 
-              {/* Smart Recommendations Section */}
+              {/* Smart Recommendations + EQ Widget Grid */}
               {deepContext && (
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl border border-purple-200 dark:border-slate-700"
-                >
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
-                      <Sparkles className="w-6 h-6 text-white" />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                  {/* Smart Recommendations Section - 2 columns on large screens */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl p-6 sm:p-8 shadow-xl border border-purple-200 dark:border-slate-700"
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="p-2 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg">
+                        <Sparkles className="w-6 h-6 text-white" />
+                      </div>
+                      <div>
+                        <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+                          AI Recommendations
+                        </h2>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          Top opportunities based on your intelligence
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h2 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                        AI Recommendations
-                      </h2>
-                      <p className="text-sm text-gray-600 dark:text-gray-400">
-                        Top opportunities based on your intelligence
-                      </p>
-                    </div>
-                  </div>
 
-                  {/* Dashboard Smart Picks Component */}
-                  <DashboardSmartPicks
-                    context={deepContext}
-                    onPickClick={handlePickClick}
-                  />
-                </motion.div>
+                    {/* Dashboard Smart Picks Component */}
+                    <DashboardSmartPicks
+                      context={deepContext}
+                      onPickClick={handlePickClick}
+                    />
+                  </motion.div>
+
+                  {/* EQ Dashboard Widget - 1 column on large screens */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <EQDashboardWidget
+                      brandId={brand!.id}
+                      defaultExpanded={true}
+                      enableRecalculate={true}
+                      websiteContent={
+                        insights?.websiteAnalysis
+                          ? [
+                              insights.websiteAnalysis.brandVoice || '',
+                              ...(insights.websiteAnalysis.contentThemes || []),
+                              ...(insights.servicesProducts?.map(s => s.name || '') || []),
+                            ].filter(Boolean)
+                          : undefined
+                      }
+                      businessName={businessName}
+                      specialty={insights?.websiteAnalysis?.contentThemes?.[0]}
+                    />
+                  </motion.div>
+                </div>
               )}
             </motion.div>
           ) : (

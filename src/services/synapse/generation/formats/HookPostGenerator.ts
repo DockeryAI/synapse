@@ -19,6 +19,7 @@ import type {
   SynapseContent,
   BusinessProfile
 } from '@/types/synapseContent.types';
+import type { EQEnrichedProfile } from '@/services/eq-v2/eq-campaign-integration.service';
 import { PowerWordOptimizer } from '../PowerWordOptimizer';
 import { HOOK_STORY_OFFER, type ContentFramework } from '../ContentFrameworkLibrary';
 import { detectTargetAudience, getCleanEvidence } from '../utils/audienceDetection';
@@ -34,16 +35,25 @@ export class HookPostGenerator {
 
   /**
    * Generate a hook-based post from an insight
+   * ✨ EQ v2.0: Automatically adapts tone based on emotional quotient
    */
   async generate(
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): Promise<SynapseContent> {
+    // ✨ EQ v2.0: Check if profile is enriched with emotional intelligence
+    const eqProfile = business as EQEnrichedProfile;
+    const hasEQ = eqProfile.eqContext !== undefined;
+
+    if (hasEQ) {
+      console.log(`[HookPostGenerator] Using EQ-enriched profile (EQ: ${eqProfile.eqContext.overall_eq}, Tone: ${eqProfile.eqContext.tone_guidance.primary_tone})`);
+    }
+
     // Detect actual target audience
     const targetAudience = detectTargetAudience(business);
 
     // Generate draft following Hook-Story-Offer framework stages
-    const draft = this.generateFrameworkGuidedDraft(insight, business, targetAudience);
+    const draft = this.generateFrameworkGuidedDraft(insight, business, targetAudience, hasEQ ? eqProfile : undefined);
 
     // Optimize with power words
     const optimized = await this.powerWordOptimizer.optimize(draft, business);
@@ -117,12 +127,15 @@ export class HookPostGenerator {
    * Generate draft following Hook-Story-Offer framework stages
    *
    * This is the KEY METHOD - it walks through the framework stages
-   * and uses the stage guidelines to construct content from the insight
+   * and uses the stage guidelines to construct content from the insight.
+   *
+   * ✨ EQ v2.0: Adapts messaging based on emotional quotient when available
    */
   private generateFrameworkGuidedDraft(
     insight: BreakthroughInsight,
     business: BusinessProfile,
-    targetAudience: string
+    targetAudience: string,
+    eqProfile?: EQEnrichedProfile
   ): ContentDraft {
     // Get clean evidence (filter out search keywords)
     const cleanEvidence = getCleanEvidence(insight.evidence, 3);

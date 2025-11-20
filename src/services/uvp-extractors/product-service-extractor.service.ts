@@ -23,6 +23,7 @@ import type {
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
 import type { WebsiteData } from '@/services/scraping/websiteScraper';
 import { productValidationService } from '@/services/intelligence/product-validation.service';
+import { outcomeMapper } from '@/services/intelligence/outcome-mapper.service';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -179,6 +180,25 @@ export async function extractProductsServices(
       validatedProducts = getIndustryFallbackServices(industry, businessName);
       console.log('[ProductServiceExtractor] Added', validatedProducts.length, 'fallback services from industry profile');
     }
+
+    // ENHANCE: Transform services into customer outcomes using JTBD
+    const enhancedProducts = outcomeMapper.transformServices(validatedProducts);
+    console.log('[ProductServiceExtractor] Enhanced products with JTBD outcomes');
+
+    // Update descriptions with value statements for high-confidence outcomes
+    validatedProducts = enhancedProducts.map(product => ({
+      ...product,
+      description: product.outcomes.confidence > 70
+        ? product.outcomes.valueStatement
+        : product.description,
+      // Add outcome data as metadata (for UI to potentially use)
+      metadata: {
+        ...product.metadata,
+        outcome: product.outcomes.desiredOutcome,
+        painPoint: product.outcomes.painPoint,
+        emotionalJob: product.outcomes.emotionalJob
+      }
+    }));
 
     // Calculate overall confidence
     const overallConfidence = calculateOverallConfidence(validatedProducts);

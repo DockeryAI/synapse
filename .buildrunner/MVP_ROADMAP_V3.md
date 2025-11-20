@@ -227,12 +227,19 @@
   - Conversion rates (Social→Email 2-5%)
 - Day 3 pivot logic (engagement below 2% = adjust)
 - Benchmark dashboard (what "good" looks like)
+- **EQ Performance Foundation (4 hours):**
+  - Connect campaign performance to EQ scores
+  - Track engagement by emotional quotient level
+  - Store metrics in eq_performance_metrics table
 
 **Friday: Calendar & Preview**
 - Campaign calendar generator (5-14 days)
 - Platform orchestration (2-3 platforms max, enforce limits)
 - Edit/approve workflow
 - Google My Business post integration
+- **EQ Analytics Component (4 hours):**
+  - Basic dashboard showing EQ vs engagement
+  - Performance recommendations based on EQ
 
 ---
 
@@ -266,6 +273,7 @@
 - Campaign idea generator ("Give me ideas for Y")
 - Proactive suggestions (engagement drops → suggest video)
 - Visual understanding (upload image → suggest campaign)
+- **EQ Advanced Features:** See `.buildrunner/FEATURE_EQ_CALCULATOR_V3_FUTURE.md` for Phase 5-6 enhancements
 
 **Key Features:**
 - Talk to AI like a marketing expert

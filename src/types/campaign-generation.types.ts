@@ -56,6 +56,7 @@ export type ContentStatus =
 export interface CampaignGenerationInput {
   campaignId: string;
   campaignType: CampaignType;
+  brandId?: string; // ✨ EQ v2.0: Optional brand ID for EQ enrichment
   businessContext: {
     businessData: RefinedBusinessData;
     uvpData: ExtractedUVPData;
@@ -72,6 +73,7 @@ export interface CampaignGenerationInput {
 
 export interface PostGenerationInput {
   postType: PostType;
+  brandId?: string; // ✨ EQ v2.0: Optional brand ID for EQ enrichment
   businessContext: {
     businessData: RefinedBusinessData;
     uvpData: ExtractedUVPData;

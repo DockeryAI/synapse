@@ -19,6 +19,7 @@ import type {
   SynapseContent,
   BusinessProfile
 } from '@/types/synapseContent.types';
+import type { EQEnrichedProfile } from '@/services/eq-v2/eq-campaign-integration.service';
 import { PowerWordOptimizer } from '../PowerWordOptimizer';
 import { BEFORE_AFTER_BRIDGE, type ContentFramework } from '../ContentFrameworkLibrary';
 import { detectTargetAudience, getCleanEvidence } from '../utils/audienceDetection';
@@ -34,11 +35,18 @@ export class StoryPostGenerator {
 
   /**
    * Generate a story-based post from an insight
+   * ✨ EQ v2.0: Automatically adapts narrative tone based on emotional quotient
    */
   async generate(
     insight: BreakthroughInsight,
     business: BusinessProfile
   ): Promise<SynapseContent> {
+    // ✨ EQ v2.0: Check if profile is enriched with emotional intelligence
+    const eqProfile = business as EQEnrichedProfile;
+    if (eqProfile.eqContext) {
+      console.log(`[StoryPostGenerator] Using EQ-enriched profile (EQ: ${eqProfile.eqContext.overall_eq})`);
+    }
+
     // Detect actual target audience
     const targetAudience = detectTargetAudience(business);
 

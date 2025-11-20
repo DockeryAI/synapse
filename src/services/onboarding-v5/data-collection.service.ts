@@ -22,6 +22,7 @@ import type { CoreTruth, MessagingPillar } from '@/components/onboarding-v5/Core
 import type { Transformation } from '@/components/onboarding-v5/TransformationCascade';
 import type { ConfidenceScore } from '@/components/onboarding-v5/ConfidenceMeter';
 import type { DataSource } from '@/components/onboarding-v5/SourceCitation';
+import type { EQScore, EQRecommendation, EQCalculationResult } from '@/types/eq-calculator.types';
 
 /**
  * Complete onboarding data package
@@ -38,6 +39,11 @@ export interface OnboardingDataPackage {
 
   // Page 3: Core Truth
   coreTruth: CoreTruth;
+
+  // ✨ EQ Calculator v2.0
+  eqScore?: EQScore;
+  eqRecommendations?: EQRecommendation[];
+  eqFullResult?: EQCalculationResult;
 
   // Metadata
   collectionTimestamp: Date;

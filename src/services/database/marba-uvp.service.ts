@@ -16,6 +16,7 @@
 
 import { supabase } from '@/lib/supabase';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, ProductServiceData } from '@/types/uvp-flow.types';
+import { getOrCreateTempBrand } from '@/services/onboarding/temp-brand.service';
 
 // ============================================================================
 // Database Row Types
@@ -53,55 +54,32 @@ export async function saveCompleteUVP(
   uvp: CompleteUVP,
   brandId?: string  // Made optional for onboarding
 ): Promise<{ success: boolean; uvpId?: string; sessionId?: string; error?: string }> {
-  console.log('[MarbaUVPService] Saving complete UVP for brand:', brandId || 'onboarding session');
+  console.log('[MarbaUVPService] Saving complete UVP...');
 
   try {
-    // If no brandId, save to sessions table for onboarding
+    // Get or create temporary brand if no brandId provided
+    let effectiveBrandId = brandId;
+
     if (!brandId) {
-      const sessionId = localStorage.getItem('marba_session_id') || crypto.randomUUID();
-      localStorage.setItem('marba_session_id', sessionId);
+      console.log('[MarbaUVPService] No brand ID provided, creating temporary brand for onboarding');
+      const tempBrandResult = await getOrCreateTempBrand();
 
-      const sessionData = {
-        id: sessionId,
-        brand_id: null,
-        session_name: 'Onboarding UVP Session',
-        website_url: uvp.businessInfo?.website || '',
-        current_step: 'complete',
-        products_data: uvp.products || null,
-        customer_data: uvp.targetCustomer,
-        transformation_data: uvp.transformationGoal,
-        solution_data: uvp.uniqueSolution,
-        benefit_data: uvp.keyBenefit,
-        complete_uvp: {
-          valuePropositionStatement: uvp.valuePropositionStatement,
-          whyStatement: uvp.whyStatement,
-          whatStatement: uvp.whatStatement,
-          howStatement: uvp.howStatement,
-          overallConfidence: uvp.overallConfidence,
-        },
-        completed_steps: ['products', 'customer', 'transformation', 'solution', 'benefit'],
-        progress_percentage: 100,
-        updated_at: new Date().toISOString(),
-      };
-
-      const { data, error } = await supabase
-        .from('uvp_sessions')
-        .upsert(sessionData)
-        .select('id')
-        .single();
-
-      if (error) {
-        console.error('[MarbaUVPService] Session save error:', error);
+      if (!tempBrandResult.success || !tempBrandResult.brandId) {
         return {
           success: false,
-          error: `Failed to save session: ${error.message}`,
+          error: tempBrandResult.error || 'Failed to create temporary brand'
         };
       }
 
-      console.log('[MarbaUVPService] Session saved successfully:', data.id);
+      effectiveBrandId = tempBrandResult.brandId;
+      console.log('[MarbaUVPService] Using temporary brand:', effectiveBrandId);
+    }
+
+    // Now we always have a brand_id to satisfy RLS policies
+    if (!effectiveBrandId) {
       return {
-        success: true,
-        sessionId: data.id,
+        success: false,
+        error: 'No brand ID available'
       };
     }
 
@@ -115,7 +93,7 @@ export async function saveCompleteUVP(
     // Prepare data for database insertion
     // Convert complex types to JSONB-compatible format
     const row: Partial<MarbaUVPRow> = {
-      brand_id: brandId,
+      brand_id: effectiveBrandId,
 
       // Core components (as JSONB)
       target_customer: uvp.targetCustomer,
@@ -139,7 +117,7 @@ export async function saveCompleteUVP(
     const { data: existingData, error: selectError } = await supabase
       .from('marba_uvps')
       .select('id')
-      .eq('brand_id', brandId)
+      .eq('brand_id', effectiveBrandId)
       .maybeSingle();
 
     if (selectError) {

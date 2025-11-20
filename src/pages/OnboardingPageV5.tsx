@@ -327,6 +327,7 @@ export const OnboardingPageV5: React.FC = () => {
       { step: 'Analyzing customer testimonials and case studies', status: 'pending' },
       { step: 'Extracting value propositions', status: 'pending' },
       { step: 'Extracting products and services', status: 'pending' },
+      { step: 'Calculating brand EQ', status: 'pending' },
     ]);
 
     try {
@@ -486,7 +487,9 @@ export const OnboardingPageV5: React.FC = () => {
               name: businessName,
               industry: industry.displayName,
               website: url,
-              user_id: (await supabase.auth.getUser()).data.user?.id
+              user_id: (await supabase.auth.getUser()).data.user?.id,
+              emotional_quotient: null, // Will be set after EQ calculation
+              eq_calculated_at: null,
             })
             .select()
             .single();
@@ -603,6 +606,96 @@ export const OnboardingPageV5: React.FC = () => {
           sources: [],
         });
       }
+
+      // =========================================================================
+      // ✨ EQ CALCULATOR V2.0: Calculate Emotional Quotient
+      // =========================================================================
+      console.log('[OnboardingPageV5] Calculating Emotional Quotient...');
+      addProgressStep('Calculating brand EQ', 'in_progress', 'Analyzing emotional vs rational messaging...');
+
+      try {
+        const { eqIntegration } = await import('@/services/eq-v2/eq-integration.service');
+
+        // Detect specialty from collected data or industry
+        const specialty =
+          collectedOnboardingData.valuePropositions[0]?.specialty ||
+          industry.displayName ||
+          undefined;
+
+        // Calculate EQ from website content
+        const eqResult = await eqIntegration.calculateEQ({
+          businessName,
+          websiteContent,
+          specialty,
+        });
+
+        console.log('[OnboardingPageV5] EQ calculated successfully:', {
+          overall: eqResult.eq_score.overall,
+          emotional: eqResult.eq_score.emotional,
+          rational: eqResult.eq_score.rational,
+          confidence: eqResult.eq_score.confidence,
+          method: eqResult.eq_score.calculation_method,
+          specialty: eqResult.specialty_context?.specialty,
+        });
+
+        // Store in collected data for database save
+        setCollectedData(prev => ({
+          ...prev!,
+          eqScore: eqResult.eq_score,
+          eqRecommendations: eqResult.recommendations,
+          eqFullResult: eqResult,
+        }));
+
+        // Save EQ to database if brand exists
+        if (currentBrand?.id) {
+          try {
+            const { eqStorage } = await import('@/services/eq-v2/eq-storage.service');
+            const { supabase } = await import('@/lib/supabase');
+
+            // Save full EQ result
+            await eqStorage.saveEQScore(currentBrand.id, eqResult);
+
+            // Update brand table with EQ
+            await supabase
+              .from('brands')
+              .update({
+                emotional_quotient: eqResult.eq_score.overall,
+                eq_calculated_at: new Date().toISOString(),
+              })
+              .eq('id', currentBrand.id);
+
+            console.log('[OnboardingPageV5] EQ saved to database for brand:', currentBrand.id);
+          } catch (saveError) {
+            console.error('[OnboardingPageV5] Failed to save EQ to database:', saveError);
+            // Continue anyway - EQ can be recalculated later
+          }
+        }
+
+        addProgressStep(
+          'Calculating brand EQ',
+          'complete',
+          `EQ: ${eqResult.eq_score.overall}/100 (${eqResult.eq_score.emotional}% emotional, ${eqResult.eq_score.rational}% rational)`
+        );
+      } catch (error) {
+        console.error('[OnboardingPageV5] EQ calculation failed:', error);
+        addProgressStep('Calculating brand EQ', 'error', 'Using default EQ (can recalculate later)');
+
+        // Set default EQ so app continues to function
+        setCollectedData(prev => ({
+          ...prev!,
+          eqScore: {
+            emotional: 50,
+            rational: 50,
+            overall: 50,
+            confidence: 50,
+            calculation_method: 'content_only' as const,
+          },
+          eqRecommendations: [],
+        }));
+      }
+      // =========================================================================
+      // END EQ CALCULATION
+      // =========================================================================
 
       // Extract customer profiles, transformations, solutions, and benefits in parallel
       // This runs in the background and populates AI suggestions for later steps

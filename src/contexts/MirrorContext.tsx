@@ -99,6 +99,16 @@ export const MirrorProvider: React.FC<MirrorProviderProps> = ({
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<Error | null>(null)
 
+  // Generate temporary brand ID for onboarding if no brandId provided
+  const getTempBrandId = React.useCallback(() => {
+    const storedTempId = localStorage.getItem('temp_brand_id')
+    if (storedTempId) return storedTempId
+
+    const newTempId = `temp_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`
+    localStorage.setItem('temp_brand_id', newTempId)
+    return newTempId
+  }, [])
+
   // Get brandId from BrandContext if not provided as prop
   const { currentBrand } = useBrand()
   const brandId = brandIdProp || currentBrand?.id
