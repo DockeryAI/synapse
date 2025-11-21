@@ -301,7 +301,12 @@ class DeepContextBuilderService {
       console.log('[DeepContext/YouTube] Fetching trending videos and insights...');
 
       const keywords = brandData.keywords || [brandData.industry];
-      const trends = await YouTubeAPI.analyzeVideoTrends(brandData.industry, keywords);
+
+      // Parallel fetch: trends + psychological mining from comments
+      const [trendsResult, psychologyResult] = await Promise.allSettled([
+        YouTubeAPI.analyzeVideoTrends(brandData.industry, keywords),
+        YouTubeAPI.mineIndustryPsychology(keywords, 5)
+      ]);
 
       dataSourcesUsed.push('youtube');
 
@@ -309,37 +314,66 @@ class DeepContextBuilderService {
       const dataPoints: DataPoint[] = [];
 
       // Trending topics
-      trends.trending_topics.forEach((topic, i) => {
-        dataPoints.push({
-          id: `youtube-topic-${Date.now()}-${i}`,
-          source: 'youtube' as DataSource,
-          type: 'trending_topic' as DataPointType,
-          content: topic,
-          metadata: {
-            platform: 'youtube',
-            rank: i + 1,
-            relevance: 0.8
-          },
-          createdAt: new Date(),
-          embedding: undefined
+      if (trendsResult.status === 'fulfilled') {
+        const trends = trendsResult.value;
+        trends.trending_topics.forEach((topic, i) => {
+          dataPoints.push({
+            id: `youtube-topic-${Date.now()}-${i}`,
+            source: 'youtube' as DataSource,
+            type: 'trending_topic' as DataPointType,
+            content: topic,
+            metadata: {
+              platform: 'youtube',
+              rank: i + 1,
+              relevance: 0.8
+            },
+            createdAt: new Date(),
+            embedding: undefined
+          });
         });
-      });
 
-      // Content angles (psychological triggers)
-      trends.content_angles.forEach((angle, i) => {
-        dataPoints.push({
-          id: `youtube-angle-${Date.now()}-${i}`,
-          source: 'youtube' as DataSource,
-          type: 'customer_trigger' as DataPointType,
-          content: angle,
-          metadata: {
-            platform: 'youtube',
-            type: 'content_angle'
-          },
-          createdAt: new Date(),
-          embedding: undefined
+        // Content angles (psychological triggers)
+        trends.content_angles.forEach((angle, i) => {
+          dataPoints.push({
+            id: `youtube-angle-${Date.now()}-${i}`,
+            source: 'youtube' as DataSource,
+            type: 'customer_trigger' as DataPointType,
+            content: angle,
+            metadata: {
+              platform: 'youtube',
+              type: 'content_angle'
+            },
+            createdAt: new Date(),
+            embedding: undefined
+          });
         });
-      });
+      }
+
+      // Add psychological patterns from comment mining (I wish/hate when patterns)
+      if (psychologyResult.status === 'fulfilled' && psychologyResult.value) {
+        const { patterns } = psychologyResult.value;
+
+        patterns.forEach((pattern, i) => {
+          dataPoints.push({
+            id: `youtube-psych-${Date.now()}-${i}`,
+            source: 'youtube' as DataSource,
+            type: 'customer_trigger' as DataPointType,
+            content: `${pattern.type.toUpperCase()}: ${pattern.pattern}`,
+            metadata: {
+              platform: 'youtube',
+              type: 'psychological_pattern',
+              patternType: pattern.type,
+              frequency: pattern.frequency,
+              examples: pattern.examples.slice(0, 3),
+              domain: 'psychology' as const
+            },
+            createdAt: new Date(),
+            embedding: undefined
+          });
+        });
+
+        console.log(`[DeepContext/YouTube] ✅ Mined ${patterns.length} psychological patterns from comments`);
+      }
 
       console.log(`[DeepContext/YouTube] ✅ Extracted ${dataPoints.length} data points`);
       return dataPoints;
@@ -416,6 +450,51 @@ class DeepContextBuilderService {
               });
             }
           });
+
+          // Analyze reviews by rating tier (1-2 star pain vs 4-5 star desire)
+          const tierAnalysis = OutScraperAPI.analyzeReviewsByRatingTier(reviews);
+
+          tierAnalysis.forEach((tier, tierIdx) => {
+            // Add psychological patterns from each tier
+            tier.patterns.forEach((pattern, patternIdx) => {
+              dataPoints.push({
+                id: `outscraper-tier-${tier.tier}-${Date.now()}-${tierIdx}-${patternIdx}`,
+                source: 'outscraper' as DataSource,
+                type: 'customer_trigger' as DataPointType,
+                content: `[${tier.tier}] ${pattern.type.toUpperCase()}: ${pattern.pattern}`,
+                metadata: {
+                  competitor: competitor.name,
+                  ratingTier: tier.tier,
+                  patternType: pattern.type,
+                  frequency: pattern.frequency,
+                  examples: pattern.examples.slice(0, 2),
+                  domain: 'psychology' as const
+                },
+                createdAt: new Date(),
+                embedding: undefined
+              });
+            });
+
+            // Add emotional triggers from each tier
+            tier.emotionalTriggers.forEach((trigger, triggerIdx) => {
+              dataPoints.push({
+                id: `outscraper-emotion-${tier.tier}-${Date.now()}-${tierIdx}-${triggerIdx}`,
+                source: 'outscraper' as DataSource,
+                type: 'customer_trigger' as DataPointType,
+                content: `[${tier.tier}] Emotional trigger: ${trigger}`,
+                metadata: {
+                  competitor: competitor.name,
+                  ratingTier: tier.tier,
+                  type: 'emotional_trigger',
+                  domain: 'psychology' as const
+                },
+                createdAt: new Date(),
+                embedding: undefined
+              });
+            });
+          });
+
+          console.log(`[DeepContext/OutScraper] ✅ Analyzed ${tierAnalysis.length} rating tiers for ${competitor.name}`);
 
         } catch (reviewError) {
           console.warn(`[DeepContext/OutScraper] Could not fetch reviews for ${competitor.name}`);
@@ -562,7 +641,8 @@ class DeepContextBuilderService {
         autocompleteResult,
         placesResult,
         videosResult,
-        imagesResult
+        imagesResult,
+        shoppingResult
       ] = await Promise.allSettled([
         // 1. News
         (async () => {
@@ -765,6 +845,38 @@ class DeepContextBuilderService {
             timestamp: new Date().toISOString(),
             confidence: 0.7
           }));
+        })(),
+
+        // 7. Shopping (competitor pricing and products)
+        (async () => {
+          const query = `${brandData.industry} products`;
+          const cacheKey = `serper:shopping:${query}`;
+          let products = await intelligenceCache.get(cacheKey);
+
+          if (!products) {
+            products = await SerperAPI.getShopping(query);
+            await intelligenceCache.set(cacheKey, products, {
+              dataType: 'shopping',
+              sourceApi: 'serper',
+              brandId: brandData.id
+            });
+          }
+
+          return (products || []).slice(0, 5).map((product: any) => ({
+            source: 'serper' as DataSource,
+            type: 'competitive_gap' as DataPointType,
+            content: `Product: ${product.title} - ${product.price}`,
+            metadata: {
+              title: product.title,
+              price: product.price,
+              source: product.source,
+              link: product.link,
+              rating: product.rating,
+              reviews: product.reviews
+            },
+            timestamp: new Date().toISOString(),
+            confidence: 0.75
+          }));
         })()
       ]);
 
@@ -787,10 +899,13 @@ class DeepContextBuilderService {
       if (imagesResult.status === 'fulfilled' && imagesResult.value) {
         dataPoints.push(...imagesResult.value);
       }
+      if (shoppingResult.status === 'fulfilled' && shoppingResult.value) {
+        dataPoints.push(...shoppingResult.value);
+      }
 
       dataSourcesUsed.push('serper');
 
-      console.log(`[DeepContext/Serper] ✅ Extracted ${dataPoints.length} data points from 6 parallel endpoints`);
+      console.log(`[DeepContext/Serper] ✅ Extracted ${dataPoints.length} data points from 7 parallel endpoints`);
       return dataPoints;
 
     } catch (error) {
@@ -1143,6 +1258,12 @@ class DeepContextBuilderService {
           query: `What new trends, desires, and expectations are emerging for ${brandData.industry} customers in ${location}? What are people hoping for that they can't currently find? Include specific features or services people are requesting.`,
           type: 'customer_trigger' as DataPointType,
           domain: 'psychology'
+        },
+        // 4. Competitor content analysis
+        {
+          query: `What types of content, marketing approaches, and messaging are the most successful ${brandData.industry} businesses in ${location} using? What blog posts, videos, social media content, or campaigns are getting the most engagement? Include specific examples of content that resonates with customers.`,
+          type: 'competitive_gap' as DataPointType,
+          domain: 'competitive'
         }
       ];
 
