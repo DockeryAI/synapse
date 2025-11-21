@@ -82,105 +82,162 @@ class InsightsStorageService {
    * Save all insights from onboarding to the brand record
    */
   async saveInsights(brandId: string, insights: BusinessInsights): Promise<void> {
-    const { error } = await supabase
-      .from('brands')
-      .update({
-        website_analysis: insights.websiteAnalysis || {},
-        location_data: insights.locationData || {},
-        services_products: insights.servicesProducts || [],
-        customer_triggers: insights.customerTriggers || [],
-        market_trends: insights.marketTrends || [],
-        competitor_data: insights.competitorData || [],
-        brand_voice: insights.brandVoice || {},
-        onboarding_completed_at: new Date().toISOString(),
-      })
-      .eq('id', brandId);
+    try {
+      const { error } = await supabase
+        .from('brands')
+        .update({
+          website_analysis: insights.websiteAnalysis || {},
+          location_data: insights.locationData || {},
+          services_products: insights.servicesProducts || [],
+          customer_triggers: insights.customerTriggers || [],
+          market_trends: insights.marketTrends || [],
+          competitor_data: insights.competitorData || [],
+          brand_voice: insights.brandVoice || {},
+          onboarding_completed_at: new Date().toISOString(),
+        })
+        .eq('id', brandId);
 
-    if (error) {
-      console.error('[InsightsStorage] Failed to save insights:', error);
-      throw error;
+      if (error) {
+        // Check if error is due to missing columns (schema not migrated)
+        if (error.code === '42703') {
+          console.warn('[InsightsStorage] Insights columns not yet migrated to database. Run migration: 20251118000001_add_onboarding_insights.sql');
+          console.warn('[InsightsStorage] Skipping insights save until migration is applied.');
+          return; // Silently skip save instead of throwing
+        }
+        console.error('[InsightsStorage] Failed to save insights:', error);
+        throw error;
+      }
+
+      console.log('[InsightsStorage] Successfully saved insights for brand:', brandId);
+    } catch (err: any) {
+      // Handle missing columns gracefully
+      if (err?.code === '42703') {
+        console.warn('[InsightsStorage] Insights columns not yet migrated to database.');
+        return; // Silently skip
+      }
+      throw err;
     }
-
-    console.log('[InsightsStorage] Successfully saved insights for brand:', brandId);
   }
 
   /**
    * Get all insights for a brand
    */
   async getInsights(brandId: string): Promise<BusinessInsights | null> {
-    const { data, error } = await supabase
-      .from('brands')
-      .select(`
-        website_analysis,
-        location_data,
-        services_products,
-        customer_triggers,
-        market_trends,
-        competitor_data,
-        brand_voice
-      `)
-      .eq('id', brandId)
-      .single();
+    try {
+      const { data, error } = await supabase
+        .from('brands')
+        .select(`
+          website_analysis,
+          location_data,
+          services_products,
+          customer_triggers,
+          market_trends,
+          competitor_data,
+          brand_voice
+        `)
+        .eq('id', brandId)
+        .single();
 
-    if (error) {
-      console.error('[InsightsStorage] Failed to get insights:', error);
-      throw error;
+      if (error) {
+        // Check if error is due to missing columns (schema not migrated)
+        if (error.code === '42703') {
+          console.warn('[InsightsStorage] Insights columns not yet migrated to database. Run migration: 20251118000001_add_onboarding_insights.sql');
+          console.warn('[InsightsStorage] Returning empty insights for now.');
+          return {
+            websiteAnalysis: undefined,
+            locationData: undefined,
+            servicesProducts: undefined,
+            customerTriggers: undefined,
+            marketTrends: undefined,
+            competitorData: undefined,
+            brandVoice: undefined,
+          };
+        }
+        console.error('[InsightsStorage] Failed to get insights:', error);
+        throw error;
+      }
+
+      if (!data) {
+        return null;
+      }
+
+      return {
+        websiteAnalysis: data.website_analysis as WebsiteAnalysis,
+        locationData: data.location_data as LocationData,
+        servicesProducts: data.services_products as ServiceProduct[],
+        customerTriggers: data.customer_triggers as CustomerTrigger[],
+        marketTrends: data.market_trends as MarketTrend[],
+        competitorData: data.competitor_data as CompetitorData[],
+        brandVoice: data.brand_voice as BrandVoice,
+      };
+    } catch (err) {
+      console.error('[InsightsStorage] Unexpected error getting insights:', err);
+      // Return empty insights instead of crashing
+      return {
+        websiteAnalysis: undefined,
+        locationData: undefined,
+        servicesProducts: undefined,
+        customerTriggers: undefined,
+        marketTrends: undefined,
+        competitorData: undefined,
+        brandVoice: undefined,
+      };
     }
-
-    if (!data) {
-      return null;
-    }
-
-    return {
-      websiteAnalysis: data.website_analysis as WebsiteAnalysis,
-      locationData: data.location_data as LocationData,
-      servicesProducts: data.services_products as ServiceProduct[],
-      customerTriggers: data.customer_triggers as CustomerTrigger[],
-      marketTrends: data.market_trends as MarketTrend[],
-      competitorData: data.competitor_data as CompetitorData[],
-      brandVoice: data.brand_voice as BrandVoice,
-    };
   }
 
   /**
    * Update specific insights
    */
   async updateInsights(brandId: string, partialInsights: Partial<BusinessInsights>): Promise<void> {
-    const updates: any = {};
+    try {
+      const updates: any = {};
 
-    if (partialInsights.websiteAnalysis) {
-      updates.website_analysis = partialInsights.websiteAnalysis;
-    }
-    if (partialInsights.locationData) {
-      updates.location_data = partialInsights.locationData;
-    }
-    if (partialInsights.servicesProducts) {
-      updates.services_products = partialInsights.servicesProducts;
-    }
-    if (partialInsights.customerTriggers) {
-      updates.customer_triggers = partialInsights.customerTriggers;
-    }
-    if (partialInsights.marketTrends) {
-      updates.market_trends = partialInsights.marketTrends;
-    }
-    if (partialInsights.competitorData) {
-      updates.competitor_data = partialInsights.competitorData;
-    }
-    if (partialInsights.brandVoice) {
-      updates.brand_voice = partialInsights.brandVoice;
-    }
+      if (partialInsights.websiteAnalysis) {
+        updates.website_analysis = partialInsights.websiteAnalysis;
+      }
+      if (partialInsights.locationData) {
+        updates.location_data = partialInsights.locationData;
+      }
+      if (partialInsights.servicesProducts) {
+        updates.services_products = partialInsights.servicesProducts;
+      }
+      if (partialInsights.customerTriggers) {
+        updates.customer_triggers = partialInsights.customerTriggers;
+      }
+      if (partialInsights.marketTrends) {
+        updates.market_trends = partialInsights.marketTrends;
+      }
+      if (partialInsights.competitorData) {
+        updates.competitor_data = partialInsights.competitorData;
+      }
+      if (partialInsights.brandVoice) {
+        updates.brand_voice = partialInsights.brandVoice;
+      }
 
-    const { error } = await supabase
-      .from('brands')
-      .update(updates)
-      .eq('id', brandId);
+      const { error } = await supabase
+        .from('brands')
+        .update(updates)
+        .eq('id', brandId);
 
-    if (error) {
-      console.error('[InsightsStorage] Failed to update insights:', error);
-      throw error;
+      if (error) {
+        // Check if error is due to missing columns (schema not migrated)
+        if (error.code === '42703') {
+          console.warn('[InsightsStorage] Insights columns not yet migrated to database. Skipping update.');
+          return; // Silently skip
+        }
+        console.error('[InsightsStorage] Failed to update insights:', error);
+        throw error;
+      }
+
+      console.log('[InsightsStorage] Successfully updated insights for brand:', brandId);
+    } catch (err: any) {
+      // Handle missing columns gracefully
+      if (err?.code === '42703') {
+        console.warn('[InsightsStorage] Insights columns not yet migrated to database.');
+        return; // Silently skip
+      }
+      throw err;
     }
-
-    console.log('[InsightsStorage] Successfully updated insights for brand:', brandId);
   }
 
   /**
@@ -205,26 +262,40 @@ class InsightsStorageService {
    * Clear all insights for a brand (useful for re-onboarding)
    */
   async clearInsights(brandId: string): Promise<void> {
-    const { error } = await supabase
-      .from('brands')
-      .update({
-        website_analysis: {},
-        location_data: {},
-        services_products: [],
-        customer_triggers: [],
-        market_trends: [],
-        competitor_data: [],
-        brand_voice: {},
-        onboarding_completed_at: null,
-      })
-      .eq('id', brandId);
+    try {
+      const { error } = await supabase
+        .from('brands')
+        .update({
+          website_analysis: {},
+          location_data: {},
+          services_products: [],
+          customer_triggers: [],
+          market_trends: [],
+          competitor_data: [],
+          brand_voice: {},
+          onboarding_completed_at: null,
+        })
+        .eq('id', brandId);
 
-    if (error) {
-      console.error('[InsightsStorage] Failed to clear insights:', error);
-      throw error;
+      if (error) {
+        // Check if error is due to missing columns (schema not migrated)
+        if (error.code === '42703') {
+          console.warn('[InsightsStorage] Insights columns not yet migrated to database. Skipping clear.');
+          return; // Silently skip
+        }
+        console.error('[InsightsStorage] Failed to clear insights:', error);
+        throw error;
+      }
+
+      console.log('[InsightsStorage] Successfully cleared insights for brand:', brandId);
+    } catch (err: any) {
+      // Handle missing columns gracefully
+      if (err?.code === '42703') {
+        console.warn('[InsightsStorage] Insights columns not yet migrated to database.');
+        return; // Silently skip
+      }
+      throw err;
     }
-
-    console.log('[InsightsStorage] Successfully cleared insights for brand:', brandId);
   }
 
   // =====================================================

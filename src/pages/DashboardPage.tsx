@@ -34,7 +34,6 @@ import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
 import { FloatingActionButtons } from '@/components/shared/FloatingActionButtons';
-import { QuickLaunchStrip } from '@/components/dashboard/QuickLaunchStrip';
 import { AiPicksPanel } from '@/components/dashboard/AiPicksPanel';
 import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibraryV2';
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
@@ -784,16 +783,6 @@ export function DashboardPage() {
         {viewMode === 'dashboard' ? (
           /* Command Center Layout */
           <div key="dashboard" className="h-screen flex flex-col">
-            {/* Quick Launch Strip */}
-            {topPick && deepContext && (
-              <div className="flex-shrink-0 p-4">
-                <QuickLaunchStrip
-                  topPick={topPick}
-                  onLaunch={handleGenerate}
-                />
-              </div>
-            )}
-
             {/* Two-Panel Layout */}
             <div className="flex-1 flex gap-4 p-4 pt-0 overflow-hidden">
               {/* Left Panel: AI Picks (flexible width based on collapsed state) */}

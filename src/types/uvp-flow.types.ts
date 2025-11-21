@@ -159,6 +159,7 @@ export interface CompleteUVP {
 
   // Synthesized outputs
   valuePropositionStatement: string;
+  variations?: Array<{ uvp: string; style: string; wordCount: number }>; // Multiple UVP variations for user to choose from
   whyStatement: string; // Purpose/belief
   whatStatement: string; // Tangible offering
   howStatement: string; // Unique approach

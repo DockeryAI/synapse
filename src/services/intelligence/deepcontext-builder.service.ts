@@ -32,6 +32,7 @@ import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { intelligenceCache } from './intelligence-cache.service';
 import { insightSynthesis } from './insight-synthesis.service';
 import { psychologicalExtractor, type PsychologicalProfile } from './psychological-pattern-extractor.service';
+import { orchestrationService } from './orchestration.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type {
   DataPoint,
@@ -163,9 +164,8 @@ class DeepContextBuilderService {
         config.includeWebsiteAnalysis !== false && brandData.website
           ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
-        config.includeReddit !== false
-          ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
-          : Promise.resolve(null),
+        // Reddit disabled - credentials not configured
+        Promise.resolve(null),
         config.includePerplexity !== false
           ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
@@ -1342,9 +1342,15 @@ class DeepContextBuilderService {
           shifts: []
         },
         // CRITICAL: Populate with Perplexity local events!
-        events: dataPoints
-          .filter(dp => dp.type === 'local_event')
-          .map(dp => dp.content),
+        events: (() => {
+          const localEvents = dataPoints.filter(dp => dp.type === 'local_event');
+          console.log(`[DeepContext] Found ${localEvents.length} local_event data points to populate`);
+          return localEvents.map(dp => ({
+            name: dp.content,
+            date: dp.metadata?.date,
+            description: dp.content
+          }));
+        })(),
         viralContent: []
       },
       competitiveIntel: {
@@ -1500,7 +1506,24 @@ class DeepContextBuilderService {
     }
 
     // Use AI-powered synthesis service to extract specific, actionable insights
-    await insightSynthesis.synthesizeAllInsights(deepContext, dataPoints);
+    try {
+      console.log('[DeepContext] Step 10/10: Running AI-powered insight synthesis...');
+      await insightSynthesis.synthesizeAllInsights(deepContext, dataPoints);
+      console.log('[DeepContext] ✅ Insight synthesis complete');
+    } catch (error) {
+      console.error('[DeepContext] ❌ Insight synthesis failed:', error instanceof Error ? error.message : error);
+      // Continue with basic context even if synthesis fails
+    }
+
+    // Run full intelligence orchestration (Phase 2-5)
+    try {
+      console.log('[DeepContext] Running intelligence orchestration (embeddings, clustering, connections)...');
+      const orchestrationResult = await orchestrationService.quickOrchestrate(dataPoints, deepContext);
+      console.log(`[DeepContext] ✅ Orchestration complete: ${orchestrationResult.stats.breakthroughCount} breakthroughs found`);
+    } catch (error) {
+      console.error('[DeepContext] ❌ Orchestration failed:', error instanceof Error ? error.message : error);
+      // Continue with basic context even if orchestration fails
+    }
   }
 
   /**

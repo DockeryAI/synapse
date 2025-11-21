@@ -48,7 +48,7 @@ class InsightSynthesisService {
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-sonnet-4-5-20250929',
+        model: 'anthropic/claude-3.5-sonnet',
         messages: [
           {
             role: 'user',
@@ -101,12 +101,26 @@ class InsightSynthesisService {
 
     // Group by source for provenance
     const pointsBySource = this.groupBySource(relevantPoints);
-    const sampleData = relevantPoints.slice(0, 20).map(dp => ({
-      content: dp.content,
-      source: dp.source,
-      timestamp: dp.createdAt?.toISOString() || dp.timestamp,
-      metadata: dp.metadata
-    }));
+    const sampleData = relevantPoints.slice(0, 20).map(dp => {
+      // Safely convert date to ISO string, handling invalid dates
+      let timestamp = dp.timestamp;
+      if (dp.createdAt) {
+        try {
+          const date = dp.createdAt instanceof Date ? dp.createdAt : new Date(dp.createdAt);
+          if (!isNaN(date.getTime())) {
+            timestamp = date.toISOString();
+          }
+        } catch {
+          // Keep original timestamp if conversion fails
+        }
+      }
+      return {
+        content: dp.content,
+        source: dp.source,
+        timestamp,
+        metadata: dp.metadata
+      };
+    });
 
     const prompt = `You are analyzing market data for ${context.brandName} in the ${context.industry} industry.
 
@@ -134,7 +148,9 @@ Return as JSON array of trends. Be specific and cite real sources.`;
     try {
       console.log('[InsightSynthesis] Calling AI for industry trends analysis...');
       const content = await this.callAI(prompt);
-      const trends = JSON.parse(content);
+      const parsed = JSON.parse(content);
+      // Handle both array and object responses
+      const trends = Array.isArray(parsed) ? parsed : (parsed.trends || parsed.data || []);
 
       // Validate and enhance with metadata
       return trends.map((trend: any) => ({
@@ -150,7 +166,7 @@ Return as JSON array of trends. Be specific and cite real sources.`;
       }));
 
     } catch (error) {
-      console.error('[InsightSynthesis] Error synthesizing trends:', error);
+      console.error('[InsightSynthesis] Error synthesizing trends:', error instanceof Error ? error.message : error);
       return [];
     }
   }
@@ -206,7 +222,18 @@ Return as JSON array. Focus on specific, actionable insights with real quotes.`;
     try {
       console.log('[InsightSynthesis] Calling AI for customer needs analysis...');
       const content = await this.callAI(prompt);
-      const needs = JSON.parse(content);
+      console.log('[InsightSynthesis] Raw customer needs response:', content.substring(0, 500));
+      const parsed = JSON.parse(content);
+      console.log('[InsightSynthesis] Parsed response keys:', Object.keys(parsed));
+      // Handle both array and object responses - AI may return various keys
+      let needs = [];
+      if (Array.isArray(parsed)) {
+        needs = parsed;
+      } else if (typeof parsed === 'object') {
+        needs = parsed.needs || parsed.unarticulated || parsed.unarticulated_needs || parsed.customer_needs || parsed.insights || parsed.data || [];
+      }
+      if (!Array.isArray(needs)) needs = [];
+      console.log('[InsightSynthesis] Extracted needs count:', needs.length);
 
       return needs.map((need: any) => ({
         need: need.need,
@@ -220,7 +247,7 @@ Return as JSON array. Focus on specific, actionable insights with real quotes.`;
       }));
 
     } catch (error) {
-      console.error('[InsightSynthesis] Error synthesizing customer needs:', error);
+      console.error('[InsightSynthesis] Error synthesizing customer needs:', error instanceof Error ? error.message : error);
       return [];
     }
   }
@@ -284,7 +311,20 @@ Return as JSON: { "blindSpots": [...], "gaps": [...] }`;
     try {
       console.log('[InsightSynthesis] Calling AI for competitive intelligence analysis...');
       const content = await this.callAI(prompt);
-      const result = JSON.parse(content);
+
+      // Try to fix common JSON issues from AI
+      let cleanedContent = content;
+      try {
+        JSON.parse(content);
+      } catch {
+        // Try to fix trailing commas and other common issues
+        cleanedContent = content
+          .replace(/,\s*]/g, ']')
+          .replace(/,\s*}/g, '}')
+          .replace(/[\x00-\x1F\x7F]/g, ''); // Remove control characters
+      }
+
+      const result = JSON.parse(cleanedContent);
 
       return {
         blindSpots: (result.blindSpots || []).map((bs: any) => ({
@@ -309,7 +349,7 @@ Return as JSON: { "blindSpots": [...], "gaps": [...] }`;
       };
 
     } catch (error) {
-      console.error('[InsightSynthesis] Error synthesizing competitive insights:', error);
+      console.error('[InsightSynthesis] Error synthesizing competitive insights:', error instanceof Error ? error.message : error);
       return { blindSpots: [], gaps: [] };
     }
   }

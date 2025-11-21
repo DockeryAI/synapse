@@ -529,6 +529,44 @@ export const OnboardingPageV5: React.FC = () => {
         console.log('[OnboardingPageV5] ✅ REAL brand created in database:', brandData.id);
       }
 
+      // =========================================================================
+      // EARLY START: Customer extraction runs in parallel with product scan
+      // =========================================================================
+      console.log('[OnboardingPageV5] Starting customer extraction early (parallel with product scan)...');
+
+      // Start customer extraction immediately - doesn't depend on products
+      const customerExtractionPromise = extractTargetCustomer(
+        websiteContent,
+        [], // testimonials - not available yet
+        [], // case studies - not available yet
+        businessName
+      ).then(result => {
+        console.log('[OnboardingPageV5] Early customer extraction complete:', result.profiles.length);
+        // Map partial profiles to full CustomerProfile objects
+        const suggestions = result.profiles.map(p => ({
+          id: p.id || `customer-${Date.now()}`,
+          statement: p.statement || '',
+          industry: p.industry,
+          companySize: p.companySize,
+          role: p.role,
+          confidence: p.confidence || {
+            overall: 0,
+            dataQuality: 0,
+            sourceCount: 0,
+            modelAgreement: 0
+          },
+          sources: p.sources || [],
+          evidenceQuotes: p.evidenceQuotes || [],
+          isManualInput: false,
+        })) as CustomerProfile[];
+        setCustomerSuggestions(suggestions);
+        return suggestions;
+      }).catch(err => {
+        console.error('[OnboardingPageV5] Early customer extraction failed:', err);
+        setCustomerSuggestions([]);
+        return [];
+      });
+
       // Extract products/services from website content using comprehensive scanner
       console.log('[OnboardingPageV5] Extracting products/services with comprehensive scanner...');
       addProgressStep('Extracting products and services', 'in_progress', 'Analyzing your offerings across multiple pages...');
@@ -699,37 +737,15 @@ export const OnboardingPageV5: React.FC = () => {
       // END EQ CALCULATION
       // =========================================================================
 
-      // Extract customer profiles, transformations, solutions, and benefits in parallel
+      // Extract transformations, solutions, and benefits in parallel
+      // Customer extraction already started earlier (parallel with product scan)
       // This runs in the background and populates AI suggestions for later steps
       console.log('[OnboardingPageV5] Extracting AI suggestions for UVP steps...');
       setAiSuggestionsLoading(true);
 
       Promise.all([
-        // Extract customer profiles
-        extractTargetCustomer(
-          websiteContent,
-          [], // testimonials - not available yet
-          [], // case studies - not available yet
-          businessName
-        ).then(result => {
-          console.log('[OnboardingPageV5] Customer extraction complete:', result.profiles.length);
-          // Map partial profiles to full CustomerProfile objects
-          const suggestions = result.profiles.map(p => ({
-            id: p.id || `customer-${Date.now()}`,
-            statement: p.statement || '',
-            industry: p.industry,
-            companySize: p.companySize,
-            role: p.role,
-            confidence: p.confidence || 0,
-            sources: p.sources || [],
-            evidenceQuotes: p.evidenceQuotes || [],
-            isManualInput: false,
-          })) as CustomerProfile[];
-          setCustomerSuggestions(suggestions);
-        }).catch(err => {
-          console.error('[OnboardingPageV5] Customer extraction failed:', err);
-          setCustomerSuggestions([]);
-        }),
+        // Customer extraction already running - just wait for it
+        customerExtractionPromise,
 
         // Extract transformation goals using smart multi-layer approach
         (async () => {
@@ -1402,6 +1418,8 @@ export const OnboardingPageV5: React.FC = () => {
   // UVP Step 1: Products/Services
   const handleProductsConfirm = (confirmedItems: ProductService[]) => {
     console.log('[UVP Flow] Products confirmed:', confirmedItems.length);
+
+    // Update product confirmation state
     setProductServiceData(prev => ({
       ...prev!,
       categories: prev!.categories.map(cat => ({
@@ -1412,6 +1430,37 @@ export const OnboardingPageV5: React.FC = () => {
         })),
       })),
     }));
+
+    // Filter customer suggestions based on removed products
+    // If user removed products, filter out customer profiles that mention those products
+    if (productServiceData) {
+      const allProducts = productServiceData.categories.flatMap(cat => cat.items);
+      const removedProducts = allProducts.filter(p => !confirmedItems.some(ci => ci.id === p.id));
+
+      if (removedProducts.length > 0) {
+        console.log('[UVP Flow] Filtering customer profiles - removed products:', removedProducts.map(p => p.name));
+
+        // Filter customer suggestions to remove profiles mentioning removed products
+        setCustomerSuggestions(prev => {
+          const filtered = prev.filter(profile => {
+            // Check if profile mentions any removed product names
+            const profileText = `${profile.statement} ${profile.evidenceQuotes.join(' ')}`.toLowerCase();
+            const mentionsRemovedProduct = removedProducts.some(product =>
+              profileText.includes(product.name.toLowerCase())
+            );
+
+            if (mentionsRemovedProduct) {
+              console.log('[UVP Flow] Removing customer profile (mentions removed product):', profile.id);
+              return false;
+            }
+            return true;
+          });
+
+          console.log('[UVP Flow] Customer profiles after filtering:', filtered.length, 'kept,', prev.length - filtered.length, 'removed');
+          return filtered;
+        });
+      }
+    }
   };
 
   const handleProductsAddManual = (item: Partial<ProductService>) => {

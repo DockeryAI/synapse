@@ -64,24 +64,33 @@ APPROACH: ${solutionText}
 BENEFIT: ${benefitText}
 
 **YOUR TASK:**
-Create a concise 10-15 word UVP that captures the transformation without being overly specific.
+Create THREE different 10-15 word UVP variations that each capture the transformation differently.
 
 **CRITICAL RULES:**
 1. USE the transformation and emotional outcome from JTBD (the progress they make)
-2. DO NOT use specific product models/years (no "'67 Mustang" or "1952 Mickey Mantle")
-3. KEEP it universal for the business (works for ALL their customers)
-4. Focus on the TRANSFORMATION, not features
-5. Maximum 15 words
+2. DO NOT use "From...to" phrasing - sounds templated
+3. USE active verbs: Transform, Turn, Navigate, Discover, Build, etc.
+4. DO NOT use specific product models/years (no "'67 Mustang" or "1952 Mickey Mantle")
+5. KEEP it universal for the business (works for ALL their customers)
+6. Focus on the TRANSFORMATION, not features
+7. Maximum 15 words per variation
+8. Each variation should feel DIFFERENT (different structure, different angle)
 
 **GOOD EXAMPLES:**
-- "Insurance that knows your collection deserves more than generic coverage"
+- "Transform overwhelming real estate stress into dream home confidence with agents who care like family"
 - "Turn blank screens into weeks of content that actually gets customers"
-- "From wondering if you're covered to knowing you're protected"
+- "Insurance that knows your collection deserves more than generic coverage"
 
 **BAD EXAMPLES:**
+- "From wondering if you're covered to knowing you're protected" ❌ (templated from/to)
 - "Insurance for your 1967 Mustang GT Fastback" ❌ (too specific)
 - "Specialized expertise and personalized protection" ❌ (too generic)
 - "We provide comprehensive insurance solutions" ❌ (feature-focused)
+
+**VARIATION STYLES:**
+1. Action-focused: "Transform X into Y with Z"
+2. Benefit-focused: "Your outcome delivered through approach"
+3. Direct: "Outcome. Method. Result."
 
 **GOLDEN CIRCLE** (create simple, clear statements):
 - WHY (Purpose/Belief): What do they believe customers deserve? (e.g., "Collectors deserve specialized protection")
@@ -90,15 +99,29 @@ Create a concise 10-15 word UVP that captures the transformation without being o
 
 Return ONLY valid JSON:
 {
-  "uvp": "10-15 word UVP that captures the transformation",
+  "variations": [
+    {
+      "uvp": "First variation - action-focused",
+      "style": "action",
+      "wordCount": actual_number
+    },
+    {
+      "uvp": "Second variation - benefit-focused",
+      "style": "benefit",
+      "wordCount": actual_number
+    },
+    {
+      "uvp": "Third variation - direct",
+      "style": "direct",
+      "wordCount": actual_number
+    }
+  ],
   "formulaUsed": "jtbd-outcome",
-  "wordCount": actual_number,
   "goldenCircle": {
     "why": "Clear belief statement (e.g., 'Collectors deserve specialized protection')",
     "what": "Clear offering (e.g., 'Insurance for collector cars')",
     "how": "Clear approach (e.g., 'By collectors who understand')"
   },
-  "passesCompetitorTest": true,
   "confidence": {
     "overall": 85-95 based on clarity,
     "dataQuality": 85-95,
@@ -115,7 +138,7 @@ Return ONLY valid JSON:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-opus-4.1',
+          model: 'anthropic/claude-3.5-sonnet',
           messages: [{
             role: 'user',
             content: prompt
@@ -144,7 +167,8 @@ Return ONLY valid JSON:
         transformationGoal: input.transformation,
         uniqueSolution: input.solution,
         keyBenefit: input.benefit,
-        valuePropositionStatement: synthesis.valuePropositionStatement,
+        valuePropositionStatement: synthesis.variations[0]?.uvp || 'Unable to generate UVP',
+        variations: synthesis.variations,
         whyStatement: synthesis.whyStatement,
         whatStatement: synthesis.whatStatement,
         howStatement: synthesis.howStatement,
@@ -157,7 +181,10 @@ Return ONLY valid JSON:
       };
 
       console.log('[UVPSynthesis] JTBD-based synthesis complete');
-      console.log('[UVPSynthesis] Final UVP:', synthesis.valuePropositionStatement);
+      console.log('[UVPSynthesis] Generated', synthesis.variations.length, 'UVP variations');
+      synthesis.variations.forEach((v, i) => {
+        console.log(`[UVPSynthesis] Variation ${i + 1}:`, v.uvp);
+      });
       return completeUVP;
     }
 
@@ -303,7 +330,7 @@ If unable to create unique positioning in 15 words, return:
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-3.5-sonnet',
         messages: [{
           role: 'user',
           content: prompt
@@ -333,7 +360,8 @@ If unable to create unique positioning in 15 words, return:
       transformationGoal: input.transformation,
       uniqueSolution: input.solution,
       keyBenefit: input.benefit,
-      valuePropositionStatement: synthesis.valuePropositionStatement,
+      valuePropositionStatement: synthesis.variations[0]?.uvp || 'Unable to generate UVP',
+      variations: synthesis.variations,
       whyStatement: synthesis.whyStatement,
       whatStatement: synthesis.whatStatement,
       howStatement: synthesis.howStatement,
@@ -346,6 +374,10 @@ If unable to create unique positioning in 15 words, return:
     };
 
     console.log('[UVPSynthesis] Synthesis complete');
+    console.log('[UVPSynthesis] Generated', synthesis.variations.length, 'UVP variations');
+    synthesis.variations.forEach((v, i) => {
+      console.log(`[UVPSynthesis] Variation ${i + 1}:`, v.uvp);
+    });
     return completeUVP;
 
   } catch (error) {
@@ -416,7 +448,7 @@ function validateUVP(statement: string): { valid: boolean; reason?: string } {
  * Parse AI response with formula-based approach
  */
 function parseSynthesis(response: string): {
-  valuePropositionStatement: string;
+  variations: Array<{ uvp: string; style: string; wordCount: number }>;
   whyStatement: string;
   whatStatement: string;
   howStatement: string;
@@ -434,19 +466,23 @@ function parseSynthesis(response: string): {
 
     const parsed = JSON.parse(jsonMatch[0]);
 
-    // Get UVP from new simplified format
-    const uvpStatement = parsed.uvp || '';
-    const wordCount = parsed.wordCount || uvpStatement.split(/\s+/).length;
+    // Get variations array from new format
+    const variations = parsed.variations || [];
 
-    // ENFORCE 15 word limit
-    if (wordCount > 15) {
-      console.error('[UVPSynthesis] ✗ UVP exceeds 15 words:', wordCount, 'words');
-      console.error('[UVPSynthesis] ✗ Statement:', uvpStatement);
-      // Truncate to 15 words
-      const words = uvpStatement.split(/\s+/).slice(0, 15);
-      const truncated = words.join(' ');
-      console.warn('[UVPSynthesis] Truncated to:', truncated);
-    }
+    // Validate each variation
+    variations.forEach((variation: any, index: number) => {
+      const wordCount = variation.wordCount || variation.uvp.split(/\s+/).length;
+
+      if (wordCount > 15) {
+        console.error(`[UVPSynthesis] ✗ Variation ${index + 1} exceeds 15 words:`, wordCount, 'words');
+        console.error('[UVPSynthesis] ✗ Statement:', variation.uvp);
+        // Truncate to 15 words
+        const words = variation.uvp.split(/\s+/).slice(0, 15);
+        variation.uvp = words.join(' ');
+        variation.wordCount = 15;
+        console.warn('[UVPSynthesis] Truncated to:', variation.uvp);
+      }
+    });
 
     // Extract Golden Circle
     const whyStatement = parsed.goldenCircle?.why || '';
@@ -468,24 +504,21 @@ function parseSynthesis(response: string): {
       console.error('[UVPSynthesis] ✗ HOW exceeds 10 words:', howWords);
     }
 
-    // Log formula used and competitor test result
-    console.log('[UVPSynthesis] Formula used: values (Formula 4 - Core Values)');
-    console.log('[UVPSynthesis] Word count:', wordCount);
-    console.log('[UVPSynthesis] Passes competitor test:', parsed.passesCompetitorTest);
-    console.log('[UVPSynthesis] Value Prop:', uvpStatement);
-
-    // WHY statement should be clean - no forced prefix
-    let finalWhy = whyStatement;
+    // Log all variations
+    console.log(`[UVPSynthesis] Generated ${variations.length} UVP variations`);
+    variations.forEach((v: any, i: number) => {
+      console.log(`[UVPSynthesis] Variation ${i + 1} (${v.style}):`, v.uvp, `(${v.wordCount} words)`);
+    });
 
     return {
-      valuePropositionStatement: uvpStatement,
-      whyStatement: finalWhy,
-      whatStatement: whatStatement,
-      howStatement: howStatement,
+      variations,
+      whyStatement,
+      whatStatement,
+      howStatement,
       confidence: {
         overall: parsed.confidence?.overall || 50,
         dataQuality: parsed.confidence?.dataQuality || 50,
-        modelAgreement: parsed.passesCompetitorTest ? 90 : 30,
+        modelAgreement: 90,
       },
     };
   } catch (error) {

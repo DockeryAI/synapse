@@ -165,33 +165,42 @@ class OutScraperAPIService {
   private baseUrl = OUTSCRAPER_API_URL
 
   /**
-   * Poll an async task until completion
+   * Poll an async task until completion using results_location URL
+   * OutScraper uses api.outscraper.cloud/requests/{id} for task results
    */
-  private async pollTask<T>(taskId: string, maxAttempts = 30, delayMs = 2000): Promise<T> {
+  private async pollTask<T>(taskId: string, maxAttempts = 10, delayMs = 1500): Promise<T> {
     console.log('[OutScraper] Polling task:', taskId)
+
+    // Use the correct endpoint for task results
+    const resultsUrl = `https://api.outscraper.cloud/requests/${taskId}`
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const response = await fetch(`${this.baseUrl}/tasks/${taskId}`, {
+        const response = await fetch(resultsUrl, {
           headers: {
             'X-API-KEY': OUTSCRAPER_API_KEY || ''
           }
         })
 
         if (!response.ok) {
-          throw new Error(`Task polling failed: ${response.status}`)
+          console.warn(`[OutScraper] Task polling failed (${response.status}), attempt ${attempt + 1}/${maxAttempts}`)
+          if (attempt === maxAttempts - 1) {
+            throw new Error(`Task polling failed: ${response.status}`)
+          }
+          await new Promise(resolve => setTimeout(resolve, delayMs))
+          continue
         }
 
         const data = await response.json()
 
         console.log('[OutScraper] Task status:', data.status, `(attempt ${attempt + 1}/${maxAttempts})`)
 
-        if (data.status === 'Success' || data.status === 'completed') {
+        if (data.status === 'Success' || data.status === 'completed' || data.status === 'Completed') {
           console.log('[OutScraper] ✅ Task completed')
           return data.data as T
         }
 
-        if (data.status === 'Failed' || data.status === 'Error') {
+        if (data.status === 'Failed' || data.status === 'Error' || data.status === 'error') {
           throw new Error(`Task failed: ${data.error || 'Unknown error'}`)
         }
 
@@ -199,11 +208,16 @@ class OutScraperAPIService {
         await new Promise(resolve => setTimeout(resolve, delayMs))
       } catch (error) {
         console.error('[OutScraper] Polling error:', error)
-        throw error
+        // On last attempt, throw the error
+        if (attempt === maxAttempts - 1) {
+          throw error
+        }
+        // Otherwise continue trying
+        await new Promise(resolve => setTimeout(resolve, delayMs))
       }
     }
 
-    throw new Error(`Task timeout after ${maxAttempts} attempts`)
+    throw new Error(`Task timeout after ${maxAttempts} attempts (${maxAttempts * delayMs / 1000}s)`)
   }
 
   /**

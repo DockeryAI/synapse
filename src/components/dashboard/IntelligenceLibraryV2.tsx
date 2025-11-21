@@ -43,9 +43,16 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
       <div className="flex-shrink-0 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
-              Intelligence Library
-            </h2>
+            <div className="flex items-center gap-3">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Intelligence Library
+              </h2>
+              {context.business?.profile?.name && (
+                <span className="text-sm font-medium text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 px-3 py-1 rounded-full">
+                  {context.business.profile.name}
+                </span>
+              )}
+            </div>
             <p className="text-sm text-gray-600 dark:text-gray-400 mt-0.5">
               {viewMode === 'easy'
                 ? 'AI-powered strategy at the click of a button'

@@ -27,11 +27,11 @@ serve(async (req) => {
     let url: string
 
     if (type === 'current') {
-      // Current weather
-      url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(location)}&units=imperial&appid=${WEATHER_API_KEY}`
+      // Current weather from WeatherAPI.com
+      url = `https://api.weatherapi.com/v1/current.json?key=${WEATHER_API_KEY}&q=${encodeURIComponent(location)}&aqi=no`
     } else if (type === 'forecast') {
-      // 5-day forecast
-      url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(location)}&units=imperial&appid=${WEATHER_API_KEY}`
+      // 5-day forecast from WeatherAPI.com
+      url = `https://api.weatherapi.com/v1/forecast.json?key=${WEATHER_API_KEY}&q=${encodeURIComponent(location)}&days=5&aqi=no`
     } else {
       throw new Error('Invalid type. Use "current" or "forecast"')
     }
@@ -52,36 +52,24 @@ serve(async (req) => {
 
     if (type === 'current') {
       result = {
-        temperature: data.main.temp,
-        feels_like: data.main.feels_like,
-        condition: data.weather[0].main,
-        description: data.weather[0].description,
-        humidity: data.main.humidity,
-        wind_speed: data.wind.speed,
-        location: data.name || location,
+        temperature: data.current.temp_f,
+        feels_like: data.current.feelslike_f,
+        condition: data.current.condition.text,
+        description: data.current.condition.text,
+        humidity: data.current.humidity,
+        wind_speed: data.current.wind_mph,
+        location: data.location.name || location,
         forecast: []
       }
     } else {
       // forecast
-      const dailyForecasts: any[] = []
-      const grouped: Record<string, any[]> = {}
-
-      data.list.forEach((item: any) => {
-        const date = item.dt_txt.split(' ')[0]
-        if (!grouped[date]) grouped[date] = []
-        grouped[date].push(item)
-      })
-
-      Object.entries(grouped).forEach(([date, items]) => {
-        const temps = items.map(i => i.main.temp)
-        dailyForecasts.push({
-          date,
-          temp_max: Math.max(...temps),
-          temp_min: Math.min(...temps),
-          condition: items[0].weather[0].main,
-          precipitation_chance: items[0].pop * 100
-        })
-      })
+      const dailyForecasts = data.forecast.forecastday.map((day: any) => ({
+        date: day.date,
+        temp_max: day.day.maxtemp_f,
+        temp_min: day.day.mintemp_f,
+        condition: day.day.condition.text,
+        precipitation_chance: day.day.daily_chance_of_rain || 0
+      }))
 
       result = dailyForecasts.slice(0, 5)
     }

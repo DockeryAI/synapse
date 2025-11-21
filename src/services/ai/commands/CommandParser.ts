@@ -48,7 +48,7 @@ export class CommandParser implements ICommandParser {
       const userPrompt = this.buildParsingUserPrompt(input);
 
       const response = await this.anthropic.messages.create({
-        model: 'claude-sonnet-4-5-20250929',
+        model: 'claude-3-5-sonnet-20241022',
         max_tokens: 2000,
         system: systemPrompt,
         messages: [

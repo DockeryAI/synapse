@@ -26,41 +26,80 @@ interface InitialLoadingScreenProps {
   businessName?: string;
 }
 
-const STEPS = [
+interface LoadingStep {
+  key: string;
+  label: string;
+  description: string;
+  icon: any;
+  duration: number;
+  substeps: string[];
+}
+
+const STEPS: LoadingStep[] = [
   {
     key: 'products',
     label: 'Products',
     description: 'Scanning products & services',
     icon: Package,
-    duration: 10748
+    duration: 27944, // Doubled from 13972 (100% increase)
+    substeps: [
+      'Scanning homepage content...',
+      'Analyzing service pages...',
+      'Categorizing offerings...',
+      'Extracting descriptions...'
+    ]
   },
   {
     key: 'customer',
     label: 'Customer',
     description: 'Identifying target customers',
     icon: Users,
-    duration: 10748
+    duration: 27944, // Doubled from 13972 (100% increase)
+    substeps: [
+      'Analyzing target audience...',
+      'Extracting customer segments...',
+      'Identifying buyer personas...',
+      'Mapping customer needs...'
+    ]
   },
   {
     key: 'transformation',
     label: 'Value',
     description: 'Discovering customer value',
     icon: Zap,
-    duration: 10748
+    duration: 27944, // Doubled from 13972 (100% increase)
+    substeps: [
+      'Analyzing customer testimonials...',
+      'Extracting transformation stories...',
+      'Identifying emotional drivers...',
+      'Mapping value propositions...'
+    ]
   },
   {
     key: 'solution',
     label: 'Solution',
     description: 'Extracting unique solutions',
     icon: Lightbulb,
-    duration: 10748
+    duration: 27944, // Doubled from 13972 (100% increase)
+    substeps: [
+      'Analyzing differentiators...',
+      'Identifying unique approaches...',
+      'Extracting methodology...',
+      'Mapping competitive advantages...'
+    ]
   },
   {
     key: 'benefit',
     label: 'Benefit',
     description: 'Analyzing key benefits',
     icon: Award,
-    duration: 10748
+    duration: 27944, // Doubled from 13972 (100% increase)
+    substeps: [
+      'Extracting customer outcomes...',
+      'Analyzing success metrics...',
+      'Identifying key benefits...',
+      'Quantifying value delivered...'
+    ]
   }
 ];
 
@@ -70,6 +109,19 @@ export function InitialLoadingScreen({
 }: InitialLoadingScreenProps) {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [completedSteps, setCompletedSteps] = useState<string[]>([]);
+  const [currentSubstep, setCurrentSubstep] = useState(0);
+
+  // Cycle through substeps for current step
+  useEffect(() => {
+    const currentStep = STEPS[currentStepIndex];
+    if (!currentStep?.substeps) return;
+
+    const substepTimer = setInterval(() => {
+      setCurrentSubstep(prev => (prev + 1) % currentStep.substeps.length);
+    }, 2500); // Change substep every 2.5 seconds
+
+    return () => clearInterval(substepTimer);
+  }, [currentStepIndex]);
 
   useEffect(() => {
     // Animate through each step
@@ -78,6 +130,7 @@ export function InitialLoadingScreen({
         if (prev < STEPS.length - 1) {
           // Mark current step as completed
           setCompletedSteps(completed => [...completed, STEPS[prev].key]);
+          setCurrentSubstep(0); // Reset substep for next main step
           return prev + 1;
         } else {
           // Mark final step as completed
@@ -88,7 +141,7 @@ export function InitialLoadingScreen({
           return prev;
         }
       });
-    }, 10748); // Each step takes 10.748 seconds (total ~54 seconds)
+    }, 27944); // Each step takes 27.944 seconds (doubled from original - total ~140 seconds)
 
     return () => clearInterval(timer);
   }, []);
@@ -180,6 +233,18 @@ export function InitialLoadingScreen({
                     }`}>
                       {isCompleted ? 'Complete' : isCurrent ? step.description : 'Pending'}
                     </div>
+                    {/* Show substep for current step */}
+                    {isCurrent && step.substeps && (
+                      <motion.div
+                        key={currentSubstep}
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 5 }}
+                        className="text-xs text-purple-300/60 mt-1 italic"
+                      >
+                        {step.substeps[currentSubstep]}
+                      </motion.div>
+                    )}
                   </div>
 
                   {/* Loading Indicator */}
@@ -221,7 +286,7 @@ export function InitialLoadingScreen({
           className="text-center text-sm text-gray-500"
         >
           <p>Using AI to extract insights from your website...</p>
-          <p className="mt-1">This usually takes about a minute</p>
+          <p className="mt-1">This could take up to 3 minutes</p>
         </motion.div>
       </motion.div>
     </div>

@@ -64,6 +64,7 @@ export function UVPSynthesisPage({
   const [isEditingWhat, setIsEditingWhat] = useState(false);
   const [isEditingHow, setIsEditingHow] = useState(false);
   const [isGeneratingStatements, setIsGeneratingStatements] = useState(false);
+  const [selectedVariationIndex, setSelectedVariationIndex] = useState(0);
   const [editedVP, setEditedVP] = useState(completeUVP.valuePropositionStatement);
   const [editedWhy, setEditedWhy] = useState(completeUVP.whyStatement);
   const [editedWhat, setEditedWhat] = useState(completeUVP.whatStatement);
@@ -253,6 +254,65 @@ export function UVPSynthesisPage({
             Review, edit, and deploy it across your marketing.
           </motion.p>
         </motion.div>
+
+        {/* UVP Variations Selector (if multiple variations available) */}
+        {completeUVP.variations && completeUVP.variations.length > 1 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="bg-gradient-to-br from-white via-blue-50/30 to-purple-50/30 dark:from-slate-800 dark:via-blue-900/10 dark:to-purple-900/10 rounded-3xl p-6 border-2 border-blue-200 dark:border-blue-700 shadow-xl"
+          >
+            <div className="flex items-center gap-2 mb-4">
+              <Sparkles className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Choose Your Favorite UVP
+              </h2>
+              <InfoTooltip
+                title="Multiple Variations"
+                content="We generated multiple UVP variations for you to choose from. Select the one that resonates most with your brand voice."
+              />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4">
+              {completeUVP.variations.map((variation, index) => (
+                <motion.button
+                  key={index}
+                  onClick={() => {
+                    setSelectedVariationIndex(index);
+                    setEditedVP(variation.uvp);
+                  }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className={`p-4 rounded-xl border-2 transition-all text-left ${
+                    selectedVariationIndex === index
+                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-lg'
+                      : 'border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-600'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+                      {variation.style}
+                    </span>
+                    {selectedVariationIndex === index && (
+                      <Check className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                    )}
+                  </div>
+                  <p className="text-sm leading-relaxed text-gray-900 dark:text-white font-medium">
+                    {variation.uvp}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-gray-500 mt-2">
+                    {variation.wordCount} words
+                  </p>
+                </motion.button>
+              ))}
+            </div>
+
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-4 text-center">
+              Select a variation above to use as your main value proposition
+            </p>
+          </motion.div>
+        )}
 
         {/* Main Value Proposition Statement */}
         <motion.div

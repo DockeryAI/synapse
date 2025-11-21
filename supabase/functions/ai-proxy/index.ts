@@ -35,10 +35,12 @@ type Provider = 'openrouter' | 'perplexity' | 'openai';
 interface AIProxyRequest {
   provider: Provider;
   model: string;
-  messages: Array<{
+  endpoint?: 'chat' | 'embeddings'; // Default: chat
+  messages?: Array<{
     role: 'system' | 'user' | 'assistant';
     content: string;
   }>;
+  input?: string; // For embeddings
   temperature?: number;
   max_tokens?: number;
   stream?: boolean;
@@ -82,6 +84,15 @@ function validateRequest(req: AIProxyRequest): string | null {
     return 'Missing required field: model';
   }
 
+  // For embeddings endpoint
+  if (req.endpoint === 'embeddings') {
+    if (!req.input) {
+      return 'Missing required field for embeddings: input';
+    }
+    return null;
+  }
+
+  // For chat endpoint (default)
   if (!req.messages || !Array.isArray(req.messages) || req.messages.length === 0) {
     return 'Missing or invalid field: messages (must be non-empty array)';
   }
@@ -103,7 +114,12 @@ async function callProvider(req: AIProxyRequest): Promise<AIProxyResponse> {
     };
   }
 
-  const url = PROVIDER_URLS[req.provider];
+  // Determine URL based on endpoint
+  let url = PROVIDER_URLS[req.provider];
+  if (req.endpoint === 'embeddings' && req.provider === 'openai') {
+    url = 'https://api.openai.com/v1/embeddings';
+  }
+
   const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${apiKey}`,
@@ -115,16 +131,25 @@ async function callProvider(req: AIProxyRequest): Promise<AIProxyResponse> {
     headers['X-Title'] = 'Synapse SMB Platform';
   }
 
-  const body = JSON.stringify({
-    model: req.model,
-    messages: req.messages,
-    temperature: req.temperature ?? 0.7,
-    max_tokens: req.max_tokens,
-    stream: req.stream ?? false,
-  });
+  // Build request body based on endpoint
+  let body: string;
+  if (req.endpoint === 'embeddings') {
+    body = JSON.stringify({
+      model: req.model,
+      input: req.input,
+    });
+  } else {
+    body = JSON.stringify({
+      model: req.model,
+      messages: req.messages,
+      temperature: req.temperature ?? 0.7,
+      max_tokens: req.max_tokens,
+      stream: req.stream ?? false,
+    });
+  }
 
   try {
-    console.log(`[AI-Proxy] Calling ${req.provider} with model ${req.model}`);
+    console.log(`[AI-Proxy] Calling ${req.provider} ${req.endpoint || 'chat'} with model ${req.model}`);
 
     const response = await fetch(url, {
       method: 'POST',

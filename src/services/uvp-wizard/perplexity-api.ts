@@ -357,14 +357,15 @@ export class PerplexityAPI {
   }
 
   /**
-   * Map model names to OpenRouter format
+   * Map model names to Perplexity direct API format
+   * No prefix needed when calling api.perplexity.ai directly
    */
   private mapModelName(model: string): string {
     const mapping: Record<string, string> = {
-      'sonar-pro': 'perplexity/sonar-pro',
-      sonar: 'perplexity/sonar',
-      'sonar-medium': 'perplexity/sonar-medium-online',
-      'sonar-small': 'perplexity/sonar-small-online',
+      'sonar-pro': 'sonar-pro',
+      sonar: 'sonar',
+      'sonar-medium': 'sonar',
+      'sonar-small': 'sonar',
     }
 
     return mapping[model] || model

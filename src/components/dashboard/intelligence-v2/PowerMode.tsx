@@ -186,6 +186,13 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
       const triggerText = typeof trigger === 'string' ? trigger : trigger.trigger;
       const conciseTitle = triggerText.split(/[,.]|and |but /)[0].trim();
 
+      // Extract actual source from trigger context (e.g., "From Google Reviews")
+      let actualSource = 'Customer Psychology';
+      if (typeof trigger === 'object' && trigger.context) {
+        // Parse "From Google Reviews" -> "Google Reviews"
+        actualSource = trigger.context.replace(/^From\s+/i, '').trim() || 'Customer Psychology';
+      }
+
       insights.push({
         id: `customer-trigger-${idx}`,
         type: 'customer',
@@ -195,7 +202,8 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
         isTimeSensitive: false,
         description: triggerText,
         sources: [{
-          source: 'Emotional Psychology Analysis',
+          source: actualSource,
+          quote: typeof trigger === 'object' ? trigger.leverage : undefined,
         }],
         rawData: trigger,
       });
