@@ -60,10 +60,14 @@ class OrchestrationService {
     const embeddedDataPoints = await embeddingService.embedDataPoints(dataPoints);
 
     console.log('[Orchestration] Phase 2: Running clustering...');
-    const clusters = clusteringService.kMeansClustering(
+    let clusters = clusteringService.kMeansClustering(
       embeddedDataPoints,
       Math.min(8, Math.max(3, Math.floor(dataPoints.length / 10)))
     );
+
+    // Enhance cluster themes with AI
+    console.log('[Orchestration] Phase 2b: Enhancing cluster themes with AI...');
+    clusters = await clusteringService.enhanceClusterThemes(clusters);
 
     // Phase 3: Connection Discovery
     console.log('[Orchestration] Phase 3: Discovering connections...');

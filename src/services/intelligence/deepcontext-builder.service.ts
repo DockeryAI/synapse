@@ -626,32 +626,58 @@ class DeepContextBuilderService {
           }];
         })(),
 
-        // 3. Autocomplete
+        // 3. Autocomplete (expanded with multiple query patterns)
         (async () => {
-          const query = `${brandData.industry} how to`;
-          const cacheKey = `serper:autocomplete:${query}`;
-          let suggestions = await intelligenceCache.get(cacheKey);
+          const queryPatterns = [
+            `${brandData.industry} how to`,
+            `${brandData.industry} best`,
+            `${brandData.industry} problems`,
+            `${brandData.industry} mistakes`,
+            `${brandData.industry} cost`,
+            `why ${brandData.industry}`,
+            `${brandData.industry} vs`
+          ];
 
-          if (!suggestions) {
-            suggestions = await SerperAPI.getAutocomplete(query);
-            await intelligenceCache.set(cacheKey, suggestions, {
-              dataType: 'autocomplete',
-              sourceApi: 'serper',
-              brandId: brandData.id
-            });
+          const allDataPoints: DataPoint[] = [];
+
+          for (const query of queryPatterns) {
+            const cacheKey = `serper:autocomplete:${query}`;
+            let suggestions = await intelligenceCache.get(cacheKey);
+
+            if (!suggestions) {
+              suggestions = await SerperAPI.getAutocomplete(query);
+              await intelligenceCache.set(cacheKey, suggestions, {
+                dataType: 'autocomplete',
+                sourceApi: 'serper',
+                brandId: brandData.id
+              });
+            }
+
+            // Determine intent type based on query pattern
+            const intentType = query.includes('how to') ? 'educational' :
+              query.includes('best') ? 'comparison' :
+              query.includes('problems') || query.includes('mistakes') ? 'pain_point' :
+              query.includes('cost') ? 'pricing' :
+              query.includes('why') ? 'justification' :
+              query.includes('vs') ? 'comparison' : 'general';
+
+            const points = suggestions.slice(0, 2).map((suggestion: string) => ({
+              source: 'serper' as DataSource,
+              type: 'customer_trigger' as DataPointType,
+              content: suggestion,
+              metadata: {
+                type: 'search_intent',
+                intentType,
+                query
+              },
+              timestamp: new Date().toISOString(),
+              confidence: 0.75
+            }));
+
+            allDataPoints.push(...points);
           }
 
-          return suggestions.slice(0, 3).map((suggestion: string) => ({
-            source: 'serper' as DataSource,
-            type: 'customer_trigger' as DataPointType,
-            content: suggestion,
-            metadata: {
-              type: 'search_intent',
-              query
-            },
-            timestamp: new Date().toISOString(),
-            confidence: 0.75
-          }));
+          return allDataPoints;
         })(),
 
         // 4. Places
@@ -1098,38 +1124,66 @@ class DeepContextBuilderService {
         'July', 'August', 'September', 'October', 'November', 'December'];
       const currentMonth = monthNames[now.getMonth()];
 
-      // Query Perplexity for local events
-      const response = await perplexityAPI.getIndustryInsights({
-        query: `What local events, festivals, holidays, and community gatherings are happening in ${location} in ${currentMonth} ${now.getFullYear()} that would be relevant marketing opportunities for ${brandData.industry} businesses? Include specific dates if available.`,
-        context: {
-          industry: brandData.industry,
-          brand_name: brandData.name
+      // Query Perplexity with multiple psychological-focused prompts
+      const queries = [
+        // 1. Local events (original)
+        {
+          query: `What local events, festivals, holidays, and community gatherings are happening in ${location} in ${currentMonth} ${now.getFullYear()} that would be relevant marketing opportunities for ${brandData.industry} businesses? Include specific dates if available.`,
+          type: 'local_event' as DataPointType,
+          domain: 'timing'
         },
-        max_results: 5
-      });
-
-      dataSourcesUsed.push('perplexity');
+        // 2. Customer pain points and concerns
+        {
+          query: `What are the most common problems, frustrations, and complaints people in ${location} have about ${brandData.industry} services right now? What are customers asking about most frequently? Include specific pain points and unanswered questions.`,
+          type: 'customer_trigger' as DataPointType,
+          domain: 'psychology'
+        },
+        // 3. Emerging trends and desires
+        {
+          query: `What new trends, desires, and expectations are emerging for ${brandData.industry} customers in ${location}? What are people hoping for that they can't currently find? Include specific features or services people are requesting.`,
+          type: 'customer_trigger' as DataPointType,
+          domain: 'psychology'
+        }
+      ];
 
       const dataPoints: DataPoint[] = [];
 
-      // Convert insights to data points
-      response.insights.forEach((insight, index) => {
-        dataPoints.push({
-          id: `perplexity-event-${Date.now()}-${index}`,
-          source: 'perplexity' as DataSource,
-          type: 'local_event' as DataPointType,
-          content: insight,
-          metadata: {
-            location,
-            month: currentMonth,
-            year: now.getFullYear(),
-            confidence: response.confidence,
-            domain: 'timing' as const
-          },
-          createdAt: new Date(),
-          embedding: undefined
-        });
-      });
+      for (const queryConfig of queries) {
+        try {
+          const response = await perplexityAPI.getIndustryInsights({
+            query: queryConfig.query,
+            context: {
+              industry: brandData.industry,
+              brand_name: brandData.name
+            },
+            max_results: 5
+          });
+
+          // Convert insights to data points
+          response.insights.forEach((insight, index) => {
+            dataPoints.push({
+              id: `perplexity-${queryConfig.domain}-${Date.now()}-${index}`,
+              source: 'perplexity' as DataSource,
+              type: queryConfig.type,
+              content: insight,
+              metadata: {
+                location,
+                month: currentMonth,
+                year: now.getFullYear(),
+                confidence: response.confidence,
+                domain: queryConfig.domain,
+                queryType: queryConfig.domain === 'psychology' ? 'psychological_trigger' : 'event'
+              },
+              createdAt: new Date(),
+              embedding: undefined
+            });
+          });
+        } catch (queryError) {
+          console.warn(`[DeepContext/Perplexity] Query failed for ${queryConfig.domain}:`, queryError);
+        }
+      }
+
+      dataSourcesUsed.push('perplexity');
 
       console.log(`[DeepContext/Perplexity] ✅ Extracted ${dataPoints.length} local event data points`);
       return dataPoints;

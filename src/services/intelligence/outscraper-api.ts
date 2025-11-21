@@ -92,6 +92,19 @@ export interface SentimentAnalysis {
   common_phrases: string[]
 }
 
+export interface RatingTierAnalysis {
+  tier: '1-2 star' | '3 star' | '4-5 star'
+  reviewCount: number
+  patterns: {
+    pattern: string
+    type: 'pain' | 'frustration' | 'desire' | 'praise' | 'expectation'
+    examples: string[]
+    frequency: number
+  }[]
+  commonPhrases: string[]
+  emotionalTriggers: string[]
+}
+
 export interface LocalRankingData {
   keyword: string
   position?: number
@@ -692,6 +705,151 @@ class OutScraperAPIService {
       themes: this.extractThemes(reviews),
       common_phrases: phrases,
     }
+  }
+
+  /**
+   * 5b. Analyze reviews by rating tier for psychological mining
+   * Separates 1-2 star (pain points) from 4-5 star (desires/praise)
+   */
+  analyzeReviewsByRatingTier(reviews: GoogleReview[]): RatingTierAnalysis[] {
+    console.log('[OutScraper] Analyzing reviews by rating tier for', reviews.length, 'reviews')
+
+    const tiers: Array<{ name: '1-2 star' | '3 star' | '4-5 star'; filter: (r: GoogleReview) => boolean }> = [
+      { name: '1-2 star', filter: r => r.rating <= 2 },
+      { name: '3 star', filter: r => r.rating === 3 },
+      { name: '4-5 star', filter: r => r.rating >= 4 }
+    ]
+
+    return tiers.map(tier => {
+      const tierReviews = reviews.filter(tier.filter)
+      const allText = tierReviews.map(r => r.text).join(' ')
+
+      // Extract patterns based on tier type
+      const patterns = this.extractPsychologicalPatterns(tierReviews, tier.name)
+      const phrases = this.extractCommonPhrases(allText.toLowerCase())
+      const triggers = this.extractEmotionalTriggers(tierReviews, tier.name)
+
+      return {
+        tier: tier.name,
+        reviewCount: tierReviews.length,
+        patterns,
+        commonPhrases: phrases,
+        emotionalTriggers: triggers
+      }
+    })
+  }
+
+  /**
+   * Extract psychological patterns from reviews based on rating tier
+   */
+  private extractPsychologicalPatterns(
+    reviews: GoogleReview[],
+    tier: '1-2 star' | '3 star' | '4-5 star'
+  ): RatingTierAnalysis['patterns'] {
+    const patternMap = new Map<string, { type: RatingTierAnalysis['patterns'][0]['type']; examples: string[] }>()
+
+    // Different pattern matchers for different tiers
+    const matchers = tier === '1-2 star' ? [
+      // Pain patterns for negative reviews
+      { regex: /(?:worst|terrible|horrible|awful|never|waste|scam|rude|unprofessional|disappointed|avoid)/gi, type: 'pain' as const },
+      { regex: /(?:couldn't|wouldn't|didn't|don't|won't|can't) (?:even |help |fix |solve |answer |return)/gi, type: 'frustration' as const },
+      { regex: /(?:expected|should have|was supposed to|promised|guarantee)/gi, type: 'expectation' as const },
+      { regex: /(?:overcharged|too expensive|hidden fees|extra charges|price gouging)/gi, type: 'pain' as const },
+      { regex: /(?:waited|waiting|took forever|slow|delayed|late)/gi, type: 'frustration' as const },
+    ] : tier === '4-5 star' ? [
+      // Desire/praise patterns for positive reviews
+      { regex: /(?:best|amazing|excellent|outstanding|perfect|incredible|fantastic|wonderful)/gi, type: 'praise' as const },
+      { regex: /(?:finally|exactly what|just what|everything i wanted|exceeded)/gi, type: 'desire' as const },
+      { regex: /(?:recommend|will return|coming back|tell everyone|trust)/gi, type: 'praise' as const },
+      { regex: /(?:professional|knowledgeable|expert|skilled|experienced)/gi, type: 'praise' as const },
+      { regex: /(?:quick|fast|efficient|on time|prompt|responsive)/gi, type: 'desire' as const },
+    ] : [
+      // Mixed patterns for 3-star reviews
+      { regex: /(?:okay|fine|average|decent|could be better|room for improvement)/gi, type: 'expectation' as const },
+      { regex: /(?:but|however|although|except|if only)/gi, type: 'expectation' as const },
+    ]
+
+    for (const review of reviews) {
+      const text = review.text.toLowerCase()
+
+      for (const matcher of matchers) {
+        const matches = text.match(matcher.regex)
+        if (matches) {
+          for (const match of matches) {
+            // Get context around the match (30 chars before and after)
+            const idx = text.indexOf(match.toLowerCase())
+            const start = Math.max(0, idx - 30)
+            const end = Math.min(text.length, idx + match.length + 30)
+            const context = text.substring(start, end).trim()
+
+            const key = match.toLowerCase()
+            if (patternMap.has(key)) {
+              patternMap.get(key)!.examples.push(context)
+            } else {
+              patternMap.set(key, { type: matcher.type, examples: [context] })
+            }
+          }
+        }
+      }
+    }
+
+    // Convert to array and sort by frequency
+    return Array.from(patternMap.entries())
+      .map(([pattern, data]) => ({
+        pattern,
+        type: data.type,
+        examples: data.examples.slice(0, 3),
+        frequency: data.examples.length
+      }))
+      .sort((a, b) => b.frequency - a.frequency)
+      .slice(0, 15)
+  }
+
+  /**
+   * Extract emotional triggers from reviews
+   */
+  private extractEmotionalTriggers(reviews: GoogleReview[], tier: '1-2 star' | '3 star' | '4-5 star'): string[] {
+    const triggers: string[] = []
+
+    if (tier === '1-2 star') {
+      // Fear and frustration triggers
+      const fearWords = ['worry', 'concerned', 'afraid', 'scared', 'nervous', 'anxious', 'risk', 'dangerous']
+      const frustrationWords = ['frustrated', 'annoyed', 'angry', 'upset', 'furious', 'disappointed', 'disgusted']
+
+      for (const review of reviews) {
+        const text = review.text.toLowerCase()
+        for (const word of fearWords) {
+          if (text.includes(word) && !triggers.includes(`fear: ${word}`)) {
+            triggers.push(`fear: ${word}`)
+          }
+        }
+        for (const word of frustrationWords) {
+          if (text.includes(word) && !triggers.includes(`frustration: ${word}`)) {
+            triggers.push(`frustration: ${word}`)
+          }
+        }
+      }
+    } else if (tier === '4-5 star') {
+      // Desire and trust triggers
+      const desireWords = ['love', 'want', 'need', 'wish', 'hope', 'dream', 'perfect']
+      const trustWords = ['trust', 'reliable', 'honest', 'transparent', 'dependable', 'consistent']
+
+      for (const review of reviews) {
+        const text = review.text.toLowerCase()
+        for (const word of desireWords) {
+          if (text.includes(word) && !triggers.includes(`desire: ${word}`)) {
+            triggers.push(`desire: ${word}`)
+          }
+        }
+        for (const word of trustWords) {
+          if (text.includes(word) && !triggers.includes(`trust: ${word}`)) {
+            triggers.push(`trust: ${word}`)
+          }
+        }
+      }
+    }
+
+    return triggers.slice(0, 10)
   }
 
   /**

@@ -31,6 +31,22 @@ interface TrendAnalysis {
   relevance_score: number
 }
 
+interface YouTubeComment {
+  id: string
+  text: string
+  authorName: string
+  likeCount: number
+  publishedAt: string
+  isReply: boolean
+}
+
+interface PsychologicalPattern {
+  pattern: string
+  type: 'wish' | 'hate' | 'fear' | 'desire' | 'frustration' | 'praise'
+  examples: string[]
+  frequency: number
+}
+
 class YouTubeAPIService {
   private cache: Map<string, { data: any; timestamp: number }> = new Map()
 
@@ -228,7 +244,159 @@ class YouTubeAPIService {
       throw error
     }
   }
+
+  /**
+   * Get comments from a video for psychological pattern mining
+   */
+  async getVideoComments(videoId: string, maxResults: number = 100): Promise<YouTubeComment[]> {
+    const cacheKey = `comments_${videoId}_${maxResults}`
+    const cached = this.getCached(cacheKey)
+    if (cached) return cached
+
+    if (!YOUTUBE_API_KEY) {
+      throw new Error('YouTube API key not configured')
+    }
+
+    try {
+      const url = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=${maxResults}&order=relevance&key=${YOUTUBE_API_KEY}`
+
+      const response = await fetch(url)
+
+      if (!response.ok) {
+        throw new Error(`YouTube Comments API error: ${response.statusText}`)
+      }
+
+      const data = await response.json()
+
+      const comments: YouTubeComment[] = data.items?.map((item: any) => ({
+        id: item.id,
+        text: item.snippet.topLevelComment.snippet.textDisplay,
+        authorName: item.snippet.topLevelComment.snippet.authorDisplayName,
+        likeCount: item.snippet.topLevelComment.snippet.likeCount || 0,
+        publishedAt: item.snippet.topLevelComment.snippet.publishedAt,
+        isReply: false
+      })) || []
+
+      this.setCache(cacheKey, comments)
+      console.log(`[YouTube API] Retrieved ${comments.length} comments for video ${videoId}`)
+      return comments
+    } catch (error) {
+      console.error('[YouTube API] Error fetching comments:', error)
+      return []
+    }
+  }
+
+  /**
+   * Extract psychological patterns from comments ("I wish", "I hate when", etc.)
+   */
+  extractPsychologicalPatterns(comments: YouTubeComment[]): PsychologicalPattern[] {
+    const patterns: Map<string, { type: PsychologicalPattern['type']; examples: string[] }> = new Map()
+
+    // Define pattern matchers
+    const matchers: Array<{ regex: RegExp; type: PsychologicalPattern['type']; extract: (match: RegExpMatchArray) => string }> = [
+      // Wishes and desires
+      { regex: /i wish (?:i |they |we |it |there was |there were )?(.*?)(?:\.|!|$)/gi, type: 'wish', extract: m => m[1] },
+      { regex: /i want (?:to )?(.*?)(?:\.|!|$)/gi, type: 'desire', extract: m => m[1] },
+      { regex: /i need (.*?)(?:\.|!|$)/gi, type: 'desire', extract: m => m[1] },
+      { regex: /if only (.*?)(?:\.|!|$)/gi, type: 'wish', extract: m => m[1] },
+
+      // Frustrations and hates
+      { regex: /i hate (?:when |it when |that )?(.*?)(?:\.|!|$)/gi, type: 'hate', extract: m => m[1] },
+      { regex: /i can't stand (.*?)(?:\.|!|$)/gi, type: 'hate', extract: m => m[1] },
+      { regex: /so frustrat(?:ing|ed) (?:when |that )?(.*?)(?:\.|!|$)/gi, type: 'frustration', extract: m => m[1] },
+      { regex: /drives me crazy (.*?)(?:\.|!|$)/gi, type: 'frustration', extract: m => m[1] },
+      { regex: /sick of (.*?)(?:\.|!|$)/gi, type: 'frustration', extract: m => m[1] },
+
+      // Fears
+      { regex: /i'm afraid (?:of |that )?(.*?)(?:\.|!|$)/gi, type: 'fear', extract: m => m[1] },
+      { regex: /i'm worried (?:about |that )?(.*?)(?:\.|!|$)/gi, type: 'fear', extract: m => m[1] },
+      { regex: /scared (?:of |that |to )?(.*?)(?:\.|!|$)/gi, type: 'fear', extract: m => m[1] },
+
+      // Praise
+      { regex: /(?:this is |that's |it's )(?:so |really |very )?(amazing|great|awesome|helpful|perfect|exactly what i needed)(.*?)(?:\.|!|$)/gi, type: 'praise', extract: m => m[1] + (m[2] || '') },
+      { regex: /finally (?:someone |a video that |found )?(.*?)(?:\.|!|$)/gi, type: 'praise', extract: m => m[1] },
+      { regex: /thank (?:you|god) for (.*?)(?:\.|!|$)/gi, type: 'praise', extract: m => m[1] },
+    ]
+
+    // Process each comment
+    for (const comment of comments) {
+      const text = comment.text.toLowerCase()
+
+      for (const matcher of matchers) {
+        let match
+        while ((match = matcher.regex.exec(text)) !== null) {
+          const extracted = matcher.extract(match).trim()
+          if (extracted && extracted.length > 3 && extracted.length < 100) {
+            const key = `${matcher.type}:${extracted.substring(0, 50)}`
+
+            if (patterns.has(key)) {
+              patterns.get(key)!.examples.push(comment.text)
+            } else {
+              patterns.set(key, {
+                type: matcher.type,
+                examples: [comment.text]
+              })
+            }
+          }
+        }
+        // Reset regex lastIndex for next comment
+        matcher.regex.lastIndex = 0
+      }
+    }
+
+    // Convert to array and sort by frequency
+    const results: PsychologicalPattern[] = Array.from(patterns.entries())
+      .map(([key, value]) => ({
+        pattern: key.split(':')[1],
+        type: value.type,
+        examples: value.examples.slice(0, 3),
+        frequency: value.examples.length
+      }))
+      .sort((a, b) => b.frequency - a.frequency)
+      .slice(0, 20)
+
+    console.log(`[YouTube API] Extracted ${results.length} psychological patterns from ${comments.length} comments`)
+    return results
+  }
+
+  /**
+   * Get comments from multiple videos and extract psychological patterns
+   */
+  async mineIndustryPsychology(keywords: string[], maxVideos: number = 5): Promise<{
+    comments: YouTubeComment[]
+    patterns: PsychologicalPattern[]
+  }> {
+    const cacheKey = `psychology_${keywords.join('_')}_${maxVideos}`
+    const cached = this.getCached(cacheKey)
+    if (cached) return cached
+
+    try {
+      // Search for relevant videos
+      const videos = await this.searchVideos(keywords, maxVideos)
+
+      // Get comments from each video
+      const allComments: YouTubeComment[] = []
+      for (const video of videos) {
+        if (video.commentCount > 0) {
+          const comments = await this.getVideoComments(video.id, 50)
+          allComments.push(...comments)
+        }
+      }
+
+      // Extract psychological patterns
+      const patterns = this.extractPsychologicalPatterns(allComments)
+
+      const result = { comments: allComments, patterns }
+      this.setCache(cacheKey, result)
+
+      console.log(`[YouTube API] Mined ${allComments.length} comments from ${videos.length} videos, found ${patterns.length} patterns`)
+      return result
+    } catch (error) {
+      console.error('[YouTube API] Error mining psychology:', error)
+      return { comments: [], patterns: [] }
+    }
+  }
 }
 
 export const YouTubeAPI = new YouTubeAPIService()
-export type { YouTubeVideo, TrendAnalysis }
+export type { YouTubeVideo, TrendAnalysis, YouTubeComment, PsychologicalPattern }

@@ -407,6 +407,124 @@ class ConnectionDiscoveryService {
 
     return `Data from ${conn.sources.join(', ')} reveals a pattern competitors miss.`;
   }
+
+  /**
+   * Generate AI-enhanced compelling titles and hooks
+   * Creates curiosity-driven, specific content angles
+   */
+  async generateAIEnhancedAngles(connections: Connection[]): Promise<BreakthroughAngle[]> {
+    if (connections.length === 0) return [];
+
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      return this.generateBreakthroughAngles(connections);
+    }
+
+    const breakthroughs: BreakthroughAngle[] = [];
+
+    // Process top connections with AI
+    for (const conn of connections.slice(0, 5)) {
+      try {
+        const contentSummary = conn.dataPoints
+          .map(dp => `${dp.source}: ${dp.content.substring(0, 100)}`)
+          .join('\n');
+
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            provider: 'openrouter',
+            model: 'anthropic/claude-3-haiku',
+            messages: [
+              {
+                role: 'system',
+                content: 'Generate compelling content titles and hooks. Be specific, create curiosity, and avoid generic phrases. Output JSON only.'
+              },
+              {
+                role: 'user',
+                content: `Create a breakthrough content angle from this ${conn.connectionType} connection:
+
+${contentSummary}
+
+Sources: ${conn.sources.join(', ')}
+Breakthrough Score: ${conn.breakthroughScore}/100
+
+Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional opening that references actual data"}`
+              }
+            ],
+            temperature: 0.7,
+            max_tokens: 200
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          let content = data.choices?.[0]?.message?.content || '';
+
+          // Clean and parse JSON
+          if (content.includes('```')) {
+            content = content.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+          }
+
+          const parsed = JSON.parse(content);
+          const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
+
+          const urgency = conn.timingRelevance > 0.5
+            ? conn.emotionalIntensity > 0.5 ? 'critical' : 'high'
+            : conn.emotionalIntensity > 0.5 ? 'medium' : 'low';
+
+          breakthroughs.push({
+            id: `ai-breakthrough-${breakthroughs.length}`,
+            title: parsed.title || this.generateTitle(conn),
+            hook: parsed.hook || this.generateHook(conn),
+            connections: [conn],
+            score: conn.breakthroughScore,
+            provenance,
+            urgency
+          });
+        }
+      } catch (error) {
+        console.warn('[ConnectionDiscovery] AI angle generation failed for connection:', error);
+        // Fallback to basic generation
+        const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
+        const urgency = conn.timingRelevance > 0.5 ? 'high' : 'medium';
+
+        breakthroughs.push({
+          id: `breakthrough-${breakthroughs.length}`,
+          title: this.generateTitle(conn),
+          hook: this.generateHook(conn),
+          connections: [conn],
+          score: conn.breakthroughScore,
+          provenance,
+          urgency
+        });
+      }
+    }
+
+    // Add remaining connections with basic generation
+    for (const conn of connections.slice(5, 10)) {
+      const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
+      const urgency = conn.timingRelevance > 0.5 ? 'high' : 'medium';
+
+      breakthroughs.push({
+        id: `breakthrough-${breakthroughs.length}`,
+        title: this.generateTitle(conn),
+        hook: this.generateHook(conn),
+        connections: [conn],
+        score: conn.breakthroughScore,
+        provenance,
+        urgency
+      });
+    }
+
+    console.log(`[ConnectionDiscovery] Generated ${breakthroughs.length} AI-enhanced breakthrough angles`);
+    return breakthroughs.sort((a, b) => b.score - a.score);
+  }
 }
 
 export const connectionDiscoveryService = new ConnectionDiscoveryService();

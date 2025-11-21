@@ -7,6 +7,7 @@
 
 import type { DataPoint } from '@/types/connections.types';
 import { embeddingService } from './embedding.service';
+import { supabase } from '@/lib/supabase';
 
 export interface InsightCluster {
   id: string;
@@ -313,6 +314,70 @@ class ClusteringService {
     return topWords
       .map(w => w.charAt(0).toUpperCase() + w.slice(1))
       .join(' & ');
+  }
+
+  /**
+   * Generate AI-powered semantic theme for a cluster
+   * Creates psychologically meaningful themes like "Coverage anxiety" or "Trust deficit"
+   */
+  async generateAITheme(points: DataPoint[]): Promise<string> {
+    try {
+      // Get sample content for AI analysis
+      const sampleContent = points
+        .slice(0, 5)
+        .map(p => p.content.substring(0, 200))
+        .join('\n\n');
+
+      const sources = [...new Set(points.map(p => p.source))].join(', ');
+
+      const { data, error } = await supabase.functions.invoke('ai-proxy', {
+        body: {
+          provider: 'openrouter',
+          model: 'anthropic/claude-3-haiku',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are an expert at identifying psychological patterns in customer feedback. Generate a short, evocative theme name (2-4 words) that captures the emotional or behavioral pattern in the content. Examples: "Coverage anxiety", "Trust deficit", "Price sensitivity", "Quality expectations", "Service frustration", "Value seeking".'
+            },
+            {
+              role: 'user',
+              content: `Analyze these ${points.length} data points from ${sources} and generate a concise psychological theme name:\n\n${sampleContent}\n\nTheme name (2-4 words only):`
+            }
+          ],
+          temperature: 0.3,
+          max_tokens: 20
+        }
+      });
+
+      if (error) throw error;
+
+      const theme = data?.choices?.[0]?.message?.content?.trim() || this.generateTheme(points);
+      return theme.replace(/["']/g, '');
+    } catch (error) {
+      console.warn('[Clustering] AI theme generation failed, using fallback:', error);
+      return this.generateTheme(points);
+    }
+  }
+
+  /**
+   * Enhance all cluster themes with AI
+   * Call this after clustering to get better theme names
+   */
+  async enhanceClusterThemes(clusters: InsightCluster[]): Promise<InsightCluster[]> {
+    console.log(`[Clustering] Enhancing ${clusters.length} cluster themes with AI...`);
+
+    const enhanced = await Promise.all(
+      clusters.map(async (cluster) => {
+        const aiTheme = await this.generateAITheme(cluster.dataPoints);
+        return {
+          ...cluster,
+          theme: aiTheme
+        };
+      })
+    );
+
+    console.log(`[Clustering] ✅ Enhanced ${enhanced.length} cluster themes`);
+    return enhanced;
   }
 
   /**
