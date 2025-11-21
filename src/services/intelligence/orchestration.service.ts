@@ -74,7 +74,7 @@ class OrchestrationService {
 
     // Phase 4: NAICS Enhancement
     console.log('[Orchestration] Phase 4: Loading industry profile...');
-    const industryProfile = naicsDatabase.matchIndustry(
+    const industryProfile = await naicsDatabase.matchIndustry(
       deepContext.business.profile.industry
     );
 

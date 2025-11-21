@@ -1515,11 +1515,11 @@ class DeepContextBuilderService {
       // Continue with basic context even if synthesis fails
     }
 
-    // Run full intelligence orchestration (Phase 2-5)
+    // Run full intelligence orchestration (Phase 2-5) with embeddings
     try {
-      console.log('[DeepContext] Running intelligence orchestration (embeddings, clustering, connections)...');
-      const orchestrationResult = await orchestrationService.quickOrchestrate(dataPoints, deepContext);
-      console.log(`[DeepContext] ✅ Orchestration complete: ${orchestrationResult.stats.breakthroughCount} breakthroughs found`);
+      console.log('[DeepContext] Running full intelligence orchestration (embeddings, clustering, connections)...');
+      const orchestrationResult = await orchestrationService.orchestrate(dataPoints, deepContext);
+      console.log(`[DeepContext] ✅ Full orchestration complete: ${orchestrationResult.stats.embeddedCount} embeddings, ${orchestrationResult.stats.clusterCount} clusters, ${orchestrationResult.stats.breakthroughCount} breakthroughs`);
     } catch (error) {
       console.error('[DeepContext] ❌ Orchestration failed:', error instanceof Error ? error.message : error);
       // Continue with basic context even if orchestration fails
