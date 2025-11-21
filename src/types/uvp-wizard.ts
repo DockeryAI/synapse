@@ -138,6 +138,11 @@ export interface DraggableSuggestion {
   // Metadata
   confidence?: number
   tags?: string[]
+  metadata?: {
+    quote?: string
+    source?: string
+    [key: string]: any
+  }
 
   // State
   is_selected: boolean
