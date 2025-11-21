@@ -28,6 +28,7 @@ import { SerperAPI } from './serper-api';
 import { SemrushAPI } from './semrush-api';
 import { websiteAnalyzer } from './website-analyzer.service';
 import { redditAPI } from './reddit-api';
+import { whisperAPI } from './whisper-api';
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { intelligenceCache } from './intelligence-cache.service';
 import { insightSynthesis } from './insight-synthesis.service';
@@ -141,7 +142,8 @@ class DeepContextBuilderService {
         websiteData,
         redditData,
         perplexityData,
-        linkedinData
+        linkedinData,
+        whisperData
       ] = await Promise.allSettled([
         config.includeYouTube !== false
           ? this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed)
@@ -171,6 +173,10 @@ class DeepContextBuilderService {
           : Promise.resolve(null),
         config.includeLinkedIn !== false
           ? this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
+        // Whisper video transcription
+        brandData.videoUrls && brandData.videoUrls.length > 0
+          ? this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null)
       ]);
 
@@ -226,6 +232,11 @@ class DeepContextBuilderService {
       // Add LinkedIn data points
       if (linkedinData.status === 'fulfilled' && linkedinData.value) {
         dataPoints.push(...linkedinData.value);
+      }
+
+      // Add Whisper data points
+      if (whisperData.status === 'fulfilled' && whisperData.value) {
+        dataPoints.push(...whisperData.value);
       }
 
       console.log(`[DeepContext] Collected ${dataPoints.length} data points from ${dataSourcesUsed.length} sources`);
@@ -1434,6 +1445,43 @@ class DeepContextBuilderService {
       console.error('[DeepContext/LinkedIn] Error:', error);
       errors.push({
         source: 'linkedin',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
+   * 11. Fetch Whisper Intelligence - Video Transcription & Insight Extraction
+   */
+  private async fetchWhisperIntelligence(
+    brandData: any,
+    errors: Array<{ source: string; error: string; severity: 'warning' | 'error' }>,
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/Whisper] Transcribing business videos...');
+
+      const videoUrls = brandData.videoUrls || [];
+
+      if (videoUrls.length === 0) {
+        console.log('[DeepContext/Whisper] No video URLs provided, skipping');
+        return [];
+      }
+
+      // Process videos and extract insights
+      const dataPoints = await whisperAPI.processVideos(videoUrls);
+
+      dataSourcesUsed.push('whisper');
+
+      console.log(`[DeepContext/Whisper] ✅ Extracted ${dataPoints.length} data points from ${videoUrls.length} videos`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/Whisper] Error:', error);
+      errors.push({
+        source: 'whisper',
         error: error instanceof Error ? error.message : String(error),
         severity: 'warning'
       });

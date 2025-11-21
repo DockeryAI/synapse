@@ -11,11 +11,13 @@
 
 import type { DataPoint } from '@/types/connections.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import type { InsightCard, InsightType } from '@/components/dashboard/intelligence-v2/types';
 import { embeddingService } from './embedding.service';
 import { clusteringService, type InsightCluster } from './clustering.service';
 import { connectionDiscoveryService, type Connection, type BreakthroughAngle } from './connection-discovery.service';
 import { naicsDatabase, type IndustryProfile } from './naics-database.service';
-import { contentSynthesis } from './content-synthesis.service';
+import { contentSynthesis, type SynthesizedContent } from './content-synthesis.service';
+import { jtbdTransformer } from './jtbd-transformer.service';
 
 export interface OrchestrationResult {
   // Phase 2 outputs
@@ -33,6 +35,9 @@ export interface OrchestrationResult {
   // Phase 4 outputs
   industryProfile: IndustryProfile;
 
+  // Phase 5 outputs
+  synthesizedContent: SynthesizedContent[];
+
   // Metadata
   stats: {
     totalDataPoints: number;
@@ -40,6 +45,7 @@ export interface OrchestrationResult {
     clusterCount: number;
     connectionCount: number;
     breakthroughCount: number;
+    synthesizedCount: number;
     processingTimeMs: number;
   };
 }
@@ -82,6 +88,45 @@ class OrchestrationService {
       deepContext.business.profile.industry
     );
 
+    // Phase 5: Content Synthesis
+    console.log('[Orchestration] Phase 5: Synthesizing breakthrough content...');
+    const synthesizedContent: SynthesizedContent[] = [];
+
+    // Convert top breakthroughs to synthesized content
+    const topBreakthroughs = breakthroughs.slice(0, 10);
+
+    for (const breakthrough of topBreakthroughs) {
+      try {
+        // Convert breakthrough to insight cards
+        const insightCards = this.breakthroughToInsightCards(breakthrough, clusters);
+
+        // Synthesize content from insight cards
+        const content = await contentSynthesis.synthesizeContent(insightCards, deepContext);
+
+        // Apply JTBD transformation to make title outcome-focused
+        if (content.title) {
+          const jtbdResult = await jtbdTransformer.transformValuePropositions(
+            [content.title],
+            {
+              businessName: deepContext.business.profile.name,
+              industry: deepContext.business.profile.industry,
+              targetAudience: ['business owners']
+            }
+          );
+
+          if (jtbdResult.transformedProps && jtbdResult.transformedProps.length > 0) {
+            content.title = jtbdResult.transformedProps[0].transformed;
+          }
+        }
+
+        synthesizedContent.push(content);
+      } catch (error) {
+        console.warn(`[Orchestration] Failed to synthesize content for breakthrough: ${breakthrough.title}`, error);
+      }
+    }
+
+    console.log(`[Orchestration] Phase 5: ✅ Synthesized ${synthesizedContent.length} content pieces`);
+
     // Update DeepContext with orchestration results
     this.updateDeepContext(deepContext, {
       clusters,
@@ -98,6 +143,7 @@ class OrchestrationService {
       clusterCount: clusters.length,
       connectionCount: twoWay.length + threeWay.length + fourWay.length,
       breakthroughCount: breakthroughs.length,
+      synthesizedCount: synthesizedContent.length,
       processingTimeMs
     };
 
@@ -106,6 +152,7 @@ class OrchestrationService {
     console.log(`  - Clusters: ${stats.clusterCount}`);
     console.log(`  - Connections: ${stats.connectionCount} (${threeWay.length} 3-way, ${fourWay.length} 4-way)`);
     console.log(`  - Breakthroughs: ${stats.breakthroughCount}`);
+    console.log(`  - Synthesized: ${stats.synthesizedCount}`);
     console.log(`  - Time: ${stats.processingTimeMs}ms`);
 
     return {
@@ -114,8 +161,59 @@ class OrchestrationService {
       connections: { twoWay, threeWay, fourWay },
       breakthroughs,
       industryProfile,
+      synthesizedContent,
       stats
     };
+  }
+
+  /**
+   * Convert BreakthroughAngle to InsightCard[] for content synthesis
+   */
+  private breakthroughToInsightCards(
+    breakthrough: BreakthroughAngle,
+    clusters: InsightCluster[]
+  ): InsightCard[] {
+    // Determine insight type based on data point sources
+    const getInsightType = (source: string): InsightType => {
+      const sourceMap: Record<string, InsightType> = {
+        'youtube': 'customer',
+        'outscraper': 'customer',
+        'serper': 'opportunity',
+        'weather': 'local',
+        'news': 'local',
+        'perplexity': 'opportunity',
+        'semrush': 'competition',
+        'reddit': 'customer',
+        'linkedin': 'competition'
+      };
+      return sourceMap[source.toLowerCase()] || 'opportunity';
+    };
+
+    // Get all data points from breakthrough connections
+    const allDataPoints: DataPoint[] = [];
+    for (const connection of breakthrough.connections) {
+      allDataPoints.push(...connection.dataPoints);
+    }
+
+    // Create insight cards from breakthrough data points
+    const insightCards: InsightCard[] = allDataPoints.map((dp, idx) => ({
+      id: `breakthrough-${breakthrough.score}-${idx}`,
+      type: getInsightType(dp.source),
+      title: breakthrough.title,
+      category: dp.source,
+      confidence: breakthrough.score / 100,
+      isTimeSensitive: dp.type === 'timing' || dp.type === 'local_event',
+      description: dp.content,
+      evidence: [dp.content],
+      actionableInsight: breakthrough.hook,
+      sources: [{
+        source: dp.source,
+        quote: dp.content.substring(0, 150),
+        confidence: dp.metadata?.confidence || 0.8
+      }]
+    }));
+
+    return insightCards;
   }
 
   /**
@@ -226,7 +324,7 @@ class OrchestrationService {
       clusters
     );
 
-    const industryProfile = naicsDatabase.matchIndustry(
+    const industryProfile = await naicsDatabase.matchIndustry(
       deepContext.business.profile.industry
     );
 
@@ -245,12 +343,14 @@ class OrchestrationService {
       connections: { twoWay, threeWay, fourWay },
       breakthroughs,
       industryProfile,
+      synthesizedContent: [], // Quick mode skips synthesis
       stats: {
         totalDataPoints: dataPoints.length,
         embeddedCount: 0,
         clusterCount: clusters.length,
         connectionCount: twoWay.length + threeWay.length + fourWay.length,
         breakthroughCount: breakthroughs.length,
+        synthesizedCount: 0,
         processingTimeMs
       }
     };

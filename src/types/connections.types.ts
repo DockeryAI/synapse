@@ -18,7 +18,8 @@ export type DataSource =
   | 'website'
   | 'linkedin'
   | 'tiktok'
-  | 'google_trends';
+  | 'google_trends'
+  | 'whisper';
 
 // Data point types for categorization
 export type DataPointType =
