@@ -65,8 +65,6 @@ export function SessionManagerPage() {
 
           if (storedBusinessName) {
             businessName = storedBusinessName;
-          } else if (pendingUVP.metadata?.businessName) {
-            businessName = pendingUVP.metadata.businessName;
           } else if (storedWebsiteUrl) {
             // Extract domain name from URL as fallback
             try {

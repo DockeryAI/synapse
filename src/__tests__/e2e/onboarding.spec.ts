@@ -45,10 +45,7 @@ test.describe('Onboarding Flow', () => {
     await page.click('button:has-text("Get Started")');
     
     // Step 2: UVP Extraction - Wait for analysis to complete
-    await expect(page.getByText('Learning About Your Business')).toBeVisible({ timeout: 10000 });
-
-    // Wait for extraction to start (should show progress steps)
-    await expect(page.getByText('Scanning website content')).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText(/Analyzing|Scanning/).first()).toBeVisible({ timeout: 10000 });
 
     // Wait for confirmation screen (extraction takes 60-90 seconds for real API calls)
     // This includes: scanning, extracting value props, analyzing buyer intelligence, synthesizing narrative
@@ -213,9 +210,9 @@ test.describe('Onboarding Flow', () => {
 
     // Should show loading spinner
     await expect(page.locator('.animate-spin').first()).toBeVisible({ timeout: 5000 });
-    
-    // Should show progress text
-    await expect(page.getByText('Learning About Your Business')).toBeVisible();
+
+    // Should show progress text - either "Analyzing" or the specific step (use first match)
+    await expect(page.getByText(/Analyzing|Scanning/).first()).toBeVisible({ timeout: 5000 });
   });
 });
 

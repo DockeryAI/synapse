@@ -658,7 +658,6 @@ export const OnboardingPageV5: React.FC = () => {
 
         // Detect specialty from collected data or industry
         const specialty =
-          collectedOnboardingData.valuePropositions[0]?.specialty ||
           industry.displayName ||
           undefined;
 

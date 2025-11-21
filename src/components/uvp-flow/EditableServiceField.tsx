@@ -7,24 +7,19 @@
 
 import React, { useState } from 'react';
 import {
-  TextField,
-  IconButton,
-  Tooltip,
-  Box,
-  CircularProgress,
-  Typography,
-  Chip,
-  Paper,
-  Collapse
-} from '@mui/material';
-import {
-  Edit as EditIcon,
-  AutoFixHigh as AutoFixIcon,
-  Psychology as PsychologyIcon,
+  Pencil as EditIcon,
+  Sparkles as AutoFixIcon,
+  Brain as PsychologyIcon,
   Check as CheckIcon,
-  Close as CloseIcon,
-  InfoOutlined as InfoIcon
-} from '@mui/icons-material';
+  X as CloseIcon,
+  Info as InfoIcon
+} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { outcomeMapper } from '@/services/intelligence/outcome-mapper.service';
 import type { ProductService } from '@/types/uvp-flow.types';
 
@@ -88,13 +83,7 @@ export const EditableServiceField: React.FC<EditableServiceFieldProps> = ({
       onUpdate({
         ...service,
         name: service.name, // Keep original name
-        description: enhanced.outcomes.valueStatement,
-        metadata: {
-          ...service.metadata,
-          outcome: enhanced.outcomes.desiredOutcome,
-          painPoint: enhanced.outcomes.painPoint,
-          emotionalJob: enhanced.outcomes.emotionalJob
-        }
+        description: enhanced.outcomes.valueStatement
       });
 
       // Show outcome details after improvement
@@ -105,213 +94,203 @@ export const EditableServiceField: React.FC<EditableServiceFieldProps> = ({
   };
 
   return (
-    <Paper
-      elevation={1}
-      sx={{
-        p: 2,
-        mb: 2,
-        backgroundColor: outcomes.confidence > 70 ? 'success.50' : 'background.paper',
-        border: '1px solid',
-        borderColor: outcomes.confidence > 70 ? 'success.200' : 'divider'
-      }}
+    <Card
+      className={`mb-4 ${
+        outcomes.confidence > 70
+          ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+          : 'bg-white dark:bg-slate-800'
+      }`}
     >
-      <Box display="flex" alignItems="flex-start" gap={1}>
-        {/* Service Name Field */}
-        <Box flex={1}>
-          {isEditing ? (
-            <Box display="flex" gap={1}>
-              <TextField
-                fullWidth
-                size="small"
-                value={editValue}
-                onChange={(e) => setEditValue(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') handleSave();
-                  if (e.key === 'Escape') handleCancel();
-                }}
-                autoFocus
-                label="Service/Product Name"
-              />
-              <IconButton size="small" onClick={handleSave} color="primary">
-                <CheckIcon />
-              </IconButton>
-              <IconButton size="small" onClick={handleCancel}>
-                <CloseIcon />
-              </IconButton>
-            </Box>
-          ) : (
-            <Box>
-              <Box display="flex" alignItems="center" gap={1}>
-                <Typography variant="subtitle1" fontWeight="medium">
-                  {service.name}
-                </Typography>
-                {outcomes.confidence > 70 && (
-                  <Chip
-                    size="small"
-                    label={`${outcomes.confidence}% match`}
-                    color="success"
-                    variant="outlined"
-                  />
-                )}
-              </Box>
-
-              {/* Description/Value Statement */}
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                {service.description}
-              </Typography>
-
-              {/* Category and Confidence */}
-              <Box display="flex" gap={1} mt={1}>
-                <Chip
-                  size="small"
-                  label={service.category || 'Service'}
-                  variant="outlined"
+      <CardContent className="p-4">
+        <div className="flex items-start gap-2">
+          {/* Service Name Field */}
+          <div className="flex-1">
+            {isEditing ? (
+              <div className="flex gap-2">
+                <Input
+                  value={editValue}
+                  onChange={(e) => setEditValue(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSave();
+                    if (e.key === 'Escape') handleCancel();
+                  }}
+                  autoFocus
+                  placeholder="Service/Product Name"
+                  className="flex-1"
                 />
-                {service.confidence && (
-                  <Chip
-                    size="small"
-                    label={`${service.confidence}% confident`}
-                    variant="outlined"
-                    color={service.confidence > 80 ? 'success' : 'default'}
-                  />
-                )}
-              </Box>
-            </Box>
-          )}
-        </Box>
+                <Button size="sm" variant="ghost" onClick={handleSave}>
+                  <CheckIcon className="w-4 h-4" />
+                </Button>
+                <Button size="sm" variant="ghost" onClick={handleCancel}>
+                  <CloseIcon className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-medium text-gray-900 dark:text-white">
+                    {service.name}
+                  </span>
+                  {outcomes.confidence > 70 && (
+                    <Badge variant="outline" className="text-green-700 border-green-700">
+                      {outcomes.confidence}% match
+                    </Badge>
+                  )}
+                </div>
 
-        {/* Action Buttons */}
-        {!isEditing && (
-          <Box display="flex" flexDirection="column" gap={0.5}>
-            <Tooltip title="Edit service name">
-              <IconButton size="small" onClick={handleEdit}>
-                <EditIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
+                {/* Description/Value Statement */}
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                  {service.description}
+                </p>
 
-            <Tooltip title="Transform to customer outcome">
-              <IconButton
-                size="small"
-                onClick={handleImprove}
-                disabled={isImproving}
-                color="primary"
-              >
-                {isImproving ? (
-                  <CircularProgress size={18} />
-                ) : (
-                  <AutoFixIcon fontSize="small" />
-                )}
-              </IconButton>
-            </Tooltip>
-
-            {showOutcomes && (
-              <Tooltip title={showOutcomeDetails ? "Hide JTBD analysis" : "Show JTBD analysis"}>
-                <IconButton
-                  size="small"
-                  onClick={() => setShowOutcomeDetails(!showOutcomeDetails)}
-                  color={showOutcomeDetails ? "primary" : "default"}
-                >
-                  <PsychologyIcon fontSize="small" />
-                </IconButton>
-              </Tooltip>
+                {/* Category and Confidence */}
+                <div className="flex gap-2 mt-2">
+                  <Badge variant="outline">
+                    {service.category || 'Service'}
+                  </Badge>
+                  {service.confidence && (
+                    <Badge
+                      variant="outline"
+                      className={service.confidence > 80 ? 'text-green-700 border-green-700' : ''}
+                    >
+                      {service.confidence}% confident
+                    </Badge>
+                  )}
+                </div>
+              </div>
             )}
-          </Box>
-        )}
-      </Box>
+          </div>
 
-      {/* JTBD Outcome Details */}
-      <Collapse in={showOutcomeDetails}>
-        <Box
-          sx={{
-            mt: 2,
-            p: 2,
-            backgroundColor: 'background.default',
-            borderRadius: 1,
-            borderLeft: '3px solid',
-            borderLeftColor: 'primary.main'
-          }}
-        >
-          <Typography variant="subtitle2" gutterBottom color="primary">
-            Jobs-to-be-Done Analysis
-          </Typography>
+          {/* Action Buttons */}
+          {!isEditing && (
+            <TooltipProvider>
+              <div className="flex flex-col gap-1">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button size="sm" variant="ghost" onClick={handleEdit}>
+                      <EditIcon className="w-4 h-4" />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Edit service name</TooltipContent>
+                </Tooltip>
 
-          <Box display="flex" flexDirection="column" gap={1}>
-            <Box display="flex" gap={1}>
-              <InfoIcon fontSize="small" color="action" />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Customer Pain:
-                </Typography>
-                <Typography variant="body2">
-                  {outcomes.painPoint}
-                </Typography>
-              </Box>
-            </Box>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={handleImprove}
+                      disabled={isImproving}
+                    >
+                      {isImproving ? (
+                        <div className="w-4 h-4 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin" />
+                      ) : (
+                        <AutoFixIcon className="w-4 h-4" />
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Transform to customer outcome</TooltipContent>
+                </Tooltip>
 
-            <Box display="flex" gap={1}>
-              <InfoIcon fontSize="small" color="action" />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Desired Outcome:
-                </Typography>
-                <Typography variant="body2">
-                  {outcomes.desiredOutcome}
-                </Typography>
-              </Box>
-            </Box>
+                {showOutcomes && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => setShowOutcomeDetails(!showOutcomeDetails)}
+                        className={showOutcomeDetails ? 'text-blue-600' : ''}
+                      >
+                        <PsychologyIcon className="w-4 h-4" />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      {showOutcomeDetails ? "Hide JTBD analysis" : "Show JTBD analysis"}
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+              </div>
+            </TooltipProvider>
+          )}
+        </div>
 
-            <Box display="flex" gap={1}>
-              <InfoIcon fontSize="small" color="action" />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Emotional Job:
-                </Typography>
-                <Typography variant="body2">
-                  {outcomes.emotionalJob}
-                </Typography>
-              </Box>
-            </Box>
+        {/* JTBD Outcome Details */}
+        <Collapsible open={showOutcomeDetails} onOpenChange={setShowOutcomeDetails}>
+          <CollapsibleContent>
+            <div className="mt-4 p-4 bg-gray-50 dark:bg-slate-900 rounded-lg border-l-4 border-blue-600">
+              <h4 className="text-sm font-semibold text-blue-600 mb-3">
+                Jobs-to-be-Done Analysis
+              </h4>
 
-            <Box display="flex" gap={1}>
-              <InfoIcon fontSize="small" color="action" />
-              <Box>
-                <Typography variant="caption" color="text.secondary">
-                  Social Job:
-                </Typography>
-                <Typography variant="body2">
-                  {outcomes.socialJob}
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2">
+                  <InfoIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      Customer Pain:
+                    </span>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      {outcomes.painPoint}
+                    </p>
+                  </div>
+                </div>
 
-          {/* Suggested Value Statement */}
-          <Paper
-            elevation={0}
-            sx={{
-              mt: 2,
-              p: 1.5,
-              backgroundColor: 'primary.50'
-            }}
-          >
-            <Typography variant="caption" color="primary.main" fontWeight="medium">
-              Suggested Value Statement:
-            </Typography>
-            <Typography variant="body2" sx={{ mt: 0.5 }}>
-              "{outcomes.valueStatement}"
-            </Typography>
-            <Box mt={1}>
-              <Chip
-                size="small"
-                label="Click 'Transform' to apply"
-                icon={<AutoFixIcon />}
-                color="primary"
-                variant="outlined"
-              />
-            </Box>
-          </Paper>
-        </Box>
-      </Collapse>
-    </Paper>
+                <div className="flex gap-2">
+                  <InfoIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      Desired Outcome:
+                    </span>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      {outcomes.desiredOutcome}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <InfoIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      Emotional Job:
+                    </span>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      {outcomes.emotionalJob}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-2">
+                  <InfoIcon className="w-4 h-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                      Social Job:
+                    </span>
+                    <p className="text-sm text-gray-900 dark:text-white">
+                      {outcomes.socialJob}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Suggested Value Statement */}
+              <div className="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
+                  Suggested Value Statement:
+                </span>
+                <p className="text-sm mt-1 text-gray-900 dark:text-white">
+                  "{outcomes.valueStatement}"
+                </p>
+                <div className="mt-2">
+                  <Badge variant="outline" className="text-blue-700 border-blue-700">
+                    <AutoFixIcon className="w-3 h-3 mr-1" />
+                    Click 'Transform' to apply
+                  </Badge>
+                </div>
+              </div>
+            </div>
+          </CollapsibleContent>
+        </Collapsible>
+      </CardContent>
+    </Card>
   );
 };

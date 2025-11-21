@@ -170,6 +170,11 @@ export function TransformationGoalPage({
       statement: newTransformationStatement.trim(),
       emotionalDrivers: [],
       functionalDrivers: [],
+      eqScore: {
+        emotional: 50,
+        rational: 50,
+        overall: 50
+      },
       confidence: { overall: 100, dataQuality: 100, sourceCount: 1, modelAgreement: 100 },
       sources: [{
         id: `source-${Date.now()}`,

@@ -86,7 +86,7 @@ export function IntelligenceLibrary({
     });
 
     // Competitive Intelligence - Blind Spots
-    context.competitiveIntelligence?.blindSpots?.forEach((blindspot, idx) => {
+    context.competitiveIntel?.blindSpots?.forEach((blindspot, idx) => {
       insights.push({
         id: `competition-blindspot-${idx}`,
         type: 'competition',
@@ -98,7 +98,7 @@ export function IntelligenceLibrary({
     });
 
     // Competitive Intelligence - Market Gaps
-    context.competitiveIntelligence?.opportunities?.forEach((gap, idx) => {
+    context.competitiveIntel?.opportunities?.forEach((gap, idx) => {
       insights.push({
         id: `opportunity-gap-${idx}`,
         type: 'opportunity',

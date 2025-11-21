@@ -53,7 +53,8 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 export async function extractProductsServices(
   websiteDataOrContent: WebsiteData | string[],
   websiteUrls: string[],
-  businessName: string
+  businessName: string,
+  industry?: string
 ): Promise<ProductServiceExtractionResult> {
   console.log('[ProductServiceExtractor] Starting extraction...');
   console.log(`  Business: ${businessName}`);
@@ -190,14 +191,7 @@ export async function extractProductsServices(
       ...product,
       description: product.outcomes.confidence > 70
         ? product.outcomes.valueStatement
-        : product.description,
-      // Add outcome data as metadata (for UI to potentially use)
-      metadata: {
-        ...product.metadata,
-        outcome: product.outcomes.desiredOutcome,
-        painPoint: product.outcomes.painPoint,
-        emotionalJob: product.outcomes.emotionalJob
-      }
+        : product.description
     }));
 
     // Calculate overall confidence
@@ -520,11 +514,9 @@ function getIndustryFallbackServices(industry: string, businessName: string): Pr
     description: `Standard ${name.toLowerCase()} offered in the ${industry} industry`,
     category: 'Professional Services',
     confidence: 60, // Lower confidence for fallback services
+    source: 'manual' as const,
     sourceUrl: '',
-    metadata: {
-      extractionMethod: 'industry_fallback',
-      businessName
-    }
+    confirmed: false
   }));
 }
 

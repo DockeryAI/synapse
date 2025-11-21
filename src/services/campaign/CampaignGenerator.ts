@@ -453,13 +453,12 @@ export class CampaignGenerator {
 
         // Prepare website content from context
         const websiteContent: string[] = [];
-        if (context.websiteAnalysis?.messaging) {
-          websiteContent.push(context.websiteAnalysis.messaging);
+        if (context.websiteAnalysis?.valuePropositions) {
+          websiteContent.push(...context.websiteAnalysis.valuePropositions);
         }
-        if (context.uvpData?.valueProposition) {
-          websiteContent.push(context.uvpData.valueProposition);
+        if (context.uvpData?.differentiators) {
+          context.uvpData.differentiators.forEach((diff) => websiteContent.push(diff.text));
         }
-        context.uvpData?.differentiators?.forEach((diff) => websiteContent.push(diff.text));
 
         const enrichedProfile = await eqCampaignIntegration.enrichBusinessProfile(
           baseProfile,

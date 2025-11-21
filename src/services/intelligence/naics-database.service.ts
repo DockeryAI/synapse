@@ -103,7 +103,7 @@ class NAICSDatabaseService {
       }
 
       const categories = [...new Set(data.map(d => d.category))];
-      return categories.filter(Boolean);
+      return categories.filter((c): c is string => Boolean(c));
     } catch (error) {
       console.error('[NAICS] Error fetching categories:', error);
       return [];

@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AppLayout } from '@/components/layout/AppLayout'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -38,8 +37,8 @@ export const HomePage: React.FC = () => {
   }
 
   return (
-    <AppLayout showBreadcrumbs={false} showNav={false}>
-      <div className="space-y-16">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-8">
+      <div className="space-y-16 max-w-7xl mx-auto">
       {/* Hero */}
       <section className="text-center py-12">
         <div className="flex items-center justify-center gap-4 mb-4">
@@ -284,6 +283,6 @@ export const HomePage: React.FC = () => {
         </Card>
       </section>
       </div>
-    </AppLayout>
+    </div>
   )
 }

@@ -125,15 +125,16 @@ export const ManualServiceInput: React.FC<ManualServiceInputProps> = ({
       name: quickAddName.trim(),
       description: '',
       category: 'Manual',
-      confidence: 100 // User-provided
+      confidence: 100, // User-provided
+      source: 'manual',
+      confirmed: true
     };
 
     const enhanced = outcomeMapper.enhanceWithOutcomes(tempService);
 
     onAdd({
-      ...enhanced,
-      description: enhanced.outcomes.valueStatement,
-      source: 'manual'
+      ...tempService,
+      description: enhanced.outcomes.valueStatement
     });
 
     setQuickAddName('');
@@ -151,12 +152,7 @@ export const ManualServiceInput: React.FC<ManualServiceInputProps> = ({
       category: 'Manual',
       confidence: 100, // User-provided is high confidence
       source: 'manual',
-      metadata: {
-        whatItDoes: formData.whatItDoes,
-        targetCustomer: formData.whoItsFor,
-        painPoint: formData.problemItSolves,
-        outcome: formData.transformation
-      }
+      confirmed: true
     };
 
     onAdd(newService);

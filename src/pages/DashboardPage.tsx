@@ -68,8 +68,20 @@ export function DashboardPage() {
       overallScore: 0.82,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Industry expertise'],
-      whyRecommended: 'Build trust and credibility',
+      preview: {
+        headline: 'Establish Your Industry Authority',
+        hook: 'Build trust and credibility with your audience',
+        platform: 'LinkedIn',
+      },
+      reasoning: 'Build trust and credibility',
+      expectedPerformance: {
+        engagement: 'high',
+        reach: 'medium',
+        conversions: 'medium',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
     {
       id: 'mock-2',
@@ -83,8 +95,20 @@ export function DashboardPage() {
       overallScore: 0.77,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Social proof'],
-      whyRecommended: 'Showcase customer results',
+      preview: {
+        headline: 'Real Results from Real Customers',
+        hook: 'See how others achieved their goals',
+        platform: 'Instagram',
+      },
+      reasoning: 'Showcase customer results',
+      expectedPerformance: {
+        engagement: 'high',
+        reach: 'high',
+        conversions: 'medium',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
     {
       id: 'mock-3',
@@ -98,8 +122,20 @@ export function DashboardPage() {
       overallScore: 0.72,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Solution-focused'],
-      whyRecommended: 'Direct value proposition',
+      preview: {
+        headline: 'Solutions to Your Biggest Challenges',
+        hook: 'Direct answers to common problems',
+        platform: 'Blog',
+      },
+      reasoning: 'Direct value proposition',
+      expectedPerformance: {
+        engagement: 'medium',
+        reach: 'medium',
+        conversions: 'high',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
   ];
 
@@ -116,8 +152,20 @@ export function DashboardPage() {
       overallScore: 0.87,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Core value'],
-      whyRecommended: 'Strong resonance with target audience',
+      preview: {
+        headline: 'Your Core Value Proposition',
+        hook: 'Strong resonance with target audience',
+        platform: 'LinkedIn',
+      },
+      reasoning: 'Strong resonance with target audience',
+      expectedPerformance: {
+        engagement: 'high',
+        reach: 'high',
+        conversions: 'high',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
     {
       id: 'content-2',
@@ -131,8 +179,20 @@ export function DashboardPage() {
       overallScore: 0.74,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Expert positioning'],
-      whyRecommended: 'Thought leadership opportunity',
+      preview: {
+        headline: 'Industry Knowledge Share',
+        hook: 'Position yourself as an expert',
+        platform: 'LinkedIn',
+      },
+      reasoning: 'Thought leadership opportunity',
+      expectedPerformance: {
+        engagement: 'medium',
+        reach: 'medium',
+        conversions: 'low',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
     {
       id: 'content-3',
@@ -146,8 +206,20 @@ export function DashboardPage() {
       overallScore: 0.75,
       insights: [],
       dataSources: [],
-      trustIndicators: ['Social proof'],
-      whyRecommended: 'Build credibility',
+      preview: {
+        headline: 'Customer Success Story',
+        hook: 'Real results from real customers',
+        platform: 'Instagram',
+      },
+      reasoning: 'Build credibility',
+      expectedPerformance: {
+        engagement: 'high',
+        reach: 'medium',
+        conversions: 'medium',
+      },
+      metadata: {
+        generatedAt: new Date(),
+      },
     },
   ];
 
@@ -222,23 +294,14 @@ export function DashboardPage() {
             websiteAnalysis: {
               brandVoice: pendingUVP.targetCustomer?.statement || 'Professional',
               contentThemes: [pendingUVP.targetCustomer?.statement || ''].filter(Boolean),
-              serviceOfferings: pendingUVP.products?.map(p => p.name) || [],
-              uniqueSellingPoints: pendingUVP.uniqueSolution ? [pendingUVP.uniqueSolution.statement] : [],
+              services: [], // CompleteUVP doesn't have products directly
+              uvps: pendingUVP.uniqueSolution ? [pendingUVP.uniqueSolution.statement] : [],
+              keyMessages: [],
             },
-            locationData: null,
-            competitorData: [],
-            industryData: null,
-            targetAudience: {
-              segments: pendingUVP.targetCustomer ? [pendingUVP.targetCustomer] : [],
-              primarySegment: pendingUVP.targetCustomer || null,
-            },
-            servicesProducts: pendingUVP.products || [],
+            servicesProducts: [],
             customerTriggers: [],
             marketTrends: [],
-            contentGaps: [],
-            opportunities: [],
-            complete: true,
-            extractedAt: new Date().toISOString(),
+            competitorData: [],
           };
 
           setInsights(uvpAsInsights);
@@ -249,7 +312,6 @@ export function DashboardPage() {
           const transformation = pendingUVP.transformationGoal?.statement || '';
           const solution = pendingUVP.uniqueSolution?.statement || '';
           const benefit = pendingUVP.keyBenefit?.statement || '';
-          const products = pendingUVP.products || [];
 
           // Generate insights from actual user responses in plain English
           const relevantTrends = [];
@@ -274,9 +336,10 @@ export function DashboardPage() {
 
               relevantTrends.push({
                 trend: `More homeowners want ${mainGoal}`,
-                direction: 'Growing' as const,
-                impact: 'High' as const,
+                direction: 'rising' as const,
+                impact: 'high' as const,
                 strength: 0.88,
+                timeframe: 'current',
                 source: 'Customer demand',
                 timestamp: new Date().toISOString(),
               });
@@ -291,28 +354,15 @@ export function DashboardPage() {
 
             relevantTrends.push({
               trend: `${cleanCustomer} looking for experts they can trust`,
-              direction: 'Growing' as const,
-              impact: 'High' as const,
+              direction: 'rising' as const,
+              impact: 'high' as const,
               strength: 0.82,
+              timeframe: 'current',
               source: 'Your target market',
               timestamp: new Date().toISOString(),
             });
           }
 
-          if (products.length > 0) {
-            const productName = products[0].name
-              .replace(/^(the|a|an)\s+/i, '')
-              .toLowerCase();
-
-            relevantTrends.push({
-              trend: `High demand for quality ${productName}`,
-              direction: 'Growing' as const,
-              impact: 'Medium' as const,
-              strength: 0.75,
-              source: 'Market trends',
-              timestamp: new Date().toISOString(),
-            });
-          }
 
           const context: DeepContext = {
             business: {
@@ -331,28 +381,35 @@ export function DashboardPage() {
                 competitors: [],
               },
               brandVoice: {
-                tone: ['professional', 'trustworthy'],
+                tone: ['professional', 'authoritative'],
                 values: [],
                 personality: [],
                 avoidWords: [],
                 signaturePhrases: [],
               },
               uniqueAdvantages: solution ? [solution] : [],
-              goals: transformation ? [transformation] : [],
+              goals: transformation ? [{
+                goal: transformation,
+                priority: 'primary' as const,
+                timeframe: 'ongoing',
+                metrics: [],
+              }] : [],
             },
             industry: {
+              profile: null,
               trends: relevantTrends,
-              challenges: [],
-              opportunities: [],
-              compliance: [],
-              customerPain: targetCustomer ? [targetCustomer] : [],
+              seasonality: [],
+              competitiveLandscape: {
+                topCompetitors: [],
+                marketConcentration: 'fragmented' as const,
+                barrierToEntry: 'medium' as const,
+              },
+              economicFactors: [],
             },
-            localIntel: {
-              competitors: [],
-              events: [],
-              culturalMoments: [],
-              seasonalContext: null,
-              reviews: null,
+            realTimeCultural: {
+              trends: [],
+              moments: [],
+              signals: [],
             },
             competitiveIntel: {
               blindSpots: solution
@@ -424,15 +481,6 @@ export function DashboardPage() {
                     evidence: ['Marketing best practices'],
                   };
                 })(),
-                ...(products.length > 0
-                  ? [
-                      {
-                        gap: `Help people understand ${products[0].name.toLowerCase()}`,
-                        positioning: `Be the trusted expert on ${products[0].name.toLowerCase()}`,
-                        evidence: ['Your service'],
-                      },
-                    ]
-                  : []),
               ],
               contentGaps: [],
               positioningWeaknesses: [],
@@ -526,7 +574,7 @@ export function DashboardPage() {
                         trigger: mainGoal,
                         context: 'What your customers really want',
                         strength: 0.95,
-                        positioning: 'Talk about this in everything you do',
+                        leverage: 'Talk about this in everything you do',
                       };
                     }
                   }
@@ -534,7 +582,7 @@ export function DashboardPage() {
                     trigger: 'Getting what they want',
                     context: 'Basic desire',
                     strength: 0.75,
-                    positioning: 'Focus on their goals',
+                    leverage: 'Focus on their goals',
                   };
                 })(),
                 targetCustomer
@@ -542,26 +590,26 @@ export function DashboardPage() {
                       trigger: `Being seen as a successful ${targetCustomer.toLowerCase()}`,
                       context: 'They want to feel good about who they are',
                       strength: 0.88,
-                      positioning: `Help them become who they want to be`,
+                      leverage: `Help them become who they want to be`,
                     }
                   : {
                       trigger: 'Feeling successful',
                       context: 'Want to feel good',
                       strength: 0.80,
-                      positioning: 'Help them feel accomplished',
+                      leverage: 'Help them feel accomplished',
                     },
                 benefit
                   ? {
                       trigger: benefit,
                       context: 'Your main promise',
                       strength: 0.90,
-                      positioning: `Make ${benefit.toLowerCase()} real and tangible`,
+                      leverage: `Make ${benefit.toLowerCase()} real and tangible`,
                     }
                   : {
                       trigger: 'Getting real results',
                       context: 'What matters most',
                       strength: 0.82,
-                      positioning: 'Prove it works',
+                      leverage: 'Prove it works',
                     },
               ],
               behavioral: [],
@@ -613,19 +661,18 @@ export function DashboardPage() {
                   ? {
                       pattern: `${targetCustomer} trust recommendations from people like them`,
                       confidence: 0.87,
-                      type: 'social' as const,
-                      implications: [
-                        `Show testimonials from similar ${targetCustomer.toLowerCase()}`,
-                        'Share real customer stories',
-                      ],
-                      sources: ['Your target audience', 'Social proof research'],
+                      type: 'correlation' as const,
+                      significance: 0.87,
+                      implication: `Show testimonials from similar ${targetCustomer.toLowerCase()} and share real customer stories`,
+                      evidence: ['Your target audience', 'Social proof research'],
                     }
                   : {
                       pattern: 'People trust recommendations from peers',
                       confidence: 0.80,
-                      type: 'social' as const,
-                      implications: ['Share customer testimonials', 'Show real results'],
-                      sources: ['Conversion research'],
+                      type: 'correlation' as const,
+                      significance: 0.80,
+                      implication: 'Share customer testimonials and show real results',
+                      evidence: ['Conversion research'],
                     },
                 (() => {
                   if (transformation) {
@@ -647,37 +694,38 @@ export function DashboardPage() {
                       return {
                         pattern: `People who want ${mainGoal} care more about expertise than price`,
                         confidence: 0.85,
-                        type: 'behavioral' as const,
-                        implications: ['Show your expertise first', 'Prove you can deliver results'],
-                        sources: ['Customer behavior', 'Your market'],
+                        type: 'causal' as const,
+                        significance: 0.85,
+                        implication: 'Show your expertise first and prove you can deliver results',
+                        evidence: ['Customer behavior', 'Your market'],
                       };
                     }
                   }
                   return {
                     pattern: 'Expertise matters more than price to quality buyers',
                     confidence: 0.78,
-                    type: 'behavioral' as const,
-                    implications: ['Demonstrate your expertise', 'Share your track record'],
-                    sources: ['Trust research'],
+                    type: 'causal' as const,
+                    significance: 0.78,
+                    implication: 'Demonstrate your expertise and share your track record',
+                    evidence: ['Trust research'],
                   };
                 })(),
                 benefit
                   ? {
                       pattern: `People respond strongly to ${benefit.toLowerCase()}`,
                       confidence: 0.90,
-                      type: 'emotional' as const,
-                      implications: [
-                        `Make ${benefit.toLowerCase()} clear and real`,
-                        `Lead with ${benefit.toLowerCase()} in your messaging`,
-                      ],
-                      sources: ['Your key benefit', 'Market data'],
+                      type: 'emerging' as const,
+                      significance: 0.90,
+                      implication: `Make ${benefit.toLowerCase()} clear and real, and lead with it in your messaging`,
+                      evidence: ['Your key benefit', 'Market data'],
                     }
                   : {
                       pattern: 'Clear benefits win over feature lists',
                       confidence: 0.82,
-                      type: 'emotional' as const,
-                      implications: ['Focus on what customers get', 'Skip the jargon'],
-                      sources: ['Marketing research'],
+                      type: 'emerging' as const,
+                      significance: 0.82,
+                      implication: 'Focus on what customers get and skip the jargon',
+                      evidence: ['Marketing research'],
                     },
               ],
               opportunityScore: 82,

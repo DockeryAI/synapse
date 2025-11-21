@@ -254,9 +254,9 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
           id: sessionId,
           brand_id: null, // No brand yet during onboarding
           session_name: 'Onboarding Session',
-          website_url: uvp.website_url || '',
+          website_url: '', // Website URL stored separately during onboarding
           current_step: currentStep,
-          products_data: uvp.products_services ? JSON.stringify(uvp.products_services) : null,
+          products_data: null, // Products stored as part of brand data
           customer_data: uvp.target_customer ? JSON.stringify({ target_customer: uvp.target_customer }) : null,
           transformation_data: uvp.customer_problem ? JSON.stringify({ customer_problem: uvp.customer_problem }) : null,
           solution_data: uvp.unique_solution ? JSON.stringify({ unique_solution: uvp.unique_solution }) : null,

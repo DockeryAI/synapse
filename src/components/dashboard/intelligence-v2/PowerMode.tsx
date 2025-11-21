@@ -281,8 +281,8 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
       });
     });
 
-    // Local Intelligence - Events
-    context.localIntel?.events?.forEach((event, idx) => {
+    // Local Intelligence - Events (from realTimeCultural)
+    (context.realTimeCultural?.events as any[])?.forEach((event, idx) => {
       const eventName = event.name || event.title || String(event);
       // Keep full event name
       const title = eventName;
@@ -303,8 +303,8 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
       });
     });
 
-    // Local Intelligence - Cultural Moments
-    context.localIntel?.culturalMoments?.forEach((moment, idx) => {
+    // Local Intelligence - Cultural Moments (from realTimeCultural)
+    (context.realTimeCultural?.moments as any[])?.forEach((moment, idx) => {
       const momentText = typeof moment === 'string' ? moment : moment.description || 'Cultural Moment';
       const conciseTitle = momentText.split(/[,.]|where |during /)[0].trim();
 
@@ -323,9 +323,9 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
       });
     });
 
-    // Local Intelligence - Seasonal Context
-    if (context.localIntel?.seasonalContext) {
-      const seasonal = context.localIntel.seasonalContext;
+    // Local Intelligence - Seasonal Context (from realTimeCultural)
+    if (context.realTimeCultural?.seasonalContext) {
+      const seasonal = (context.realTimeCultural as any).seasonalContext;
       const seasonalText = typeof seasonal === 'string' ? seasonal : seasonal.context;
 
       if (seasonalText) {
@@ -379,7 +379,7 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
         confidence: pattern.confidence || 0.8,
         isTimeSensitive: false,
         description: pattern.pattern,
-        evidence: pattern.examples || [],
+        evidence: pattern.evidence || [],
         sources: [{
           source: 'Pattern Recognition',
           quote: pattern.implication,

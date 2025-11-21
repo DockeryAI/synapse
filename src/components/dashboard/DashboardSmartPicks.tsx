@@ -137,12 +137,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.7,
             evidenceQuality: 0.8,
             overallScore: 0.8,
-            insights: context.synthesis.keyInsights || [],
+            insights: [],
             dataSources: [
-              { source: 'uvp-analysis', dataPoints: context.synthesis.keyInsights?.length || 0 }
+              { source: 'industry', icon: 'TrendingUp', label: 'UVP Analysis', verified: true, freshness: 'daily', dataPoints: context.synthesis.keyInsights?.length || 0 }
             ],
-            trustIndicators: ['Based on your UVP', 'Industry aligned'],
-            whyRecommended: 'Your unique solution provides strong authority positioning',
+            reasoning: 'Your unique solution provides strong authority positioning',
+            preview: {
+              headline: 'Authority Building Campaign',
+              hook: 'Establish your expertise',
+              platform: 'LinkedIn'
+            },
+            expectedPerformance: {
+              engagement: 'high',
+              reach: 'medium',
+              conversions: 'medium'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
           {
             id: 'fallback-2',
@@ -154,12 +166,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.6,
             evidenceQuality: 0.7,
             overallScore: 0.75,
-            insights: context.customerPsychology.emotional || [],
+            insights: [],
             dataSources: [
-              { source: 'customer-analysis', dataPoints: 1 }
+              { source: 'reviews', icon: 'Star', label: 'Customer Analysis', verified: true, freshness: 'daily', dataPoints: 1 }
             ],
-            trustIndicators: ['Transformation focused', 'Customer-centric'],
-            whyRecommended: 'Highlight the transformation your customers experience',
+            reasoning: 'Highlight the transformation your customers experience',
+            preview: {
+              headline: 'Customer Transformation Story',
+              hook: 'See how our customers transformed',
+              platform: 'Facebook'
+            },
+            expectedPerformance: {
+              engagement: 'high',
+              reach: 'medium',
+              conversions: 'high'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
           {
             id: 'fallback-3',
@@ -171,12 +195,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.65,
             evidenceQuality: 0.75,
             overallScore: 0.72,
-            insights: context.industry.customerPain || [],
+            insights: [],
             dataSources: [
-              { source: 'pain-point-analysis', dataPoints: 1 }
+              { source: 'reviews', icon: 'MessageSquare', label: 'Pain Point Analysis', verified: true, freshness: 'daily', dataPoints: 1 }
             ],
-            trustIndicators: ['Solution-focused', 'Pain point addressing'],
-            whyRecommended: 'Direct connection between customer needs and your solution',
+            reasoning: 'Direct connection between customer needs and your solution',
+            preview: {
+              headline: 'Problem-Solution Campaign',
+              hook: 'Solve your biggest challenges',
+              platform: 'LinkedIn'
+            },
+            expectedPerformance: {
+              engagement: 'medium',
+              reach: 'medium',
+              conversions: 'high'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
         ];
 
@@ -191,12 +227,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.8,
             evidenceQuality: 0.8,
             overallScore: 0.83,
-            insights: context.business.uniqueAdvantages || [],
+            insights: [],
             dataSources: [
-              { source: 'benefit-analysis', dataPoints: 1 }
+              { source: 'industry', icon: 'Award', label: 'Benefit Analysis', verified: true, freshness: 'daily', dataPoints: 1 }
             ],
-            trustIndicators: ['Core value', 'Clear benefit'],
-            whyRecommended: 'Your key benefit resonates strongly with target customers',
+            reasoning: 'Your key benefit resonates strongly with target customers',
+            preview: {
+              headline: 'Key Benefit Spotlight',
+              hook: 'Discover our primary value',
+              platform: 'Instagram'
+            },
+            expectedPerformance: {
+              engagement: 'high',
+              reach: 'high',
+              conversions: 'medium'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
           {
             id: 'content-2',
@@ -208,12 +256,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.7,
             evidenceQuality: 0.7,
             overallScore: 0.71,
-            insights: ['Industry expertise'],
+            insights: [],
             dataSources: [
-              { source: 'industry-knowledge', dataPoints: 1 }
+              { source: 'industry', icon: 'Lightbulb', label: 'Industry Knowledge', verified: true, freshness: 'weekly', dataPoints: 1 }
             ],
-            trustIndicators: ['Expert positioning'],
-            whyRecommended: 'Position yourself as an industry thought leader',
+            reasoning: 'Position yourself as an industry thought leader',
+            preview: {
+              headline: 'Industry Insight Post',
+              hook: 'Expert insights you need to know',
+              platform: 'LinkedIn'
+            },
+            expectedPerformance: {
+              engagement: 'medium',
+              reach: 'high',
+              conversions: 'low'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
           {
             id: 'content-3',
@@ -225,12 +285,24 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
             timeliness: 0.65,
             evidenceQuality: 0.7,
             overallScore: 0.72,
-            insights: ['Customer success'],
+            insights: [],
             dataSources: [
-              { source: 'success-stories', dataPoints: 1 }
+              { source: 'reviews', icon: 'Star', label: 'Success Stories', verified: true, freshness: 'daily', dataPoints: 1 }
             ],
-            trustIndicators: ['Social proof'],
-            whyRecommended: 'Build trust through customer success',
+            reasoning: 'Build trust through customer success',
+            preview: {
+              headline: 'Customer Success Highlight',
+              hook: 'See real results from real customers',
+              platform: 'Facebook'
+            },
+            expectedPerformance: {
+              engagement: 'high',
+              reach: 'medium',
+              conversions: 'high'
+            },
+            metadata: {
+              generatedAt: new Date()
+            }
           },
         ];
 
@@ -407,9 +479,9 @@ export function DashboardSmartPicks({ context, onPickClick, onPicksLoaded }: Das
                       <span className="text-xs font-medium text-blue-700 dark:text-blue-300">
                         {Math.round(pick.confidence * 100)}% confidence
                       </span>
-                      {pick.trustIndicators?.map((indicator, i) => (
+                      {pick.evidenceSources?.slice(0, 2).map((source, i) => (
                         <span key={i} className="text-xs text-gray-600 dark:text-gray-400">
-                          • {indicator}
+                          • {source}
                         </span>
                       ))}
                     </div>

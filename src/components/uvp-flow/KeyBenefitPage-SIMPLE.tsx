@@ -140,6 +140,8 @@ export function KeyBenefitPage({
     const newBenefit: KeyBenefit = {
       id: `manual-${Date.now()}`,
       statement: newBenefitStatement.trim(),
+      outcomeType: 'mixed',
+      eqFraming: 'balanced',
       confidence: { overall: 100, dataQuality: 100, sourceCount: 1, modelAgreement: 100 },
       sources: [{
         id: `source-${Date.now()}`,
@@ -150,7 +152,6 @@ export function KeyBenefitPage({
         reliability: 100,
         dataPoints: 1
       }],
-      evidenceQuotes: [],
       isManualInput: true
     };
 

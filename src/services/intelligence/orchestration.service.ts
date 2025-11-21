@@ -115,8 +115,8 @@ class OrchestrationService {
             }
           );
 
-          if (jtbdResult.transformedProps && jtbdResult.transformedProps.length > 0) {
-            content.title = jtbdResult.transformedProps[0].transformed;
+          if (jtbdResult.primary && jtbdResult.primary.outcomeStatement) {
+            content.title = jtbdResult.primary.outcomeStatement;
           }
         }
 
@@ -234,9 +234,10 @@ class OrchestrationService {
       ...(deepContext.synthesis.hiddenPatterns || []),
       ...results.clusters.slice(0, 5).map(cluster => ({
         pattern: cluster.theme,
-        type: 'behavioral' as const,
+        type: 'correlation' as const,
+        significance: cluster.coherence,
         confidence: cluster.coherence,
-        examples: cluster.dataPoints.slice(0, 3).map(dp => dp.content),
+        evidence: cluster.dataPoints.slice(0, 3).map(dp => dp.content),
         implication: `${cluster.size} data points from ${cluster.sources.join(', ')} validate this pattern`
       }))
     ];
@@ -280,26 +281,26 @@ class OrchestrationService {
       ...(deepContext.customerPsychology.emotional || []),
       ...results.industryProfile.triggers.fear.slice(0, 3).map(trigger => ({
         trigger,
-        intensity: 0.8,
+        strength: 0.8,
         context: 'Industry fear trigger',
         leverage: results.industryProfile.languagePatterns.emotional[0]
       })),
       ...results.industryProfile.triggers.desire.slice(0, 3).map(trigger => ({
         trigger,
-        intensity: 0.7,
+        strength: 0.7,
         context: 'Industry desire trigger',
         leverage: results.industryProfile.languagePatterns.emotional[0]
       }))
     ];
 
-    // Add power words to language
-    deepContext.customerPsychology.language = [
-      ...(deepContext.customerPsychology.language || []),
+    // Add power words to behavioral patterns
+    deepContext.customerPsychology.behavioral = [
+      ...(deepContext.customerPsychology.behavioral || []),
       ...results.industryProfile.powerWords.map(word => ({
-        phrase: word,
-        frequency: 0.8,
-        context: 'Industry power word',
-        alternates: []
+        behavior: `Responds to "${word}"`,
+        frequency: 'common' as const,
+        insight: 'Industry power word that resonates with customers',
+        contentAlignment: `Use "${word}" in marketing content`
       }))
     ];
 

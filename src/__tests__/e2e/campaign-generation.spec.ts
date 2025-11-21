@@ -20,9 +20,10 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
 
-    // Click the input to open dropdown (auto-show has 500ms delay)
+    // Type in the industry search field to show dropdown
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
 
     // Wait for dropdown option to appear and become stable
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
@@ -39,20 +40,21 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
     await page.click('button:has-text("Get Started")');
 
     // Wait for confirmation
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 90000 });
 
     // Service chips are pre-selected, so we can proceed directly
-    await page.click('button:has-text("Continue to Content")');
-    
+    await page.click('button:has-text("Continue")');
+
     // Skip insights dashboard
     await expect(page.getByText('Your Business Insights')).toBeVisible({ timeout: 10000 });
-    await page.click('button:has-text("Continue to Smart Suggestions")');
+    await page.click('button:has-text("Continue")');
     
     // Wait for suggestions
     await expect(page.getByText('Smart Content Suggestions')).toBeVisible({ timeout: 10000 });
   }
   
   test('should generate campaign from suggested campaign', async ({ page }) => {
+    test.setTimeout(150000);
     await navigateToSuggestions(page);
     
     // Find first suggested campaign
@@ -76,6 +78,7 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
   });
   
   test('should generate single post from quick post suggestion', async ({ page }) => {
+    test.setTimeout(150000);
     await navigateToSuggestions(page);
     
     // Find first quick post
@@ -97,6 +100,7 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
   });
   
   test('should navigate to custom builder', async ({ page }) => {
+    test.setTimeout(150000);
     await navigateToSuggestions(page);
 
     // Click Build Custom Campaign button
@@ -118,6 +122,7 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
   });
   
   test('should show campaign details correctly', async ({ page }) => {
+    test.setTimeout(150000);
     await navigateToSuggestions(page);
     
     // Get campaign suggestion details
@@ -132,6 +137,7 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
   });
   
   test('should show post suggestion previews', async ({ page }) => {
+    test.setTimeout(150000);
     await navigateToSuggestions(page);
     
     // Verify quick posts show preview snippets
@@ -156,14 +162,16 @@ test.describe('Campaign Generation from Smart Suggestions', () => {
 test.describe('Campaign Preview and Editing', () => {
   
   test('should allow editing campaign post content', async ({ page }) => {
+    test.setTimeout(150000);
     // Navigate through full flow to campaign preview
     await page.goto('/onboarding-v5');
     await page.getByPlaceholder('www.yourbusiness.com').fill('www.example.com');
     await page.waitForSelector('[data-testid="industry-selector"]', { timeout: 5000 });
 
-    // Click the input to open dropdown
+    // Type in the industry search field to show dropdown
     const industryInput = page.locator('[data-testid="industry-selector"] input[type="text"]');
     await industryInput.click();
+    await industryInput.fill('restaurant');
 
     // Wait for dropdown option to appear and become stable
     await page.waitForSelector('[data-testid="industry-option-restaurant"]', {
@@ -177,13 +185,13 @@ test.describe('Campaign Preview and Editing', () => {
     await expect(page.getByText('Selected:')).toBeVisible({ timeout: 2000 });
     await page.click('button:has-text("Get Started")');
 
-    await expect(page.getByText('Confirm Your Business Details')).toBeVisible({ timeout: 90000 });
+    await expect(page.getByText('Confirm Your Offerings')).toBeVisible({ timeout: 90000 });
 
     // Service chips are pre-selected, so we can proceed directly
-    await page.click('button:has-text("Continue to Content")');
+    await page.click('button:has-text("Continue")');
 
     await expect(page.getByText('Your Business Insights')).toBeVisible({ timeout: 10000 });
-    await page.click('button:has-text("Continue to Smart Suggestions")');
+    await page.click('button:has-text("Continue")');
     
     await expect(page.getByText('Smart Content Suggestions')).toBeVisible({ timeout: 10000 });
     
