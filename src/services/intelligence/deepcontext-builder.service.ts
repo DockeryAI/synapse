@@ -960,7 +960,7 @@ class DeepContextBuilderService {
           type: 'market_trend' as DataPointType,
           content: `Domain authority: ${metrics.overview.authority_score}/100 | Backlinks: ${metrics.overview.backlinks.toLocaleString()} | Organic traffic: ${metrics.overview.organic_traffic.toLocaleString()}/mo | SEO health: ${metrics.healthScore}/100`,
           metadata: {
-            domain: metrics.domain,
+            domainName: metrics.domain,
             authorityScore: metrics.overview.authority_score,
             backlinks: metrics.overview.backlinks,
             organicTraffic: metrics.overview.organic_traffic,

@@ -29,6 +29,7 @@ export interface OrchestrationResult {
     twoWay: Connection[];
     threeWay: Connection[];
     fourWay: Connection[];
+    fiveWay: Connection[];
   };
   breakthroughs: BreakthroughAngle[];
 
@@ -77,7 +78,7 @@ class OrchestrationService {
 
     // Phase 3: Connection Discovery
     console.log('[Orchestration] Phase 3: Discovering connections...');
-    const { twoWay, threeWay, fourWay, breakthroughs } = await connectionDiscoveryService.discoverConnections(
+    const { twoWay, threeWay, fourWay, fiveWay, breakthroughs } = await connectionDiscoveryService.discoverConnections(
       embeddedDataPoints,
       clusters
     );
@@ -130,7 +131,7 @@ class OrchestrationService {
     // Update DeepContext with orchestration results
     this.updateDeepContext(deepContext, {
       clusters,
-      connections: { twoWay, threeWay, fourWay },
+      connections: { twoWay, threeWay, fourWay, fiveWay },
       breakthroughs,
       industryProfile
     });
@@ -141,7 +142,7 @@ class OrchestrationService {
       totalDataPoints: dataPoints.length,
       embeddedCount: embeddedDataPoints.filter(dp => dp.embedding).length,
       clusterCount: clusters.length,
-      connectionCount: twoWay.length + threeWay.length + fourWay.length,
+      connectionCount: twoWay.length + threeWay.length + fourWay.length + fiveWay.length,
       breakthroughCount: breakthroughs.length,
       synthesizedCount: synthesizedContent.length,
       processingTimeMs
@@ -158,7 +159,7 @@ class OrchestrationService {
     return {
       embeddedDataPoints,
       clusters,
-      connections: { twoWay, threeWay, fourWay },
+      connections: { twoWay, threeWay, fourWay, fiveWay },
       breakthroughs,
       industryProfile,
       synthesizedContent,
@@ -223,7 +224,7 @@ class OrchestrationService {
     deepContext: DeepContext,
     results: {
       clusters: InsightCluster[];
-      connections: { twoWay: Connection[]; threeWay: Connection[]; fourWay: Connection[] };
+      connections: { twoWay: Connection[]; threeWay: Connection[]; fourWay: Connection[]; fiveWay: Connection[] };
       breakthroughs: BreakthroughAngle[];
       industryProfile: IndustryProfile;
     }
@@ -319,7 +320,7 @@ class OrchestrationService {
     const clusters = clusteringService.dbscanClustering(dataPoints, 0.4, 2);
 
     // Simple connection discovery without embeddings
-    const { twoWay, threeWay, fourWay, breakthroughs } = await connectionDiscoveryService.discoverConnections(
+    const { twoWay, threeWay, fourWay, fiveWay, breakthroughs } = await connectionDiscoveryService.discoverConnections(
       dataPoints,
       clusters
     );
@@ -330,7 +331,7 @@ class OrchestrationService {
 
     this.updateDeepContext(deepContext, {
       clusters,
-      connections: { twoWay, threeWay, fourWay },
+      connections: { twoWay, threeWay, fourWay, fiveWay },
       breakthroughs,
       industryProfile
     });
@@ -340,7 +341,7 @@ class OrchestrationService {
     return {
       embeddedDataPoints: dataPoints,
       clusters,
-      connections: { twoWay, threeWay, fourWay },
+      connections: { twoWay, threeWay, fourWay, fiveWay },
       breakthroughs,
       industryProfile,
       synthesizedContent: [], // Quick mode skips synthesis
@@ -348,7 +349,7 @@ class OrchestrationService {
         totalDataPoints: dataPoints.length,
         embeddedCount: 0,
         clusterCount: clusters.length,
-        connectionCount: twoWay.length + threeWay.length + fourWay.length,
+        connectionCount: twoWay.length + threeWay.length + fourWay.length + fiveWay.length,
         breakthroughCount: breakthroughs.length,
         synthesizedCount: 0,
         processingTimeMs

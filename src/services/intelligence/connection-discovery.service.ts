@@ -13,7 +13,7 @@ export interface Connection {
   id: string;
   dataPoints: DataPoint[];
   sources: string[];
-  connectionType: '2-way' | '3-way' | '4-way';
+  connectionType: '2-way' | '3-way' | '4-way' | '5-way';
   breakthroughScore: number; // 0-100
   angle: string;
   reasoning: string;
@@ -46,6 +46,7 @@ class ConnectionDiscoveryService {
     twoWay: Connection[];
     threeWay: Connection[];
     fourWay: Connection[];
+    fiveWay: Connection[];
     breakthroughs: BreakthroughAngle[];
   }> {
     console.log(`[ConnectionDiscovery] Analyzing ${dataPoints.length} data points...`);
@@ -62,8 +63,13 @@ class ConnectionDiscoveryService {
     const fourWay = this.findFourWayConnections(dataPoints, threeWay);
     console.log(`[ConnectionDiscovery] Found ${fourWay.length} four-way connections`);
 
-    // Generate breakthrough angles from top connections
+    // Find five-way connections (ultimate breakthrough)
+    const fiveWay = this.findFiveWayConnections(dataPoints, fourWay);
+    console.log(`[ConnectionDiscovery] Found ${fiveWay.length} five-way connections`);
+
+    // Generate breakthrough angles from top connections (prioritize higher-order connections)
     const breakthroughs = await this.generateBreakthroughAngles([
+      ...fiveWay.slice(0, 2),
       ...fourWay.slice(0, 3),
       ...threeWay.slice(0, 5),
       ...twoWay.slice(0, 10)
@@ -71,7 +77,7 @@ class ConnectionDiscoveryService {
 
     console.log(`[ConnectionDiscovery] ✅ Generated ${breakthroughs.length} breakthrough angles`);
 
-    return { twoWay, threeWay, fourWay, breakthroughs };
+    return { twoWay, threeWay, fourWay, fiveWay, breakthroughs };
   }
 
   /**
@@ -229,36 +235,121 @@ class ConnectionDiscoveryService {
   }
 
   /**
-   * Calculate breakthrough score
+   * Find five-way connections (ultimate breakthroughs)
+   */
+  private findFiveWayConnections(
+    dataPoints: DataPoint[],
+    fourWay: Connection[]
+  ): Connection[] {
+    const connections: Connection[] = [];
+    const seen = new Set<string>();
+
+    // Only process top 10 four-way connections for efficiency
+    for (const conn of fourWay.slice(0, 10)) {
+      for (const dp of dataPoints) {
+        // Must be different source
+        if (conn.sources.includes(dp.source)) continue;
+
+        // Check similarity with all points
+        const similarities = conn.dataPoints.map(p =>
+          p.embedding && dp.embedding
+            ? embeddingService.cosineSimilarity(p.embedding, dp.embedding)
+            : this.textSimilarity(p.content, dp.content)
+        );
+
+        const avgSim = similarities.reduce((a, b) => a + b, 0) / similarities.length;
+        if (avgSim < 0.35) continue; // Lower threshold for 5-way
+
+        const allPoints = [...conn.dataPoints, dp];
+        const key = allPoints.map(p => p.id).sort().join('-');
+        if (seen.has(key)) continue;
+        seen.add(key);
+
+        const score = this.calculateBreakthroughScore(allPoints, avgSim);
+
+        // Only keep very high scoring 5-way connections
+        if (score > 80) {
+          connections.push({
+            id: `conn-5-${connections.length}`,
+            dataPoints: allPoints,
+            sources: [...conn.sources, dp.source],
+            connectionType: '5-way',
+            breakthroughScore: score,
+            angle: this.generateAngle(allPoints),
+            reasoning: `Five-source ultimate breakthrough: ${allPoints.map(p => p.source).join(' + ')}`,
+            themes: this.extractThemes(allPoints),
+            timingRelevance: this.calculateTimingRelevance(allPoints),
+            emotionalIntensity: this.calculateEmotionalIntensity(allPoints)
+          });
+        }
+      }
+    }
+
+    return connections.sort((a, b) => b.breakthroughScore - a.breakthroughScore);
+  }
+
+  /**
+   * Calculate breakthrough score with enhanced weighting
    */
   private calculateBreakthroughScore(dataPoints: DataPoint[], similarity: number): number {
-    let score = similarity * 40; // Base from similarity
+    let score = similarity * 30; // Base from similarity (reduced to make room for other factors)
 
     // Source diversity bonus (more unique sources = higher score)
     const uniqueSources = new Set(dataPoints.map(dp => dp.source)).size;
-    score += uniqueSources * 15;
+    score += uniqueSources * 12;
 
-    // Timing relevance bonus
-    const hasTimeSensitive = dataPoints.some(dp =>
-      dp.type === 'local_event' ||
-      dp.source === 'weather' ||
-      dp.source === 'news'
-    );
-    if (hasTimeSensitive) score += 10;
+    // Domain diversity bonus (psychological + competitive + timing = holy shit)
+    const domains = new Set(dataPoints.map(dp => dp.metadata?.domain).filter(Boolean));
+    if (domains.size >= 3) score += 15;
+    else if (domains.size >= 2) score += 8;
 
-    // Emotional intensity bonus
-    const hasEmotional = dataPoints.some(dp =>
+    // Timing relevance bonus (multiple time-sensitive sources = critical)
+    const timeSensitiveSources = ['weather', 'news', 'serper'];
+    const timeSensitiveTypes = ['local_event', 'trending_topic', 'weather_trigger'];
+    const timeSensitiveCount = dataPoints.filter(dp =>
+      timeSensitiveSources.includes(dp.source) ||
+      timeSensitiveTypes.includes(dp.type)
+    ).length;
+    if (timeSensitiveCount >= 2) score += 15;
+    else if (timeSensitiveCount === 1) score += 8;
+
+    // Emotional intensity bonus (customer pain points + desires)
+    const emotionalTypes = ['customer_trigger', 'pain_point', 'unarticulated_need'];
+    const emotionalCount = dataPoints.filter(dp =>
+      emotionalTypes.includes(dp.type) ||
       dp.metadata?.sentiment === 'negative' ||
-      dp.type === 'customer_trigger'
-    );
-    if (hasEmotional) score += 10;
+      dp.metadata?.domain === 'psychology'
+    ).length;
+    if (emotionalCount >= 2) score += 12;
+    else if (emotionalCount === 1) score += 6;
 
-    // Competitive advantage bonus
-    const hasCompetitive = dataPoints.some(dp =>
-      dp.type === 'competitive_gap' ||
+    // Competitive moat bonus (gaps + weaknesses = opportunity)
+    const competitiveTypes = ['competitive_gap', 'competitor_weakness', 'keyword_gap'];
+    const competitiveCount = dataPoints.filter(dp =>
+      competitiveTypes.includes(dp.type) ||
       dp.source === 'semrush'
-    );
-    if (hasCompetitive) score += 5;
+    ).length;
+    if (competitiveCount >= 2) score += 10;
+    else if (competitiveCount === 1) score += 5;
+
+    // Triple validation bonus (same theme from 3+ sources)
+    if (dataPoints.length >= 3) {
+      const contentWords = dataPoints.flatMap(dp =>
+        dp.content.toLowerCase().split(/\s+/).filter(w => w.length > 5)
+      );
+      const wordCounts = new Map<string, number>();
+      for (const word of contentWords) {
+        wordCounts.set(word, (wordCounts.get(word) || 0) + 1);
+      }
+      const hasTripleValidation = Array.from(wordCounts.values()).some(count => count >= 3);
+      if (hasTripleValidation) score += 8;
+    }
+
+    // High confidence bonus (all sources have high confidence)
+    const avgConfidence = dataPoints.reduce((sum, dp) =>
+      sum + (dp.metadata?.confidence || dp.metadata?.relevance || 0.7), 0
+    ) / dataPoints.length;
+    if (avgConfidence >= 0.85) score += 5;
 
     return Math.min(100, Math.round(score));
   }

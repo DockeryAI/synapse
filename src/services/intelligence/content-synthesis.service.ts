@@ -29,6 +29,15 @@ export interface SynthesizedContent {
   provenance: ContentProvenance;
   eqScore: number; // 0-100
   breakthroughScore?: number; // 0-100 if from Connection Discovery
+  variants?: ContentVariant[]; // A/B testing variants
+}
+
+export interface ContentVariant {
+  id: string;
+  title: string;
+  hook: string;
+  triggerType: 'curiosity' | 'fear' | 'urgency' | 'achievement' | 'desire' | 'trust';
+  eqScore: number;
 }
 
 export interface ContentProvenance {
@@ -104,6 +113,9 @@ class ContentSynthesisService {
       // Calculate EQ score
       const eqScore = await this.calculateEQScore(synthesized.title, synthesized.hook);
 
+      // Generate A/B testing variants
+      const variants = await this.generateVariants(synthesized.title, synthesized.hook, context);
+
       return {
         title: synthesized.title,
         hook: synthesized.hook,
@@ -111,13 +123,89 @@ class ContentSynthesisService {
         cta: synthesized.cta,
         provenance,
         eqScore,
-        breakthroughScore: synthesized.breakthroughScore
+        breakthroughScore: synthesized.breakthroughScore,
+        variants
       };
 
     } catch (error) {
       console.error('[ContentSynthesis] Error:', error);
       return this.fallbackSynthesis(selectedInsights, context);
     }
+  }
+
+  /**
+   * Generate content variants for A/B testing
+   */
+  private async generateVariants(
+    baseTitle: string,
+    baseHook: string,
+    context: DeepContext
+  ): Promise<ContentVariant[]> {
+    const variants: ContentVariant[] = [];
+
+    // Define psychological trigger transformations
+    const triggers: Array<{
+      type: ContentVariant['triggerType'];
+      titlePrefix: string;
+      hookPrefix: string;
+    }> = [
+      {
+        type: 'curiosity',
+        titlePrefix: 'What Most People Don\'t Know: ',
+        hookPrefix: 'Here\'s the surprising truth: '
+      },
+      {
+        type: 'fear',
+        titlePrefix: 'Stop Making This Mistake: ',
+        hookPrefix: 'Are you unknowingly risking everything? '
+      },
+      {
+        type: 'urgency',
+        titlePrefix: 'Before It\'s Too Late: ',
+        hookPrefix: 'Time is running out. '
+      },
+      {
+        type: 'achievement',
+        titlePrefix: 'Finally: ',
+        hookPrefix: 'Success is within reach. '
+      },
+      {
+        type: 'desire',
+        titlePrefix: 'Get What You Really Want: ',
+        hookPrefix: 'Imagine having this solved. '
+      },
+      {
+        type: 'trust',
+        titlePrefix: 'Proven: ',
+        hookPrefix: 'Based on real results: '
+      }
+    ];
+
+    // Generate variants with different psychological triggers
+    for (const trigger of triggers) {
+      // Extract the core message from base title (remove existing prefixes)
+      const coreTitle = baseTitle.replace(/^(What|Why|How|Stop|Before|Finally|Get|Proven)[^:]*:\s*/i, '');
+      const coreHook = baseHook.replace(/^[^.!?]+[.!?]\s*/i, '');
+
+      const variantTitle = `${trigger.titlePrefix}${coreTitle}`;
+      const variantHook = `${trigger.hookPrefix}${coreHook || baseHook}`;
+
+      const eqScore = await this.calculateEQScore(variantTitle, variantHook);
+
+      variants.push({
+        id: `variant-${trigger.type}-${Date.now()}`,
+        title: variantTitle,
+        hook: variantHook,
+        triggerType: trigger.type,
+        eqScore
+      });
+    }
+
+    // Sort by EQ score (highest first)
+    variants.sort((a, b) => b.eqScore - a.eqScore);
+
+    // Return top 4 variants
+    return variants.slice(0, 4);
   }
 
   /**
