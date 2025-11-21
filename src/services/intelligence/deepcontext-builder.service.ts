@@ -1388,7 +1388,7 @@ class DeepContextBuilderService {
                 month: currentMonth,
                 year: now.getFullYear(),
                 confidence: response.confidence,
-                domain: queryConfig.domain,
+                domain: queryConfig.domain as 'psychology' | 'competitive' | 'timing' | 'search_intent' | 'content_gap',
                 queryType: queryConfig.domain === 'psychology' ? 'psychological_trigger' : 'event'
               },
               createdAt: new Date(),
@@ -1632,8 +1632,7 @@ class DeepContextBuilderService {
               extractedFrom: 'headings',
               confidence: 0.85
             },
-            timestamp: new Date().toISOString(),
-            confidence: 0.85
+            createdAt: new Date()
           });
         });
       }
@@ -1666,8 +1665,7 @@ class DeepContextBuilderService {
                 extractedFrom: 'body_text',
                 confidence: 0.75
               },
-              timestamp: new Date().toISOString(),
-              confidence: 0.75
+              createdAt: new Date()
             });
           }
         });
@@ -1685,8 +1683,7 @@ class DeepContextBuilderService {
             extractedFrom: 'title',
             confidence: 0.95
           },
-          timestamp: new Date().toISOString(),
-          confidence: 0.95
+          createdAt: new Date()
         });
       }
 
@@ -1701,8 +1698,7 @@ class DeepContextBuilderService {
             extractedFrom: 'meta_description',
             confidence: 0.90
           },
-          timestamp: new Date().toISOString(),
-          confidence: 0.90
+          createdAt: new Date()
         });
       }
 
@@ -1718,8 +1714,7 @@ class DeepContextBuilderService {
             extractedFrom: 'og_tags',
             confidence: 0.85
           },
-          timestamp: new Date().toISOString(),
-          confidence: 0.85
+          createdAt: new Date()
         });
       }
 

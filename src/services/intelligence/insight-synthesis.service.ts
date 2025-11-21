@@ -103,7 +103,7 @@ class InsightSynthesisService {
     const pointsBySource = this.groupBySource(relevantPoints);
     const sampleData = relevantPoints.slice(0, 20).map(dp => {
       // Safely convert date to ISO string, handling invalid dates
-      let timestamp = dp.timestamp;
+      let timestamp = '';
       if (dp.createdAt) {
         try {
           const date = dp.createdAt instanceof Date ? dp.createdAt : new Date(dp.createdAt);
@@ -111,7 +111,7 @@ class InsightSynthesisService {
             timestamp = date.toISOString();
           }
         } catch {
-          // Keep original timestamp if conversion fails
+          // Keep empty timestamp if conversion fails
         }
       }
       return {
@@ -192,7 +192,7 @@ Return as JSON array of trends. Be specific and cite real sources.`;
       content: dp.content,
       source: dp.source,
       metadata: dp.metadata,
-      timestamp: dp.createdAt?.toISOString() || dp.timestamp
+      timestamp: dp.createdAt instanceof Date ? dp.createdAt.toISOString() : ''
     }));
 
     const prompt = `You are analyzing customer feedback for ${context.brandName} in the ${context.industry} industry.
@@ -273,7 +273,7 @@ Return as JSON array. Focus on specific, actionable insights with real quotes.`;
       content: dp.content,
       source: dp.source,
       metadata: dp.metadata,
-      timestamp: dp.createdAt?.toISOString() || dp.timestamp
+      timestamp: dp.createdAt instanceof Date ? dp.createdAt.toISOString() : ''
     }));
 
     const prompt = `You are analyzing competitive intelligence for ${context.brandName} in the ${context.industry} industry.
