@@ -41,6 +41,74 @@ export interface IndustryProfile {
 
 class NAICSDatabaseService {
   private cache = new Map<string, IndustryProfile>();
+  private profileCount: number | null = null;
+
+  /**
+   * Get count of available industry profiles in database
+   * Expected: 147 profiles for full NAICS coverage
+   */
+  async getProfileCount(): Promise<number> {
+    if (this.profileCount !== null) {
+      return this.profileCount;
+    }
+
+    try {
+      const { count, error } = await supabase
+        .from('industry_profiles')
+        .select('*', { count: 'exact', head: true });
+
+      if (error) {
+        console.warn('[NAICS] Error counting profiles:', error);
+        return 0;
+      }
+
+      this.profileCount = count || 0;
+      console.log(`[NAICS] Database contains ${this.profileCount} industry profiles`);
+      return this.profileCount;
+    } catch (error) {
+      console.error('[NAICS] Error counting profiles:', error);
+      return 0;
+    }
+  }
+
+  /**
+   * Validate database has expected profile count
+   */
+  async validateDatabase(): Promise<{ valid: boolean; count: number; expected: number }> {
+    const count = await this.getProfileCount();
+    const expected = 147;
+    const valid = count >= expected;
+
+    if (!valid) {
+      console.warn(`[NAICS] Database validation: ${count}/${expected} profiles (${valid ? 'PASS' : 'INCOMPLETE'})`);
+    } else {
+      console.log(`[NAICS] ✅ Database validated: ${count}/${expected} profiles`);
+    }
+
+    return { valid, count, expected };
+  }
+
+  /**
+   * Get all available industry categories
+   */
+  async getAvailableCategories(): Promise<string[]> {
+    try {
+      const { data, error } = await supabase
+        .from('industry_profiles')
+        .select('category')
+        .order('category');
+
+      if (error || !data) {
+        return [];
+      }
+
+      const categories = [...new Set(data.map(d => d.category))];
+      return categories.filter(Boolean);
+    } catch (error) {
+      console.error('[NAICS] Error fetching categories:', error);
+      return [];
+    }
+  }
 
   /**
    * Get profile for an industry - fetches from Supabase

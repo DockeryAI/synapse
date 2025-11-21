@@ -321,39 +321,102 @@ OUTPUT FORMAT (JSON only, no markdown):
   }
 
   /**
-   * Calculate EQ score using pattern matching
+   * Calculate EQ score using comprehensive pattern matching
+   * Enhanced scoring with 7 psychological triggers, specificity bonuses, and combination multipliers
    */
   private async calculateEQScore(title: string, hook: string): Promise<number> {
     const text = `${title} ${hook}`.toLowerCase();
+    const titleLower = title.toLowerCase();
 
-    // Psychological trigger patterns
+    // Comprehensive psychological trigger patterns (expanded)
     const triggers = {
-      curiosity: [/why\s/i, /what\s/i, /how\s/i, /\d+\s+things/i, /reveal/i, /secret/i, /won't tell you/i],
-      fear: [/stop\s/i, /avoid/i, /mistake/i, /gap/i, /missing/i, /risk/i, /lose/i],
-      urgency: [/before\s/i, /now\s/i, /deadline/i, /season/i, /limited/i],
-      achievement: [/finally/i, /master/i, /unlock/i, /discover/i],
-      desire: [/want/i, /need/i, /wish/i],
-      trust: [/proven/i, /verified/i, /based on/i, /\d+\s+(reviews|customers)/i],
-      belonging: [/everyone/i, /people like you/i, /join/i]
+      curiosity: [
+        /why\s/i, /what\s/i, /how\s/i, /\d+\s+things/i, /reveal/i, /secret/i,
+        /won't tell you/i, /truth about/i, /really\s/i, /actually\s/i,
+        /surprising/i, /unexpected/i, /hidden/i, /discover/i, /learn/i
+      ],
+      fear: [
+        /stop\s/i, /avoid/i, /mistake/i, /gap/i, /missing/i, /risk/i, /lose/i,
+        /danger/i, /warning/i, /don't\s/i, /never\s/i, /worst/i, /fail/i,
+        /wrong/i, /problem/i, /nightmare/i, /costly/i, /expensive mistake/i
+      ],
+      urgency: [
+        /before\s/i, /now\s/i, /deadline/i, /season/i, /limited/i,
+        /today/i, /immediately/i, /running out/i, /last chance/i, /hurry/i,
+        /don't wait/i, /act fast/i, /time-sensitive/i, /expires/i, /soon/i
+      ],
+      achievement: [
+        /finally/i, /master/i, /unlock/i, /discover/i, /success/i,
+        /achieve/i, /accomplish/i, /breakthrough/i, /transform/i, /level up/i,
+        /expert/i, /pro\s/i, /advanced/i, /elite/i, /winning/i
+      ],
+      desire: [
+        /want/i, /need/i, /wish/i, /dream/i, /imagine/i,
+        /get\s/i, /have\s/i, /own\s/i, /enjoy/i, /experience/i,
+        /love to/i, /perfect/i, /ideal/i, /best\s/i, /ultimate/i
+      ],
+      trust: [
+        /proven/i, /verified/i, /based on/i, /\d+\s+(reviews|customers)/i,
+        /data shows/i, /research/i, /studies/i, /experts/i, /guaranteed/i,
+        /tested/i, /certified/i, /trusted/i, /reliable/i, /authentic/i
+      ],
+      belonging: [
+        /everyone/i, /people like you/i, /join/i, /community/i, /together/i,
+        /we\s/i, /our\s/i, /you're not alone/i, /others/i, /customers say/i,
+        /members/i, /family/i, /tribe/i, /network/i, /fellow/i
+      ]
     };
 
-    let score = 50; // Base score
+    let score = 40; // Base score (lowered to allow more room for bonuses)
+    let triggersFound = 0;
 
-    // Check each trigger category
+    // Check each trigger category with weighted scoring
     for (const [category, patterns] of Object.entries(triggers)) {
+      let categoryMatches = 0;
       for (const pattern of patterns) {
         if (pattern.test(text)) {
-          score += 8;
-          break; // Only count once per category
+          categoryMatches++;
         }
+      }
+      if (categoryMatches > 0) {
+        triggersFound++;
+        // First match: +7, additional matches in same category: +2 each (max +3 extra)
+        score += 7 + Math.min(3, (categoryMatches - 1) * 2);
       }
     }
 
-    // Bonus for specificity
-    if (/\d+/.test(title)) score += 10; // Numbers in title
-    if (text.length > 50) score += 5; // Detailed content
+    // Multi-trigger combination bonus (emotional resonance)
+    if (triggersFound >= 4) score += 10; // 4+ triggers = highly emotional
+    else if (triggersFound >= 3) score += 6; // 3 triggers = strong emotional
+    else if (triggersFound >= 2) score += 3; // 2 triggers = good emotional
 
-    return Math.min(100, Math.max(0, score));
+    // Specificity bonuses
+    if (/\d+/.test(titleLower)) score += 8; // Numbers in title (specific)
+    if (/\$\d+/.test(text)) score += 5; // Dollar amounts (concrete value)
+    if (/%/.test(text)) score += 4; // Percentages (measurable)
+
+    // Length and detail bonuses
+    if (text.length > 100) score += 4; // Detailed content
+    else if (text.length > 50) score += 2;
+
+    // Action orientation bonus
+    if (/^(how to|why|what|stop|get|discover|learn|master|avoid)/i.test(titleLower)) {
+      score += 5; // Action-oriented opening
+    }
+
+    // Question format bonus (engages reader)
+    if (/\?/.test(title)) score += 3;
+
+    // Power word combinations (fear + urgency, desire + achievement)
+    const hasFear = triggers.fear.some(p => p.test(text));
+    const hasUrgency = triggers.urgency.some(p => p.test(text));
+    const hasDesire = triggers.desire.some(p => p.test(text));
+    const hasAchievement = triggers.achievement.some(p => p.test(text));
+
+    if (hasFear && hasUrgency) score += 5; // FOMO combination
+    if (hasDesire && hasAchievement) score += 4; // Aspiration combination
+
+    return Math.min(100, Math.max(0, Math.round(score)));
   }
 
   /**
