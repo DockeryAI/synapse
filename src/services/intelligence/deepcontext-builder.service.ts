@@ -30,6 +30,7 @@ import { websiteAnalyzer } from './website-analyzer.service';
 import { redditAPI } from './reddit-api';
 import { whisperAPI } from './whisper-api';
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
+import { ApifyAPI } from './apify-api';
 import { intelligenceCache } from './intelligence-cache.service';
 import { insightSynthesis } from './insight-synthesis.service';
 import { psychologicalExtractor, type PsychologicalProfile } from './psychological-pattern-extractor.service';
@@ -57,6 +58,7 @@ export interface DeepContextBuilderConfig {
   includeReddit?: boolean; // Reddit psychological triggers and customer insights
   includePerplexity?: boolean; // Perplexity local events and real-time insights
   includeLinkedIn?: boolean; // LinkedIn B2B intelligence (posts, companies, jobs)
+  includeApify?: boolean; // Apify website scraping for services, testimonials, content
   cacheResults?: boolean;
   forceFresh?: boolean; // Skip cache and force fresh API calls
 }
@@ -143,7 +145,8 @@ class DeepContextBuilderService {
         redditData,
         perplexityData,
         linkedinData,
-        whisperData
+        whisperData,
+        apifyData
       ] = await Promise.allSettled([
         config.includeYouTube !== false
           ? this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed)
@@ -177,6 +180,10 @@ class DeepContextBuilderService {
         // Whisper video transcription
         brandData.videoUrls && brandData.videoUrls.length > 0
           ? this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
+        // Apify website scraping
+        config.includeApify !== false && brandData.website
+          ? this.fetchApifyIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null)
       ]);
 
@@ -237,6 +244,11 @@ class DeepContextBuilderService {
       // Add Whisper data points
       if (whisperData.status === 'fulfilled' && whisperData.value) {
         dataPoints.push(...whisperData.value);
+      }
+
+      // Add Apify data points
+      if (apifyData.status === 'fulfilled' && apifyData.value) {
+        dataPoints.push(...apifyData.value);
       }
 
       console.log(`[DeepContext] Collected ${dataPoints.length} data points from ${dataSourcesUsed.length} sources`);
@@ -1553,6 +1565,171 @@ class DeepContextBuilderService {
       console.error('[DeepContext/Whisper] Error:', error);
       errors.push({
         source: 'whisper',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
+   * 12. Fetch Apify Intelligence - Website Content Scraping
+   * Extracts services, testimonials, about page content
+   */
+  private async fetchApifyIntelligence(
+    brandData: any,
+    errors: Array<{ source: string; error: string; severity: 'warning' | 'error' }>,
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/Apify] Scraping website content...');
+
+      const website = brandData.website;
+      if (!website) {
+        console.log('[DeepContext/Apify] No website provided, skipping');
+        return [];
+      }
+
+      // Check cache first
+      const cacheKey = `apify:website:${website}`;
+      let cachedContent = await intelligenceCache.get<any>(cacheKey);
+
+      if (!cachedContent) {
+        // Scrape website content using Apify
+        const content = await ApifyAPI.scrapeWebsiteContent(website);
+        cachedContent = content;
+
+        // Cache the result
+        await intelligenceCache.set(cacheKey, content, {
+          dataType: 'website_content',
+          sourceApi: 'apify',
+          brandId: brandData.id,
+          ttlMinutes: 1440 // 24 hours - website content doesn't change often
+        });
+      }
+
+      const dataPoints: DataPoint[] = [];
+
+      // Extract services from headings and text
+      if (cachedContent.headings && cachedContent.headings.length > 0) {
+        const serviceHeadings = cachedContent.headings.filter((h: string) =>
+          h.toLowerCase().includes('service') ||
+          h.toLowerCase().includes('solution') ||
+          h.toLowerCase().includes('offer') ||
+          h.toLowerCase().includes('what we do')
+        );
+
+        serviceHeadings.forEach((heading: string, index: number) => {
+          dataPoints.push({
+            id: `apify-service-${Date.now()}-${index}`,
+            source: 'apify' as DataSource,
+            type: 'service_offering' as DataPointType,
+            content: heading,
+            metadata: {
+              url: website,
+              extractedFrom: 'headings',
+              confidence: 0.85
+            },
+            timestamp: new Date().toISOString(),
+            confidence: 0.85
+          });
+        });
+      }
+
+      // Extract key content as brand voice patterns
+      if (cachedContent.text && cachedContent.text.length > 100) {
+        // Split text into meaningful chunks
+        const sentences = cachedContent.text
+          .split(/[.!?]+/)
+          .filter((s: string) => s.trim().length > 50 && s.trim().length < 300)
+          .slice(0, 10);
+
+        sentences.forEach((sentence: string, index: number) => {
+          const trimmed = sentence.trim();
+          // Look for value proposition patterns
+          if (
+            trimmed.toLowerCase().includes('we ') ||
+            trimmed.toLowerCase().includes('our ') ||
+            trimmed.toLowerCase().includes('help') ||
+            trimmed.toLowerCase().includes('provide') ||
+            trimmed.toLowerCase().includes('deliver')
+          ) {
+            dataPoints.push({
+              id: `apify-content-${Date.now()}-${index}`,
+              source: 'apify' as DataSource,
+              type: 'brand_voice' as DataPointType,
+              content: trimmed,
+              metadata: {
+                url: website,
+                extractedFrom: 'body_text',
+                confidence: 0.75
+              },
+              timestamp: new Date().toISOString(),
+              confidence: 0.75
+            });
+          }
+        });
+      }
+
+      // Extract title and description as brand messaging
+      if (cachedContent.title) {
+        dataPoints.push({
+          id: `apify-title-${Date.now()}`,
+          source: 'apify' as DataSource,
+          type: 'brand_voice' as DataPointType,
+          content: `Website title: ${cachedContent.title}`,
+          metadata: {
+            url: website,
+            extractedFrom: 'title',
+            confidence: 0.95
+          },
+          timestamp: new Date().toISOString(),
+          confidence: 0.95
+        });
+      }
+
+      if (cachedContent.description) {
+        dataPoints.push({
+          id: `apify-desc-${Date.now()}`,
+          source: 'apify' as DataSource,
+          type: 'brand_voice' as DataPointType,
+          content: `Website description: ${cachedContent.description}`,
+          metadata: {
+            url: website,
+            extractedFrom: 'meta_description',
+            confidence: 0.90
+          },
+          timestamp: new Date().toISOString(),
+          confidence: 0.90
+        });
+      }
+
+      // Extract OG metadata as additional brand signals
+      if (cachedContent.metadata?.ogTitle || cachedContent.metadata?.ogDescription) {
+        dataPoints.push({
+          id: `apify-og-${Date.now()}`,
+          source: 'apify' as DataSource,
+          type: 'brand_voice' as DataPointType,
+          content: `Social sharing: ${cachedContent.metadata.ogTitle || ''} - ${cachedContent.metadata.ogDescription || ''}`,
+          metadata: {
+            url: website,
+            extractedFrom: 'og_tags',
+            confidence: 0.85
+          },
+          timestamp: new Date().toISOString(),
+          confidence: 0.85
+        });
+      }
+
+      dataSourcesUsed.push('apify');
+
+      console.log(`[DeepContext/Apify] ✅ Extracted ${dataPoints.length} data points from website`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/Apify] Error:', error);
+      errors.push({
+        source: 'apify',
         error: error instanceof Error ? error.message : String(error),
         severity: 'warning'
       });

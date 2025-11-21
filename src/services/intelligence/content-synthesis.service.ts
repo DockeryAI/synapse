@@ -135,6 +135,7 @@ class ContentSynthesisService {
 
   /**
    * Generate content variants for A/B testing
+   * Uses AI to generate contextually appropriate prefixes for each psychological trigger
    */
   private async generateVariants(
     baseTitle: string,
@@ -143,62 +144,155 @@ class ContentSynthesisService {
   ): Promise<ContentVariant[]> {
     const variants: ContentVariant[] = [];
 
-    // Define psychological trigger transformations
-    const triggers: Array<{
-      type: ContentVariant['triggerType'];
-      titlePrefix: string;
-      hookPrefix: string;
-    }> = [
-      {
-        type: 'curiosity',
-        titlePrefix: 'What Most People Don\'t Know: ',
-        hookPrefix: 'Here\'s the surprising truth: '
-      },
-      {
-        type: 'fear',
-        titlePrefix: 'Stop Making This Mistake: ',
-        hookPrefix: 'Are you unknowingly risking everything? '
-      },
-      {
-        type: 'urgency',
-        titlePrefix: 'Before It\'s Too Late: ',
-        hookPrefix: 'Time is running out. '
-      },
-      {
-        type: 'achievement',
-        titlePrefix: 'Finally: ',
-        hookPrefix: 'Success is within reach. '
-      },
-      {
-        type: 'desire',
-        titlePrefix: 'Get What You Really Want: ',
-        hookPrefix: 'Imagine having this solved. '
-      },
-      {
-        type: 'trust',
-        titlePrefix: 'Proven: ',
-        hookPrefix: 'Based on real results: '
+    // Extract the core message from base title (remove existing prefixes)
+    const coreTitle = baseTitle.replace(/^(What|Why|How|Stop|Before|Finally|Get|Proven)[^:]*:\s*/i, '');
+    const coreHook = baseHook.replace(/^[^.!?]+[.!?]\s*/i, '');
+
+    // Try AI-generated variants first
+    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+      try {
+        console.log('[ContentSynthesis] Generating AI-powered variants...');
+
+        const prompt = `You are a psychological copywriting expert. Generate 6 compelling variants of this content, each optimized for a different psychological trigger.
+
+BUSINESS: ${context.business.profile.name}
+INDUSTRY: ${context.business.profile.industry}
+
+ORIGINAL CONTENT:
+Title: ${coreTitle}
+Hook: ${coreHook || baseHook}
+
+Generate variants for these psychological triggers:
+1. CURIOSITY - Create intrigue with what they don't know
+2. FEAR - Highlight risks and mistakes to avoid
+3. URGENCY - Emphasize time-sensitivity and scarcity
+4. ACHIEVEMENT - Focus on success and accomplishment
+5. DESIRE - Appeal to wants and aspirations
+6. TRUST - Emphasize proof and credibility
+
+For each variant, create:
+- A unique title prefix (5-8 words ending with ":")
+- A unique hook prefix (one sentence ending with ". ")
+
+CRITICAL: Make prefixes industry-specific and contextual. Not generic templates.
+
+OUTPUT FORMAT (JSON only, no markdown):
+{
+  "variants": [
+    {
+      "type": "curiosity",
+      "titlePrefix": "Your unique curiosity prefix: ",
+      "hookPrefix": "Your unique hook opener. "
+    },
+    ...
+  ]
+}`;
+
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            provider: 'openrouter',
+            model: 'anthropic/claude-3-haiku-20240307', // Fast model for variants
+            messages: [{ role: 'user', content: prompt }],
+            max_tokens: 1000,
+            temperature: 0.8
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          let contentText = data.choices[0].message.content;
+
+          // Parse JSON response
+          if (contentText.includes('```json')) {
+            contentText = contentText
+              .replace(/```json\s*/g, '')
+              .replace(/```\s*/g, '')
+              .trim();
+          }
+
+          const aiVariants = JSON.parse(contentText);
+
+          // Generate variants from AI prefixes
+          for (const aiVariant of aiVariants.variants) {
+            const variantTitle = `${aiVariant.titlePrefix}${coreTitle}`;
+            const variantHook = `${aiVariant.hookPrefix}${coreHook || baseHook}`;
+
+            const eqScore = await this.calculateEQScore(variantTitle, variantHook);
+
+            variants.push({
+              id: `variant-${aiVariant.type}-${Date.now()}`,
+              title: variantTitle,
+              hook: variantHook,
+              triggerType: aiVariant.type,
+              eqScore
+            });
+          }
+
+          console.log(`[ContentSynthesis] ✅ Generated ${variants.length} AI-powered variants`);
+        }
+      } catch (error) {
+        console.warn('[ContentSynthesis] AI variant generation failed, using fallback:', error);
       }
-    ];
+    }
 
-    // Generate variants with different psychological triggers
-    for (const trigger of triggers) {
-      // Extract the core message from base title (remove existing prefixes)
-      const coreTitle = baseTitle.replace(/^(What|Why|How|Stop|Before|Finally|Get|Proven)[^:]*:\s*/i, '');
-      const coreHook = baseHook.replace(/^[^.!?]+[.!?]\s*/i, '');
+    // Fallback to template prefixes if AI fails or no config
+    if (variants.length === 0) {
+      const triggers: Array<{
+        type: ContentVariant['triggerType'];
+        titlePrefix: string;
+        hookPrefix: string;
+      }> = [
+        {
+          type: 'curiosity',
+          titlePrefix: 'What Most People Don\'t Know: ',
+          hookPrefix: 'Here\'s the surprising truth: '
+        },
+        {
+          type: 'fear',
+          titlePrefix: 'Stop Making This Mistake: ',
+          hookPrefix: 'Are you unknowingly risking everything? '
+        },
+        {
+          type: 'urgency',
+          titlePrefix: 'Before It\'s Too Late: ',
+          hookPrefix: 'Time is running out. '
+        },
+        {
+          type: 'achievement',
+          titlePrefix: 'Finally: ',
+          hookPrefix: 'Success is within reach. '
+        },
+        {
+          type: 'desire',
+          titlePrefix: 'Get What You Really Want: ',
+          hookPrefix: 'Imagine having this solved. '
+        },
+        {
+          type: 'trust',
+          titlePrefix: 'Proven: ',
+          hookPrefix: 'Based on real results: '
+        }
+      ];
 
-      const variantTitle = `${trigger.titlePrefix}${coreTitle}`;
-      const variantHook = `${trigger.hookPrefix}${coreHook || baseHook}`;
+      for (const trigger of triggers) {
+        const variantTitle = `${trigger.titlePrefix}${coreTitle}`;
+        const variantHook = `${trigger.hookPrefix}${coreHook || baseHook}`;
 
-      const eqScore = await this.calculateEQScore(variantTitle, variantHook);
+        const eqScore = await this.calculateEQScore(variantTitle, variantHook);
 
-      variants.push({
-        id: `variant-${trigger.type}-${Date.now()}`,
-        title: variantTitle,
-        hook: variantHook,
-        triggerType: trigger.type,
-        eqScore
-      });
+        variants.push({
+          id: `variant-${trigger.type}-${Date.now()}`,
+          title: variantTitle,
+          hook: variantHook,
+          triggerType: trigger.type,
+          eqScore
+        });
+      }
     }
 
     // Sort by EQ score (highest first)

@@ -39,7 +39,9 @@ export type DataPointType =
   | 'people_also_ask'
   | 'search_intent'
   | 'news_story'
-  | 'weather_trigger';
+  | 'weather_trigger'
+  | 'service_offering'
+  | 'brand_voice';
 
 // Embedding model configuration
 export const EMBEDDING_MODEL = 'text-embedding-3-small';
