@@ -6,7 +6,7 @@
 
 import * as React from 'react'
 import { cn } from '@/lib/utils'
-import { Check, Sparkles } from 'lucide-react'
+import { Check, Sparkles, Quote } from 'lucide-react'
 import { DraggableSuggestion } from '@/types/uvp-wizard'
 
 interface SelectableSuggestionProps {
@@ -46,7 +46,7 @@ export const SelectableSuggestion: React.FC<SelectableSuggestionProps> = ({
           )}
         </div>
 
-        <div className="flex-1 space-y-1">
+        <div className="flex-1 space-y-2">
           <p className={cn(
             "text-sm leading-relaxed",
             isSelected ? "font-medium" : ""
@@ -54,8 +54,19 @@ export const SelectableSuggestion: React.FC<SelectableSuggestionProps> = ({
             {suggestion.content}
           </p>
 
-          {suggestion.confidence && (
-            <div className="flex items-center gap-2">
+          {/* Customer Quote / Psychological Trigger */}
+          {suggestion.metadata?.quote && (
+            <div className="flex items-start gap-2 p-2 bg-muted/50 rounded border border-border/50">
+              <Quote className="w-3 h-3 text-muted-foreground flex-shrink-0 mt-0.5" />
+              <p className="text-xs text-muted-foreground italic flex-1">
+                "{suggestion.metadata.quote}"
+              </p>
+            </div>
+          )}
+
+          {/* Source and Confidence */}
+          <div className="flex items-center gap-3">
+            {suggestion.confidence && (
               <div className="flex items-center gap-1">
                 <div className="h-1 w-16 bg-muted rounded-full overflow-hidden">
                   <div
@@ -67,8 +78,14 @@ export const SelectableSuggestion: React.FC<SelectableSuggestionProps> = ({
                   {Math.round(suggestion.confidence * 100)}% match
                 </span>
               </div>
-            </div>
-          )}
+            )}
+
+            {suggestion.metadata?.source && (
+              <span className="text-xs text-muted-foreground">
+                • {suggestion.metadata.source}
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </button>

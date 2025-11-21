@@ -2,13 +2,16 @@
  * Your Mix - Selected insights panel with compatibility indicators
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, Trash2, FileText, Zap, ChevronDown, ChevronUp, Mail, BookOpen, Newspaper, Globe, TrendingUp } from 'lucide-react';
+import { X, Sparkles, Trash2, FileText, Zap, ChevronDown, ChevronUp, Mail, BookOpen, Newspaper, Globe, TrendingUp, CheckCircle2, Shield, Heart, Database } from 'lucide-react';
 import type { InsightCard } from './types';
+import { contentSynthesis, type SynthesizedContent } from '@/services/intelligence/content-synthesis.service';
+import type { DeepContext } from '@/types/synapse/deepContext.types';
 
 export interface YourMixProps {
   selectedInsights: InsightCard[];
+  context: DeepContext;
   onRemove: (insightId: string) => void;
   onClear: () => void;
   onGenerate: () => void;
@@ -23,10 +26,30 @@ interface ContentPreview {
 
 type ContentType = 'post' | 'blog' | 'newsletter' | 'email' | 'landing-page' | 'campaign';
 
-export function YourMix({ selectedInsights, onRemove, onClear, onGenerate }: YourMixProps) {
+export function YourMix({ selectedInsights, context, onRemove, onClear, onGenerate }: YourMixProps) {
   const hasSelection = selectedInsights.length > 0;
   const [showContentMenu, setShowContentMenu] = useState(false);
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
+  const [synthesizedContent, setSynthesizedContent] = useState<SynthesizedContent | null>(null);
+  const [isSynthesizing, setIsSynthesizing] = useState(false);
+
+  // Synthesize content when insights change
+  useEffect(() => {
+    if (selectedInsights.length > 0) {
+      setIsSynthesizing(true);
+      contentSynthesis.synthesizeContent(selectedInsights, context)
+        .then(content => {
+          setSynthesizedContent(content);
+          setIsSynthesizing(false);
+        })
+        .catch(error => {
+          console.error('[YourMix] Synthesis error:', error);
+          setIsSynthesizing(false);
+        });
+    } else {
+      setSynthesizedContent(null);
+    }
+  }, [selectedInsights, context]);
 
   // Calculate average confidence
   const avgConfidence = hasSelection
@@ -116,79 +139,17 @@ export function YourMix({ selectedInsights, onRemove, onClear, onGenerate }: You
     }
   };
 
-  // Generate live content preview based on selected insights
+  // Use synthesized content or fallback to simple preview
   const contentPreview = useMemo((): ContentPreview | null => {
-    if (selectedInsights.length === 0) return null;
+    if (!synthesizedContent) return null;
 
-    const types = selectedInsights.map(i => i.type);
-    const titles = selectedInsights.map(i => i.title);
-    const categories = selectedInsights.map(i => i.category);
-
-    // Generate title based on insight combination
-    let title = '';
-    if (types.includes('customer') && types.includes('opportunity')) {
-      title = `Unlock New Growth: ${categories.find(c => c.includes('Customer') || c.includes('Need'))?.replace('Customer Need', 'What Customers Really Want') || 'Customer-Driven Strategies'}`;
-    } else if (types.includes('local') && types.includes('customer')) {
-      title = `Right Time, Right Message: ${categories.find(c => c.includes('Local'))?.replace('Local ', '') || 'Local'} Meets Customer Needs`;
-    } else if (types.includes('competition') && types.includes('opportunity')) {
-      title = `Fill the Gap: Opportunities Your Competitors Are Missing`;
-    } else if (types.includes('market') && types.includes('customer')) {
-      title = `Riding the Wave: Market Trends Your Customers Care About`;
-    } else if (types.includes('local')) {
-      title = `Local Advantage: ${titles[0]}`;
-    } else if (types.includes('customer')) {
-      title = `Customer Focus: ${titles[0]}`;
-    } else {
-      title = `Smart Insight: ${titles[0]}`;
-    }
-
-    // Generate hook based on insights
-    let hook = '';
-    const customerInsights = selectedInsights.filter(i => i.type === 'customer');
-    const opportunityInsights = selectedInsights.filter(i => i.type === 'opportunity');
-    const localInsights = selectedInsights.filter(i => i.type === 'local');
-
-    if (customerInsights.length > 0 && opportunityInsights.length > 0) {
-      hook = `Your customers want ${customerInsights[0].title.toLowerCase()}, and there's a clear opportunity to deliver it in a way no one else is.`;
-    } else if (localInsights.length > 0 && customerInsights.length > 0) {
-      hook = `With ${localInsights[0].title.toLowerCase()} happening now, it's the perfect time to connect with customers who ${customerInsights[0].title.toLowerCase()}.`;
-    } else if (customerInsights.length > 0) {
-      hook = `Your ideal customers are looking for ${customerInsights[0].title.toLowerCase()}. Here's how to reach them.`;
-    } else if (opportunityInsights.length > 0) {
-      hook = `There's an untapped opportunity: ${opportunityInsights[0].title.toLowerCase()}.`;
-    } else {
-      hook = `${titles[0]} is creating new possibilities for your business.`;
-    }
-
-    // Generate body talking points
-    const body = selectedInsights.slice(0, 3).map(insight => {
-      if (insight.type === 'customer') {
-        return `Why it matters: ${insight.title}`;
-      } else if (insight.type === 'opportunity') {
-        return `The opportunity: ${insight.title}`;
-      } else if (insight.type === 'local') {
-        return `Timely context: ${insight.title}`;
-      } else if (insight.type === 'competition') {
-        return `Your advantage: ${insight.title}`;
-      } else {
-        return `Key insight: ${insight.title}`;
-      }
-    });
-
-    // Generate CTA based on insight types
-    let cta = '';
-    if (localInsights.length > 0 && localInsights.some(i => i.isTimeSensitive)) {
-      cta = 'Act now while this moment is fresh';
-    } else if (opportunityInsights.length > 0) {
-      cta = 'See how we can help you seize this opportunity';
-    } else if (customerInsights.length > 0) {
-      cta = 'Discover how we deliver on what you need';
-    } else {
-      cta = 'Learn more about this opportunity';
-    }
-
-    return { title, hook, body, cta };
-  }, [selectedInsights]);
+    return {
+      title: synthesizedContent.title,
+      hook: synthesizedContent.hook,
+      body: synthesizedContent.body,
+      cta: synthesizedContent.cta
+    };
+  }, [synthesizedContent]);
 
   return (
     <div className="h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700 flex flex-col">
@@ -262,9 +223,20 @@ export function YourMix({ selectedInsights, onRemove, onClear, onGenerate }: You
                     </div>
 
                     {/* Condensed Title */}
-                    <p className="text-sm font-bold text-gray-900 dark:text-white line-clamp-2">
-                      {contentPreview.title}
-                    </p>
+                    <div className="flex items-start gap-2">
+                      <p className="text-sm font-bold text-gray-900 dark:text-white line-clamp-2 flex-1">
+                        {contentPreview.title}
+                      </p>
+                      {/* EQ Score Badge */}
+                      {synthesizedContent && (
+                        <div className="flex-shrink-0 flex items-center gap-1 px-2 py-1 bg-pink-100 dark:bg-pink-900/30 rounded-full">
+                          <Heart className="w-3 h-3 text-pink-600" />
+                          <span className="text-xs font-bold text-pink-700 dark:text-pink-300">
+                            {synthesizedContent.eqScore}
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   {/* Expanded Preview Details */}
@@ -324,6 +296,64 @@ export function YourMix({ selectedInsights, onRemove, onClear, onGenerate }: You
                               </p>
                             </div>
                           </div>
+
+                          {/* Provenance Section */}
+                          {synthesizedContent?.provenance && (
+                            <div className="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-lg border border-slate-200 dark:border-slate-700">
+                              <div className="flex items-center justify-between mb-3">
+                                <div className="flex items-center gap-2">
+                                  <Database className="w-4 h-4 text-blue-600" />
+                                  <h5 className="text-xs font-bold text-gray-900 dark:text-white uppercase tracking-wider">
+                                    Data Provenance
+                                  </h5>
+                                </div>
+                                {/* Validation Badge */}
+                                <div className={`flex items-center gap-1 px-2 py-1 rounded-full text-xs font-bold ${
+                                  synthesizedContent.provenance.validation === 'triple-validated'
+                                    ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
+                                    : synthesizedContent.provenance.validation === 'cross-validated'
+                                    ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-300'
+                                    : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                                }`}>
+                                  <Shield className="w-3 h-3" />
+                                  {synthesizedContent.provenance.validation === 'triple-validated' && '3-Way'}
+                                  {synthesizedContent.provenance.validation === 'cross-validated' && '2-Way'}
+                                  {synthesizedContent.provenance.validation === 'single-source' && '1-Way'}
+                                </div>
+                              </div>
+
+                              {/* Sources List */}
+                              <div className="space-y-2">
+                                {synthesizedContent.provenance.sources.map((source, idx) => (
+                                  <div key={idx} className="bg-white dark:bg-slate-800 p-2 rounded border border-slate-200 dark:border-slate-700">
+                                    <div className="flex items-start gap-2">
+                                      <CheckCircle2 className="w-3 h-3 text-green-600 flex-shrink-0 mt-0.5" />
+                                      <div className="flex-1 min-w-0">
+                                        <p className="text-xs font-semibold text-gray-900 dark:text-white">
+                                          {source.name}
+                                        </p>
+                                        {source.quote && (
+                                          <p className="text-xs text-gray-600 dark:text-gray-400 italic mt-1 line-clamp-2">
+                                            "{source.quote}"
+                                          </p>
+                                        )}
+                                        <p className="text-xs text-gray-500 dark:text-gray-500 mt-1">
+                                          Confidence: {Math.round(source.confidence * 100)}%
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* Data Points Summary */}
+                              <div className="mt-2 pt-2 border-t border-slate-200 dark:border-slate-700">
+                                <p className="text-xs text-gray-600 dark:text-gray-400 text-center">
+                                  Based on {synthesizedContent.provenance.dataPoints} data point{synthesizedContent.provenance.dataPoints !== 1 ? 's' : ''}
+                                </p>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       </motion.div>
                     )}

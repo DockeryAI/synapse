@@ -32,6 +32,7 @@ import { redditAPI } from './reddit-api';
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { intelligenceCache } from './intelligence-cache.service';
 import { insightSynthesis } from './insight-synthesis.service';
+import { psychologicalExtractor, type PsychologicalProfile } from './psychological-pattern-extractor.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type {
   DataPoint,
@@ -1402,12 +1403,103 @@ class DeepContextBuilderService {
   }
 
   /**
+   * Extract psychological profile from multi-source data
+   */
+  private async extractPsychologicalProfile(
+    dataPoints: DataPoint[],
+    brandData: any
+  ): Promise<PsychologicalProfile> {
+    console.log('[DeepContext] Extracting psychological profile from data sources...');
+
+    // Extract YouTube comments
+    const youtubeComments = dataPoints
+      .filter(dp => dp.source === 'youtube' && dp.type === 'customer_trigger')
+      .map(dp => ({
+        text: dp.content,
+        likes: dp.metadata?.engagement || 0,
+        timestamp: dp.createdAt
+      }));
+
+    // Extract reviews
+    const reviews = dataPoints
+      .filter(dp => dp.source === 'outscraper' && dp.type === 'customer_trigger')
+      .map(dp => ({
+        text: dp.content,
+        rating: dp.metadata?.rating || 3,
+        timestamp: dp.createdAt
+      }));
+
+    // Extract testimonials from website
+    const testimonials = dataPoints
+      .filter(dp => dp.source === 'website' && dp.metadata?.category === 'testimonial')
+      .map(dp => dp.content);
+
+    // Get NAICS profile if available
+    const naicsProfile = brandData.naicsProfile;
+
+    // Build psychological profile
+    const psychProfile = psychologicalExtractor.buildProfile({
+      youtubeComments: youtubeComments.length > 0 ? youtubeComments : undefined,
+      reviews: reviews.length > 0 ? reviews : undefined,
+      testimonials: testimonials.length > 0 ? testimonials : undefined,
+      naicsProfile
+    });
+
+    console.log(`[DeepContext] ✅ Psychological profile extracted:`);
+    console.log(`  - ${psychProfile.triggers.length} psychological triggers`);
+    console.log(`  - ${psychProfile.painPoints.length} pain points`);
+    console.log(`  - ${psychProfile.desires.length} customer desires`);
+    console.log(`  - ${psychProfile.customerLanguage.length} language patterns`);
+    console.log(`  - Primary emotion: ${psychProfile.emotionalDrivers.primary}`);
+
+    return psychProfile;
+  }
+
+  /**
    * Synthesize insights using AI
    */
   private async synthesizeInsights(
     deepContext: DeepContext,
     dataPoints: DataPoint[]
   ): Promise<void> {
+    // Extract psychological profile from all sources
+    const psychProfile = await this.extractPsychologicalProfile(dataPoints, deepContext.business.profile);
+
+    // Enhance customerPsychology section with extracted profile
+    if (psychProfile) {
+      // Add psychological triggers
+      deepContext.customerPsychology.emotional = psychProfile.triggers.map(trigger => ({
+        trigger: trigger.text,
+        strength: trigger.confidence,
+        context: `From ${trigger.source}`,
+        leverage: `Leverage ${trigger.type} trigger with authentic customer language`
+      }));
+
+      // Enhance unarticulated needs with pain points
+      deepContext.customerPsychology.unarticulated = [
+        ...deepContext.customerPsychology.unarticulated,
+        ...psychProfile.painPoints.map(pain => ({
+          need: `Address: ${pain.pain}`,
+          confidence: pain.frequency / 10, // Normalize frequency
+          evidence: pain.quotes,
+          approach: 'Eliminate this pain point',
+          emotionalDriver: 'Fear/Frustration'
+        }))
+      ];
+
+      // Add desires
+      deepContext.customerPsychology.identityDesires = psychProfile.desires.map(desire => ({
+        desire: desire.desire,
+        strength: desire.achievementLevel,
+        messaging: 'Position as achievement/aspiration'
+      }));
+
+      // Add customer language to brand voice
+      if (deepContext.business.brandVoice) {
+        deepContext.business.brandVoice.signaturePhrases = psychProfile.customerLanguage;
+      }
+    }
+
     // Use AI-powered synthesis service to extract specific, actionable insights
     await insightSynthesis.synthesizeAllInsights(deepContext, dataPoints);
   }

@@ -437,6 +437,7 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
       <div className="w-1/5 min-w-[200px] flex-shrink-0">
         <YourMix
           selectedInsights={selectedInsightObjects}
+          context={context}
           onRemove={handleToggleInsight}
           onClear={() => setSelectedInsights([])}
           onGenerate={handleGenerate}
