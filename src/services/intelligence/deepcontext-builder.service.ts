@@ -939,7 +939,7 @@ class DeepContextBuilderService {
     dataSourcesUsed: string[]
   ): Promise<DataPoint[]> {
     try {
-      console.log('[DeepContext/SEMrush] Fetching SEO and keyword data...');
+      console.log('[DeepContext/SEMrush] Fetching comprehensive SEO data...');
 
       const dataPoints: DataPoint[] = [];
       const domain = brandData.website || brandData.url;
@@ -949,14 +949,62 @@ class DeepContextBuilderService {
         return [];
       }
 
-      // Get keyword opportunities
+      // Get comprehensive SEO metrics (overview + rankings + opportunities)
       try {
-        const opportunities = await SemrushAPI.getKeywordOpportunities(domain, brandData.name);
+        const metrics = await SemrushAPI.getComprehensiveSEOMetrics(domain, brandData.name);
 
-        opportunities.slice(0, 10).forEach((opp, idx) => {
+        // Add domain overview data point (backlinks, authority)
+        dataPoints.push({
+          id: `semrush-overview-${Date.now()}`,
+          source: 'semrush' as DataSource,
+          type: 'market_trend' as DataPointType,
+          content: `Domain authority: ${metrics.overview.authority_score}/100 | Backlinks: ${metrics.overview.backlinks.toLocaleString()} | Organic traffic: ${metrics.overview.organic_traffic.toLocaleString()}/mo | SEO health: ${metrics.healthScore}/100`,
+          metadata: {
+            domain: metrics.domain,
+            authorityScore: metrics.overview.authority_score,
+            backlinks: metrics.overview.backlinks,
+            organicTraffic: metrics.overview.organic_traffic,
+            organicKeywords: metrics.overview.organic_keywords,
+            healthScore: metrics.healthScore,
+            domain: 'competitive' as const
+          },
+          createdAt: new Date(),
+          embedding: undefined
+        });
+
+        // Add content gap data points (rankings that need improvement)
+        const contentGaps = metrics.rankings.filter(r =>
+          (r.position >= 11 && r.position <= 50) || // Just off page 1
+          (r.trend === 'declining') // Losing ground
+        ).slice(0, 5);
+
+        contentGaps.forEach((gap, idx) => {
+          const gapType = gap.trend === 'declining' ? 'declining' : 'underperforming';
+          dataPoints.push({
+            id: `semrush-gap-${Date.now()}-${idx}`,
+            source: 'semrush' as DataSource,
+            type: 'keyword_gap' as DataPointType,
+            content: `Content gap: "${gap.keyword}" ranked #${gap.position} (${gap.searchVolume} searches/mo) - ${gapType} content needs optimization`,
+            metadata: {
+              keyword: gap.keyword,
+              position: gap.position,
+              searchVolume: gap.searchVolume,
+              difficulty: gap.difficulty,
+              traffic: gap.traffic,
+              trend: gap.trend,
+              gapType,
+              domain: 'competitive' as const
+            },
+            createdAt: new Date(),
+            embedding: undefined
+          });
+        });
+
+        // Add keyword opportunities
+        metrics.opportunities.slice(0, 10).forEach((opp, idx) => {
           dataPoints.push({
             id: `semrush-keyword-${Date.now()}-${idx}`,
-            source: 'serper' as DataSource, // Using serper as closest match
+            source: 'semrush' as DataSource,
             type: 'competitive_gap' as DataPointType,
             content: `Keyword opportunity: "${opp.keyword}" (${opp.searchVolume} searches/mo) - ${opp.reasoning}`,
             metadata: {
@@ -964,14 +1012,37 @@ class DeepContextBuilderService {
               searchVolume: opp.searchVolume,
               difficulty: opp.difficulty,
               opportunityType: opp.opportunity,
-              estimatedTraffic: opp.estimatedTraffic
+              estimatedTraffic: opp.estimatedTraffic,
+              currentPosition: opp.currentPosition,
+              domain: 'competitive' as const
             },
             createdAt: new Date(),
             embedding: undefined
           });
         });
-      } catch (keywordError) {
-        console.warn('[DeepContext/SEMrush] Keyword opportunities failed');
+
+        // Add backlink insight if significant
+        if (metrics.overview.backlinks > 0) {
+          const backlinkStrength = metrics.overview.backlinks > 10000 ? 'strong' :
+                                   metrics.overview.backlinks > 1000 ? 'moderate' : 'weak';
+          dataPoints.push({
+            id: `semrush-backlinks-${Date.now()}`,
+            source: 'semrush' as DataSource,
+            type: 'competitor_weakness' as DataPointType,
+            content: `Backlink profile: ${backlinkStrength} with ${metrics.overview.backlinks.toLocaleString()} total backlinks. ${backlinkStrength === 'weak' ? 'Opportunity to build authority through link building campaigns.' : 'Solid foundation for competitive SEO.'}`,
+            metadata: {
+              backlinks: metrics.overview.backlinks,
+              backlinkStrength,
+              authorityScore: metrics.overview.authority_score,
+              domain: 'competitive' as const
+            },
+            createdAt: new Date(),
+            embedding: undefined
+          });
+        }
+
+      } catch (metricsError) {
+        console.warn('[DeepContext/SEMrush] Comprehensive metrics failed:', metricsError);
       }
 
       dataSourcesUsed.push('semrush');
