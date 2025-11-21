@@ -252,19 +252,19 @@ If you cannot detect a location with confidence > 0.5, respond with:
 }`;
 
       console.log('[LocationDetection] Calling OpenRouter AI...');
-      const response = await chat([
+      const aiUrlResponse = await chat([
         {
           role: 'user',
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         temperature: 0.3,
         maxTokens: 200
       });
 
-      console.log('[LocationDetection] AI response received:', response?.substring(0, 100));
-      const text = response.trim();
+      console.log('[LocationDetection] AI response received:', aiUrlResponse?.substring(0, 100));
+      const text = aiUrlResponse.trim();
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       if (!jsonMatch) {
         console.error('[LocationDetection] No JSON in AI response:', text);
@@ -430,6 +430,72 @@ If you cannot detect a location with confidence > 0.5, respond with:
   }
 
   /**
+   * Extract addresses from HTML using regex patterns
+   */
+  private extractAddresses(html: string): string[] {
+    const addresses: string[] = [];
+
+    // Pattern: street number + street name + city + state + zip
+    const fullAddressPattern = /\b\d+\s+[A-Z][a-z]+(?:\s+[A-Z][a-z]+)*\s+(?:Street|St|Avenue|Ave|Road|Rd|Drive|Dr|Lane|Ln|Boulevard|Blvd|Way|Court|Ct|Circle|Cir|Parkway|Pkwy)[.,]?\s*(?:#\d+\s*)?([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*),?\s+([A-Z]{2})\s+\d{5}(?:-\d{4})?\b/g;
+
+    // Pattern: city, state zip
+    const cityStatePattern = /\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*),?\s+([A-Z]{2})\s+\d{5}(?:-\d{4})?\b/g;
+
+    // Pattern: city, state (no zip)
+    const cityStateOnlyPattern = /\b([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*),\s*([A-Z]{2})\b/g;
+
+    let match;
+
+    // Find full addresses
+    while ((match = fullAddressPattern.exec(html)) !== null) {
+      addresses.push(match[0]);
+    }
+
+    // Find city, state + zip
+    while ((match = cityStatePattern.exec(html)) !== null) {
+      addresses.push(match[0]);
+    }
+
+    // Find city, state only (less reliable, so check it's in common patterns)
+    while ((match = cityStateOnlyPattern.exec(html)) !== null) {
+      const fullMatch = match[0];
+      // Only include if it looks like an address context
+      if (html.substring(Math.max(0, match.index - 100), match.index).toLowerCase().includes('address') ||
+          html.substring(Math.max(0, match.index - 100), match.index).toLowerCase().includes('location') ||
+          html.substring(Math.max(0, match.index - 100), match.index).toLowerCase().includes('contact')) {
+        addresses.push(fullMatch);
+      }
+    }
+
+    return [...new Set(addresses)]; // Remove duplicates
+  }
+
+  /**
+   * Extract structured data (JSON-LD) from HTML
+   */
+  private extractStructuredData(html: string): string {
+    const jsonLdMatches = html.match(/<script[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi);
+
+    if (!jsonLdMatches) {
+      return '';
+    }
+
+    const structuredData: string[] = [];
+
+    for (const match of jsonLdMatches) {
+      const jsonContent = match.replace(/<script[^>]*>/i, '').replace(/<\/script>/i, '');
+      try {
+        const parsed = JSON.parse(jsonContent);
+        structuredData.push(JSON.stringify(parsed, null, 2));
+      } catch (e) {
+        // Invalid JSON, skip
+      }
+    }
+
+    return structuredData.join('\n');
+  }
+
+  /**
    * Method 4: Scrape website content and extract location
    */
   private async detectFromWebsite(url: string, industryHint?: string): Promise<LocationResult | null> {
@@ -469,88 +535,76 @@ If you cannot detect a location with confidence > 0.5, respond with:
    */
   private async scrapeAndAnalyze(url: string, industryHint?: string): Promise<LocationResult | null> {
     try {
-      // Use Supabase Edge Function to scrape website
-      const { data, error } = await supabase.functions.invoke('scrape-website', {
-        body: { url }
-      });
+      // Direct fetch with CORS proxy
+      console.log('[LocationDetection] Fetching HTML directly...');
+      const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
+      const fetchResponse = await fetch(proxyUrl);
+      const html = await fetchResponse.text();
 
-      if (error || !data?.content) {
-        console.log('[LocationDetection] Scraping failed for:', url, error?.message || 'No content');
-        return null;
-      }
+      console.log('[LocationDetection] HTML fetched, length:', html.length);
 
-      // Extract text from the structured content object
-      const contentObj = data.content;
+      // Extract addresses using regex patterns
+      const addresses = this.extractAddresses(html);
+      console.log('[LocationDetection] Found addresses:', addresses.length);
 
-      // PRIORITIZE structured data (JSON-LD, script tags) then navigation, addresses
-      const structuredContent = [
-        '=== STRUCTURED DATA (JSON-LD, SCRIPT TAGS) ===',
-        contentObj.structuredData || '',
+      // Extract structured data (JSON-LD)
+      const structuredData = this.extractStructuredData(html);
+      console.log('[LocationDetection] Found structured data:', structuredData.length);
+
+      // Get visible text content
+      const textContent = html
+        .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+        .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+      const content = [
+        '=== ADDRESSES FOUND ===',
+        addresses.join('\n'),
         '',
-        '=== NAVIGATION & LOCATION SELECTORS ===',
-        contentObj.navigation || '',
-        '',
-        '=== ADDRESSES ===',
-        contentObj.addresses || '',
-        '',
-        '=== FOOTER ===',
-        contentObj.footer || '',
+        '=== STRUCTURED DATA ===',
+        structuredData,
         '',
         '=== PAGE CONTENT ===',
-        contentObj.title || '',
-        contentObj.description || '',
-        ...(contentObj.headings || []),
-        contentObj.text || ''
+        textContent.substring(0, 4000)
       ].join('\n');
 
-      const content = structuredContent.substring(0, 8000); // Increased for JSON data
-      console.log('[LocationDetection] Website content fetched');
-      console.log('[LocationDetection] - Structured data length:', contentObj.structuredData?.length || 0);
-      console.log('[LocationDetection] - Navigation length:', contentObj.navigation?.length || 0);
-      console.log('[LocationDetection] - Addresses length:', contentObj.addresses?.length || 0);
-      console.log('[LocationDetection] - Footer length:', contentObj.footer?.length || 0);
+      console.log('[LocationDetection] - Addresses found:', addresses.length);
+      console.log('[LocationDetection] - Structured data length:', structuredData.length);
       console.log('[LocationDetection] - Total content length:', content.length);
 
-      const prompt = `You are a location detection expert. Analyze this website content and extract ALL physical business locations.
+      const prompt = `Extract the physical business location(s) from this website content.
 
 URL: ${url}
 ${industryHint ? `Industry: ${industryHint}` : ''}
 
-Website Content (prioritized sections):
+Website Content:
 ${content}
 
-CRITICAL INSTRUCTIONS:
-This may be a LOCATIONS PAGE or HOMEPAGE. Extract EVERY location mentioned.
+**EXTRACTION PRIORITY:**
 
-Look for:
-1. **STRUCTURED DATA (HIGHEST PRIORITY)** - JSON-LD, script tags with location arrays
-   - Look for JSON objects with "address", "location", "city", "state" fields
-   - Parse JavaScript data structures embedded in the page
-   - Example: {"locations": [{"city": "Dallas", "state": "TX"}, ...]}
+1. **ADDRESSES FOUND** section - These are pre-extracted addresses with city, state
+2. **STRUCTURED DATA** section - JSON-LD with address/location objects
+3. **PAGE CONTENT** - Look for city, state patterns
 
-2. **LOCATION LISTS** - Lists of cities/states with addresses
-   - "Dallas, TX", "Houston, TX", "Miami, FL" etc.
-   - Full addresses: "123 Main St, Dallas, TX 75201"
-   - Location cards or sections
+**RULES:**
+- Extract EVERY distinct city mentioned in addresses or contact info
+- DO NOT return null for city if you found a state - look harder
+- If you see "TX" or "Texas", there MUST be a city nearby
+- Check addresses, contact sections, footer, "about us", "locations"
+- Confidence should be 0.8+ if you find ANY city in the content
 
-3. **NAVIGATION & SELECTORS** - Dropdowns with city names
+**Common patterns:**
+- "123 Main St, Houston, TX 75201"
+- "Houston, TX"
+- "Located in Houston, Texas"
+- "Visit us in Houston"
+- Phone numbers often have city context nearby
 
-4. **ADDRESSES** - Structured address elements
-
-5. **CONTACT INFO** - Footer addresses, phone numbers with area codes
-
-IGNORE:
-- Service areas without physical addresses
-- "Coming Soon" announcements
-- Promotional hero banners (these show NEWEST, not primary)
-
-Determine PRIMARY location:
-- First location listed on locations page
-- HQ or headquarters designation
-- Most detailed address info
-- NOT the promotional banner location
-
-Extract EVERY city and state pair you find. If you see 9 locations, return all 9.
+**If multiple cities found:**
+- Primary = first address listed, or HQ designation, or most detail
+- Include ALL cities in allLocations array
 
 Respond ONLY with valid JSON in this exact format:
 
@@ -586,19 +640,19 @@ If NO location found:
 }`;
 
       console.log('[LocationDetection] Analyzing website content with AI...');
-      const response = await chat([
+      const aiResponse = await chat([
         {
           role: 'user',
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         temperature: 0.2,
         maxTokens: 500  // Increased to handle multiple locations
       });
 
-      console.log('[LocationDetection] Website analysis response:', response?.substring(0, 100));
-      const text = response.trim();
+      console.log('[LocationDetection] Website analysis response:', aiResponse?.substring(0, 100));
+      const text = aiResponse.trim();
       const jsonMatch = text.match(/\{[\s\S]*\}/);
       if (!jsonMatch) {
         console.error('[LocationDetection] No JSON in website analysis response');

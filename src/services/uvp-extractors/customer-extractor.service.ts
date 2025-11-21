@@ -233,7 +233,7 @@ REMEMBER:
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt

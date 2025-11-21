@@ -102,7 +102,8 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           .select('code, title, keywords, category, has_full_profile, popularity');
 
         if (error) {
-          console.warn('[IndustrySelector] Failed to load from database, using static data:', error.message);
+          // Silently fall back to static data - RLS policy errors are expected for non-authenticated users
+          // console.warn('[IndustrySelector] Failed to load from database, using static data:', error.message);
           return;
         }
 
@@ -116,10 +117,12 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           hasFullProfile: row.has_full_profile || false
         }));
 
-        console.log(`[IndustrySelector] Loaded ${dbIndustries.length} industries from database`);
+        // Successfully loaded from database
+        // console.log(`[IndustrySelector] Loaded ${dbIndustries.length} industries from database`);
         setDatabaseIndustries(dbIndustries);
       } catch (err) {
-        console.warn('[IndustrySelector] Exception loading industries:', err);
+        // Silently handle exceptions - static data fallback is fine
+        // console.warn('[IndustrySelector] Exception loading industries:', err);
       }
     };
 
@@ -642,21 +645,6 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
                             color: '#FBBF24'
                           }}>
                             ⚡
-                          </span>
-                        )}
-                        {(industry.popularity || 0) >= 4 && (
-                          <span className="popular-badge" style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: '4px',
-                            fontSize: '11px',
-                            fontWeight: 600,
-                            color: '#8B5CF6',
-                            backgroundColor: '#F3E8FF',
-                            padding: '2px 6px',
-                            borderRadius: '4px'
-                          }}>
-                            <TrendingUp size={12} /> Popular
                           </span>
                         )}
                       </motion.button>

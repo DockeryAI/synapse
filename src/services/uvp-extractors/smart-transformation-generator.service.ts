@@ -19,6 +19,7 @@ import type { CustomerProfile, ProductService } from '@/types/uvp-flow.types';
 import type { IndustryProfile } from '@/types/industry-profile.types';
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 import { industryRegistry } from '@/data/industries';
+import { jtbdTransformer } from '@/services/intelligence/jtbd-transformer.service';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -123,7 +124,7 @@ async function generateFromTestimonials(
   industryEQ: any
 ): Promise<SmartTransformationResult> {
   const prompt = buildTestimonialPrompt(input, industryProfile, industryEQ);
-  const goals = await callClaudeForTransformations(prompt, input.businessName);
+  const goals = await callClaudeForTransformations(prompt, input);
 
   return {
     goals,
@@ -142,7 +143,7 @@ async function generateFromIndustryAndServices(
   industryEQ: any
 ): Promise<SmartTransformationResult> {
   const prompt = buildIndustryServicesPrompt(input, industryProfile, industryEQ);
-  const goals = await callClaudeForTransformations(prompt, input.businessName);
+  const goals = await callClaudeForTransformations(prompt, input);
 
   return {
     goals,
@@ -161,7 +162,7 @@ async function generateFromIndustryBaseline(
   industryEQ: any
 ): Promise<SmartTransformationResult> {
   const prompt = buildIndustryBaselinePrompt(input, industryProfile, industryEQ);
-  const goals = await callClaudeForTransformations(prompt, input.businessName);
+  const goals = await callClaudeForTransformations(prompt, input);
 
   return {
     goals,
@@ -178,7 +179,7 @@ async function generateFromServicesAndWebsite(
   input: SmartTransformationInput
 ): Promise<SmartTransformationResult> {
   const prompt = buildServicesWebsitePrompt(input);
-  const goals = await callClaudeForTransformations(prompt, input.businessName);
+  const goals = await callClaudeForTransformations(prompt, input);
 
   return {
     goals,
@@ -195,7 +196,7 @@ async function generateGenericTransformations(
   input: SmartTransformationInput
 ): Promise<SmartTransformationResult> {
   const prompt = buildGenericPrompt(input);
-  const goals = await callClaudeForTransformations(prompt, input.businessName);
+  const goals = await callClaudeForTransformations(prompt, input);
 
   return {
     goals,
@@ -576,7 +577,7 @@ Format as JSON:
  */
 async function callClaudeForTransformations(
   prompt: string,
-  businessName: string
+  input: SmartTransformationInput
 ): Promise<TransformationGoal[]> {
   try {
     console.log('[SmartTransformationGenerator] Calling Claude API...');
@@ -596,7 +597,7 @@ async function callClaudeForTransformations(
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt
@@ -661,6 +662,43 @@ async function callClaudeForTransformations(
 
     console.log('[SmartTransformationGenerator] Generated', goals.length, 'goals');
     console.log('[SmartTransformationGenerator] Goals:', goals.map(g => g.statement));
+
+    // Apply JTBD transformation to each goal statement
+    console.log('[SmartTransformationGenerator] Applying JTBD transformation to goals...');
+    try {
+      const statements = goals.map(g => g.statement);
+      const transformedProps = await jtbdTransformer.transformValuePropositions(
+        statements,
+        {
+          businessName: input.businessName,
+          industry: input.industry,
+          targetAudience: input.customers?.map(c => c.statement),
+          customerProblems: [],  // These are embedded in testimonials
+          solutions: input.services?.map(s => s.name),
+          differentiators: input.services?.map(s => s.description),
+          testimonials: input.testimonials
+        }
+      );
+
+      // Apply the primary outcome to the first goal
+      if (transformedProps.primary && goals.length > 0) {
+        goals[0].outcomeStatement = transformedProps.primary.outcomeStatement;
+        console.log('[SmartTransformationGenerator] Applied JTBD outcome to primary goal:', transformedProps.primary.outcomeStatement);
+      }
+
+      // Apply supporting outcomes to remaining goals
+      transformedProps.supporting.forEach((support, index) => {
+        if (goals[index + 1]) {
+          goals[index + 1].outcomeStatement = support.outcomeStatement;
+          console.log('[SmartTransformationGenerator] Applied JTBD outcome to goal', index + 1, ':', support.outcomeStatement);
+        }
+      });
+
+    } catch (jtbdError) {
+      console.error('[SmartTransformationGenerator] JTBD transformation failed:', jtbdError);
+      // Continue with goals without outcome statements
+    }
+
     return goals;
   } catch (error) {
     console.error('[SmartTransformationGenerator] Claude API error:', error);

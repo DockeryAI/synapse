@@ -12,8 +12,34 @@
  * Created: November 20, 2025
  */
 
+import { supabase } from '@/utils/supabase/client';
+
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+// Banned clichés that indicate lazy, generic messaging
+const BANNED_CLICHES = [
+  'sleep soundly',
+  'sleep better',
+  'peace of mind',
+  'rest easy',
+  'worry-free',
+  'stress-free',
+  'comprehensive solutions',
+  'cutting-edge',
+  'best-in-class',
+  'world-class',
+  'industry-leading',
+  'one-stop shop',
+  'trusted partner',
+  'seamless experience',
+  'unlock potential',
+  'drive growth',
+  'maximize value',
+  'optimize performance',
+  'leverage expertise',
+  'transform your business'
+];
 
 export interface OutcomeFocusedValueProp {
   // Original feature-focused statement
@@ -72,6 +98,46 @@ export interface TransformedValueProps {
 
 class JTBDTransformerService {
   /**
+   * Get industry profile for context
+   */
+  private async getIndustryProfile(industry?: string) {
+    if (!industry) return null;
+
+    try {
+      // Try to get NAICS code from industry name - try multiple strategies
+
+      // Strategy 1: Try exact match on industry_label
+      let { data: naicsData, error } = await supabase
+        .from('naics_codes')
+        .select('profiles')
+        .ilike('industry_label', `%${industry}%`)
+        .limit(1)
+        .maybeSingle();
+
+      // Strategy 2: If no match, try title field
+      if (!naicsData?.profiles && !error) {
+        const result = await supabase
+          .from('naics_codes')
+          .select('profiles')
+          .ilike('title', `%${industry}%`)
+          .limit(1)
+          .maybeSingle();
+        naicsData = result.data;
+      }
+
+      if (naicsData?.profiles) {
+        console.log('[JTBD] Found industry profile for:', industry);
+        return naicsData.profiles;
+      }
+    } catch (error) {
+      // Silently handle missing profile - this is expected for many industries
+      // console.log('[JTBD] No industry profile found for:', industry);
+    }
+
+    return null;
+  }
+
+  /**
    * Transform feature-focused value props into outcome-focused messaging
    */
   async transformValuePropositions(
@@ -83,6 +149,8 @@ class JTBDTransformerService {
       customerProblems?: string[];
       solutions?: string[];
       differentiators?: string[];
+      testimonials?: string[];
+      naicsCode?: string;
     }
   ): Promise<TransformedValueProps> {
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -92,6 +160,14 @@ class JTBDTransformerService {
 
     try {
       console.log('[JTBD Transformer] Transforming', featureProps.length, 'value props for', businessContext.businessName);
+
+      // Get industry profile for context
+      const industryProfile = await this.getIndustryProfile(businessContext.industry || businessContext.naicsCode);
+
+      // Extract testimonial outcomes if available
+      const testimonialOutcomes = businessContext.testimonials?.map(t =>
+        `"${t}"`
+      ).join('\n') || '';
 
       const prompt = `You are a strategic messaging consultant specializing in Jobs-to-be-Done, Golden Circle, and Value Proposition Canvas frameworks.
 
@@ -103,6 +179,20 @@ ${businessContext.customerProblems?.length ? `Known Customer Problems: ${busines
 ${businessContext.solutions?.length ? `Their Solutions: ${businessContext.solutions.join('; ')}` : ''}
 ${businessContext.differentiators?.length ? `Differentiators: ${businessContext.differentiators.join('; ')}` : ''}
 
+${industryProfile ? `
+INDUSTRY-SPECIFIC INSIGHTS:
+${industryProfile.customer_triggers ? `Customer Triggers: ${industryProfile.customer_triggers.join('; ')}` : ''}
+${industryProfile.transformations ? `Customer Transformations: ${industryProfile.transformations.join('; ')}` : ''}
+${industryProfile.pain_points ? `Pain Points: ${industryProfile.pain_points.map(p => p.pain).join('; ')}` : ''}
+${industryProfile.unique_mechanisms ? `Unique Solutions: ${industryProfile.unique_mechanisms.join('; ')}` : ''}
+${industryProfile.customer_language_dictionary ? `Customer Language: ${industryProfile.customer_language_dictionary.slice(0, 10).join(', ')}` : ''}
+` : ''}
+
+${testimonialOutcomes ? `
+CUSTOMER TESTIMONIALS (actual voice of customer):
+${testimonialOutcomes}
+` : ''}
+
 CURRENT VALUE PROPOSITIONS (feature-focused):
 ${featureProps.map((prop, i) => `${i + 1}. "${prop}"`).join('\n')}
 
@@ -110,11 +200,11 @@ YOUR TASK:
 Transform these feature-focused statements into outcome-focused value propositions using these frameworks:
 
 FRAMEWORK 1: Jobs-to-be-Done (JTBD)
-Ask: "When customers hire this business, what JOB are they trying to get done?"
-- Functional Job: What task/problem needs solving?
-- Emotional Job: How do they want to FEEL? (confident, secure, successful, relieved, proud)
-- Social Job: How do they want to be PERCEIVED? (professional, savvy, responsible, innovative)
-- Customer Progress: What progress are they making in their life/business?
+Ask: "What PROGRESS is the customer trying to make in their life?"
+- Functional Job: What are they trying to GET DONE? (Not the service, but the outcome)
+- Emotional Job: What FEELING are they trying to achieve? (confident, in control, protected, understood)
+- Social Job: How do they want to BE SEEN by others? (prepared, smart, caring, professional)
+- Customer Progress: FROM struggling with [current state] TO achieving [desired state]
 
 FRAMEWORK 2: Golden Circle (Why → How → What)
 - WHY: What's the deeper purpose/belief? Why does this business exist?
@@ -122,29 +212,55 @@ FRAMEWORK 2: Golden Circle (Why → How → What)
 - WHAT: What do they actually offer? (keep this part, but lead with WHY)
 
 FRAMEWORK 3: Value Proposition Canvas
-- Pain Relievers: What specific frustrations does this ELIMINATE?
-- Gain Creators: What positive outcomes does this ENABLE?
-- Customer Jobs: What are customers trying to accomplish?
+- Pain Relievers: What ANXIETY or FRUSTRATION goes away? (Not "saves time" but "stops the 2am worry")
+- Gain Creators: What NEW CAPABILITY do they gain? (Not "better results" but "confidence to expand")
+- Customer Jobs: What are they REALLY trying to achieve? (Not "buy insurance" but "protect what I've built")
 
 TRANSFORMATION RULES:
-1. START WITH OUTCOMES, not features
-   ❌ Bad: "AI-powered campaign generation"
-   ✅ Good: "Turn 10 minutes into 2 weeks of posts that actually get customers"
+1. FOCUS ON CUSTOMER TRANSFORMATION, NOT METRICS
+   ❌ Bad: "Save 3 hours per week"
+   ❌ Bad: "Reduce costs by 40%"
+   ✅ Good: "Stop being the insurance company's problem and start being their priority"
+   ✅ Good: "Know you're actually covered for what matters to your business"
 
-2. USE EMOTIONAL LANGUAGE for high-touch services, RATIONAL for technical/B2B
-   - Emotional: "Never stare at a blank screen again" (confidence gained)
-   - Rational: "3x more engagement in half the time" (measurable results)
+2. IDENTIFY THE REAL JOB THEY'RE HIRING YOU FOR
+   - Insurance: Not "save money" but "stop worrying about gaps in coverage"
+   - Marketing: Not "more engagement" but "create content that feels authentic to your voice"
+   - IT: Not "faster response" but "technology that just works so you can focus on growth"
 
-3. MAKE IT SPECIFIC AND TANGIBLE
-   ❌ Bad: "Better marketing results"
-   ✅ Good: "Go from 2% to 6% engagement rate in 30 days"
+3. USE PROGRESS-FOCUSED LANGUAGE
+   ❌ Bad: "Get results faster"
+   ✅ Good: "Move from constantly putting out fires to actually building your business"
+   ✅ Good: "Go from feeling overwhelmed by insurance to confident you're protected"
 
-4. PASS THE "SO WHAT?" TEST
-   Customer should think: "That solves MY problem" (not "that's nice technology")
+4. CAPTURE THE BEFORE → AFTER TRANSFORMATION
+   - FROM: Frustrated state (checking coverage gaps at 2am)
+   - TO: Desired state (confident your business is protected)
+   - Example: "From second-guessing coverage to knowing you're protected"
 
-5. FOCUS ON PROGRESS, NOT FEATURES
-   ❌ Bad: "We use psychological triggers"
-   ✅ Good: "Posts that make people stop scrolling and start buying"
+5. AVOID QUANTIFICATION UNLESS IT'S THE CORE VALUE
+   - Only use numbers if they appear in source data AND are central to the value
+   - Default to emotional/functional progress over metrics
+   - "Finally understand what you're actually covered for" > "Save 20% on premiums"
+
+6. THE OUTCOME MUST BE WHAT CUSTOMERS ACTUALLY WANT
+   - They don't want "comprehensive insurance"
+   - They want "to stop worrying about what happens if something goes wrong"
+   - They don't want "AI-powered content"
+   - They want "to stop staring at blank screens wondering what to post"
+
+CRITICAL: AVOID THESE BANNED CLICHÉS AT ALL COSTS:
+${BANNED_CLICHES.map(cliche => `- "${cliche}"`).join('\n')}
+
+If you use ANY of these clichés, the transformation FAILS. Focus on the REAL transformation:
+- Instead of "sleep soundly" → "Stop wondering if your collection is covered and know it's protected at true collector value"
+- Instead of "peace of mind" → "From panicking about claims to knowing exactly how you're covered"
+- Instead of "comprehensive solutions" → "Finally, insurance that understands what collectors actually need to protect"
+
+USE INDUSTRY-SPECIFIC LANGUAGE:
+${industryProfile?.customer_language_dictionary ?
+  `The customer actually says: "${industryProfile.customer_language_dictionary.slice(0, 5).join('", "')}"` :
+  'Extract specific language from testimonials above'}
 
 OUTPUT FORMAT:
 Return ONLY valid JSON (no markdown):

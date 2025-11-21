@@ -18,7 +18,8 @@ import type { TransformationGoal } from '@/types/uvp-flow.types';
  */
 function formatTransformationStatement(statement: string): React.ReactNode {
   // Match pattern: "Transform from X to Y" or "From X to Y"
-  const transformMatch = statement.match(/(?:Transform\s+)?[Ff]rom\s+(.+?)\s+to\s+(.+)/i);
+  // Look for transition "to" that starts the positive outcome (having, being, getting, etc.)
+  const transformMatch = statement.match(/(?:Transform\s+)?[Ff]rom\s+(.+)\s+to\s+(having|being|getting|feeling|knowing|becoming|achieving|experiencing|receiving|enjoying|.+)/i);
 
   if (transformMatch) {
     const [, fromPart, toPart] = transformMatch;

@@ -40,13 +40,134 @@ export async function synthesizeCompleteUVP(input: UVPSynthesisInput): Promise<C
     const solutionText = input.solution.outcomeStatement || input.solution.statement;
     const benefitText = input.benefit.outcomeStatement || input.benefit.statement;
 
-    // Build synthesis prompt
+    // Check if we have JTBD-transformed outcomes (they're much better than Formula 4)
+    const hasJTBDOutcomes = !!(input.transformation.outcomeStatement || input.solution.outcomeStatement || input.benefit.outcomeStatement);
+
+    console.log('[UVPSynthesis] Has JTBD outcomes:', hasJTBDOutcomes);
+    if (hasJTBDOutcomes) {
+      console.log('[UVPSynthesis] JTBD transformation:', transformationText);
+      console.log('[UVPSynthesis] JTBD solution:', solutionText);
+      console.log('[UVPSynthesis] JTBD benefit:', benefitText);
+    }
+
+    // If we have JTBD outcomes, use them directly - they're already perfect
+    if (hasJTBDOutcomes) {
+      const prompt = `You are a value proposition expert. You have JTBD-transformed outcome-focused statements that are already excellent.
+
+BUSINESS: ${input.businessName}
+INDUSTRY: ${input.industry}
+
+**JTBD-TRANSFORMED OUTCOMES (already outcome-focused, use these!):**
+
+TRANSFORMATION: ${transformationText}
+APPROACH: ${solutionText}
+BENEFIT: ${benefitText}
+
+**YOUR TASK:**
+Create a concise 10-15 word UVP that captures the transformation without being overly specific.
+
+**CRITICAL RULES:**
+1. USE the transformation and emotional outcome from JTBD (the progress they make)
+2. DO NOT use specific product models/years (no "'67 Mustang" or "1952 Mickey Mantle")
+3. KEEP it universal for the business (works for ALL their customers)
+4. Focus on the TRANSFORMATION, not features
+5. Maximum 15 words
+
+**GOOD EXAMPLES:**
+- "Insurance that knows your collection deserves more than generic coverage"
+- "Turn blank screens into weeks of content that actually gets customers"
+- "From wondering if you're covered to knowing you're protected"
+
+**BAD EXAMPLES:**
+- "Insurance for your 1967 Mustang GT Fastback" ❌ (too specific)
+- "Specialized expertise and personalized protection" ❌ (too generic)
+- "We provide comprehensive insurance solutions" ❌ (feature-focused)
+
+**GOLDEN CIRCLE** (create simple, clear statements):
+- WHY (Purpose/Belief): What do they believe customers deserve? (e.g., "Collectors deserve specialized protection")
+- WHAT (Offering): What do they actually provide? (e.g., "Insurance for collector cars")
+- HOW (Approach): How are they different? (e.g., "By collectors who understand collections")
+
+Return ONLY valid JSON:
+{
+  "uvp": "10-15 word UVP that captures the transformation",
+  "formulaUsed": "jtbd-outcome",
+  "wordCount": actual_number,
+  "goldenCircle": {
+    "why": "Clear belief statement (e.g., 'Collectors deserve specialized protection')",
+    "what": "Clear offering (e.g., 'Insurance for collector cars')",
+    "how": "Clear approach (e.g., 'By collectors who understand')"
+  },
+  "passesCompetitorTest": true,
+  "confidence": {
+    "overall": 85-95 based on clarity,
+    "dataQuality": 85-95,
+    "reasoning": "Used JTBD transformation outcomes"
+  }
+}`;
+
+      // Call AI with JTBD-focused prompt
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          provider: 'openrouter',
+          model: 'anthropic/claude-opus-4.1',
+          messages: [{
+            role: 'user',
+            content: prompt
+          }],
+          max_tokens: 4096,
+          temperature: 0.3
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`AI API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const analysisText = data.choices[0]?.message?.content;
+
+      if (!analysisText) {
+        throw new Error('No response from AI');
+      }
+
+      const synthesis = parseSynthesis(analysisText);
+
+      const completeUVP: CompleteUVP = {
+        id: `uvp-${Date.now()}`,
+        targetCustomer: primaryCustomer,
+        transformationGoal: input.transformation,
+        uniqueSolution: input.solution,
+        keyBenefit: input.benefit,
+        valuePropositionStatement: synthesis.valuePropositionStatement,
+        whyStatement: synthesis.whyStatement,
+        whatStatement: synthesis.whatStatement,
+        howStatement: synthesis.howStatement,
+        overallConfidence: {
+          ...synthesis.confidence,
+          sourceCount: 4
+        },
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      };
+
+      console.log('[UVPSynthesis] JTBD-based synthesis complete');
+      console.log('[UVPSynthesis] Final UVP:', synthesis.valuePropositionStatement);
+      return completeUVP;
+    }
+
+    // Fall back to Formula 4 if no JTBD outcomes
     const prompt = `You are a value proposition expert. Create ONE powerful 10-15 word UVP using core values that resonate with ALL customer segments.
 
 BUSINESS: ${input.businessName}
 INDUSTRY: ${input.industry}
 NUMBER OF CUSTOMER TYPES: ${customers.length}
-IMPORTANT: ALWAYS USE FORMULA 4 (CORE VALUES) - This creates inclusive messaging that appeals to the entire customer base
+IMPORTANT: USE FORMULA 4 (CORE VALUES) - This creates inclusive messaging that appeals to the entire customer base
 
 **EXTRACTED DATA:**
 
@@ -182,7 +303,7 @@ If unable to create unique positioning in 15 words, return:
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt
@@ -353,11 +474,8 @@ function parseSynthesis(response: string): {
     console.log('[UVPSynthesis] Passes competitor test:', parsed.passesCompetitorTest);
     console.log('[UVPSynthesis] Value Prop:', uvpStatement);
 
-    // Check if WHY needs "We believe" prefix
+    // WHY statement should be clean - no forced prefix
     let finalWhy = whyStatement;
-    if (finalWhy && !finalWhy.toLowerCase().startsWith('we believe')) {
-      finalWhy = `We believe ${finalWhy}`;
-    }
 
     return {
       valuePropositionStatement: uvpStatement,

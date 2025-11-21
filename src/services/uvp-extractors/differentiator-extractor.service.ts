@@ -306,7 +306,7 @@ CRITICAL: Return empty arrays if no contrarian beliefs found. NEVER create fake 
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt
@@ -327,8 +327,21 @@ CRITICAL: Return empty arrays if no contrarian beliefs found. NEVER create fake 
 
     console.log('[DifferentiatorExtractor] Raw Claude response:', analysisText.substring(0, 500) + '...');
 
+    // Clean the response - remove markdown code blocks if present
+    let cleanedText = analysisText;
+    if (analysisText.includes('```json')) {
+      cleanedText = analysisText
+        .replace(/```json\s*/g, '')
+        .replace(/```\s*/g, '')
+        .trim();
+    } else if (analysisText.includes('```')) {
+      cleanedText = analysisText
+        .replace(/```\s*/g, '')
+        .trim();
+    }
+
     // Parse JSON response
-    const extraction: RawDifferentiatorExtraction = JSON.parse(analysisText);
+    const extraction: RawDifferentiatorExtraction = JSON.parse(cleanedText);
     return extraction;
 
   } catch (error) {

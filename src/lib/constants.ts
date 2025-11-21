@@ -159,7 +159,7 @@ export const API_ENDPOINTS = {
 
 // OpenRouter Models
 export const OPENROUTER_MODELS = {
-  claude35Sonnet: 'anthropic/claude-3.5-sonnet',
+  claude35Sonnet: 'anthropic/claude-opus-4.1',
   claude3Opus: 'anthropic/claude-3-opus',
   gpt4: 'openai/gpt-4-turbo',
   gpt35: 'openai/gpt-3.5-turbo',

@@ -83,7 +83,7 @@ export class VariantGenerator {
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{ role: 'user', content: prompt }],
         max_tokens: 2000,
         temperature: 0.8

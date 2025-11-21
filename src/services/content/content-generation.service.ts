@@ -509,7 +509,7 @@ ENHANCED POST:`,
 
     try {
       const response = await chat([systemMessage, userMessage], {
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         temperature: 0.7,
         maxTokens: 500,
       });
@@ -576,7 +576,7 @@ IMPROVED POST:`,
 
     try {
       const response = await chat([systemMessage, userMessage], {
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         temperature: 0.8,
         maxTokens: 500,
       });

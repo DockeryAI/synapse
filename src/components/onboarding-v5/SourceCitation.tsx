@@ -300,9 +300,9 @@ export function SourceTags({ sources }: { sources: DataSource[] }) {
 
   return (
     <div className="flex flex-wrap gap-1">
-      {sources.map((source) => (
+      {sources.map((source, index) => (
         <motion.span
-          key={source.id}
+          key={source.id || `${source.type}-${source.name}-${index}`}
           className="inline-flex items-center gap-1 px-2 py-0.5 bg-purple-100 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 rounded-full text-xs"
           title={source.name}
           whileHover={{ scale: 1.05 }}

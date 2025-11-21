@@ -61,8 +61,9 @@ class EQStorageService {
         });
 
       if (error) {
-        console.error('[EQStorage] Error saving EQ score:', error);
-        throw error;
+        console.warn('[EQStorage] ⚠️ Error saving EQ score (non-critical):', error.message);
+        // Don't throw - EQ storage is optional, don't break the flow
+        return;
       }
 
       // Also update the brands table for quick access
@@ -75,13 +76,13 @@ class EQStorageService {
         .eq('id', brandId);
 
       if (brandError) {
-        console.error('[EQStorage] Error updating brand EQ:', brandError);
+        console.warn('[EQStorage] ⚠️ Error updating brand EQ (non-critical):', brandError.message);
+      } else {
+        console.log('[EQStorage] EQ score saved successfully');
       }
-
-      console.log('[EQStorage] EQ score saved successfully');
     } catch (error) {
-      console.error('[EQStorage] Failed to save EQ score:', error);
-      throw error;
+      console.warn('[EQStorage] ⚠️ Failed to save EQ score (non-critical):', error);
+      // Don't throw - EQ storage is optional, don't break the onboarding flow
     }
   }
 

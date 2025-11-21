@@ -21,8 +21,8 @@ interface IndustryContext {
 // Best models for marketing/UVP content generation
 const MODELS = {
   CLAUDE_OPUS_41: 'anthropic/claude-opus-4.1', // Claude Opus 4.1 - HIGHEST QUALITY
-  CLAUDE_35_SONNET: 'anthropic/claude-3.5-sonnet-20240620', // Claude 3.5 Sonnet
-  CLAUDE_SONNET: 'anthropic/claude-3.5-sonnet', // Claude 3.5 Sonnet
+  CLAUDE_35_SONNET: 'anthropic/claude-opus-4.1-20240620', // Claude 3.5 Sonnet
+  CLAUDE_SONNET: 'anthropic/claude-opus-4.1', // Claude 3.5 Sonnet
   GPT4_TURBO: 'openai/gpt-4-turbo', // Excellent structured reasoning
   // DEPRECATED - DO NOT USE
   // CLAUDE_OPUS: 'anthropic/claude-3-opus-20240229', // OLD VERSION - USE OPUS 4.1 INSTEAD

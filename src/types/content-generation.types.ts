@@ -264,7 +264,7 @@ export interface GenerationError {
 // ============================================================================
 
 export interface AIGenerationOptions {
-  model: 'claude-3.5-sonnet' | 'gpt-4' | 'claude-3-haiku';
+  model: 'claude-opus-4.1' | 'claude-3.5-sonnet' | 'gpt-4' | 'claude-3-haiku';
   temperature: number; // 0-1
   maxTokens: number;
   minScore: number; // Minimum Synapse score to accept
@@ -275,7 +275,7 @@ export interface AIGenerationOptions {
 
 // Defaults
 export const DEFAULT_AI_OPTIONS: AIGenerationOptions = {
-  model: 'claude-3.5-sonnet',
+  model: 'claude-opus-4.1',
   temperature: 0.7,
   maxTokens: 500,
   minScore: 75, // Accept scores 75+

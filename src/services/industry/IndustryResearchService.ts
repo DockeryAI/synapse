@@ -355,7 +355,7 @@ RESPOND WITH ONLY VALID JSON:
         profile,
         researchQuality,
         researchTime,
-        model: 'anthropic/claude-3.5-sonnet', // Primary model
+        model: 'anthropic/claude-opus-4.1', // Primary model
         wasFallback: false, // Would be true if GPT-4 was used
       };
 

@@ -221,7 +221,7 @@ export function InitialLoadingScreen({
           className="text-center text-sm text-gray-500"
         >
           <p>Using AI to extract insights from your website...</p>
-          <p className="mt-1">This usually takes 54-60 seconds</p>
+          <p className="mt-1">This usually takes about a minute</p>
         </motion.div>
       </motion.div>
     </div>

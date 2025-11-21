@@ -161,7 +161,7 @@ export class ContrarianAngleDetector {
         },
         body: JSON.stringify({
           provider: 'openrouter',  // Route through ai-proxy to OpenRouter
-          model: 'anthropic/claude-3.5-sonnet',
+          model: 'anthropic/claude-opus-4.1',
           messages: [{ role: 'user', content: prompt }],
           temperature: 0.7,
           max_tokens: 1500

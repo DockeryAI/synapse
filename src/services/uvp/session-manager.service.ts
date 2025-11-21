@@ -39,14 +39,14 @@ export class SessionManagerService {
         .single();
 
       if (error) {
-        console.error('[SessionManager] Error creating session:', error);
+        console.warn('[SessionManager] ⚠️ Error creating session (non-critical):', error.message);
         return { success: false, error: error.message };
       }
 
       console.log('[SessionManager] Session created:', data.id);
       return { success: true, session: this.mapToSession(data) };
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }
@@ -84,14 +84,14 @@ export class SessionManagerService {
         .single();
 
       if (error) {
-        console.error('[SessionManager] Error updating session:', error);
+        console.warn('[SessionManager] ⚠️ Error updating session:', error);
         return { success: false, error: error.message };
       }
 
       console.log('[SessionManager] Session updated successfully');
       return { success: true, session: this.mapToSession(data) };
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }
@@ -110,7 +110,7 @@ export class SessionManagerService {
         .single();
 
       if (error) {
-        console.error('[SessionManager] Error fetching session:', error);
+        console.warn('[SessionManager] ⚠️ Error fetching session:', error);
         return { success: false, error: error.message };
       }
 
@@ -122,7 +122,7 @@ export class SessionManagerService {
 
       return { success: true, session: this.mapToSession(data) };
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }
@@ -141,7 +141,7 @@ export class SessionManagerService {
         .order('last_accessed', { ascending: false });
 
       if (error) {
-        console.error('[SessionManager] Error listing sessions:', error);
+        console.warn('[SessionManager] ⚠️ Error listing sessions:', error);
         return { success: false, error: error.message };
       }
 
@@ -158,7 +158,7 @@ export class SessionManagerService {
       console.log('[SessionManager] Found', sessions.length, 'sessions');
       return { success: true, sessions };
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }
@@ -176,14 +176,14 @@ export class SessionManagerService {
         .eq('id', sessionId);
 
       if (error) {
-        console.error('[SessionManager] Error deleting session:', error);
+        console.warn('[SessionManager] ⚠️ Error deleting session:', error);
         return { success: false, error: error.message };
       }
 
       console.log('[SessionManager] Session deleted successfully');
       return { success: true };
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }
@@ -224,7 +224,7 @@ export class SessionManagerService {
 
       return createResult;
     } catch (error) {
-      console.error('[SessionManager] Unexpected error:', error);
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
       return { success: false, error: String(error) };
     }
   }

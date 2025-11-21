@@ -231,7 +231,7 @@ export function ContentItem({
         },
         metadata: {
           generatedAt: new Date(),
-          model: 'claude-3.5-sonnet',
+          model: 'claude-opus-4.1',
           iterationCount: 1
         }
       };
@@ -312,7 +312,7 @@ export function ContentItem({
         },
         metadata: {
           generatedAt: new Date(),
-          model: 'claude-3.5-sonnet',
+          model: 'claude-opus-4.1',
           iterationCount: 1
         }
       };

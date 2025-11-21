@@ -558,7 +558,7 @@ async function callClaude(prompt: string): Promise<any> {
     },
     body: JSON.stringify({
       provider: 'openrouter',  // Route through ai-proxy to OpenRouter
-      model: 'anthropic/claude-3.5-sonnet',
+      model: 'anthropic/claude-opus-4.1',
       max_tokens: 16384,  // Increased to allow 3 synapses with full provenance (~5k tokens each)
       temperature: 0.8,
       messages: [{

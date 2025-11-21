@@ -147,7 +147,7 @@ Focus on EVIDENCE from the website, not assumptions about the industry.`;
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt

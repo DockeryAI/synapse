@@ -14,6 +14,7 @@
 
 import { getIndustryEQ } from '@/services/uvp-wizard/emotional-quotient';
 import type { UniqueSolution, Differentiator } from '@/types/uvp-flow.types';
+import { jtbdTransformer } from '@/services/intelligence/jtbd-transformer.service';
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -210,19 +211,25 @@ Return JSON array with 1-2 solutions (quality over quantity):
     "competitiveAdvantage": "Why this contrarian belief matters to customers",
     "evidenceQuotes": ["EXACT quotes from website"],
     "confidence": {
-      "overall": 90 if has evidence, 40 if generic,
-      "dataQuality": 90 if quoted, 40 if inferred,
-      "modelAgreement": 0-100
+      "overall": 90 if contrarian with evidence, 70 if specific approach, 50 if somewhat generic,
+      "dataQuality": 90 if quoted, 70 if paraphrased, 50 if inferred,
+      "modelAgreement": 80-100
     }
   }
 ]
 
 **COMPETITOR TEST:**
 Could any competitor use this exact same statement?
-- If YES → Too generic, find the contrarian angle or REJECT
+- If YES → Too generic, find the contrarian angle
 - If NO → Good, it's unique
 
-**If no contrarian beliefs found, return EMPTY ARRAY [] - do NOT invent generic philosophy.**
+**If no strong contrarian beliefs found:**
+1. Look for their SPECIFIC PROCESS or METHODOLOGY (even if not contrarian)
+2. Look for their FOUNDING STORY or BACKGROUND that shapes their approach
+3. Look for WHAT THEY EMPHASIZE that others don't
+4. Set confidence to 60-70 (not 90) if it's approach-based rather than contrarian
+
+**DO NOT return empty array unless website has literally NO information about how they work.**
 
 CRITICAL: NEVER create fake proprietary names, trademarks, or methodology names!`;
 
@@ -235,7 +242,7 @@ CRITICAL: NEVER create fake proprietary names, trademarks, or methodology names!
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.1',
         messages: [{
           role: 'user',
           content: prompt
@@ -266,6 +273,40 @@ CRITICAL: NEVER create fake proprietary names, trademarks, or methodology names!
       dataQuality: methodologyContent.length > 0 ? 85 : 50,
       modelAgreement: 80,
     };
+
+    // Apply JTBD transformation to solution statements
+    if (solutions.length > 0) {
+      console.log('[EnhancedSolutionExtractor] Applying JTBD transformation to solutions...');
+      try {
+        const solutionStatements = solutions.map(s => s.statement);
+        const transformedProps = await jtbdTransformer.transformValuePropositions(
+          solutionStatements,
+          {
+            businessName,
+            industry,
+            differentiators: solutions.map(s => s.statement),
+            solutions: solutions.map(s => s.methodology || s.statement)
+          }
+        );
+
+        // Apply primary outcome to first solution
+        if (transformedProps.primary && solutions[0]) {
+          solutions[0].outcomeStatement = transformedProps.primary.outcomeStatement;
+          console.log('[EnhancedSolutionExtractor] Applied JTBD outcome to primary solution:', transformedProps.primary.outcomeStatement);
+        }
+
+        // Apply supporting outcomes to other solutions
+        transformedProps.supporting.forEach((support, index) => {
+          if (solutions[index + 1]) {
+            solutions[index + 1].outcomeStatement = support.outcomeStatement;
+            console.log('[EnhancedSolutionExtractor] Applied JTBD outcome to solution', index + 1, ':', support.outcomeStatement);
+          }
+        });
+      } catch (jtbdError) {
+        console.error('[EnhancedSolutionExtractor] JTBD transformation failed:', jtbdError);
+        // Continue without outcome statements
+      }
+    }
 
     return {
       solutions,
