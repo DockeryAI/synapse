@@ -57,15 +57,50 @@ class OpenRouterAI {
       if (this.apiKey) {
         console.log('[OpenRouterAI] Making API call to Claude Opus 4.1...')
 
+        // Extract psychological data if available
+        let psychologicalContext = ''
+        let customerQuotes: string[] = []
+
+        if (context.deepContext?.customerPsychology) {
+          const psych = context.deepContext.customerPsychology
+
+          // Extract customer language and desires
+          if (psych.identityDesires && psych.identityDesires.length > 0) {
+            psychologicalContext += '\n\nREAL CUSTOMER DESIRES (from reviews and testimonials):\n'
+            psychologicalContext += psych.identityDesires
+              .slice(0, 5)
+              .map(d => `- Customers want to: ${d.desire}`)
+              .join('\n')
+          }
+
+          // Extract unarticulated needs
+          if (psych.unarticulated && psych.unarticulated.length > 0) {
+            psychologicalContext += '\n\nREAL CUSTOMER NEEDS (from sentiment analysis):\n'
+            psychologicalContext += psych.unarticulated
+              .slice(0, 5)
+              .map(need => {
+                const quote = need.evidence && Array.isArray(need.evidence) && need.evidence[0]
+                if (quote) {
+                  customerQuotes.push(quote)
+                  return `- ${need.need}\n  Quote: "${quote}"`
+                }
+                return `- ${need.need}`
+              })
+              .join('\n')
+          }
+        }
+
         const prompt = `You are a marketing strategist for the ${industry} industry.
 
 ${context.websiteData ? `Based on their website data: ${JSON.stringify(context.websiteData.services || [])}` : ''}
+${psychologicalContext}
 
-Generate 5 BROAD, MARKETABLE customer categories. Each should:
+Generate 5 BROAD, MARKETABLE customer categories that align with the real customer psychology above. Each should:
 - Be a GENERAL category you can actually market to (e.g., "luxury buyers", "first-time customers", "repeat clients")
 - Have enough market size to be worth targeting
 - NOT be overly specific (avoid narrow demographics like "divorced women aged 45-60")
 - Focus on buying behavior and general life situations
+- Reflect the actual desires and needs shown in the customer data above
 - Be 1 sentence describing a broad market segment
 
 Format your response as a JSON array of exactly 5 strings. Keep them BROAD and MARKETABLE.`
@@ -73,6 +108,18 @@ Format your response as a JSON array of exactly 5 strings. Keep them BROAD and M
         const suggestions = await this.callOpenRouter(prompt)
         console.log('[OpenRouterAI] API Response - suggestions:', suggestions)
         const formatted = this.formatSuggestions(suggestions, 'customer-segment')
+
+        // Add customer quotes to metadata when available
+        if (customerQuotes.length > 0) {
+          formatted.forEach((suggestion, idx) => {
+            if (customerQuotes[idx]) {
+              suggestion.metadata = {
+                quote: customerQuotes[idx],
+                source: 'Customer Intelligence'
+              }
+            }
+          })
+        }
 
         console.log('[OpenRouterAI] Formatted suggestions:', formatted)
         return formatted
@@ -104,15 +151,38 @@ Format your response as a JSON array of exactly 5 strings. Keep them BROAD and M
       if (this.apiKey) {
         console.log('[OpenRouterAI] Generating problems with Brandock-calibrated EQ:', eq.emotional_weight, 'for', industry)
 
+        // Extract REAL pain points from psychological data
+        let painPointContext = ''
+        let painQuotes: string[] = []
+
+        if (context.deepContext?.customerPsychology?.unarticulated) {
+          const painPoints = context.deepContext.customerPsychology.unarticulated
+            .filter(need => need.emotionalDriver && need.emotionalDriver.toLowerCase().includes('fear'))
+            .slice(0, 5)
+
+          if (painPoints.length > 0) {
+            painPointContext += '\n\nREAL CUSTOMER PAIN POINTS (from reviews and feedback):\n'
+            painPointContext += painPoints.map(pain => {
+              const quote = pain.evidence && Array.isArray(pain.evidence) && pain.evidence[0]
+              if (quote) {
+                painQuotes.push(quote)
+                return `- ${pain.need}\n  Actual customer quote: "${quote}"`
+              }
+              return `- ${pain.need}`
+            }).join('\n')
+          }
+        }
+
         let prompt = `You are a world-class Jobs-to-be-Done (JTBD) researcher specializing in the ${industry} industry.
 
 Industry context: ${eq.purchase_mindset}
 Emotional weight: ${eq.emotional_weight}% (${eq.emotional_weight > 70 ? 'Highly emotional' : eq.emotional_weight > 40 ? 'Mixed rational/emotional' : 'Primarily rational'})
 Business location: ${context.brandName ? 'This is a local business - avoid geographic-specific scenarios (no mountains, oceans, etc)' : ''}
+${painPointContext}
 
 For this specific customer segment: "${targetCustomer}"
 
-Generate 5 deep, JTBD-focused problems. Each should:`
+Generate 5 deep, JTBD-focused problems that reflect the REAL pain points shown above. Each should:`
 
         // Adjust based on emotional quotient
         if (eq.emotional_weight > 70) {
@@ -157,6 +227,18 @@ Format your response as a JSON array of exactly 5 strings. Each should be 1-2 po
         const adjustedPrompt = await adjustSuggestionPrompt(prompt, industry, 'customer-problem')
         const suggestions = await this.callOpenRouter(adjustedPrompt)
         const formatted = this.formatSuggestions(suggestions, 'problem')
+
+        // Add pain point quotes to metadata when available
+        if (painQuotes.length > 0) {
+          formatted.forEach((suggestion, idx) => {
+            if (painQuotes[idx]) {
+              suggestion.metadata = {
+                quote: painQuotes[idx],
+                source: 'Customer Reviews'
+              }
+            }
+          })
+        }
 
         return formatted
       }
@@ -214,6 +296,18 @@ Format your response as a JSON array of exactly 5 strings. Each should be 1-2 po
       if (this.apiKey) {
         const allOfferings = [...websiteServices, ...websiteProducts, ...websiteBenefits]
 
+        // Extract customer desires for solution context
+        let desireContext = ''
+        let desireQuotes: string[] = []
+
+        if (context.deepContext?.customerPsychology?.identityDesires) {
+          const desires = context.deepContext.customerPsychology.identityDesires.slice(0, 3)
+          if (desires.length > 0) {
+            desireContext += '\n\nCUSTOMER DESIRES (what they want to achieve):\n'
+            desireContext += desires.map(d => `- ${d.desire}`).join('\n')
+          }
+        }
+
         const prompt = `You are analyzing a ${industry} business website.
 
 CUSTOMER PROBLEM:
@@ -221,8 +315,9 @@ CUSTOMER PROBLEM:
 
 ACTUAL SERVICES/PRODUCTS FROM THEIR WEBSITE:
 ${allOfferings.map((item, i) => `${i + 1}. ${item}`).join('\n')}
+${desireContext}
 
-Generate 5 solutions that explain HOW their existing offerings solve this problem.
+Generate 5 solutions that explain HOW their existing offerings solve this problem and align with what customers want to achieve.
 
 STRICT RULES:
 - ONLY reference the services/products listed above
@@ -326,14 +421,27 @@ Return a JSON array of exactly 5 strings that describe how their actual offering
 
     try {
       if (this.apiKey) {
+        // Extract identity desires for benefit context
+        let identityContext = ''
+        let identityQuotes: string[] = []
+
+        if (context.deepContext?.customerPsychology?.identityDesires) {
+          const identities = context.deepContext.customerPsychology.identityDesires.slice(0, 5)
+          if (identities.length > 0) {
+            identityContext += '\n\nCUSTOMER IDENTITY DESIRES (who they want to be):\n'
+            identityContext += identities.map(id => `- ${id.desire} (strength: ${Math.round(id.strength * 100)}%)`).join('\n')
+          }
+        }
+
         let prompt = `You are a marketing strategist helping ${context.brandName || 'a business'} in the ${industry} industry.
 
 Industry emotional profile: ${eq.emotional_weight}% emotional (${eq.jtbd_focus} focus)
 Customer mindset: ${eq.purchase_mindset}
+${identityContext}
 
 For this solution: "${solution}"
 
-Generate 5 key benefit TEMPLATES. Each should:`
+Generate 5 key benefit TEMPLATES that align with who customers want to become and what they want to experience. Each should:`
 
         // Adjust benefits based on emotional quotient
         if (eq.emotional_weight > 70) {

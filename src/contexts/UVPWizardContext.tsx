@@ -24,6 +24,8 @@ import { uvpScoringService } from '@/services/uvp-wizard/uvp-scoring'
 import { websiteAnalyzer } from '@/services/uvp-wizard/website-analyzer'
 import { getStepConfig, isUVPComplete } from '@/config/uvp-wizard-steps'
 import { useIntelligenceData } from '@/services/uvp/intelligence-hooks'
+import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service'
+import type { DeepContext } from '@/types/synapse/deepContext.types'
 
 /**
  * Wizard step order
@@ -546,6 +548,25 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
         websiteUrl = ''
       }
 
+      // Fetch or build DeepContext for psychological intelligence
+      let deepContext: DeepContext | undefined
+      if (currentBrandData?.id) {
+        try {
+          console.log('[UVPWizardContext] Building DeepContext for psychological intelligence...')
+          const result = await deepContextBuilder.buildDeepContext({
+            brandId: currentBrandData.id,
+            brandData: currentBrandData,
+            includeYouTube: true,
+            includeOutScraper: true,
+            cacheResults: true
+          })
+          deepContext = result.context
+          console.log('[UVPWizardContext] ✅ DeepContext built with psychological data')
+        } catch (error) {
+          console.warn('[UVPWizardContext] Failed to build DeepContext:', error)
+        }
+      }
+
       // Create context for industry-specific suggestions
       const context = {
         industry: uvp.industry || currentBrandData?.industry || 'Real Estate',
@@ -555,11 +576,14 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
         naicsCode: currentBrandData?.naicsCode || currentBrandData?.naics_code,
         websiteData: enhancedWebsiteData,
         services: enhancedWebsiteData.services,
-        products: enhancedWebsiteData.products
+        products: enhancedWebsiteData.products,
+        deepContext
       }
 
       console.log('[UVPWizardContext] Website URL:', websiteUrl)
       console.log('[UVPWizardContext] Full context being sent to AI:', context)
+      console.log('[UVPWizardContext] DeepContext included:', !!deepContext)
+
       console.log('[UVPWizardContext] Using enhanced context:', context)
       console.log('[UVPWizardContext] Generating with Claude Opus 4.1 (HIGHEST QUALITY MODEL)')
 
