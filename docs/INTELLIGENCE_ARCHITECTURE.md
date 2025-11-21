@@ -88,7 +88,7 @@ DASHBOARD OUTPUT (Specific, actionable content recommendations)
 | 14 | **Serper** | Videos | Video trends | Video content ideas |
 | 15 | **Serper** | Shopping | Product/service trends | Product posts |
 | 16 | **YouTube API** | Trending Videos | Popular topics, engagement patterns | Viral content angles |
-| 17 | **News API** | Media Coverage | Local news, industry press | News-jacking opportunities |
+| 17 | **Serper News** | Media Coverage | Local news, industry press | News-jacking opportunities |
 | 18 | **Weather API** | Forecasts & Alerts | Weather patterns, severe alerts | Seasonal timing triggers |
 | 19 | **SEMrush** | SEO Intelligence | Rankings, keywords, backlinks, competitors | Competitive content gaps |
 
@@ -225,7 +225,7 @@ EQ Score: 89/100 (curiosity + fear + urgency triggers)
 | **Serper** (8-in-1) | Search, News, Trends, Autocomplete, Places, Images, Videos, Shopping | Complete Google intelligence | `intelligence/serper-api.ts` |
 | **SEMrush** | SEO + Competitive | Rankings, keywords, backlinks, competitors | `intelligence/semrush-api.ts` |
 | **YouTube** | Video trends | Trending videos, engagement, triggers | `intelligence/youtube-api.ts` |
-| **News API** | Media coverage | Breaking news, local news, industry press | `intelligence/news-api.ts` |
+| **Serper News** | Media coverage | Breaking news, local news, industry press | `intelligence/serper-api.ts` (getNews) |
 | **Weather API** | Contextual timing | Forecasts, alerts, seasonal patterns | `intelligence/weather-api.ts` |
 | **Reddit API** | Psychological triggers | Pain points, desires, trending topics, customer language | `intelligence/reddit-api.ts` |
 
@@ -264,7 +264,7 @@ User enters URL: https://phoenixinsurancegroup.com
 [Intelligence Report] → [DeepContext Builder]
     ↓
 Fetch from additional APIs (cached when possible):
-- News API (breaking insurance news)
+- Serper News (breaking insurance news)
 - Weather API (Phoenix storm forecast)
 - YouTube API (trending insurance topics)
 - SEMrush (competitor SEO gaps)
@@ -594,7 +594,7 @@ Dashboard Load
 | Serper | 8 | $0.01 | $0.08 |
 | SEMrush | 1 | $0.20 | $0.20 |
 | YouTube | 1 | Free | $0.00 |
-| News API | 1 | Free | $0.00 |
+| Serper News | 1 | Included in Serper | $0.00 |
 | Weather | 1 | Free | $0.00 |
 | Reddit | 1 | Free | $0.00 |
 | **TOTAL** | | | **$1.69** |
@@ -682,7 +682,7 @@ Layer C: Competitive Intelligence
 
 Layer D: Contextual Timing
 - Weather API → Seasonal triggers
-- News API → Breaking developments
+- Serper News → Breaking developments
 - Serper News → Local events
 - Serper Trends → Rising queries
 ```

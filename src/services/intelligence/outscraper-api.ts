@@ -165,6 +165,48 @@ class OutScraperAPIService {
   private baseUrl = OUTSCRAPER_API_URL
 
   /**
+   * Poll an async task until completion
+   */
+  private async pollTask<T>(taskId: string, maxAttempts = 30, delayMs = 2000): Promise<T> {
+    console.log('[OutScraper] Polling task:', taskId)
+
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      try {
+        const response = await fetch(`${this.baseUrl}/tasks/${taskId}`, {
+          headers: {
+            'X-API-KEY': OUTSCRAPER_API_KEY || ''
+          }
+        })
+
+        if (!response.ok) {
+          throw new Error(`Task polling failed: ${response.status}`)
+        }
+
+        const data = await response.json()
+
+        console.log('[OutScraper] Task status:', data.status, `(attempt ${attempt + 1}/${maxAttempts})`)
+
+        if (data.status === 'Success' || data.status === 'completed') {
+          console.log('[OutScraper] ✅ Task completed')
+          return data.data as T
+        }
+
+        if (data.status === 'Failed' || data.status === 'Error') {
+          throw new Error(`Task failed: ${data.error || 'Unknown error'}`)
+        }
+
+        // Still pending, wait before next poll
+        await new Promise(resolve => setTimeout(resolve, delayMs))
+      } catch (error) {
+        console.error('[OutScraper] Polling error:', error)
+        throw error
+      }
+    }
+
+    throw new Error(`Task timeout after ${maxAttempts} attempts`)
+  }
+
+  /**
    * Check if API key is configured
    */
   private checkApiKey(): void {
@@ -321,15 +363,22 @@ class OutScraperAPIService {
           sort: params.sort || 'newest',
           cutoff: params.cutoff_date,
           language: 'en',
-          async: false, // Force synchronous mode - get results immediately
+          async: true, // Use async polling pattern
         }
 
         console.log('[OutScraper] Request params:', apiParams)
         const response = await this.makeRequest<any>(endpoint, apiParams)
         console.log('[OutScraper] Response status:', response.status)
-        console.log('[OutScraper] Response data length:', response.data?.length)
 
-        const results = response.data?.[0] || []
+        // If async response, poll for results
+        let results
+        if (response.id) {
+          console.log('[OutScraper] Task queued, polling for results...', response.id)
+          const taskData = await this.pollTask<any[]>(response.id)
+          results = taskData?.[0] || []
+        } else {
+          results = response.data?.[0] || []
+        }
 
         // Debug: Log what we got back
         if (results) {
@@ -384,15 +433,22 @@ class OutScraperAPIService {
           sort: params.sort || 'newest',
           cutoff: params.cutoff_date,
           language: 'en',
-          async: false, // Force synchronous mode - get results immediately
+          async: true, // Use async polling pattern
         }
 
         console.log('[OutScraper] Request params:', apiParams)
         const response = await this.makeRequest<any>(endpoint, apiParams)
         console.log('[OutScraper] Response status:', response.status)
-        console.log('[OutScraper] Response data length:', response.data?.length)
 
-        const results = response.data?.[0] || []
+        // If async response, poll for results
+        let results
+        if (response.id) {
+          console.log('[OutScraper] Task queued, polling for results...', response.id)
+          const taskData = await this.pollTask<any[]>(response.id)
+          results = taskData?.[0] || []
+        } else {
+          results = response.data?.[0] || []
+        }
 
         // Debug: Log what we got back
         if (results) {

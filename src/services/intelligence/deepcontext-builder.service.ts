@@ -23,7 +23,6 @@
 import { supabase } from '@/lib/supabase';
 import { YouTubeAPI } from './youtube-api';
 import { OutScraperAPI } from './outscraper-api';
-import { NewsAPI } from './news-api';
 import { WeatherAPI } from './weather-api';
 import { SerperAPI } from './serper-api';
 import { SemrushAPI } from './semrush-api';
@@ -438,7 +437,7 @@ class DeepContextBuilderService {
   }
 
   /**
-   * Fetch News intelligence (industry news, trending stories)
+   * Fetch News intelligence via Serper (industry news, trending stories)
    */
   private async fetchNewsIntelligence(
     brandData: any,
@@ -446,25 +445,25 @@ class DeepContextBuilderService {
     dataSourcesUsed: string[]
   ): Promise<DataPoint[]> {
     try {
-      console.log('[DeepContext/News] Fetching industry news...');
+      console.log('[DeepContext/News] Fetching industry news via Serper...');
 
-      const keywords = brandData.keywords || [brandData.industry];
-      const articles = await NewsAPI.getIndustryNews(brandData.industry, keywords);
+      const location = brandData.location ? `${brandData.location.city}, ${brandData.location.state}` : undefined;
+      const articles = await SerperAPI.getNews(brandData.industry, location);
 
-      dataSourcesUsed.push('news');
+      dataSourcesUsed.push('serper-news');
 
       const dataPoints: DataPoint[] = articles.slice(0, 10).map((article, idx) => ({
         id: `news-${Date.now()}-${idx}`,
         source: 'news' as DataSource,
         type: 'trending_topic' as DataPointType,
-        content: `${article.title}: ${article.description}`,
+        content: `${article.title}: ${article.snippet}`,
         metadata: {
-          url: article.url,
+          url: article.link,
           source: article.source,
-          publishedAt: article.publishedAt,
-          relevanceScore: article.relevanceScore
+          publishedAt: article.date,
+          imageUrl: article.imageUrl
         },
-        createdAt: new Date(article.publishedAt),
+        createdAt: new Date(article.date),
         embedding: undefined
       }));
 
