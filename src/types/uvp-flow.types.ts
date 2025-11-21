@@ -59,8 +59,16 @@ export interface CustomerProfile {
  */
 export interface TransformationGoal {
   id: string;
-  statement: string; // What are they REALLY trying to achieve?
+  statement: string; // What are they REALLY trying to achieve? (legacy format)
   outcomeStatement?: string; // JTBD-transformed outcome-focused version
+
+  // Structured transformation format (preferred)
+  who?: string; // Target customer segment
+  before?: string; // Current pain/frustration/situation
+  after?: string; // Desired outcome/future state
+  how?: string; // Solution approach
+  why?: string; // Emotional + functional benefit
+
   emotionalDrivers: string[];
   functionalDrivers: string[];
   eqScore: {

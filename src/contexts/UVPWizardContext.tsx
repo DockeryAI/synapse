@@ -548,24 +548,9 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
         websiteUrl = ''
       }
 
-      // Fetch or build DeepContext for psychological intelligence
-      let deepContext: DeepContext | undefined
-      if (currentBrandData?.id) {
-        try {
-          console.log('[UVPWizardContext] Building DeepContext for psychological intelligence...')
-          const result = await deepContextBuilder.buildDeepContext({
-            brandId: currentBrandData.id,
-            brandData: currentBrandData,
-            includeYouTube: true,
-            includeOutScraper: true,
-            cacheResults: true
-          })
-          deepContext = result.context
-          console.log('[UVPWizardContext] ✅ DeepContext built with psychological data')
-        } catch (error) {
-          console.warn('[UVPWizardContext] Failed to build DeepContext:', error)
-        }
-      }
+      // DeepContext NOT built during UVP wizard to keep it fast
+      // It will be built on Dashboard/Power Mode load instead
+      const deepContext: DeepContext | undefined = undefined
 
       // Create context for industry-specific suggestions
       const context = {
@@ -582,9 +567,6 @@ export const UVPWizardProvider: React.FC<UVPWizardProviderProps> = ({
 
       console.log('[UVPWizardContext] Website URL:', websiteUrl)
       console.log('[UVPWizardContext] Full context being sent to AI:', context)
-      console.log('[UVPWizardContext] DeepContext included:', !!deepContext)
-
-      console.log('[UVPWizardContext] Using enhanced context:', context)
       console.log('[UVPWizardContext] Generating with Claude Opus 4.1 (HIGHEST QUALITY MODEL)')
 
       // Generate industry-specific suggestions using OpenRouter AI (Claude Opus 4.1)

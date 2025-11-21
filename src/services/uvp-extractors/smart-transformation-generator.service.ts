@@ -241,12 +241,16 @@ Extract ${isBakery ? '6-8' : '3-5'} transformation goals from the testimonials. 
 - BEFORE state: The problem/pain the customer had
 - AFTER state: The transformation they achieved
 
-Format as JSON:
+Format as JSON with structured fields:
 {
   "goals": [
     {
       "id": "trans-1",
-      "statement": "Transform from [BEFORE] to [AFTER]",
+      "who": "Customer segment from testimonial (1 sentence)",
+      "before": "Problem/pain they had (from testimonial, 1-2 sentences)",
+      "after": "Transformation achieved (from testimonial, 1-2 sentences)",
+      "how": "Solution/service used (1-2 sentences)",
+      "why": "Key benefit - MAX 10 WORDS",
       "emotionalDrivers": ["driver1", "driver2"],
       "functionalDrivers": ["driver1", "driver2"],
       "eqScore": { "emotional": 70, "rational": 30, "overall": 85 },
@@ -342,12 +346,16 @@ Include transformations for EACH of these segments:
 - Dietary restrictions (gluten-free, vegan, allergies)
 ` : ''}
 
-OUTPUT FORMAT (JSON):
+OUTPUT FORMAT (JSON) - Use structured fields for better AI parsing:
 {
   "goals": [
     {
       "id": "trans-1",
-      "statement": "Transform from [specific pain point in customer's natural language] to [desired outcome mapped to service and trigger]",
+      "who": "Specific customer segment from buyer personas (e.g., 'Busy professionals aged 30-45 with families')",
+      "before": "Current pain/frustration from industry pain points (e.g., 'Feeling overwhelmed managing multiple home service vendors')",
+      "after": "Desired outcome mapped to decision triggers (e.g., 'Have all home services coordinated seamlessly through one trusted provider')",
+      "how": "Solution approach from actual services (e.g., 'Full-service home concierge managing all vendors and scheduling')",
+      "why": "Emotional + functional benefit - MAX 10 WORDS (e.g., 'Peace of mind and 5+ hours saved monthly')",
       "emotionalDrivers": ["emotions from psychologyProfile.decisionDrivers", "max 3"],
       "functionalDrivers": ["practical benefits from actual service", "max 3"],
       "eqScore": { "emotional": ${eqRatio.emotional}, "rational": ${eqRatio.rational}, "overall": 85 },
@@ -412,12 +420,16 @@ Generate ${isBakery ? '6-8' : '3-5'} transformation goals based on common indust
 - A common decision trigger
 - The buyer psychology (fears, desires, objections)
 
-Format as JSON:
+Format as JSON with structured fields:
 {
   "goals": [
     {
       "id": "trans-1",
-      "statement": "Transform from [industry pain] to [desired state]",
+      "who": "Target customer segment for this industry (1 sentence)",
+      "before": "Industry pain point (1-2 sentences)",
+      "after": "Desired state addressing decision trigger (1-2 sentences)",
+      "how": "How ${input.businessName} solves this (1-2 sentences)",
+      "why": "Key benefit - MAX 10 WORDS",
       "emotionalDrivers": ["fear/anxiety addressed"],
       "functionalDrivers": ["practical need met"],
       "eqScore": { "emotional": ${eqRatio.emotional}, "rational": ${eqRatio.rational}, "overall": 75 },
@@ -487,12 +499,16 @@ Generate ${isBakery ? '6-8' : '3-5'} transformation goals where EACH:
 - Matches emotional/functional balance
 - Uses industry-appropriate language (how customers in THIS industry actually talk)
 
-OUTPUT FORMAT (JSON):
+OUTPUT FORMAT (JSON) with structured fields:
 {
   "goals": [
     {
       "id": "trans-1",
-      "statement": "Transform from [specific pain in customer's natural language] to [desired outcome in customer's natural language]",
+      "who": "Customer segment from personas (1 sentence in customer's language)",
+      "before": "Specific pain in customer's natural language (1-2 sentences)",
+      "after": "Desired outcome in customer's natural language (1-2 sentences)",
+      "how": "Service/solution approach using exact service name (1-2 sentences)",
+      "why": "Key benefit in customer language - MAX 10 WORDS",
       "emotionalDrivers": ["emotion from customer voice", "max 3 items"],
       "functionalDrivers": ["practical benefit from actual service", "max 3 items"],
       "eqScore": { "emotional": 60, "rational": 40, "overall": 70 },
@@ -555,12 +571,16 @@ You MUST include transformations for ALL these customer segments:
 Make sure to cover B2B (corporate catering) AND B2C segments!
 ` : ''}
 
-Format as JSON:
+Format as JSON with structured fields:
 {
   "goals": [
     {
       "id": "trans-1",
-      "statement": "Transform from [problem] to [solution]",
+      "who": "Target customer segment (1 sentence)",
+      "before": "Current problem/pain (1-2 sentences)",
+      "after": "Desired solution/outcome (1-2 sentences)",
+      "how": "How business solves this (1-2 sentences)",
+      "why": "Key benefit - MAX 10 WORDS",
       "emotionalDrivers": ["driver1"],
       "functionalDrivers": ["driver1"],
       "eqScore": { "emotional": 50, "rational": 50, "overall": 60 },
@@ -650,7 +670,12 @@ async function callClaudeForTransformations(
 
     const goals: TransformationGoal[] = parsed.goals.map((g: any) => ({
       id: g.id || `trans-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-      statement: g.statement || '',
+      statement: g.statement || '',  // Keep for backward compatibility
+      who: g.who,
+      before: g.before,
+      after: g.after,
+      how: g.how,
+      why: g.why,
       emotionalDrivers: g.emotionalDrivers || [],
       functionalDrivers: g.functionalDrivers || [],
       eqScore: g.eqScore || { emotional: 50, rational: 50, overall: 60 },
