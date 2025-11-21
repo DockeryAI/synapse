@@ -351,6 +351,51 @@ class ConnectionDiscoveryService {
     ) / dataPoints.length;
     if (avgConfidence >= 0.85) score += 5;
 
+    // Factor 9: Segment match (customer-focused data points)
+    const customerFocusedTypes = ['customer_trigger', 'pain_point', 'unarticulated_need', 'question', 'people_also_ask'];
+    const customerFocusCount = dataPoints.filter(dp =>
+      customerFocusedTypes.includes(dp.type) ||
+      dp.source === 'outscraper' ||
+      dp.source === 'youtube'
+    ).length;
+    if (customerFocusCount >= 3) score += 15;
+    else if (customerFocusCount >= 2) score += 10;
+    else if (customerFocusCount >= 1) score += 5;
+
+    // Factor 10: Implementability (actionable vs abstract)
+    const implementabilityIndicators = dataPoints.filter(dp => {
+      const content = dp.content.toLowerCase();
+      return (
+        /\d+/.test(content) ||
+        /\$\d+/.test(content) ||
+        /%/.test(content) ||
+        /today|this week|this month|season|deadline/.test(content) ||
+        dp.metadata?.location ||
+        dp.type === 'weather_trigger' ||
+        dp.type === 'local_event'
+      );
+    }).length;
+    if (implementabilityIndicators >= 3) score += 10;
+    else if (implementabilityIndicators >= 2) score += 6;
+    else if (implementabilityIndicators >= 1) score += 3;
+
+    // Factor 11: Novelty detection (unexpected source combinations)
+    const novelCombinations = [
+      ['weather', 'youtube'],
+      ['semrush', 'outscraper'],
+      ['perplexity', 'weather'],
+      ['news', 'youtube'],
+      ['linkedin', 'outscraper']
+    ];
+    const sources = dataPoints.map(dp => dp.source);
+    let noveltyBonus = 0;
+    for (const combo of novelCombinations) {
+      if (combo.every(src => sources.includes(src as any))) {
+        noveltyBonus += 5;
+      }
+    }
+    score += Math.min(10, noveltyBonus);
+
     return Math.min(100, Math.round(score));
   }
 

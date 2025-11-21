@@ -169,8 +169,10 @@ class DeepContextBuilderService {
         config.includeWebsiteAnalysis !== false && brandData.website
           ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
-        // Reddit disabled - credentials not configured
-        Promise.resolve(null),
+        // Reddit psychological triggers and insights
+        config.includeReddit !== false
+          ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
         config.includePerplexity !== false
           ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),

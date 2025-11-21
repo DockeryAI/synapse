@@ -21,6 +21,128 @@ import { jtbdTransformer } from './jtbd-transformer.service';
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
+// Industry-specific trigger weight profiles
+// Weights multiply base trigger scores (1.0 = neutral, >1 = boost, <1 = reduce)
+const INDUSTRY_EQ_WEIGHTS: Record<string, Record<string, number>> = {
+  insurance: {
+    curiosity: 0.8,
+    fear: 1.4,       // Risk aversion is key
+    urgency: 1.2,
+    achievement: 0.7,
+    desire: 0.8,
+    trust: 1.5,      // Trust is paramount
+    belonging: 0.9
+  },
+  saas: {
+    curiosity: 1.3,  // How does it work?
+    fear: 0.8,
+    urgency: 1.0,
+    achievement: 1.4, // Efficiency gains
+    desire: 1.2,
+    trust: 1.0,
+    belonging: 0.9
+  },
+  healthcare: {
+    curiosity: 0.9,
+    fear: 1.1,
+    urgency: 1.0,
+    achievement: 1.0,
+    desire: 0.8,
+    trust: 1.5,      // Trust in healthcare
+    belonging: 1.3   // Care and compassion
+  },
+  legal: {
+    curiosity: 0.8,
+    fear: 1.3,       // Legal consequences
+    urgency: 1.1,
+    achievement: 1.2, // Case results
+    desire: 0.7,
+    trust: 1.5,      // Trust in attorney
+    belonging: 0.8
+  },
+  finance: {
+    curiosity: 1.0,
+    fear: 1.4,       // Financial loss
+    urgency: 1.1,
+    achievement: 1.3, // Wealth growth
+    desire: 1.2,
+    trust: 1.4,
+    belonging: 0.8
+  },
+  realestate: {
+    curiosity: 1.0,
+    fear: 1.1,
+    urgency: 1.3,    // Hot market
+    achievement: 1.2,
+    desire: 1.4,     // Dream home
+    trust: 1.2,
+    belonging: 1.1   // Community
+  },
+  retail: {
+    curiosity: 1.1,
+    fear: 0.9,
+    urgency: 1.4,    // Sales, limited time
+    achievement: 0.8,
+    desire: 1.3,     // Want the product
+    trust: 1.0,
+    belonging: 1.2   // Brand community
+  },
+  restaurant: {
+    curiosity: 1.2,
+    fear: 0.7,
+    urgency: 1.1,
+    achievement: 0.8,
+    desire: 1.4,     // Craving
+    trust: 1.1,
+    belonging: 1.3   // Social dining
+  },
+  fitness: {
+    curiosity: 1.0,
+    fear: 1.1,       // Health fears
+    urgency: 1.0,
+    achievement: 1.5, // Transformation
+    desire: 1.3,
+    trust: 1.0,
+    belonging: 1.4   // Gym community
+  },
+  education: {
+    curiosity: 1.4,  // Learning
+    fear: 1.0,
+    urgency: 0.9,
+    achievement: 1.4, // Success
+    desire: 1.2,
+    trust: 1.2,
+    belonging: 1.1   // Student community
+  },
+  technology: {
+    curiosity: 1.5,  // Innovation
+    fear: 0.8,
+    urgency: 1.0,
+    achievement: 1.3,
+    desire: 1.2,
+    trust: 1.0,
+    belonging: 0.9
+  },
+  consulting: {
+    curiosity: 1.0,
+    fear: 1.1,
+    urgency: 0.9,
+    achievement: 1.3,
+    desire: 0.9,
+    trust: 1.5,      // Expertise trust
+    belonging: 0.8
+  },
+  default: {
+    curiosity: 1.0,
+    fear: 1.0,
+    urgency: 1.0,
+    achievement: 1.0,
+    desire: 1.0,
+    trust: 1.0,
+    belonging: 1.0
+  }
+};
+
 export interface SynthesizedContent {
   title: string; // Specific, curiosity-driven
   hook: string; // Emotional opening line
@@ -417,10 +539,15 @@ OUTPUT FORMAT (JSON only, no markdown):
   /**
    * Calculate EQ score using comprehensive pattern matching
    * Enhanced scoring with 7 psychological triggers, specificity bonuses, and combination multipliers
+   * Now supports industry-specific trigger weighting
    */
-  private async calculateEQScore(title: string, hook: string): Promise<number> {
+  private async calculateEQScore(title: string, hook: string, industry?: string): Promise<number> {
     const text = `${title} ${hook}`.toLowerCase();
     const titleLower = title.toLowerCase();
+
+    // Get industry-specific weights
+    const industryKey = industry?.toLowerCase().replace(/[^a-z]/g, '') || 'default';
+    const industryWeights = INDUSTRY_EQ_WEIGHTS[industryKey] || INDUSTRY_EQ_WEIGHTS.default;
 
     // Comprehensive psychological trigger patterns (expanded)
     const triggers = {
@@ -464,7 +591,7 @@ OUTPUT FORMAT (JSON only, no markdown):
     let score = 40; // Base score (lowered to allow more room for bonuses)
     let triggersFound = 0;
 
-    // Check each trigger category with weighted scoring
+    // Check each trigger category with industry-weighted scoring
     for (const [category, patterns] of Object.entries(triggers)) {
       let categoryMatches = 0;
       for (const pattern of patterns) {
@@ -474,8 +601,10 @@ OUTPUT FORMAT (JSON only, no markdown):
       }
       if (categoryMatches > 0) {
         triggersFound++;
-        // First match: +7, additional matches in same category: +2 each (max +3 extra)
-        score += 7 + Math.min(3, (categoryMatches - 1) * 2);
+        // Apply industry weight to trigger score
+        const weight = industryWeights[category] || 1.0;
+        const baseScore = 7 + Math.min(3, (categoryMatches - 1) * 2);
+        score += Math.round(baseScore * weight);
       }
     }
 
