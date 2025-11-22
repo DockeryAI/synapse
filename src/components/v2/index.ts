@@ -3,3 +3,4 @@
  */
 
 export { ModeToggle } from './ModeToggle';
+export { PerformancePrediction } from './analytics/PerformancePrediction';
