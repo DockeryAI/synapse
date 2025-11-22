@@ -1,0 +1,26 @@
+#!/bin/bash
+# Fix Supabase Edge Function API Key Configuration
+# Edge Functions need their own secrets set in Supabase
+
+echo "🔧 Setting up Supabase Edge Function secrets..."
+echo ""
+echo "The Weather and Reddit APIs are failing because:"
+echo "- Your .env has the keys ✅"
+echo "- But Supabase Edge Functions need them too ❌"
+echo ""
+echo "Run these commands to fix:"
+echo ""
+echo "cd supabase"
+echo ""
+echo "# Set Weather API key"
+echo "supabase secrets set WEATHER_API_KEY=<your-openweathermap-key>"
+echo ""
+echo "# Set Reddit API keys (optional - you said ignore)"
+echo "supabase secrets set REDDIT_CLIENT_ID=<your-reddit-client-id>"
+echo "supabase secrets set REDDIT_CLIENT_SECRET=<your-reddit-secret>"
+echo "supabase secrets set REDDIT_USER_AGENT=<your-reddit-user-agent>"
+echo ""
+echo "# OR: Set all at once from your .env file"
+echo "supabase secrets set --env-file ../.env"
+echo ""
+echo "After setting secrets, your Edge Functions will work!"
