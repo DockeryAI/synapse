@@ -12,7 +12,7 @@ import type {
 export interface StageIndicator {
   stage: PurchaseStage;
   keywords: string[];
-  patterns: string[];
+  patterns: RegExp[];
   weight: number;
 }
 

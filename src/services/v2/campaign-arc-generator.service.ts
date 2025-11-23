@@ -205,12 +205,17 @@ export class CampaignArcGeneratorService {
       targetAudience: config.targetAudience,
       pieces: [],
       arc: {
+        id: uuidv4(),
+        name: `${template.name} Arc`,
+        description: template.description || `Campaign arc for ${template.name}`,
+        phases: [],
+        totalDuration: template.duration,
         totalPieces: template.pieces,
         completedPieces: 0,
         emotionalProgression: template.emotionalArc,
       },
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
     };
 
     // Generate pieces
@@ -228,7 +233,7 @@ export class CampaignArcGeneratorService {
     const optimizedPieces = this.optimizeTimeline(pieces, config.customConstraints);
 
     // Update campaign with pieces
-    campaign.pieces = optimizedPieces.pieces.map(p => p.id);
+    campaign.pieces = optimizedPieces.pieces;
 
     return {
       campaign,
@@ -293,7 +298,7 @@ export class CampaignArcGeneratorService {
     },
     brandContext: BrandContext,
     campaignId: string,
-    scheduledDate: Date
+    scheduledDate: Date | string
   ): CampaignPiece {
     const { structure, emotionalTrigger, position, total } = pieceTemplate;
 
@@ -326,16 +331,17 @@ export class CampaignArcGeneratorService {
       title,
       content,
       emotionalTrigger,
-      scheduledDate,
+      scheduledDate: typeof scheduledDate === 'string' ? scheduledDate : scheduledDate.toISOString(),
       status: 'pending',
       channel: 'linkedin', // Default channel
-      pieceOrder: position,
+      order: position,
       templateId: structure.toLowerCase().replace(/\s+/g, '_'),
       performancePrediction: {
         expectedCTR: prediction.expectedCTR,
         expectedEngagement: prediction.expectedEngagement,
         expectedConversion: prediction.expectedConversion,
         confidenceScore: prediction.confidenceScore,
+        factors: prediction.factors || [],
       },
     };
   }
@@ -437,8 +443,10 @@ export class CampaignArcGeneratorService {
     }
 
     // Calculate total duration
-    const firstDate = optimizedPieces[0]?.scheduledDate || new Date();
-    const lastDate = optimizedPieces[optimizedPieces.length - 1]?.scheduledDate || new Date();
+    const firstDateStr = optimizedPieces[0]?.scheduledDate || new Date().toISOString();
+    const lastDateStr = optimizedPieces[optimizedPieces.length - 1]?.scheduledDate || new Date().toISOString();
+    const firstDate = new Date(firstDateStr);
+    const lastDate = new Date(lastDateStr);
     const totalDuration = Math.ceil(
       (lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
     );
@@ -477,10 +485,10 @@ export class CampaignArcGeneratorService {
   /**
    * Calculate end date from start date and duration
    */
-  private calculateEndDate(startDate: Date, duration: number): Date {
-    const endDate = new Date(startDate);
-    endDate.setDate(endDate.getDate() + duration);
-    return endDate;
+  private calculateEndDate(startDate: string | Date, duration: number): string {
+    const date = typeof startDate === 'string' ? new Date(startDate) : new Date(startDate);
+    date.setDate(date.getDate() + duration);
+    return date.toISOString();
   }
 
   /**

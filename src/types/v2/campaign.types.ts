@@ -12,7 +12,17 @@ export type CampaignPurpose =
   | 'competitive_disruption'
   | 'trust_building'
   | 'authority_establishment'
-  | 'conversion_optimization';
+  | 'conversion_optimization'
+  | 'conversion'
+  | 'nurture'
+  | 'brand_story'
+  | 'launch'
+  | 'promotion'
+  | 'authority'
+  | 'education'
+  | 'trust'
+  | 'engagement'
+  | 'general';
 
 export type CampaignStatus = 'draft' | 'scheduled' | 'active' | 'completed' | 'paused';
 

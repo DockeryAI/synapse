@@ -35,6 +35,15 @@ const TRIGGER_BADGES: Record<EmotionalTrigger, { bg: string; text: string }> = {
   resolution: { bg: 'bg-emerald-100', text: 'text-emerald-700' },
   satisfaction: { bg: 'bg-lime-100', text: 'text-lime-700' },
   respect: { bg: 'bg-violet-100', text: 'text-violet-700' },
+  security: { bg: 'bg-blue-50', text: 'text-blue-600' },
+  efficiency: { bg: 'bg-green-50', text: 'text-green-600' },
+  innovation: { bg: 'bg-purple-50', text: 'text-purple-600' },
+  opportunity: { bg: 'bg-yellow-50', text: 'text-yellow-600' },
+  safety: { bg: 'bg-emerald-50', text: 'text-emerald-600' },
+  growth: { bg: 'bg-teal-50', text: 'text-teal-600' },
+  authority: { bg: 'bg-indigo-50', text: 'text-indigo-600' },
+  pride: { bg: 'bg-pink-50', text: 'text-pink-600' },
+  belonging: { bg: 'bg-cyan-50', text: 'text-cyan-600' },
 };
 
 const STATUS_STYLES: Record<string, string> = {
