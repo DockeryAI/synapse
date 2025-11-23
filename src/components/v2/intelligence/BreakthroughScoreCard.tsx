@@ -42,6 +42,35 @@ export const BreakthroughScoreCard: React.FC<BreakthroughScoreCardProps> = ({
   compact = false,
   onFactorClick,
 }) => {
+  // Loading state
+  if (!score) {
+    return compact ? (
+      <div className="bg-white rounded-lg border border-gray-200 p-4 animate-pulse">
+        <div className="flex items-center justify-between">
+          <div className="h-8 w-24 bg-gray-200 rounded" />
+          <div className="h-8 w-20 bg-gray-200 rounded-full" />
+        </div>
+        <div className="h-4 w-full bg-gray-200 rounded mt-2" />
+      </div>
+    ) : (
+      <div className="bg-white rounded-lg border border-gray-200 shadow-sm animate-pulse">
+        <div className="p-6 border-b border-gray-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="h-6 w-40 bg-gray-200 rounded mb-2" />
+              <div className="h-4 w-24 bg-gray-200 rounded" />
+            </div>
+            <div className="text-right">
+              <div className="h-10 w-16 bg-gray-200 rounded mb-2" />
+              <div className="h-6 w-20 bg-gray-200 rounded-full" />
+            </div>
+          </div>
+          <div className="h-4 w-full bg-gray-200 rounded mt-3" />
+        </div>
+      </div>
+    );
+  }
+
   const { breakdown } = score;
   const gradeColors = GRADE_COLORS[breakdown.grade];
   const suggestions = breakthroughScorerService.getImprovementSuggestions(score);

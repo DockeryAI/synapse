@@ -30,6 +30,7 @@ export interface OpportunityRadarProps {
   filter?: OpportunityTier | 'all';
   maxVisible?: number;
   className?: string;
+  loading?: boolean;
 }
 
 export const OpportunityRadar: React.FC<OpportunityRadarProps> = ({
@@ -39,6 +40,7 @@ export const OpportunityRadar: React.FC<OpportunityRadarProps> = ({
   filter = 'all',
   maxVisible = 10,
   className,
+  loading = false,
 }) => {
   const [activeFilter, setActiveFilter] = React.useState<OpportunityTier | 'all'>(filter);
 
@@ -55,6 +57,54 @@ export const OpportunityRadar: React.FC<OpportunityRadarProps> = ({
     'high-value': alerts.filter(a => a.tier === 'high-value').length,
     evergreen: alerts.filter(a => a.tier === 'evergreen').length,
   }), [alerts]);
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className={cn('space-y-4', className)}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary animate-pulse" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Opportunity Radar
+            </h3>
+          </div>
+        </div>
+        <div className="animate-pulse space-y-3">
+          {[1, 2, 3].map(i => (
+            <div key={i} className="bg-gray-100 dark:bg-slate-800 rounded-lg h-32" />
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
+  if (alerts.length === 0) {
+    return (
+      <div className={cn('space-y-4', className)}>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-5 h-5 text-primary" />
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              Opportunity Radar
+            </h3>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="p-12 text-center">
+            <Target className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+            <p className="text-gray-600 dark:text-gray-400 mb-1">
+              No opportunities available yet
+            </p>
+            <p className="text-sm text-gray-500 dark:text-gray-500">
+              Opportunities will appear here once intelligence analysis completes
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className={cn('space-y-4', className)}>

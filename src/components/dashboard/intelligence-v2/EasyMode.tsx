@@ -12,7 +12,7 @@ export interface EasyModeProps {
   onGenerate: (selectedInsights: string[]) => void;
 }
 
-export function EasyMode({ context, onGenerate }: EasyModeProps) {
+export const EasyMode = React.memo(function EasyMode({ context, onGenerate }: EasyModeProps) {
   // Count total insights available
   const insightCount =
     (context.industry?.trends?.length || 0) +
@@ -103,4 +103,4 @@ export function EasyMode({ context, onGenerate }: EasyModeProps) {
       </motion.div>
     </div>
   );
-}
+});
