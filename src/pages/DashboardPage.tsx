@@ -41,6 +41,7 @@ import type { SmartPick } from '@/types/smart-picks.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
+import { industryCustomizationService } from '@/services/v2/industry-customization.service';
 
 type ViewMode = 'dashboard' | 'insights_hub';
 
@@ -229,6 +230,19 @@ export function DashboardPage() {
       // Check for localStorage UVP data first
       const hasPending = hasPendingUVP();
       console.log('[DashboardPage] hasPendingUVP:', hasPending, 'brand.id:', brand?.id);
+
+      // Trigger industry research in background if needed
+      if (brand?.industry && brand?.naicsCode) {
+        const status = industryCustomizationService.getIndustryStatus(brand.industry);
+        if (status === 'pending') {
+          console.log('[DashboardPage] Triggering background industry research for:', brand.industry);
+          // Fire and forget - don't await
+          industryCustomizationService.triggerBackgroundResearch(
+            brand.naicsCode,
+            brand.industry
+          ).catch(err => console.error('[DashboardPage] Industry research failed:', err));
+        }
+      }
 
       // Run intelligence for ALL brands (no more temp brand bullshit)
       if (brand?.id) {

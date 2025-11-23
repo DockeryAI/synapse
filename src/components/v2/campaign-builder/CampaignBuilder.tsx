@@ -11,6 +11,7 @@ import { TimelineVisualizer } from './TimelineVisualizer';
 import { CampaignPreview } from './CampaignPreview';
 import { CampaignArcGeneratorService } from '@/services/v2/campaign-arc-generator.service';
 import { CampaignStorageService } from '@/services/v2/campaign-storage.service';
+import { industryCustomizationService } from '@/services/v2/industry-customization.service';
 import type { Campaign, CampaignPiece, CampaignPurpose } from '@/types/v2';
 
 export type CampaignBuilderStep = 'purpose' | 'timeline' | 'preview';
@@ -57,6 +58,15 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({
 
   const campaignGenerator = React.useMemo(() => new CampaignArcGeneratorService(), []);
   const campaignStorage = React.useMemo(() => new CampaignStorageService(), []);
+  const [industryStatus, setIndustryStatus] = React.useState<'ready' | 'researching' | 'pending'>('ready');
+
+  // Check industry research status on mount
+  React.useEffect(() => {
+    if (industry) {
+      const status = industryCustomizationService.getIndustryStatus(industry);
+      setIndustryStatus(status);
+    }
+  }, [industry]);
 
   const handleTemplateSelect = async (templateId: string) => {
     setState(prev => ({
@@ -256,6 +266,21 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({
             >
               Retry
             </button>
+          </div>
+        )}
+
+        {/* Industry Research Warning */}
+        {industryStatus === 'researching' && (
+          <div className="mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 border-2 border-yellow-600 border-t-transparent rounded-full animate-spin" />
+              <p className="text-yellow-800 dark:text-yellow-200 text-sm font-medium">
+                Researching industry customization for {industry}...
+              </p>
+            </div>
+            <p className="text-yellow-700 dark:text-yellow-300 text-xs mt-1">
+              Campaigns will use generic settings until research completes (usually 30-60 seconds)
+            </p>
           </div>
         )}
 

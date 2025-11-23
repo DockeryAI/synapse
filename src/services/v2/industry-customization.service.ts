@@ -13,6 +13,7 @@ import {
   ComplianceRule,
   IndustryExample,
 } from './data/industry-profiles';
+import { industryResearchService } from './industry-research.service';
 
 export interface ContentToCustomize {
   title: string;
@@ -60,15 +61,25 @@ export class IndustryCustomizationService {
 
   /**
    * Apply industry-specific overlay to content
+   * Falls back to AI-generated profile if not found
    */
-  applyIndustryOverlay(
+  async applyIndustryOverlay(
     content: ContentToCustomize,
     industryId: string,
     options: IndustryOverlayOptions = {}
-  ): CustomizedContent {
-    const profile = getIndustryProfile(industryId);
+  ): Promise<CustomizedContent> {
+    let profile = getIndustryProfile(industryId);
+
+    // If profile doesn't exist, check if it's being researched
     if (!profile) {
-      throw new Error(`Industry profile not found: ${industryId}`);
+      const cached = industryResearchService.getCachedProfile(industryId);
+      if (cached) {
+        profile = cached;
+      } else {
+        // Use fallback profile for now (will be researched in background)
+        console.warn(`[IndustryCustomization] Profile not found for ${industryId}, using fallback`);
+        profile = this.getFallbackProfile(industryId);
+      }
     }
 
     const {
@@ -437,6 +448,80 @@ export class IndustryCustomizationService {
     }
 
     return hashtags.slice(0, 5);
+  }
+
+  /**
+   * Get fallback profile for unknown industries
+   * Returns generic profile while research happens in background
+   */
+  private getFallbackProfile(industryId: string): IndustryProfile {
+    return {
+      id: industryId,
+      name: industryId.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
+      naicsPrefix: '00',
+      description: 'Generic industry profile - being researched',
+      emotionalTriggers: {
+        fear: 10,
+        trust: 15,
+        security: 10,
+        efficiency: 12,
+        growth: 12,
+        innovation: 10,
+        hope: 10,
+        urgency: 8,
+        exclusivity: 8,
+        community: 5,
+      },
+      vocabulary: {
+        preferredTerms: ['solution', 'value', 'quality', 'service'],
+        avoidTerms: [],
+        powerWords: ['proven', 'results', 'trusted', 'effective'],
+        technicalTerms: [],
+        callToActionPhrases: ['Get Started', 'Learn More', 'Try Now'],
+      },
+      compliance: [],
+      performanceBenchmarks: {
+        averageCTR: 2.5,
+        averageEngagement: 3.0,
+        topPerformingTemplates: [],
+        industryBestPractices: [],
+      },
+      examples: [],
+      customizationStrength: 'low',
+      seasonalTriggers: [],
+      isAIGenerated: false,
+      isFallback: true,
+    };
+  }
+
+  /**
+   * Trigger background research for unknown industry
+   */
+  async triggerBackgroundResearch(naicsCode: string, naicsTitle: string): Promise<void> {
+    console.log(`[IndustryCustomization] Triggering background research for ${naicsTitle} (${naicsCode})`);
+
+    try {
+      await industryResearchService.researchIndustry(naicsCode, {
+        code: naicsCode,
+        title: naicsTitle,
+        description: `Research profile for ${naicsTitle}`,
+      });
+      console.log(`[IndustryCustomization] Research complete for ${naicsTitle}`);
+    } catch (error) {
+      console.error(`[IndustryCustomization] Research failed for ${naicsTitle}:`, error);
+    }
+  }
+
+  /**
+   * Check if industry profile exists or is being researched
+   */
+  getIndustryStatus(industryId: string): 'ready' | 'researching' | 'pending' {
+    if (getIndustryProfile(industryId)) return 'ready';
+    if (industryResearchService.getCachedProfile(industryId)) return 'ready';
+
+    const status = industryResearchService.getResearchStatus(industryId);
+    if (status.status === 'researching') return 'researching';
+    return 'pending';
   }
 }
 
