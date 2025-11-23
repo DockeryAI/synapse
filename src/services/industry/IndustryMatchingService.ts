@@ -28,10 +28,11 @@ export class IndustryMatchingService {
     }
 
     try {
-      // Fetch from database (includes on-demand profiles)
+      // Fetch from industry_profiles table (where the actual data is!)
       const { data, error } = await supabase
-        .from('naics_codes')
-        .select('code, title, keywords, category, has_full_profile, popularity');
+        .from('industry_profiles')
+        .select('naics_code, name, profile_data')
+        .eq('is_active', true);
 
       if (error) {
         console.warn('[IndustryMatching] Database fetch failed, using static data:', error.message);
@@ -39,14 +40,37 @@ export class IndustryMatchingService {
       }
 
       // Map to NAICSOption format
-      this.cachedNAICS = data.map(row => ({
-        naics_code: row.code,
-        display_name: row.title,
-        keywords: row.keywords || [],
-        category: row.category,
-        has_full_profile: row.has_full_profile || false,
-        popularity: row.popularity || 1
-      }));
+      this.cachedNAICS = data.map(row => {
+        // Extract keywords from profile data
+        const profileData = row.profile_data || {};
+        let keywords = [];
+
+        // Build keywords from various fields in profile
+        if (profileData.industry) {
+          keywords.push(...profileData.industry.toLowerCase().split(/\W+/).filter(w => w.length > 3));
+        }
+        if (profileData.industry_name) {
+          keywords.push(...profileData.industry_name.toLowerCase().split(/\W+/).filter(w => w.length > 3));
+        }
+        if (profileData.category) {
+          keywords.push(profileData.category.toLowerCase());
+        }
+        if (profileData.keywords) {
+          keywords.push(...profileData.keywords);
+        }
+
+        // Remove duplicates
+        keywords = [...new Set(keywords)];
+
+        return {
+          naics_code: row.naics_code,
+          display_name: row.name,
+          keywords: keywords,
+          category: profileData.category || 'General',
+          has_full_profile: true, // All industry_profiles have full profiles
+          popularity: profileData.popularity || 1
+        };
+      });
 
       console.log(`[IndustryMatching] Loaded ${this.cachedNAICS.length} NAICS codes from database`);
       return this.cachedNAICS;

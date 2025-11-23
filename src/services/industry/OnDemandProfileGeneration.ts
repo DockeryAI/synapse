@@ -564,7 +564,7 @@ export class OnDemandProfileGenerator {
 
       console.log('[OnDemand] Updating naics_codes with keywords:', keywordsArray);
 
-      // Upsert to naics_codes table
+      // Upsert to naics_codes table (only fields that exist in the table)
       await supabase
         .from('naics_codes')
         .upsert({
@@ -573,9 +573,8 @@ export class OnDemandProfileGenerator {
           category: profile.category || 'Other Services',
           keywords: keywordsArray,
           has_full_profile: true,
-          level: 6, // 6-digit NAICS code
-          is_standard: true
-        });
+          popularity: 1
+        }, { onConflict: 'code' });
 
       console.log('[OnDemand] ✅ Keywords updated for fuzzy matching');
 

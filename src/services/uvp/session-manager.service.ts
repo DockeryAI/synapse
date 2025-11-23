@@ -81,11 +81,16 @@ export class SessionManagerService {
         .update(updateData)
         .eq('id', input.session_id)
         .select()
-        .single();
+        .maybeSingle(); // Use maybeSingle() to avoid 406 when session doesn't exist
 
       if (error) {
         console.warn('[SessionManager] ⚠️ Error updating session:', error);
         return { success: false, error: error.message };
+      }
+
+      if (!data) {
+        console.warn('[SessionManager] ⚠️ Session not found for update:', input.session_id);
+        return { success: false, error: 'Session not found' };
       }
 
       console.log('[SessionManager] Session updated successfully');
@@ -107,11 +112,16 @@ export class SessionManagerService {
         .from('uvp_sessions')
         .select('*')
         .eq('id', sessionId)
-        .single();
+        .maybeSingle(); // Use maybeSingle() to avoid 406 when session doesn't exist
 
       if (error) {
         console.warn('[SessionManager] ⚠️ Error fetching session:', error);
         return { success: false, error: error.message };
+      }
+
+      if (!data) {
+        console.warn('[SessionManager] ⚠️ Session not found:', sessionId);
+        return { success: false, error: 'Session not found' };
       }
 
       // Update last accessed
@@ -203,7 +213,7 @@ export class SessionManagerService {
         .select('*')
         .eq('brand_id', brandId)
         .eq('website_url', websiteUrl)
-        .single();
+        .maybeSingle();
 
       if (existing) {
         console.log('[SessionManager] Found existing session');

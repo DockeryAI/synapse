@@ -87,16 +87,36 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
     hasFullProfile: naics.has_full_profile
   }));
 
-  // Use database industries if loaded, otherwise fall back to static
-  // Always include "Restaurant" for e2e tests
-  const INDUSTRIES = databaseIndustries.length > 0
-    ? [...databaseIndustries, ...STATIC_INDUSTRIES.filter(s => s.displayName === 'Restaurant' && !databaseIndustries.some(d => d.displayName === 'Restaurant'))]
-    : STATIC_INDUSTRIES;
+  // Merge database updates with static industries
+  // Database provides has_full_profile status updates, static provides the full list
+  const INDUSTRIES = (() => {
+    if (databaseIndustries.length === 0) {
+      return STATIC_INDUSTRIES;
+    }
+
+    // Create a map of database industries for quick lookup
+    const dbMap = new Map(databaseIndustries.map(d => [d.displayName.toLowerCase(), d]));
+
+    // Merge: Use static as base, update with database info if available
+    return STATIC_INDUSTRIES.map(staticInd => {
+      const dbMatch = dbMap.get(staticInd.displayName.toLowerCase());
+      if (dbMatch) {
+        // Merge database updates (like has_full_profile) with static entry
+        return {
+          ...staticInd,
+          hasFullProfile: dbMatch.hasFullProfile || staticInd.hasFullProfile,
+          popularity: dbMatch.popularity || staticInd.popularity
+        };
+      }
+      return staticInd;
+    });
+  })();
 
   // Load industries from database on mount (includes on-demand profiles)
   useEffect(() => {
     const loadIndustries = async () => {
       try {
+        // Load from naics_codes table
         const { data, error } = await supabase
           .from('naics_codes')
           .select('code, title, keywords, category, has_full_profile, popularity');
@@ -107,15 +127,29 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
           return;
         }
 
-        const dbIndustries: IndustryOption[] = data.map(row => ({
-          naicsCode: row.code,
-          displayName: row.title,
-          keywords: row.keywords || [],
-          icon: '🏢',
-          popularity: row.popularity || 1,
-          category: row.category,
-          hasFullProfile: row.has_full_profile || false
-        }));
+        // Also check industry_profiles to see which profiles actually exist
+        const { data: profileData } = await supabase
+          .from('industry_profiles')
+          .select('id, name')
+          .eq('is_active', true);
+
+        const profileIds = new Set(profileData?.map(p => p.id) || []);
+
+        const dbIndustries: IndustryOption[] = data.map(row => {
+          // Check if profile exists in industry_profiles table
+          const profileId = row.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+          const hasProfile = profileIds.has(profileId) || row.has_full_profile;
+
+          return {
+            naicsCode: row.code,
+            displayName: row.title,
+            keywords: row.keywords || [],
+            icon: '🏢',
+            popularity: row.popularity || 1,
+            category: row.category,
+            hasFullProfile: hasProfile
+          };
+        });
 
         // Successfully loaded from database
         // console.log(`[IndustrySelector] Loaded ${dbIndustries.length} industries from database`);
@@ -428,6 +462,16 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
       console.log(`[performGeneration] ✅ SUCCESS - Profile generated for ${industry.displayName}`);
       console.log(`[performGeneration] Profile saved to database, calling onIndustrySelected...`);
       setIsGenerating(false);
+
+      // Update the databaseIndustries state to reflect the newly generated profile
+      setDatabaseIndustries(prev => prev.map(ind =>
+        ind.naicsCode === industry.naicsCode
+          ? { ...ind, hasFullProfile: true }
+          : ind
+      ));
+
+      // Update selectedIndustry to show the checkmark
+      setSelectedIndustry(prev => prev ? { ...prev, hasFullProfile: true } : prev);
 
       // Call onIndustrySelected with skip flag = true
       // This skips the scanning animation and goes straight to JTBD flow

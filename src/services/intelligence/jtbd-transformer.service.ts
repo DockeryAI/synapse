@@ -106,28 +106,26 @@ class JTBDTransformerService {
     try {
       // Try to get NAICS code from industry name - try multiple strategies
 
-      // Strategy 1: Try exact match on industry_label
+      // Strategy 1: Find NAICS code by title
       let { data: naicsData, error } = await supabase
         .from('naics_codes')
-        .select('profiles')
-        .ilike('industry_label', `%${industry}%`)
+        .select('code')
+        .ilike('title', `%${industry}%`)
         .limit(1)
         .maybeSingle();
 
-      // Strategy 2: If no match, try title field
-      if (!naicsData?.profiles && !error) {
-        const result = await supabase
-          .from('naics_codes')
-          .select('profiles')
-          .ilike('title', `%${industry}%`)
-          .limit(1)
+      if (naicsData?.code) {
+        // Now look up the profile using the NAICS code
+        const { data: profileData } = await supabase
+          .from('industry_profiles')
+          .select('profile_data')
+          .eq('naics_code', naicsData.code)
           .maybeSingle();
-        naicsData = result.data;
-      }
 
-      if (naicsData?.profiles) {
-        console.log('[JTBD] Found industry profile for:', industry);
-        return naicsData.profiles;
+        if (profileData?.profile_data) {
+          console.log('[JTBD] Found industry profile for:', industry);
+          return profileData.profile_data;
+        }
       }
     } catch (error) {
       // Silently handle missing profile - this is expected for many industries

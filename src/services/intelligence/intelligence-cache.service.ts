@@ -97,7 +97,7 @@ class IntelligenceCacheService {
         .from('intelligence_cache')
         .select('*')
         .eq('cache_key', cacheKey)
-        .single()
+        .maybeSingle() // Use maybeSingle() to avoid 406 when no cache exists
 
       if (error || !data) {
         console.log('[IntelligenceCache] Cache miss:', cacheKey)
