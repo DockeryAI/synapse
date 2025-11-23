@@ -24,8 +24,8 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
 
   if (!campaign || pieces.length === 0) {
     return (
-      <div className={cn('p-8 text-center border rounded-lg bg-muted/50', className)}>
-        <p className="text-muted-foreground">
+      <div className={cn('p-8 text-center border border-gray-300 dark:border-slate-600 rounded-lg bg-gray-100 dark:bg-slate-800', className)}>
+        <p className="text-gray-600 dark:text-gray-300">
           No campaign to preview. Please complete the previous steps.
         </p>
       </div>
@@ -43,8 +43,8 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
   return (
     <div className={cn('space-y-6', className)}>
       {/* Campaign Header */}
-      <div className="p-4 border rounded-lg">
-        <h3 className="text-lg font-semibold">{campaign.name || `${brandName} Campaign`}</h3>
+      <div className="p-4 border border-gray-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{campaign.name || `${brandName} Campaign`}</h3>
         <p className="text-sm text-muted-foreground mt-1">
           {pieces.length} pieces over {totalDuration} days
         </p>
@@ -52,11 +52,11 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
         <div className="grid grid-cols-4 gap-4 mt-4">
           <div>
             <span className="text-xs text-muted-foreground">Purpose</span>
-            <div className="font-medium text-sm capitalize">{campaign.purpose || 'General'}</div>
+            <div className="font-medium text-sm text-gray-900 dark:text-white capitalize">{campaign.purpose || 'General'}</div>
           </div>
           <div>
             <span className="text-xs text-muted-foreground">Start Date</span>
-            <div className="font-medium text-sm">
+            <div className="font-medium text-sm text-gray-900 dark:text-white">
               {campaign.startDate
                 ? new Date(campaign.startDate).toLocaleDateString()
                 : 'Not set'}
@@ -64,7 +64,7 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
           </div>
           <div>
             <span className="text-xs text-muted-foreground">End Date</span>
-            <div className="font-medium text-sm">
+            <div className="font-medium text-sm text-gray-900 dark:text-white">
               {campaign.endDate
                 ? new Date(campaign.endDate).toLocaleDateString()
                 : 'Not set'}
@@ -72,14 +72,14 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
           </div>
           <div>
             <span className="text-xs text-muted-foreground">Status</span>
-            <div className="font-medium text-sm capitalize">{campaign.status || 'Draft'}</div>
+            <div className="font-medium text-sm text-gray-900 dark:text-white capitalize">{campaign.status || 'Draft'}</div>
           </div>
         </div>
       </div>
 
       {/* Narrative Flow Visualization */}
-      <div className="p-4 border rounded-lg">
-        <h4 className="text-sm font-medium mb-3">Narrative Flow</h4>
+      <div className="p-4 border border-gray-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800">
+        <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Narrative Flow</h4>
         <div className="flex items-center">
           {pieces.map((piece, idx) => (
             <React.Fragment key={piece.id}>
@@ -97,7 +97,7 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
                 </span>
               </div>
               {idx < pieces.length - 1 && (
-                <div className="flex-1 h-0.5 bg-border mx-2" />
+                <div className="flex-1 h-0.5 bg-gray-300 dark:bg-slate-600 mx-2" />
               )}
             </React.Fragment>
           ))}
@@ -106,7 +106,7 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
 
       {/* Pieces List */}
       <div className="space-y-3">
-        <h4 className="text-sm font-medium">Campaign Pieces</h4>
+        <h4 className="text-sm font-medium text-gray-900 dark:text-white">Campaign Pieces</h4>
         {pieces.map((piece, idx) => (
           <PreviewPieceCard
             key={piece.id}
@@ -121,11 +121,11 @@ export const CampaignPreview: React.FC<CampaignPreviewProps> = ({
       </div>
 
       {/* Export Options */}
-      <div className="flex gap-3 p-4 border rounded-lg bg-muted/50">
-        <button className="flex-1 px-4 py-2 text-sm border rounded-md hover:bg-background">
+      <div className="flex gap-3 p-4 border border-gray-200 dark:border-slate-700 rounded-lg bg-gray-50 dark:bg-slate-800/50">
+        <button className="flex-1 px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-md hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-gray-300">
           Export as PDF
         </button>
-        <button className="flex-1 px-4 py-2 text-sm border rounded-md hover:bg-background">
+        <button className="flex-1 px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 rounded-md hover:bg-white dark:hover:bg-slate-700 text-gray-700 dark:text-gray-300">
           Copy All Content
         </button>
         <button className="flex-1 px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90">
@@ -150,48 +150,48 @@ const PreviewPieceCard: React.FC<PreviewPieceCardProps> = ({
   onToggle,
 }) => {
   return (
-    <div className="border rounded-lg overflow-hidden">
+    <div className="border border-gray-200 dark:border-slate-700 rounded-lg overflow-hidden bg-white dark:bg-slate-800">
       <button
         onClick={onToggle}
-        className="w-full p-4 flex items-center justify-between hover:bg-muted/50 text-left"
+        className="w-full p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 text-left"
       >
         <div className="flex items-center gap-3">
           <span className="w-6 h-6 rounded-full bg-primary/10 text-primary text-sm flex items-center justify-center">
             {index + 1}
           </span>
           <div>
-            <h5 className="font-medium text-sm">{piece.title}</h5>
+            <h5 className="font-medium text-sm text-gray-900 dark:text-white">{piece.title}</h5>
             <div className="flex items-center gap-2 mt-0.5">
               <span className="text-xs text-muted-foreground">
                 {new Date(piece.scheduledDate).toLocaleDateString()}
               </span>
-              <span className="text-xs px-1.5 py-0.5 bg-muted rounded capitalize">
+              <span className="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded capitalize">
                 {piece.emotionalTrigger}
               </span>
             </div>
           </div>
         </div>
-        <ChevronIcon className={cn('w-4 h-4 transition-transform', expanded && 'rotate-180')} />
+        <ChevronIcon className={cn('w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform', expanded && 'rotate-180')} />
       </button>
 
       {expanded && (
-        <div className="p-4 pt-0 border-t bg-muted/30">
+        <div className="p-4 pt-0 border-t border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800/50">
           <div className="prose prose-sm max-w-none">
-            <p className="whitespace-pre-wrap text-sm">{piece.content}</p>
+            <p className="whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300">{piece.content}</p>
           </div>
           {piece.performancePrediction && (
-            <div className="mt-3 pt-3 border-t grid grid-cols-3 gap-2 text-xs">
+            <div className="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700 grid grid-cols-3 gap-2 text-xs">
               <div>
                 <span className="text-muted-foreground">Expected CTR</span>
-                <div className="font-medium">{piece.performancePrediction.expectedCTR}%</div>
+                <div className="font-medium text-gray-900 dark:text-white">{piece.performancePrediction.expectedCTR}%</div>
               </div>
               <div>
                 <span className="text-muted-foreground">Engagement</span>
-                <div className="font-medium">{piece.performancePrediction.expectedEngagement}%</div>
+                <div className="font-medium text-gray-900 dark:text-white">{piece.performancePrediction.expectedEngagement}%</div>
               </div>
               <div>
                 <span className="text-muted-foreground">Confidence</span>
-                <div className="font-medium">{piece.performancePrediction.confidenceScore}%</div>
+                <div className="font-medium text-gray-900 dark:text-white">{piece.performancePrediction.confidenceScore}%</div>
               </div>
             </div>
           )}

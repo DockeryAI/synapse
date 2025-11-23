@@ -19,9 +19,9 @@ export function CampaignBuilderPage() {
   const navigate = useNavigate();
   const { currentBrand } = useBrand();
 
-  const handleComplete = (campaignId: string) => {
-    console.log('[CampaignBuilderPage] Campaign created:', campaignId);
-    navigate(`/dashboard?campaign=${campaignId}`);
+  const handleComplete = (campaign: any, pieces: any[]) => {
+    console.log('[CampaignBuilderPage] Campaign created:', campaign.id);
+    navigate(`/dashboard?campaign=${campaign.id}`);
   };
 
   const handleCancel = () => {
@@ -32,9 +32,9 @@ export function CampaignBuilderPage() {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-slate-950 p-8">
         <div className="max-w-4xl mx-auto">
-          <Card>
+          <Card className="bg-white dark:bg-slate-800">
             <CardContent className="p-8 text-center">
-              <p className="text-muted-foreground">
+              <p className="text-gray-600 dark:text-gray-300">
                 Please select or create a brand first to build campaigns.
               </p>
               <button
@@ -88,15 +88,15 @@ export function CampaignBuilderPage() {
         {/* Main Content */}
         <div className="max-w-7xl mx-auto px-6 py-8">
           {/* Info Banner */}
-          <Card className="mb-6 border-primary/30">
+          <Card className="mb-6 border-primary/30 bg-white dark:bg-slate-800">
             <CardHeader className="pb-3">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-5 h-5 text-primary" />
-                <CardTitle className="text-lg">AI-Powered Campaign Generation</CardTitle>
+                <CardTitle className="text-lg text-gray-900 dark:text-white">AI-Powered Campaign Generation</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-sm text-gray-600 dark:text-gray-300">
                 Choose from 15 proven campaign templates, customize for your industry,
                 and let AI generate a complete narrative arc with emotional progression.
               </p>

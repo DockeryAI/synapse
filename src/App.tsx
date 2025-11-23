@@ -11,6 +11,7 @@ const SessionManagerPage = lazy(() => import('./pages/SessionManagerPage').then(
 const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
 const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').then(m => ({ default: m.ContentCalendarPage })))
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
+const CampaignBuilderPage = lazy(() => import('./pages/CampaignBuilderPage').then(m => ({ default: m.CampaignBuilderPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
 
 // TODO: Lazy load auth routes when ready to enable authentication (Phase 0)
@@ -50,7 +51,7 @@ function App() {
                 {/* Synapse Content Generation */}
                 <Route path="/synapse" element={<SynapsePage />} />
                 <Route path="/synapse-old" element={<SynapsePage />} />
-                <Route path="/campaign/new" element={<CampaignPage />} />
+                <Route path="/campaign/new" element={<CampaignBuilderPage />} />
                 <Route path="/content-calendar" element={<ContentCalendarPage />} />
 
                 {/* Admin Routes - Commented out until authentication is enabled */}

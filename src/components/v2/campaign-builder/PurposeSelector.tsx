@@ -197,8 +197,8 @@ export const PurposeSelector: React.FC<PurposeSelectorProps> = ({
   return (
     <div className={cn('space-y-4', className)}>
       <div>
-        <h3 className="text-lg font-semibold mb-2">Choose Your Campaign Template</h3>
-        <p className="text-sm text-muted-foreground">
+        <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">Choose Your Campaign Template</h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400">
           Select a template that matches your campaign goals
         </p>
       </div>
@@ -210,10 +210,10 @@ export const PurposeSelector: React.FC<PurposeSelectorProps> = ({
             key={cat}
             onClick={() => setFilter(cat)}
             className={cn(
-              'px-3 py-1.5 text-sm rounded-md capitalize',
+              'px-3 py-1.5 text-sm rounded-md capitalize font-medium',
               filter === cat
                 ? 'bg-primary text-primary-foreground'
-                : 'bg-muted hover:bg-muted/80'
+                : 'bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-600'
             )}
           >
             {cat === 'all' ? 'All Templates' : cat}
@@ -257,16 +257,16 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
   );
 
   const categoryColors = {
-    premium: 'border-amber-500 bg-amber-50',
-    authority: 'border-blue-500 bg-blue-50',
-    quickwin: 'border-green-500 bg-green-50',
+    premium: 'bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200',
+    authority: 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200',
+    quickwin: 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200',
   };
 
   return (
     <button
       onClick={onSelect}
       className={cn(
-        'text-left p-4 rounded-lg border-2 transition-all',
+        'text-left p-4 rounded-lg border-2 transition-all bg-white dark:bg-slate-800',
         selected
           ? 'border-primary ring-2 ring-primary/20'
           : 'border-border hover:border-primary/50',
@@ -274,10 +274,10 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
       )}
     >
       <div className="flex items-start justify-between mb-2">
-        <h4 className="font-semibold">{template.name}</h4>
+        <h4 className="font-semibold text-gray-900 dark:text-white">{template.name}</h4>
         <span
           className={cn(
-            'px-2 py-0.5 text-xs rounded-full capitalize',
+            'px-2 py-0.5 text-xs rounded-full capitalize font-medium',
             categoryColors[template.category]
           )}
         >
@@ -285,22 +285,22 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
         </span>
       </div>
 
-      <p className="text-sm text-muted-foreground mb-3">
+      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
         {template.description}
       </p>
 
       <div className="grid grid-cols-3 gap-2 text-xs mb-3">
         <div>
-          <span className="text-muted-foreground">Pieces</span>
-          <div className="font-medium">{template.pieces}</div>
+          <span className="text-gray-500 dark:text-gray-400">Pieces</span>
+          <div className="font-medium text-gray-900 dark:text-white">{template.pieces}</div>
         </div>
         <div>
-          <span className="text-muted-foreground">Days</span>
-          <div className="font-medium">{template.duration}</div>
+          <span className="text-gray-500 dark:text-gray-400">Days</span>
+          <div className="font-medium text-gray-900 dark:text-white">{template.duration}</div>
         </div>
         <div>
-          <span className="text-muted-foreground">ROI</span>
-          <div className="font-medium text-green-600">{template.expectedROI}x</div>
+          <span className="text-gray-500 dark:text-gray-400">ROI</span>
+          <div className="font-medium text-green-600 dark:text-green-400">{template.expectedROI}x</div>
         </div>
       </div>
 
@@ -308,7 +308,7 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
         {template.bestFor.slice(0, 2).map(use => (
           <span
             key={use}
-            className="px-2 py-0.5 text-xs bg-muted rounded"
+            className="px-2 py-0.5 text-xs bg-gray-100 dark:bg-slate-700 text-gray-700 dark:text-gray-300 rounded"
           >
             {use}
           </span>
@@ -316,14 +316,14 @@ const TemplateCard: React.FC<TemplateCardProps> = ({
       </div>
 
       {/* Performance Score */}
-      <div className="mt-3 pt-3 border-t">
+      <div className="mt-3 pt-3 border-t border-gray-200 dark:border-slate-700">
         <div className="flex items-center justify-between text-xs">
-          <span className="text-muted-foreground">Performance Score</span>
+          <span className="text-gray-500 dark:text-gray-400">Performance Score</span>
           <span className={cn(
             'font-medium',
-            prediction.overallScore >= 70 ? 'text-green-600' :
-            prediction.overallScore >= 50 ? 'text-yellow-600' :
-            'text-red-600'
+            prediction.overallScore >= 70 ? 'text-green-600 dark:text-green-400' :
+            prediction.overallScore >= 50 ? 'text-yellow-600 dark:text-yellow-400' :
+            'text-red-600 dark:text-red-400'
           )}>
             {prediction.overallScore}/100
           </span>

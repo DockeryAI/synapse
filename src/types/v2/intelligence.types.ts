@@ -157,19 +157,4 @@ export interface ScoringConfig {
   };
 }
 
-// Export all types
-export type {
-  OpportunityTier,
-  OpportunitySource,
-  OpportunityAlert,
-  OpportunityRadarConfig,
-  OpportunityRadarState,
-  CompetitorTheme,
-  CompetitorProfile,
-  WhiteSpaceOpportunity,
-  DifferentiationScore,
-  ScoringFactorName,
-  ScoringFactor,
-  BreakthroughScore,
-  ScoringConfig,
-};
+// Types already exported above - no need for re-export

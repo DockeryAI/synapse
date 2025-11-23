@@ -415,4 +415,18 @@ export const EMOTIONAL_TRIGGER_COLORS: Record<EmotionalTrigger, string> = {
   urgency: '#F97316', // orange
   curiosity: '#6366F1', // indigo
   authority: '#64748B', // slate
+  desire: '#EC4899', // pink
+  frustration: '#EF4444', // red
+  triumph: '#F59E0B', // amber
+  inspiration: '#8B5CF6', // purple
+  excitement: '#F97316', // orange
+  confidence: '#10B981', // green
+  understanding: '#3B82F6', // blue
+  clarity: '#06B6D4', // cyan
+  acknowledgment: '#64748B', // slate
+  resolution: '#10B981', // green
+  satisfaction: '#84CC16', // lime
+  respect: '#6366F1', // indigo
+  pride: '#F59E0B', // amber
+  belonging: '#EC4899', // pink
 };

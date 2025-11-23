@@ -116,7 +116,7 @@ export class SegmentEQOptimizerService {
       triggerAdjustments: {
         trust: 10,
         hope: 10,
-        community: 15,
+        belonging: 15, // Community = belonging
         urgency: 5,
       },
       rationale: 'Community-focused platform favors trust and belonging',

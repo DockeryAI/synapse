@@ -593,6 +593,15 @@ export class CampaignArcGeneratorService {
       resolution: 'Here\'s the answer',
       satisfaction: 'You did it',
       respect: 'You\'ve earned this',
+      security: 'Protect what matters most',
+      efficiency: 'Save time and resources',
+      innovation: 'Stay ahead of the curve',
+      opportunity: 'Don\'t miss this chance',
+      safety: 'Your wellbeing comes first',
+      growth: 'Unlock your full potential',
+      authority: 'Trust the experts',
+      pride: 'Be proud of what you\'ve built',
+      belonging: 'You\'re part of something special',
     };
 
     const openingLine = triggerPhrases[emotionalTrigger] || 'Here\'s what you need to know';
