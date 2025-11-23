@@ -74,6 +74,7 @@ export const CampaignCalendarView: React.FC<CampaignCalendarViewProps> = ({
 
   const allApproved = posts.every(p => p.status === 'approved' || p.status === 'scheduled');
   const approvedCount = posts.filter(p => p.status === 'approved' || p.status === 'scheduled').length;
+  const hasDay3Checkpoint = duration >= 3;
 
   return (
     <div className="campaign-calendar">

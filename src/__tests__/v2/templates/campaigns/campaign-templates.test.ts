@@ -45,7 +45,7 @@ describe('CampaignTemplateBaseService', () => {
         { id: 'test_03', dayOffset: 7 }
       ] as any[]
 
-      const startDate = new Date('2025-01-01')
+      const startDate = '2025-01-01T00:00:00.000Z'
       const timeline = CampaignTemplateBaseService.calculateTimeline(pieces, startDate)
 
       expect(timeline.get('test_01')?.toISOString().split('T')[0]).toBe('2025-01-01')
@@ -100,7 +100,7 @@ describe('CampaignTemplateBaseService', () => {
       const instance = CampaignTemplateBaseService.instantiate(
         RACEJourneyTemplate,
         'test-brand-123',
-        new Date('2025-01-01')
+        '2025-01-01T00:00:00.000Z'
       )
 
       expect(instance.templateId).toBe('race-journey')

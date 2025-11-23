@@ -26,7 +26,7 @@ describe('CampaignArcGeneratorService', () => {
       tone: 'professional',
     };
     mockConfig = {
-      startDate: new Date('2024-01-01'),
+      startDate: '2024-01-01T00:00:00.000Z',
       targetAudience: 'small business owners',
       primaryGoal: 'lead generation',
       industryCode: '541511',
@@ -71,7 +71,7 @@ describe('CampaignArcGeneratorService', () => {
 
       expect(result.timeline.startDate).toEqual(mockConfig.startDate);
       expect(result.timeline.totalDuration).toBe(14);
-      expect(result.timeline.endDate).toEqual(new Date('2024-01-15'));
+      expect(result.timeline.endDate).toEqual('2024-01-15T00:00:00.000Z');
     });
 
     it('should throw error for unknown template', () => {
@@ -90,8 +90,8 @@ describe('CampaignArcGeneratorService', () => {
 
       const result = service.generateArc('pas_series', mockBrandContext, customConfig);
 
-      const firstDate = result.pieces[0].scheduledDate;
-      const secondDate = result.pieces[1].scheduledDate;
+      const firstDate = new Date(result.pieces[0].scheduledDate);
+      const secondDate = new Date(result.pieces[1].scheduledDate);
       const daysDiff = Math.round(
         (secondDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24)
       );
@@ -156,7 +156,7 @@ describe('CampaignArcGeneratorService', () => {
         pieceTemplate,
         mockBrandContext,
         'campaign-123',
-        new Date('2024-01-01')
+        '2024-01-01T00:00:00.000Z'
       );
 
       expect(piece.id).toBeDefined();
@@ -179,7 +179,7 @@ describe('CampaignArcGeneratorService', () => {
         pieceTemplate,
         mockBrandContext,
         'campaign-123',
-        new Date('2024-01-01')
+        '2024-01-01T00:00:00.000Z'
       );
 
       expect(piece.performancePrediction).toBeDefined();
@@ -199,7 +199,7 @@ describe('CampaignArcGeneratorService', () => {
         pieceTemplate,
         mockBrandContext,
         'campaign-123',
-        new Date('2024-01-01')
+        '2024-01-01T00:00:00.000Z'
       );
 
       expect(piece.title).toContain('Test Brand');
@@ -212,8 +212,8 @@ describe('CampaignArcGeneratorService', () => {
 
       // Pieces should be scheduled in order
       for (let i = 1; i < result.pieces.length; i++) {
-        expect(result.pieces[i].scheduledDate.getTime())
-          .toBeGreaterThan(result.pieces[i - 1].scheduledDate.getTime());
+        expect(new Date(result.pieces[i].scheduledDate).getTime())
+          .toBeGreaterThan(new Date(result.pieces[i - 1].scheduledDate).getTime());
       }
     });
 

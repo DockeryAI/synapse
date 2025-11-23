@@ -22,7 +22,7 @@ const mockPiece: CampaignPiece = {
   title: 'Test Piece Title',
   content: 'This is test content for the campaign piece that should be displayed.',
   emotionalTrigger: 'curiosity' as EmotionalTrigger,
-  scheduledDate: new Date('2024-01-01'),
+  scheduledDate: '2024-01-01T00:00:00.000Z',
   status: 'pending',
   channel: 'linkedin',
   pieceOrder: 0,
@@ -32,6 +32,7 @@ const mockPiece: CampaignPiece = {
     expectedEngagement: 2.1,
     expectedConversion: 2.8,
     confidenceScore: 75,
+    factors: [],
   },
 };
 
@@ -43,7 +44,7 @@ const mockPieces: CampaignPiece[] = [
     title: 'Second Piece',
     emotionalTrigger: 'hope',
     pieceOrder: 1,
-    scheduledDate: new Date('2024-01-05'),
+    scheduledDate: '2024-01-05T00:00:00.000Z',
   },
   {
     ...mockPiece,
@@ -51,7 +52,7 @@ const mockPieces: CampaignPiece[] = [
     title: 'Third Piece',
     emotionalTrigger: 'desire',
     pieceOrder: 2,
-    scheduledDate: new Date('2024-01-10'),
+    scheduledDate: '2024-01-10T00:00:00.000Z',
   },
 ];
 
@@ -234,8 +235,8 @@ describe('CampaignPreview', () => {
     name: 'Test Campaign',
     purpose: 'conversion' as const,
     status: 'draft' as const,
-    startDate: new Date('2024-01-01'),
-    endDate: new Date('2024-01-15'),
+    startDate: '2024-01-01T00:00:00.000Z',
+    endDate: '2024-01-15T00:00:00.000Z',
   };
 
   it('should display campaign information', () => {

@@ -28,7 +28,21 @@ export type EmotionalTrigger =
   | 'opportunity'
   | 'urgency'
   | 'curiosity'
-  | 'authority';
+  | 'authority'
+  | 'desire'
+  | 'frustration'
+  | 'pride'
+  | 'belonging'
+  | 'acknowledgment'
+  | 'clarity'
+  | 'confidence'
+  | 'excitement'
+  | 'inspiration'
+  | 'resolution'
+  | 'respect'
+  | 'satisfaction'
+  | 'triumph'
+  | 'understanding';
 
 export interface CampaignArc {
   id: string;
@@ -37,6 +51,8 @@ export interface CampaignArc {
   phases: CampaignPhase[];
   totalDuration: number; // in days
   emotionalProgression: EmotionalTrigger[];
+  totalPieces?: number;
+  completedPieces?: number;
 }
 
 export interface CampaignPhase {
