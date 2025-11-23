@@ -203,31 +203,48 @@
 
 ---
 
-## WEEK 6: Testing & Gap Analysis #2
-**Goal:** Second comprehensive testing cycle with near-complete system
+## WEEK 6: Campaign Builder Integration ✅ COMPLETE
+**Goal:** Wire Campaign Builder UI to Campaign Arc Generator service
+**Status:** Completed 2025-11-22
+**Branch:** feature/dashboard-v2-week2
 
-### Testing Activities
-- **Comprehensive User Testing**
-  - Test full workflow from opportunity to campaign
-  - Evaluate progressive disclosure effectiveness
-  - Assess intelligence layer value
-  - Test with users from different industries
+### Completion Summary
+✅ **All Completed:**
+- Wired V2 Campaign Builder to /campaign/new route
+- Fixed all dark mode visibility issues across all campaign builder screens
+- Created missing UVPGenerationContext and PerformanceContext (Week 5 gap)
+- Campaign Builder UI fully functional with service integration
+- Template selection wired to CampaignArcGeneratorService
+- Added loading spinner and error handling with retry
+- Implemented database save functionality (campaigns + pieces)
+- 0 TypeScript errors in modified code
+- UVP onboarding flow verified unaffected
 
-- **Performance Analysis**
-  - Load testing with 200+ data points
-  - Campaign generation speed
-  - UI responsiveness metrics
-  - API optimization opportunities
+### Core Deliverables
+- **Campaign Builder Service Integration**
+  - Connect PurposeSelector → CampaignArcGenerator
+  - Generate campaign pieces on template selection
+  - Display pieces in TimelineVisualizer
+  - Enable preview and database save
 
-- **Feature Completeness Review**
-  - Compare against original spec
-  - Identify remaining gaps
-  - Prioritize final features
+- **Database Schema (if needed)**
+  - campaigns_v2 table
+  - campaign_pieces_v2 table
+  - RLS policies
 
-### Deliverables
-- Comprehensive testing report
-- Performance optimization plan
-- Final feature list for completion
+### Testing Checkpoint
+- ✅ Template selection generates 3-5 campaign pieces
+- ✅ Timeline displays pieces with drag-drop
+- ✅ Preview shows campaign metadata
+- ✅ Save persists to database
+- ✅ UVP onboarding flow still works (no breaking changes)
+
+### Integration Plan
+See: `.buildrunner/WEEK_6_CAMPAIGN_BUILDER_INTEGRATION.md`
+
+### Original Week 6 Plan (Deferred)
+The original Week 6 plan (comprehensive user testing, performance analysis) has been deferred.
+Current focus is completing Campaign Builder integration before testing.
 
 ---
 
