@@ -6,6 +6,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, TrendingUp, Clock } from 'lucide-react';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import { CompetitiveGaps } from './CompetitiveGaps';
 
 export interface EasyModeProps {
   context: DeepContext;
@@ -31,12 +32,25 @@ export function EasyMode({ context, onGenerate }: EasyModeProps) {
   };
 
   return (
-    <div className="h-full flex items-center justify-center p-8">
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="max-w-2xl w-full"
-      >
+    <div className="h-full p-8 overflow-y-auto">
+      <div className="max-w-4xl mx-auto space-y-8">
+        {/* Competitive Gaps Section (if available) */}
+        {context.competitiveAnalysis && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-6 border border-gray-200 dark:border-slate-700"
+          >
+            <CompetitiveGaps analysis={context.competitiveAnalysis} />
+          </motion.div>
+        )}
+
+        {/* Main Strategy Card */}
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          className="w-full"
+        >
         {/* Main Card */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-12 text-center border border-gray-200 dark:border-slate-700">
           {/* Icon */}
@@ -100,7 +114,8 @@ export function EasyMode({ context, onGenerate }: EasyModeProps) {
         <p className="text-center text-sm text-gray-500 dark:text-gray-500 mt-6">
           Want more control? Switch to Power Mode using the toggle above.
         </p>
-      </motion.div>
+        </motion.div>
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { InsightRecipes } from './InsightRecipes';
 import { InsightGrid } from './InsightGrid';
 import { YourMix } from './YourMix';
+import { CompetitiveGaps } from './CompetitiveGaps';
 import type { InsightCard as InsightCardType } from './types';
 import { formatInsightText } from './insightTextFormatter';
 
@@ -421,35 +422,45 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
   const selectedInsightObjects = allInsights().filter(i => selectedInsights.includes(i.id));
 
   return (
-    <div className="h-full flex gap-4 p-4">
-      {/* Left Panel: Recipes (20%) */}
-      <div className="w-1/5 min-w-[200px] flex-shrink-0">
-        <InsightRecipes
-          allInsights={allInsights()}
-          onSelectRecipe={handleSelectRecipe}
-        />
-      </div>
+    <div className="h-full flex flex-col gap-4 p-4 overflow-y-auto">
+      {/* Competitive Gaps Section (if available) */}
+      {context.competitiveAnalysis && (
+        <div className="bg-white dark:bg-slate-900 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-slate-700">
+          <CompetitiveGaps analysis={context.competitiveAnalysis} />
+        </div>
+      )}
 
-      {/* Center Panel: Insight Grid (60%) */}
-      <div className="flex-1">
-        <InsightGrid
-          insights={filteredInsights}
-          selectedInsights={selectedInsights}
-          onToggleInsight={handleToggleInsight}
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
-      </div>
+      {/* Main Power Mode Layout */}
+      <div className="flex gap-4 flex-1 min-h-0">
+        {/* Left Panel: Recipes (20%) */}
+        <div className="w-1/5 min-w-[200px] flex-shrink-0">
+          <InsightRecipes
+            allInsights={allInsights()}
+            onSelectRecipe={handleSelectRecipe}
+          />
+        </div>
 
-      {/* Right Panel: Your Mix (20%) */}
-      <div className="w-1/5 min-w-[200px] flex-shrink-0">
-        <YourMix
-          selectedInsights={selectedInsightObjects}
-          context={context}
-          onRemove={handleToggleInsight}
-          onClear={() => setSelectedInsights([])}
-          onGenerate={handleGenerate}
-        />
+        {/* Center Panel: Insight Grid (60%) */}
+        <div className="flex-1">
+          <InsightGrid
+            insights={filteredInsights}
+            selectedInsights={selectedInsights}
+            onToggleInsight={handleToggleInsight}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
+        </div>
+
+        {/* Right Panel: Your Mix (20%) */}
+        <div className="w-1/5 min-w-[200px] flex-shrink-0">
+          <YourMix
+            selectedInsights={selectedInsightObjects}
+            context={context}
+            onRemove={handleToggleInsight}
+            onClear={() => setSelectedInsights([])}
+            onGenerate={handleGenerate}
+          />
+        </div>
       </div>
     </div>
   );

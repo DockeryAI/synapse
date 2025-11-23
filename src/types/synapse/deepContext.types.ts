@@ -451,6 +451,9 @@ export interface DeepContext {
   /** Synthesized insights and recommendations */
   synthesis: Synthesis;
 
+  /** Competitive analysis from web scraping (Phase 2C) */
+  competitiveAnalysis?: any; // CompetitiveAnalysisResult from competitive-analyzer.service
+
   /** Metadata */
   metadata: {
     aggregatedAt: Date;

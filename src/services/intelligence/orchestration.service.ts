@@ -18,6 +18,7 @@ import { connectionDiscoveryService, type Connection, type BreakthroughAngle } f
 import { naicsDatabase, type IndustryProfile } from './naics-database.service';
 import { contentSynthesis, type SynthesizedContent } from './content-synthesis.service';
 import { jtbdTransformer } from './jtbd-transformer.service';
+import { competitiveAnalyzerService } from './competitive-analyzer.service';
 
 export interface OrchestrationResult {
   // Phase 2 outputs
@@ -88,6 +89,30 @@ class OrchestrationService {
     const industryProfile = await naicsDatabase.matchIndustry(
       deepContext.business.profile.industry
     );
+
+    // Phase 4.5: Competitive Analysis (if competitor URLs provided)
+    const competitorUrls = deepContext.business?.profile?.competitors || [];
+    if (competitorUrls.length > 0) {
+      try {
+        console.log(`[Orchestration] Phase 4.5: Running competitive analysis on ${competitorUrls.length} competitors...`);
+        const competitiveAnalysis = await competitiveAnalyzerService.analyzeCompetitors(
+          competitorUrls,
+          deepContext
+        );
+
+        // Add to context
+        deepContext.competitiveAnalysis = competitiveAnalysis;
+
+        console.log(`[Orchestration] Phase 4.5: ✅ Analyzed ${competitiveAnalysis.competitors.length} competitors`);
+        console.log(`  - White spaces found: ${competitiveAnalysis.whiteSpaces.length}`);
+        console.log(`  - Differentiation strategies: ${competitiveAnalysis.differentiationStrategies.length}`);
+      } catch (error) {
+        console.error('[Orchestration] Competitive analysis failed:', error);
+        // Continue without competitive analysis
+      }
+    } else {
+      console.log('[Orchestration] Phase 4.5: No competitor URLs provided, skipping competitive analysis');
+    }
 
     // Phase 5: Content Synthesis
     console.log('[Orchestration] Phase 5: Synthesizing breakthrough content...');
