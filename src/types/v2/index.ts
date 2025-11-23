@@ -6,3 +6,4 @@
 export * from './campaign.types';
 export * from './content.types';
 export * from './template.types';
+export * from './segments.types';
