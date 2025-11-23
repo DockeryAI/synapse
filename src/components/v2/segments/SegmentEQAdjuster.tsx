@@ -128,12 +128,13 @@ export const SegmentEQAdjuster: React.FC<SegmentEQAdjusterProps> = ({
     }
 
     // Apply platform adjustments
-    const adjusted: Record<string, number> = { ...mapping.triggerWeights };
+    const adjusted: Record<EmotionalTrigger, number> = { ...mapping.triggerWeights };
     const platformAdj = mapping.platformAdjustments?.[selectedPlatform];
 
     if (platformAdj) {
       Object.entries(platformAdj).forEach(([trigger, adjustment]) => {
-        adjusted[trigger] = (adjusted[trigger] || 50) + (adjustment || 0);
+        const t = trigger as EmotionalTrigger;
+        adjusted[t] = (adjusted[t] || 50) + (adjustment || 0);
       });
     }
 

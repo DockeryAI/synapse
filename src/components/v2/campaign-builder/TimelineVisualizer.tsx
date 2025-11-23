@@ -49,6 +49,15 @@ const TRIGGER_COLORS: Record<EmotionalTrigger, string> = {
   resolution: 'bg-emerald-500',
   satisfaction: 'bg-lime-500',
   respect: 'bg-violet-500',
+  security: 'bg-blue-600',
+  efficiency: 'bg-green-600',
+  innovation: 'bg-purple-600',
+  opportunity: 'bg-yellow-600',
+  safety: 'bg-emerald-600',
+  growth: 'bg-teal-600',
+  authority: 'bg-indigo-600',
+  pride: 'bg-pink-600',
+  belonging: 'bg-cyan-600',
 };
 
 export const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({

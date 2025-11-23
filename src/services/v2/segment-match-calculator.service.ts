@@ -68,10 +68,10 @@ export class SegmentMatchCalculatorService {
     // Calculate overall score (weighted average)
     const overallScore = this.calculateOverallScore({
       personaAlignment,
-      stageAlignment,
-      eqFit,
+      purchaseStageAlignment: stageAlignment,
+      eqTriggerFit: eqFit,
       toneMatch,
-      lengthFit,
+      messageLengthFit: lengthFit,
     });
 
     // Generate improvement suggestions

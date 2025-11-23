@@ -69,7 +69,7 @@ export class SegmentEQOptimizerService {
     collaborative: {
       trust: 90,
       hope: 85,
-      community: 80,
+      belonging: 80,
       authority: 70,
       safety: 75,
       innovation: 65,
@@ -78,7 +78,7 @@ export class SegmentEQOptimizerService {
       authority: 95,
       trust: 90,
       innovation: 85,
-      data: 90,
+      clarity: 90,
       efficiency: 75,
       urgency: 40,
     },
