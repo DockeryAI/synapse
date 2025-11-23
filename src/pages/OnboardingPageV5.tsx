@@ -498,36 +498,34 @@ export const OnboardingPageV5: React.FC = () => {
       setScrapedWebsiteContent(websiteContent);
       setScrapedWebsiteUrls(websiteUrls);
 
-      // Create REAL brand in database - no temp brand bullshit
-      // Every onboarding creates a real brand so intelligence system can run
-      if (!currentBrand) {
-        console.log('[OnboardingPageV5] Creating REAL brand in database...');
-        const { supabase } = await import('@/lib/supabase');
+      // Create REAL brand in database - ALWAYS create new brand for each onboarding
+      // This ensures UVP data is associated with the correct brand
+      console.log('[OnboardingPageV5] Creating new brand in database...');
+      const { supabase } = await import('@/lib/supabase');
 
-        // Get user if authenticated, null if not (user_id is nullable)
-        const { data: { user } } = await supabase.auth.getUser();
+      // Get user if authenticated, null if not (user_id is nullable)
+      const { data: { user } } = await supabase.auth.getUser();
 
-        const { data: brandData, error: brandError } = await supabase
-          .from('brands')
-          .insert({
-            name: businessName,
-            industry: industry.displayName,
-            website: url,
-            user_id: user?.id || null, // Nullable - allows unauthenticated onboarding
-            emotional_quotient: null, // Will be set after EQ calculation
-            eq_calculated_at: null,
-          })
-          .select()
-          .single();
+      const { data: brandData, error: brandError } = await supabase
+        .from('brands')
+        .insert({
+          name: businessName,
+          industry: industry.displayName,
+          website: url,
+          user_id: user?.id || null, // Nullable - allows unauthenticated onboarding
+          emotional_quotient: null, // Will be set after EQ calculation
+          eq_calculated_at: null,
+        })
+        .select()
+        .single();
 
-        if (brandError) {
-          console.error('[OnboardingPageV5] FAILED to create brand in database:', brandError);
-          throw new Error(`Brand creation failed: ${brandError.message}. Cannot continue without real brand.`);
-        }
-
-        setCurrentBrand(brandData);
-        console.log('[OnboardingPageV5] ✅ REAL brand created in database:', brandData.id);
+      if (brandError) {
+        console.error('[OnboardingPageV5] FAILED to create brand in database:', brandError);
+        throw new Error(`Brand creation failed: ${brandError.message}. Cannot continue without real brand.`);
       }
+
+      setCurrentBrand(brandData);
+      console.log('[OnboardingPageV5] ✅ New brand created in database:', brandData.id);
 
       // =========================================================================
       // EARLY START: Customer extraction runs in parallel with product scan

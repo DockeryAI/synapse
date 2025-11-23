@@ -27,8 +27,10 @@ interface GoogleTrendsResponse {
   }
 }
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
 export class TrendAnalyzerService {
-  private static readonly TRENDS_API_KEY = import.meta.env.VITE_GOOGLE_TRENDS_API_KEY || ''
   private static readonly CACHE_TTL_HOURS = 1
 
   /**
@@ -123,26 +125,30 @@ export class TrendAnalyzerService {
     keyword: string,
     location?: string
   ): Promise<any> {
-    // Check for API configuration
-    if (!this.TRENDS_API_KEY) {
+    // Check for Supabase configuration
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       throw new Error(
-        'Google Trends API key not configured. Add VITE_GOOGLE_TRENDS_API_KEY to your .env file. ' +
-        'Note: Google Trends does not have an official API. Consider using a service like SerpAPI or Rapid API.'
+        'Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.'
       )
     }
 
     try {
-      // TODO: Implement actual Google Trends API call
-      // This requires a third-party service like SerpAPI or similar
-      // For now, throw error until implemented
+      // TODO: Implement actual Google Trends API call via Edge Function
+      // This would require a third-party service like SerpAPI configured server-side
+      // For now, throw error until Edge Function is implemented
       throw new Error(
-        'Google Trends integration pending. This requires a third-party API service like SerpAPI. ' +
-        'Visit https://serpapi.com/ to get an API key for trends data.'
+        'Google Trends integration pending. This requires implementing an Edge Function with a third-party API service like SerpAPI.'
       )
 
-      // Example implementation with SerpAPI:
-      // const url = `https://serpapi.com/search?engine=google_trends&q=${encodeURIComponent(keyword)}&api_key=${this.TRENDS_API_KEY}`
-      // const response = await fetch(url)
+      // Future implementation via Edge Function:
+      // const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-trends`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      //   },
+      //   body: JSON.stringify({ keyword, location })
+      // })
       // if (!response.ok) throw new Error(`Trends API error: ${response.statusText}`)
       // return await response.json()
     } catch (error) {

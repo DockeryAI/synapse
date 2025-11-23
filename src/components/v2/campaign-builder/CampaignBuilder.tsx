@@ -12,6 +12,7 @@ import { CampaignPreview } from './CampaignPreview';
 import { CampaignArcGeneratorService } from '@/services/v2/campaign-arc-generator.service';
 import { CampaignStorageService } from '@/services/v2/campaign-storage.service';
 import { industryCustomizationService } from '@/services/v2/industry-customization.service';
+import { sessionManager } from '@/services/uvp/session-manager.service';
 import type { Campaign, CampaignPiece, CampaignPurpose } from '@/types/v2';
 
 export type CampaignBuilderStep = 'purpose' | 'timeline' | 'preview';
@@ -134,11 +135,14 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({
     }));
   };
 
-  const handleContinueToPreview = () => {
+  const handleContinueToPreview = async () => {
     setState(prev => ({
       ...prev,
       step: 'preview',
     }));
+
+    // Auto-save campaign when reaching preview
+    await handleSave();
   };
 
   const handleBack = () => {
@@ -179,6 +183,16 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({
       await campaignStorage.addCampaignPieces(savedCampaign.id, piecesToSave);
 
       setState(prev => ({ ...prev, isGenerating: false }));
+
+      // Auto-save session after campaign creation
+      const sessionId = localStorage.getItem('current_session_id');
+      if (sessionId) {
+        console.log('[CampaignBuilder] Auto-saving session after campaign creation');
+        await sessionManager.updateSession({
+          session_id: sessionId,
+          current_step: 'dashboard',
+        }).catch(err => console.warn('[CampaignBuilder] Session auto-save failed (non-critical):', err));
+      }
 
       // Notify parent
       if (onComplete) {
@@ -353,12 +367,9 @@ export const CampaignBuilder: React.FC<CampaignBuilderProps> = ({
         )}
 
         {state.step === 'preview' && (
-          <button
-            onClick={handleSave}
-            className="px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-          >
-            Save Campaign
-          </button>
+          <div className="text-sm text-gray-600 dark:text-gray-400">
+            Campaign saved automatically
+          </div>
         )}
       </div>
     </div>

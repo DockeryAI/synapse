@@ -212,7 +212,9 @@ class ContentSynthesisService {
       });
 
       if (!response.ok) {
-        throw new Error(`AI Proxy error: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`[ContentSynthesis] AI Proxy error (${response.status}): ${errorText}`);
+        throw new Error(`AI Proxy error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
@@ -324,6 +326,12 @@ OUTPUT FORMAT (JSON only, no markdown):
             temperature: 0.8
           })
         });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.warn(`[ContentSynthesis] AI Proxy error (${response.status}): ${errorText}`);
+          throw new Error(`AI Proxy error: ${response.status}`);
+        }
 
         if (response.ok) {
           const data = await response.json();

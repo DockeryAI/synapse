@@ -18,6 +18,11 @@ export interface InsightCluster {
   sources: string[]; // Unique sources in cluster
   dominantSentiment: string;
   size: number;
+  // Enhanced validation fields
+  commonPhrases?: string[]; // Top phrases from cluster
+  validationStatement?: string; // "15 reviews confirm this pattern"
+  emotionalTrigger?: string; // Dominant emotion
+  sourceBreakdown?: Record<string, number>; // Count per source
 }
 
 class ClusteringService {
@@ -369,8 +374,10 @@ class ClusteringService {
     const enhanced = await Promise.all(
       clusters.map(async (cluster) => {
         const aiTheme = await this.generateAITheme(cluster.dataPoints);
+        const enriched = this.enrichClusterMetadata(cluster);
         return {
           ...cluster,
+          ...enriched,
           theme: aiTheme
         };
       })
@@ -378,6 +385,81 @@ class ClusteringService {
 
     console.log(`[Clustering] ✅ Enhanced ${enhanced.length} cluster themes`);
     return enhanced;
+  }
+
+  /**
+   * Enrich cluster with validation statements and metadata
+   */
+  private enrichClusterMetadata(cluster: InsightCluster): Partial<InsightCluster> {
+    // Extract common phrases (3-5 word sequences)
+    const phrases: Record<string, number> = {};
+    for (const point of cluster.dataPoints) {
+      const words = point.content.toLowerCase().split(/\s+/);
+      for (let i = 0; i < words.length - 2; i++) {
+        const phrase = words.slice(i, i + 3).join(' ');
+        if (phrase.length > 10) {
+          phrases[phrase] = (phrases[phrase] || 0) + 1;
+        }
+      }
+    }
+
+    const commonPhrases = Object.entries(phrases)
+      .filter(([_, count]) => count >= 2)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([phrase]) => phrase);
+
+    // Source breakdown
+    const sourceBreakdown: Record<string, number> = {};
+    for (const point of cluster.dataPoints) {
+      sourceBreakdown[point.source] = (sourceBreakdown[point.source] || 0) + 1;
+    }
+
+    // Validation statement
+    const mainSource = Object.entries(sourceBreakdown)
+      .sort((a, b) => b[1] - a[1])[0];
+
+    let validationStatement = '';
+    if (mainSource) {
+      const [source, count] = mainSource;
+      const sourceLabel = this.getSourceLabel(source);
+      if (cluster.size > 1) {
+        validationStatement = `${cluster.size} ${sourceLabel}${cluster.size > 1 ? 's' : ''} confirm this pattern`;
+      } else {
+        validationStatement = `Validated by ${sourceLabel}`;
+      }
+    }
+
+    // Emotional trigger from sentiment
+    const emotionalTrigger = cluster.dominantSentiment === 'positive' ? 'opportunity'
+      : cluster.dominantSentiment === 'negative' ? 'pain point'
+      : 'insight';
+
+    return {
+      commonPhrases,
+      validationStatement,
+      emotionalTrigger,
+      sourceBreakdown
+    };
+  }
+
+  /**
+   * Get friendly source label
+   */
+  private getSourceLabel(source: string): string {
+    const labels: Record<string, string> = {
+      'youtube': 'video comment',
+      'outscraper': 'review',
+      'serper': 'search result',
+      'weather': 'weather alert',
+      'news': 'news article',
+      'perplexity': 'AI insight',
+      'semrush': 'competitive insight',
+      'reddit': 'discussion',
+      'linkedin': 'professional insight',
+      'apify': 'web analysis'
+    };
+    return labels[source.toLowerCase()] || source;
   }
 
   /**

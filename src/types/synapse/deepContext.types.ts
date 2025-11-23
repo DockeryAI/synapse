@@ -8,6 +8,8 @@
  * Created: 2025-11-10
  */
 
+import type { MultipliedContent } from '@/services/intelligence/content-multiplier.service';
+
 // Temporary stub for cultural intelligence data
 // TODO: Create proper culturalIntelligence.types.ts file
 export interface NormalizedCulturalData {
@@ -450,6 +452,9 @@ export interface DeepContext {
 
   /** Synthesized insights and recommendations */
   synthesis: Synthesis;
+
+  /** Multiplied content from breakthroughs */
+  multipliedContent?: MultipliedContent[];
 
   /** Metadata */
   metadata: {

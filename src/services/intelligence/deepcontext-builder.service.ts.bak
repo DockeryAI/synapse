@@ -209,580 +209,542 @@ class DeepContextBuilderService {
       });
 
       // PHASE 1: PARALLEL DATA EXTRACTION (30 seconds)
-      // FIRE-AND-FORGET PATTERN - All layers run independently!
-      console.log('[DeepContext] 🚀 PHASE 1: PARALLEL DATA EXTRACTION (FIRE-AND-FORGET)');
+      // ALL 4 LAYERS RUN IN PARALLEL - This is the key!
+      console.log('[DeepContext] 🚀 PHASE 1: PARALLEL DATA EXTRACTION (ALL LAYERS SIMULTANEOUSLY)');
 
-      const completedLayers = new Set<string>();
+      const completedLayers: string[] = [];
       const completedAPIs: string[] = [];
-      const dataPoints: DataPoint[] = [];
-      let totalDataPointsCollected = 0;
-
-      // Create data accumulator for real-time streaming
-      const dataAccumulator = {
-        points: dataPoints,
-        addPoints: (newPoints: DataPoint[], source: string) => {
-          dataPoints.push(...newPoints);
-          totalDataPointsCollected += newPoints.length;
-          console.log(`[DeepContext] ${source} added ${newPoints.length} points (total: ${totalDataPointsCollected})`);
-
-          // Trigger Phase 2 at 20 data points
-          if (totalDataPointsCollected >= 20 && !phase2Started) {
-            phase2Started = true;
-            startPhase2();
-          }
-
-          // Trigger Phase 3 at 50 data points
-          if (totalDataPointsCollected >= 50 && !phase3Started) {
-            phase3Started = true;
-            startPhase3();
-          }
-        }
-      };
-
-      let phase2Started = false;
-      let phase3Started = false;
-      let phase2Result: any = null;
-      let phase3Result: any = null;
-
-      // Define phase trigger functions
-      const startPhase2 = () => {
-        console.log('[DeepContext] 🚀 PHASE 2 TRIGGERED EARLY (20+ data points collected)');
-        config.onProgress?.({
-          phase: 2,
-          stage: 'phase2_embedding',
-          message: `Generating embeddings for ${totalDataPointsCollected} data points...`,
-          dataPointsCollected: totalDataPointsCollected,
-          layersCompleted: Array.from(completedLayers),
-          dataSourcesCompleted: completedAPIs,
-          totalDataSources: 11,
-          discoveries: ['✅ Phase 2 started early - embedding data points']
-        });
-
-        // Build minimal deepContext for orchestration
-        const minimalContext = {
-          business: {
-            profile: {
-              name: brandData.name,
-              industry: brandData.industry,
-              location: brandData.location
-            }
-          }
-        } as any;
-
-        // Run orchestration service with current data points
-        const orchestrationPromise = this.orchestrationService.orchestrate(
-          [...dataPoints],
-          minimalContext
-        );
-
-        orchestrationPromise.then(result => {
-          phase2Result = result;
-          console.log('[DeepContext] ✅ Phase 2 Complete: Found', result.clusters?.length || 0, 'clusters');
-          config.onProgress?.({
-            phase: 2,
-            stage: 'phase2_clustering',
-            message: `Found ${result.clusters?.length || 0} pattern clusters`,
-            dataPointsCollected: totalDataPointsCollected,
-            layersCompleted: Array.from(completedLayers),
-            dataSourcesCompleted: completedAPIs,
-            totalDataSources: 11,
-            discoveries: result.clusters?.map(c => `✅ Cluster: ${c.theme}`) || []
-          });
-        });
-      };
-
-      const startPhase3 = () => {
-        console.log('[DeepContext] 🚀 PHASE 3 TRIGGERED EARLY (50+ data points collected)');
-        config.onProgress?.({
-          phase: 3,
-          stage: 'phase3_connections',
-          message: 'Discovering connections between patterns...',
-          dataPointsCollected: totalDataPointsCollected,
-          layersCompleted: Array.from(completedLayers),
-          dataSourcesCompleted: completedAPIs,
-          totalDataSources: 11,
-          discoveries: ['✅ Phase 3 started early - finding connections']
-        });
-
-        // TODO: Implement connection discovery engine
-        // For now, report mock connections based on clusters
-        setTimeout(() => {
-          const connections = phase2Result?.clusters?.length ?
-            [`Found ${phase2Result.clusters.length * 2} two-way connections`,
-             `Found ${Math.floor(phase2Result.clusters.length / 2)} three-way connections`] :
-            ['Searching for pattern connections...'];
-
-          phase3Result = { connections };
-          config.onProgress?.({
-            phase: 3,
-            stage: 'phase3_connections',
-            message: 'Connection discovery complete',
-            dataPointsCollected: totalDataPointsCollected,
-            layersCompleted: Array.from(completedLayers),
-            dataSourcesCompleted: completedAPIs,
-            totalDataSources: 11,
-            discoveries: connections
-          });
-        }, 3000);
-      };
 
       config.onProgress?.({
         phase: 1,
         stage: 'phase1_layer_a',
-        message: 'Starting all 4 layers simultaneously (fire-and-forget)...',
+        message: 'Extracting from all 4 layers simultaneously...',
         dataPointsCollected: 0,
         layersCompleted: [],
         dataSourcesCompleted: [],
         totalDataSources: 11
       });
 
-      // FIRE-AND-FORGET: Launch all APIs independently without blocking
-      // Results collected in real-time as they complete
+      // ALL LAYERS RUN IN PARALLEL
+      const [
+        // Layer A - Business Foundation
+        websiteData,
+        outscraperData,
+        whisperData,
+        // Layer B - Psychological Mining
+        youtubeData,
+        perplexityData,
+        serperData,
+        // Layer C - Competitive Intelligence
+        semrushData,
+        // Layer D - Contextual Timing
+        weatherData,
+        newsData,
+        linkedinData,
+        apifyData
+      ] = await Promise.allSettled([
+        // LAYER A
+        config.includeWebsiteAnalysis !== false && brandData.website
+          ? this.withTimeout(this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed), 60000, 'Website', () => {
+              completedAPIs.push('Website');
+              completedLayers.push('A');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A complete: Business foundation extracted',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Website services & testimonials analyzed']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeOutScraper !== false
+          ? this.withTimeout(this.fetchOutScraperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Reviews', () => {
+              completedAPIs.push('Reviews');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A: Customer reviews extracted',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Customer reviews & Q&A analyzed']
+              });
+            })
+          : Promise.resolve(null),
+        brandData.videoUrls && brandData.videoUrls.length > 0
+          ? this.withTimeout(this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed), 120000, 'Videos', () => {
+              completedAPIs.push('Videos');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A: Video insights extracted',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Hidden video insights captured']
+              });
+            })
+          : Promise.resolve(null),
 
-      // Layer A - Business Foundation APIs
-      let websiteData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let outscraperData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let whisperData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
+        // LAYER B
+        config.includeYouTube !== false
+          ? this.withTimeout(this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed), 60000, 'Comments', () => {
+              completedAPIs.push('Comments');
+              completedLayers.push('B');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B complete: Psychological triggers found',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ "I wish/hate when" patterns extracted']
+              });
+            })
+          : Promise.resolve(null),
+        config.includePerplexity !== false
+          ? this.withTimeout(this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Questions', () => {
+              completedAPIs.push('Questions');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B: Customer needs discovered',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Unarticulated customer needs found']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeSerper !== false
+          ? this.withTimeout(this.fetchSerperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Search', () => {
+              completedAPIs.push('Search');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B: Search patterns analyzed',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ What customers actually search for']
+              });
+            })
+          : Promise.resolve(null),
 
-      // Layer B - Psychological Mining APIs
-      let youtubeData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let perplexityData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let serperData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
+        // LAYER C
+        config.includeSemrush !== false
+          ? this.withTimeout(this.fetchSemrushIntelligence(brandData, errors, dataSourcesUsed), 60000, 'SEO', () => {
+              completedAPIs.push('SEO');
+              completedLayers.push('C');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_c',
+                message: 'Layer C complete: Competitive gaps identified',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Content gaps & blind spots found']
+              });
+            })
+          : Promise.resolve(null),
 
-      // Layer C - Competitive Intelligence APIs
-      let semrushData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-
-      // Layer D - Contextual Timing APIs
-      let weatherData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let newsData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let linkedinData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-      let apifyData: PromiseSettledResult<DataPoint[] | null> = { status: 'pending' as any, value: null };
-
-      // FIRE LAYER A - Business Foundation (3 APIs run independently)
-      if (config.includeWebsiteAnalysis !== false && brandData.website) {
-        this.withTimeout(this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed), 60000, 'Website')
-          .then(result => {
-            websiteData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Website');
-            }
-            completedAPIs.push('Website');
-            completedLayers.add('A');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_a',
-              message: 'Website analyzed',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Website services & testimonials analyzed']
-            });
-          })
-          .catch(error => {
-            websiteData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Website fetch error:', error);
-          });
-      } else {
-        websiteData = { status: 'fulfilled', value: null };
-      }
-      if (config.includeOutScraper !== false) {
-        this.withTimeout(this.fetchOutScraperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Reviews')
-          .then(result => {
-            outscraperData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'OutScraper Reviews');
-            }
-            completedAPIs.push('Reviews');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_a',
-              message: 'Customer reviews extracted',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Customer reviews & Q&A analyzed']
-            });
-          })
-          .catch(error => {
-            outscraperData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] OutScraper fetch error:', error);
-          });
-      } else {
-        outscraperData = { status: 'fulfilled', value: null };
-      }
-
-      if (brandData.videoUrls && brandData.videoUrls.length > 0) {
-        this.withTimeout(this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed), 120000, 'Videos')
-          .then(result => {
-            whisperData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Whisper Videos');
-            }
-            completedAPIs.push('Videos');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_a',
-              message: 'Video insights extracted',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Hidden video insights captured']
-            });
-          })
-          .catch(error => {
-            whisperData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Whisper fetch error:', error);
-          });
-      } else {
-        whisperData = { status: 'fulfilled', value: null };
-      }
-
-      // FIRE LAYER B - Psychological Mining (3 APIs run independently)
-      if (config.includeYouTube !== false) {
-        this.withTimeout(this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed), 60000, 'Comments')
-          .then(result => {
-            youtubeData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'YouTube Comments');
-            }
-            completedAPIs.push('Comments');
-            completedLayers.add('B');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_b',
-              message: 'Psychological triggers found',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ "I wish/hate when" patterns extracted']
-            });
-          })
-          .catch(error => {
-            youtubeData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] YouTube fetch error:', error);
-          });
-      } else {
-        youtubeData = { status: 'fulfilled', value: null };
-      }
-
-      if (config.includePerplexity !== false) {
-        this.withTimeout(this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Questions')
-          .then(result => {
-            perplexityData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Perplexity Questions');
-            }
-            completedAPIs.push('Questions');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_b',
-              message: 'Customer needs discovered',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Unarticulated customer needs found']
-            });
-          })
-          .catch(error => {
-            perplexityData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Perplexity fetch error:', error);
-          });
-      } else {
-        perplexityData = { status: 'fulfilled', value: null };
-      }
-
-      if (config.includeSerper !== false) {
-        this.withTimeout(this.fetchSerperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Search')
-          .then(result => {
-            serperData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Serper Search');
-            }
-            completedAPIs.push('Search');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_b',
-              message: 'Search patterns analyzed',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ What customers actually search for']
-            });
-          })
-          .catch(error => {
-            serperData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Serper fetch error:', error);
-          });
-      } else {
-        serperData = { status: 'fulfilled', value: null };
-      }
-
-      // FIRE LAYER C - Competitive Intelligence (1 API)
-      if (config.includeSemrush !== false) {
-        this.withTimeout(this.fetchSemrushIntelligence(brandData, errors, dataSourcesUsed), 60000, 'SEO')
-          .then(result => {
-            semrushData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'SEMrush SEO');
-            }
-            completedAPIs.push('SEO');
-            completedLayers.add('C');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_c',
-              message: 'Competitive gaps identified',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Content gaps & blind spots found']
-            });
-          })
-          .catch(error => {
-            semrushData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] SEMrush fetch error:', error);
-          });
-      } else {
-        semrushData = { status: 'fulfilled', value: null };
-      }
-
-      // FIRE LAYER D - Contextual Timing (4 APIs run independently)
-      if (config.includeWeather !== false) {
-        this.withTimeout(this.fetchWeatherIntelligence(brandData, errors, dataSourcesUsed), 20000, 'Timing')
-          .then(result => {
-            weatherData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Weather Timing');
-            }
-            completedAPIs.push('Timing');
-            completedLayers.add('D');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_d',
-              message: 'Timing triggers found',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Seasonal & urgency triggers identified']
-            });
-          })
-          .catch(error => {
-            weatherData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Weather fetch error:', error);
-          });
-      } else {
-        weatherData = { status: 'fulfilled', value: null };
-      }
-
-      if (config.includeNews !== false) {
-        this.withTimeout(this.fetchNewsIntelligence(brandData, errors, dataSourcesUsed), 30000, 'Trends')
-          .then(result => {
-            newsData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'News Trends');
-            }
-            completedAPIs.push('Trends');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_d',
-              message: 'Industry trends captured',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Breaking industry news analyzed']
-            });
-          })
-          .catch(error => {
-            newsData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] News fetch error:', error);
-          });
-      } else {
-        newsData = { status: 'fulfilled', value: null };
-      }
-
-      if (config.includeLinkedIn !== false) {
-        this.withTimeout(this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed), 30000, 'Professional')
-          .then(result => {
-            linkedinData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'LinkedIn Professional');
-            }
-            completedAPIs.push('Professional');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_d',
-              message: 'B2B intelligence gathered',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Professional network insights captured']
-            });
-          })
-          .catch(error => {
-            linkedinData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] LinkedIn fetch error:', error);
-          });
-      } else {
-        linkedinData = { status: 'fulfilled', value: null };
-      }
-
-      if (config.includeApify !== false && brandData.website) {
-        this.withTimeout(this.fetchApifyIntelligence(brandData, errors, dataSourcesUsed), 90000, 'Content')
-          .then(result => {
-            apifyData = { status: 'fulfilled', value: result };
-            if (result) {
-              dataAccumulator.addPoints(result, 'Apify Content');
-            }
-            completedAPIs.push('Content');
-            config.onProgress?.({
-              phase: 1,
-              stage: 'phase1_layer_d',
-              message: 'Deep content analysis complete',
-              dataPointsCollected: totalDataPointsCollected,
-              layersCompleted: Array.from(completedLayers),
-              dataSourcesCompleted: completedAPIs,
-              totalDataSources: 11,
-              discoveries: ['✓ Content opportunities mapped']
-            });
-          })
-          .catch(error => {
-            apifyData = { status: 'rejected', reason: error };
-            console.error('[DeepContext] Apify fetch error:', error);
-          });
-      } else {
-        apifyData = { status: 'fulfilled', value: null };
-      }
-
-      // Wait maximum time for Phase 1 (90 seconds) before moving on
-      // But phases 2 and 3 can start early based on data thresholds
-      await new Promise(resolve => {
-        const checkCompletion = setInterval(() => {
-          const allDone =
-            websiteData.status !== 'pending' as any &&
-            outscraperData.status !== 'pending' as any &&
-            whisperData.status !== 'pending' as any &&
-            youtubeData.status !== 'pending' as any &&
-            perplexityData.status !== 'pending' as any &&
-            serperData.status !== 'pending' as any &&
-            semrushData.status !== 'pending' as any &&
-            weatherData.status !== 'pending' as any &&
-            newsData.status !== 'pending' as any &&
-            linkedinData.status !== 'pending' as any &&
-            apifyData.status !== 'pending' as any;
-
-          if (allDone) {
-            clearInterval(checkCompletion);
-            resolve(null);
-          }
-        }, 1000);
-
-        // Maximum wait time for Phase 1
-        setTimeout(() => {
-          clearInterval(checkCompletion);
-          resolve(null);
-        }, 90000);
-      });
+        // LAYER D
+        config.includeWeather !== false
+          ? this.withTimeout(this.fetchWeatherIntelligence(brandData, errors, dataSourcesUsed), 20000, 'Timing', () => {
+              completedAPIs.push('Timing');
+              completedLayers.push('D');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D complete: Timing triggers found',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Seasonal & urgency triggers identified']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeNews !== false
+          ? this.withTimeout(this.fetchNewsIntelligence(brandData, errors, dataSourcesUsed), 30000, 'Trends', () => {
+              completedAPIs.push('Trends');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: Industry trends captured',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Breaking industry news analyzed']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeLinkedIn !== false
+          ? this.withTimeout(this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed), 30000, 'Professional', () => {
+              completedAPIs.push('Professional');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: B2B intelligence gathered',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Professional network insights captured']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeApify !== false && brandData.website
+          ? this.withTimeout(this.fetchApifyIntelligence(brandData, errors, dataSourcesUsed), 90000, 'Content', () => {
+              completedAPIs.push('Content');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: Deep content analysis complete',
+                dataPointsCollected: 0,
+                layersCompleted: [...new Set(completedLayers)],
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Content opportunities mapped']
+              });
+            })
+          : Promise.resolve(null),
+      ]);
 
       const redditData = { status: 'fulfilled' as const, value: null }; // Reddit disabled
 
-      console.log(`[DeepContext] ✅ Phase 1 Complete: ${totalDataPointsCollected} data points from ${completedLayers.size} layers`);
+      // 3. Extract data points from all sources
+        config.includeWebsiteAnalysis !== false && brandData.website
+          ? this.withTimeout(this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed), 60000, 'Apify-Website', () => {
+              completedAPIs.push('Apify');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A: Website services & testimonials extracted',
+                dataPointsCollected: 0,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Business foundation: Website content analyzed']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeOutScraper !== false
+          ? this.withTimeout(this.fetchOutScraperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'OutScraper', () => {
+              completedAPIs.push('OutScraper');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A: Google reviews & Q&A extracted',
+                dataPointsCollected: 0,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Business foundation: Customer reviews analyzed']
+              });
+            })
+          : Promise.resolve(null),
+        brandData.videoUrls && brandData.videoUrls.length > 0
+          ? this.withTimeout(this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed), 120000, 'Whisper', () => {
+              completedAPIs.push('Whisper');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_a',
+                message: 'Layer A: Video transcription complete',
+                dataPointsCollected: 0,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Business foundation: Hidden video insights extracted']
+              });
+            })
+          : Promise.resolve(null),
+      ]);
+
+      completedLayers.push('A');
+
+      // Layer B - Psychological Mining
+      console.log('[DeepContext] Layer B: Psychological Mining');
+      config.onProgress?.({
+        phase: 1,
+        stage: 'phase1_layer_b',
+        message: 'Layer B: Mining psychological triggers (YouTube, Reviews, Search)...',
+        dataPointsCollected: 0,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11
+      });
+
+      const [youtubeData, perplexityData, serperData] = await Promise.allSettled([
+        config.includeYouTube !== false
+          ? this.withTimeout(this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed), 60000, 'YouTube', () => {
+              completedAPIs.push('YouTube');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B: "I wish/hate when" patterns found',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Psychological mining: YouTube comment patterns extracted']
+              });
+            })
+          : Promise.resolve(null),
+        config.includePerplexity !== false
+          ? this.withTimeout(this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Perplexity', () => {
+              completedAPIs.push('Perplexity');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B: Unarticulated customer needs discovered',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Psychological mining: Local customer questions captured']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeSerper !== false
+          ? this.withTimeout(this.fetchSerperIntelligence(brandData, errors, dataSourcesUsed), 45000, 'Serper', () => {
+              completedAPIs.push('Serper');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_b',
+                message: 'Layer B: Search prediction patterns analyzed',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Psychological mining: What customers actually want (autocomplete)']
+              });
+            })
+          : Promise.resolve(null),
+      ]);
+
+      completedLayers.push('B');
+
+      // Layer C - Competitive Intelligence
+      console.log('[DeepContext] Layer C: Competitive Intelligence');
+      config.onProgress?.({
+        phase: 1,
+        stage: 'phase1_layer_c',
+        message: 'Layer C: Analyzing competitive landscape (SEMrush, Shopping, Places)...',
+        dataPointsCollected: 0,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11
+      });
+
+      const [semrushData] = await Promise.allSettled([
+        config.includeSemrush !== false
+          ? this.withTimeout(this.fetchSemrushIntelligence(brandData, errors, dataSourcesUsed), 60000, 'SEMrush', () => {
+              completedAPIs.push('SEMrush');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_c',
+                message: 'Layer C: Content gaps & keyword opportunities found',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Competitive intel: Blind spots identified']
+              });
+            })
+          : Promise.resolve(null),
+      ]);
+
+      completedLayers.push('C');
+
+      // Layer D - Contextual Timing
+      console.log('[DeepContext] Layer D: Contextual Timing');
+      config.onProgress?.({
+        phase: 1,
+        stage: 'phase1_layer_d',
+        message: 'Layer D: Capturing timing opportunities (Weather, News, Trends)...',
+        dataPointsCollected: 0,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11
+      });
+
+      const [weatherData, newsData, linkedinData, apifyData] = await Promise.allSettled([
+        config.includeWeather !== false
+          ? this.withTimeout(this.fetchWeatherIntelligence(brandData, errors, dataSourcesUsed), 20000, 'Weather', () => {
+              completedAPIs.push('Weather');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: Seasonal triggers identified',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Contextual timing: Weather-based urgency captured']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeNews !== false
+          ? this.withTimeout(this.fetchNewsIntelligence(brandData, errors, dataSourcesUsed), 30000, 'News', () => {
+              completedAPIs.push('News');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: Breaking industry news captured',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Contextual timing: Industry trends identified']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeLinkedIn !== false
+          ? this.withTimeout(this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed), 30000, 'LinkedIn', () => {
+              completedAPIs.push('LinkedIn');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: B2B intelligence gathered',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Contextual timing: Professional trends captured']
+              });
+            })
+          : Promise.resolve(null),
+        config.includeApify !== false && brandData.website
+          ? this.withTimeout(this.fetchApifyIntelligence(brandData, errors, dataSourcesUsed), 90000, 'Apify-Scraper', () => {
+              completedAPIs.push('Apify-Deep');
+              config.onProgress?.({
+                phase: 1,
+                stage: 'phase1_layer_d',
+                message: 'Layer D: Deep website intelligence extracted',
+                dataPointsCollected: 0,
+                layersCompleted: completedLayers,
+                dataSourcesCompleted: completedAPIs,
+                totalDataSources: 11,
+                discoveries: ['✓ Contextual timing: Content opportunities mapped']
+              });
+            })
+          : Promise.resolve(null),
+      ]);
+
+      completedLayers.push('D');
+      const redditData = { status: 'fulfilled' as const, value: null }; // Reddit disabled
+
+      // 3. Extract data points from all sources
+      console.log('[DeepContext] Step 3/7: Extracting data points...');
+      const dataPoints: DataPoint[] = [];
+
+      // Add YouTube data points
+      if (youtubeData.status === 'fulfilled' && youtubeData.value) {
+        dataPoints.push(...youtubeData.value);
+      }
+
+      // Add OutScraper data points
+      if (outscraperData.status === 'fulfilled' && outscraperData.value) {
+        dataPoints.push(...outscraperData.value);
+      }
+
+      // Add News data points
+      if (newsData.status === 'fulfilled' && newsData.value) {
+        dataPoints.push(...newsData.value);
+      }
+
+      // Add Weather data points
+      if (weatherData.status === 'fulfilled' && weatherData.value) {
+        dataPoints.push(...weatherData.value);
+      }
+
+      // Add Serper data points
+      if (serperData.status === 'fulfilled' && serperData.value) {
+        dataPoints.push(...serperData.value);
+      }
+
+      // Add SEMrush data points
+      if (semrushData.status === 'fulfilled' && semrushData.value) {
+        dataPoints.push(...semrushData.value);
+      }
+
+      // Add Website Analysis data points
+      if (websiteData.status === 'fulfilled' && websiteData.value) {
+        dataPoints.push(...websiteData.value);
+      }
+
+      // Add Reddit data points
+      if (redditData.status === 'fulfilled' && redditData.value) {
+        dataPoints.push(...redditData.value);
+      }
+
+      // Add Perplexity data points
+      if (perplexityData.status === 'fulfilled' && perplexityData.value) {
+        dataPoints.push(...perplexityData.value);
+      }
+
+      // Add LinkedIn data points
+      if (linkedinData.status === 'fulfilled' && linkedinData.value) {
+        dataPoints.push(...linkedinData.value);
+      }
+
+      // Add Whisper data points
+      if (whisperData.status === 'fulfilled' && whisperData.value) {
+        dataPoints.push(...whisperData.value);
+      }
+
+      // Add Apify data points
+      if (apifyData.status === 'fulfilled' && apifyData.value) {
+        dataPoints.push(...apifyData.value);
+      }
+
+      console.log(`[DeepContext] ✅ Phase 1 Complete: ${dataPoints.length} data points from ${completedLayers.length} layers`);
 
       // PHASE 2: EMBEDDING & PATTERN DISCOVERY (10 seconds)
-      // Check if Phase 2 was already started early
-      if (!phase2Started) {
-        console.log('[DeepContext] 🧠 PHASE 2: EMBEDDING & PATTERN DISCOVERY');
-        config.onProgress?.({
-          phase: 2,
-          stage: 'phase2_embedding',
-          message: `Generating embeddings for ${dataPoints.length} data points...`,
-          dataPointsCollected: dataPoints.length,
-          layersCompleted: Array.from(completedLayers),
-          dataSourcesCompleted: completedAPIs,
-          totalDataSources: 11
-        });
+      console.log('[DeepContext] 🧠 PHASE 2: EMBEDDING & PATTERN DISCOVERY');
+      config.onProgress?.({
+        phase: 2,
+        stage: 'phase2_embedding',
+        message: `Generating embeddings for ${dataPoints.length} data points...`,
+        dataPointsCollected: dataPoints.length,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11
+      });
 
-        // Build minimal deepContext for orchestration
-        const minimalContext = {
-          business: {
-            profile: {
-              name: brandData.name,
-              industry: brandData.industry,
-              location: brandData.location
-            }
-          }
-        } as any;
-
-        // Run orchestration service if not already started
-        const orchestrationResult = await this.orchestrationService.orchestrate(
-          [...dataPoints],
-          minimalContext
-        );
-
-        phase2Result = orchestrationResult;
-
-        config.onProgress?.({
-          phase: 2,
-          stage: 'phase2_clustering',
-          message: `Found ${orchestrationResult.clusters?.length || 0} pattern clusters`,
-          dataPointsCollected: dataPoints.length,
-          layersCompleted: Array.from(completedLayers),
-          dataSourcesCompleted: completedAPIs,
-          totalDataSources: 11,
-          discoveries: orchestrationResult.clusters?.map(c => `✅ Cluster: ${c.theme}`) || ['⚡ Embeddings generated for pattern matching']
-        });
-      } else {
-        // Phase 2 already started, wait for it to complete
-        console.log('[DeepContext] Phase 2 was triggered early, waiting for completion...');
-        // Wait up to 10 seconds for phase 2 to complete
-        await new Promise(resolve => {
-          const checkPhase2 = setInterval(() => {
-            if (phase2Result) {
-              clearInterval(checkPhase2);
-              resolve(null);
-            }
-          }, 500);
-          setTimeout(() => {
-            clearInterval(checkPhase2);
-            resolve(null);
-          }, 10000);
-        });
-      }
-
-      // Build context structure (this triggers embedding generation internally)
+      // Build context structure first (this triggers embedding generation internally)
       const deepContext = await this.buildContextStructure(brandData, dataPoints);
-
-      // Add orchestration clusters to context if available
-      if (phase2Result?.clusters) {
-        deepContext.discoveries = deepContext.discoveries || [];
-        phase2Result.clusters.forEach((cluster: any) => {
-          deepContext.discoveries.push({
-            type: 'cluster',
-            theme: cluster.theme,
-            points: cluster.points,
-            confidence: cluster.confidence || 0.8
-          });
-        });
-      }
 
       config.onProgress?.({
         phase: 2,
-        stage: 'phase2_patterns',
-        message: `Patterns discovered across ${dataPoints.length} data points`,
+        stage: 'phase2_clustering',
+        message: 'Running semantic clustering algorithm...',
         dataPointsCollected: dataPoints.length,
-        layersCompleted: Array.from(completedLayers),
+        layersCompleted: completedLayers,
         dataSourcesCompleted: completedAPIs,
         totalDataSources: 11,
-        patternsFound: phase2Result?.clusters?.length || 0,
-        discoveries: phase2Result?.clusters?.map(c => `🔍 ${c.theme}`) || ['🔍 Pattern discovery: Analyzing data points']
+        discoveries: ['⚡ Embeddings generated for pattern matching']
+      });
+
+      // Phase 2 continues in synthesizeInsights where clustering happens
+      config.onProgress?.({
+        phase: 2,
+        stage: 'phase2_patterns',
+        message: 'Discovering patterns across data sources...',
+        dataPointsCollected: dataPoints.length,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11,
+        patternsFound: 0, // Will be updated during synthesis
+        discoveries: ['🔍 Pattern discovery: Analyzing review clusters', '🔍 Pattern discovery: Analyzing comment themes', '🔍 Pattern discovery: Analyzing search patterns']
       });
 
       // Store partial result after structure is built (checkpoint 1)
@@ -813,35 +775,16 @@ class DeepContextBuilderService {
       console.log(`[DeepContext] ✅ Phase 2 Complete: Patterns discovered`);
 
       // PHASE 3: CONNECTION DISCOVERY ENGINE (15 seconds)
-      if (!phase3Started) {
-        console.log('[DeepContext] 🔗 PHASE 3: CONNECTION DISCOVERY ENGINE');
-        config.onProgress?.({
-          phase: 3,
-          stage: 'phase3_two_way',
-          message: 'Finding two-way connections between data points...',
-          dataPointsCollected: dataPoints.length,
-          layersCompleted: Array.from(completedLayers),
-          dataSourcesCompleted: completedAPIs,
-          totalDataSources: 11,
-          connectionsFound: { twoWay: 0, threeWay: 0, fourWay: 0 }
-        });
-
-        // Start connection discovery if not already started
-        startPhase3();
-      }
-
-      // Wait for phase 3 to complete
-      await new Promise(resolve => {
-        const checkPhase3 = setInterval(() => {
-          if (phase3Result) {
-            clearInterval(checkPhase3);
-            resolve(null);
-          }
-        }, 500);
-        setTimeout(() => {
-          clearInterval(checkPhase3);
-          resolve(null);
-        }, 15000); // 15 second max wait
+      console.log('[DeepContext] 🔗 PHASE 3: CONNECTION DISCOVERY ENGINE');
+      config.onProgress?.({
+        phase: 3,
+        stage: 'phase3_two_way',
+        message: 'Finding two-way connections between data points...',
+        dataPointsCollected: dataPoints.length,
+        layersCompleted: completedLayers,
+        dataSourcesCompleted: completedAPIs,
+        totalDataSources: 11,
+        connectionsFound: { twoWay: 0, threeWay: 0, fourWay: 0 }
       });
 
       if (dataPoints.length > 0) {
@@ -977,8 +920,7 @@ class DeepContextBuilderService {
           dataPointsCollected: dataPoints.length,
           errors,
           detailedDataPoints: dataPoints  // Include all raw data points for detailed provenance
-        },
-        orchestration: phase2Result // Include full orchestration results
+        }
       };
 
     } catch (error) {

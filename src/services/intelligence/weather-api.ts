@@ -1,9 +1,11 @@
 /**
  * OpenWeather API Integration
  * Real-time weather data for opportunity detection
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 30 * 60 * 1000 // 30 minutes
 
 interface WeatherData {
@@ -54,10 +56,6 @@ class WeatherAPIService {
     if (cached) return cached
 
     try {
-      // Use Edge Function to bypass CORS
-      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
       const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
         method: 'POST',
         headers: {
@@ -99,10 +97,6 @@ class WeatherAPIService {
     if (cached) return cached
 
     try {
-      // Use Edge Function to bypass CORS
-      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
       const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
         method: 'POST',
         headers: {

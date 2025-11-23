@@ -95,7 +95,7 @@ export interface SmartPick {
   insights: SynapseInsight[]
 
   /** Preview of generated content */
-  preview: {
+  preview?: {
     headline: string
     hook: string
     platform: string
@@ -103,6 +103,22 @@ export interface SmartPick {
 
   /** Confidence score (0-1) */
   confidence: number
+
+  /** Urgency level from orchestration */
+  urgencyLevel?: 'low' | 'medium' | 'high' | 'critical'
+
+  /** Performance metrics from orchestration */
+  performanceMetrics?: Array<{
+    metric: string
+    value: string
+    comparison: string
+  }>
+
+  /** Campaign data from orchestration (for campaigns) */
+  campaignData?: any
+
+  /** Breakthrough data from orchestration (for content) */
+  breakthroughData?: any
 
   /** Relevance score (0-1) */
   relevance: number

@@ -12,19 +12,23 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Settings } from 'lucide-react';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import type { InsightCluster } from '@/services/intelligence/clustering.service';
+import type { Breakthrough } from '@/services/intelligence/breakthrough-generator.service';
 import { EasyMode } from './intelligence-v2/EasyMode';
 import { PowerMode } from './intelligence-v2/PowerMode';
 
 export interface IntelligenceLibraryV2Props {
   context: DeepContext;
   onGenerateCampaign: (selectedInsights: string[]) => void;
+  clusters?: InsightCluster[];
+  breakthroughs?: Breakthrough[];
 }
 
 type ViewMode = 'easy' | 'power';
 
 const MODE_STORAGE_KEY = 'intelligence_library_mode';
 
-export function IntelligenceLibraryV2({ context, onGenerateCampaign }: IntelligenceLibraryV2Props) {
+export function IntelligenceLibraryV2({ context, onGenerateCampaign, clusters = [], breakthroughs = [] }: IntelligenceLibraryV2Props) {
   // Load mode from localStorage or default to 'easy'
   const [viewMode, setViewMode] = useState<ViewMode>(() => {
     const stored = localStorage.getItem(MODE_STORAGE_KEY);
@@ -100,7 +104,12 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
               exit={{ opacity: 0, y: -20 }}
               className="h-full"
             >
-              <EasyMode context={context} onGenerate={onGenerateCampaign} />
+              <EasyMode
+                context={context}
+                onGenerate={onGenerateCampaign}
+                clusters={clusters}
+                breakthroughs={breakthroughs}
+              />
             </motion.div>
           ) : (
             <motion.div
@@ -110,7 +119,12 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
               exit={{ opacity: 0, y: -20 }}
               className="h-full"
             >
-              <PowerMode context={context} onGenerate={onGenerateCampaign} />
+              <PowerMode
+                context={context}
+                onGenerate={onGenerateCampaign}
+                clusters={clusters}
+                breakthroughs={breakthroughs}
+              />
             </motion.div>
           )}
         </AnimatePresence>

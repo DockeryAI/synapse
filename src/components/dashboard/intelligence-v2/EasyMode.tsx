@@ -6,13 +6,21 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles, TrendingUp, Clock } from 'lucide-react';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import type { InsightCluster } from '@/services/intelligence/clustering.service';
+import type { Breakthrough } from '@/services/intelligence/breakthrough-generator.service';
+import { IntelligenceInsights } from '../IntelligenceInsights';
+import { OpportunityRadar } from './OpportunityRadar';
+import { CampaignTimeline, transformCampaignForTimeline } from './CampaignTimeline';
+import { PerformanceDashboard, transformPerformancePredictions } from './PerformanceDashboard';
 
 export interface EasyModeProps {
   context: DeepContext;
   onGenerate: (selectedInsights: string[]) => void;
+  clusters?: InsightCluster[];
+  breakthroughs?: Breakthrough[];
 }
 
-export function EasyMode({ context, onGenerate }: EasyModeProps) {
+export function EasyMode({ context, onGenerate, clusters = [], breakthroughs = [] }: EasyModeProps) {
   // Count total insights available
   const insightCount =
     (context.industry?.trends?.length || 0) +
@@ -31,76 +39,98 @@ export function EasyMode({ context, onGenerate }: EasyModeProps) {
   };
 
   return (
-    <div className="h-full flex items-center justify-center p-8">
-      <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        className="max-w-2xl w-full"
-      >
-        {/* Main Card */}
-        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-12 text-center border border-gray-200 dark:border-slate-700">
-          {/* Icon */}
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-500 rounded-full mb-6">
-            <Sparkles className="w-10 h-10 text-white" />
+    <div className="h-full overflow-y-auto">
+      <div className="p-6">
+        {/* Opportunity Radar */}
+        {breakthroughs.length > 0 && (
+          <div className="mb-6">
+            <OpportunityRadar
+              breakthroughs={breakthroughs}
+              onBlipClick={(bt) => console.log('Clicked:', bt.title)}
+            />
           </div>
+        )}
 
-          {/* Title */}
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
-            Your AI Strategy for Today
-          </h2>
+        {/* Campaign Timeline (if campaign generated) */}
+        {(context as any).generatedCampaign && (
+          <div className="mb-6">
+            <CampaignTimeline
+              campaign={transformCampaignForTimeline((context as any).generatedCampaign)}
+            />
+          </div>
+        )}
 
-          {/* Description */}
-          <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
-            We've analyzed your business intelligence and selected the most impactful insights.
-            Click below to generate your complete campaign strategy.
-          </p>
+        {/* Performance Predictions */}
+        {(context as any).performancePredictions && (
+          <div className="mb-6">
+            <PerformanceDashboard
+              predictions={transformPerformancePredictions((context as any).performancePredictions)}
+            />
+          </div>
+        )}
 
-          {/* Generate Button */}
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleGenerate}
-            className="w-full max-w-md mx-auto py-6 px-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-xl font-bold rounded-xl shadow-lg hover:shadow-xl transition-all"
+        {/* Intelligence Insights Component */}
+        <IntelligenceInsights
+          clusters={clusters}
+          breakthroughs={breakthroughs}
+          loading={false}
+        />
+
+        {/* Generate Campaign CTA (if we have insights) */}
+        {(breakthroughs.length > 0 || clusters.length > 0) && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="mt-8 p-8 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-xl border-2 border-purple-200 dark:border-purple-800 text-center"
           >
-            <span className="flex items-center justify-center gap-3">
-              <Sparkles className="w-6 h-6" />
-              Generate My Campaign
-            </span>
-          </motion.button>
+            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
+              Ready to Turn Insights Into Action?
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              AI will automatically select the best insights and generate your campaign strategy
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleGenerate}
+              className="w-full max-w-md mx-auto py-4 px-8 bg-gradient-to-r from-purple-600 to-blue-600 text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all"
+            >
+              <span className="flex items-center justify-center gap-3">
+                <Sparkles className="w-5 h-5" />
+                Generate My Campaign
+              </span>
+            </motion.button>
 
-          {/* Stats */}
-          <div className="mt-8 pt-8 border-t border-gray-200 dark:border-slate-700">
-            <div className="flex items-center justify-center gap-8 text-sm">
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <TrendingUp className="w-4 h-4" />
-                <span>
-                  <strong className="text-gray-900 dark:text-white">{insightCount}</strong> insights
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <Sparkles className="w-4 h-4" />
-                <span>
-                  <strong className="text-gray-900 dark:text-white">{sourceCount}</strong> sources
-                </span>
-              </div>
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <Clock className="w-4 h-4" />
-                <span>
-                  Updated {new Date(context.metadata?.aggregatedAt || new Date()).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}
-                </span>
+            {/* Stats */}
+            <div className="mt-6 pt-6 border-t border-purple-200 dark:border-purple-700">
+              <div className="flex items-center justify-center gap-6 text-sm flex-wrap">
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <TrendingUp className="w-4 h-4" />
+                  <span>
+                    <strong className="text-gray-900 dark:text-white">{breakthroughs.length}</strong> breakthroughs
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <Sparkles className="w-4 h-4" />
+                  <span>
+                    <strong className="text-gray-900 dark:text-white">{clusters.length}</strong> patterns
+                  </span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                  <Clock className="w-4 h-4" />
+                  <span>
+                    Updated {new Date(context.metadata?.aggregatedAt || new Date()).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Hint Text */}
-        <p className="text-center text-sm text-gray-500 dark:text-gray-500 mt-6">
-          Want more control? Switch to Power Mode using the toggle above.
-        </p>
-      </motion.div>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }

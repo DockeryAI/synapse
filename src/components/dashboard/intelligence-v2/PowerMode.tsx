@@ -4,15 +4,23 @@
 
 import React, { useState, useMemo } from 'react';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import type { InsightCluster } from '@/services/intelligence/clustering.service';
+import type { Breakthrough } from '@/services/intelligence/breakthrough-generator.service';
 import { InsightRecipes } from './InsightRecipes';
 import { InsightGrid } from './InsightGrid';
 import { YourMix } from './YourMix';
 import type { InsightCard as InsightCardType } from './types';
 import { formatInsightText } from './insightTextFormatter';
+import { OpportunityRadar } from './OpportunityRadar';
+import { CampaignTimeline, transformCampaignForTimeline } from './CampaignTimeline';
+import { PerformanceDashboard, transformPerformancePredictions } from './PerformanceDashboard';
+import { ContentMultiplier } from './ContentMultiplier';
 
 export interface PowerModeProps {
   context: DeepContext;
   onGenerate: (selectedInsights: string[]) => void;
+  clusters?: InsightCluster[];
+  breakthroughs?: Breakthrough[];
 }
 
 type FilterType = 'all' | 'customer' | 'market' | 'competition' | 'local' | 'opportunity';
@@ -99,7 +107,7 @@ function formatTimestamp(timestamp: string | undefined): string | undefined {
   }
 }
 
-export function PowerMode({ context, onGenerate }: PowerModeProps) {
+export function PowerMode({ context, onGenerate, clusters = [], breakthroughs = [] }: PowerModeProps) {
   const [selectedInsights, setSelectedInsights] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
 
@@ -421,35 +429,70 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
   const selectedInsightObjects = allInsights().filter(i => selectedInsights.includes(i.id));
 
   return (
-    <div className="h-full flex gap-4 p-4">
-      {/* Left Panel: Recipes (20%) */}
-      <div className="w-1/5 min-w-[200px] flex-shrink-0">
-        <InsightRecipes
-          allInsights={allInsights()}
-          onSelectRecipe={handleSelectRecipe}
-        />
+    <div className="h-full overflow-y-auto">
+      <div className="flex gap-4 p-4">
+        {/* Left Panel: Recipes (20%) */}
+        <div className="w-1/5 min-w-[200px] flex-shrink-0">
+          <InsightRecipes
+            allInsights={allInsights()}
+            onSelectRecipe={handleSelectRecipe}
+          />
+        </div>
+
+        {/* Center Panel: Insight Grid (60%) */}
+        <div className="flex-1">
+          <InsightGrid
+            insights={filteredInsights}
+            selectedInsights={selectedInsights}
+            onToggleInsight={handleToggleInsight}
+            activeFilter={activeFilter}
+            onFilterChange={setActiveFilter}
+          />
+        </div>
+
+        {/* Right Panel: Your Mix (20%) */}
+        <div className="w-1/5 min-w-[200px] flex-shrink-0">
+          <YourMix
+            selectedInsights={selectedInsightObjects}
+            context={context}
+            onRemove={handleToggleInsight}
+            onClear={() => setSelectedInsights([])}
+            onGenerate={handleGenerate}
+          />
+        </div>
       </div>
 
-      {/* Center Panel: Insight Grid (60%) */}
-      <div className="flex-1">
-        <InsightGrid
-          insights={filteredInsights}
-          selectedInsights={selectedInsights}
-          onToggleInsight={handleToggleInsight}
-          activeFilter={activeFilter}
-          onFilterChange={setActiveFilter}
-        />
-      </div>
+      {/* Bottom Section - Campaign Timeline & Performance */}
+      <div className="p-4 pt-0 space-y-4">
+        {/* Opportunity Radar for selected breakthroughs */}
+        {breakthroughs && breakthroughs.length > 0 && (
+          <OpportunityRadar
+            breakthroughs={breakthroughs.filter(bt =>
+              selectedInsights.some(id => id.includes(bt.id))
+            )}
+          />
+        )}
 
-      {/* Right Panel: Your Mix (20%) */}
-      <div className="w-1/5 min-w-[200px] flex-shrink-0">
-        <YourMix
-          selectedInsights={selectedInsightObjects}
-          context={context}
-          onRemove={handleToggleInsight}
-          onClear={() => setSelectedInsights([])}
-          onGenerate={handleGenerate}
-        />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          {(context as any).generatedCampaign && (
+            <CampaignTimeline
+              campaign={transformCampaignForTimeline((context as any).generatedCampaign)}
+            />
+          )}
+
+          {(context as any).performancePredictions && (
+            <PerformanceDashboard
+              predictions={transformPerformancePredictions((context as any).performancePredictions)}
+            />
+          )}
+        </div>
+
+        {/* Content Multiplication - Full Width Bottom Section */}
+        {context.multipliedContent && context.multipliedContent.length > 0 && (
+          <div className="mt-6 border-t border-gray-200 dark:border-slate-700 pt-6">
+            <ContentMultiplier multipliedContent={context.multipliedContent} />
+          </div>
+        )}
       </div>
     </div>
   );

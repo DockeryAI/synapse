@@ -1,38 +1,50 @@
 /**
  * OpenAI API Integration
  * Content generation and optimization
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+/**
+ * Helper function to call OpenAI via Edge Function
+ */
+async function callAIProxy(messages: Array<{ role: string; content: string }>, max_tokens: number = 200): Promise<any> {
+  if (!SUPABASE_URL) {
+    throw new Error('Supabase URL not configured')
+  }
+
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+    },
+    body: JSON.stringify({
+      provider: 'openai',
+      model: 'gpt-4',
+      messages,
+      max_tokens
+    })
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`AI Proxy error (${response.status}): ${errorText}`)
+  }
+
+  return await response.json()
+}
 
 class OpenAIAPIService {
   async generateHeadline(prompt: string, tone: string = 'professional'): Promise<string[]> {
-    if (!OPENAI_API_KEY) {
-      return [
-        `${prompt} - Transform Your Business`,
-        `Discover the Power of ${prompt}`,
-        `${prompt}: The Complete Solution`
-      ]
-    }
-
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [
-            { role: 'system', content: `You are a professional copywriter. Generate 5 compelling headlines in a ${tone} tone.` },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 200
-        })
-      })
+      const data = await callAIProxy([
+        { role: 'system', content: `You are a professional copywriter. Generate 5 compelling headlines in a ${tone} tone.` },
+        { role: 'user', content: prompt }
+      ], 200)
 
-      const data = await response.json()
       const headlines = data.choices[0].message.content.split('\n').filter((h: string) => h.trim())
       return headlines.slice(0, 5)
     } catch (error) {
@@ -46,28 +58,12 @@ class OpenAIAPIService {
   }
 
   async generateCaption(prompt: string, maxLength: number = 280): Promise<string> {
-    if (!OPENAI_API_KEY) {
-      return `${prompt} - Learn more about how we can help you achieve your goals.`
-    }
-
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          model: 'gpt-4',
-          messages: [
-            { role: 'system', content: `Generate an engaging social media caption under ${maxLength} characters.` },
-            { role: 'user', content: prompt }
-          ],
-          max_tokens: 100
-        })
-      })
+      const data = await callAIProxy([
+        { role: 'system', content: `Generate an engaging social media caption under ${maxLength} characters.` },
+        { role: 'user', content: prompt }
+      ], 100)
 
-      const data = await response.json()
       return data.choices[0].message.content.trim()
     } catch (error) {
       console.error('[OpenAI API] Error:', error)

@@ -7,8 +7,8 @@
 import { SerperAPI } from './serper-api'
 import { ApifyAPI } from './apify-api'
 
-const OUTSCRAPER_API_KEY = import.meta.env.VITE_OUTSCRAPER_API_KEY
-const OUTSCRAPER_API_URL = 'https://api.app.outscraper.com'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // ============================================================================
 // Types & Interfaces
@@ -174,37 +174,43 @@ export interface LinkedInPost {
 // OutScraper API Service
 // ============================================================================
 
-class OutScraperAPIService {
-  private baseUrl = OUTSCRAPER_API_URL
+/**
+ * Helper function to call OutScraper API via Edge Function
+ */
+async function callOutScraperEdgeFunction(endpoint: string, params: any): Promise<any> {
+  if (!SUPABASE_URL) {
+    throw new Error('Supabase URL not configured')
+  }
 
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-outscraper`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+    },
+    body: JSON.stringify({ endpoint, params })
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`OutScraper API error (${response.status}): ${errorText}`)
+  }
+
+  return await response.json()
+}
+
+class OutScraperAPIService {
   /**
    * Poll an async task until completion using results_location URL
    * OutScraper uses api.outscraper.cloud/requests/{id} for task results
    */
-  private async pollTask<T>(taskId: string, maxAttempts = 10, delayMs = 1500): Promise<T> {
+  private async pollTask<T>(taskId: string, maxAttempts = 6, delayMs = 1000): Promise<T> {
     console.log('[OutScraper] Polling task:', taskId)
-
-    // Use the correct endpoint for task results
-    const resultsUrl = `https://api.outscraper.cloud/requests/${taskId}`
 
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const response = await fetch(resultsUrl, {
-          headers: {
-            'X-API-KEY': OUTSCRAPER_API_KEY || ''
-          }
-        })
-
-        if (!response.ok) {
-          console.warn(`[OutScraper] Task polling failed (${response.status}), attempt ${attempt + 1}/${maxAttempts}`)
-          if (attempt === maxAttempts - 1) {
-            throw new Error(`Task polling failed: ${response.status}`)
-          }
-          await new Promise(resolve => setTimeout(resolve, delayMs))
-          continue
-        }
-
-        const data = await response.json()
+        // Poll via Edge Function using a special endpoint format
+        const data = await callOutScraperEdgeFunction(`/requests/${taskId}`, {})
 
         console.log('[OutScraper] Task status:', data.status, `(attempt ${attempt + 1}/${maxAttempts})`)
 
@@ -234,51 +240,11 @@ class OutScraperAPIService {
   }
 
   /**
-   * Check if API key is configured
-   */
-  private checkApiKey(): void {
-    if (!OUTSCRAPER_API_KEY) {
-      throw new Error(
-        'OutScraper API key not configured.\n' +
-        'Add VITE_OUTSCRAPER_API_KEY to your .env file.\n' +
-        'Get a free API key from: https://outscraper.com/\n' +
-        'Required for: Competitor discovery and review analysis'
-      )
-    }
-  }
-
-  /**
    * Make API request with error handling
    */
   private async makeRequest<T>(endpoint: string, params: Record<string, any>): Promise<T> {
-    this.checkApiKey()
-
-    const url = new URL(`${this.baseUrl}${endpoint}`)
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        url.searchParams.append(key, String(value))
-      }
-    })
-
     try {
-      const response = await fetch(url.toString(), {
-        method: 'GET',
-        headers: {
-          'X-API-KEY': OUTSCRAPER_API_KEY!,
-          'Content-Type': 'application/json',
-        },
-      })
-
-      if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(
-          `OutScraper API error (${response.status}): ${errorText}\n` +
-          `Endpoint: ${endpoint}\n` +
-          `Check your API key and quota at: https://outscraper.com/dashboard/`
-        )
-      }
-
-      const data = await response.json()
+      const data = await callOutScraperEdgeFunction(endpoint, params)
       return data as T
     } catch (error) {
       if (error instanceof Error) {
@@ -301,7 +267,6 @@ class OutScraperAPIService {
     region?: string
   }): Promise<BusinessListing[]> {
     console.log('[OutScraper] Fetching business listings:', params.query)
-    console.log('[OutScraper] API Key present:', !!OUTSCRAPER_API_KEY)
 
     const endpoint = '/maps/search-v2'
     const apiParams = {

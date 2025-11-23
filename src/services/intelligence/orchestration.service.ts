@@ -18,6 +18,9 @@ import { connectionDiscoveryService, type Connection, type BreakthroughAngle } f
 import { naicsDatabase, type IndustryProfile } from './naics-database.service';
 import { contentSynthesis, type SynthesizedContent } from './content-synthesis.service';
 import { jtbdTransformer } from './jtbd-transformer.service';
+import { smartPicksService, type SmartPick } from './smart-picks.service';
+import { breakthroughGenerator, type Breakthrough } from './breakthrough-generator.service';
+import { contentMultiplierService } from './content-multiplier.service';
 
 export interface OrchestrationResult {
   // Phase 2 outputs
@@ -33,11 +36,18 @@ export interface OrchestrationResult {
   };
   breakthroughs: BreakthroughAngle[];
 
+  // Phase 3b outputs - Real breakthroughs
+  realBreakthroughs: Breakthrough[];
+
   // Phase 4 outputs
   industryProfile: IndustryProfile;
 
   // Phase 5 outputs
   synthesizedContent: SynthesizedContent[];
+  smartPicks: {
+    campaigns: SmartPick[];
+    content: SmartPick[];
+  };
 
   // Metadata
   stats: {
@@ -46,6 +56,7 @@ export interface OrchestrationResult {
     clusterCount: number;
     connectionCount: number;
     breakthroughCount: number;
+    realBreakthroughCount: number;
     synthesizedCount: number;
     processingTimeMs: number;
   };
@@ -82,6 +93,28 @@ class OrchestrationService {
       embeddedDataPoints,
       clusters
     );
+
+    // Phase 3b: Generate Real Breakthroughs
+    console.log('[Orchestration] Phase 3b: Generating breakthroughs from clusters and connections...');
+    const allConnections = [...twoWay, ...threeWay, ...fourWay, ...fiveWay];
+    const realBreakthroughs = breakthroughGenerator.generateBreakthroughs(clusters, allConnections);
+    console.log(`[Orchestration] Phase 3b: ✅ Generated ${realBreakthroughs.length} real breakthroughs`);
+
+    // Phase 3c: Multiply top breakthroughs into content angles and platform variants
+    console.log('[Orchestration] Phase 3c: Multiplying top breakthroughs into content ecosystem...');
+    const topBreakthroughsForMultiplication = realBreakthroughs.slice(0, 7); // Top 7 for weekly calendar
+    const multipliedContent = contentMultiplierService.multiplyBreakthroughs(
+      topBreakthroughsForMultiplication,
+      deepContext
+    );
+    console.log(`[Orchestration] Phase 3c: ✅ Generated ${multipliedContent.length} multiplied content packages`);
+    const totalContentPieces = multipliedContent.reduce((sum, mc) =>
+      sum + Object.keys(mc.platformVariants).length * 5, 0
+    );
+    console.log(`[Orchestration] Phase 3c: ✅ Total content pieces: ${totalContentPieces}`);
+
+    // Add to deep context
+    deepContext.multipliedContent = multipliedContent;
 
     // Phase 4: NAICS Enhancement
     console.log('[Orchestration] Phase 4: Loading industry profile...');
@@ -128,6 +161,13 @@ class OrchestrationService {
 
     console.log(`[Orchestration] Phase 5: ✅ Synthesized ${synthesizedContent.length} content pieces`);
 
+    // Phase 6: Generate Smart Picks from Real Breakthroughs
+    console.log('[Orchestration] Phase 6: Generating smart picks from real breakthroughs...');
+    const smartPicks = realBreakthroughs.length > 0
+      ? smartPicksService.generateSmartPicksFromBreakthroughs(realBreakthroughs, industryProfile)
+      : smartPicksService.generateSmartPicks(breakthroughs, clusters, industryProfile); // Fallback
+    console.log(`[Orchestration] Phase 6: ✅ Generated ${smartPicks.campaigns.length} campaign picks, ${smartPicks.content.length} content picks`);
+
     // Update DeepContext with orchestration results
     this.updateDeepContext(deepContext, {
       clusters,
@@ -144,6 +184,7 @@ class OrchestrationService {
       clusterCount: clusters.length,
       connectionCount: twoWay.length + threeWay.length + fourWay.length + fiveWay.length,
       breakthroughCount: breakthroughs.length,
+      realBreakthroughCount: realBreakthroughs.length,
       synthesizedCount: synthesizedContent.length,
       processingTimeMs
     };
@@ -153,7 +194,9 @@ class OrchestrationService {
     console.log(`  - Clusters: ${stats.clusterCount}`);
     console.log(`  - Connections: ${stats.connectionCount} (${threeWay.length} 3-way, ${fourWay.length} 4-way)`);
     console.log(`  - Breakthroughs: ${stats.breakthroughCount}`);
+    console.log(`  - Real Breakthroughs: ${stats.realBreakthroughCount}`);
     console.log(`  - Synthesized: ${stats.synthesizedCount}`);
+    console.log(`  - Smart Picks: ${smartPicks.campaigns.length} campaigns, ${smartPicks.content.length} content`);
     console.log(`  - Time: ${stats.processingTimeMs}ms`);
 
     return {
@@ -161,8 +204,10 @@ class OrchestrationService {
       clusters,
       connections: { twoWay, threeWay, fourWay, fiveWay },
       breakthroughs,
+      realBreakthroughs,
       industryProfile,
       synthesizedContent,
+      smartPicks,
       stats
     };
   }

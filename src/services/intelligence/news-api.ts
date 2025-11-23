@@ -1,9 +1,11 @@
 /**
  * News API Integration
  * Fetches industry news and local events for opportunity detection
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 60 * 60 * 1000 // 1 hour
 
 interface NewsArticle {
@@ -83,10 +85,6 @@ class NewsAPIService {
     if (cached) return cached
 
     try {
-      // Use Edge Function to bypass CORS
-      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
       // Generate broader search terms for better results
       const searchTerms = this.generateBroaderSearchTerms(industry, keywords)
       console.log(`[NewsAPI] 🔍 Searching with terms:`, searchTerms.slice(0, 5).join(', '))
@@ -173,10 +171,6 @@ class NewsAPIService {
     if (cached) return cached
 
     try {
-      // Use Edge Function to bypass CORS
-      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
       const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-news`, {
         method: 'POST',
         headers: {

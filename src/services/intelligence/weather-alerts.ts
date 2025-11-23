@@ -41,8 +41,10 @@ interface WeatherAPIResponse {
   }
 }
 
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
 export class WeatherAlertsService {
-  private static readonly WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY || ''
   private static readonly CACHE_TTL_MINUTES = 30
 
   /**
@@ -90,11 +92,10 @@ export class WeatherAlertsService {
   private static async fetchWeatherData(
     config: WeatherConfig
   ): Promise<WeatherAPIResponse | null> {
-    // Check for API key
-    if (!this.WEATHER_API_KEY) {
+    // Check Supabase configuration
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       throw new Error(
-        'Weather API key not configured. Add VITE_WEATHER_API_KEY to your .env file. ' +
-        'Get a free API key from https://www.weatherapi.com/'
+        'Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.'
       )
     }
 
@@ -103,7 +104,7 @@ export class WeatherAlertsService {
     if (cached) return cached
 
     try {
-      // Call OpenWeatherMap API (5 day forecast)
+      // Call OpenWeatherMap via Edge Function
       let query = config.zipCode || config.location
 
       // OpenWeather doesn't like "City, State" format - just use city name
@@ -111,11 +112,16 @@ export class WeatherAlertsService {
         query = query.split(',')[0].trim()
       }
 
-      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(query)}&appid=${this.WEATHER_API_KEY}&units=imperial&cnt=40`
+      console.log('[WeatherAlerts] Fetching from OpenWeather via Edge Function:', query)
 
-      console.log('[WeatherAlerts] Fetching from OpenWeather:', query)
-
-      const response = await fetch(url)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({ location: query })
+      })
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))

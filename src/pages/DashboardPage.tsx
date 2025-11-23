@@ -33,7 +33,6 @@ import { insightsStorageService, type BusinessInsights } from '@/services/insigh
 import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
-import { FloatingActionButtons } from '@/components/shared/FloatingActionButtons';
 import { AiPicksPanel } from '@/components/dashboard/AiPicksPanel';
 import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibraryV2';
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
@@ -42,187 +41,66 @@ import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import { industryCustomizationService } from '@/services/v2/industry-customization.service';
+import { useSessionAutoSave } from '@/hooks/useSessionAutoSave';
 
 type ViewMode = 'dashboard' | 'insights_hub';
+
+// Helper function to map category names to campaign types
+function mapCampaignType(category: string): SmartPick['campaignType'] {
+  const categoryLower = category.toLowerCase();
+
+  if (categoryLower.includes('seasonal')) return 'multi-post';
+  if (categoryLower.includes('educational') || categoryLower.includes('education')) return 'authority-builder';
+  if (categoryLower.includes('competitive')) return 'authority-builder';
+  if (categoryLower.includes('authority')) return 'authority-builder';
+  if (categoryLower.includes('social') || categoryLower.includes('proof')) return 'social-proof';
+  if (categoryLower.includes('local')) return 'local-pulse';
+
+  return 'multi-post'; // Default
+}
 
 export function DashboardPage() {
   const navigate = useNavigate();
   const { currentBrand: brand } = useBrand();
   const [insights, setInsights] = useState<BusinessInsights | null>(null);
   const [loading, setLoading] = useState(true);
+  const [currentPhase, setCurrentPhase] = useState<1 | 2 | 3 | 4 | 5>(1);
+  const [loadingProgress, setLoadingProgress] = useState<string>('Starting intelligence gathering...');
+  const [dataPointsCollected, setDataPointsCollected] = useState<number>(0);
+  const [layersCompleted, setLayersCompleted] = useState<string[]>([]);
+  const [discoveries, setDiscoveries] = useState<string[]>([]);
+  const [connectionsFound, setConnectionsFound] = useState<{twoWay: number; threeWay: number; fourWay: number}>({twoWay: 0, threeWay: 0, fourWay: 0});
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
   const [selectedPick, setSelectedPick] = useState<SmartPick | null>(null);
   const [deepContext, setDeepContext] = useState<DeepContext | null>(null);
   const [selectedInsights, setSelectedInsights] = useState<string[]>([]);
 
-  // Mock picks for now (TODO: Replace with real SmartPick generation)
-  const campaignPicks: SmartPick[] = [
-    {
-      id: 'mock-1',
-      title: 'Authority Building Campaign',
-      description: 'Establish expertise in your industry',
-      campaignType: 'authority-builder',
-      confidence: 0.85,
-      relevance: 0.9,
-      timeliness: 0.75,
-      evidenceQuality: 0.8,
-      overallScore: 0.82,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Establish Your Industry Authority',
-        hook: 'Build trust and credibility with your audience',
-        platform: 'LinkedIn',
-      },
-      reasoning: 'Build trust and credibility',
-      expectedPerformance: {
-        engagement: 'high',
-        reach: 'medium',
-        conversions: 'medium',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-    {
-      id: 'mock-2',
-      title: 'Customer Success Stories',
-      description: 'Share transformation stories',
-      campaignType: 'social-proof',
-      confidence: 0.8,
-      relevance: 0.85,
-      timeliness: 0.7,
-      evidenceQuality: 0.75,
-      overallScore: 0.77,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Real Results from Real Customers',
-        hook: 'See how others achieved their goals',
-        platform: 'Instagram',
-      },
-      reasoning: 'Showcase customer results',
-      expectedPerformance: {
-        engagement: 'high',
-        reach: 'high',
-        conversions: 'medium',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-    {
-      id: 'mock-3',
-      title: 'Problem-Solution Series',
-      description: 'Address pain points systematically',
-      campaignType: 'authority-builder',
-      confidence: 0.75,
-      relevance: 0.8,
-      timeliness: 0.65,
-      evidenceQuality: 0.7,
-      overallScore: 0.72,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Solutions to Your Biggest Challenges',
-        hook: 'Direct answers to common problems',
-        platform: 'Blog',
-      },
-      reasoning: 'Direct value proposition',
-      expectedPerformance: {
-        engagement: 'medium',
-        reach: 'medium',
-        conversions: 'high',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-  ];
+  // Session auto-save - mark session as complete when dashboard loads
+  const sessionId = localStorage.getItem('current_session_id');
+  const { saveImmediately } = useSessionAutoSave({
+    sessionId,
+    currentStep: 'dashboard',
+  });
 
-  const contentPicks: SmartPick[] = [
-    {
-      id: 'content-1',
-      title: 'Key Benefit Spotlight',
-      description: 'Highlight your main value proposition',
-      campaignType: 'single-post',
-      confidence: 0.9,
-      relevance: 0.95,
-      timeliness: 0.8,
-      evidenceQuality: 0.85,
-      overallScore: 0.87,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Your Core Value Proposition',
-        hook: 'Strong resonance with target audience',
-        platform: 'LinkedIn',
-      },
-      reasoning: 'Strong resonance with target audience',
-      expectedPerformance: {
-        engagement: 'high',
-        reach: 'high',
-        conversions: 'high',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-    {
-      id: 'content-2',
-      title: 'Industry Insight Post',
-      description: 'Share valuable industry knowledge',
-      campaignType: 'single-post',
-      confidence: 0.75,
-      relevance: 0.8,
-      timeliness: 0.7,
-      evidenceQuality: 0.72,
-      overallScore: 0.74,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Industry Knowledge Share',
-        hook: 'Position yourself as an expert',
-        platform: 'LinkedIn',
-      },
-      reasoning: 'Thought leadership opportunity',
-      expectedPerformance: {
-        engagement: 'medium',
-        reach: 'medium',
-        conversions: 'low',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-    {
-      id: 'content-3',
-      title: 'Customer Transformation',
-      description: 'Feature a success story',
-      campaignType: 'single-post',
-      confidence: 0.78,
-      relevance: 0.82,
-      timeliness: 0.68,
-      evidenceQuality: 0.75,
-      overallScore: 0.75,
-      insights: [],
-      dataSources: [],
-      preview: {
-        headline: 'Customer Success Story',
-        hook: 'Real results from real customers',
-        platform: 'Instagram',
-      },
-      reasoning: 'Build credibility',
-      expectedPerformance: {
-        engagement: 'high',
-        reach: 'medium',
-        conversions: 'medium',
-      },
-      metadata: {
-        generatedAt: new Date(),
-      },
-    },
-  ];
+  // Real smart picks from orchestration (populated after intelligence loads)
+  const [campaignPicks, setCampaignPicks] = useState<SmartPick[]>([]);
+  const [contentPicks, setContentPicks] = useState<SmartPick[]>([]);
+
+  // Clusters and breakthroughs for display
+  const [clusters, setClusters] = useState<any[]>([]);
+  const [breakthroughs, setBreakthroughs] = useState<any[]>([]);
+
+  // Mark session as complete when dashboard loads
+  useEffect(() => {
+    if (sessionId && brand?.id) {
+      console.log('[DashboardPage] Marking session as complete (dashboard reached)');
+      saveImmediately({
+        current_step: 'dashboard',
+        progress_percentage: 100,
+        completed_steps: ['welcome', 'products', 'customer', 'transformation', 'solution', 'benefit', 'confirmation'],
+      });
+    }
+  }, [sessionId, brand?.id, saveImmediately]);
 
   // Load insights on mount
   useEffect(() => {
@@ -257,6 +135,26 @@ export function DashboardPage() {
             brandId: brand.id,
             cacheResults: true, // Cache for 24 hours
             forceFresh: false, // Use cache if available
+            onProgress: (progress) => {
+              // Update loading state with progress
+              setCurrentPhase(progress.phase);
+              setLoadingProgress(progress.message);
+              setDataPointsCollected(progress.dataPointsCollected);
+              if (progress.layersCompleted) setLayersCompleted(progress.layersCompleted);
+              if (progress.discoveries) setDiscoveries(progress.discoveries);
+              if (progress.connectionsFound) setConnectionsFound(progress.connectionsFound);
+
+              // Update DeepContext as partial results come in
+              if (progress.partialContext) {
+                setDeepContext(progress.partialContext);
+                // Turn off loading overlay once Phase 2 starts (pattern discovery)
+                if (progress.phase >= 2) {
+                  setLoading(false);
+                }
+              }
+
+              console.log(`[DashboardPage] Phase ${progress.phase}:`, progress.stage, progress.message);
+            }
           });
 
           console.log('[DashboardPage] DeepContext built:', {
@@ -276,6 +174,120 @@ export function DashboardPage() {
             keyInsights: buildResult.context.synthesis?.keyInsights?.length || 0,
             hiddenPatterns: buildResult.context.synthesis?.hiddenPatterns?.length || 0,
           });
+
+          // Extract clusters and breakthroughs from orchestration
+          if (buildResult.orchestration) {
+            console.log('[DashboardPage] Orchestration results:', {
+              clusters: buildResult.orchestration.clusters?.length || 0,
+              realBreakthroughs: buildResult.orchestration.realBreakthroughs?.length || 0,
+              smartPicks: {
+                campaigns: buildResult.orchestration.smartPicks?.campaigns?.length || 0,
+                content: buildResult.orchestration.smartPicks?.content?.length || 0
+              }
+            });
+
+            // Store clusters
+            if (buildResult.orchestration.clusters) {
+              setClusters(buildResult.orchestration.clusters);
+              console.log('[DashboardPage] Clusters with validation:', buildResult.orchestration.clusters.map(c => ({
+                theme: c.theme,
+                size: c.size,
+                validation: c.validationStatement
+              })));
+            }
+
+            // Store breakthroughs
+            if (buildResult.orchestration.realBreakthroughs) {
+              setBreakthroughs(buildResult.orchestration.realBreakthroughs);
+              console.log('[DashboardPage] Real breakthroughs:', buildResult.orchestration.realBreakthroughs.map(b => ({
+                title: b.title,
+                score: b.score,
+                category: b.category,
+                validation: b.validation.validationStatement
+              })));
+            }
+          }
+
+          // Extract and transform Smart Picks from orchestration
+          if (buildResult.orchestration?.smartPicks) {
+            const { campaigns, content } = buildResult.orchestration.smartPicks;
+
+            console.log('[DashboardPage] Smart Picks found:', {
+              campaigns: campaigns?.length || 0,
+              content: content?.length || 0
+            });
+
+            // Transform orchestration smart picks to UI SmartPick format
+            const transformedCampaigns: SmartPick[] = (campaigns || []).map((pick: any) => ({
+              id: pick.id,
+              title: pick.title,
+              description: pick.description,
+              campaignType: mapCampaignType(pick.category),
+              confidence: pick.confidence / 100, // Convert 0-100 to 0-1
+              relevance: pick.confidence / 100,
+              timeliness: pick.urgency === 'critical' ? 1.0 : pick.urgency === 'high' ? 0.8 : 0.6,
+              evidenceQuality: pick.provenance?.length ? Math.min(1.0, pick.provenance.length / 5) : 0.7,
+              overallScore: pick.confidence / 100,
+              insights: [],
+              dataSources: pick.provenance || [],
+              preview: pick.data ? {
+                headline: pick.data.name || pick.title,
+                hook: pick.data.pieces?.[0]?.hook || pick.description,
+                platform: pick.data.pieces?.[0]?.channel || 'Blog',
+              } : undefined,
+              reasoning: pick.reasoning,
+              expectedPerformance: pick.expectedPerformance ? {
+                engagement: pick.expectedPerformance[0]?.value || 'medium',
+                reach: 'medium',
+                conversions: pick.expectedPerformance[2]?.value || 'medium',
+              } : undefined,
+              urgencyLevel: pick.urgency,
+              performanceMetrics: pick.expectedPerformance,
+              campaignData: pick.data,
+              metadata: {
+                generatedAt: new Date(),
+              },
+            }));
+
+            const transformedContent: SmartPick[] = (content || []).map((pick: any) => ({
+              id: pick.id,
+              title: pick.title,
+              description: pick.description,
+              campaignType: 'single-post' as const,
+              confidence: pick.confidence / 100,
+              relevance: pick.confidence / 100,
+              timeliness: pick.urgency === 'critical' ? 1.0 : pick.urgency === 'high' ? 0.8 : 0.6,
+              evidenceQuality: pick.provenance?.length ? Math.min(1.0, pick.provenance.length / 5) : 0.7,
+              overallScore: pick.confidence / 100,
+              insights: [],
+              dataSources: pick.provenance || [],
+              preview: {
+                headline: pick.title,
+                hook: pick.description,
+                platform: 'Blog',
+              },
+              reasoning: pick.reasoning,
+              expectedPerformance: pick.expectedPerformance ? {
+                engagement: pick.expectedPerformance[0]?.value || 'medium',
+                reach: 'medium',
+                conversions: 'medium',
+              } : undefined,
+              urgencyLevel: pick.urgency,
+              performanceMetrics: pick.expectedPerformance,
+              breakthroughData: pick.data,
+              metadata: {
+                generatedAt: new Date(),
+              },
+            }));
+
+            setCampaignPicks(transformedCampaigns);
+            setContentPicks(transformedContent);
+
+            console.log('[DashboardPage] Transformed smart picks:', {
+              campaigns: transformedCampaigns.length,
+              content: transformedContent.length
+            });
+          }
 
           setDeepContext(buildResult.context);
 
@@ -823,12 +835,67 @@ export function DashboardPage() {
   };
 
   // Loading state
-  if (loading) {
+  if (loading && !deepContext) {
+    const phaseNames = ['Data Extraction', 'Pattern Discovery', 'Connection Engine', 'Enhancement', 'Synthesis'];
+    const phaseProgress = (currentPhase - 1) / 5 * 100;
+
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="w-12 h-12 text-purple-600 animate-spin mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">Loading your command center...</p>
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-violet-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-900 flex items-center justify-center p-6">
+        <div className="max-w-2xl w-full">
+          {/* Phase Indicator */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-purple-100 dark:bg-purple-900/30 px-4 py-2 rounded-full mb-4">
+              <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
+                Phase {currentPhase}/5: {phaseNames[currentPhase - 1]}
+              </span>
+            </div>
+            <Loader2 className="w-12 h-12 text-purple-600 animate-spin mx-auto mb-4" />
+            <p className="text-gray-800 dark:text-gray-200 font-medium mb-2">{loadingProgress}</p>
+          </div>
+
+          {/* Phase Progress Bar */}
+          <div className="mb-6">
+            <div className="flex justify-between mb-2 text-xs text-gray-600 dark:text-gray-400">
+              {phaseNames.map((name, idx) => (
+                <span key={idx} className={idx < currentPhase ? 'text-purple-600 dark:text-purple-400 font-medium' : ''}>
+                  {idx + 1}
+                </span>
+              ))}
+            </div>
+            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
+              <div
+                className="bg-purple-600 h-full transition-all duration-500 ease-out"
+                style={{ width: `${phaseProgress}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Stats Grid */}
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+              <div className="text-sm text-gray-600 dark:text-gray-400">Data Points</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{dataPointsCollected}</div>
+            </div>
+            <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+              <div className="text-sm text-gray-600 dark:text-gray-400">Layers Complete</div>
+              <div className="text-2xl font-bold text-gray-900 dark:text-gray-100">{layersCompleted.length}/4</div>
+            </div>
+          </div>
+
+          {/* Discoveries Feed */}
+          {discoveries.length > 0 && (
+            <div className="bg-white dark:bg-slate-800 p-4 rounded-lg border border-gray-200 dark:border-slate-700">
+              <div className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">Latest Discoveries</div>
+              <div className="space-y-2">
+                {discoveries.slice(-3).map((discovery, idx) => (
+                  <div key={idx} className="text-sm text-gray-600 dark:text-gray-400 flex items-start gap-2">
+                    <span className="mt-0.5">→</span>
+                    <span>{discovery}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
@@ -862,6 +929,8 @@ export function DashboardPage() {
                   <IntelligenceLibraryV2
                     context={deepContext}
                     onGenerateCampaign={handleCreateCampaign}
+                    clusters={clusters}
+                    breakthroughs={breakthroughs}
                   />
                 )}
               </div>
@@ -874,6 +943,53 @@ export function DashboardPage() {
               onMixContent={handleMixContent}
               onClear={handleClearAll}
             />
+
+            {/* Floating Loading Indicator (shows when still loading in background) */}
+            {currentPhase < 5 && deepContext && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                className="fixed bottom-6 right-6 bg-white dark:bg-slate-800 rounded-lg shadow-lg p-4 border border-purple-200 dark:border-purple-800 max-w-sm z-50"
+              >
+                <div className="flex items-start gap-3">
+                  <Loader2 className="w-5 h-5 text-purple-600 animate-spin flex-shrink-0 mt-0.5" />
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="text-sm font-medium text-gray-900 dark:text-gray-100">
+                        Phase {currentPhase}/5
+                      </p>
+                      <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                        {['Extracting', 'Discovering', 'Connecting', 'Enhancing', 'Synthesizing'][currentPhase - 1]}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 truncate mb-2">
+                      {loadingProgress}
+                    </p>
+                    <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-500 mb-2">
+                      <span>{dataPointsCollected} data points</span>
+                      {currentPhase >= 3 && connectionsFound.threeWay > 0 && (
+                        <>
+                          <span>•</span>
+                          <span>{connectionsFound.threeWay} connections</span>
+                        </>
+                      )}
+                    </div>
+                    <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-1 overflow-hidden">
+                      <div
+                        className="bg-purple-600 h-full transition-all duration-300"
+                        style={{ width: `${(currentPhase / 5) * 100}%` }}
+                      />
+                    </div>
+                    {discoveries.length > 0 && (
+                      <div className="mt-2 text-xs text-gray-500 dark:text-gray-500 truncate">
+                        {discoveries[discoveries.length - 1]}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )}
           </div>
         ) : (
           /* Insights Hub View */
@@ -888,9 +1004,6 @@ export function DashboardPage() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Floating Action Buttons */}
-      <FloatingActionButtons />
 
       {/* Insight Details Modal */}
       {selectedPick && deepContext && (

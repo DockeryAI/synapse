@@ -1,10 +1,37 @@
 /**
  * YouTube Data API Integration
  * Analyzes trending videos and content for industry insights
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 60 * 60 * 1000 // 1 hour
+
+/**
+ * Helper function to call YouTube API via Edge Function
+ */
+async function callYouTubeEdgeFunction(endpoint: string, params: any): Promise<any> {
+  if (!SUPABASE_URL) {
+    throw new Error('Supabase URL not configured')
+  }
+
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+    },
+    body: JSON.stringify({ endpoint, params })
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`YouTube API error (${response.status}): ${errorText}`)
+  }
+
+  return await response.json()
+}
 
 interface YouTubeVideo {
   id: string
@@ -71,24 +98,18 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error(
-        'YouTube API key not configured. Add VITE_YOUTUBE_API_KEY to your .env file. ' +
-        'Get a free API key from https://console.cloud.google.com/apis/library/youtube.googleapis.com'
-      )
-    }
-
     try {
-      const categoryParam = category ? `&videoCategoryId=${category}` : ''
-      const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=${region}${categoryParam}&maxResults=50&key=${YOUTUBE_API_KEY}`
-
-      const response = await fetch(url)
-
-      if (!response.ok) {
-        throw new Error(`YouTube API error: ${response.statusText}`)
+      const params: any = {
+        part: 'snippet,statistics',
+        chart: 'mostPopular',
+        regionCode: region,
+        maxResults: '50'
+      }
+      if (category) {
+        params.videoCategoryId = category
       }
 
-      const data = await response.json()
+      const data = await callYouTubeEdgeFunction('videos', params)
 
       const videos: YouTubeVideo[] = data.items.map((item: any) => ({
         id: item.id,
@@ -120,31 +141,22 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error(
-        'YouTube API key not configured. Add VITE_YOUTUBE_API_KEY to your .env file. ' +
-        'Get a free API key from https://console.cloud.google.com/apis/library/youtube.googleapis.com'
-      )
-    }
-
     try {
       // First, search for video IDs
-      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`
+      const searchData = await callYouTubeEdgeFunction('search', {
+        part: 'snippet',
+        q: query,
+        type: 'video',
+        maxResults: maxResults.toString()
+      })
 
-      const searchResponse = await fetch(searchUrl)
-
-      if (!searchResponse.ok) {
-        throw new Error(`YouTube search error: ${searchResponse.statusText}`)
-      }
-
-      const searchData = await searchResponse.json()
       const videoIds = searchData.items.map((item: any) => item.id.videoId).join(',')
 
       // Then, get video details including statistics
-      const videosUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoIds}&key=${YOUTUBE_API_KEY}`
-
-      const videosResponse = await fetch(videosUrl)
-      const videosData = await videosResponse.json()
+      const videosData = await callYouTubeEdgeFunction('videos', {
+        part: 'snippet,statistics',
+        id: videoIds
+      })
 
       const videos: YouTubeVideo[] = videosData.items.map((item: any) => ({
         id: item.id,
@@ -253,20 +265,13 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error('YouTube API key not configured')
-    }
-
     try {
-      const url = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=${maxResults}&order=relevance&key=${YOUTUBE_API_KEY}`
-
-      const response = await fetch(url)
-
-      if (!response.ok) {
-        throw new Error(`YouTube Comments API error: ${response.statusText}`)
-      }
-
-      const data = await response.json()
+      const data = await callYouTubeEdgeFunction('commentThreads', {
+        part: 'snippet',
+        videoId,
+        maxResults: maxResults.toString(),
+        order: 'relevance'
+      })
 
       const comments: YouTubeComment[] = data.items?.map((item: any) => ({
         id: item.id,

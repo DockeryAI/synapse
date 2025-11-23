@@ -1,10 +1,11 @@
 /**
  * Apify API Integration
  * Web scraping and automation using Apify Actors
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const APIFY_API_KEY = import.meta.env.VITE_APIFY_API_KEY
-const APIFY_API_URL = 'https://api.apify.com/v2'
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // Apify Actor IDs (official actors from Apify Store)
 const ACTORS = {
@@ -73,75 +74,44 @@ interface InstagramProfile {
 
 class ApifyAPIService {
   /**
-   * Run an Apify Actor and wait for results
+   * Run an Apify Actor and wait for results via Edge Function
    */
-  private async runActor(actorId: string, input: any, timeout: number = 120): Promise<any> {
-    if (!APIFY_API_KEY) {
+  private async runActor(actorId: string, input: any, timeout: number = 45): Promise<any> {
+    if (!SUPABASE_URL) {
       throw new Error(
-        'Apify API key not configured. Add VITE_APIFY_API_KEY to your .env file. ' +
-        'Get a free API key from https://apify.com/'
+        'Supabase URL not configured. Add VITE_SUPABASE_URL to your .env file.'
       )
     }
 
     try {
-      // Start actor run
-      const runResponse = await fetch(`${APIFY_API_URL}/acts/${actorId}/runs?token=${APIFY_API_KEY}`, {
+      console.log(`[Apify] Starting actor ${actorId} via Edge Function...`)
+
+      // Call Edge Function to run actor (avoids CORS)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/apify-scraper`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
         },
-        body: JSON.stringify(input)
+        body: JSON.stringify({
+          actorId,
+          input
+        })
       })
 
-      if (!runResponse.ok) {
-        throw new Error(`Failed to start Apify actor: ${runResponse.status} ${runResponse.statusText}`)
+      if (!response.ok) {
+        const errorText = await response.text()
+        throw new Error(`Apify Edge Function error (${response.status}): ${errorText}`)
       }
 
-      const runData = await runResponse.json()
-      const runId = runData.data.id
+      const result = await response.json()
 
-      console.log(`[Apify] Started actor ${actorId}, run ID: ${runId}`)
-
-      // Poll for results (wait up to timeout seconds)
-      const startTime = Date.now()
-      while (Date.now() - startTime < timeout * 1000) {
-        await new Promise(resolve => setTimeout(resolve, 2000)) // Poll every 2 seconds
-
-        const statusResponse = await fetch(
-          `${APIFY_API_URL}/actor-runs/${runId}?token=${APIFY_API_KEY}`
-        )
-
-        if (!statusResponse.ok) {
-          throw new Error(`Failed to check run status: ${statusResponse.status}`)
-        }
-
-        const statusData = await statusResponse.json()
-        const status = statusData.data.status
-
-        if (status === 'SUCCEEDED') {
-          // Get dataset items
-          const datasetId = statusData.data.defaultDatasetId
-          const datasetResponse = await fetch(
-            `${APIFY_API_URL}/datasets/${datasetId}/items?token=${APIFY_API_KEY}`
-          )
-
-          if (!datasetResponse.ok) {
-            throw new Error(`Failed to get dataset: ${datasetResponse.status}`)
-          }
-
-          const results = await datasetResponse.json()
-          console.log(`[Apify] Actor completed successfully, ${results.length} results`)
-          return results
-
-        } else if (status === 'FAILED' || status === 'ABORTED' || status === 'TIMED-OUT') {
-          throw new Error(`Actor run ${status.toLowerCase()}: ${statusData.data.statusMessage || 'Unknown error'}`)
-        }
-
-        // Still running, continue polling
-        console.log(`[Apify] Run status: ${status}, waiting...`)
+      if (!result.success) {
+        throw new Error(result.error || 'Unknown error from Apify Edge Function')
       }
 
-      throw new Error(`Actor run timed out after ${timeout} seconds`)
+      console.log(`[Apify] Actor completed successfully via Edge Function, ${result.data.length} results`)
+      return result.data
 
     } catch (error) {
       console.error('[Apify] Actor run error:', error)
@@ -218,7 +188,7 @@ class ApifyAPIService {
         throw new Error('Either placeId or searchQuery must be provided')
       }
 
-      const results = await this.runActor(ACTORS.GOOGLE_MAPS, input, 180) // 3 min timeout
+      const results = await this.runActor(ACTORS.GOOGLE_MAPS, input, 60) // 1 min timeout
 
       return results.map((place: any) => ({
         placeId: place.placeId || '',

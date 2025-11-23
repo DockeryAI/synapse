@@ -103,6 +103,13 @@ export class SessionManagerService {
     try {
       console.log('[SessionManager] Fetching session:', sessionId);
 
+      // Check if user is authenticated before querying
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        console.warn('[SessionManager] ⚠️ Cannot fetch session - user not authenticated');
+        return { success: false, error: 'User not authenticated' };
+      }
+
       const { data, error } = await supabase
         .from('uvp_sessions')
         .select('*')
@@ -133,6 +140,13 @@ export class SessionManagerService {
   async listSessions(brandId: string): Promise<{ success: boolean; sessions?: SessionListItem[]; error?: string }> {
     try {
       console.log('[SessionManager] Listing sessions for brand:', brandId);
+
+      // Check if user is authenticated before querying
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        console.warn('[SessionManager] ⚠️ Cannot list sessions - user not authenticated');
+        return { success: false, error: 'User not authenticated' };
+      }
 
       const { data, error } = await supabase
         .from('uvp_sessions')
@@ -197,6 +211,19 @@ export class SessionManagerService {
     businessName: string
   ): Promise<{ success: boolean; session?: UVPSession; isNew?: boolean; error?: string }> {
     try {
+      // Check if user is authenticated before querying
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip query for unauthenticated users - just create new session
+        const createResult = await this.createSession({
+          brand_id: brandId,
+          session_name: businessName,
+          website_url: websiteUrl,
+          current_step: 'products',
+        });
+        return { ...createResult, isNew: true };
+      }
+
       // Try to find existing session
       const { data: existing } = await supabase
         .from('uvp_sessions')

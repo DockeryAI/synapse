@@ -179,37 +179,35 @@ class LocationDetectionService {
    */
   private async checkCache(url: string): Promise<LocationResult | null> {
     try {
+      // Check if user is authenticated before querying cache
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip cache for unauthenticated users
+        return null;
+      }
+
       // Normalize URL to ensure it has a protocol
       const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
       const domain = new URL(normalizedUrl).hostname;
 
       const { data, error } = await supabase
         .from('location_detection_cache')
-        .select('city, state, confidence, method, reasoning')
+        .select('city, state, confidence, method, reasoning, hasMultipleLocations, allLocations')
         .eq('domain', domain)
         .single();
 
-      if (error) {
-        // Log 406 errors for debugging
-        if (error.message?.includes('406')) {
-          console.log('[LocationDetection] ⚠️ Cache table not accessible (406) - PostgREST cache issue, falling through to AI detection');
-        }
-        // Silently fail - cache is optional, will use AI detection
+      if (error || !data) {
         return null;
       }
 
-      if (!data) return null;
-
       // Invalidate old cache entries that don't have multi-location support
       if (data.hasMultipleLocations === undefined) {
-        console.log('[LocationDetection] Cache entry outdated (no multi-location support), invalidating...');
         return null;
       }
 
       // Check if cache is still valid (30 days)
       return data as LocationResult;
     } catch (error) {
-      console.log('[LocationDetection] Cache check error:', error);
       return null;
     }
   }
@@ -691,6 +689,13 @@ If NO location found:
    */
   private async cacheResult(url: string, result: LocationResult): Promise<void> {
     try {
+      // Check if user is authenticated before caching
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip cache for unauthenticated users
+        return;
+      }
+
       // Normalize URL to ensure it has a protocol
       const normalizedUrl = url.match(/^https?:\/\//i) ? url : `https://${url}`;
       const domain = new URL(normalizedUrl).hostname;
@@ -715,11 +720,8 @@ If NO location found:
           allLocations: result.allLocations || null,
           updated_at: new Date().toISOString()
         });
-
-      console.log('[LocationDetection] Cached result for:', domain);
     } catch (error) {
       // Silently fail - caching is optional
-      console.log('[LocationDetection] Cache save failed (non-critical):', error);
     }
   }
 

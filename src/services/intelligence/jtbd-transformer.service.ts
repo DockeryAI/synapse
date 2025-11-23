@@ -104,6 +104,13 @@ class JTBDTransformerService {
     if (!industry) return null;
 
     try {
+      // Check if user is authenticated before querying
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip for unauthenticated users (RLS policy would block anyway)
+        return null;
+      }
+
       // Try to get NAICS code from industry name - try multiple strategies
 
       // Strategy 1: Try exact match on industry_label

@@ -150,20 +150,25 @@ class NAICSDatabaseService {
       const { data, error } = await supabase
         .from('industry_profiles')
         .select('*')
-        .ilike('industry_name', `%${industryText}%`)
+        .ilike('display_name', `%${industryText}%`)
         .limit(1)
-        .single();
+        .maybeSingle(); // Use maybeSingle() instead of single() to handle 0 results
 
-      if (!error && data) {
+      if (error) {
+        console.warn(`[NAICSDatabase] Industry profile query error:`, error);
+      }
+
+      if (data) {
         const profile = this.mapToOrchestrationFormat(data as IndustryProfileFull);
         this.cache.set(data.naics_code, profile);
         return profile;
       }
-    } catch {
-      // Continue to fallback
+    } catch (err) {
+      console.warn(`[NAICSDatabase] Industry profile lookup failed:`, err);
     }
 
     // Fallback: return generic business profile
+    console.log(`[NAICSDatabase] No profile found for "${industryText}", using generic profile`);
     return this.getGenericProfile();
   }
 

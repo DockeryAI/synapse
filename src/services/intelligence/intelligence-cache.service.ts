@@ -91,6 +91,13 @@ class IntelligenceCacheService {
    */
   async get<T = any>(cacheKey: string): Promise<T | null> {
     try {
+      // Check if user is authenticated before querying cache
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip cache for unauthenticated users
+        return null;
+      }
+
       console.log('[IntelligenceCache] Getting:', cacheKey)
 
       const { data, error } = await supabase
@@ -130,6 +137,13 @@ class IntelligenceCacheService {
     options: CacheOptions
   ): Promise<void> {
     try {
+      // Check if user is authenticated before caching
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) {
+        // Skip cache for unauthenticated users
+        return;
+      }
+
       const ttlMinutes = this.getTTL(options.dataType, options.ttlMinutes)
       const expiresAt = this.getExpiresAt(ttlMinutes)
 

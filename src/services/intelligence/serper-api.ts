@@ -1,9 +1,37 @@
 /**
  * Serper API Integration (Google Search)
  * Search insights and trending queries
+ *
+ * SECURITY: Uses Edge Function to keep API keys server-side
  */
 
-const SERPER_API_KEY = import.meta.env.VITE_SERPER_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+/**
+ * Helper function to call Serper API via Edge Function
+ */
+async function callSerperEdgeFunction(endpoint: string, params: any): Promise<any> {
+  if (!SUPABASE_URL) {
+    throw new Error('Supabase URL not configured')
+  }
+
+  const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+    },
+    body: JSON.stringify({ endpoint, params })
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`Serper API error (${response.status}): ${errorText}`)
+  }
+
+  return await response.json()
+}
 
 interface SearchResult {
   title: string
@@ -126,24 +154,8 @@ interface LinkedInJob {
 
 class SerperAPIService {
   async searchGoogle(query: string): Promise<SearchResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/search', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ q: query })
-      })
-
-      const data = await response.json()
+      const data = await callSerperEdgeFunction('/search', { q: query })
       return (data.organic || []).map((result: any, index: number) => ({
         title: result.title,
         link: result.link,
@@ -157,13 +169,6 @@ class SerperAPIService {
   }
 
   async getTrendingSearches(): Promise<string[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     // TODO: Implement real trending searches via Serper API
     throw new Error('getTrendingSearches() not yet implemented. Use Google Trends API instead.')
   }
@@ -204,26 +209,26 @@ class SerperAPIService {
    * Get news articles for a topic with optional location filtering
    */
   async getNews(topic: string, location?: string): Promise<NewsResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
+    if (!SUPABASE_URL) {
+      throw new Error('Supabase URL not configured')
     }
 
     try {
-      const body: any = { q: topic }
+      const params: any = { q: topic }
       if (location) {
-        body.location = location
+        params.location = location
       }
 
-      const response = await fetch('https://google.serper.dev/news', {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
         method: 'POST',
         headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
         },
-        body: JSON.stringify(body)
+        body: JSON.stringify({
+          endpoint: '/news',
+          params
+        })
       })
 
       if (!response.ok) {
@@ -250,13 +255,6 @@ class SerperAPIService {
    * Get trending data for a keyword with timeRange support
    */
   async getTrends(keyword: string, timeRange?: string): Promise<TrendData> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
       // Use regular search + autocomplete to infer trends
       const [searchResults, relatedSearches] = await Promise.all([
@@ -287,31 +285,11 @@ class SerperAPIService {
    * Get autocomplete suggestions for question-based content
    */
   async getAutocomplete(query: string): Promise<string[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/search', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          q: query,
-          autocorrect: true
-        })
+      const data = await callSerperEdgeFunction('/search', {
+        q: query,
+        autocorrect: true
       })
-
-      if (!response.ok) {
-        throw new Error(`Serper Autocomplete API error: ${response.status}`)
-      }
-
-      const data = await response.json()
 
       // Extract "People also ask" and "Related searches"
       const suggestions: string[] = []
@@ -335,31 +313,11 @@ class SerperAPIService {
    * Get local business data from Google Places
    */
   async getPlaces(query: string, location: string): Promise<PlaceResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/places', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          q: query,
-          location: location
-        })
+      const data = await callSerperEdgeFunction('/places', {
+        q: query,
+        location: location
       })
-
-      if (!response.ok) {
-        throw new Error(`Serper Places API error: ${response.status}`)
-      }
-
-      const data = await response.json()
 
       return (data.places || []).map((place: any) => {
         // Try multiple possible field names for place ID
@@ -389,29 +347,12 @@ class SerperAPIService {
    * Fast fallback for when OutScraper doesn't have cached reviews
    */
   async getPlaceReviews(placeId: string): Promise<PlaceReview[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error('Serper API key not configured')
-    }
-
     try {
       console.log('[Serper] Fetching reviews for place_id:', placeId)
 
-      const response = await fetch('https://google.serper.dev/places', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          q: `place_id:${placeId}`
-        })
+      const data = await callSerperEdgeFunction('/places', {
+        q: `place_id:${placeId}`
       })
-
-      if (!response.ok) {
-        throw new Error(`Serper Places API error: ${response.status}`)
-      }
-
-      const data = await response.json()
 
       // Serper returns reviews in the 'reviews' array
       const reviews = data.reviews || []
@@ -435,28 +376,8 @@ class SerperAPIService {
    * Get image results for visual content analysis
    */
   async getImages(query: string): Promise<ImageResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/images', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ q: query })
-      })
-
-      if (!response.ok) {
-        throw new Error(`Serper Images API error: ${response.status}`)
-      }
-
-      const data = await response.json()
+      const data = await callSerperEdgeFunction('/images', { q: query })
 
       return (data.images || []).map((image: any) => ({
         title: image.title || '',
@@ -475,28 +396,8 @@ class SerperAPIService {
    * Get video results for video gap analysis
    */
   async getVideos(query: string): Promise<VideoResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/videos', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ q: query })
-      })
-
-      if (!response.ok) {
-        throw new Error(`Serper Videos API error: ${response.status}`)
-      }
-
-      const data = await response.json()
+      const data = await callSerperEdgeFunction('/videos', { q: query })
 
       return (data.videos || []).map((video: any) => ({
         title: video.title || '',
@@ -517,28 +418,8 @@ class SerperAPIService {
    * Get shopping results for product intelligence
    */
   async getShopping(product: string): Promise<ShoppingResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
-    }
-
     try {
-      const response = await fetch('https://google.serper.dev/shopping', {
-        method: 'POST',
-        headers: {
-          'X-API-KEY': SERPER_API_KEY,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ q: product })
-      })
-
-      if (!response.ok) {
-        throw new Error(`Serper Shopping API error: ${response.status}`)
-      }
-
-      const data = await response.json()
+      const data = await callSerperEdgeFunction('/shopping', { q: product })
 
       return (data.shopping || []).map((item: any) => ({
         title: item.title || '',
