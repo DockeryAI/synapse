@@ -103,8 +103,8 @@ export const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
 
   if (pieces.length === 0) {
     return (
-      <div className={cn('p-8 text-center border rounded-lg bg-muted/50', className)}>
-        <p className="text-muted-foreground">
+      <div className={cn('p-8 text-center border border-gray-300 dark:border-slate-600 rounded-lg bg-gray-100 dark:bg-slate-800', className)}>
+        <p className="text-gray-600 dark:text-gray-300">
           No pieces generated yet. Select a template and configure your campaign.
         </p>
       </div>
@@ -114,8 +114,8 @@ export const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
   return (
     <div className={cn('space-y-4', className)}>
       {/* Emotional Progression Bar */}
-      <div className="p-4 border rounded-lg">
-        <h4 className="text-sm font-medium mb-3">Emotional Progression</h4>
+      <div className="p-4 border border-gray-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800">
+        <h4 className="text-sm font-medium text-gray-900 dark:text-white mb-3">Emotional Progression</h4>
         <div className="flex gap-1">
           {pieces.map((piece, idx) => (
             <div
@@ -138,10 +138,10 @@ export const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
 
       {/* Timeline Header */}
       <div className="flex items-center justify-between">
-        <h4 className="text-sm font-medium">
+        <h4 className="text-sm font-medium text-gray-900 dark:text-white">
           Campaign Timeline ({pieces.length} pieces)
         </h4>
-        <span className="text-xs text-muted-foreground">
+        <span className="text-xs text-gray-600 dark:text-gray-300">
           Drag to reorder
         </span>
       </div>
@@ -176,27 +176,27 @@ export const TimelineVisualizer: React.FC<TimelineVisualizerProps> = ({
       </DndContext>
 
       {/* Timeline Summary */}
-      <div className="p-3 bg-muted rounded-lg">
+      <div className="p-3 bg-gray-100 dark:bg-slate-800 rounded-lg">
         <div className="grid grid-cols-3 gap-4 text-sm">
           <div>
-            <span className="text-muted-foreground">Start</span>
-            <div className="font-medium">
+            <span className="text-gray-600 dark:text-gray-400">Start</span>
+            <div className="font-medium text-gray-900 dark:text-white">
               {pieces[0]?.scheduledDate
                 ? new Date(pieces[0].scheduledDate).toLocaleDateString()
                 : 'Not set'}
             </div>
           </div>
           <div>
-            <span className="text-muted-foreground">End</span>
-            <div className="font-medium">
+            <span className="text-gray-600 dark:text-gray-400">End</span>
+            <div className="font-medium text-gray-900 dark:text-white">
               {pieces[pieces.length - 1]?.scheduledDate
                 ? new Date(pieces[pieces.length - 1].scheduledDate).toLocaleDateString()
                 : 'Not set'}
             </div>
           </div>
           <div>
-            <span className="text-muted-foreground">Duration</span>
-            <div className="font-medium">
+            <span className="text-gray-600 dark:text-gray-400">Duration</span>
+            <div className="font-medium text-gray-900 dark:text-white">
               {calculateDuration(pieces)} days
             </div>
           </div>
