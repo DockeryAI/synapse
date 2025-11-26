@@ -26,6 +26,7 @@ import { IndustryBenchmarkDatabase } from '@/services/benchmarks/IndustryBenchma
 import { TwoWayConnectionFinder } from '@/services/synapse/connections/TwoWayConnectionFinder';
 import { ConnectionScorer } from '@/services/synapse/connections/ConnectionScorer';
 import { connectionDiscoveryService } from './connection-discovery.service';
+import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
 import type { DataPoint, DataSource, DataPointType } from '@/types/connections.types';
 
@@ -122,6 +123,9 @@ export class StreamingDeepContextBuilder {
     this.currentContext = this.buildEmptyContext();
 
     // 1.5 Load UVP data as baseline (this gives us immediate data)
+    // CRITICAL: UVP MUST be loaded BEFORE APIs fire so searches are targeted
+    console.log(`[Streaming/uvp] ========== UVP LOADING START ==========`);
+    console.log(`[Streaming/uvp] Brand ID: ${config.brandId}`);
     const uvpDataPoints = await this.loadUVPData();
     if (uvpDataPoints.length > 0) {
       console.log(`[Streaming] Loaded ${uvpDataPoints.length} UVP data points as baseline`);
@@ -130,6 +134,35 @@ export class StreamingDeepContextBuilder {
       this.currentContext = await this.buildContextFromDataPoints();
       this.notifyProgress(false); // Immediate first update with UVP data
     }
+
+    // VERIFY UVP STATE - Log confirmation BEFORE APIs fire
+    if (this.uvpData) {
+      console.log(`[Streaming/uvp] ✅ UVP LOADED SUCCESSFULLY - APIs will use targeted searches`);
+      console.log(`[Streaming/uvp] Target Customer: "${this.uvpData.target_customer?.substring(0, 80)}..."`);
+      console.log(`[Streaming/uvp] Pain Points Available: ${this.uvpData.transformation ? 'YES' : 'NO'}`);
+    } else {
+      console.warn(`[Streaming/uvp] ⚠️ NO UVP DATA FOUND - Attempting recovery from session table...`);
+
+      // Attempt to recover UVP from uvp_sessions table
+      try {
+        const recoveryResult = await recoverUVPFromSession(config.brandId);
+        if (recoveryResult.recovered) {
+          console.log(`[Streaming/uvp] ✅ RECOVERED UVP from session: ${recoveryResult.uvpId}`);
+          // Reload UVP data now that it's in marba_uvps
+          const recoveredDataPoints = await this.loadUVPData();
+          if (recoveredDataPoints.length > 0) {
+            this.dataPoints.push(...recoveredDataPoints);
+            console.log(`[Streaming/uvp] ✅ UVP data now available for APIs`);
+          }
+        } else {
+          console.warn(`[Streaming/uvp] ⚠️ NO UVP DATA - APIs will use GENERIC industry searches`);
+          console.warn(`[Streaming/uvp] This results in irrelevant insights. Complete UVP onboarding first.`);
+        }
+      } catch (recoveryError) {
+        console.error(`[Streaming/uvp] Recovery failed:`, recoveryError);
+      }
+    }
+    console.log(`[Streaming/uvp] ========== UVP LOADING END ==========`)
 
     // 1.6 Load product catalog data (from pm_products table)
     const productDataPoints = await this.loadProductCatalogData();
