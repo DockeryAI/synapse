@@ -20,6 +20,7 @@ import { PowerMode } from './intelligence-v2/PowerMode';
 import { OpportunityRadar } from './OpportunityRadar';
 import { AiPicksPanel } from './AiPicksPanel';
 import { ProductsTab } from './intelligence-v2/ProductsTab';
+import { SegmentAwarePanel } from './SegmentAwarePanel';
 import type { SmartPick } from '@/types/smart-picks.types';
 
 // Lazy load heavy components
@@ -453,15 +454,25 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign, onRefreshIn
               exit={{ opacity: 0, y: -20 }}
               className="h-full p-6 overflow-auto"
             >
-              <OpportunityRadar
-                alerts={opportunities}
-                onCreateContent={(alert) => {
-                  console.log('[OpportunityRadar] Create content for:', alert);
-                  // Future: Trigger content generation flow
-                }}
-                maxVisible={20}
-                hideHidden={true}
-              />
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Segment-Aware Dashboard Panel (Phase D - Item #32) */}
+                <div className="lg:col-span-1">
+                  <SegmentAwarePanel context={context} />
+                </div>
+
+                {/* Opportunity Radar */}
+                <div className="lg:col-span-2">
+                  <OpportunityRadar
+                    alerts={opportunities}
+                    onCreateContent={(alert) => {
+                      console.log('[OpportunityRadar] Create content for:', alert);
+                      // Future: Trigger content generation flow
+                    }}
+                    maxVisible={20}
+                    hideHidden={true}
+                  />
+                </div>
+              </div>
             </motion.div>
           )}
 

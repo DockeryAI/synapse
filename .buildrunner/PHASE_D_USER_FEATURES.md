@@ -1,7 +1,8 @@
 # PHASE D: USER FEATURES
 
 **Started**: November 26, 2025
-**Status**: IN PROGRESS
+**Completed**: November 26, 2025
+**Status**: COMPLETE
 **Priority**: P3 - STANDARD
 
 ---
@@ -19,7 +20,7 @@ Phase D exposes the intelligence engine capabilities to users through UI compone
 | 29 | UVP Profile Page (/brand-profile) | ALL | COMPLETE | BrandProfilePage.tsx with UVP display |
 | 30 | Content Mixer UVP integration | ALL | COMPLETE | UVPContentOptions.tsx with Phase C features |
 | 31 | AI Picks UVP scoring (<30% filtered) | ALL | COMPLETE | uvp-relevance-scorer.ts + SmartPicks filter |
-| 32 | Segment-aware dashboard | ALL | PENDING | Show segment-specific features |
+| 32 | Segment-aware dashboard | ALL | COMPLETE | SegmentAwarePanel in Opportunities tab |
 | 33 | Nav item "Brand Profile" | ALL | COMPLETE | Added to AppLayout navigation |
 
 ---
@@ -114,6 +115,7 @@ After completion:
 | 2025-11-26 | #29, #33 | UVP Profile Page + Brand Profile nav item | feat(correlation): Items #29, #33 UVP Profile Page |
 | 2025-11-26 | #30 | Content Mixer UVP integration with Phase C features | feat(correlation): Item #30 Content Mixer UVP integration |
 | 2025-11-26 | #31 | AI Picks UVP scoring with filter and show all toggle | feat(correlation): Item #31 AI Picks UVP scoring |
+| 2025-11-26 | #32 | Segment-aware dashboard with feature detection | feat(correlation): Item #32 segment-aware dashboard |
 
 ---
 
