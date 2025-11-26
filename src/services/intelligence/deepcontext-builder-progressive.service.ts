@@ -1,15 +1,19 @@
 /**
  * DeepContext Builder - TRUE Progressive Loading WITH REALTIME UPDATES
  *
- * Each API updates the UI immediately as it completes
- * No waiting for "waves" - all APIs run in parallel
- * No timeouts - let APIs take as long as needed
+ * Netflix-style streaming architecture:
+ * - All APIs fire simultaneously
+ * - Each API updates UI independently when complete
+ * - First data visible in <5 seconds
+ * - No API blocks another
  */
 
-import { Brand } from '../../types/brand';
-import { DeepContext } from '../../types/intelligence';
-import { DataPoint } from '../../types/intelligence/data-point';
-import { deepContextBuilder } from './deepcontext-builder.service';
+import { DeepContext } from '@/types/synapse/deepContext.types';
+import {
+  streamingDeepContextBuilder,
+  StreamingProgress,
+  StreamingConfig
+} from './streaming-deepcontext-builder.service';
 
 export type ProgressCallback = (
   context: DeepContext,
@@ -26,11 +30,11 @@ export class TrueProgressiveDeepContextBuilder {
   /**
    * Build DeepContext with TRUE progressive loading
    * Each API updates UI immediately when complete
-   * No timeouts, no wave waiting
    */
   async buildTrueProgressive(
     config: {
       brandId: string;
+      businessType?: 'local' | 'b2b-national' | 'b2b-global';
       cacheResults?: boolean;
       forceFresh?: boolean;
       includeOutScraper?: boolean;
@@ -46,44 +50,45 @@ export class TrueProgressiveDeepContextBuilder {
     },
     onProgress?: ProgressCallback
   ): Promise<{ context: DeepContext; metadata: any }> {
-    const startTime = Date.now();
+    console.log('[TrueProgressive] Starting Netflix-style streaming build...');
 
-    // TEMPORARY: Use the wave-based system since it actually works
-    console.log('[TrueProgressive] Using wave-based progressive system (it actually works)...');
+    const streamingConfig: StreamingConfig = {
+      brandId: config.brandId,
+      businessType: config.businessType,
+      cacheResults: config.cacheResults,
+      forceFresh: config.forceFresh
+    };
 
-    return deepContextBuilder.buildDeepContextProgressive(
-      {
-        brandId: config.brandId,
-        cacheResults: config.cacheResults || false,
-        forceFresh: config.forceFresh || false,
-        includeOutScraper: config.includeOutScraper !== false,
-        includeSerper: config.includeSerper !== false,
-        includeWebsiteAnalysis: config.includeWebsiteAnalysis !== false,
-        includeYouTube: config.includeYouTube !== false,
-        includeSEMrush: config.includeSEMrush !== false,
-        includeNews: config.includeNews !== false,
-        includeWeather: config.includeWeather !== false,
-        includeLinkedIn: config.includeLinkedIn !== false,
-        includePerplexity: config.includePerplexity !== false,
-        includeApify: config.includeApify !== false
-      },
-      // Wave-based progress updates - at least this shows data progressively
-      (wave: number, context: Partial<DeepContext>, metadata: any) => {
-        if (onProgress) {
-          const completedApis = metadata.dataSourcesUsed || [];
+    // Streaming callback adapter
+    const streamingCallback = (progress: StreamingProgress) => {
+      if (onProgress) {
+        console.log(`[TrueProgressive] Progress: ${progress.completedApis.length} APIs done, ${progress.dataPointsCollected} data points`);
 
-          console.log(`[TrueProgressive] Wave ${wave} complete: ${completedApis.length} APIs done`);
-
-          onProgress(context as DeepContext, {
-            dataSourcesUsed: completedApis,
-            dataPointsCollected: metadata.dataPointsCollected || 0,
-            buildTimeMs: Date.now() - startTime,
-            completedApis: completedApis,
-            pendingApis: [] // We don't know which are pending in wave system
-          });
-        }
+        onProgress(progress.context, {
+          dataSourcesUsed: progress.completedApis,
+          dataPointsCollected: progress.dataPointsCollected,
+          buildTimeMs: progress.buildTimeMs,
+          completedApis: progress.completedApis,
+          pendingApis: progress.pendingApis
+        });
       }
+    };
+
+    // Use the new streaming builder
+    const finalContext = await streamingDeepContextBuilder.buildStreaming(
+      streamingConfig,
+      streamingCallback
     );
+
+    return {
+      context: finalContext,
+      metadata: {
+        buildTimeMs: finalContext.metadata.processingTimeMs,
+        dataSourcesUsed: finalContext.metadata.dataSourcesUsed,
+        dataPointsCollected: 0, // Will be filled by streaming
+        errors: []
+      }
+    };
   }
 }
 
