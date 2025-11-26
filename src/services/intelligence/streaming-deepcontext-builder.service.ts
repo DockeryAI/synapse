@@ -713,6 +713,13 @@ export class StreamingDeepContextBuilder {
       ? this.extractCustomerSearchTerm(targetCustomer)
       : industry;
 
+    // Log whether we're using UVP-targeted or generic fallback
+    if (targetCustomer) {
+      console.log('[Streaming/serper] ✅ Using UVP-TARGETED search:', customerSearchTerm);
+    } else {
+      console.warn('[Streaming/serper] ⚠️ FALLBACK to generic industry search:', industry);
+    }
+
     console.log('[Streaming/serper] Searching for TARGET CUSTOMER insights:', {
       targetCustomer: targetCustomer.substring(0, 100),
       customerSearchTerm,
@@ -875,6 +882,13 @@ export class StreamingDeepContextBuilder {
       ? `${this.extractCustomerSearchTerm(targetCustomer)} challenges`
       : this.brandData.industry;
 
+    // Log whether we're using UVP-targeted or generic fallback
+    if (targetCustomer) {
+      console.log('[Streaming/youtube] ✅ Using UVP-TARGETED search:', searchContext);
+    } else {
+      console.warn('[Streaming/youtube] ⚠️ FALLBACK to generic industry search:', this.brandData.industry);
+    }
+
     console.log('[Streaming/youtube] Searching for TARGET CUSTOMER content:', {
       targetCustomer: targetCustomer.substring(0, 80),
       searchContext,
@@ -1010,6 +1024,13 @@ export class StreamingDeepContextBuilder {
       ? this.extractCustomerSearchTerm(targetCustomer)
       : this.brandData.industry;
 
+    // Log whether we're using UVP-targeted or generic fallback
+    if (targetCustomer) {
+      console.log('[Streaming/linkedin] ✅ Using UVP-TARGETED B2B search:', customerTerm);
+    } else {
+      console.warn('[Streaming/linkedin] ⚠️ FALLBACK to generic industry search:', this.brandData.industry);
+    }
+
     console.log('[Streaming/linkedin] B2B search context:', {
       targetCustomer: targetCustomer.substring(0, 80),
       customerTerm,
@@ -1077,6 +1098,13 @@ export class StreamingDeepContextBuilder {
       const customerTerm = targetCustomer
         ? this.extractCustomerSearchTerm(targetCustomer)
         : this.brandData.industry;
+
+      // Log whether we're using UVP-targeted or generic fallback
+      if (targetCustomer) {
+        console.log('[Streaming/perplexity] ✅ Using UVP-TARGETED queries for:', customerTerm);
+      } else {
+        console.warn('[Streaming/perplexity] ⚠️ FALLBACK to generic industry queries:', this.brandData.industry);
+      }
 
       console.log('[Streaming/perplexity] Running SPECIFIC pain point queries for:', customerTerm);
 
