@@ -12,15 +12,18 @@
  * Updated: 2025-11-26 - Added product-enhanced picks
  */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, Loader2, AlertCircle, Lightbulb, Zap, Package } from 'lucide-react'
+import { Sparkles, Loader2, AlertCircle, Lightbulb, Zap, Package, Eye, EyeOff, Target } from 'lucide-react'
 import type { DeepContext } from '@/types/synapse/deepContext.types'
 import type { SmartPick, CampaignType } from '@/types/smart-picks.types'
+import type { CompleteUVP } from '@/types/uvp-flow.types'
 import { generateSmartPicks } from '@/services/campaign/SmartPickGenerator'
 import { enhanceSmartPicksWithProducts, type ProductEnhancedSmartPick } from '@/services/product-marketing/product-smart-pick-enhancer.service'
+import { scorePicksAgainstUVP, filterByRelevance, type ScoredSmartPick } from '@/services/campaign/uvp-relevance-scorer'
 import { SmartPickCard } from './SmartPickCard'
 import { QuickPreview } from './QuickPreview'
+import { Badge } from '@/components/ui/badge'
 
 export interface SmartPicksProps {
   /** Deep context with business intelligence */
@@ -33,7 +36,7 @@ export interface SmartPicksProps {
   campaignType?: CampaignType
 
   /** Callback when user wants to generate a campaign */
-  onGenerateCampaign: (pick: SmartPick | ProductEnhancedSmartPick) => void
+  onGenerateCampaign: (pick: SmartPick | ProductEnhancedSmartPick | ScoredSmartPick) => void
 
   /** Callback when user wants to use Content Mixer instead */
   onSwitchToMixer?: () => void
@@ -43,6 +46,15 @@ export interface SmartPicksProps {
 
   /** Enable product-enhanced picks */
   enableProductPicks?: boolean
+
+  /** UVP data for relevance scoring (Phase D - Item #31) */
+  uvp?: CompleteUVP | null
+
+  /** Enable UVP-based filtering (<30% hidden) */
+  enableUVPFiltering?: boolean
+
+  /** Minimum relevance threshold (default 30%) */
+  minRelevanceThreshold?: number
 }
 
 export function SmartPicks({
@@ -52,12 +64,40 @@ export function SmartPicks({
   onGenerateCampaign,
   onSwitchToMixer,
   maxPicks = 5,
-  enableProductPicks = true
+  enableProductPicks = true,
+  uvp = null,
+  enableUVPFiltering = true,
+  minRelevanceThreshold = 30
 }: SmartPicksProps) {
   const [picks, setPicks] = useState<(SmartPick | ProductEnhancedSmartPick)[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [previewPick, setPreviewPick] = useState<SmartPick | ProductEnhancedSmartPick | null>(null)
+  const [previewPick, setPreviewPick] = useState<SmartPick | ProductEnhancedSmartPick | ScoredSmartPick | null>(null)
+  const [showAllPicks, setShowAllPicks] = useState(false) // "Show all" toggle for power users
+
+  // Score picks against UVP and filter
+  const { scoredPicks, relevantPicks, filteredPicks } = useMemo(() => {
+    if (!uvp || !enableUVPFiltering) {
+      // No UVP or filtering disabled - show all picks
+      return {
+        scoredPicks: picks.map(p => ({ ...p, uvpRelevance: { pickId: p.id, relevanceScore: 100, reasoning: [], matchedAspects: { targetCustomer: 100, painPoints: 100, transformation: 100, uniqueSolution: 100, keyBenefit: 100 }, isRelevant: true } })) as ScoredSmartPick[],
+        relevantPicks: picks as any[],
+        filteredPicks: [] as ScoredSmartPick[],
+      }
+    }
+
+    const scored = scorePicksAgainstUVP(picks as SmartPick[], uvp)
+    const { relevant, filtered } = filterByRelevance(scored, minRelevanceThreshold)
+
+    return {
+      scoredPicks: scored,
+      relevantPicks: relevant,
+      filteredPicks: filtered,
+    }
+  }, [picks, uvp, enableUVPFiltering, minRelevanceThreshold])
+
+  // Get the picks to display based on show all toggle
+  const displayPicks = showAllPicks ? scoredPicks : relevantPicks
 
   // Generate picks on mount
   useEffect(() => {
@@ -194,7 +234,7 @@ export function SmartPicks({
     )
   }
 
-  // Empty state
+  // Empty state - no picks at all
   if (picks.length === 0) {
     return (
       <motion.div
@@ -230,6 +270,58 @@ export function SmartPicks({
             </span>
           </motion.button>
         )}
+      </motion.div>
+    )
+  }
+
+  // All picks filtered out by UVP relevance
+  if (displayPicks.length === 0 && filteredPicks.length > 0) {
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-col items-center justify-center py-16 px-4"
+      >
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: "spring", stiffness: 200 }}
+          className="w-16 h-16 bg-gradient-to-br from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 rounded-full flex items-center justify-center mb-4"
+        >
+          <Target className="text-purple-600 dark:text-purple-400" size={32} />
+        </motion.div>
+        <h3 className="text-lg font-semibold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
+          No Highly Relevant Picks Found
+        </h3>
+        <p className="text-sm text-gray-600 dark:text-gray-400 text-center max-w-md mb-2">
+          {filteredPicks.length} suggestion{filteredPicks.length !== 1 ? 's' : ''} scored below {minRelevanceThreshold}% relevance to your UVP.
+        </p>
+        <p className="text-xs text-gray-500 text-center max-w-md mb-6">
+          These may still be valuable - click below to see all suggestions.
+        </p>
+        <div className="flex gap-3">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowAllPicks(true)}
+            className="px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all font-medium shadow-lg text-sm"
+          >
+            <span className="flex items-center gap-2">
+              <Eye size={16} />
+              Show All Suggestions
+            </span>
+          </motion.button>
+          {onSwitchToMixer && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onSwitchToMixer}
+              className="px-4 py-2 border-2 border-purple-600 text-purple-600 rounded-lg hover:bg-purple-50 transition-all font-medium text-sm"
+            >
+              Content Mixer
+            </motion.button>
+          )}
+        </div>
       </motion.div>
     )
   }
@@ -274,28 +366,85 @@ export function SmartPicks({
               How this works:
             </strong> Our AI analyzed your business data across 10+ sources
             and scored {picks.length} campaign opportunities by relevance, timeliness, and evidence quality.
-            The top picks are shown below, ranked by overall score.
+            {uvp && enableUVPFiltering && (
+              <> Picks are also scored against your UVP for relevance.</>
+            )}
           </p>
         </motion.div>
+
+        {/* UVP Filtering Status & Toggle (Phase D - Item #31) */}
+        {uvp && enableUVPFiltering && filteredPicks.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center justify-between mt-4 p-3 bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-lg"
+          >
+            <div className="flex items-center gap-2">
+              <Target size={16} className="text-purple-600" />
+              <span className="text-sm text-gray-700 dark:text-gray-300">
+                <strong>{displayPicks.length}</strong> of {picks.length} picks shown
+                {!showAllPicks && (
+                  <span className="text-gray-500">
+                    {' '}({filteredPicks.length} below {minRelevanceThreshold}% UVP relevance)
+                  </span>
+                )}
+              </span>
+            </div>
+            <button
+              onClick={() => setShowAllPicks(!showAllPicks)}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/30 rounded-lg transition-colors"
+            >
+              {showAllPicks ? (
+                <>
+                  <EyeOff size={14} />
+                  Hide Low Relevance
+                </>
+              ) : (
+                <>
+                  <Eye size={14} />
+                  Show All
+                </>
+              )}
+            </button>
+          </motion.div>
+        )}
       </motion.div>
 
       {/* Grid of picks */}
       <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {picks.map((pick, idx) => (
-          <motion.div
-            key={pick.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
-          >
-            <SmartPickCard
-              pick={pick}
-              rank={idx + 1}
-              onGenerate={onGenerateCampaign}
-              onPreview={setPreviewPick}
-            />
-          </motion.div>
-        ))}
+        {displayPicks.map((pick, idx) => {
+          const isScored = 'uvpRelevance' in pick
+          const relevanceScore = isScored ? (pick as ScoredSmartPick).uvpRelevance.relevanceScore : null
+
+          return (
+            <motion.div
+              key={pick.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              className="relative"
+            >
+              {/* UVP Relevance Badge */}
+              {relevanceScore !== null && uvp && (
+                <div className="absolute -top-2 -right-2 z-10">
+                  <Badge
+                    variant={relevanceScore >= 70 ? 'default' : relevanceScore >= 30 ? 'secondary' : 'destructive'}
+                    className="text-xs px-2 py-0.5"
+                  >
+                    {relevanceScore}% UVP
+                  </Badge>
+                </div>
+              )}
+              <SmartPickCard
+                pick={pick}
+                rank={idx + 1}
+                onGenerate={onGenerateCampaign}
+                onPreview={setPreviewPick}
+              />
+            </motion.div>
+          )
+        })}
       </div>
 
       {/* Alternative option */}
