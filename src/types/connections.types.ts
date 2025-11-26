@@ -34,6 +34,7 @@ export type DataPointType =
   | 'pain_point'
   | 'unarticulated_need'
   | 'competitor_weakness'
+  | 'competitor_mention'
   | 'keyword_gap'
   | 'question'
   | 'people_also_ask'

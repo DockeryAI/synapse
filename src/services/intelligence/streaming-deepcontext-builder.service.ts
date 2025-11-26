@@ -27,6 +27,7 @@ import { TwoWayConnectionFinder } from '@/services/synapse/connections/TwoWayCon
 import { ConnectionScorer } from '@/services/synapse/connections/ConnectionScorer';
 import { connectionDiscoveryService } from './connection-discovery.service';
 import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
+import { redditAPI } from './reddit-apify-api';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
 import type { DataPoint, DataSource, DataPointType } from '@/types/connections.types';
 
@@ -58,7 +59,8 @@ const ALL_APIS = [
   'news',
   'weather',
   'linkedin',
-  'perplexity'
+  'perplexity',
+  'reddit'
 ] as const;
 
 type ApiName = typeof ALL_APIS[number];
@@ -352,11 +354,11 @@ export class StreamingDeepContextBuilder {
    */
   private getApisForBusinessType(businessType: string): ApiName[] {
     if (businessType === 'local') {
-      // Local businesses: Use all APIs including OutScraper for Google Maps
-      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity'];
+      // Local businesses: Use all APIs including OutScraper for Google Maps + Reddit
+      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit'];
     } else {
-      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use different sources
-      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity'];
+      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use different sources + Reddit
+      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit'];
     }
   }
 
@@ -397,6 +399,9 @@ export class StreamingDeepContextBuilder {
           break;
         case 'perplexity':
           apiDataPoints = await this.fetchPerplexityData();
+          break;
+        case 'reddit':
+          apiDataPoints = await this.fetchRedditData();
           break;
       }
 
@@ -1859,6 +1864,181 @@ export class StreamingDeepContextBuilder {
     if (queryType === 'buying_trigger') return 'timing';
     if (isEmotional) return 'pain_point';
     return 'unarticulated_need';
+  }
+
+  /**
+   * Fetch Reddit data for customer pain points and discussions
+   * Uses Apify Reddit scraper for reliable data without OAuth complexity
+   */
+  private async fetchRedditData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      // Build UVP-targeted Reddit search queries
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const transformation = this.uvpData?.transformation || '';
+      const uvpIndustry = this.getUVPIndustry();
+
+      // Extract search terms from UVP
+      const customerTerm = targetCustomer
+        ? this.extractCustomerSearchTerm(targetCustomer)
+        : this.brandData.industry;
+
+      // Log whether using UVP or fallback
+      if (targetCustomer) {
+        console.log('[Streaming/reddit] ✅ Using UVP-TARGETED search for:', customerTerm);
+      } else {
+        console.warn('[Streaming/reddit] ⚠️ FALLBACK to generic industry search:', this.brandData.industry);
+      }
+
+      // Find relevant subreddits based on industry
+      const relevantSubreddits = await this.getRelevantSubredditsForUVP(uvpIndustry);
+      console.log(`[Streaming/reddit] Mining ${relevantSubreddits.length} subreddits for customer pain points:`, relevantSubreddits);
+
+      // Build search queries from UVP pain points
+      const searchQueries = this.buildRedditSearchQueries(customerTerm, transformation, uvpIndustry);
+      console.log(`[Streaming/reddit] Running ${searchQueries.length} targeted searches`);
+
+      // Mine Reddit for each query
+      for (const query of searchQueries.slice(0, 3)) { // Limit to 3 queries to avoid rate limits
+        try {
+          const result = await redditAPI.mineIntelligence(query, {
+            subreddits: relevantSubreddits,
+            limit: 15,
+            commentsPerPost: 10,
+            sortBy: 'relevance',
+            timeFilter: 'year'
+          });
+
+          // Convert psychological triggers to data points
+          result.triggers.forEach((trigger, idx) => {
+            dataPoints.push({
+              id: `reddit-trigger-${Date.now()}-${idx}`,
+              source: 'reddit' as DataSource,
+              type: this.mapTriggerToDataPointType(trigger.type),
+              content: trigger.text,
+              metadata: {
+                triggerType: trigger.type,
+                intensity: trigger.intensity,
+                subreddit: trigger.subreddit,
+                upvotes: trigger.upvotes,
+                url: trigger.url,
+                context: trigger.context?.substring(0, 200)
+              },
+              createdAt: new Date()
+            });
+          });
+
+          // Convert customer insights (pain points & desires) to data points
+          result.insights.forEach((insight, idx) => {
+            const isPainPoint = !!insight.painPoint;
+            dataPoints.push({
+              id: `reddit-insight-${Date.now()}-${idx}`,
+              source: 'reddit' as DataSource,
+              type: isPainPoint ? 'pain_point' : 'unarticulated_need',
+              content: insight.painPoint || insight.desire || insight.context,
+              metadata: {
+                subreddit: insight.subreddit,
+                upvotes: insight.upvotes,
+                url: insight.url,
+                insightType: isPainPoint ? 'pain_point' : 'desire'
+              },
+              createdAt: new Date()
+            });
+          });
+
+        } catch (queryError) {
+          console.warn(`[Streaming/reddit] Query "${query}" failed:`, queryError);
+        }
+      }
+
+      console.log(`[Streaming/reddit] Collected ${dataPoints.length} data points from Reddit`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/reddit] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Get relevant subreddits based on UVP industry
+   */
+  private async getRelevantSubredditsForUVP(industry: string): Promise<string[]> {
+    // Industry-to-subreddit mapping - enhanced for UVP-driven discovery
+    const industrySubreddits: Record<string, string[]> = {
+      'insurance': ['Insurance', 'InsuranceProfessional', 'personalfinance', 'FinancialPlanning'],
+      'financial services': ['FinancialPlanning', 'personalfinance', 'FinancialCareers', 'CFP'],
+      'healthcare': ['healthcare', 'medicine', 'nursing', 'healthIT'],
+      'software': ['SaaS', 'startups', 'Entrepreneur', 'webdev', 'programming'],
+      'consulting': ['consulting', 'Entrepreneur', 'smallbusiness', 'marketing'],
+      'marketing': ['marketing', 'digital_marketing', 'PPC', 'SEO', 'socialmedia'],
+      'retail': ['retail', 'smallbusiness', 'ecommerce', 'Entrepreneur'],
+      'restaurant': ['KitchenConfidential', 'restaurateur', 'smallbusiness', 'Cooking'],
+      'real estate': ['RealEstate', 'realestateinvesting', 'FirstTimeHomeBuyer', 'Realtor'],
+      'legal': ['LawFirm', 'lawyers', 'LegalAdvice', 'smallbusiness'],
+      'construction': ['Construction', 'Contractor', 'smallbusiness'],
+      'education': ['education', 'Teachers', 'edtech', 'HigherEducation'],
+      'travel': ['TravelAgents', 'travel', 'Hospitality'],
+      'logistics': ['logistics', 'supplychain', 'smallbusiness'],
+      'automotive': ['AutoDealerships', 'askcarsales', 'cars']
+    };
+
+    // Get subreddits for industry, fallback to generic business
+    const subreddits = industrySubreddits[industry.toLowerCase()] ||
+                       industrySubreddits['software'] ||
+                       ['smallbusiness', 'Entrepreneur', 'startups'];
+
+    // Add general business subreddits
+    return [...new Set([...subreddits, 'smallbusiness', 'Entrepreneur'])];
+  }
+
+  /**
+   * Build Reddit search queries from UVP context
+   */
+  private buildRedditSearchQueries(customerTerm: string, transformation: string, industry: string): string[] {
+    const queries: string[] = [];
+
+    // Parse pain point from transformation
+    const painPoint = transformation?.split('→')[0]?.trim() || '';
+
+    // Query 1: Direct customer pain point search
+    if (customerTerm) {
+      queries.push(`${customerTerm} frustrated problems challenges`);
+    }
+
+    // Query 2: Industry + common pain expressions
+    queries.push(`${industry} "I hate" OR "frustrating" OR "problem with"`);
+
+    // Query 3: Pain point from transformation
+    if (painPoint) {
+      queries.push(`${painPoint.substring(0, 50)} solution help`);
+    }
+
+    // Query 4: Industry complaints
+    queries.push(`${industry} complaints issues worst`);
+
+    // Query 5: What customers wish existed
+    queries.push(`${industry} "I wish" OR "if only" OR "need a"`);
+
+    return queries;
+  }
+
+  /**
+   * Map Reddit emotional trigger type to DataPointType
+   */
+  private mapTriggerToDataPointType(triggerType: string): DataPointType {
+    const mapping: Record<string, DataPointType> = {
+      'curiosity': 'trending_topic',
+      'fear': 'pain_point',
+      'desire': 'unarticulated_need',
+      'belonging': 'customer_trigger',
+      'achievement': 'customer_trigger',
+      'trust': 'competitor_mention',
+      'urgency': 'timing'
+    };
+    return mapping[triggerType] || 'unarticulated_need';
   }
 
   // LEGACY: Keep old single-query method for fallback
