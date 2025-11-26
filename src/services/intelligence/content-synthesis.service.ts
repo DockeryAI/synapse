@@ -457,6 +457,46 @@ export interface ReviewResponseBatchResult {
   generatedAt: Date;
 }
 
+// ============================================================================
+// ITEM #28: THOUGHT LEADERSHIP ANGLES - Types for B2B executive content
+// ============================================================================
+
+export type ThoughtLeadershipType =
+  | 'industry_trend'
+  | 'contrarian_take'
+  | 'future_prediction'
+  | 'best_practice'
+  | 'competitive_landscape';
+
+export interface ThoughtLeadershipAngle {
+  id: string;
+  type: ThoughtLeadershipType;
+  title: string;
+  hook: string;
+  mainArgument: string;
+  supportingPoints: string[];
+  dataPoints: string[];
+  callToAction: string;
+  targetAudience: string;
+  linkedInPost: string;
+  twitterThread: string[];
+  blogOutline: string[];
+  emailSubject: string;
+  confidence: number;
+  generatedAt: Date;
+}
+
+export interface ThoughtLeadershipResult {
+  angles: ThoughtLeadershipAngle[];
+  industry: string;
+  targetSegment: string;
+  summary: {
+    totalAngles: number;
+    byType: Record<ThoughtLeadershipType, number>;
+  };
+  generatedAt: Date;
+}
+
 class ContentSynthesisService {
 
   /**
@@ -2092,6 +2132,348 @@ ${businessName}`;
       `We're truly sorry to hear about your experience. This falls short of our standards, and we want to make it right. Please reach out to us directly so we can address your concerns personally.\n\nWith apologies,\n${ownerName} at ${businessName}`,
       `Thank you for bringing this to our attention. We apologize for the inconvenience and disappointment you experienced. We've shared your feedback with our team and are taking steps to ensure this doesn't happen again. We hope you'll allow us to regain your trust.\n\n— ${businessName} Management`
     ];
+  }
+
+  // ============================================================================
+  // ITEM #28: THOUGHT LEADERSHIP ANGLES
+  // Generate executive-level B2B content angles
+  // ============================================================================
+
+  /**
+   * Generate thought leadership angles for B2B content
+   */
+  generateThoughtLeadershipAngles(
+    insights: InsightCard[],
+    context: DeepContext
+  ): ThoughtLeadershipResult {
+    const industry = context.business.profile.industry || 'technology';
+    const businessName = context.business.profile.name || 'Your Company';
+    const targetCustomer = context.business.profile.targetCustomer || 'enterprise decision-makers';
+
+    const angles: ThoughtLeadershipAngle[] = [];
+
+    // Generate angles for each type
+    angles.push(this.generateIndustryTrendAngle(insights, industry, businessName, targetCustomer));
+    angles.push(this.generateContrarianTakeAngle(insights, industry, businessName, targetCustomer));
+    angles.push(this.generateFuturePredictionAngle(insights, industry, businessName, targetCustomer));
+    angles.push(this.generateBestPracticeAngle(insights, industry, businessName, targetCustomer));
+    angles.push(this.generateCompetitiveLandscapeAngle(insights, industry, businessName, targetCustomer));
+
+    // Count by type
+    const byType = angles.reduce((acc, angle) => {
+      acc[angle.type] = (acc[angle.type] || 0) + 1;
+      return acc;
+    }, {} as Record<ThoughtLeadershipType, number>);
+
+    return {
+      angles,
+      industry,
+      targetSegment: targetCustomer,
+      summary: {
+        totalAngles: angles.length,
+        byType
+      },
+      generatedAt: new Date()
+    };
+  }
+
+  private generateIndustryTrendAngle(
+    insights: InsightCard[],
+    industry: string,
+    businessName: string,
+    targetCustomer: string
+  ): ThoughtLeadershipAngle {
+    const trendInsights = insights.filter(i =>
+      i.type === 'trend' || i.type === 'opportunity' || /trend|shift|change|evolv/i.test(i.title)
+    );
+
+    const title = `The ${industry} Landscape Is Shifting: What Leaders Need to Know in ${new Date().getFullYear()}`;
+    const hook = `The rules of ${industry} are being rewritten. Here's what the data reveals.`;
+
+    const mainArgument = trendInsights.length > 0
+      ? `Recent analysis reveals key shifts: ${trendInsights.slice(0, 2).map(i => i.title).join('; ')}`
+      : `The ${industry} sector is experiencing unprecedented transformation driven by technology, customer expectations, and market dynamics.`;
+
+    return {
+      id: `tl-trend-${Date.now()}`,
+      type: 'industry_trend',
+      title,
+      hook,
+      mainArgument,
+      supportingPoints: [
+        'Market forces driving change',
+        'Customer behavior evolution',
+        'Technology enablers',
+        'Regulatory landscape shifts'
+      ],
+      dataPoints: trendInsights.slice(0, 3).map(i => i.title),
+      callToAction: 'Position your organization to lead, not follow, these trends.',
+      targetAudience: targetCustomer,
+      linkedInPost: this.generateLinkedInThoughtPost(title, hook, mainArgument, businessName),
+      twitterThread: this.generateTwitterThread(title, hook, mainArgument),
+      blogOutline: this.generateBlogOutline(title, 'industry_trend'),
+      emailSubject: `${industry} Trends: What Top Leaders Are Watching`,
+      confidence: trendInsights.length > 0 ? 85 : 70,
+      generatedAt: new Date()
+    };
+  }
+
+  private generateContrarianTakeAngle(
+    insights: InsightCard[],
+    industry: string,
+    businessName: string,
+    targetCustomer: string
+  ): ThoughtLeadershipAngle {
+    const competitorInsights = insights.filter(i =>
+      i.type === 'competitor' || /competitor|industry|common|myth|wrong/i.test(i.title)
+    );
+
+    const title = `Unpopular Opinion: Why the ${industry} Industry Has It Backwards`;
+    const hook = `Everyone's doing it this way. Here's why that's a mistake.`;
+
+    const mainArgument = `While conventional wisdom in ${industry} suggests following established patterns, our data reveals a counterintuitive truth that leading organizations are beginning to leverage.`;
+
+    return {
+      id: `tl-contrarian-${Date.now()}`,
+      type: 'contrarian_take',
+      title,
+      hook,
+      mainArgument,
+      supportingPoints: [
+        'The conventional approach and its limitations',
+        'Hidden costs of "industry best practices"',
+        'Evidence from early adopters of alternative approaches',
+        'The psychology behind industry groupthink'
+      ],
+      dataPoints: competitorInsights.slice(0, 3).map(i => i.title),
+      callToAction: 'Challenge your assumptions. Question the "obvious" answers.',
+      targetAudience: targetCustomer,
+      linkedInPost: this.generateLinkedInThoughtPost(title, hook, mainArgument, businessName),
+      twitterThread: this.generateTwitterThread(title, hook, mainArgument),
+      blogOutline: this.generateBlogOutline(title, 'contrarian_take'),
+      emailSubject: `Contrarian Take: What ${industry} Gets Wrong`,
+      confidence: competitorInsights.length > 0 ? 80 : 65,
+      generatedAt: new Date()
+    };
+  }
+
+  private generateFuturePredictionAngle(
+    insights: InsightCard[],
+    industry: string,
+    businessName: string,
+    targetCustomer: string
+  ): ThoughtLeadershipAngle {
+    const futureYear = new Date().getFullYear() + 3;
+    const title = `${industry} in ${futureYear}: 5 Predictions That Will Shape Your Strategy`;
+    const hook = `The future isn't as far away as you think. Are you prepared?`;
+
+    const mainArgument = `Based on current trajectories and emerging signals, we've identified five developments that will fundamentally reshape ${industry} within the next 3 years.`;
+
+    return {
+      id: `tl-prediction-${Date.now()}`,
+      type: 'future_prediction',
+      title,
+      hook,
+      mainArgument,
+      supportingPoints: [
+        'Prediction 1: Technology-driven transformation',
+        'Prediction 2: Customer expectation evolution',
+        'Prediction 3: Competitive landscape reshuffling',
+        'Prediction 4: Regulatory and compliance shifts',
+        'Prediction 5: Talent and skill requirements'
+      ],
+      dataPoints: insights.slice(0, 3).map(i => i.title),
+      callToAction: `Start building your ${futureYear} strategy today.`,
+      targetAudience: targetCustomer,
+      linkedInPost: this.generateLinkedInThoughtPost(title, hook, mainArgument, businessName),
+      twitterThread: this.generateTwitterThread(title, hook, mainArgument),
+      blogOutline: this.generateBlogOutline(title, 'future_prediction'),
+      emailSubject: `${industry} ${futureYear}: What You Need to Know Now`,
+      confidence: 75,
+      generatedAt: new Date()
+    };
+  }
+
+  private generateBestPracticeAngle(
+    insights: InsightCard[],
+    industry: string,
+    businessName: string,
+    targetCustomer: string
+  ): ThoughtLeadershipAngle {
+    const successInsights = insights.filter(i =>
+      i.type === 'customer' || /success|achieve|result|improve|best/i.test(i.title)
+    );
+
+    const title = `The ${industry} Playbook: Proven Strategies from High-Performing Organizations`;
+    const hook = `What separates the top 10% from everyone else? We analyzed the data.`;
+
+    const mainArgument = `After studying successful ${industry} organizations, we've identified the key differentiators that consistently drive superior results.`;
+
+    return {
+      id: `tl-bestpractice-${Date.now()}`,
+      type: 'best_practice',
+      title,
+      hook,
+      mainArgument,
+      supportingPoints: [
+        'Strategic alignment and focus',
+        'Customer-centric operations',
+        'Technology leverage and integration',
+        'Talent development and retention',
+        'Measurement and continuous improvement'
+      ],
+      dataPoints: successInsights.slice(0, 3).map(i => i.title),
+      callToAction: 'Audit your organization against these best practices today.',
+      targetAudience: targetCustomer,
+      linkedInPost: this.generateLinkedInThoughtPost(title, hook, mainArgument, businessName),
+      twitterThread: this.generateTwitterThread(title, hook, mainArgument),
+      blogOutline: this.generateBlogOutline(title, 'best_practice'),
+      emailSubject: `Best Practices: How Top ${industry} Organizations Win`,
+      confidence: successInsights.length > 0 ? 85 : 70,
+      generatedAt: new Date()
+    };
+  }
+
+  private generateCompetitiveLandscapeAngle(
+    insights: InsightCard[],
+    industry: string,
+    businessName: string,
+    targetCustomer: string
+  ): ThoughtLeadershipAngle {
+    const competitorInsights = insights.filter(i =>
+      i.type === 'competitor' || /competitor|market|alternative|switch|compare/i.test(i.title)
+    );
+
+    const title = `${industry} Competitive Analysis: Understanding Your Market Position`;
+    const hook = `Know your competition—and more importantly, know what makes you different.`;
+
+    const mainArgument = `The ${industry} competitive landscape is evolving rapidly. Understanding where you stand—and where opportunities exist—is critical for strategic planning.`;
+
+    return {
+      id: `tl-competitive-${Date.now()}`,
+      type: 'competitive_landscape',
+      title,
+      hook,
+      mainArgument,
+      supportingPoints: [
+        'Market positioning overview',
+        'Key differentiators analysis',
+        'Emerging competitors and disruptors',
+        'Gap analysis and opportunities',
+        'Strategic recommendations'
+      ],
+      dataPoints: competitorInsights.slice(0, 3).map(i => i.title),
+      callToAction: 'Conduct a competitive analysis for your specific market segment.',
+      targetAudience: targetCustomer,
+      linkedInPost: this.generateLinkedInThoughtPost(title, hook, mainArgument, businessName),
+      twitterThread: this.generateTwitterThread(title, hook, mainArgument),
+      blogOutline: this.generateBlogOutline(title, 'competitive_landscape'),
+      emailSubject: `Competitive Intel: ${industry} Market Analysis`,
+      confidence: competitorInsights.length > 0 ? 80 : 65,
+      generatedAt: new Date()
+    };
+  }
+
+  private generateLinkedInThoughtPost(
+    title: string,
+    hook: string,
+    mainArgument: string,
+    businessName: string
+  ): string {
+    return `${hook}
+
+${mainArgument}
+
+Here's what this means for your organization:
+
+→ Adapt your strategy before the market forces you to
+→ Invest in capabilities that will matter tomorrow
+→ Build relationships and partnerships proactively
+
+The organizations that thrive will be those that see around corners.
+
+What trends are you watching most closely?
+
+#ThoughtLeadership #Strategy #BusinessInsights`;
+  }
+
+  private generateTwitterThread(
+    title: string,
+    hook: string,
+    mainArgument: string
+  ): string[] {
+    return [
+      `🧵 ${hook}\n\nThread on ${title.toLowerCase()}:`,
+      `1/ ${mainArgument.substring(0, 250)}...`,
+      `2/ The first major shift: Customers expect more than ever before. Speed, personalization, and seamless experiences are table stakes.`,
+      `3/ The second shift: Technology is no longer optional. It's the foundation for competitive advantage.`,
+      `4/ The third shift: Talent wars are intensifying. Winning organizations invest in their people.`,
+      `5/ What does this mean for you?\n\n→ Audit your current position\n→ Identify gaps\n→ Act decisively\n\nThe best time to start was yesterday. The second best time is now.`,
+      `6/ If this was valuable, follow for more insights.\n\nRetweet the first tweet to help others. 🙏`
+    ];
+  }
+
+  private generateBlogOutline(
+    title: string,
+    type: ThoughtLeadershipType
+  ): string[] {
+    const baseOutline = [
+      `# ${title}`,
+      '',
+      '## Executive Summary',
+      '- Key takeaways',
+      '- Why this matters now',
+      '',
+      '## Introduction',
+      '- Set the context',
+      '- State the thesis',
+      ''
+    ];
+
+    const typeSpecificSections: Record<ThoughtLeadershipType, string[]> = {
+      'industry_trend': [
+        '## The Current Landscape',
+        '## Key Trends Reshaping the Industry',
+        '## What the Data Reveals',
+        '## Implications for Organizations'
+      ],
+      'contrarian_take': [
+        '## The Conventional Wisdom',
+        '## Why It\'s Wrong',
+        '## A Better Approach',
+        '## Evidence and Results'
+      ],
+      'future_prediction': [
+        '## Where We Are Today',
+        '## Signals of Change',
+        '## Our Predictions',
+        '## How to Prepare'
+      ],
+      'best_practice': [
+        '## What Top Performers Do Differently',
+        '## The Core Practices',
+        '## Implementation Guide',
+        '## Measuring Success'
+      ],
+      'competitive_landscape': [
+        '## Market Overview',
+        '## Key Players Analysis',
+        '## Gaps and Opportunities',
+        '## Strategic Positioning'
+      ]
+    };
+
+    const conclusion = [
+      '',
+      '## Conclusion',
+      '- Summarize key points',
+      '- Call to action',
+      '',
+      '## About the Author',
+      '## Additional Resources'
+    ];
+
+    return [...baseOutline, ...typeSpecificSections[type], ...conclusion];
   }
 
   /**
