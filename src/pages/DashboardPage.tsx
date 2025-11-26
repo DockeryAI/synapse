@@ -14,7 +14,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { supabase } from '@/lib/supabase';
 import {
   Sparkles,
   Lightbulb,
@@ -31,9 +32,9 @@ import { Button } from '@/components/ui/button';
 import { useBrand } from '@/contexts/BrandContext';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
+import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
-import { AiPicksPanel } from '@/components/dashboard/AiPicksPanel';
 import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibraryV2';
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
 import type { SmartPick } from '@/types/smart-picks.types';
@@ -45,7 +46,8 @@ type ViewMode = 'dashboard' | 'insights_hub';
 
 export function DashboardPage() {
   const navigate = useNavigate();
-  const { currentBrand: brand } = useBrand();
+  const [searchParams] = useSearchParams();
+  const { currentBrand: brand, setCurrentBrand } = useBrand();
   const [insights, setInsights] = useState<BusinessInsights | null>(null);
   const [loading, setLoading] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
@@ -230,23 +232,105 @@ export function DashboardPage() {
 
     async function loadInsights() {
       hasLoadedRef.current = true;
+
+      // DEV FEATURE: Load brand by name via URL param ?brand=OpenDialog
+      const brandParam = searchParams.get('brand');
+      if (brandParam && !brand) {
+        console.log('[DashboardPage] DEV: Loading brand by name from URL param:', brandParam);
+        try {
+          const { data: brandData, error } = await supabase
+            .from('brands')
+            .select('*')
+            .ilike('name', `%${brandParam}%`)
+            .limit(1)
+            .single();
+
+          if (brandData && !error) {
+            console.log('[DashboardPage] DEV: Found brand:', brandData.name, brandData.id);
+            setCurrentBrand({
+              id: brandData.id,
+              name: brandData.name,
+              industry: brandData.industry || 'Unknown',
+              naicsCode: brandData.naics_code,
+              website: brandData.website,
+              location: brandData.city ? `${brandData.city}, ${brandData.state}` : undefined,
+            });
+            // Force re-run after setting brand
+            hasLoadedRef.current = false;
+            return;
+          } else {
+            console.log('[DashboardPage] DEV: Brand not found:', brandParam, error);
+          }
+        } catch (err) {
+          console.error('[DashboardPage] DEV: Error loading brand:', err);
+        }
+      }
+
       // Check for localStorage UVP data first
       const hasPending = hasPendingUVP();
       console.log('[DashboardPage] hasPendingUVP:', hasPending, 'brand.id:', brand?.id);
 
       // Run intelligence for ALL brands (no more temp brand bullshit)
       if (brand?.id) {
-        console.log('[DashboardPage] Brand ID exists, using DeepContextBuilder for full intelligence stack');
+        console.log('[DashboardPage] Brand ID exists, checking for preloaded context...');
 
         try {
           setLoading(true);
+
+          // CHECK FOR PRELOADED CONTEXT FROM UVP FLOW
+          // This data is pre-loaded during synthesis step for instant dashboard load
+          const preloadedContext = dashboardPreloader.getPreloadedContext(brand.id);
+
+          if (preloadedContext) {
+            console.log('[DashboardPage] ✅ Using PRELOADED context from UVP flow - instant dashboard!');
+            setDeepContext(preloadedContext);
+            setLoading(false);
+
+            // Also load insights for backwards compatibility with InsightsHub
+            const data = await insightsStorageService.getInsights(brand.id);
+            if (data) {
+              setInsights(data);
+            }
+
+            // Clear preload state now that we've used it
+            dashboardPreloader.clearPreload();
+            return;
+          }
+
+          // If preload is still running, subscribe to its progress
+          if (dashboardPreloader.isPreloading(brand.id)) {
+            console.log('[DashboardPage] ⏳ Preload in progress, subscribing to updates...');
+            const unsubscribe = dashboardPreloader.subscribeToProgress((context, metadata) => {
+              console.log(`[DashboardPage] Preload progress: ${metadata.completedApis.length} APIs done`);
+              setDeepContext(context);
+              setLoading(false);
+            });
+
+            // We'll return here and let the subscription handle updates
+            // The preloader will complete on its own
+            return;
+          }
+
+          console.log('[DashboardPage] No preloaded context, building fresh with DeepContextBuilder...');
+
+          // AGGRESSIVE CACHE CLEAR - Delete ALL cached data for this brand
+          console.log('[DashboardPage] CLEARING ALL CACHED DATA for brand:', brand.id);
+          const { error: cacheError } = await supabase
+            .from('intelligence_cache')
+            .delete()
+            .eq('brand_id', brand.id);
+          if (cacheError) {
+            console.warn('[DashboardPage] Cache clear error (might not exist):', cacheError);
+          } else {
+            console.log('[DashboardPage] Cache cleared successfully');
+          }
 
           // Use TRUE Progressive Loading - each API updates UI immediately when done
           console.log('[DashboardPage] Building DeepContext with TRUE progressive loading (no timeouts)...');
           const buildResult = await trueProgressiveBuilder.buildTrueProgressive({
             brandId: brand.id,
             cacheResults: true,
-            forceFresh: false, // Use cache for faster loading
+            forceFresh: true, // FORCE FRESH DATA - rebuilding to test B2B detection
             includeYouTube: true, // ENABLED - GET ALL THE FUCKING DATA
             includeOutScraper: true,
             includeSerper: true,
@@ -773,7 +857,7 @@ export function DashboardPage() {
     }
 
     loadInsights();
-  }, [brand, navigate]);
+  }, [brand, navigate, searchParams, setCurrentBrand]);
 
   // Handle pick selection
   const handlePickClick = (pick: SmartPick) => {
@@ -851,19 +935,9 @@ export function DashboardPage() {
         {viewMode === 'dashboard' ? (
           /* Command Center Layout */
           <div key="dashboard" className="h-screen flex flex-col">
-            {/* Two-Panel Layout */}
-            <div className="flex-1 flex gap-4 p-4 pt-0 overflow-hidden">
-              {/* Left Panel: AI Picks (flexible width based on collapsed state) */}
-              <div className="flex-shrink-0 rounded-xl shadow-lg overflow-hidden">
-                <AiPicksPanel
-                  campaignPicks={campaignPicks}
-                  contentPicks={contentPicks}
-                  onPickClick={handlePickClick}
-                />
-              </div>
-
-              {/* Right Panel: Intelligence Library V2 (fills remaining space) */}
-              <div className="flex-1 min-w-0 rounded-xl shadow-lg overflow-hidden">
+            {/* Full-Width Intelligence Library - AI Picks now in tab */}
+            <div className="flex-1 p-4 pt-0 overflow-hidden">
+              <div className="h-full rounded-xl shadow-lg overflow-hidden">
                 {deepContext && (
                   <IntelligenceLibraryV2
                     context={deepContext}

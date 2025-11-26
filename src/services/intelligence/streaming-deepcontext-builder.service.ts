@@ -58,6 +58,7 @@ type ApiName = typeof ALL_APIS[number];
 
 export class StreamingDeepContextBuilder {
   private brandData: any = null;
+  private uvpData: any = null; // UVP data with target customer info
   private dataPoints: DataPoint[] = [];
   private completedApis: Set<string> = new Set();
   private startTime: number = 0;
@@ -88,8 +89,15 @@ export class StreamingDeepContextBuilder {
     console.log('[Streaming] Brand loaded:', {
       name: this.brandData.name,
       industry: this.brandData.industry,
+      naicsCode: this.brandData.naics_code,
       businessType: config.businessType || this.detectBusinessType()
     });
+
+    // If forceFresh, invalidate cache for this brand first
+    if (config.forceFresh) {
+      console.log('[Streaming] FORCE FRESH enabled - invalidating cache for brand:', config.brandId);
+      await intelligenceCache.invalidateByBrand(config.brandId);
+    }
 
     // Initialize empty context
     this.currentContext = this.buildEmptyContext();
@@ -276,7 +284,18 @@ export class StreamingDeepContextBuilder {
           signaturePhrases: []
         },
         uniqueAdvantages: [],
-        goals: []
+        goals: [],
+        // UVP context - populated from uvp_data table
+        uvp: this.uvpData ? {
+          targetCustomer: this.uvpData.target_customer || '',
+          customerProblem: this.uvpData.transformation?.split('→')[0]?.trim() || '',
+          desiredOutcome: this.uvpData.transformation?.split('→')[1]?.trim() || '',
+          uniqueSolution: this.uvpData.unique_solution || '',
+          keyBenefit: this.uvpData.key_benefit || '',
+          completeStatement: this.uvpData.complete_statement || '',
+          emotionalDrivers: [], // TODO: Parse from UVP
+          functionalDrivers: [] // TODO: Parse from UVP
+        } : undefined
       },
       industry: {
         profile: null,
@@ -382,18 +401,75 @@ export class StreamingDeepContextBuilder {
   }
 
   // ============================================================================
+  // HELPER: Extract searchable customer term from UVP target customer
+  // ============================================================================
+
+  /**
+   * Extract a clean search term from UVP target customer description
+   * e.g., "Enterprise businesses struggling to manage AI agents at scale" → "enterprise AI management"
+   */
+  private extractCustomerSearchTerm(targetCustomer: string): string {
+    // Common patterns to extract customer type
+    const customerTypes = [
+      // B2B
+      { pattern: /enterprise\s+(?:businesses?|companies?|organizations?)/i, term: 'enterprise' },
+      { pattern: /(?:small|medium|smb)\s+(?:businesses?|companies?)/i, term: 'small business' },
+      { pattern: /startups?/i, term: 'startup' },
+      { pattern: /(?:saas|software)\s+(?:companies?|businesses?)/i, term: 'SaaS companies' },
+      { pattern: /agencies?/i, term: 'agency' },
+      // B2C
+      { pattern: /homeowners?/i, term: 'homeowners' },
+      { pattern: /(?:car|vehicle|auto)\s+(?:owners?|collectors?)/i, term: 'car owners' },
+      { pattern: /parents?/i, term: 'parents' },
+      { pattern: /professionals?/i, term: 'professionals' },
+    ];
+
+    // Try to match customer type
+    for (const { pattern, term } of customerTypes) {
+      if (pattern.test(targetCustomer)) {
+        // Also try to extract the domain/context
+        const contextMatch = targetCustomer.match(/(?:with|for|need|managing?|struggling|looking)\s+(?:to\s+)?([^,.]+)/i);
+        if (contextMatch) {
+          return `${term} ${contextMatch[1].trim().substring(0, 30)}`;
+        }
+        return term;
+      }
+    }
+
+    // Fallback: Extract key nouns from the target customer
+    const words = targetCustomer.split(/\s+/).slice(0, 5).join(' ');
+    return words || 'business';
+  }
+
+  // ============================================================================
   // API FETCH METHODS - Each runs independently
   // ============================================================================
 
   private async fetchSerperData(): Promise<DataPoint[]> {
     const dataPoints: DataPoint[] = [];
+
+    // CRITICAL: Search for TARGET CUSTOMER needs, not industry trends
+    // Use UVP target_customer to understand WHO we're creating content FOR
+    const targetCustomer = this.uvpData?.target_customer || '';
+    const customerProblem = this.uvpData?.transformation?.split('→')[0]?.trim() || ''; // "before" state
     const industry = this.brandData.industry;
 
-    // Parallel Serper calls - these are fast (cached)
+    // Build customer-focused search queries
+    const customerSearchTerm = targetCustomer
+      ? this.extractCustomerSearchTerm(targetCustomer)
+      : industry;
+
+    console.log('[Streaming/serper] Searching for TARGET CUSTOMER insights:', {
+      targetCustomer: targetCustomer.substring(0, 100),
+      customerSearchTerm,
+      customerProblem: customerProblem.substring(0, 100)
+    });
+
+    // Parallel Serper calls - searching for CUSTOMER pain points and needs
     const [newsResult, trendsResult, autocompleteResult] = await Promise.allSettled([
-      SerperAPI.getNews(`${industry} trends`, undefined),
-      SerperAPI.getTrends(industry),
-      SerperAPI.getAutocomplete(`${industry} how to`)
+      SerperAPI.getNews(`${customerSearchTerm} challenges problems`, undefined),
+      SerperAPI.getTrends(customerSearchTerm),
+      SerperAPI.getAutocomplete(`${customerSearchTerm} how to`)
     ]);
 
     if (newsResult.status === 'fulfilled') {
@@ -678,22 +754,64 @@ export class StreamingDeepContextBuilder {
       const isAvailable = await perplexityAPI.isAvailable();
       if (!isAvailable) return dataPoints;
 
+      // CRITICAL: Use TARGET CUSTOMER context, not industry
+      // Apply JTBD (Jobs to be Done), Golden Circle, and Value Proposition frameworks
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const transformation = this.uvpData?.transformation || '';
+      const customerProblem = transformation.split('→')[0]?.trim() || '';
+      const desiredOutcome = transformation.split('→')[1]?.trim() || '';
+      const uniqueSolution = this.uvpData?.unique_solution || '';
+      const keyBenefit = this.uvpData?.key_benefit || '';
+
+      // Build customer-focused query using JTBD framework
+      // JTBD: "When [situation], I want to [motivation], so I can [expected outcome]"
+      const customerContext = targetCustomer || this.brandData.industry;
+      const query = targetCustomer
+        ? `What are the top pain points, challenges, and emotional frustrations that ${targetCustomer} experience?
+           Focus on:
+           1. Functional needs: What tasks are they trying to accomplish?
+           2. Emotional drivers: What fears, anxieties, or frustrations do they have?
+           3. Social drivers: How do they want to be perceived by others?
+           4. Current workarounds: What solutions are they using that don't fully work?
+           ${customerProblem ? `Their core problem is: "${customerProblem}"` : ''}
+           ${desiredOutcome ? `Their desired outcome is: "${desiredOutcome}"` : ''}`
+        : `What are the current pain points and needs for ${this.brandData.industry} customers?`;
+
+      console.log('[Streaming/perplexity] Customer-focused query:', {
+        targetCustomer: targetCustomer.substring(0, 80),
+        customerProblem: customerProblem.substring(0, 80),
+        desiredOutcome: desiredOutcome.substring(0, 80)
+      });
+
       const response = await perplexityAPI.getIndustryInsights({
-        query: `What are the current pain points and trends for ${this.brandData.industry} businesses?`,
+        query,
         context: {
           industry: this.brandData.industry,
-          brand_name: this.brandData.name
+          brand_name: this.brandData.name,
+          target_customer: targetCustomer,
+          customer_problem: customerProblem,
+          desired_outcome: desiredOutcome
         },
         max_results: 5
       });
 
+      // Categorize insights by driver type (functional vs emotional)
       response.insights.forEach((insight: string, idx: number) => {
+        // Detect if insight is emotional or functional
+        const emotionalKeywords = /fear|frustrat|anxious|worry|stress|overwhelm|confus|uncertain|risk|lose|fail/i;
+        const isEmotional = emotionalKeywords.test(insight);
+
         dataPoints.push({
           id: `perplexity-${Date.now()}-${idx}`,
           source: 'perplexity' as DataSource,
-          type: 'customer_trigger' as DataPointType,
+          type: isEmotional ? 'pain_point' : 'customer_trigger' as DataPointType,
           content: insight,
-          metadata: { confidence: response.confidence },
+          metadata: {
+            confidence: response.confidence,
+            driverType: isEmotional ? 'emotional' : 'functional',
+            framework: 'jtbd',
+            targetCustomer: targetCustomer.substring(0, 100)
+          },
           createdAt: new Date()
         });
       });
@@ -712,80 +830,229 @@ export class StreamingDeepContextBuilder {
     const dataPoints: DataPoint[] = [];
 
     try {
-      // Load UVP from database
+      // Load UVP from marba_uvps table (correct table name!)
       const { data: uvpData, error } = await supabase
-        .from('uvp_data')
+        .from('marba_uvps')
         .select('*')
         .eq('brand_id', this.brandData.id)
         .order('created_at', { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
 
-      if (error || !uvpData) {
-        console.log('[Streaming/uvp] No UVP data found');
+      if (error) {
+        console.error('[Streaming/uvp] Database error:', error);
         return dataPoints;
       }
 
-      // Convert UVP statements to data points
-      if (uvpData.target_customer) {
+      if (!uvpData) {
+        console.log('[Streaming/uvp] No UVP data found in marba_uvps for brand:', this.brandData.id);
+
+        // Fallback: Try localStorage for pending UVP data
+        const hasPending = localStorage.getItem('marba_uvp_pending') === 'true';
+        if (hasPending) {
+          const sessionId = localStorage.getItem('marba_session_id');
+          if (sessionId) {
+            const localUvpData = localStorage.getItem(`marba_uvp_${sessionId}`);
+            if (localUvpData) {
+              try {
+                const pendingUVP = JSON.parse(localUvpData);
+                console.log('[Streaming/uvp] Found pending UVP in localStorage, using that');
+
+                // Store normalized UVP data
+                this.uvpData = {
+                  target_customer: pendingUVP.targetCustomer?.statement || '',
+                  transformation: pendingUVP.transformationGoal?.statement || '',
+                  unique_solution: pendingUVP.uniqueSolution?.statement || '',
+                  key_benefit: pendingUVP.keyBenefit?.statement || '',
+                  complete_statement: pendingUVP.valuePropositionStatement || '',
+                  created_at: pendingUVP.createdAt || new Date().toISOString(),
+                };
+
+                console.log('[Streaming/uvp] ====== LOCALSTORAGE UVP DATA ======');
+                console.log('[Streaming/uvp] Target customer:', this.uvpData.target_customer);
+                console.log('[Streaming/uvp] Key benefit:', this.uvpData.key_benefit);
+                console.log('[Streaming/uvp] ===================================');
+
+                // Convert to data points
+                return this.convertUVPToDataPoints();
+              } catch (err) {
+                console.error('[Streaming/uvp] Failed to parse localStorage UVP:', err);
+              }
+            }
+          }
+        }
+
+        return dataPoints;
+      }
+
+      // Extract target customer statement from JSONB field
+      // target_customer is JSONB with structure: { statement: string, industry?: string, ... }
+      const targetCustomerObj = uvpData.target_customer;
+      const targetCustomer = typeof targetCustomerObj === 'string'
+        ? targetCustomerObj
+        : targetCustomerObj?.statement || '';
+
+      // Extract transformation from JSONB
+      const transformationObj = uvpData.transformation_goal;
+      const transformation = typeof transformationObj === 'string'
+        ? transformationObj
+        : transformationObj?.statement || '';
+
+      // Extract unique solution from JSONB
+      const uniqueSolutionObj = uvpData.unique_solution;
+      const uniqueSolution = typeof uniqueSolutionObj === 'string'
+        ? uniqueSolutionObj
+        : uniqueSolutionObj?.statement || '';
+
+      // Extract key benefit from JSONB
+      const keyBenefitObj = uvpData.key_benefit;
+      const keyBenefit = typeof keyBenefitObj === 'string'
+        ? keyBenefitObj
+        : keyBenefitObj?.statement || '';
+
+      // Store normalized UVP data for use by other API fetchers
+      this.uvpData = {
+        target_customer: targetCustomer,
+        transformation: transformation,
+        unique_solution: uniqueSolution,
+        key_benefit: keyBenefit,
+        complete_statement: uvpData.value_proposition_statement || '',
+        created_at: uvpData.created_at,
+      };
+
+      console.log('[Streaming/uvp] ====== UVP DATA LOADED ======');
+      console.log('[Streaming/uvp] Target customer:', this.uvpData.target_customer);
+      console.log('[Streaming/uvp] Transformation:', this.uvpData.transformation);
+      console.log('[Streaming/uvp] Unique solution:', this.uvpData.unique_solution);
+      console.log('[Streaming/uvp] Key benefit:', this.uvpData.key_benefit);
+      console.log('[Streaming/uvp] =============================');
+
+      // Convert UVP statements to data points (using normalized this.uvpData)
+      if (this.uvpData.target_customer) {
         dataPoints.push({
           id: `uvp-target-${Date.now()}`,
           source: 'website' as DataSource,
           type: 'unarticulated_need' as DataPointType,
-          content: `Target Customer: ${uvpData.target_customer}`,
+          content: `Target Customer: ${this.uvpData.target_customer}`,
           metadata: { uvpType: 'target_customer', confidence: 1.0 },
-          createdAt: new Date(uvpData.created_at)
+          createdAt: new Date(this.uvpData.created_at)
         });
       }
 
-      if (uvpData.transformation) {
+      if (this.uvpData.transformation) {
         dataPoints.push({
           id: `uvp-transform-${Date.now()}`,
           source: 'website' as DataSource,
           type: 'pain_point' as DataPointType,
-          content: `Transformation: ${uvpData.transformation}`,
+          content: `Transformation: ${this.uvpData.transformation}`,
           metadata: { uvpType: 'transformation', confidence: 1.0 },
-          createdAt: new Date(uvpData.created_at)
+          createdAt: new Date(this.uvpData.created_at)
         });
       }
 
-      if (uvpData.unique_solution) {
+      if (this.uvpData.unique_solution) {
         dataPoints.push({
           id: `uvp-solution-${Date.now()}`,
           source: 'website' as DataSource,
           type: 'competitive_gap' as DataPointType,
-          content: `Unique Solution: ${uvpData.unique_solution}`,
+          content: `Unique Solution: ${this.uvpData.unique_solution}`,
           metadata: { uvpType: 'unique_solution', confidence: 1.0 },
-          createdAt: new Date(uvpData.created_at)
+          createdAt: new Date(this.uvpData.created_at)
         });
       }
 
-      if (uvpData.key_benefit) {
+      if (this.uvpData.key_benefit) {
         dataPoints.push({
           id: `uvp-benefit-${Date.now()}`,
           source: 'website' as DataSource,
           type: 'customer_trigger' as DataPointType,
-          content: `Key Benefit: ${uvpData.key_benefit}`,
+          content: `Key Benefit: ${this.uvpData.key_benefit}`,
           metadata: { uvpType: 'key_benefit', confidence: 1.0 },
-          createdAt: new Date(uvpData.created_at)
+          createdAt: new Date(this.uvpData.created_at)
         });
       }
 
       // Also load complete statement if available
-      if (uvpData.complete_statement) {
+      if (this.uvpData.complete_statement) {
         dataPoints.push({
           id: `uvp-complete-${Date.now()}`,
           source: 'website' as DataSource,
           type: 'trending_topic' as DataPointType,
-          content: uvpData.complete_statement,
+          content: this.uvpData.complete_statement,
           metadata: { uvpType: 'complete_uvp', confidence: 1.0 },
-          createdAt: new Date(uvpData.created_at)
+          createdAt: new Date(this.uvpData.created_at)
         });
       }
 
       console.log(`[Streaming/uvp] Loaded ${dataPoints.length} UVP data points`);
     } catch (error) {
       console.error('[Streaming/uvp] Error loading UVP:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Helper to convert this.uvpData to data points array
+   */
+  private convertUVPToDataPoints(): DataPoint[] {
+    const dataPoints: DataPoint[] = [];
+
+    if (!this.uvpData) return dataPoints;
+
+    if (this.uvpData.target_customer) {
+      dataPoints.push({
+        id: `uvp-target-${Date.now()}`,
+        source: 'website' as DataSource,
+        type: 'unarticulated_need' as DataPointType,
+        content: `Target Customer: ${this.uvpData.target_customer}`,
+        metadata: { uvpType: 'target_customer', confidence: 1.0 },
+        createdAt: new Date(this.uvpData.created_at)
+      });
+    }
+
+    if (this.uvpData.transformation) {
+      dataPoints.push({
+        id: `uvp-transform-${Date.now()}`,
+        source: 'website' as DataSource,
+        type: 'pain_point' as DataPointType,
+        content: `Transformation: ${this.uvpData.transformation}`,
+        metadata: { uvpType: 'transformation', confidence: 1.0 },
+        createdAt: new Date(this.uvpData.created_at)
+      });
+    }
+
+    if (this.uvpData.unique_solution) {
+      dataPoints.push({
+        id: `uvp-solution-${Date.now()}`,
+        source: 'website' as DataSource,
+        type: 'competitive_gap' as DataPointType,
+        content: `Unique Solution: ${this.uvpData.unique_solution}`,
+        metadata: { uvpType: 'unique_solution', confidence: 1.0 },
+        createdAt: new Date(this.uvpData.created_at)
+      });
+    }
+
+    if (this.uvpData.key_benefit) {
+      dataPoints.push({
+        id: `uvp-benefit-${Date.now()}`,
+        source: 'website' as DataSource,
+        type: 'customer_trigger' as DataPointType,
+        content: `Key Benefit: ${this.uvpData.key_benefit}`,
+        metadata: { uvpType: 'key_benefit', confidence: 1.0 },
+        createdAt: new Date(this.uvpData.created_at)
+      });
+    }
+
+    if (this.uvpData.complete_statement) {
+      dataPoints.push({
+        id: `uvp-complete-${Date.now()}`,
+        source: 'website' as DataSource,
+        type: 'trending_topic' as DataPointType,
+        content: this.uvpData.complete_statement,
+        metadata: { uvpType: 'complete_uvp', confidence: 1.0 },
+        createdAt: new Date(this.uvpData.created_at)
+      });
     }
 
     return dataPoints;

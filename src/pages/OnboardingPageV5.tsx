@@ -44,6 +44,7 @@ import type { UVPStepKey } from '@/types/session.types';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
+import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
 import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
@@ -297,6 +298,18 @@ export const OnboardingPageV5: React.FC = () => {
     persistState({ step: currentStep, websiteUrl: url });
     setWebsiteUrlInternal(url);
   }, [currentStep]);
+
+  // Clear any previous brand context when starting fresh onboarding
+  // Brand will be determined by the website URL entered, not localStorage
+  React.useEffect(() => {
+    // Only clear if we're on url_input step (starting fresh)
+    if (currentStep === 'url_input' && !websiteUrl) {
+      // Don't clear yet - wait until user enters a URL
+      // The brand will be set based on the website during data collection
+      console.log('[OnboardingPageV5] Fresh onboarding - brand will be set by website URL');
+    }
+  }, [currentStep, websiteUrl]);
+
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
   const [websiteAnalysis, setWebsiteAnalysis] = useState<WebsiteMessagingAnalysis | null>(null);
   const [refinedData, setRefinedData] = useState<RefinedBusinessData | null>(null);
@@ -642,15 +655,28 @@ export const OnboardingPageV5: React.FC = () => {
       setScrapedWebsiteContent(websiteContent);
       setScrapedWebsiteUrls(websiteUrls);
 
-      // Create REAL brand in database - no temp brand bullshit
-      // Every onboarding creates a real brand so intelligence system can run
-      if (!currentBrand) {
-        console.log('[OnboardingPageV5] Creating REAL brand in database...');
-        const { supabase } = await import('@/lib/supabase');
+      // Create or find brand for this website in database
+      // If brand with this website already exists, use it. Otherwise create new.
+      console.log('[OnboardingPageV5] Finding or creating brand for website:', url);
+      const { supabase } = await import('@/lib/supabase');
 
-        // Get user if authenticated, null if not (user_id is nullable)
-        const { data: { user } } = await supabase.auth.getUser();
+      // Get user if authenticated, null if not (user_id is nullable)
+      const { data: { user } } = await supabase.auth.getUser();
 
+      // First, check if a brand with this website already exists
+      const { data: existingBrand, error: findError } = await supabase
+        .from('brands')
+        .select('*')
+        .eq('website', url)
+        .maybeSingle();
+
+      if (existingBrand && !findError) {
+        // Use existing brand for this website
+        console.log('[OnboardingPageV5] ✅ Found existing brand for website:', existingBrand.id, existingBrand.name);
+        setCurrentBrand(existingBrand);
+      } else {
+        // Create new brand for this website
+        console.log('[OnboardingPageV5] Creating NEW brand for website:', url);
         const { data: brandData, error: brandError } = await supabase
           .from('brands')
           .insert({
@@ -670,7 +696,7 @@ export const OnboardingPageV5: React.FC = () => {
         }
 
         setCurrentBrand(brandData);
-        console.log('[OnboardingPageV5] ✅ REAL brand created in database:', brandData.id);
+        console.log('[OnboardingPageV5] ✅ NEW brand created in database:', brandData.id);
       }
 
       // =========================================================================
@@ -1750,6 +1776,16 @@ export const OnboardingPageV5: React.FC = () => {
     // Show loading screen immediately
     setIsSynthesizingUVP(true);
 
+    // PRE-LOAD DASHBOARD: Start loading dashboard intelligence in background
+    // This runs parallel to UVP synthesis so dashboard is ready when user finishes
+    if (currentBrand?.id) {
+      console.log('[UVP Flow] 🚀 Pre-loading dashboard intelligence in background...');
+      dashboardPreloader.preloadDashboard(currentBrand.id).catch(err => {
+        // Don't block UVP flow if preload fails
+        console.warn('[UVP Flow] Dashboard preload error (non-blocking):', err);
+      });
+    }
+
     // Synthesize complete UVP with AI before showing synthesis page
     if (selectedCustomerProfile && selectedTransformation && selectedSolution && selectedBenefit) {
       try {
@@ -2619,59 +2655,55 @@ export const OnboardingPageV5: React.FC = () => {
               // Check if user is authenticated first
               const { data: { user } } = await supabase.auth.getUser();
 
-              // If no authenticated user, save to localStorage for onboarding
-              if (!user) {
-                console.log('[UVP Flow] No authenticated user, saving to localStorage');
-
-                // Save business metadata to localStorage for session display
-                if (extractedBusinessName) {
-                  localStorage.setItem('business_name', extractedBusinessName);
-                }
-                if (websiteUrl) {
-                  localStorage.setItem('website_url', websiteUrl);
-                }
-
-                const result = await saveCompleteUVP(uvpToDisplay, undefined);
-
-                if (result.success) {
-                  console.log('[UVP Flow] Successfully saved to localStorage, session:', result.sessionId);
-                  console.log('[UVP Flow] UVP saved successfully - navigating to dashboard');
-
-                  // Navigate immediately to dashboard - no blocking alert
-                  navigate('/dashboard');
-                } else {
-                  console.error('[UVP Flow] Failed to save:', result.error);
-                  alert(`Failed to save UVP: ${result.error}`);
-                }
-                return;
+              // Save business metadata to localStorage for session display (always)
+              if (extractedBusinessName) {
+                localStorage.setItem('business_name', extractedBusinessName);
+              }
+              if (websiteUrl) {
+                localStorage.setItem('website_url', websiteUrl);
               }
 
               // Check if brand exists, create if needed
+              // NOTE: We save to brand database even without auth - brand was created during onboarding
               let brandId = currentBrand?.id;
 
               if (!brandId) {
                 console.warn('[UVP Flow] No brand found, creating in database...');
                 try {
-                  const { data: brandData, error: brandError } = await supabase
+                  // First, check if a brand with this website already exists
+                  const { data: existingBrand } = await supabase
                     .from('brands')
-                    .insert({
-                      name: extractedBusinessName || 'My Business',
-                      industry: currentBrand?.industry || 'General',
-                      website: websiteUrl || '',
-                      user_id: user.id
-                    })
-                    .select()
-                    .single();
+                    .select('*')
+                    .eq('website', websiteUrl || '')
+                    .maybeSingle();
 
-                  if (brandError) {
-                    console.error('[UVP Flow] Failed to create brand:', brandError);
-                    alert('Unable to save: Could not create business profile. Please contact support.');
-                    return;
+                  if (existingBrand) {
+                    brandId = existingBrand.id;
+                    setCurrentBrand(existingBrand);
+                    console.log('[UVP Flow] Found existing brand for website:', brandId);
+                  } else {
+                    // Create new brand (user_id is optional, null for anonymous users)
+                    const { data: brandData, error: brandError } = await supabase
+                      .from('brands')
+                      .insert({
+                        name: extractedBusinessName || 'My Business',
+                        industry: currentBrand?.industry || selectedIndustry?.displayName || 'General',
+                        website: websiteUrl || '',
+                        user_id: user?.id || null
+                      })
+                      .select()
+                      .single();
+
+                    if (brandError) {
+                      console.error('[UVP Flow] Failed to create brand:', brandError);
+                      alert('Unable to save: Could not create business profile. Please contact support.');
+                      return;
+                    }
+
+                    brandId = brandData.id;
+                    setCurrentBrand(brandData);
+                    console.log('[UVP Flow] Brand created successfully:', brandId);
                   }
-
-                  brandId = brandData.id;
-                  setCurrentBrand(brandData);
-                  console.log('[UVP Flow] Brand created successfully:', brandId);
                 } catch (err) {
                   console.error('[UVP Flow] Error creating brand:', err);
                   alert('An error occurred while creating your business profile. Please try again.');
@@ -2686,8 +2718,7 @@ export const OnboardingPageV5: React.FC = () => {
 
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
-                  alert('Your Value Proposition has been saved successfully!');
-                  // Navigate to dashboard after successful save
+                  // Navigate to dashboard immediately - no blocking alert
                   navigate('/dashboard');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);
