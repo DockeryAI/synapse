@@ -317,6 +317,33 @@ export interface ContentProvenance {
   validation: 'single-source' | 'cross-validated' | 'triple-validated';
 }
 
+// ============================================================================
+// ITEM #24: CONTENT ATOMIZATION - 1 insight → 6 platform variations
+// ============================================================================
+
+export type ContentPlatform = 'twitter' | 'linkedin' | 'instagram' | 'blog' | 'email' | 'video';
+
+export interface AtomizedContent {
+  platform: ContentPlatform;
+  format: string;
+  content: string;
+  characterCount: number;
+  hashtags?: string[];
+  emoji?: string;
+  cta?: string;
+  thumbnailIdea?: string;
+}
+
+export interface ContentAtomizationResult {
+  sourceInsight: {
+    title: string;
+    type: string;
+    source: string;
+  };
+  atoms: AtomizedContent[];
+  generatedAt: Date;
+}
+
 class ContentSynthesisService {
 
   /**
@@ -947,6 +974,277 @@ OUTPUT FORMAT (JSON only, no markdown):
     if (hasDesire && hasAchievement) score += 4; // Aspiration combination
 
     return Math.min(100, Math.max(0, Math.round(score)));
+  }
+
+  // ============================================================================
+  // ITEM #24: CONTENT ATOMIZATION
+  // Transform 1 insight into 6 platform-specific content variations
+  // ============================================================================
+
+  /**
+   * Atomize a single insight into 6 platform-optimized content pieces
+   */
+  atomizeInsight(
+    insight: InsightCard,
+    context: DeepContext
+  ): ContentAtomizationResult {
+    const businessName = context.business.profile.name || 'Your Business';
+    const industry = context.business.profile.industry || 'business';
+    const city = context.business.profile.location?.city || '';
+
+    const atoms: AtomizedContent[] = [
+      // 1. Twitter/X - Thread starter (280 chars max)
+      this.generateTwitterAtom(insight, businessName, industry),
+
+      // 2. LinkedIn - Professional post
+      this.generateLinkedInAtom(insight, businessName, industry),
+
+      // 3. Instagram - Caption with emoji hook
+      this.generateInstagramAtom(insight, businessName, industry),
+
+      // 4. Blog - Intro paragraph
+      this.generateBlogAtom(insight, businessName, industry),
+
+      // 5. Email - Subject + preview
+      this.generateEmailAtom(insight, businessName, industry),
+
+      // 6. Video - Script hook (15-30 sec)
+      this.generateVideoAtom(insight, businessName, industry)
+    ];
+
+    return {
+      sourceInsight: {
+        title: insight.title,
+        type: insight.type,
+        source: insight.source || 'intelligence'
+      },
+      atoms,
+      generatedAt: new Date()
+    };
+  }
+
+  /**
+   * Atomize multiple insights into platform content
+   */
+  atomizeInsights(
+    insights: InsightCard[],
+    context: DeepContext
+  ): ContentAtomizationResult[] {
+    return insights.map(insight => this.atomizeInsight(insight, context));
+  }
+
+  private generateTwitterAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+    const type = insight.type;
+
+    // Create engaging thread starter based on insight type
+    let content = '';
+    let hashtags: string[] = [];
+
+    switch (type) {
+      case 'customer':
+        content = `Here's what ${industry} customers actually want (most businesses miss this):\n\n${this.truncate(title, 180)}\n\nThread 🧵`;
+        hashtags = [`#${industry.replace(/\s+/g, '')}`, '#CustomerInsights', '#Marketing'];
+        break;
+      case 'competitor':
+        content = `Your competitors don't want you to know this about ${industry}:\n\n${this.truncate(title, 180)}`;
+        hashtags = ['#CompetitiveAdvantage', '#BusinessStrategy'];
+        break;
+      case 'opportunity':
+        content = `Spotted: A massive opportunity in ${industry} that no one's talking about.\n\n${this.truncate(title, 160)}`;
+        hashtags = ['#GrowthHacking', '#Opportunity'];
+        break;
+      case 'local':
+        content = `Local ${industry} insight: ${this.truncate(title, 200)}\n\nTiming matters.`;
+        hashtags = ['#LocalBusiness', '#SmallBusiness'];
+        break;
+      default:
+        content = `${this.truncate(title, 220)}\n\nHere's what it means for you 👇`;
+        hashtags = [`#${industry.replace(/\s+/g, '')}`];
+    }
+
+    return {
+      platform: 'twitter',
+      format: 'Thread Starter',
+      content,
+      characterCount: content.length,
+      hashtags,
+      emoji: '🧵'
+    };
+  }
+
+  private generateLinkedInAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+
+    // Professional tone for LinkedIn
+    const hooks = [
+      `I've been analyzing ${industry} trends, and this stood out:`,
+      `After reviewing hundreds of data points in ${industry}:`,
+      `Here's an insight that's changing how we think about ${industry}:`,
+      `The data doesn't lie. In ${industry}, we're seeing:`
+    ];
+
+    const hook = hooks[Math.floor(Math.random() * hooks.length)];
+    const content = `${hook}\n\n${title}\n\nWhat this means for your business:\n\n→ The market is shifting\n→ Early movers will win\n→ Action beats analysis\n\nWhat's your take? Have you noticed this trend?\n\n#${industry.replace(/\s+/g, '')} #BusinessInsights #Strategy`;
+
+    return {
+      platform: 'linkedin',
+      format: 'Professional Post',
+      content,
+      characterCount: content.length,
+      hashtags: [`#${industry.replace(/\s+/g, '')}`, '#BusinessInsights', '#Strategy'],
+      cta: 'What\'s your take?'
+    };
+  }
+
+  private generateInstagramAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+
+    // Instagram needs emotional hooks and emojis
+    const emojiMap: Record<string, string> = {
+      customer: '💡',
+      competitor: '🎯',
+      opportunity: '🚀',
+      local: '📍',
+      trend: '📈',
+      default: '✨'
+    };
+
+    const emoji = emojiMap[insight.type] || emojiMap.default;
+
+    const content = `${emoji} ${title}\n\n.\n.\n.\n\nDrop a ${emoji} if this resonates with you!\n\n—\n📲 Save this for later\n💬 Share with someone who needs this\n👉 Follow @${businessName.toLowerCase().replace(/\s+/g, '')} for more ${industry} insights`;
+
+    return {
+      platform: 'instagram',
+      format: 'Caption',
+      content,
+      characterCount: content.length,
+      emoji,
+      hashtags: [
+        `#${industry.replace(/\s+/g, '')}`,
+        '#BusinessTips',
+        '#Entrepreneur',
+        '#SmallBusiness',
+        '#GrowthMindset'
+      ],
+      thumbnailIdea: `Bold text overlay: "${this.truncate(title, 50)}" on gradient background`
+    };
+  }
+
+  private generateBlogAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+
+    const content = `# ${title}
+
+In today's rapidly evolving ${industry} landscape, staying ahead of the curve isn't just an advantage—it's a necessity.
+
+Our latest analysis reveals a critical insight that could reshape how you approach your business strategy: **${title}**
+
+Here's why this matters:
+
+1. **Market Dynamics**: The ${industry} sector is experiencing unprecedented shifts
+2. **Customer Expectations**: What worked yesterday may not work tomorrow
+3. **Competitive Pressure**: Early adopters are already capitalizing on this trend
+
+In the sections below, we'll break down exactly what this means for your business and provide actionable steps you can implement today.
+
+*Ready to dive deeper? Let's explore the data behind this insight.*`;
+
+    return {
+      platform: 'blog',
+      format: 'Intro Paragraph',
+      content,
+      characterCount: content.length,
+      cta: 'Read the full analysis'
+    };
+  }
+
+  private generateEmailAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+
+    // Generate compelling subject lines
+    const subjects = [
+      `${this.truncate(title, 40)}... [New Data Inside]`,
+      `The ${industry} insight your competitors hope you miss`,
+      `Quick question about your ${industry} strategy`,
+      `[Data Alert] ${this.truncate(title, 35)}`
+    ];
+
+    const subject = subjects[Math.floor(Math.random() * subjects.length)];
+    const preview = `We analyzed the data. Here's what we found...`;
+
+    const content = `Subject: ${subject}
+Preview: ${preview}
+
+---
+
+Hi [First Name],
+
+I wanted to share something interesting we discovered:
+
+${title}
+
+This isn't just another industry report—it's actionable intelligence that could impact your strategy this quarter.
+
+Here's the quick version:
+• What we found
+• Why it matters
+• What you can do about it
+
+[CTA BUTTON: See the Full Analysis]
+
+To your success,
+${businessName}`;
+
+    return {
+      platform: 'email',
+      format: 'Subject + Preview + Body',
+      content,
+      characterCount: content.length,
+      cta: 'See the Full Analysis'
+    };
+  }
+
+  private generateVideoAtom(insight: InsightCard, businessName: string, industry: string): AtomizedContent {
+    const title = insight.title;
+
+    // 15-30 second hook script
+    const content = `[VIDEO SCRIPT - 15-30 seconds]
+
+HOOK (0-3 sec):
+"Stop scrolling. If you're in ${industry}, you need to hear this."
+
+PROBLEM (3-10 sec):
+"Most people in our industry are missing something huge right now..."
+
+INSIGHT (10-20 sec):
+"${title}"
+
+TEASE (20-25 sec):
+"And here's the thing—the businesses that act on this first? They're going to dominate."
+
+CTA (25-30 sec):
+"Follow for more ${industry} insights. Link in bio for the full breakdown."
+
+---
+VISUAL NOTES:
+- Direct to camera, high energy
+- Use text overlay for key stats
+- Cut to B-roll for "insight" section
+- End with logo/CTA card`;
+
+    return {
+      platform: 'video',
+      format: 'Hook Script (15-30 sec)',
+      content,
+      characterCount: content.length,
+      thumbnailIdea: `You + shocked face + text: "${this.truncate(title, 30)}"`
+    };
+  }
+
+  private truncate(text: string, maxLength: number): string {
+    if (text.length <= maxLength) return text;
+    return text.substring(0, maxLength - 3) + '...';
   }
 
   /**
