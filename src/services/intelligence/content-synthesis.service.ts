@@ -344,6 +344,40 @@ export interface ContentAtomizationResult {
   generatedAt: Date;
 }
 
+// ============================================================================
+// ITEM #25: LOCAL KEYWORD TEMPLATES - Types for local SEO optimization
+// ============================================================================
+
+export type LocalKeywordType = 'near_me' | 'city' | 'state' | 'neighborhood' | 'qualified' | 'question';
+export type SearchIntent = 'high' | 'medium' | 'low' | 'immediate' | 'research';
+export type SearchVolume = 'high' | 'medium' | 'low';
+
+export interface LocalKeyword {
+  keyword: string;
+  type: LocalKeywordType;
+  intent: SearchIntent;
+  searchVolume: SearchVolume;
+}
+
+export interface LocalContentIdea {
+  title: string;
+  type: 'listicle' | 'guide' | 'testimonial_roundup' | 'pricing_guide' | 'emergency_guide' | 'comparison';
+  targetKeywords: string[];
+  outline: string[];
+}
+
+export interface LocalKeywordResult {
+  service: string;
+  location: {
+    city: string;
+    state: string;
+    neighborhood: string;
+  };
+  keywords: LocalKeyword[];
+  contentIdeas: LocalContentIdea[];
+  generatedAt: Date;
+}
+
 class ContentSynthesisService {
 
   /**
@@ -1245,6 +1279,195 @@ VISUAL NOTES:
   private truncate(text: string, maxLength: number): string {
     if (text.length <= maxLength) return text;
     return text.substring(0, maxLength - 3) + '...';
+  }
+
+  // ============================================================================
+  // ITEM #25: LOCAL KEYWORD TEMPLATES
+  // Generate local SEO-optimized content variations for SMB businesses
+  // ============================================================================
+
+  /**
+   * Generate local SEO keyword variations for a service/topic
+   */
+  generateLocalKeywordTemplates(
+    service: string,
+    context: DeepContext
+  ): LocalKeywordResult {
+    const city = context.business.profile.location?.city || '';
+    const state = context.business.profile.location?.state || '';
+    const neighborhood = context.business.profile.location?.neighborhood || '';
+    const businessName = context.business.profile.name || '';
+
+    if (!city) {
+      console.warn('[LocalKeywords] No city in context, returning minimal templates');
+      return {
+        service,
+        location: { city: '', state: '', neighborhood: '' },
+        keywords: [],
+        contentIdeas: [],
+        generatedAt: new Date()
+      };
+    }
+
+    const keywords = this.buildLocalKeywords(service, city, state, neighborhood);
+    const contentIdeas = this.buildLocalContentIdeas(service, city, state, businessName);
+
+    return {
+      service,
+      location: { city, state, neighborhood },
+      keywords,
+      contentIdeas,
+      generatedAt: new Date()
+    };
+  }
+
+  /**
+   * Generate local keywords for multiple services
+   */
+  generateLocalKeywordsForServices(
+    services: string[],
+    context: DeepContext
+  ): LocalKeywordResult[] {
+    return services.map(service => this.generateLocalKeywordTemplates(service, context));
+  }
+
+  private buildLocalKeywords(
+    service: string,
+    city: string,
+    state: string,
+    neighborhood: string
+  ): LocalKeyword[] {
+    const keywords: LocalKeyword[] = [];
+    const serviceLower = service.toLowerCase();
+    const cityLower = city.toLowerCase();
+
+    // High-intent "near me" variations
+    keywords.push(
+      { keyword: `${serviceLower} near me`, type: 'near_me', intent: 'high', searchVolume: 'high' },
+      { keyword: `${serviceLower} near me open now`, type: 'near_me', intent: 'immediate', searchVolume: 'medium' },
+      { keyword: `best ${serviceLower} near me`, type: 'near_me', intent: 'high', searchVolume: 'high' }
+    );
+
+    // City-specific variations
+    keywords.push(
+      { keyword: `${serviceLower} in ${cityLower}`, type: 'city', intent: 'high', searchVolume: 'high' },
+      { keyword: `${cityLower} ${serviceLower}`, type: 'city', intent: 'high', searchVolume: 'high' },
+      { keyword: `best ${serviceLower} in ${cityLower}`, type: 'city', intent: 'high', searchVolume: 'medium' },
+      { keyword: `top rated ${serviceLower} ${cityLower}`, type: 'city', intent: 'high', searchVolume: 'medium' },
+      { keyword: `${serviceLower} ${cityLower} reviews`, type: 'city', intent: 'research', searchVolume: 'medium' }
+    );
+
+    // State variations for broader reach
+    if (state) {
+      const stateLower = state.toLowerCase();
+      keywords.push(
+        { keyword: `${serviceLower} ${stateLower}`, type: 'state', intent: 'medium', searchVolume: 'medium' },
+        { keyword: `best ${serviceLower} in ${stateLower}`, type: 'state', intent: 'medium', searchVolume: 'low' }
+      );
+    }
+
+    // Neighborhood variations for hyper-local
+    if (neighborhood) {
+      const neighborhoodLower = neighborhood.toLowerCase();
+      keywords.push(
+        { keyword: `${serviceLower} ${neighborhoodLower}`, type: 'neighborhood', intent: 'high', searchVolume: 'low' },
+        { keyword: `${serviceLower} near ${neighborhoodLower}`, type: 'neighborhood', intent: 'high', searchVolume: 'low' }
+      );
+    }
+
+    // Service-specific qualifiers
+    const qualifiers = ['affordable', 'emergency', 'same day', '24 hour', 'licensed', 'certified'];
+    qualifiers.forEach(qual => {
+      keywords.push({
+        keyword: `${qual} ${serviceLower} ${cityLower}`,
+        type: 'qualified',
+        intent: 'high',
+        searchVolume: 'low'
+      });
+    });
+
+    // Question-based (PAA targets)
+    keywords.push(
+      { keyword: `how much does ${serviceLower} cost in ${cityLower}`, type: 'question', intent: 'research', searchVolume: 'medium' },
+      { keyword: `who is the best ${serviceLower} in ${cityLower}`, type: 'question', intent: 'research', searchVolume: 'low' },
+      { keyword: `what to look for in a ${serviceLower}`, type: 'question', intent: 'research', searchVolume: 'medium' }
+    );
+
+    return keywords;
+  }
+
+  private buildLocalContentIdeas(
+    service: string,
+    city: string,
+    state: string,
+    businessName: string
+  ): LocalContentIdea[] {
+    return [
+      {
+        title: `Top 5 Things to Look for in a ${service} in ${city}`,
+        type: 'listicle',
+        targetKeywords: [`${service.toLowerCase()} ${city.toLowerCase()}`, `best ${service.toLowerCase()} ${city.toLowerCase()}`],
+        outline: [
+          'Introduction: Why choosing the right provider matters',
+          'Point 1: Licensing and credentials',
+          'Point 2: Reviews and reputation',
+          'Point 3: Response time and availability',
+          'Point 4: Pricing transparency',
+          'Point 5: Guarantees and warranties',
+          `Conclusion: Why ${businessName} checks all the boxes`
+        ]
+      },
+      {
+        title: `${city} ${service} Guide: What Local Residents Need to Know`,
+        type: 'guide',
+        targetKeywords: [`${service.toLowerCase()} in ${city.toLowerCase()}`, `${city.toLowerCase()} ${service.toLowerCase()} guide`],
+        outline: [
+          `Overview of ${service.toLowerCase()} needs in ${city}`,
+          'Common issues faced by local residents',
+          'Seasonal considerations',
+          'Average costs in the area',
+          'How to choose the right provider',
+          'Red flags to watch out for'
+        ]
+      },
+      {
+        title: `Why ${city} Residents Choose ${businessName} for ${service}`,
+        type: 'testimonial_roundup',
+        targetKeywords: [`${businessName.toLowerCase()} reviews`, `${service.toLowerCase()} ${city.toLowerCase()} reviews`],
+        outline: [
+          'Customer success stories',
+          'Before and after examples',
+          'Common praise points from reviews',
+          'Our commitment to the community',
+          'Special offers for local residents'
+        ]
+      },
+      {
+        title: `${service} Costs in ${city}: What to Expect in ${new Date().getFullYear()}`,
+        type: 'pricing_guide',
+        targetKeywords: [`${service.toLowerCase()} cost ${city.toLowerCase()}`, `how much does ${service.toLowerCase()} cost`],
+        outline: [
+          'Average pricing overview',
+          'Factors that affect pricing',
+          'Budget vs premium options',
+          'Hidden costs to watch for',
+          'How to get the best value',
+          'Our transparent pricing'
+        ]
+      },
+      {
+        title: `Emergency ${service} in ${city}: What to Do When You Need Help Fast`,
+        type: 'emergency_guide',
+        targetKeywords: [`emergency ${service.toLowerCase()} ${city.toLowerCase()}`, `24 hour ${service.toLowerCase()} ${city.toLowerCase()}`],
+        outline: [
+          'Signs you need emergency service',
+          'What to do while waiting for help',
+          'How to find reliable emergency providers',
+          'Questions to ask before they arrive',
+          `Why ${businessName} offers 24/7 service`
+        ]
+      }
+    ];
   }
 
   /**
