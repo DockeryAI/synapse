@@ -422,6 +422,41 @@ export interface CaseStudyFrameworkResult {
   generatedAt: Date;
 }
 
+// ============================================================================
+// ITEM #27: REVIEW RESPONSE GENERATOR - Types for contextual review responses
+// ============================================================================
+
+export type ReviewSentiment = 'positive' | 'neutral' | 'negative';
+export type ReviewResponseTone = 'professional' | 'warm' | 'empathetic' | 'apologetic';
+
+export interface ReviewResponse {
+  id: string;
+  reviewId?: string;
+  sentiment: ReviewSentiment;
+  tone: ReviewResponseTone;
+  response: string;
+  alternativeResponses: string[];
+  keyPoints: string[];
+  actionItems?: string[];
+  sourceReview: {
+    text: string;
+    rating: number;
+    source: string;
+  };
+  generatedAt: Date;
+}
+
+export interface ReviewResponseBatchResult {
+  responses: ReviewResponse[];
+  summary: {
+    totalProcessed: number;
+    positiveCount: number;
+    neutralCount: number;
+    negativeCount: number;
+  };
+  generatedAt: Date;
+}
+
 class ContentSynthesisService {
 
   /**
@@ -1813,6 +1848,250 @@ VISUAL NOTES:
       .sort((a, b) => b[1] - a[1])
       .slice(0, 5)
       .map(([theme]) => theme);
+  }
+
+  // ============================================================================
+  // ITEM #27: REVIEW RESPONSE GENERATOR
+  // Generate contextual responses to customer reviews
+  // ============================================================================
+
+  /**
+   * Generate a response to a single review
+   */
+  generateReviewResponse(
+    review: { text: string; rating: number; source: string; reviewId?: string },
+    context: DeepContext
+  ): ReviewResponse {
+    const businessName = context.business.profile.name || 'Our Team';
+    const ownerName = context.business.profile.ownerName || 'The Team';
+
+    const sentiment = this.classifyReviewSentiment(review.rating);
+    const tone = this.selectResponseTone(sentiment);
+    const keyPoints = this.extractReviewKeyPoints(review.text);
+
+    let response: string;
+    let alternativeResponses: string[];
+    let actionItems: string[] | undefined;
+
+    switch (sentiment) {
+      case 'positive':
+        response = this.generatePositiveResponse(review.text, businessName, ownerName, keyPoints);
+        alternativeResponses = this.generatePositiveAlternatives(review.text, businessName, ownerName);
+        break;
+      case 'neutral':
+        response = this.generateNeutralResponse(review.text, businessName, ownerName, keyPoints);
+        alternativeResponses = this.generateNeutralAlternatives(review.text, businessName, ownerName);
+        actionItems = ['Follow up to understand concerns better', 'Offer to discuss ways to improve'];
+        break;
+      case 'negative':
+        response = this.generateNegativeResponse(review.text, businessName, ownerName, keyPoints);
+        alternativeResponses = this.generateNegativeAlternatives(review.text, businessName, ownerName);
+        actionItems = [
+          'Contact customer directly to resolve issue',
+          'Document incident for internal review',
+          'Follow up after resolution'
+        ];
+        break;
+    }
+
+    return {
+      id: `response-${Date.now()}-${Math.random().toString(36).substring(7)}`,
+      reviewId: review.reviewId,
+      sentiment,
+      tone,
+      response,
+      alternativeResponses,
+      keyPoints,
+      actionItems,
+      sourceReview: {
+        text: review.text,
+        rating: review.rating,
+        source: review.source
+      },
+      generatedAt: new Date()
+    };
+  }
+
+  /**
+   * Generate responses for multiple reviews
+   */
+  generateReviewResponses(
+    reviews: Array<{ text: string; rating: number; source: string; reviewId?: string }>,
+    context: DeepContext
+  ): ReviewResponseBatchResult {
+    const responses = reviews.map(review => this.generateReviewResponse(review, context));
+
+    return {
+      responses,
+      summary: {
+        totalProcessed: reviews.length,
+        positiveCount: responses.filter(r => r.sentiment === 'positive').length,
+        neutralCount: responses.filter(r => r.sentiment === 'neutral').length,
+        negativeCount: responses.filter(r => r.sentiment === 'negative').length
+      },
+      generatedAt: new Date()
+    };
+  }
+
+  private classifyReviewSentiment(rating: number): ReviewSentiment {
+    if (rating >= 4) return 'positive';
+    if (rating === 3) return 'neutral';
+    return 'negative';
+  }
+
+  private selectResponseTone(sentiment: ReviewSentiment): ReviewResponseTone {
+    switch (sentiment) {
+      case 'positive': return 'warm';
+      case 'neutral': return 'professional';
+      case 'negative': return 'apologetic';
+    }
+  }
+
+  private extractReviewKeyPoints(reviewText: string): string[] {
+    const keyPoints: string[] = [];
+    const text = reviewText.toLowerCase();
+
+    // Extract mentioned staff
+    const staffMatch = reviewText.match(/([A-Z][a-z]+)\s+(?:was|helped|assisted|took care)/);
+    if (staffMatch) {
+      keyPoints.push(`Staff mentioned: ${staffMatch[1]}`);
+    }
+
+    // Extract services mentioned
+    const serviceKeywords = ['repair', 'installation', 'cleaning', 'consultation', 'service', 'treatment', 'appointment'];
+    serviceKeywords.forEach(keyword => {
+      if (text.includes(keyword)) {
+        keyPoints.push(`Service: ${keyword}`);
+      }
+    });
+
+    // Extract timing mentions
+    if (/same day|next day|quick|fast|on time|early/i.test(text)) {
+      keyPoints.push('Timing praised');
+    }
+
+    // Extract price mentions
+    if (/price|cost|affordable|expensive|cheap|value/i.test(text)) {
+      keyPoints.push('Pricing mentioned');
+    }
+
+    // Extract specific issues for negative reviews
+    if (/wait|delay|late|slow/i.test(text)) {
+      keyPoints.push('Issue: Wait time/delays');
+    }
+    if (/rude|unprofessional|attitude/i.test(text)) {
+      keyPoints.push('Issue: Staff behavior');
+    }
+    if (/wrong|mistake|error|incorrect/i.test(text)) {
+      keyPoints.push('Issue: Service error');
+    }
+
+    return keyPoints.slice(0, 5); // Limit to 5 key points
+  }
+
+  private generatePositiveResponse(
+    reviewText: string,
+    businessName: string,
+    ownerName: string,
+    keyPoints: string[]
+  ): string {
+    const staffMention = keyPoints.find(k => k.startsWith('Staff mentioned:'));
+    const staffName = staffMention ? staffMention.replace('Staff mentioned: ', '') : null;
+
+    const openings = [
+      'Thank you so much for taking the time to share your experience!',
+      'We really appreciate your kind words and thoughtful review!',
+      'Thank you for this wonderful feedback!'
+    ];
+
+    const acknowledgments = staffName
+      ? `We'll be sure to share your kind words with ${staffName} – they'll be thrilled to hear this!`
+      : 'Our team works hard to provide the best possible experience, and reviews like yours make it all worthwhile.';
+
+    const closings = [
+      `We look forward to serving you again!\n\nWarmly,\n${ownerName} at ${businessName}`,
+      `Thank you for being a valued customer!\n\nBest regards,\n${ownerName}`,
+      `We can't wait to see you again!\n\n— The ${businessName} Team`
+    ];
+
+    const opening = openings[Math.floor(Math.random() * openings.length)];
+    const closing = closings[Math.floor(Math.random() * closings.length)];
+
+    return `${opening}\n\n${acknowledgments}\n\n${closing}`;
+  }
+
+  private generatePositiveAlternatives(
+    reviewText: string,
+    businessName: string,
+    ownerName: string
+  ): string[] {
+    return [
+      `Wow, thank you for this amazing review! It means the world to our team. We're so glad we could exceed your expectations. See you next time!\n\n— ${businessName}`,
+      `This made our day! Thank you for sharing your experience. We're committed to providing excellent service, and customers like you are why we love what we do.\n\nWith gratitude,\n${ownerName}`
+    ];
+  }
+
+  private generateNeutralResponse(
+    reviewText: string,
+    businessName: string,
+    ownerName: string,
+    keyPoints: string[]
+  ): string {
+    return `Thank you for taking the time to share your feedback with us. We appreciate your honest review and take all customer input seriously.
+
+We're always looking for ways to improve, and your insights help us do just that. If there's anything specific we can do to earn a 5-star experience next time, please don't hesitate to reach out directly.
+
+We'd love the opportunity to exceed your expectations.
+
+Best regards,
+${ownerName} at ${businessName}`;
+  }
+
+  private generateNeutralAlternatives(
+    reviewText: string,
+    businessName: string,
+    ownerName: string
+  ): string[] {
+    return [
+      `Thank you for your review. We value all feedback and would love to hear more about how we can improve your experience. Please feel free to contact us directly.\n\n— ${businessName}`,
+      `We appreciate you sharing your thoughts. Your feedback is important to us, and we're committed to continuous improvement. We hope to serve you again soon and provide an even better experience.\n\nSincerely,\n${ownerName}`
+    ];
+  }
+
+  private generateNegativeResponse(
+    reviewText: string,
+    businessName: string,
+    ownerName: string,
+    keyPoints: string[]
+  ): string {
+    // Identify specific issues
+    const issues = keyPoints.filter(k => k.startsWith('Issue:'));
+    const issueAcknowledgment = issues.length > 0
+      ? `We understand your concerns regarding ${issues.map(i => i.replace('Issue: ', '').toLowerCase()).join(' and ')}, and we take this very seriously.`
+      : 'We take your feedback very seriously and are committed to addressing your concerns.';
+
+    return `We sincerely apologize that your experience did not meet the high standards we set for ourselves.
+
+${issueAcknowledgment}
+
+This is not the level of service we strive to provide, and we would appreciate the opportunity to make things right. Please contact us directly at your earliest convenience so we can discuss this further and find a resolution.
+
+Your satisfaction is our top priority, and we hope you'll give us another chance to serve you.
+
+Sincerely,
+${ownerName}
+${businessName}`;
+  }
+
+  private generateNegativeAlternatives(
+    reviewText: string,
+    businessName: string,
+    ownerName: string
+  ): string[] {
+    return [
+      `We're truly sorry to hear about your experience. This falls short of our standards, and we want to make it right. Please reach out to us directly so we can address your concerns personally.\n\nWith apologies,\n${ownerName} at ${businessName}`,
+      `Thank you for bringing this to our attention. We apologize for the inconvenience and disappointment you experienced. We've shared your feedback with our team and are taking steps to ensure this doesn't happen again. We hope you'll allow us to regain your trust.\n\n— ${businessName} Management`
+    ];
   }
 
   /**
