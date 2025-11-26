@@ -68,7 +68,12 @@ const EXCLUDED_PATTERNS = [
   'cart', 'checkout',
   '.pdf', '.jpg', '.png', '.gif',
   'mailto:', 'tel:',
-  '#', 'javascript:'
+  '#', 'javascript:',
+  // Media and PR patterns
+  '/news/', '/events/', '/event/', '/media/', '/press/',
+  'resource-library', 'resources/ebooks', 'resources/whitepapers',
+  'case-studies', 'case-study', 'whitepaper', 'ebook', 'webinar',
+  'download', 'downloads', '/resources/', '/blog/'
 ];
 
 export class MultiPageProductDiscoveryService {

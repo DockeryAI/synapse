@@ -17,22 +17,24 @@ import { cn } from '@/lib/utils';
 export type UVPStep =
   | 'products'
   | 'customer'
-  | 'transformation'
   | 'solution'
   | 'benefit'
   | 'synthesis';
 
+// Legacy type for backward compatibility (transformation merged into customer)
+export type UVPStepLegacy = UVPStep | 'transformation';
+
 interface UVPMilestoneProgressProps {
-  currentStep: UVPStep;
-  completedSteps: UVPStep[];
+  currentStep: UVPStep | UVPStepLegacy;
+  completedSteps: (UVPStep | UVPStepLegacy)[];
   onStepClick?: (step: UVPStep) => void;
   className?: string;
 }
 
+// 5 steps now - transformation removed (merged into customer step)
 const STEPS: { key: UVPStep; label: string; shortLabel: string }[] = [
   { key: 'products', label: 'Products & Services', shortLabel: 'Products' },
   { key: 'customer', label: 'Target Customer', shortLabel: 'Customer' },
-  { key: 'transformation', label: 'Customer Value', shortLabel: 'Value' },
   { key: 'solution', label: 'Unique Solution', shortLabel: 'Solution' },
   { key: 'benefit', label: 'Key Benefit', shortLabel: 'Benefit' },
   { key: 'synthesis', label: 'Complete Story', shortLabel: 'Complete' },
@@ -44,14 +46,19 @@ export function UVPMilestoneProgress({
   onStepClick,
   className = ''
 }: UVPMilestoneProgressProps) {
+  // Filter out legacy 'transformation' step from completedSteps for display
+  const activeCompletedSteps = completedSteps.filter(s => s !== 'transformation') as UVPStep[];
+  // Map legacy 'transformation' currentStep to 'solution' (next step after customer)
+  const activeCurrentStep = currentStep === 'transformation' ? 'solution' : currentStep;
+
   const getStepStatus = (stepKey: UVPStep): 'completed' | 'current' | 'upcoming' => {
-    if (completedSteps.includes(stepKey)) return 'completed';
-    if (stepKey === currentStep) return 'current';
+    if (activeCompletedSteps.includes(stepKey)) return 'completed';
+    if (stepKey === activeCurrentStep) return 'current';
     return 'upcoming';
   };
 
   const isClickable = (stepKey: UVPStep): boolean => {
-    return completedSteps.includes(stepKey) && onStepClick !== undefined;
+    return activeCompletedSteps.includes(stepKey) && onStepClick !== undefined;
   };
 
   return (

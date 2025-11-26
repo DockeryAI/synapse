@@ -8,7 +8,8 @@ import { AppLayout } from './components/layout/AppLayout'
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
 const OnboardingPageV5 = lazy(() => import('./pages/OnboardingPageV5').then(m => ({ default: m.OnboardingPageV5 })))
 const SessionManagerPage = lazy(() => import('./pages/SessionManagerPage').then(m => ({ default: m.SessionManagerPage })))
-const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
+// Using the new streaming architecture for dashboard
+const DashboardPage = lazy(() => import('./pages/DashboardPageV2').then(m => ({ default: m.DashboardPageV2 })))
 const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').then(m => ({ default: m.ContentCalendarPage })))
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
@@ -41,6 +42,9 @@ function App() {
 
               {/* Routes with sidebar navigation */}
               <Route element={<AppLayout />}>
+                {/* Default route - Dashboard */}
+                <Route path="/" element={<DashboardPage />} />
+
                 {/* Dashboard / Command Center */}
                 <Route path="/dashboard" element={<DashboardPage />} />
 
@@ -59,7 +63,6 @@ function App() {
               </Route>
 
               {/* Routes without sidebar (onboarding flow) */}
-              <Route path="/" element={<OnboardingPageV5 />} />
               <Route path="/onboarding" element={<OnboardingPageV5 />} />
               <Route path="/onboarding-v5" element={<OnboardingPageV5 />} />
 

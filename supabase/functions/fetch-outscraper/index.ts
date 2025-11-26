@@ -16,7 +16,16 @@ serve(async (req) => {
       throw new Error('OUTSCRAPER_API_KEY not configured in Supabase secrets')
     }
 
-    const { endpoint, params, method = 'GET', body } = await req.json()
+    const reqBody = await req.json()
+
+    // Support both formats: direct query or endpoint + params
+    const endpoint = reqBody.endpoint || '/maps/search-v2'
+    const params = reqBody.params || {
+      query: reqBody.query,
+      limit: reqBody.limit || 10
+    }
+    const method = reqBody.method || 'GET'
+    const body = reqBody.body
 
     const url = `https://api.app.outscraper.com${endpoint}${
       params ? '?' + new URLSearchParams(params) : ''

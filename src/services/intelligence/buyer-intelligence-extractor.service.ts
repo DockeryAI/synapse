@@ -317,10 +317,7 @@ Return ONLY valid JSON (no markdown, no explanations):
 }`
 
     try {
-      // Add timeout to prevent hanging (60 seconds for large extraction)
-      const controller = new AbortController()
-      const timeoutId = setTimeout(() => controller.abort(), 60000)
-
+      // No timeout - let AI complete naturally for complete data
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
@@ -329,18 +326,15 @@ Return ONLY valid JSON (no markdown, no explanations):
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-opus-4.1',
+          model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for 3x speed
           messages: [{
             role: 'user',
             content: prompt
           }],
           max_tokens: 8192,
           temperature: 0.3
-        }),
-        signal: controller.signal
+        })
       })
-
-      clearTimeout(timeoutId)
 
       if (!response.ok) {
         const errorText = await response.text()
@@ -378,10 +372,6 @@ Return ONLY valid JSON (no markdown, no explanations):
       return extraction
 
     } catch (error) {
-      if (error instanceof Error && error.name === 'AbortError') {
-        console.error('[BuyerIntelligence] Request timed out after 60 seconds')
-        throw new Error('Buyer intelligence extraction timed out - website content may be too large')
-      }
       console.error('[BuyerIntelligence] Claude analysis failed:', error)
       throw error
     }

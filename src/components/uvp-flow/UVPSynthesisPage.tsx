@@ -110,14 +110,16 @@ export function UVPSynthesisPage({
       setIsGeneratingStatements(true);
 
       try {
-        // Generate simple fallback statements from components
-        const vp = `For ${completeUVP.targetCustomer.statement || 'our customers'}, ` +
-                   `we ${completeUVP.uniqueSolution.statement || 'provide solutions'} ` +
-                   `so you can ${completeUVP.keyBenefit.statement || 'achieve your goals'}.`;
+        // Generate simple fallback statements from components with null safety
+        const customerStatement = completeUVP.targetCustomer?.statement || 'our customers';
+        const solutionStatement = completeUVP.uniqueSolution?.statement || 'provide solutions';
+        const benefitStatement = completeUVP.keyBenefit?.statement || 'achieve your goals';
 
-        const why = completeUVP.transformationGoal.statement || 'We believe in creating transformation through exceptional service.';
-        const what = completeUVP.uniqueSolution.statement || 'We provide comprehensive solutions tailored to your needs.';
-        const how = completeUVP.uniqueSolution.differentiators?.[0]?.statement || 'We deliver through our proven methodology and expertise.';
+        const vp = `For ${customerStatement}, we ${solutionStatement} so you can ${benefitStatement}.`;
+
+        const why = completeUVP.transformationGoal?.statement || 'We believe in creating transformation through exceptional service.';
+        const what = completeUVP.uniqueSolution?.statement || 'We provide comprehensive solutions tailored to your needs.';
+        const how = completeUVP.uniqueSolution?.differentiators?.[0]?.statement || 'We deliver through our proven methodology and expertise.';
 
         setEditedVP(vp);
         setEditedWhy(why);
@@ -165,32 +167,35 @@ export function UVPSynthesisPage({
     setExpandedSections(newSet);
   };
 
+  // Safely collect all sources with null checks
   const allSources = [
-    ...completeUVP.targetCustomer.sources,
-    ...completeUVP.transformationGoal.sources,
-    ...completeUVP.uniqueSolution.sources,
-    ...completeUVP.keyBenefit.sources,
+    ...(completeUVP.targetCustomer?.sources || []),
+    ...(completeUVP.transformationGoal?.sources || []),
+    ...(completeUVP.uniqueSolution?.sources || []),
+    ...(completeUVP.keyBenefit?.sources || []),
   ];
 
-  // Calculate aggregate confidence
+  // Calculate aggregate confidence with null checks
+  const safeConfidence = (obj: any) => obj?.confidence || { overall: 70, dataQuality: 70, modelAgreement: 70 };
+
   const aggregateConfidence = {
     overall: Math.round(
-      (completeUVP.targetCustomer.confidence.overall +
-        completeUVP.transformationGoal.confidence.overall +
-        completeUVP.uniqueSolution.confidence.overall +
-        completeUVP.keyBenefit.confidence.overall) / 4
+      (safeConfidence(completeUVP.targetCustomer).overall +
+        safeConfidence(completeUVP.transformationGoal).overall +
+        safeConfidence(completeUVP.uniqueSolution).overall +
+        safeConfidence(completeUVP.keyBenefit).overall) / 4
     ),
     dataQuality: Math.round(
-      (completeUVP.targetCustomer.confidence.dataQuality +
-        completeUVP.transformationGoal.confidence.dataQuality +
-        completeUVP.uniqueSolution.confidence.dataQuality +
-        completeUVP.keyBenefit.confidence.dataQuality) / 4
+      (safeConfidence(completeUVP.targetCustomer).dataQuality +
+        safeConfidence(completeUVP.transformationGoal).dataQuality +
+        safeConfidence(completeUVP.uniqueSolution).dataQuality +
+        safeConfidence(completeUVP.keyBenefit).dataQuality) / 4
     ),
     modelAgreement: Math.round(
-      (completeUVP.targetCustomer.confidence.modelAgreement +
-        completeUVP.transformationGoal.confidence.modelAgreement +
-        completeUVP.uniqueSolution.confidence.modelAgreement +
-        completeUVP.keyBenefit.confidence.modelAgreement) / 4
+      (safeConfidence(completeUVP.targetCustomer).modelAgreement +
+        safeConfidence(completeUVP.transformationGoal).modelAgreement +
+        safeConfidence(completeUVP.uniqueSolution).modelAgreement +
+        safeConfidence(completeUVP.keyBenefit).modelAgreement) / 4
     ),
     sourceCount: allSources.length,
     reasoning: 'Aggregate confidence across all UVP components based on data quality, source reliability, and model agreement.',
@@ -231,7 +236,7 @@ export function UVPSynthesisPage({
           >
             <Trophy className="w-5 h-5 text-purple-600 dark:text-purple-400" />
             <span className="text-sm font-medium text-purple-700 dark:text-purple-300">
-              UVP Step 6 of 6: Your Complete Value Proposition
+              UVP Step 5 of 5: Your Complete Value Proposition
             </span>
           </motion.div>
 

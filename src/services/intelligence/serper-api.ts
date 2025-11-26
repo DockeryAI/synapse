@@ -126,33 +126,42 @@ interface LinkedInJob {
 
 class SerperAPIService {
   async searchGoogle(query: string): Promise<SearchResult[]> {
-    if (!SERPER_API_KEY) {
-      throw new Error(
-        'Serper API key not configured. Add VITE_SERPER_API_KEY to your .env file. ' +
-        'Get a free API key from https://serper.dev/'
-      )
+    // Use Edge Function for secure API access
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('[Serper API] Edge Function not configured, falling back to empty results')
+      return []
     }
 
     try {
-      const response = await fetch('https://google.serper.dev/search', {
+      console.log('[Serper API] Searching via Edge Function:', query)
+
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
         method: 'POST',
         headers: {
-          'X-API-KEY': SERPER_API_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ q: query })
+        body: JSON.stringify({ q: query })  // Serper uses 'q' not 'query'
       })
+
+      if (!response.ok) {
+        console.error('[Serper API] Edge Function error:', response.status)
+        return []  // Graceful fallback
+      }
 
       const data = await response.json()
       return (data.organic || []).map((result: any, index: number) => ({
-        title: result.title,
-        link: result.link,
-        snippet: result.snippet,
+        title: result.title || '',
+        link: result.link || '',
+        snippet: result.snippet || '',
         position: index + 1
       }))
     } catch (error) {
       console.error('[Serper API] Error:', error)
-      throw error
+      return []  // Graceful fallback on error
     }
   }
 

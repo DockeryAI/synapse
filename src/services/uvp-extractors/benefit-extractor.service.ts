@@ -81,7 +81,7 @@ export async function extractBenefits(
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster extraction
         messages: [{
           role: 'user',
           content: prompt
@@ -176,40 +176,8 @@ export async function extractBenefits(
       console.log(`[BenefitExtractor] Expanded to ${benefits.length} benefits for full segment coverage`);
     }
 
-    // Apply JTBD transformation to benefit statements
-    if (benefits.length > 0) {
-      console.log('[BenefitExtractor] Applying JTBD transformation to benefits...');
-      try {
-        const benefitStatements = benefits.map(b => b.statement);
-        const transformedProps = await jtbdTransformer.transformValuePropositions(
-          benefitStatements,
-          {
-            businessName,
-            industry,
-            customerProblems: transformations.map(t => t.statement || ''),
-            solutions: solutions.map(s => s.statement || s.methodology || ''),
-            targetAudience: customers?.map(c => c.statement || '')
-          }
-        );
-
-        // Apply primary outcome to first benefit
-        if (transformedProps.primary && benefits[0]) {
-          benefits[0].outcomeStatement = transformedProps.primary.outcomeStatement;
-          console.log('[BenefitExtractor] Applied JTBD outcome to primary benefit:', transformedProps.primary.outcomeStatement);
-        }
-
-        // Apply supporting outcomes to other benefits
-        transformedProps.supporting.forEach((support, index) => {
-          if (benefits[index + 1]) {
-            benefits[index + 1].outcomeStatement = support.outcomeStatement;
-            console.log('[BenefitExtractor] Applied JTBD outcome to benefit', index + 1, ':', support.outcomeStatement);
-          }
-        });
-      } catch (jtbdError) {
-        console.error('[BenefitExtractor] JTBD transformation failed:', jtbdError);
-        // Continue without outcome statements
-      }
-    }
+    // NOTE: JTBD transformation is now handled by the orchestrator
+    // to avoid blocking parallel extraction. Don't call JTBD here.
 
     return {
       benefits,

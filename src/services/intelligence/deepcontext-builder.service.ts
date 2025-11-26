@@ -84,10 +84,236 @@ export interface DeepContextBuildResult {
 /**
  * DeepContext Builder Service
  */
-class DeepContextBuilderService {
+export class DeepContextBuilderService {
 
   /**
-   * Build complete DeepContext for a brand
+   * Build complete DeepContext for a brand with progressive updates
+   */
+  async buildDeepContextProgressive(
+    config: DeepContextBuilderConfig,
+    onProgress?: (wave: number, context: Partial<DeepContext>, metadata: any) => void
+  ): Promise<DeepContextBuildResult> {
+    const startTime = Date.now();
+    const errors: any[] = [];
+    const dataSourcesUsed: string[] = [];
+
+    console.log(`[DeepContext] Starting PROGRESSIVE build for brand: ${config.brandId}`);
+
+    // 1. Load brand data
+    console.log('[DeepContext] Step 1/6: Loading brand data...');
+    const brandData = config.brandData || await this.loadBrandData(config.brandId);
+
+    if (!brandData) {
+      throw new Error(`Brand not found: ${config.brandId}`);
+    }
+
+    console.log('[DeepContext] Brand data loaded:', {
+      name: brandData.name,
+      industry: brandData.industry,
+      location: brandData.location
+    });
+
+    // WAVE 1: Core Intelligence (0-30s) - OutScraper, Serper, Website
+    console.log('[DeepContext] 🌊 WAVE 1: Core Intelligence (0-30s)...');
+    const [outscraperData, serperData, websiteData] = await Promise.allSettled([
+      config.includeOutScraper !== false
+        ? this.fetchOutScraperIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeSerper !== false
+        ? this.fetchSerperIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeWebsiteAnalysis !== false && brandData.website
+        ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+    ]);
+
+    // Build partial context from Wave 1
+    const dataPointsWave1: DataPoint[] = [];
+    if (outscraperData.status === 'fulfilled' && outscraperData.value) {
+      dataPointsWave1.push(...outscraperData.value);
+    }
+    if (serperData.status === 'fulfilled' && serperData.value) {
+      dataPointsWave1.push(...serperData.value);
+    }
+    if (websiteData.status === 'fulfilled' && websiteData.value) {
+      dataPointsWave1.push(...websiteData.value);
+    }
+
+    const partialContext1 = await this.buildContextStructure(brandData, dataPointsWave1);
+    console.log(`[DeepContext] ✅ WAVE 1 Complete: ${dataPointsWave1.length} data points`);
+
+    // Notify Wave 1 complete IMMEDIATELY (UI updates now, synthesis runs in background)
+    if (onProgress) {
+      onProgress(1, partialContext1, {
+        dataSourcesUsed: dataSourcesUsed.slice(),
+        dataPointsCollected: dataPointsWave1.length,
+        buildTimeMs: Date.now() - startTime
+      });
+    }
+
+    // Start Wave 1 synthesis in background (non-blocking - Wave 2 starts immediately)
+    if (dataPointsWave1.length > 0) {
+      this.synthesizeInsights(partialContext1, dataPointsWave1)
+        .then(() => {
+          console.log('[DeepContext] ✅ Wave 1 synthesis complete');
+          // Notify again with synthesis results if needed
+          if (onProgress) {
+            onProgress(1, partialContext1, {
+              dataSourcesUsed: dataSourcesUsed.slice(),
+              dataPointsCollected: dataPointsWave1.length,
+              buildTimeMs: Date.now() - startTime
+            });
+          }
+        })
+        .catch(error => {
+          console.error('[DeepContext] ⚠️  Wave 1 synthesis failed (non-fatal):', error instanceof Error ? error.message : error);
+        });
+    }
+
+    // WAVE 2: Enrichment (30-90s) - YouTube, SEMrush, News
+    console.log('[DeepContext] 🌊 WAVE 2: Enrichment (30-90s)...');
+    const [youtubeData, semrushData, newsData] = await Promise.allSettled([
+      config.includeYouTube !== false
+        ? this.fetchYouTubeIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeSemrush !== false
+        ? this.fetchSemrushIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeNews !== false
+        ? this.fetchNewsIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+    ]);
+
+    const dataPointsWave2: DataPoint[] = [...dataPointsWave1];
+    if (youtubeData.status === 'fulfilled' && youtubeData.value) {
+      dataPointsWave2.push(...youtubeData.value);
+    }
+    if (semrushData.status === 'fulfilled' && semrushData.value) {
+      dataPointsWave2.push(...semrushData.value);
+    }
+    if (newsData.status === 'fulfilled' && newsData.value) {
+      dataPointsWave2.push(...newsData.value);
+    }
+
+    const partialContext2 = await this.buildContextStructure(brandData, dataPointsWave2);
+    console.log(`[DeepContext] ✅ WAVE 2 Complete: ${dataPointsWave2.length} data points`);
+
+    // Notify Wave 2 complete IMMEDIATELY (UI updates now, synthesis runs in background)
+    if (onProgress) {
+      onProgress(2, partialContext2, {
+        dataSourcesUsed: dataSourcesUsed.slice(),
+        dataPointsCollected: dataPointsWave2.length,
+        buildTimeMs: Date.now() - startTime
+      });
+    }
+
+    // Start Wave 2 synthesis in background (non-blocking - Wave 3 starts immediately)
+    if (dataPointsWave2.length > 0) {
+      this.synthesizeInsights(partialContext2, dataPointsWave2)
+        .then(() => {
+          console.log('[DeepContext] ✅ Wave 2 synthesis complete');
+          if (onProgress) {
+            onProgress(2, partialContext2, {
+              dataSourcesUsed: dataSourcesUsed.slice(),
+              dataPointsCollected: dataPointsWave2.length,
+              buildTimeMs: Date.now() - startTime
+            });
+          }
+        })
+        .catch(error => {
+          console.error('[DeepContext] ⚠️  Wave 2 synthesis failed (non-fatal):', error instanceof Error ? error.message : error);
+        });
+    }
+
+    // WAVE 3: Industry-Specific (90s+) - LinkedIn, Weather, Perplexity, Apify
+    console.log('[DeepContext] 🌊 WAVE 3: Industry-Specific (90s+)...');
+    const [linkedinData, weatherData, perplexityData, apifyData, whisperData] = await Promise.allSettled([
+      config.includeLinkedIn !== false
+        ? this.fetchLinkedInIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeWeather !== false
+        ? this.fetchWeatherIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includePerplexity !== false
+        ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      config.includeApify !== false && brandData.website
+        ? this.fetchApifyIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+      brandData.videoUrls && brandData.videoUrls.length > 0
+        ? this.fetchWhisperIntelligence(brandData, errors, dataSourcesUsed)
+        : Promise.resolve(null),
+    ]);
+
+    const dataPointsFinal: DataPoint[] = [...dataPointsWave2];
+    if (linkedinData.status === 'fulfilled' && linkedinData.value) {
+      dataPointsFinal.push(...linkedinData.value);
+    }
+    if (weatherData.status === 'fulfilled' && weatherData.value) {
+      dataPointsFinal.push(...weatherData.value);
+    }
+    if (perplexityData.status === 'fulfilled' && perplexityData.value) {
+      dataPointsFinal.push(...perplexityData.value);
+    }
+    if (apifyData.status === 'fulfilled' && apifyData.value) {
+      dataPointsFinal.push(...apifyData.value);
+    }
+    if (whisperData.status === 'fulfilled' && whisperData.value) {
+      dataPointsFinal.push(...whisperData.value);
+    }
+
+    const finalContext = await this.buildContextStructure(brandData, dataPointsFinal);
+    console.log(`[DeepContext] ✅ WAVE 3 Complete: ${dataPointsFinal.length} data points`);
+
+    // Start Wave 3 synthesis in background (runs to completion naturally, no hard timeout)
+    console.log('[DeepContext] Starting final synthesis...');
+    if (dataPointsFinal.length > 0) {
+      this.synthesizeInsights(finalContext, dataPointsFinal)
+        .then(() => {
+          console.log('[DeepContext] ✅ Final synthesis complete - all intelligence ready');
+        })
+        .catch(error => {
+          console.error('[DeepContext] ⚠️  Final synthesis failed (non-fatal):', error instanceof Error ? error.message : error);
+        });
+    }
+
+    const buildTimeMs = Date.now() - startTime;
+
+    // Cache final result
+    if (config.cacheResults !== false) {
+      await intelligenceCache.set(
+        ['deepcontext', config.brandId],
+        {
+          context: finalContext,
+          metadata: {
+            buildTimeMs,
+            dataSourcesUsed,
+            dataPointsCollected: dataPointsFinal.length,
+            errors,
+            detailedDataPoints: dataPointsFinal
+          }
+        },
+        {
+          dataType: 'deepcontext',
+          brandId: config.brandId
+        }
+      );
+    }
+
+    return {
+      context: finalContext,
+      metadata: {
+        buildTimeMs,
+        dataSourcesUsed,
+        dataPointsCollected: dataPointsFinal.length,
+        errors,
+        detailedDataPoints: dataPointsFinal
+      }
+    };
+  }
+
+  /**
+   * Build complete DeepContext for a brand (legacy blocking version)
    */
   async buildDeepContext(
     config: DeepContextBuilderConfig
@@ -169,10 +395,11 @@ class DeepContextBuilderService {
         config.includeWebsiteAnalysis !== false && brandData.website
           ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
-        // Reddit psychological triggers and insights
-        config.includeReddit !== false
-          ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
-          : Promise.resolve(null),
+        // Reddit psychological triggers and insights - DISABLED
+        // config.includeReddit !== false
+        //   ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
+        //   : Promise.resolve(null),
+        Promise.resolve(null), // Reddit disabled
         config.includePerplexity !== false
           ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),

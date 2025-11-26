@@ -59,7 +59,7 @@ import { mapCampaignIdToType, mapPostIdToType, PostType } from '@/types/campaign
 // UVP Flow imports - Using SIMPLE versions with progressive loading
 import { ProductServiceDiscoveryPage } from '@/components/uvp-flow/ProductServiceDiscoveryPage';
 import { TargetCustomerPage } from '@/components/uvp-flow/TargetCustomerPage-SIMPLE';
-import { TransformationGoalPage } from '@/components/uvp-flow/TransformationGoalPage-SIMPLE';
+// TransformationGoalPage REMOVED - now covered in customer step
 import { UniqueSolutionPage } from '@/components/uvp-flow/UniqueSolutionPage-SIMPLE';
 import { KeyBenefitPage } from '@/components/uvp-flow/KeyBenefitPage-SIMPLE';
 import { UVPSynthesisPage } from '@/components/uvp-flow/UVPSynthesisPage';
@@ -86,7 +86,7 @@ import type {
 type FlowStep =
   | 'url_input'
   | 'data_collection'
-  | 'value_propositions'
+  // 'value_propositions' - REMOVED: Legacy Track E step, not used in UVP flow
   | 'buyer_intelligence'
   | 'core_truth'
   | 'uvp_extraction'
@@ -102,7 +102,7 @@ type FlowStep =
   // UVP Flow steps
   | 'uvp_products'
   | 'uvp_customer'
-  | 'uvp_transformation'
+  // 'uvp_transformation' - REMOVED: Now covered in customer step
   | 'uvp_solution'
   | 'uvp_benefit'
   | 'uvp_synthesis';
@@ -123,10 +123,72 @@ export interface DetectedBusinessData {
   };
 }
 
+// Valid flow steps (for validation)
+const VALID_FLOW_STEPS = [
+  'url_input', 'data_collection', 'buyer_intelligence', 'core_truth',
+  'uvp_extraction', 'smart_confirmation', 'quick_refinement', 'insights',
+  'suggestions', 'path_selection', 'post_type_selection', 'content_generation',
+  'content_preview', 'complete', 'uvp_products', 'uvp_customer',
+  'uvp_solution', 'uvp_benefit', 'uvp_synthesis'
+];
+
+// Helper to get persisted state from sessionStorage (survives HMR)
+const getPersistedState = () => {
+  try {
+    const saved = sessionStorage.getItem('onboarding_v5_state');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Validate the step - if invalid (e.g., removed 'uvp_transformation'), reset to url_input
+      if (parsed.step && !VALID_FLOW_STEPS.includes(parsed.step)) {
+        console.warn('[OnboardingPageV5] Invalid persisted step:', parsed.step, '- resetting to url_input');
+        sessionStorage.removeItem('onboarding_v5_state');
+        return { step: 'url_input', websiteUrl: '' };
+      }
+      return parsed;
+    }
+  } catch {
+    // sessionStorage not available or invalid JSON
+  }
+  return { step: 'url_input', websiteUrl: '' };
+};
+
+const persistState = (state: { step: FlowStep; websiteUrl?: string }) => {
+  try {
+    const current = getPersistedState();
+    sessionStorage.setItem('onboarding_v5_state', JSON.stringify({ ...current, ...state }));
+  } catch {
+    // sessionStorage not available
+  }
+};
+
+const clearPersistedState = () => {
+  try {
+    sessionStorage.removeItem('onboarding_v5_state');
+  } catch {
+    // sessionStorage not available
+  }
+};
+
 export const OnboardingPageV5: React.FC = () => {
   const navigate = useNavigate();
   const { currentBrand, setCurrentBrand } = useBrand();
-  const [currentStep, setCurrentStep] = useState<FlowStep>('url_input');
+
+  // Initialize from persisted state (survives HMR reloads)
+  const initialState = getPersistedState();
+  console.log('[OnboardingPageV5] Initial state from sessionStorage:', initialState);
+  const [currentStep, setCurrentStepInternal] = useState<FlowStep>(initialState.step as FlowStep);
+  console.log('[OnboardingPageV5] Current step:', currentStep);
+
+  // Wrap setCurrentStep to persist to sessionStorage (survives HMR reloads)
+  const setCurrentStep = React.useCallback((step: FlowStep) => {
+    // Clear persisted state when going back to url_input (starting fresh)
+    if (step === 'url_input') {
+      clearPersistedState();
+    } else {
+      persistState({ step });
+    }
+    setCurrentStepInternal(step);
+  }, []);
 
   // Check for session ID in URL params for restoration
   React.useEffect(() => {
@@ -180,6 +242,17 @@ export const OnboardingPageV5: React.FC = () => {
           setExtractedLocation(session.business_info.location || '');
         }
 
+        // Restore industry selection
+        if (session.industry_info) {
+          setSelectedIndustry({
+            naicsCode: session.industry_info.naics_code,
+            displayName: session.industry_info.industry,
+            keywords: [],
+            category: '',
+            hasFullProfile: true,
+          });
+        }
+
         // Restore scraped content
         if (session.scraped_content) {
           setScrapedWebsiteContent(session.scraped_content.content || []);
@@ -197,11 +270,11 @@ export const OnboardingPageV5: React.FC = () => {
         // Restore completed steps
         setCompletedUVPSteps(session.completed_steps as any);
 
-        // Navigate to current step
+        // Navigate to current step (transformation now goes to solution since step was removed)
         const stepMap: Record<UVPStepKey, FlowStep> = {
           'products': 'uvp_products',
           'customer': 'uvp_customer',
-          'transformation': 'uvp_transformation',
+          'transformation': 'uvp_solution', // Transformation step removed, skip to solution
           'solution': 'uvp_solution',
           'benefit': 'uvp_benefit',
           'synthesis': 'uvp_synthesis',
@@ -217,7 +290,13 @@ export const OnboardingPageV5: React.FC = () => {
       console.error('[OnboardingPageV5] Error restoring session:', error);
     }
   };
-  const [websiteUrl, setWebsiteUrl] = useState<string>('');
+  const [websiteUrl, setWebsiteUrlInternal] = useState<string>(initialState.websiteUrl || '');
+
+  // Wrap setWebsiteUrl to persist to sessionStorage
+  const setWebsiteUrl = React.useCallback((url: string) => {
+    persistState({ step: currentStep, websiteUrl: url });
+    setWebsiteUrlInternal(url);
+  }, [currentStep]);
   const [businessData, setBusinessData] = useState<DetectedBusinessData | null>(null);
   const [websiteAnalysis, setWebsiteAnalysis] = useState<WebsiteMessagingAnalysis | null>(null);
   const [refinedData, setRefinedData] = useState<RefinedBusinessData | null>(null);
@@ -271,6 +350,12 @@ export const OnboardingPageV5: React.FC = () => {
   // Business info state (editable)
   const [extractedBusinessName, setExtractedBusinessName] = useState<string>('');
   const [extractedLocation, setExtractedLocation] = useState<string>('');
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
+
+  // Debug: Log when selectedIndustry changes
+  React.useEffect(() => {
+    console.log('[OnboardingPageV5] selectedIndustry changed:', selectedIndustry?.displayName);
+  }, [selectedIndustry]);
 
   // Get current UVP step key based on flow step
   const getCurrentUVPStepKey = (): UVPStepKey | null => {
@@ -293,6 +378,51 @@ export const OnboardingPageV5: React.FC = () => {
     onSaveError: (error) => console.error('[OnboardingPageV5] Session save error:', error),
   });
 
+  // Detect stale sessions: if on a UVP step but missing required data, restart
+  // This handles HMR reloads and interrupted sessions
+  React.useEffect(() => {
+    // Only check after initial render stabilizes (avoid triggering during normal navigation)
+    const timer = setTimeout(() => {
+      const isUVPStep = ['uvp_products', 'uvp_customer', 'uvp_solution', 'uvp_benefit', 'uvp_synthesis'].includes(currentStep);
+
+      if (!isUVPStep) return;
+
+      // Check if we have the required base data (websiteUrl is essential)
+      const hasBaseData = websiteUrl && websiteUrl.length > 0;
+
+      if (!hasBaseData) {
+        console.warn('[OnboardingPageV5] Stale session detected: on UVP step but missing websiteUrl. Restarting...');
+        clearPersistedState();
+        setCurrentStep('url_input');
+        return;
+      }
+
+      // If past products step but no product data, restart (data was lost)
+      if (currentStep !== 'uvp_products' && (!productServiceData || productServiceData.categories?.length === 0)) {
+        console.warn('[OnboardingPageV5] Stale session detected: past products step but no product data. Restarting...');
+        clearPersistedState();
+        setCurrentStep('url_input');
+        return;
+      }
+
+      // For products step specifically, also check if we have any products
+      if (currentStep === 'uvp_products' && productServiceData) {
+        const totalProducts = productServiceData.categories?.reduce(
+          (sum, cat) => sum + (cat.items?.length || 0), 0
+        ) || 0;
+
+        if (totalProducts === 0 && !productServiceData.extractionComplete) {
+          console.warn('[OnboardingPageV5] Stale session detected: on uvp_products with 0 products. Restarting...');
+          clearPersistedState();
+          setProductServiceData(null);
+          setCurrentStep('url_input');
+        }
+      }
+    }, 500); // Small delay to allow state to stabilize
+
+    return () => clearTimeout(timer);
+  }, [currentStep, websiteUrl, productServiceData]);
+
   // Handle milestone click navigation
   const handleMilestoneClick = (step: UVPStep) => {
     console.log('[OnboardingPageV5] Navigating to step:', step);
@@ -303,11 +433,11 @@ export const OnboardingPageV5: React.FC = () => {
       return;
     }
 
-    // Map UVP step to flow step
+    // Map UVP step to flow step (transformation now goes to customer)
     const stepMap: Record<UVPStep, FlowStep> = {
       'products': 'uvp_products',
       'customer': 'uvp_customer',
-      'transformation': 'uvp_transformation',
+      'transformation': 'uvp_customer', // Transformation step removed, goes to customer
       'solution': 'uvp_solution',
       'benefit': 'uvp_benefit',
       'synthesis': 'uvp_synthesis',
@@ -330,6 +460,9 @@ export const OnboardingPageV5: React.FC = () => {
   const handleUrlSubmit = async (url: string, industry: IndustryOption) => {
     console.log('[OnboardingPageV5] URL submitted:', url);
     console.log('[OnboardingPageV5] Industry selected:', industry.displayName);
+
+    // Save selected industry to state
+    setSelectedIndustry(industry);
 
     // Validate URL format
     try {
@@ -377,6 +510,15 @@ export const OnboardingPageV5: React.FC = () => {
           .replace(/\s*[-|–]\s*(Home|About|Services|Welcome|Contact).*$/i, '')
           .split(/\s*[|–]\s*/)[0]
           .trim();
+
+        // Split on tagline indicators like "..." or " - The" or ": The" etc.
+        // "OpenDialog...The AI Agent Management System" → "OpenDialog"
+        // "Acme Corp - The Future of Software" → "Acme Corp"
+        const taglineSeparators = /\s*(?:\.{2,}|\s+-\s+The\s|\s+[:|-]\s+(?:The|Your|A|An)\s)/i;
+        if (taglineSeparators.test(businessName)) {
+          businessName = businessName.split(taglineSeparators)[0].trim();
+          console.log('[OnboardingPageV5] Split tagline, extracted:', businessName);
+        }
 
         // Remove navigation words from END of business name (handles "Lockwood Wealth Home" case)
         businessName = businessName.replace(/\s*\b(Home|About|Services|Contact|Welcome|Page|Menu|Shop|Store|Blog)\b\s*$/gi, '').trim();
@@ -445,7 +587,9 @@ export const OnboardingPageV5: React.FC = () => {
       try {
         const locationResult = await locationDetectionService.detectLocation(url, industry.displayName);
         if (locationResult) {
-          location = `${locationResult.city}, ${locationResult.state}`;
+          // Use formatLocation method for proper US vs International handling
+          // US: City, State | International: City, Country
+          location = locationDetectionService.formatLocation(locationResult);
           console.log('[OnboardingPageV5] Location detected:', location, `(${locationResult.method}, confidence: ${locationResult.confidence})`);
         } else {
           console.log('[OnboardingPageV5] No location detected');
@@ -530,119 +674,101 @@ export const OnboardingPageV5: React.FC = () => {
       }
 
       // =========================================================================
-      // EARLY START: Customer extraction runs in parallel with product scan
+      // USE PRE-EXTRACTED DATA FROM ORCHESTRATOR (no redundant AI calls!)
       // =========================================================================
-      console.log('[OnboardingPageV5] Starting customer extraction early (parallel with product scan)...');
+      console.log('[OnboardingPageV5] Using pre-extracted data from orchestrator...');
 
-      // Start customer extraction immediately - doesn't depend on products
-      const customerExtractionPromise = extractTargetCustomer(
-        websiteContent,
-        [], // testimonials - not available yet
-        [], // case studies - not available yet
-        businessName
-      ).then(result => {
-        console.log('[OnboardingPageV5] Early customer extraction complete:', result.profiles.length);
-        // Map partial profiles to full CustomerProfile objects
-        const suggestions = result.profiles.map(p => ({
-          id: p.id || `customer-${Date.now()}`,
-          statement: p.statement || '',
-          industry: p.industry,
-          companySize: p.companySize,
-          role: p.role,
-          confidence: p.confidence || {
-            overall: 0,
-            dataQuality: 0,
-            sourceCount: 0,
-            modelAgreement: 0
-          },
-          sources: p.sources || [],
-          evidenceQuotes: p.evidenceQuotes || [],
-          isManualInput: false,
-        })) as CustomerProfile[];
-        setCustomerSuggestions(suggestions);
-        return suggestions;
-      }).catch(err => {
-        console.error('[OnboardingPageV5] Early customer extraction failed:', err);
+      // Use customer data already extracted by focused customer extractor
+      const customerExtractionPromise = Promise.resolve().then(() => {
+        if (collectedOnboardingData.rawCustomersData?.profiles) {
+          const profiles = collectedOnboardingData.rawCustomersData.profiles;
+          console.log('[OnboardingPageV5] Using pre-extracted customer profiles:', profiles.length);
+          const suggestions = profiles.map((p: any) => ({
+            id: p.id || `customer-${Date.now()}`,
+            statement: p.statement || '',
+            industry: p.industry,
+            companySize: p.companySize,
+            role: p.role,
+            // Include emotional/functional drivers from focused extractor
+            emotionalDrivers: p.emotionalDrivers || [],
+            functionalDrivers: p.functionalDrivers || [],
+            confidence: p.confidence || {
+              overall: 0,
+              dataQuality: 0,
+              sourceCount: 0,
+              modelAgreement: 0
+            },
+            sources: p.sources || [],
+            evidenceQuotes: p.evidenceQuotes || [],
+            isManualInput: false,
+          })) as CustomerProfile[];
+          setCustomerSuggestions(suggestions);
+          return suggestions;
+        }
+        console.log('[OnboardingPageV5] No pre-extracted customer profiles, using empty array');
         setCustomerSuggestions([]);
         return [];
       });
 
-      // Extract products/services from website content using comprehensive scanner
-      console.log('[OnboardingPageV5] Extracting products/services with comprehensive scanner...');
-      addProgressStep('Extracting products and services', 'in_progress', 'Analyzing your offerings across multiple pages...');
+      // Use product data already extracted by focused product extractor
+      console.log('[OnboardingPageV5] Using pre-extracted products from orchestrator...');
+      addProgressStep('Processing products and services', 'in_progress', 'Using pre-extracted data...');
 
-      let extractedProducts: any = null; // Declare outside try block for access in Promise.all()
+      let extractedProducts: any = null;
 
       try {
-        // Use comprehensive scanner with full WebsiteData for maximum coverage
-        extractedProducts = await comprehensiveProductScannerService.scanForProducts(
-          scrapedData,
-          businessName,
-          {
-            enableMultiPage: true,
-            maxAdditionalPages: 5,
-            enableDeepScan: true,
-            enableSemanticScan: true,
-            deduplicationThreshold: 0.85
-          }
-        );
+        if (collectedOnboardingData.rawProductsData?.products) {
+          const productsResult = collectedOnboardingData.rawProductsData;
+          console.log('[OnboardingPageV5] Using pre-extracted products:', {
+            products: productsResult.products.length,
+            categories: productsResult.categories.length,
+            confidence: productsResult.confidence
+          });
 
-        console.log('[OnboardingPageV5] Comprehensive scan complete:', {
-          products: extractedProducts.products.length,
-          categories: extractedProducts.categories.length,
-          confidence: extractedProducts.confidence,
-          strategies: extractedProducts.scanStrategies,
-          mergeStats: extractedProducts.mergeStats
-        });
+          extractedProducts = {
+            products: productsResult.products,
+            categories: productsResult.categories,
+            confidence: productsResult.confidence,
+            sources: productsResult.sources || [],
+            scanStrategies: ['focused_extraction'],
+            mergeStats: { total: productsResult.products.length, duplicates: 0, final: productsResult.products.length }
+          };
 
-        // Map extraction results to ProductServiceData format
-        setProductServiceData({
-          categories: extractedProducts.categories.map(cat => ({
-            id: cat,
-            name: cat,
-            items: extractedProducts.products.filter(p => p.category === cat)
-          })),
-          extractionComplete: true,
-          extractionConfidence: typeof extractedProducts.confidence === 'number' && !isNaN(extractedProducts.confidence)
-            ? {
-                overall: extractedProducts.confidence,
-                dataQuality: extractedProducts.confidence,
-                sourceCount: extractedProducts.sources.length,
-                modelAgreement: extractedProducts.confidence,
-              }
-            : (typeof extractedProducts.confidence === 'object' && extractedProducts.confidence !== null)
-              ? {
-                  overall: isNaN(extractedProducts.confidence.overall) ? 0 : extractedProducts.confidence.overall,
-                  dataQuality: isNaN(extractedProducts.confidence.dataQuality) ? 0 : extractedProducts.confidence.dataQuality,
-                  sourceCount: isNaN(extractedProducts.confidence.sourceCount) ? 0 : extractedProducts.confidence.sourceCount,
-                  modelAgreement: isNaN(extractedProducts.confidence.modelAgreement) ? 0 : extractedProducts.confidence.modelAgreement,
-                  reasoning: extractedProducts.confidence.reasoning
-                }
-              : {
-                  overall: 0,
-                  dataQuality: 0,
-                  sourceCount: 0,
-                  modelAgreement: 0,
-                  reasoning: 'Confidence data unavailable'
-                },
-          sources: extractedProducts.sources,
-        });
+          // Map extraction results to ProductServiceData format
+          setProductServiceData({
+            categories: productsResult.categories.map((cat: string) => ({
+              id: cat,
+              name: cat,
+              items: productsResult.products.filter((p: any) => p.category === cat)
+            })),
+            extractionComplete: true,
+            extractionConfidence: {
+              overall: productsResult.confidence?.overall || 80,
+              dataQuality: productsResult.confidence?.dataQuality || 80,
+              sourceCount: productsResult.sources?.length || 1,
+              modelAgreement: productsResult.confidence?.modelAgreement || 80,
+            },
+            sources: productsResult.sources || [],
+          });
 
-        addProgressStep('Extracting products and services', 'complete', `Found ${extractedProducts.products.length} offerings`);
+          addProgressStep('Processing products and services', 'complete', `Found ${productsResult.products.length} offerings`);
+        } else {
+          console.log('[OnboardingPageV5] No pre-extracted products, using empty data');
+          setProductServiceData({
+            categories: [],
+            extractionComplete: false,
+            extractionConfidence: { overall: 0, dataQuality: 0, sourceCount: 0, modelAgreement: 0 },
+            sources: [],
+          });
+          addProgressStep('Processing products and services', 'complete', 'No products found');
+        }
       } catch (error) {
-        console.error('[OnboardingPageV5] Product extraction failed:', error);
-        addProgressStep('Extracting products and services', 'error', 'Extraction failed, manual input available');
-
-        // Initialize with empty data as fallback
+        console.error('[OnboardingPageV5] Error processing pre-extracted products:', error);
+        addProgressStep('Processing products and services', 'error', 'Processing failed');
         setProductServiceData({
           categories: [],
           extractionComplete: false,
-          extractionConfidence: {
-            overall: 0,
-            dataQuality: 0,
-            sourceCount: 0,
-            modelAgreement: 0,
-          },
+          extractionConfidence: { overall: 0, dataQuality: 0, sourceCount: 0, modelAgreement: 0 },
           sources: [],
         });
       }
@@ -736,253 +862,107 @@ export const OnboardingPageV5: React.FC = () => {
       // END EQ CALCULATION
       // =========================================================================
 
-      // Extract transformations, solutions, and benefits in parallel
-      // Customer extraction already started earlier (parallel with product scan)
-      // This runs in the background and populates AI suggestions for later steps
-      console.log('[OnboardingPageV5] Extracting AI suggestions for UVP steps...');
+      // =========================================================================
+      // USE PRE-EXTRACTED AI SUGGESTIONS (no redundant AI calls!)
+      // All data was already extracted by parallel orchestrator
+      // =========================================================================
+      console.log('[OnboardingPageV5] Using pre-extracted AI suggestions from orchestrator...');
       setAiSuggestionsLoading(true);
 
+      // Use pre-extracted data instead of calling AI again
       Promise.all([
-        // Customer extraction already running - just wait for it
+        // Customer extraction already handled above
         customerExtractionPromise,
 
-        // Extract transformation goals using smart multi-layer approach
-        (async () => {
-          try {
-            // Import the smart generator
-            const { generateSmartTransformations } = await import('@/services/uvp-extractors/smart-transformation-generator.service');
-
-            // Extract testimonials from paragraphs (look for quote patterns, exclude legal text)
-            const testimonials = scrapedData.content.paragraphs
-              .filter(p => {
-                const lower = p.toLowerCase();
-
-                // Exclude legal disclaimers and copyright text
-                const isLegalText =
-                  lower.includes('copyright') ||
-                  lower.includes('disclaimer') ||
-                  lower.includes('terms of use') ||
-                  lower.includes('privacy policy') ||
-                  lower.includes('all rights reserved') ||
-                  lower.includes('finra') ||
-                  lower.includes('sec.gov') ||
-                  lower.includes('securities') ||
-                  lower.includes('regulation') ||
-                  lower.includes('legal');
-
-                if (isLegalText) return false;
-
-                // Look for testimonial patterns
-                return (
-                  p.length > 80 &&
-                  p.length < 500 && // Testimonials are usually not super long
-                  (lower.includes('"') || lower.includes('testimonial') || lower.includes('review') || lower.includes('client said'))
-                );
-              });
-
-            console.log('[OnboardingPageV5] Smart transformation input:', {
-              businessName,
-              industry: industry.displayName,
-              testimonialsCount: testimonials.length,
-              paragraphsCount: scrapedData.content.paragraphs.length,
-              servicesCount: extractedProducts?.products?.length || 0
-            });
-
-            const result = await generateSmartTransformations({
-              businessName,
-              industry: industry.displayName,
-              services: extractedProducts?.products || [],
-              customers: [], // Will be populated after customer extraction completes
-              testimonials: testimonials.length > 0 ? testimonials : undefined,
-              websiteParagraphs: scrapedData.content.paragraphs.filter(p => p.length > 50)
-            });
-
-            console.log('[OnboardingPageV5] Smart transformation generation complete:', {
-              goalsCount: result.goals.length,
-              source: result.source,
-              confidence: result.confidence,
-              method: result.method
-            });
-
-            // For bakeries, ensure we have ALL customer segments covered
-            const isBakery = industry.displayName?.toLowerCase().includes('bakery') ||
-                             industry.displayName?.toLowerCase().includes('food') ||
-                             industry.displayName?.toLowerCase().includes('cafe') ||
-                             industry.displayName?.toLowerCase().includes('restaurant');
-
-            if (isBakery) {
-              console.log('[OnboardingPageV5] Bakery detected, ensuring all customer segments covered');
-
-              // Check which segments are already covered
-              const hasCorpCatering = result.goals.some(g =>
-                g.statement.toLowerCase().includes('office') ||
-                g.statement.toLowerCase().includes('corporate') ||
-                g.statement.toLowerCase().includes('catering') ||
-                g.statement.toLowerCase().includes('colleagues')
-              );
-
-              const hasEvents = result.goals.some(g =>
-                g.statement.toLowerCase().includes('wedding') ||
-                g.statement.toLowerCase().includes('celebration') ||
-                g.statement.toLowerCase().includes('party') ||
-                g.statement.toLowerCase().includes('event')
-              );
-
-              const hasDietary = result.goals.some(g =>
-                g.statement.toLowerCase().includes('dietary') ||
-                g.statement.toLowerCase().includes('gluten') ||
-                g.statement.toLowerCase().includes('vegan') ||
-                g.statement.toLowerCase().includes('restriction')
-              );
-
-              const additionalGoals: TransformationGoal[] = [];
-
-              // Add missing corporate catering segment
-              if (!hasCorpCatering) {
-                additionalGoals.push({
-                  id: `bakery-corp-${Date.now()}`,
-                  statement: `From "struggling to coordinate lunch for the office" → To "being the hero who brings in fresh, delicious options" through our Delivery Service`,
-                  functionalDrivers: ['convenient ordering', 'reliable delivery timing'],
-                  emotionalDrivers: ['desire to impress colleagues', 'relief from coordination stress'],
-                  eqScore: { emotional: 60, rational: 40, overall: 70 },
-                  customerQuotes: [],
-                  sources: [],
-                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
-                  isManualInput: false
-                });
-              }
-
-              // Add missing events segment
-              if (!hasEvents) {
-                additionalGoals.push({
-                  id: `bakery-event-${Date.now()}`,
-                  statement: `From "worried about finding the perfect centerpiece for the celebration" → To "wowing guests with an artisan custom cake"`,
-                  functionalDrivers: ['custom design', 'reliable quality'],
-                  emotionalDrivers: ['desire to impress', 'pride in hosting'],
-                  eqScore: { emotional: 70, rational: 30, overall: 75 },
-                  customerQuotes: [],
-                  sources: [],
-                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
-                  isManualInput: false
-                });
-              }
-
-              // Add missing dietary segment
-              if (!hasDietary) {
-                additionalGoals.push({
-                  id: `bakery-dietary-${Date.now()}`,
-                  statement: `From "frustrated by lack of quality options for dietary restrictions" → To "enjoying delicious treats that meet dietary needs without compromise"`,
-                  functionalDrivers: ['dietary accommodations', 'ingredient transparency'],
-                  emotionalDrivers: ['inclusion', 'relief from restrictions'],
-                  eqScore: { emotional: 65, rational: 35, overall: 72 },
-                  customerQuotes: [],
-                  sources: [],
-                  confidence: { overall: 80, dataQuality: 75, modelAgreement: 85, sourceCount: 1 },
-                  isManualInput: false
-                });
-              }
-
-              if (additionalGoals.length > 0) {
-                console.log(`[OnboardingPageV5] Adding ${additionalGoals.length} missing bakery segments`);
-                result.goals = [...result.goals, ...additionalGoals];
-              }
-            }
-
-            setTransformationSuggestions(result.goals);
-            return result;
-          } catch (err) {
-            console.error('[OnboardingPageV5] Smart transformation generation failed:', err);
-            console.error('[OnboardingPageV5] Error details:', err instanceof Error ? err.message : String(err));
-            console.error('[OnboardingPageV5] Error stack:', err instanceof Error ? err.stack : 'No stack trace');
-            setTransformationSuggestions([]);
-            return { goals: [], source: 'generated' as const, confidence: 0, method: 'Failed' };
-          }
-        })(),
-
-        // Extract differentiators/unique solutions
-        extractDifferentiators(
-          websiteContent,
-          websiteUrls,
-          [], // competitor info - not available yet
-          businessName,
-          industry.displayName // Pass industry for context-aware extraction
-        ).then(result => {
-          console.log('[OnboardingPageV5] Differentiator extraction complete:', result.differentiators.length);
-
-          // Create UniqueSolution suggestions from actual differentiators (not hardcoded)
-          const suggestions: UniqueSolution[] = result.differentiators
-            .filter(diff => diff.strengthScore >= 60) // Only include quality differentiators
-            .map((diff, index) => ({
-              id: `solution-${Date.now()}-${index}`,
-              statement: diff.statement, // Use ACTUAL differentiator statement
-              differentiators: [diff],
-              methodology: index === 0 ? result.methodology : undefined, // First one gets methodology
-              proprietaryApproach: index === 0 ? result.proprietaryApproach : undefined,
-              confidence: {
-                overall: diff.strengthScore,
-                dataQuality: diff.strengthScore,
-                sourceCount: 1,
-                modelAgreement: diff.strengthScore,
-              },
-              sources: [diff.source],
-              isManualInput: false,
+        // Use pre-extracted transformations
+        Promise.resolve().then(() => {
+          if (collectedOnboardingData.transformations && collectedOnboardingData.transformations.length > 0) {
+            console.log('[OnboardingPageV5] Using pre-extracted transformations:', collectedOnboardingData.transformations.length);
+            const goals = collectedOnboardingData.transformations.map((t: any, index: number) => ({
+              id: t.id || `goal-${Date.now()}-${index}`,
+              statement: t.statement || '',
+              functionalDrivers: t.functionalDrivers || [],
+              emotionalDrivers: t.emotionalDrivers || [],
+              eqScore: t.eqScore || { emotional: 50, rational: 50, overall: 50 },
+              customerQuotes: t.customerQuotes || [],
+              sources: t.sources || [],
+              confidence: t.confidence || { overall: 70, dataQuality: 70, modelAgreement: 70, sourceCount: 1 },
+              isManualInput: false
             }));
+            setTransformationSuggestions(goals);
+          } else {
+            console.log('[OnboardingPageV5] No pre-extracted transformations');
+            setTransformationSuggestions([]);
+          }
+        }),
 
-          // If no quality differentiators found, create a simple fallback
-          if (suggestions.length === 0) {
-            console.warn('[OnboardingPageV5] No quality differentiators found, creating minimal fallback');
-            suggestions.push({
+        // Use pre-extracted differentiators from focused differentiator extractor
+        Promise.resolve().then(() => {
+          if (collectedOnboardingData.rawDifferentiatorsData?.differentiators) {
+            const diffResult = collectedOnboardingData.rawDifferentiatorsData;
+            console.log('[OnboardingPageV5] Using pre-extracted differentiators:', diffResult.differentiators.length);
+
+            const suggestions = diffResult.differentiators
+              .filter((diff: any) => diff.strengthScore >= 60)
+              .map((diff: any, index: number) => ({
+                id: `solution-${Date.now()}-${index}`,
+                statement: diff.statement,
+                // Pass through outcomeStatement for JTBD-focused synthesis
+                outcomeStatement: diff.outcomeStatement || diff.statement,
+                differentiators: [diff],
+                methodology: index === 0 ? diffResult.methodology : undefined,
+                proprietaryApproach: index === 0 ? diffResult.proprietaryApproach : undefined,
+                confidence: {
+                  overall: diff.strengthScore,
+                  dataQuality: diff.strengthScore,
+                  sourceCount: 1,
+                  modelAgreement: diff.strengthScore,
+                },
+                sources: [diff.source],
+                isManualInput: false,
+              }));
+
+            setSolutionSuggestions(suggestions.length > 0 ? suggestions : [{
               id: `solution-fallback-${Date.now()}`,
               statement: `${businessName} provides quality ${industry.displayName.toLowerCase()} services`,
               differentiators: [],
-              confidence: {
-                overall: 30,
-                dataQuality: 30,
-                sourceCount: 0,
-                modelAgreement: 30,
-              },
+              confidence: { overall: 30, dataQuality: 30, sourceCount: 0, modelAgreement: 30 },
               sources: [],
               isManualInput: false,
-            });
+            }]);
+          } else {
+            console.log('[OnboardingPageV5] No pre-extracted differentiators');
+            setSolutionSuggestions([]);
           }
-
-          setSolutionSuggestions(suggestions);
-        }).catch(err => {
-          console.error('[OnboardingPageV5] Differentiator extraction failed:', err);
-          setSolutionSuggestions([]);
         }),
 
-        // Extract benefits
-        extractBenefits(
-          [], // case studies - not available yet
-          [], // testimonials - not available yet
-          websiteContent, // results content - use general website content
-          businessName,
-          industry.displayName || 'General'
-        ).then(result => {
-          console.log('[OnboardingPageV5] Benefit extraction complete:', result.benefits.length);
-          // Map partial benefits to full KeyBenefit objects
-          const suggestions = result.benefits.map(b => ({
-            id: b.id || `benefit-${Date.now()}`,
-            statement: b.statement || '',
-            outcomeType: b.outcomeType || 'mixed',
-            metrics: b.metrics || [],
-            industryComparison: b.industryComparison,
-            eqFraming: b.eqFraming || 'balanced',
-            confidence: b.confidence || 0,
-            sources: b.sources || [],
-            isManualInput: false,
-          })) as KeyBenefit[];
-          setBenefitSuggestions(suggestions);
-        }).catch(err => {
-          console.error('[OnboardingPageV5] Benefit extraction failed:', err);
-          setBenefitSuggestions([]);
+        // Benefits - derive from value propositions (already extracted)
+        Promise.resolve().then(() => {
+          if (collectedOnboardingData.valuePropositions && collectedOnboardingData.valuePropositions.length > 0) {
+            console.log('[OnboardingPageV5] Deriving benefits from value propositions:', collectedOnboardingData.valuePropositions.length);
+            const benefits = collectedOnboardingData.valuePropositions.map((vp: any, index: number) => ({
+              id: `benefit-${Date.now()}-${index}`,
+              statement: vp.outcome || vp.statement || '',
+              // Pass through outcomeStatement for JTBD-focused synthesis
+              outcomeStatement: vp.outcomeStatement || vp.outcome || vp.statement || '',
+              outcomeType: 'mixed',
+              metrics: [],
+              eqFraming: 'balanced',
+              confidence: vp.confidence?.overall || 70,
+              sources: vp.sources || [],
+              isManualInput: false,
+            }));
+            setBenefitSuggestions(benefits);
+          } else {
+            console.log('[OnboardingPageV5] No value propositions for benefits');
+            setBenefitSuggestions([]);
+          }
         }),
       ]).then(() => {
-        console.log('[OnboardingPageV5] All AI extractions complete');
+        console.log('[OnboardingPageV5] All pre-extracted data processed');
         setAiSuggestionsLoading(false);
       }).catch(err => {
-        console.error('[OnboardingPageV5] AI extraction error:', err);
+        console.error('[OnboardingPageV5] Error processing pre-extracted data:', err);
         setAiSuggestionsLoading(false);
       });
 
@@ -1293,8 +1273,9 @@ export const OnboardingPageV5: React.FC = () => {
   };
 
   const handleBackFromBuyerIntel = () => {
-    console.log('[OnboardingPageV5] Going back to value propositions');
-    setCurrentStep('value_propositions');
+    // Legacy Track E back navigation - go to data collection instead of removed value_propositions
+    console.log('[OnboardingPageV5] Going back to data collection');
+    setCurrentStep('data_collection');
   };
 
   // Track E Navigation Handlers - Core Truth Page
@@ -1585,10 +1566,35 @@ export const OnboardingPageV5: React.FC = () => {
       });
     }
 
-    setCurrentStep('uvp_transformation');
+    // Auto-generate transformation from customer profile (step removed from UI)
+    // This ensures synthesis page has the data it needs
+    if (selectedCustomerProfile) {
+      const autoTransformation: TransformationGoal = {
+        id: `auto-trans-${Date.now()}`,
+        statement: `Help ${selectedCustomerProfile.statement} achieve their goals`,
+        emotionalDrivers: selectedCustomerProfile.emotionalDrivers || [],
+        functionalDrivers: selectedCustomerProfile.functionalDrivers || [],
+        eqScore: { emotional: 70, rational: 70, overall: 70 },
+        confidence: {
+          overall: 80,
+          dataQuality: 80,
+          sourceCount: 1,
+          modelAgreement: 80,
+          reasoning: 'Auto-generated from customer profile'
+        },
+        sources: [],
+        customerQuotes: selectedCustomerProfile.evidenceQuotes || [],
+        isManualInput: false
+      };
+      setSelectedTransformation(autoTransformation);
+      console.log('[UVP Flow] Auto-generated transformation from customer profile');
+    }
+
+    // Skip transformation step - go directly to solution (transformation now covered in customer step)
+    setCurrentStep('uvp_solution');
   };
 
-  // UVP Step 3: Transformation Goal
+  // UVP Step 3: Transformation Goal - REMOVED (now covered in customer step)
   const handleTransformationAccept = (goal: TransformationGoal) => {
     console.log('[UVP Flow] Transformation goal accepted:', goal.id);
     setSelectedTransformation(goal);
@@ -2231,11 +2237,16 @@ export const OnboardingPageV5: React.FC = () => {
   return (
     <div className="min-h-screen">
       {currentStep === 'url_input' && (
-        <OnboardingFlow
-          onUrlSubmit={handleUrlSubmit}
-          onComplete={handleBusinessDetected}
-          error={extractionError}
-        />
+        <>
+          {console.log('[OnboardingPageV5] Rendering OnboardingFlow with:', { websiteUrl, selectedIndustry: selectedIndustry?.displayName })}
+          <OnboardingFlow
+            onUrlSubmit={handleUrlSubmit}
+            onComplete={handleBusinessDetected}
+            error={extractionError}
+            websiteUrl={websiteUrl}
+            selectedIndustry={selectedIndustry}
+          />
+        </>
       )}
 
       {(currentStep === 'data_collection' || currentStep === 'uvp_extraction') && (
@@ -2245,19 +2256,7 @@ export const OnboardingPageV5: React.FC = () => {
         />
       )}
 
-      {currentStep === 'value_propositions' && collectedData && (
-        <ValuePropositionPage
-          {...{
-            propositions: collectedData.valuePropositions,
-            validatedIds: validatedValueProps,
-            onValidate: handleValidateValueProp,
-            onReject: handleRejectValueProp,
-            onEdit: handleEditValueProp,
-            onRegenerateAll: handleRegenerateAllValueProps,
-            onNext: handleValuePropsNext,
-          } as any}
-        />
-      )}
+      {/* REMOVED: value_propositions step - Legacy Track E step not used in UVP flow */}
 
       {currentStep === 'buyer_intelligence' && collectedData && (
         <BuyerIntelligencePage
@@ -2451,54 +2450,7 @@ export const OnboardingPageV5: React.FC = () => {
         />
       )}
 
-      {currentStep === 'uvp_transformation' && (
-        <TransformationGoalPage
-          businessName={businessData?.businessName || 'Your Business'}
-          industry={businessData?.industry || ''}
-          websiteUrl={websiteUrl}
-          websiteContent={scrapedWebsiteContent}
-          websiteUrls={scrapedWebsiteUrls}
-          preloadedData={{ goals: transformationSuggestions, loading: false }}
-          value={selectedTransformation?.statement || ''}
-          onChange={(value) => {
-            if (selectedTransformation) {
-              setSelectedTransformation({ ...selectedTransformation, statement: value });
-            } else {
-              setSelectedTransformation({
-                id: `manual-${Date.now()}`,
-                statement: value,
-                emotionalDrivers: [],
-                functionalDrivers: [],
-                eqScore: { emotional: 50, rational: 50, overall: 50 },
-                confidence: {
-                  overall: 100,
-                  dataQuality: 100,
-                  sourceCount: 1,
-                  modelAgreement: 100,
-                  reasoning: 'Manual input'
-                },
-                sources: [],
-                customerQuotes: [],
-                isManualInput: true
-              });
-            }
-          }}
-          onGoalsSelected={(goals) => {
-            console.log('[OnboardingPageV5] Transformation goals selected:', goals.length);
-            setSelectedTransformations(goals);
-            // Also set the first one as primary for backward compatibility
-            if (goals.length > 0) {
-              setSelectedTransformation(goals[0]);
-            }
-          }}
-          onNext={handleTransformationNext}
-          onBack={() => setCurrentStep('uvp_customer')}
-          showProgress={true}
-          progressPercentage={40}
-          completedSteps={completedUVPSteps as any}
-          onStepClick={handleMilestoneClick}
-        />
-      )}
+      {/* TransformationGoalPage REMOVED - now covered in customer step */}
 
       {currentStep === 'uvp_solution' && (
         <UniqueSolutionPage
@@ -2541,7 +2493,7 @@ export const OnboardingPageV5: React.FC = () => {
             }
           }}
           onNext={handleSolutionNext}
-          onBack={() => setCurrentStep('uvp_transformation')}
+          onBack={() => setCurrentStep('uvp_customer')}
           showProgress={true}
           progressPercentage={60}
           completedSteps={completedUVPSteps as any}
@@ -2642,9 +2594,9 @@ export const OnboardingPageV5: React.FC = () => {
           <UVPSynthesisPage
             completeUVP={uvpToDisplay}
             onEdit={(step) => {
-              // Map step to appropriate handler
+              // Map step to appropriate handler (transformation step removed - goes to customer)
               if (step === 'customer') setCurrentStep('uvp_customer');
-              else if (step === 'transformation') setCurrentStep('uvp_transformation');
+              else if (step === 'transformation') setCurrentStep('uvp_customer'); // Transformation now in customer step
               else if (step === 'solution') setCurrentStep('uvp_solution');
               else if (step === 'benefit') setCurrentStep('uvp_benefit');
             }}

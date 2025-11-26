@@ -52,6 +52,9 @@ export interface CustomerProfile {
   sources: DataSource[];
   evidenceQuotes: string[];
   isManualInput: boolean;
+  // Emotional and functional drivers specific to this persona
+  emotionalDrivers?: string[]; // e.g., "Fear of falling behind competitors", "Desire for recognition"
+  functionalDrivers?: string[]; // e.g., "Need to reduce manual processes", "Must improve team efficiency"
 }
 
 /**

@@ -29,6 +29,9 @@ interface RawCustomerExtraction {
     evidence_quotes: string[];
     confidence_level: 'high' | 'medium' | 'low';
     source_sections: string[];
+    // Persona-specific drivers
+    emotional_drivers: string[]; // What they FEEL - fears, desires, frustrations
+    functional_drivers: string[]; // What they NEED - practical requirements, tasks, outcomes
   }[];
   overall_confidence: 'high' | 'medium' | 'low';
   data_quality: 'excellent' | 'good' | 'fair' | 'poor';
@@ -189,7 +192,30 @@ CRITICAL INSTRUCTIONS:
    - If no direct quotes, use contextual evidence: "Pricing page shows enterprise tier" OR "Uses technical jargon suggesting tech audience"
    - 1-3 quotes minimum, but context clues work too
 
-6. EXAMPLES OF GOOD EXTRACTION:
+6. EMOTIONAL & FUNCTIONAL DRIVERS (CRITICAL - Include for EACH persona):
+
+   EMOTIONAL DRIVERS - What they FEEL (fears, desires, frustrations):
+   - Fear of falling behind competitors
+   - Desire for recognition/status
+   - Frustration with current inefficiencies
+   - Anxiety about risk/failure
+   - Aspiration for growth/success
+   - Overwhelm from complexity
+   - Pride in their work quality
+
+   FUNCTIONAL DRIVERS - What they NEED (practical requirements):
+   - Need to reduce manual processes
+   - Must improve team efficiency
+   - Require better reporting/visibility
+   - Need to scale operations
+   - Must reduce costs/time
+   - Need compliance/security
+   - Require integration with existing tools
+
+   Each persona has DIFFERENT drivers based on their role and responsibilities.
+   A CEO cares about different things than an Operations Director.
+
+7. EXAMPLES OF GOOD EXTRACTION:
    From "Marketing automation for growing teams":
    - "Marketing managers at 50-200 person companies"
    - "Marketing agencies managing multiple clients"
@@ -210,7 +236,9 @@ OUTPUT FORMAT - Return ONLY valid JSON (no markdown):
       "role": "Specific job title/function",
       "evidence_quotes": ["Quote or context clue 1", "Quote or context clue 2"],
       "confidence_level": "high | medium | low",
-      "source_sections": ["website", "testimonials", "case_studies", "pricing"]
+      "source_sections": ["website", "testimonials", "case_studies", "pricing"],
+      "emotional_drivers": ["Fear/desire 1 specific to this role", "Fear/desire 2"],
+      "functional_drivers": ["Need/requirement 1 specific to this role", "Need/requirement 2"]
     }
   ],
   "overall_confidence": "high | medium | low",
@@ -222,7 +250,8 @@ REMEMBER:
 - Extract 5-10 profiles minimum - be thorough and comprehensive
 - Include medium and low confidence profiles - user can filter later
 - Use industry context and reasonable inferences
-- Break broad categories into specific segments`;
+- Break broad categories into specific segments
+- EACH profile MUST have 2-4 emotional drivers and 2-4 functional drivers specific to that persona`;
 
   try {
     const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -233,7 +262,7 @@ REMEMBER:
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster extraction
         messages: [{
           role: 'user',
           content: prompt
@@ -326,7 +355,10 @@ function transformRawProfiles(raw: RawCustomerExtraction): Partial<CustomerProfi
         confidence,
         sources,
         evidenceQuotes: rawProfile.evidence_quotes || [],
-        isManualInput: false
+        isManualInput: false,
+        // Persona-specific drivers
+        emotionalDrivers: rawProfile.emotional_drivers || [],
+        functionalDrivers: rawProfile.functional_drivers || []
       };
 
       return profile;

@@ -9,9 +9,11 @@ export interface Brand {
   id: string
   name: string
   industry: string
+  naicsCode?: string  // NAICS code for industry-specific API selection
   description?: string
   logo_url?: string
   website?: string
+  location?: string   // Used for weather API
   founded?: string
   size?: string
   created_at?: string

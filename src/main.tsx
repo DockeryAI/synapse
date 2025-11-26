@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import './index.css'
+import './utils/clear-cache' // Auto-clears cache if URL has ?clear-cache=true
 // import { publishingAutomation } from './services/publishing-automation.service'
 
 // Start publishing automation

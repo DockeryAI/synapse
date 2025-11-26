@@ -54,7 +54,7 @@ export class ComprehensiveProductScannerService {
 
     const {
       enableMultiPage = true,
-      maxAdditionalPages = 5,
+      maxAdditionalPages = 2, // Reduced from 5 to 2 for faster scanning
       enableDeepScan = true,
       enableSemanticScan = true,
       deduplicationThreshold = 0.85
@@ -91,55 +91,65 @@ export class ComprehensiveProductScannerService {
       }
     }
 
-    // STEP 2: Deep structural scan (if enabled)
+    // STEP 2 & 3: Run deep scan and semantic scan IN PARALLEL for speed
+    console.log('[ComprehensiveScanner] Step 2+3: Running deep scan and semantic scan in parallel');
+
+    const parallelTasks: Promise<void>[] = [];
+
+    // Deep structural scan (if enabled)
     if (enableDeepScan) {
-      console.log('[ComprehensiveScanner] Step 2: Deep structural scan');
-      try {
-        const deepScanResult = await deepWebsiteScannerService.scanWebsite(combinedData, {
-          minConfidence: 0.5,
-          extractPricing: true,
-          deduplicate: false // We'll deduplicate at the end
-        });
+      parallelTasks.push((async () => {
+        try {
+          const deepScanResult = await deepWebsiteScannerService.scanWebsite(combinedData, {
+            minConfidence: 0.5,
+            extractPricing: true,
+            deduplicate: false // We'll deduplicate at the end
+          });
 
-        // Convert DeepServiceData to ProductService format
-        const deepProducts: ProductService[] = deepScanResult.services.map((service, index) => ({
-          id: `deep-${Date.now()}-${index}`,
-          name: service.name,
-          description: service.description,
-          category: service.category,
-          confidence: Math.round(service.confidence * 100), // Convert 0-1 to 0-100
-          source: 'website' as const,
-          sourceUrl: combinedData.url,
-          sourceExcerpt: service.sources[0]?.matchedText || '',
-          confirmed: false
-        }));
+          // Convert DeepServiceData to ProductService format
+          const deepProducts: ProductService[] = deepScanResult.services.map((service, index) => ({
+            id: `deep-${Date.now()}-${index}`,
+            name: service.name,
+            description: service.description,
+            category: service.category,
+            confidence: Math.round(service.confidence * 100), // Convert 0-1 to 0-100
+            source: 'website' as const,
+            sourceUrl: combinedData.url,
+            sourceExcerpt: service.sources[0]?.matchedText || '',
+            confirmed: false
+          }));
 
-        allProducts.push(...deepProducts);
-        scanStrategies.deepScan.productsFound = deepProducts.length;
-        console.log('[ComprehensiveScanner] Deep scan found', deepProducts.length, 'products');
-      } catch (error) {
-        console.warn('[ComprehensiveScanner] Deep scan failed:', error);
-      }
+          allProducts.push(...deepProducts);
+          scanStrategies.deepScan.productsFound = deepProducts.length;
+          console.log('[ComprehensiveScanner] Deep scan found', deepProducts.length, 'products');
+        } catch (error) {
+          console.warn('[ComprehensiveScanner] Deep scan failed:', error);
+        }
+      })());
     }
 
-    // STEP 3: Semantic extraction (if enabled)
+    // Semantic extraction (if enabled)
     if (enableSemanticScan) {
-      console.log('[ComprehensiveScanner] Step 3: Semantic extraction with Claude');
-      try {
-        const semanticResult = await extractProductsServices(
-          combinedData,
-          [],
-          businessName
-        );
+      parallelTasks.push((async () => {
+        try {
+          const semanticResult = await extractProductsServices(
+            combinedData,
+            [],
+            businessName
+          );
 
-        allProducts.push(...semanticResult.products);
-        allSources.push(...semanticResult.sources);
-        scanStrategies.semanticScan.productsFound = semanticResult.products.length;
-        console.log('[ComprehensiveScanner] Semantic scan found', semanticResult.products.length, 'products');
-      } catch (error) {
-        console.warn('[ComprehensiveScanner] Semantic scan failed:', error);
-      }
+          allProducts.push(...semanticResult.products);
+          allSources.push(...semanticResult.sources);
+          scanStrategies.semanticScan.productsFound = semanticResult.products.length;
+          console.log('[ComprehensiveScanner] Semantic scan found', semanticResult.products.length, 'products');
+        } catch (error) {
+          console.warn('[ComprehensiveScanner] Semantic scan failed:', error);
+        }
+      })());
     }
+
+    // Wait for both to complete
+    await Promise.all(parallelTasks);
 
     // STEP 4: Merge and deduplicate
     console.log('[ComprehensiveScanner] Step 4: Merging and deduplicating results');

@@ -176,7 +176,7 @@ export function ProductServiceDiscoveryPage({
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full shadow-sm">
             <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              UVP Step 1 of 6: Product & Service Discovery
+              UVP Step 1 of 5: Product & Service Discovery
             </span>
           </div>
 

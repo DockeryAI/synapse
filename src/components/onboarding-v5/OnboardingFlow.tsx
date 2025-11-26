@@ -25,6 +25,8 @@ interface OnboardingFlowProps {
   onComplete?: (businessData: DetectedBusinessData) => void;
   onUrlSubmit?: (url: string, industry: IndustryOption) => void;
   error?: string | null;
+  websiteUrl?: string;
+  selectedIndustry?: IndustryOption | null;
 }
 
 type DetectionStatus =
@@ -57,11 +59,39 @@ const DETECTION_STEPS: StatusStep[] = [
   { id: 'complete', label: 'Detection complete!', icon: <CheckCircle className="w-5 h-5" /> },
 ];
 
-export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUrlSubmit, error: propError }) => {
-  const [url, setUrl] = useState('');
-  const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
+export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({
+  onComplete,
+  onUrlSubmit,
+  error: propError,
+  websiteUrl: initialUrl = '',
+  selectedIndustry: initialIndustry = null
+}) => {
+  const [url, setUrl] = useState(initialUrl);
+  const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(initialIndustry);
   const [status, setStatus] = useState<DetectionStatus>('idle');
   const [localError, setLocalError] = useState<string | null>(null);
+
+  // Debug: Log what we receive from parent
+  React.useEffect(() => {
+    console.log('[OnboardingFlow] Mounted with props:', {
+      initialUrl,
+      initialIndustry: initialIndustry?.displayName,
+      urlState: url,
+      industryState: selectedIndustry?.displayName
+    });
+  }, []);
+
+  // Restore from parent if provided
+  React.useEffect(() => {
+    if (initialUrl && !url) {
+      console.log('[OnboardingFlow] Restoring URL from prop:', initialUrl);
+      setUrl(initialUrl);
+    }
+    if (initialIndustry && !selectedIndustry) {
+      console.log('[OnboardingFlow] Restoring industry from prop:', initialIndustry.displayName);
+      setSelectedIndustry(initialIndustry);
+    }
+  }, [initialUrl, initialIndustry]);
 
   // Use prop error if provided, otherwise use local error
   const error = propError || localError;
@@ -205,6 +235,7 @@ export const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete, onUr
                   <div>
                     <IndustrySelector
                       websiteUrl={url}
+                      defaultSelectedIndustry={selectedIndustry}
                       onIndustrySelected={(industry, skipScanning) => {
                         setSelectedIndustry(industry);
                         setLocalError(null);

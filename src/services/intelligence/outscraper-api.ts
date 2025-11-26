@@ -2,13 +2,16 @@
  * OutScraper API Integration
  * Real Google Maps business data and review scraping
  * API Docs: https://outscraper.com/api-docs/
+ *
+ * IMPORTANT: All API calls go through Supabase Edge Function for security and CORS handling
  */
 
 import { SerperAPI } from './serper-api'
 import { ApifyAPI } from './apify-api'
 
-const OUTSCRAPER_API_KEY = import.meta.env.VITE_OUTSCRAPER_API_KEY
-const OUTSCRAPER_API_URL = 'https://api.app.outscraper.com'
+// Supabase configuration for Edge Function proxy
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // ============================================================================
 // Types & Interfaces
@@ -175,24 +178,29 @@ export interface LinkedInPost {
 // ============================================================================
 
 class OutScraperAPIService {
-  private baseUrl = OUTSCRAPER_API_URL
+  private edgeFunctionUrl = `${SUPABASE_URL}/functions/v1/fetch-outscraper`
 
   /**
    * Poll an async task until completion using results_location URL
    * OutScraper uses api.outscraper.cloud/requests/{id} for task results
+   * Now using Edge Function proxy for secure API access
    */
-  private async pollTask<T>(taskId: string, maxAttempts = 10, delayMs = 1500): Promise<T> {
+  private async pollTask<T>(taskId: string, maxAttempts = 30, delayMs = 2000): Promise<T> {
     console.log('[OutScraper] Polling task:', taskId)
 
-    // Use the correct endpoint for task results
-    const resultsUrl = `https://api.outscraper.cloud/requests/${taskId}`
-
+    // Poll through Edge Function
     for (let attempt = 0; attempt < maxAttempts; attempt++) {
       try {
-        const response = await fetch(resultsUrl, {
+        const response = await fetch(this.edgeFunctionUrl, {
+          method: 'POST',
           headers: {
-            'X-API-KEY': OUTSCRAPER_API_KEY || ''
-          }
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            endpoint: `/requests/${taskId}`,
+            method: 'GET'
+          })
         })
 
         if (!response.ok) {
@@ -234,39 +242,39 @@ class OutScraperAPIService {
   }
 
   /**
-   * Check if API key is configured
+   * Check if Supabase is configured
    */
-  private checkApiKey(): void {
-    if (!OUTSCRAPER_API_KEY) {
+  private checkConfig(): void {
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       throw new Error(
-        'OutScraper API key not configured.\n' +
-        'Add VITE_OUTSCRAPER_API_KEY to your .env file.\n' +
-        'Get a free API key from: https://outscraper.com/\n' +
-        'Required for: Competitor discovery and review analysis'
+        'Supabase configuration not found.\n' +
+        'Required for OutScraper Edge Function proxy.\n' +
+        'Ensure VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY are set.'
       )
     }
   }
 
   /**
-   * Make API request with error handling
+   * Make API request through Edge Function proxy
    */
   private async makeRequest<T>(endpoint: string, params: Record<string, any>): Promise<T> {
-    this.checkApiKey()
-
-    const url = new URL(`${this.baseUrl}${endpoint}`)
-    Object.entries(params).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        url.searchParams.append(key, String(value))
-      }
-    })
+    this.checkConfig()
 
     try {
-      const response = await fetch(url.toString(), {
-        method: 'GET',
+      console.log(`[OutScraper] Making request via Edge Function: ${endpoint}`)
+
+      // NO TIMEOUT - let it take as long as needed for progressive loading
+      // Use the Edge Function proxy
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-outscraper`, {
+        method: 'POST',
         headers: {
-          'X-API-KEY': OUTSCRAPER_API_KEY!,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          endpoint,
+          params
+        })
       })
 
       if (!response.ok) {
@@ -301,7 +309,7 @@ class OutScraperAPIService {
     region?: string
   }): Promise<BusinessListing[]> {
     console.log('[OutScraper] Fetching business listings:', params.query)
-    console.log('[OutScraper] API Key present:', !!OUTSCRAPER_API_KEY)
+    console.log('[OutScraper] Using Edge Function proxy')
 
     const endpoint = '/maps/search-v2'
     const apiParams = {

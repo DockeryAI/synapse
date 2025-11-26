@@ -22,6 +22,14 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['market', 'competition', 'opportunity'],
     minInsights: 4,
     maxInsights: 6,
+    compatibleTemplates: [
+      'Authority Builder',
+      'Education First',
+      'Comparison Campaign',
+      'Hero\'s Journey',
+      'Trust Ladder',
+      'Objection Crusher',
+    ],
   },
   {
     id: 'trust',
@@ -32,6 +40,13 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['customer', 'opportunity'],
     minInsights: 4,
     maxInsights: 5,
+    compatibleTemplates: [
+      'Social Proof',
+      'Trust Ladder',
+      'Hero\'s Journey',
+      'Authority Builder',
+      'Education First',
+    ],
   },
   {
     id: 'problem-solver',
@@ -42,6 +57,14 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['customer', 'competition', 'opportunity'],
     minInsights: 4,
     maxInsights: 6,
+    compatibleTemplates: [
+      'PAS Series',
+      'BAB Campaign',
+      'Quick Win',
+      'Objection Crusher',
+      'Value Stack',
+      'Comparison Campaign',
+    ],
   },
   {
     id: 'viral',
@@ -52,6 +75,13 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['market', 'opportunity'],
     minInsights: 3,
     maxInsights: 5,
+    compatibleTemplates: [
+      'Seasonal Urgency',
+      'Scarcity Sequence',
+      'Product Launch',
+      'RACE Journey',
+      'Social Proof',
+    ],
   },
   {
     id: 'local',
@@ -62,6 +92,13 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['local', 'customer', 'opportunity'],
     minInsights: 3,
     maxInsights: 5,
+    compatibleTemplates: [
+      'Social Proof',
+      'Quick Win',
+      'PAS Series',
+      'Trust Ladder',
+      'Hero\'s Journey',
+    ],
   },
 ];
 
@@ -130,9 +167,26 @@ export function InsightRecipes({ allInsights, onSelectRecipe }: InsightRecipesPr
                     </span>
                     <span className="text-xs">{recipe.emoji}</span>
                   </div>
-                  <p className="text-xs text-gray-600 dark:text-gray-400">
+                  <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
                     {recipe.description}
                   </p>
+                  {recipe.compatibleTemplates && (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {recipe.compatibleTemplates.slice(0, 3).map((template, idx) => (
+                        <span
+                          key={idx}
+                          className="px-1.5 py-0.5 text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 rounded font-medium"
+                        >
+                          {template}
+                        </span>
+                      ))}
+                      {recipe.compatibleTemplates.length > 3 && (
+                        <span className="px-1.5 py-0.5 text-xs text-purple-600 dark:text-purple-400 rounded font-medium">
+                          +{recipe.compatibleTemplates.length - 3} more
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.button>

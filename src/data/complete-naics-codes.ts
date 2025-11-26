@@ -21,6 +21,7 @@ export const COMPLETE_NAICS_CODES: NAICSOption[] = [
 
   // ===== 140 PRE-GENERATED PROFILES (OPUS 4.1) =====
 
+  { naics_code: '511210', display_name: 'Software Publishers', category: 'Technology', has_full_profile: true, keywords: ['software publishers', 'software publisher', 'saas', 'software as a service', 'software company', 'software product', 'software platform'], popularity: 101 },
   { naics_code: '541519', display_name: 'MSP (Managed Service Provider)', category: 'Technology', has_full_profile: true, keywords: ["msp (managed service provider)","msp","(managed","service","provider)"], popularity: 100 },
   { naics_code: '541512', display_name: 'Cybersecurity Services', category: 'Technology', has_full_profile: true, keywords: ["cybersecurity services","cybersecurity","services"], popularity: 99 },
   { naics_code: '621210', display_name: 'General Dentistry', category: 'Healthcare', has_full_profile: true, keywords: ["general dentistry","general","dentistry","dentist","dental","dental care"], popularity: 98 },

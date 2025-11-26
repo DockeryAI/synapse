@@ -150,7 +150,7 @@ class NAICSDatabaseService {
       const { data, error } = await supabase
         .from('industry_profiles')
         .select('*')
-        .ilike('industry_name', `%${industryText}%`)
+        .filter('industry_name', 'ilike', `%${industryText}%`)
         .limit(1)
         .single();
 

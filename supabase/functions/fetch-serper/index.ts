@@ -16,7 +16,11 @@ serve(async (req) => {
       throw new Error('SERPER_API_KEY not configured in Supabase secrets')
     }
 
-    const { endpoint, params } = await req.json()
+    const body = await req.json()
+
+    // Support both formats: direct params or endpoint + params
+    const endpoint = body.endpoint || '/search'
+    const params = body.params || body
 
     const url = `https://google.serper.dev${endpoint}`
 

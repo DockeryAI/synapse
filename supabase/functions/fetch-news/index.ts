@@ -16,8 +16,20 @@ serve(async (req) => {
   try {
     const { type, query, location, industry, keywords, limit } = await req.json()
 
-    if (!NEWS_API_KEY) {
-      throw new Error('News API key not configured in Edge Function environment')
+    if (!NEWS_API_KEY || NEWS_API_KEY === 'your_news_api_key_here') {
+      // Return empty results if API key not configured
+      console.log('[News Edge] API key not configured, returning empty results')
+      return new Response(
+        JSON.stringify({
+          success: true,
+          articles: [],
+          message: 'News API key not configured. Please add a valid NEWS_API_KEY to enable news features.'
+        }),
+        {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+          status: 200
+        }
+      )
     }
 
     let requestBody: any

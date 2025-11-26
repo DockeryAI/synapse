@@ -121,7 +121,7 @@ class SemrushAPIService {
         .filter((row: any) => row.Ph || row.Keyword)
         .map((row: any) => {
           const keyword = row.Ph || row.Keyword || ''
-          const isBranded = brandName
+          const isBranded = brandName && typeof brandName === 'string'
             ? keyword.toLowerCase().includes(brandName.toLowerCase())
             : false
 

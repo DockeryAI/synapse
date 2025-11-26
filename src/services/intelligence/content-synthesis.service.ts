@@ -192,7 +192,7 @@ class ContentSynthesisService {
       // Build synthesis prompt
       const prompt = this.buildSynthesisPrompt(selectedInsights, context);
 
-      // Call AI synthesis via Edge Function
+      // No timeout - let AI complete naturally for complete data
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
@@ -201,7 +201,7 @@ class ContentSynthesisService {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-opus-4.1',
+          model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster response
           messages: [{
             role: 'user',
             content: prompt
@@ -310,6 +310,7 @@ OUTPUT FORMAT (JSON only, no markdown):
   ]
 }`;
 
+        // No timeout - let AI complete naturally
         const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
           method: 'POST',
           headers: {

@@ -34,13 +34,15 @@ interface IndustrySelectorProps {
   onIndustrySelected: (industry: IndustryOption, skipScanning?: boolean) => void;
   onTextChange?: (text: string) => void;
   className?: string;
+  defaultSelectedIndustry?: IndustryOption | null; // Restored from database
 }
 
 export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   websiteUrl,
   onIndustrySelected,
   onTextChange,
-  className = ''
+  className = '',
+  defaultSelectedIndustry = null
 }) => {
   // Debug: Track component lifecycle
   useEffect(() => {
@@ -54,6 +56,15 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
   const [showDropdown, setShowDropdown] = useState(false);
   const [selectedIndustry, setSelectedIndustry] = useState<IndustryOption | null>(null);
   const [suggestedIndustry, setSuggestedIndustry] = useState<IndustryOption | null>(null);
+
+  // Restore from defaultSelectedIndustry prop if provided (from database)
+  useEffect(() => {
+    if (defaultSelectedIndustry && !selectedIndustry) {
+      console.log('[IndustrySelector] Restoring industry from database:', defaultSelectedIndustry.displayName);
+      setSelectedIndustry(defaultSelectedIndustry);
+      setSearchTerm(defaultSelectedIndustry.displayName);
+    }
+  }, [defaultSelectedIndustry]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generationProgress, setGenerationProgress] = useState<GenerationProgress>({
     stage: 'research',
@@ -218,6 +229,18 @@ export const IndustrySelector: React.FC<IndustrySelectorProps> = ({
         industry.category.toLowerCase().includes(searchTerm.toLowerCase())
       ).slice(0, 50) // Increased limit to show more results
     : INDUSTRIES.sort((a, b) => (b.popularity || 0) - (a.popularity || 0)).slice(0, 50); // Show top 50 by default (was 20)
+
+  // Debug: Log filtering results
+  useEffect(() => {
+    console.log('[IndustrySelector] INDUSTRIES count:', INDUSTRIES.length);
+    console.log('[IndustrySelector] searchTerm:', searchTerm);
+    console.log('[IndustrySelector] filteredIndustries count:', filteredIndustries.length);
+    console.log('[IndustrySelector] showDropdown:', showDropdown);
+    console.log('[IndustrySelector] selectedIndustry:', selectedIndustry?.displayName);
+    if (filteredIndustries.length > 0 && filteredIndustries.length < 10) {
+      console.log('[IndustrySelector] First few filtered:', filteredIndustries.map(i => i.displayName));
+    }
+  }, [searchTerm, filteredIndustries.length, showDropdown]);
 
   // Reset highlighted index when search term changes
   useEffect(() => {

@@ -129,7 +129,7 @@ export async function extractProductsServices(
     console.log(`[ProductServiceExtractor] Combined content length: ${combinedContent.length} chars`);
 
     // Truncate if too long (Claude context limit), but keep as much as possible
-    const maxContentLength = 50000; // ~12k tokens
+    const maxContentLength = 30000; // Reduced from 50k for faster processing
     const truncatedContent = combinedContent.length > maxContentLength
       ? combinedContent.substring(0, maxContentLength) + '\n\n[Content truncated for length]'
       : combinedContent;
@@ -149,12 +149,12 @@ export async function extractProductsServices(
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for 3x speed improvement
         messages: [{
           role: 'user',
           content: prompt
         }],
-        max_tokens: 8192, // Increased for comprehensive extraction
+        max_tokens: 4096, // Reduced from 8192 for faster generation
         temperature: 0.2 // Slightly higher for better coverage
       })
     });
@@ -245,68 +245,55 @@ export async function extractProductsServices(
 
 /**
  * Build the extraction prompt for Claude
- * Instructs to extract ALL explicitly mentioned offerings comprehensively
+ * Instructs to extract offerings with BENEFIT-FOCUSED descriptions using FAB cascade
  */
 function buildExtractionPrompt(businessName: string, content: string): string {
-  return `You are analyzing the website content for "${businessName}" to extract ALL their products and services.
+  return `You are analyzing "${businessName}" to extract products/services with BENEFIT-FOCUSED descriptions.
 
-**YOUR GOAL: Find EVERY product and service mentioned on this website.**
+**CRITICAL: FAB CASCADE FRAMEWORK**
+For EACH product/service, transform the description using "So What?" until you reach CUSTOMER IMPACT.
 
-**EXTRACTION INSTRUCTIONS:**
-1. Extract ALL products, services, packages, plans, add-ons, and offerings mentioned
-2. Be THOROUGH - scan every section including navigation, headers, lists, pricing tables, service descriptions
-3. Include variations and tiers (e.g., Basic Plan, Pro Plan, Enterprise)
-4. Include add-ons, upgrades, and supplementary services
-5. Include both standalone items AND items mentioned in packages
-6. Look for offerings in: navigation menus, headings, bullet lists, pricing tables, service pages, case studies
-7. Provide exact quotes as evidence for each finding
+❌ WRONG (Feature-focused word salad):
+"AI Policy Expert with advanced natural language processing capabilities and multi-channel integration"
 
-**WHERE TO LOOK (prioritize these sources):**
-- NAVIGATION MENU: Services/products are often listed in main navigation
-- PAGE SECTIONS: Dedicated service/product sections
-- HEADINGS: Look for H1, H2, H3 that name specific offerings
-- PRICING TABLES: Tiers, plans, packages with pricing
-- LINKS: URLs containing /services, /products, /pricing, /plans
-- TESTIMONIALS/CASE STUDIES: Services mentioned in customer stories
-- FOOTER: Additional services often listed here
-- METADATA: Title and description may summarize offerings
+✅ RIGHT (Benefit-focused outcome):
+"Instant expert answers to complex customer questions—no waiting, no escalation"
 
-**DON'T MISS:**
-- Hidden tiers mentioned only in pricing comparisons
-- Add-ons mentioned in fine print
-- Seasonal or limited-time products
-- Industry-specific services (use technical terminology from the site)
-- Bundled offerings (extract individual components)
-- Consultation/custom services mentioned separately
+**THE "SO WHAT?" TEST:**
+Feature → "So What?" → Advantage → "So What?" → BENEFIT (stop here)
 
-**CONFIDENCE SCORING:**
-- 100 = Clearly listed in navigation, pricing table, or dedicated section
-- 80-90 = Mentioned multiple times with details
-- 60-79 = Mentioned once with some detail
-- 40-59 = Mentioned in passing
+Example:
+- Feature: "24/7 availability"
+- So What? → "Customers can get help anytime"
+- So What? → "Never miss a sale because someone had a question at 2am"
+← USE THIS
 
-**CATEGORIZATION:**
-Group offerings into logical categories such as:
-- Core Services (main offerings)
-- Products (physical or digital products)
-- Packages/Plans (bundled offerings with tiers)
-- Add-ons/Upgrades (supplementary services)
-- Specializations (niche services)
+**DESCRIPTION RULES:**
+1. ONE clear benefit per product/service (15 words max)
+2. Focus on CUSTOMER OUTCOME, not technical features
+3. Use action words: "Get", "Save", "Achieve", "Eliminate", "Transform"
+4. Answer: "What does this help the customer DO or FEEL?"
+5. NO jargon, NO feature lists, NO buzzwords
+
+**WHERE TO LOOK:**
+- Navigation menus, headings, pricing tables
+- Service pages, case studies, testimonials
+- Links containing /services, /products, /pricing
 
 **WEBSITE CONTENT:**
 ${content}
 
-**OUTPUT FORMAT (JSON only, no markdown):**
+**OUTPUT FORMAT (JSON only):**
 {
   "products": [
     {
-      "name": "Exact name of product/service",
-      "description": "Brief description (from website)",
+      "name": "Short service name (2-4 words)",
+      "description": "Single benefit statement answering 'So What?' (15 words max)",
       "category": "Category name",
       "confidence": 85,
-      "sourceExcerpt": "Exact quote from website showing this offering",
-      "sourceUrl": "URL where this was found",
-      "reasoning": "Why this confidence score"
+      "sourceExcerpt": "Exact quote from website",
+      "sourceUrl": "URL where found",
+      "reasoning": "Why this confidence"
     }
   ],
   "categories": ["Core Services", "Products", "Add-ons"],
@@ -315,7 +302,7 @@ ${content}
   "warnings": []
 }
 
-BE COMPREHENSIVE. Extract ALL offerings you can find. It's better to include something borderline than to miss a real product/service.`;
+REMEMBER: Every description must pass the "So What?" test—focus on customer impact, not features.`;
 }
 
 /**

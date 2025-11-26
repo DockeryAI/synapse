@@ -12,7 +12,7 @@
  * Updated: 2025-11-18 - Full integration with all components
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -30,10 +30,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { useBrand } from '@/contexts/BrandContext';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
-import { deepContextBuilder } from '@/services/intelligence/deepcontext-builder.service';
+import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';
-import { FloatingActionButtons } from '@/components/shared/FloatingActionButtons';
 import { AiPicksPanel } from '@/components/dashboard/AiPicksPanel';
 import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibraryV2';
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
@@ -53,6 +52,7 @@ export function DashboardPage() {
   const [selectedPick, setSelectedPick] = useState<SmartPick | null>(null);
   const [deepContext, setDeepContext] = useState<DeepContext | null>(null);
   const [selectedInsights, setSelectedInsights] = useState<string[]>([]);
+  const hasLoadedRef = useRef(false);
 
   // Mock picks for now (TODO: Replace with real SmartPick generation)
   const campaignPicks: SmartPick[] = [
@@ -225,7 +225,11 @@ export function DashboardPage() {
 
   // Load insights on mount
   useEffect(() => {
+    // Prevent multiple loads and re-runs on error
+    if (hasLoadedRef.current) return;
+
     async function loadInsights() {
+      hasLoadedRef.current = true;
       // Check for localStorage UVP data first
       const hasPending = hasPendingUVP();
       console.log('[DashboardPage] hasPendingUVP:', hasPending, 'brand.id:', brand?.id);
@@ -237,12 +241,28 @@ export function DashboardPage() {
         try {
           setLoading(true);
 
-          // Use DeepContextBuilder to get FULL intelligence from all API sources
-          console.log('[DashboardPage] Building full DeepContext from intelligence stack...');
-          const buildResult = await deepContextBuilder.buildDeepContext({
+          // Use TRUE Progressive Loading - each API updates UI immediately when done
+          console.log('[DashboardPage] Building DeepContext with TRUE progressive loading (no timeouts)...');
+          const buildResult = await trueProgressiveBuilder.buildTrueProgressive({
             brandId: brand.id,
-            cacheResults: true, // Cache for 24 hours
-            forceFresh: false, // Use cache if available
+            cacheResults: true,
+            forceFresh: false, // Use cache for faster loading
+            includeYouTube: true, // ENABLED - GET ALL THE FUCKING DATA
+            includeOutScraper: true,
+            includeSerper: true,
+            includeWebsiteAnalysis: true,
+            includeSEMrush: true,
+            includeNews: true,
+            includeWeather: true,
+            includeLinkedIn: true,
+            includePerplexity: true,
+            includeApify: true,
+          }, (context, metadata) => {
+            // Update UI immediately as EACH API completes (not waiting for waves)
+            console.log(`[DashboardPage] API Progress: ${metadata.completedApis.length} done, ${metadata.pendingApis.length} pending`);
+            console.log(`[DashboardPage] Data points: ${metadata.dataPointsCollected} | Time: ${metadata.buildTimeMs}ms`);
+            setDeepContext(context);
+            setLoading(false); // Show UI after first API completes
           });
 
           console.log('[DashboardPage] DeepContext built:', {
@@ -875,8 +895,6 @@ export function DashboardPage() {
         )}
       </AnimatePresence>
 
-      {/* Floating Action Buttons */}
-      <FloatingActionButtons />
 
       {/* Insight Details Modal */}
       {selectedPick && deepContext && (

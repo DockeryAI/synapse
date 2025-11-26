@@ -1,0 +1,82 @@
+{
+  "timestamp": "2025-11-24T17:41:11.950127",
+  "build_context": "react",
+  "checks_run": [
+    {
+      "name": "syntax",
+      "passed": true,
+      "duration_ms": 163.2380485534668,
+      "errors": [],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "imports",
+      "passed": false,
+      "duration_ms": 163.65385055541992,
+      "errors": [
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/http_client.d.ts:0: Cannot resolve import: node:http",
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/http_client.d.ts:0: Cannot resolve import: node:https",
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/resource_clients/log.d.ts:0: Cannot resolve import: node:stream"
+      ],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "typescript_quick",
+      "passed": false,
+      "duration_ms": 645.9388732910156,
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "Checked 5 files"
+      ],
+      "skipped": false,
+      "skip_reason": ""
+    }
+  ],
+  "overall_success": false,
+  "total_duration_ms": 743.0810928344727,
+  "critical_failures": [
+    {
+      "name": "imports",
+      "passed": false,
+      "duration_ms": 163.65385055541992,
+      "errors": [
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/http_client.d.ts:0: Cannot resolve import: node:http",
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/http_client.d.ts:0: Cannot resolve import: node:https",
+        "/Users/byronhudson/Projects/Synapse/node_modules/apify-client/dist/resource_clients/log.d.ts:0: Cannot resolve import: node:stream"
+      ],
+      "warnings": [],
+      "info": [],
+      "skipped": false,
+      "skip_reason": ""
+    },
+    {
+      "name": "typescript_quick",
+      "passed": false,
+      "duration_ms": 645.9388732910156,
+      "errors": [],
+      "warnings": [],
+      "info": [
+        "Checked 5 files"
+      ],
+      "skipped": false,
+      "skip_reason": ""
+    }
+  ],
+  "suggestions": [
+    "Fix errors before committing"
+  ],
+  "metadata": {
+    "files_changed": 159,
+    "checks_run": 3,
+    "checks_skipped": 0,
+    "total_errors": 3,
+    "total_warnings": 0
+  }
+}

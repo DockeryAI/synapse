@@ -7,7 +7,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Users, Sparkles, CheckCircle2, AlertCircle, Plus, X, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Users, Sparkles, CheckCircle2, AlertCircle, Plus, X, Loader2, Heart, Cog } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { UVPMilestoneProgress, type UVPStep } from './UVPMilestoneProgress';
@@ -206,7 +206,7 @@ export function TargetCustomerPage({
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-full shadow-sm">
             <Users className="w-4 h-4 text-purple-600 dark:text-purple-400" />
             <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              UVP Step 2 of 6: Target Customer
+              UVP Step 2 of 5: Target Customer
             </span>
           </div>
 
@@ -446,6 +446,52 @@ export function TargetCustomerPage({
                       </div>
                     )}
                   </div>
+
+                  {/* Emotional & Functional Drivers */}
+                  {((profile.emotionalDrivers && profile.emotionalDrivers.length > 0) ||
+                    (profile.functionalDrivers && profile.functionalDrivers.length > 0)) && (
+                    <div className="mt-4 grid md:grid-cols-2 gap-4">
+                      {/* Emotional Drivers */}
+                      {profile.emotionalDrivers && profile.emotionalDrivers.length > 0 && (
+                        <div className="bg-rose-50 dark:bg-rose-900/20 rounded-lg p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Heart className="w-4 h-4 text-rose-500" />
+                            <p className="text-xs font-semibold text-rose-700 dark:text-rose-400 uppercase tracking-wide">
+                              Emotional Drivers
+                            </p>
+                          </div>
+                          <ul className="space-y-1">
+                            {profile.emotionalDrivers.slice(0, 3).map((driver, idx) => (
+                              <li key={idx} className="text-xs text-rose-800 dark:text-rose-300 flex items-start gap-1.5">
+                                <span className="text-rose-400 mt-1">•</span>
+                                <span>{driver}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+
+                      {/* Functional Drivers */}
+                      {profile.functionalDrivers && profile.functionalDrivers.length > 0 && (
+                        <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                            <Cog className="w-4 h-4 text-blue-500" />
+                            <p className="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wide">
+                              Functional Drivers
+                            </p>
+                          </div>
+                          <ul className="space-y-1">
+                            {profile.functionalDrivers.slice(0, 3).map((driver, idx) => (
+                              <li key={idx} className="text-xs text-blue-800 dark:text-blue-300 flex items-start gap-1.5">
+                                <span className="text-blue-400 mt-1">•</span>
+                                <span>{driver}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {profile.evidenceQuotes && profile.evidenceQuotes.length > 0 && (
                     <div className="mt-4 space-y-2">

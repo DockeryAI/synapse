@@ -110,7 +110,7 @@ class JTBDTransformerService {
       let { data: naicsData, error } = await supabase
         .from('naics_codes')
         .select('code')
-        .ilike('title', `%${industry}%`)
+        .filter('title', 'ilike', `%${industry}%`)
         .limit(1)
         .maybeSingle();
 
@@ -183,7 +183,7 @@ ${industryProfile.customer_triggers ? `Customer Triggers: ${industryProfile.cust
 ${industryProfile.transformations ? `Customer Transformations: ${industryProfile.transformations.join('; ')}` : ''}
 ${industryProfile.pain_points ? `Pain Points: ${industryProfile.pain_points.map(p => p.pain).join('; ')}` : ''}
 ${industryProfile.unique_mechanisms ? `Unique Solutions: ${industryProfile.unique_mechanisms.join('; ')}` : ''}
-${industryProfile.customer_language_dictionary ? `Customer Language: ${industryProfile.customer_language_dictionary.slice(0, 10).join(', ')}` : ''}
+${industryProfile.customer_language_dictionary ? `Customer Language: ${Array.isArray(industryProfile.customer_language_dictionary) ? industryProfile.customer_language_dictionary.slice(0, 10).join(', ') : JSON.stringify(industryProfile.customer_language_dictionary).slice(0, 200)}` : ''}
 ` : ''}
 
 ${testimonialOutcomes ? `
@@ -257,7 +257,7 @@ If you use ANY of these clichés, the transformation FAILS. Focus on the REAL tr
 
 USE INDUSTRY-SPECIFIC LANGUAGE:
 ${industryProfile?.customer_language_dictionary ?
-  `The customer actually says: "${industryProfile.customer_language_dictionary.slice(0, 5).join('", "')}"` :
+  `The customer actually says: "${Array.isArray(industryProfile.customer_language_dictionary) ? industryProfile.customer_language_dictionary.slice(0, 5).join('", "') : 'See testimonials above'}"` :
   'Extract specific language from testimonials above'}
 
 OUTPUT FORMAT:
@@ -316,6 +316,7 @@ PRIORITIZATION:
 - Include 2-3 supporting props that reinforce the primary
 - Ensure props work together to tell a coherent story`;
 
+      // No timeout - let synthesis complete naturally for complete data
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
@@ -324,7 +325,7 @@ PRIORITIZATION:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-opus-4.1', // Using Opus 4.1 for highest quality transformations
+          model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster transformations
           messages: [{
             role: 'user',
             content: prompt
@@ -336,8 +337,16 @@ PRIORITIZATION:
 
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('[JTBD Transformer] API error:', response.status, errorText);
-        throw new Error(`API error: ${response.status}`);
+        console.error('[JTBD Transformer] API error details:', {
+          status: response.status,
+          statusText: response.statusText,
+          errorMessage: errorText,
+          businessName: businessContext.businessName,
+          propsCount: featureProps.length,
+          industry: businessContext.industry,
+          timestamp: new Date().toISOString()
+        });
+        throw new Error(`API error: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
@@ -369,7 +378,23 @@ PRIORITIZATION:
       return transformed as TransformedValueProps;
 
     } catch (error) {
-      console.error('[JTBD Transformer] Transformation failed:', error);
+      const errorDetails = {
+        message: error instanceof Error ? error.message : String(error),
+        businessName: businessContext.businessName,
+        industry: businessContext.industry,
+        propsCount: featureProps.length,
+        timestamp: new Date().toISOString(),
+        stack: error instanceof Error ? error.stack : undefined
+      };
+
+      if (error instanceof SyntaxError) {
+        console.error('[JTBD Transformer] JSON parsing failed:', errorDetails);
+      } else if (error instanceof Error && error.message.includes('aborted')) {
+        console.error('[JTBD Transformer] Request aborted:', errorDetails);
+      } else {
+        console.error('[JTBD Transformer] Transformation failed:', errorDetails);
+      }
+
       return this.basicTransformation(featureProps, businessContext);
     }
   }

@@ -16,6 +16,11 @@ export default defineConfig({
     hmr: {
       overlay: false, // Disable error overlay
     },
+    headers: {
+      'Cache-Control': 'no-store, no-cache, must-revalidate',
+      'Pragma': 'no-cache',
+      'Expires': '0',
+    },
   },
   logLevel: 'info', // Show startup info for debugging
   build: {

@@ -31,6 +31,7 @@ interface CacheOptions {
  */
 const TTL_CONFIG: Record<string, number> = {
   // Long-lived data (7 days)
+  'deepcontext': 7 * 24 * 60,  // DeepContext should persist for 7 days
   'competitor_profile': 7 * 24 * 60,
   'website_analysis': 7 * 24 * 60,
   'industry_profile': 7 * 24 * 60,

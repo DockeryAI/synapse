@@ -18,31 +18,74 @@ serve(async (req) => {
       throw new Error('YOUTUBE_API_KEY not configured in Supabase secrets')
     }
 
-    const { endpoint, params } = await req.json()
+    const body = await req.json()
 
-    // Build YouTube API URL based on endpoint
+    // Support both old format (action) and new format (endpoint)
+    const action = body.action
+    const endpoint = body.endpoint
+    const params = body.params || {}
+
+    // Build YouTube API URL based on action or endpoint
     let url: string
-    switch (endpoint) {
-      case 'search':
-        url = `https://www.googleapis.com/youtube/v3/search?${new URLSearchParams({
-          ...params,
-          key: YOUTUBE_API_KEY
-        })}`
-        break
-      case 'videos':
-        url = `https://www.googleapis.com/youtube/v3/videos?${new URLSearchParams({
-          ...params,
-          key: YOUTUBE_API_KEY
-        })}`
-        break
-      case 'commentThreads':
-        url = `https://www.googleapis.com/youtube/v3/commentThreads?${new URLSearchParams({
-          ...params,
-          key: YOUTUBE_API_KEY
-        })}`
-        break
-      default:
-        throw new Error(`Unknown endpoint: ${endpoint}`)
+
+    // Handle old format with 'action' field
+    if (action === 'trending') {
+      // Get trending videos (use chart=mostPopular)
+      const trendingParams = {
+        part: 'snippet,statistics',
+        chart: 'mostPopular',
+        regionCode: body.region || 'US',
+        maxResults: body.maxResults || 50,
+        key: YOUTUBE_API_KEY
+      }
+      if (body.category) {
+        trendingParams.videoCategoryId = body.category
+      }
+      url = `https://www.googleapis.com/youtube/v3/videos?${new URLSearchParams(trendingParams)}`
+    } else if (action === 'search') {
+      // Search videos
+      url = `https://www.googleapis.com/youtube/v3/search?${new URLSearchParams({
+        part: 'snippet',
+        q: body.query,
+        type: 'video',
+        maxResults: body.maxResults || 20,
+        key: YOUTUBE_API_KEY
+      })}`
+    } else if (action === 'comments') {
+      // Get comments for a video
+      url = `https://www.googleapis.com/youtube/v3/commentThreads?${new URLSearchParams({
+        part: 'snippet',
+        videoId: body.videoId,
+        maxResults: body.maxResults || 100,
+        key: YOUTUBE_API_KEY
+      })}`
+    }
+    // Handle new format with 'endpoint' field
+    else if (endpoint) {
+      switch (endpoint) {
+        case 'search':
+          url = `https://www.googleapis.com/youtube/v3/search?${new URLSearchParams({
+            ...params,
+            key: YOUTUBE_API_KEY
+          })}`
+          break
+        case 'videos':
+          url = `https://www.googleapis.com/youtube/v3/videos?${new URLSearchParams({
+            ...params,
+            key: YOUTUBE_API_KEY
+          })}`
+          break
+        case 'commentThreads':
+          url = `https://www.googleapis.com/youtube/v3/commentThreads?${new URLSearchParams({
+            ...params,
+            key: YOUTUBE_API_KEY
+          })}`
+          break
+        default:
+          throw new Error(`Unknown endpoint: ${endpoint}`)
+      }
+    } else {
+      throw new Error('Either action or endpoint must be specified')
     }
 
     // Call YouTube API

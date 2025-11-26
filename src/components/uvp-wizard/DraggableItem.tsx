@@ -169,20 +169,24 @@ export const DraggableItem: React.FC<DraggableItemProps> = ({
             </Badge>
 
             {/* Confidence Score */}
-            {suggestion.confidence && (
+            {suggestion.confidence && !isNaN(suggestion.confidence) && suggestion.confidence > 0 && (
               <Badge variant="outline" className="text-xs">
                 {Math.round(suggestion.confidence * 100)}% match
               </Badge>
             )}
 
-            {/* Tags */}
+            {/* Tags - Filter out internal/technical tags */}
             {suggestion.tags && suggestion.tags.length > 0 && (
               <div className="flex items-center gap-1">
-                {suggestion.tags.slice(0, 2).map((tag, index) => (
-                  <Badge key={index} variant="outline" className="text-xs">
-                    {tag}
-                  </Badge>
-                ))}
+                {suggestion.tags
+                  .filter(tag => !tag.startsWith('target_') && !tag.startsWith('industry:') && !tag.startsWith('size:') && !tag.startsWith('role:') && !tag.startsWith('location:'))
+                  .slice(0, 2)
+                  .map((tag, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {tag}
+                    </Badge>
+                  ))
+                }
               </div>
             )}
           </div>

@@ -617,7 +617,7 @@ async function callClaudeForTransformations(
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster generation
         messages: [{
           role: 'user',
           content: prompt
@@ -688,41 +688,8 @@ async function callClaudeForTransformations(
     console.log('[SmartTransformationGenerator] Generated', goals.length, 'goals');
     console.log('[SmartTransformationGenerator] Goals:', goals.map(g => g.statement));
 
-    // Apply JTBD transformation to each goal statement
-    console.log('[SmartTransformationGenerator] Applying JTBD transformation to goals...');
-    try {
-      const statements = goals.map(g => g.statement);
-      const transformedProps = await jtbdTransformer.transformValuePropositions(
-        statements,
-        {
-          businessName: input.businessName,
-          industry: input.industry,
-          targetAudience: input.customers?.map(c => c.statement),
-          customerProblems: [],  // These are embedded in testimonials
-          solutions: input.services?.map(s => s.name),
-          differentiators: input.services?.map(s => s.description),
-          testimonials: input.testimonials
-        }
-      );
-
-      // Apply the primary outcome to the first goal
-      if (transformedProps.primary && goals.length > 0) {
-        goals[0].outcomeStatement = transformedProps.primary.outcomeStatement;
-        console.log('[SmartTransformationGenerator] Applied JTBD outcome to primary goal:', transformedProps.primary.outcomeStatement);
-      }
-
-      // Apply supporting outcomes to remaining goals
-      transformedProps.supporting.forEach((support, index) => {
-        if (goals[index + 1]) {
-          goals[index + 1].outcomeStatement = support.outcomeStatement;
-          console.log('[SmartTransformationGenerator] Applied JTBD outcome to goal', index + 1, ':', support.outcomeStatement);
-        }
-      });
-
-    } catch (jtbdError) {
-      console.error('[SmartTransformationGenerator] JTBD transformation failed:', jtbdError);
-      // Continue with goals without outcome statements
-    }
+    // NOTE: JTBD transformation is now handled by the orchestrator in Phase 2
+    // to avoid blocking parallel extraction. Don't call JTBD here.
 
     return goals;
   } catch (error) {

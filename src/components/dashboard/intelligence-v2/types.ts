@@ -40,4 +40,5 @@ export interface InsightRecipe {
   insightTypes: InsightType[];
   minInsights: number;
   maxInsights: number;
+  compatibleTemplates?: string[];
 }

@@ -14,7 +14,9 @@ serve(async (req) => {
   }
 
   try {
-    const { type, location } = await req.json()
+    const body = await req.json()
+    const type = body.type || 'current'  // Default to current weather
+    const location = body.location
 
     if (!WEATHER_API_KEY) {
       throw new Error('Weather API key not configured in Edge Function environment')

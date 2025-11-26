@@ -3,6 +3,21 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 const APIFY_API_KEY = Deno.env.get('APIFY_API_KEY')
 const APIFY_API_URL = 'https://api.apify.com/v2'
 
+// Official Apify Actor IDs for social media scraping
+// Using the correct slash format for Apify actors
+const SOCIAL_ACTORS = {
+  TWITTER: 'quacker/twitter-scraper',  // Correct format with slash
+  QUORA: 'alexey/quora-scraper',  // Valid Quora scraper
+  LINKEDIN: 'voyager/linkedin-company-scraper',  // Fixed format
+  TRUSTPILOT: 'apify/trustpilot-scraper',  // Official Apify trustpilot scraper
+  G2: 'apify/g2-scraper',  // Official G2 scraper
+  REDDIT: 'trudax/reddit-scraper',  // Reddit scraper
+  YOUTUBE_COMMENTS: 'bernardo/youtube-comments-scraper',  // YouTube comments
+  GOOGLE_MAPS: 'compass/google-maps-reviews-scraper',  // Google Maps reviews
+  WEBSITE_CONTENT: 'apify/website-content-crawler',  // Official website crawler
+  INSTAGRAM: 'apify/instagram-scraper'  // Instagram scraper
+}
+
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
@@ -15,7 +30,7 @@ serve(async (req) => {
   }
 
   try {
-    const { actorId, input } = await req.json()
+    const { actorId, input, scraperType } = await req.json()
 
     if (!APIFY_API_KEY) {
       throw new Error('Apify API key not configured in Edge Function environment')
@@ -25,11 +40,17 @@ serve(async (req) => {
       throw new Error('actorId is required')
     }
 
-    console.log('[Apify Edge] Starting actor:', actorId)
+    // Allow scraperType to select pre-configured actors
+    const finalActorId = scraperType ? SOCIAL_ACTORS[scraperType as keyof typeof SOCIAL_ACTORS] : actorId
+    if (!finalActorId) {
+      throw new Error(`Unknown scraperType: ${scraperType}`)
+    }
+
+    console.log('[Apify Edge] Starting actor:', finalActorId, scraperType ? `(${scraperType})` : '')
 
     // Start actor run
     const runResponse = await fetch(
-      `${APIFY_API_URL}/acts/${actorId}/runs?token=${APIFY_API_KEY}`,
+      `${APIFY_API_URL}/acts/${finalActorId}/runs?token=${APIFY_API_KEY}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

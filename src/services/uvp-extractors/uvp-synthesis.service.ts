@@ -138,7 +138,7 @@ Return ONLY valid JSON:
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-3.5-sonnet',
+          model: 'anthropic/claude-opus-4.5', // Opus 4.5 for quality testing
           messages: [{
             role: 'user',
             content: prompt
@@ -188,8 +188,8 @@ Return ONLY valid JSON:
       return completeUVP;
     }
 
-    // Fall back to Formula 4 if no JTBD outcomes
-    const prompt = `You are a value proposition expert. Create ONE powerful 10-15 word UVP using core values that resonate with ALL customer segments.
+    // Fall back to Formula 4 if no JTBD outcomes - but STILL generate 3 variations
+    const prompt = `You are a value proposition expert. Create THREE different 10-15 word UVP variations using different angles.
 
 BUSINESS: ${input.businessName}
 INDUSTRY: ${input.industry}
@@ -295,30 +295,41 @@ Example: "Using 70-year-old sourdough starter and overnight fermentation"
 - More than 15 words in UVP
 - More than 10 words in any Golden Circle element
 
+**CREATE 3 DIFFERENT VARIATIONS using Formula 4:**
+1. Values-focused: "[Core value 1] and [core value 2] through [method]"
+2. Benefit-focused: "[Key outcome] delivered through [approach]"
+3. Direct: "[Strength]. [Differentiator]. [Result]."
+
 Return ONLY valid JSON:
 {
-  "uvp": "10-15 word value proposition using Formula 4 (Core Values)",
+  "variations": [
+    {
+      "uvp": "First variation - values-focused (15 words max)",
+      "style": "values",
+      "wordCount": actual_number
+    },
+    {
+      "uvp": "Second variation - benefit-focused (15 words max)",
+      "style": "benefit",
+      "wordCount": actual_number
+    },
+    {
+      "uvp": "Third variation - direct style (15 words max)",
+      "style": "direct",
+      "wordCount": actual_number
+    }
+  ],
   "formulaUsed": "values",
-  "wordCount": actual_number,
   "goldenCircle": {
     "why": "10 word max belief/purpose statement",
     "what": "10 word max description of actual products/services",
     "how": "10 word max unique process/method"
   },
-  "passesCompetitorTest": true/false,
   "confidence": {
-    "overall": 90 if passes test + under 15 words, 20 if generic/over limit,
+    "overall": 90 if all pass test + under 15 words, 20 if generic/over limit,
     "dataQuality": 0-100,
-    "reasoning": "Why this creates inclusive messaging for all customer segments"
+    "reasoning": "Why these create inclusive messaging for all customer segments"
   }
-}
-
-If unable to create unique positioning in 15 words, return:
-{
-  "uvp": "Unable to create unique positioning from generic data",
-  "wordCount": 7,
-  "passesCompetitorTest": false,
-  "confidence": {"overall": 10, "dataQuality": 10, "reasoning": "Website contains only industry-standard messaging"}
 }`;
 
     // Call AI via Supabase edge function
@@ -330,7 +341,7 @@ If unable to create unique positioning in 15 words, return:
       },
       body: JSON.stringify({
         provider: 'openrouter',
-        model: 'anthropic/claude-3.5-sonnet',
+        model: 'anthropic/claude-opus-4.5', // Opus 4.5 for quality testing
         messages: [{
           role: 'user',
           content: prompt
@@ -466,8 +477,28 @@ function parseSynthesis(response: string): {
 
     const parsed = JSON.parse(jsonMatch[0]);
 
-    // Get variations array from new format
-    const variations = parsed.variations || [];
+    // Handle both new format (variations array) and legacy format (single uvp)
+    let variations = parsed.variations || [];
+
+    // If no variations array but has single uvp field, convert to variations format
+    if (variations.length === 0 && parsed.uvp) {
+      console.log('[UVPSynthesis] Converting legacy single UVP to variations format');
+      variations = [{
+        uvp: parsed.uvp,
+        style: parsed.formulaUsed || 'values',
+        wordCount: parsed.wordCount || parsed.uvp.split(/\s+/).length
+      }];
+    }
+
+    // If still no variations, create fallback
+    if (variations.length === 0) {
+      console.warn('[UVPSynthesis] No variations found in response, creating fallback');
+      variations = [{
+        uvp: 'Unable to generate UVP from extracted data',
+        style: 'fallback',
+        wordCount: 7
+      }];
+    }
 
     // Validate each variation
     variations.forEach((variation: any, index: number) => {

@@ -116,17 +116,33 @@ export function SourceCitation({
     }
   };
 
-  const totalDataPoints = sources.reduce((sum, s) => sum + s.dataPoints, 0);
-  const avgReliability = Math.round(
-    sources.reduce((sum, s) => sum + s.reliability, 0) / sources.length
-  );
+  // Null safety: handle undefined/empty sources array
+  const safeSources = sources || [];
+
+  const totalDataPoints = safeSources.reduce((sum, s) => sum + (s?.dataPoints || 0), 0);
+  const avgReliability = safeSources.length > 0
+    ? Math.round(safeSources.reduce((sum, s) => sum + (s?.reliability || 0), 0) / safeSources.length)
+    : 0;
+
+  // Early return if no sources
+  if (!safeSources || safeSources.length === 0) {
+    if (compact) {
+      return (
+        <div className={`flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 ${className}`}>
+          <CheckCircle2 className="w-3.5 h-3.5 text-gray-400" />
+          <span>No sources available</span>
+        </div>
+      );
+    }
+    return null;
+  }
 
   if (compact) {
     return (
       <div className={`flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 ${className}`}>
         <CheckCircle2 className="w-3.5 h-3.5 text-green-600 dark:text-green-400" />
         <span>
-          {sources.length} {sources.length === 1 ? 'source' : 'sources'}
+          {safeSources.length} {safeSources.length === 1 ? 'source' : 'sources'}
         </span>
         <span className="text-gray-400">•</span>
         <span>{totalDataPoints} data points</span>
@@ -153,9 +169,10 @@ export function SourceCitation({
 
         {/* Source List */}
         <div className="space-y-2">
-          {sources.map((source) => {
+          {safeSources.filter(s => s != null).map((source) => {
+            if (!source || !source.id) return null; // Skip invalid sources
             const isExpanded = expandedId === source.id;
-            const reliabilityBadge = getReliabilityBadge(source.reliability);
+            const reliabilityBadge = getReliabilityBadge(source.reliability || 0);
 
             return (
               <div

@@ -22,6 +22,7 @@ const GARBAGE_STARTING_WORDS = [
   // Navigation/page elements (but NOT 'home' - that's valid for "Home Insurance")
   'faq', 'about', 'contact', 'links', 'back', 'next', 'previous',
   'login', 'signup', 'subscribe', 'newsletter', 'blog', 'news',
+  'events', 'event', 'media', 'press', 'press releases',  // Media/PR pages
   'quick links', // Navigation garbage
   // Marketing fluff
   'meet', 'discover', 'learn', 'explore', 'see', 'view', 'read',
@@ -198,7 +199,33 @@ const VALID_PRODUCT_INDICATORS = [
   /furniture$/i,
   /decor$/i,
   /art$/i,
-  /crafts?$/i
+  /crafts?$/i,
+
+  // AI/SaaS/Tech products (CRITICAL for modern software companies)
+  /platform$/i,
+  /software$/i,
+  /agent$/i,
+  /agents$/i,
+  /\bai\b/i,                    // Contains "AI" as word
+  /bot$/i,
+  /assistant$/i,
+  /copilot$/i,
+  /co-pilot$/i,
+  /automation$/i,
+  /analytics$/i,
+  /dashboard$/i,
+  /api$/i,
+  /sdk$/i,
+  /engine$/i,
+  /studio$/i,
+  /suite$/i,
+  /hub$/i,
+  /cloud$/i,
+  /saas$/i,
+  /tool$/i,
+  /tools$/i,
+  /system$/i,
+  /systems$/i
 ];
 
 export interface ValidationResult {
@@ -425,7 +452,11 @@ export class ProductValidationService {
       'insurance', 'claims', 'settlement', 'compensation', 'disability',
       'social security', 'medicare', 'medicaid', 'workers comp',
       'personal injury', 'car accident', 'slip and fall', 'wrongful death',
-      'medical malpractice', 'product liability', 'premises liability'
+      'medical malpractice', 'product liability', 'premises liability',
+      // AI/SaaS/Tech keywords (CRITICAL for software companies)
+      'ai', 'agent', 'automation', 'platform', 'software', 'saas', 'cloud',
+      'analytics', 'intelligence', 'machine learning', 'ml', 'data',
+      'api', 'integration', 'workflow', 'enterprise', 'management system'
     ];
 
     // Check if name contains any service keywords
@@ -447,6 +478,22 @@ export class ProductValidationService {
     const isProperNoun = /^[A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,3}$/.test(trimmedName);
     if (isProperNoun && wordCount >= 2 && wordCount <= 4) {
       return { isValid: true };
+    }
+
+    // Branded product names: "Name - Description" format (e.g., "Selma - AI Sales Agent")
+    // Common in SaaS/AI products where each product has a distinct name
+    const brandedProductPattern = /^[A-Z][a-z]+\s*[-–—:]\s*.+$/;
+    if (brandedProductPattern.test(trimmedName) && wordCount >= 2 && wordCount <= 8) {
+      return { isValid: true };
+    }
+
+    // Capitalized product names (e.g., "Selma", "Jamie", "Rhea") that are proper nouns
+    // These are often standalone AI agent or product names
+    if (wordCount === 1 && /^[A-Z][a-z]+$/.test(trimmedName) && trimmedName.length >= 3) {
+      // Single proper noun could be a product name - accept with description
+      if (description && description.length >= 10) {
+        return { isValid: true };
+      }
     }
 
     // Everything else is rejected

@@ -230,7 +230,7 @@ Return as JSON array. Focus on specific, actionable insights with real quotes.`;
       if (Array.isArray(parsed)) {
         needs = parsed;
       } else if (typeof parsed === 'object') {
-        needs = parsed.needs || parsed.unarticulated || parsed.unarticulated_needs || parsed.customer_needs || parsed.insights || parsed.data || [];
+        needs = parsed.customerNeeds || parsed.needs || parsed.unarticulated || parsed.unarticulated_needs || parsed.customer_needs || parsed.insights || parsed.data || [];
       }
       if (!Array.isArray(needs)) needs = [];
       console.log('[InsightSynthesis] Extracted needs count:', needs.length);

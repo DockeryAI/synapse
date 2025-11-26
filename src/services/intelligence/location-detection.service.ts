@@ -20,10 +20,11 @@ import { OutScraperAPI } from './outscraper-api';
 export interface LocationResult {
   city: string;
   state: string;
+  country?: string; // Optional country for international locations
   confidence: number; // 0-1
   method: 'domain' | 'whois' | 'scraping' | 'ai' | 'website_scraping' | 'fallback';
   reasoning?: string;
-  allLocations?: Array<{ city: string; state: string }>; // All detected locations if multiple exist
+  allLocations?: Array<{ city: string; state: string; country?: string }>; // All detected locations if multiple exist
   hasMultipleLocations?: boolean;
 }
 
@@ -184,9 +185,10 @@ class LocationDetectionService {
       const domain = new URL(normalizedUrl).hostname;
 
       // Production-grade approach: Query Supabase directly
+      // Include country field for international locations
       const { data, error } = await supabase
         .from('location_detection_cache')
-        .select('city, state, confidence, method, reasoning, has_multiple_locations, all_locations')
+        .select('city, state, country, confidence, method, reasoning, has_multiple_locations, all_locations')
         .eq('domain', domain)
         .maybeSingle(); // Use maybeSingle() to avoid 406 when no cache exists
 
@@ -200,7 +202,17 @@ class LocationDetectionService {
       // Check if cache is still valid (30 days old)
       // You could add an expires_at column to the table for this check
 
-      return data as LocationResult;
+      // Handle cached data that might be missing country field (old cache entries)
+      const result = data as LocationResult;
+
+      // If city is found but country is missing for non-US locations,
+      // trigger a fresh detection to get the country
+      if (result.city && !result.country && !result.state) {
+        console.log('[LocationDetection] Cache hit but missing country for international location, will re-detect');
+        return null; // Return null to trigger fresh detection
+      }
+
+      return result;
     } catch (error) {
       console.log('[LocationDetection] Cache check error:', error);
       return null;
@@ -232,14 +244,20 @@ Respond ONLY with valid JSON in this exact format:
 {
   "city": "City Name",
   "state": "XX",
+  "country": "Country Name",
   "confidence": 0.0-1.0,
   "reasoning": "brief explanation"
 }
+
+For US locations, state is the 2-letter code and country is "United States".
+For international locations, state is the province/region (if known) and country is the full country name.
+Example: London → {"city": "London", "state": "", "country": "United Kingdom", "confidence": 0.9}
 
 If you cannot detect a location with confidence > 0.5, respond with:
 {
   "city": null,
   "state": null,
+  "country": null,
   "confidence": 0.0,
   "reasoning": "Could not detect location from URL"
 }`;
@@ -267,14 +285,15 @@ If you cannot detect a location with confidence > 0.5, respond with:
       const result = JSON.parse(jsonMatch[0]);
       console.log('[LocationDetection] Parsed AI result:', result);
 
-      if (!result.city || !result.state || result.confidence < 0.5) {
-        console.log('[LocationDetection] AI result rejected: city/state missing or confidence < 0.5');
+      if (!result.city || result.confidence < 0.5) {
+        console.log('[LocationDetection] AI result rejected: city missing or confidence < 0.5');
         return null;
       }
 
       return {
         city: result.city,
-        state: result.state,
+        state: result.state || '',
+        country: result.country,
         confidence: result.confidence,
         method: 'ai',
         reasoning: result.reasoning
@@ -605,20 +624,26 @@ If SINGLE location found:
 {
   "city": "City Name",
   "state": "XX",
+  "country": "Country Name",
   "confidence": 0.0-1.0,
   "hasMultipleLocations": false,
   "reasoning": "explanation"
 }
 
+For US locations, state is the 2-letter code and country is "United States".
+For international locations (UK, Canada, etc.), state is the province/region and country is the full country name.
+Example: London, UK → {"city": "London", "state": "", "country": "United Kingdom", "confidence": 0.9}
+
 If MULTIPLE locations found:
 {
   "city": "Primary City",
   "state": "XX",
+  "country": "Country Name",
   "confidence": 0.0-1.0,
   "hasMultipleLocations": true,
   "allLocations": [
-    {"city": "City1", "state": "XX"},
-    {"city": "City2", "state": "YY"}
+    {"city": "City1", "state": "XX", "country": "Country Name"},
+    {"city": "City2", "state": "YY", "country": "Country Name"}
   ],
   "reasoning": "Found N locations, primary is City1 based on..."
 }
@@ -627,6 +652,7 @@ If NO location found:
 {
   "city": null,
   "state": null,
+  "country": null,
   "confidence": 0.0,
   "hasMultipleLocations": false,
   "reasoning": "No location information found"
@@ -639,7 +665,7 @@ If NO location found:
           content: prompt
         }
       ], {
-        model: 'anthropic/claude-opus-4.1',
+        model: 'anthropic/claude-3.5-sonnet',
         temperature: 0.2,
         maxTokens: 500  // Increased to handle multiple locations
       });
@@ -657,7 +683,8 @@ If NO location found:
 
       // Accept if we have both city and state with good confidence
       // OR if we have state-only with very high confidence (0.7+)
-      const hasRequiredData = (result.city && result.state) || (result.state && result.confidence >= 0.7);
+      // International: city + country is sufficient (state can be empty)
+      const hasRequiredData = (result.city && result.state) || (result.city && result.country) || (result.state && result.confidence >= 0.7);
 
       if (!hasRequiredData || result.confidence < 0.5) {
         console.log('[LocationDetection] Website analysis rejected: insufficient confidence or missing data');
@@ -666,7 +693,8 @@ If NO location found:
 
       return {
         city: result.city || null, // Allow null for state-only results
-        state: result.state,
+        state: result.state || '',
+        country: result.country,
         confidence: result.confidence,
         method: 'website_scraping',
         reasoning: result.reasoning,
@@ -735,9 +763,30 @@ If NO location found:
 
   /**
    * Format location as string
+   * - International: City, Country
+   * - US: City, State
    */
   formatLocation(result: LocationResult): string {
-    return `${result.city}, ${result.state}`;
+    const parts: string[] = [];
+
+    if (result.city) {
+      parts.push(result.city);
+    }
+
+    // For US locations, show state. For international, show country.
+    if (result.country && result.country !== 'United States' && result.country !== 'USA') {
+      // International: City, Country
+      if (result.country) {
+        parts.push(result.country);
+      }
+    } else {
+      // US: City, State
+      if (result.state) {
+        parts.push(result.state);
+      }
+    }
+
+    return parts.join(', ');
   }
 }
 

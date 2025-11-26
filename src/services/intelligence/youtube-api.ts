@@ -1,9 +1,12 @@
 /**
  * YouTube Data API Integration
  * Analyzes trending videos and content for industry insights
+ *
+ * IMPORTANT: All API calls go through Supabase Edge Function for security and CORS handling
  */
 
-const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 60 * 60 * 1000 // 1 hour
 
 interface YouTubeVideo {
@@ -71,18 +74,26 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error(
-        'YouTube API key not configured. Add VITE_YOUTUBE_API_KEY to your .env file. ' +
-        'Get a free API key from https://console.cloud.google.com/apis/library/youtube.googleapis.com'
-      )
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
     }
 
     try {
-      const categoryParam = category ? `&videoCategoryId=${category}` : ''
-      const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=${region}${categoryParam}&maxResults=50&key=${YOUTUBE_API_KEY}`
+      console.log('[YouTube API] Fetching trending videos via Edge Function')
 
-      const response = await fetch(url)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'trending',
+          category,
+          region,
+          maxResults: 50
+        })
+      })
 
       if (!response.ok) {
         throw new Error(`YouTube API error: ${response.statusText}`)
@@ -120,44 +131,92 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error(
-        'YouTube API key not configured. Add VITE_YOUTUBE_API_KEY to your .env file. ' +
-        'Get a free API key from https://console.cloud.google.com/apis/library/youtube.googleapis.com'
-      )
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
     }
 
     try {
-      // First, search for video IDs
-      const searchUrl = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=${maxResults}&key=${YOUTUBE_API_KEY}`
+      console.log('[YouTube API] Searching videos via Edge Function:', query)
 
-      const searchResponse = await fetch(searchUrl)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'search',
+          query,
+          maxResults
+        })
+      })
 
-      if (!searchResponse.ok) {
-        throw new Error(`YouTube search error: ${searchResponse.statusText}`)
+      if (!response.ok) {
+        throw new Error(`YouTube search error: ${response.statusText}`)
       }
 
-      const searchData = await searchResponse.json()
-      const videoIds = searchData.items.map((item: any) => item.id.videoId).join(',')
+      const searchData = await response.json()
 
-      // Then, get video details including statistics
-      const videosUrl = `https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=${videoIds}&key=${YOUTUBE_API_KEY}`
+      // Step 1: Extract video IDs from search results
+      const videoIds = searchData.items?.map((item: any) =>
+        typeof item.id === 'object' ? item.id.videoId : item.id
+      ).filter(Boolean) || []
 
-      const videosResponse = await fetch(videosUrl)
-      const videosData = await videosResponse.json()
+      if (videoIds.length === 0) {
+        console.log('[YouTube API] No videos found in search')
+        return []
+      }
 
-      const videos: YouTubeVideo[] = videosData.items.map((item: any) => ({
+      // Step 2: Fetch statistics for these video IDs
+      console.log(`[YouTube API] Fetching statistics for ${videoIds.length} videos`)
+      const statsResponse = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          endpoint: 'videos',
+          params: {
+            part: 'snippet,statistics',
+            id: videoIds.join(',')
+          }
+        })
+      })
+
+      if (!statsResponse.ok) {
+        console.log('[YouTube API] Failed to fetch video statistics, using search data only')
+        // Fallback: return videos without statistics
+        const videos: YouTubeVideo[] = searchData.items.map((item: any) => ({
+          id: typeof item.id === 'object' ? item.id.videoId : item.id,
+          title: item.snippet?.title || '',
+          description: item.snippet?.description || '',
+          channelTitle: item.snippet?.channelTitle || '',
+          publishedAt: item.snippet?.publishedAt || new Date().toISOString(),
+          viewCount: 0,
+          likeCount: 0,
+          commentCount: 0,
+          tags: item.snippet?.tags || [],
+          categoryId: item.snippet?.categoryId || ''
+        }))
+        return videos
+      }
+
+      const statsData = await statsResponse.json()
+
+      // Combine search snippets with statistics
+      const videos: YouTubeVideo[] = statsData.items?.map((item: any) => ({
         id: item.id,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        channelTitle: item.snippet.channelTitle,
-        publishedAt: item.snippet.publishedAt,
-        viewCount: parseInt(item.statistics.viewCount || '0'),
-        likeCount: parseInt(item.statistics.likeCount || '0'),
-        commentCount: parseInt(item.statistics.commentCount || '0'),
-        tags: item.snippet.tags || [],
-        categoryId: item.snippet.categoryId
-      }))
+        title: item.snippet?.title || '',
+        description: item.snippet?.description || '',
+        channelTitle: item.snippet?.channelTitle || '',
+        publishedAt: item.snippet?.publishedAt || new Date().toISOString(),
+        viewCount: parseInt(item.statistics?.viewCount || '0'),
+        likeCount: parseInt(item.statistics?.likeCount || '0'),
+        commentCount: parseInt(item.statistics?.commentCount || '0'),
+        tags: item.snippet?.tags || [],
+        categoryId: item.snippet?.categoryId || ''
+      })) || []
 
       this.setCache(cacheKey, videos)
       return videos
@@ -253,14 +312,25 @@ class YouTubeAPIService {
     const cached = this.getCached(cacheKey)
     if (cached) return cached
 
-    if (!YOUTUBE_API_KEY) {
-      throw new Error('YouTube API key not configured')
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
     }
 
     try {
-      const url = `https://www.googleapis.com/youtube/v3/commentThreads?part=snippet&videoId=${videoId}&maxResults=${maxResults}&order=relevance&key=${YOUTUBE_API_KEY}`
+      console.log('[YouTube API] Fetching comments via Edge Function for video:', videoId)
 
-      const response = await fetch(url)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'comments',
+          videoId,
+          maxResults
+        })
+      })
 
       if (!response.ok) {
         throw new Error(`YouTube Comments API error: ${response.statusText}`)

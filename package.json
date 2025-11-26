@@ -16,7 +16,11 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:debug": "playwright test --debug"
+    "test:e2e:debug": "playwright test --debug",
+    "sync:api-keys": "./scripts/sync-api-keys.sh",
+    "supabase:deploy": "supabase functions deploy --no-verify-jwt",
+    "supabase:secrets": "supabase secrets list",
+    "supabase:serve": "supabase functions serve"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.70.0",
