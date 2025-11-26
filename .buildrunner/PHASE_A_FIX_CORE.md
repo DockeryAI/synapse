@@ -158,7 +158,15 @@ npm run build
 # Check Insights panel - should show relevant keywords only
 ```
 
-### Status: NOT STARTED
+### Status: COMPLETE
+
+**Changes Made:**
+- Added `buildUVPRelevanceKeywords()` method to extract key terms from UVP data
+- Extracts terms from: target_customer, transformation, key_benefit, industry
+- Filters out common words (the, and, for, with, etc.)
+- Modified `fetchSemrushData()` to filter opportunities by UVP relevance
+- Console shows: `[Streaming/semrush] UVP Relevance Filter: X/Y keywords passed`
+- Falls back to top 10 by volume if no UVP keywords match (ensures some data always returns)
 
 ---
 
@@ -166,12 +174,12 @@ npm run build
 
 Before moving to Phase B:
 
-- [ ] All 4 items marked COMPLETE
-- [ ] All acceptance criteria verified
-- [ ] Build passes with no errors
+- [x] All 4 items marked COMPLETE
+- [x] All acceptance criteria verified
+- [x] Build passes with no errors
 - [ ] Manual test with real brand (OpenDialog) shows relevant results
 - [ ] Commit all changes with proper format
-- [ ] Console shows:
+- [x] Console shows:
   ```
   ✅ [Streaming/uvp] UVP loaded with X pain points BEFORE APIs
   ✅ [Streaming/serper] Searching with UVP context: {targetCustomer: '...'}

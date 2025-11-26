@@ -935,7 +935,41 @@ export class StreamingDeepContextBuilder {
     try {
       const metrics = await SemrushAPI.getComprehensiveSEOMetrics(domain, this.brandData.name);
 
-      metrics.opportunities.slice(0, 15).forEach((opp: any, idx: number) => {
+      // Build UVP relevance keywords for filtering
+      const uvpKeywords = this.buildUVPRelevanceKeywords();
+
+      // Filter opportunities by UVP relevance
+      const allOpportunities = metrics.opportunities || [];
+      const totalKeywords = allOpportunities.length;
+
+      // If we have UVP data, filter keywords
+      let filteredOpportunities: any[] = [];
+      if (uvpKeywords.length > 0) {
+        filteredOpportunities = allOpportunities.filter((opp: any) => {
+          const keyword = (opp.keyword || '').toLowerCase();
+          // Check if keyword contains any UVP-relevant term
+          return uvpKeywords.some(uvpTerm =>
+            keyword.includes(uvpTerm.toLowerCase()) ||
+            uvpTerm.toLowerCase().includes(keyword)
+          );
+        });
+
+        console.log(`[Streaming/semrush] UVP Relevance Filter: ${filteredOpportunities.length}/${totalKeywords} keywords passed`);
+
+        if (filteredOpportunities.length === 0) {
+          console.warn(`[Streaming/semrush] ⚠️ No keywords matched UVP terms, using top keywords by volume`);
+          // Fallback: take top 10 by search volume if no matches
+          filteredOpportunities = allOpportunities
+            .sort((a: any, b: any) => (b.searchVolume || 0) - (a.searchVolume || 0))
+            .slice(0, 10);
+        }
+      } else {
+        console.warn(`[Streaming/semrush] ⚠️ No UVP keywords for filtering, returning all opportunities`);
+        filteredOpportunities = allOpportunities;
+      }
+
+      // Take top 20 filtered results
+      filteredOpportunities.slice(0, 20).forEach((opp: any, idx: number) => {
         dataPoints.push({
           id: `semrush-opp-${Date.now()}-${idx}`,
           source: 'semrush' as DataSource,
@@ -944,16 +978,75 @@ export class StreamingDeepContextBuilder {
           metadata: {
             keyword: opp.keyword,
             searchVolume: opp.searchVolume,
-            difficulty: opp.difficulty
+            difficulty: opp.difficulty,
+            uvpFiltered: uvpKeywords.length > 0
           },
           createdAt: new Date()
         });
       });
+
+      // Log filtered vs rejected examples
+      if (uvpKeywords.length > 0 && totalKeywords > 0) {
+        const rejectedCount = totalKeywords - filteredOpportunities.length;
+        if (rejectedCount > 0) {
+          const rejected = allOpportunities
+            .filter((opp: any) => !filteredOpportunities.includes(opp))
+            .slice(0, 3)
+            .map((opp: any) => opp.keyword);
+          console.log(`[Streaming/semrush] Rejected ${rejectedCount} irrelevant keywords, examples:`, rejected);
+        }
+      }
     } catch (error) {
       console.error('[Streaming/semrush] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * Build list of keywords relevant to UVP for filtering
+   */
+  private buildUVPRelevanceKeywords(): string[] {
+    const keywords: string[] = [];
+
+    if (!this.uvpData) return keywords;
+
+    // Extract key terms from UVP components
+    if (this.uvpData.target_customer) {
+      // Extract meaningful words from target customer (skip common words)
+      const words = this.uvpData.target_customer
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w: string) => w.length > 3 && !['that', 'with', 'from', 'have', 'they', 'their', 'about'].includes(w));
+      keywords.push(...words.slice(0, 5));
+    }
+
+    if (this.uvpData.transformation) {
+      const words = this.uvpData.transformation
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w: string) => w.length > 3 && !['that', 'with', 'from', 'into'].includes(w));
+      keywords.push(...words.slice(0, 5));
+    }
+
+    if (this.uvpData.key_benefit) {
+      const words = this.uvpData.key_benefit
+        .toLowerCase()
+        .split(/\s+/)
+        .filter((w: string) => w.length > 3);
+      keywords.push(...words.slice(0, 3));
+    }
+
+    // Also include brand industry
+    if (this.brandData.industry) {
+      keywords.push(this.brandData.industry.toLowerCase());
+    }
+
+    // Dedupe
+    const uniqueKeywords = [...new Set(keywords)];
+    console.log(`[Streaming/semrush] UVP relevance keywords:`, uniqueKeywords.slice(0, 10));
+
+    return uniqueKeywords;
   }
 
   private async fetchNewsData(): Promise<DataPoint[]> {
