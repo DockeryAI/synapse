@@ -815,10 +815,14 @@ export class StreamingDeepContextBuilder {
     }
 
     try {
+      // Use UVP-derived industry for more relevant competitor discovery
+      const uvpIndustry = this.getUVPIndustry();
+      console.log(`[Streaming/outscraper] Using UVP industry: "${uvpIndustry}" for competitor discovery`);
+
       const competitors = await OutScraperAPI.discoverCompetitors({
         businessName: this.brandData.name,
         location,
-        industry: this.brandData.industry,
+        industry: uvpIndustry,
         radius: 10
       });
 
@@ -829,7 +833,7 @@ export class StreamingDeepContextBuilder {
             place_id: competitor.place_id,
             business_name: competitor.name,
             location,
-            industry: this.brandData.industry,
+            industry: uvpIndustry,
             limit: 10,
             sort: 'newest'
           });
@@ -933,69 +937,52 @@ export class StreamingDeepContextBuilder {
     if (!domain) return dataPoints;
 
     try {
+      // Get SEMrush metrics for domain authority info
       const metrics = await SemrushAPI.getComprehensiveSEOMetrics(domain, this.brandData.name);
 
-      // Build UVP relevance keywords for filtering
-      const uvpKeywords = this.buildUVPRelevanceKeywords();
+      // SKIP generic SEMrush keyword opportunities - they're what the brand ranks for, not what customers search
+      // Instead, generate keyword opportunities based on what the TARGET CUSTOMER is searching for
+      const customerKeywords = this.generateCustomerSearchKeywords();
 
-      // Filter opportunities by UVP relevance
-      const allOpportunities = metrics.opportunities || [];
-      const totalKeywords = allOpportunities.length;
-
-      // If we have UVP data, filter keywords
-      let filteredOpportunities: any[] = [];
-      if (uvpKeywords.length > 0) {
-        filteredOpportunities = allOpportunities.filter((opp: any) => {
-          const keyword = (opp.keyword || '').toLowerCase();
-          // Check if keyword contains any UVP-relevant term
-          return uvpKeywords.some(uvpTerm =>
-            keyword.includes(uvpTerm.toLowerCase()) ||
-            uvpTerm.toLowerCase().includes(keyword)
-          );
-        });
-
-        console.log(`[Streaming/semrush] UVP Relevance Filter: ${filteredOpportunities.length}/${totalKeywords} keywords passed`);
-
-        if (filteredOpportunities.length === 0) {
-          console.warn(`[Streaming/semrush] ⚠️ No keywords matched UVP terms, using top keywords by volume`);
-          // Fallback: take top 10 by search volume if no matches
-          filteredOpportunities = allOpportunities
-            .sort((a: any, b: any) => (b.searchVolume || 0) - (a.searchVolume || 0))
-            .slice(0, 10);
-        }
-      } else {
-        console.warn(`[Streaming/semrush] ⚠️ No UVP keywords for filtering, returning all opportunities`);
-        filteredOpportunities = allOpportunities;
+      if (customerKeywords.length === 0) {
+        console.warn(`[Streaming/semrush] ⚠️ No UVP data for customer keyword generation`);
+        return dataPoints;
       }
 
-      // Take top 20 filtered results
-      filteredOpportunities.slice(0, 20).forEach((opp: any, idx: number) => {
+      console.log(`[Streaming/semrush] ✅ Generated ${customerKeywords.length} customer-focused keyword opportunities`);
+
+      // Add domain metrics as context
+      if (metrics.domainOverview) {
         dataPoints.push({
-          id: `semrush-opp-${Date.now()}-${idx}`,
+          id: `semrush-domain-${Date.now()}`,
           source: 'semrush' as DataSource,
           type: 'competitive_gap' as DataPointType,
-          content: `Keyword opportunity: "${opp.keyword}" (${opp.searchVolume} searches/mo)`,
+          content: `Domain Authority: ${metrics.domainOverview.domainAuthority || 'N/A'} | Organic Traffic: ${metrics.domainOverview.organicTraffic || 'N/A'}/mo`,
           metadata: {
-            keyword: opp.keyword,
-            searchVolume: opp.searchVolume,
-            difficulty: opp.difficulty,
-            uvpFiltered: uvpKeywords.length > 0
+            domainAuthority: metrics.domainOverview.domainAuthority,
+            organicTraffic: metrics.domainOverview.organicTraffic
+          },
+          createdAt: new Date()
+        });
+      }
+
+      // Add customer-focused keyword opportunities
+      customerKeywords.forEach((kw, idx) => {
+        dataPoints.push({
+          id: `semrush-customer-kw-${Date.now()}-${idx}`,
+          source: 'semrush' as DataSource,
+          type: 'competitive_gap' as DataPointType,
+          content: `Target keyword: "${kw.keyword}" - ${kw.intent}`,
+          metadata: {
+            keyword: kw.keyword,
+            intent: kw.intent,
+            category: kw.category,
+            uvpAligned: true
           },
           createdAt: new Date()
         });
       });
 
-      // Log filtered vs rejected examples
-      if (uvpKeywords.length > 0 && totalKeywords > 0) {
-        const rejectedCount = totalKeywords - filteredOpportunities.length;
-        if (rejectedCount > 0) {
-          const rejected = allOpportunities
-            .filter((opp: any) => !filteredOpportunities.includes(opp))
-            .slice(0, 3)
-            .map((opp: any) => opp.keyword);
-          console.log(`[Streaming/semrush] Rejected ${rejectedCount} irrelevant keywords, examples:`, rejected);
-        }
-      }
     } catch (error) {
       console.error('[Streaming/semrush] Error:', error);
     }
@@ -1004,64 +991,563 @@ export class StreamingDeepContextBuilder {
   }
 
   /**
-   * Build list of keywords relevant to UVP for filtering
+   * Generate keyword opportunities based on what TARGET CUSTOMERS would search for
+   * Fully data-driven from UVP - works across ANY industry
+   * Extracts functional drivers (what they DO) and emotional drivers (how they FEEL)
+   */
+  private generateCustomerSearchKeywords(): Array<{ keyword: string; intent: string; category: string; persona?: string }> {
+    const keywords: Array<{ keyword: string; intent: string; category: string; persona?: string }> = [];
+
+    if (!this.uvpData) return keywords;
+
+    // Get industry context
+    const industry = this.brandData.industry?.toLowerCase() || '';
+    const industryShort = this.getIndustryKeyword(industry);
+
+    // Parse all target customer profiles (separated by semicolons)
+    const targetCustomerRaw = this.uvpData.target_customer || '';
+    const keyBenefit = this.uvpData.key_benefit || '';
+    const transformation = this.uvpData.transformation || '';
+    const uniqueSolution = this.uvpData.unique_solution || '';
+
+    // Split into individual personas
+    const personas = targetCustomerRaw.split(';').map(p => p.trim()).filter(p => p.length > 10);
+
+    console.log(`[Streaming/keywords] Generating keywords for ${personas.length} personas in "${industryShort}"`);
+
+    // ========== PERSONA-LEVEL KEYWORDS ==========
+    // Extract what each persona is trying to accomplish and what they'd search for
+    personas.forEach((persona, idx) => {
+      const personaLower = persona.toLowerCase();
+
+      // Extract role/title from persona
+      const role = this.extractRole(persona);
+
+      // Extract the ACTION/GOAL from the persona description
+      // Pattern: "[Role] seeking to [ACTION]" or "[Role] responsible for [ACTION]"
+      const actionPatterns = [
+        /seeking to\s+(.+?)(?:while|;|$)/i,
+        /looking to\s+(.+?)(?:while|;|$)/i,
+        /responsible for\s+(.+?)(?:while|;|$)/i,
+        /struggling with\s+(.+?)(?:while|;|$)/i,
+        /trying to\s+(.+?)(?:while|;|$)/i,
+        /needing\s+(.+?)(?:while|;|$)/i,
+        /handling\s+(.+?)(?:while|;|$)/i
+      ];
+
+      let primaryAction = '';
+      for (const pattern of actionPatterns) {
+        const match = persona.match(pattern);
+        if (match) {
+          primaryAction = match[1].trim();
+          break;
+        }
+      }
+
+      // Generate keywords from the action/goal
+      if (primaryAction) {
+        // Convert action to search query format
+        const actionKeyword = this.actionToKeyword(primaryAction, industryShort);
+        if (actionKeyword) {
+          keywords.push({
+            keyword: actionKeyword,
+            intent: `${role} searching for solutions`,
+            category: 'consideration',
+            persona: role
+          });
+        }
+
+        // Add "how to" variant for awareness stage
+        const howToKeyword = `how to ${this.simplifyAction(primaryAction)}`;
+        keywords.push({
+          keyword: howToKeyword,
+          intent: `${role} researching approaches`,
+          category: 'awareness',
+          persona: role
+        });
+      }
+
+      // Extract FUNCTIONAL DRIVERS from persona text
+      const functionalDrivers = this.extractFunctionalDrivers(personaLower);
+      functionalDrivers.forEach(driver => {
+        keywords.push({
+          keyword: `${driver} ${industryShort}`.trim(),
+          intent: `Functional need: ${driver}`,
+          category: 'consideration',
+          persona: role
+        });
+      });
+
+      // Extract EMOTIONAL DRIVERS from persona text
+      const emotionalDrivers = this.extractEmotionalDrivers(personaLower);
+      emotionalDrivers.forEach(driver => {
+        keywords.push({
+          keyword: driver.keyword,
+          intent: `Emotional driver: ${driver.emotion}`,
+          category: 'awareness',
+          persona: role
+        });
+      });
+    });
+
+    // ========== BENEFIT-LEVEL KEYWORDS ==========
+    // What outcomes are they searching for?
+    const benefits = keyBenefit.split(';').map(b => b.trim()).filter(b => b.length > 5);
+    benefits.forEach(benefit => {
+      const benefitKeyword = this.benefitToKeyword(benefit, industryShort);
+      if (benefitKeyword) {
+        keywords.push({
+          keyword: benefitKeyword,
+          intent: 'Searching for this outcome',
+          category: 'consideration'
+        });
+      }
+    });
+
+    // ========== TRANSFORMATION-LEVEL KEYWORDS ==========
+    // Before → After state searches
+    if (transformation) {
+      const parts = transformation.split('→').map(p => p.trim());
+      if (parts.length >= 2) {
+        const beforeState = parts[0];
+        const problemKeyword = this.problemToKeyword(beforeState, industryShort);
+        if (problemKeyword) {
+          keywords.push({
+            keyword: problemKeyword,
+            intent: 'Experiencing this problem',
+            category: 'awareness'
+          });
+        }
+      }
+    }
+
+    // ========== SOLUTION-LEVEL KEYWORDS ==========
+    // What makes the solution unique - competitors are searching
+    if (uniqueSolution) {
+      const solutionKeywords = this.solutionToKeywords(uniqueSolution, industryShort);
+      solutionKeywords.forEach(kw => {
+        keywords.push({
+          keyword: kw,
+          intent: 'Evaluating solution attributes',
+          category: 'decision'
+        });
+      });
+    }
+
+    // ========== INDUSTRY-LEVEL KEYWORDS ==========
+    // General industry searches
+    keywords.push(
+      { keyword: `${industryShort} software solutions`, intent: 'General industry research', category: 'awareness' },
+      { keyword: `best ${industryShort} technology`, intent: 'Comparing options', category: 'consideration' },
+      { keyword: `${industryShort} digital transformation`, intent: 'Modernization research', category: 'awareness' }
+    );
+
+    // Dedupe by keyword
+    const seen = new Set<string>();
+    const uniqueKeywords = keywords.filter(kw => {
+      const key = kw.keyword.toLowerCase().trim();
+      if (key.length < 5 || seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    console.log(`[Streaming/keywords] Generated ${uniqueKeywords.length} customer-focused keywords:`);
+    uniqueKeywords.slice(0, 10).forEach(kw => {
+      console.log(`  • "${kw.keyword}" (${kw.category}) - ${kw.intent}`);
+    });
+
+    return uniqueKeywords.slice(0, 25);
+  }
+
+  /**
+   * Extract role/title from persona text
+   */
+  private extractRole(persona: string): string {
+    const match = persona.match(/^([^,;]+?)(?:\s+(?:seeking|looking|responsible|struggling|trying|handling|needing|at\s+an?))/i);
+    return match ? match[1].trim() : 'Target Customer';
+  }
+
+  /**
+   * Get short industry keyword for search queries
+   */
+  private getIndustryKeyword(industry: string): string {
+    const lower = industry.toLowerCase();
+    // Extract meaningful industry term
+    if (lower.includes('software')) return 'software';
+    if (lower.includes('insurance')) return 'insurance';
+    if (lower.includes('financial') || lower.includes('banking')) return 'financial services';
+    if (lower.includes('healthcare') || lower.includes('medical')) return 'healthcare';
+    if (lower.includes('retail')) return 'retail';
+    if (lower.includes('restaurant') || lower.includes('food')) return 'restaurant';
+    if (lower.includes('real estate')) return 'real estate';
+    if (lower.includes('legal') || lower.includes('law')) return 'legal';
+    if (lower.includes('manufacturing')) return 'manufacturing';
+    if (lower.includes('construction')) return 'construction';
+    if (lower.includes('education')) return 'education';
+    if (lower.includes('travel') || lower.includes('hospitality')) return 'travel';
+    // Return first two meaningful words
+    const words = lower.split(/\s+/).filter(w => w.length > 3);
+    return words.slice(0, 2).join(' ') || 'business';
+  }
+
+  /**
+   * Extract industry from UVP target customer - more accurate than brand metadata
+   * This ensures all API searches use the CUSTOMER'S industry, not generic brand industry
+   */
+  private getUVPIndustry(): string {
+    if (!this.uvpData?.target_customer) {
+      return this.brandData.industry || 'business';
+    }
+
+    const targetLower = this.uvpData.target_customer.toLowerCase();
+
+    // Check for specific industries in target customer description
+    if (targetLower.includes('insurance')) return 'insurance';
+    if (targetLower.includes('financial') || targetLower.includes('banking')) return 'financial services';
+    if (targetLower.includes('healthcare') || targetLower.includes('medical') || targetLower.includes('hospital')) return 'healthcare';
+    if (targetLower.includes('retail') || targetLower.includes('ecommerce') || targetLower.includes('e-commerce')) return 'retail';
+    if (targetLower.includes('restaurant') || targetLower.includes('food service')) return 'restaurant';
+    if (targetLower.includes('real estate') || targetLower.includes('property')) return 'real estate';
+    if (targetLower.includes('legal') || targetLower.includes('law firm') || targetLower.includes('attorney')) return 'legal';
+    if (targetLower.includes('manufacturing') || targetLower.includes('factory')) return 'manufacturing';
+    if (targetLower.includes('construction') || targetLower.includes('contractor')) return 'construction';
+    if (targetLower.includes('education') || targetLower.includes('school') || targetLower.includes('university')) return 'education';
+    if (targetLower.includes('travel') || targetLower.includes('hospitality') || targetLower.includes('hotel')) return 'travel';
+    if (targetLower.includes('saas') || targetLower.includes('software')) return 'software';
+    if (targetLower.includes('consulting')) return 'consulting';
+    if (targetLower.includes('marketing') || targetLower.includes('agency')) return 'marketing';
+    if (targetLower.includes('logistics') || targetLower.includes('shipping') || targetLower.includes('supply chain')) return 'logistics';
+    if (targetLower.includes('automotive') || targetLower.includes('car dealer')) return 'automotive';
+
+    // Fallback to brand industry
+    return this.brandData.industry || 'business';
+  }
+
+  /**
+   * Convert action phrase to search keyword
+   */
+  private actionToKeyword(action: string, industry: string): string {
+    // Clean up the action phrase
+    let keyword = action.toLowerCase()
+      .replace(/\b(their|the|a|an|our|my|your)\b/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    // Add industry context if not present
+    if (!keyword.includes(industry) && industry !== 'business') {
+      keyword = `${keyword} ${industry}`;
+    }
+
+    return keyword.length > 10 ? keyword : '';
+  }
+
+  /**
+   * Simplify action for "how to" queries
+   */
+  private simplifyAction(action: string): string {
+    return action.toLowerCase()
+      .replace(/\b(their|the|a|an|our|my|your|while|and|or)\b/g, '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .split(' ')
+      .slice(0, 6)
+      .join(' ');
+  }
+
+  /**
+   * Extract functional drivers from persona text
+   */
+  private extractFunctionalDrivers(text: string): string[] {
+    const drivers: string[] = [];
+    const patterns: Array<{ match: RegExp; driver: string }> = [
+      { match: /improv\w*\s+(conversion|sales|revenue)/i, driver: 'improve conversion rates' },
+      { match: /reduc\w*\s+(cost|expense|spending)/i, driver: 'reduce costs' },
+      { match: /increas\w*\s+(revenue|sales|profit)/i, driver: 'increase revenue' },
+      { match: /automat\w*/i, driver: 'automation solutions' },
+      { match: /streamlin\w*/i, driver: 'streamline operations' },
+      { match: /moderniz\w*/i, driver: 'modernization' },
+      { match: /digital\s+transform/i, driver: 'digital transformation' },
+      { match: /customer\s+(experience|satisfaction)/i, driver: 'improve customer experience' },
+      { match: /complian\w*/i, driver: 'compliance solutions' },
+      { match: /efficien\w*/i, driver: 'improve efficiency' },
+      { match: /scal\w*\s+(up|growth|business)/i, driver: 'scale operations' },
+      { match: /reduc\w*\s+(time|manual|workload)/i, driver: 'reduce manual work' },
+      { match: /lead\s+(generation|capture|conversion)/i, driver: 'lead generation' },
+      { match: /abandon\w*\s*(rate|cart|quote)?/i, driver: 'reduce abandonment' },
+      { match: /retention|churn/i, driver: 'improve retention' },
+      { match: /productiv\w*/i, driver: 'increase productivity' },
+      { match: /support\s+(cost|ticket|volume)/i, driver: 'reduce support costs' }
+    ];
+
+    patterns.forEach(({ match, driver }) => {
+      if (match.test(text) && !drivers.includes(driver)) {
+        drivers.push(driver);
+      }
+    });
+
+    return drivers;
+  }
+
+  /**
+   * Extract emotional drivers from persona text
+   */
+  private extractEmotionalDrivers(text: string): Array<{ keyword: string; emotion: string }> {
+    const drivers: Array<{ keyword: string; emotion: string }> = [];
+    const patterns: Array<{ match: RegExp; keyword: string; emotion: string }> = [
+      { match: /struggl\w*/i, keyword: 'common challenges with', emotion: 'frustration' },
+      { match: /frustrat\w*/i, keyword: 'solving frustrating', emotion: 'frustration' },
+      { match: /overwhelm\w*/i, keyword: 'managing overwhelming', emotion: 'stress' },
+      { match: /anxiet\w*|worried|concern/i, keyword: 'reducing risk of', emotion: 'anxiety' },
+      { match: /competi\w*/i, keyword: 'staying competitive in', emotion: 'fear of falling behind' },
+      { match: /behind|catching up/i, keyword: 'catching up with', emotion: 'fear of falling behind' },
+      { match: /losing|lost/i, keyword: 'stop losing', emotion: 'loss aversion' },
+      { match: /pressure|demanding/i, keyword: 'handling pressure to', emotion: 'stress' },
+      { match: /complex|complicated/i, keyword: 'simplifying', emotion: 'overwhelm' },
+      { match: /uncertain|unsure/i, keyword: 'best practices for', emotion: 'uncertainty' }
+    ];
+
+    patterns.forEach(({ match, keyword, emotion }) => {
+      if (match.test(text)) {
+        drivers.push({ keyword, emotion });
+      }
+    });
+
+    return drivers;
+  }
+
+  /**
+   * Convert benefit statement to search keyword
+   */
+  private benefitToKeyword(benefit: string, industry: string): string {
+    const lower = benefit.toLowerCase();
+
+    // Extract the outcome/metric
+    const percentMatch = lower.match(/(\d+%?)\s*(more|increase|improve|reduce|decrease)/i);
+    if (percentMatch) {
+      // Find what the percentage applies to
+      const context = lower.replace(percentMatch[0], '').trim();
+      const words = context.split(/\s+/).filter(w => w.length > 3).slice(0, 4);
+      if (words.length > 0) {
+        return `how to ${percentMatch[2]} ${words.join(' ')}`;
+      }
+    }
+
+    // Extract action words
+    const actionMatch = lower.match(/(reduce|increase|improve|grow|scale|convert|stop|recover)\s+(.+?)(?:\.|;|$)/i);
+    if (actionMatch) {
+      return `${actionMatch[1]} ${actionMatch[2].split(' ').slice(0, 4).join(' ')}`;
+    }
+
+    return '';
+  }
+
+  /**
+   * Convert problem/before-state to search keyword
+   */
+  private problemToKeyword(problem: string, industry: string): string {
+    const lower = problem.toLowerCase()
+      .replace(/\b(help|their|the|a|an)\b/g, '')
+      .trim();
+
+    // Look for the pain point
+    const painPatterns = [
+      /struggling with\s+(.+)/i,
+      /frustrated by\s+(.+)/i,
+      /dealing with\s+(.+)/i,
+      /facing\s+(.+)/i
+    ];
+
+    for (const pattern of painPatterns) {
+      const match = lower.match(pattern);
+      if (match) {
+        return `solving ${match[1].split(' ').slice(0, 5).join(' ')}`;
+      }
+    }
+
+    // Default: extract key nouns
+    const words = lower.split(/\s+/).filter(w => w.length > 4).slice(0, 5);
+    return words.length > 2 ? `${words.join(' ')} solutions` : '';
+  }
+
+  /**
+   * Convert unique solution to search keywords
+   */
+  private solutionToKeywords(solution: string, industry: string): string[] {
+    const keywords: string[] = [];
+    const lower = solution.toLowerCase();
+
+    // Extract differentiators
+    const diffPatterns = [
+      { match: /compliance/i, keyword: `${industry} compliance software` },
+      { match: /regulated/i, keyword: `solutions for regulated ${industry}` },
+      { match: /enterprise/i, keyword: `enterprise ${industry} platform` },
+      { match: /ai|artificial intelligence/i, keyword: `ai for ${industry}` },
+      { match: /automat\w*/i, keyword: `${industry} automation tools` },
+      { match: /security|secure/i, keyword: `secure ${industry} solutions` },
+      { match: /scalab\w*/i, keyword: `scalable ${industry} software` },
+      { match: /integrat\w*/i, keyword: `${industry} integration platform` },
+      { match: /real.?time/i, keyword: `real-time ${industry} analytics` },
+      { match: /custom\w*/i, keyword: `customizable ${industry} solution` }
+    ];
+
+    diffPatterns.forEach(({ match, keyword }) => {
+      if (match.test(lower)) {
+        keywords.push(keyword);
+      }
+    });
+
+    return keywords;
+  }
+
+  /**
+   * Build list of keywords relevant to UVP for filtering SEMrush results
+   * Extracts meaningful domain-specific terms, not generic words
    */
   private buildUVPRelevanceKeywords(): string[] {
     const keywords: string[] = [];
 
     if (!this.uvpData) return keywords;
 
-    // Extract key terms from UVP components
-    if (this.uvpData.target_customer) {
-      // Extract meaningful words from target customer (skip common words)
-      const words = this.uvpData.target_customer
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((w: string) => w.length > 3 && !['that', 'with', 'from', 'have', 'they', 'their', 'about'].includes(w));
-      keywords.push(...words.slice(0, 5));
+    // Common stop words to filter out
+    const stopWords = new Set([
+      'the', 'and', 'for', 'with', 'from', 'that', 'this', 'have', 'they', 'their',
+      'about', 'into', 'what', 'when', 'where', 'which', 'while', 'more', 'most',
+      'some', 'such', 'than', 'them', 'then', 'these', 'those', 'through', 'very',
+      'will', 'would', 'could', 'should', 'being', 'been', 'were', 'does', 'doing',
+      'during', 'each', 'having', 'here', 'just', 'like', 'make', 'made', 'many',
+      'much', 'need', 'needs', 'only', 'other', 'over', 'same', 'want', 'wants',
+      'your', 'help', 'achieve', 'goals', 'looking', 'seeking', 'trying', 'responsible',
+      'director', 'manager', 'executive', 'officer', 'head', 'chief', 'vice', 'president'
+    ]);
+
+    // High-value domain terms to prioritize (industry-specific keywords)
+    const domainTerms: string[] = [];
+
+    // Extract from unique_solution (most specific to the business)
+    if (this.uvpData.unique_solution) {
+      const solutionTerms = this.extractMeaningfulTerms(this.uvpData.unique_solution, stopWords);
+      domainTerms.push(...solutionTerms);
     }
 
-    if (this.uvpData.transformation) {
-      const words = this.uvpData.transformation
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((w: string) => w.length > 3 && !['that', 'with', 'from', 'into'].includes(w));
-      keywords.push(...words.slice(0, 5));
-    }
-
+    // Extract from key_benefit (what they deliver)
     if (this.uvpData.key_benefit) {
-      const words = this.uvpData.key_benefit
-        .toLowerCase()
-        .split(/\s+/)
-        .filter((w: string) => w.length > 3);
-      keywords.push(...words.slice(0, 3));
+      const benefitTerms = this.extractMeaningfulTerms(this.uvpData.key_benefit, stopWords);
+      domainTerms.push(...benefitTerms);
     }
 
-    // Also include brand industry
+    // Extract from transformation (before → after state)
+    if (this.uvpData.transformation) {
+      // Get terms from "before" state (pain points)
+      const beforeState = this.uvpData.transformation.split('→')[0]?.trim() || this.uvpData.transformation;
+      const transformTerms = this.extractMeaningfulTerms(beforeState, stopWords);
+      domainTerms.push(...transformTerms);
+    }
+
+    // Extract industry-specific terms from target_customer
+    if (this.uvpData.target_customer) {
+      // Look for industry/vertical mentions
+      const industryPatterns = [
+        /insurance/gi, /financial/gi, /healthcare/gi, /compliance/gi, /regulated/gi,
+        /banking/gi, /pharma/gi, /legal/gi, /enterprise/gi, /saas/gi, /b2b/gi,
+        /retail/gi, /manufacturing/gi, /logistics/gi, /hospitality/gi, /restaurant/gi,
+        /real estate/gi, /construction/gi, /automotive/gi, /education/gi, /government/gi
+      ];
+
+      industryPatterns.forEach(pattern => {
+        const matches = this.uvpData.target_customer.match(pattern);
+        if (matches) {
+          domainTerms.push(...matches.map((m: string) => m.toLowerCase()));
+        }
+      });
+    }
+
+    // Add brand name variations
+    if (this.brandData.name) {
+      const brandName = this.brandData.name.toLowerCase();
+      domainTerms.push(brandName);
+      // Also add without common suffixes
+      domainTerms.push(brandName.replace(/\s*(ai|inc|llc|ltd|corp|co)\s*$/i, '').trim());
+    }
+
+    // Add industry as a keyword
     if (this.brandData.industry) {
-      keywords.push(this.brandData.industry.toLowerCase());
+      domainTerms.push(this.brandData.industry.toLowerCase());
+      // Also add individual words from industry
+      this.brandData.industry.toLowerCase().split(/\s+/).forEach(w => {
+        if (w.length > 3 && !stopWords.has(w)) domainTerms.push(w);
+      });
     }
 
-    // Dedupe
-    const uniqueKeywords = [...new Set(keywords)];
-    console.log(`[Streaming/semrush] UVP relevance keywords:`, uniqueKeywords.slice(0, 10));
+    // Dedupe and clean
+    const uniqueKeywords = [...new Set(domainTerms)]
+      .filter(k => k.length > 2)
+      .slice(0, 25); // Limit to top 25 terms
+
+    console.log(`[Streaming/semrush] UVP relevance keywords (${uniqueKeywords.length}):`, uniqueKeywords);
 
     return uniqueKeywords;
+  }
+
+  /**
+   * Extract meaningful domain terms from text, filtering out common words
+   */
+  private extractMeaningfulTerms(text: string, stopWords: Set<string>): string[] {
+    const terms: string[] = [];
+
+    // First, look for multi-word phrases (2-3 words) that are meaningful
+    const phrases = text.match(/\b[a-z]+(?:\s+[a-z]+){1,2}\b/gi) || [];
+    phrases.forEach(phrase => {
+      const words = phrase.toLowerCase().split(/\s+/);
+      // Only include phrases where most words are not stop words
+      const meaningfulWords = words.filter(w => !stopWords.has(w) && w.length > 3);
+      if (meaningfulWords.length >= words.length * 0.5) {
+        terms.push(phrase.toLowerCase());
+      }
+    });
+
+    // Then extract single meaningful words
+    const words = text.toLowerCase().split(/[\s,;:.\-\/]+/);
+    words.forEach(word => {
+      // Clean the word
+      const cleanWord = word.replace(/[^a-z0-9]/g, '');
+      // Include if: not a stop word, length > 4, contains domain-relevant patterns
+      if (cleanWord.length > 4 && !stopWords.has(cleanWord)) {
+        // Prioritize words that look like domain terms
+        if (/tion$|ment$|ance$|ence$|ity$|ive$|ing$|ical$/.test(cleanWord) ||
+            /ai|ml|crm|erp|api|roi|coo|cfo|cto|cio|vp|saas|b2b|b2c/.test(cleanWord)) {
+          terms.push(cleanWord);
+        } else if (cleanWord.length > 5) {
+          terms.push(cleanWord);
+        }
+      }
+    });
+
+    return terms;
   }
 
   private async fetchNewsData(): Promise<DataPoint[]> {
     const dataPoints: DataPoint[] = [];
 
     try {
-      const articles = await SerperAPI.getNews(this.brandData.industry, undefined);
+      // Build UVP-targeted news search instead of generic industry search
+      const newsSearchTerms = this.buildNewsSearchTerms();
 
-      articles.slice(0, 20).forEach((article: any, idx: number) => {
+      console.log(`[Streaming/news] Searching for UVP-relevant news: "${newsSearchTerms}"`);
+
+      const articles = await SerperAPI.getNews(newsSearchTerms, undefined);
+
+      // Filter articles to ensure relevance to target customer topics
+      const relevantArticles = this.filterRelevantNews(articles);
+
+      console.log(`[Streaming/news] Filtered ${relevantArticles.length}/${articles.length} relevant articles`);
+
+      relevantArticles.slice(0, 15).forEach((article: any, idx: number) => {
         dataPoints.push({
           id: `news-${Date.now()}-${idx}`,
           source: 'news' as DataSource,
           type: 'trending_topic' as DataPointType,
           content: `${article.title}: ${article.snippet}`,
-          metadata: { url: article.link, source: article.source },
+          metadata: { url: article.link, source: article.source, uvpRelevant: true },
           createdAt: new Date()
         });
       });
@@ -1070,6 +1556,100 @@ export class StreamingDeepContextBuilder {
     }
 
     return dataPoints;
+  }
+
+  /**
+   * Build news search terms from UVP data - what would target customers read about?
+   */
+  private buildNewsSearchTerms(): string {
+    if (!this.uvpData) {
+      return this.brandData.industry || 'business technology';
+    }
+
+    const targetCustomer = this.uvpData.target_customer || '';
+    const uniqueSolution = this.uvpData.unique_solution || '';
+    const keyBenefit = this.uvpData.key_benefit || '';
+
+    // Extract key industry/topic from target customer
+    const industryTerms: string[] = [];
+
+    // Look for specific industries mentioned in target customer
+    const industryPatterns = [
+      { pattern: /insurance/i, term: 'insurance' },
+      { pattern: /financial|banking/i, term: 'financial services' },
+      { pattern: /healthcare|medical/i, term: 'healthcare' },
+      { pattern: /retail/i, term: 'retail' },
+      { pattern: /manufacturing/i, term: 'manufacturing' },
+      { pattern: /legal|law\s/i, term: 'legal' },
+      { pattern: /real estate/i, term: 'real estate' },
+      { pattern: /education/i, term: 'education' },
+      { pattern: /travel|hospitality/i, term: 'travel' }
+    ];
+
+    industryPatterns.forEach(({ pattern, term }) => {
+      if (pattern.test(targetCustomer)) {
+        industryTerms.push(term);
+      }
+    });
+
+    // Extract topics from unique solution
+    const topicTerms: string[] = [];
+    if (/compliance|regulated/i.test(uniqueSolution)) topicTerms.push('compliance');
+    if (/digital\s+transform/i.test(targetCustomer)) topicTerms.push('digital transformation');
+    if (/automation/i.test(uniqueSolution) || /automation/i.test(keyBenefit)) topicTerms.push('automation');
+    if (/customer\s+(experience|satisfaction)/i.test(targetCustomer)) topicTerms.push('customer experience');
+    if (/ai|artificial intelligence/i.test(uniqueSolution)) topicTerms.push('AI');
+    if (/conversion|sales/i.test(keyBenefit)) topicTerms.push('sales technology');
+
+    // Build search query
+    const primaryIndustry = industryTerms[0] || '';
+    const primaryTopic = topicTerms[0] || 'technology';
+
+    // Combine for targeted search
+    if (primaryIndustry && topicTerms.length > 0) {
+      return `${primaryIndustry} ${topicTerms.slice(0, 2).join(' ')}`;
+    } else if (primaryIndustry) {
+      return `${primaryIndustry} technology trends`;
+    } else if (topicTerms.length > 0) {
+      return topicTerms.slice(0, 3).join(' ');
+    }
+
+    return this.brandData.industry || 'business technology';
+  }
+
+  /**
+   * Filter news articles to only include UVP-relevant content
+   */
+  private filterRelevantNews(articles: any[]): any[] {
+    if (!this.uvpData || !articles.length) return articles;
+
+    // Build relevance terms from UVP
+    const relevanceTerms: string[] = [];
+
+    // Extract from target customer
+    const targetLower = (this.uvpData.target_customer || '').toLowerCase();
+    if (targetLower.includes('insurance')) relevanceTerms.push('insurance', 'policy', 'claims', 'underwriting');
+    if (targetLower.includes('financial')) relevanceTerms.push('financial', 'banking', 'fintech');
+    if (targetLower.includes('compliance')) relevanceTerms.push('compliance', 'regulatory', 'regulation');
+    if (targetLower.includes('customer')) relevanceTerms.push('customer', 'experience', 'satisfaction');
+    if (targetLower.includes('digital')) relevanceTerms.push('digital', 'transformation', 'modernization');
+    if (targetLower.includes('automation')) relevanceTerms.push('automation', 'automate', 'efficiency');
+    if (targetLower.includes('sales')) relevanceTerms.push('sales', 'conversion', 'revenue');
+
+    // Extract from unique solution
+    const solutionLower = (this.uvpData.unique_solution || '').toLowerCase();
+    if (solutionLower.includes('regulated')) relevanceTerms.push('regulated', 'compliance');
+    if (solutionLower.includes('ai')) relevanceTerms.push('ai', 'artificial intelligence', 'machine learning');
+
+    // If no specific terms, return all
+    if (relevanceTerms.length === 0) return articles;
+
+    // Filter articles
+    return articles.filter(article => {
+      const text = `${article.title} ${article.snippet}`.toLowerCase();
+      // Must match at least one relevance term
+      return relevanceTerms.some(term => text.includes(term));
+    });
   }
 
   private async fetchWeatherData(): Promise<DataPoint[]> {
@@ -1131,11 +1711,12 @@ export class StreamingDeepContextBuilder {
     });
 
     try {
-      // Multiple LinkedIn searches for richer B2B data
+      // Multiple LinkedIn searches - ALL using UVP-targeted terms, no generic industry
+      const uvpIndustry = this.getUVPIndustry(); // Extract industry from UVP, not brand metadata
       const searchQueries = [
         `site:linkedin.com ${customerTerm} challenges pain points`,
         `site:linkedin.com ${customerTerm} best practices tips`,
-        `site:linkedin.com "${this.brandData.industry}" thought leadership`,
+        `site:linkedin.com ${uvpIndustry} digital transformation trends`,
       ];
 
       // Run searches in parallel

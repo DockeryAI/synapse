@@ -161,12 +161,34 @@ npm run build
 ### Status: COMPLETE
 
 **Changes Made:**
-- Added `buildUVPRelevanceKeywords()` method to extract key terms from UVP data
-- Extracts terms from: target_customer, transformation, key_benefit, industry
-- Filters out common words (the, and, for, with, etc.)
-- Modified `fetchSemrushData()` to filter opportunities by UVP relevance
-- Console shows: `[Streaming/semrush] UVP Relevance Filter: X/Y keywords passed`
-- Falls back to top 10 by volume if no UVP keywords match (ensures some data always returns)
+- Completely replaced SEMrush approach - no longer shows generic domain keywords
+- Added `generateCustomerSearchKeywords()` - generates keywords from UVP personas
+- Extracts functional drivers (what they DO) and emotional drivers (how they FEEL)
+- Works across ANY industry - fully data-driven from UVP
+- Console shows: `[Streaming/keywords] Generated X customer-focused keywords from Y personas`
+
+---
+
+## ITEM #5: Fix ALL APIs to Use UVP-Targeted Searches (ADDED)
+
+### Problem
+News, LinkedIn, and OutScraper APIs were still using generic `brandData.industry` ("Software Publishers") instead of UVP-derived industry.
+
+### Task
+1. Fix News API to search for UVP-relevant topics
+2. Fix LinkedIn API to use UVP industry instead of generic
+3. Fix OutScraper API to use UVP industry for competitor discovery
+4. Add `getUVPIndustry()` helper to extract industry from target customer
+
+### Status: COMPLETE
+
+**Changes Made:**
+- Added `getUVPIndustry()` - extracts industry from UVP target_customer (insurance, financial, healthcare, etc.)
+- News API: Added `buildNewsSearchTerms()` and `filterRelevantNews()` - searches for UVP topics
+- LinkedIn API: Changed third search query to use `uvpIndustry` instead of `brandData.industry`
+- OutScraper API: Uses `uvpIndustry` for competitor discovery
+
+**Result:** For OpenDialog, searches now use "insurance compliance digital transformation" instead of "Software Publishers"
 
 ---
 
@@ -174,24 +196,27 @@ npm run build
 
 Before moving to Phase B:
 
-- [x] All 4 items marked COMPLETE
+- [x] All 5 items marked COMPLETE
 - [x] All acceptance criteria verified
 - [x] Build passes with no errors
-- [ ] Manual test with real brand (OpenDialog) shows relevant results
-- [ ] Commit all changes with proper format
+- [x] Manual test with real brand (OpenDialog) shows relevant results
+- [x] Commit all changes with proper format
 - [x] Console shows:
   ```
   ✅ [Streaming/uvp] UVP loaded with X pain points BEFORE APIs
   ✅ [Streaming/serper] Searching with UVP context: {targetCustomer: '...'}
   ✅ [Streaming] Generated X UVP seed embeddings (X > 0)
-  ✅ [Streaming] SEMrush filtered: X/Y keywords passed UVP relevance
+  ✅ [Streaming/keywords] Generated X customer-focused keywords from Y personas
+  ✅ [Streaming/news] Searching for UVP-relevant news: "insurance compliance..."
   ```
 
 ---
 
 ## NOTES / BLOCKERS
 
-(Update this section during implementation)
+- SEMrush domain keywords are generic (what brand ranks for) - replaced with customer-focused keyword generation
+- News filtering ensures only UVP-relevant articles are shown
+- All APIs now use `getUVPIndustry()` instead of `brandData.industry`
 
 ---
 
