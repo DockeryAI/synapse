@@ -51,6 +51,11 @@ const navigation: NavItem[] = [
     icon: LayoutDashboard,
   },
   {
+    title: 'Brand Profile',
+    href: '/brand-profile',
+    icon: User,
+  },
+  {
     title: 'Onboarding',
     href: '/onboarding',
     icon: BookOpen,

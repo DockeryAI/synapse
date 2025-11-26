@@ -13,6 +13,7 @@ const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ de
 const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').then(m => ({ default: m.ContentCalendarPage })))
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
+const BrandProfilePage = lazy(() => import('./pages/BrandProfilePage').then(m => ({ default: m.BrandProfilePage })))
 
 // TODO: Lazy load auth routes when ready to enable authentication (Phase 0)
 // const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -57,6 +58,9 @@ function App() {
                 <Route path="/synapse-old" element={<SynapsePage />} />
                 <Route path="/campaign/new" element={<CampaignPage />} />
                 <Route path="/content-calendar" element={<ContentCalendarPage />} />
+
+                {/* Brand Profile / UVP Settings */}
+                <Route path="/brand-profile" element={<BrandProfilePage />} />
 
                 {/* Admin Routes - Commented out until authentication is enabled */}
                 {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
