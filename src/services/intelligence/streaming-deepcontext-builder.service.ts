@@ -1851,7 +1851,20 @@ export class StreamingDeepContextBuilder {
    * This is the key differentiator: UVP seeds the entire analysis
    */
   private async generateUVPSeedEmbeddings(): Promise<void> {
-    if (!this.uvpData) return;
+    console.log(`[Streaming/uvp-seeds] ========== GENERATING UVP SEED EMBEDDINGS ==========`);
+
+    if (!this.uvpData) {
+      console.warn(`[Streaming/uvp-seeds] ⚠️ NO UVP DATA - Cannot generate seed embeddings`);
+      console.warn(`[Streaming/uvp-seeds] Clustering will use random centers instead of UVP pain points`);
+      return;
+    }
+
+    console.log(`[Streaming/uvp-seeds] ✅ UVP data available:`, {
+      target_customer: this.uvpData.target_customer ? 'YES' : 'NO',
+      transformation: this.uvpData.transformation ? 'YES' : 'NO',
+      unique_solution: this.uvpData.unique_solution ? 'YES' : 'NO',
+      key_benefit: this.uvpData.key_benefit ? 'YES' : 'NO'
+    });
 
     const painPointsWithCategories: { text: string; category: string }[] = [];
 
@@ -1904,7 +1917,16 @@ export class StreamingDeepContextBuilder {
       }
     }
 
-    console.log(`[Streaming] Generated ${this.uvpSeedEmbeddings.length} UVP seed embeddings as cluster centers`);
+    if (this.uvpSeedEmbeddings.length > 0) {
+      console.log(`[Streaming/uvp-seeds] ✅ Generated ${this.uvpSeedEmbeddings.length} UVP seed embeddings as cluster centers`);
+      console.log(`[Streaming/uvp-seeds] Pain points that will seed clusters:`);
+      this.uvpSeedEmbeddings.forEach((seed, i) => {
+        console.log(`  ${i + 1}. [${seed.category}] ${seed.painPoint.substring(0, 60)}...`);
+      });
+    } else {
+      console.warn(`[Streaming/uvp-seeds] ⚠️ No seed embeddings generated - check UVP data fields`);
+    }
+    console.log(`[Streaming/uvp-seeds] ========== UVP SEED EMBEDDINGS COMPLETE ==========`);
   }
 
   /**
