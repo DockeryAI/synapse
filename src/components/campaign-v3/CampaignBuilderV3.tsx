@@ -2,7 +2,7 @@
  * Campaign Builder V3
  *
  * Main campaign builder interface with step-by-step flow.
- * Goal-first approach: Goal → Type → Platforms → Duration → Review
+ * Goal-first approach: Goal → Type → Products (optional) → Platforms → Duration → Review
  *
  * Because building campaigns should be simple, not rocket science.
  */
@@ -13,6 +13,8 @@ import { CampaignTypeEngine } from '../../services/campaign-v3/CampaignTypeEngin
 import { DurationEnforcer } from '../../services/campaign-v3/DurationEnforcer';
 import { CampaignTypeSelector } from './CampaignTypeSelector';
 import { PlatformSelectorV3 } from './PlatformSelectorV3';
+import { ProductSelector } from '../campaign/product-selector';
+import { Package, Sparkles } from 'lucide-react';
 import type {
   BusinessGoal,
   BusinessType,
@@ -21,25 +23,31 @@ import type {
   CampaignDuration,
   CampaignV3Config,
 } from '../../types/campaign-v3.types';
+import type { Product } from '@/features/product-marketing/types/product.types';
 
 interface CampaignBuilderV3Props {
   userId: string;
+  brandId?: string; // For product selection
   businessType: BusinessType;
   businessName: string;
   industry: string;
   location?: string;
-  onComplete: (campaign: CampaignV3Config) => void;
+  /** Enable product selection step */
+  enableProductSelection?: boolean;
+  onComplete: (campaign: CampaignV3Config & { selectedProducts?: Product[] }) => void;
   onCancel?: () => void;
 }
 
-type Step = 'goal' | 'type' | 'platforms' | 'duration' | 'schedule' | 'review';
+type Step = 'goal' | 'type' | 'products' | 'platforms' | 'duration' | 'schedule' | 'review';
 
 export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
   userId,
+  brandId,
   businessType,
   businessName,
   industry,
   location,
+  enableProductSelection = false,
   onComplete,
   onCancel,
 }) => {
@@ -47,10 +55,14 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
   const [currentStep, setCurrentStep] = useState<Step>('goal');
   const [selectedGoal, setSelectedGoal] = useState<BusinessGoal>();
   const [selectedType, setSelectedType] = useState<CampaignTypeV3>();
+  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
   const [selectedPlatforms, setSelectedPlatforms] = useState<PlatformV3[]>([]);
   const [selectedDuration, setSelectedDuration] = useState<CampaignDuration>();
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // Determine if products step should be shown
+  const showProductsStep = enableProductSelection && brandId;
 
   // Update duration when campaign type changes
   useEffect(() => {
@@ -60,14 +72,24 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
     }
   }, [selectedType]);
 
-  // Steps configuration
-  const steps: { id: Step; label: string; canSkip: boolean }[] = [
+  // Steps configuration - dynamically include products step if enabled
+  const baseSteps: { id: Step; label: string; canSkip: boolean }[] = [
     { id: 'goal', label: 'Choose Goal', canSkip: false },
     { id: 'type', label: 'Campaign Type', canSkip: false },
+  ];
+
+  // Add products step if enabled
+  if (showProductsStep) {
+    baseSteps.push({ id: 'products', label: 'Select Products', canSkip: true });
+  }
+
+  baseSteps.push(
     { id: 'platforms', label: 'Select Platforms', canSkip: false },
     { id: 'duration', label: 'Duration & Schedule', canSkip: false },
     { id: 'review', label: 'Review & Launch', canSkip: false },
-  ];
+  );
+
+  const steps = baseSteps;
 
   const currentStepIndex = steps.findIndex(s => s.id === currentStep);
   const canGoNext = validateCurrentStep();
@@ -79,6 +101,9 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
         return !!selectedGoal;
       case 'type':
         return !!selectedType;
+      case 'products':
+        // Products step is optional, always valid
+        return true;
       case 'platforms':
         return selectedPlatforms.length >= 2 && selectedPlatforms.length <= 3;
       case 'duration':
@@ -123,7 +148,11 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
       campaign.duration = selectedDuration;
       campaign.startDate = startDate;
 
-      onComplete(campaign);
+      // Include selected products if any
+      onComplete({
+        ...campaign,
+        selectedProducts: selectedProducts.length > 0 ? selectedProducts : undefined,
+      });
     } catch (error) {
       console.error('Failed to create campaign:', error);
       alert('Failed to create campaign. Please try again.');
@@ -153,6 +182,15 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
           />
         );
 
+      case 'products':
+        return brandId ? (
+          <ProductsStep
+            brandId={brandId}
+            selectedProducts={selectedProducts}
+            onSelectionChange={setSelectedProducts}
+          />
+        ) : null;
+
       case 'platforms':
         return selectedType ? (
           <PlatformSelectorV3
@@ -181,6 +219,7 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
             duration={selectedDuration}
             startDate={startDate}
             businessName={businessName}
+            selectedProducts={selectedProducts}
           />
         ) : null;
 
@@ -396,6 +435,47 @@ const DurationScheduleStep: React.FC<{
   );
 };
 
+// Products Step (optional)
+const ProductsStep: React.FC<{
+  brandId: string;
+  selectedProducts: Product[];
+  onSelectionChange: (products: Product[]) => void;
+}> = ({ brandId, selectedProducts, onSelectionChange }) => {
+  return (
+    <div className="space-y-6">
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <Package className="w-7 h-7" />
+          Feature Products
+        </h2>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">
+          Optionally select products or services to feature in your campaign
+        </p>
+      </div>
+
+      <div className="bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg p-4 border border-purple-200 dark:border-purple-700">
+        <div className="flex items-start gap-3">
+          <Sparkles className="w-5 h-5 text-purple-600 dark:text-purple-400 mt-0.5" />
+          <div>
+            <p className="text-sm text-purple-900 dark:text-purple-200">
+              <strong>Pro tip:</strong> Campaigns with featured products typically see 2-3x higher engagement.
+              The AI will create content specifically highlighting your selected products.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <ProductSelector
+        brandId={brandId}
+        selectedProducts={selectedProducts}
+        onSelectionChange={onSelectionChange}
+        maxSelection={3}
+        showRecommendations={true}
+      />
+    </div>
+  );
+};
+
 // Review Step
 const ReviewStep: React.FC<{
   campaignType: CampaignTypeV3;
@@ -403,7 +483,8 @@ const ReviewStep: React.FC<{
   duration: CampaignDuration;
   startDate: Date;
   businessName: string;
-}> = ({ campaignType, platforms, duration, startDate, businessName }) => {
+  selectedProducts?: Product[];
+}> = ({ campaignType, platforms, duration, startDate, businessName, selectedProducts }) => {
   const campaignTypeData = CampaignTypeEngine.getType(campaignType);
   const estimatedPosts = CampaignTypeEngine.getEstimatedPostCount(campaignType, platforms.length);
 
@@ -427,6 +508,26 @@ const ReviewStep: React.FC<{
             {campaignTypeData?.icon} {campaignTypeData?.name}
           </p>
         </div>
+
+        {/* Featured Products */}
+        {selectedProducts && selectedProducts.length > 0 && (
+          <div className="p-4 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 rounded-lg border border-purple-200 dark:border-purple-700">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+              <Package className="w-4 h-4" />
+              Featured Products ({selectedProducts.length})
+            </h3>
+            <div className="flex flex-wrap gap-2">
+              {selectedProducts.map((product) => (
+                <span
+                  key={product.id}
+                  className="px-3 py-1 bg-white dark:bg-gray-800 rounded-full text-sm text-gray-700 dark:text-gray-300 border border-purple-200 dark:border-purple-600"
+                >
+                  {product.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
 
         <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
           <h3 className="font-semibold text-gray-900 dark:text-white mb-2">

@@ -12,12 +12,15 @@
 
 import React, { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Settings, Target, Sparkles, Lightbulb, Database } from 'lucide-react';
+import { Zap, Settings, Target, Sparkles, Lightbulb, Database, Package } from 'lucide-react';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { OpportunityAlert } from '@/types/v2/intelligence.types';
 import { EasyMode } from './intelligence-v2/EasyMode';
 import { PowerMode } from './intelligence-v2/PowerMode';
 import { OpportunityRadar } from './OpportunityRadar';
+import { AiPicksPanel } from './AiPicksPanel';
+import { ProductsTab } from './intelligence-v2/ProductsTab';
+import type { SmartPick } from '@/types/smart-picks.types';
 
 // Lazy load heavy components
 const IntelligenceExplorer = lazy(() => import('./IntelligenceExplorer').then(m => ({ default: m.IntelligenceExplorer })));
@@ -28,7 +31,7 @@ export interface IntelligenceLibraryV2Props {
   onGenerateCampaign: (selectedInsights: string[]) => void;
 }
 
-type ViewTab = 'opportunities' | 'ai-picks' | 'content-mix' | 'intelligence';
+type ViewTab = 'opportunities' | 'ai-picks' | 'content-mix' | 'intelligence' | 'products';
 type ViewMode = 'easy' | 'power';
 
 const MODE_STORAGE_KEY = 'intelligence_library_mode';
@@ -38,7 +41,7 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
   // Load tab from localStorage or default to 'content-mix'
   const [activeTab, setActiveTab] = useState<ViewTab>(() => {
     const stored = localStorage.getItem(TAB_STORAGE_KEY);
-    return (stored === 'opportunities' || stored === 'ai-picks' || stored === 'content-mix' || stored === 'intelligence') ? stored : 'content-mix';
+    return (stored === 'opportunities' || stored === 'ai-picks' || stored === 'content-mix' || stored === 'intelligence' || stored === 'products') ? stored : 'content-mix';
   });
 
   // Load mode from localStorage or default to 'power'
@@ -151,6 +154,149 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
     return alerts;
   }, [context]);
 
+  // Generate AI picks from context insights
+  const aiPicks = useMemo((): SmartPick[] => {
+    const picks: SmartPick[] = [];
+    const uvp = context.business?.uvp;
+    const targetCustomer = uvp?.targetCustomer || 'your customers';
+
+    // Create picks based on different insight types
+    // Authority Builder - from competitive gaps
+    if (context.competitiveIntel?.blindSpots?.length) {
+      const blindSpot = context.competitiveIntel.blindSpots[0];
+      picks.push({
+        id: 'ai-authority-1',
+        title: `Position as the Expert: ${blindSpot.topic?.substring(0, 50) || 'Industry Leadership'}`,
+        description: `Build authority by addressing what competitors miss. ${blindSpot.actionableInsight || ''}`,
+        campaignType: 'authority-builder',
+        confidence: 0.85,
+        relevance: 0.9,
+        timeliness: 0.7,
+        evidenceQuality: 0.8,
+        overallScore: 0.85,
+        insights: [blindSpot.topic || ''],
+        dataSources: ['Competitive Analysis'],
+        preview: {
+          headline: blindSpot.topic || 'Industry Expertise',
+          hook: blindSpot.reasoning || 'Why this matters to your customers',
+          platform: 'LinkedIn',
+        },
+        reasoning: `Competitors aren't addressing: ${blindSpot.topic}`,
+        expectedPerformance: { engagement: 'high', reach: 'medium', conversions: 'medium' },
+        metadata: { generatedAt: new Date() },
+      });
+    }
+
+    // Problem Solver - from customer psychology
+    if (context.customerPsychology?.unarticulated?.length) {
+      const need = context.customerPsychology.unarticulated[0];
+      picks.push({
+        id: 'ai-problem-1',
+        title: `Address Hidden Pain: ${need.need?.substring(0, 50) || 'Customer Challenge'}`,
+        description: `Create content that speaks directly to ${targetCustomer}'s unspoken needs.`,
+        campaignType: 'social-proof',
+        confidence: 0.8,
+        relevance: 0.85,
+        timeliness: 0.65,
+        evidenceQuality: 0.75,
+        overallScore: 0.78,
+        insights: [need.need || ''],
+        dataSources: ['Customer Research'],
+        preview: {
+          headline: need.marketingAngle || need.need || 'Solution for your challenges',
+          hook: need.emotionalDriver || 'We understand your frustration',
+          platform: 'Facebook',
+        },
+        reasoning: `${targetCustomer} experience: ${need.need}`,
+        expectedPerformance: { engagement: 'high', reach: 'high', conversions: 'medium' },
+        metadata: { generatedAt: new Date() },
+      });
+    }
+
+    // Trend Rider - from market trends
+    if (context.industry?.trends?.length) {
+      const trend = context.industry.trends.find(t => t.direction === 'rising') || context.industry.trends[0];
+      picks.push({
+        id: 'ai-trend-1',
+        title: `Ride the Wave: ${trend.trend?.substring(0, 50) || 'Market Trend'}`,
+        description: `Position as an early adopter of ${trend.trend}. Perfect timing for ${targetCustomer}.`,
+        campaignType: 'multi-post',
+        confidence: 0.75,
+        relevance: 0.8,
+        timeliness: 0.9,
+        evidenceQuality: 0.7,
+        overallScore: 0.8,
+        insights: [trend.trend],
+        dataSources: [trend.source || 'Industry Research'],
+        preview: {
+          headline: trend.trend,
+          hook: trend.implication || 'Why this matters now',
+          platform: 'Twitter',
+        },
+        reasoning: `Rising trend: ${trend.trend}`,
+        expectedPerformance: { engagement: 'medium', reach: 'high', conversions: 'low' },
+        metadata: { generatedAt: new Date() },
+      });
+    }
+
+    // Trust Builder - from opportunities
+    if (context.competitiveIntel?.opportunities?.length) {
+      const opportunity = context.competitiveIntel.opportunities[0];
+      picks.push({
+        id: 'ai-trust-1',
+        title: `Build Trust: ${opportunity.gap?.substring(0, 50) || 'Customer Confidence'}`,
+        description: `Show ${targetCustomer} why they can trust you with ${opportunity.positioning || 'their business'}.`,
+        campaignType: 'social-proof',
+        confidence: 0.82,
+        relevance: 0.88,
+        timeliness: 0.6,
+        evidenceQuality: 0.8,
+        overallScore: 0.77,
+        insights: [opportunity.gap || ''],
+        dataSources: ['Market Analysis'],
+        preview: {
+          headline: opportunity.positioning || 'Why customers choose us',
+          hook: 'Real results from real customers',
+          platform: 'Instagram',
+        },
+        reasoning: `Market gap: ${opportunity.gap}`,
+        expectedPerformance: { engagement: 'high', reach: 'medium', conversions: 'high' },
+        metadata: { generatedAt: new Date() },
+      });
+    }
+
+    // Local Champion - if there are local insights
+    const localMoments = context.realTimeCultural?.moments || [];
+    if (localMoments.length > 0) {
+      const moment = localMoments[0];
+      const momentText = typeof moment === 'string' ? moment : moment.description;
+      picks.push({
+        id: 'ai-local-1',
+        title: `Local Relevance: ${momentText?.substring(0, 50) || 'Community Connection'}`,
+        description: `Connect with ${targetCustomer} through local relevance and community.`,
+        campaignType: 'local-pulse',
+        confidence: 0.78,
+        relevance: 0.85,
+        timeliness: 0.95,
+        evidenceQuality: 0.7,
+        overallScore: 0.82,
+        insights: [momentText || ''],
+        dataSources: ['Local Intelligence'],
+        preview: {
+          headline: momentText || 'Your local solution',
+          hook: 'Right here, right now',
+          platform: 'Facebook',
+        },
+        reasoning: `Local opportunity: ${momentText}`,
+        expectedPerformance: { engagement: 'high', reach: 'low', conversions: 'high' },
+        metadata: { generatedAt: new Date() },
+      });
+    }
+
+    // Sort by overall score
+    return picks.sort((a, b) => b.overallScore - a.overallScore);
+  }, [context]);
+
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-slate-800">
       {/* Header with Tab Navigation */}
@@ -253,6 +399,17 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
             <Lightbulb className="w-4 h-4" />
             Intelligence
           </button>
+          <button
+            onClick={() => handleTabChange('products')}
+            className={`flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-all ${
+              activeTab === 'products'
+                ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300'
+                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-slate-800'
+            }`}
+          >
+            <Package className="w-4 h-4" />
+            Products
+          </button>
         </div>
       </div>
 
@@ -285,10 +442,73 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="h-full p-6"
+              className="h-full p-6 overflow-auto"
             >
-              <div className="text-center py-12 text-gray-500 dark:text-gray-400">
-                AI Picks Tab - Coming Soon
+              <div className="max-w-6xl mx-auto">
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    AI-Recommended Content
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Based on your target customer insights and competitive gaps
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {aiPicks.map((pick) => (
+                    <div
+                      key={pick.id}
+                      className="p-4 bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 hover:border-purple-300 dark:hover:border-purple-700 cursor-pointer transition-all group"
+                      onClick={() => {
+                        console.log('[AI Pick] Selected:', pick);
+                        handleTabChange('content-mix');
+                      }}
+                    >
+                      <div className="flex items-start gap-3 mb-3">
+                        <div className={`w-10 h-10 rounded-lg bg-gradient-to-br ${
+                          pick.campaignType === 'authority-builder' ? 'from-blue-500 to-blue-600' :
+                          pick.campaignType === 'social-proof' ? 'from-yellow-500 to-yellow-600' :
+                          pick.campaignType === 'local-pulse' ? 'from-green-500 to-green-600' :
+                          'from-purple-500 to-purple-600'
+                        } flex items-center justify-center`}>
+                          <Sparkles className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 line-clamp-2">
+                            {pick.title}
+                          </h4>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">
+                            {pick.campaignType.replace('-', ' ')}
+                          </span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">
+                        {pick.description}
+                      </p>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-1.5 w-20">
+                            <div
+                              className="bg-purple-600 h-1.5 rounded-full"
+                              style={{ width: `${pick.overallScore * 100}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-gray-500">{Math.round(pick.overallScore * 100)}%</span>
+                        </div>
+                        <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
+                          {pick.preview?.platform || 'Multi-platform'}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {aiPicks.length === 0 && (
+                  <div className="text-center py-12 text-gray-500 dark:text-gray-400">
+                    <Sparkles className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                    <p>Loading AI recommendations...</p>
+                  </div>
+                )}
               </div>
             </motion.div>
           )}
@@ -335,6 +555,38 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
                   onGenerateContent={() => {}}
                 />
               </Suspense>
+            </motion.div>
+          )}
+
+          {activeTab === 'products' && (
+            <motion.div
+              key="products"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="h-full p-6 overflow-auto"
+            >
+              <div className="max-w-6xl mx-auto">
+                <div className="mb-6">
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    Product Catalog
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Your products and services extracted from UVP onboarding. Select products to create targeted content.
+                  </p>
+                </div>
+                <ProductsTab
+                  brandId={context.business?.profile?.id || ''}
+                  onSelectProduct={(product) => {
+                    console.log('[Products] Selected:', product);
+                  }}
+                  onPromoteProduct={(product) => {
+                    console.log('[Products] Promote:', product);
+                    // Switch to content-mix tab to create content for this product
+                    handleTabChange('content-mix');
+                  }}
+                />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

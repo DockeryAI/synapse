@@ -45,6 +45,7 @@ import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
+import { syncUVPProductsToCatalog } from '@/services/product-marketing/uvp-product-sync.service';
 import type { ExtractedUVPData } from '@/types/smart-uvp.types';
 import type { IndustryOption } from '@/components/onboarding-v5/IndustrySelector';
 import type { WebsiteMessagingAnalysis } from '@/services/intelligence/website-analyzer.service';
@@ -1511,7 +1512,7 @@ export const OnboardingPageV5: React.FC = () => {
     });
   };
 
-  const handleProductsNext = () => {
+  const handleProductsNext = async () => {
     console.log('[UVP Flow] Moving to customer step');
 
     // Mark products step as completed
@@ -1531,6 +1532,26 @@ export const OnboardingPageV5: React.FC = () => {
         } : undefined,
         completed_steps: newCompletedSteps,
         progress_percentage: sessionManager.calculateProgress(newCompletedSteps),
+      });
+    }
+
+    // SYNC PRODUCTS TO CATALOG: Save confirmed products to pm_products table
+    // This runs in background - don't block UVP flow
+    if (currentBrand?.id && productServiceData) {
+      console.log('[UVP Flow] 📦 Syncing products to catalog in background...');
+      syncUVPProductsToCatalog(currentBrand.id, productServiceData, {
+        confirmedOnly: true,
+        skipExisting: true,
+        minConfidence: 0.5,
+      }).then(result => {
+        console.log('[UVP Flow] ✅ Product sync complete:', {
+          created: result.productsCreated,
+          skipped: result.productsSkipped,
+          errors: result.errors.length,
+        });
+      }).catch(err => {
+        // Don't block UVP flow if sync fails
+        console.warn('[UVP Flow] Product sync error (non-blocking):', err);
       });
     }
 

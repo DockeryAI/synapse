@@ -3,17 +3,20 @@
  *
  * Displays a single AI-recommended campaign with:
  * - Headline and hook preview
+ * - Product badges for product-enhanced picks
  * - Confidence/quality indicators
  * - Data sources used
  * - Generate and Preview actions
  *
  * Created: 2025-11-15
+ * Updated: 2025-11-26 - Added product-enhanced pick support
  */
 
 import React from 'react'
 import { motion } from 'framer-motion'
-import { Sparkles, TrendingUp, Clock, CheckCircle2, ChevronRight, Zap } from 'lucide-react'
+import { Sparkles, TrendingUp, Clock, CheckCircle2, ChevronRight, Zap, Package, ShoppingBag } from 'lucide-react'
 import type { SmartPick } from '@/types/smart-picks.types'
+import type { ProductEnhancedSmartPick } from '@/services/product-marketing/product-smart-pick-enhancer.service'
 
 // Icon mapping for data sources
 const SOURCE_ICONS: Record<string, React.ComponentType<any>> = {
@@ -25,17 +28,27 @@ const SOURCE_ICONS: Record<string, React.ComponentType<any>> = {
   Video: (props: any) => <span {...props}>🎥</span>,
   Target: (props: any) => <span {...props}>🎯</span>,
   Building: (props: any) => <span {...props}>🏢</span>,
-  MapPin: (props: any) => <span {...props}>📍</span>
+  MapPin: (props: any) => <span {...props}>📍</span>,
+  Package: (props: any) => <Package {...props} size={16} />,
+}
+
+// Type guard to check if pick is product-enhanced
+function isProductEnhancedPick(pick: SmartPick | ProductEnhancedSmartPick): pick is ProductEnhancedSmartPick {
+  return 'isProductPick' in pick && pick.isProductPick === true
 }
 
 export interface SmartPickCardProps {
-  pick: SmartPick
-  onGenerate: (pick: SmartPick) => void
-  onPreview: (pick: SmartPick) => void
+  pick: SmartPick | ProductEnhancedSmartPick
+  onGenerate: (pick: SmartPick | ProductEnhancedSmartPick) => void
+  onPreview: (pick: SmartPick | ProductEnhancedSmartPick) => void
   rank?: number
 }
 
 export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCardProps) {
+  // Check if this is a product-enhanced pick
+  const isProductPick = isProductEnhancedPick(pick)
+  const productPick = isProductPick ? pick : null
+
   // Format confidence as percentage
   const confidencePercent = Math.round(pick.confidence * 100)
   const overallScorePercent = Math.round(pick.overallScore * 100)
@@ -80,18 +93,51 @@ export function SmartPickCard({ pick, onGenerate, onPreview, rank }: SmartPickCa
             animate={{ rotate: [0, 10, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
           >
-            <Sparkles className="text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" size={20} />
+            {isProductPick ? (
+              <ShoppingBag className="text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" size={20} />
+            ) : (
+              <Sparkles className="text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" size={20} />
+            )}
           </motion.div>
           <div>
             <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-lg leading-tight">
               {pick.title}
             </h3>
-            <span className="inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 dark:from-purple-900/40 dark:to-blue-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
-              {pick.campaignType.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-            </span>
+            <div className="flex flex-wrap gap-1.5 mt-1">
+              <span className="inline-block px-2 py-0.5 text-xs font-medium rounded-full bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 dark:from-purple-900/40 dark:to-blue-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-700">
+                {pick.campaignType.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+              </span>
+              {/* Product Badge */}
+              {productPick?.product && (
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 text-xs font-medium rounded-full bg-gradient-to-r from-green-100 to-emerald-100 text-green-700 dark:from-green-900/40 dark:to-emerald-900/40 dark:text-green-300 border border-green-200 dark:border-green-700">
+                  <Package size={10} />
+                  {productPick.product.name}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Product-specific action statement */}
+      {productPick?.actionStatement && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          className="mb-4 p-3 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-green-900/20 dark:via-emerald-900/20 dark:to-teal-900/20 rounded-lg border border-green-200 dark:border-green-700"
+        >
+          <p className="text-sm font-medium text-green-900 dark:text-green-200">
+            {productPick.actionStatement}
+          </p>
+          {productPick.suggestedTemplate && (
+            <span className="inline-block mt-2 text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+              <Zap size={12} />
+              Template: {productPick.suggestedTemplate}
+            </span>
+          )}
+        </motion.div>
+      )}
 
       {/* Preview Content */}
       {pick.preview.headline && (

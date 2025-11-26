@@ -3,19 +3,22 @@
  *
  * Main component that:
  * - Generates smart picks from DeepContext
+ * - Enhances picks with product recommendations
  * - Displays grid of SmartPickCards
  * - Handles pick selection and preview
  * - Provides fallback to Content Mixer
  *
  * Created: 2025-11-15
+ * Updated: 2025-11-26 - Added product-enhanced picks
  */
 
 import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sparkles, Loader2, AlertCircle, Lightbulb, Zap } from 'lucide-react'
+import { Sparkles, Loader2, AlertCircle, Lightbulb, Zap, Package } from 'lucide-react'
 import type { DeepContext } from '@/types/synapse/deepContext.types'
 import type { SmartPick, CampaignType } from '@/types/smart-picks.types'
 import { generateSmartPicks } from '@/services/campaign/SmartPickGenerator'
+import { enhanceSmartPicksWithProducts, type ProductEnhancedSmartPick } from '@/services/product-marketing/product-smart-pick-enhancer.service'
 import { SmartPickCard } from './SmartPickCard'
 import { QuickPreview } from './QuickPreview'
 
@@ -23,30 +26,38 @@ export interface SmartPicksProps {
   /** Deep context with business intelligence */
   context: DeepContext
 
+  /** Brand ID for product recommendations */
+  brandId?: string
+
   /** Optional filter by campaign type */
   campaignType?: CampaignType
 
   /** Callback when user wants to generate a campaign */
-  onGenerateCampaign: (pick: SmartPick) => void
+  onGenerateCampaign: (pick: SmartPick | ProductEnhancedSmartPick) => void
 
   /** Callback when user wants to use Content Mixer instead */
   onSwitchToMixer?: () => void
 
   /** Maximum number of picks to show */
   maxPicks?: number
+
+  /** Enable product-enhanced picks */
+  enableProductPicks?: boolean
 }
 
 export function SmartPicks({
   context,
+  brandId,
   campaignType,
   onGenerateCampaign,
   onSwitchToMixer,
-  maxPicks = 5
+  maxPicks = 5,
+  enableProductPicks = true
 }: SmartPicksProps) {
-  const [picks, setPicks] = useState<SmartPick[]>([])
+  const [picks, setPicks] = useState<(SmartPick | ProductEnhancedSmartPick)[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [previewPick, setPreviewPick] = useState<SmartPick | null>(null)
+  const [previewPick, setPreviewPick] = useState<SmartPick | ProductEnhancedSmartPick | null>(null)
 
   // Generate picks on mount
   useEffect(() => {
@@ -66,7 +77,15 @@ export function SmartPicks({
 
         console.log(`[SmartPicks] Generated ${result.picks.length} picks in ${result.metadata.generationTimeMs}ms`)
 
-        setPicks(result.picks)
+        // Enhance with product recommendations if enabled and brandId is available
+        if (enableProductPicks && brandId) {
+          console.log('[SmartPicks] Enhancing with product recommendations...')
+          const enhancedPicks = await enhanceSmartPicksWithProducts(brandId, result.picks, context)
+          console.log(`[SmartPicks] Enhanced to ${enhancedPicks.length} picks with product recommendations`)
+          setPicks(enhancedPicks)
+        } else {
+          setPicks(result.picks)
+        }
       } catch (err) {
         console.error('[SmartPicks] Generation failed:', err)
         setError(err instanceof Error ? err.message : 'Failed to generate picks')
@@ -76,7 +95,7 @@ export function SmartPicks({
     }
 
     generate()
-  }, [context, campaignType, maxPicks])
+  }, [context, brandId, campaignType, maxPicks, enableProductPicks])
 
   // Loading state
   if (loading) {

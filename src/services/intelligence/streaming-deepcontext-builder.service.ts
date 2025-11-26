@@ -59,6 +59,7 @@ type ApiName = typeof ALL_APIS[number];
 export class StreamingDeepContextBuilder {
   private brandData: any = null;
   private uvpData: any = null; // UVP data with target customer info
+  private productCatalog: any[] = []; // Product catalog from pm_products
   private dataPoints: DataPoint[] = [];
   private completedApis: Set<string> = new Set();
   private startTime: number = 0;
@@ -110,6 +111,16 @@ export class StreamingDeepContextBuilder {
       this.completedApis.add('uvp');
       this.currentContext = await this.buildContextFromDataPoints();
       this.notifyProgress(false); // Immediate first update with UVP data
+    }
+
+    // 1.6 Load product catalog data (from pm_products table)
+    const productDataPoints = await this.loadProductCatalogData();
+    if (productDataPoints.length > 0) {
+      console.log(`[Streaming] Loaded ${productDataPoints.length} product catalog data points`);
+      this.dataPoints.push(...productDataPoints);
+      this.completedApis.add('products');
+      this.currentContext = await this.buildContextFromDataPoints();
+      this.notifyProgress(false);
     }
 
     // 2. Determine which APIs to use based on business type
@@ -1053,6 +1064,113 @@ export class StreamingDeepContextBuilder {
         metadata: { uvpType: 'complete_uvp', confidence: 1.0 },
         createdAt: new Date(this.uvpData.created_at)
       });
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Load product catalog data from pm_products table
+   * Products are used to generate product-specific content and match insights
+   */
+  private async loadProductCatalogData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      // Load products from pm_products table
+      const { data: products, error } = await supabase
+        .from('pm_products')
+        .select('*')
+        .eq('brand_id', this.brandData.id)
+        .eq('status', 'active')
+        .order('is_featured', { ascending: false })
+        .order('is_bestseller', { ascending: false })
+        .limit(50);
+
+      if (error) {
+        console.log('[Streaming/products] Database error (table may not exist):', error.message);
+        return dataPoints;
+      }
+
+      if (!products || products.length === 0) {
+        console.log('[Streaming/products] No products found for brand:', this.brandData.id);
+        return dataPoints;
+      }
+
+      console.log(`[Streaming/products] ====== PRODUCT CATALOG LOADED ======`);
+      console.log(`[Streaming/products] Found ${products.length} active products`);
+
+      // Store products for use by content synthesis
+      this.productCatalog = products;
+
+      // Convert products to data points for context
+      for (const product of products) {
+        // Product name and description as content
+        const productContent = [
+          `Product: ${product.name}`,
+          product.description ? `Description: ${product.description}` : '',
+          product.features?.length > 0 ? `Features: ${product.features.join(', ')}` : '',
+          product.benefits?.length > 0 ? `Benefits: ${product.benefits.join(', ')}` : '',
+          product.price ? `Price: ${product.price_display || product.price}` : '',
+        ].filter(Boolean).join('\n');
+
+        dataPoints.push({
+          id: `product-${product.id}`,
+          source: 'website' as DataSource,
+          type: 'trending_topic' as DataPointType,
+          content: productContent,
+          metadata: {
+            productId: product.id,
+            productName: product.name,
+            productType: product.is_service ? 'service' : 'product',
+            isFeatured: product.is_featured,
+            isBestseller: product.is_bestseller,
+            isSeasonal: product.is_seasonal,
+            category: product.category_id,
+            tags: product.tags,
+            confidence: 1.0,
+          },
+          createdAt: new Date(product.created_at)
+        });
+
+        // If product has specific features, add them as separate data points
+        if (product.features && product.features.length > 0) {
+          dataPoints.push({
+            id: `product-features-${product.id}`,
+            source: 'website' as DataSource,
+            type: 'competitive_gap' as DataPointType,
+            content: `${product.name} features: ${product.features.join(', ')}`,
+            metadata: {
+              productId: product.id,
+              dataType: 'product_features',
+              confidence: 1.0,
+            },
+            createdAt: new Date(product.created_at)
+          });
+        }
+
+        // If product has benefits, add them for customer-focused content
+        if (product.benefits && product.benefits.length > 0) {
+          dataPoints.push({
+            id: `product-benefits-${product.id}`,
+            source: 'website' as DataSource,
+            type: 'customer_trigger' as DataPointType,
+            content: `${product.name} benefits: ${product.benefits.join(', ')}`,
+            metadata: {
+              productId: product.id,
+              dataType: 'product_benefits',
+              confidence: 1.0,
+            },
+            createdAt: new Date(product.created_at)
+          });
+        }
+      }
+
+      console.log(`[Streaming/products] Generated ${dataPoints.length} product data points`);
+      console.log(`[Streaming/products] ===================================`);
+
+    } catch (error) {
+      console.error('[Streaming/products] Error loading products:', error);
     }
 
     return dataPoints;
