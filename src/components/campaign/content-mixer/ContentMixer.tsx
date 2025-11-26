@@ -27,7 +27,9 @@ import { InsightPool } from './InsightPool';
 import { SelectionArea } from './SelectionArea';
 import { LivePreview } from './LivePreview';
 import { InsightCard } from './InsightCard';
+import { UVPContentOptions } from './UVPContentOptions';
 import type { CategorizedInsight, InsightPool as InsightPoolType } from '@/types/content-mixer.types';
+import type { DeepContext } from '@/types/synapse/deepContext.types';
 
 interface ContentMixerProps {
   /** Available insights organized by category */
@@ -38,9 +40,25 @@ interface ContentMixerProps {
 
   /** Maximum insights allowed in selection */
   maxInsights?: number;
+
+  /** DeepContext for UVP-powered content generation (Phase D) */
+  context?: DeepContext | null;
+
+  /** Business segment for UVP features */
+  segment?: 'smb_local' | 'smb_regional' | 'b2b_national' | 'b2b_global';
+
+  /** Show UVP content tools panel */
+  showUVPTools?: boolean;
 }
 
-export function ContentMixer({ pool, onGenerate, maxInsights = 5 }: ContentMixerProps) {
+export function ContentMixer({
+  pool,
+  onGenerate,
+  maxInsights = 5,
+  context = null,
+  segment = 'smb_local',
+  showUVPTools = true
+}: ContentMixerProps) {
   const [selectedInsights, setSelectedInsights] = useState<CategorizedInsight[]>([]);
   const [activeInsight, setActiveInsight] = useState<CategorizedInsight | null>(null);
   const [platform, setPlatform] = useState<'linkedin' | 'facebook' | 'instagram' | 'twitter' | 'tiktok'>('linkedin');
@@ -225,6 +243,17 @@ export function ContentMixer({ pool, onGenerate, maxInsights = 5 }: ContentMixer
               onGenerate={handleGenerate}
             />
           </div>
+
+          {/* UVP Content Tools Panel (Phase D - Item #30) */}
+          {showUVPTools && (
+            <div className="w-full lg:w-80 xl:w-96 lg:h-full flex-shrink-0">
+              <UVPContentOptions
+                selectedInsights={selectedInsights}
+                context={context}
+                segment={segment}
+              />
+            </div>
+          )}
         </div>
 
         {/* Drag Overlay (shows while dragging) */}
