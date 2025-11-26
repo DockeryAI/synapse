@@ -30,6 +30,11 @@ export interface OpportunityAlert {
   detectedAt: string;
   metadata: {
     keywords?: string[];
+    // Common metadata for all opportunity sources
+    reasoning?: string; // Why this is an opportunity
+    evidence?: string[]; // Supporting data points
+    sourceLabel?: string; // Display label for the source
+    sourceDate?: string; // When this was detected
     trendData?: {
       volume: number;
       growth: number;
@@ -157,19 +162,5 @@ export interface ScoringConfig {
   };
 }
 
-// Export all types
-export type {
-  OpportunityTier,
-  OpportunitySource,
-  OpportunityAlert,
-  OpportunityRadarConfig,
-  OpportunityRadarState,
-  CompetitorTheme,
-  CompetitorProfile,
-  WhiteSpaceOpportunity,
-  DifferentiationScore,
-  ScoringFactorName,
-  ScoringFactor,
-  BreakthroughScore,
-  ScoringConfig,
-};
+// NOTE: All types are already exported via 'export interface' / 'export type' declarations above
+// No need for a separate export block

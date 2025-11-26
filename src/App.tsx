@@ -8,8 +8,8 @@ import { AppLayout } from './components/layout/AppLayout'
 const SynapsePage = lazy(() => import('./pages/SynapsePage').then(m => ({ default: m.SynapsePage })))
 const OnboardingPageV5 = lazy(() => import('./pages/OnboardingPageV5').then(m => ({ default: m.OnboardingPageV5 })))
 const SessionManagerPage = lazy(() => import('./pages/SessionManagerPage').then(m => ({ default: m.SessionManagerPage })))
-// Using the new streaming architecture for dashboard
-const DashboardPage = lazy(() => import('./pages/DashboardPageV2').then(m => ({ default: m.DashboardPageV2 })))
+// Original working dashboard (V2 streaming architecture was broken)
+const DashboardPage = lazy(() => import('./pages/DashboardPage').then(m => ({ default: m.DashboardPage })))
 const ContentCalendarPage = lazy(() => import('./pages/ContentCalendarPage').then(m => ({ default: m.ContentCalendarPage })))
 const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ default: m.CampaignPage })))
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))

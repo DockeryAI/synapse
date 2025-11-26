@@ -70,26 +70,27 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
     const alerts: OpportunityAlert[] = [];
 
     // Convert blind spots into competitor-gap opportunities
+    // Type uses 'topic' and 'reasoning'/'actionableInsight' (not 'blindSpot' and 'gap')
     context.competitiveIntel?.blindSpots?.forEach((blindSpot, idx) => {
       alerts.push({
         id: `blindspot-${idx}`,
         tier: 'high-value',
-        title: blindSpot.blindSpot,
-        description: blindSpot.gap,
+        title: blindSpot.topic, // Correct property name
+        description: blindSpot.reasoning || blindSpot.actionableInsight || 'Competitive opportunity identified',
         source: 'competitor-gap',
-        urgencyScore: 75,
+        urgencyScore: blindSpot.opportunityScore || 75,
         potentialImpact: 80,
         relevanceScore: 85,
         suggestedTemplates: ['Authority Builder', 'Education First', 'Comparison Campaign'],
         suggestedTriggers: [],
-        detectedAt: new Date().toISOString(),
+        detectedAt: blindSpot.timestamp || new Date().toISOString(),
         metadata: {
-          reasoning: `Capitalize on this gap to differentiate from ${blindSpot.competitors?.slice(0, 2).join(' and ') || 'competitors'}`,
-          evidence: blindSpot.evidence || [],
-          sourceLabel: `Competitive Gap vs ${blindSpot.competitors?.slice(0, 2).join(', ') || 'Competitors'}`,
+          reasoning: blindSpot.actionableInsight || `Capitalize on this blind spot opportunity`,
+          evidence: Array.isArray(blindSpot.evidence) ? blindSpot.evidence : [blindSpot.evidence].filter(Boolean) as string[],
+          sourceLabel: blindSpot.source || 'Competitive Analysis',
           competitorData: {
-            competitor: blindSpot.competitors?.[0] || 'Competitors',
-            gap: blindSpot.gap
+            competitor: 'Competitors',
+            gap: blindSpot.reasoning || blindSpot.topic
           }
         }
       });
@@ -125,23 +126,24 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign }: Intellige
     });
 
     // Convert unarticulated needs into customer-pain opportunities
+    // Type uses 'marketingAngle' and 'approach' (not 'underlyingDesire' and 'contentOpportunity')
     context.customerPsychology?.unarticulated?.forEach((need, idx) => {
       alerts.push({
         id: `pain-${idx}`,
         tier: 'evergreen',
         title: need.need,
-        description: need.underlyingDesire || need.need,
+        description: need.emotionalDriver || need.marketingAngle || need.need,
         source: 'customer-pain',
         urgencyScore: 60,
         potentialImpact: 75,
-        relevanceScore: 80,
+        relevanceScore: Math.round((need.confidence || 0.7) * 100),
         suggestedTemplates: ['Trust Ladder', 'Hero\'s Journey', 'Social Proof'],
         suggestedTriggers: [],
-        detectedAt: new Date().toISOString(),
+        detectedAt: need.timestamp || new Date().toISOString(),
         metadata: {
-          reasoning: need.contentOpportunity || 'Address this unmet customer need to build trust and authority',
-          evidence: need.evidence || [],
-          sourceLabel: 'Customer Psychology Analysis'
+          reasoning: need.marketingAngle || need.approach || 'Address this unmet customer need to build trust and authority',
+          evidence: Array.isArray(need.evidence) ? need.evidence : [need.evidence].filter(Boolean) as string[],
+          sourceLabel: need.source || 'Customer Psychology Analysis'
         }
       });
     });

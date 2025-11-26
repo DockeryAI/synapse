@@ -75,6 +75,7 @@ export interface IndustryTrend {
   evidence?: string | string[]; // Actual quotes or data points
   timestamp?: string; // When this was observed
   sampleSize?: number; // How many data points support this
+  implication?: string; // What this trend means for content strategy
 }
 
 export interface SeasonalPattern {

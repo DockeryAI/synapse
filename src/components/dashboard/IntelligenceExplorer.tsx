@@ -97,13 +97,14 @@ export const IntelligenceExplorer: React.FC<IntelligenceExplorerProps> = ({
       });
     });
 
-    // Add content clusters (from opportunities)
+    // Add content clusters (from opportunities/market gaps)
+    // MarketGap type uses 'gap' and 'positioning' (not 'opportunity' and 'approach')
     context.competitiveIntel?.opportunities?.forEach((opp, idx) => {
       items.push({
         id: `cluster-${idx}`,
         type: 'cluster',
-        title: opp.opportunity,
-        description: opp.approach || '',
+        title: opp.gap, // Correct property name from MarketGap type
+        description: opp.positioning || '', // Correct property name from MarketGap type
         metadata: opp,
       });
     });

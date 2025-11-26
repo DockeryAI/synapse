@@ -1,13 +1,23 @@
 /**
- * YouTube Data API Integration
+ * YouTube API Integration via Apify
  * Analyzes trending videos and content for industry insights
  *
- * IMPORTANT: All API calls go through Supabase Edge Function for security and CORS handling
+ * IMPORTANT: Uses Apify YouTube scraper (apidojo/youtube-scraper) instead of
+ * direct YouTube Data API to avoid quota limitations.
+ * All API calls go through Supabase Edge Functions for security.
+ *
+ * Supported Apify input formats (tested 2025-11-26):
+ * - getTrending: true - Returns trending videos (WORKS, 50+ results)
+ * - youtubeHandles: ["@channelHandle"] - Returns channel info (WORKS)
+ * - startUrls with search URLs - May return empty (YouTube anti-scraping)
  */
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 const CACHE_TTL = 60 * 60 * 1000 // 1 hour
+
+// Flag to use Apify instead of direct YouTube API (avoids quota issues)
+const USE_APIFY_YOUTUBE = true
 
 interface YouTubeVideo {
   id: string
@@ -67,7 +77,7 @@ class YouTubeAPIService {
   }
 
   /**
-   * Get trending videos for a specific category and region
+   * Get trending videos for a specific category and region using Apify
    */
   async getTrendingVideos(category?: string, region: string = 'US'): Promise<YouTubeVideo[]> {
     const cacheKey = `trending_${category}_${region}`
@@ -75,47 +85,69 @@ class YouTubeAPIService {
     if (cached) return cached
 
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
+      throw new Error('Supabase configuration not found. Cannot connect to Edge Function.')
     }
 
     try {
-      console.log('[YouTube API] Fetching trending videos via Edge Function')
+      if (USE_APIFY_YOUTUBE) {
+        // Use Apify YouTube scraper for trending videos
+        console.log('[YouTube API] Fetching trending videos via Apify')
 
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          action: 'trending',
-          category,
-          region,
-          maxResults: 50
+        // Build input based on whether category is specified
+        const apifyInput = category
+          ? { keywords: [`trending ${category}`], maxItems: 50, gl: region.toLowerCase() }
+          : { getTrending: true, maxItems: 50 }
+
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/apify-scraper`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            actorId: 'apidojo/youtube-scraper',
+            input: apifyInput
+          })
         })
-      })
 
-      if (!response.ok) {
-        throw new Error(`YouTube API error: ${response.statusText}`)
+        if (!response.ok) {
+          throw new Error(`Apify YouTube scraper error: ${response.statusText}`)
+        }
+
+        const result = await response.json()
+
+        if (!result.success || !result.data) {
+          console.log('[YouTube API] No trending videos found via Apify')
+          return []
+        }
+
+        // Map Apify response to our YouTubeVideo interface
+        // Apify output: { id, title, views, likes, channel: { name, id, url }, description, duration, ... }
+        const videos: YouTubeVideo[] = result.data.map((item: any) => ({
+          id: item.id || '',
+          title: item.title || '',
+          description: item.description || '',
+          channelTitle: item.channel?.name || item.channelName || '',
+          publishedAt: item.publishDate || item.uploadDate || new Date().toISOString(),
+          viewCount: typeof item.views === 'number' ? item.views : parseInt(item.views || '0'),
+          likeCount: typeof item.likes === 'number' ? item.likes : parseInt(item.likes || '0'),
+          commentCount: 0, // Comments not included in search results
+          tags: [],
+          categoryId: ''
+        }))
+
+        this.setCache(cacheKey, videos)
+        console.log(`[YouTube API] Found ${videos.length} trending videos via Apify`)
+        return videos
       }
 
-      const data = await response.json()
+      // DEPRECATED: Direct YouTube Data API (quota limited)
+      /*
+      console.log('[YouTube API] Fetching trending videos via direct API')
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, { ... })
+      */
 
-      const videos: YouTubeVideo[] = data.items.map((item: any) => ({
-        id: item.id,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        channelTitle: item.snippet.channelTitle,
-        publishedAt: item.snippet.publishedAt,
-        viewCount: parseInt(item.statistics.viewCount || '0'),
-        likeCount: parseInt(item.statistics.likeCount || '0'),
-        commentCount: parseInt(item.statistics.commentCount || '0'),
-        tags: item.snippet.tags || [],
-        categoryId: item.snippet.categoryId
-      }))
-
-      this.setCache(cacheKey, videos)
-      return videos
+      return []
     } catch (error) {
       console.error('[YouTube API] Error fetching trending videos:', error)
       throw error
@@ -123,7 +155,7 @@ class YouTubeAPIService {
   }
 
   /**
-   * Search videos by keywords
+   * Search videos by keywords using Apify YouTube scraper
    */
   async searchVideos(keywords: string[], maxResults: number = 20): Promise<YouTubeVideo[]> {
     const query = keywords.join(' ')
@@ -132,94 +164,67 @@ class YouTubeAPIService {
     if (cached) return cached
 
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
+      throw new Error('Supabase configuration not found. Cannot connect to Edge Function.')
     }
 
     try {
-      console.log('[YouTube API] Searching videos via Edge Function:', query)
+      if (USE_APIFY_YOUTUBE) {
+        // Use Apify YouTube scraper (no quota limits)
+        // Input format: keywords array, maxItems for limit
+        console.log('[YouTube API] Searching videos via Apify:', query)
 
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          action: 'search',
-          query,
-          maxResults
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/apify-scraper`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            actorId: 'apidojo/youtube-scraper',
+            input: {
+              keywords: [query], // Must be array per Apify docs
+              maxItems: Math.max(10, maxResults) // Min 10 items per Apify terms
+            }
+          })
         })
-      })
 
-      if (!response.ok) {
-        throw new Error(`YouTube search error: ${response.statusText}`)
-      }
+        if (!response.ok) {
+          throw new Error(`Apify YouTube scraper error: ${response.statusText}`)
+        }
 
-      const searchData = await response.json()
+        const result = await response.json()
 
-      // Step 1: Extract video IDs from search results
-      const videoIds = searchData.items?.map((item: any) =>
-        typeof item.id === 'object' ? item.id.videoId : item.id
-      ).filter(Boolean) || []
+        if (!result.success || !result.data) {
+          console.log('[YouTube API] No videos found via Apify')
+          return []
+        }
 
-      if (videoIds.length === 0) {
-        console.log('[YouTube API] No videos found in search')
-        return []
-      }
-
-      // Step 2: Fetch statistics for these video IDs
-      console.log(`[YouTube API] Fetching statistics for ${videoIds.length} videos`)
-      const statsResponse = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          endpoint: 'videos',
-          params: {
-            part: 'snippet,statistics',
-            id: videoIds.join(',')
-          }
-        })
-      })
-
-      if (!statsResponse.ok) {
-        console.log('[YouTube API] Failed to fetch video statistics, using search data only')
-        // Fallback: return videos without statistics
-        const videos: YouTubeVideo[] = searchData.items.map((item: any) => ({
-          id: typeof item.id === 'object' ? item.id.videoId : item.id,
-          title: item.snippet?.title || '',
-          description: item.snippet?.description || '',
-          channelTitle: item.snippet?.channelTitle || '',
-          publishedAt: item.snippet?.publishedAt || new Date().toISOString(),
-          viewCount: 0,
-          likeCount: 0,
-          commentCount: 0,
-          tags: item.snippet?.tags || [],
-          categoryId: item.snippet?.categoryId || ''
+        // Map Apify response to our YouTubeVideo interface
+        // Apify output: { id, title, views, likes, channel: { name, id, url }, description, duration, ... }
+        const videos: YouTubeVideo[] = result.data.map((item: any) => ({
+          id: item.id || '',
+          title: item.title || '',
+          description: item.description || '',
+          channelTitle: item.channel?.name || item.channelName || '',
+          publishedAt: item.publishDate || item.uploadDate || new Date().toISOString(),
+          viewCount: typeof item.views === 'number' ? item.views : parseInt(item.views || '0'),
+          likeCount: typeof item.likes === 'number' ? item.likes : parseInt(item.likes || '0'),
+          commentCount: 0, // Comments not included in search results
+          tags: [],
+          categoryId: ''
         }))
+
+        this.setCache(cacheKey, videos)
+        console.log(`[YouTube API] Found ${videos.length} videos via Apify`)
         return videos
       }
 
-      const statsData = await statsResponse.json()
+      // DEPRECATED: Direct YouTube Data API (quota limited)
+      /*
+      console.log('[YouTube API] Searching videos via direct API:', query)
+      */
 
-      // Combine search snippets with statistics
-      const videos: YouTubeVideo[] = statsData.items?.map((item: any) => ({
-        id: item.id,
-        title: item.snippet?.title || '',
-        description: item.snippet?.description || '',
-        channelTitle: item.snippet?.channelTitle || '',
-        publishedAt: item.snippet?.publishedAt || new Date().toISOString(),
-        viewCount: parseInt(item.statistics?.viewCount || '0'),
-        likeCount: parseInt(item.statistics?.likeCount || '0'),
-        commentCount: parseInt(item.statistics?.commentCount || '0'),
-        tags: item.snippet?.tags || [],
-        categoryId: item.snippet?.categoryId || ''
-      })) || []
-
-      this.setCache(cacheKey, videos)
-      return videos
+      return []
     } catch (error) {
       console.error('[YouTube API] Error searching videos:', error)
       throw error
@@ -306,6 +311,7 @@ class YouTubeAPIService {
 
   /**
    * Get comments from a video for psychological pattern mining
+   * Uses dedicated YouTube Comments Scraper actor for better results
    */
   async getVideoComments(videoId: string, maxResults: number = 100): Promise<YouTubeComment[]> {
     const cacheKey = `comments_${videoId}_${maxResults}`
@@ -313,43 +319,57 @@ class YouTubeAPIService {
     if (cached) return cached
 
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
-      throw new Error('Supabase configuration not found. Cannot connect to YouTube Edge Function.')
+      throw new Error('Supabase configuration not found. Cannot connect to Edge Function.')
     }
 
     try {
-      console.log('[YouTube API] Fetching comments via Edge Function for video:', videoId)
+      if (USE_APIFY_YOUTUBE) {
+        // Use dedicated YouTube Comments Scraper for better results
+        console.log('[YouTube API] Fetching comments via Apify for video:', videoId)
 
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-youtube`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          action: 'comments',
-          videoId,
-          maxResults
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/apify-scraper`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            actorId: 'streamers/youtube-comments-scraper',
+            input: {
+              startUrls: [{ url: `https://www.youtube.com/watch?v=${videoId}` }],
+              maxComments: maxResults
+            }
+          })
         })
-      })
 
-      if (!response.ok) {
-        throw new Error(`YouTube Comments API error: ${response.statusText}`)
+        if (!response.ok) {
+          throw new Error(`Apify YouTube comments scraper error: ${response.statusText}`)
+        }
+
+        const result = await response.json()
+
+        if (!result.success || !result.data || result.data.length === 0) {
+          console.log('[YouTube API] No comments found via Apify')
+          return []
+        }
+
+        // Map Apify comments response to our interface
+        const comments: YouTubeComment[] = result.data.map((comment: any) => ({
+          id: comment.id || comment.commentId || `${Date.now()}-${Math.random()}`,
+          text: comment.text || comment.content || comment.commentText || '',
+          authorName: comment.author || comment.authorName || comment.channelName || 'Anonymous',
+          likeCount: typeof comment.likes === 'number' ? comment.likes : parseInt(comment.likes || '0'),
+          publishedAt: comment.publishedAt || comment.date || new Date().toISOString(),
+          isReply: comment.isReply || false
+        }))
+
+        this.setCache(cacheKey, comments)
+        console.log(`[YouTube API] Retrieved ${comments.length} comments for video ${videoId} via Apify`)
+        return comments
       }
 
-      const data = await response.json()
-
-      const comments: YouTubeComment[] = data.items?.map((item: any) => ({
-        id: item.id,
-        text: item.snippet.topLevelComment.snippet.textDisplay,
-        authorName: item.snippet.topLevelComment.snippet.authorDisplayName,
-        likeCount: item.snippet.topLevelComment.snippet.likeCount || 0,
-        publishedAt: item.snippet.topLevelComment.snippet.publishedAt,
-        isReply: false
-      })) || []
-
-      this.setCache(cacheKey, comments)
-      console.log(`[YouTube API] Retrieved ${comments.length} comments for video ${videoId}`)
-      return comments
+      // DEPRECATED: Direct YouTube Data API (quota limited)
+      return []
     } catch (error) {
       console.error('[YouTube API] Error fetching comments:', error)
       return []
