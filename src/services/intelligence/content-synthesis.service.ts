@@ -378,6 +378,50 @@ export interface LocalKeywordResult {
   generatedAt: Date;
 }
 
+// ============================================================================
+// ITEM #26: CASE STUDY FRAMEWORK - Types for review-to-case-study conversion
+// ============================================================================
+
+export interface ReviewCaseStudy {
+  id: string;
+  title: string;
+  challenge: string;
+  solution: string;
+  result: string;
+  quote: string;
+  customerType: string;
+  serviceProvided: string;
+  metrics?: {
+    timeframe?: string;
+    improvement?: string;
+    satisfaction?: string;
+  };
+  contentVariations: {
+    socialPost: string;
+    testimonialCard: string;
+    blogSection: string;
+    emailSnippet: string;
+  };
+  sourceReview: {
+    text: string;
+    rating: number;
+    source: string;
+    date?: string;
+  };
+  generatedAt: Date;
+}
+
+export interface CaseStudyFrameworkResult {
+  caseStudies: ReviewCaseStudy[];
+  summary: {
+    totalReviewsProcessed: number;
+    caseStudiesGenerated: number;
+    averageRating: number;
+    topThemes: string[];
+  };
+  generatedAt: Date;
+}
+
 class ContentSynthesisService {
 
   /**
@@ -1468,6 +1512,307 @@ VISUAL NOTES:
         ]
       }
     ];
+  }
+
+  // ============================================================================
+  // ITEM #26: CASE STUDY FRAMEWORK
+  // Transform positive reviews into structured mini case studies
+  // ============================================================================
+
+  /**
+   * Generate case studies from positive reviews (4-5 stars)
+   */
+  generateCaseStudiesFromReviews(
+    reviews: Array<{ text: string; rating: number; source: string; date?: string }>,
+    context: DeepContext
+  ): CaseStudyFrameworkResult {
+    const businessName = context.business.profile.name || 'Our Team';
+    const industry = context.business.profile.industry || 'business';
+    const services = context.business.profile.services || [industry];
+
+    // Filter to positive reviews only (4-5 stars)
+    const positiveReviews = reviews.filter(r => r.rating >= 4);
+
+    if (positiveReviews.length === 0) {
+      return {
+        caseStudies: [],
+        summary: {
+          totalReviewsProcessed: reviews.length,
+          caseStudiesGenerated: 0,
+          averageRating: 0,
+          topThemes: []
+        },
+        generatedAt: new Date()
+      };
+    }
+
+    // Generate case studies
+    const caseStudies = positiveReviews
+      .slice(0, 10) // Limit to top 10
+      .map((review, idx) => this.transformReviewToCaseStudy(
+        review,
+        businessName,
+        industry,
+        services[0] || industry,
+        idx
+      ));
+
+    // Extract themes from reviews
+    const topThemes = this.extractReviewThemes(positiveReviews);
+
+    return {
+      caseStudies,
+      summary: {
+        totalReviewsProcessed: reviews.length,
+        caseStudiesGenerated: caseStudies.length,
+        averageRating: positiveReviews.reduce((sum, r) => sum + r.rating, 0) / positiveReviews.length,
+        topThemes
+      },
+      generatedAt: new Date()
+    };
+  }
+
+  private transformReviewToCaseStudy(
+    review: { text: string; rating: number; source: string; date?: string },
+    businessName: string,
+    industry: string,
+    service: string,
+    index: number
+  ): ReviewCaseStudy {
+    const reviewText = review.text;
+
+    // Extract components from review
+    const challenge = this.extractChallenge(reviewText, industry);
+    const solution = this.extractSolution(reviewText, businessName, service);
+    const result = this.extractResult(reviewText);
+    const quote = this.extractBestQuote(reviewText);
+    const customerType = this.inferCustomerType(reviewText, industry);
+
+    // Generate title
+    const title = this.generateCaseStudyTitle(challenge, result, customerType);
+
+    // Generate content variations
+    const contentVariations = this.generateCaseStudyVariations(
+      title,
+      challenge,
+      solution,
+      result,
+      quote,
+      businessName,
+      customerType
+    );
+
+    return {
+      id: `case-study-${Date.now()}-${index}`,
+      title,
+      challenge,
+      solution,
+      result,
+      quote,
+      customerType,
+      serviceProvided: service,
+      metrics: this.extractMetrics(reviewText),
+      contentVariations,
+      sourceReview: {
+        text: reviewText,
+        rating: review.rating,
+        source: review.source,
+        date: review.date
+      },
+      generatedAt: new Date()
+    };
+  }
+
+  private extractChallenge(reviewText: string, industry: string): string {
+    // Look for problem indicators
+    const problemPatterns = [
+      /(?:had|was having|experienced|dealing with|struggled with|needed help with)\s+([^.!?]+)/i,
+      /(?:problem|issue|trouble|difficulty)\s+(?:with|was)\s+([^.!?]+)/i,
+      /(?:before|initially|originally)\s+([^.!?]+)/i
+    ];
+
+    for (const pattern of problemPatterns) {
+      const match = reviewText.match(pattern);
+      if (match) {
+        return `Customer faced ${match[1].trim().toLowerCase()}`;
+      }
+    }
+
+    // Generic fallback based on industry
+    const industryProblems: Record<string, string> = {
+      plumbing: 'Customer needed urgent plumbing repair',
+      dental: 'Customer sought quality dental care',
+      restaurant: 'Customer was looking for a great dining experience',
+      insurance: 'Customer needed reliable coverage options',
+      legal: 'Customer faced a complex legal situation',
+      default: `Customer needed reliable ${industry} services`
+    };
+
+    return industryProblems[industry.toLowerCase()] || industryProblems.default;
+  }
+
+  private extractSolution(reviewText: string, businessName: string, service: string): string {
+    // Look for solution/action indicators
+    const solutionPatterns = [
+      /(?:they|he|she|the team)\s+([^.!?]*(?:fixed|solved|helped|resolved|provided|delivered)[^.!?]*)/i,
+      /(?:came out|arrived|showed up)\s+([^.!?]+)/i,
+      /(?:service|work|job)\s+(?:was|included)\s+([^.!?]+)/i
+    ];
+
+    for (const pattern of solutionPatterns) {
+      const match = reviewText.match(pattern);
+      if (match) {
+        return `${businessName} ${match[1].trim().toLowerCase()}`;
+      }
+    }
+
+    return `${businessName} provided professional ${service.toLowerCase()} services`;
+  }
+
+  private extractResult(reviewText: string): string {
+    // Look for outcome indicators
+    const resultPatterns = [
+      /(?:now|result|outcome|finally)\s+([^.!?]+)/i,
+      /(?:so happy|very pleased|extremely satisfied|couldn't be happier)\s*(?:with|that)?\s*([^.!?]*)/i,
+      /(?:works|working)\s+([^.!?]*(?:perfectly|great|amazing|well)[^.!?]*)/i
+    ];
+
+    for (const pattern of resultPatterns) {
+      const match = reviewText.match(pattern);
+      if (match && match[1]) {
+        return `Customer achieved ${match[1].trim().toLowerCase()}`;
+      }
+    }
+
+    // Check for positive sentiment fallback
+    if (/highly recommend|5 stars?|excellent|amazing|fantastic/i.test(reviewText)) {
+      return 'Customer achieved complete satisfaction and recommends the service';
+    }
+
+    return 'Customer received excellent service and results';
+  }
+
+  private extractBestQuote(reviewText: string): string {
+    // Extract the most impactful sentence
+    const sentences = reviewText.split(/[.!?]+/).filter(s => s.trim().length > 10);
+
+    // Score sentences by impact
+    const scoredSentences = sentences.map(sentence => {
+      let score = 0;
+      if (/highly recommend|best|amazing|excellent|fantastic|outstanding/i.test(sentence)) score += 3;
+      if (/saved|helped|fixed|solved|delivered/i.test(sentence)) score += 2;
+      if (/5 stars?|perfect|couldn't be happier/i.test(sentence)) score += 2;
+      if (sentence.length > 30 && sentence.length < 150) score += 1; // Prefer medium-length
+      return { sentence: sentence.trim(), score };
+    });
+
+    // Return highest scoring sentence
+    scoredSentences.sort((a, b) => b.score - a.score);
+    return scoredSentences[0]?.sentence || reviewText.substring(0, 100);
+  }
+
+  private inferCustomerType(reviewText: string, industry: string): string {
+    // Look for customer type indicators
+    if (/home|house|residential|family/i.test(reviewText)) return 'Homeowner';
+    if (/business|office|commercial|company/i.test(reviewText)) return 'Business Owner';
+    if (/emergency|urgent|same day/i.test(reviewText)) return 'Emergency Customer';
+    if (/first time|new customer|just moved/i.test(reviewText)) return 'First-Time Customer';
+    if (/years|long time|regular|always/i.test(reviewText)) return 'Loyal Customer';
+
+    // Industry-specific fallbacks
+    const industryCustomers: Record<string, string> = {
+      dental: 'Patient',
+      restaurant: 'Diner',
+      legal: 'Client',
+      insurance: 'Policyholder',
+      default: 'Customer'
+    };
+
+    return industryCustomers[industry.toLowerCase()] || industryCustomers.default;
+  }
+
+  private generateCaseStudyTitle(challenge: string, result: string, customerType: string): string {
+    const templates = [
+      `How We Helped a ${customerType} Achieve Outstanding Results`,
+      `${customerType} Success Story: From Challenge to Solution`,
+      `Real Results: A ${customerType}'s Journey to Satisfaction`,
+      `Why This ${customerType} Recommends Our Services`
+    ];
+
+    return templates[Math.floor(Math.random() * templates.length)];
+  }
+
+  private generateCaseStudyVariations(
+    title: string,
+    challenge: string,
+    solution: string,
+    result: string,
+    quote: string,
+    businessName: string,
+    customerType: string
+  ): ReviewCaseStudy['contentVariations'] {
+    return {
+      socialPost: `"${quote}"\n\n— A satisfied ${customerType.toLowerCase()}\n\nThis is why we do what we do. Ready to be our next success story?\n\n#CustomerSuccess #${businessName.replace(/\s+/g, '')}`,
+
+      testimonialCard: `★★★★★\n\n"${quote}"\n\n${customerType}\n${businessName} Customer`,
+
+      blogSection: `## ${title}\n\n**The Challenge:** ${challenge}\n\n**Our Solution:** ${solution}\n\n**The Result:** ${result}\n\n> "${quote}"\n\n*— Satisfied ${customerType}*`,
+
+      emailSnippet: `Here's what one of our recent customers had to say:\n\n"${quote}"\n\nThis ${customerType.toLowerCase()} came to us facing a challenge. We delivered a solution. And the results speak for themselves.\n\nReady to experience the same level of service?`
+    };
+  }
+
+  private extractMetrics(reviewText: string): ReviewCaseStudy['metrics'] | undefined {
+    const metrics: ReviewCaseStudy['metrics'] = {};
+
+    // Look for timeframes
+    const timeMatch = reviewText.match(/(\d+)\s*(minutes?|hours?|days?|weeks?)/i);
+    if (timeMatch) {
+      metrics.timeframe = `${timeMatch[1]} ${timeMatch[2]}`;
+    }
+
+    // Look for percentages or improvements
+    const improvementMatch = reviewText.match(/(\d+)%?\s*(better|improvement|increase|faster|cheaper)/i);
+    if (improvementMatch) {
+      metrics.improvement = `${improvementMatch[1]}% ${improvementMatch[2]}`;
+    }
+
+    // Rating as satisfaction
+    if (/5 stars?|excellent|perfect/i.test(reviewText)) {
+      metrics.satisfaction = '5/5 satisfaction';
+    }
+
+    return Object.keys(metrics).length > 0 ? metrics : undefined;
+  }
+
+  private extractReviewThemes(reviews: Array<{ text: string }>): string[] {
+    const themeKeywords: Record<string, string[]> = {
+      'Fast Service': ['fast', 'quick', 'same day', 'prompt', 'on time'],
+      'Professional': ['professional', 'expert', 'knowledgeable', 'skilled'],
+      'Friendly Staff': ['friendly', 'nice', 'courteous', 'helpful', 'patient'],
+      'Fair Pricing': ['fair price', 'reasonable', 'affordable', 'good value', 'worth'],
+      'Quality Work': ['quality', 'thorough', 'excellent work', 'great job', 'well done'],
+      'Communication': ['communication', 'explained', 'kept us informed', 'responsive'],
+      'Clean Work': ['clean', 'tidy', 'neat', 'cleaned up'],
+      'Reliability': ['reliable', 'dependable', 'trustworthy', 'showed up']
+    };
+
+    const themeCounts: Record<string, number> = {};
+
+    reviews.forEach(review => {
+      const text = review.text.toLowerCase();
+      Object.entries(themeKeywords).forEach(([theme, keywords]) => {
+        if (keywords.some(kw => text.includes(kw))) {
+          themeCounts[theme] = (themeCounts[theme] || 0) + 1;
+        }
+      });
+    });
+
+    // Return top 5 themes
+    return Object.entries(themeCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5)
+      .map(([theme]) => theme);
   }
 
   /**

@@ -18,7 +18,7 @@ Phase C transforms raw intelligence data into multiplied content outputs. Each i
 |---|------|----------|--------|-------|
 | 24 | Content atomization (1→6 variations) | ALL | COMPLETE | atomizeInsight() in content-synthesis.service.ts |
 | 25 | Local keyword templates ("near me") | SMB | COMPLETE | generateLocalKeywordTemplates() with content ideas |
-| 26 | Case study framework from reviews | ALL | PENDING | Convert positive reviews into mini case studies |
+| 26 | Case study framework from reviews | ALL | COMPLETE | generateCaseStudiesFromReviews() with 4 content variations |
 | 27 | Review response generator | SMB | PENDING | Generate professional review responses |
 | 28 | Thought leadership angles | B2B | PENDING | Executive/strategic content angles |
 
@@ -119,6 +119,7 @@ After Phase C completion:
 |------|------|--------|--------|
 | 2025-11-26 | #24 | Content atomization - 6 platform generators | feat(correlation): Item #24 content atomization |
 | 2025-11-26 | #25 | Local keyword templates + content ideas | feat(correlation): Item #25 local keyword templates |
+| 2025-11-26 | #26 | Case study framework + review parsing | feat(correlation): Item #26 case study framework |
 
 ---
 
