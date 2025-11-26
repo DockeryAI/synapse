@@ -53,11 +53,23 @@ export interface BusinessGoal {
   metrics: string[];
 }
 
+export interface UVPContext {
+  targetCustomer: string; // WHO we serve
+  customerProblem: string; // Their BEFORE state (pain)
+  desiredOutcome: string; // Their AFTER state (goal)
+  uniqueSolution: string; // HOW we help (our approach)
+  keyBenefit: string; // WHY it matters (transformation)
+  completeStatement?: string; // Full UVP statement
+  emotionalDrivers?: string[]; // What they FEEL (fears, desires)
+  functionalDrivers?: string[]; // What they NEED (practical)
+}
+
 export interface BusinessContext {
   profile: BusinessProfile;
   brandVoice: BrandVoiceProfile;
   uniqueAdvantages: string[];
   goals: BusinessGoal[];
+  uvp?: UVPContext; // Target customer and value proposition
 }
 
 // ============================================================================
@@ -427,6 +439,41 @@ export interface Synthesis {
 
   /** Generated timestamp */
   generatedAt: Date;
+
+  /** Breakthrough opportunities - high-value multi-source connections */
+  breakthroughs?: BreakthroughOpportunity[];
+}
+
+/** Breakthrough opportunity from correlation engine */
+export interface BreakthroughOpportunity {
+  id: string;
+  title: string;
+  hook: string;
+  score: number; // 0-100
+  connectionType: '2-way' | '3-way' | '4-way' | '5-way';
+  sources: string[];
+  uvpValidation?: {
+    painPoint: string;
+    matchScore: number;
+    evidence: string[];
+  };
+  psychology: {
+    triggerCategory: string;
+    emotion: string;
+    urgency: 'low' | 'medium' | 'high' | 'critical';
+  };
+  timing?: {
+    isTimeSensitive: boolean;
+    deadline?: string;
+    reason?: string;
+  };
+  competitive?: {
+    gap: string;
+    competitors: string[];
+  };
+  actionPlan: string;
+  eqScore: number; // Emotional Quotient 0-100
+  confidenceStars: 1 | 2 | 3 | 4 | 5; // Visual star rating
 }
 
 // ============================================================================
@@ -452,6 +499,12 @@ export interface DeepContext {
   /** Synthesized insights and recommendations */
   synthesis: Synthesis;
 
+  /** ALL raw data points for direct display - bypasses categorization limits */
+  rawDataPoints?: RawDataPoint[];
+
+  /** Correlated insights - multi-source validated opportunities */
+  correlatedInsights?: CorrelatedInsight[];
+
   /** Metadata */
   metadata: {
     aggregatedAt: Date;
@@ -459,6 +512,48 @@ export interface DeepContext {
     processingTimeMs: number;
     version: string;
   };
+}
+
+/** Raw data point for direct display */
+export interface RawDataPoint {
+  id: string;
+  source: string;
+  type: string;
+  content: string;
+  metadata?: {
+    domain?: 'psychology' | 'timing' | 'competitive' | 'content_gap' | 'search_intent';
+    triggerCategory?: 'pain_point' | 'aspiration' | 'fear' | 'opportunity' | 'urgency' | 'social_proof';
+    emotion?: string;
+    urgency?: 'immediate' | 'soon' | 'eventual';
+    confidence?: number;
+    uvpMatch?: string; // Which UVP pain point this validates
+    correlationScore?: number; // How many sources confirm this
+    [key: string]: any;
+  };
+  createdAt: Date;
+  embedding?: number[];
+}
+
+/** Correlated insight - validated by multiple sources */
+export interface CorrelatedInsight {
+  id: string;
+  type: 'validated_pain' | 'timing_opportunity' | 'competitive_gap' | 'psychological_breakthrough' | 'hidden_pattern';
+  title: string;
+  description: string;
+  uvpMatch?: string; // Which UVP element this validates
+  sources: {
+    source: string;
+    content: string;
+    confidence: number;
+  }[];
+  psychology?: {
+    triggerCategory: string;
+    emotion: string;
+    urgency: string;
+  };
+  breakthroughScore: number; // 0-100
+  actionableInsight: string;
+  timeSensitive: boolean;
 }
 
 // ============================================================================

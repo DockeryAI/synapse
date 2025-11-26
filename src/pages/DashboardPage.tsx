@@ -39,7 +39,7 @@ import { IntelligenceLibraryV2 } from '@/components/dashboard/IntelligenceLibrar
 import { SelectionBar } from '@/components/dashboard/SelectionBar';
 import type { SmartPick } from '@/types/smart-picks.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
-import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
+import { hasPendingUVP, getPendingUVP, migratePendingUVP } from '@/services/database/marba-uvp-migration.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 type ViewMode = 'dashboard' | 'insights_hub';
@@ -54,6 +54,7 @@ export function DashboardPage() {
   const [selectedPick, setSelectedPick] = useState<SmartPick | null>(null);
   const [deepContext, setDeepContext] = useState<DeepContext | null>(null);
   const [selectedInsights, setSelectedInsights] = useState<string[]>([]);
+  const [isRefreshingIntelligence, setIsRefreshingIntelligence] = useState(false);
   const hasLoadedRef = useRef(false);
 
   // Mock picks for now (TODO: Replace with real SmartPick generation)
@@ -266,9 +267,16 @@ export function DashboardPage() {
         }
       }
 
-      // Check for localStorage UVP data first
+      // Check for localStorage UVP data first and migrate if needed
       const hasPending = hasPendingUVP();
       console.log('[DashboardPage] hasPendingUVP:', hasPending, 'brand.id:', brand?.id);
+
+      // Migrate pending UVP to database if we have brand ID
+      if (hasPending && brand?.id) {
+        console.log('[DashboardPage] Migrating pending UVP to database...');
+        const migrated = await migratePendingUVP(brand.id);
+        console.log('[DashboardPage] UVP migration result:', migrated);
+      }
 
       // Run intelligence for ALL brands (no more temp brand bullshit)
       if (brand?.id) {
@@ -912,6 +920,57 @@ export function DashboardPage() {
     navigate('/campaign/new', { state: { selectedInsights } });
   };
 
+  // Handle force refresh of intelligence data
+  const handleRefreshIntelligence = async () => {
+    if (!brand?.id || isRefreshingIntelligence) return;
+
+    console.log('[DashboardPage] 🔄 FORCE REFRESH INTELLIGENCE TRIGGERED');
+    console.log('[DashboardPage] Current data points:', deepContext?.rawDataPoints?.length || 0);
+    console.log('[DashboardPage] Current correlated:', deepContext?.correlatedInsights?.length || 0);
+    console.log('[DashboardPage] Current breakthroughs:', deepContext?.synthesis?.breakthroughs?.length || 0);
+
+    setIsRefreshingIntelligence(true);
+
+    try {
+      // Clear cache first
+      console.log('[DashboardPage] Clearing cache for brand:', brand.id);
+      await supabase.from('intelligence_cache').delete().eq('brand_id', brand.id);
+
+      // Rebuild with fresh data
+      console.log('[DashboardPage] Rebuilding DeepContext with forceFresh: true...');
+      const buildResult = await trueProgressiveBuilder.buildTrueProgressive({
+        brandId: brand.id,
+        cacheResults: true,
+        forceFresh: true,
+        includeYouTube: true,
+        includeOutScraper: true,
+        includeSerper: true,
+        includeWebsiteAnalysis: true,
+        includeSEMrush: true,
+        includeNews: true,
+        includeWeather: true,
+        includeLinkedIn: true,
+        includePerplexity: true,
+        includeApify: true,
+      }, (context, metadata) => {
+        console.log(`[DashboardPage] Refresh progress: ${metadata.completedApis.length} APIs done`);
+        console.log(`[DashboardPage] Data points: ${metadata.dataPointsCollected}`);
+        setDeepContext(context);
+      });
+
+      console.log('[DashboardPage] ✅ REFRESH COMPLETE');
+      console.log('[DashboardPage] New data points:', buildResult.context.rawDataPoints?.length || 0);
+      console.log('[DashboardPage] New correlated:', buildResult.context.correlatedInsights?.length || 0);
+      console.log('[DashboardPage] New breakthroughs:', buildResult.context.synthesis?.breakthroughs?.length || 0);
+
+      setDeepContext(buildResult.context);
+    } catch (error) {
+      console.error('[DashboardPage] Refresh failed:', error);
+    } finally {
+      setIsRefreshingIntelligence(false);
+    }
+  };
+
   // Loading state
   if (loading) {
     return (
@@ -942,6 +1001,8 @@ export function DashboardPage() {
                   <IntelligenceLibraryV2
                     context={deepContext}
                     onGenerateCampaign={handleCreateCampaign}
+                    onRefreshIntelligence={handleRefreshIntelligence}
+                    isRefreshing={isRefreshingIntelligence}
                   />
                 )}
               </div>

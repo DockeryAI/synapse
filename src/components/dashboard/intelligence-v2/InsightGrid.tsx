@@ -54,6 +54,141 @@ const getTypeIcon = (type: InsightType) => {
   }
 };
 
+/**
+ * Match insight to customer profile segments
+ * Returns array of profile attributes this insight is relevant for
+ */
+const matchCustomerProfile = (insight: InsightCard): string[] => {
+  const matches: string[] = [];
+  const content = (insight.title + ' ' + (insight.description || '') + ' ' + (insight.actionableInsight || '')).toLowerCase();
+
+  // Decision maker keywords
+  if (/ceo|founder|owner|executive|director|manager|leader|decision/i.test(content)) {
+    matches.push('Decision Makers');
+  }
+
+  // Budget conscious
+  if (/cost|budget|price|afford|save|value|roi|invest/i.test(content)) {
+    matches.push('Budget Conscious');
+  }
+
+  // Time-pressed
+  if (/busy|time|quick|fast|efficient|streamline|automate|simple/i.test(content)) {
+    matches.push('Time-Pressed');
+  }
+
+  // Growth-focused
+  if (/grow|scale|expand|increase|revenue|profit|success/i.test(content)) {
+    matches.push('Growth-Focused');
+  }
+
+  // Risk-averse
+  if (/risk|safe|secure|protect|guarantee|proven|reliable/i.test(content)) {
+    matches.push('Risk-Averse');
+  }
+
+  // Innovation seekers
+  if (/new|innovative|modern|cutting|edge|latest|advanced/i.test(content)) {
+    matches.push('Innovation Seekers');
+  }
+
+  return matches.length > 0 ? matches : ['General Audience'];
+};
+
+/**
+ * Generate relevance reason for why this insight matters
+ */
+const generateRelevanceReason = (insight: InsightCard): string => {
+  const eqScore = calculateInsightEQ(insight);
+  const profiles = matchCustomerProfile(insight);
+
+  if (eqScore >= 75) {
+    return `High emotional impact (EQ: ${eqScore}) - resonates strongly with ${profiles[0]}`;
+  } else if (insight.isTimeSensitive) {
+    return `Time-sensitive opportunity for ${profiles[0]} - act now for best results`;
+  } else if (insight.type === 'customer') {
+    return `Direct customer insight - addresses real pain points of ${profiles[0]}`;
+  } else if (insight.type === 'opportunity') {
+    return `Market opportunity - competitive advantage for ${profiles[0]}`;
+  } else if (insight.confidence >= 0.8) {
+    return `High-confidence data point - reliable basis for ${profiles[0]} content`;
+  }
+  return `Relevant insight for ${profiles.join(', ')}`;
+};
+
+/**
+ * Calculate EQ (Emotional Quotient) score for an insight
+ * Higher scores = more emotionally resonant content
+ */
+const calculateInsightEQ = (insight: InsightCard): number => {
+  let eqScore = 50; // Base score
+
+  // Emotional keywords add to score
+  const emotionalKeywords = /fear|frustrat|anxious|worry|stress|overwhelm|confus|excit|thrill|passion|love|hate|anger|joy|hope|dream|desire|need|want|crave|urgent|critical|essential|transform|breakthrough|secret|hidden|reveal|discover/i;
+  const emotionalMatches = (insight.title + ' ' + (insight.description || '')).match(emotionalKeywords);
+  if (emotionalMatches) {
+    eqScore += Math.min(emotionalMatches.length * 5, 25);
+  }
+
+  // Customer-focused types have higher EQ
+  if (insight.type === 'customer') eqScore += 15;
+  if (insight.type === 'opportunity') eqScore += 10;
+
+  // Pain points and triggers have high emotional impact
+  if (insight.category?.toLowerCase().includes('pain')) eqScore += 10;
+  if (insight.category?.toLowerCase().includes('trigger')) eqScore += 8;
+  if (insight.category?.toLowerCase().includes('fear')) eqScore += 12;
+
+  // Time-sensitive items create urgency
+  if (insight.isTimeSensitive) eqScore += 8;
+
+  // High confidence boosts EQ
+  eqScore += Math.floor(insight.confidence * 10);
+
+  // Cap at 100
+  return Math.min(Math.max(eqScore, 0), 100);
+};
+
+// Map API/technical names to friendly display names
+const getFriendlySourceName = (source: string): string => {
+  const sourceMap: Record<string, string> = {
+    // API Sources
+    'serper': 'Google Search',
+    'google': 'Google Search',
+    'outscraper': 'Google Maps Reviews',
+    'youtube': 'YouTube Trends',
+    'semrush': 'SEO Intelligence',
+    'perplexity': 'AI Research',
+    'news': 'News Sources',
+    'linkedin': 'LinkedIn Insights',
+    'weather': 'Weather Data',
+    'website': 'Website Analysis',
+    // Analysis Sources
+    'Market Analysis': 'Market Research',
+    'Industry Trends': 'Industry Trends',
+    'Competitive Analysis': 'Competitor Analysis',
+    'Customer Psychology': 'Customer Psychology',
+    'Local Events Data': 'Local Events',
+    'Cultural Trends Analysis': 'Cultural Trends',
+    'SEO Analysis': 'SEO Intelligence',
+    'Market Gap Analysis': 'Market Opportunities',
+  };
+
+  // Check for exact match first
+  if (sourceMap[source]) return sourceMap[source];
+
+  // Check for partial match (case insensitive)
+  const lowerSource = source.toLowerCase();
+  for (const [key, value] of Object.entries(sourceMap)) {
+    if (lowerSource.includes(key.toLowerCase())) {
+      return value;
+    }
+  }
+
+  // Return original if no match (capitalize first letter)
+  return source.charAt(0).toUpperCase() + source.slice(1);
+};
+
 export function InsightGrid({
   insights,
   selectedInsights,
@@ -61,8 +196,17 @@ export function InsightGrid({
   activeFilter,
   onFilterChange,
 }: InsightGridProps) {
-  // Show all insights
-  const visibleInsights = insights;
+  // Sort insights with selected ones first, then by EQ score * confidence
+  const visibleInsights = [...insights].sort((a, b) => {
+    const aSelected = selectedInsights.includes(a.id) ? 1 : 0;
+    const bSelected = selectedInsights.includes(b.id) ? 1 : 0;
+    // Selected items first
+    if (bSelected !== aSelected) return bSelected - aSelected;
+    // Then by EQ-weighted score (EQ * 0.6 + confidence * 0.4)
+    const aScore = calculateInsightEQ(a) * 0.6 + a.confidence * 100 * 0.4;
+    const bScore = calculateInsightEQ(b) * 0.6 + b.confidence * 100 * 0.4;
+    return bScore - aScore;
+  });
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
   const toggleExpand = (id: string, e: React.MouseEvent) => {
@@ -146,8 +290,8 @@ export function InsightGrid({
                       <Icon className="w-3 h-3 text-white" />
                     </div>
 
-                    {/* Title - Single concise statement */}
-                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white pr-8 line-clamp-2">
+                    {/* Title - Full title visible */}
+                    <h4 className="text-sm font-semibold text-gray-900 dark:text-white pr-8">
                       {insight.title}
                     </h4>
 
@@ -186,6 +330,29 @@ export function InsightGrid({
                         className="overflow-hidden border-t border-gray-200 dark:border-slate-700"
                       >
                         <div className="p-4 space-y-4">
+                          {/* Relevance Reason - NEW: Why this matters */}
+                          <div className="bg-amber-50 dark:bg-amber-900/20 p-3 rounded-lg border border-amber-200 dark:border-amber-800">
+                            <h5 className="text-xs font-bold text-amber-700 dark:text-amber-300 mb-1 uppercase tracking-wider">
+                              Why This Matters
+                            </h5>
+                            <p className="text-sm text-amber-800 dark:text-amber-200">
+                              {generateRelevanceReason(insight)}
+                            </p>
+                          </div>
+
+                          {/* Customer Profile Match - NEW */}
+                          <div className="flex flex-wrap gap-2">
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">Best for:</span>
+                            {matchCustomerProfile(insight).map((profile, i) => (
+                              <span key={i} className="px-2 py-0.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                                {profile}
+                              </span>
+                            ))}
+                            <span className="px-2 py-0.5 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded-full">
+                              EQ: {calculateInsightEQ(insight)}
+                            </span>
+                          </div>
+
                           {/* Category Badge */}
                           <div className="flex items-center gap-2">
                             <span className={`px-3 py-1 bg-gradient-to-r ${gradientColor} text-white text-xs font-bold rounded-full`}>
@@ -250,11 +417,11 @@ export function InsightGrid({
                           {insight.actionableInsight && (
                             <div className="bg-purple-50 dark:bg-purple-900/20 p-3 rounded-lg">
                               <h5 className="text-xs font-bold text-purple-700 dark:text-purple-300 mb-2 uppercase tracking-wider">
-                                What To Do
+                                {insight.actionableInsight.includes('\n') ? 'Action Plan' : 'What To Do'}
                               </h5>
-                              <p className="text-sm text-gray-700 dark:text-gray-300">
+                              <div className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-line">
                                 {insight.actionableInsight}
-                              </p>
+                              </div>
                             </div>
                           )}
 
@@ -294,7 +461,7 @@ export function InsightGrid({
                                     {/* Platform and timestamp */}
                                     <div className="flex items-center gap-2">
                                       <span className="text-xs font-bold text-blue-700 dark:text-blue-300">
-                                        {src.source}
+                                        {getFriendlySourceName(src.source)}
                                       </span>
                                       {src.timestamp && (
                                         <span className="text-xs text-gray-500">
