@@ -12,6 +12,8 @@ export type DataSource =
   | 'serper'
   | 'reddit'
   | 'quora'
+  | 'g2'
+  | 'trustpilot'
   | 'twitter'
   | 'apify'
   | 'perplexity'

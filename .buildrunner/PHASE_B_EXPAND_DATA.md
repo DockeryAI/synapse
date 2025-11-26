@@ -145,7 +145,16 @@ npm run build
 # Test with SMB brand - should skip G2
 ```
 
-### Status: NOT STARTED
+### Status: COMPLETE
+
+**Changes Made:**
+- Added 'g2' to `ALL_APIS` constant
+- Added 'g2' to `getApisForBusinessType()` for B2B only
+- Created `fetchG2Data()` method with UVP-targeted product/category search
+- Extracts reviews, buyer intent signals, and competitive intelligence
+- Maps review cons to pain_point data type
+- Added 'g2' to DataSource type in connections.types.ts
+- Build passes successfully
 
 ---
 
@@ -177,7 +186,16 @@ npm run build
 # Check for TrustPilot data points in insights
 ```
 
-### Status: NOT STARTED
+### Status: COMPLETE
+
+**Changes Made:**
+- Added 'trustpilot' to `ALL_APIS` constant
+- Added 'trustpilot' to `getApisForBusinessType()` for both local and B2B
+- Created `fetchTrustPilotData()` method with domain-based search
+- Extracts reviews, feature requests, and satisfaction patterns
+- Created `mapRatingToDataPointType()` helper for rating-to-type mapping
+- Added 'trustpilot' to DataSource type in connections.types.ts
+- Build passes successfully
 
 ---
 
@@ -216,7 +234,16 @@ npm run build
 # Check for Twitter-sourced insights
 ```
 
-### Status: NOT STARTED
+### Status: COMPLETE
+
+**Changes Made:**
+- Added 'twitter' to `ALL_APIS` constant
+- Added 'twitter' to `getApisForBusinessType()` for both local and B2B
+- Created `fetchTwitterData()` method with UVP-targeted search keywords
+- Extracts tweets with sentiment, pain points, and viral discussions
+- Created `buildTwitterSearchKeywords()` helper for keyword generation
+- Created `mapSentimentToDataPointType()` helper for sentiment mapping
+- Build passes successfully
 
 ---
 

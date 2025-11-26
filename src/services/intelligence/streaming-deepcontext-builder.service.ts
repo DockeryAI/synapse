@@ -62,7 +62,10 @@ const ALL_APIS = [
   'linkedin',
   'perplexity',
   'reddit',
-  'quora'
+  'quora',
+  'g2',
+  'trustpilot',
+  'twitter'
 ] as const;
 
 type ApiName = typeof ALL_APIS[number];
@@ -356,11 +359,13 @@ export class StreamingDeepContextBuilder {
    */
   private getApisForBusinessType(businessType: string): ApiName[] {
     if (businessType === 'local') {
-      // Local businesses: Use all APIs including OutScraper for Google Maps + Reddit + Quora (optional)
-      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora'];
+      // Local businesses: Use all APIs including OutScraper for Google Maps + social
+      // Includes: TrustPilot (reviews), Twitter (sentiment) - Skip G2 (B2B only)
+      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter'];
     } else {
-      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use different sources + Reddit + Quora
-      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit', 'quora'];
+      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use B2B-focused sources
+      // Includes: G2 (B2B reviews), TrustPilot (reviews), Twitter (sentiment)
+      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit', 'quora', 'g2', 'trustpilot', 'twitter'];
     }
   }
 
@@ -407,6 +412,15 @@ export class StreamingDeepContextBuilder {
           break;
         case 'quora':
           apiDataPoints = await this.fetchQuoraData();
+          break;
+        case 'g2':
+          apiDataPoints = await this.fetchG2Data();
+          break;
+        case 'trustpilot':
+          apiDataPoints = await this.fetchTrustPilotData();
+          break;
+        case 'twitter':
+          apiDataPoints = await this.fetchTwitterData();
           break;
       }
 
@@ -2199,6 +2213,326 @@ export class StreamingDeepContextBuilder {
       'problem': 'pain_point'
     };
     return mapping[category] || 'question';
+  }
+
+  /**
+   * Fetch G2 Reviews for B2B software insights
+   * Only runs for B2B business types
+   */
+  private async fetchG2Data(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const uvpIndustry = this.getUVPIndustry();
+
+      // Log targeting info
+      if (targetCustomer) {
+        console.log('[Streaming/g2] ✅ Mining G2 reviews for B2B insights in:', uvpIndustry);
+      } else {
+        console.warn('[Streaming/g2] ⚠️ FALLBACK to generic product search');
+      }
+
+      // Search G2 using brand name or industry-specific category
+      const productName = this.brandData.name;
+      const category = uvpIndustry === 'software' ? 'Enterprise Software' : `${uvpIndustry} Software`;
+
+      console.log(`[Streaming/g2] Scraping G2 for "${productName}" in category "${category}"`);
+
+      const g2Reviews = await apifySocialScraper.scrapeG2Reviews(productName, category, 30);
+
+      // Convert reviews to data points
+      g2Reviews.reviews.forEach((review, idx) => {
+        // Create data point from review text
+        dataPoints.push({
+          id: `g2-review-${Date.now()}-${idx}`,
+          source: 'g2' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: review.text.substring(0, 500),
+          metadata: {
+            rating: review.rating,
+            pros: review.pros,
+            cons: review.cons,
+            user_role: review.user_role,
+            company_size: review.company_size,
+            industry: review.industry
+          },
+          createdAt: new Date(review.date)
+        });
+
+        // Create separate data point for cons (pain points)
+        if (review.cons && review.cons.length > 20) {
+          dataPoints.push({
+            id: `g2-cons-${Date.now()}-${idx}`,
+            source: 'g2' as DataSource,
+            type: 'pain_point' as DataPointType,
+            content: review.cons,
+            metadata: {
+              rating: review.rating,
+              user_role: review.user_role,
+              company_size: review.company_size
+            },
+            createdAt: new Date(review.date)
+          });
+        }
+      });
+
+      // Convert buyer intent signals to data points
+      g2Reviews.buyer_intent_signals.forEach((signal, idx) => {
+        dataPoints.push({
+          id: `g2-intent-${Date.now()}-${idx}`,
+          source: 'g2' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: signal.signal,
+          metadata: {
+            intent_category: signal.category,
+            strength: signal.strength
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert competitive intelligence
+      g2Reviews.competitive_intelligence.switching_reasons.forEach((reason, idx) => {
+        dataPoints.push({
+          id: `g2-switching-${Date.now()}-${idx}`,
+          source: 'g2' as DataSource,
+          type: 'competitor_mention' as DataPointType,
+          content: reason,
+          metadata: {
+            type: 'switching_reason',
+            alternatives: g2Reviews.competitive_intelligence.alternatives_mentioned
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/g2] Collected ${dataPoints.length} data points from G2 reviews`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/g2] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Fetch TrustPilot reviews for customer sentiment
+   * Works for both SMB and B2B businesses
+   */
+  private async fetchTrustPilotData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const uvpIndustry = this.getUVPIndustry();
+
+      // Log targeting info
+      if (targetCustomer) {
+        console.log('[Streaming/trustpilot] ✅ Mining TrustPilot reviews for:', this.brandData.name);
+      } else {
+        console.warn('[Streaming/trustpilot] ⚠️ FALLBACK to generic brand search');
+      }
+
+      // Get domain from brand data or construct from name
+      const domain = this.brandData.website || `${this.brandData.name.toLowerCase().replace(/\s+/g, '')}.com`;
+      console.log(`[Streaming/trustpilot] Scraping TrustPilot for domain: ${domain}`);
+
+      const trustPilotReviews = await apifySocialScraper.scrapeTrustPilotReviews(domain, 30);
+
+      // Convert reviews to data points
+      trustPilotReviews.reviews.forEach((review, idx) => {
+        dataPoints.push({
+          id: `trustpilot-review-${Date.now()}-${idx}`,
+          source: 'trustpilot' as DataSource,
+          type: this.mapRatingToDataPointType(review.rating),
+          content: review.text.substring(0, 500),
+          metadata: {
+            rating: review.rating,
+            title: review.title,
+            sentiment: review.sentiment,
+            helpful_count: review.helpful_count
+          },
+          createdAt: new Date(review.date)
+        });
+      });
+
+      // Convert feature requests to data points
+      trustPilotReviews.feature_requests.forEach((request, idx) => {
+        dataPoints.push({
+          id: `trustpilot-feature-${Date.now()}-${idx}`,
+          source: 'trustpilot' as DataSource,
+          type: 'unarticulated_need' as DataPointType,
+          content: request.feature,
+          metadata: {
+            requested_count: request.count,
+            from_negative_reviews: request.from_negative_reviews
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert satisfaction patterns to data points
+      trustPilotReviews.satisfaction_patterns.forEach((pattern, idx) => {
+        dataPoints.push({
+          id: `trustpilot-pattern-${Date.now()}-${idx}`,
+          source: 'trustpilot' as DataSource,
+          type: pattern.category === 'complaint' ? 'pain_point' : 'customer_trigger',
+          content: pattern.pattern,
+          metadata: {
+            category: pattern.category,
+            frequency: pattern.frequency
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/trustpilot] Collected ${dataPoints.length} data points from TrustPilot`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/trustpilot] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Map TrustPilot rating to DataPointType
+   */
+  private mapRatingToDataPointType(rating: number): DataPointType {
+    if (rating <= 2) return 'pain_point';
+    if (rating >= 4) return 'customer_trigger';
+    return 'sentiment';
+  }
+
+  /**
+   * Fetch Twitter/X data for real-time sentiment
+   * Works for both SMB and B2B businesses
+   */
+  private async fetchTwitterData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const uvpIndustry = this.getUVPIndustry();
+
+      // Build search keywords from UVP
+      const customerTerm = targetCustomer
+        ? this.extractCustomerSearchTerm(targetCustomer)
+        : this.brandData.industry;
+
+      // Log targeting info
+      if (targetCustomer) {
+        console.log('[Streaming/twitter] ✅ Mining Twitter/X for:', customerTerm);
+      } else {
+        console.warn('[Streaming/twitter] ⚠️ FALLBACK to generic brand search');
+      }
+
+      // Build Twitter search keywords
+      const searchKeywords = this.buildTwitterSearchKeywords(customerTerm, uvpIndustry);
+      console.log(`[Streaming/twitter] Searching Twitter with ${searchKeywords.length} keywords`);
+
+      const twitterSentiment = await apifySocialScraper.scrapeTwitterSentiment(searchKeywords, 30);
+
+      // Convert tweets to data points
+      twitterSentiment.tweets.forEach((tweet, idx) => {
+        dataPoints.push({
+          id: `twitter-tweet-${Date.now()}-${idx}`,
+          source: 'twitter' as DataSource,
+          type: this.mapSentimentToDataPointType(tweet.sentiment),
+          content: tweet.text,
+          metadata: {
+            likes: tweet.likes,
+            retweets: tweet.retweets,
+            replies: tweet.replies,
+            sentiment: tweet.sentiment,
+            engagement_rate: tweet.engagement_rate,
+            author: tweet.author
+          },
+          createdAt: new Date(tweet.timestamp)
+        });
+      });
+
+      // Convert pain points extracted from tweets
+      twitterSentiment.pain_points.forEach((painPoint, idx) => {
+        dataPoints.push({
+          id: `twitter-pain-${Date.now()}-${idx}`,
+          source: 'twitter' as DataSource,
+          type: 'pain_point' as DataPointType,
+          content: painPoint.text,
+          metadata: {
+            intensity: painPoint.intensity,
+            frequency: painPoint.frequency,
+            context: painPoint.context
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert viral discussions to data points
+      twitterSentiment.viral_discussions.forEach((discussion, idx) => {
+        dataPoints.push({
+          id: `twitter-viral-${Date.now()}-${idx}`,
+          source: 'twitter' as DataSource,
+          type: 'trending_topic' as DataPointType,
+          content: `${discussion.topic}: ${discussion.key_phrases.join(', ')}`,
+          metadata: {
+            topic: discussion.topic,
+            volume: discussion.volume,
+            sentiment: discussion.sentiment,
+            key_phrases: discussion.key_phrases
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/twitter] Collected ${dataPoints.length} data points from Twitter`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/twitter] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Build Twitter search keywords from UVP context
+   */
+  private buildTwitterSearchKeywords(customerTerm: string, industry: string): string[] {
+    const keywords: string[] = [];
+
+    // Brand mention
+    keywords.push(this.brandData.name);
+
+    // Customer + pain expressions
+    if (customerTerm) {
+      keywords.push(`${customerTerm} frustrated`);
+      keywords.push(`${customerTerm} problems`);
+    }
+
+    // Industry + sentiment
+    keywords.push(`${industry} complaints`);
+    keywords.push(`${industry} issues`);
+
+    // Hashtag patterns
+    keywords.push(`#${industry.replace(/\s+/g, '')}problems`);
+
+    return keywords.slice(0, 5);
+  }
+
+  /**
+   * Map Twitter sentiment to DataPointType
+   */
+  private mapSentimentToDataPointType(sentiment: string): DataPointType {
+    const mapping: Record<string, DataPointType> = {
+      'positive': 'customer_trigger',
+      'negative': 'pain_point',
+      'neutral': 'sentiment'
+    };
+    return mapping[sentiment] || 'sentiment';
   }
 
   // LEGACY: Keep old single-query method for fallback
