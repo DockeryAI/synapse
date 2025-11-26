@@ -28,6 +28,7 @@ import { ConnectionScorer } from '@/services/synapse/connections/ConnectionScore
 import { connectionDiscoveryService } from './connection-discovery.service';
 import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import { redditAPI } from './reddit-apify-api';
+import { apifySocialScraper } from './apify-social-scraper.service';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
 import type { DataPoint, DataSource, DataPointType } from '@/types/connections.types';
 
@@ -60,7 +61,8 @@ const ALL_APIS = [
   'weather',
   'linkedin',
   'perplexity',
-  'reddit'
+  'reddit',
+  'quora'
 ] as const;
 
 type ApiName = typeof ALL_APIS[number];
@@ -354,11 +356,11 @@ export class StreamingDeepContextBuilder {
    */
   private getApisForBusinessType(businessType: string): ApiName[] {
     if (businessType === 'local') {
-      // Local businesses: Use all APIs including OutScraper for Google Maps + Reddit
-      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit'];
+      // Local businesses: Use all APIs including OutScraper for Google Maps + Reddit + Quora (optional)
+      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora'];
     } else {
-      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use different sources + Reddit
-      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit'];
+      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use different sources + Reddit + Quora
+      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit', 'quora'];
     }
   }
 
@@ -402,6 +404,9 @@ export class StreamingDeepContextBuilder {
           break;
         case 'reddit':
           apiDataPoints = await this.fetchRedditData();
+          break;
+        case 'quora':
+          apiDataPoints = await this.fetchQuoraData();
           break;
       }
 
@@ -2039,6 +2044,161 @@ export class StreamingDeepContextBuilder {
       'urgency': 'timing'
     };
     return mapping[triggerType] || 'unarticulated_need';
+  }
+
+  /**
+   * Fetch Quora data for customer questions and desires
+   * Uses Apify Quora scraper for deep question mining
+   */
+  private async fetchQuoraData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    try {
+      // Build UVP-targeted Quora search queries
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const transformation = this.uvpData?.transformation || '';
+      const uvpIndustry = this.getUVPIndustry();
+
+      // Extract search terms from UVP
+      const customerTerm = targetCustomer
+        ? this.extractCustomerSearchTerm(targetCustomer)
+        : this.brandData.industry;
+
+      // Log whether using UVP or fallback
+      if (targetCustomer) {
+        console.log('[Streaming/quora] ✅ Using UVP-TARGETED search for:', customerTerm);
+      } else {
+        console.warn('[Streaming/quora] ⚠️ FALLBACK to generic industry search:', this.brandData.industry);
+      }
+
+      // Build Quora search keywords from UVP
+      const searchKeywords = this.buildQuoraSearchKeywords(customerTerm, transformation, uvpIndustry);
+      console.log(`[Streaming/quora] Mining Quora for questions with ${searchKeywords.length} keywords:`, searchKeywords.slice(0, 3));
+
+      // Scrape Quora for insights
+      const quoraInsights = await apifySocialScraper.scrapeQuoraInsights(searchKeywords, 20);
+
+      // Convert questions to data points
+      quoraInsights.questions.forEach((q, idx) => {
+        dataPoints.push({
+          id: `quora-question-${Date.now()}-${idx}`,
+          source: 'quora' as DataSource,
+          type: this.mapQuoraCategoryToDataPointType(q.psychological_category),
+          content: q.question,
+          metadata: {
+            upvotes: q.upvotes,
+            followers: q.followers,
+            answers_count: q.answers_count,
+            url: q.url,
+            topics: q.topics,
+            psychological_category: q.psychological_category
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert top answers to data points (valuable for content angles)
+      quoraInsights.top_answers.forEach((a, idx) => {
+        dataPoints.push({
+          id: `quora-answer-${Date.now()}-${idx}`,
+          source: 'quora' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: a.answer.substring(0, 500), // Truncate long answers
+          metadata: {
+            upvotes: a.upvotes,
+            author_credentials: a.author_credentials,
+            question: a.question,
+            key_insights: a.key_insights
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert desires to data points
+      quoraInsights.desires.forEach((d, idx) => {
+        dataPoints.push({
+          id: `quora-desire-${Date.now()}-${idx}`,
+          source: 'quora' as DataSource,
+          type: 'unarticulated_need' as DataPointType,
+          content: d.text,
+          metadata: {
+            intensity: d.intensity,
+            frequency: d.frequency,
+            context: d.context
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert fears to data points
+      quoraInsights.fears.forEach((f, idx) => {
+        dataPoints.push({
+          id: `quora-fear-${Date.now()}-${idx}`,
+          source: 'quora' as DataSource,
+          type: 'pain_point' as DataPointType,
+          content: f.text,
+          metadata: {
+            intensity: f.intensity,
+            frequency: f.frequency,
+            context: f.context
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/quora] Collected ${dataPoints.length} data points from Quora`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/quora] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  /**
+   * Build Quora search keywords from UVP context
+   */
+  private buildQuoraSearchKeywords(customerTerm: string, transformation: string, industry: string): string[] {
+    const keywords: string[] = [];
+
+    // Parse pain point from transformation
+    const painPoint = transformation?.split('→')[0]?.trim() || '';
+
+    // Customer-focused queries
+    if (customerTerm) {
+      keywords.push(`${customerTerm} challenges`);
+      keywords.push(`${customerTerm} problems`);
+    }
+
+    // Industry + question patterns
+    keywords.push(`${industry} best practices`);
+    keywords.push(`${industry} common mistakes`);
+    keywords.push(`how to ${industry}`);
+
+    // Pain point from transformation
+    if (painPoint) {
+      keywords.push(painPoint.substring(0, 40));
+    }
+
+    // Solution-seeking patterns
+    keywords.push(`${industry} solutions`);
+    keywords.push(`improve ${industry}`);
+
+    return keywords.slice(0, 5); // Limit to 5 keywords
+  }
+
+  /**
+   * Map Quora psychological category to DataPointType
+   */
+  private mapQuoraCategoryToDataPointType(category: string): DataPointType {
+    const mapping: Record<string, DataPointType> = {
+      'desire': 'unarticulated_need',
+      'fear': 'pain_point',
+      'uncertainty': 'question',
+      'problem': 'pain_point'
+    };
+    return mapping[category] || 'question';
   }
 
   // LEGACY: Keep old single-query method for fallback

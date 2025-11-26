@@ -11,6 +11,7 @@ export type DataSource =
   | 'weather'
   | 'serper'
   | 'reddit'
+  | 'quora'
   | 'twitter'
   | 'apify'
   | 'perplexity'
