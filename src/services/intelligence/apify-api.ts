@@ -11,7 +11,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 // Apify Actor IDs (official actors from Apify Store)
 const ACTORS = {
   WEBSITE_CONTENT: 'apify/website-content-crawler',
-  GOOGLE_MAPS: 'nwua9Gu5YrADL7ZDj', // Google Maps Scraper
+  GOOGLE_MAPS: 'compass/google-maps-reviews-scraper', // Google Maps Reviews Scraper
   INSTAGRAM: 'apify/instagram-scraper'
 }
 

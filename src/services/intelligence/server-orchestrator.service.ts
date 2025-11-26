@@ -115,80 +115,52 @@ class ServerOrchestratorService {
     console.log(`  - Content length: ${websiteContent.length} chars`);
     console.log(`  - Testimonials: ${testimonials.length}`);
 
+    // 5 sections, 65 seconds total = 13 seconds per section
+    // Progress: 0% -> 20% -> 40% -> 60% -> 80% -> 100%
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
+
+    // Section 1: Scanning website content (0-13s)
     onProgress?.({
       stage: 'sending',
-      progress: 5,
-      message: 'Preparing analysis request...'
+      progress: 0,
+      message: 'Scanning website content'
     });
 
-    // Simulate progress stages over ~65 seconds for Opus 4.5
-    // Total 5 stages: preparing (5%), connecting (15%), analyzing (30-60%), extracting (70%), finalizing (85%)
-    const progressInterval = setInterval(() => {
-      // This will be cleared when we get the response
-    }, 1000);
-
-    // Stage 1: Preparing (0-5 seconds)
-    setTimeout(() => {
-      onProgress?.({
-        stage: 'sending',
-        progress: 10,
-        message: 'Connecting to AI server...'
-      });
-    }, 2000);
-
-    // Stage 2: Connected (5-13 seconds)
-    setTimeout(() => {
+    // Section 2: Scanning for services/products (13s)
+    timeouts.push(setTimeout(() => {
       onProgress?.({
         stage: 'processing',
         progress: 20,
-        message: 'Analyzing website content...'
+        message: 'Scanning website for services and products'
       });
-    }, 6000);
+    }, 13000));
 
-    // Stage 3: Analyzing products (13-26 seconds)
-    setTimeout(() => {
+    // Section 3: Analyzing testimonials (26s)
+    timeouts.push(setTimeout(() => {
       onProgress?.({
         stage: 'processing',
-        progress: 35,
-        message: 'Extracting products & services...'
+        progress: 40,
+        message: 'Analyzing customer testimonials and case studies'
       });
-    }, 13000);
+    }, 26000));
 
-    // Stage 4: Analyzing customers (26-39 seconds)
-    setTimeout(() => {
+    // Section 4: Extracting value propositions (39s)
+    timeouts.push(setTimeout(() => {
       onProgress?.({
         stage: 'processing',
-        progress: 50,
-        message: 'Identifying customer profiles...'
+        progress: 60,
+        message: 'Extracting value propositions'
       });
-    }, 26000);
+    }, 39000));
 
-    // Stage 5: Extracting benefits (39-52 seconds)
-    setTimeout(() => {
-      onProgress?.({
-        stage: 'processing',
-        progress: 65,
-        message: 'Extracting benefits & differentiators...'
-      });
-    }, 39000);
-
-    // Stage 6: Transformations (52-60 seconds)
-    setTimeout(() => {
+    // Section 5: Extracting products/services (52s)
+    timeouts.push(setTimeout(() => {
       onProgress?.({
         stage: 'processing',
         progress: 80,
-        message: 'Building transformation insights...'
+        message: 'Extracting products and services'
       });
-    }, 52000);
-
-    // Stage 7: Almost done (60-65 seconds)
-    setTimeout(() => {
-      onProgress?.({
-        stage: 'processing',
-        progress: 90,
-        message: 'Finalizing analysis...'
-      });
-    }, 60000);
+    }, 52000));
 
     try {
       const response = await fetch(`${SUPABASE_URL}/functions/v1/intelligence-orchestrator`, {
@@ -205,7 +177,8 @@ class ServerOrchestratorService {
         })
       });
 
-      clearInterval(progressInterval);
+      // Clear all progress timeouts
+      timeouts.forEach(t => clearTimeout(t));
 
       if (!response.ok) {
         const error = await response.text();

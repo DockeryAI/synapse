@@ -35,13 +35,16 @@ interface LoadingStep {
   substeps: string[];
 }
 
+// 65 seconds total / 5 steps = 13 seconds per step
+const STEP_DURATION = 13000;
+
 const STEPS: LoadingStep[] = [
   {
     key: 'products',
     label: 'Products',
     description: 'Scanning products & services',
     icon: Package,
-    duration: 27944, // Doubled from 13972 (100% increase)
+    duration: STEP_DURATION,
     substeps: [
       'Scanning homepage content...',
       'Analyzing service pages...',
@@ -54,7 +57,7 @@ const STEPS: LoadingStep[] = [
     label: 'Customer',
     description: 'Identifying target customers',
     icon: Users,
-    duration: 27944, // Doubled from 13972 (100% increase)
+    duration: STEP_DURATION,
     substeps: [
       'Analyzing target audience...',
       'Extracting customer segments...',
@@ -67,7 +70,7 @@ const STEPS: LoadingStep[] = [
     label: 'Value',
     description: 'Discovering customer value',
     icon: Zap,
-    duration: 27944, // Doubled from 13972 (100% increase)
+    duration: STEP_DURATION,
     substeps: [
       'Analyzing customer testimonials...',
       'Extracting transformation stories...',
@@ -80,7 +83,7 @@ const STEPS: LoadingStep[] = [
     label: 'Solution',
     description: 'Extracting unique solutions',
     icon: Lightbulb,
-    duration: 27944, // Doubled from 13972 (100% increase)
+    duration: STEP_DURATION,
     substeps: [
       'Analyzing differentiators...',
       'Identifying unique approaches...',
@@ -93,7 +96,7 @@ const STEPS: LoadingStep[] = [
     label: 'Benefit',
     description: 'Analyzing key benefits',
     icon: Award,
-    duration: 27944, // Doubled from 13972 (100% increase)
+    duration: STEP_DURATION,
     substeps: [
       'Extracting customer outcomes...',
       'Analyzing success metrics...',
@@ -141,7 +144,7 @@ export function InitialLoadingScreen({
           return prev;
         }
       });
-    }, 27944); // Each step takes 27.944 seconds (doubled from original - total ~140 seconds)
+    }, STEP_DURATION); // 13 seconds per step, 65 seconds total for 5 steps
 
     return () => clearInterval(timer);
   }, []);
@@ -171,7 +174,10 @@ export function InitialLoadingScreen({
           </h1>
 
           <p className="text-gray-400 text-lg">
-            Building your complete value proposition...
+            Building your value proposition...
+          </p>
+          <p className="text-gray-500 text-sm">
+            (this should take about a minute)
           </p>
         </div>
 
@@ -286,7 +292,7 @@ export function InitialLoadingScreen({
           className="text-center text-sm text-gray-500"
         >
           <p>Using AI to extract insights from your website...</p>
-          <p className="mt-1">This could take up to 3 minutes</p>
+          <p className="mt-1">This could take up to a minute</p>
         </motion.div>
       </motion.div>
     </div>

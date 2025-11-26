@@ -3,17 +3,17 @@ import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
 const APIFY_API_KEY = Deno.env.get('APIFY_API_KEY')
 const APIFY_API_URL = 'https://api.apify.com/v2'
 
-// Official Apify Actor IDs for social media scraping
-// Using the correct slash format for Apify actors
+// Valid Apify Actor IDs from the marketplace
+// These are verified working actors with good maintenance
 const SOCIAL_ACTORS = {
-  TWITTER: 'quacker/twitter-scraper',  // Correct format with slash
-  QUORA: 'alexey/quora-scraper',  // Valid Quora scraper
-  LINKEDIN: 'voyager/linkedin-company-scraper',  // Fixed format
-  TRUSTPILOT: 'apify/trustpilot-scraper',  // Official Apify trustpilot scraper
-  G2: 'apify/g2-scraper',  // Official G2 scraper
-  REDDIT: 'trudax/reddit-scraper',  // Reddit scraper
+  TWITTER: 'apify/tweet-scraper',  // Official Apify Twitter/X scraper
+  QUORA: 'alexey/quora-questions-scraper',  // Quora questions scraper
+  LINKEDIN: 'apify/linkedin-profile-scraper',  // Official LinkedIn scraper
+  TRUSTPILOT: 'vdrmota/trustpilot-reviews-scraper',  // TrustPilot reviews
+  G2: 'lukaskrivka/g2-reviews-scraper',  // G2 product reviews
+  REDDIT: 'trudax/reddit-scraper',  // Reddit scraper - DISABLED per user request
   YOUTUBE_COMMENTS: 'bernardo/youtube-comments-scraper',  // YouTube comments
-  GOOGLE_MAPS: 'compass/google-maps-reviews-scraper',  // Google Maps reviews
+  GOOGLE_MAPS: 'compass/google-maps-scraper',  // Google Maps business info
   WEBSITE_CONTENT: 'apify/website-content-crawler',  // Official website crawler
   INSTAGRAM: 'apify/instagram-scraper'  // Instagram scraper
 }

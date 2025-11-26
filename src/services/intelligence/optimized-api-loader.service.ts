@@ -118,8 +118,8 @@ export class OptimizedAPILoader extends EventEmitter {
     apis.add('youtube-comments')
     apis.add('semrush-keywords')
     apis.add('outscraper-reviews')
-    apis.add('apify-twitter')
-    apis.add('apify-quora')
+    apis.add('apify-twitter')  // Re-enabled with valid actor ID
+    apis.add('apify-quora')    // Re-enabled with valid actor ID
     apis.add('perplexity-research')
     apis.add('openrouter-analysis')
 
@@ -134,12 +134,12 @@ export class OptimizedAPILoader extends EventEmitter {
     if (industryApiSelector.shouldUseLinkedInAPI(naicsCode)) {
       apis.add('linkedin-company')
       apis.add('linkedin-network')
-      apis.add('apify-linkedin')
-      apis.add('apify-g2')
+      apis.add('apify-linkedin')  // Re-enabled with valid actor ID
+      apis.add('apify-g2')        // Re-enabled with valid actor ID
     }
 
     // TrustPilot for both B2B and B2C
-    apis.add('apify-trustpilot')
+    apis.add('apify-trustpilot')  // Re-enabled with valid actor ID
 
     // DISABLED: Reddit APIs (per user request)
     // apis.add('reddit-trending')
@@ -174,9 +174,9 @@ export class OptimizedAPILoader extends EventEmitter {
     // Phase 2: Psychological Triggers (3s-15s)
     const psychAPIs = [
       'outscraper-reviews',
-      'youtube-comments',
-      'apify-twitter',
-      'apify-quora'
+      'youtube-comments'
+      // 'apify-twitter',  // DISABLED: temporarily
+      // 'apify-quora'     // DISABLED: temporarily
     ].filter(api => apis.has(api))
 
     if (psychAPIs.length > 0) {
