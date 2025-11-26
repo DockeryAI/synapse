@@ -84,9 +84,13 @@ export const PLATFORM_CAPTION_CONFIGS: Record<string, Partial<CaptionConfig>> = 
 
 /**
  * Auto-Caption Service
+ *
+ * SECURITY: All API calls routed through whisper-proxy Edge Function.
+ * No API keys exposed in browser code.
  */
 export class AutoCaptionService {
-  private static readonly WHISPER_API_ENDPOINT = 'https://api.openai.com/v1/audio/transcriptions';
+  private static readonly SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+  private static readonly SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
   /**
    * Generate captions from video using Whisper API
@@ -138,35 +142,34 @@ export class AutoCaptionService {
   }
 
   /**
-   * Call OpenAI Whisper API
+   * Call OpenAI Whisper API via Edge Function
    */
   private static async callWhisperAPI(
     audioBlob: Blob,
     language: string
   ): Promise<any> {
-    const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-
-    if (!apiKey) {
-      throw new Error('OpenAI API key not configured');
+    if (!this.SUPABASE_URL || !this.SUPABASE_ANON_KEY) {
+      throw new Error('Supabase configuration missing');
     }
 
     const formData = new FormData();
-    formData.append('file', audioBlob);
+    formData.append('file', audioBlob, 'audio.webm');
     formData.append('model', 'whisper-1');
     formData.append('language', language);
     formData.append('response_format', 'verbose_json'); // Get timestamps
-    formData.append('timestamp_granularities', 'word'); // Word-level timestamps
+    formData.append('timestamp_granularities[]', 'word'); // Word-level timestamps
 
-    const response = await fetch(this.WHISPER_API_ENDPOINT, {
+    const response = await fetch(`${this.SUPABASE_URL}/functions/v1/whisper-proxy`, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${apiKey}`
+        'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`
       },
       body: formData
     });
 
     if (!response.ok) {
-      throw new Error(`Whisper API error: ${response.statusText}`);
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(`Whisper API error: ${errorData.error || response.statusText}`);
     }
 
     return response.json();

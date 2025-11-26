@@ -32,16 +32,17 @@ export interface EmbeddingResponse {
 
 export class EmbeddingService {
   private cache = new Map<string, EmbeddingCacheEntry>();
-  private apiKey: string;
   private totalTokensUsed = 0;
   private totalCost = 0;
   private cacheHits = 0;
   private cacheMisses = 0;
+  // SECURITY: Use Edge Functions for secure API access
+  private supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+  private supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
-  constructor(apiKey?: string) {
-    this.apiKey = apiKey || import.meta.env.VITE_OPENAI_API_KEY || '';
-    if (!this.apiKey) {
-      console.warn('[EmbeddingService] No OpenAI API key provided');
+  constructor() {
+    if (!this.supabaseUrl || !this.supabaseAnonKey) {
+      console.warn('[EmbeddingService] Supabase credentials not configured for Edge Function access');
     }
   }
 
@@ -187,18 +188,19 @@ export class EmbeddingService {
   }
 
   /**
-   * Call OpenAI API
+   * Call OpenAI API via Edge Function (secure - no API keys exposed)
    */
   private async callOpenAI(texts: string[], model: string): Promise<any> {
-    const url = 'https://api.openai.com/v1/embeddings';
-
-    const response = await fetch(url, {
+    // Use Edge Function for secure API access
+    const response = await fetch(`${this.supabaseUrl}/functions/v1/ai-proxy`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`
+        'Authorization': `Bearer ${this.supabaseAnonKey}`
       },
       body: JSON.stringify({
+        provider: 'openai',
+        endpoint: 'embeddings',
         model,
         input: texts
       })
@@ -206,7 +208,7 @@ export class EmbeddingService {
 
     if (!response.ok) {
       const error = await response.text();
-      throw new Error(`OpenAI API error: ${response.status} ${error}`);
+      throw new Error(`AI Proxy error: ${response.status} ${error}`);
     }
 
     return await response.json();

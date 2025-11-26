@@ -5,7 +5,8 @@
  * Uses the same connection as the main app but with PM-specific helpers.
  */
 
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { SupabaseClient } from '@supabase/supabase-js';
+import { supabase as mainSupabaseClient } from '@/lib/supabase';
 
 // ============================================================================
 // TABLE CONSTANTS
@@ -62,52 +63,23 @@ export function isForeignKeyError(error: unknown): boolean {
 }
 
 // ============================================================================
-// SINGLETON CLIENT
+// SINGLETON CLIENT - Reuse main app client to avoid multiple instances
 // ============================================================================
-
-let supabaseClient: SupabaseClient | null = null;
 
 /**
  * Get the Product Marketing Supabase client
- * Uses environment variables for configuration
+ * Reuses the main app client to avoid "Multiple GoTrueClient instances" warning
  */
 export function getPMSupabaseClient(): SupabaseClient {
-  if (supabaseClient) {
-    return supabaseClient;
-  }
-
-  // Get environment variables (Vite or Node.js)
-  const env = typeof import.meta !== 'undefined' && import.meta.env
-    ? import.meta.env
-    : (typeof process !== 'undefined' ? process.env : {});
-
-  const supabaseUrl = env.VITE_SUPABASE_URL || env.SUPABASE_URL;
-  const supabaseKey = env.VITE_SUPABASE_ANON_KEY || env.SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error(
-      'Missing Supabase credentials. Set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY environment variables.'
-    );
-  }
-
-  supabaseClient = createClient(supabaseUrl, supabaseKey, {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-    },
-    db: {
-      schema: 'public',
-    },
-  });
-
-  return supabaseClient;
+  return mainSupabaseClient as SupabaseClient;
 }
 
 /**
- * Reset the client (useful for testing)
+ * Reset the client (no-op since we reuse main client)
+ * Kept for backwards compatibility
  */
 export function resetPMSupabaseClient(): void {
-  supabaseClient = null;
+  // No-op - main client is managed elsewhere
 }
 
 // ============================================================================

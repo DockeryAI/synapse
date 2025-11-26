@@ -26,6 +26,9 @@ export class TopicExplorerService implements ITopicExplorer {
   private anthropicApiKey: string;
   private perplexityApiKey: string;
   private anthropic: Anthropic;
+  // Use Edge Functions for secure API calls
+  private supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
+  private supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 
   constructor(anthropicApiKey: string, perplexityApiKey?: string) {
     this.anthropicApiKey = anthropicApiKey;
@@ -178,14 +181,15 @@ export class TopicExplorerService implements ITopicExplorer {
         ? `Is "${topic}" currently trending in the ${industry} industry? What's the current conversation around it? Provide sources.`
         : `Is "${topic}" currently trending? What's the current conversation? Provide sources.`;
 
-      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      // Use Edge Function for secure API access (no API keys exposed to browser)
+      const response = await fetch(`${this.supabaseUrl}/functions/v1/perplexity-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.perplexityApiKey}`,
+          'Authorization': `Bearer ${this.supabaseAnonKey}`,
         },
         body: JSON.stringify({
-          model: 'llama-3.1-sonar-small-128k-online',
+          model: 'sonar',
           messages: [
             {
               role: 'user',
@@ -232,14 +236,15 @@ export class TopicExplorerService implements ITopicExplorer {
     }
 
     try {
-      const response = await fetch('https://api.perplexity.ai/chat/completions', {
+      // Use Edge Function for secure API access (no API keys exposed to browser)
+      const response = await fetch(`${this.supabaseUrl}/functions/v1/perplexity-proxy`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${this.perplexityApiKey}`,
+          'Authorization': `Bearer ${this.supabaseAnonKey}`,
         },
         body: JSON.stringify({
-          model: 'llama-3.1-sonar-small-128k-online',
+          model: 'sonar',
           messages: [
             {
               role: 'user',

@@ -4,7 +4,9 @@ import { supabase } from '@/lib/supabase'
 /**
  * Weather Alerts Service
  * Detects weather-based marketing opportunities
- * Integrates with weather APIs (OpenWeatherMap, WeatherAPI, etc.)
+ *
+ * SECURITY: All API calls routed through fetch-weather Edge Function
+ * No API keys exposed in browser code
  */
 
 interface WeatherConfig {
@@ -42,7 +44,6 @@ interface WeatherAPIResponse {
 }
 
 export class WeatherAlertsService {
-  private static readonly WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY || ''
   private static readonly CACHE_TTL_MINUTES = 30
 
   /**
@@ -85,25 +86,24 @@ export class WeatherAlertsService {
   }
 
   /**
-   * Fetch weather data from API
+   * Fetch weather data via Edge Function (secure API access)
    */
   private static async fetchWeatherData(
     config: WeatherConfig
   ): Promise<WeatherAPIResponse | null> {
-    // Check for API key
-    if (!this.WEATHER_API_KEY) {
-      throw new Error(
-        'Weather API key not configured. Add VITE_WEATHER_API_KEY to your .env file. ' +
-        'Get a free API key from https://www.weatherapi.com/'
-      )
-    }
-
     // Check cache first
     const cached = await this.getCachedWeather(config.location)
     if (cached) return cached
 
     try {
-      // Call OpenWeatherMap API (5 day forecast)
+      // Use Edge Function for secure API access
+      const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+      const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY to your .env file.')
+      }
+
       let query = config.zipCode || config.location
 
       // OpenWeather doesn't like "City, State" format - just use city name
@@ -111,34 +111,56 @@ export class WeatherAlertsService {
         query = query.split(',')[0].trim()
       }
 
-      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${encodeURIComponent(query)}&appid=${this.WEATHER_API_KEY}&units=imperial&cnt=40`
+      console.log('[WeatherAlerts] Fetching via Edge Function:', query)
 
-      console.log('[WeatherAlerts] Fetching from OpenWeather:', query)
-
-      const response = await fetch(url)
+      // Use the existing fetch-weather edge function
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-weather`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify({
+          type: 'forecast',
+          location: query
+        })
+      })
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}))
-        console.error('[WeatherAlerts] OpenWeather error:', errorData)
+        console.error('[WeatherAlerts] Edge Function error:', errorData)
         throw new Error(
-          `OpenWeather API error (${response.status}): ${errorData.message || response.statusText}`
+          `Weather Edge Function error (${response.status}): ${errorData.error || response.statusText}`
         )
       }
 
-      const data = await response.json()
+      const result = await response.json()
+      if (!result.success) {
+        throw new Error(`Weather Edge Function error: ${result.error}`)
+      }
 
-      // Transform OpenWeather response to our format
-      const transformedData = {
+      // Transform edge function response to our format
+      const forecastData = result.data || []
+      const transformedData: WeatherAPIResponse = {
         current: {
-          temp_f: data.list[0].main.temp,
+          temp_f: forecastData[0]?.temp_max || 70,
           condition: {
-            text: data.list[0].weather[0].description,
-            code: data.list[0].weather[0].id
+            text: forecastData[0]?.condition || 'clear',
+            code: 800
           },
-          precip_in: data.list[0].rain?.['3h'] ? data.list[0].rain['3h'] / 25.4 : 0
+          precip_in: (forecastData[0]?.precipitation_chance || 0) > 50 ? 0.1 : 0
         },
         forecast: {
-          forecastday: this.groupByDay(data.list)
+          forecastday: forecastData.map((day: any) => ({
+            date: day.date,
+            day: {
+              maxtemp_f: day.temp_max,
+              mintemp_f: day.temp_min,
+              condition: { text: day.condition },
+              daily_chance_of_rain: day.precipitation_chance || 0,
+              daily_chance_of_snow: 0
+            }
+          }))
         }
       }
 
@@ -478,7 +500,7 @@ export class WeatherAlertsService {
 
   /**
    * NO MOCK DATA - removed to enforce real API usage
-   * If weather data is needed, configure VITE_WEATHER_API_KEY
+   * All weather API calls routed through fetch-weather Edge Function
    */
 
   /**

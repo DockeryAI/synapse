@@ -65,7 +65,8 @@ const ALL_APIS = [
   'quora',
   'g2',
   'trustpilot',
-  'twitter'
+  'twitter',
+  'yelp'
 ] as const;
 
 type ApiName = typeof ALL_APIS[number];
@@ -360,10 +361,10 @@ export class StreamingDeepContextBuilder {
   private getApisForBusinessType(businessType: string): ApiName[] {
     if (businessType === 'local') {
       // Local businesses: Use all APIs including OutScraper for Google Maps + social
-      // Includes: TrustPilot (reviews), Twitter (sentiment) - Skip G2 (B2B only)
-      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter'];
+      // Includes: TrustPilot (reviews), Twitter (sentiment), Yelp (SMB Local) - Skip G2 (B2B only)
+      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter', 'yelp'];
     } else {
-      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, use B2B-focused sources
+      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, skip Yelp (SMB only), use B2B-focused sources
       // Includes: G2 (B2B reviews), TrustPilot (reviews), Twitter (sentiment)
       return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit', 'quora', 'g2', 'trustpilot', 'twitter'];
     }
@@ -421,6 +422,9 @@ export class StreamingDeepContextBuilder {
           break;
         case 'twitter':
           apiDataPoints = await this.fetchTwitterData();
+          break;
+        case 'yelp':
+          apiDataPoints = await this.fetchYelpData();
           break;
       }
 
@@ -862,17 +866,30 @@ export class StreamingDeepContextBuilder {
             sort: 'newest'
           });
 
-          return reviews.map((review: any, idx: number) => ({
-            id: `outscraper-review-${Date.now()}-${idx}`,
-            source: 'outscraper' as DataSource,
-            type: 'customer_trigger' as DataPointType,
-            content: review.text,
-            metadata: {
-              competitor: competitor.name,
-              rating: review.rating
-            },
-            createdAt: new Date(review.time)
-          }));
+          // ITEM #12: Stratify reviews by rating tier
+          // 1-2 stars: pain points/complaints
+          // 3 stars: mixed sentiment
+          // 4-5 stars: praise/testimonials
+          return reviews.map((review: any, idx: number) => {
+            const rating = review.rating || 3;
+            const ratingTier = rating <= 2 ? 'low' : rating >= 4 ? 'high' : 'mid';
+
+            return {
+              id: `outscraper-review-${Date.now()}-${idx}`,
+              source: 'outscraper' as DataSource,
+              type: this.mapRatingToDataPointType(rating),
+              content: review.text,
+              metadata: {
+                competitor: competitor.name,
+                rating: rating,
+                ratingTier: ratingTier,
+                // Extract specific insights based on tier
+                insightType: ratingTier === 'low' ? 'complaint' :
+                            ratingTier === 'high' ? 'testimonial' : 'feedback'
+              },
+              createdAt: new Date(review.time)
+            };
+          });
         } catch (e) {
           return [];
         }
@@ -881,11 +898,157 @@ export class StreamingDeepContextBuilder {
       const reviewResults = await Promise.all(reviewPromises);
       reviewResults.forEach(reviews => dataPoints.push(...reviews));
 
+      // ITEM #12: Log stratification results
+      const lowRating = dataPoints.filter(dp => dp.metadata?.ratingTier === 'low').length;
+      const midRating = dataPoints.filter(dp => dp.metadata?.ratingTier === 'mid').length;
+      const highRating = dataPoints.filter(dp => dp.metadata?.ratingTier === 'high').length;
+      console.log(`[Streaming/reviews] Stratified ${dataPoints.length} reviews: ${lowRating} low (pain points), ${midRating} mid (mixed), ${highRating} high (testimonials)`);
+
+      // ITEM #20: Local Competitor Extraction from Reviews
+      const competitorInsights = this.extractCompetitorMentionsFromReviews(dataPoints, competitors);
+      competitorInsights.forEach((insight, idx) => {
+        dataPoints.push({
+          id: `competitor-insight-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource,
+          type: 'competitor_mention' as DataPointType,
+          content: insight.insight,
+          metadata: {
+            competitorName: insight.competitorName,
+            mentionType: insight.mentionType,
+            sentiment: insight.sentiment,
+            platform: 'local_competitor'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // ITEM #21: Regional Chain Comparison (if multiple competitors found)
+      if (competitors.length > 1) {
+        const chainComparisons = this.generateRegionalChainComparisons(competitors, dataPoints);
+        chainComparisons.forEach((comparison, idx) => {
+          dataPoints.push({
+            id: `chain-compare-${Date.now()}-${idx}`,
+            source: 'outscraper' as DataSource,
+            type: 'competitive_gap' as DataPointType,
+            content: comparison.contentIdea,
+            metadata: {
+              comparedCompetitors: comparison.competitors,
+              comparisonType: comparison.type,
+              advantageArea: comparison.advantageArea,
+              platform: 'regional_chain_comparison'
+            },
+            createdAt: new Date()
+          });
+        });
+
+        console.log(`[Streaming/outscraper] Generated ${competitorInsights.length} competitor insights, ${chainComparisons.length} chain comparisons`);
+      }
+
     } catch (error) {
       console.error('[Streaming/outscraper] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * ITEM #20: Extract competitor mentions and insights from review data
+   */
+  private extractCompetitorMentionsFromReviews(
+    reviewDataPoints: DataPoint[],
+    competitors: any[]
+  ): Array<{ competitorName: string; insight: string; mentionType: string; sentiment: string }> {
+    const insights: Array<{ competitorName: string; insight: string; mentionType: string; sentiment: string }> = [];
+
+    const competitorNames = competitors.map(c => c.name.toLowerCase());
+
+    // Analyze low-rated reviews for competitor weaknesses
+    const lowRatedReviews = reviewDataPoints.filter(dp => dp.metadata?.ratingTier === 'low');
+    const highRatedReviews = reviewDataPoints.filter(dp => dp.metadata?.ratingTier === 'high');
+
+    // Extract common complaints from low-rated reviews
+    const complaintPatterns = [
+      { pattern: /wait|slow|long time/i, type: 'speed', insight: 'Customers frustrated with wait times - opportunity to emphasize quick service' },
+      { pattern: /rude|unfriendly|attitude/i, type: 'service', insight: 'Service quality complaints - highlight your friendly team' },
+      { pattern: /expensive|overpriced|cost/i, type: 'price', insight: 'Price sensitivity - consider value messaging or transparent pricing' },
+      { pattern: /dirty|unclean|messy/i, type: 'cleanliness', insight: 'Cleanliness concerns - emphasize your standards' },
+      { pattern: /didn't fix|not resolved|still broken/i, type: 'quality', insight: 'Work quality issues - showcase your guarantee or warranty' }
+    ];
+
+    lowRatedReviews.forEach(review => {
+      const competitorName = review.metadata?.competitor || 'Competitor';
+
+      complaintPatterns.forEach(({ pattern, type, insight }) => {
+        if (pattern.test(review.content)) {
+          insights.push({
+            competitorName: competitorName,
+            insight: `${competitorName}: ${insight}`,
+            mentionType: type,
+            sentiment: 'negative'
+          });
+        }
+      });
+    });
+
+    // Extract competitor strengths to learn from (high-rated reviews)
+    highRatedReviews.slice(0, 5).forEach(review => {
+      const competitorName = review.metadata?.competitor || 'Competitor';
+      insights.push({
+        competitorName: competitorName,
+        insight: `What ${competitorName} does well: ${review.content.substring(0, 100)}...`,
+        mentionType: 'strength',
+        sentiment: 'positive'
+      });
+    });
+
+    return insights.slice(0, 10);
+  }
+
+  /**
+   * ITEM #21: Generate regional chain comparisons based on competitor data
+   */
+  private generateRegionalChainComparisons(
+    competitors: any[],
+    reviewDataPoints: DataPoint[]
+  ): Array<{ contentIdea: string; competitors: string[]; type: string; advantageArea: string }> {
+    const comparisons: Array<{ contentIdea: string; competitors: string[]; type: string; advantageArea: string }> = [];
+
+    if (competitors.length < 2) return comparisons;
+
+    const competitorNames = competitors.slice(0, 3).map(c => c.name);
+
+    // Rating-based comparison
+    const avgRatings = competitors.slice(0, 3).map(c => ({
+      name: c.name,
+      rating: c.rating || 4.0
+    }));
+
+    const highestRated = avgRatings.sort((a, b) => b.rating - a.rating)[0];
+
+    comparisons.push({
+      contentIdea: `Why customers prefer us over ${competitorNames.filter(n => n !== this.brandData.name).join(' and ')}`,
+      competitors: competitorNames,
+      type: 'differentiation',
+      advantageArea: 'overall_value'
+    });
+
+    // Service comparison
+    comparisons.push({
+      contentIdea: `${this.brandData.name} vs local competitors: What makes us different`,
+      competitors: competitorNames,
+      type: 'head_to_head',
+      advantageArea: 'service_quality'
+    });
+
+    // Local expertise angle
+    comparisons.push({
+      contentIdea: `Local expertise: How we serve [location] better than chain competitors`,
+      competitors: competitorNames,
+      type: 'local_advantage',
+      advantageArea: 'community_knowledge'
+    });
+
+    return comparisons;
   }
 
   private async fetchYouTubeData(): Promise<DataPoint[]> {
@@ -947,11 +1110,104 @@ export class StreamingDeepContextBuilder {
           createdAt: new Date()
         });
       });
+
+      // ITEM #10: Extract YouTube comments for psychological patterns
+      console.log('[Streaming/youtube] Mining comments for psychological patterns...');
+      try {
+        const psychologyData = await YouTubeAPI.minePsychology(searchContext, customerKeywords, 5);
+
+        // Extract psychological patterns from comments
+        psychologyData.patterns.forEach((pattern: any, idx: number) => {
+          dataPoints.push({
+            id: `youtube-pattern-${Date.now()}-${idx}`,
+            source: 'youtube' as DataSource,
+            type: this.mapYouTubePatternToDataPointType(pattern.type),
+            content: pattern.pattern,
+            metadata: {
+              patternType: pattern.type,
+              frequency: pattern.frequency,
+              examples: pattern.examples?.slice(0, 3)
+            },
+            createdAt: new Date()
+          });
+        });
+
+        // Extract high-engagement comments as customer insights
+        const topComments = psychologyData.comments
+          .filter((c: any) => c.likeCount > 5)
+          .slice(0, 20);
+
+        topComments.forEach((comment: any, idx: number) => {
+          // Categorize comment based on content
+          const commentType = this.categorizeYouTubeComment(comment.text);
+          if (commentType) {
+            dataPoints.push({
+              id: `youtube-comment-${Date.now()}-${idx}`,
+              source: 'youtube' as DataSource,
+              type: commentType,
+              content: comment.text.substring(0, 300),
+              metadata: {
+                likeCount: comment.likeCount,
+                author: comment.authorName,
+                isReply: comment.isReply
+              },
+              createdAt: new Date(comment.publishedAt)
+            });
+          }
+        });
+
+        console.log(`[Streaming/youtube] Extracted ${psychologyData.patterns.length} patterns and ${topComments.length} high-engagement comments`);
+      } catch (commentError) {
+        console.warn('[Streaming/youtube] Comment extraction failed:', commentError);
+      }
+
     } catch (error) {
       console.error('[Streaming/youtube] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * Map YouTube psychological pattern type to DataPointType
+   */
+  private mapYouTubePatternToDataPointType(patternType: string): DataPointType {
+    const mapping: Record<string, DataPointType> = {
+      'wish': 'unarticulated_need',
+      'hate': 'pain_point',
+      'fear': 'pain_point',
+      'desire': 'unarticulated_need',
+      'frustration': 'pain_point',
+      'praise': 'customer_trigger'
+    };
+    return mapping[patternType] || 'customer_trigger';
+  }
+
+  /**
+   * Categorize YouTube comment by content patterns
+   */
+  private categorizeYouTubeComment(text: string): DataPointType | null {
+    const lowerText = text.toLowerCase();
+
+    // Questions indicate information gaps
+    if (/\?|how (do|can|to)|what (is|are)|why (do|does|is)/.test(lowerText)) {
+      return 'question';
+    }
+
+    // Pain expressions
+    if (/hate|frustrat|annoying|problem|issue|struggle|difficult|hard to/.test(lowerText)) {
+      return 'pain_point';
+    }
+
+    // Wishes and desires
+    if (/wish|want|need|hope|please (make|add)|would (be|love)/.test(lowerText)) {
+      return 'unarticulated_need';
+    }
+
+    // Skip generic comments
+    if (text.length < 30) return null;
+
+    return 'customer_trigger';
   }
 
   private async fetchSemrushData(): Promise<DataPoint[]> {
@@ -1006,6 +1262,39 @@ export class StreamingDeepContextBuilder {
           createdAt: new Date()
         });
       });
+
+      // ITEM #11: PAA (People Also Ask) Expansion
+      // Get PAA questions for top customer keywords to find content gaps
+      console.log('[Streaming/semrush] Expanding PAA questions for customer keywords...');
+      const paaPromises = customerKeywords.slice(0, 5).map(async (kw) => {
+        try {
+          const paaQuestions = await SerperAPI.getAutocomplete(kw.keyword);
+          return { keyword: kw.keyword, questions: paaQuestions };
+        } catch (e) {
+          return { keyword: kw.keyword, questions: [] };
+        }
+      });
+
+      const paaResults = await Promise.allSettled(paaPromises);
+      paaResults.forEach((result, kwIdx) => {
+        if (result.status === 'fulfilled' && result.value.questions.length > 0) {
+          result.value.questions.forEach((question: string, qIdx: number) => {
+            dataPoints.push({
+              id: `semrush-paa-${Date.now()}-${kwIdx}-${qIdx}`,
+              source: 'semrush' as DataSource,
+              type: 'people_also_ask' as DataPointType,
+              content: question,
+              metadata: {
+                sourceKeyword: result.value.keyword,
+                questionIndex: qIdx
+              },
+              createdAt: new Date()
+            });
+          });
+        }
+      });
+
+      console.log(`[Streaming/semrush] Extracted PAA questions for ${paaResults.filter(r => r.status === 'fulfilled').length} keywords`);
 
     } catch (error) {
       console.error('[Streaming/semrush] Error:', error);
@@ -1575,11 +1864,155 @@ export class StreamingDeepContextBuilder {
           createdAt: new Date()
         });
       });
+
+      // ITEM #18: Industry News Hooks for B2B
+      const uvpIndustry = this.getUVPIndustry();
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const industryNewsHooks = this.generateIndustryNewsHooks(relevantArticles, uvpIndustry, targetCustomer);
+
+      industryNewsHooks.forEach((hook, idx) => {
+        dataPoints.push({
+          id: `news-hook-${Date.now()}-${idx}`,
+          source: 'news' as DataSource,
+          type: 'news_story' as DataPointType,
+          content: hook.contentIdea,
+          metadata: {
+            newsTitle: hook.newsTitle,
+            hookType: hook.hookType,
+            relevanceScore: hook.relevanceScore,
+            platform: 'industry_news_hook'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // ITEM #19: Economic Indicator Triggers for B2B
+      const economicTriggers = this.generateEconomicIndicatorTriggers(relevantArticles, uvpIndustry);
+
+      economicTriggers.forEach((trigger, idx) => {
+        dataPoints.push({
+          id: `economic-${Date.now()}-${idx}`,
+          source: 'news' as DataSource,
+          type: 'market_trend' as DataPointType,
+          content: trigger.contentIdea,
+          metadata: {
+            indicatorType: trigger.indicatorType,
+            sentiment: trigger.sentiment,
+            urgency: trigger.urgency,
+            platform: 'economic_indicator'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/news] Generated ${relevantArticles.length} articles, ${industryNewsHooks.length} industry hooks, ${economicTriggers.length} economic triggers`);
+
     } catch (error) {
       console.error('[Streaming/news] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * ITEM #18: Generate industry news hooks for B2B thought leadership
+   */
+  private generateIndustryNewsHooks(
+    articles: any[],
+    industry: string,
+    targetCustomer: string
+  ): Array<{ newsTitle: string; contentIdea: string; hookType: string; relevanceScore: number }> {
+    const hooks: Array<{ newsTitle: string; contentIdea: string; hookType: string; relevanceScore: number }> = [];
+
+    // News hook templates by category
+    const hookTemplates = [
+      { pattern: /new law|regulation|policy/i, hookType: 'regulatory', template: (title: string) => `What the latest ${industry} regulations mean for your business: ${title}` },
+      { pattern: /study|research|report/i, hookType: 'research', template: (title: string) => `Key takeaways from new ${industry} research: ${title}` },
+      { pattern: /trend|growth|rise/i, hookType: 'trend', template: (title: string) => `${industry} trends you need to know: ${title}` },
+      { pattern: /challenge|problem|issue/i, hookType: 'challenge', template: (title: string) => `Industry challenge spotlight: How to address ${title}` },
+      { pattern: /technology|AI|digital/i, hookType: 'technology', template: (title: string) => `Tech disruption in ${industry}: ${title}` },
+      { pattern: /acquisit|merger|partnership/i, hookType: 'market_move', template: (title: string) => `Market shakeup: What ${title} means for your strategy` }
+    ];
+
+    articles.forEach(article => {
+      const title = article.title || '';
+      const snippet = article.snippet || '';
+      const fullText = `${title} ${snippet}`;
+
+      hookTemplates.forEach(({ pattern, hookType, template }) => {
+        if (pattern.test(fullText)) {
+          hooks.push({
+            newsTitle: title,
+            contentIdea: template(title.substring(0, 50)),
+            hookType: hookType,
+            relevanceScore: 0.8
+          });
+        }
+      });
+    });
+
+    // Add generic thought leadership hooks
+    if (articles.length > 0 && hooks.length < 3) {
+      hooks.push({
+        newsTitle: articles[0]?.title || 'Industry news',
+        contentIdea: `Weekly ${industry} news roundup: What executives need to know`,
+        hookType: 'roundup',
+        relevanceScore: 0.7
+      });
+    }
+
+    return hooks.slice(0, 5);
+  }
+
+  /**
+   * ITEM #19: Generate economic indicator triggers for B2B content
+   */
+  private generateEconomicIndicatorTriggers(
+    articles: any[],
+    industry: string
+  ): Array<{ indicatorType: string; contentIdea: string; sentiment: string; urgency: string }> {
+    const triggers: Array<{ indicatorType: string; contentIdea: string; sentiment: string; urgency: string }> = [];
+
+    // Economic indicator patterns
+    const economicPatterns = [
+      { pattern: /interest rate|fed|federal reserve/i, indicatorType: 'interest_rates', template: `How changing interest rates impact ${industry}: What to prepare for` },
+      { pattern: /inflation|cpi|consumer price/i, indicatorType: 'inflation', template: `Inflation strategies for ${industry}: Protecting margins and value` },
+      { pattern: /employment|job|hiring|layoff/i, indicatorType: 'employment', template: `${industry} employment trends: Talent strategy insights` },
+      { pattern: /gdp|economic growth|recession/i, indicatorType: 'gdp', template: `Economic outlook for ${industry}: Planning for what's ahead` },
+      { pattern: /supply chain|shipping|logistics/i, indicatorType: 'supply_chain', template: `Supply chain updates for ${industry}: Risk mitigation strategies` },
+      { pattern: /budget|spending|investment/i, indicatorType: 'spending', template: `${industry} budget trends: Where smart money is going` }
+    ];
+
+    articles.forEach(article => {
+      const fullText = `${article.title} ${article.snippet}`.toLowerCase();
+
+      economicPatterns.forEach(({ pattern, indicatorType, template }) => {
+        if (pattern.test(fullText)) {
+          // Determine sentiment
+          const sentiment = /decline|drop|fall|recession|layoff|cut/i.test(fullText) ? 'negative' :
+                           /growth|rise|increase|surge|hire/i.test(fullText) ? 'positive' : 'neutral';
+
+          triggers.push({
+            indicatorType: indicatorType,
+            contentIdea: template,
+            sentiment: sentiment,
+            urgency: sentiment === 'negative' ? 'high' : 'medium'
+          });
+        }
+      });
+    });
+
+    // Add general economic content if few specific triggers found
+    if (triggers.length < 2) {
+      triggers.push({
+        indicatorType: 'general',
+        contentIdea: `Q${Math.ceil((new Date().getMonth() + 1) / 3)} ${industry} economic outlook: Key indicators to watch`,
+        sentiment: 'neutral',
+        urgency: 'low'
+      });
+    }
+
+    return triggers.slice(0, 4);
   }
 
   /**
@@ -1704,11 +2137,235 @@ export class StreamingDeepContextBuilder {
           createdAt: new Date()
         });
       });
+
+      // ITEM #15: Weather-to-Content Hooks for SMB Local
+      const uvpIndustry = this.getUVPIndustry();
+      const targetCustomer = this.uvpData?.target_customer || '';
+      const weatherContentHooks = this.generateWeatherContentHooks(
+        opportunities,
+        uvpIndustry,
+        this.extractCustomerSearchTerm(targetCustomer)
+      );
+
+      weatherContentHooks.forEach((hook, idx) => {
+        dataPoints.push({
+          id: `weather-hook-${Date.now()}-${idx}`,
+          source: 'weather' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: hook.contentIdea,
+          metadata: {
+            weatherCondition: hook.condition,
+            hookType: hook.hookType,
+            urgencyLevel: hook.urgency,
+            platform: 'weather_content'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // ITEM #16: Seasonal Pattern Engine for SMB
+      const seasonalPatterns = this.generateSeasonalPatterns(uvpIndustry, location);
+      seasonalPatterns.forEach((pattern, idx) => {
+        dataPoints.push({
+          id: `seasonal-${Date.now()}-${idx}`,
+          source: 'weather' as DataSource,
+          type: 'timing' as DataPointType,
+          content: pattern.contentIdea,
+          metadata: {
+            season: pattern.season,
+            eventType: pattern.eventType,
+            relevanceWindow: pattern.relevanceWindow,
+            platform: 'seasonal_content'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // ITEM #17: Local Event Triggers for SMB
+      const localEventTriggers = await this.generateLocalEventTriggers(location, uvpIndustry);
+      localEventTriggers.forEach((trigger, idx) => {
+        dataPoints.push({
+          id: `local-event-${Date.now()}-${idx}`,
+          source: 'weather' as DataSource,
+          type: 'local_event' as DataPointType,
+          content: trigger.contentIdea,
+          metadata: {
+            eventName: trigger.eventName,
+            eventType: trigger.eventType,
+            timing: trigger.timing,
+            platform: 'local_event_content'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/weather] Generated ${opportunities.length} weather opps, ${weatherContentHooks.length} content hooks, ${seasonalPatterns.length} seasonal, ${localEventTriggers.length} local events`);
+
     } catch (error) {
       console.error('[Streaming/weather] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * ITEM #15: Generate weather-to-content hooks based on weather conditions and UVP
+   */
+  private generateWeatherContentHooks(
+    opportunities: any[],
+    industry: string,
+    customerTerm: string
+  ): Array<{ condition: string; contentIdea: string; hookType: string; urgency: string }> {
+    const hooks: Array<{ condition: string; contentIdea: string; hookType: string; urgency: string }> = [];
+
+    // Weather condition content templates
+    const weatherTemplates: Record<string, Array<{ hookType: string; template: string }>> = {
+      'hot': [
+        { hookType: 'prevention', template: `Beat the heat: How ${customerTerm}s can prepare for high temperatures` },
+        { hookType: 'urgency', template: `Summer surge: Why ${industry} demand spikes in hot weather` },
+        { hookType: 'seasonal', template: `Hot weather essentials every ${customerTerm} needs to know` }
+      ],
+      'cold': [
+        { hookType: 'prevention', template: `Freeze warning: ${industry} prep guide for ${customerTerm}s` },
+        { hookType: 'urgency', template: `Don't wait until it's too late: Winter ${industry} checklist` },
+        { hookType: 'seasonal', template: `Cold weather protection tips from ${industry} experts` }
+      ],
+      'rain': [
+        { hookType: 'timely', template: `Rainy day problems ${customerTerm}s face (and how to solve them)` },
+        { hookType: 'preparation', template: `Is your ${industry} ready for the rain? Quick checklist` }
+      ],
+      'storm': [
+        { hookType: 'emergency', template: `Storm preparedness: What ${customerTerm}s need to do NOW` },
+        { hookType: 'recovery', template: `After the storm: ${industry} recovery guide` }
+      ]
+    };
+
+    opportunities.forEach(opp => {
+      // Detect weather condition type
+      const condition = this.detectWeatherCondition(opp.title + ' ' + opp.description);
+      const templates = weatherTemplates[condition] || weatherTemplates['hot'];
+
+      templates.forEach(({ hookType, template }) => {
+        hooks.push({
+          condition: condition,
+          contentIdea: template,
+          hookType: hookType,
+          urgency: opp.urgency || 'medium'
+        });
+      });
+    });
+
+    return hooks.slice(0, 5); // Return top 5 hooks
+  }
+
+  /**
+   * ITEM #16: Generate seasonal content patterns based on industry
+   */
+  private generateSeasonalPatterns(
+    industry: string,
+    location: string
+  ): Array<{ season: string; eventType: string; contentIdea: string; relevanceWindow: string }> {
+    const patterns: Array<{ season: string; eventType: string; contentIdea: string; relevanceWindow: string }> = [];
+
+    // Get current month and determine season
+    const month = new Date().getMonth();
+    const currentSeason = month < 3 ? 'winter' : month < 6 ? 'spring' : month < 9 ? 'summer' : 'fall';
+
+    // Seasonal content templates by industry type
+    const seasonalTemplates: Record<string, Record<string, Array<{ eventType: string; template: string }>>> = {
+      'general': {
+        'spring': [
+          { eventType: 'renewal', template: 'Spring cleaning tips for your business' },
+          { eventType: 'tax_season', template: 'Tax season preparation guide' },
+          { eventType: 'planning', template: 'Q2 planning: Set your business up for success' }
+        ],
+        'summer': [
+          { eventType: 'vacation', template: 'Summer slowdown? How to keep business thriving' },
+          { eventType: 'back_to_school', template: 'Back-to-school prep starts now' }
+        ],
+        'fall': [
+          { eventType: 'q4_prep', template: 'Q4 is coming: Holiday season prep guide' },
+          { eventType: 'budget', template: 'Year-end budget planning checklist' }
+        ],
+        'winter': [
+          { eventType: 'holiday', template: 'Holiday season tips for busy businesses' },
+          { eventType: 'year_end', template: 'Year-end review: What worked, what didn\'t' },
+          { eventType: 'new_year', template: 'New year, new strategies: Planning for success' }
+        ]
+      }
+    };
+
+    const industryTemplates = seasonalTemplates['general'];
+    const currentTemplates = industryTemplates[currentSeason] || [];
+
+    currentTemplates.forEach(({ eventType, template }) => {
+      patterns.push({
+        season: currentSeason,
+        eventType: eventType,
+        contentIdea: template,
+        relevanceWindow: `${currentSeason} 2025`
+      });
+    });
+
+    // Also add upcoming season preview
+    const nextSeason = currentSeason === 'winter' ? 'spring' :
+                       currentSeason === 'spring' ? 'summer' :
+                       currentSeason === 'summer' ? 'fall' : 'winter';
+    const nextTemplates = industryTemplates[nextSeason] || [];
+
+    if (nextTemplates.length > 0) {
+      patterns.push({
+        season: nextSeason,
+        eventType: 'preview',
+        contentIdea: `Get ready for ${nextSeason}: ${industry} prep guide`,
+        relevanceWindow: `Late ${currentSeason} - Early ${nextSeason}`
+      });
+    }
+
+    return patterns;
+  }
+
+  /**
+   * ITEM #17: Generate local event triggers for SMB
+   */
+  private async generateLocalEventTriggers(
+    location: string,
+    industry: string
+  ): Promise<Array<{ eventName: string; eventType: string; contentIdea: string; timing: string }>> {
+    const triggers: Array<{ eventName: string; eventType: string; contentIdea: string; timing: string }> = [];
+
+    // Common local event types that businesses can leverage
+    const localEventTypes = [
+      { eventType: 'sports', template: `Game day specials: Support your local ${location} team` },
+      { eventType: 'festival', template: `Festival season in ${location}: How to prepare your business` },
+      { eventType: 'market', template: `Farmers market season: Local business opportunities` },
+      { eventType: 'school', template: `School events: Connect with ${location} families` },
+      { eventType: 'community', template: `Community events: Why local businesses should participate` }
+    ];
+
+    // Generate triggers based on location
+    localEventTypes.forEach(({ eventType, template }) => {
+      triggers.push({
+        eventName: `${location} ${eventType}`,
+        eventType: eventType,
+        contentIdea: template,
+        timing: 'upcoming'
+      });
+    });
+
+    return triggers.slice(0, 3); // Return top 3 local event triggers
+  }
+
+  /**
+   * Helper: Detect weather condition from text
+   */
+  private detectWeatherCondition(text: string): string {
+    const lowerText = text.toLowerCase();
+    if (/hot|heat|warm|summer|heatwave/i.test(lowerText)) return 'hot';
+    if (/cold|freeze|winter|snow|frost/i.test(lowerText)) return 'cold';
+    if (/rain|wet|shower|flood/i.test(lowerText)) return 'rain';
+    if (/storm|hurricane|tornado|severe/i.test(lowerText)) return 'storm';
+    return 'hot'; // Default to hot
   }
 
   private async fetchLinkedInData(): Promise<DataPoint[]> {
@@ -1735,50 +2392,142 @@ export class StreamingDeepContextBuilder {
     });
 
     try {
-      // Multiple LinkedIn searches - ALL using UVP-targeted terms, no generic industry
-      const uvpIndustry = this.getUVPIndustry(); // Extract industry from UVP, not brand metadata
+      // ITEM #14: Enhanced LinkedIn Decision-Maker Mining
+      const uvpIndustry = this.getUVPIndustry();
+      const decisionMakerRoles = this.extractDecisionMakerRoles(targetCustomer);
+
+      // Build comprehensive search queries for decision-maker mining
       const searchQueries = [
-        `site:linkedin.com ${customerTerm} challenges pain points`,
-        `site:linkedin.com ${customerTerm} best practices tips`,
+        // Decision-maker pain points
+        `site:linkedin.com ${decisionMakerRoles[0] || customerTerm} challenges pain points`,
+        `site:linkedin.com ${decisionMakerRoles[0] || customerTerm} struggling with`,
+        // Industry trends from executives
         `site:linkedin.com ${uvpIndustry} digital transformation trends`,
+        // Hiring signals (indicates growth areas)
+        `site:linkedin.com "${uvpIndustry}" hiring "${decisionMakerRoles[0] || 'manager'}"`,
+        // Executive discussions
+        `site:linkedin.com ${customerTerm} best practices tips`,
       ];
+
+      console.log(`[Streaming/linkedin] Mining decision-makers: ${decisionMakerRoles.join(', ')}`);
 
       // Run searches in parallel
       const searchResults = await Promise.allSettled(
         searchQueries.map(q => SerperAPI.searchGoogle(q))
       );
 
-      // Collect all results
-      const allResults: any[] = [];
-      searchResults.forEach(result => {
+      // Collect all results with category tracking
+      const categoryMap = ['pain_point', 'pain_point', 'trending_topic', 'behavior_pattern', 'trending_topic'];
+      const allResults: Array<{ result: any; category: string }> = [];
+
+      searchResults.forEach((result, idx) => {
         if (result.status === 'fulfilled') {
-          allResults.push(...result.value);
+          result.value.forEach((r: any) => {
+            allResults.push({ result: r, category: categoryMap[idx] || 'trending_topic' });
+          });
         }
       });
 
       // Deduplicate by URL
       const seenUrls = new Set<string>();
-      const uniqueResults = allResults.filter(r => {
-        if (seenUrls.has(r.link)) return false;
-        seenUrls.add(r.link);
+      const uniqueResults = allResults.filter(({ result }) => {
+        if (seenUrls.has(result.link)) return false;
+        seenUrls.add(result.link);
         return true;
       });
 
-      uniqueResults.slice(0, 20).forEach((result: any, idx: number) => {
+      // Track hiring signals
+      let hiringSignalCount = 0;
+      let painPointCount = 0;
+      let trendCount = 0;
+
+      uniqueResults.slice(0, 25).forEach(({ result, category }, idx) => {
+        // Determine if this is a hiring signal
+        const isHiringSignal = /hiring|job|career|position|looking for|seeking|we're hiring/i.test(result.title + result.snippet);
+        const isPainPoint = /challenge|struggle|problem|issue|difficulty|frustrat/i.test(result.title + result.snippet);
+        const isTrend = /trend|future|2024|2025|digital|transform|innovat/i.test(result.title + result.snippet);
+
+        let dataPointType: DataPointType;
+        if (isHiringSignal) {
+          dataPointType = 'behavior_pattern';
+          hiringSignalCount++;
+        } else if (isPainPoint) {
+          dataPointType = 'pain_point';
+          painPointCount++;
+        } else if (isTrend) {
+          dataPointType = 'trending_topic';
+          trendCount++;
+        } else {
+          dataPointType = category as DataPointType;
+        }
+
         dataPoints.push({
           id: `linkedin-${Date.now()}-${idx}`,
           source: 'linkedin' as DataSource,
-          type: 'trending_topic' as DataPointType,
+          type: dataPointType,
           content: `${result.title}${result.snippet ? ': ' + result.snippet.substring(0, 150) : ''}`,
-          metadata: { url: result.link },
+          metadata: {
+            url: result.link,
+            isDecisionMaker: decisionMakerRoles.some(role => result.title.toLowerCase().includes(role.toLowerCase())),
+            isHiringSignal: isHiringSignal,
+            signalCategory: isHiringSignal ? 'hiring' : isPainPoint ? 'pain_point' : 'industry_discussion'
+          },
           createdAt: new Date()
         });
       });
+
+      console.log(`[Streaming/linkedin] Found ${dataPoints.length} executive posts: ${painPointCount} pain points, ${hiringSignalCount} hiring signals, ${trendCount} trends`);
+
     } catch (error) {
       console.error('[Streaming/linkedin] Error:', error);
     }
 
     return dataPoints;
+  }
+
+  /**
+   * ITEM #14: Extract decision-maker roles from UVP target customer
+   */
+  private extractDecisionMakerRoles(targetCustomer: string): string[] {
+    const roles: string[] = [];
+
+    // Common decision-maker titles
+    const rolePatterns = [
+      { pattern: /CEO|chief executive/i, role: 'CEO' },
+      { pattern: /CTO|chief technology/i, role: 'CTO' },
+      { pattern: /CFO|chief financial/i, role: 'CFO' },
+      { pattern: /CMO|chief marketing/i, role: 'CMO' },
+      { pattern: /COO|chief operating/i, role: 'COO' },
+      { pattern: /VP|vice president/i, role: 'VP' },
+      { pattern: /director/i, role: 'Director' },
+      { pattern: /manager/i, role: 'Manager' },
+      { pattern: /head of/i, role: 'Head' },
+      { pattern: /founder|owner/i, role: 'Founder' }
+    ];
+
+    // Extract from target customer
+    rolePatterns.forEach(({ pattern, role }) => {
+      if (pattern.test(targetCustomer)) {
+        roles.push(role);
+      }
+    });
+
+    // If no specific roles found, infer based on industry type
+    if (roles.length === 0) {
+      // Default B2B decision-maker roles
+      if (/insurance|financial|banking/i.test(targetCustomer)) {
+        roles.push('VP Operations', 'Chief Risk Officer', 'Compliance Director');
+      } else if (/tech|software|saas/i.test(targetCustomer)) {
+        roles.push('CTO', 'VP Engineering', 'Product Director');
+      } else if (/marketing|brand/i.test(targetCustomer)) {
+        roles.push('CMO', 'Marketing Director', 'Brand Manager');
+      } else {
+        // Generic B2B roles
+        roles.push('Director', 'VP', 'Manager');
+      }
+    }
+
+    return roles;
   }
 
   private async fetchPerplexityData(): Promise<DataPoint[]> {
@@ -2307,7 +3056,43 @@ export class StreamingDeepContextBuilder {
         });
       });
 
-      console.log(`[Streaming/g2] Collected ${dataPoints.length} data points from G2 reviews`);
+      // ITEM #22: Software Alternative Mining from G2/Reddit
+      const alternativeMining = this.mineSoftwareAlternatives(g2Reviews, uvpIndustry);
+      alternativeMining.forEach((alt, idx) => {
+        dataPoints.push({
+          id: `g2-alternative-${Date.now()}-${idx}`,
+          source: 'g2' as DataSource,
+          type: 'competitor_weakness' as DataPointType,
+          content: alt.contentIdea,
+          metadata: {
+            alternativeTo: alt.alternativeTo,
+            switchingReason: alt.switchingReason,
+            targetAudience: alt.targetAudience,
+            platform: 'software_alternative'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // ITEM #23: Enterprise Vendor Comparison for B2B Global
+      const vendorComparisons = this.generateEnterpriseVendorComparisons(g2Reviews, uvpIndustry);
+      vendorComparisons.forEach((comparison, idx) => {
+        dataPoints.push({
+          id: `g2-vendor-${Date.now()}-${idx}`,
+          source: 'g2' as DataSource,
+          type: 'competitive_gap' as DataPointType,
+          content: comparison.contentIdea,
+          metadata: {
+            comparisonType: comparison.type,
+            vendorsMentioned: comparison.vendors,
+            differentiator: comparison.differentiator,
+            platform: 'enterprise_vendor_comparison'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/g2] Collected ${dataPoints.length} data points from G2 reviews, ${alternativeMining.length} alternatives, ${vendorComparisons.length} vendor comparisons`);
       return dataPoints;
 
     } catch (error) {
@@ -2315,6 +3100,106 @@ export class StreamingDeepContextBuilder {
     }
 
     return dataPoints;
+  }
+
+  /**
+   * ITEM #22: Mine software alternatives from G2 reviews
+   */
+  private mineSoftwareAlternatives(
+    g2Reviews: any,
+    industry: string
+  ): Array<{ contentIdea: string; alternativeTo: string; switchingReason: string; targetAudience: string }> {
+    const alternatives: Array<{ contentIdea: string; alternativeTo: string; switchingReason: string; targetAudience: string }> = [];
+
+    const alternativesMentioned = g2Reviews.competitive_intelligence?.alternatives_mentioned || [];
+    const switchingReasons = g2Reviews.competitive_intelligence?.switching_reasons || [];
+
+    // Generate "Why switch from X" content angles
+    alternativesMentioned.forEach((competitor: string) => {
+      const reason = switchingReasons[0] || 'better features and value';
+
+      alternatives.push({
+        contentIdea: `${this.brandData.name} vs ${competitor}: Why ${industry} leaders are making the switch`,
+        alternativeTo: competitor,
+        switchingReason: reason,
+        targetAudience: 'decision_makers'
+      });
+
+      alternatives.push({
+        contentIdea: `Frustrated with ${competitor}? Here's what you're missing`,
+        alternativeTo: competitor,
+        switchingReason: reason,
+        targetAudience: 'active_evaluators'
+      });
+    });
+
+    // Add general "alternatives" content if no specific competitors found
+    if (alternatives.length === 0) {
+      alternatives.push({
+        contentIdea: `Top ${industry} solutions compared: Finding the right fit for your business`,
+        alternativeTo: 'market_alternatives',
+        switchingReason: 'market_evaluation',
+        targetAudience: 'researchers'
+      });
+    }
+
+    return alternatives.slice(0, 5);
+  }
+
+  /**
+   * ITEM #23: Generate enterprise vendor comparisons for B2B Global
+   */
+  private generateEnterpriseVendorComparisons(
+    g2Reviews: any,
+    industry: string
+  ): Array<{ contentIdea: string; type: string; vendors: string[]; differentiator: string }> {
+    const comparisons: Array<{ contentIdea: string; type: string; vendors: string[]; differentiator: string }> = [];
+
+    const alternativesMentioned = g2Reviews.competitive_intelligence?.alternatives_mentioned || [];
+    const featureRequests = g2Reviews.feature_requests || [];
+
+    // Enterprise buyer-focused comparisons
+    comparisons.push({
+      contentIdea: `Enterprise ${industry} buyer's guide: Key criteria for vendor selection`,
+      type: 'buyers_guide',
+      vendors: alternativesMentioned.slice(0, 3),
+      differentiator: 'comprehensive_evaluation'
+    });
+
+    comparisons.push({
+      contentIdea: `How ${this.brandData.name} addresses enterprise ${industry} challenges that competitors miss`,
+      type: 'differentiation',
+      vendors: alternativesMentioned.slice(0, 3),
+      differentiator: 'unique_capabilities'
+    });
+
+    // TCO and ROI comparisons
+    comparisons.push({
+      contentIdea: `Total cost of ownership: ${this.brandData.name} vs enterprise alternatives`,
+      type: 'tco_analysis',
+      vendors: alternativesMentioned.slice(0, 3),
+      differentiator: 'cost_value'
+    });
+
+    // Feature gap comparisons
+    if (featureRequests.length > 0) {
+      comparisons.push({
+        contentIdea: `Feature comparison: Where ${this.brandData.name} excels vs ${alternativesMentioned[0] || 'competitors'}`,
+        type: 'feature_comparison',
+        vendors: alternativesMentioned.slice(0, 3),
+        differentiator: 'feature_superiority'
+      });
+    }
+
+    // Enterprise security/compliance comparison
+    comparisons.push({
+      contentIdea: `Enterprise security and compliance: How ${this.brandData.name} meets ${industry} requirements`,
+      type: 'compliance_comparison',
+      vendors: alternativesMentioned.slice(0, 3),
+      differentiator: 'security_compliance'
+    });
+
+    return comparisons;
   }
 
   /**
@@ -2533,6 +3418,129 @@ export class StreamingDeepContextBuilder {
       'neutral': 'sentiment'
     };
     return mapping[sentiment] || 'sentiment';
+  }
+
+  /**
+   * ITEM #13: Fetch Yelp data for SMB Local businesses
+   * Extracts reviews, tips, popular items, and sentiment patterns
+   */
+  private async fetchYelpData(): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+
+    // Get location for Yelp search
+    const location = this.brandData.location
+      ? typeof this.brandData.location === 'string'
+        ? this.brandData.location
+        : `${this.brandData.location.city}, ${this.brandData.location.state}`
+      : this.brandData.city;
+
+    if (!location) {
+      console.log('[Streaming/yelp] No location, skipping (Yelp requires location for SMB)');
+      return dataPoints;
+    }
+
+    try {
+      console.log(`[Streaming/yelp] Mining Yelp reviews for: ${this.brandData.name} in ${location}`);
+
+      const yelpData = await apifySocialScraper.scrapeYelpReviews(
+        this.brandData.name,
+        location,
+        30
+      );
+
+      // Convert reviews to data points with rating stratification
+      yelpData.reviews.forEach((review, idx) => {
+        const ratingTier = review.rating <= 2 ? 'low' : review.rating >= 4 ? 'high' : 'mid';
+
+        dataPoints.push({
+          id: `yelp-review-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource, // Using outscraper as Yelp is a local source type
+          type: this.mapRatingToDataPointType(review.rating),
+          content: review.text,
+          metadata: {
+            rating: review.rating,
+            ratingTier: ratingTier,
+            userName: review.user_name,
+            userLocation: review.user_location,
+            isElite: review.is_elite,
+            usefulCount: review.useful_count,
+            platform: 'yelp',
+            insightType: ratingTier === 'low' ? 'complaint' :
+                        ratingTier === 'high' ? 'testimonial' : 'feedback'
+          },
+          createdAt: new Date(review.date)
+        });
+      });
+
+      // Convert tips to data points (tips are generally positive recommendations)
+      yelpData.tips.forEach((tip, idx) => {
+        dataPoints.push({
+          id: `yelp-tip-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: tip.text,
+          metadata: {
+            likes: tip.likes,
+            userName: tip.user_name,
+            platform: 'yelp',
+            insightType: 'tip'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert popular dishes/items to data points
+      yelpData.popular_dishes.forEach((dish, idx) => {
+        dataPoints.push({
+          id: `yelp-dish-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: `Popular item: ${dish}`,
+          metadata: {
+            platform: 'yelp',
+            insightType: 'popular_item'
+          },
+          createdAt: new Date()
+        });
+      });
+
+      // Convert satisfaction patterns
+      yelpData.satisfaction_patterns.common_praises.forEach((praise, idx) => {
+        dataPoints.push({
+          id: `yelp-praise-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: `Customer praise theme: ${praise}`,
+          metadata: { platform: 'yelp', insightType: 'praise_theme' },
+          createdAt: new Date()
+        });
+      });
+
+      yelpData.satisfaction_patterns.common_complaints.forEach((complaint, idx) => {
+        dataPoints.push({
+          id: `yelp-complaint-${Date.now()}-${idx}`,
+          source: 'outscraper' as DataSource,
+          type: 'pain_point' as DataPointType,
+          content: `Customer complaint theme: ${complaint}`,
+          metadata: { platform: 'yelp', insightType: 'complaint_theme' },
+          createdAt: new Date()
+        });
+      });
+
+      // Log stratification results
+      const lowRating = yelpData.reviews.filter(r => r.rating <= 2).length;
+      const midRating = yelpData.reviews.filter(r => r.rating === 3).length;
+      const highRating = yelpData.reviews.filter(r => r.rating >= 4).length;
+      console.log(`[Streaming/yelp] Mined ${yelpData.reviews.length} Yelp reviews: ${lowRating} low, ${midRating} mid, ${highRating} high`);
+      console.log(`[Streaming/yelp] Extracted ${yelpData.tips.length} tips, ${yelpData.popular_dishes.length} popular items`);
+
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[Streaming/yelp] Error:', error);
+    }
+
+    return dataPoints;
   }
 
   // LEGACY: Keep old single-query method for fallback

@@ -215,6 +215,10 @@ export interface PerplexityRequest {
     industry?: string
     brand_name?: string
     competitors?: string[]
+    // Extended context for customer-focused insights (JTBD framework)
+    target_customer?: string
+    customer_problem?: string
+    desired_outcome?: string
   }
   max_results?: number
 }

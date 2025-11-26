@@ -1,14 +1,15 @@
 /**
  * UVP Generator Service
  *
- * @deprecated This file uses outdated type structures and is not currently in use.
- * Consider removing or updating to match current type system.
+ * @deprecated This file is DEPRECATED and NOT IN USE.
+ * It exposes API keys in client code - DO NOT USE.
+ * Use the UVP Wizard flow with edge functions instead.
  *
  * Generates value propositions using Claude 3.5 Sonnet
  * based on competitive analysis and customer insights
  */
 
-// @ts-nocheck - Deprecated file with type mismatches
+// @ts-nocheck - Deprecated file - DO NOT USE
 import type {
   UVPGenerationRequest,
   UVPGenerationResponse,

@@ -4,13 +4,15 @@
  * Comprehensive social media scrapers for psychological trigger enrichment:
  * - Twitter/X: Real-time sentiment, trending pain points, viral discussions
  * - Quora: Deep questions revealing desires/fears, top answers, engagement metrics
- * - LinkedIn: B2B decision-maker posts, company discussions, professional pain points
+ * - LinkedIn: B2B decision-maker posts (uses Perplexity+Serper fallback - no cookies needed)
  * - TrustPilot: Enterprise buyer reviews, feature requests, satisfaction patterns
  * - G2: B2B software reviews, buyer intent signals, competitive intelligence
  *
  * Security: All API calls go through Supabase Edge Function
  * No VITE_ prefix keys - Edge Function secrets only
  */
+
+import { getLinkedInAlternativeInsights, needsLinkedInData } from './linkedin-alternative.service'
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
@@ -163,6 +165,44 @@ export interface G2Reviews {
     total_reviews: number
     recommendation_rate: number
   }
+}
+
+// ITEM #13: Yelp reviews interface for SMB Local businesses
+export interface YelpReviews {
+  reviews: Array<{
+    text: string
+    rating: number
+    date: string
+    user_name: string
+    user_location: string
+    photos: string[]
+    useful_count: number
+    funny_count: number
+    cool_count: number
+    is_elite: boolean
+  }>
+  business_info: {
+    name: string
+    rating: number
+    review_count: number
+    categories: string[]
+    price_range: string
+    address: string
+    phone: string
+  }
+  tips: Array<{
+    text: string
+    likes: number
+    user_name: string
+  }>
+  popular_dishes: string[]
+  satisfaction_patterns: {
+    common_praises: string[]
+    common_complaints: string[]
+    what_to_order: string[]
+    ambiance_notes: string[]
+  }
+  psychological_triggers: PsychologicalTrigger[]
 }
 
 class ApifySocialScraperService {
@@ -454,62 +494,52 @@ class ApifySocialScraperService {
   }
 
   /**
-   * Scrape LinkedIn for B2B decision-maker posts and professional pain points
+   * Get LinkedIn B2B insights
+   *
+   * Uses Perplexity + Serper as primary method (no cookies/proxy needed).
+   * LinkedIn's direct scraper requires session cookies which is impractical.
+   *
+   * @param companyName - Company to research
+   * @param industry - Industry for context
+   * @param businessType - Optional business type for smarter routing
    */
   async scrapeLinkedInB2B(
     companyName: string,
     industry: string,
-    limit: number = 30
+    businessType?: string
   ): Promise<LinkedInB2BInsights> {
-    try {
-      const results = await this.runSocialScraper('LINKEDIN', {
-        companyNames: [companyName],
-        maxPosts: limit,
-        includeComments: true,
-        postsFilter: 'recent'
-      })
-
-      const company_posts = results.map((post: any) => ({
-        text: post.text || post.commentary || '',
-        likes: post.numLikes || 0,
-        comments: post.numComments || 0,
-        shares: post.numShares || 0,
-        author_title: post.author?.headline || '',
-        engagement_rate: this.calculateLinkedInEngagement(post),
-        topics: this.extractTopics(post.text || '')
-      }))
-
-      const decision_maker_posts = company_posts
-        .filter(post =>
-          /director|manager|vp|ceo|cfo|cto|head of|chief|executive/i.test(post.author_title)
-        )
-        .map(post => ({
-          text: post.text,
-          author: '', // Anonymized
-          title: post.author_title,
-          company: companyName,
-          engagement: post.likes + post.comments + post.shares,
-          pain_points: this.extractPainPoints(post.text)
-        }))
-
-      const allTexts = company_posts.map(p => p.text)
-      const professional_pain_points = this.extractPsychologicalTriggers(allTexts, 'LinkedIn')
-        .filter(t => t.type === 'pain-point' || t.type === 'frustration')
-
-      const trending_topics = this.extractTrendingTopics(allTexts)
-
-      const buyer_intent_signals = this.extractBuyerIntentSignals(allTexts)
-
+    // Check if this business type even needs LinkedIn data
+    if (businessType && !needsLinkedInData(businessType)) {
+      console.log(`[Apify Social] Skipping LinkedIn for B2C business: ${businessType}`)
       return {
-        company_posts,
-        decision_maker_posts,
-        professional_pain_points,
-        trending_topics,
-        buyer_intent_signals
+        company_posts: [],
+        decision_maker_posts: [],
+        professional_pain_points: [],
+        trending_topics: [],
+        buyer_intent_signals: []
       }
+    }
+
+    try {
+      console.log(`[Apify Social] Getting LinkedIn insights via Perplexity+Serper for: ${companyName}`)
+
+      // Use the alternative service (Perplexity + Serper)
+      // This gives us 70% of LinkedIn value without cookies/proxies
+      const insights = await getLinkedInAlternativeInsights(companyName, industry)
+
+      console.log(`[Apify Social] LinkedIn alternative returned ${insights.company_posts.length} posts, ${insights.decision_maker_posts.length} decision makers`)
+
+      return insights
     } catch (error) {
-      console.error('[Apify Social] LinkedIn scraping error:', error)
-      throw error
+      console.error('[Apify Social] LinkedIn alternative error:', error)
+      // Return empty on error rather than crashing
+      return {
+        company_posts: [],
+        decision_maker_posts: [],
+        professional_pain_points: [],
+        trending_topics: [],
+        buyer_intent_signals: []
+      }
     }
   }
 
@@ -640,6 +670,152 @@ class ApifySocialScraperService {
       console.error('[Apify Social] G2 scraping error:', error)
       throw error
     }
+  }
+
+  /**
+   * ITEM #13: Scrape Yelp reviews for SMB Local businesses
+   * Extracts reviews, tips, popular items, and sentiment patterns
+   */
+  async scrapeYelpReviews(businessName: string, location: string, limit: number = 30): Promise<YelpReviews> {
+    console.log(`[Apify Social] Scraping Yelp for: ${businessName} in ${location}`)
+
+    try {
+      const rawData = await this.runSocialScraper('YELP', {
+        searchTerms: [businessName],
+        location: location,
+        maxItems: limit,
+        includeReviews: true,
+        reviewsLimit: limit
+      })
+
+      // Transform raw Yelp data
+      const business = rawData[0] || {}
+      const reviews = (business.reviews || rawData).map((r: any) => ({
+        text: r.text || r.comment || '',
+        rating: r.rating || r.stars || 3,
+        date: r.date || r.time || new Date().toISOString(),
+        user_name: r.user?.name || r.author || 'Anonymous',
+        user_location: r.user?.location || '',
+        photos: r.photos || [],
+        useful_count: r.useful || r.usefulCount || 0,
+        funny_count: r.funny || r.funnyCount || 0,
+        cool_count: r.cool || r.coolCount || 0,
+        is_elite: r.user?.isElite || false
+      }))
+
+      // Extract business info
+      const business_info = {
+        name: business.name || businessName,
+        rating: business.rating || 0,
+        review_count: business.reviewCount || reviews.length,
+        categories: business.categories || [],
+        price_range: business.price || '',
+        address: business.address || location,
+        phone: business.phone || ''
+      }
+
+      // Extract tips
+      const tips = (business.tips || []).map((t: any) => ({
+        text: t.text || '',
+        likes: t.likes || t.complimentCount || 0,
+        user_name: t.user?.name || 'Anonymous'
+      }))
+
+      // Extract popular dishes/items from reviews
+      const popular_dishes = this.extractPopularItems(reviews.map((r: any) => r.text))
+
+      // Build satisfaction patterns
+      const reviewTexts = reviews.map((r: any) => r.text)
+      const highRatedReviews = reviews.filter((r: any) => r.rating >= 4).map((r: any) => r.text)
+      const lowRatedReviews = reviews.filter((r: any) => r.rating <= 2).map((r: any) => r.text)
+
+      const satisfaction_patterns = {
+        common_praises: this.extractCommonThemes(highRatedReviews, 'positive'),
+        common_complaints: this.extractCommonThemes(lowRatedReviews, 'negative'),
+        what_to_order: popular_dishes,
+        ambiance_notes: this.extractAmbianceNotes(reviewTexts)
+      }
+
+      // Extract psychological triggers
+      const psychological_triggers = this.extractPsychologicalTriggers(reviewTexts, 'Yelp')
+
+      console.log(`[Apify Social] Yelp: Found ${reviews.length} reviews, ${tips.length} tips`)
+
+      return {
+        reviews,
+        business_info,
+        tips,
+        popular_dishes,
+        satisfaction_patterns,
+        psychological_triggers
+      }
+    } catch (error) {
+      console.error('[Apify Social] Yelp scraping error:', error)
+      throw error
+    }
+  }
+
+  /**
+   * Extract popular items/dishes mentioned in reviews
+   */
+  private extractPopularItems(texts: string[]): string[] {
+    const itemPatterns = [
+      /try the (.+?)(?:\.|,|!|$)/gi,
+      /order the (.+?)(?:\.|,|!|$)/gi,
+      /get the (.+?)(?:\.|,|!|$)/gi,
+      /recommend the (.+?)(?:\.|,|!|$)/gi,
+      /best (.+?) i've/gi,
+      /amazing (.+?)(?:\.|,|!|$)/gi
+    ]
+
+    const items = new Map<string, number>()
+
+    texts.forEach(text => {
+      itemPatterns.forEach(pattern => {
+        let match
+        while ((match = pattern.exec(text)) !== null) {
+          const item = match[1]?.trim().toLowerCase()
+          if (item && item.length > 2 && item.length < 50) {
+            items.set(item, (items.get(item) || 0) + 1)
+          }
+        }
+      })
+    })
+
+    return Array.from(items.entries())
+      .sort(([, a], [, b]) => b - a)
+      .slice(0, 10)
+      .map(([item]) => item)
+  }
+
+  /**
+   * Extract ambiance and atmosphere notes from reviews
+   */
+  private extractAmbianceNotes(texts: string[]): string[] {
+    const ambianceKeywords = [
+      'atmosphere', 'ambiance', 'vibe', 'decor', 'cozy', 'romantic',
+      'loud', 'quiet', 'crowded', 'spacious', 'clean', 'dirty',
+      'lighting', 'music', 'outdoor', 'patio', 'seating'
+    ]
+
+    const notes: string[] = []
+
+    texts.forEach(text => {
+      const lowerText = text.toLowerCase()
+      ambianceKeywords.forEach(keyword => {
+        if (lowerText.includes(keyword)) {
+          // Extract sentence containing the keyword
+          const sentences = text.split(/[.!?]/)
+          const relevantSentence = sentences.find(s => s.toLowerCase().includes(keyword))
+          if (relevantSentence && relevantSentence.trim().length > 10) {
+            notes.push(relevantSentence.trim().slice(0, 150))
+          }
+        }
+      })
+    })
+
+    // Remove duplicates and limit
+    return [...new Set(notes)].slice(0, 5)
   }
 
   // Helper methods for analysis

@@ -17,6 +17,151 @@
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import type { InsightCard } from '@/components/dashboard/intelligence-v2/types';
 import { jtbdTransformer } from './jtbd-transformer.service';
+import type { FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
+
+// Content generation options
+export interface ContentSynthesisOptions {
+  humorLevel?: number; // 0-3: Serious, Light, Witty, Very Funny
+  framework?: FrameworkType; // PAS, AIDA, etc.
+  ctaStyle?: 'soft' | 'direct' | 'urgent';
+  ctaOutcome?: CTAOutcome; // Specific tangible outcome
+}
+
+// Outcome-driven CTA types with tangible results
+export type CTAOutcome =
+  | 'get-quote'      // "Get Your Free Quote in 60 Seconds"
+  | 'save-money'     // "Start Saving $500/mo Today"
+  | 'book-call'      // "Book Your Strategy Call"
+  | 'free-trial'     // "Start Your 14-Day Free Trial"
+  | 'download'       // "Download Your Free Guide"
+  | 'schedule'       // "Schedule Your Free Consultation"
+  | 'learn-more'     // "See How It Works"
+  | 'compare'        // "Compare Your Options"
+  | 'calculate'      // "Calculate Your Savings"
+  | 'audit'          // "Get Your Free Audit"
+  | 'demo'           // "Watch the Demo"
+  | 'join'           // "Join 10,000+ Happy Customers"
+  | 'custom';        // Custom CTA
+
+// Outcome-driven CTA templates with specific, tangible results
+const CTA_OUTCOME_TEMPLATES: Record<CTAOutcome, { templates: string[]; icon?: string }> = {
+  'get-quote': {
+    templates: [
+      'Get Your Free Quote in 60 Seconds',
+      'See Your Custom Quote Now',
+      'Get Your Personalized Rate',
+      'Instant Quote → No Commitment'
+    ],
+    icon: '💰'
+  },
+  'save-money': {
+    templates: [
+      'Start Saving Today',
+      'See How Much You Could Save',
+      'Unlock Your Savings Now',
+      'Calculate Your Savings'
+    ],
+    icon: '💵'
+  },
+  'book-call': {
+    templates: [
+      'Book Your Free Strategy Call',
+      'Schedule Your 15-Min Consultation',
+      'Talk to an Expert Today',
+      'Get Expert Advice → Free Call'
+    ],
+    icon: '📞'
+  },
+  'free-trial': {
+    templates: [
+      'Start Your 14-Day Free Trial',
+      'Try It Free for 30 Days',
+      'Get Started Free → No Card Required',
+      'Experience It Free Today'
+    ],
+    icon: '✨'
+  },
+  'download': {
+    templates: [
+      'Download Your Free Guide',
+      'Get the Complete Checklist',
+      'Download Now → Instant Access',
+      'Grab Your Free Resource'
+    ],
+    icon: '📥'
+  },
+  'schedule': {
+    templates: [
+      'Schedule Your Free Consultation',
+      'Book Your Appointment Today',
+      'Reserve Your Spot Now',
+      'Pick Your Time → Free Consultation'
+    ],
+    icon: '📅'
+  },
+  'learn-more': {
+    templates: [
+      'See How It Works',
+      'Learn the Full Story',
+      'Discover the Details',
+      'Explore Your Options'
+    ],
+    icon: '🔍'
+  },
+  'compare': {
+    templates: [
+      'Compare Your Options Side-by-Side',
+      'See How We Stack Up',
+      'View the Comparison',
+      'Find Your Best Fit'
+    ],
+    icon: '⚖️'
+  },
+  'calculate': {
+    templates: [
+      'Calculate Your ROI',
+      'See Your Potential Savings',
+      'Run the Numbers',
+      'Get Your Custom Analysis'
+    ],
+    icon: '🧮'
+  },
+  'audit': {
+    templates: [
+      'Get Your Free Audit',
+      'Request Your Assessment',
+      'Get Your Personalized Report',
+      'See Where You Stand'
+    ],
+    icon: '📊'
+  },
+  'demo': {
+    templates: [
+      'Watch the Demo',
+      'See It in Action',
+      'Take a Tour',
+      'Experience the Platform'
+    ],
+    icon: '▶️'
+  },
+  'join': {
+    templates: [
+      'Join 10,000+ Happy Customers',
+      'Become Part of Our Community',
+      'Start Your Journey Today',
+      'Join the Movement'
+    ],
+    icon: '🤝'
+  },
+  'custom': {
+    templates: [
+      'Get Started Today',
+      'Take the Next Step',
+      'Begin Your Journey',
+      'Make It Happen'
+    ]
+  }
+};
 
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -179,18 +324,21 @@ class ContentSynthesisService {
    */
   async synthesizeContent(
     selectedInsights: InsightCard[],
-    context: DeepContext
+    context: DeepContext,
+    options: ContentSynthesisOptions = {}
   ): Promise<SynthesizedContent> {
+    const { humorLevel = 1, framework, ctaStyle = 'direct' } = options;
+
     if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       console.warn('[ContentSynthesis] No Supabase config - using fallback');
-      return this.fallbackSynthesis(selectedInsights, context);
+      return this.fallbackSynthesis(selectedInsights, context, options);
     }
 
     try {
-      console.log(`[ContentSynthesis] Synthesizing content from ${selectedInsights.length} insights`);
+      console.log(`[ContentSynthesis] Synthesizing content from ${selectedInsights.length} insights (humor: ${humorLevel}, framework: ${framework || 'auto'})`);
 
-      // Build synthesis prompt
-      const prompt = this.buildSynthesisPrompt(selectedInsights, context);
+      // Build synthesis prompt with humor and framework instructions
+      const prompt = this.buildSynthesisPrompt(selectedInsights, context, options);
 
       // No timeout - let AI complete naturally for complete data
       const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
@@ -201,7 +349,7 @@ class ContentSynthesisService {
         },
         body: JSON.stringify({
           provider: 'openrouter',
-          model: 'anthropic/claude-sonnet-4.5', // Switched from Opus 4.1 for faster response
+          model: 'anthropic/claude-3-5-sonnet-20241022', // Fixed model name for OpenRouter
           messages: [{
             role: 'user',
             content: prompt
@@ -428,10 +576,9 @@ OUTPUT FORMAT (JSON only, no markdown):
   /**
    * Build synthesis prompt for AI
    */
-  private buildSynthesisPrompt(insights: InsightCard[], context: DeepContext): string {
+  private buildSynthesisPrompt(insights: InsightCard[], context: DeepContext, options: ContentSynthesisOptions = {}): string {
+    const { humorLevel = 1, framework, ctaStyle = 'direct', ctaOutcome } = options;
     const insightTypes = insights.map(i => i.type);
-    const insightTitles = insights.map(i => i.title);
-    const insightSources = insights.flatMap(i => i.sources?.map(s => s.source) || []);
 
     // Identify the connection pattern
     let connectionPattern = '';
@@ -447,16 +594,118 @@ OUTPUT FORMAT (JSON only, no markdown):
       connectionPattern = 'General insights';
     }
 
-    return `You are a breakthrough content strategist combining multiple data sources to create specific, high-impact content angles.
+    // Humor level instructions
+    const humorInstructions = {
+      0: 'TONE: Serious and professional. No humor. Focus on facts and credibility.',
+      1: 'TONE: Light and approachable. Subtle wit is okay. Keep it professional but friendly.',
+      2: 'TONE: Witty and clever. Use smart humor, wordplay, and memorable phrases. Make it entertaining.',
+      3: 'TONE: Very funny and bold. Use strong humor, emojis where appropriate, and entertaining language. Make readers smile.'
+    }[humorLevel] || 'TONE: Light and approachable.';
+
+    // Framework instructions
+    let frameworkInstructions = '';
+    if (framework) {
+      const frameworkGuides: Record<string, string> = {
+        'problem-agitate-solution': 'FRAMEWORK: PAS (Problem-Agitate-Solve). First identify the problem, then agitate the pain, then present the solution.',
+        'aida': 'FRAMEWORK: AIDA. Attention (grab them), Interest (engage them), Desire (make them want it), Action (tell them what to do).',
+        'before-after-bridge': 'FRAMEWORK: BAB (Before-After-Bridge). Show the before state, paint the after state, bridge with your solution.',
+        'hook-story-offer': 'FRAMEWORK: Hook-Story-Offer. Hook them with a bold statement, tell a relatable story, make an irresistible offer.',
+        'curiosity-gap': 'FRAMEWORK: Curiosity Gap. Create intrigue by revealing partial information that makes them need to know more.'
+      };
+      frameworkInstructions = frameworkGuides[framework] || '';
+    }
+
+    // CTA style instructions
+    const ctaStyleInstructions = {
+      soft: 'CTA STYLE: Soft and inviting.',
+      direct: 'CTA STYLE: Direct and clear.',
+      urgent: 'CTA STYLE: Urgent and action-oriented.'
+    }[ctaStyle] || 'CTA STYLE: Direct and clear.';
+
+    // Outcome-driven CTA instructions
+    let ctaOutcomeInstructions = '';
+    if (ctaOutcome && CTA_OUTCOME_TEMPLATES[ctaOutcome]) {
+      const templates = CTA_OUTCOME_TEMPLATES[ctaOutcome].templates;
+      ctaOutcomeInstructions = `
+CTA OUTCOME: ${ctaOutcome.toUpperCase()}
+Generate a CTA that drives this specific outcome. Examples:
+${templates.map(t => `- "${t}"`).join('\n')}
+The CTA MUST include a specific, tangible outcome (time, money saved, result achieved).`;
+    } else {
+      // Auto-select best CTA outcome based on industry and insight types
+      const autoOutcome = this.selectBestCTAOutcome(context.business.profile.industry, insightTypes);
+      const templates = CTA_OUTCOME_TEMPLATES[autoOutcome].templates;
+      ctaOutcomeInstructions = `
+CTA OUTCOME: Generate an OUTCOME-DRIVEN CTA with tangible results.
+Best fit for this content: ${autoOutcome.toUpperCase()}
+Examples:
+${templates.slice(0, 2).map(t => `- "${t}"`).join('\n')}
+CRITICAL: The CTA must promise a SPECIFIC, TANGIBLE outcome (e.g., "Get Your Free Quote in 60 Seconds" not just "Contact Us")`;
+    }
+
+    const ctaInstructions = `${ctaStyleInstructions}
+${ctaOutcomeInstructions}`;
+
+    return `You are a PhD-level content strategist trained on THE CONTENT WRITING BIBLE. You combine multiple data sources to create specific, high-impact content that drives measurable business results.
 
 BUSINESS CONTEXT:
 Name: ${context.business.profile.name}
 Industry: ${context.business.profile.industry}
 Location: ${context.business.profile.location?.city}, ${context.business.profile.location?.state}
 
+=== TARGET CUSTOMER (CRITICAL - All content is FOR this audience) ===
+${context.business.uvp ? `
+TARGET CUSTOMER: ${context.business.uvp.targetCustomer}
+THEIR PROBLEM (Before State): ${context.business.uvp.customerProblem}
+THEIR DESIRED OUTCOME (After State): ${context.business.uvp.desiredOutcome}
+OUR UNIQUE SOLUTION: ${context.business.uvp.uniqueSolution}
+KEY BENEFIT/TRANSFORMATION: ${context.business.uvp.keyBenefit}
+
+CONTENT DIRECTION (JTBD Framework):
+- When [${context.business.uvp.customerProblem}],
+- They want to [${context.business.uvp.desiredOutcome}],
+- So they can [${context.business.uvp.keyBenefit}]
+
+GOLDEN CIRCLE (Start with WHY):
+- WHY: Help ${context.business.uvp.targetCustomer} achieve ${context.business.uvp.desiredOutcome}
+- HOW: Through ${context.business.uvp.uniqueSolution}
+- WHAT: ${context.business.profile.name}'s solution
+` : `No UVP data - use industry: ${context.business.profile.industry}`}
+
 CONNECTION PATTERN: ${connectionPattern}
 
-SELECTED INSIGHTS:
+${humorInstructions}
+${frameworkInstructions}
+${ctaInstructions}
+
+=== CONTENT WRITING BIBLE PRINCIPLES ===
+
+NEUROLOGICAL HOOK FORMULAS (use one):
+1. CURIOSITY GAP: "[Known Element] + [Unknown Element] + [Stakes]" → +27% CTR
+   Example: "The marketing mistake 91% of brands make"
+2. SPECIFIC NUMBER: "[Number] + [Specific Outcome] + [Timeframe]" → +36% engagement
+   Example: "3 emails generated $157,283 in 72 hours"
+3. PATTERN INTERRUPT: "[Common Belief] + [Contradiction] + [New Possibility]" → +52% engagement
+   Example: "Why your best sales calls are failing (and how to fix them)"
+4. DATA SHOCK: Start with a surprising statistic → +36% CTR
+   Example: "83% of your competitors are using this (and you're not)"
+5. QUESTION THAT HURTS: Target loss aversion → +52% engagement
+   Example: "How much money are you losing by ignoring this?"
+
+PSYCHOLOGICAL TRIGGERS TO WEAVE IN:
+- Novelty (dopamine release): Use unexpected angles
+- Threat Detection (amygdala): Highlight risks of inaction
+- Social Proof (mirror neurons): Reference numbers/testimonials
+- Curiosity Gap (nucleus accumbens): Create information gaps
+- Loss Aversion: What they'll lose by not acting
+
+BODY CONTENT RULES:
+- Each point must include EVIDENCE (number, quote, or data)
+- Use the "so what" test: Every point must answer "why should I care?"
+- Specificity > Generality: "$50,000" beats "a lot of money"
+- Include at least one contrarian insight that challenges assumptions
+
+=== SELECTED INSIGHTS ===
 ${insights.map((insight, i) => `
 ${i + 1}. [${insight.type.toUpperCase()}] ${insight.title}
    ${insight.description || ''}
@@ -464,40 +713,97 @@ ${i + 1}. [${insight.type.toUpperCase()}] ${insight.title}
    ${insight.sources?.[0]?.quote ? `Quote: "${insight.sources[0].quote}"` : ''}
 `).join('\n')}
 
-YOUR TASK:
-Create a SPECIFIC, breakthrough content angle that connects these insights.
+=== YOUR TASK ===
+Create SPECIFIC, breakthrough content that would score 80+ on the Synapse EQ scale.
 
-CRITICAL REQUIREMENTS:
-1. SPECIFIC TITLE - Not generic "Unlock New Growth" but specific like:
-   - "3 Things Storm Season Reveals About Your Coverage Gaps"
-   - "Why Phoenix Collectors Are Switching Insurance Before May 15"
-   - "The $50K Mistake Most Collectors Make With Coverage"
+REQUIREMENTS:
+1. TITLE: Use a proven hook formula. Include numbers/specifics. No generic titles.
+   ❌ "Unlock New Growth" | ✅ "3 Things Storm Season Reveals About Your Coverage Gaps"
+   ❌ "Tips for Success" | ✅ "The $50K Mistake Most Collectors Make With Coverage"
 
-2. EMOTIONAL HOOK - Use psychological triggers:
-   - Fear: "Stop wondering if..."
-   - Curiosity: "What your agent won't tell you..."
-   - Urgency: "Before storm season hits..."
-   - Achievement: "Finally understand..."
+2. HOOK: Trigger ONE neurological response in the first sentence.
+   - Must create curiosity gap OR challenge an assumption OR present surprising data
 
-3. REAL PROVENANCE - Reference actual sources:
-   - "Based on 12 Google Reviews mentioning..."
-   - "Weather alert shows..."
-   - "0 of 10 competitors address..."
+3. BODY: 3-4 evidence-backed points that build toward the CTA.
+   - Each point references real data from the insights
+   - Include specific numbers, quotes, or percentages
 
-4. BREAKTHROUGH SCORE - If this is a 3-way connection, score 80-100. Otherwise 60-80.
+4. CTA: Outcome-driven with tangible result.
+   ❌ "Contact us" | ✅ "Get Your Free Quote in 60 Seconds"
+
+5. BREAKTHROUGH SCORE: Rate based on insight connection quality.
+   - 3-way connection (customer + opportunity + local/market) = 85-100
+   - 2-way connection = 70-84
+   - Single insight type = 60-69
 
 OUTPUT FORMAT (JSON only, no markdown):
 {
-  "title": "Specific, curiosity-driven title with numbers/specifics",
-  "hook": "Emotional opening line referencing real data",
+  "title": "Hook-formula-driven title with specific numbers/outcomes",
+  "hook": "Neurologically-optimized opening that creates immediate interest",
   "body": [
-    "First key point with evidence",
-    "Second key point with evidence",
-    "Third key point with evidence"
+    "Evidence-backed point 1 with specific data",
+    "Evidence-backed point 2 referencing source",
+    "Evidence-backed point 3 with contrarian angle"
   ],
-  "cta": "Clear call to action",
+  "cta": "Outcome-driven action with tangible result",
   "breakthroughScore": 85
 }`;
+  }
+
+  /**
+   * Select best CTA outcome based on industry and insight types
+   */
+  private selectBestCTAOutcome(industry: string, insightTypes: string[]): CTAOutcome {
+    const industryLower = industry?.toLowerCase() || '';
+
+    // Industry-specific CTA outcomes
+    const industryOutcomes: Record<string, CTAOutcome> = {
+      'insurance': 'get-quote',
+      'finance': 'calculate',
+      'financial': 'calculate',
+      'banking': 'schedule',
+      'saas': 'free-trial',
+      'software': 'demo',
+      'technology': 'demo',
+      'healthcare': 'schedule',
+      'medical': 'schedule',
+      'legal': 'book-call',
+      'law': 'book-call',
+      'consulting': 'book-call',
+      'real estate': 'schedule',
+      'realestate': 'schedule',
+      'retail': 'save-money',
+      'ecommerce': 'save-money',
+      'e-commerce': 'save-money',
+      'restaurant': 'schedule',
+      'fitness': 'free-trial',
+      'gym': 'free-trial',
+      'education': 'download',
+      'training': 'download',
+      'marketing': 'audit',
+      'agency': 'audit'
+    };
+
+    // Check for industry match
+    for (const [key, outcome] of Object.entries(industryOutcomes)) {
+      if (industryLower.includes(key)) {
+        return outcome;
+      }
+    }
+
+    // Insight-type based fallbacks
+    if (insightTypes.includes('competition')) {
+      return 'compare';
+    }
+    if (insightTypes.includes('local') || insightTypes.includes('opportunity')) {
+      return 'schedule';
+    }
+    if (insightTypes.includes('customer')) {
+      return 'book-call';
+    }
+
+    // Default
+    return 'learn-more';
   }
 
   /**
@@ -646,14 +952,23 @@ OUTPUT FORMAT (JSON only, no markdown):
   /**
    * Fallback synthesis when AI unavailable
    */
-  private fallbackSynthesis(insights: InsightCard[], context: DeepContext): SynthesizedContent {
+  private fallbackSynthesis(insights: InsightCard[], context: DeepContext, options: ContentSynthesisOptions = {}): SynthesizedContent {
+    const { humorLevel = 1 } = options;
     const types = insights.map(i => i.type);
-    const titles = insights.map(i => i.title);
 
     let title = '';
     let hook = '';
     let body: string[] = [];
     let cta = '';
+
+    // Humor modifiers for fallback content
+    const humorSuffixes = {
+      0: '',
+      1: '',
+      2: ' (And yes, we checked twice.)',
+      3: ' 🎯 (Spoiler: It\'s good news!)'
+    };
+    const humorSuffix = humorSuffixes[humorLevel as keyof typeof humorSuffixes] || '';
 
     // Generate based on insight combination
     if (types.includes('customer') && types.includes('opportunity')) {

@@ -15,11 +15,12 @@ interface IndustryContext {
 }
 
 class IndustryAI {
-  private apiKey: string
-  private endpoint = 'https://api.openai.com/v1/chat/completions'
+  // SECURITY: Use Edge Functions instead of direct API calls
+  private supabaseUrl = import.meta.env.VITE_SUPABASE_URL || ''
+  private supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 
   constructor() {
-    this.apiKey = import.meta.env.VITE_OPENAI_API_KEY || ''
+    // No API key needed - using secure Edge Functions
   }
 
   /**
@@ -29,7 +30,7 @@ class IndustryAI {
     const industry = context.industry || 'Real Estate'
 
     try {
-      if (this.apiKey) {
+      if (this.supabaseUrl && this.supabaseAnonKey) {
         const prompt = `For a ${industry} business${context.brandName ? ` like ${context.brandName}` : ''}, suggest 5 specific target customer segments. Each should be 1-2 sentences describing demographics, needs, and pain points. Format as a JSON array of strings.`
 
         const suggestions = await this.callOpenAI(prompt)
@@ -53,7 +54,7 @@ class IndustryAI {
     const industry = context.industry || 'Real Estate'
 
     try {
-      if (this.apiKey) {
+      if (this.supabaseUrl && this.supabaseAnonKey) {
         const prompt = `For ${targetCustomer} in the ${industry} industry, what are 5 specific problems or pain points they face? Each should be 1-2 sentences describing a real challenge. Format as a JSON array of strings.`
 
         const suggestions = await this.callOpenAI(prompt)
@@ -76,7 +77,7 @@ class IndustryAI {
     const industry = context.industry || 'Real Estate'
 
     try {
-      if (this.apiKey) {
+      if (this.supabaseUrl && this.supabaseAnonKey) {
         const prompt = `For this problem in the ${industry} industry: "${problem}", suggest 5 innovative solutions. Each should be 1-2 sentences describing how it solves the problem. Format as a JSON array of strings.`
 
         const suggestions = await this.callOpenAI(prompt)
@@ -99,7 +100,7 @@ class IndustryAI {
     const industry = context.industry || 'Real Estate'
 
     try {
-      if (this.apiKey) {
+      if (this.supabaseUrl && this.supabaseAnonKey) {
         const prompt = `For this solution in the ${industry} industry: "${solution}", what are 5 measurable benefits customers will experience? Each should be specific and quantifiable. Format as a JSON array of strings.`
 
         const suggestions = await this.callOpenAI(prompt)
@@ -121,7 +122,7 @@ class IndustryAI {
     const industry = context.industry || 'Real Estate'
 
     try {
-      if (this.apiKey) {
+      if (this.supabaseUrl && this.supabaseAnonKey) {
         const prompt = `For a ${industry} business${context.brandName ? ` like ${context.brandName}` : ''}, suggest 5 unique differentiators that would set them apart from competitors. Each should be specific and defendable. Format as a JSON array of strings.`
 
         const suggestions = await this.callOpenAI(prompt)
@@ -135,16 +136,18 @@ class IndustryAI {
   }
 
   /**
-   * Call OpenAI API
+   * Call AI via secure Edge Function (no API keys exposed)
    */
   private async callOpenAI(prompt: string): Promise<string[]> {
-    const response = await fetch(this.endpoint, {
+    // Use Edge Function for secure API access
+    const response = await fetch(`${this.supabaseUrl}/functions/v1/ai-proxy`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.apiKey}`
+        'Authorization': `Bearer ${this.supabaseAnonKey}`
       },
       body: JSON.stringify({
+        provider: 'openai',
         model: 'gpt-3.5-turbo',
         messages: [
           {
@@ -159,7 +162,7 @@ class IndustryAI {
     })
 
     if (!response.ok) {
-      throw new Error(`OpenAI API error: ${response.status}`)
+      throw new Error(`AI Proxy error: ${response.status}`)
     }
 
     const data = await response.json()

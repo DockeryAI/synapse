@@ -713,6 +713,24 @@ class StreamingApiManager extends EventEmitter {
     }
   }
 
+  /**
+   * Alias for loadPerplexityData - AI insights via Perplexity
+   * Used by optimized-api-loader.service.ts
+   */
+  async loadAIInsights(brand: any): Promise<void> {
+    return this.loadPerplexityData(brand);
+  }
+
+  /**
+   * OpenRouter AI analysis - currently uses same implementation as Perplexity
+   * Used by optimized-api-loader.service.ts
+   */
+  async loadAIAnalysis(brand: any): Promise<void> {
+    // For now, use the same implementation as Perplexity
+    // TODO: Implement proper OpenRouter analysis when API is configured
+    return this.loadPerplexityData(brand);
+  }
+
   // Helper methods
 
   private emitUpdate(type: ApiEventType, data: any, fromCache: boolean): void {

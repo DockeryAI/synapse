@@ -1,9 +1,11 @@
 /**
  * News API Integration
  * Fetches industry news and local events for opportunity detection
+ *
+ * SECURITY: All API calls routed through fetch-news Edge Function
+ * No API keys exposed in browser code
  */
 
-const NEWS_API_KEY = import.meta.env.VITE_NEWS_API_KEY
 const CACHE_TTL = 60 * 60 * 1000 // 1 hour
 
 interface NewsArticle {
@@ -226,7 +228,7 @@ class NewsAPIService {
 
   /**
    * NO MOCK DATA - removed to enforce real API usage
-   * Configure VITE_NEWS_API_KEY to enable news features
+   * All news API calls routed through fetch-news Edge Function
    */
 }
 

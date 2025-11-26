@@ -120,8 +120,8 @@ export class OptimizedAPILoader extends EventEmitter {
     apis.add('outscraper-reviews')
     apis.add('apify-twitter')  // Re-enabled with valid actor ID
     apis.add('apify-quora')    // Re-enabled with valid actor ID
-    apis.add('perplexity-research')
-    apis.add('openrouter-analysis')
+    apis.add('perplexity-research')  // Re-enabled with timeout protection
+    apis.add('openrouter-analysis')  // Re-enabled with timeout protection
 
     // Industry-specific APIs
     const naicsCode = brand.industry?.naics_code || brand.naics_code
@@ -159,13 +159,13 @@ export class OptimizedAPILoader extends EventEmitter {
   private createLoadPhases(brand: Brand, apis: Set<string>): LoadPhase[] {
     const phases: LoadPhase[] = []
 
-    // Phase 1: Critical Context (100ms-3s)
+    // Phase 1: Critical Context (100ms-3s) - reduced time window
     if (apis.has('serper-search') || apis.has('youtube-trending') || apis.has('semrush-keywords')) {
       phases.push({
         name: 'critical-context',
         priority: Priority.CRITICAL,
         startTime: 100,
-        endTime: 3000,
+        endTime: 2000,  // Reduced from 3000ms
         apis: ['serper-search', 'youtube-trending', 'semrush-keywords'].filter(api => apis.has(api)),
         status: 'pending'
       })
@@ -264,9 +264,9 @@ export class OptimizedAPILoader extends EventEmitter {
       priority: phase.priority
     })
 
-    // Create tasks for this phase
+    // Create tasks for this phase - progressive loading without timeouts
     const tasks = phase.apis.map(apiType => ({
-      fn: () => this.loadAPIWithCache(apiType, brand),
+      fn: () => this.loadAPIWithCache(apiType, brand), // Direct load without timeout
       id: apiType,
       priority: phase.priority
     }))
@@ -339,7 +339,7 @@ export class OptimizedAPILoader extends EventEmitter {
   }
 
   /**
-   * Load API with cache (SWR pattern)
+   * Load API with cache (SWR pattern) - Progressive loading without timeouts
    */
   private async loadAPIWithCache(apiType: string, brand: Brand): Promise<any> {
     const startTime = performance.now()

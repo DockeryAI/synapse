@@ -21,9 +21,9 @@ import {
   type WhiteSpaceOpportunity,
 } from '@/types/v2/competitive.types';
 
-// Apify configuration
-const APIFY_API_KEY = import.meta.env.VITE_APIFY_API_KEY;
-const APIFY_API_URL = 'https://api.apify.com/v2';
+// SECURITY: Use Edge Functions for secure API access
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
 const WEBSITE_CRAWLER_ACTOR = 'apify/website-content-crawler';
 
 class CompetitiveAnalyzerService {
@@ -176,8 +176,8 @@ class CompetitiveAnalyzerService {
     competitorName: string,
     config: CompetitiveAnalysisConfig
   ): Promise<CompetitorContent[]> {
-    if (!APIFY_API_KEY) {
-      console.warn('[CompetitiveAnalyzer] Apify API key not configured, returning mock data');
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      console.warn('[CompetitiveAnalyzer] Supabase credentials not configured, returning mock data');
       return this.getMockContent(competitorId, competitorName, url);
     }
 
@@ -189,13 +189,19 @@ class CompetitiveAnalyzerService {
         includeUrlGlobs: [`${url}/**`],
       };
 
-      // Start actor run
+      // Use Edge Function for secure Apify access (no API keys exposed)
       const runResponse = await fetch(
-        `${APIFY_API_URL}/acts/${WEBSITE_CRAWLER_ACTOR}/runs?token=${APIFY_API_KEY}`,
+        `${SUPABASE_URL}/functions/v1/apify-scraper`,
         {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(input),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({
+            actorId: WEBSITE_CRAWLER_ACTOR,
+            input
+          }),
         }
       );
 
@@ -203,11 +209,9 @@ class CompetitiveAnalyzerService {
         throw new Error(`Failed to start Apify actor: ${runResponse.status}`);
       }
 
-      const runData = await runResponse.json();
-      const runId = runData.data.id;
-
-      // Poll for results
-      const results = await this.waitForActorResults(runId, config.scrapeTimeout);
+      // Edge Function handles polling and returns results directly
+      const responseData = await runResponse.json();
+      const results = responseData.success ? responseData.data : [];
 
       // Convert to CompetitorContent
       return results.map((item: any) => ({

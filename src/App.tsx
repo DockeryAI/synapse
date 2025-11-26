@@ -40,10 +40,11 @@ function App() {
               {/* <Route path="/login" element={<LoginPage />} /> */}
               {/* <Route path="/signup" element={<SignUpPage />} /> */}
 
+              {/* Default route - Onboarding (UVP Flow) */}
+              <Route path="/" element={<OnboardingPageV5 />} />
+
               {/* Routes with sidebar navigation */}
               <Route element={<AppLayout />}>
-                {/* Default route - Dashboard */}
-                <Route path="/" element={<DashboardPage />} />
 
                 {/* Dashboard / Command Center */}
                 <Route path="/dashboard" element={<DashboardPage />} />

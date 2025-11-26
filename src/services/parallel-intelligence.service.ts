@@ -4,25 +4,30 @@
  * Runs 8 data sources in parallel for ultra-fast business intelligence.
  * Target: <30 seconds completion time with graceful degradation.
  *
+ * SECURITY: All API calls routed through Edge Functions
+ * No API keys exposed in browser code
+ *
  * Data Sources:
- * 1. Website scraping (Apify)
- * 2. Google Business Profile (OutScraper)
- * 3. Google Reviews (OutScraper)
- * 4. Search presence (Serper)
- * 5. Competitor detection (Serper)
- * 6. Service page analysis (Apify)
- * 7. Social media profiles (Apify)
- * 8. AI synthesis (OpenRouter - Claude Opus)
+ * 1. Website scraping (Apify via apify-proxy)
+ * 2. Google Business Profile (OutScraper via fetch-outscraper)
+ * 3. Google Reviews (OutScraper via fetch-outscraper)
+ * 4. Search presence (Serper via fetch-serper)
+ * 5. Competitor detection (Serper via fetch-serper)
+ * 6. Service page analysis (Apify via apify-proxy)
+ * 7. Social media profiles (Serper via fetch-serper)
+ * 8. AI synthesis (OpenRouter via ai-proxy)
  */
 
 import { z } from 'zod'
-import axios from 'axios'
-import { ApifyClient } from 'apify-client'
 import { callAPIWithRetry, parallelAPICalls } from '@/lib/api-helpers'
 import { SimpleCache } from '@/lib/cache'
 import { RateLimiter } from '@/lib/rate-limiter'
 import { log, timeOperation } from '@/lib/debug-helpers'
 import { sanitizeUserInput, validateURL } from '@/lib/security'
+
+// Supabase Edge Function for secure API access
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 // ============================================================================
 // ZOD SCHEMAS - Type Validation for All Data Sources
@@ -248,7 +253,7 @@ export interface AggregatedIntelligence {
 // ============================================================================
 
 /**
- * 1. WEBSITE SCRAPING (Apify)
+ * 1. WEBSITE SCRAPING (Apify via Edge Function)
  * Scrapes website content, structure, images, and links
  */
 async function scrapeWebsite(url: string): Promise<WebsiteData | null> {
@@ -258,17 +263,75 @@ async function scrapeWebsite(url: string): Promise<WebsiteData | null> {
         throw new Error('Invalid URL format')
       }
 
-      const apifyClient = new ApifyClient({
-        token: import.meta.env.VITE_APIFY_API_KEY
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
+      // Start Apify run via Edge Function
+      const runResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'run',
+          actorId: 'apify/website-content-crawler',
+          input: {
+            startUrls: [{ url }],
+            maxCrawlDepth: 2,
+            maxCrawlPages: 10
+          }
+        })
       })
 
-      const run = await apifyClient.actor('apify/website-content-crawler').call({
-        startUrls: [{ url }],
-        maxCrawlDepth: 2,
-        maxCrawlPages: 10
+      if (!runResponse.ok) {
+        throw new Error(`Apify run failed: ${runResponse.status}`)
+      }
+
+      const runResult = await runResponse.json()
+      const runId = runResult.data?.id
+      const datasetId = runResult.data?.defaultDatasetId
+
+      if (!runId || !datasetId) {
+        throw new Error('Failed to start Apify run')
+      }
+
+      // Poll for completion (max 60 seconds)
+      let status = 'RUNNING'
+      let attempts = 0
+      while (status === 'RUNNING' && attempts < 30) {
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        const statusResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ action: 'status', runId })
+        })
+        const statusResult = await statusResponse.json()
+        status = statusResult.data?.status
+        attempts++
+      }
+
+      if (status !== 'SUCCEEDED') {
+        log('Website Scraping', `Apify run did not succeed: ${status}`, 'warn')
+        return null
+      }
+
+      // Get dataset results
+      const datasetResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'dataset', datasetId, limit: 20 })
       })
 
-      const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+      const datasetResult = await datasetResponse.json()
+      const items = datasetResult.data || []
 
       if (!items || items.length === 0) {
         log('Website Scraping', 'No items returned from Apify', 'warn')
@@ -301,7 +364,7 @@ async function scrapeWebsite(url: string): Promise<WebsiteData | null> {
 }
 
 /**
- * 2. GOOGLE BUSINESS PROFILE (OutScraper)
+ * 2. GOOGLE BUSINESS PROFILE (OutScraper via Edge Function)
  * Fetches Google Business Profile data
  */
 async function fetchGoogleBusiness(
@@ -314,31 +377,47 @@ async function fetchGoogleBusiness(
         return null
       }
 
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
       const sanitizedName = sanitizeBusinessName(businessName)
       const query = location ? `${sanitizedName} ${location}` : sanitizedName
 
-      const response = await axios.post(
-        'https://api.app.outscraper.com/maps/search-v2',
-        {
-          query: [query],
-          limit: 1,
-          language: 'en'
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-outscraper`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'X-API-KEY': import.meta.env.VITE_OUTSCRAPER_API_KEY
-          },
-          timeout: 10000
-        }
-      )
+        body: JSON.stringify({
+          endpoint: '/maps/search-v2',
+          params: {
+            query: query,
+            limit: '1',
+            language: 'en'
+          }
+        })
+      })
 
-      if (!response.data || response.data.length === 0 || !response.data[0][0]) {
+      if (!response.ok) {
+        throw new Error(`OutScraper API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      if (!data || data.length === 0 || !data[0]) {
         log('Google Business Fetch', 'No results found', 'warn')
         return null
       }
 
-      const business = response.data[0][0]
-      const data: GBPData = {
+      const business = Array.isArray(data[0]) ? data[0][0] : data[0]
+      if (!business) {
+        log('Google Business Fetch', 'No business data found', 'warn')
+        return null
+      }
+
+      const gbpData: GBPData = {
         name: business.name || businessName,
         address: business.address || undefined,
         phone: business.phone || undefined,
@@ -348,7 +427,7 @@ async function fetchGoogleBusiness(
         reviewCount: business.reviews || undefined
       }
 
-      return GBPDataSchema.parse(data)
+      return GBPDataSchema.parse(gbpData)
     },
     {
       maxRetries: 3,
@@ -359,7 +438,7 @@ async function fetchGoogleBusiness(
 }
 
 /**
- * 3. GOOGLE REVIEWS (OutScraper)
+ * 3. GOOGLE REVIEWS (OutScraper via Edge Function)
  * Fetches Google reviews with sentiment analysis
  */
 async function fetchGoogleReviews(businessName: string): Promise<ReviewData[]> {
@@ -369,29 +448,40 @@ async function fetchGoogleReviews(businessName: string): Promise<ReviewData[]> {
         return []
       }
 
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
       const sanitizedName = sanitizeBusinessName(businessName)
 
-      const response = await axios.post(
-        'https://api.app.outscraper.com/maps/reviews-v3',
-        {
-          query: [sanitizedName],
-          reviewsLimit: 50,
-          language: 'en'
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-outscraper`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'X-API-KEY': import.meta.env.VITE_OUTSCRAPER_API_KEY
-          },
-          timeout: 15000
-        }
-      )
+        body: JSON.stringify({
+          endpoint: '/maps/reviews-v3',
+          params: {
+            query: sanitizedName,
+            reviewsLimit: '50',
+            language: 'en'
+          }
+        })
+      })
 
-      if (!response.data || response.data.length === 0 || !response.data[0]?.reviews_data) {
+      if (!response.ok) {
+        throw new Error(`OutScraper API error: ${response.status}`)
+      }
+
+      const data = await response.json()
+
+      if (!data || data.length === 0 || !data[0]?.reviews_data) {
         log('Google Reviews Fetch', 'No reviews found', 'warn')
         return []
       }
 
-      const reviews = response.data[0].reviews_data || []
+      const reviews = data[0].reviews_data || []
 
       const validatedReviews = reviews.map((review: any) =>
         ReviewDataSchema.parse({
@@ -416,7 +506,7 @@ async function fetchGoogleReviews(businessName: string): Promise<ReviewData[]> {
 }
 
 /**
- * 4. SEARCH PRESENCE (Serper)
+ * 4. SEARCH PRESENCE (Serper via Edge Function)
  * Analyzes search engine presence and rankings
  */
 async function analyzeSearchPresence(
@@ -429,37 +519,44 @@ async function analyzeSearchPresence(
         return null
       }
 
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
       const sanitizedName = sanitizeBusinessName(businessName)
       const query = location ? `${sanitizedName} ${location}` : sanitizedName
 
-      const response = await axios.post(
-        'https://google.serper.dev/search',
-        {
-          q: query,
-          num: 10
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
-            'Content-Type': 'application/json'
-          },
-          timeout: 10000
-        }
-      )
+        body: JSON.stringify({
+          endpoint: '/search',
+          params: { q: query, num: 10 }
+        })
+      })
 
-      if (!response.data) {
+      if (!response.ok) {
+        throw new Error(`Serper API error: ${response.status}`)
+      }
+
+      const responseData = await response.json()
+
+      if (!responseData) {
         return null
       }
 
       const data: SearchData = {
-        rankings: (response.data.organic || []).slice(0, 10).map((result: any, index: number) => ({
+        rankings: (responseData.organic || []).slice(0, 10).map((result: any, index: number) => ({
           keyword: query,
           position: index + 1,
           url: result.link || ''
         })),
-        featuredSnippets: response.data.answerBox ? [response.data.answerBox.snippet || ''] : [],
-        knowledgePanel: !!response.data.knowledgeGraph,
-        visibility: response.data.organic?.length || 0
+        featuredSnippets: responseData.answerBox ? [responseData.answerBox.snippet || ''] : [],
+        knowledgePanel: !!responseData.knowledgeGraph,
+        visibility: responseData.organic?.length || 0
       }
 
       return SearchDataSchema.parse(data)
@@ -473,7 +570,7 @@ async function analyzeSearchPresence(
 }
 
 /**
- * 5. COMPETITOR DETECTION (Serper)
+ * 5. COMPETITOR DETECTION (Serper via Edge Function)
  * Identifies competitors in the same market
  */
 async function detectCompetitors(
@@ -487,29 +584,36 @@ async function detectCompetitors(
         return []
       }
 
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
       const sanitizedName = sanitizeBusinessName(businessName)
       const query = `${industry || 'businesses'} ${location || 'near me'}`
 
-      const response = await axios.post(
-        'https://google.serper.dev/search',
-        {
-          q: query,
-          num: 10
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
-            'Content-Type': 'application/json'
-          },
-          timeout: 10000
-        }
-      )
+        body: JSON.stringify({
+          endpoint: '/search',
+          params: { q: query, num: 10 }
+        })
+      })
 
-      if (!response.data || !response.data.organic) {
+      if (!response.ok) {
+        throw new Error(`Serper API error: ${response.status}`)
+      }
+
+      const responseData = await response.json()
+
+      if (!responseData || !responseData.organic) {
         return []
       }
 
-      const competitors = (response.data.organic || [])
+      const competitors = (responseData.organic || [])
         .slice(0, 5)
         .filter((result: any) => result.title && result.title.toLowerCase() !== sanitizedName.toLowerCase())
         .map((result: any) => ({
@@ -532,7 +636,7 @@ async function detectCompetitors(
 }
 
 /**
- * 6. SERVICE PAGE ANALYSIS (Apify)
+ * 6. SERVICE PAGE ANALYSIS (Apify via Edge Function)
  * Analyzes service and product pages
  */
 async function analyzeServicePages(url: string): Promise<ServiceData[]> {
@@ -542,18 +646,76 @@ async function analyzeServicePages(url: string): Promise<ServiceData[]> {
         throw new Error('Invalid URL format')
       }
 
-      const apifyClient = new ApifyClient({
-        token: import.meta.env.VITE_APIFY_API_KEY
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
+      // Start Apify run via Edge Function
+      const runResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          action: 'run',
+          actorId: 'apify/website-content-crawler',
+          input: {
+            startUrls: [{ url }],
+            maxCrawlDepth: 2,
+            maxCrawlPages: 20,
+            crawlAllUrls: true
+          }
+        })
       })
 
-      const run = await apifyClient.actor('apify/website-content-crawler').call({
-        startUrls: [{ url }],
-        maxCrawlDepth: 2,
-        maxCrawlPages: 20,
-        crawlAllUrls: true
+      if (!runResponse.ok) {
+        throw new Error(`Apify run failed: ${runResponse.status}`)
+      }
+
+      const runResult = await runResponse.json()
+      const runId = runResult.data?.id
+      const datasetId = runResult.data?.defaultDatasetId
+
+      if (!runId || !datasetId) {
+        throw new Error('Failed to start Apify run')
+      }
+
+      // Poll for completion (max 60 seconds)
+      let status = 'RUNNING'
+      let attempts = 0
+      while (status === 'RUNNING' && attempts < 30) {
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        const statusResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ action: 'status', runId })
+        })
+        const statusResult = await statusResponse.json()
+        status = statusResult.data?.status
+        attempts++
+      }
+
+      if (status !== 'SUCCEEDED') {
+        log('Service Page Analysis', `Apify run did not succeed: ${status}`, 'warn')
+        return []
+      }
+
+      // Get dataset results
+      const datasetResponse = await fetch(`${SUPABASE_URL}/functions/v1/apify-proxy`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ action: 'dataset', datasetId, limit: 30 })
       })
 
-      const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+      const datasetResult = await datasetResponse.json()
+      const items = datasetResult.data || []
 
       if (!items || items.length === 0) {
         return []
@@ -585,7 +747,7 @@ async function analyzeServicePages(url: string): Promise<ServiceData[]> {
 }
 
 /**
- * 7. SOCIAL MEDIA PROFILES (Apify)
+ * 7. SOCIAL MEDIA PROFILES (Serper via Edge Function)
  * Discovers social media profiles
  */
 async function findSocialProfiles(
@@ -598,28 +760,35 @@ async function findSocialProfiles(
         return null
       }
 
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        throw new Error('Supabase configuration missing')
+      }
+
       const sanitizedName = sanitizeBusinessName(businessName)
 
-      const response = await axios.post(
-        'https://google.serper.dev/search',
-        {
-          q: `${sanitizedName} social media facebook instagram linkedin`,
-          num: 10
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/fetch-serper`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json'
         },
-        {
-          headers: {
-            'X-API-KEY': import.meta.env.VITE_SERPER_API_KEY,
-            'Content-Type': 'application/json'
-          },
-          timeout: 10000
-        }
-      )
+        body: JSON.stringify({
+          endpoint: '/search',
+          params: { q: `${sanitizedName} social media facebook instagram linkedin`, num: 10 }
+        })
+      })
 
-      if (!response.data || !response.data.organic) {
+      if (!response.ok) {
+        throw new Error(`Serper API error: ${response.status}`)
+      }
+
+      const responseData = await response.json()
+
+      if (!responseData || !responseData.organic) {
         return null
       }
 
-      const results = response.data.organic || []
+      const results = responseData.organic || []
       const profiles: SocialProfiles = {}
 
       results.forEach((result: any) => {

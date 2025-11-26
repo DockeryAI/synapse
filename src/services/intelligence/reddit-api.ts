@@ -91,6 +91,8 @@ export class RedditAPI {
   private accessToken: RedditAccessToken | null = null;
 
   constructor(config?: RedditAuthConfig) {
+    // COMMENTED OUT: Using Apify-based reddit-apify-api.ts instead
+    // This OAuth-based implementation is preserved but disabled to avoid conflicts
     // Reddit credentials are managed server-side by reddit-oauth Edge Function
     // Client-side code doesn't need direct access to credentials
     this.clientId = config?.clientId || '';
@@ -106,9 +108,12 @@ export class RedditAPI {
   // ==========================================================================
 
   /**
+   * COMMENTED OUT: Using Apify-based reddit-apify-api.ts instead
    * Get or refresh OAuth access token (via Supabase Edge Function to avoid CORS)
    */
   private async getAccessToken(): Promise<string> {
+    throw new Error('Reddit OAuth disabled - using Apify-based implementation in reddit-apify-api.ts');
+    /*
     // Return cached token if still valid
     if (this.accessToken && Date.now() < this.accessToken.expiresAt) {
       return this.accessToken.accessToken;
@@ -170,13 +175,17 @@ export class RedditAPI {
       console.error('[RedditAPI] OAuth error:', error);
       throw new Error('Failed to authenticate with Reddit API');
     }
+    */
   }
 
   /**
+   * COMMENTED OUT: Using Apify-based reddit-apify-api.ts instead
    * Make authenticated API request (via Supabase Edge Function to avoid CORS)
    * Falls back to public API if auth fails
    */
   private async fetchAPI(endpoint: string, useAuth = true): Promise<any> {
+    throw new Error('Reddit OAuth disabled - using Apify-based implementation in reddit-apify-api.ts');
+    /*
     const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
     const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
@@ -229,6 +238,7 @@ export class RedditAPI {
       console.error('[RedditAPI] Fetch error:', error);
       throw error;
     }
+    */
   }
 
   // ==========================================================================
@@ -517,6 +527,7 @@ export class RedditAPI {
   // ==========================================================================
 
   /**
+   * COMMENTED OUT: Using Apify-based reddit-apify-api.ts instead
    * Search Reddit for psychological triggers and insights
    *
    * @param query - Search query (e.g., "fitness motivation", "restaurant problems")
@@ -532,6 +543,9 @@ export class RedditAPI {
       timeFilter?: 'hour' | 'day' | 'week' | 'month' | 'year' | 'all'; // Time filter
     } = {}
   ): Promise<RedditIntelligenceResult> {
+    // Redirect to new Apify implementation
+    throw new Error('Reddit OAuth disabled - please use reddit-apify-api.ts instead');
+    /*
     const {
       subreddits = [],
       limit = 25,
@@ -638,6 +652,7 @@ export class RedditAPI {
       console.error('[RedditAPI] Mining failed:', error);
       throw error;
     }
+    */
   }
 
   /**
@@ -673,4 +688,6 @@ export class RedditAPI {
 // SINGLETON INSTANCE
 // ============================================================================
 
-export const redditAPI = new RedditAPI();
+// COMMENTED OUT: Using Apify-based reddit-apify-api.ts instead
+// export const redditAPI = new RedditAPI();
+export const redditAPI = null; // Disabled - use reddit-apify-api.ts

@@ -41,4 +41,5 @@ export interface InsightRecipe {
   minInsights: number;
   maxInsights: number;
   compatibleTemplates?: string[];
+  primaryFramework?: 'problem-agitate-solution' | 'aida' | 'before-after-bridge' | 'hook-story-offer' | 'curiosity-gap';
 }

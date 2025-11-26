@@ -65,7 +65,16 @@ function getProviderApiKey(provider: Provider): string | null {
     openai: Deno.env.get('OPENAI_API_KEY'),
   };
 
-  return keyMap[provider] || null;
+  const key = keyMap[provider] || null;
+
+  // Log key status (not the key itself)
+  if (key) {
+    console.log(`[AI-Proxy] ${provider} API key found (length: ${key.length})`);
+  } else {
+    console.error(`[AI-Proxy] ${provider} API key NOT FOUND in environment`);
+  }
+
+  return key;
 }
 
 /**

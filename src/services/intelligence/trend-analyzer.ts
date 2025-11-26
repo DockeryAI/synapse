@@ -5,6 +5,9 @@ import { supabase } from '@/lib/supabase'
  * Trend Analyzer Service
  * Detects trending topics using Google Trends API and other sources
  * Identifies content opportunities based on rising search interest
+ *
+ * NOTE: Google Trends has no official API - integration would require
+ * a third-party service like SerpAPI routed through an Edge Function
  */
 
 interface TrendConfig {
@@ -28,7 +31,6 @@ interface GoogleTrendsResponse {
 }
 
 export class TrendAnalyzerService {
-  private static readonly TRENDS_API_KEY = import.meta.env.VITE_GOOGLE_TRENDS_API_KEY || ''
   private static readonly CACHE_TTL_HOURS = 1
 
   /**
@@ -118,40 +120,20 @@ export class TrendAnalyzerService {
 
   /**
    * Fetch trend data from API
+   * NOTE: Google Trends has no official API. This would require a third-party service
+   * like SerpAPI which should be called via an Edge Function for security.
    */
   private static async fetchTrendData(
     keyword: string,
     location?: string
   ): Promise<any> {
-    // Check for API configuration
-    if (!this.TRENDS_API_KEY) {
-      throw new Error(
-        'Google Trends API key not configured. Add VITE_GOOGLE_TRENDS_API_KEY to your .env file. ' +
-        'Note: Google Trends does not have an official API. Consider using a service like SerpAPI or Rapid API.'
-      )
-    }
-
-    try {
-      // TODO: Implement actual Google Trends API call
-      // This requires a third-party service like SerpAPI or similar
-      // For now, throw error until implemented
-      throw new Error(
-        'Google Trends integration pending. This requires a third-party API service like SerpAPI. ' +
-        'Visit https://serpapi.com/ to get an API key for trends data.'
-      )
-
-      // Example implementation with SerpAPI:
-      // const url = `https://serpapi.com/search?engine=google_trends&q=${encodeURIComponent(keyword)}&api_key=${this.TRENDS_API_KEY}`
-      // const response = await fetch(url)
-      // if (!response.ok) throw new Error(`Trends API error: ${response.statusText}`)
-      // return await response.json()
-    } catch (error) {
-      // Re-throw - NO SILENT FAILURES
-      if (error instanceof Error) {
-        throw error
-      }
-      throw new Error(`Trends API failed: ${String(error)}`)
-    }
+    // Google Trends integration not yet implemented
+    // This would require a third-party service like SerpAPI
+    // which should be called via an Edge Function for security
+    throw new Error(
+      'Google Trends integration pending. This requires a third-party API service like SerpAPI ' +
+      'routed through a Supabase Edge Function for security.'
+    )
   }
 
   /**
@@ -393,7 +375,7 @@ export class TrendAnalyzerService {
 
   /**
    * NO MOCK DATA - removed to enforce real API usage
-   * Configure VITE_GOOGLE_TRENDS_API_KEY to enable this feature
+   * Requires third-party service routed through Edge Function
    */
 
   /**

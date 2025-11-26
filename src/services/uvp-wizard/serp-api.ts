@@ -4,6 +4,9 @@
  * Wrapper around Serper (Google Search) API for competitor research and market intelligence.
  * Extends the base SerperAPI service with UVP-specific functionality.
  *
+ * SECURITY: All API calls routed through fetch-serper Edge Function via SerperAPI
+ * No API keys exposed in browser code
+ *
  * This service provides:
  * - Competitor discovery and research
  * - Market positioning insights
@@ -15,10 +18,9 @@ import { SerperAPI, SearchResult } from '@/services/intelligence/serper-api'
 import { SerpAPIRequest, SerpAPIResponse, DraggableSuggestion } from '@/types/uvp-wizard'
 
 /**
- * SerpAPI configuration
+ * SerpAPI configuration (no API key needed - handled by Edge Function)
  */
 interface SerpAPIConfig {
-  apiKey: string
   maxResults: number
   location: string
 }
@@ -27,7 +29,6 @@ interface SerpAPIConfig {
  * Default configuration
  */
 const DEFAULT_CONFIG: SerpAPIConfig = {
-  apiKey: import.meta.env.VITE_SERPER_API_KEY || '',
   maxResults: 10,
   location: 'United States',
 }
@@ -45,23 +46,20 @@ interface CompetitorInfo {
 
 /**
  * SerpAPI service class for UVP wizard
+ * SECURITY: Uses SerperAPI which routes through Edge Function
  */
 export class SerpAPI {
   private config: SerpAPIConfig
 
   constructor(config?: Partial<SerpAPIConfig>) {
     this.config = { ...DEFAULT_CONFIG, ...config }
-
-    if (!this.config.apiKey) {
-      console.warn('[SerpAPI] No API key provided. Set VITE_SERPER_API_KEY.')
-    }
   }
 
   /**
-   * Check if API is available
+   * Check if API is available (always true - Edge Function handles auth)
    */
   async isAvailable(): Promise<boolean> {
-    return !!this.config.apiKey
+    return true
   }
 
   /**

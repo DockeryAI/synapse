@@ -43,6 +43,10 @@ export class ComprehensiveAPITestService {
     openrouter: process.env.OPENROUTER_API_KEY || '',
   };
 
+  // Edge Function URLs
+  private supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || '';
+  private supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || '';
+
   /**
    * RUN ALL TESTS
    */
@@ -185,15 +189,18 @@ export class ComprehensiveAPITestService {
   private async testApifyWebsiteExtraction() {
     const startTime = Date.now();
     try {
-      const response = await fetch('https://api.apify.com/v2/acts/apify~website-content-crawler/runs', {
+      const response = await fetch(`${this.supabaseUrl}/functions/v1/apify-scraper`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${this.apiKeys.apify}`,
+          'Authorization': `Bearer ${this.supabaseAnonKey}`,
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          startUrls: [{ url: 'https://www.geico.com' }],
-          maxCrawlPages: 1,
+          actorId: 'apify/website-content-crawler',
+          input: {
+            startUrls: [{ url: 'https://www.geico.com' }],
+            maxCrawlPages: 1,
+          }
         }),
       });
 

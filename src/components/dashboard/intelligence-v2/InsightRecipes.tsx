@@ -9,7 +9,7 @@ import type { InsightCard, InsightRecipe } from './types';
 
 export interface InsightRecipesProps {
   allInsights: InsightCard[];
-  onSelectRecipe: (insightIds: string[]) => void;
+  onSelectRecipe: (insightIds: string[], framework?: string) => void;
 }
 
 const RECIPES: InsightRecipe[] = [
@@ -22,6 +22,7 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['market', 'competition', 'opportunity'],
     minInsights: 4,
     maxInsights: 6,
+    primaryFramework: 'aida', // Attention-Interest-Desire-Action for authority
     compatibleTemplates: [
       'Authority Builder',
       'Education First',
@@ -40,6 +41,7 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['customer', 'opportunity'],
     minInsights: 4,
     maxInsights: 5,
+    primaryFramework: 'hook-story-offer', // Story-based for trust building
     compatibleTemplates: [
       'Social Proof',
       'Trust Ladder',
@@ -57,6 +59,7 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['customer', 'competition', 'opportunity'],
     minInsights: 4,
     maxInsights: 6,
+    primaryFramework: 'problem-agitate-solution', // Classic PAS for pain points
     compatibleTemplates: [
       'PAS Series',
       'BAB Campaign',
@@ -75,6 +78,7 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['market', 'opportunity'],
     minInsights: 3,
     maxInsights: 5,
+    primaryFramework: 'curiosity-gap', // Curiosity for viral content
     compatibleTemplates: [
       'Seasonal Urgency',
       'Scarcity Sequence',
@@ -92,6 +96,7 @@ const RECIPES: InsightRecipe[] = [
     insightTypes: ['local', 'customer', 'opportunity'],
     minInsights: 3,
     maxInsights: 5,
+    primaryFramework: 'before-after-bridge', // BAB for local transformation stories
     compatibleTemplates: [
       'Social Proof',
       'Quick Win',
@@ -130,7 +135,8 @@ export function InsightRecipes({ allInsights, onSelectRecipe }: InsightRecipesPr
     const sortedByConfidence = matchingInsights.sort((a, b) => b.confidence - a.confidence);
     const selectedInsights = sortedByConfidence.slice(0, recipe.maxInsights);
 
-    onSelectRecipe(selectedInsights.map(i => i.id));
+    // Pass both insight IDs and the recipe's primary framework
+    onSelectRecipe(selectedInsights.map(i => i.id), recipe.primaryFramework);
   };
 
   return (

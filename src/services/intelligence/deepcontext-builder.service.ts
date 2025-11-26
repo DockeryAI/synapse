@@ -27,7 +27,7 @@ import { WeatherAPI } from './weather-api';
 import { SerperAPI } from './serper-api';
 import { SemrushAPI } from './semrush-api';
 import { websiteAnalyzer } from './website-analyzer.service';
-import { redditAPI } from './reddit-api';
+import { redditAPI } from './reddit-apify-api'; // Using Apify version - no OAuth needed
 import { whisperAPI } from './whisper-api';
 import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import { ApifyAPI } from './apify-api';

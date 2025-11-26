@@ -8,6 +8,8 @@ import { X, Sparkles, Trash2, FileText, Zap, ChevronDown, ChevronUp, Mail, BookO
 import type { InsightCard } from './types';
 import { contentSynthesis, type SynthesizedContent } from '@/services/intelligence/content-synthesis.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import { HumorSlider } from './HumorSlider';
+import type { FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
 
 export interface YourMixProps {
   selectedInsights: InsightCard[];
@@ -15,6 +17,7 @@ export interface YourMixProps {
   onRemove: (insightId: string) => void;
   onClear: () => void;
   onGenerate: () => void;
+  framework?: FrameworkType | null; // External framework from recipe selection
 }
 
 interface ContentPreview {
@@ -26,18 +29,25 @@ interface ContentPreview {
 
 type ContentType = 'post' | 'blog' | 'newsletter' | 'email' | 'landing-page' | 'campaign';
 
-export function YourMix({ selectedInsights, context, onRemove, onClear, onGenerate }: YourMixProps) {
+export function YourMix({ selectedInsights, context, onRemove, onClear, onGenerate, framework }: YourMixProps) {
   const hasSelection = selectedInsights.length > 0;
   const [showContentMenu, setShowContentMenu] = useState(false);
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
   const [synthesizedContent, setSynthesizedContent] = useState<SynthesizedContent | null>(null);
   const [isSynthesizing, setIsSynthesizing] = useState(false);
+  const [humorLevel, setHumorLevel] = useState<number>(1); // Default: Light humor
 
-  // Synthesize content when insights change
+  // Use external framework prop (from recipe) or allow internal override
+  const activeFramework = framework || null;
+
+  // Synthesize content when insights or settings change
   useEffect(() => {
     if (selectedInsights.length > 0) {
       setIsSynthesizing(true);
-      contentSynthesis.synthesizeContent(selectedInsights, context)
+      contentSynthesis.synthesizeContent(selectedInsights, context, {
+        humorLevel,
+        framework: activeFramework || undefined
+      })
         .then(content => {
           setSynthesizedContent(content);
           setIsSynthesizing(false);
@@ -49,7 +59,7 @@ export function YourMix({ selectedInsights, context, onRemove, onClear, onGenera
     } else {
       setSynthesizedContent(null);
     }
-  }, [selectedInsights, context]);
+  }, [selectedInsights, context, humorLevel, activeFramework, framework]);
 
   // Calculate average confidence
   const avgConfidence = hasSelection
@@ -193,8 +203,38 @@ export function YourMix({ selectedInsights, context, onRemove, onClear, onGenera
             </motion.div>
           ) : (
             <div className="space-y-4">
+              {/* Loading Animation - Show when synthesizing */}
+              {isSynthesizing && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="relative bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-2 border-blue-200 dark:border-blue-700 rounded-lg p-4"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="relative w-8 h-8">
+                      <motion.div
+                        animate={{ rotate: 360 }}
+                        transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                        className="absolute inset-0 border-2 border-purple-300 border-t-purple-600 rounded-full"
+                      />
+                      <Sparkles className="absolute inset-0 m-auto w-4 h-4 text-purple-600" />
+                    </div>
+                    <div className="flex-1">
+                      <p className="text-sm font-bold text-gray-900 dark:text-white">Generating preview...</p>
+                      <motion.p
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="text-xs text-gray-600 dark:text-gray-400"
+                      >
+                        Synthesizing {selectedInsights.length} insights with AI
+                      </motion.p>
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
               {/* Live Content Preview - TOP PRIORITY */}
-              {contentPreview && (
+              {contentPreview && !isSynthesizing && (
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -431,8 +471,17 @@ export function YourMix({ selectedInsights, context, onRemove, onClear, onGenera
         </AnimatePresence>
       </div>
 
-      {/* Footer with Stats and Create Now Button */}
+      {/* Footer with Humor Slider, Stats and Create Now Button */}
       <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-slate-700 space-y-3">
+        {/* Humor Slider - Always visible */}
+        <div className="pb-3 border-b border-gray-200 dark:border-slate-700">
+          <HumorSlider
+            value={humorLevel}
+            onChange={setHumorLevel}
+            disabled={!hasSelection}
+          />
+        </div>
+
         {hasSelection && (
           <div className="flex items-center justify-between text-xs">
             <span className="text-gray-600 dark:text-gray-400">Avg. Confidence</span>

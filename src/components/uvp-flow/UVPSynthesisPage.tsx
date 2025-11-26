@@ -10,6 +10,34 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Confetti from 'react-confetti';
+
+/**
+ * Helper to format semicolon-separated text into bullet points
+ * If text contains `;`, splits and renders as bullets. Otherwise renders as-is.
+ */
+function FormattedStatement({ text, className = '' }: { text: string; className?: string }) {
+  if (!text) return null;
+
+  // Check if text contains semicolons (multiple statements)
+  if (text.includes(';')) {
+    const items = text.split(';').map(s => s.trim()).filter(s => s.length > 0);
+    if (items.length > 1) {
+      return (
+        <ul className={`space-y-2 ${className}`}>
+          {items.map((item, idx) => (
+            <li key={idx} className="flex items-start gap-2">
+              <span className="text-purple-500 mt-1 flex-shrink-0">•</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      );
+    }
+  }
+
+  // Single statement - render as paragraph
+  return <p className={className}>{text}</p>;
+}
 import {
   Sparkles,
   Copy,
@@ -627,9 +655,10 @@ export function UVPSynthesisPage({
             onEdit={() => onEdit('customer')}
             confidence={completeUVP.targetCustomer.confidence}
           >
-            <p className="text-gray-900 dark:text-white font-medium">
-              {completeUVP.targetCustomer.statement}
-            </p>
+            <FormattedStatement
+              text={completeUVP.targetCustomer.statement}
+              className="text-gray-900 dark:text-white font-medium"
+            />
             {completeUVP.targetCustomer.evidenceQuotes.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -652,9 +681,10 @@ export function UVPSynthesisPage({
             onEdit={() => onEdit('transformation')}
             confidence={completeUVP.transformationGoal.confidence}
           >
-            <p className="text-gray-900 dark:text-white font-medium">
-              {completeUVP.transformationGoal.statement}
-            </p>
+            <FormattedStatement
+              text={completeUVP.transformationGoal.statement}
+              className="text-gray-900 dark:text-white font-medium"
+            />
             {(completeUVP.transformationGoal.emotionalDrivers.length > 0 ||
               completeUVP.transformationGoal.functionalDrivers.length > 0) && (
               <div className="mt-3 grid md:grid-cols-2 gap-4">
@@ -700,9 +730,10 @@ export function UVPSynthesisPage({
             onEdit={() => onEdit('solution')}
             confidence={completeUVP.uniqueSolution.confidence}
           >
-            <p className="text-gray-900 dark:text-white font-medium">
-              {completeUVP.uniqueSolution.statement}
-            </p>
+            <FormattedStatement
+              text={completeUVP.uniqueSolution.statement}
+              className="text-gray-900 dark:text-white font-medium"
+            />
             {completeUVP.uniqueSolution.differentiators.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">
@@ -730,9 +761,10 @@ export function UVPSynthesisPage({
             onEdit={() => onEdit('benefit')}
             confidence={completeUVP.keyBenefit.confidence}
           >
-            <p className="text-gray-900 dark:text-white font-medium">
-              {completeUVP.keyBenefit.statement}
-            </p>
+            <FormattedStatement
+              text={completeUVP.keyBenefit.statement}
+              className="text-gray-900 dark:text-white font-medium"
+            />
             {completeUVP.keyBenefit.metrics && completeUVP.keyBenefit.metrics.length > 0 && (
               <div className="mt-3 space-y-2">
                 <p className="text-sm font-semibold text-gray-700 dark:text-gray-300">

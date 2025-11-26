@@ -59,8 +59,18 @@ export class TrueProgressiveDeepContextBuilder {
       forceFresh: config.forceFresh
     };
 
+    // Track final data points count from streaming
+    let finalDataPointsCount = 0;
+    let finalCompletedApis: string[] = [];
+    let finalBuildTime = 0;
+
     // Streaming callback adapter
     const streamingCallback = (progress: StreamingProgress) => {
+      // Always track the latest counts
+      finalDataPointsCount = progress.dataPointsCollected;
+      finalCompletedApis = progress.completedApis;
+      finalBuildTime = progress.buildTimeMs;
+
       if (onProgress) {
         console.log(`[TrueProgressive] Progress: ${progress.completedApis.length} APIs done, ${progress.dataPointsCollected} data points`);
 
@@ -83,9 +93,9 @@ export class TrueProgressiveDeepContextBuilder {
     return {
       context: finalContext,
       metadata: {
-        buildTimeMs: finalContext.metadata.processingTimeMs,
-        dataSourcesUsed: finalContext.metadata.dataSourcesUsed,
-        dataPointsCollected: 0, // Will be filled by streaming
+        buildTimeMs: finalBuildTime || finalContext.metadata.processingTimeMs,
+        dataSourcesUsed: finalCompletedApis.length > 0 ? finalCompletedApis : finalContext.metadata.dataSourcesUsed,
+        dataPointsCollected: finalDataPointsCount, // Use tracked count from streaming
         errors: []
       }
     };

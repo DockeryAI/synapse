@@ -101,6 +101,40 @@
 
 ---
 
+### **Phase 1D: Social Intelligence Enhancement** - Version 1.0.1 🆕
+**Total Effort:** 120 hours (6 weeks progressive enhancement)
+**Goal:** Enrich all insights with real-time social signals
+**Status:** Planned for next release after MVP
+
+#### Features (Social Intelligence Layer)
+
+**Apify Actor Integration:**
+- Facebook Pages & Posts Scraper (`apify/facebook-pages-scraper`)
+- X/Twitter Real-time Monitoring (`xtdata/twitter-x-scraper`)
+- TikTok Trending Content (`clockworks/tiktok-scraper`)
+- LinkedIn B2B Intelligence (`curious_coder/linkedin-profile-scraper`)
+- YouTube Comment Analysis (`bernardo/youtube-scraper`)
+- Cross-Platform Discovery (`social-media-finder/social-media-finder`)
+
+**Intelligence Enrichments:**
+- **Breakthrough Detection:** 6-12 hour earlier trend detection via social velocity
+- **Smart Picks:** Proven viral formats with "50K likes" examples
+- **Cluster Patterns:** Real customer quotes from reviews and comments
+- **Correlation Engine:** Cross-platform pattern detection (TikTok→Twitter→LinkedIn)
+- **Progressive Loading:** 0-60s phased data retrieval without timeouts
+
+**Technical Implementation:**
+- Embedding pipeline with pgvector for correlation
+- Smart caching (profiles: 7 days, reviews: 24 hours, viral: 1 hour)
+- Fallback chains (primary→secondary→generic scraper)
+- Progressive enhancement without new features
+
+**API Cost:** $714/month ($49 Apify Starter) | **ROI:** 10x richer insights, 50% faster detection
+
+**See:** `.buildrunner/APIFY_FEATURE_ENHANCEMENT_PLAN.md` for complete implementation details
+
+---
+
 #### Campaign Types Across Phases
 
 **Phase 1A (3 types):**

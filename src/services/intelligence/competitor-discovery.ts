@@ -123,18 +123,12 @@ class CompetitorDiscoveryService {
 
   /**
    * Find competitors using Google search via Serper API
+   * SECURITY: SerperAPI routes through fetch-serper Edge Function
    */
   private async findSerperCompetitors(
     industry: string,
     brandName?: string
   ): Promise<Competitor[]> {
-    const SERPER_API_KEY = import.meta.env.VITE_SERPER_API_KEY
-
-    if (!SERPER_API_KEY) {
-      console.error('[CompetitorDiscovery] Serper API key not configured')
-      throw new Error('CompetitorDiscovery not configured. Configure VITE_SERPER_API_KEY or implement real service.')
-    }
-
     try {
       // Search for top companies in the industry
       const searchQuery = `top ${industry} companies`

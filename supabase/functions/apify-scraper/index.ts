@@ -17,6 +17,7 @@ const SOCIAL_ACTORS = {
   YOUTUBE_COMMENTS: 'streamers/youtube-comments-scraper',  // Dedicated comments scraper
   GOOGLE_MAPS: 'compass/google-maps-reviews-scraper',  // Google Maps reviews
   WEBSITE_CONTENT: 'apify/website-content-crawler',  // Website content extraction
+  YELP: 'yin/yelp-scraper',  // Yelp business and review scraper (Item #13)
 
   // Fallback scrapers for unsupported platforms
   QUORA: 'apify/web-scraper',  // No dedicated Quora actor exists

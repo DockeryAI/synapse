@@ -1,13 +1,17 @@
 /**
  * OpenAI API Integration
  * Content generation and optimization
+ *
+ * SECURITY: All API calls now route through Edge Functions
+ * API keys are never exposed to the browser
  */
 
-const OPENAI_API_KEY = import.meta.env.VITE_OPENAI_API_KEY
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
 
 class OpenAIAPIService {
   async generateHeadline(prompt: string, tone: string = 'professional'): Promise<string[]> {
-    if (!OPENAI_API_KEY) {
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       return [
         `${prompt} - Transform Your Business`,
         `Discover the Power of ${prompt}`,
@@ -16,13 +20,15 @@ class OpenAIAPIService {
     }
 
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      // Use Edge Function for secure API access (no API keys exposed to browser)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          provider: 'openai',
           model: 'gpt-4',
           messages: [
             { role: 'system', content: `You are a professional copywriter. Generate 5 compelling headlines in a ${tone} tone.` },
@@ -46,18 +52,20 @@ class OpenAIAPIService {
   }
 
   async generateCaption(prompt: string, maxLength: number = 280): Promise<string> {
-    if (!OPENAI_API_KEY) {
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
       return `${prompt} - Learn more about how we can help you achieve your goals.`
     }
 
     try {
-      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      // Use Edge Function for secure API access (no API keys exposed to browser)
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-proxy`, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${OPENAI_API_KEY}`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
+          provider: 'openai',
           model: 'gpt-4',
           messages: [
             { role: 'system', content: `Generate an engaging social media caption under ${maxLength} characters.` },

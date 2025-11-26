@@ -18,8 +18,11 @@ serve(async (req) => {
     const { domain, type } = await req.json()
 
     if (!SEMRUSH_API_KEY) {
-      throw new Error('SEMrush API key not configured in Edge Function environment')
+      console.error('[SEMrush Edge] SEMRUSH_API_KEY not found in environment')
+      throw new Error('SEMrush API key not configured. Set SEMRUSH_API_KEY in Supabase Edge Function secrets.')
     }
+
+    console.log('[SEMrush Edge] API key found (length:', SEMRUSH_API_KEY.length, ')')
 
     if (!domain) {
       throw new Error('Domain is required')
@@ -42,10 +45,13 @@ serve(async (req) => {
     const response = await fetch(url)
 
     if (!response.ok) {
-      throw new Error(`SEMrush API error: ${response.status} ${response.statusText}`)
+      const errorBody = await response.text()
+      console.error('[SEMrush Edge] API error response:', errorBody)
+      throw new Error(`SEMrush API error: ${response.status} ${response.statusText}. Response: ${errorBody.substring(0, 200)}`)
     }
 
     const csvText = await response.text()
+    console.log('[SEMrush Edge] Response received, length:', csvText.length)
 
     // Parse CSV to JSON
     const lines = csvText.trim().split('\n')

@@ -1,9 +1,11 @@
 /**
  * OpenWeather API Integration
  * Real-time weather data for opportunity detection
+ *
+ * SECURITY: All API calls routed through fetch-weather Edge Function
+ * No API keys exposed in browser code
  */
 
-const WEATHER_API_KEY = import.meta.env.VITE_WEATHER_API_KEY
 const CACHE_TTL = 30 * 60 * 1000 // 30 minutes
 
 interface WeatherData {
