@@ -314,3 +314,86 @@ function parseJSON<T>(value: any, defaultValue: T): T {
   // Already parsed by Supabase
   return value as T;
 }
+
+/**
+ * Recover UVP from session table and save to marba_uvps
+ *
+ * Looks for complete_uvp in uvp_sessions table and migrates it to marba_uvps
+ *
+ * @param brandId - Brand ID to recover UVP for
+ * @returns Success status and recovery details
+ */
+export async function recoverUVPFromSession(brandId: string): Promise<{
+  success: boolean;
+  recovered: boolean;
+  uvpId?: string;
+  error?: string;
+}> {
+  console.log('[MarbaUVPService] Attempting to recover UVP from session for brand:', brandId);
+
+  try {
+    // Check if UVP already exists in marba_uvps
+    const existingUVP = await getUVPByBrand(brandId);
+    if (existingUVP) {
+      console.log('[MarbaUVPService] UVP already exists in marba_uvps');
+      return { success: true, recovered: false };
+    }
+
+    // Look for complete_uvp in uvp_sessions
+    const { data: sessions, error: sessionError } = await supabase
+      .from('uvp_sessions')
+      .select('id, complete_uvp, session_name, created_at')
+      .eq('brand_id', brandId)
+      .not('complete_uvp', 'is', null)
+      .order('created_at', { ascending: false })
+      .limit(1);
+
+    if (sessionError) {
+      console.error('[MarbaUVPService] Error querying sessions:', sessionError);
+      return { success: false, recovered: false, error: sessionError.message };
+    }
+
+    if (!sessions || sessions.length === 0) {
+      console.log('[MarbaUVPService] No session with complete_uvp found');
+      return { success: true, recovered: false };
+    }
+
+    const session = sessions[0];
+    const completeUVP = session.complete_uvp as CompleteUVP;
+
+    if (!completeUVP || !completeUVP.targetCustomer || !completeUVP.valuePropositionStatement) {
+      console.log('[MarbaUVPService] Session has incomplete UVP data');
+      return { success: true, recovered: false };
+    }
+
+    console.log('[MarbaUVPService] Found complete UVP in session:', session.id);
+    console.log('[MarbaUVPService] UVP Statement:', completeUVP.valuePropositionStatement);
+
+    // Save to marba_uvps
+    const saveResult = await saveCompleteUVP(completeUVP, brandId);
+
+    if (saveResult.success) {
+      console.log('[MarbaUVPService] Successfully recovered UVP:', saveResult.uvpId);
+      return {
+        success: true,
+        recovered: true,
+        uvpId: saveResult.uvpId,
+      };
+    } else {
+      console.error('[MarbaUVPService] Failed to save recovered UVP:', saveResult.error);
+      return {
+        success: false,
+        recovered: false,
+        error: saveResult.error,
+      };
+    }
+
+  } catch (error) {
+    console.error('[MarbaUVPService] Recovery error:', error);
+    return {
+      success: false,
+      recovered: false,
+      error: error instanceof Error ? error.message : 'Unknown error',
+    };
+  }
+}

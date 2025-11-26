@@ -40,6 +40,7 @@ import { SelectionBar } from '@/components/dashboard/SelectionBar';
 import type { SmartPick } from '@/types/smart-picks.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { hasPendingUVP, getPendingUVP, migratePendingUVP } from '@/services/database/marba-uvp-migration.service';
+import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 
 type ViewMode = 'dashboard' | 'insights_hub';
@@ -228,7 +229,8 @@ export function DashboardPage() {
 
   // Load insights on mount
   useEffect(() => {
-    // Prevent multiple loads and re-runs on error
+    // Prevent multiple loads within the same React lifecycle
+    // (hasLoadedRef resets on page refresh, allowing fresh data load)
     if (hasLoadedRef.current) return;
 
     async function loadInsights() {
@@ -276,6 +278,20 @@ export function DashboardPage() {
         console.log('[DashboardPage] Migrating pending UVP to database...');
         const migrated = await migratePendingUVP(brand.id);
         console.log('[DashboardPage] UVP migration result:', migrated);
+      }
+
+      // Attempt to recover UVP from session table if not in marba_uvps
+      // This handles cases where user completed UVP but didn't click Save & Finish
+      if (brand?.id) {
+        console.log('[DashboardPage] Checking for recoverable UVP in session table...');
+        const recoveryResult = await recoverUVPFromSession(brand.id);
+        if (recoveryResult.recovered) {
+          console.log('[DashboardPage] ✅ Recovered UVP from session:', recoveryResult.uvpId);
+        } else if (recoveryResult.success) {
+          console.log('[DashboardPage] No recoverable UVP found in sessions');
+        } else {
+          console.warn('[DashboardPage] UVP recovery failed:', recoveryResult.error);
+        }
       }
 
       // Run intelligence for ALL brands (no more temp brand bullshit)

@@ -1849,6 +1849,26 @@ export const OnboardingPageV5: React.FC = () => {
           });
         }
 
+        // AUTO-SAVE: Persist UVP to marba_uvps immediately (don't wait for button click)
+        // This ensures each UVP session is saved and kept even if user navigates away
+        const brandId = currentBrand?.id;
+        if (brandId) {
+          console.log('[UVP Flow] Auto-saving UVP to marba_uvps for brand:', brandId);
+          try {
+            const result = await saveCompleteUVP(synthesizedUVP, brandId);
+            if (result.success) {
+              console.log('[UVP Flow] UVP auto-saved successfully:', result.uvpId);
+            } else {
+              console.warn('[UVP Flow] UVP auto-save failed:', result.error);
+            }
+          } catch (saveError) {
+            console.error('[UVP Flow] UVP auto-save error:', saveError);
+            // Don't block the flow - user can still click Save & Finish button
+          }
+        } else {
+          console.warn('[UVP Flow] No brand ID for auto-save, UVP will be saved on button click');
+        }
+
         setIsSynthesizingUVP(false);
         setCurrentStep('uvp_synthesis');
       } catch (error) {
