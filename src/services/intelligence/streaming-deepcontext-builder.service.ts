@@ -4941,7 +4941,8 @@ export class StreamingDeepContextBuilder {
     }
 
     console.log(`[Streaming] Deduplicated correlations: ${connections.length} → ${insights.length} unique`);
-    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore).slice(0, 150);
+    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
+    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore).slice(0, 300);
   }
 
   /**
@@ -4998,12 +4999,13 @@ export class StreamingDeepContextBuilder {
     let lastHookFormulas: string[] = [];
 
     // Calculate max per dimension (no stage >40%)
-    const targetCount = 50;
+    // V3 PHASE E: Increased target from 50 → 150 for 500+ insights
+    const targetCount = 150;
     const maxPerStage = Math.ceil(targetCount * 0.40);
     const maxPerEmotion = Math.ceil(targetCount * 0.25);
 
-    // INCREASED from 15 to 50 breakthroughs - user wants more content
-    for (const bt of rawBreakthroughs.slice(0, 150)) {
+    // V3 PHASE E: Increased from 150 → 300 raw breakthroughs for more content
+    for (const bt of rawBreakthroughs.slice(0, 300)) {
       const conn = bt.connections?.[0];
       if (!conn) continue;
 

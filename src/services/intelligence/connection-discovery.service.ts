@@ -219,12 +219,12 @@ Return JSON array with ${batch.length} objects, one per connection.`
     console.log(`[ConnectionDiscovery] Found ${fiveWay.length} five-way connections`);
 
     // Generate breakthrough angles from top connections (prioritize higher-order connections)
-    // V3 INCREASED limits: 5+10+20+40=75 → 15+30+60+120=225 connections for breakthrough generation
+    // V3 PHASE E: Further increased limits: 225 → 400 connections for 500+ insights
     const breakthroughs = await this.generateBreakthroughAngles([
-      ...fiveWay.slice(0, 15),
-      ...fourWay.slice(0, 30),
-      ...threeWay.slice(0, 60),
-      ...twoWay.slice(0, 120)
+      ...fiveWay.slice(0, 25),
+      ...fourWay.slice(0, 50),
+      ...threeWay.slice(0, 100),
+      ...twoWay.slice(0, 225)
     ]);
 
     console.log(`[ConnectionDiscovery] ✅ Generated ${breakthroughs.length} breakthrough angles`);
@@ -654,8 +654,8 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const seenContentHashes = new Set<string>();
 
     // Generate titles for top connections - with deduplication
-    // INCREASED: 75 → 150 for more breakthrough discovery
-    for (const conn of connections.slice(0, 150)) {
+    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
+    for (const conn of connections.slice(0, 300)) {
       // Create content hash from first 50 chars of each data point
       const contentHash = conn.dataPoints
         .map(dp => dp.content.substring(0, 50).toLowerCase().replace(/\s+/g, ''))
@@ -1836,7 +1836,8 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     let semanticDuplicates = 0;
     let topicCapped = 0;
 
-    for (const conn of connections.slice(0, 150)) {
+    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
+    for (const conn of connections.slice(0, 300)) {
       // Tag dimensions first (needed for combined hash)
       const dimensions = this.tagDimensions(conn, segment);
 
@@ -1910,7 +1911,8 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     }
 
     // Apply variety enforcement with min/max distribution rules
-    const varied = this.enforceVariety(breakthroughs, 50);
+    // V3 PHASE E: Increased from 50 → 150 for 500+ insights
+    const varied = this.enforceVariety(breakthroughs, 150);
 
     console.log(`[ConnectionDiscovery] V2: Generated ${varied.length} breakthroughs`);
     console.log(`[ConnectionDiscovery] V3: Dedup stats - semantic: ${semanticDuplicates}, topic-capped: ${topicCapped}`);
