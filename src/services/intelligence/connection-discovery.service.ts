@@ -1826,6 +1826,16 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     const seenTitles = new Set<string>();
     const combinedHashes = new Set<string>();
 
+    // V3: Track title embeddings for semantic deduplication
+    const titleEmbeddings: Array<{ title: string; embedding: number[] }> = [];
+
+    // V3: Track topic frequency to cap at 3 per topic
+    const topicCounts = new Map<string, number>();
+    const MAX_PER_TOPIC = 3;
+
+    let semanticDuplicates = 0;
+    let topicCapped = 0;
+
     for (const conn of connections.slice(0, 150)) {
       // Tag dimensions first (needed for combined hash)
       const dimensions = this.tagDimensions(conn, segment);
@@ -1846,12 +1856,41 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
       // Generate title using rotated hook formula
       const title = this.generateTitleWithHook(conn, hookFormula);
 
-      // Skip duplicate titles
+      // Skip duplicate titles (character-based)
       const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
       if (seenTitles.has(titleKey)) continue;
 
+      // V3: Extract primary topic for frequency capping
+      const topic = this.extractPrimaryTopic(title);
+      const currentTopicCount = topicCounts.get(topic) || 0;
+      if (currentTopicCount >= MAX_PER_TOPIC) {
+        topicCapped++;
+        continue;
+      }
+
+      // V3: Semantic deduplication using embeddings (if available)
+      if (conn.dataPoints[0]?.embedding) {
+        const contentEmbedding = conn.dataPoints[0].embedding;
+        let isSemanticDuplicate = false;
+
+        for (const existing of titleEmbeddings) {
+          const similarity = embeddingService.cosineSimilarity(contentEmbedding, existing.embedding);
+          if (similarity > 0.70) {
+            isSemanticDuplicate = true;
+            semanticDuplicates++;
+            break;
+          }
+        }
+
+        if (isSemanticDuplicate) continue;
+
+        // Store for future comparisons
+        titleEmbeddings.push({ title, embedding: contentEmbedding });
+      }
+
       seenTitles.add(titleKey);
       combinedHashes.add(combinedHash);
+      topicCounts.set(topic, currentTopicCount + 1);
 
       const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
 
@@ -1873,8 +1912,35 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     // Apply variety enforcement with min/max distribution rules
     const varied = this.enforceVariety(breakthroughs, 50);
 
-    console.log(`[ConnectionDiscovery] V2: Generated ${varied.length} dimension-tagged, variety-enforced breakthroughs`);
+    console.log(`[ConnectionDiscovery] V2: Generated ${varied.length} breakthroughs`);
+    console.log(`[ConnectionDiscovery] V3: Dedup stats - semantic: ${semanticDuplicates}, topic-capped: ${topicCapped}`);
     return varied.sort((a, b) => b.score - a.score);
+  }
+
+  /**
+   * V3: Extract primary topic from title for frequency capping
+   */
+  private extractPrimaryTopic(title: string): string {
+    const lowerTitle = title.toLowerCase();
+
+    // B2B/Insurance specific topics
+    if (/quote|quoting/.test(lowerTitle)) return 'quoting';
+    if (/compliance|regulatory|audit/.test(lowerTitle)) return 'compliance';
+    if (/digital\s*transform/.test(lowerTitle)) return 'digital-transformation';
+    if (/customer\s*experience|cx\b/.test(lowerTitle)) return 'customer-experience';
+    if (/ai\s*agent|chatbot|automation/.test(lowerTitle)) return 'ai-automation';
+    if (/insurance|policy|underwriting/.test(lowerTitle)) return 'insurance';
+    if (/conversion|convert/.test(lowerTitle)) return 'conversion';
+
+    // Generic topics
+    if (/trust|review|testimonial/.test(lowerTitle)) return 'trust';
+    if (/price|cost|roi|saving/.test(lowerTitle)) return 'pricing';
+    if (/competitor|compare|vs\b/.test(lowerTitle)) return 'comparison';
+    if (/how\s*to|guide|step/.test(lowerTitle)) return 'how-to';
+
+    // Fallback: first significant word
+    const words = title.split(/\s+/).filter(w => w.length > 4 && !/^(this|that|with|from|your|their|about)$/i.test(w));
+    return words[0]?.toLowerCase() || 'general';
   }
 }
 

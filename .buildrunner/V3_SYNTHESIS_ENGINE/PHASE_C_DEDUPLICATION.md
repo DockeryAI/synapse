@@ -14,7 +14,7 @@
 ## ITEMS
 
 ### C.1 - Add embedding similarity check to deduplication
-**Status**: [ ] NOT STARTED
+**Status**: [x] COMPLETE - Added semantic dedup with 0.70 threshold
 **File**: `src/services/intelligence/connection-discovery.service.ts`
 **Location**: `generateBreakthroughAngles()` deduplication logic
 **Current**: Character-based check on first 40 chars
@@ -26,7 +26,7 @@
 ---
 
 ### C.2 - Add topic frequency cap
-**Status**: [ ] NOT STARTED
+**Status**: [x] COMPLETE - MAX_PER_TOPIC = 3, extractPrimaryTopic()
 **File**: `src/services/intelligence/connection-discovery.service.ts`
 **Action**: Track topic occurrences, skip if topic appears >3 times
 **Purpose**: Prevent 10 variations of "Quote Abandonment" insight
@@ -46,8 +46,8 @@
 
 ---
 
-## CURRENT ITEM: Not started (waiting for Phase B)
+## CURRENT ITEM: C.3 (verification)
 
-## LAST CHECKPOINT: N/A
+## LAST CHECKPOINT: Build passes, semantic dedup + topic cap implemented
 
-## NEXT SESSION: Complete Phase B first
+## NEXT SESSION: Test live, verify dedup stats in console
