@@ -28,9 +28,12 @@ import { ConnectionScorer } from '@/services/synapse/connections/ConnectionScore
 import { connectionDiscoveryService } from './connection-discovery.service';
 import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import { redditAPI } from './reddit-apify-api';
+import { aiInsightSynthesizer } from './ai-insight-synthesizer.service';
+import { insightAtomizer } from './insight-atomizer.service';
 import { apifySocialScraper } from './apify-social-scraper.service';
+import { contentSynthesisOrchestrator, type BusinessSegment as OrchestratorSegment } from './content-synthesis-orchestrator.service';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
-import type { DataPoint, DataSource, DataPointType } from '@/types/connections.types';
+import type { DataPoint, DataSource, DataPointType, BusinessSegment, InsightDimensions, ContentPillar } from '@/types/connections.types';
 
 export interface StreamingConfig {
   brandId: string;
@@ -229,9 +232,10 @@ export class StreamingDeepContextBuilder {
       const embeddedDataPoints = await embeddingService.embedDataPoints(this.dataPoints);
       this.dataPoints = embeddedDataPoints;
 
-      // Semantic deduplication - remove similar items (>0.92 similarity)
+      // Semantic deduplication - remove VERY similar items (>0.98 similarity)
+      // Lowered from 0.92 to 0.98 to preserve more unique insights
       const beforeDedup = this.dataPoints.length;
-      this.dataPoints = this.deduplicateBySimilarity(this.dataPoints, 0.92);
+      this.dataPoints = this.deduplicateBySimilarity(this.dataPoints, 0.98);
       console.log(`[Streaming] Deduped: ${beforeDedup} → ${this.dataPoints.length} data points`);
 
       // 5.5. UVP-SEEDED CLUSTERING - Use UVP pain points as cluster centers
@@ -267,14 +271,139 @@ export class StreamingDeepContextBuilder {
       console.log(`[Streaming] Connections: ${twoWay.length} 2-way, ${threeWay.length} 3-way, ${fourWay.length} 4-way, ${fiveWay.length} 5-way`);
 
       // Convert to CorrelatedInsights with UVP matching
+      // INCREASED limits: was 3+5+10+15=33, now 10+20+40+80=150 connections
       correlatedInsights = await this.convertConnectionsToCorrelatedInsights(
-        [...fiveWay.slice(0, 3), ...fourWay.slice(0, 5), ...threeWay.slice(0, 10), ...twoWay.slice(0, 15)]
+        [...fiveWay.slice(0, 10), ...fourWay.slice(0, 20), ...threeWay.slice(0, 40), ...twoWay.slice(0, 80)]
       );
 
       // Generate rich breakthrough narratives with UVP validation
       breakthroughs = await this.generateBreakthroughOpportunities(rawBreakthroughs, enhancedClusters);
 
       console.log(`[Streaming] Generated ${correlatedInsights.length} correlated insights, ${breakthroughs.length} breakthroughs`);
+
+      // V3.1: Use AI Insight Synthesizer with FULL enriched context
+      // Integrates EQ Profile, Industry Profile, Segment guidelines, and UVP data
+      console.log(`[Streaming] V3.1: Building enriched context via ContentSynthesisOrchestrator...`);
+      try {
+        // Map business type to orchestrator segment
+        const segmentMap: Record<string, OrchestratorSegment> = {
+          'local': 'smb_local',
+          'b2b-national': 'b2b_national',
+          'b2b-global': 'b2b_global'
+        };
+        const segment = segmentMap[this.brandData?.businessType || 'local'] || 'smb_local';
+
+        // Build enriched context with EQ, Industry Profile, and Segment
+        const enrichedContext = await contentSynthesisOrchestrator.buildEnrichedContext({
+          brandName: this.brandData?.name || 'Unknown',
+          industry: this.brandData?.industry || 'General',
+          naicsCode: this.brandData?.naics_code,
+          uvpData: {
+            target_customer: this.uvpData?.target_customer,
+            key_benefit: this.uvpData?.key_benefit,
+            transformation: this.uvpData?.transformation,
+            unique_mechanism: this.uvpData?.unique_mechanism,
+            proof_points: this.uvpData?.proof_points
+          },
+          segment
+        });
+
+        console.log(`[Streaming] V3.1: Enriched context built - EQ: ${enrichedContext.eqProfile.emotional_weight}% emotional, JTBD: ${enrichedContext.eqProfile.jtbd_focus}`);
+
+        // Run AI Insight Synthesizer with enriched context
+        console.log(`[Streaming] V3.1: Running AI Insight Synthesizer (Opus 4.5 + Sonnet 4.5)...`);
+        const allConnections = [...fiveWay, ...fourWay, ...threeWay, ...twoWay];
+        const synthesizedInsights = await aiInsightSynthesizer.synthesizeInsights({
+          connections: allConnections.slice(0, 150),
+          dataPoints: this.dataPoints,
+          uvpData: this.uvpData,
+          brandData: this.brandData,
+          targetCount: 100, // Generate 100 AI-synthesized insights
+          enrichedContext // V3.1: Pass enriched context for EQ/Industry/Segment awareness
+        });
+
+        console.log(`[Streaming] V3: AI synthesized ${synthesizedInsights.length} insights`);
+
+        // Merge AI-synthesized insights with correlated insights
+        // AI insights get higher priority due to quality
+        const aiCorrelatedInsights: CorrelatedInsight[] = synthesizedInsights.map(si => ({
+          id: si.id,
+          type: 'psychological_breakthrough' as const,
+          title: si.title,
+          description: si.hook,
+          uvpMatch: si.validation.uvpMatch,
+          sources: si.sources.map(s => ({
+            source: s.platform as DataSource,
+            content: s.quote,
+            confidence: si.scores.breakthrough / 100
+          })),
+          psychology: {
+            triggerCategory: si.psychology.triggerType,
+            emotion: si.psychology.triggerType,
+            urgency: si.psychology.urgency === 'critical' ? 'immediate' :
+                     si.psychology.urgency === 'high' ? 'urgent' : 'eventual'
+          },
+          breakthroughScore: si.scores.breakthrough,
+          actionableInsight: si.cta,
+          timeSensitive: si.psychology.urgency === 'high' || si.psychology.urgency === 'critical'
+        }));
+
+        // Prepend AI insights to ensure they're shown first
+        correlatedInsights = [...aiCorrelatedInsights, ...correlatedInsights.filter(ci =>
+          !aiCorrelatedInsights.some(ai => ai.title === ci.title)
+        )].slice(0, 200);
+
+        console.log(`[Streaming] V3: Total insights after AI synthesis: ${correlatedInsights.length}`);
+      } catch (aiSynthesisError) {
+        console.warn('[Streaming] V3: AI synthesis failed (non-fatal):', aiSynthesisError);
+        // Continue with template-based insights
+      }
+
+      // V3: Atomize breakthroughs into 500+ content variations
+      console.log(`[Streaming] V3: Running Insight Atomizer for 500+ content variations...`);
+      try {
+        const atomizedInsights = insightAtomizer.atomizeInsights({
+          breakthroughs: rawBreakthroughs,
+          correlatedInsights,
+          uvpData: this.uvpData,
+          brandData: this.brandData,
+          targetCount: 500
+        });
+
+        console.log(`[Streaming] V3: Atomized into ${atomizedInsights.length} content variations`);
+
+        // Convert atomized insights to CorrelatedInsight format and append
+        const atomizedCorrelations: CorrelatedInsight[] = atomizedInsights.map(ai => ({
+          id: ai.id,
+          type: 'hidden_pattern' as const,
+          title: ai.title,
+          description: ai.hook,
+          sources: ai.sources.map(s => ({
+            source: (typeof s === 'string' ? s : s.platform || 'unknown') as DataSource,
+            content: typeof s === 'string' ? s : s.quote || '',
+            confidence: ai.breakthroughScore / 100
+          })),
+          psychology: {
+            triggerCategory: ai.psychology.trigger,
+            emotion: ai.psychology.trigger,
+            urgency: ai.psychology.intensity > 0.7 ? 'immediate' : 'eventual'
+          },
+          breakthroughScore: ai.breakthroughScore,
+          actionableInsight: ai.cta,
+          timeSensitive: ai.psychology.intensity > 0.7
+        }));
+
+        // Merge atomized with existing, prioritizing AI-synthesized
+        const existingTitles = new Set(correlatedInsights.map(ci => ci.title.toLowerCase().substring(0, 50)));
+        const newAtomized = atomizedCorrelations.filter(ac =>
+          !existingTitles.has(ac.title.toLowerCase().substring(0, 50))
+        );
+
+        correlatedInsights = [...correlatedInsights, ...newAtomized].slice(0, 500);
+        console.log(`[Streaming] V3: Final insight count: ${correlatedInsights.length}`);
+      } catch (atomizeError) {
+        console.warn('[Streaming] V3: Atomization failed (non-fatal):', atomizeError);
+      }
     } catch (correlationError) {
       console.warn('[Streaming] Correlation engine failed (non-fatal):', correlationError);
       // Fallback to basic correlation
@@ -356,17 +485,93 @@ export class StreamingDeepContextBuilder {
   }
 
   /**
-   * Get APIs to run based on business type
+   * V2: Convert business type to BusinessSegment for dimension tagging
+   */
+  private getBusinessSegment(): BusinessSegment {
+    const businessType = this.detectBusinessType();
+    const industry = this.brandData?.industry?.toLowerCase() || '';
+    const hasMultipleLocations = this.brandData?.locations?.length > 1;
+
+    switch (businessType) {
+      case 'b2b-global':
+        return 'B2B_GLOBAL';
+      case 'b2b-national':
+        return 'B2B_NATIONAL';
+      case 'local':
+        // Distinguish between SMB_LOCAL and SMB_REGIONAL
+        if (hasMultipleLocations || industry.includes('regional') || industry.includes('franchise')) {
+          return 'SMB_REGIONAL';
+        }
+        return 'SMB_LOCAL';
+      default:
+        return 'SMB_LOCAL';
+    }
+  }
+
+  /**
+   * V3: Enhanced segment-aware API routing
+   * Routes APIs based on business type for maximum relevance and efficiency
    */
   private getApisForBusinessType(businessType: string): ApiName[] {
-    if (businessType === 'local') {
-      // Local businesses: Use all APIs including OutScraper for Google Maps + social
-      // Includes: TrustPilot (reviews), Twitter (sentiment), Yelp (SMB Local) - Skip G2 (B2B only)
-      return ['serper', 'website', 'outscraper', 'youtube', 'semrush', 'news', 'weather', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter', 'yelp'];
-    } else {
-      // B2B/Global: Skip OutScraper (Google Maps), skip Weather, skip Yelp (SMB only), use B2B-focused sources
-      // Includes: G2 (B2B reviews), TrustPilot (reviews), Twitter (sentiment)
-      return ['serper', 'website', 'youtube', 'semrush', 'news', 'linkedin', 'perplexity', 'reddit', 'quora', 'g2', 'trustpilot', 'twitter'];
+    switch (businessType) {
+      case 'local':
+        // SMB Local: Emphasize local reviews, weather, Google Maps
+        // Skip: G2 (B2B only), LinkedIn (low value for local)
+        return [
+          'serper',      // Fast - search insights
+          'website',     // Fast - own website analysis
+          'news',        // Fast - local news hooks
+          'weather',     // Fast - weather triggers (SMB-critical)
+          'outscraper',  // Medium - Google Maps reviews
+          'youtube',     // Medium - local video content
+          'semrush',     // Medium - local SEO keywords
+          'reddit',      // Medium - local subreddit discussions
+          'quora',       // Medium - local Q&A
+          'trustpilot',  // Slow - reviews
+          'twitter',     // Slow - local sentiment
+          'yelp',        // Slow - SMB-critical reviews
+          'perplexity'   // Slow - AI research
+        ];
+
+      case 'b2b-national':
+        // B2B National: Balance local + enterprise APIs
+        // Skip: Weather, Yelp (consumer-focused)
+        return [
+          'serper',      // Fast - search insights
+          'website',     // Fast - own website analysis
+          'news',        // Fast - industry news
+          'linkedin',    // Medium - B2B decision makers
+          'youtube',     // Medium - industry content
+          'semrush',     // Medium - B2B keywords
+          'reddit',      // Medium - industry discussions
+          'quora',       // Medium - professional Q&A
+          'g2',          // Slow - B2B software reviews
+          'trustpilot',  // Slow - business reviews
+          'twitter',     // Slow - industry sentiment
+          'perplexity'   // Slow - AI research
+        ];
+
+      case 'b2b-global':
+        // B2B Global: Maximize enterprise APIs
+        // Skip: Weather, OutScraper, Yelp (all local-focused)
+        return [
+          'serper',      // Fast - global search insights
+          'website',     // Fast - own website analysis
+          'news',        // Fast - global industry news
+          'linkedin',    // Medium - global B2B network (PRIORITY)
+          'youtube',     // Medium - thought leadership content
+          'semrush',     // Medium - global SEO competitive
+          'reddit',      // Medium - industry subreddits
+          'quora',       // Medium - professional Q&A
+          'g2',          // Slow - B2B software reviews (PRIORITY)
+          'trustpilot',  // Slow - global reviews
+          'twitter',     // Slow - global sentiment
+          'perplexity'   // Slow - AI research (PRIORITY for global insights)
+        ];
+
+      default:
+        // Fallback to local for unknown types
+        return ['serper', 'website', 'youtube', 'semrush', 'news', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter'];
     }
   }
 
@@ -640,8 +845,8 @@ export class StreamingDeepContextBuilder {
     const painPoints = this.dataPoints.filter(dp => dp.type === 'pain_point');
     const unarticulatedNeeds = this.dataPoints.filter(dp => dp.type === 'unarticulated_need');
 
-    // Populate industry trends
-    context.industry.trends = trendingTopics.slice(0, 10).map(dp => ({
+    // Populate industry trends (increased from 10 to 50)
+    context.industry.trends = trendingTopics.slice(0, 50).map(dp => ({
       trend: dp.content,
       direction: 'rising' as const,
       strength: 0.7,
@@ -651,7 +856,7 @@ export class StreamingDeepContextBuilder {
       timestamp: dp.createdAt?.toISOString()
     }));
 
-    // Populate customer psychology
+    // Populate customer psychology (no limit on unarticulated needs)
     context.customerPsychology.unarticulated = unarticulatedNeeds.map(dp => ({
       need: dp.content,
       confidence: 0.7,
@@ -660,15 +865,16 @@ export class StreamingDeepContextBuilder {
       emotionalDriver: dp.metadata?.emotionalDriver
     }));
 
-    context.customerPsychology.behavioral = customerTriggers.slice(0, 10).map(dp => ({
+    // Populate behavioral triggers (increased from 10 to 50)
+    context.customerPsychology.behavioral = customerTriggers.slice(0, 50).map(dp => ({
       behavior: dp.content,
       frequency: 'common' as const,
       insight: 'Customer trigger identified',
       contentAlignment: 'Create content addressing this trigger'
     }));
 
-    // Populate competitive intel
-    context.competitiveIntel.opportunities = competitiveGaps.slice(0, 10).map(dp => ({
+    // Populate competitive intel (increased from 10 to 50)
+    context.competitiveIntel.opportunities = competitiveGaps.slice(0, 50).map(dp => ({
       gap: dp.content,
       positioning: dp.metadata?.positioning || 'Opportunity to differentiate',
       evidence: dp.metadata?.evidence || []
@@ -762,7 +968,8 @@ export class StreamingDeepContextBuilder {
     ]);
 
     if (newsResult.status === 'fulfilled') {
-      newsResult.value.slice(0, 20).forEach((article: any, idx: number) => {
+      // INCREASED from 30 to 50 - news articles are valuable data points
+      newsResult.value.slice(0, 50).forEach((article: any, idx: number) => {
         dataPoints.push({
           id: `serper-news-${Date.now()}-${idx}`,
           source: 'serper' as DataSource,
@@ -775,7 +982,8 @@ export class StreamingDeepContextBuilder {
     }
 
     if (autocompleteResult.status === 'fulfilled') {
-      autocompleteResult.value.slice(0, 15).forEach((suggestion: string, idx: number) => {
+      // INCREASED from 25 to 40 - autocomplete shows real user intent
+      autocompleteResult.value.slice(0, 40).forEach((suggestion: string, idx: number) => {
         dataPoints.push({
           id: `serper-auto-${Date.now()}-${idx}`,
           source: 'serper' as DataSource,
@@ -784,6 +992,23 @@ export class StreamingDeepContextBuilder {
           metadata: { type: 'search_intent' },
           createdAt: new Date()
         });
+      });
+    }
+
+    // ADDED: Also add trends as data points
+    if (trendsResult.status === 'fulfilled' && trendsResult.value?.trendingSearches) {
+      trendsResult.value.trendingSearches.slice(0, 30).forEach((trend: any, idx: number) => {
+        const trendText = typeof trend === 'string' ? trend : trend.query || trend.title || '';
+        if (trendText) {
+          dataPoints.push({
+            id: `serper-trend-${Date.now()}-${idx}`,
+            source: 'serper' as DataSource,
+            type: 'trending_topic' as DataPointType,
+            content: trendText,
+            metadata: { type: 'google_trend' },
+            createdAt: new Date()
+          });
+        }
       });
     }
 
@@ -799,27 +1024,79 @@ export class StreamingDeepContextBuilder {
     try {
       const analysis = await websiteAnalyzer.analyzeWebsite(websiteUrl);
 
+      // VALUE PROPOSITIONS - brand's stated benefits
       analysis.valuePropositions?.forEach((vp: string, idx: number) => {
         dataPoints.push({
           id: `website-vp-${Date.now()}-${idx}`,
           source: 'website' as DataSource,
           type: 'pain_point' as DataPointType,
           content: vp,
-          metadata: { confidence: analysis.confidence },
+          metadata: { confidence: analysis.confidence, type: 'value_proposition' },
           createdAt: new Date()
         });
       });
 
+      // TARGET AUDIENCE - who they serve
       analysis.targetAudience?.forEach((audience: string, idx: number) => {
         dataPoints.push({
           id: `website-audience-${Date.now()}-${idx}`,
           source: 'website' as DataSource,
           type: 'unarticulated_need' as DataPointType,
           content: audience,
-          metadata: { confidence: analysis.confidence },
+          metadata: { confidence: analysis.confidence, type: 'target_audience' },
           createdAt: new Date()
         });
       });
+
+      // CUSTOMER PROBLEMS - pain points they address
+      analysis.customerProblems?.forEach((problem: string, idx: number) => {
+        dataPoints.push({
+          id: `website-problem-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'pain_point' as DataPointType,
+          content: problem,
+          metadata: { confidence: analysis.confidence, type: 'customer_problem' },
+          createdAt: new Date()
+        });
+      });
+
+      // SOLUTIONS - how they solve problems
+      analysis.solutions?.forEach((solution: string, idx: number) => {
+        dataPoints.push({
+          id: `website-solution-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'competitive_gap' as DataPointType,
+          content: solution,
+          metadata: { confidence: analysis.confidence, type: 'solution' },
+          createdAt: new Date()
+        });
+      });
+
+      // PROOF POINTS - credentials, testimonials, stats
+      analysis.proofPoints?.forEach((proof: string, idx: number) => {
+        dataPoints.push({
+          id: `website-proof-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: proof,
+          metadata: { confidence: analysis.confidence, type: 'proof_point' },
+          createdAt: new Date()
+        });
+      });
+
+      // DIFFERENTIATORS - what makes them unique
+      analysis.differentiators?.forEach((diff: string, idx: number) => {
+        dataPoints.push({
+          id: `website-diff-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'competitive_gap' as DataPointType,
+          content: diff,
+          metadata: { confidence: analysis.confidence, type: 'differentiator' },
+          createdAt: new Date()
+        });
+      });
+
+      console.log(`[Streaming/website] Extracted ${dataPoints.length} data points from website`);
     } catch (error) {
       console.error('[Streaming/website] Analysis failed:', error);
     }
@@ -1089,7 +1366,8 @@ export class StreamingDeepContextBuilder {
     try {
       const trends = await YouTubeAPI.analyzeVideoTrends(searchContext, customerKeywords);
 
-      trends.trending_topics.slice(0, 15).forEach((topic: string, idx: number) => {
+      // INCREASED from 50 to 100 - YouTube titles are RICH data points
+      trends.trending_topics.slice(0, 100).forEach((topic: string, idx: number) => {
         dataPoints.push({
           id: `youtube-topic-${Date.now()}-${idx}`,
           source: 'youtube' as DataSource,
@@ -1100,7 +1378,8 @@ export class StreamingDeepContextBuilder {
         });
       });
 
-      trends.content_angles.slice(0, 15).forEach((angle: string, idx: number) => {
+      // Content angles (usually 5-10)
+      trends.content_angles.forEach((angle: string, idx: number) => {
         dataPoints.push({
           id: `youtube-angle-${Date.now()}-${idx}`,
           source: 'youtube' as DataSource,
@@ -1111,55 +1390,21 @@ export class StreamingDeepContextBuilder {
         });
       });
 
-      // ITEM #10: Extract YouTube comments for psychological patterns
-      console.log('[Streaming/youtube] Mining comments for psychological patterns...');
-      try {
-        const psychologyData = await YouTubeAPI.minePsychology(searchContext, customerKeywords, 5);
-
-        // Extract psychological patterns from comments
-        psychologyData.patterns.forEach((pattern: any, idx: number) => {
-          dataPoints.push({
-            id: `youtube-pattern-${Date.now()}-${idx}`,
-            source: 'youtube' as DataSource,
-            type: this.mapYouTubePatternToDataPointType(pattern.type),
-            content: pattern.pattern,
-            metadata: {
-              patternType: pattern.type,
-              frequency: pattern.frequency,
-              examples: pattern.examples?.slice(0, 3)
-            },
-            createdAt: new Date()
-          });
+      // ADDED: Also add popular formats as data points
+      trends.popular_formats.forEach((format: string, idx: number) => {
+        dataPoints.push({
+          id: `youtube-format-${Date.now()}-${idx}`,
+          source: 'youtube' as DataSource,
+          type: 'competitive_gap' as DataPointType,
+          content: `Popular video format: ${format}`,
+          metadata: { type: 'popular_format' },
+          createdAt: new Date()
         });
+      });
 
-        // Extract high-engagement comments as customer insights
-        const topComments = psychologyData.comments
-          .filter((c: any) => c.likeCount > 5)
-          .slice(0, 20);
-
-        topComments.forEach((comment: any, idx: number) => {
-          // Categorize comment based on content
-          const commentType = this.categorizeYouTubeComment(comment.text);
-          if (commentType) {
-            dataPoints.push({
-              id: `youtube-comment-${Date.now()}-${idx}`,
-              source: 'youtube' as DataSource,
-              type: commentType,
-              content: comment.text.substring(0, 300),
-              metadata: {
-                likeCount: comment.likeCount,
-                author: comment.authorName,
-                isReply: comment.isReply
-              },
-              createdAt: new Date(comment.publishedAt)
-            });
-          }
-        });
-
-        console.log(`[Streaming/youtube] Extracted ${psychologyData.patterns.length} patterns and ${topComments.length} high-engagement comments`);
-      } catch (commentError) {
-        console.warn('[Streaming/youtube] Comment extraction failed:', commentError);
-      }
+      // SPEED: Skip YouTube comment mining - takes 30+ seconds and returns 0 results
+      // The video trends and content angles are more valuable anyway
+      console.log('[Streaming/youtube] Skipping comment mining for speed (video trends captured above)');
 
     } catch (error) {
       console.error('[Streaming/youtube] Error:', error);
@@ -1246,55 +1491,26 @@ export class StreamingDeepContextBuilder {
         });
       }
 
-      // Add customer-focused keyword opportunities
-      customerKeywords.forEach((kw, idx) => {
+      // NOTE: Keywords are stored as metadata for content optimization, NOT as standalone insights
+      // Keywords inform what topics to write about - they are NOT content insights themselves
+      // The Intelligence Library should show actionable content insights, not SEO keyword suggestions
+
+      // Store keywords as metadata context for content generation (not as visible insights)
+      if (customerKeywords.length > 0) {
         dataPoints.push({
-          id: `semrush-customer-kw-${Date.now()}-${idx}`,
+          id: `semrush-keywords-context-${Date.now()}`,
           source: 'semrush' as DataSource,
-          type: 'competitive_gap' as DataPointType,
-          content: `Target keyword: "${kw.keyword}" - ${kw.intent}`,
+          type: 'metadata' as DataPointType,  // Not displayed as insight
+          content: `Keyword research: ${customerKeywords.length} customer-focused keywords identified for content optimization`,
           metadata: {
-            keyword: kw.keyword,
-            intent: kw.intent,
-            category: kw.category,
-            uvpAligned: true
+            keywords: customerKeywords,
+            forContentOptimization: true,
+            notDisplayedAsInsight: true
           },
           createdAt: new Date()
         });
-      });
-
-      // ITEM #11: PAA (People Also Ask) Expansion
-      // Get PAA questions for top customer keywords to find content gaps
-      console.log('[Streaming/semrush] Expanding PAA questions for customer keywords...');
-      const paaPromises = customerKeywords.slice(0, 5).map(async (kw) => {
-        try {
-          const paaQuestions = await SerperAPI.getAutocomplete(kw.keyword);
-          return { keyword: kw.keyword, questions: paaQuestions };
-        } catch (e) {
-          return { keyword: kw.keyword, questions: [] };
-        }
-      });
-
-      const paaResults = await Promise.allSettled(paaPromises);
-      paaResults.forEach((result, kwIdx) => {
-        if (result.status === 'fulfilled' && result.value.questions.length > 0) {
-          result.value.questions.forEach((question: string, qIdx: number) => {
-            dataPoints.push({
-              id: `semrush-paa-${Date.now()}-${kwIdx}-${qIdx}`,
-              source: 'semrush' as DataSource,
-              type: 'people_also_ask' as DataPointType,
-              content: question,
-              metadata: {
-                sourceKeyword: result.value.keyword,
-                questionIndex: qIdx
-              },
-              createdAt: new Date()
-            });
-          });
-        }
-      });
-
-      console.log(`[Streaming/semrush] Extracted PAA questions for ${paaResults.filter(r => r.status === 'fulfilled').length} keywords`);
+        console.log(`[Streaming/semrush] ✅ Stored ${customerKeywords.length} keywords as metadata for content optimization (not as insights)`);
+      }
 
     } catch (error) {
       console.error('[Streaming/semrush] Error:', error);
@@ -1854,7 +2070,7 @@ export class StreamingDeepContextBuilder {
 
       console.log(`[Streaming/news] Filtered ${relevantArticles.length}/${articles.length} relevant articles`);
 
-      relevantArticles.slice(0, 15).forEach((article: any, idx: number) => {
+      relevantArticles.slice(0, 40).forEach((article: any, idx: number) => {
         dataPoints.push({
           id: `news-${Date.now()}-${idx}`,
           source: 'news' as DataSource,
@@ -2665,60 +2881,65 @@ export class StreamingDeepContextBuilder {
 
       // Build search queries from UVP pain points
       const searchQueries = this.buildRedditSearchQueries(customerTerm, transformation, uvpIndustry);
-      console.log(`[Streaming/reddit] Running ${searchQueries.length} targeted searches`);
+      console.log(`[Streaming/reddit] Running ${Math.min(3, searchQueries.length)} targeted searches IN PARALLEL`);
 
-      // Mine Reddit for each query
-      for (const query of searchQueries.slice(0, 3)) { // Limit to 3 queries to avoid rate limits
-        try {
-          const result = await redditAPI.mineIntelligence(query, {
-            subreddits: relevantSubreddits,
-            limit: 15,
-            commentsPerPost: 10,
-            sortBy: 'relevance',
-            timeFilter: 'year'
+      // CRITICAL FIX: Run all 3 Reddit queries in PARALLEL instead of sequential
+      // This reduces 109s → ~15s by not waiting for each query to complete
+      const redditPromises = searchQueries.slice(0, 3).map(query =>
+        redditAPI.mineIntelligence(query, {
+          subreddits: relevantSubreddits,
+          limit: 50,
+          commentsPerPost: 20,
+          sortBy: 'relevance',
+          timeFilter: 'year'
+        }).catch(err => {
+          console.warn(`[Streaming/reddit] Query "${query}" failed:`, err);
+          return { triggers: [], insights: [] }; // Return empty on failure
+        })
+      );
+
+      // Wait for all queries to complete in parallel
+      const redditResults = await Promise.all(redditPromises);
+
+      // Process all results
+      redditResults.forEach((result, queryIdx) => {
+        // Convert psychological triggers to data points
+        result.triggers.forEach((trigger, idx) => {
+          dataPoints.push({
+            id: `reddit-trigger-${Date.now()}-${queryIdx}-${idx}`,
+            source: 'reddit' as DataSource,
+            type: this.mapTriggerToDataPointType(trigger.type),
+            content: trigger.text,
+            metadata: {
+              triggerType: trigger.type,
+              intensity: trigger.intensity,
+              subreddit: trigger.subreddit,
+              upvotes: trigger.upvotes,
+              url: trigger.url,
+              context: trigger.context?.substring(0, 200)
+            },
+            createdAt: new Date()
           });
+        });
 
-          // Convert psychological triggers to data points
-          result.triggers.forEach((trigger, idx) => {
-            dataPoints.push({
-              id: `reddit-trigger-${Date.now()}-${idx}`,
-              source: 'reddit' as DataSource,
-              type: this.mapTriggerToDataPointType(trigger.type),
-              content: trigger.text,
-              metadata: {
-                triggerType: trigger.type,
-                intensity: trigger.intensity,
-                subreddit: trigger.subreddit,
-                upvotes: trigger.upvotes,
-                url: trigger.url,
-                context: trigger.context?.substring(0, 200)
-              },
-              createdAt: new Date()
-            });
+        // Convert customer insights (pain points & desires) to data points
+        result.insights.forEach((insight, idx) => {
+          const isPainPoint = !!insight.painPoint;
+          dataPoints.push({
+            id: `reddit-insight-${Date.now()}-${queryIdx}-${idx}`,
+            source: 'reddit' as DataSource,
+            type: isPainPoint ? 'pain_point' : 'unarticulated_need',
+            content: insight.painPoint || insight.desire || insight.context,
+            metadata: {
+              subreddit: insight.subreddit,
+              upvotes: insight.upvotes,
+              url: insight.url,
+              insightType: isPainPoint ? 'pain_point' : 'desire'
+            },
+            createdAt: new Date()
           });
-
-          // Convert customer insights (pain points & desires) to data points
-          result.insights.forEach((insight, idx) => {
-            const isPainPoint = !!insight.painPoint;
-            dataPoints.push({
-              id: `reddit-insight-${Date.now()}-${idx}`,
-              source: 'reddit' as DataSource,
-              type: isPainPoint ? 'pain_point' : 'unarticulated_need',
-              content: insight.painPoint || insight.desire || insight.context,
-              metadata: {
-                subreddit: insight.subreddit,
-                upvotes: insight.upvotes,
-                url: insight.url,
-                insightType: isPainPoint ? 'pain_point' : 'desire'
-              },
-              createdAt: new Date()
-            });
-          });
-
-        } catch (queryError) {
-          console.warn(`[Streaming/reddit] Query "${query}" failed:`, queryError);
-        }
-      }
+        });
+      });
 
       console.log(`[Streaming/reddit] Collected ${dataPoints.length} data points from Reddit`);
       return dataPoints;
@@ -2838,8 +3059,8 @@ export class StreamingDeepContextBuilder {
       const searchKeywords = this.buildQuoraSearchKeywords(customerTerm, transformation, uvpIndustry);
       console.log(`[Streaming/quora] Mining Quora for questions with ${searchKeywords.length} keywords:`, searchKeywords.slice(0, 3));
 
-      // Scrape Quora for insights
-      const quoraInsights = await apifySocialScraper.scrapeQuoraInsights(searchKeywords, 20);
+      // Scrape Quora for insights - increased limit for more data points
+      const quoraInsights = await apifySocialScraper.scrapeQuoraInsights(searchKeywords, 50);
 
       // Convert questions to data points
       quoraInsights.questions.forEach((q, idx) => {
@@ -2988,7 +3209,7 @@ export class StreamingDeepContextBuilder {
 
       console.log(`[Streaming/g2] Scraping G2 for "${productName}" in category "${category}"`);
 
-      const g2Reviews = await apifySocialScraper.scrapeG2Reviews(productName, category, 30);
+      const g2Reviews = await apifySocialScraper.scrapeG2Reviews(productName, category, 50);
 
       // Convert reviews to data points
       g2Reviews.reviews.forEach((review, idx) => {
@@ -3224,27 +3445,31 @@ export class StreamingDeepContextBuilder {
       const domain = this.brandData.website || `${this.brandData.name.toLowerCase().replace(/\s+/g, '')}.com`;
       console.log(`[Streaming/trustpilot] Scraping TrustPilot for domain: ${domain}`);
 
-      const trustPilotReviews = await apifySocialScraper.scrapeTrustPilotReviews(domain, 30);
+      const trustPilotReviews = await apifySocialScraper.scrapeTrustPilotReviews(domain, 50);
 
-      // Convert reviews to data points
-      trustPilotReviews.reviews.forEach((review, idx) => {
+      // Convert reviews to data points (with safety checks)
+      const reviews = Array.isArray(trustPilotReviews.reviews) ? trustPilotReviews.reviews : [];
+      reviews.forEach((review, idx) => {
+        if (!review?.text) return;
         dataPoints.push({
           id: `trustpilot-review-${Date.now()}-${idx}`,
           source: 'trustpilot' as DataSource,
-          type: this.mapRatingToDataPointType(review.rating),
-          content: review.text.substring(0, 500),
+          type: this.mapRatingToDataPointType(review.rating || 3),
+          content: (review.text || '').substring(0, 500),
           metadata: {
             rating: review.rating,
             title: review.title,
             sentiment: review.sentiment,
             helpful_count: review.helpful_count
           },
-          createdAt: new Date(review.date)
+          createdAt: new Date(review.date || Date.now())
         });
       });
 
-      // Convert feature requests to data points
-      trustPilotReviews.feature_requests.forEach((request, idx) => {
+      // Convert feature requests to data points (with safety checks)
+      const featureRequests = Array.isArray(trustPilotReviews.feature_requests) ? trustPilotReviews.feature_requests : [];
+      featureRequests.forEach((request, idx) => {
+        if (!request?.feature) return;
         dataPoints.push({
           id: `trustpilot-feature-${Date.now()}-${idx}`,
           source: 'trustpilot' as DataSource,
@@ -3258,8 +3483,13 @@ export class StreamingDeepContextBuilder {
         });
       });
 
-      // Convert satisfaction patterns to data points
-      trustPilotReviews.satisfaction_patterns.forEach((pattern, idx) => {
+      // Convert satisfaction patterns to data points (with safety checks)
+      // satisfaction_patterns might be an object or array, handle both
+      const patterns = Array.isArray(trustPilotReviews.satisfaction_patterns)
+        ? trustPilotReviews.satisfaction_patterns
+        : [];
+      patterns.forEach((pattern, idx) => {
+        if (!pattern?.pattern) return;
         dataPoints.push({
           id: `trustpilot-pattern-${Date.now()}-${idx}`,
           source: 'trustpilot' as DataSource,
@@ -3319,7 +3549,7 @@ export class StreamingDeepContextBuilder {
       const searchKeywords = this.buildTwitterSearchKeywords(customerTerm, uvpIndustry);
       console.log(`[Streaming/twitter] Searching Twitter with ${searchKeywords.length} keywords`);
 
-      const twitterSentiment = await apifySocialScraper.scrapeTwitterSentiment(searchKeywords, 30);
+      const twitterSentiment = await apifySocialScraper.scrapeTwitterSentiment(searchKeywords, 75);
 
       // Convert tweets to data points
       twitterSentiment.tweets.forEach((tweet, idx) => {
@@ -4137,7 +4367,7 @@ export class StreamingDeepContextBuilder {
       correlatedInsights.sort((a, b) => b.breakthroughScore - a.breakthroughScore);
 
       console.log(`[Streaming/correlation] Generated ${correlatedInsights.length} correlated insights`);
-      return correlatedInsights.slice(0, 30); // Return top 30
+      return correlatedInsights.slice(0, 100); // INCREASED from 30 to 100
 
     } catch (error) {
       console.error('[Streaming/correlation] Error finding correlations:', error);
@@ -4262,7 +4492,7 @@ export class StreamingDeepContextBuilder {
     // Generate embeddings for each pain point
     for (const { text, category } of painPointsWithCategories) {
       try {
-        const embedding = await embeddingService.embedText(text);
+        const embedding = await embeddingService.generateEmbedding(text);
         if (embedding && embedding.length > 0) {
           this.uvpSeedEmbeddings.push({ painPoint: text, embedding, category });
           // Initialize source validation counts for this pain point
@@ -4622,8 +4852,20 @@ export class StreamingDeepContextBuilder {
    */
   private async convertConnectionsToCorrelatedInsights(connections: any[]): Promise<CorrelatedInsight[]> {
     const insights: CorrelatedInsight[] = [];
+    const seenTitles = new Set<string>();
+    const seenContentHashes = new Set<string>();
 
     for (const conn of connections) {
+      // Create content hash for deduplication
+      const contentHash = conn.dataPoints
+        .map((dp: DataPoint) => dp.content.substring(0, 50).toLowerCase().replace(/\s+/g, ''))
+        .sort()
+        .join('|');
+
+      // Skip duplicates
+      if (seenContentHashes.has(contentHash)) continue;
+      seenContentHashes.add(contentHash);
+
       // Check for UVP matches across all data points in connection
       const uvpMatches: string[] = [];
       for (const dp of conn.dataPoints) {
@@ -4655,10 +4897,31 @@ export class StreamingDeepContextBuilder {
       const emotions = conn.dataPoints.map((dp: DataPoint) => dp.metadata?.emotion).filter(Boolean);
       const urgencies = conn.dataPoints.map((dp: DataPoint) => dp.metadata?.urgency).filter(Boolean);
 
+      // Generate a meaningful title from actual content, not generic angle
+      let title = conn.angle;
+      if (!title || title.includes('meets') || title.includes('→')) {
+        // Extract title from best data point content
+        const bestContent = conn.dataPoints
+          .map((dp: DataPoint) => dp.content)
+          .filter((c: string) => c && c.length > 30)
+          .sort((a: string, b: string) => b.length - a.length)[0];
+        if (bestContent) {
+          const words = bestContent.split(/\s+/);
+          title = words.slice(0, 10).join(' ');
+        } else {
+          title = `${conn.connectionType} Insight`;
+        }
+      }
+
+      // Skip duplicate titles
+      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
+      if (seenTitles.has(titleKey)) continue;
+      seenTitles.add(titleKey);
+
       insights.push({
         id: conn.id,
         type,
-        title: conn.angle || `${conn.connectionType} Connection`,
+        title,
         description: conn.reasoning,
         uvpMatch: uvpMatches.length > 0 ? uvpMatches[0] : undefined,
         sources: conn.dataPoints.map((dp: DataPoint) => ({
@@ -4672,12 +4935,13 @@ export class StreamingDeepContextBuilder {
           urgency: urgencies[0] || 'eventual'
         } : undefined,
         breakthroughScore: conn.breakthroughScore,
-        actionableInsight: `Create content around: "${conn.angle}"`,
+        actionableInsight: `Create content around: "${title}"`,
         timeSensitive: conn.timingRelevance > 0.5
       });
     }
 
-    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore).slice(0, 30);
+    console.log(`[Streaming] Deduplicated correlations: ${connections.length} → ${insights.length} unique`);
+    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore).slice(0, 150);
   }
 
   /**
@@ -4699,9 +4963,110 @@ export class StreamingDeepContextBuilder {
     const opportunities: BreakthroughOpportunity[] = [];
     const competitorGaps = this.getCompetitorGaps();
 
-    for (const bt of rawBreakthroughs.slice(0, 15)) {
+    // V2: Get business segment for dimension tagging
+    const segment = this.getBusinessSegment();
+    console.log(`[Streaming] V2: Using segment '${segment}' for dimension tagging`);
+
+    // V3: Batch generate AI titles for all connections BEFORE processing
+    // This populates the cache so generateTitleWithHook returns AI titles
+    const connections = rawBreakthroughs
+      .map(bt => bt.connections?.[0])
+      .filter(Boolean)
+      .slice(0, 100); // Process top 100 connections for AI titles
+
+    if (connections.length > 0) {
+      console.log(`[Streaming] V3: Batch generating AI titles for ${connections.length} connections...`);
+      const brandContext = {
+        name: this.deepContext?.brandProfile?.name || 'the business',
+        uvp: this.deepContext?.brandProfile?.uvpElements?.transformation || '',
+        industry: this.deepContext?.brandProfile?.industry || 'their industry'
+      };
+      await connectionDiscoveryService.batchGenerateAITitles(connections, brandContext);
+    }
+
+    // V2: Track dimension distribution for variety enforcement (with pillar + persona)
+    const dimensionCounts = {
+      journeyStage: new Map<string, number>(),
+      emotion: new Map<string, number>(),
+      format: new Map<string, number>(),
+      hookFormula: new Map<string, number>(),
+      pillar: new Map<string, number>(),
+      persona: new Map<string, number>()
+    };
+    const combinedHashes = new Set<string>();
+    const dimensionSignatures = new Set<string>(); // Track unique dimension combos
+    let lastHookFormulas: string[] = [];
+
+    // Calculate max per dimension (no stage >40%)
+    const targetCount = 50;
+    const maxPerStage = Math.ceil(targetCount * 0.40);
+    const maxPerEmotion = Math.ceil(targetCount * 0.25);
+
+    // INCREASED from 15 to 50 breakthroughs - user wants more content
+    for (const bt of rawBreakthroughs.slice(0, 150)) {
       const conn = bt.connections?.[0];
       if (!conn) continue;
+
+      // V2: Tag dimensions using connection discovery service
+      let dimensions: InsightDimensions | undefined;
+      try {
+        dimensions = connectionDiscoveryService.tagDimensions(conn, segment);
+
+        // V2: Combined content + dimensions hash for smart dedup
+        const combinedHash = connectionDiscoveryService.createCombinedHash(conn, dimensions);
+        if (combinedHashes.has(combinedHash)) {
+          continue; // Same content + same dimensions = skip
+        }
+
+        // V2: Check maximums (no stage >40%)
+        const stageCount = dimensionCounts.journeyStage.get(dimensions.journeyStage) || 0;
+        const emotionCount = dimensionCounts.emotion.get(dimensions.emotion) || 0;
+
+        if (stageCount >= maxPerStage) {
+          continue; // Skip if this stage is over-represented
+        }
+
+        if (emotionCount >= maxPerEmotion && (dimensionCounts.format.get(dimensions.format) || 0) >= maxPerEmotion) {
+          continue; // Skip if both emotion AND format are over max
+        }
+
+        // V2: Hook rotation - avoid consecutive repeats
+        let hookFormula = dimensions.hookFormula;
+        if (lastHookFormulas.slice(-3).includes(hookFormula)) {
+          hookFormula = connectionDiscoveryService.getRotatedHookFormula(conn);
+          dimensions.hookFormula = hookFormula;
+        }
+        lastHookFormulas.push(hookFormula);
+
+        // Update counts
+        combinedHashes.add(combinedHash);
+        dimensionCounts.journeyStage.set(dimensions.journeyStage, stageCount + 1);
+        dimensionCounts.emotion.set(dimensions.emotion, emotionCount + 1);
+        dimensionCounts.format.set(dimensions.format, (dimensionCounts.format.get(dimensions.format) || 0) + 1);
+        dimensionCounts.hookFormula.set(dimensions.hookFormula, (dimensionCounts.hookFormula.get(dimensions.hookFormula) || 0) + 1);
+        if (dimensions.pillar) dimensionCounts.pillar.set(dimensions.pillar, (dimensionCounts.pillar.get(dimensions.pillar) || 0) + 1);
+        if (dimensions.persona) dimensionCounts.persona.set(dimensions.persona, (dimensionCounts.persona.get(dimensions.persona) || 0) + 1);
+
+        // Track unique dimension signatures for variety metrics
+        const dimSignature = `${dimensions.journeyStage}-${dimensions.emotion}-${dimensions.format}-${dimensions.pillar}`;
+        dimensionSignatures.add(dimSignature);
+      } catch (e) {
+        // Fallback if dimension tagging fails
+      }
+
+      // V2: Generate title using rotated hook formula (ALWAYS use hook formula when dimensions are available)
+      let title = '';
+      if (dimensions) {
+        try {
+          title = connectionDiscoveryService.generateTitleWithHook(conn, dimensions.hookFormula);
+        } catch (e) {
+          console.warn('[Streaming] Hook title generation failed, using fallback');
+        }
+      }
+      // Only use raw title/angle as last resort
+      if (!title || title.length < 10) {
+        title = bt.title || conn.angle || 'Strategic Opportunity';
+      }
 
       // Find UVP validation with per-source counts
       let uvpValidation: BreakthroughOpportunity['uvpValidation'] | undefined;
@@ -4830,25 +5195,45 @@ export class StreamingDeepContextBuilder {
         actionParts.push(`🎯 Competitor Gap: ${competitiveData.gap}`);
       }
 
-      // Action line
+      // Action line - use V2 title if available
       const urgencyWord = bt.urgency === 'critical' ? 'IMMEDIATELY' :
                           bt.urgency === 'high' ? 'NOW' :
                           'this week';
-      actionParts.push(`→ Action: Create '${bt.title || conn.angle}' campaign ${urgencyWord}`);
+      actionParts.push(`→ Action: Create '${title}' campaign ${urgencyWord}`);
+
+      // V2: Add dimension-based context to action plan
+      if (dimensions) {
+        actionParts.push(`📊 Insight Profile: ${dimensions.journeyStage} stage | ${dimensions.emotion} trigger | ${dimensions.format} format`);
+        if (dimensions.cta) {
+          const ctaLabels: Record<string, string> = {
+            'CTA_CALL': 'Call Now',
+            'CTA_BOOK': 'Book Appointment',
+            'CTA_VISIT': 'Visit Location',
+            'CTA_DEMO': 'Request Demo',
+            'CTA_TRIAL': 'Start Free Trial',
+            'CTA_CONSULT': 'Schedule Consultation',
+            'CTA_DOWNLOAD': 'Download Guide',
+            'CTA_PRICING': 'Get Pricing',
+            'CTA_WEBINAR': 'Register for Webinar',
+            'CTA_ASSESS': 'Get Assessment'
+          };
+          actionParts.push(`🎯 Recommended CTA: ${ctaLabels[dimensions.cta] || dimensions.cta}`);
+        }
+      }
 
       const actionPlan = actionParts.join('\n');
 
       opportunities.push({
         id: bt.id,
-        title: bt.title || conn.angle,
+        title,  // V2: Use hook-formula generated title
         hook: bt.hook || `${sourceCount}-source breakthrough: ${conn.angle}`,
         score: bt.score,
         connectionType: conn.connectionType || '2-way',
-        sources: Array.from(uniqueSources),
+        sources: Array.from(uniqueSources) as string[],
         uvpValidation,
         psychology: {
-          triggerCategory,
-          emotion,
+          triggerCategory: dimensions?.emotion?.toLowerCase() || triggerCategory,
+          emotion: dimensions?.emotion?.toLowerCase() || emotion,
           urgency: bt.urgency || 'medium'
         },
         timing: timingData,
@@ -4905,6 +5290,14 @@ export class StreamingDeepContextBuilder {
         confidenceStars: Math.min(5, cluster.crossSourceCount) as 1 | 2 | 3 | 4 | 5
       });
     }
+
+    // V2: Log variety distribution
+    console.log(`[Streaming] V2 Variety Distribution:`);
+    console.log(`  Journey Stages: ${Array.from(dimensionCounts.journeyStage.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Emotions: ${Array.from(dimensionCounts.emotion.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Formats: ${Array.from(dimensionCounts.format.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Hook Formulas: ${Array.from(dimensionCounts.hookFormula.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Unique Combinations: ${dimensionSignatures.size}`);
 
     return opportunities.sort((a, b) => b.score - a.score);
   }

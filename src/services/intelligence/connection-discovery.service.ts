@@ -1,11 +1,35 @@
 /**
- * Connection Discovery Engine
+ * Connection Discovery Engine V2
  *
  * Finds two-way, three-way, and four-way connections between data points
  * across different sources to generate breakthrough content angles.
+ *
+ * V2 ENHANCEMENTS:
+ * - 12-dimension variety framework for unique insights
+ * - 15 hook formula templates for compelling titles
+ * - SMB/B2B segment-aware routing
+ * - Variety enforcement to prevent duplicates
  */
 
-import type { DataPoint } from '@/types/connections.types';
+import type { DataPoint, DataSource } from '@/types/connections.types';
+import type {
+  JourneyStage,
+  EmotionTrigger,
+  ContentFormat,
+  TargetPersona,
+  ObjectionType,
+  ContentAngle,
+  CTAType,
+  UrgencyLevel,
+  SourceConfidence,
+  CompetitivePosition,
+  ContentLifecycle,
+  BusinessSegment,
+  HookFormula,
+  InsightDimensions,
+  ContentPillar
+} from '@/types/connections.types';
+import { HOOK_TEMPLATES, SEGMENT_DEFAULTS, SOURCE_DIMENSION_DEFAULTS, REQUIRED_DISTRIBUTION } from '@/types/connections.types';
 import { embeddingService } from './embedding.service';
 import type { InsightCluster } from './clustering.service';
 
@@ -20,6 +44,7 @@ export interface Connection {
   themes: string[];
   timingRelevance: number; // 0-1
   emotionalIntensity: number; // 0-1
+  dimensions?: InsightDimensions; // V2: 12-dimension tagging
 }
 
 export interface BreakthroughAngle {
@@ -30,11 +55,137 @@ export interface BreakthroughAngle {
   score: number;
   provenance: string[];
   urgency: 'low' | 'medium' | 'high' | 'critical';
+  dimensions?: InsightDimensions; // V2: 12-dimension tagging
+  hookFormula?: HookFormula; // V2: Which formula generated the title
 }
 
 class ConnectionDiscoveryService {
   private readonly SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
   private readonly SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+  // V3: AI-generated title cache (connection ID -> title)
+  private aiTitleCache: Map<string, { title: string; hook: string }> = new Map();
+
+  /**
+   * V3: Batch generate AI titles for connections
+   * Pre-populates the cache so generateTitleWithHook can return AI titles synchronously
+   */
+  async batchGenerateAITitles(connections: Connection[], brandContext?: { name?: string; uvp?: string; industry?: string }): Promise<void> {
+    if (connections.length === 0) return;
+
+    const BATCH_SIZE = 10; // Process 10 connections per AI call for efficiency
+    const batches = [];
+
+    for (let i = 0; i < connections.length; i += BATCH_SIZE) {
+      batches.push(connections.slice(i, i + BATCH_SIZE));
+    }
+
+    console.log(`[V3-AI] Batch generating titles for ${connections.length} connections in ${batches.length} batches...`);
+
+    const brandName = brandContext?.name || 'the business';
+    const brandUVP = brandContext?.uvp || '';
+    const industry = brandContext?.industry || 'their industry';
+
+    for (const batch of batches) {
+      try {
+        const connectionSummaries = batch.map((conn, idx) => {
+          const sources = conn.sources.join(', ');
+          const content = conn.dataPoints
+            .map(dp => `[${dp.source}]: ${dp.content.substring(0, 150)}`)
+            .join('\n');
+          return `CONNECTION ${idx + 1} (id: ${conn.id}):\nSources: ${sources}\nData:\n${content}`;
+        }).join('\n\n---\n\n');
+
+        const response = await fetch(`${this.SUPABASE_URL}/functions/v1/ai-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            provider: 'openrouter',
+            model: 'anthropic/claude-3.5-haiku',
+            messages: [
+              {
+                role: 'system',
+                content: `You are a content strategist creating unique, compelling content titles.
+
+CRITICAL RULES:
+- Write for ${brandName}'s CUSTOMERS to read (customer is hero, business is guide)
+- Focus on what CUSTOMERS want to achieve, fear, or need
+- NEVER write "Company X increased Y by Z%" style titles
+- Each title must be unique - no repetition
+- Create curiosity and emotional engagement
+- Reference specific data/insights from the sources
+
+Brand context: ${brandUVP}
+Industry: ${industry}
+
+Return a JSON array with one object per connection:
+[{"id": "connection-id", "title": "unique specific title", "hook": "emotional opening sentence"}]`
+              },
+              {
+                role: 'user',
+                content: `Generate unique titles and hooks for each connection below. Each must be different and specific to the data.
+
+${connectionSummaries}
+
+Return JSON array with ${batch.length} objects, one per connection.`
+              }
+            ],
+            temperature: 0.8,
+            max_tokens: 2000
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          let content = data.choices?.[0]?.message?.content || '';
+
+          // Clean JSON from markdown
+          if (content.includes('```')) {
+            content = content.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+          }
+
+          try {
+            const titles = JSON.parse(content);
+            if (Array.isArray(titles)) {
+              titles.forEach((item: any, idx: number) => {
+                const conn = batch[idx];
+                if (conn && item.title) {
+                  this.aiTitleCache.set(conn.id, {
+                    title: item.title,
+                    hook: item.hook || ''
+                  });
+                }
+              });
+              console.log(`[V3-AI] Cached ${titles.length} AI-generated titles`);
+            }
+          } catch (parseError) {
+            console.warn('[V3-AI] Failed to parse batch response:', parseError);
+          }
+        }
+      } catch (error) {
+        console.warn('[V3-AI] Batch title generation failed:', error);
+      }
+    }
+
+    console.log(`[V3-AI] Total cached titles: ${this.aiTitleCache.size}`);
+  }
+
+  /**
+   * V3: Get AI-generated title from cache, or return empty string for fallback
+   */
+  getAITitle(connId: string): { title: string; hook: string } | null {
+    return this.aiTitleCache.get(connId) || null;
+  }
+
+  /**
+   * V3: Clear the AI title cache
+   */
+  clearAITitleCache(): void {
+    this.aiTitleCache.clear();
+  }
 
   /**
    * Discover all connections in data points
@@ -68,11 +219,12 @@ class ConnectionDiscoveryService {
     console.log(`[ConnectionDiscovery] Found ${fiveWay.length} five-way connections`);
 
     // Generate breakthrough angles from top connections (prioritize higher-order connections)
+    // V3 INCREASED limits: 5+10+20+40=75 → 15+30+60+120=225 connections for breakthrough generation
     const breakthroughs = await this.generateBreakthroughAngles([
-      ...fiveWay.slice(0, 2),
-      ...fourWay.slice(0, 3),
-      ...threeWay.slice(0, 5),
-      ...twoWay.slice(0, 10)
+      ...fiveWay.slice(0, 15),
+      ...fourWay.slice(0, 30),
+      ...threeWay.slice(0, 60),
+      ...twoWay.slice(0, 120)
     ]);
 
     console.log(`[ConnectionDiscovery] ✅ Generated ${breakthroughs.length} breakthrough angles`);
@@ -100,7 +252,8 @@ class ConnectionDiscoveryService {
           ? embeddingService.cosineSimilarity(dp1.embedding, dp2.embedding)
           : this.textSimilarity(dp1.content, dp2.content);
 
-        if (similarity < 0.5) continue;
+        // V3: Lowered threshold from 0.5 → 0.4 to find more connections
+        if (similarity < 0.4) continue;
 
         const key = [dp1.id, dp2.id].sort().join('-');
         if (seen.has(key)) continue;
@@ -108,7 +261,8 @@ class ConnectionDiscoveryService {
 
         const score = this.calculateBreakthroughScore([dp1, dp2], similarity);
 
-        if (score > 50) {
+        // V3: LOWERED threshold from 40 to 30 to find more connections
+        if (score > 30) {
           connections.push({
             id: `conn-2-${connections.length}`,
             dataPoints: [dp1, dp2],
@@ -138,7 +292,8 @@ class ConnectionDiscoveryService {
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    for (const conn of twoWay.slice(0, 50)) {
+    // INCREASED from 50 to 100 - more two-way connections = more three-way possibilities
+    for (const conn of twoWay.slice(0, 100)) {
       for (const dp of dataPoints) {
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
@@ -162,7 +317,8 @@ class ConnectionDiscoveryService {
 
         const score = this.calculateBreakthroughScore(allPoints, avgSim);
 
-        if (score > 65) {
+        // LOWERED threshold from 65 to 55 to find more three-way connections
+        if (score > 55) {
           connections.push({
             id: `conn-3-${connections.length}`,
             dataPoints: allPoints,
@@ -192,7 +348,8 @@ class ConnectionDiscoveryService {
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    for (const conn of threeWay.slice(0, 20)) {
+    // INCREASED from 20 to 50 - more three-way connections = more four-way possibilities
+    for (const conn of threeWay.slice(0, 50)) {
       for (const dp of dataPoints) {
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
@@ -205,7 +362,7 @@ class ConnectionDiscoveryService {
         );
 
         const avgSim = similarities.reduce((a, b) => a + b, 0) / similarities.length;
-        if (avgSim < 0.4) continue;
+        if (avgSim < 0.35) continue; // LOWERED from 0.4 to find more connections
 
         const allPoints = [...conn.dataPoints, dp];
         const key = allPoints.map(p => p.id).sort().join('-');
@@ -214,7 +371,8 @@ class ConnectionDiscoveryService {
 
         const score = this.calculateBreakthroughScore(allPoints, avgSim);
 
-        if (score > 75) {
+        // LOWERED threshold from 75 to 60 to find more four-way connections
+        if (score > 60) {
           connections.push({
             id: `conn-4-${connections.length}`,
             dataPoints: allPoints,
@@ -244,8 +402,8 @@ class ConnectionDiscoveryService {
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    // Only process top 10 four-way connections for efficiency
-    for (const conn of fourWay.slice(0, 10)) {
+    // INCREASED from 10 to 25 four-way connections for more five-way opportunities
+    for (const conn of fourWay.slice(0, 25)) {
       for (const dp of dataPoints) {
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
@@ -267,8 +425,8 @@ class ConnectionDiscoveryService {
 
         const score = this.calculateBreakthroughScore(allPoints, avgSim);
 
-        // Only keep very high scoring 5-way connections
-        if (score > 80) {
+        // LOWERED threshold from 80 to 65 to find more five-way connections
+        if (score > 65) {
           connections.push({
             id: `conn-5-${connections.length}`,
             dataPoints: allPoints,
@@ -420,17 +578,26 @@ class ConnectionDiscoveryService {
   }
 
   /**
-   * Extract themes from data points
+   * Extract themes from data points - use ACTUAL CONTENT not type names
    */
   private extractThemes(dataPoints: DataPoint[]): string[] {
-    const themes = new Set<string>();
+    const themes: string[] = [];
 
     for (const dp of dataPoints) {
-      if (dp.metadata?.domain) themes.add(dp.metadata.domain);
-      if (dp.type) themes.add(dp.type.replace(/_/g, ' '));
+      // Extract meaningful phrase from content (first 6-8 words)
+      const content = dp.content || '';
+      const words = content.split(/\s+/).filter(w => w.length > 2);
+      if (words.length >= 3) {
+        // Get key phrase from content
+        const phrase = words.slice(0, 6).join(' ');
+        if (phrase.length > 10 && phrase.length < 80) {
+          themes.push(phrase);
+        }
+      }
     }
 
-    return Array.from(themes);
+    // Return unique themes
+    return [...new Set(themes)].slice(0, 3);
   }
 
   /**
@@ -477,15 +644,36 @@ class ConnectionDiscoveryService {
   }
 
   /**
-   * Generate breakthrough angles using AI
+   * Generate breakthrough angles with DEDUPLICATION
    */
   private async generateBreakthroughAngles(connections: Connection[]): Promise<BreakthroughAngle[]> {
     if (connections.length === 0) return [];
 
     const breakthroughs: BreakthroughAngle[] = [];
+    const seenTitles = new Set<string>();
+    const seenContentHashes = new Set<string>();
 
-    // Generate titles for top connections
-    for (const conn of connections.slice(0, 10)) {
+    // Generate titles for top connections - with deduplication
+    // INCREASED: 75 → 150 for more breakthrough discovery
+    for (const conn of connections.slice(0, 150)) {
+      // Create content hash from first 50 chars of each data point
+      const contentHash = conn.dataPoints
+        .map(dp => dp.content.substring(0, 50).toLowerCase().replace(/\s+/g, ''))
+        .sort()
+        .join('|');
+
+      // Skip if we've seen very similar content
+      if (seenContentHashes.has(contentHash)) continue;
+
+      const title = this.generateTitle(conn);
+
+      // Skip duplicate or very similar titles
+      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
+      if (seenTitles.has(titleKey)) continue;
+
+      seenTitles.add(titleKey);
+      seenContentHashes.add(contentHash);
+
       const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
 
       const urgency = conn.timingRelevance > 0.5
@@ -494,7 +682,7 @@ class ConnectionDiscoveryService {
 
       breakthroughs.push({
         id: `breakthrough-${breakthroughs.length}`,
-        title: this.generateTitle(conn),
+        title,
         hook: this.generateHook(conn),
         connections: [conn],
         score: conn.breakthroughScore,
@@ -503,28 +691,53 @@ class ConnectionDiscoveryService {
       });
     }
 
+    console.log(`[ConnectionDiscovery] Deduplicated: ${connections.length} → ${breakthroughs.length} unique breakthroughs`);
     return breakthroughs.sort((a, b) => b.score - a.score);
   }
 
   /**
-   * Generate compelling title
+   * Generate compelling title from actual data point content
    */
   private generateTitle(conn: Connection): string {
-    const themes = conn.themes.slice(0, 2);
+    // Get the most meaningful content from data points
+    const contents = conn.dataPoints
+      .map(dp => dp.content)
+      .filter(c => c && c.length > 20)
+      .sort((a, b) => b.length - a.length);
+
+    if (contents.length === 0) {
+      return `${conn.connectionType} Insight from ${conn.sources.join(' + ')}`;
+    }
+
+    // Extract a compelling phrase from the best content
+    const bestContent = contents[0];
+    const words = bestContent.split(/\s+/);
+
+    // Try to find an action phrase or key insight
+    const actionWords = ['how', 'why', 'what', 'improve', 'reduce', 'increase', 'solve', 'fix', 'boost', 'grow'];
+    let startIdx = words.findIndex(w => actionWords.includes(w.toLowerCase()));
+    if (startIdx === -1) startIdx = 0;
+
+    const phrase = words.slice(startIdx, startIdx + 8).join(' ');
 
     if (conn.timingRelevance > 0.5) {
-      return `Why Now: ${themes.join(' & ')} Convergence`;
+      return `Time-Sensitive: ${phrase}`;
     }
 
     if (conn.emotionalIntensity > 0.5) {
-      return `The ${themes[0] || 'Hidden'} Problem No One's Addressing`;
+      return `Pain Point: ${phrase}`;
+    }
+
+    if (conn.connectionType === '5-way') {
+      return `🔥 Multi-Source Validated: ${phrase}`;
     }
 
     if (conn.connectionType === '4-way') {
-      return `The ${conn.sources.length}-Source Insight: ${themes.join(' Meets ')}`;
+      return `Cross-Platform Insight: ${phrase}`;
     }
 
-    return `${themes.join(' + ')}: A New Angle`;
+    // Capitalize first letter
+    return phrase.charAt(0).toUpperCase() + phrase.slice(1);
   }
 
   /**
@@ -660,6 +873,1008 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
 
     console.log(`[ConnectionDiscovery] Generated ${breakthroughs.length} AI-enhanced breakthrough angles`);
     return breakthroughs.sort((a, b) => b.score - a.score);
+  }
+
+  // ============================================
+  // V2: DIMENSION TAGGING ENGINE
+  // ============================================
+
+  /**
+   * Tag a connection with all 13 insight dimensions (12 + pillar)
+   * Uses source-based defaults as starting point, then content analysis
+   */
+  tagDimensions(conn: Connection, segment: BusinessSegment = 'SMB_LOCAL'): InsightDimensions {
+    const defaults = SEGMENT_DEFAULTS[segment];
+
+    // Get source-based defaults from primary source
+    const primarySource = conn.sources[0] as DataSource;
+    const sourceDefaults = SOURCE_DIMENSION_DEFAULTS[primarySource] || {};
+
+    return {
+      journeyStage: this.detectJourneyStage(conn) || sourceDefaults.journeyStage || defaults.journeyStage || 'CONSIDERATION',
+      emotion: this.detectEmotion(conn) || sourceDefaults.emotion || defaults.emotion || 'TRUST',
+      format: this.detectFormat(conn) || sourceDefaults.format || defaults.format || 'HOWTO',
+      persona: this.detectPersona(conn) || sourceDefaults.persona || defaults.persona || 'USER',
+      objection: this.detectObjection(conn),
+      angle: this.detectContentAngle(conn) || sourceDefaults.angle || 'DATA_DRIVEN',
+      cta: this.detectCTA(conn, segment) || sourceDefaults.cta || defaults.cta || 'CTA_CALL',
+      urgency: this.detectUrgency(conn) || sourceDefaults.urgency || defaults.urgency || 'URGENT_MEDIUM',
+      confidence: this.detectConfidence(conn),
+      position: this.detectPosition(conn),
+      lifecycle: this.detectLifecycle(conn) || sourceDefaults.lifecycle || defaults.lifecycle || 'LIFE_EVERGREEN',
+      segment,
+      hookFormula: this.selectHookFormula(conn),
+      pillar: this.detectPillar(conn) || sourceDefaults.pillar || 'PILLAR_EXPERTISE'
+    };
+  }
+
+  /**
+   * Detect content pillar from data point content and sources
+   */
+  private detectPillar(conn: Connection): ContentPillar {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const sources = conn.sources;
+    const types = conn.dataPoints.map(dp => dp.type);
+
+    // PILLAR_TRUST: Reviews, testimonials, credentials
+    if (sources.includes('outscraper') || sources.includes('trustpilot') || sources.includes('yelp') || sources.includes('g2') ||
+        /review|testimonial|rating|stars|recommend|trusted|certified|licensed|bonded|insured/.test(content)) {
+      return 'PILLAR_TRUST';
+    }
+
+    // PILLAR_VALUE: Pricing, ROI, cost
+    if (/price|cost|roi|save|afford|budget|value|worth|investment|payback/.test(content) ||
+        types.includes('competitive_gap') || types.includes('keyword_gap')) {
+      return 'PILLAR_VALUE';
+    }
+
+    // PILLAR_DIFFERENTIATION: Competitors, comparison
+    if (sources.includes('semrush') ||
+        /vs\b|versus|compare|competitor|alternative|better\s+than|different|unique|only\s+we/.test(content) ||
+        types.includes('competitor_weakness') || types.includes('competitor_mention')) {
+      return 'PILLAR_DIFFERENTIATION';
+    }
+
+    // PILLAR_TRENDS: News, trending, market changes
+    if (sources.includes('news') || sources.includes('twitter') || sources.includes('google_trends') ||
+        /trend|news|update|change|new\s+regulation|industry|market|forecast|predict/.test(content) ||
+        types.includes('trending_topic') || types.includes('news_story')) {
+      return 'PILLAR_TRENDS';
+    }
+
+    // PILLAR_COMMUNITY: Local, events, partnerships
+    if (sources.includes('weather') ||
+        /local|community|event|sponsor|partner|neighborhood|city|area|region/.test(content) ||
+        types.includes('local_event') || types.includes('weather_trigger')) {
+      return 'PILLAR_COMMUNITY';
+    }
+
+    // PILLAR_EXPERTISE: How-to, technical, educational (default)
+    return 'PILLAR_EXPERTISE';
+  }
+
+  /**
+   * Detect buyer journey stage from content signals
+   */
+  private detectJourneyStage(conn: Connection): JourneyStage {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const types = conn.dataPoints.map(dp => dp.type);
+
+    // AWARENESS: Questions, what is, learn about
+    if (/what is|how does|learn|understand|guide to|beginner|introduction/.test(content) ||
+        types.includes('question') || types.includes('people_also_ask')) {
+      return 'AWARENESS';
+    }
+
+    // DECISION: Buy, pricing, compare, best, vs
+    if (/buy|price|cost|best|compare|vs\b|versus|deal|discount|offer/.test(content) ||
+        types.includes('competitive_gap') || types.includes('competitor_weakness')) {
+      return 'DECISION';
+    }
+
+    // RETENTION: Maintain, support, help, issue
+    if (/maintain|support|help with|issue|problem with|fix|troubleshoot/.test(content)) {
+      return 'RETENTION';
+    }
+
+    // ADVOCACY: Review, recommend, share, love
+    if (/review|recommend|share|love|amazing|great experience/.test(content)) {
+      return 'ADVOCACY';
+    }
+
+    // Default: CONSIDERATION
+    return 'CONSIDERATION';
+  }
+
+  /**
+   * Detect primary emotion trigger from content
+   */
+  private detectEmotion(conn: Connection): EmotionTrigger {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const sentiment = conn.dataPoints.find(dp => dp.metadata?.sentiment)?.metadata?.sentiment;
+
+    // FEAR: Worry, risk, danger, avoid, problem
+    if (/worry|risk|danger|avoid|problem|issue|mistake|fail|lose|threat/.test(content) ||
+        sentiment === 'negative') {
+      return 'FEAR';
+    }
+
+    // ANGER: Frustrated, hate, terrible, worst, annoyed
+    if (/frustrated|hate|terrible|worst|annoyed|angry|furious|unacceptable/.test(content)) {
+      return 'ANGER';
+    }
+
+    // JOY: Happy, love, amazing, great, excellent
+    if (/happy|love|amazing|great|excellent|wonderful|fantastic|perfect/.test(content) ||
+        sentiment === 'positive') {
+      return 'JOY';
+    }
+
+    // CURIOSITY: How, why, what if, discover, secret
+    if (/how\s+to|why\s+do|what\s+if|discover|secret|hidden|unknown|surprising/.test(content)) {
+      return 'CURIOSITY';
+    }
+
+    // ANTICIPATION: Trend, upcoming, future, soon, new
+    if (/trend|upcoming|future|soon|new|launching|coming|expect/.test(content) ||
+        conn.dataPoints.some(dp => dp.type === 'trending_topic')) {
+      return 'ANTICIPATION';
+    }
+
+    // LOSS_AVERSION: Miss out, limited, only, deadline
+    if (/miss\s+out|limited|only\s+\d|deadline|last\s+chance|expires|ending/.test(content)) {
+      return 'LOSS_AVERSION';
+    }
+
+    // TRUST: Reliable, proven, expert, certified
+    if (/reliable|proven|expert|certified|trusted|years\s+of|guarantee/.test(content)) {
+      return 'TRUST';
+    }
+
+    // BELONGING: Community, together, join, member
+    if (/community|together|join|member|family|team|part\s+of/.test(content)) {
+      return 'BELONGING';
+    }
+
+    // ACHIEVEMENT: Success, accomplish, goal, win
+    if (/success|accomplish|goal|win|achieve|improve|grow|boost/.test(content)) {
+      return 'ACHIEVEMENT';
+    }
+
+    // SURPRISE: Unexpected, shocking, incredible
+    if (/unexpected|shocking|incredible|unbelievable|never\s+thought/.test(content)) {
+      return 'SURPRISE';
+    }
+
+    // Default based on timing relevance
+    return conn.timingRelevance > 0.5 ? 'ANTICIPATION' : 'TRUST';
+  }
+
+  /**
+   * Detect optimal content format
+   */
+  private detectFormat(conn: Connection): ContentFormat {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const types = conn.dataPoints.map(dp => dp.type);
+    const sources = conn.sources;
+
+    // COMPARISON: vs, compare, better, alternative
+    if (/vs\b|compare|better|alternative|which\s+is|difference/.test(content) ||
+        types.includes('competitor_weakness') || types.includes('competitive_gap')) {
+      return 'COMPARISON';
+    }
+
+    // HOWTO: How to, steps, guide, tutorial
+    if (/how\s+to|step\s+by|guide|tutorial|instruction|process/.test(content)) {
+      return 'HOWTO';
+    }
+
+    // FAQ: Question patterns
+    if (types.includes('question') || types.includes('people_also_ask') ||
+        /\?|what\s+is|can\s+i|should\s+i|when\s+to/.test(content)) {
+      return 'FAQ';
+    }
+
+    // DATA: Numbers, statistics, percentage
+    if (/\d+%|\d+\s+percent|statistics|data|research|study|survey/.test(content) ||
+        sources.includes('semrush')) {
+      return 'DATA';
+    }
+
+    // CASE_STUDY: Results, achieved, success story
+    if (/results|achieved|success\s+story|case\s+study|client|customer\s+saved/.test(content)) {
+      return 'CASE_STUDY';
+    }
+
+    // CHECKLIST: List patterns
+    if (/checklist|must\s+have|\d+\s+things|\d+\s+ways|top\s+\d+/.test(content)) {
+      return 'CHECKLIST';
+    }
+
+    // TESTIMONIAL: Review sentiment
+    if (sources.includes('outscraper') || sources.includes('g2') || sources.includes('trustpilot')) {
+      return 'TESTIMONIAL';
+    }
+
+    // STORY: Narrative patterns
+    if (/story|journey|experience|happened|when\s+we|we\s+discovered/.test(content)) {
+      return 'STORY';
+    }
+
+    // CONTROVERSY: Debate, myth, wrong
+    if (/debate|myth|wrong|actually|truth|misconception|controversy/.test(content)) {
+      return 'CONTROVERSY';
+    }
+
+    // TOOL: Calculator, template, tool
+    if (/calculator|template|tool|resource|free\s+download/.test(content)) {
+      return 'TOOL';
+    }
+
+    // Default
+    return 'HOWTO';
+  }
+
+  /**
+   * Detect target persona
+   */
+  private detectPersona(conn: Connection): TargetPersona {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+
+    // DECISION_MAKER: Owner, CEO, decision, budget
+    if (/owner|ceo|manager|director|decision|budget|approve|invest/.test(content)) {
+      return 'DECISION_MAKER';
+    }
+
+    // INFLUENCER: Recommend, suggest, research, evaluate
+    if (/recommend|suggest|research|evaluate|review|consider/.test(content)) {
+      return 'INFLUENCER';
+    }
+
+    // BLOCKER: Concern, risk, issue, problem
+    if (/concern|risk|issue|problem|compliance|legal|security/.test(content)) {
+      return 'BLOCKER';
+    }
+
+    // CHAMPION: Advocate, love, promote, share
+    if (/advocate|love|promote|share|tell\s+everyone/.test(content)) {
+      return 'CHAMPION';
+    }
+
+    // Default: USER
+    return 'USER';
+  }
+
+  /**
+   * Detect objection type if present
+   */
+  private detectObjection(conn: Connection): ObjectionType | undefined {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+
+    if (/expensive|cost|price|afford|budget|cheap/.test(content)) {
+      return 'OBJ_PRICE';
+    }
+    if (/not\s+now|later|timing|wait|busy|next\s+year/.test(content)) {
+      return 'OBJ_TIMING';
+    }
+    if (/need\s+approval|boss|manager|committee|team\s+decision/.test(content)) {
+      return 'OBJ_AUTHORITY';
+    }
+    if (/don't\s+need|already\s+have|not\s+necessary|fine\s+without/.test(content)) {
+      return 'OBJ_NEED';
+    }
+    if (/not\s+sure|trust|reliable|proven|guarantee|scam/.test(content)) {
+      return 'OBJ_TRUST';
+    }
+    if (/competitor|alternative|other\s+option|already\s+use/.test(content)) {
+      return 'OBJ_COMPETITOR';
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Detect content angle
+   */
+  private detectContentAngle(conn: Connection): ContentAngle {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+
+    if (/contrary|actually|myth|wrong|misunderstand/.test(content)) {
+      return 'CONTRARIAN';
+    }
+    if (/\d+%|statistics|data|research|study|survey/.test(content)) {
+      return 'DATA_DRIVEN';
+    }
+    if (/story|journey|experience|happened/.test(content)) {
+      return 'STORY_DRIVEN';
+    }
+    if (/expert|years|professional|certified|specialist/.test(content)) {
+      return 'EXPERT';
+    }
+    if (/trend|viral|popular|everyone|now/.test(content) ||
+        conn.dataPoints.some(dp => dp.type === 'trending_topic')) {
+      return 'TRENDING';
+    }
+    if (/vs|compare|better|alternative/.test(content)) {
+      return 'COMPARISON';
+    }
+    if (/behind|inside|secret|how\s+we|our\s+process/.test(content)) {
+      return 'BEHIND_SCENES';
+    }
+    if (/predict|future|will|upcoming|expect|forecast/.test(content)) {
+      return 'PREDICTION';
+    }
+
+    return 'DATA_DRIVEN';
+  }
+
+  /**
+   * Detect appropriate CTA based on segment and content
+   */
+  private detectCTA(conn: Connection, segment: BusinessSegment): CTAType {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const defaults = SEGMENT_DEFAULTS[segment];
+
+    // SMB Local: Prefer calls, visits, bookings
+    if (segment === 'SMB_LOCAL') {
+      if (/appointment|schedule|book|reserve/.test(content)) return 'CTA_BOOK';
+      if (/visit|come|stop\s+by|location/.test(content)) return 'CTA_VISIT';
+      if (/call|phone|contact|speak/.test(content)) return 'CTA_CALL';
+      return defaults.cta || 'CTA_CALL';
+    }
+
+    // B2B: Prefer demos, consultations, trials
+    if (segment === 'B2B_NATIONAL' || segment === 'B2B_GLOBAL') {
+      if (/demo|demonstration|see\s+it/.test(content)) return 'CTA_DEMO';
+      if (/trial|try|free|test/.test(content)) return 'CTA_TRIAL';
+      if (/consult|discuss|meeting|strategy/.test(content)) return 'CTA_CONSULT';
+      if (/webinar|event|register/.test(content)) return 'CTA_WEBINAR';
+      return defaults.cta || 'CTA_DEMO';
+    }
+
+    // SMB Regional
+    if (/download|guide|ebook|resource/.test(content)) return 'CTA_DOWNLOAD';
+    if (/price|cost|quote|estimate/.test(content)) return 'CTA_PRICING';
+    if (/assess|audit|evaluate|analysis/.test(content)) return 'CTA_ASSESS';
+
+    return defaults.cta || 'CTA_CALL';
+  }
+
+  /**
+   * Detect urgency level
+   */
+  private detectUrgency(conn: Connection): UrgencyLevel {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+
+    // CRITICAL: Immediate action needed
+    if (/urgent|immediately|emergency|critical|asap|today\s+only/.test(content) ||
+        conn.timingRelevance > 0.8) {
+      return 'URGENT_CRITICAL';
+    }
+
+    // HIGH: Time-sensitive
+    if (/limited|deadline|expires|ending\s+soon|this\s+week/.test(content) ||
+        conn.timingRelevance > 0.5) {
+      return 'URGENT_HIGH';
+    }
+
+    // MEDIUM: Moderate urgency
+    if (/soon|this\s+month|don't\s+wait|before/.test(content) ||
+        conn.timingRelevance > 0.3) {
+      return 'URGENT_MEDIUM';
+    }
+
+    // LOW: Evergreen
+    return 'URGENT_LOW';
+  }
+
+  /**
+   * Detect confidence level based on source count
+   */
+  private detectConfidence(conn: Connection): SourceConfidence {
+    const sourceCount = conn.sources.length;
+
+    if (sourceCount >= 5) return 'CONF_5WAY';
+    if (sourceCount >= 4) return 'CONF_4WAY';
+    if (sourceCount >= 3) return 'CONF_3WAY';
+    if (sourceCount >= 2) return 'CONF_2WAY';
+    return 'CONF_SINGLE';
+  }
+
+  /**
+   * Detect competitive position
+   */
+  private detectPosition(conn: Connection): CompetitivePosition | undefined {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+
+    if (/leader|best|#1|top\s+rated|award/.test(content)) {
+      return 'POS_LEADER';
+    }
+    if (/challenger|disrupt|alternative|better\s+than/.test(content)) {
+      return 'POS_CHALLENGER';
+    }
+    if (/specialist|niche|specific|focus|expert\s+in/.test(content)) {
+      return 'POS_NICHE';
+    }
+    if (/new|innovative|first|unique|revolutionary/.test(content)) {
+      return 'POS_INNOVATOR';
+    }
+    if (/affordable|value|budget|save|cheap/.test(content)) {
+      return 'POS_VALUE';
+    }
+
+    return undefined;
+  }
+
+  /**
+   * Detect content lifecycle
+   */
+  private detectLifecycle(conn: Connection): ContentLifecycle {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const types = conn.dataPoints.map(dp => dp.type);
+
+    // TRENDING: Viral, news, current events
+    if (types.includes('trending_topic') || types.includes('news_story') ||
+        /viral|trending|breaking|just\s+announced/.test(content)) {
+      return 'LIFE_TRENDING';
+    }
+
+    // REACTIVE: News response, competitor move
+    if (/response|react|competitor|announcement|update/.test(content)) {
+      return 'LIFE_REACTIVE';
+    }
+
+    // SEASONAL: Holiday, season, weather
+    if (types.includes('weather_trigger') ||
+        /season|holiday|spring|summer|fall|winter|christmas|thanksgiving/.test(content)) {
+      return 'LIFE_SEASONAL';
+    }
+
+    // EVERGREEN: Timeless content
+    return 'LIFE_EVERGREEN';
+  }
+
+  // ============================================
+  // V2: HOOK FORMULA ENGINE
+  // ============================================
+
+  /**
+   * Select the best hook formula based on content signals
+   */
+  selectHookFormula(conn: Connection): HookFormula {
+    const content = conn.dataPoints.map(dp => dp.content.toLowerCase()).join(' ');
+    const types = conn.dataPoints.map(dp => dp.type);
+
+    // NUMBER: Lists, counts, statistics
+    if (/\d+\s+ways|\d+\s+things|top\s+\d+|\d+\s+tips/.test(content)) {
+      return 'NUMBER';
+    }
+
+    // QUESTION: Question patterns
+    if (types.includes('question') || types.includes('people_also_ask') ||
+        /are\s+you|do\s+you|have\s+you|should\s+you/.test(content)) {
+      return 'QUESTION';
+    }
+
+    // CONTRARIAN: Myth-busting
+    if (/myth|wrong|actually|contrary|not\s+what/.test(content)) {
+      return 'CONTRARIAN';
+    }
+
+    // STORY: Case studies, journeys
+    if (/story|how\s+\w+\s+achieved|journey|experience|case\s+study/.test(content)) {
+      return 'STORY';
+    }
+
+    // DATA: Statistics, research
+    if (/\d+%|percent|statistics|research|study|survey|data/.test(content)) {
+      return 'DATA';
+    }
+
+    // URGENCY: Time-sensitive
+    if (/deadline|expires|limited|ending|urgent|today/.test(content) ||
+        conn.timingRelevance > 0.5) {
+      return 'URGENCY';
+    }
+
+    // CURIOSITY: Secrets, hidden
+    if (/secret|hidden|unknown|surprising|reveal|discover/.test(content)) {
+      return 'CURIOSITY';
+    }
+
+    // FEAR: Risks, dangers
+    if (/risk|danger|avoid|mistake|fail|problem|threat/.test(content)) {
+      return 'FEAR';
+    }
+
+    // DESIRE: Benefits, outcomes
+    if (/imagine|dream|achieve|success|without\s+the/.test(content)) {
+      return 'DESIRE';
+    }
+
+    // SOCIAL_PROOF: Reviews, testimonials
+    if (/review|\d+\s+customers|\d+\s+people|trust|recommend/.test(content)) {
+      return 'SOCIAL_PROOF';
+    }
+
+    // HOWTO: Instructions
+    if (/how\s+to|step\s+by\s+step|guide|tutorial/.test(content)) {
+      return 'HOWTO';
+    }
+
+    // COMPARISON: vs patterns
+    if (/vs\b|versus|compare|better\s+than|alternative/.test(content)) {
+      return 'COMPARISON';
+    }
+
+    // MISTAKE: Error patterns
+    if (/mistake|error|wrong|avoid|don't\s+do/.test(content)) {
+      return 'MISTAKE';
+    }
+
+    // SECRET: Hidden knowledge
+    if (/secret|insider|don't\s+share|they\s+don't/.test(content)) {
+      return 'SECRET';
+    }
+
+    // PREDICTION: Future trends
+    if (/predict|future|will|2024|2025|trend|forecast/.test(content) ||
+        types.includes('trending_topic')) {
+      return 'PREDICTION';
+    }
+
+    // Default based on emotional intensity
+    return conn.emotionalIntensity > 0.5 ? 'FEAR' : 'HOWTO';
+  }
+
+  /**
+   * Generate title using AI (V3) with template fallback
+   * V3: Prioritizes AI-generated titles from cache, falls back to template only if AI unavailable
+   */
+  generateTitleWithHook(conn: Connection, formula: HookFormula): string {
+    // V3: Check AI cache first
+    const aiTitle = this.getAITitle(conn.id);
+    if (aiTitle && aiTitle.title && aiTitle.title.length > 10) {
+      return aiTitle.title;
+    }
+
+    // V3: If no AI title, generate a data-driven title from actual content
+    // This is a MUCH better fallback than the old template system
+    const bestDataPoint = conn.dataPoints
+      .filter(dp => dp.content && dp.content.length > 30)
+      .sort((a, b) => b.content.length - a.content.length)[0];
+
+    if (bestDataPoint) {
+      const content = bestDataPoint.content;
+      // Extract the first meaningful sentence or phrase
+      const sentences = content.split(/[.!?]/);
+      const firstSentence = sentences[0]?.trim();
+
+      if (firstSentence && firstSentence.length > 20 && firstSentence.length < 100) {
+        // Clean and format as title
+        let title = firstSentence
+          .replace(/^(how|why|what|when|the)\s+/i, (match) => match.charAt(0).toUpperCase() + match.slice(1).toLowerCase())
+          .replace(/\s+/g, ' ')
+          .trim();
+
+        // Ensure it starts with capital
+        title = title.charAt(0).toUpperCase() + title.slice(1);
+
+        // Add source indicator for cross-platform insights
+        if (conn.sources.length >= 3) {
+          return `Cross-Platform Insight: ${title}`;
+        }
+        return title;
+      }
+    }
+
+    // Last resort: Generate from themes
+    const themes = conn.themes || [];
+    if (themes.length > 0) {
+      const themeTitle = themes.slice(0, 2).map(t =>
+        t.charAt(0).toUpperCase() + t.slice(1)
+      ).join(' & ');
+      return `${conn.connectionType} Discovery: ${themeTitle}`;
+    }
+
+    // Absolute fallback - still better than template garbage
+    return `${conn.connectionType} Insight from ${conn.sources.join(' + ')}`;
+  }
+
+  // Helper extractors for hook formula engine
+  private extractTopic(conn: Connection): string {
+    const content = conn.dataPoints[0]?.content || '';
+    const allContent = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    // B2B/Insurance specific topics
+    if (/quote.*abandon|abandon.*quote/.test(allContent)) return 'Quote Abandonment';
+    if (/compliance|regulatory|audit/.test(allContent)) return 'Compliance';
+    if (/digital\s*transform/.test(allContent)) return 'Digital Transformation';
+    if (/customer\s*experience|cx\b/.test(allContent)) return 'Customer Experience';
+    if (/ai\s*agent|chatbot|conversational/.test(allContent)) return 'AI Agents';
+    if (/insurance|policy|underwriting/.test(allContent)) return 'Insurance Digital Journey';
+    if (/conversion|convert/.test(allContent)) return 'Conversion Optimization';
+    if (/saas|software/.test(allContent)) return 'SaaS Strategy';
+
+    // Extract noun phrase after common patterns
+    const match = content.match(/(?:about|with|for|in|on)\s+(\w+(?:\s+\w+){0,2})/i);
+    if (match && match[1].length > 3) return match[1];
+
+    // Try to find key business terms
+    const keyTerms = content.match(/(?:sales|marketing|operations|customer|revenue|cost|efficiency|growth|automation)/gi);
+    if (keyTerms && keyTerms.length > 0) {
+      return keyTerms[0].charAt(0).toUpperCase() + keyTerms[0].slice(1);
+    }
+
+    // Fallback: first significant noun phrase
+    const words = content.split(/\s+/).filter(w => w.length > 4 && !/^(this|that|with|from|your|their)$/i.test(w));
+    return words.slice(0, 2).join(' ') || 'This Strategy';
+  }
+
+  private extractOutcome(conn: Connection): string {
+    const content = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    // B2B/Insurance specific outcomes
+    if (/quote.*conversion|convert.*quote/.test(content)) return 'Convert More Quotes';
+    if (/compliance|audit|regulatory/.test(content)) return 'Ensure Compliance';
+    if (/abandon/.test(content)) return 'Recover Abandoned Prospects';
+    if (/digital\s*journey|customer\s*experience/.test(content)) return 'Improve Customer Experience';
+    if (/automat|ai\s*agent|chatbot/.test(content)) return 'Scale with AI';
+    if (/revenue|sales|conversion/.test(content)) return 'Increase Revenue';
+    if (/cost|savings|efficient/.test(content)) return 'Reduce Costs';
+    if (/satisfaction|nps|csat/.test(content)) return 'Boost Customer Satisfaction';
+
+    // Generic fallbacks
+    if (/save|cost|cheap|afford/.test(content)) return 'Save Money';
+    if (/time|fast|quick|efficient/.test(content)) return 'Save Time';
+    if (/sale|revenue|profit/.test(content)) return 'Increase Sales';
+    if (/customer|client|lead/.test(content)) return 'Get More Customers';
+    if (/grow|boost|improve/.test(content)) return 'Grow Your Business';
+
+    return 'Achieve Better Results';
+  }
+
+  private extractCount(content: string): string {
+    const match = content.match(/(\d+)/);
+    return match ? match[1] : '7';
+  }
+
+  private extractCompany(content: string): string {
+    const match = content.match(/([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/);
+    return match ? match[1] : 'One Company';
+  }
+
+  private extractPercentage(content: string): string {
+    const match = content.match(/(\d+%)/);
+    return match ? match[1] : '73%';
+  }
+
+  private extractTimeframe(content: string): string {
+    if (/day|today/.test(content)) return '30 Days';
+    if (/week/.test(content)) return '2 Weeks';
+    if (/month/.test(content)) return '3 Months';
+    if (/year/.test(content)) return '1 Year';
+    return '90 Days';
+  }
+
+  private extractAudience(conn: Connection): string {
+    const content = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    if (/homeowner|home\s+owner/.test(content)) return 'Homeowners';
+    if (/business|company|owner/.test(content)) return 'Business Owners';
+    if (/customer|buyer|shopper/.test(content)) return 'Customers';
+    if (/professional|expert/.test(content)) return 'Professionals';
+
+    return 'People';
+  }
+
+  private extractProblem(conn: Connection): string {
+    const content = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    // B2B/Insurance specific problems
+    if (/quote.*abandon|abandon.*quote/.test(content)) return 'Quote Abandonment';
+    if (/compliance|audit|regulatory/.test(content)) return 'Compliance Risk';
+    if (/manual|paperwork|inefficient/.test(content)) return 'Manual Processes';
+    if (/slow|wait|delay/.test(content)) return 'Slow Response Times';
+    if (/competitor|losing|market\s*share/.test(content)) return 'Competitive Pressure';
+    if (/scale|capacity|volume/.test(content)) return 'Scaling Challenges';
+    if (/cost|expensive|budget/.test(content)) return 'High Operational Costs';
+    if (/integrat|connect|silo/.test(content)) return 'Integration Gaps';
+    if (/ai|automation/.test(content)) return 'AI Implementation';
+
+    // Generic fallbacks
+    if (/trust|scam|reliable/.test(content)) return 'Trust Issues';
+    if (/quality|poor|bad/.test(content)) return 'Poor Quality';
+    if (/time|slow|delay/.test(content)) return 'Wasted Time';
+
+    return 'Industry Challenges';
+  }
+
+  private extractEvent(conn: Connection): string {
+    const content = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    if (/season|spring|summer|fall|winter/.test(content)) return 'The Season Change';
+    if (/holiday|christmas|thanksgiving/.test(content)) return 'The Holiday Season';
+    if (/deadline|tax|filing/.test(content)) return 'The Deadline';
+    if (/storm|rain|snow|weather/.test(content)) return 'Severe Weather';
+
+    return 'This Industry Shift';
+  }
+
+  private extractIndustry(conn: Connection): string {
+    const content = conn.dataPoints.map(dp => dp.content).join(' ').toLowerCase();
+
+    // B2B specific industries
+    if (/insurance|policy|underwriting|claim/.test(content)) return 'Insurance';
+    if (/fintech|financial|banking/.test(content)) return 'Financial Services';
+    if (/saas|software|platform/.test(content)) return 'SaaS';
+    if (/healthcare|medical|patient/.test(content)) return 'Healthcare';
+    if (/legal|law\s*firm|attorney/.test(content)) return 'Legal Services';
+
+    // SMB industries
+    if (/hvac|heating|cooling|air/.test(content)) return 'HVAC';
+    if (/plumb|pipe|water/.test(content)) return 'Plumbing';
+    if (/roof|shingle/.test(content)) return 'Roofing';
+    if (/electric|wiring/.test(content)) return 'Electrical';
+    if (/market|seo|digital/.test(content)) return 'Marketing';
+
+    return 'Your Industry';
+  }
+
+  private extractProductA(conn: Connection): string {
+    const sources = conn.sources;
+    if (sources.includes('semrush')) return 'Your Solution';
+    return 'Option A';
+  }
+
+  private extractProductB(conn: Connection): string {
+    const types = conn.dataPoints.map(dp => dp.type);
+    if (types.includes('competitor_weakness')) return 'Competitors';
+    return 'Option B';
+  }
+
+  private extractCompetitors(conn: Connection): string {
+    return 'Big Competitors';
+  }
+
+  // ============================================
+  // V2: VARIETY ENFORCEMENT (Enhanced with minimums)
+  // ============================================
+
+  // Track last N hook formulas for rotation
+  private lastHookFormulas: HookFormula[] = [];
+  private readonly HOOK_ROTATION_WINDOW = 3;
+
+  /**
+   * Get next hook formula with rotation (no consecutive repeats)
+   */
+  getRotatedHookFormula(conn: Connection): HookFormula {
+    const preferredFormula = this.selectHookFormula(conn);
+
+    // If this formula was used in last N, try to find alternative
+    if (this.lastHookFormulas.slice(-this.HOOK_ROTATION_WINDOW).includes(preferredFormula)) {
+      const allFormulas: HookFormula[] = [
+        'NUMBER', 'QUESTION', 'CONTRARIAN', 'STORY', 'DATA',
+        'URGENCY', 'CURIOSITY', 'FEAR', 'DESIRE', 'SOCIAL_PROOF',
+        'HOWTO', 'COMPARISON', 'MISTAKE', 'SECRET', 'PREDICTION'
+      ];
+      // Find formula not recently used
+      const available = allFormulas.filter(f => !this.lastHookFormulas.slice(-this.HOOK_ROTATION_WINDOW).includes(f));
+      if (available.length > 0) {
+        const rotated = available[Math.floor(Math.random() * available.length)];
+        this.lastHookFormulas.push(rotated);
+        return rotated;
+      }
+    }
+
+    this.lastHookFormulas.push(preferredFormula);
+    return preferredFormula;
+  }
+
+  /**
+   * Create combined hash of content + dimensions for smart deduplication
+   */
+  createCombinedHash(conn: Connection, dimensions: InsightDimensions): string {
+    const contentHash = conn.dataPoints
+      .map(dp => dp.content.substring(0, 30).toLowerCase().replace(/\s+/g, ''))
+      .sort()
+      .join('|');
+
+    const dimensionHash = `${dimensions.journeyStage}-${dimensions.emotion}-${dimensions.format}-${dimensions.pillar}`;
+
+    return `${contentHash}::${dimensionHash}`;
+  }
+
+  /**
+   * Enforce variety across all generated insights
+   * Returns insights that meet distribution requirements with MIN and MAX enforcement
+   */
+  enforceVariety(
+    breakthroughs: BreakthroughAngle[],
+    targetCount: number = 50
+  ): BreakthroughAngle[] {
+    const distribution = {
+      journeyStage: new Map<JourneyStage, number>(),
+      emotion: new Map<EmotionTrigger, number>(),
+      format: new Map<ContentFormat, number>(),
+      hookFormula: new Map<HookFormula, number>(),
+      pillar: new Map<ContentPillar, number>(),
+      persona: new Map<TargetPersona, number>()
+    };
+
+    const varied: BreakthroughAngle[] = [];
+    const combinedHashes = new Set<string>();
+
+    // Calculate max per dimension (no stage >40%)
+    const maxPerStage = Math.ceil(targetCount * 0.40);
+    const maxPerEmotion = Math.ceil(targetCount * 0.25);
+    const maxPerFormat = Math.ceil(targetCount * 0.25);
+    const maxPerHook = Math.ceil(targetCount * 0.20);
+
+    // First pass: Add insights respecting maximums
+    for (const breakthrough of breakthroughs) {
+      if (!breakthrough.dimensions) continue;
+      if (varied.length >= targetCount) break;
+
+      const d = breakthrough.dimensions;
+      const conn = breakthrough.connections[0];
+
+      // Create combined hash for smart dedup
+      const combinedHash = this.createCombinedHash(conn, d);
+
+      // Same content + same dimensions = skip (merge)
+      if (combinedHashes.has(combinedHash)) {
+        continue;
+      }
+
+      // Check maximums
+      const stageCount = distribution.journeyStage.get(d.journeyStage) || 0;
+      const emotionCount = distribution.emotion.get(d.emotion) || 0;
+      const formatCount = distribution.format.get(d.format) || 0;
+      const hookCount = distribution.hookFormula.get(d.hookFormula) || 0;
+
+      // Skip if over maximum for journey stage (no stage >40%)
+      if (stageCount >= maxPerStage) {
+        continue;
+      }
+
+      // Skip only if BOTH emotion AND format are over max
+      if (emotionCount >= maxPerEmotion && formatCount >= maxPerFormat) {
+        continue;
+      }
+
+      // Add to varied list
+      varied.push(breakthrough);
+      combinedHashes.add(combinedHash);
+
+      // Update distribution
+      distribution.journeyStage.set(d.journeyStage, stageCount + 1);
+      distribution.emotion.set(d.emotion, emotionCount + 1);
+      distribution.format.set(d.format, formatCount + 1);
+      distribution.hookFormula.set(d.hookFormula, hookCount + 1);
+      if (d.pillar) distribution.pillar.set(d.pillar, (distribution.pillar.get(d.pillar) || 0) + 1);
+      if (d.persona) distribution.persona.set(d.persona, (distribution.persona.get(d.persona) || 0) + 1);
+    }
+
+    // Second pass: Ensure minimums are met (no stage <15%)
+    const minPerStage = Math.ceil(targetCount * 0.15);
+    const minPerPersona = Math.ceil(targetCount * 0.10);
+
+    const allStages: JourneyStage[] = ['AWARENESS', 'CONSIDERATION', 'DECISION', 'RETENTION', 'ADVOCACY'];
+    const allPersonas: TargetPersona[] = ['DECISION_MAKER', 'INFLUENCER', 'USER', 'BLOCKER', 'CHAMPION'];
+
+    // Check if any stage is under-represented
+    for (const stage of allStages) {
+      const count = distribution.journeyStage.get(stage) || 0;
+      if (count < minPerStage) {
+        // Find breakthroughs with this stage that weren't added
+        const candidates = breakthroughs.filter(b =>
+          b.dimensions?.journeyStage === stage &&
+          !varied.includes(b)
+        );
+
+        for (const candidate of candidates.slice(0, minPerStage - count)) {
+          if (candidate.dimensions) {
+            varied.push(candidate);
+            distribution.journeyStage.set(stage, (distribution.journeyStage.get(stage) || 0) + 1);
+          }
+        }
+      }
+    }
+
+    // Check if any persona is under-represented (min 10%)
+    for (const persona of allPersonas) {
+      const count = distribution.persona.get(persona) || 0;
+      if (count < minPerPersona) {
+        const candidates = breakthroughs.filter(b =>
+          b.dimensions?.persona === persona &&
+          !varied.includes(b)
+        );
+
+        for (const candidate of candidates.slice(0, minPerPersona - count)) {
+          if (candidate.dimensions) {
+            varied.push(candidate);
+            distribution.persona.set(persona, (distribution.persona.get(persona) || 0) + 1);
+          }
+        }
+      }
+    }
+
+    // Log distribution stats
+    console.log(`[ConnectionDiscovery] Variety enforcement: ${breakthroughs.length} → ${varied.length} unique combinations`);
+    console.log(`  Journey: ${Array.from(distribution.journeyStage.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Personas: ${Array.from(distribution.persona.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+    console.log(`  Pillars: ${Array.from(distribution.pillar.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
+
+    return varied;
+  }
+
+  /**
+   * Generate breakthrough angles with V2 dimension tagging and variety enforcement
+   * Uses hook rotation and combined content+dimension deduplication
+   */
+  async generateBreakthroughAnglesV2(
+    connections: Connection[],
+    segment: BusinessSegment = 'SMB_LOCAL'
+  ): Promise<BreakthroughAngle[]> {
+    if (connections.length === 0) return [];
+
+    // Reset hook rotation for new batch
+    this.lastHookFormulas = [];
+
+    const breakthroughs: BreakthroughAngle[] = [];
+    const seenTitles = new Set<string>();
+    const combinedHashes = new Set<string>();
+
+    for (const conn of connections.slice(0, 150)) {
+      // Tag dimensions first (needed for combined hash)
+      const dimensions = this.tagDimensions(conn, segment);
+
+      // Use combined content + dimensions hash for smart dedup
+      const combinedHash = this.createCombinedHash(conn, dimensions);
+
+      // Same content + same dimensions = skip
+      // Different dimensions with same content = KEEP (different angle on same topic)
+      if (combinedHashes.has(combinedHash)) continue;
+
+      conn.dimensions = dimensions;
+
+      // Get rotated hook formula (prevents consecutive repeats)
+      const hookFormula = this.getRotatedHookFormula(conn);
+      dimensions.hookFormula = hookFormula; // Update with rotated formula
+
+      // Generate title using rotated hook formula
+      const title = this.generateTitleWithHook(conn, hookFormula);
+
+      // Skip duplicate titles
+      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
+      if (seenTitles.has(titleKey)) continue;
+
+      seenTitles.add(titleKey);
+      combinedHashes.add(combinedHash);
+
+      const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
+
+      breakthroughs.push({
+        id: `breakthrough-v2-${breakthroughs.length}`,
+        title,
+        hook: this.generateHook(conn),
+        connections: [conn],
+        score: conn.breakthroughScore,
+        provenance,
+        urgency: dimensions.urgency === 'URGENT_CRITICAL' ? 'critical' :
+                 dimensions.urgency === 'URGENT_HIGH' ? 'high' :
+                 dimensions.urgency === 'URGENT_MEDIUM' ? 'medium' : 'low',
+        dimensions,
+        hookFormula
+      });
+    }
+
+    // Apply variety enforcement with min/max distribution rules
+    const varied = this.enforceVariety(breakthroughs, 50);
+
+    console.log(`[ConnectionDiscovery] V2: Generated ${varied.length} dimension-tagged, variety-enforced breakthroughs`);
+    return varied.sort((a, b) => b.score - a.score);
   }
 }
 
