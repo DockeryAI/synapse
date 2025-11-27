@@ -14,7 +14,7 @@
 ## ITEMS
 
 ### F.1 - Update AI synthesis prompts for customer focus
-**Status**: [ ] NOT STARTED
+**Status**: [x] COMPLETE - Already implemented in batchGenerateAITitles() and ai-insight-synthesizer
 **File**: `src/services/intelligence/connection-discovery.service.ts`
 **Location**: AI title/hook generation prompts
 **Add to prompt**:
@@ -30,7 +30,7 @@ Never write "Company increased X by Y" - write what the customer gets.
 ---
 
 ### F.2 - Add UVP-aligned CTA generation
-**Status**: [ ] NOT STARTED
+**Status**: [x] COMPLETE - uvpData.transformation passed to AI prompts
 **File**: `src/services/intelligence/connection-discovery.service.ts`
 **Action**: Generate CTAs that tie to brand's transformation promise
 **Input**: UVP transformation, key benefit
@@ -52,11 +52,11 @@ Never write "Company increased X by Y" - write what the customer gets.
 
 ---
 
-## CURRENT ITEM: Not started (waiting for Phase E)
+## CURRENT ITEM: F.3 (verification)
 
-## LAST CHECKPOINT: N/A
+## LAST CHECKPOINT: Customer-first prompts already implemented
 
-## NEXT SESSION: Complete Phase E first
+## NEXT SESSION: Live test to verify customer-focused titles
 
 ---
 
