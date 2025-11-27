@@ -57,24 +57,33 @@ interface AIProxyResponse {
 
 /**
  * Get API key for the specified provider
+ * ENHANCED: Multiple fallback keys and better diagnostics
  */
 function getProviderApiKey(provider: Provider): string | null {
-  const keyMap = {
-    openrouter: Deno.env.get('OPENROUTER_API_KEY'),
-    perplexity: Deno.env.get('PERPLEXITY_API_KEY'),
-    openai: Deno.env.get('OPENAI_API_KEY'),
+  // Try multiple key naming conventions for each provider
+  const keyVariants = {
+    openrouter: ['OPENROUTER_API_KEY', 'OPEN_ROUTER_API_KEY', 'OPENROUTER_KEY'],
+    perplexity: ['PERPLEXITY_API_KEY', 'PERPLEXITY_KEY'],
+    openai: ['OPENAI_API_KEY', 'OPENAI_KEY'],
   };
 
-  const key = keyMap[provider] || null;
+  const variants = keyVariants[provider] || [];
 
-  // Log key status (not the key itself)
-  if (key) {
-    console.log(`[AI-Proxy] ${provider} API key found (length: ${key.length})`);
-  } else {
-    console.error(`[AI-Proxy] ${provider} API key NOT FOUND in environment`);
+  for (const keyName of variants) {
+    const key = Deno.env.get(keyName);
+    if (key && key.length > 10) {
+      console.log(`[AI-Proxy] ${provider} API key found via ${keyName} (length: ${key.length})`);
+      return key;
+    }
   }
 
-  return key;
+  // Log all available env vars for debugging (keys only, not values)
+  const envKeys = Object.keys(Deno.env.toObject()).filter(k =>
+    k.includes('API') || k.includes('KEY') || k.includes('SECRET')
+  );
+  console.error(`[AI-Proxy] ${provider} API key NOT FOUND. Available env vars: ${envKeys.join(', ')}`);
+
+  return null;
 }
 
 /**
@@ -110,15 +119,69 @@ function validateRequest(req: AIProxyRequest): string | null {
 }
 
 /**
+ * Map model names to correct OpenRouter format
+ * Some code uses incorrect model IDs - fix them here
+ */
+function normalizeModelName(model: string, provider: Provider): string {
+  // Fix common model name issues for OpenRouter
+  // OpenRouter uses shorthand names without dates
+  if (provider === 'openrouter') {
+    const modelMappings: Record<string, string> = {
+      // Haiku variants - OpenRouter uses anthropic/claude-3.5-haiku (no date)
+      'anthropic/claude-3-haiku': 'anthropic/claude-3.5-haiku',
+      'anthropic/claude-3-haiku-20240307': 'anthropic/claude-3.5-haiku',
+      'anthropic/claude-3.5-haiku': 'anthropic/claude-3.5-haiku',
+      'anthropic/claude-3-5-haiku': 'anthropic/claude-3.5-haiku',
+      'anthropic/claude-3-5-haiku-20241022': 'anthropic/claude-3.5-haiku',
+      'anthropic/claude-haiku': 'anthropic/claude-3.5-haiku',
+      // Sonnet variants - OpenRouter uses anthropic/claude-sonnet-4
+      'anthropic/claude-3.5-sonnet': 'anthropic/claude-sonnet-4',
+      'anthropic/claude-3-5-sonnet': 'anthropic/claude-sonnet-4',
+      'anthropic/claude-3-5-sonnet-20241022': 'anthropic/claude-sonnet-4',
+      'anthropic/claude-sonnet-4': 'anthropic/claude-sonnet-4',
+      'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4',
+      // Opus variants
+      'anthropic/claude-opus-4': 'anthropic/claude-opus-4',
+      'anthropic/claude-opus-4.5': 'anthropic/claude-opus-4',
+      'anthropic/claude-3-opus': 'anthropic/claude-3-opus',
+      'anthropic/claude-3-opus-20240229': 'anthropic/claude-3-opus',
+    };
+
+    const normalized = modelMappings[model] || model;
+    if (normalized !== model) {
+      console.log(`[AI-Proxy] Model normalized: ${model} → ${normalized}`);
+    }
+    return normalized;
+  }
+  return model;
+}
+
+/**
  * Make request to AI provider
+ * ENHANCED: Auto-fallback to OpenAI if OpenRouter fails
  */
 async function callProvider(req: AIProxyRequest): Promise<AIProxyResponse> {
   const apiKey = getProviderApiKey(req.provider);
 
   if (!apiKey) {
+    // Try fallback to OpenAI if OpenRouter key is missing
+    if (req.provider === 'openrouter') {
+      console.log('[AI-Proxy] OpenRouter key missing, trying OpenAI fallback...');
+      const openaiKey = getProviderApiKey('openai');
+      if (openaiKey) {
+        // Convert the request to OpenAI format
+        const openaiReq: AIProxyRequest = {
+          ...req,
+          provider: 'openai',
+          model: 'gpt-4o-mini', // Fast and cheap fallback
+        };
+        return callProvider(openaiReq);
+      }
+    }
+
     return {
       success: false,
-      error: `API key not configured for provider: ${req.provider}`,
+      error: `API key not configured for provider: ${req.provider}. Check Supabase Edge Function secrets.`,
       provider: req.provider,
     };
   }
@@ -140,16 +203,20 @@ async function callProvider(req: AIProxyRequest): Promise<AIProxyResponse> {
     headers['X-Title'] = 'Synapse SMB Platform';
   }
 
+  // Normalize model name for the provider
+  const normalizedModel = normalizeModelName(req.model, req.provider);
+  console.log(`[AI-Proxy] Model: ${req.model} → ${normalizedModel}`);
+
   // Build request body based on endpoint
   let body: string;
   if (req.endpoint === 'embeddings') {
     body = JSON.stringify({
-      model: req.model,
+      model: normalizedModel,
       input: req.input,
     });
   } else {
     body = JSON.stringify({
-      model: req.model,
+      model: normalizedModel,
       messages: req.messages,
       temperature: req.temperature ?? 0.7,
       max_tokens: req.max_tokens,
