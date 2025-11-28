@@ -165,6 +165,8 @@ interface V4PowerModePanelProps {
   context?: DeepContext;  // Optional - will load if not provided
   onContentGenerated?: (content: GeneratedContent) => void;
   onSaveToCalendar?: (content: GeneratedContent) => void;
+  /** DEV MODE: Skip all external API calls, use cached/mock data only */
+  skipApis?: boolean;
 }
 
 // ============================================================================
@@ -3088,7 +3090,8 @@ export function V4PowerModePanel({
   brandId,
   context: providedContext,
   onContentGenerated,
-  onSaveToCalendar
+  onSaveToCalendar,
+  skipApis = false  // DEV MODE: Set to true to skip all external API calls
 }: V4PowerModePanelProps) {
   // State
   const [allInsights, setAllInsights] = useState<InsightCard[]>([]);
@@ -3174,6 +3177,108 @@ export function V4PowerModePanel({
           return;
         }
 
+        // DEV MODE: Skip API calls - try localStorage cache or use minimal context
+        if (skipApis) {
+          console.log('[V4PowerMode] 🔧 DEV MODE: Skipping API calls');
+          setLoadingStatus('DEV MODE: Loading cached data only...');
+
+          // Try localStorage cache first
+          const cachedKey = `deepContext_${brandId}`;
+          const cached = localStorage.getItem(cachedKey);
+          if (cached) {
+            try {
+              const cachedContext = JSON.parse(cached) as DeepContext;
+              console.log('[V4PowerMode] ✅ DEV MODE: Using localStorage cache');
+              setDeepContext(cachedContext);
+              const insights = await extractInsightsFromDeepContextAsync(cachedContext, uvp, (partialInsights, section) => {
+                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights (${section})`);
+              });
+              setAllInsights(insights);
+              setIsLoading(false);
+              return;
+            } catch (e) {
+              console.warn('[V4PowerMode] Failed to parse cached context:', e);
+            }
+          }
+
+          // No cache - create minimal context with just UVP data
+          console.log('[V4PowerMode] ⚠️ DEV MODE: No cache, using UVP-only context');
+          const minimalContext: DeepContext = {
+            business: {
+              profile: {
+                id: brandId,
+                name: uvp.brandName || 'Brand',
+                industry: uvp.industry || 'General',
+                website: uvp.websiteUrl || '',
+                location: { city: '', state: '', country: '' },
+                keywords: []
+              },
+              brandVoice: {
+                tone: ['professional'],
+                values: [],
+                personality: [],
+                avoidWords: [],
+                signaturePhrases: []
+              },
+              uniqueAdvantages: [],
+              goals: [],
+              uvp: {
+                targetCustomer: uvp.targetCustomer?.statement || '',
+                customerProblem: uvp.customerProblem?.statement || '',
+                desiredOutcome: uvp.transformationGoal?.statement || '',
+                uniqueSolution: uvp.uniqueSolution?.statement || '',
+                keyBenefit: uvp.keyBenefit?.statement || '',
+                emotionalDrivers: uvp.transformationGoal?.emotionalDrivers || [],
+                functionalDrivers: uvp.transformationGoal?.functionalDrivers || []
+              }
+            },
+            industry: {
+              profile: null,
+              trends: [],
+              seasonality: [],
+              competitiveLandscape: { topCompetitors: [], marketConcentration: 'moderate', barrierToEntry: 'medium' },
+              economicFactors: []
+            },
+            realTimeCultural: {},
+            competitiveIntel: {
+              blindSpots: [],
+              mistakes: [],
+              opportunities: [],
+              contentGaps: [],
+              positioningWeaknesses: []
+            },
+            customerPsychology: {
+              unarticulated: [],
+              emotional: [],
+              behavioral: [],
+              identityDesires: [],
+              purchaseMotivations: [],
+              objections: []
+            },
+            synthesis: {
+              keyInsights: [],
+              hiddenPatterns: [],
+              opportunityScore: 0,
+              recommendedAngles: [],
+              confidenceLevel: 0,
+              generatedAt: new Date()
+            },
+            rawDataPoints: [],
+            correlatedInsights: [],
+            metadata: {
+              aggregatedAt: new Date(),
+              dataSourcesUsed: ['uvp_only'],
+              processingTimeMs: 0,
+              version: 'dev-mode'
+            }
+          };
+          setDeepContext(minimalContext);
+          const insights = await extractInsightsFromDeepContextAsync(minimalContext, uvp, () => {});
+          setAllInsights(insights);
+          setIsLoading(false);
+          return;
+        }
+
         // PROGRESSIVE RENDERING: Extract and show insights AS APIs complete
         // Don't wait for AI synthesis - render local insights immediately
         console.log('[V4PowerMode] Building DeepContext with PROGRESSIVE rendering...');
@@ -3229,6 +3334,16 @@ export function V4PowerModePanel({
         // Final extraction with complete context
         setDeepContext(buildResult.context);
         setIsLoading(false);
+
+        // Cache context to localStorage for DEV MODE
+        try {
+          const cacheKey = `deepContext_${brandId}`;
+          localStorage.setItem(cacheKey, JSON.stringify(buildResult.context));
+          console.log('[V4PowerMode] 💾 Cached DeepContext to localStorage for dev mode');
+        } catch (e) {
+          // localStorage might be full or unavailable
+          console.warn('[V4PowerMode] Failed to cache context:', e);
+        }
 
         const insights = await extractInsightsFromDeepContextAsync(buildResult.context, uvp, (partialInsights, section) => {
           if (partialInsights.length > 0) {

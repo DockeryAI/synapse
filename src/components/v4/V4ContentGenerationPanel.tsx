@@ -809,6 +809,7 @@ export function V4ContentGenerationPanel({
                 onContentGenerated?.([content]);
               }}
               onSaveToCalendar={onSaveToCalendar}
+              skipApis={import.meta.env.VITE_SKIP_APIS === 'true'}
             />
           </div>
         </TabsContent>
