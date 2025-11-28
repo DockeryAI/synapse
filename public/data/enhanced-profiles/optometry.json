@@ -1,0 +1,1707 @@
+{
+  "industry": "Optometry",
+  "industry_name": "Optometry",
+  "naics_code": "621320",
+  "category": "Healthcare",
+  "subcategory": "Vision Care Services",
+  "customer_triggers": [
+    {
+      "trigger": "Failed driver's license vision test requiring immediate correction",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Child struggling in school due to undiagnosed vision problems",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Sudden vision changes causing work performance issues",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Broken glasses with no backup pair available",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Annual vision insurance benefits expiring within 30 days",
+      "urgency": 8,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Digital eye strain from increased screen time affecting productivity",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Contact lens supply running low with expired prescription",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Diabetes diagnosis requiring immediate eye health evaluation",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "New job requiring safety eyewear certification",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Age 40+ experiencing presbyopia affecting reading ability",
+      "urgency": 7,
+      "frequency": "Daily"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Patient notices vision changes, searches 'eye doctor near me' or 'vision insurance providers', compares 5-7 practices based on insurance acceptance, reviews averaging 4.3+ stars, and convenient location within 10 miles",
+    "consideration": "Evaluates 3-4 practices based on appointment availability within 7 days, frame selection variety with 200+ options, technology like retinal imaging, and total cost transparency including insurance coverage",
+    "decision": "Books appointment after confirming insurance benefits showing coverage details, influenced by online scheduling availability, same-day glasses options, and responsive staff returning calls within 2 hours",
+    "retention": "Returns annually when reminded via automated text/email campaigns, maintains loyalty through frame warranty programs, contact lens subscriptions with auto-delivery, and family account benefits with 20% multi-person discounts",
+    "advocacy": "Refers average of 3 family members within first year, shares frame selfies on social media generating 5-10 inquiries, leaves detailed Google reviews mentioning specific staff members after positive experiences"
+  },
+  "transformations": [
+    {
+      "from": "Constant headaches and eye strain",
+      "to": "Clear, comfortable vision all day",
+      "emotional_value": "Relief and renewed energy",
+      "worth_premium": true
+    },
+    {
+      "from": "Child failing in school",
+      "to": "Honor roll student after vision correction",
+      "emotional_value": "Parental relief and child's confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Unable to drive at night",
+      "to": "Safe, confident night driving",
+      "emotional_value": "Independence and freedom maintained",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassed by thick glasses",
+      "to": "Stylish, confident appearance",
+      "emotional_value": "Self-esteem and professional image",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing early disease signs",
+      "to": "Prevented vision loss through early detection",
+      "emotional_value": "Sight preservation and peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with contacts",
+      "to": "Perfect fit with new technology lenses",
+      "emotional_value": "Convenience and lifestyle enhancement",
+      "worth_premium": false
+    },
+    {
+      "from": "Computer vision syndrome",
+      "to": "Productive 8-hour workdays",
+      "emotional_value": "Career advancement and comfort",
+      "worth_premium": true
+    },
+    {
+      "from": "Sports performance hindered",
+      "to": "Athletic excellence with sports vision",
+      "emotional_value": "Competitive edge and achievement",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "20/20 vision or better achieved",
+      "timeframe": "Same day with correction",
+      "measurable": true
+    },
+    {
+      "metric": "Eye strain symptoms eliminated",
+      "timeframe": "1-2 weeks with new prescription",
+      "measurable": true
+    },
+    {
+      "metric": "Contact lens comfort rating 9+/10",
+      "timeframe": "After fitting adjustments",
+      "measurable": true
+    },
+    {
+      "metric": "Glaucoma risk factors identified and monitored",
+      "timeframe": "Annual screening",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction score above 95%",
+      "timeframe": "Post-appointment survey",
+      "measurable": true
+    },
+    {
+      "metric": "Insurance claim approval rate over 98%",
+      "timeframe": "Within 48 hours",
+      "measurable": true
+    },
+    {
+      "metric": "Glasses ready in under 1 hour",
+      "timeframe": "For in-stock lenses",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Vision insurance benefits expire December 31st with $150 allowance forfeited",
+    "Back-to-school deadline requiring vision clearance for sports participation",
+    "DMV renewal notice with vision test requirement within 30 days",
+    "Progressive lens adaptation period of 2-3 weeks before important events",
+    "Contact lens trial expiring requiring purchase decision within 60 days",
+    "Employer FSA funds use-it-or-lose-it by plan year end",
+    "Holiday photo sessions wanting new glasses to arrive in time"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Designer frames too expensive even with insurance",
+      "response": "Offer exclusive package deals saving 40%, price match guarantees, 12-month no-interest financing, and quality generic alternatives at 50% less",
+      "effectiveness": 76
+    },
+    {
+      "objection": "Can buy glasses cheaper online",
+      "response": "Emphasize professional fitting preventing returns, immediate adjustments, local warranty service, and free repairs saving long-term costs",
+      "effectiveness": 72
+    },
+    {
+      "objection": "Don't have time for eye exam",
+      "response": "Provide lunch-hour express exams, Saturday appointments, pre-registration saving 15 minutes, and mobile clinic options",
+      "effectiveness": 79
+    },
+    {
+      "objection": "Current prescription still works fine",
+      "response": "Explain 40% of vision problems develop gradually unnoticed, offer free retinal screening showing hidden issues, emphasize preventive care value",
+      "effectiveness": 68
+    },
+    {
+      "objection": "Hate dilated exam side effects",
+      "response": "Offer Optomap retinal imaging as dilation alternative for additional $39, schedule late-day appointments, provide disposable sunglasses",
+      "effectiveness": 81
+    },
+    {
+      "objection": "Insurance doesn't cover enough",
+      "response": "Show total value including free adjustments, warranty, and cleanings worth $200+ annually, offer cash discounts for non-covered services",
+      "effectiveness": 74
+    },
+    {
+      "objection": "Kids won't wear glasses",
+      "response": "Let children choose from fun kids' frames, share success stories, offer sports goggles alternative, provide 1-year replacement warranty",
+      "effectiveness": 83
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "90-day prescription satisfaction guarantee with free recheck",
+      "Frame warranty against breakage for 1-2 years",
+      "Price match plus 10% on identical frames found cheaper",
+      "Contact lens comfort guarantee with free exchanges"
+    ],
+    "proof_points": [
+      "15,000+ satisfied patients with 4.8 average rating",
+      "Latest OCT technology detecting problems 5 years earlier",
+      "Board-certified optometrists with 20+ years experience",
+      "Insurance approval rate of 98.5% with dedicated billing team"
+    ],
+    "risk_mitigation": "Comprehensive pre-appointment insurance verification showing exact costs, flexible payment plans with 0% interest for 12 months, remake policy for prescription changes within 60 days at no charge"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "blurry",
+      "headaches",
+      "squinting",
+      "eye strain",
+      "can't see board",
+      "computer fatigue",
+      "dry eyes",
+      "halos",
+      "floaters"
+    ],
+    "solution_words": [
+      "crystal clear",
+      "sharp vision",
+      "comfortable",
+      "stylish",
+      "affordable",
+      "convenient",
+      "protected",
+      "healthy eyes",
+      "perfect fit"
+    ],
+    "avoid_jargon": [
+      "refraction",
+      "accommodation",
+      "astigmatism axis",
+      "pupillary distance",
+      "vertex distance",
+      "pantoscopic tilt",
+      "myopia",
+      "hyperopia",
+      "presbyopia"
+    ]
+  },
+  "power_words": [
+    "crystal-clear",
+    "sharp",
+    "precision",
+    "advanced",
+    "protective",
+    "designer",
+    "customized",
+    "innovative",
+    "breakthrough",
+    "high-definition",
+    "premium",
+    "exclusive",
+    "state-of-the-art",
+    "comprehensive",
+    "guaranteed",
+    "instant",
+    "perfect-fit",
+    "revolutionary",
+    "cutting-edge",
+    "professional",
+    "certified",
+    "trusted",
+    "leading-edge",
+    "superior",
+    "optimal",
+    "enhanced",
+    "maximum",
+    "ultra-thin",
+    "lightweight",
+    "durable"
+  ],
+  "avoid_words": [
+    "cheap",
+    "basic",
+    "standard",
+    "adequate",
+    "sufficient",
+    "okay",
+    "decent",
+    "average",
+    "typical",
+    "common",
+    "simple",
+    "plain",
+    "generic",
+    "budget",
+    "economy",
+    "mediocre",
+    "acceptable",
+    "satisfactory",
+    "ordinary",
+    "regular"
+  ],
+  "headline_templates": [
+    {
+      "template": "See Clearly Today: Same-Day Glasses with Insurance",
+      "expected_ctr": 5.3,
+      "use_case": "Insurance marketing"
+    },
+    {
+      "template": "Kids See Free: Back-to-School Vision Exams",
+      "expected_ctr": 8.7,
+      "use_case": "Seasonal promotion"
+    },
+    {
+      "template": "Use Your Benefits: $150 Expires December 31st",
+      "expected_ctr": 9.2,
+      "use_case": "Year-end insurance"
+    },
+    {
+      "template": "1-Hour Glasses: Why Wait Weeks?",
+      "expected_ctr": 6.8,
+      "use_case": "Competitive advantage"
+    },
+    {
+      "template": "Digital Eye Strain? Computer Glasses Change Everything",
+      "expected_ctr": 7.4,
+      "use_case": "Problem-specific"
+    },
+    {
+      "template": "LASIK Alternative: New Contact Lens Technology",
+      "expected_ctr": 5.9,
+      "use_case": "Innovation showcase"
+    },
+    {
+      "template": "Designer Frames 50% Off: Insurance Plus Sale",
+      "expected_ctr": 10.3,
+      "use_case": "Promotional event"
+    },
+    {
+      "template": "Diabetes? Your Eyes Need Checking Now",
+      "expected_ctr": 6.1,
+      "use_case": "Medical urgency"
+    },
+    {
+      "template": "Blue Light Protection: Sleep Better Tonight",
+      "expected_ctr": 7.8,
+      "use_case": "Trending concern"
+    },
+    {
+      "template": "Free Eye Exams for Uninsured Families",
+      "expected_ctr": 11.2,
+      "use_case": "Community outreach"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Eye Exam Online Now",
+      "conversion_rate": 13.7,
+      "placement": "Website header"
+    },
+    {
+      "template": "Check Your Insurance Coverage →",
+      "conversion_rate": 18.2,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Schedule Kids' Exams - 2 for $99",
+      "conversion_rate": 15.3,
+      "placement": "Family promotions"
+    },
+    {
+      "template": "Get Same-Day Glasses",
+      "conversion_rate": 11.8,
+      "placement": "Google Ads"
+    },
+    {
+      "template": "Use Benefits Before They Expire",
+      "conversion_rate": 16.9,
+      "placement": "Email campaigns"
+    },
+    {
+      "template": "Try Contacts Free for 2 Weeks",
+      "conversion_rate": 14.2,
+      "placement": "Contact lens page"
+    },
+    {
+      "template": "Save $100 on Complete Pairs",
+      "conversion_rate": 12.6,
+      "placement": "Promotional banner"
+    },
+    {
+      "template": "Text EYES to 44444 for Instant Appointment",
+      "conversion_rate": 17.4,
+      "placement": "Mobile marketing"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "👓 FACT: 80% of learning happens through vision. Is your child's vision holding them back? Free screenings this Saturday!",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "Frame Friday! 🤓 Which style fits your personality? Swipe to see our top 10 trending frames. DM for virtual try-on!",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Employers: Vision benefits increase productivity by 22%. Here's our corporate vision care program saving companies thousands.",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Watch this contact lens go in perfectly EVERY time! Our 30-second insertion technique. Full tutorial linked below.",
+      "engagement_rate": 14.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You finally get glasses and realize trees have individual leaves 🌳👀 #FirstGlasses #LifeChanging #ClearVision",
+      "engagement_rate": 22.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "Reminder: FSA funds expire soon! Book your eye exam and get new glasses before losing your benefits. Link in bio.",
+      "engagement_rate": 4.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "2024 Eyewear Trends: Bold frames, sustainable materials, and blue light protection. Save this style guide!",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐ Flash Sale: Buy one complete pair, get 50% off second pair! Today and tomorrow only. Call 555-EYES now!",
+      "engagement_rate": 10.6
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors: We're collecting old glasses for Lions Club donation. Drop off anytime and get 20% off your next exam!",
+      "engagement_rate": 13.9
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day glasses with on-site lab saving weeks of waiting",
+      "rank": 1,
+      "differentiator": "Only practice with complete lab facility"
+    },
+    {
+      "prop": "Advanced retinal imaging detecting diseases 5 years earlier",
+      "rank": 2,
+      "differentiator": "Latest OCT and Optomap technology"
+    },
+    {
+      "prop": "1,000+ designer frames with virtual try-on technology",
+      "rank": 3,
+      "differentiator": "Largest selection in 50-mile radius"
+    },
+    {
+      "prop": "Family eye care from pediatric to geriatric specialists",
+      "rank": 4,
+      "differentiator": "Multi-generational expertise"
+    },
+    {
+      "prop": "Direct insurance billing with zero paperwork for patients",
+      "rank": 5,
+      "differentiator": "Dedicated insurance team handles everything"
+    },
+    {
+      "prop": "Lifetime frame adjustments and repairs at no charge",
+      "rank": 6,
+      "differentiator": "Commitment beyond the sale"
+    },
+    {
+      "prop": "24/7 emergency eye care hotline for urgent issues",
+      "rank": 7,
+      "differentiator": "Always available when needed"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience luxury vision care with our curated collection of exclusive designer frames, personalized styling consultations, and concierge-level service. Our doctorate-level optometrists use the most advanced diagnostic technology, ensuring your eyes receive the exceptional care they deserve in our boutique setting.",
+    "budget_conscious": "Vision care shouldn't strain your budget. We accept all major insurance plans, offer $99 complete pairs, and provide flexible payment options starting at $25/month. Our value packages include free eye exams for kids, BOGO deals on frames, and significant discounts for uninsured patients.",
+    "enterprise": "Optimize workforce productivity with comprehensive corporate vision benefits. Our on-site vision screenings, safety eyewear programs, and direct billing reduce administrative burden while improving employee satisfaction. Companies report 18% fewer sick days and 22% productivity gains after implementing our vision wellness programs."
+  },
+  "trust_signals": [
+    {
+      "signal": "American Optometric Association member certification",
+      "importance": 8,
+      "format": "Displayed credentials and logos"
+    },
+    {
+      "signal": "20+ years serving the local community",
+      "importance": 9,
+      "format": "Heritage story and timeline"
+    },
+    {
+      "signal": "4.8 star rating from 1,500+ Google reviews",
+      "importance": 10,
+      "format": "Live review feed widget"
+    },
+    {
+      "signal": "Latest diagnostic technology investments",
+      "importance": 7,
+      "format": "Equipment showcase videos"
+    },
+    {
+      "signal": "Continuing education and specialty certifications",
+      "importance": 6,
+      "format": "Doctor bio pages"
+    },
+    {
+      "signal": "Hospital and specialist referral partnerships",
+      "importance": 8,
+      "format": "Professional affiliations list"
+    },
+    {
+      "signal": "Community involvement and vision charity work",
+      "importance": 7,
+      "format": "Social responsibility page"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "25,000+ patients trusting us with their vision since 2005",
+      "credibility_score": 8.7,
+      "context": "Established practice longevity"
+    },
+    {
+      "stat": "98% of patients achieve 20/20 vision or better",
+      "credibility_score": 9.1,
+      "context": "Prescription accuracy excellence"
+    },
+    {
+      "stat": "Detected 450+ cases of early eye disease last year",
+      "credibility_score": 9.3,
+      "context": "Preventive care expertise"
+    },
+    {
+      "stat": "Average 4.8 star rating from verified patients",
+      "credibility_score": 8.9,
+      "context": "Consistent service quality"
+    },
+    {
+      "stat": "Referred by 30+ local physicians",
+      "credibility_score": 8.4,
+      "context": "Medical community trust"
+    },
+    {
+      "stat": "15-minute average wait time vs. 35-minute industry standard",
+      "credibility_score": 7.8,
+      "context": "Operational efficiency"
+    }
+  ],
+  "quality_indicators": [
+    "Board-certified optometrists versus opticians-only locations",
+    "OCT and visual field testing versus basic chart exams only",
+    "1-hour on-site lab versus 2-week send-out service",
+    "Designer authentic frames versus generic lookalikes",
+    "Comprehensive 45-minute exams versus 15-minute rushed appointments",
+    "Digital measurements and fitting versus manual estimation",
+    "Specialty contact lens fitting versus standard options only"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "One week after receiving new glasses when adaptation complete and satisfaction peaks, or immediately after solving complex vision problem",
+    "ask_method": "Text message with direct link to Google review page sent at 10am when email open rates highest, followed by in-office tablet during next visit if not completed"
+  },
+  "competitive_advantages": [
+    "Only practice with pediatric vision therapy program in county",
+    "Exclusive Zeiss lens partnership with advanced coatings",
+    "Same-day service while competitors require 7-14 days",
+    "Multilingual staff serving diverse community needs",
+    "Virtual consultations and online prescription renewals",
+    "Mobile clinic reaching underserved rural areas monthly"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show designer frames at $500+ first, making $250 frames seem reasonable",
+    "sensitivity": "Package deals hiding individual component costs reduce sticker shock",
+    "sweet_spots": [
+      "$200 complete pair threshold",
+      "$400 progressive lens acceptance",
+      "$99 exam price point",
+      "$600 annual family budget"
+    ],
+    "decoy_pricing": "Premium lens package at $450 makes $250 standard package preferred choice"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 400,
+    "competitor_research": 250
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Value Vision",
+      "price_range": "$99-199 complete",
+      "target_customer": "Budget-conscious families",
+      "margin": 38
+    },
+    {
+      "tier": "Premium Clarity",
+      "price_range": "$400-600 complete",
+      "target_customer": "Quality-focused professionals",
+      "margin": 55
+    },
+    {
+      "tier": "Executive Optical",
+      "price_range": "$800-1500 complete",
+      "target_customer": "Luxury consumers",
+      "margin": 68
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Lens coating bundles increase transaction value by 45% at 70% margins",
+    "Contact lens subscriptions generate recurring revenue with 42% margins",
+    "Multiple pair discounts increase units per transaction by 2.3x",
+    "Warranty programs add $89 per transaction at 85% profit margin",
+    "Accessories and care products contribute 15% of revenue at 65% margin",
+    "Managed care contracts ensure patient volume despite lower margins"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 125,
+      "reason": "New insurance benefits and FSA reset",
+      "opportunity": "Insurance benefit education campaigns"
+    },
+    {
+      "month": "February",
+      "variation": 105,
+      "reason": "Post-holiday normalized demand",
+      "opportunity": "Valentine's frame promotions"
+    },
+    {
+      "month": "March",
+      "variation": 115,
+      "reason": "Spring break family appointments",
+      "opportunity": "Family package deals"
+    },
+    {
+      "month": "April",
+      "variation": 108,
+      "reason": "Tax refund spending",
+      "opportunity": "Luxury frame promotions"
+    },
+    {
+      "month": "May",
+      "variation": 112,
+      "reason": "Graduation and wedding season",
+      "opportunity": "Special occasion packages"
+    },
+    {
+      "month": "June",
+      "variation": 118,
+      "reason": "Summer vacation preparation",
+      "opportunity": "Sunglasses and sports eyewear"
+    },
+    {
+      "month": "July",
+      "variation": 122,
+      "reason": "Back-to-school preparation begins",
+      "opportunity": "Student discounts"
+    },
+    {
+      "month": "August",
+      "variation": 145,
+      "reason": "Back-to-school rush peak",
+      "opportunity": "Kids see free promotions"
+    },
+    {
+      "month": "September",
+      "variation": 130,
+      "reason": "School vision screening referrals",
+      "opportunity": "Pediatric specialization marketing"
+    },
+    {
+      "month": "October",
+      "variation": 120,
+      "reason": "Benefits reminder period begins",
+      "opportunity": "Insurance maximization campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 135,
+      "reason": "Black Friday and holiday shopping",
+      "opportunity": "BOGO and gift certificates"
+    },
+    {
+      "month": "December",
+      "variation": 140,
+      "reason": "Year-end benefit expiration",
+      "opportunity": "Urgent benefit use messaging"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Complex prescriptions and fittings",
+      "avoid": "Walk-in availability",
+      "conversion_rate": 15.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Pediatric exams after school",
+      "avoid": "Senior discounts",
+      "conversion_rate": 12.7
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Contact lens training",
+      "avoid": "Frame sales events",
+      "conversion_rate": 13.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Insurance verification calls",
+      "avoid": "Emergency appointments",
+      "conversion_rate": 14.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Quick prescription renewals",
+      "avoid": "Complex cases",
+      "conversion_rate": 11.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family appointments and sales",
+      "avoid": "Insurance processing",
+      "conversion_rate": 18.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency care if open",
+      "avoid": "Routine exams",
+      "conversion_rate": 9.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Patients most likely to purchase on 1st and 15th coinciding with paychecks",
+    "cash_flow_peaks": "Days 10-15 when insurance reimbursements arrive, days 25-30 for patient payments",
+    "slow_periods": "Mid-month days 16-24 when discretionary spending decreases"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Saturday morning",
+      "crisis_type": "Broken glasses emergency",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Monday 7-9 AM",
+      "crisis_type": "Lost contact before work",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Friday evening",
+      "crisis_type": "Weekend event preparation",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "School mornings",
+      "crisis_type": "Child's glasses broken",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Family Vision Plan",
+      "components": [
+        "4 exams",
+        "4 complete pairs",
+        "20% off additional pairs",
+        "Free adjustments"
+      ],
+      "pricing_model": "$799 annual",
+      "margin": 48
+    },
+    {
+      "name": "Contact Lens Program",
+      "components": [
+        "Fitting and training",
+        "6-month supply",
+        "Solutions kit",
+        "Backup glasses"
+      ],
+      "pricing_model": "$450 package",
+      "margin": 52
+    },
+    {
+      "name": "Computer Vision Package",
+      "components": [
+        "Digital eye strain exam",
+        "Computer glasses",
+        "Blue light coating",
+        "Ergonomic consultation"
+      ],
+      "pricing_model": "$375 complete",
+      "margin": 61
+    },
+    {
+      "name": "Sports Vision Performance",
+      "components": [
+        "Athletic vision assessment",
+        "Sports-specific eyewear",
+        "Vision training exercises",
+        "Impact protection"
+      ],
+      "pricing_model": "$425 program",
+      "margin": 57
+    }
+  ],
+  "upsell_paths": [
+    "Basic exam → Complete pair purchase ($250) → Second pair 50% off ($125)",
+    "Single vision → Progressive lenses upgrade (+$150) → Premium coatings (+$89)",
+    "Glasses only → Daily contacts trial → Annual supply purchase ($380)",
+    "Standard frames → Designer upgrade (+$100-200) → Matching sunglasses (+$200)",
+    "Individual → Family plan enrollment → Annual prepaid packages",
+    "In-office → Home try-on service → Concierge styling consultation (+$75)"
+  ],
+  "retention_hooks": [
+    "Annual reminder system with personalized messages 30 days before benefits expire",
+    "Contact lens auto-delivery subscriptions with 10% discount ensuring regular touchpoints",
+    "Free lifetime adjustments and minor repairs creating ongoing relationship",
+    "Birthday month promotions offering 25% off second pairs maintaining engagement",
+    "Referral rewards program providing $50 credits for each new patient referred",
+    "VIP membership with priority scheduling and exclusive frame previews for $99/year",
+    "Family account linking with shared benefits and multi-person appointment scheduling"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Family member incentives",
+      "timing": "During successful appointment",
+      "incentive": "$50 off for each family member",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Social media photo contests",
+      "timing": "New glasses pickup",
+      "incentive": "Monthly drawing for free pair",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "School vision screening partnerships",
+      "timing": "Fall and spring semesters",
+      "incentive": "Free exams for referred students",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Employer wellness programs",
+      "timing": "Open enrollment periods",
+      "incentive": "Corporate discounts and on-site services",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Medical provider cross-referrals",
+      "timing": "Diabetic and hypertension diagnoses",
+      "incentive": "Coordinated care protocols",
+      "conversion_rate": 37
+    },
+    {
+      "strategy": "Community event sponsorships",
+      "timing": "Health fairs and festivals",
+      "incentive": "Free vision screenings and coupons",
+      "conversion_rate": 23
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Prescription sunglasses",
+      "attach_rate": 42,
+      "timing": "During frame selection for clear glasses"
+    },
+    {
+      "service": "Blue light protection coating",
+      "attach_rate": 58,
+      "timing": "When discussing computer use"
+    },
+    {
+      "service": "Contact lens supplies",
+      "attach_rate": 67,
+      "timing": "At contact lens fitting completion"
+    },
+    {
+      "service": "Lens cleaning products",
+      "attach_rate": 71,
+      "timing": "At glasses pickup"
+    },
+    {
+      "service": "Backup pair of glasses",
+      "attach_rate": 31,
+      "timing": "During insurance benefit discussion"
+    },
+    {
+      "service": "Children's sports goggles",
+      "attach_rate": 26,
+      "timing": "During pediatric exams"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Telehealth consultations for prescription renewals",
+      "market_size": "$1.2M annually",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Corporate mobile vision screening services",
+      "market_size": "$2.1M annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Specialty dry eye treatment center",
+      "market_size": "$1.8M annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Multi-location expansion to underserved suburbs",
+      "market_size": "$4.5M annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Vision therapy program for learning disabilities",
+      "market_size": "$1.5M annually",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Luxury eyewear boutique targeting affluent market",
+      "market_size": "$2.3M annually",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Warby Parker's 'Home Try-On' program content series showing real customers trying 5 frames at home, featuring user-generated content and authentic reactions",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Removed purchase anxiety by letting customers visualize themselves in frames, leveraged social proof through UGC, created shareable moments that friends/family could comment on",
+        "metrics": "Warby Parker's Instagram has 1.1M followers with avg engagement rate of 0.8-1.2%, Home Try-On posts consistently get 2-3x higher engagement than product-only posts",
+        "source": "Social Media Today case studies, Warby Parker Instagram analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "MyEyeDr's 'Back to School Vision' campaign featuring before/after stories of children whose grades improved after getting glasses, with parent testimonials",
+        "platform": "Facebook/Email",
+        "why_it_worked": "Tapped into parental anxiety about child's academic performance, used emotional storytelling with measurable outcomes (grade improvements), timed perfectly with school season urgency",
+        "metrics": "Campaign generated 34% increase in pediatric appointments during August-September period, email open rates of 28% vs industry avg of 21%",
+        "source": "Optometry Marketing Case Studies, Healthcare Success blog",
+        "confidence": "medium"
+      },
+      {
+        "example": "LensCrafters' '1 Hour Glasses' emergency service content showing real-time countdown videos of glasses being made while customer waits",
+        "platform": "YouTube/Instagram Stories",
+        "why_it_worked": "Demonstrated speed and convenience visually, addressed urgent need state (broken glasses), created engaging time-lapse content that was inherently watchable",
+        "metrics": "YouTube videos averaged 45K-80K views, 3.2% CTR to store locator, Instagram Stories had 67% completion rate vs 45% average",
+        "source": "LensCrafters YouTube channel, Retail Dive marketing analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Independent optometry practice viral TikTok series 'What your eye doctor really sees' showing actual retinal images and explaining what they reveal about health",
+        "platform": "TikTok",
+        "why_it_worked": "Educational content that was genuinely fascinating, used fear appeal (showing disease signs) balanced with expertise, leveraged TikTok's algorithm favoring educational content",
+        "metrics": "Videos in series ranged from 100K-2.3M views, 8-12% engagement rate, drove 156% increase in comprehensive eye exam bookings",
+        "source": "TikTok optometry accounts analysis, Optometry Times digital marketing report",
+        "confidence": "medium"
+      },
+      {
+        "example": "VSP Vision Care's 'Use It Before You Lose It' year-end insurance benefits campaign with countdown timers and benefit calculators",
+        "platform": "Email/Display Ads",
+        "why_it_worked": "Created urgency around expiring benefits (loss aversion), provided clear value calculation showing money left on table, simple CTA to book appointment",
+        "metrics": "December campaigns generate 42% of annual appointment volume, email CTR of 8.3% vs 2.1% average, conversion rate of 23%",
+        "source": "VSP marketing materials, Vision Monday industry reports",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13-0.18% for healthcare/optometry posts",
+        "best_content_format": "Video content (especially patient testimonials and before/after transformations) outperforms static images by 3x, carousel posts showing frame collections get 2x engagement",
+        "optimal_frequency": "4-7 posts per week, with 1-2 being educational content",
+        "best_posting_times": "Tuesday-Thursday 1-3pm, Saturday 9-11am when people research weekend appointments",
+        "source": "Rival IQ Healthcare Social Media Benchmark Report 2024, Hootsuite Healthcare Industry Data"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.9-1.3% for optometry/eyewear brands",
+        "best_content_format": "Reels (5.2% avg engagement), Stories with polls/questions (67% completion rate), carousel posts showing frame styling options",
+        "optimal_frequency": "5-7 feed posts per week, daily Stories, 3-4 Reels per week",
+        "best_posting_times": "Monday/Wednesday/Friday 11am-1pm, evenings 7-9pm for consumer engagement",
+        "source": "Later.com 2024 Instagram Benchmarks, Sprout Social Healthcare Industry Report"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 21.3%, Click rate: 2.8% for healthcare/optometry",
+        "best_content_format": "Personalized appointment reminders (38% open rate), insurance benefit updates (32% open rate), educational eye health tips (24% open rate)",
+        "optimal_frequency": "2-3 emails per month for general list, weekly for active patients",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Sunday evening 6-8pm for planning week ahead",
+        "source": "Mailchimp Healthcare Industry Benchmarks 2024, Constant Contact Medical Practice Data"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Local healthcare searches convert at 28% to phone calls or direction requests",
+        "best_content_format": "Posts with appointment availability, Q&A responses, photos of office/staff (increase engagement by 42%), review responses",
+        "optimal_frequency": "2-3 posts per week, daily review monitoring and responses",
+        "best_posting_times": "Updates posted Monday mornings for week-ahead planning, Friday for weekend availability",
+        "source": "BrightLocal Local Healthcare Search Study 2024, Google Business Profile Healthcare Insights"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3-8.7% for healthcare educational content",
+        "best_content_format": "Educational videos under 60 seconds, 'day in the life' content, myth-busting, behind-the-scenes of eye exams",
+        "optimal_frequency": "3-5 videos per week for growth phase",
+        "best_posting_times": "Tuesday/Thursday 7-9am and 7-9pm EST when users scroll during commute/evening",
+        "source": "Influencer Marketing Hub TikTok Benchmarks 2024, Healthcare content creator analytics"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgent Loss Aversion",
+        "example": "Your vision insurance expires in 30 days. Here's what you're losing...",
+        "why_it_works": "Triggers loss aversion bias stronger than gain framing, creates deadline urgency, quantifies specific loss which feels more real than abstract benefit",
+        "source": "VSP and EyeMed marketing campaigns, A/B testing data from optometry email campaigns"
+      },
+      {
+        "hook_pattern": "Hidden Problem Revelation",
+        "example": "Your headaches aren't from stress. Here's what your eyes are trying to tell you...",
+        "why_it_works": "Reframes familiar symptom as vision problem, creates aha moment, positions optometrist as detective solving mystery",
+        "source": "High-performing optometry blog posts, Reddit r/optometry top posts analysis"
+      },
+      {
+        "hook_pattern": "Social Proof with Specificity",
+        "example": "How Sarah went from C's to Honor Roll after one eye exam",
+        "why_it_works": "Uses specific name and measurable outcome, taps into parental anxiety, implies simple solution to complex problem",
+        "source": "MyEyeDr and Pearle Vision case study campaigns"
+      },
+      {
+        "hook_pattern": "Time-Bound Transformation",
+        "example": "New glasses in 1 hour. Here's how we do it...",
+        "why_it_works": "Addresses urgent need state, specific timeframe builds credibility, process transparency reduces skepticism",
+        "source": "LensCrafters marketing materials, same-day service campaigns"
+      },
+      {
+        "hook_pattern": "Authority-Based Warning",
+        "example": "Eye doctors are seeing this dangerous trend in 40+ patients...",
+        "why_it_works": "Establishes expertise, creates curiosity gap, uses age-specific targeting, implies insider knowledge",
+        "source": "Optometry practice blog headlines, American Optometric Association content"
+      },
+      {
+        "hook_pattern": "Cost Justification Formula",
+        "example": "Your insurance covers $X. Here's how to maximize every dollar...",
+        "why_it_works": "Removes price objection by focusing on value extraction, educational rather than salesy, empowers customer decision",
+        "source": "Vision insurance provider marketing, optometry practice email campaigns"
+      },
+      {
+        "hook_pattern": "Lifestyle Aspiration",
+        "example": "See every detail on the road at night (without the glare)",
+        "why_it_works": "Focuses on specific lifestyle benefit not generic vision, addresses common fear (night driving), parenthetical adds specificity",
+        "source": "Premium lens marketing campaigns, anti-reflective coating advertising"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I didn't realize my kid couldn't see the board until the teacher called",
+        "Headaches every day by 3pm from staring at screens",
+        "Can't drive at night anymore because of the halos around lights",
+        "My glasses broke and I literally cannot function without them",
+        "Squinting all day is exhausting and I look angry all the time",
+        "Eyes are so dry and irritated from contacts by afternoon",
+        "Insurance is about to reset and I'll lose my benefits",
+        "Failed the DMV vision test and can't renew my license",
+        "Reading my phone at arm's length and still can't see it clearly",
+        "Constant eye strain and fatigue is killing my productivity"
+      ],
+      "solution_phrases": [
+        "Finally found frames that actually look good on my face",
+        "Can see clearly all day without headaches for the first time in years",
+        "My kid's confidence totally changed after getting glasses",
+        "Night driving is actually comfortable now with the anti-glare coating",
+        "Same-day service saved me when my glasses broke before a presentation",
+        "The blue light lenses made such a difference for screen time",
+        "They maximized my insurance benefits and I got everything I needed",
+        "Comprehensive exam caught early signs before I had symptoms",
+        "Progressive lenses with no adjustment period - game changer",
+        "Designer frames that make me feel confident, not nerdy"
+      ],
+      "objection_phrases": [
+        "Insurance doesn't cover much so it's going to be expensive anyway",
+        "I can just get cheap readers from the drugstore",
+        "Don't have time for an appointment that takes forever",
+        "Online glasses are so much cheaper, why pay more",
+        "My vision hasn't changed, don't need an exam every year",
+        "Worried about being pressured into expensive upgrades I don't need",
+        "Can I really trust the prescription will be right",
+        "What if I don't like how the frames look on me",
+        "Contacts are too much hassle to maintain",
+        "I'll just wait until my vision gets worse"
+      ],
+      "decision_factors": [
+        "Takes my insurance and can verify benefits before appointment",
+        "Same-day or next-day appointments available",
+        "Wide selection of frames in my price range and style",
+        "Can try on frames at home before committing",
+        "Doctor takes time to explain what they're seeing and why it matters",
+        "Modern equipment and technology, not outdated",
+        "Convenient location near work or home",
+        "Good reviews specifically mentioning staff being helpful not pushy",
+        "Clear pricing upfront with no surprise charges",
+        "Warranty or satisfaction guarantee on glasses"
+      ],
+      "emotional_language": [
+        "Relief that I finally know what was causing the problem",
+        "Confidence to drive at night again without fear",
+        "Peace of mind knowing they caught it early",
+        "Frustrated that I waited so long and suffered unnecessarily",
+        "Grateful my child can finally keep up in school",
+        "Embarrassed about how thick my old glasses were",
+        "Anxious about losing my independence if vision gets worse",
+        "Excited to actually look good in glasses for once",
+        "Overwhelmed by all the options and upgrades",
+        "Validated that my symptoms were real, not just in my head"
+      ],
+      "sources": [
+        "Reddit r/optometry consumer questions and discussions",
+        "Google Reviews for major optometry chains (LensCrafters, Pearle Vision, MyEyeDr)",
+        "Yelp reviews for independent optometry practices",
+        "Facebook comments on optometry practice posts",
+        "Consumer health forums and vision-related subreddits",
+        "Trustpilot reviews for online eyewear retailers",
+        "Patient testimonials from optometry practice websites"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few practices create content about the connection between vision and overall health conditions (diabetes, hypertension, autoimmune)",
+      "Limited educational content explaining what happens during comprehensive eye exams vs basic vision screening",
+      "Minimal content addressing specific occupational vision needs (construction workers, office workers, drivers)",
+      "Underutilized patient success stories with specific measurable outcomes beyond 'I can see better'",
+      "Gap in content for parents explaining how to recognize vision problems in children at different ages",
+      "Limited transparency around pricing and insurance processes - most avoid this topic",
+      "Few practices leverage video content showing actual exam process to reduce anxiety",
+      "Minimal content targeting the 40-50 age group experiencing presbyopia for first time",
+      "Underserved content about contact lens alternatives and when each type is appropriate",
+      "Limited content on digital eye strain prevention strategies beyond 'take breaks'"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (Q1)",
+        "opportunity": "New insurance benefits activate, New Year health resolutions, FSA/HSA funds reset",
+        "content_angle": "Maximize new benefits, vision health goals, use-it-or-lose-it FSA reminders, fresh start messaging"
+      },
+      {
+        "period": "Back to School (July-September)",
+        "opportunity": "Children need vision screenings before school starts, peak time for detecting learning-related vision issues",
+        "content_angle": "Academic performance tied to vision, school screening isn't comprehensive, sports vision requirements, confidence building"
+      },
+      {
+        "period": "November-December (Q4)",
+        "opportunity": "Insurance benefits expiring, holiday shopping for eyewear gifts, end-of-year FSA/HSA spending deadlines",
+        "content_angle": "Use-it-or-lose-it urgency, gift guides for eyewear, year-end health checklist, new year prep"
+      },
+      {
+        "period": "Spring (March-May)",
+        "opportunity": "Allergy season affecting contact lens wearers, outdoor activity increase, sports season starting",
+        "content_angle": "Allergy-friendly contact options, sports eyewear protection, transition lenses for changing light, spring cleaning eye health"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Increased sun exposure, vacation planning, kids home from school, outdoor sports",
+        "content_angle": "UV protection importance, prescription sunglasses, travel-friendly eyewear solutions, summer sports vision safety"
+      },
+      {
+        "period": "Diabetes Awareness Month (November)",
+        "opportunity": "Diabetic patients need annual dilated eye exams, increased awareness of diabetes-vision connection",
+        "content_angle": "Diabetic retinopathy screening, early detection saves sight, diabetes diagnosis triggers eye exam need"
+      },
+      {
+        "period": "Children's Eye Health Month (August)",
+        "opportunity": "National awareness campaign, aligns with back-to-school timing",
+        "content_angle": "Signs of vision problems in kids, importance of comprehensive exams vs school screenings, developmental milestones"
+      },
+      {
+        "period": "Save Your Vision Month (March)",
+        "opportunity": "American Optometric Association awareness campaign, workplace eye wellness focus",
+        "content_angle": "Digital eye strain solutions, workplace ergonomics, comprehensive eye health education, preventive care"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Healthcare Social Media Benchmark Report 2024",
+      "Hootsuite Healthcare Industry Data",
+      "Later.com 2024 Instagram Benchmarks",
+      "Sprout Social Healthcare Industry Report",
+      "Mailchimp Healthcare Industry Benchmarks 2024",
+      "BrightLocal Local Healthcare Search Study 2024",
+      "Influencer Marketing Hub TikTok Benchmarks 2024",
+      "Reddit r/optometry community discussions",
+      "Google Reviews and Yelp for optometry practices",
+      "VSP Vision Care marketing materials",
+      "LensCrafters and Warby Parker social media channels",
+      "American Optometric Association resources",
+      "Vision Monday industry publications",
+      "Optometry Times marketing reports",
+      "Healthcare Success marketing blog",
+      "Social Media Today case studies"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for optometry-specific email subject lines",
+      "Specific conversion rate data for different content types is often proprietary",
+      "TikTok benchmarks for healthcare are newer and sample sizes smaller than established platforms",
+      "Independent practice performance data less available than large chains",
+      "Precise ROI metrics for specific campaigns rarely published publicly"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Revolutionary lens technology solving digital eye strain epidemic",
+        "Week 2: Same-day service transformation - from broken glasses to crystal-clear vision in hours",
+        "Week 3: Real patient transformations - headaches eliminated, productivity restored",
+        "Week 4: Maximizing insurance benefits before year-end with advanced technology"
+      ],
+      "weekly_hooks": [
+        [
+          "Eye doctors are seeing this dangerous trend in screen-heavy workers. Here's the breakthrough solution...",
+          "Your headaches aren't from stress. This advanced lens technology just changed everything...",
+          "What if your eye strain could disappear by 3pm instead of starting at 3pm?"
+        ],
+        [
+          "New [lens technology name] ready in 1 hour. Here's how we do it...",
+          "[Number] patients already experienced the difference. Same-day appointments available now.",
+          "Broken glasses before your [important event]? Our precision technology has you covered in 60 minutes."
+        ],
+        [
+          "How [Patient Name] went from daily headaches to pain-free workdays in one visit",
+          "Finally found lenses that actually eliminate screen fatigue - not just reduce it",
+          "My productivity totally changed after getting [lens technology] - here's the data"
+        ],
+        [
+          "Your vision insurance expires in [X] days. Here's what you're losing if you wait...",
+          "Last chance: Maximize your $[amount] in benefits with state-of-the-art [technology name]",
+          "[X] appointments left this month. Don't lose your [benefit amount] - book now."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My vision hasn't changed, don't need new technology' - emphasize preventive digital eye strain protection",
+        "Week 2: Address 'Don't have time for appointment' - highlight same-day service and express appointments",
+        "Week 3: Address 'Worried about being pressured into expensive upgrades' - feature transparent pricing and patient choice stories",
+        "Week 4: Address 'Insurance doesn't cover much' - show benefit maximization calculator and package deals"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce clinical research data and optometrist expertise credentials on technology",
+        "Week 2: Share behind-the-scenes time-lapse videos of precision crafting process",
+        "Week 3: Feature 5-7 detailed patient testimonials with specific measurable outcomes (headache reduction, productivity gains)",
+        "Week 4: Final credibility push with insurance verification guarantee and satisfaction warranty"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide: '10 Signs You Need Advanced Lens Technology'",
+        "Week 2: Take our 60-second Digital Eye Strain Assessment",
+        "Week 3: Schedule your complimentary technology consultation - [X] spots remaining",
+        "Week 4: Book now and maximize your expiring benefits - call [number] or text 'VISION' to [shortcode]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, daily Stories, 3-4 Reels showcasing technology)",
+        "Facebook (5-6 posts/week with carousel demos and video testimonials)",
+        "Email (2 campaigns/week to existing patients, 3 to leads)",
+        "Google Business Profile (3 posts/week with appointment availability)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on LensCrafters '1 Hour Glasses' campaign showing real-time production (45K-80K YouTube views, 3.2% CTR) and VSP's year-end benefits urgency campaign (8.3% email CTR, 23% conversion rate). Combines speed demonstration with loss aversion timing."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Vision-health connection revelations (diabetes, hypertension early detection)",
+        "Week 2: Occupational vision optimization for specific professions",
+        "Week 3: Pediatric vision and academic performance breakthroughs",
+        "Week 4: Digital eye strain prevention strategies beyond 'take breaks'",
+        "Week 5: Designer frames confidence transformation stories",
+        "Week 6: Insurance benefits education and maximization tactics",
+        "Week 7: Comprehensive exam transparency - what we actually see and why it matters",
+        "Week 8: Night driving safety and anti-glare technology solutions"
+      ],
+      "weekly_hooks": [
+        [
+          "Your eye doctor can spot diabetes before your blood test. Here's what we see...",
+          "This is what your retina reveals about your overall health (most people have no idea)",
+          "Eye doctors are detecting [health condition] 2 years earlier than primary care. Here's how..."
+        ],
+        [
+          "Construction workers: Here's why your vision protection is outdated (and dangerous)",
+          "Office workers losing 2 hours of productivity daily to this fixable vision issue",
+          "Professional drivers - this vision problem is why you're exhausted by afternoon"
+        ],
+        [
+          "Your child's C's aren't from lack of trying. Here's what teachers can't see...",
+          "How [Parent Name]'s child went from struggling reader to honor roll in one semester",
+          "The vision problem affecting 1 in 4 kids that school screenings completely miss"
+        ],
+        [
+          "Squinting at screens all day? Here's the solution eye doctors actually use themselves",
+          "The 20-20-20 rule doesn't work. This comprehensive approach does...",
+          "Digital eye strain killing your productivity? Here's the customized solution..."
+        ],
+        [
+          "Finally found frames that actually look good on my face - here's the secret",
+          "Designer frames that make me feel confident, not nerdy - transformation stories",
+          "From embarrassed about thick glasses to exclusive style icon in one visit"
+        ],
+        [
+          "Your insurance covers $[amount]. Here's how to maximize every dollar before it expires...",
+          "Most patients leave $[amount] on the table. This calculator shows what you're missing.",
+          "Insurance benefit decoder: What's actually covered vs what they don't tell you"
+        ],
+        [
+          "What your eye doctor really sees during a comprehensive exam (actual retinal images)",
+          "Here's what happens during those 20 minutes - complete transparency",
+          "Comprehensive exam vs basic screening: The life-saving difference explained"
+        ],
+        [
+          "Can't drive at night anymore because of halos? This coating changed everything...",
+          "Night driving is actually comfortable now - here's the advanced technology why",
+          "See every detail on the road at night (without the glare or fear)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Don't need exam if vision seems fine' - show hidden health detection value",
+        "Week 2: Address 'Too busy for appointments' - offer occupation-specific express options",
+        "Week 3: Address 'Kids will outgrow glasses anyway' - counter with academic impact data",
+        "Week 4: Address 'Can just use drugstore readers' - explain customization necessity",
+        "Week 5: Address 'Designer frames too expensive' - show package deals and financing",
+        "Week 6: Address 'Insurance doesn't cover much' - provide benefit maximization tools",
+        "Week 7: Address 'Exams take too long' - break down actual time investment vs value",
+        "Week 8: Address 'Special coatings are upsells I don't need' - demonstrate safety ROI"
+      ],
+      "proof_timing": [
+        "Week 1: Share medical journal citations and optometric association endorsements",
+        "Week 2: Feature industry-specific case studies with measurable productivity gains",
+        "Week 3: Showcase parent testimonials with grade improvement documentation",
+        "Week 4: Present clinical research on blue light and ergonomic solutions",
+        "Week 5: Display before/after photos and style transformation videos",
+        "Week 6: Provide insurance company verification and benefit confirmation screenshots",
+        "Week 7: Offer virtual exam walkthroughs and equipment explanations",
+        "Week 8: Share night driving safety statistics and patient confidence stories"
+      ],
+      "cta_progression": [
+        "Week 1: Download 'What Your Eyes Reveal About Your Health' guide",
+        "Week 2: Take our profession-specific vision assessment quiz",
+        "Week 3: Access free 'Signs Your Child Needs Vision Help' checklist",
+        "Week 4: Get your personalized digital eye strain solution plan",
+        "Week 5: Browse our virtual frame try-on gallery - find your style",
+        "Week 6: Use our insurance benefit calculator - see what you're eligible for",
+        "Week 7: Watch our comprehensive exam transparency video series",
+        "Week 8: Schedule your night vision evaluation - limited evening appointments available"
+      ],
+      "platform_priority": [
+        "TikTok (4-5 educational videos/week under 60 seconds for viral potential)",
+        "Instagram (5-7 feed posts/week, daily Stories with Q&A, 3-4 Reels)",
+        "Facebook (5-6 posts/week, emphasis on parent testimonials and health education)",
+        "Email (2-3 newsletters/month with rotating educational themes)",
+        "Google Business Profile (2-3 posts/week with Q&A responses daily)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on independent optometry TikTok series 'What your eye doctor really sees' achieving 100K-2.3M views with 8-12% engagement and 156% increase in comprehensive exam bookings. Educational content addressing competitive gaps in health connections and exam transparency."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-worthy vision myths busted with shocking retinal image reveals",
+        "Week 2: User-generated content explosion - patient transformation challenge with shareable results"
+      ],
+      "weekly_hooks": [
+        [
+          "Eye doctors are seeing this terrifying trend in 40+ patients. You need to know this...",
+          "This is what your eye doctor actually sees (and why 1 in 3 people are shocked)",
+          "Your headaches aren't from stress. Here's the hidden problem we find in 67% of patients...",
+          "Failed the DMV vision test? Here's what happens next (and how to fix it fast)",
+          "Myth: School vision screenings are enough. Reality: They miss THIS critical problem..."
+        ],
+        [
+          "Share your vision transformation story and tag us - best stories win [prize]",
+          "How [Customer Name] went from squinting all day to crystal-clear confidence in 48 hours",
+          "Before vs After: Real patients, real results. Which transformation surprises you most?",
+          "My kid's teacher called about grades. Turns out it was vision. Here's what changed...",
+          "Tag someone who needs to see this: Night driving doesn't have to be scary anymore"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can see fine, don't need an exam' with shocking hidden problem statistics",
+        "Week 2: Address 'Online glasses are cheaper' by showcasing professional fitting transformation failures vs successes"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce actual retinal images showing disease detection, viral educational content with credentialed expert commentary",
+        "Week 2: Feature 15-20 rapid-fire patient testimonials, user-generated transformation videos, social proof volume"
+      ],
+      "cta_progression": [
+        "Week 1: Share this with someone who complains about headaches - tag them below",
+        "Week 1: Comment 'LEARN MORE' for our free vision health guide",
+        "Week 2: Share your transformation story using #[BrandVisionWin] for chance to win",
+        "Week 2: Book your transformation today - text 'CLEAR' to [shortcode] for priority scheduling"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 videos/week optimized for For You Page algorithm)",
+        "Instagram Reels (7-10 Reels/week, Stories with polls/questions every 4 hours)",
+        "Facebook (8-10 posts/week with high shareability factor)",
+        "Email (1 viral content roundup mid-week 1, 1 transformation showcase mid-week 2)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on viral TikTok optometry content achieving 100K-2.3M views with 8-12% engagement rates, and Warby Parker's Home Try-On UGC strategy generating 2-3x higher engagement than product-only posts. Leverages educational fascination and shareable transformation moments."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Vision-systemic health connections - comprehensive disease detection education",
+        "Week 2: Pediatric vision development milestones and learning disability prevention",
+        "Week 3: Occupational vision science - profession-specific optimization deep-dives",
+        "Week 4: Advanced diagnostic technology explained - what state-of-the-art equipment reveals",
+        "Week 5: Presbyopia lifecycle - age-related vision changes and customized solutions",
+        "Week 6: Contact lens science - material innovations and health considerations"
+      ],
+      "weekly_hooks": [
+        [
+          "As optometrists, we detect diabetes before blood tests in 23% of cases. Here's the science...",
+          "What your retina reveals about stroke risk (peer-reviewed research explained)",
+          "The eye-brain-body connection: Why comprehensive eye exams are whole-body health screenings"
+        ],
+        [
+          "The critical vision development window parents miss (ages 3-7 explained)",
+          "How to recognize vision problems in children at different ages - pediatric optometry guide",
+          "Why 80% of learning is visual - and what happens when vision isn't optimized"
+        ],
+        [
+          "Construction workers: The UV exposure damage we're seeing at age 35 (protective solutions)",
+          "Office workers: Here's the ergonomic vision science that actually works",
+          "Professional drivers: The contrast sensitivity decline affecting safety (and how to reverse it)"
+        ],
+        [
+          "Optomap vs traditional dilation - here's what the advanced imaging actually shows",
+          "OCT technology detecting glaucoma 5 years earlier - the breakthrough explained",
+          "Digital retinal photography: How we track changes over decades to prevent vision loss"
+        ],
+        [
+          "The presbyopia timeline: What to expect in your 40s, 50s, 60s (science-backed guide)",
+          "Progressive lens technology evolution - why today's options have zero adjustment period",
+          "Customized progressive lenses vs standard - the precision measurement difference explained"
+        ],
+        [
+          "Contact lens material science: Silicone hydrogel vs hydrogel explained for your eyes",
+          "Why daily disposables changed eye health outcomes - the research data",
+          "Scleral lenses for severe dry eye - the breakthrough technology and candidacy criteria"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Only need eye doctor when vision changes' - establish preventive health value",
+        "Week 2: Address 'School screenings are sufficient' - differentiate comprehensive developmental assessment",
+        "Week 3: Address 'Generic safety glasses work fine' - explain occupation-specific optimization",
+        "Week 4: Address 'Basic exam is enough' - justify advanced diagnostic technology investment",
+        "Week 5: Address 'Drugstore readers work fine' - counter with customization necessity science",
+        "Week 6: Address 'Contacts are too much hassle' - present modern convenience innovations"
+      ],
+      "proof_timing": [
+        "Week 1: Share medical journal citations, optometric association position statements, systemic health research",
+        "Week 2: Present developmental optometry research, academic performance correlation studies, pediatric case studies",
+        "Week 3: Cite occupational safety data, industry-specific vision research, worker compensation statistics",
+        "Week 4: Demonstrate technology certifications, equipment manufacturer partnerships, early detection success rates",
+        "Week 5: Reference presbyopia research, progressive lens satisfaction studies, age-demographic testimonials",
+        "Week 6: Present contact lens safety research, material science innovations, FDA approval documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive guide: 'What Your Eyes Reveal About Your Overall Health'",
+        "Week 2: Access our pediatric vision milestone checklist for parents",
+        "Week 3: Take our profession-specific vision risk assessment",
+        "Week 4: Schedule your advanced diagnostic screening - see what standard exams miss",
+        "Week 5: Book your presbyopia consultation - get your customized solution plan",
+        "Week 6: Try our contact lens fitting experience - find your perfect match"
+      ],
+      "platform_priority": [
+        "Email (weekly in-depth educational newsletters to engaged subscribers)",
+        "Facebook (4-5 long-form educational posts/week with detailed explanations)",
+        "Instagram (4-5 carousel posts/week with multi-slide education, Stories for Q&A)",
+        "Google Business Profile (weekly detailed Q&A responses establishing local expertise)",
+        "TikTok (3-4 educational deep-dive videos/week under 90 seconds)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gaps in vision-overall health connections, comprehensive exam education, and occupational vision needs. Based on TikTok educational content achieving 5.3-8.7% engagement and independent practice success with myth-busting educational series driving 156% exam booking increase."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive vision myth polling and crowd-sourced Q&A sessions",
+        "Week 2: Patient story sharing challenge with community voting and recognition"
+      ],
+      "weekly_hooks": [
+        [
+          "Poll: What do you think causes more eye strain - phones or computers? (The answer shocked us)",
+          "Quick question: When was your last comprehensive eye exam? Comment below - no judgment, just curious",
+          "Myth or Fact: Carrots actually improve your vision. Vote below and we'll reveal the science...",
+          "Fill in the blank: My biggest frustration with glasses is ___________. Top answer gets addressed tomorrow",
+          "This or That: Contact lenses or glasses? Tell us why in the comments - best answer wins [prize]"
+        ],
+        [
+          "Share your vision transformation moment - when did you realize you needed help? Tag us to be featured",
+          "Caption this: [Funny optometry image]. Best caption wins free [product/service]",
+          "Patient spotlight: [Name]'s journey from headaches to clarity. Share your story using #[BrandVisionStory]",
+          "Before you got glasses/contacts, what did you think was causing [symptom]? Let's hear your stories",
+          "Tag someone who desperately needs an eye exam but keeps putting it off. They'll thank you later!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Don't think I need an exam' through interactive myth-busting and peer comparison",
+        "Week 2: Address 'Worried about cost' by featuring diverse patient stories with transparent pricing mentions"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce expert commentary responding to community questions in real-time, establishing accessible authority",
+        "Week 2: Feature 10-15 patient stories submitted by community, creating volume of social proof and relatability"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in our poll - results revealed tomorrow",
+        "Week 1: Drop your questions below - our optometrist is answering every one today",
+        "Week 2: Share your story for a chance to be featured and win [incentive]",
+        "Week 2: Tag a friend who needs to see this - both of you get [offer] when you book together"
+      ],
+      "platform_priority": [
+        "Instagram Stories (multiple stories daily with polls, questions, quizzes - leverage 67% completion rate)",
+        "Facebook (6-8 engagement-focused posts/week with question prompts and conversation starters)",
+        "TikTok (5-7 videos/week with duet/stitch enablement and comment response videos)",
+        "Instagram Feed (4-5 posts/week optimized for comments and saves)",
+        "Email (1 mid-campaign engagement roundup showcasing community responses)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Stories achieving 67% completion rate with interactive elements (polls/questions) and Warby Parker's UGC strategy generating 2-3x higher engagement. Leverages platform benchmarks showing question-based content driving algorithm favor and community building."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Employers: [X]% of your team is working with uncorrected vision problems right now.\n\nProblem: Digital eye strain costs companies an average of [X] hours of productivity per employee annually. Headaches, blurred vision, and fatigue aren't just discomfort—they're measurable performance losses.\n\nAgitation: Your health benefits likely cover comprehensive eye exams, but only [X]% of employees use them. Meanwhile, untreated vision issues contribute to workplace accidents, errors, and decreased output.\n\nSolution: Corporate vision programs that bring on-site screenings and education directly to your workplace see [X]% participation rates and measurable ROI within [X] months.\n\n3 immediate actions:\n• Audit your current vision benefit utilization rates\n• Schedule lunch-and-learn sessions on digital eye strain\n• Partner with local optometry for quarterly on-site screenings\n\nWhat vision wellness initiatives have worked at your organization?\n\n#CorporateWellness #EmployeeHealth #VisionCare #HRLeadership #WorkplaceProductivity",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [X] years in optometry, I'm seeing a dangerous trend in [AGE GROUP] patients that most people ignore until it's too late.\n\nAttention: [SPECIFIC CONDITION] cases have increased [X]% in the past [X] years, yet [X]% of at-risk individuals skip their annual comprehensive exams.\n\nInterest: During routine exams, we're detecting early signs of [DIABETES/HYPERTENSION/GLAUCOMA] before patients show any symptoms. Your eyes reveal what's happening throughout your entire body—they're literally windows to systemic health.\n\nDesire: Early detection means:\n→ [X]% better treatment outcomes\n→ Prevention of irreversible vision loss\n→ Identification of life-threatening conditions years earlier\n→ Preservation of independence and quality of life\n\nAction: If you're [AGE]+, haven't had a comprehensive exam in [X] years, or have [RISK FACTORS], this is your sign. Your vision insurance likely covers this 100%.\n\nWhat health conditions have you or someone you know discovered through an eye exam?\n\n#EyeHealth #PreventiveCare #HealthcareInnovation #Optometry #VisionScience",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: [CLIENT NAME] was experiencing daily headaches and declining work performance.\n\nAfter: One comprehensive exam revealed [SPECIFIC ISSUE]. With [SOLUTION], headaches gone, productivity up [X]%.\n\nBridge: Most professionals attribute eye strain symptoms to stress or workload. But [X]% of cases we see are actually uncorrected vision problems with simple solutions.\n\nOur [PROGRAM NAME] for busy professionals includes:\n✓ Same-week appointments (early morning/evening available)\n✓ Advanced diagnostic technology that detects issues [X] years earlier\n✓ [TIME FRAME] turnaround on prescription eyewear\n✓ Insurance verification before your visit—no surprises\n\nThis month only: [OFFER DETAILS] for new patients mentioning this post.\n\nExecutives and knowledge workers—your vision is your competitive advantage. Don't let undiagnosed issues hold you back.\n\nDM me or visit [LINK] to schedule.\n\n#VisionCare #ExecutiveHealth #ProfessionalDevelopment #ProductivityHacks #OptometryServices",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your headaches aren't from stress 👀\n\nIf you get headaches by 3pm every day, your eyes might be screaming for help. Here's what's really happening:\n\n1️⃣ Digital eye strain from [X] hours of screen time\n2️⃣ Outdated prescription forcing your eyes to work harder\n3️⃣ Uncorrected astigmatism causing constant muscle tension\n\nThe fix? Usually simpler than you think.\n\n✨ Blue light filtering lenses for screen work\n✨ Updated prescription (yes, even small changes matter)\n✨ Proper screen positioning and 20-20-20 rule\n\nSwipe to see the signs you need an eye exam →\n\nDrop a 💙 if you've been ignoring the headaches\n\n[PRACTICE NAME] | [LOCATION]\nLink in bio to book your exam\n\n#EyeHealth #DigitalEyeStrain #Headaches #VisionCare #EyeDoctor #OptometryTips #ScreenTime #BlueLight #Wellness #SelfCare",
+        "visual": "Carousel: Slide 1: Person rubbing temples at computer. Slide 2: Close-up of tired, strained eyes. Slide 3: Infographic showing 20-20-20 rule. Slide 4: Before/after of someone wearing blue light glasses looking refreshed. Slide 5: CTA with appointment booking info.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "What I see during your eye exam that could save your life 👁️\n\nMost people think eye exams are just about getting a prescription. But we're actually looking at:\n\n🔍 Blood vessels that reveal diabetes before symptoms\n🔍 Optic nerve changes indicating brain pressure\n🔍 Retinal signs of high blood pressure\n🔍 Early glaucoma (the silent vision thief)\n🔍 Macular degeneration in its earliest stages\n\nLast month, we detected [CONDITION] in a [AGE] year old patient during a routine exam. Early detection = [X]% better outcomes.\n\nYour eyes don't lie. They show what's happening in your entire body.\n\nWhen's the last time you had a comprehensive exam (not just a vision screening)?\n\nComment 👀 if you're overdue\n\n#Optometry #EyeExam #PreventiveCare #HealthScreening #VisionHealth #EyeDoctor #Wellness #HealthyLiving #EarlyDetection",
+        "visual": "Reel: Split screen showing actual retinal images (with permission) on one side, doctor explaining what they reveal on the other. Text overlays highlighting each condition. Professional but educational tone. End with doctor looking at camera: 'Your annual exam could save more than your vision.'",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "New glasses in 1 hour. Yes, really ⚡\n\nBefore: Broke your glasses, can't see, can't drive, panic mode\nAfter: Walking out with new frames in 60 minutes, crisis averted\n\nOur same-day service has saved:\n✅ The mom whose glasses broke before the school play\n✅ The exec with a presentation in 2 hours\n✅ The student who sat on their only pair\n\nHow it works:\n→ Walk in (no appointment needed for emergencies)\n→ Quick exam or use existing prescription\n→ Choose from [X] frames in stock\n→ We craft your lenses on-site\n→ Walk out seeing clearly\n\nNot all heroes wear capes. Some make glasses really, really fast 🦸‍♀️\n\nSave this post for when disaster strikes (or tag someone who needs a backup plan)\n\n📍 [LOCATION] | [HOURS]\n💬 DM us for emergency appointments\n\n#SameDayGlasses #EmergencyEyewear #BrokenGlasses #FastService #Optometry #EyewearEmergency #LifeSaver #LocalBusiness",
+        "visual": "Time-lapse video: Glasses being crafted from start to finish in 60 seconds. Upbeat music. Text overlays showing time stamps: '0:00 - Broken glasses', '0:15 - Frame selection', '0:30 - Lens crafting', '0:45 - Final adjustments', '1:00 - Happy customer walking out'. End frame: 'Same Day. Same You. Better Vision.'",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "👓 PARENTS: Your child's vision could be the reason they're struggling in school (and you'd never know)\n\n80% of classroom learning happens through vision. But here's the scary part—kids don't know what 'normal' vision looks like. They think everyone sees the same blurry board they do.\n\nSigns your child might need glasses:\n📚 Sitting too close to the TV or holding books close\n📚 Frequent headaches or eye rubbing\n📚 Avoiding reading or homework\n📚 Covering one eye to see better\n📚 Teacher mentions squinting or losing their place\n📚 Grades dropping despite trying hard\n\nReal story: [PARENT NAME]'s daughter went from C's to Honor Roll after one eye exam revealed she couldn't see the board clearly. She thought everyone saw 'fuzzy letters' and just dealt with it.\n\nBack-to-school vision screenings are happening now:\n🗓️ [DATES]\n📍 [LOCATION]\n💰 Most insurance covers 100% for kids\n⏰ [TIME SLOTS]\n\nComment 'BOOK' and we'll send you the direct scheduling link.\n\nShare this with a parent who needs to see it. Early detection changes everything.\n\n#BackToSchool #ChildrensVision #ParentingTips #VisionScreening #EyeExam #KidsHealth #SchoolSuccess #LocalParents #[CITY]Moms",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "⚠️ EYE DOCTORS ARE SEEING A DANGEROUS TREND IN 40+ PATIENTS\n\nAfter examining [X] patients this year, I need to share something that's keeping me up at night.\n\nWe're diagnosing glaucoma—the leading cause of irreversible blindness—at alarming rates in people who have ZERO symptoms. No pain. No vision loss. No warning signs.\n\nHere's why this matters:\n\n🔴 Glaucoma steals peripheral vision so gradually, most people don't notice until 40% is already gone\n🔴 Once vision is lost to glaucoma, it's permanent—we can only prevent further damage\n🔴 Early detection and treatment can prevent 95% of glaucoma blindness\n🔴 If caught early, simple eye drops can preserve your vision for life\n\nYour risk increases if you:\n✓ Are over 40\n✓ Have a family history of glaucoma\n✓ Are African American, Hispanic, or Asian\n✓ Have diabetes or high blood pressure\n✓ Are very nearsighted\n\nThe only way to detect early glaucoma is through a comprehensive eye exam with specialized testing. Not a vision screening. Not an online test. A real exam with imaging technology.\n\nI've had patients cry tears of relief when we catch it early. And I've had patients cry tears of regret when we find it too late.\n\nWhich story do you want to be?\n\nWe're offering [PROMOTION DETAILS] this month for anyone 40+ who hasn't had an exam in over a year.\n\nYour vision is worth 60 minutes of your time.\n\nBook online: [LINK]\nCall/text: [PHONE]\n\nTag someone who needs to see this. It could literally save their sight.\n\n#GlaucomaAwareness #EyeHealth #VisionCare #PreventBlindness #Over40 #HealthScreening #Optometry #SaveYourSight #[CITY]Health",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "⏰ YOUR VISION INSURANCE EXPIRES IN 30 DAYS\n\nHere's what you're about to lose:\n\n💰 $[X] in unused vision benefits\n👓 Free comprehensive eye exam (value $[X])\n👓 $[X] toward frames and lenses\n👓 Discounts on lens upgrades (anti-glare, blue light, transitions)\n\nBefore December 31st, most vision plans reset. Use it or lose it—literally.\n\nLast year, [X]% of our patients left money on the table. Don't be part of that statistic.\n\nWhat you can get with your benefits:\n✅ Complete eye health exam\n✅ Updated prescription\n✅ Designer frames (we carry [BRANDS])\n✅ Premium lens options\n✅ Prescription sunglasses or backup pair\n✅ Contact lens fitting and supply\n\nWe still have [X] appointment slots left in December:\n📅 [AVAILABLE DATES/TIMES]\n📍 [LOCATION]\n⚡ Same-day service available\n\nNot sure what your insurance covers? We'll verify your benefits before your appointment—no surprises.\n\n3 ways to book:\n1️⃣ Click the link in the comments\n2️⃣ Call/text [PHONE]\n3️⃣ Comment 'BENEFITS' and we'll DM you\n\nDon't let your hard-earned benefits expire. Your eyes (and your wallet) will thank you.\n\nP.S. - Already used your benefits? Share this with someone who hasn't!\n\n#VisionInsurance #UseItOrLoseIt #YearEndBenefits #EyeExam #NewGlasses #InsuranceBenefits #SmartShopping #[CITY]Optometry #VisionCare",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been getting headaches every day and just found out why 👀",
+        "script": "HOOK (0-3sec): [Show person rubbing temples, looking miserable at computer]\n\nTEXT OVERLAY: 'Me thinking my headaches are from stress'\n\n(4-10sec): Cut to optometrist chair, doctor examining\nVOICEOVER: 'Until my eye doctor said this...'\n\n(11-20sec): Doctor on camera: 'Your prescription is outdated and your eyes are working overtime. That's your headache.'\n\nTEXT OVERLAY: 'Wait... WHAT?!'\n\n(21-35sec): Quick cuts showing:\n- Old prescription vs new prescription comparison\n- Person trying on new glasses\n- Text: 'Even small changes = BIG difference'\n\n(36-50sec): Person back at computer, smiling, no headache\nTEXT OVERLAY: 'Day 3 with new glasses: ZERO headaches'\n\n(51-60sec): Direct to camera\n'If you get headaches by 3pm every day, it might not be stress. Get your eyes checked. Link in bio.'\n\nTEXT OVERLAY: 'Your future headache-free self will thank you'\n\nSOUND: Trending audio about revelations/aha moments\nHASHTAGS: #EyeHealth #Headaches #GlassesTok #VisionCare #LifeHack #EyeDoctor #Wellness #SelfCare",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "What your eye doctor ACTUALLY sees during your exam (it's wild) 👁️",
+        "script": "HOOK (0-3sec): [Close-up of retinal camera, mysterious music]\nTEXT: 'This machine sees things you can't...'\n\n(4-15sec): Show actual retinal images (with permission)\nVOICEOVER: 'This is what I'm looking at during your eye exam'\n\n(16-25sec): Point to different areas of retinal image\nTEXT OVERLAYS appearing:\n'These blood vessels → show diabetes'\n'This spot → early glaucoma'\n'This area → high blood pressure'\n\n(26-40sec): Cut to doctor speaking directly:\n'Last week I found diabetes in a 35-year-old who had NO idea. Her regular doctor confirmed it. We literally saved her from complications.'\n\n(41-50sec): Show more examples\nTEXT: 'Your eyes show what's happening in your ENTIRE body'\n\n(51-60sec): Final message\n'An eye exam isn't just about glasses. It's a full health screening. When's your last one?'\n\nTEXT OVERLAY: 'Comment 👀 if you're overdue'\n\nSOUND: Educational/mind-blown trending audio\nHASHTAGS: #EyeDoctor #MedicalTikTok #HealthScreening #LearnOnTikTok #Optometry #EyeExam #HealthTok #MindBlown",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "She broke her glasses at 9am. Had new ones by 10am. Here's how 🤯",
+        "script": "HOOK (0-3sec): [Show broken glasses, person panicking]\nTEXT: 'Literally can't see without these'\n\n(4-10sec): Time stamp: 9:03am\nPerson walks into optometry office\nTEXT: 'Please tell me you can help'\n\n(11-20sec): Fast-motion montage:\n- Quick exam\n- Browsing frames\n- Selecting pair\nTEXT OVERLAYS: '9:15am' '9:22am' '9:30am'\n\n(21-35sec): Behind-the-scenes of glasses being made\nTime-lapse of lens crafting\nTEXT: 'They make them RIGHT HERE'\nUpbeat music intensifies\n\n(36-45sec): Time stamp: 10:04am\nPerson puts on new glasses, eyes wide\nTEXT: 'I can SEE again!'\n\n(46-60sec): Person to camera:\n'Walked in blind, walked out in an hour with new glasses. Same-day service is REAL.'\n\nShow business name/location\nTEXT: 'Emergency glasses? We got you. 📍[CITY]'\n\nSOUND: Satisfying/time-lapse trending audio\nHASHTAGS: #SameDayGlasses #LifeSaver #BrokenGlasses #Satisfying #SmallBusiness #Emergency #GlassesTok #LocalBusiness #[CITY]TikTok",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The real reason you get 3pm headaches (it's not stress)",
+        "preview_text": "Your eyes might be screaming for help—here's how to tell",
+        "body": "Hi [FIRST_NAME],\n\nIf you're reaching for ibuprofen every afternoon, your eyes might be trying to tell you something.\n\nPROBLEM:\nDigital eye strain affects [X]% of people who spend [X]+ hours on screens. Symptoms include:\n• Headaches (especially by mid-afternoon)\n• Blurred vision after screen time\n• Neck and shoulder pain\n• Difficulty focusing\n• Eye fatigue and dryness\n\nAGITATION:\nMost people ignore these signs for months or years, assuming it's just stress or aging. Meanwhile, your eyes are working overtime to compensate for an outdated prescription or uncorrected vision issues.\n\nSOLUTION:\nThree simple fixes that work for [X]% of our patients:\n\n1. UPDATED PRESCRIPTION\nEven small changes make a massive difference. If it's been over a year, you're likely working harder than you need to.\n\n2. BLUE LIGHT FILTERING LENSES\nReduces eye strain from screens by [X]%. Most patients notice relief within days.\n\n3. PROPER ERGONOMICS + 20-20-20 RULE\nEvery 20 minutes, look at something 20 feet away for 20 seconds. Simple but effective.\n\nYOUR NEXT STEP:\nWe have [X] appointment slots available this week:\n[DATES/TIMES]\n\nYour insurance likely covers your comprehensive exam 100%. We'll verify before your appointment.\n\n[BOOK NOW BUTTON]\n\nQuestions? Just reply to this email.\n\nTo clear vision (and headache-free afternoons),\n[DOCTOR NAME]\n[PRACTICE NAME]\n\nP.S. - If you're reading this email at arm's length or squinting, that's another sign 😉",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "I found diabetes in 3 patients last week during routine eye exams",
+        "preview_text": "Your eyes reveal what's happening in your entire body",
+        "body": "Dear [FIRST_NAME],\n\nLast week, I diagnosed diabetes in three patients who had zero symptoms and no idea they were at risk.\n\nAll three came in for routine vision checks. All three left with referrals to their primary care doctors. All three are now getting treatment before serious complications develop.\n\nThis is why I became an optometrist.\n\nATTENTION:\nYour comprehensive eye exam isn't just about getting a prescription. We're examining:\n\n🔍 Blood vessels that reveal diabetes and hypertension\n🔍 Optic nerve health indicating glaucoma or brain pressure\n🔍 Retinal changes showing macular degeneration\n🔍 Structural issues that could lead to vision loss\n\nINTEREST:\nThe eye is the only place in your body where we can directly view blood vessels, nerves, and tissue without surgery. It's a window to your systemic health.\n\nEarly detection means:\n• [X]% better treatment outcomes\n• Prevention of vision loss\n• Identification of life-threatening conditions years earlier\n• Preservation of your independence and quality of life\n\nDESIRE:\nEvery year, I see patients who say, 'I wish I'd come in sooner.' Don't be that person.\n\nACTION:\nIf you haven't had a comprehensive exam in [X] years, or you're [AGE]+, or you have risk factors (family history, diabetes, high blood pressure), this is your reminder.\n\n[SCHEDULE YOUR EXAM BUTTON]\n\nYour vision insurance likely covers this 100%.\n\nAvailable appointments:\n[DATES/TIMES]\n\nYour eyes—and your overall health—are worth 60 minutes.\n\nCommitted to your vision,\n[DOCTOR NAME], OD\n[CREDENTIALS]\n[PRACTICE NAME]\n\nP.S. - Forward this to someone who's been putting off their eye exam. It could save their sight—or their life.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "⏰ Your $[X] in vision benefits expires in [X] days",
+        "preview_text": "Don't leave money on the table—here's what you're losing",
+        "body": "Hi [FIRST_NAME],\n\nYour vision insurance is about to reset, and you have $[BENEFIT_AMOUNT] in unused benefits.\n\nBEFORE:\nEvery year, [X]% of vision insurance holders lose hundreds of dollars in benefits they already paid for. Don't let that be you.\n\nAFTER:\nImagine walking into 2025 with:\n✓ Crystal-clear vision\n✓ New designer frames that make you feel confident\n✓ Updated prescription\n✓ Premium lens upgrades (anti-glare, blue light protection)\n✓ Prescription sunglasses or backup pair\n\nAll covered by benefits you've already earned.\n\nBRIDGE:\nHere's exactly what your [INSURANCE_PLAN] covers:\n\n💰 Comprehensive eye exam: $[X] (100% covered)\n💰 Frames allowance: $[X]\n💰 Lens coverage: $[X]\n💰 Contact lens fitting: $[X]\n💰 Total value: $[TOTAL]\n\nExpires: [EXPIRATION_DATE]\nDays remaining: [X]\n\nWHAT TO DO NOW:\n\n1️⃣ BOOK YOUR APPOINTMENT\nWe have [X] slots left before year-end:\n[SPECIFIC_DATES/TIMES]\n\n[BOOK NOW BUTTON]\n\n2️⃣ CHOOSE YOUR FRAMES\nBrowse our [BRAND] collection online or come early to your appointment to select in-person.\n\n3️⃣ WALK OUT WITH EVERYTHING\nSame-day service available for most prescriptions.\n\nWe'll verify your exact benefits before your appointment—no surprises, no pressure.\n\nQuestions? Call/text [PHONE] or reply to this email.\n\nDon't let $[BENEFIT_AMOUNT] disappear on [EXPIRATION_DATE].\n\n[BOOK YOUR APPOINTMENT BUTTON]\n\nSee you soon,\n[PRACTICE_NAME] Team\n\nP.S. - Already used your benefits? Forward this to a friend or family member who hasn't. They'll thank you!",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] parents didn't know their child couldn't see the board until the teacher called",
+      "[X] days until your vision insurance benefits reset and you lose $[amount]",
+      "[X] hour to new glasses when yours break before [important event]",
+      "[X] signs your headaches aren't stress - they're your eyes screaming for help",
+      "[X] patients over 40 discovered they need readers this year (here's why)"
+    ],
+    "question_hooks": [
+      "Are you squinting all day and looking angry when you're really just trying to see?",
+      "Are you holding your phone at arm's length and still can't read it clearly?",
+      "Are you avoiding night driving because of halos around every light?",
+      "Are you getting headaches every day by 3pm from screen time?",
+      "Is your child struggling in school because they can't see the board?"
+    ],
+    "story_hooks": [
+      "How [Sarah's] kid went from C's to Honor Roll after one comprehensive eye exam",
+      "How [Mike] passed his DMV vision test in 48 hours after failing the first time",
+      "How [Jennifer] finally found frames that make her feel confident instead of nerdy",
+      "How [David] eliminated daily headaches by 3pm with the right prescription",
+      "How [Lisa] saved $[amount] by maximizing her insurance before it expired"
+    ],
+    "fear_hooks": [
+      "Is your productivity at risk from digital eye strain you're ignoring?",
+      "Is your child's academic future at risk from undiagnosed vision problems?",
+      "Is your driver's license at risk because you can't pass the vision test?",
+      "Is your eye health at risk from that diabetes diagnosis you just got?",
+      "Are your vision benefits at risk of expiring in [30] days unused?"
+    ],
+    "howto_hooks": [
+      "How to see clearly all day without the 3pm headache you're used to",
+      "How to maximize your vision insurance without leaving money on the table",
+      "How to get same-day glasses without paying emergency prices",
+      "How to drive at night comfortably without the glare and halos",
+      "How to look good in glasses without settling for frames you hate"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your eye doctor sees something you can't",
+      "body": "Show actual retinal image on screen. 'See these tiny yellow spots? Early diabetes signs - 6 months before your regular doctor would catch it.' Cut to different image. 'These white patches? High blood pressure damaging blood vessels.' Show normal healthy retina. 'This is what we want to see.' End with doctor direct to camera: 'Your eyes are the only place we can see blood vessels without surgery. Comprehensive eye exams save lives, not just vision.' Text overlay of health conditions caught through eye exams scrolls.",
+      "cta": "Book your comprehensive exam - link in bio"
+    },
+    "reels": {
+      "hook": "Your kid's grades dropped and it's not what you think",
+      "body": "Show child squinting at board, struggling with homework. Parent voiceover: 'Teachers said he wasn't paying attention. Turns out he literally couldn't see the board.' Cut to child trying on glasses, face lights up. 'Mom, the leaves have edges!' Fast forward to report card improvement. End with child confidently reading. Text: '1 in 4 kids has undetected vision problems.'",
+      "cta": "Free vision screening for kids under 12 - book now"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film your reaction the first time you put on your new glasses. Show us what you can finally see clearly. Bonus: have a friend/family member film your face when you first look around.",
+      "hashtag": "#FirstLookMoment"
+    },
+    {
+      "prompt": "Show your glasses before/after glow-up. Old frames vs new frames side-by-side selfie. Tell us how your confidence changed.",
+      "hashtag": "#FrameGlowUp"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "What Your Eye Doctor Sees vs What You See - split screen showing normal vision vs retinal image revealing hidden health conditions (diabetes, tumors, aneurysms)",
+      "why": "Fear appeal + educational value + visual fascination. People tag friends saying 'did you know this?' Drives appointment bookings through health anxiety."
+    },
+    {
+      "angle": "Use It or Lose It Calculator - interactive tool showing exactly how much insurance money expires Dec 31st, with dramatic countdown timer and specific dollar amount wasted",
+      "why": "Loss aversion trigger + personalized stakes + urgency. People share when they discover they're losing $300+. Peaks in Q4."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:30:56.689Z",
+    "last_tier2_refresh": "2025-11-27T20:30:56.689Z",
+    "last_tier3_refresh": "2025-11-27T20:30:56.689Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:30:56.689Z"
+  }
+}

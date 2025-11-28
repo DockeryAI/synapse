@@ -1,6 +1,7 @@
 /**
  * Live Preview Panel
  * Right 40% panel showing real-time content preview as insights are selected
+ * V3.2: Integrated with ContentSynthesisOrchestrator for dynamic EQ/UVP-aware synthesis
  */
 
 import * as React from 'react';
@@ -20,9 +21,14 @@ import {
   Zap,
   Clock,
   TrendingUp,
+  Brain,
+  RefreshCw,
 } from 'lucide-react';
+import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanner';
 import type { OpportunityAlert } from '@/types/v2/intelligence.types';
 import type { SmartPick } from '@/types/smart-picks.types';
+import { useContentSynthesis } from '@/hooks/useContentSynthesis';
+import type { JourneyStage, BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 
 export interface SelectedInsight {
   id: string;
@@ -44,6 +50,20 @@ export interface LivePreviewPanelProps {
   onCreateContent?: () => void;
   onCreateCampaign?: () => void;
   className?: string;
+  /** V3.2: Business segment for EQ-aware synthesis */
+  segment?: BusinessSegment;
+  /** V3.2: Brand data for orchestrator context */
+  brandData?: {
+    name?: string;
+    industry?: string;
+    naicsCode?: string;
+  };
+  /** V3.2: UVP data for orchestrator context */
+  uvpData?: {
+    target_customer?: string;
+    key_benefit?: string;
+    transformation?: string;
+  };
 }
 
 export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
@@ -51,86 +71,229 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
   onCreateContent,
   onCreateCampaign,
   className,
+  segment = 'smb_local',
+  brandData,
+  uvpData,
 }) => {
   const [showProvenance, setShowProvenance] = React.useState(false);
+  const [journeyStage, setJourneyStage] = React.useState<JourneyStage>('awareness');
+  const [synthesizedPreview, setSynthesizedPreview] = React.useState<{
+    title: string;
+    hook: string;
+    bodyPoints: string[];
+    keyPoints: { point: string; source: string }[];
+    cta: string;
+    platforms: { name: string; reason: string }[];
+    eqScore?: number;
+  } | null>(null);
 
-  // Generate combined preview from selected insights
-  const combinedPreview = React.useMemo(() => {
-    if (selectedInsights.length === 0) {
-      return null;
+  // V3.2: Use ContentSynthesisOrchestrator for dynamic synthesis
+  const {
+    enrichedContext,
+    loadContext,
+    reSynthesizeForStage,
+    isReSynthesizing,
+    generateUVPCTA,
+    contextError,
+    reSynthesisError,
+    retryLoadContext,
+    clearErrors,
+    isContextLoading,
+  } = useContentSynthesis({
+    brandName: brandData?.name || 'Unknown',
+    industry: brandData?.industry || 'General',
+    naicsCode: brandData?.naicsCode,
+    segment,
+    uvpData: uvpData || {}
+  });
+
+  // Load enriched context on mount
+  React.useEffect(() => {
+    if (brandData?.name) {
+      loadContext();
     }
+  }, [brandData?.name, loadContext]);
 
-    const hasOpportunity = selectedInsights.some(i => i.type === 'opportunity');
-    const hasAIPick = selectedInsights.some(i => i.type === 'ai-pick');
-    const hasIntelligence = selectedInsights.some(i => i.type === 'intelligence');
-
-    // Generate real article title
-    const mainInsight = selectedInsights[0];
-    const title = selectedInsights.length === 1
-      ? mainInsight.title
-      : `${mainInsight.title}${selectedInsights.length > 1 ? `: ${selectedInsights.length} Insights Combined` : ''}`;
-
-    // Generate opening hook paragraph
-    const hook = hasOpportunity
-      ? `While your competitors miss this opportunity, you can stand out by addressing what customers really want. ${mainInsight.description}`
-      : hasAIPick
-      ? `This campaign combines proven strategies with timely insights to maximize engagement. ${mainInsight.description}`
-      : `Here's what the data reveals: ${mainInsight.description}`;
-
-    // Generate body with actual points
-    const bodyPoints = selectedInsights.map((insight, idx) => {
-      if (insight.type === 'opportunity') {
-        return `**Gap Analysis**: ${insight.description} - Your competitors aren't addressing this, giving you a clear differentiation opportunity.`;
-      } else if (insight.type === 'ai-pick') {
-        return `**Strategic Approach**: ${insight.content?.hook || insight.description}`;
-      } else {
-        return `**Key Insight #${idx + 1}**: ${insight.description}`;
+  // V3.2: Synthesize preview with orchestrator when insights or stage change
+  React.useEffect(() => {
+    const synthesize = async () => {
+      if (selectedInsights.length === 0) {
+        setSynthesizedPreview(null);
+        return;
       }
-    });
 
-    // Extract key points with source attribution
-    const keyPoints = selectedInsights.map(insight => ({
-      point: insight.description,
-      source: insight.source || insight.type,
-    }));
+      const hasOpportunity = selectedInsights.some(i => i.type === 'opportunity');
+      const hasAIPick = selectedInsights.some(i => i.type === 'ai-pick');
+      const hasIntelligence = selectedInsights.some(i => i.type === 'intelligence');
+      const mainInsight = selectedInsights[0];
 
-    // Generate specific CTA
-    const cta = hasOpportunity && hasAIPick
-      ? 'Launch this campaign now to capture market share before competitors catch on.'
-      : hasOpportunity
-      ? 'Act on this competitive gap today - share this insight across your channels.'
-      : hasAIPick
-      ? 'Start this campaign to engage your audience with proven strategies.'
-      : 'Turn these insights into compelling content your audience will love.';
+      // If we have enriched context, use orchestrator for synthesis
+      if (enrichedContext) {
+        try {
+          // Convert to format expected by orchestrator
+          const insightsForSynthesis = selectedInsights.map(insight => ({
+            id: insight.id,
+            title: insight.title,
+            hook: insight.description || '',
+            body: [] as string[],
+            cta: insight.content?.cta || 'Learn more',
+            scores: { breakthrough: 70 }
+          })) as any[];
 
-    // Recommend platforms based on content type
-    const platforms = [];
-    if (hasOpportunity) {
-      platforms.push({ name: 'LinkedIn', reason: 'Professional audience values competitive insights' });
-      platforms.push({ name: 'Blog', reason: 'Long-form analysis of market gaps' });
-    }
-    if (hasAIPick) {
-      platforms.push({ name: 'Email', reason: 'Campaign sequence for nurturing' });
-      platforms.push({ name: 'Social Media', reason: 'Multi-post campaign rollout' });
-    }
-    if (hasIntelligence || platforms.length === 0) {
-      platforms.push({ name: 'Twitter', reason: 'Quick industry insights' });
-      platforms.push({ name: 'LinkedIn', reason: 'Thought leadership positioning' });
-      platforms.push({ name: 'Blog', reason: 'Deep-dive analysis' });
-    }
+          // Re-synthesize with EQ/segment context
+          const orchestratedInsights = await reSynthesizeForStage(insightsForSynthesis, journeyStage);
+          const primaryInsight = orchestratedInsights[0];
 
-    return {
-      title,
-      hook,
-      bodyPoints,
-      keyPoints,
-      cta,
-      platforms: platforms.slice(0, 3), // Top 3 recommended
+          // Build dynamic preview from orchestrated insights
+          const title = primaryInsight?.title || mainInsight.title;
+          const hook = primaryInsight?.hook || mainInsight.description;
+
+          // Dynamic body points from orchestrator
+          const bodyPoints = orchestratedInsights.map((insight, idx) => {
+            return `**${insight.title}**: ${insight.hook || ''}`;
+          });
+
+          // Key points with source
+          const keyPoints = selectedInsights.map(insight => ({
+            point: insight.description,
+            source: insight.source || insight.type,
+          }));
+
+          // Dynamic CTA from orchestrator
+          const cta = generateUVPCTA(primaryInsight as any) || getDefaultCTA(hasOpportunity, hasAIPick);
+
+          // Platform recommendations based on journey stage
+          const platforms = getPlatformRecommendations(journeyStage, hasOpportunity, hasAIPick, hasIntelligence);
+
+          setSynthesizedPreview({
+            title,
+            hook,
+            bodyPoints,
+            keyPoints,
+            cta,
+            platforms,
+            eqScore: primaryInsight?.eqAlignment
+          });
+          return;
+        } catch (error) {
+          console.error('[LivePreviewPanel] Orchestrator synthesis failed:', error);
+          // Fall through to legacy
+        }
+      }
+
+      // Legacy fallback when no enriched context
+      const title = selectedInsights.length === 1
+        ? mainInsight.title
+        : `${mainInsight.title}${selectedInsights.length > 1 ? `: ${selectedInsights.length} Insights Combined` : ''}`;
+
+      const hook = hasOpportunity
+        ? `While your competitors miss this opportunity, you can stand out by addressing what customers really want. ${mainInsight.description}`
+        : hasAIPick
+        ? `This campaign combines proven strategies with timely insights to maximize engagement. ${mainInsight.description}`
+        : `Here's what the data reveals: ${mainInsight.description}`;
+
+      const bodyPoints = selectedInsights.map((insight, idx) => {
+        if (insight.type === 'opportunity') {
+          return `**Gap Analysis**: ${insight.description} - Your competitors aren't addressing this, giving you a clear differentiation opportunity.`;
+        } else if (insight.type === 'ai-pick') {
+          return `**Strategic Approach**: ${insight.content?.hook || insight.description}`;
+        } else {
+          return `**Key Insight #${idx + 1}**: ${insight.description}`;
+        }
+      });
+
+      const keyPoints = selectedInsights.map(insight => ({
+        point: insight.description,
+        source: insight.source || insight.type,
+      }));
+
+      const cta = getDefaultCTA(hasOpportunity, hasAIPick);
+      const platforms = getPlatformRecommendations(journeyStage, hasOpportunity, hasAIPick, hasIntelligence);
+
+      setSynthesizedPreview({
+        title,
+        hook,
+        bodyPoints,
+        keyPoints,
+        cta,
+        platforms
+      });
     };
-  }, [selectedInsights]);
+
+    synthesize();
+  }, [selectedInsights, enrichedContext, journeyStage, reSynthesizeForStage, generateUVPCTA]);
+
+  // Helper: Get default CTA
+  function getDefaultCTA(hasOpportunity: boolean, hasAIPick: boolean): string {
+    if (hasOpportunity && hasAIPick) {
+      return 'Launch this campaign now to capture market share before competitors catch on.';
+    } else if (hasOpportunity) {
+      return 'Act on this competitive gap today - share this insight across your channels.';
+    } else if (hasAIPick) {
+      return 'Start this campaign to engage your audience with proven strategies.';
+    }
+    return 'Turn these insights into compelling content your audience will love.';
+  }
+
+  // Helper: Get platform recommendations based on journey stage
+  function getPlatformRecommendations(
+    stage: JourneyStage,
+    hasOpportunity: boolean,
+    hasAIPick: boolean,
+    hasIntelligence: boolean
+  ): { name: string; reason: string }[] {
+    const platforms: { name: string; reason: string }[] = [];
+
+    // Journey stage influences platform selection
+    if (stage === 'awareness') {
+      platforms.push({ name: 'LinkedIn', reason: 'Build thought leadership and trust' });
+      platforms.push({ name: 'Blog', reason: 'Educational long-form content' });
+      platforms.push({ name: 'Twitter', reason: 'Quick insights to spark interest' });
+    } else if (stage === 'consideration') {
+      platforms.push({ name: 'Email', reason: 'Nurture with detailed comparisons' });
+      platforms.push({ name: 'Blog', reason: 'Deep-dive case studies' });
+      platforms.push({ name: 'LinkedIn', reason: 'Professional testimonials' });
+    } else if (stage === 'decision') {
+      platforms.push({ name: 'Email', reason: 'Personalized offers and urgency' });
+      platforms.push({ name: 'Landing Page', reason: 'Clear value proposition and CTA' });
+      platforms.push({ name: 'Retargeting', reason: 'Stay top of mind' });
+    } else if (stage === 'retention') {
+      platforms.push({ name: 'Email', reason: 'Loyalty programs and upsells' });
+      platforms.push({ name: 'Community', reason: 'User engagement and feedback' });
+      platforms.push({ name: 'Newsletter', reason: 'Ongoing value delivery' });
+    }
+
+    return platforms.slice(0, 3);
+  }
+
+  // Journey stage options
+  const journeyStageOptions: { value: JourneyStage; label: string }[] = [
+    { value: 'awareness', label: 'Awareness' },
+    { value: 'consideration', label: 'Consideration' },
+    { value: 'decision', label: 'Decision' },
+    { value: 'retention', label: 'Retention' }
+  ];
+
+  // Use synthesized preview
+  const combinedPreview = synthesizedPreview;
+
+  // Combined error for display
+  const synthesisError = contextError || reSynthesisError;
 
   return (
     <div className={cn('h-full flex flex-col bg-white dark:bg-slate-900 border-l border-gray-200 dark:border-slate-700', className)}>
+      {/* V3.2: Synthesis Error Banner */}
+      {synthesisError && (
+        <div className="p-3">
+          <SynthesisErrorBanner
+            error={synthesisError}
+            onRetry={retryLoadContext}
+            onDismiss={clearErrors}
+            isRetrying={isContextLoading}
+          />
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex-shrink-0 p-6 border-b border-gray-200 dark:border-slate-700">
         <div className="flex items-center justify-between">
@@ -140,17 +303,51 @@ export const LivePreviewPanel: React.FC<LivePreviewPanelProps> = ({
               Live Preview
             </h2>
           </div>
-          {selectedInsights.length > 0 && (
-            <Badge variant="outline" className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700">
-              {selectedInsights.length} selected
-            </Badge>
-          )}
+          <div className="flex items-center gap-2">
+            {/* V3.2: Synthesis status indicator */}
+            {isReSynthesizing && (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >
+                <RefreshCw size={14} className="text-purple-500" />
+              </motion.div>
+            )}
+            {/* V3.2: EQ indicator */}
+            {enrichedContext && (
+              <div className="flex items-center gap-1 px-2 py-1 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                <Brain size={12} className="text-purple-600 dark:text-purple-400" />
+                <span className="text-xs font-medium text-purple-700 dark:text-purple-300">
+                  EQ:{enrichedContext.eqProfile.emotional_weight}%
+                </span>
+              </div>
+            )}
+            {selectedInsights.length > 0 && (
+              <Badge variant="outline" className="bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-300 dark:border-purple-700">
+                {selectedInsights.length} selected
+              </Badge>
+            )}
+          </div>
         </div>
-        <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-          {selectedInsights.length === 0
-            ? 'Click insights to build content'
-            : 'Real-time preview of combined content'}
-        </p>
+        {/* V3.2: Journey stage selector */}
+        <div className="flex items-center justify-between mt-2">
+          <p className="text-xs text-gray-600 dark:text-gray-400">
+            {selectedInsights.length === 0
+              ? 'Click insights to build content'
+              : 'Real-time preview of combined content'}
+          </p>
+          <select
+            value={journeyStage}
+            onChange={(e) => setJourneyStage(e.target.value as JourneyStage)}
+            className="text-xs px-2 py-1 rounded border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-purple-500"
+          >
+            {journeyStageOptions.map(option => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Content Preview */}

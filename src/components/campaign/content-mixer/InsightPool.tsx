@@ -3,18 +3,24 @@
  *
  * Left sidebar showing available insights organized by category tabs
  * Users drag insights from here into the Selection Area
+ * V3.2: Added EQ-weighted sorting via orchestrator
  */
 
-import { useState } from 'react';
-import { Search } from 'lucide-react';
+import { useState, useMemo } from 'react';
+import { Search, ArrowUpDown, Brain } from 'lucide-react';
 import { useDroppable } from '@dnd-kit/core';
 import { InsightCard } from './InsightCard';
+import { analyticsService } from '@/services/analytics.service';
 import type { InsightPool as InsightPoolType, InsightCategory, CategorizedInsight } from '@/types/content-mixer.types';
 
 interface InsightPoolProps {
   pool: InsightPoolType;
   selectedInsightIds: string[];
   onInsightClick?: (insight: CategorizedInsight) => void;
+  /** V3.2: EQ scores for each insight (from orchestrator scoring) */
+  eqScores?: Record<string, number>;
+  /** V3.2: Whether EQ scoring is available */
+  hasEQContext?: boolean;
 }
 
 const categoryLabels: Record<InsightCategory, string> = {
@@ -35,9 +41,16 @@ const categoryDescriptions: Record<InsightCategory, string> = {
   competitive: 'Market gaps and opportunities'
 };
 
-export function InsightPool({ pool, selectedInsightIds, onInsightClick }: InsightPoolProps) {
+export function InsightPool({
+  pool,
+  selectedInsightIds,
+  onInsightClick,
+  eqScores = {},
+  hasEQContext = false
+}: InsightPoolProps) {
   const [activeTab, setActiveTab] = useState<InsightCategory>('trending');
   const [searchFilter, setSearchFilter] = useState('');
+  const [sortByEQ, setSortByEQ] = useState(false);
 
   // Make the pool droppable (for returning insights)
   const { setNodeRef } = useDroppable({
@@ -58,10 +71,23 @@ export function InsightPool({ pool, selectedInsightIds, onInsightClick }: Insigh
     );
   });
 
-  // Filter out already selected insights
-  const availableInsights = filteredInsights.filter(
-    insight => !selectedInsightIds.includes(insight.id)
-  );
+  // Filter out already selected insights and optionally sort by EQ
+  const availableInsights = useMemo(() => {
+    let insights = filteredInsights.filter(
+      insight => !selectedInsightIds.includes(insight.id)
+    );
+
+    // V3.2: Sort by EQ score if enabled and scores are available
+    if (sortByEQ && hasEQContext && Object.keys(eqScores).length > 0) {
+      insights = [...insights].sort((a, b) => {
+        const scoreA = eqScores[a.id] || 50;
+        const scoreB = eqScores[b.id] || 50;
+        return scoreB - scoreA;
+      });
+    }
+
+    return insights;
+  }, [filteredInsights, selectedInsightIds, sortByEQ, hasEQContext, eqScores]);
 
   const categories: InsightCategory[] = ['local', 'trending', 'seasonal', 'industry', 'reviews', 'competitive'];
 
@@ -118,14 +144,41 @@ export function InsightPool({ pool, selectedInsightIds, onInsightClick }: Insigh
         </div>
       </div>
 
-      {/* Active Tab Description */}
+      {/* Active Tab Description + V3.2 EQ Sort Toggle */}
       <div className="px-4 py-3 bg-gray-50 border-b border-gray-200">
-        <p className="text-xs text-gray-600">
-          {categoryDescriptions[activeTab]}
-        </p>
-        <p className="text-xs text-gray-500 mt-1">
-          Available: {availableInsights.length} insights
-        </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-xs text-gray-600">
+              {categoryDescriptions[activeTab]}
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              Available: {availableInsights.length} insights
+            </p>
+          </div>
+          {/* V3.2: EQ Sort Toggle */}
+          {hasEQContext && (
+            <button
+              onClick={() => {
+                const newValue = !sortByEQ;
+                setSortByEQ(newValue);
+                analyticsService.trackEQSortToggle({
+                  enabled: newValue,
+                  component: 'InsightPool',
+                  insightCount: availableInsights.length,
+                });
+              }}
+              className={`flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-all ${
+                sortByEQ
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+              }`}
+            >
+              <Brain size={12} />
+              <span>EQ</span>
+              <ArrowUpDown size={10} />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Insights List */}

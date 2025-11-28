@@ -57,8 +57,13 @@ export class EmbeddingService {
     const embeddings: number[][] = [];
     const uncachedTexts: { text: string; index: number }[] = [];
 
+    // DEFENSIVE: Sanitize all input texts to ensure they are strings
+    const sanitizedTexts = request.texts.map(text =>
+      typeof text === 'string' ? text : String(text || '')
+    ).filter(text => text.length > 0);
+
     // Check cache first
-    request.texts.forEach((text, index) => {
+    sanitizedTexts.forEach((text, index) => {
       const cached = this.getFromCache(text, model);
       if (cached) {
         embeddings[index] = cached.embedding;
@@ -182,9 +187,11 @@ export class EmbeddingService {
    * Build cache key
    */
   private buildCacheKey(text: string, model: string): string {
+    // DEFENSIVE: Ensure text is a string
+    const safeText = typeof text === 'string' ? text : String(text || '');
     // Use first 100 chars + length as key (good enough for deduplication)
-    const snippet = text.substring(0, 100);
-    return `${model}:${snippet}:${text.length}`;
+    const snippet = safeText.substring(0, 100);
+    return `${model}:${snippet}:${safeText.length}`;
   }
 
   /**

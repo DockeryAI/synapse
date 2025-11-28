@@ -243,7 +243,7 @@ class SerperAPIService {
    */
   async getNews(topic: string, location?: string): Promise<NewsResult[]> {
     try {
-      const params: any = { q: topic }
+      const params: any = { q: topic, num: 50 } // Request 50 news articles
       if (location) {
         params.location = location
       }
@@ -301,7 +301,8 @@ class SerperAPIService {
     try {
       const data = await callSerperEdgeFunction('/search', {
         q: query,
-        autocorrect: true
+        autocorrect: true,
+        num: 30 // Request more results to get more "People also ask" and related searches
       })
 
       // Extract "People also ask" and "Related searches"
@@ -315,7 +316,7 @@ class SerperAPIService {
         suggestions.push(...data.relatedSearches.map((item: any) => item.query))
       }
 
-      return suggestions.filter(Boolean).slice(0, 10)
+      return suggestions.filter(Boolean).slice(0, 30) // Return up to 30 suggestions
     } catch (error) {
       console.error('[Serper Autocomplete] Error:', error)
       return []

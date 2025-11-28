@@ -1,0 +1,1754 @@
+{
+  "industry": "Florist",
+  "industry_name": "Florist",
+  "naics_code": "453110",
+  "category": "Retail",
+  "subcategory": "Specialty Retail - Florists",
+  "customer_triggers": [
+    {
+      "trigger": "Forgotten anniversary requiring same-day delivery",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Funeral arrangements needed within 24-48 hours",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Last-minute wedding emergency or changes",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Hospital delivery for new baby or illness",
+      "urgency": 8,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Valentine's Day advance planning",
+      "urgency": 7,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Mother's Day gift ordering",
+      "urgency": 8,
+      "frequency": "annually"
+    },
+    {
+      "trigger": "Corporate event centerpiece needs",
+      "urgency": 6,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Apology requiring immediate gesture",
+      "urgency": 9,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Birthday surprise delivery",
+      "urgency": 7,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Graduation ceremony flowers",
+      "urgency": 6,
+      "frequency": "seasonally"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customers discover florists through Google searches 'flowers near me' (42%), Instagram visual content (23%), funeral home referrals (18%), and wedding venue preferred vendor lists (17%). Crisis moments like forgotten anniversaries drive 60% of first-time customers with immediate delivery needs",
+    "consideration": "Buyers evaluate 2-3 florists based on online galleries showcasing style, same-day delivery capability, price transparency, and review ratings above 4.5 stars. Wedding clients invest 2-3 weeks comparing portfolios, while sympathy buyers decide within hours based on funeral home proximity",
+    "decision": "Purchase triggered by delivery guarantee (38%), visual proof of actual arrangements versus stock photos (29%), price within budget (21%), and personalization options (12%). Average first order is $75 for occasions, $150 for sympathy, and $2,500 for weddings",
+    "retention": "Successful retention through reminder services for anniversaries (45% opt-in), seasonal subscription programs, exclusive access to limited varieties, and personal florist relationships. Customers who purchase 3+ times annually have 85% retention rate and $450 average annual spend",
+    "advocacy": "Clients become advocates after exceptional wedding execution or meaningful sympathy arrangements, sharing photos reaching 200+ social connections. Thank you notes from recipients create secondary referrals. Each wedding generates average 3.5 future bookings through guest referrals"
+  },
+  "transformations": [
+    {
+      "from": "Relationship crisis",
+      "to": "Romantic redemption",
+      "emotional_value": "Saving relationship worth any price",
+      "worth_premium": true
+    },
+    {
+      "from": "Grief and loss",
+      "to": "Beautiful remembrance",
+      "emotional_value": "Honoring loved one with dignity",
+      "worth_premium": true
+    },
+    {
+      "from": "Wedding stress",
+      "to": "Dream ceremony realized",
+      "emotional_value": "Once-in-lifetime perfection",
+      "worth_premium": true
+    },
+    {
+      "from": "Corporate bland",
+      "to": "Impressive ambiance",
+      "emotional_value": "Professional image enhancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Forgotten occasion",
+      "to": "Thoughtful surprise",
+      "emotional_value": "Relationship preservation",
+      "worth_premium": true
+    },
+    {
+      "from": "Long-distance separation",
+      "to": "Emotional connection",
+      "emotional_value": "Presence despite absence",
+      "worth_premium": true
+    },
+    {
+      "from": "Guilt or regret",
+      "to": "Meaningful gesture",
+      "emotional_value": "Emotional reconciliation",
+      "worth_premium": true
+    },
+    {
+      "from": "Ordinary space",
+      "to": "Transformed environment",
+      "emotional_value": "Memorable atmosphere creation",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Same-day delivery fulfillment rate at 95%+",
+      "timeframe": "daily",
+      "measurable": true
+    },
+    {
+      "metric": "Wedding client satisfaction score above 9.5/10",
+      "timeframe": "per event",
+      "measurable": true
+    },
+    {
+      "metric": "Average order value increased to $95",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Subscription retention at 70% after 6 months",
+      "timeframe": "biannual",
+      "measurable": true
+    },
+    {
+      "metric": "Corporate account growth of 20% annually",
+      "timeframe": "annual",
+      "measurable": true
+    },
+    {
+      "metric": "Flower waste below 8% of inventory",
+      "timeframe": "weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer lifetime value reaching $850",
+      "timeframe": "24 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Funeral viewing in 6 hours requiring immediate arrangement creation and delivery",
+    "Anniversary discovered at 2pm needing delivery before spouse arrives home at 6pm",
+    "Wedding venue emergency requiring replacement flowers within 2 hours",
+    "Hospital visiting hours ending at 8pm creating 4-hour delivery window",
+    "Restaurant proposal tonight needing special arrangement by 7pm",
+    "Corporate presentation tomorrow morning requiring overnight preparation",
+    "Apology needed before partner leaves for week-long trip in morning"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Online services are cheaper",
+      "response": "Our local designers create custom arrangements with flowers 3 days fresher than shipped boxes. Plus, we guarantee same-day delivery and fix any issues immediately, saving relationships worth more than the $20 difference",
+      "effectiveness": 76
+    },
+    {
+      "objection": "Grocery store flowers are more convenient",
+      "response": "Professional design and premium flowers last 10-14 days versus 3-4 days for grocery bouquets. Our arrangements make statements that $12 bundles can't, and we deliver with personalized messages",
+      "effectiveness": 71
+    },
+    {
+      "objection": "Flowers die anyway, why spend so much?",
+      "response": "The memory and photos last forever. Our arrangements create moments worth 100x their cost - whether saving a marriage, honoring a parent, or launching a business relationship",
+      "effectiveness": 68
+    },
+    {
+      "objection": "I don't know what to choose",
+      "response": "Our designers have created 10,000+ arrangements. Share your budget and occasion, and we'll create something perfect. Our 100% satisfaction guarantee means we'll remake it if it's not exactly right",
+      "effectiveness": 84
+    },
+    {
+      "objection": "Last florist disappointed me",
+      "response": "We understand that trust. Let us create a small arrangement first to prove our quality. Check our 500+ five-star reviews and photos of actual delivered arrangements. We document every delivery with photos",
+      "effectiveness": 79
+    },
+    {
+      "objection": "Weddings flowers seem overpriced",
+      "response": "Wedding flowers involve 40+ hours of planning, ordering, processing, designing, delivery, and setup. We're creating art for your most photographed day. Our payment plans spread costs over 12 months",
+      "effectiveness": 73
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or free replacement",
+      "On-time delivery or full refund",
+      "Photo proof of delivery",
+      "7-day freshness guarantee",
+      "Wedding day perfection pledge"
+    ],
+    "proof_points": [
+      "4.9 star rating from 800+ reviews",
+      "Preferred vendor at 10 venues",
+      "Award-winning design team",
+      "25 years serving community",
+      "Licensed and insured for events"
+    ],
+    "risk_mitigation": "Delivery confirmation photos eliminate uncertainty, satisfaction guarantees remove quality concerns, portfolio viewing builds design confidence, payment plans reduce financial burden, backup flower sources prevent availability issues"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "forgot",
+      "emergency",
+      "last-minute",
+      "help",
+      "desperate",
+      "sorry",
+      "apologize",
+      "funeral",
+      "mistake",
+      "urgent",
+      "crisis",
+      "stressed",
+      "worried",
+      "concerned",
+      "deadline"
+    ],
+    "solution_words": [
+      "beautiful",
+      "stunning",
+      "perfect",
+      "memorable",
+      "elegant",
+      "thoughtful",
+      "meaningful",
+      "express",
+      "celebrate",
+      "honor",
+      "surprise",
+      "delight",
+      "impress",
+      "forever",
+      "special"
+    ],
+    "avoid_jargon": [
+      "cultivar",
+      "floriferous",
+      "spadix",
+      "raceme",
+      "panicle",
+      "hardiness zone",
+      "forcing",
+      "deadheading",
+      "variegated",
+      "botanical name",
+      "hybrid",
+      "propagation"
+    ]
+  },
+  "power_words": [
+    "stunning",
+    "breathtaking",
+    "unforgettable",
+    "luxurious",
+    "handcrafted",
+    "exclusive",
+    "romantic",
+    "timeless",
+    "elegant",
+    "premium",
+    "same-day",
+    "guaranteed",
+    "custom",
+    "designer",
+    "fresh-cut",
+    "imported",
+    "rare",
+    "seasonal",
+    "award-winning",
+    "artisan",
+    "express",
+    "meaningful",
+    "personal",
+    "bespoke",
+    "signature",
+    "extraordinary",
+    "exquisite",
+    "dramatic",
+    "sophisticated",
+    "enchanting"
+  ],
+  "avoid_words": [
+    "cheap",
+    "basic",
+    "standard",
+    "generic",
+    "artificial",
+    "fake",
+    "plastic",
+    "wilted",
+    "dying",
+    "funeral",
+    "death",
+    "sympathy",
+    "sorry",
+    "condolences",
+    "budget",
+    "discount",
+    "clearance",
+    "leftover",
+    "simple",
+    "plain"
+  ],
+  "headline_templates": [
+    {
+      "template": "Forgotten Anniversary? Beautiful Flowers Delivered in 2 Hours",
+      "expected_ctr": 11.2,
+      "use_case": "Crisis response ads"
+    },
+    {
+      "template": "Make Her Cry Happy Tears with [Occasion] Flowers",
+      "expected_ctr": 8.9,
+      "use_case": "Emotional connection campaigns"
+    },
+    {
+      "template": "2024 Wedding Flower Trends: 5 Styles Brides Love",
+      "expected_ctr": 7.6,
+      "use_case": "Educational content marketing"
+    },
+    {
+      "template": "Why 500+ Couples Trust Us with Their Wedding Day",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof advertising"
+    },
+    {
+      "template": "Same-Day Delivery Until 7pm - Order Now",
+      "expected_ctr": 9.4,
+      "use_case": "Urgency-based promotions"
+    },
+    {
+      "template": "The $30 Bouquet That Saved My Marriage",
+      "expected_ctr": 10.7,
+      "use_case": "Story-based marketing"
+    },
+    {
+      "template": "Fresh Flowers Delivered Tomorrow Morning - Guaranteed",
+      "expected_ctr": 8.2,
+      "use_case": "Service promise ads"
+    },
+    {
+      "template": "See the Actual Arrangement Before We Deliver",
+      "expected_ctr": 7.9,
+      "use_case": "Trust-building campaigns"
+    },
+    {
+      "template": "Valentine's Day Headquarters - Order Early, Save 20%",
+      "expected_ctr": 12.3,
+      "use_case": "Holiday promotions"
+    },
+    {
+      "template": "Corporate Flowers That Close Deals",
+      "expected_ctr": 5.4,
+      "use_case": "B2B targeted marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Need Flowers Today? We Deliver Until 7pm",
+      "conversion_rate": 14.2,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Design My Wedding Flowers - Free Consultation",
+      "conversion_rate": 8.7,
+      "placement": "Wedding gallery page"
+    },
+    {
+      "template": "Save My Anniversary - Order Now",
+      "conversion_rate": 18.3,
+      "placement": "Crisis landing page"
+    },
+    {
+      "template": "See Today's Fresh Arrivals",
+      "conversion_rate": 10.4,
+      "placement": "Email header"
+    },
+    {
+      "template": "Get 15% Off Your First Order",
+      "conversion_rate": 12.8,
+      "placement": "Pop-up overlay"
+    },
+    {
+      "template": "Schedule Your Free Wedding Consultation",
+      "conversion_rate": 9.6,
+      "placement": "Instagram bio"
+    },
+    {
+      "template": "Send Flowers in 2 Hours",
+      "conversion_rate": 16.7,
+      "placement": "Google ads"
+    },
+    {
+      "template": "Join Our Flower Subscription - Fresh Weekly Blooms",
+      "conversion_rate": 7.3,
+      "placement": "Checkout page"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Today's wedding at [Venue] 💐 Swipe to see the bride's reaction! #WeddingFlorist #[City]Weddings #FloralDesign",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "❤️ Reminder: Valentine's Day is in [X] days! Order early for best selection and save 20%. Don't be the person scrambling on February 13th!",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Bridal Bouquet Styles for 2024 Weddings - From classic roses to wildflower meadow designs. Which is your dream bouquet?",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "Watch us create a $500 arrangement in 60 seconds ⏱️ The bride cried when she saw it! #FloristLife #WeddingFlowers #Satisfying",
+      "engagement_rate": 15.7
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: We deliver until 7pm today for all you who forgot your anniversary 😬 You're welcome. #SaveTheDay #FlowerDelivery",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Elevate your next corporate event with custom floral installations. From product launches to galas, flowers set the professional tone. Let's discuss your vision.",
+      "engagement_rate": 2.1
+    },
+    {
+      "platform": "YouTube",
+      "template": "DIY Wedding Centerpieces vs. Professional Florist - Real Cost Breakdown (Surprising Results!)",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your anniversary is in 7 days | Body: Don't scramble last minute. Order now for 20% off and guaranteed delivery",
+      "engagement_rate": 28.4
+    },
+    {
+      "platform": "Google Business",
+      "template": "⭐⭐⭐⭐⭐ 'Saved my anniversary! Delivered beautiful roses in 90 minutes. Wife loved them!' - See why 800+ customers rate us 5 stars",
+      "engagement_rate": 4.7
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day delivery until 7pm with photo confirmation saves relationships and careers",
+      "rank": 1,
+      "differentiator": "Latest delivery time in market"
+    },
+    {
+      "prop": "Custom designs by award-winning florists versus pre-made arrangements",
+      "rank": 2,
+      "differentiator": "Personalized artistic creation"
+    },
+    {
+      "prop": "Direct farm sourcing means flowers last 10-14 days versus 3-4 days",
+      "rank": 3,
+      "differentiator": "Exclusive grower relationships"
+    },
+    {
+      "prop": "Wedding specialist with 500+ events executed flawlessly",
+      "rank": 4,
+      "differentiator": "Dedicated wedding team"
+    },
+    {
+      "prop": "24/7 ordering with real human support for emergencies",
+      "rank": 5,
+      "differentiator": "After-hours crisis response"
+    },
+    {
+      "prop": "Corporate accounts with NET 30 terms and volume discounts",
+      "rank": 6,
+      "differentiator": "Business-focused services"
+    },
+    {
+      "prop": "Subscription service with weekly seasonal surprises at 30% savings",
+      "rank": 7,
+      "differentiator": "Curator-selected varieties"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience floral artistry at its finest. Our master designers source the world's most exquisite blooms, creating bespoke arrangements that transcend ordinary bouquets. From rare orchids to garden roses, each stem is selected for perfection. Your vision deserves nothing less than extraordinary.",
+    "budget_conscious": "Beautiful flowers shouldn't break the bank. Our market-fresh collection offers stunning arrangements starting at $35, with free delivery on orders over $50. Join our rewards program for exclusive discounts, and ask about our seasonal specials featuring locally-grown blooms at exceptional values.",
+    "enterprise": "Elevate your corporate presence with our comprehensive floral programs. From weekly office arrangements to major event installations, we provide seamless service with dedicated account management, NET 30 terms, and volume pricing. Our corporate partners save 25% while impressing clients and employees."
+  },
+  "trust_signals": [
+    {
+      "signal": "Award certificates from floral design competitions",
+      "importance": 8,
+      "format": "Framed displays in showroom"
+    },
+    {
+      "signal": "Real wedding photos throughout store and website",
+      "importance": 9,
+      "format": "Gallery walls and portfolios"
+    },
+    {
+      "signal": "Funeral home partnership acknowledgments",
+      "importance": 7,
+      "format": "Professional referral letters"
+    },
+    {
+      "signal": "Years in business sign showing establishment date",
+      "importance": 6,
+      "format": "Storefront signage"
+    },
+    {
+      "signal": "Fresh flower guarantee with replacement policy posted",
+      "importance": 8,
+      "format": "Visible store policy"
+    },
+    {
+      "signal": "Delivery van with professional branding and phone number",
+      "importance": 7,
+      "format": "Vehicle wrapping"
+    },
+    {
+      "signal": "Designer certifications and training credentials displayed",
+      "importance": 6,
+      "format": "Staff qualification board"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Delivered 50,000+ arrangements since 1998",
+      "credibility_score": 8,
+      "context": "Demonstrates experience and reliability"
+    },
+    {
+      "stat": "4.9/5 rating from 847 verified customers",
+      "credibility_score": 9,
+      "context": "Third-party validation of consistent quality"
+    },
+    {
+      "stat": "Preferred florist at 12 wedding venues",
+      "credibility_score": 10,
+      "context": "Professional endorsement from industry partners"
+    },
+    {
+      "stat": "98% on-time delivery rate",
+      "credibility_score": 9,
+      "context": "Reliability metric for time-sensitive orders"
+    },
+    {
+      "stat": "Created flowers for 500+ weddings",
+      "credibility_score": 8,
+      "context": "Specialized expertise in high-stakes events"
+    },
+    {
+      "stat": "Average arrangement lasts 11 days",
+      "credibility_score": 7,
+      "context": "Quality indicator versus competition"
+    }
+  ],
+  "quality_indicators": [
+    "Flowers arriving in water tubes or wet wrap versus dry packaging",
+    "Variety-specific care cards included with each arrangement",
+    "Designer signature on custom arrangements indicating personal accountability",
+    "Use of premium foliage and unexpected textural elements",
+    "Hand-tied techniques visible versus foam-based arrangements",
+    "Seasonal and locally-sourced options indicating freshness"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After delivery confirmation and recipient acknowledgment, or day after wedding/event when emotional high peaks",
+    "ask_method": "Text message with photo of their arrangement and one-click review link, followed by email with discount code for next order upon review completion"
+  },
+  "competitive_advantages": [
+    "Only florist offering 7pm same-day delivery with GPS tracking",
+    "Exclusive importer of Dutch and Ecuadorian premium varieties",
+    "In-house wedding planning software with 3D venue visualization",
+    "Climate-controlled delivery vehicles maintaining optimal temperature",
+    "Bilingual staff serving diverse community needs",
+    "Only local florist with 24/7 emergency hotline"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $200 luxury arrangements first to make $75 options seem reasonable. Show 'as seen in wedding' prices of $5,000 to contextualize $100 bouquets",
+    "sensitivity": "Sympathy and wedding flowers show low price sensitivity. Birthday and 'just because' highly price sensitive. Apology flowers have zero price sensitivity in crisis moments",
+    "sweet_spots": [
+      "$75 for special occasions",
+      "$50 for 'just because'",
+      "$125 for sympathy",
+      "$150 for corporate",
+      "$2,500 for weddings"
+    ],
+    "decoy_pricing": "Offer standard ($50), deluxe ($75), and premium ($95) to drive deluxe sales with highest margin. Position $75 as 'most popular' choice"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 100,
+    "approval_required": 200,
+    "competitor_research": 75
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.3,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$35-75",
+      "target_customer": "Last-minute occasions",
+      "margin": 40
+    },
+    {
+      "tier": "Designer's Choice",
+      "price_range": "$75-150",
+      "target_customer": "Special occasions",
+      "margin": 50
+    },
+    {
+      "tier": "Luxury Collection",
+      "price_range": "$150-500+",
+      "target_customer": "Corporate and premium gifts",
+      "margin": 60
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Designer's choice arrangements using available inventory achieve 60% margins versus 40% for specific requests",
+    "Subscription programs with predictable demand reduce waste by 50% improving margins 15%",
+    "Add-on sales of chocolates, balloons, and cards at 70% margin boost transaction value $18 average",
+    "Wedding package pricing captures 20% premium over itemized quotes",
+    "Delivery fees of $15-25 contribute pure margin after route optimization",
+    "Seasonal markup of 40% on Valentine's and Mother's Day with maintained demand"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -30,
+      "reason": "Post-holiday slowdown",
+      "opportunity": "Wedding planning season begins"
+    },
+    {
+      "month": "February",
+      "variation": 180,
+      "reason": "Valentine's Day surge",
+      "opportunity": "Highest revenue month of year"
+    },
+    {
+      "month": "March",
+      "variation": -10,
+      "reason": "Recovery from February",
+      "opportunity": "Spring arrangement promotions"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Easter and spring events",
+      "opportunity": "Pastel and garden themes"
+    },
+    {
+      "month": "May",
+      "variation": 150,
+      "reason": "Mother's Day and graduations",
+      "opportunity": "Second highest revenue month"
+    },
+    {
+      "month": "June",
+      "variation": 40,
+      "reason": "Wedding season peak",
+      "opportunity": "Bridal focus and Father's Day"
+    },
+    {
+      "month": "July",
+      "variation": -20,
+      "reason": "Summer vacation lull",
+      "opportunity": "Subscription service push"
+    },
+    {
+      "month": "August",
+      "variation": -25,
+      "reason": "Late summer slowdown",
+      "opportunity": "Back-to-school teacher gifts"
+    },
+    {
+      "month": "September",
+      "variation": 30,
+      "reason": "Fall weddings begin",
+      "opportunity": "Autumn arrangements launch"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Fall events and Halloween",
+      "opportunity": "Seasonal decorative pieces"
+    },
+    {
+      "month": "November",
+      "variation": 15,
+      "reason": "Thanksgiving centerpieces",
+      "opportunity": "Holiday pre-orders begin"
+    },
+    {
+      "month": "December",
+      "variation": 60,
+      "reason": "Holiday parties and gifts",
+      "opportunity": "Poinsettias and festive arrangements"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Corporate deliveries",
+      "avoid": "Wedding consultations",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Workshop promotions",
+      "avoid": "Major campaigns",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Subscription renewals",
+      "avoid": "Event bookings",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend event prep",
+      "avoid": "System maintenance",
+      "conversion_rate": 5.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Romance and apologies",
+      "avoid": "Price increases",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Wedding deliveries",
+      "avoid": "B2B outreach",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Sympathy arrangements",
+      "avoid": "Promotional emails",
+      "conversion_rate": 5.4
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Credit card payments due mid-month impact discretionary spending. Best sales days are 1st-5th after payday and 20th-25th before month end. Corporate orders cluster around quarterly ends",
+    "cash_flow_peaks": "Paydays on 1st and 15th drive 35% higher sales following 3 days. Social security deposits on 3rd create senior customer surge for sympathy arrangements",
+    "slow_periods": "Days 6-12 consistently slowest except for emergencies. Tuesday-Wednesday mid-month are optimal for maintenance and training. Post-holiday weeks require aggressive promotions"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "February 13th all day",
+      "crisis_type": "Valentine's Day panic",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Mother's Day morning",
+      "crisis_type": "Forgotten holiday",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Friday 4pm-7pm",
+      "crisis_type": "Weekend apologies",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "December 24th morning",
+      "crisis_type": "Christmas emergency",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Funeral day morning",
+      "crisis_type": "Last-minute sympathy",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Wedding Complete",
+      "components": [
+        "Consultation",
+        "Bridal bouquet",
+        "Bridesmaids",
+        "Ceremony",
+        "Reception"
+      ],
+      "pricing_model": "Package from $2,500",
+      "margin": 55
+    },
+    {
+      "name": "Corporate Monthly",
+      "components": [
+        "Weekly lobby",
+        "Conference rooms",
+        "Special events",
+        "Holiday decor"
+      ],
+      "pricing_model": "Contract $500/month",
+      "margin": 50
+    },
+    {
+      "name": "Sympathy Tribute",
+      "components": [
+        "Casket spray",
+        "Standing arrangements",
+        "Family pieces",
+        "Delivery"
+      ],
+      "pricing_model": "Bundle from $400",
+      "margin": 45
+    },
+    {
+      "name": "Romance Package",
+      "components": [
+        "Dozen roses",
+        "Chocolates",
+        "Card",
+        "Same-day delivery"
+      ],
+      "pricing_model": "Special at $125",
+      "margin": 48
+    }
+  ],
+  "upsell_paths": [
+    "Single bouquet → Add chocolates and card → Upgrade to premium flowers → Add second delivery location",
+    "Basic arrangement → Designer upgrade → Add vase → Include weekly subscription trial",
+    "Wedding bouquet → Add ceremony flowers → Include reception centerpieces → Complete venue decoration",
+    "Sympathy arrangement → Add memorial keepsake → Include weekly grave flowers → Memorial birthday reminder service",
+    "Corporate one-time → Monthly contract → Quarterly events → Annual partnership with dedicated designer",
+    "Standard delivery → Rush delivery → Specific time window → Personal presentation by designer"
+  ],
+  "retention_hooks": [
+    "Anniversary and birthday reminders with pre-order discounts",
+    "Loyalty points doubling on slow days encouraging off-peak purchases",
+    "Exclusive access to limited seasonal varieties for VIP customers",
+    "Free delivery after 5 purchases creating purchase momentum",
+    "Personalized designer relationships for high-value clients",
+    "Subscription pause options preventing cancellations during travel",
+    "Referral rewards stacking for multiple successful recommendations"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Bride referral program for wedding guests",
+      "timing": "Post-wedding thank you cards",
+      "incentive": "$50 credit per booking",
+      "conversion_rate": 38
+    },
+    {
+      "strategy": "Recipient surprise referral",
+      "timing": "With delivery confirmation",
+      "incentive": "20% off first order",
+      "conversion_rate": 24
+    },
+    {
+      "strategy": "Corporate client introduction rewards",
+      "timing": "After successful event",
+      "incentive": "One free arrangement",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Social media photo sharing",
+      "timing": "During delivery",
+      "incentive": "10% off next order",
+      "conversion_rate": 19
+    },
+    {
+      "strategy": "Funeral home partnership referrals",
+      "timing": "During arrangements",
+      "incentive": "Compassion pricing",
+      "conversion_rate": 45
+    },
+    {
+      "strategy": "Wedding venue preferred vendor",
+      "timing": "Venue tours",
+      "incentive": "Venue commission",
+      "conversion_rate": 52
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Flowers → Vase and care products",
+      "attach_rate": 34,
+      "timing": "Checkout"
+    },
+    {
+      "service": "Roses → Chocolates and champagne",
+      "attach_rate": 48,
+      "timing": "Valentine's ordering"
+    },
+    {
+      "service": "Wedding flowers → Day-of coordination",
+      "attach_rate": 28,
+      "timing": "Final consultation"
+    },
+    {
+      "service": "Sympathy → Memorial keepsakes",
+      "attach_rate": 41,
+      "timing": "Arrangement selection"
+    },
+    {
+      "service": "Birthday flowers → Balloon bouquet",
+      "attach_rate": 56,
+      "timing": "Gift selection"
+    },
+    {
+      "service": "Corporate flowers → Plant maintenance",
+      "attach_rate": 37,
+      "timing": "Contract renewal"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Wedding planning services",
+      "market_size": "$200K annual revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Plant rental and maintenance",
+      "market_size": "$150K annual revenue potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Flower arranging workshops",
+      "market_size": "$75K annual revenue potential",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "E-commerce nationwide shipping",
+      "market_size": "$300K annual revenue potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Event decoration services",
+      "market_size": "$250K annual revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Dried flower and gift shop",
+      "market_size": "$100K annual revenue potential",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "The Bouqs Company's Instagram Stories showing behind-the-scenes farm-to-door journey with real farmers in Ecuador and Colombia, featuring time-lapse videos of flowers being cut, packed, and delivered",
+        "platform": "Instagram",
+        "why_it_worked": "Transparency and storytelling created emotional connection; customers valued seeing the ethical sourcing and freshness guarantee. User-generated content encouraged with #BouqsLove hashtag generated 50K+ posts",
+        "metrics": "Average 8.2% engagement rate on Stories (3x industry average), 45% increase in direct-to-consumer sales during campaign period",
+        "source": "Social Media Examiner case study 2023, The Bouqs Company Instagram analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "1-800-Flowers' Mother's Day email campaign featuring personalized subject lines with customer's mom's name and 'last chance for guaranteed delivery' urgency messaging combined with photo of actual arrangement",
+        "platform": "Email",
+        "why_it_worked": "Personalization increased open rates; urgency drove immediate action; showing actual product (not stock photos) built trust during peak season when quality concerns are highest",
+        "metrics": "34% open rate (vs 21% industry average), 6.8% click-through rate, 18% conversion rate on Mother's Day week emails",
+        "source": "Email Marketing Benchmarks Report 2024 by GetResponse, 1-800-Flowers investor presentation Q2 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Local florist 'Petal & Vine' in Portland created TikTok series 'Florist Reacts to Movie Bouquets' critiquing flower arrangements in romantic movies, explaining what would actually last and cost",
+        "platform": "TikTok",
+        "why_it_worked": "Educational entertainment format (edutainment) went viral; tapped into existing movie fandoms; demonstrated expertise while being entertaining; made florist relatable and accessible",
+        "metrics": "2.3M views on top video, 47K followers gained in 3 months, 156% increase in local wedding inquiries attributed to TikTok presence",
+        "source": "TikTok For Business Small Business Success Stories 2024, Petal & Vine case study",
+        "confidence": "high"
+      },
+      {
+        "example": "UrbanStems' Valentine's Day campaign 'Flowers That Don't Die' promoting their partnership with Léon & George for potted plants, positioning as 'love that lasts' alternative to cut flowers",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Challenged industry norm; appealed to sustainability-conscious millennials; created new category positioning; carousel ads showed before/after of plants thriving months later",
+        "metrics": "23% higher AOV than traditional bouquet campaigns, 41% repeat purchase rate within 6 months vs 12% for cut flowers",
+        "source": "UrbanStems press release February 2024, AdWeek feature on sustainable marketing",
+        "confidence": "medium"
+      },
+      {
+        "example": "BloomNation's local florist network campaign featuring real customer 'apology accepted' stories with photos of arrangements that 'saved the day', user-submitted testimonials",
+        "platform": "Facebook",
+        "why_it_worked": "Social proof from real customers; tapped into high-emotion use case (apologies/relationship repair); authentic stories more believable than brand messaging; encouraged UGC",
+        "metrics": "3.7x higher engagement than product-only posts, 89% positive sentiment in comments, 28% increase in same-day delivery orders",
+        "source": "BloomNation marketing blog 2023, Facebook Business case studies",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.8% for florist industry (vs 1.94% cross-industry average)",
+        "best_content_format": "Carousel posts showing arrangement process/multiple angles (4.2% engagement) and Reels showing time-lapse creation (5.1% engagement)",
+        "optimal_frequency": "5-7 posts per week, 3-5 Stories daily, 2-3 Reels per week",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Saturday 9am-11am, Sunday 6pm-8pm (when people plan gifts/events)",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Later.com Instagram Engagement Study 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2% for retail florists, 2.1% for posts with delivery urgency messaging",
+        "best_content_format": "Video posts (especially delivery/unboxing reactions) at 1.8% engagement, photo albums of events at 1.4%",
+        "optimal_frequency": "3-5 posts per week, avoid daily posting which shows diminishing returns",
+        "best_posting_times": "Wednesday-Friday 1pm-3pm, Sunday 12pm-2pm",
+        "source": "Hootsuite Social Media Trends Report 2024, Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "8.7% for florist content (significantly above 4.25% platform average)",
+        "best_content_format": "Behind-the-scenes arrangement creation (15-30 seconds), 'satisfying' flower prep videos, educational content about flower meanings",
+        "optimal_frequency": "4-7 posts per week for growth phase, consistency more important than volume",
+        "best_posting_times": "Tuesday-Thursday 7pm-9pm, Saturday 10am-12pm (high scroll times)",
+        "source": "TikTok For Business Creator Insights 2024, Influencer Marketing Hub TikTok Engagement Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 3.2% click-through rate for florist industry",
+        "best_content_format": "Personalized occasion reminders (28% open rate), limited-time offers with countdown timers (7.1% CTR), high-quality product photos with reviews",
+        "optimal_frequency": "2-3 emails per week for active subscribers, daily during peak seasons (Valentine's, Mother's Day)",
+        "best_posting_times": "Tuesday-Wednesday 10am-11am, Thursday 8pm-9pm, Sunday 3pm-5pm",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Campaign Monitor Industry Report 2024"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "0.9% engagement, but 3.8x higher purchase intent than other platforms for florist content",
+        "best_content_format": "Vertical pins (2:3 ratio) with text overlays for wedding/event inspiration, seasonal arrangement boards, DIY flower care tips",
+        "optimal_frequency": "10-15 pins per day using scheduling tools, focus on seasonal boards 6-8 weeks before events",
+        "best_posting_times": "Friday-Sunday 8pm-11pm (weekend planning mode), Wednesday 2pm-4pm",
+        "source": "Pinterest Business Insights 2024, Tailwind Pinterest Analytics Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Guarantee combination",
+        "example": "Same-Day Delivery Guaranteed or Your Money Back - Order by 2PM",
+        "why_it_works": "Addresses primary pain point (forgotten occasions) while removing risk; specific time deadline creates immediate action; florist customers often in crisis mode needing certainty",
+        "source": "1-800-Flowers ad copy, ProFlowers email subject lines, conversion rate optimization studies"
+      },
+      {
+        "hook_pattern": "Emotional transformation promise",
+        "example": "From 'I Forgot' to 'You Remembered' in 3 Hours",
+        "why_it_works": "Speaks directly to relationship anxiety and redemption arc; quantified timeframe builds credibility; addresses the real job-to-be-done (relationship repair, not just flowers)",
+        "source": "FTD marketing campaigns, customer review analysis from Trustpilot"
+      },
+      {
+        "hook_pattern": "Social proof + specificity",
+        "example": "How 847 Customers Saved Their Anniversary This Week",
+        "why_it_works": "Specific number more believable than 'thousands'; current timeframe ('this week') shows active usage; customers see themselves in the scenario",
+        "source": "BloomNation email campaigns, Teleflora Facebook ads"
+      },
+      {
+        "hook_pattern": "Behind-the-scenes expertise",
+        "example": "What Your Florist Won't Tell You About Roses (But I Will)",
+        "why_it_works": "Insider knowledge positioning; creates curiosity gap; builds trust through transparency; educates while selling",
+        "source": "Viral florist TikTok videos, The Bouqs Company blog titles"
+      },
+      {
+        "hook_pattern": "Problem agitation + solution",
+        "example": "Wilted Flowers Ruin Everything. Here's How Ours Stay Fresh for 10+ Days",
+        "why_it_works": "Acknowledges common objection (flowers die quickly); specific duration builds credibility; implies superior quality/knowledge",
+        "source": "UrbanStems product descriptions, Farmgirl Flowers marketing copy"
+      },
+      {
+        "hook_pattern": "Occasion-specific rescue",
+        "example": "Funeral Flowers with Dignity - Delivered in 4 Hours, Designed with Care",
+        "why_it_works": "Addresses sensitive high-urgency need with respect; speed plus quality reassurance; emotional tone matches situation",
+        "source": "Teleflora sympathy category, local florist Google Ads analysis"
+      },
+      {
+        "hook_pattern": "Price objection reframe",
+        "example": "What's a Saved Relationship Worth? (Less Than You Think)",
+        "why_it_works": "Reframes price against emotional value; parenthetical creates curiosity about actual price; acknowledges objection while pivoting to value",
+        "source": "ProFlowers apology collection, Venus Et Fleur luxury positioning"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I completely forgot our anniversary until this morning",
+        "Need flowers for a funeral tomorrow and everywhere is booked",
+        "Ordered flowers online and they arrived dead/wilted",
+        "Spent $100 and they looked like grocery store flowers",
+        "No idea what flowers are appropriate for a funeral",
+        "Every florist website looks the same, can't tell quality",
+        "Delivery said 'by 5pm' and showed up at 8pm when no one was home",
+        "The arrangement looked NOTHING like the picture online",
+        "Called three florists and no one could do same-day",
+        "My wife is in the hospital and I'm out of state, need delivery today"
+      ],
+      "solution_phrases": [
+        "They saved my anniversary - delivered in 3 hours exactly as shown",
+        "The arrangement was even more beautiful than the photo",
+        "Customer service called to confirm funeral delivery time and placement",
+        "Flowers lasted almost 2 weeks with their care instructions",
+        "They texted me a photo before delivery so I knew exactly what she'd receive",
+        "Finally a florist that shows REAL photos of actual arrangements",
+        "The designer called me to discuss my mom's favorite colors",
+        "They delivered at exactly the time I needed for the surprise",
+        "Included a handwritten card that made it feel so personal",
+        "The quality was worth every penny - you get what you pay for"
+      ],
+      "objection_phrases": [
+        "Too expensive for flowers that will just die in a week",
+        "Can't trust online photos - they never look the same in person",
+        "Delivery fees are almost as much as the arrangement",
+        "How do I know they'll actually deliver on time?",
+        "What if she doesn't like them? Can I return flowers?",
+        "Local florist is cheaper but their website is terrible",
+        "I don't know anything about flowers, what if I choose wrong?",
+        "Last time I ordered online it was a disaster",
+        "Do they actually hand-deliver or just use a courier?",
+        "Are these even fresh or do they sit in a warehouse?"
+      ],
+      "decision_factors": [
+        "Guaranteed delivery time with tracking",
+        "Real photos of actual arrangements, not stock images",
+        "Same-day or specific time window delivery available",
+        "Customer reviews with photos of what they received",
+        "Ability to customize or add personal touches",
+        "Freshness guarantee or money-back promise",
+        "Local florist vs. wire service (local preferred for quality)",
+        "Price transparency - no hidden fees at checkout",
+        "Customer service availability for questions/changes",
+        "Designer expertise for occasions I'm unsure about"
+      ],
+      "emotional_language": [
+        "devastated",
+        "panic",
+        "desperate",
+        "relief",
+        "saved my relationship",
+        "beautiful tribute",
+        "honored her memory",
+        "made her cry happy tears",
+        "felt so guilty",
+        "redeemed myself",
+        "looked like a hero",
+        "peace of mind",
+        "absolutely stunning",
+        "took my breath away",
+        "worth every penny",
+        "can't put a price on",
+        "meant everything to her",
+        "professional and dignified",
+        "exceeded expectations",
+        "restored my faith",
+        "felt so personal",
+        "made the day perfect",
+        "disaster averted"
+      ],
+      "sources": [
+        "Trustpilot reviews for 1-800-Flowers, FTD, The Bouqs Company, UrbanStems (2023-2024)",
+        "Reddit r/wedding, r/relationships, r/askmen threads about flower delivery",
+        "Google Reviews for top 20 local florists in major metro areas",
+        "Yelp reviews filtered for 'funeral', 'anniversary', 'same-day'",
+        "Facebook comments on florist ads and posts",
+        "Amazon reviews for flower delivery services"
+      ]
+    },
+    "competitive_gaps": [
+      "Subscription education - competitors offer subscriptions but don't educate customers on rotating seasonal flowers and why variety matters",
+      "Grief support content - funeral flowers are huge revenue but almost no content supporting grieving customers beyond product catalogs",
+      "Corporate gifting automation - businesses need recurring arrangements but process is still manual phone calls",
+      "Flower care video tutorials - customers want flowers to last but minimal educational content on proper care",
+      "Sustainability transparency - customers increasingly care but few florists share sourcing practices, carbon footprint, or eco-friendly options",
+      "Price education - why arrangements cost what they do; customers see grocery store bouquets and wonder about markup",
+      "Designer profiles - humanizing the florists themselves, their expertise and artistry (not just arrangements)",
+      "Failed delivery recovery - what happens when things go wrong is rarely addressed proactively",
+      "Occasion appropriateness guides - customers anxious about choosing 'wrong' flowers for funerals, sympathy, cultural events",
+      "Real-time inventory transparency - showing what's actually fresh and available today vs. generic catalog"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Valentine's Day (Jan 15 - Feb 14)",
+        "opportunity": "Highest revenue period; 35% of annual sales for many florists; extreme urgency and premium pricing accepted",
+        "content_angle": "Early bird discounts to spread demand; 'non-red rose' alternatives for differentiation; last-minute rescue positioning; apology/relationship repair messaging; delivery guarantee emphasis"
+      },
+      {
+        "period": "Mother's Day (April - May, 2nd Sunday)",
+        "opportunity": "Second highest revenue period; 25% of annual sales; multiple generations buying; high emotional stakes",
+        "content_angle": "Personalization by mom type (new mom, grandma, mother-in-law); delivery coordination for multiple locations; brunch/celebration tie-ins; 'what mom really wants' guides; photo-worthy arrangements for social sharing"
+      },
+      {
+        "period": "Wedding Season (May - October peak)",
+        "opportunity": "High-value contracts; consultative selling; premium pricing; referral potential; portfolio building",
+        "content_angle": "Behind-the-scenes wedding transformations; seasonal flower availability education; budget optimization guides; trend forecasting; vendor collaboration content; real wedding features"
+      },
+      {
+        "period": "Holiday Season (Nov - Dec)",
+        "opportunity": "Corporate gifting; hostess gifts; party centerpieces; Thanksgiving through New Year's; religious holidays",
+        "content_angle": "Corporate bulk ordering made easy; holiday entertaining tips; centerpiece DIY vs. professional; gift guides by recipient type; winter flower care in cold climates"
+      },
+      {
+        "period": "Sympathy/Funeral (Year-round consistent)",
+        "opportunity": "Urgent need; price less sensitive; repeat customers for multiple services; referrals from funeral homes",
+        "content_angle": "Dignified, respectful messaging; religious/cultural appropriateness guides; delivery coordination with funeral homes; grief support resources; memorial service options beyond traditional sprays"
+      },
+      {
+        "period": "Back-to-School/Teacher Appreciation (Aug-Sep, May)",
+        "opportunity": "Often overlooked by competitors; parent community sharing; bulk class orders",
+        "content_angle": "Teacher gift guides; classroom-appropriate arrangements; group ordering for class parents; appreciation messaging templates"
+      },
+      {
+        "period": "Graduation Season (May-June)",
+        "opportunity": "Celebration flowers; party centerpieces; gift alternative to cards; school color customization",
+        "content_angle": "School color arrangements; party-ready designs; bulk family orders; photo-worthy congratulations pieces; dorm-friendly options for college grads"
+      },
+      {
+        "period": "Administrative Professionals Day (Last Wed of April)",
+        "opportunity": "Corporate bulk orders; office delivery; appreciation gifting; often forgotten until last minute",
+        "content_angle": "Corporate reminder campaigns 2 weeks prior; bulk order discounts; office-appropriate designs; delivery logistics for multi-floor buildings"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Engagement Study 2024",
+      "Hootsuite Social Media Trends Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "TikTok For Business Creator Insights 2024",
+      "Influencer Marketing Hub TikTok Engagement Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Campaign Monitor Industry Report 2024",
+      "Pinterest Business Insights 2024",
+      "Tailwind Pinterest Analytics Report 2024",
+      "Trustpilot reviews (1-800-Flowers, FTD, The Bouqs Company, UrbanStems)",
+      "Reddit communities (r/wedding, r/relationships, r/askmen)",
+      "Google Reviews for local florists",
+      "Social Media Examiner case studies 2023",
+      "GetResponse Email Marketing Benchmarks 2024",
+      "TikTok For Business Small Business Success Stories 2024",
+      "AdWeek sustainable marketing features",
+      "Facebook Business case studies",
+      "Industry investor presentations and press releases"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited public data on conversion rates for specific florists (proprietary)",
+      "LinkedIn engagement data scarce for B2C florist industry (more B2B focused platform)",
+      "Exact A/B testing results rarely published publicly by major brands",
+      "Some platform benchmarks aggregated across retail, not florist-specific",
+      "Customer voice heavily weighted toward online reviews; in-store customer language less documented"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes sourcing transparency - Show where new [product] comes from, farm partnerships, freshness journey",
+        "Week 2: Designer expertise showcase - Introduce the florists creating [product], their training, and artistic process",
+        "Week 3: Real customer unboxing and delivery reactions - Feature actual recipients receiving [product] with emotional responses",
+        "Week 4: Urgency and exclusivity - Limited availability messaging, pre-order guarantees, first-customer benefits"
+      ],
+      "weekly_hooks": [
+        [
+          "What Your Florist Won't Tell You About [New Product] (But We Will)",
+          "From [Origin Farm] to Your Door in [X] Days - See the Journey",
+          "Behind the Scenes: How We Designed [Product] to Last [X] Days Longer"
+        ],
+        [
+          "[Designer Name] Has Created 10,000+ Arrangements. Here's Why [Product] Is Different",
+          "The Secret Technique Our Florists Use to Make [Product] Absolutely Stunning",
+          "Watch: [Product] Comes Together in 60 Seconds (The Result Will Take Your Breath Away)"
+        ],
+        [
+          "How [X] Customers Reacted When [Product] Arrived (Video Proof Inside)",
+          "'It Was Even More Beautiful Than the Photo' - [Product] Real Customer Stories",
+          "[Product] Made Her Cry Happy Tears - See Why [X] People Pre-Ordered"
+        ],
+        [
+          "Only [X] [Products] Left - Guaranteed Delivery or Your Money Back",
+          "Be Among the First [X] to Get [Product] with [Exclusive Benefit]",
+          "Last Chance: [Product] Pre-Order Ends [Date] - Same-Day Delivery Guaranteed"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Are these even fresh or do they sit in a warehouse?' with farm-to-door transparency",
+        "Week 2: Address 'Can't trust online photos - they never look the same in person' with designer process videos and real arrangement photos",
+        "Week 3: Address 'Last time I ordered online it was a disaster' with customer testimonials, photo reviews, and satisfaction guarantee",
+        "Week 4: Address 'How do I know they'll actually deliver on time?' with delivery guarantee, tracking, and time-window specifics"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce farm partnership credentials, sourcing locations with video/photos, freshness timeline infographics",
+        "Week 2: Share designer profiles with years of experience, certifications, portfolio of past work",
+        "Week 3: Feature customer reviews with photos, video testimonials of unboxing reactions, before/after longevity proof",
+        "Week 4: Final push with aggregate social proof (X customers pre-ordered, X five-star reviews, money-back guarantee badge)"
+      ],
+      "cta_progression": [
+        "Week 1: 'See the Full Farm-to-Door Story' (educational landing page), 'Get Early Access Updates'",
+        "Week 2: 'Watch the Design Process' (video content), 'Ask Our Designers Questions' (engagement)",
+        "Week 3: 'Read All Customer Stories' (social proof page), 'Share Your [Product] Wish List'",
+        "Week 4: 'Order Now - Guaranteed [Date] Delivery', 'Pre-Order Before We Sell Out', 'Call for Custom [Product] Design'"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories daily, 3 Reels) - Primary visual storytelling platform",
+        "TikTok (5-7 posts/week) - Behind-the-scenes and designer process videos for viral potential",
+        "Email (5-7 emails over 4 weeks) - Detailed product education and conversion focus",
+        "Facebook (3-4 posts/week) - Customer testimonials and video reactions"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on The Bouqs Company's Instagram Stories farm-to-door journey (8.2% engagement, 3x industry average) and transparency storytelling that drove 45% sales increase. Also applies Petal & Vine's edutainment format that gained 47K followers and UrbanStems' carousel ad strategy showing product evolution."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Flower care education - How to make arrangements last 10+ days with specific care instructions",
+        "Week 2: Occasion appropriateness guides - What flowers mean what, cultural considerations, funeral vs. celebration choices",
+        "Week 3: Designer spotlight and expertise - Meet the florists, their training, artistic decisions explained",
+        "Week 4: Customer transformation stories - From panic to relief, relationship saved, memorial honored",
+        "Week 5: Seasonal availability education - What's fresh now, why variety matters, sustainability of seasonal choices",
+        "Week 6: Behind-the-scenes process - Arrangement creation time-lapses, delivery logistics, quality control",
+        "Week 7: Price transparency and value - Why professional arrangements cost more, comparison to grocery store, longevity ROI",
+        "Week 8: Same-day delivery hero stories - Last-minute saves, funeral coordination, anniversary rescues with customer proof"
+      ],
+      "weekly_hooks": [
+        [
+          "Wilted Flowers Ruin Everything. Here's How Ours Stay Fresh for 10+ Days",
+          "The [X] Mistakes Killing Your Flowers in 3 Days (And How to Fix Them)",
+          "Professional Florist Reveals: The Care Secret That Doubles Flower Life"
+        ],
+        [
+          "What Flowers Are Actually Appropriate for Funerals? (Culture-by-Culture Guide)",
+          "Sending the Wrong Flowers Can Devastate. Here's What to Choose for [Occasion]",
+          "Flower Meanings Your Florist Assumes You Know (But You Probably Don't)"
+        ],
+        [
+          "Meet [Designer]: [X] Years Creating Arrangements That Make People Cry Happy Tears",
+          "Why Our Designers Spend [X] Minutes on Every Arrangement (When They Could Rush It)",
+          "Behind the Expertise: How [Designer] Chooses the Perfect [Flower] for Your [Occasion]"
+        ],
+        [
+          "From 'I Forgot' to 'You Remembered' in 3 Hours - Real Customer Story",
+          "How [X] Customers Saved Their Anniversary This Week (With Photo Proof)",
+          "'They Saved My Relationship' - [Customer Name]'s Desperate Call Story"
+        ],
+        [
+          "Why Your [Season] Flowers Last Longer (And Cost Less) Than Imported Alternatives",
+          "What's Actually Fresh Right Now vs. What's Been in Cold Storage for Weeks",
+          "The Sustainability Secret: Seasonal Flowers Have [X]% Lower Carbon Footprint"
+        ],
+        [
+          "Watch: Stunning [Occasion] Arrangement Comes Together in 60 Seconds",
+          "Behind the Scenes: How We Guarantee Your Delivery Arrives Perfect",
+          "The [X]-Step Quality Check Every Arrangement Goes Through Before Delivery"
+        ],
+        [
+          "What's a Saved Relationship Worth? (Less Than You Think)",
+          "Why Professional Arrangements Last 3x Longer Than $[X] Grocery Bouquets",
+          "The Real Cost Breakdown: [Your Arrangement] vs. [Big Box Store] (Photos Inside)"
+        ],
+        [
+          "Same-Day Delivery Guaranteed or Your Money Back - Order by [Time]",
+          "How [X] Customers Got Funeral Flowers Delivered with Dignity in 4 Hours",
+          "'Devastated to Relief in One Phone Call' - Same-Day Emergency Stories"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Flowers die anyway, why spend so much?' with longevity education and care value",
+        "Week 2: Address 'I don't know anything about flowers, what if I choose wrong?' with occasion guides",
+        "Week 3: Address 'Can't trust online photos' with designer transparency and real work examples",
+        "Week 4: Address 'Last time I ordered online it was a disaster' with success story social proof",
+        "Week 5: Address 'Are these even fresh?' with seasonal sourcing and freshness timeline education",
+        "Week 6: Address 'How do I know they'll actually deliver on time?' with process transparency",
+        "Week 7: Address 'Too expensive for flowers' and 'Grocery store flowers are cheaper' with value comparison",
+        "Week 8: Address 'What if things go wrong?' with same-day guarantee and problem-solving stories"
+      ],
+      "proof_timing": [
+        "Week 1: Share care instruction downloads, flower longevity comparison charts, time-lapse of flowers lasting",
+        "Week 2: Feature cultural expertise credentials, occasion portfolio examples, consultation testimonials",
+        "Week 3: Introduce designer bios with certifications, years of experience, training backgrounds",
+        "Week 4: Share customer video testimonials, photo reviews, relationship-saved stories with names",
+        "Week 5: Show farm partnerships, seasonal sourcing locations, sustainability certifications",
+        "Week 6: Behind-the-scenes facility tour, delivery vehicle tracking screenshots, quality control process",
+        "Week 7: Price breakdown infographics, side-by-side longevity comparisons with photos, value testimonials",
+        "Week 8: Same-day delivery tracking proof, funeral home partnership letters, emergency save testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download Our Free Flower Care Guide', 'Get Care Tips Texted to You'",
+        "Week 2: 'Take Our Occasion Quiz', 'Ask Our Designers for Free Advice'",
+        "Week 3: 'Meet All Our Designers', 'Request Your Favorite Designer'",
+        "Week 4: 'Read More Customer Stories', 'Share Your Own Flower Story'",
+        "Week 5: 'See What's Fresh This Week', 'Subscribe to Seasonal Selections'",
+        "Week 6: 'Watch More Behind-the-Scenes', 'Schedule a Studio Visit'",
+        "Week 7: 'Compare Our Quality Guarantee', 'Try a Small Arrangement First'",
+        "Week 8: 'Order Same-Day Delivery Now', 'Call for Emergency Arrangements', 'Save Our Number for Next Time'"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories daily, 2-3 Reels/week) - Educational carousels and care tutorials perform at 4.2% engagement",
+        "Email (2-3 emails/week) - Occasion reminders and educational content achieve 28% open rates",
+        "TikTok (4-7 posts/week) - Educational content performs at 8.7% engagement, significantly above platform average",
+        "Pinterest (10-15 pins/day scheduled) - Evergreen guides and care tips have 3.8x higher purchase intent",
+        "Facebook (3-5 posts/week) - Video care tutorials and customer stories at 1.8% engagement for video"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing need for flower care education, price transparency, and designer humanization. Applies Petal & Vine's edutainment TikTok format (2.3M views, 156% wedding inquiry increase) and addresses customer voice data showing confusion about occasion appropriateness and flower care extending value."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized 'Florist Reacts' content - React to movie bouquets, celebrity arrangements, viral flower trends with expert commentary",
+        "Week 2: User-generated content explosion - 'Show Us Your [Hashtag]' campaign with reposting, contests, and customer feature blitz"
+      ],
+      "weekly_hooks": [
+        [
+          "Florist Reacts to [Popular Movie] Bouquet: What It Would Actually Cost",
+          "I Critiqued [Celebrity]'s Wedding Flowers and You Won't Believe What I Found",
+          "The [Viral Trend] Everyone's Trying - Here's What Actually Works (Professional Take)",
+          "Rating Movie Bouquets: Which Rom-Com Got It Right?",
+          "What [TV Show] Gets Wrong About Flower Arrangements (And What They Nailed)",
+          "Professional Florist Reacts to DIY TikTok Flower Hacks - Genius or Disaster?"
+        ],
+        [
+          "Show Us Your [Occasion] Flowers with #[BrandHashtag] - Best Ones Featured Daily",
+          "We're Remaking Our Favorite Customer Photo - Vote for Which One",
+          "Tag Someone Who Needs Flowers Today - We're Giving Away [X] Arrangements",
+          "Share Your Flower Fail Story - Funniest One Gets Free Arrangement",
+          "Post Your Best Flower Photo - We'll Recreate the Top [X] for Free",
+          "The #[BrandHashtag] Challenge: Show Us Flowers That Made You Cry"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know anything about flowers' by demonstrating expertise in entertaining, accessible way",
+        "Week 2: Address 'Can't trust online photos' by featuring massive volume of real customer photos and experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate expertise through entertaining critique format, showcase knowledge in pop culture context, build authority through comparison analysis",
+        "Week 2: Flood feed with user-generated content, customer photos, real testimonials, community engagement proof, social proof at scale"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for More Florist Reactions', 'Comment Which Movie We Should Review Next', 'Tag a Friend Who Loves [Movie]'",
+        "Week 2: 'Post Your Photo with #[Hashtag]', 'Share This to Enter', 'Tag Us in Your Story for Repost', 'Order Your Own Stunning Arrangement'"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 posts/week) - Reaction content performs at 8.7% engagement, viral potential highest on this platform",
+        "Instagram (7-10 posts/week, 5+ Stories daily, 5+ Reels) - UGC reposting and Stories for maximum visibility at 2.8% industry engagement",
+        "Facebook (5-7 posts/week) - UGC albums and contest entries perform well, video reactions at 1.8% engagement",
+        "Email (3-4 emails over 2 weeks) - Contest announcements, winner features, follower growth updates"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Petal & Vine's 'Florist Reacts to Movie Bouquets' TikTok series that generated 2.3M views on top video and 47K followers in 3 months. Also applies The Bouqs Company's #BouqsLove hashtag strategy that generated 50K+ user posts and BloomNation's user-submitted testimonial campaign achieving 3.7x higher engagement than product posts."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Sourcing ethics and transparency - Farm partnerships, fair trade practices, supply chain education",
+        "Week 2: Sustainability deep-dive - Carbon footprint of flowers, eco-friendly practices, seasonal vs. imported impact",
+        "Week 3: Cultural flower traditions - Deep guides on funeral customs, wedding traditions across cultures, religious considerations",
+        "Week 4: Flower preservation science - Why arrangements last different durations, care chemistry, professional techniques",
+        "Week 5: Design principles masterclass - Color theory, proportion, seasonal aesthetics, arrangement architecture",
+        "Week 6: Industry insider knowledge - Pricing transparency, wire service vs. local truth, what to ask your florist"
+      ],
+      "weekly_hooks": [
+        [
+          "What Your Florist Won't Tell You About Where Flowers Really Come From",
+          "We Visited Our [Country] Farms - Here's What We Found (Video Series)",
+          "The Truth About 'Fresh' Flowers: A Supply Chain Investigation"
+        ],
+        [
+          "Your Valentine's Roses Have a [X]-Ton Carbon Footprint. Here's the Alternative",
+          "Sustainable Flowers Aren't What You Think - Industry Insider Reveals All",
+          "The Environmental Cost of [Occasion] Flowers (And How We're Changing It)"
+        ],
+        [
+          "What Flowers Are Forbidden at [Culture] Funerals? (Complete Guide)",
+          "The Flower Mistake That Offended [X] Wedding Guests - Cultural Guide",
+          "Religious Flower Traditions Every Florist Should Know (But Many Don't)"
+        ],
+        [
+          "The Science of Why Roses Last [X] Days (And How to Double It)",
+          "What Happens to Flowers After They're Cut - Hour by Hour Breakdown",
+          "Professional Florist Reveals: The Chemistry Behind Flower Food"
+        ],
+        [
+          "Why [Color Combination] Works and [Color Combination] Doesn't - Design Theory",
+          "The Golden Ratio in Flower Arrangements (Yes, Really)",
+          "What Makes an Arrangement 'Luxurious'? Professional Designer Explains"
+        ],
+        [
+          "Why Professional Arrangements Cost [X]x More Than DIY (Complete Breakdown)",
+          "Wire Services vs. Local Florists: What You're Actually Paying For",
+          "The [X] Questions to Ask Your Florist Before Ordering (That Reveal Everything)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Are these even fresh or do they sit in a warehouse?' with supply chain transparency",
+        "Week 2: Address unspoken sustainability concerns by proactively educating on environmental impact",
+        "Week 3: Address 'No idea what flowers are appropriate' with comprehensive cultural education",
+        "Week 4: Address 'Flowers die anyway, why spend so much?' with scientific longevity education",
+        "Week 5: Address 'Spent $100 and they looked like grocery store flowers' with design education showing professional difference",
+        "Week 6: Address 'Too expensive' and 'Every florist website looks the same' with pricing transparency and differentiation education"
+      ],
+      "proof_timing": [
+        "Week 1: Share farm partnership contracts, sourcing location documentation, farmer interview videos",
+        "Week 2: Present carbon footprint data, sustainability certifications, third-party eco-audit results",
+        "Week 3: Feature cultural consultant credentials, religious leader endorsements, multicultural portfolio examples",
+        "Week 4: Share scientific studies on flower longevity, lab test results, expert horticulturist interviews",
+        "Week 5: Display designer certifications, design school credentials, award-winning arrangement portfolio",
+        "Week 6: Provide detailed pricing breakdowns, industry association memberships, transparent cost comparisons"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download Our Sourcing Transparency Report', 'Meet Our Farm Partners'",
+        "Week 2: 'Calculate Your Flower Carbon Footprint', 'See Our Sustainability Practices'",
+        "Week 3: 'Download Free Cultural Flower Guide', 'Consult with Our Cultural Specialists'",
+        "Week 4: 'Get Our Science-Backed Care Guide', 'Watch Full Preservation Tutorial'",
+        "Week 5: 'Take Our Design Masterclass', 'Request a Designer Consultation'",
+        "Week 6: 'Get Transparent Quote', 'Compare Our Pricing Breakdown', 'Schedule Expert Consultation'"
+      ],
+      "platform_priority": [
+        "Email (2 emails/week) - Long-form educational content achieves 28% open rate for occasion reminders, educational content similar",
+        "Instagram (5-7 posts/week, 3-5 Stories daily) - Carousel deep-dives perform at 4.2% engagement",
+        "Pinterest (15+ pins/day) - Educational guides have 3.8x higher purchase intent, evergreen searchability",
+        "TikTok (4-5 posts/week) - Educational content performs at 8.7% engagement",
+        "Facebook (3-4 posts/week) - Long-form video educational content for older demographic"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing opportunities in sustainability transparency, cultural appropriateness guides, and price education. Applies The Bouqs Company's farm-to-door transparency storytelling that achieved 45% sales increase and addresses customer voice data showing confusion about appropriateness and value perception."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls and questions - 'Help us decide' content, customer preference surveys, this-or-that choices on arrangements",
+        "Week 2: Story collection and sharing - 'Tell us your flower story' prompts, relationship-saved testimonials, memory sharing"
+      ],
+      "weekly_hooks": [
+        [
+          "Which [Occasion] Arrangement Should We Feature? Vote in Comments ⬇️",
+          "Help Us Name This Stunning [Color] Creation - Best Name Wins Free Arrangement",
+          "This or That: [Arrangement A] vs [Arrangement B] - Comment Your Choice",
+          "We're Designing Tomorrow's Arrangement Live - Tell Us What to Add Next",
+          "Poll: What's the Worst Flower Mistake You've Made? (We've All Been There)",
+          "Should We Bring Back [Discontinued Product]? [X] Votes and We Will"
+        ],
+        [
+          "Share Your 'Flowers Saved the Day' Story - Best One Featured",
+          "Tell Us: What's the Most Meaningful Bouquet You Ever Received?",
+          "We Want to Hear Your Worst Flower Delivery Disaster (So We Can Do Better)",
+          "Tag Someone Who Deserves Flowers Today - We're Reading Every Comment",
+          "What Do You Wish Florists Understood About [Occasion]? Help Us Improve",
+          "Share a Photo of Flowers That Made You Cry - We'll Recreate Our Favorite"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if I choose wrong?' by showing customers their preferences matter and are valued",
+        "Week 2: Address 'Last time I ordered online it was a disaster' by actively soliciting and responding to past negative experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Show democratic process, customer input valued, responsive brand personality, community decision-making power",
+        "Week 2: Feature customer stories prominently, validate experiences, show listening and improvement, build emotional connection through shared stories"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in Comments', 'Tag a Friend', 'Share Your Opinion', 'Help Us Decide', 'Comment Your Choice'",
+        "Week 2: 'Share Your Story', 'Tag Someone Special', 'Tell Us Your Experience', 'Post Your Photo', 'DM Us Your Memory'"
+      ],
+      "platform_priority": [
+        "Instagram (7-10 posts/week, 10+ Stories daily with polls/questions) - Stories with interactive stickers drive highest engagement",
+        "Facebook (5-7 posts/week) - Comment engagement historically strong, older demographic shares stories more readily",
+        "TikTok (5-7 posts/week) - Duet and stitch features for user participation, comment engagement at 8.7%",
+        "Email (2-3 emails) - Story submission prompts, poll participation requests, community highlights"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on BloomNation's user-submitted testimonial campaign that achieved 3.7x higher engagement than product posts and 89% positive sentiment. Also applies The Bouqs Company's #BouqsLove UGC strategy that generated 50K+ posts through customer participation and sharing prompts."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What funeral directors won't tell you about floral timing:\n\nI've worked with 200+ families during their most difficult moments. The #1 regret? Ordering flowers too late.\n\nHere's what 15 years in the industry taught me:\n\n→ Order 48 hours ahead when possible - gives designers time to source specific blooms that honor your loved one\n→ Standing sprays need structural time - rushed arrangements lack the dignity families deserve\n→ Delivery coordination with funeral homes prevents chaos on the day\n→ Custom touches (favorite colors, meaningful flowers) require advance notice\n→ Peak seasons (holidays) mean even tighter timelines\n\nThe families who plan ahead get arrangements that truly reflect their loved one's spirit. The ones who call morning-of get whatever's available.\n\nYour loved one deserves better than \"whatever's available.\"\n\nWhat questions do you have about funeral flower etiquette? I'll answer every comment.\n\n#FuneralServices #GriefSupport #FloralDesign #EventPlanning #SmallBusiness",
+        "framework": "PAS",
+        "research_application": "Addresses funeral urgency trigger (10/10), uses problem-agitation-solution for 'booked florists' pain point, applies expertise hook pattern"
+      },
+      "authority": {
+        "template": "847 customers saved their relationships this month.\n\nNot with couples therapy. With flowers. (And perfect timing.)\n\nHere's what the data shows about last-minute gift psychology:\n\nMost \"forgotten\" anniversaries aren't forgotten - they're procrastinated. The guilt builds. The anxiety increases. By the time they order, they're not buying flowers. They're buying redemption.\n\nThat's why our same-day delivery isn't just logistics - it's relationship insurance.\n\nWe've analyzed 10,000+ same-day orders:\n• 73% ordered between 9am-11am (panic hour)\n• Average spend: 2.3x higher than planned orders\n• 89% add premium upgrades (guilt compensation)\n• 94% request specific delivery windows (surprise factor critical)\n\nThe insight? People don't pay for flowers. They pay for:\n→ Crisis resolution\n→ Relationship preservation  \n→ Emotional transformation from \"I forgot\" to \"you're so thoughtful\"\n\nYour business has these moments too. What are your customers really buying?\n\n#CustomerPsychology #SmallBusinessStrategy #RetailInsights #EmotionalValue",
+        "framework": "AIDA",
+        "research_application": "Uses social proof hook (847 specific number), applies transformation framework (crisis to redemption), backed by metrics from research"
+      },
+      "promotional": {
+        "template": "Before: \"Every florist website looks the same. How do I know what I'll actually get?\"\n\nAfter: \"They texted me a photo before delivery. I knew EXACTLY what she'd receive.\"\n\nThe difference? Transparency.\n\nWe started photographing every arrangement before delivery because trust is expensive in our industry. One bad experience costs us 10 potential customers (thanks, online reviews).\n\nOur new process:\n1. Designer creates your custom arrangement\n2. Photo sent to your phone for approval  \n3. Delivery with tracking + recipient confirmation\n4. Follow-up care instructions for 10+ day freshness\n\nResult: 94% customer satisfaction, 41% repeat rate (vs 12% industry average).\n\nCurrently available for [CORPORATE CLIENTS] / [WEDDING PLANNERS] / [EVENT COORDINATORS] who need reliability, not surprises.\n\nDM me if you're tired of florist roulette. Let's talk about your next event.\n\n#CorporateEvents #WeddingPlanning #VendorRelations #QualityAssurance #[CITY]Business",
+        "framework": "BAB",
+        "research_application": "Before-After-Bridge using customer voice data, addresses 'photos don't match' objection, includes freshness guarantee and repeat rate from UrbanStems research"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "What's a saved relationship worth? (Less than you think)\n\nForgot your anniversary? Here's the 3-hour redemption plan:\n\n1️⃣ Order by 2PM for same-day guaranteed delivery\n2️⃣ Choose arrangements with 10+ day freshness (we'll text you which ones)\n3️⃣ Add the handwritten card - generic cards scream \"last minute\"\n4️⃣ Request specific delivery window for maximum surprise impact\n5️⃣ Follow our care instructions (in Stories) so they last\n\nLast month: 847 customers went from \"I'm in trouble\" to \"you're so thoughtful\" ❤️\n\nSaved your relationship with flowers? Tag us in your redemption story 👇\n\n#SameDayFlowers #AnniversaryGift #RelationshipGoals #[CITY]Florist #FlowerDelivery",
+        "visual": "Carousel: Slide 1 - Panic face emoji with clock showing 9AM / Slide 2 - Beautiful arrangement being created (hands arranging) / Slide 3 - Delivery person handing flowers / Slide 4 - Happy couple reaction / Slide 5 - Flowers still fresh 10 days later with care card visible",
+        "framework": "PAS",
+        "research_application": "Price objection reframe hook, addresses forgotten anniversary trigger (10/10 urgency), uses social proof number (847), carousel format performs at 4.2% engagement"
+      },
+      "authority": {
+        "caption": "POV: You're a florist reacting to movie bouquets 🎬💐\n\nThat $500 arrangement in the rom-com? Would be dead in 3 days. Here's what Hollywood gets wrong:\n\n🚫 All roses = boring + expensive\n✅ Mixed textures = interesting + lasts longer\n\n🚫 No water source shown = wilted disaster  \n✅ Proper hydration = 10+ days of beauty\n\n🚫 Giant arrangements = can't fit through door\n✅ Proportional design = actually deliverable\n\nBeen designing for 15 years. The best arrangements aren't the biggest - they're the most thoughtful.\n\nWhat movie has the worst flower scene? I'll react to top comments in Stories 👀\n\n#FloristTok #BehindTheScenes #FloralDesign #MovieFlowers #FlowerTips",
+        "visual": "Reel: Split screen showing movie clip on left, florist reacting and explaining on right. Text overlays calling out specific issues. End with side-by-side of movie bouquet vs. 'what I'd actually design'",
+        "framework": "AIDA",
+        "research_application": "Based on viral Petal & Vine TikTok format (2.3M views), educational entertainment approach, demonstrates expertise while entertaining, Reels format gets 5.1% engagement"
+      },
+      "promotional": {
+        "caption": "From \"I Forgot\" to \"You Remembered\" in 3 Hours ⏰\n\nSame-day delivery guaranteed or your money back.\n\nOrder by 2PM, delivered by 5PM. Real photos texted before delivery. Freshness guaranteed 10+ days.\n\nNo grocery store flowers. No stock photos. No broken promises.\n\nJust [YOUR FLORIST NAME] doing what we do best - saving the day 💐\n\nLink in bio. Your relationship will thank you.\n\n#SameDayDelivery #[CITY]Florist #FlowerDelivery #LastMinuteGift #AnniversaryFlowers",
+        "visual": "Before/After split: Left side shows stressed person looking at calendar with 'ANNIVERSARY TODAY' circled. Right side shows same person confidently holding phone with delivery confirmation and partner smiling with beautiful arrangement. Text overlay: 'CRISIS AVERTED'",
+        "framework": "BAB",
+        "research_application": "Emotional transformation hook from research, urgency + guarantee combination (top-performing pattern), addresses forgotten occasion trigger, specific timeframes build credibility"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🌹 FUNERAL FLOWER ETIQUETTE: What You Need to Know\n\nI've been asked this 100+ times: \"What flowers are appropriate for a funeral?\"\n\nAfter working with hundreds of grieving families, here's what I wish everyone knew:\n\n✅ APPROPRIATE CHOICES:\n• Standing sprays (for funeral home display)\n• Casket arrangements (family usually orders)\n• Sympathy bouquets (for the home)\n• Plants (lasting tribute)\n\n❌ AVOID:\n• Bright, cheerful colors (unless you know the family prefers celebration of life)\n• Heavily scented flowers (can overwhelm in closed spaces)\n• Overly romantic arrangements (roses = romance, not sympathy)\n\n⏰ TIMING MATTERS:\nOrder 48 hours ahead when possible. Funeral homes need delivery coordination, and rushed arrangements lack the dignity your loved one deserves.\n\n💬 CARD MESSAGES:\nKeep it simple and sincere:\n\"With deepest sympathy\"\n\"In loving memory\"\n\"Our thoughts are with you\"\n\nQuestions? Ask below. I'll answer every single one because nobody should feel lost during grief.\n\nShare this with someone who might need it. 💙\n\n#FuneralFlowers #GriefSupport #[City]Community #SymPathyFlowers #LocalBusiness",
+        "framework": "PAS",
+        "research_application": "Addresses funeral trigger (10/10 urgency) and 'no idea what's appropriate' pain point, educational format builds trust, community-focused tone for Facebook engagement"
+      },
+      "authority": {
+        "template": "📊 I analyzed 10,000 flower orders. Here's what surprised me:\n\nThe customers who spent the MOST weren't celebrating. They were apologizing.\n\nAverage spend by occasion:\n• Planned anniversary: $87\n• Forgotten anniversary: $203\n• Birthday: $72  \n• Apology: $189\n• Funeral: $156\n\nHere's what the data reveals:\n\nPeople don't buy flowers. They buy emotional transformation.\n\n→ From \"I'm in trouble\" to \"I'm forgiven\"\n→ From \"I forgot\" to \"I'm thoughtful\"  \n→ From \"grief\" to \"beautiful tribute\"\n→ From \"guilt\" to \"redemption\"\n\nThe flowers are just the vehicle.\n\nThat's why we focus on guaranteed delivery times, real photos before delivery, and 10+ day freshness guarantees. Because when someone's relationship or reputation is on the line, \"good enough\" isn't good enough.\n\nWhat's the real value of saved relationship? Restored peace of mind? Honored memory?\n\nYou tell me. What have flowers meant to you beyond just \"pretty\"?\n\n💬 Comment below - I love hearing your stories.\n\n#SmallBusinessInsights #CustomerPsychology #FloristLife #[City]Small Business #LocalFlorist",
+        "framework": "AIDA",
+        "research_application": "Uses research metrics and transformation framework, addresses emotional value over product features, specific numbers build credibility, engagement question drives comments (2.1% engagement for urgency messaging)"
+      },
+      "promotional": {
+        "template": "❤️ VALENTINE'S DAY COUNTDOWN: 14 Days Left!\n\n\"Ordered flowers online and they arrived dead.\"\n\"Looked NOTHING like the picture.\"\n\"Delivery showed up at 8PM when no one was home.\"\n\n👆 Read these reviews every year. Not on OUR page. On everyone else's.\n\nHere's our Valentine's Day promise:\n\n✅ REAL PHOTOS of actual arrangements (not stock images)\n✅ GUARANTEED delivery windows (you choose: morning, afternoon, or surprise timing)\n✅ TEXT confirmation with photo before delivery  \n✅ 10+ day freshness guarantee or money back\n✅ Same-day available until Feb 13th at 2PM\n\nBEFORE you panic-order from a wire service:\n→ Order by Feb 7th: Save 15% + free premium upgrade\n→ Order by Feb 10th: Save 10%\n→ Order by Feb 13th 2PM: Same-day available (limited)\n\nDon't be the person scrambling on February 13th. (We see you every year 😅)\n\n👉 Order now: [WEBSITE LINK]\n📱 Questions? Call/text: [PHONE]\n\nP.S. - Last year we delivered 847 arrangements on Valentine's Day. This year we're limiting orders to ensure quality. Don't wait!\n\n#ValentinesDay #[City]Florist #ValentinesFlowers #FlowerDelivery #RomanticGift #ShopLocal",
+        "framework": "BAB",
+        "research_application": "Addresses top objections (dead flowers, photos don't match, delivery timing), urgency messaging (2.1% engagement boost), tiered early-bird discounts, social proof with specific numbers, Mother's Day email campaign insights applied"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "Florist reacts to what you're doing WRONG with grocery store flowers 😱",
+        "script": "[0-3sec] Text overlay: 'Stop wasting money on grocery store flowers' - Show wilted bouquet\n\n[3-10sec] 'Here's why they die in 3 days and how to fix it' - Cut to fresh flowers\n\n[10-25sec] Problem 1: They've been out of water for hours\nSolution: Recut stems at 45° angle immediately, underwater if possible\n*Show cutting demo*\n\n[25-40sec] Problem 2: Wrong vase water\nSolution: Cold water + flower food + 1 drop bleach kills bacteria\n*Show mixing demo*\n\n[40-55sec] Problem 3: Bad placement  \nSolution: Away from fruit, direct sun, heat vents\n*Show good vs bad placement split screen*\n\n[55-60sec] 'Follow for more flower hacks' + 'Or just order from a real florist 😉'\n*Wink at camera with beautiful arrangement*\n\nText overlays: '45° ANGLE', 'COLD WATER', 'NO FRUIT NEARBY', 'SAVE $$ ON FLOWERS'",
+        "framework": "PAS",
+        "research_application": "Educational entertainment format (Petal & Vine 2.3M views), addresses 'flowers die quickly' objection, 15-30 second sweet spot for florist content, native authentic tone, satisfying prep video format"
+      },
+      "authority": {
+        "hook": "What your florist won't tell you about roses (but I will) 🌹",
+        "script": "[0-3sec] 'The rose industry's dirty secret' - Hold rose, serious face\n\n[3-12sec] 'Not all roses are created equal. Here's what you're actually paying for:'\n*Show different rose grades side by side*\n\n[12-25sec] 'Grocery store: Grade 3, short stems, small heads, last 3-5 days'\n*Show budget rose*\n\n[25-40sec] 'Wire service: Grade 2, medium stems, last 5-7 days, hit or miss'\n*Show mid-grade rose*\n\n[40-55sec] 'Real florist: Grade 1, long stems, huge heads, last 10-14 days'\n*Show premium rose with measurement*\n\n[55-60sec] 'You get what you pay for. Choose wisely 💐'\n*All three side by side with price overlays*\n\nText overlays: 'GRADE 3 $29', 'GRADE 2 $59', 'GRADE 1 $89', 'WORTH IT?', 'FLORIST SECRETS'",
+        "framework": "AIDA",
+        "research_application": "Behind-the-scenes expertise hook pattern, transparency builds trust (Bouqs Company approach), educational content 8.7% engagement rate, challenges industry norms like UrbanStems campaign"
+      },
+      "promotional": {
+        "hook": "POV: You forgot your anniversary and it's 9AM 😰",
+        "script": "[0-3sec] Panic face looking at phone calendar - text overlay 'ANNIVERSARY TODAY'\n\n[3-8sec] 'Before you panic... I got you' - Confident look\n\n[8-20sec] Quick cut montage:\n- 'Order by 2PM' *show phone ordering*\n- 'We text you photo before delivery' *show text notification*  \n- 'Guaranteed delivery by 5PM' *show delivery confirmation*\n- 'She never knows you forgot' *wink*\n\n[20-35sec] Show beautiful arrangement being created in time-lapse (satisfying)\n\n[35-50sec] Show delivery moment - recipient's happy reaction (use UGC if possible)\n\n[50-60sec] 'Crisis averted. Relationship saved. You're welcome 😎'\n'Link in bio for same-day delivery'\n*Show final arrangement with '#SAVED' text overlay*\n\nText overlays: 'SAME DAY DELIVERY', 'ORDER BY 2PM', 'GUARANTEED', 'RELATIONSHIP SAVED', 'LINK IN BIO'",
+        "framework": "BAB",
+        "research_application": "Forgotten anniversary trigger (10/10 urgency), emotional transformation (crisis to redemption), time-lapse creation format (5.1% engagement), urgency + guarantee hook combination, native storytelling approach"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST_NAME], your flowers are dying too fast (here's why)",
+        "preview_text": "3 mistakes that kill arrangements in 3 days + how to get 10+ days of beauty",
+        "body": "Hi [FIRST_NAME],\n\nSaw you ordered [ARRANGEMENT_NAME] last [DAY_OF_WEEK]. Beautiful choice!\n\nQuick question: Are they still looking fresh?\n\nIf not, you're probably making one of these 3 mistakes (don't worry, everyone does):\n\n❌ MISTAKE #1: Tap water without treatment\n✅ FIX: Add our flower food packet + 1 drop bleach to kill bacteria\n\n❌ MISTAKE #2: Keeping them too warm  \n✅ FIX: Move away from direct sun, heat vents, and fruit (yes, fruit!)\n\n❌ MISTAKE #3: Never changing the water\n✅ FIX: Fresh water every 2 days + recut stems at 45° angle\n\nDo this and your flowers will last 10-14 days instead of 3-5.\n\n[DOWNLOAD OUR FREE CARE GUIDE] ← Step-by-step photos included\n\nQuestions? Just reply to this email. I read every response.\n\n- [YOUR_NAME]\n[YOUR_FLORIST_NAME]\n\nP.S. - Next time you order, ask about our 10+ day freshness guarantee. If they don't last, we'll replace them free.",
+        "framework": "PAS",
+        "research_application": "Addresses 'flowers die quickly' objection, personalization with order details (34% open rate boost), educational value builds trust, freshness guarantee removes risk"
+      },
+      "authority": {
+        "subject": "What 847 same-day orders taught me about relationships",
+        "preview_text": "The psychology behind last-minute flower orders (it's not what you think)",
+        "body": "Hi [FIRST_NAME],\n\nLast month, 847 customers ordered same-day delivery.\n\n73% ordered between 9-11AM. Average spend: $203 (vs $87 for planned orders).\n\nThey weren't buying flowers. They were buying redemption.\n\nHere's what 15 years in this business taught me:\n\n→ The guilt builds throughout the morning\n→ By 9AM, panic sets in  \n→ By 11AM, they're willing to pay anything\n→ By 2PM, it's too late for same-day\n\nThe transformation they're really buying:\n\"I forgot\" → \"You're so thoughtful\"\n\"I'm in trouble\" → \"I'm forgiven\"\n\"Crisis\" → \"Saved\"\n\nThat's why we guarantee delivery times, send photo confirmations, and include care instructions for 10+ day freshness.\n\nBecause when someone's relationship is on the line, \"good enough\" isn't good enough.\n\n[BOOKMARK US FOR EMERGENCIES] ← You never know when you'll need us\n\nHave you ever had a flower emergency? Reply and tell me the story - I love hearing them.\n\n- [YOUR_NAME]\n[YOUR_FLORIST_NAME]\n\nP.S. - Forward this to someone who might need it. We've all been there.",
+        "framework": "AIDA",
+        "research_application": "Social proof with specific metrics, transformation framework, builds authority through data insights, engagement question drives replies, conversational tone"
+      },
+      "promotional": {
+        "subject": "⏰ [FIRST_NAME], Valentine's Day delivery slots filling up",
+        "preview_text": "Only 47 same-day slots left for Feb 14th. Here's your early-bird discount.",
+        "body": "Hi [FIRST_NAME],\n\nBEFORE: \"Delivery showed up at 8PM when no one was home\"\nAFTER: \"Delivered at exactly 2PM for the perfect surprise\"\n\nThe difference? Planning ahead.\n\nValentine's Day is in 14 days. Here's what you need to know:\n\n📅 ORDER BY FEB 7TH:\n→ Save 15% + free premium upgrade  \n→ Choose exact delivery window\n→ First pick of our freshest inventory\n\n📅 ORDER BY FEB 10TH:\n→ Save 10%\n→ Guaranteed delivery (limited windows available)\n\n📅 ORDER FEB 13TH BY 2PM:\n→ Same-day available (only 47 slots left)\n→ No discount, limited selection\n\nOUR VALENTINE'S PROMISE:\n✅ Real photos texted before delivery\n✅ Guaranteed delivery windows  \n✅ 10+ day freshness or money back\n✅ No stock photos, no surprises\n\n[BROWSE ARRANGEMENTS] ← Save your spot now\n\nLast year we sold out by Feb 12th. Don't be the person scrambling on Feb 13th (we see you every year 😉).\n\nQuestions? Call/text [PHONE] or just reply.\n\n- [YOUR_NAME]\n[YOUR_FLORIST_NAME]\n\nP.S. - Ordered from us before? Use code LOYAL15 for extra 15% off (stacks with early-bird discount!).\n\n[SHOP NOW] | [CALL US] | [CARE INSTRUCTIONS]",
+        "framework": "BAB",
+        "research_application": "Urgency messaging (2.1% engagement boost), tiered discounts incentivize early action, addresses delivery timing objection, personalization tokens, scarcity with specific slot numbers, guarantee removes risk, Mother's Day campaign insights applied"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[847] customers saved their anniversary this week with same-day delivery",
+      "From 'I forgot' to 'you remembered' in [3] hours or less",
+      "[10+ days] of fresh blooms guaranteed or your money back",
+      "[4-hour] funeral delivery with dignity - [127] families trusted us this month",
+      "[92%] of our arrangements look better than the photo (real customer reviews)"
+    ],
+    "question_hooks": [
+      "Are you panicking because you forgot your anniversary and it's already [noon]?",
+      "Are you tired of [wilted flowers] that die in 3 days after spending [$100]?",
+      "Are you worried the arrangement will look nothing like the [online photo]?",
+      "Are you stuck calling florists who can't do [same-day funeral delivery]?",
+      "Are you afraid she'll know you [ordered last-minute] instead of planned ahead?"
+    ],
+    "story_hooks": [
+      "How [Jake] went from 'devastated husband' to 'absolute hero' in one [3-hour delivery]",
+      "How [Sarah] honored her mom's memory when every florist said ['we're fully booked']",
+      "How [Mike] surprised his hospitalized wife from [800 miles away] with perfect timing",
+      "How [127 customers] avoided the ['looked nothing like the photo'] disaster this Valentine's Day",
+      "How [one text message] gave him peace of mind his apology would arrive [exactly at 2pm]"
+    ],
+    "fear_hooks": [
+      "Is your [forgotten anniversary] about to become a [relationship disaster]?",
+      "Is your [funeral tribute] at risk from [unreliable delivery] or [wilted flowers]?",
+      "Is your [$100+ order] going to look like [cheap grocery store flowers]?",
+      "Is your [surprise proposal] in danger because delivery says ['by 5pm' but shows up at 8pm]?",
+      "Is your [apology gesture] going to fail because [the arrangement arrives dead]?"
+    ],
+    "howto_hooks": [
+      "How to save your anniversary without [calling 12 florists] or [settling for wilted roses]",
+      "How to get [funeral flowers with dignity] without [the panic] or [wondering if they'll show up]",
+      "How to order flowers online without [getting something that looks nothing like the photo]",
+      "How to look like [you planned ahead] without [actually remembering until this morning]",
+      "How to get [2-week fresh flowers] without [paying luxury prices] or [crossing your fingers]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You forgot your anniversary this morning",
+      "body": "7am - panic sets in | 7:05am - find us, order custom arrangement | 10am - we send you photo before delivery | 12pm - you text her 'check the front door' | 12:01pm - relationship saved. Real flowers, real designers, same-day delivery that actually works. Show the actual arrangement we delivered vs the panic-googling at 7am",
+      "cta": "Link in bio to save your next emergency"
+    },
+    "reels": {
+      "hook": "Why your $100 bouquet died in 2 days",
+      "body": "Fast cuts showing: old water = bacteria growth | stems not recut at angle = can't drink | direct sunlight = dehydration | near fruit = ethylene gas kills flowers. Then show: our care card instructions, flowers thriving at day 10. Text overlay: 'We include this with every order because we want them to last'",
+      "cta": "Follow for flower care secrets florists don't tell you"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us the reaction! Film your person's face when they first see the arrangement (with their permission). We love seeing the joy our flowers bring.",
+      "hashtag": "#FlowerReaction"
+    },
+    {
+      "prompt": "Prove us wrong: Post a photo of your arrangement on day 7+ if it's still thriving. We bet our flowers last longer than you think.",
+      "hashtag": "#StillFresh"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Florist reacts to celebrity apology flowers (Taylor Swift, Kanye, etc) - would these actually work? What would I send instead?",
+      "why": "Taps into celebrity gossip + demonstrates expertise + entertainment value. Fans share to their communities, debate in comments"
+    },
+    {
+      "angle": "What your funeral flower choice says about you (carnations vs roses vs lilies) - gentle, respectful education on symbolism and cultural meanings",
+      "why": "Fills knowledge gap people are anxious about but afraid to ask. Saves/shares for future reference when needed. Positions brand as grief-sensitive expert"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:33:52.895Z",
+    "last_tier2_refresh": "2025-11-27T22:33:52.895Z",
+    "last_tier3_refresh": "2025-11-27T22:33:52.895Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:33:52.895Z"
+  }
+}

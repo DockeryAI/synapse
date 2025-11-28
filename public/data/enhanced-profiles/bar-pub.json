@@ -1,0 +1,1739 @@
+{
+  "industry": "Bar/Pub",
+  "industry_name": "Bar/Pub",
+  "naics_code": "722410",
+  "category": "Food Service",
+  "subcategory": "Drinking Places (Alcoholic Beverages)",
+  "customer_triggers": [
+    {
+      "trigger": "Friday after work stress relief",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Sports game viewing with friends",
+      "urgency": 8,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Date night planning",
+      "urgency": 7,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Birthday or celebration event",
+      "urgency": 10,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Business networking after hours",
+      "urgency": 6,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Live music or entertainment seeking",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Escape from home routine",
+      "urgency": 5,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Meeting old friends reunion",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Watching away team games",
+      "urgency": 9,
+      "frequency": "weekly during season"
+    },
+    {
+      "trigger": "Holiday party planning",
+      "urgency": 10,
+      "frequency": "seasonal"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Social media posts from friends checking in, Google Maps searches for 'bars near me', Yelp reviews showing 4.5+ stars, Instagram stories of signature cocktails, word-of-mouth recommendations from coworkers",
+    "consideration": "Checking drink menu prices online, reading recent reviews for atmosphere descriptions, looking at photos of interior and crowd size, comparing happy hour specials across 3-4 nearby options, checking parking availability",
+    "decision": "Finding a special event tonight (trivia, live band), seeing friends already checked in on social media, confirming kitchen is still open if hungry, verifying they have the game on TV, getting group text confirmation of location",
+    "retention": "Joining loyalty program for every 10th drink free, becoming a regular where bartender knows your name and drink, attending weekly trivia with established team, having reserved table for big games, getting text alerts for special events",
+    "advocacy": "Posting Instagram stories tagging the bar, bringing new friend groups, leaving 5-star reviews mentioning staff by name, defending the bar in local Facebook groups, organizing office happy hours there monthly"
+  },
+  "transformations": [
+    {
+      "from": "Stressed from work week",
+      "to": "Relaxed and social",
+      "emotional_value": "Mental reset worth $50-80 per visit",
+      "worth_premium": true
+    },
+    {
+      "from": "Lonely at home",
+      "to": "Connected with community",
+      "emotional_value": "Belonging worth 40% price premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Bored routine evening",
+      "to": "Entertained and engaged",
+      "emotional_value": "Experience worth 2x home drinking cost",
+      "worth_premium": true
+    },
+    {
+      "from": "Awkward first date",
+      "to": "Comfortable conversation flow",
+      "emotional_value": "Social lubricant worth $100+ evening",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing the game",
+      "to": "Part of the action",
+      "emotional_value": "Atmosphere worth 3x drink markup",
+      "worth_premium": true
+    },
+    {
+      "from": "Unknown in neighborhood",
+      "to": "Local regular status",
+      "emotional_value": "Identity worth visiting 2-3x weekly",
+      "worth_premium": true
+    },
+    {
+      "from": "Cooking dinner obligation",
+      "to": "Served and catered to",
+      "emotional_value": "Convenience worth $30-50 premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Isolated remote worker",
+      "to": "Professional networking",
+      "emotional_value": "Career connections worth $200+ monthly",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average weekly visits per regular customer reaching 2.3",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Check average increasing from $28 to $42",
+      "timeframe": "3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Friday night capacity hitting 85% by 8 PM",
+      "timeframe": "immediately",
+      "measurable": true
+    },
+    {
+      "metric": "Loyalty program members reaching 1,200 active",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Instagram followers growing by 150 monthly",
+      "timeframe": "ongoing",
+      "measurable": true
+    },
+    {
+      "metric": "Private event bookings filling 3 Saturdays monthly",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Kitchen sales comprising 35% of total revenue",
+      "timeframe": "9 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited seats for tonight's UFC fight - only 12 tables left",
+    "Happy hour ends in 47 minutes - $3 drafts becoming $7",
+    "Kitchen closes at 10 PM - last call for food in 30 minutes",
+    "Live band starts at 9 PM - no cover before 8:30 PM",
+    "Your friends just checked in 5 minutes ago",
+    "Last weekend before football season ends",
+    "Free appetizer expires tonight at midnight"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive for regular visits",
+      "response": "Join our mug club for $40 - save $3 per beer and drink from a reserved mug with your name. Most members save $200+ annually",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Too crowded and noisy",
+      "response": "Try our Tuesday-Thursday sweet spot: 30% less crowded, same great atmosphere, plus 20% off appetizers",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Drink driving concerns",
+      "response": "We partner with Uber for $5 off rides home, plus our 'Keys for a Cab' program provides free rides if you surrender keys",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Don't know anyone there",
+      "response": "Join Thursday trivia - we'll place you with a team. 73% of solo players become weekly regulars",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Food isn't good enough",
+      "response": "New chef started 3 months ago from [respected restaurant]. Try our award-winning wings - free replacement if not satisfied",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Partner doesn't drink",
+      "response": "We have 12 mocktails, premium coffee program, and full dinner menu. 40% of our guests enjoy non-alcoholic options",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Bad past experience",
+      "response": "New management as of 6 months ago. Come back for a complimentary appetizer and see the changes. 89% satisfaction rate since renovation",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Drink remake if not satisfied within first 3 sips",
+      "Food replacement or refund within 5 minutes of service",
+      "Rain check on events if overcrowded",
+      "Price match any competitor's happy hour"
+    ],
+    "proof_points": [
+      "4.6 star average on Google from 847 reviews",
+      "Winner of Best Neighborhood Bar 2023",
+      "A+ health department rating displayed",
+      "15 years in business at same location"
+    ],
+    "risk_mitigation": "Free Uber codes after 3 drinks, complimentary appetizer for first-time visitors, text confirmation of table availability before arrival, live capacity updates on website"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "need a drink",
+      "rough day",
+      "so stressed",
+      "nothing to do",
+      "meeting someone",
+      "catch the game",
+      "celebrate",
+      "blow off steam",
+      "get out of house",
+      "tired of cooking"
+    ],
+    "solution_words": [
+      "cold beer",
+      "strong pour",
+      "great atmosphere",
+      "good vibes",
+      "friendly bartender",
+      "sports on TV",
+      "live music",
+      "happy hour",
+      "local spot",
+      "neighborhood bar"
+    ],
+    "avoid_jargon": [
+      "mixology",
+      "craft cocktail program",
+      "beverage director",
+      "small plates",
+      "gastropub",
+      "artisanal",
+      "curated",
+      "farm-to-table",
+      "molecular",
+      "deconstructed"
+    ]
+  },
+  "power_words": [
+    "cold",
+    "local",
+    "tonight",
+    "live",
+    "special",
+    "friends",
+    "game",
+    "happy",
+    "free",
+    "neighborhood",
+    "draft",
+    "fresh",
+    "open",
+    "now",
+    "exclusive",
+    "limited",
+    "ice-cold",
+    "hometown",
+    "authentic",
+    "legendary",
+    "packed",
+    "buzzing",
+    "electric",
+    "unfiltered",
+    "smooth",
+    "crisp",
+    "bold",
+    "classic",
+    "genuine",
+    "real"
+  ],
+  "avoid_words": [
+    "expensive",
+    "pretentious",
+    "complicated",
+    "fancy",
+    "exclusive",
+    "members-only",
+    "dress code",
+    "reservation required",
+    "minimum",
+    "upscale",
+    "sophisticated",
+    "refined",
+    "elevated",
+    "premium",
+    "luxury",
+    "gourmet",
+    "select",
+    "VIP",
+    "elite",
+    "couture"
+  ],
+  "headline_templates": [
+    {
+      "template": "Tonight Only: [Event] + $[X] Drinks Until [Time]",
+      "expected_ctr": 12.3,
+      "use_case": "Daily promotion"
+    },
+    {
+      "template": "[Day] Night [Sport] + $[X] Wings = Perfect Night",
+      "expected_ctr": 10.8,
+      "use_case": "Sports events"
+    },
+    {
+      "template": "Why [Number] Locals Choose [Bar Name] Every [Day]",
+      "expected_ctr": 9.4,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Limited: [Number] Seats Left for [Event] Tonight",
+      "expected_ctr": 14.2,
+      "use_case": "Urgency"
+    },
+    {
+      "template": "Breaking: Kitchen Stays Open Until [Time] Tonight",
+      "expected_ctr": 8.7,
+      "use_case": "Late night"
+    },
+    {
+      "template": "[Celebrity/Team] Fans: Your Table Awaits",
+      "expected_ctr": 11.5,
+      "use_case": "Targeted audience"
+    },
+    {
+      "template": "Free [Item] with Every [Purchase] - Today Only",
+      "expected_ctr": 13.6,
+      "use_case": "Value offer"
+    },
+    {
+      "template": "[Weather] Outside = $[X] [Drink] Inside",
+      "expected_ctr": 9.8,
+      "use_case": "Seasonal"
+    },
+    {
+      "template": "Join [Number]+ Neighbors at [Event] Tonight",
+      "expected_ctr": 10.2,
+      "use_case": "Community"
+    },
+    {
+      "template": "Last Call for [Special] - Ends at [Time]",
+      "expected_ctr": 12.9,
+      "use_case": "Scarcity"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Grab Your Spot →",
+      "conversion_rate": 8.4,
+      "placement": "Social media posts"
+    },
+    {
+      "template": "See Tonight's Specials",
+      "conversion_rate": 7.2,
+      "placement": "Email header"
+    },
+    {
+      "template": "Text 'DRINK' to 55555",
+      "conversion_rate": 11.3,
+      "placement": "Table tents"
+    },
+    {
+      "template": "Join the Crowd Tonight",
+      "conversion_rate": 6.8,
+      "placement": "Website banner"
+    },
+    {
+      "template": "Claim Your Free Appetizer",
+      "conversion_rate": 14.7,
+      "placement": "First-time visitor popup"
+    },
+    {
+      "template": "Reserve Your Table (2 min)",
+      "conversion_rate": 9.6,
+      "placement": "Google My Business"
+    },
+    {
+      "template": "Get Directions Now",
+      "conversion_rate": 10.2,
+      "placement": "Instagram stories"
+    },
+    {
+      "template": "Show This for $2 Off",
+      "conversion_rate": 15.8,
+      "placement": "SMS campaign"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "📍 [Location tag] Who's joining us for [event] tonight? 🍺 Tag your crew below! #[LocalHashtag]",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "TONIGHT: [Band/Event] starts at [time]! 🎸 Still some good seats available. Who's coming?",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "Game day special: Every [team] touchdown = $1 off drafts for 5 minutes! 🏈🍺 #[TeamHashtag]",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: When the bartender remembers your usual... [video of pour] #LocalBar #[CityName]Nights",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "[Poll sticker] Tonight's vibe: A) Chill patio B) Live music inside? You decide!",
+      "engagement_rate": 14.2
+    },
+    {
+      "platform": "Facebook Events",
+      "template": "[Day] Night [Event]: [Band/Activity] + $[X] [Drinks] all night! RSVP for exclusive perks",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Professional networking tonight 5-7 PM. Connect with [Industry] professionals over craft cocktails",
+      "engagement_rate": 4.3
+    },
+    {
+      "platform": "Snapchat",
+      "template": "[Geofilter] at [Bar Name] - Screenshot this for $3 off your tab tonight only!",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "Google Posts",
+      "template": "⭐ Happy Hour Extended to 7 PM Today! $4 drafts, $6 wines, $7 wells. See you soon!",
+      "engagement_rate": 5.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Where everybody knows your name - real neighborhood bar with 15-year history",
+      "rank": 1,
+      "differentiator": "Authentic local relationships vs chain anonymity"
+    },
+    {
+      "prop": "32 TVs means you'll never miss a play - every game, every angle",
+      "rank": 2,
+      "differentiator": "Most screens per square foot in area"
+    },
+    {
+      "prop": "Kitchen open until midnight - full menu when others serve only chips",
+      "rank": 3,
+      "differentiator": "Latest kitchen hours within 3 miles"
+    },
+    {
+      "prop": "$4 happy hour drafts daily 3-6 PM - cheapest quality pours downtown",
+      "rank": 4,
+      "differentiator": "Price leader on recognized brands"
+    },
+    {
+      "prop": "Live music 4 nights weekly - no cover charge ever",
+      "rank": 5,
+      "differentiator": "Only free live entertainment venue"
+    },
+    {
+      "prop": "Dog-friendly patio with water bowls and treats",
+      "rank": 6,
+      "differentiator": "One of 3 dog-friendly bars in zip code"
+    },
+    {
+      "prop": "Partner Uber program ensures everyone gets home safe",
+      "rank": 7,
+      "differentiator": "Only bar with rideshare partnership"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Craft cocktail program featuring 15 signature drinks made with premium spirits, fresh-squeezed juices, and house-made syrups. Expert bartenders with 10+ years experience create personalized recommendations. Elevated bar food menu with locally-sourced ingredients.",
+    "budget_conscious": "Best happy hour in town - $3 domestic drafts, $4 wells, $5 house wines daily 3-6 PM. Tuesday all-day happy hour. Wednesday $15 bucket specials. Thursday $2 taco night. Never a cover charge. Daily food specials under $10.",
+    "enterprise": "Private event space accommodates 50-150 guests with dedicated bartender and customizable menu packages starting at $30/person. Full AV setup for presentations. Separate entrance for corporate events. Proven track record with Fortune 500 company events."
+  },
+  "trust_signals": [
+    {
+      "signal": "15 years at same location with same owner",
+      "importance": 9,
+      "format": "Storefront signage and website header"
+    },
+    {
+      "signal": "4.6 star average from 847 Google reviews",
+      "importance": 10,
+      "format": "Review widget on homepage"
+    },
+    {
+      "signal": "Winner Best Neighborhood Bar 2023",
+      "importance": 8,
+      "format": "Award plaque by entrance"
+    },
+    {
+      "signal": "A+ health department rating",
+      "importance": 10,
+      "format": "Certificate displayed at host stand"
+    },
+    {
+      "signal": "Verified business on all platforms",
+      "importance": 7,
+      "format": "Blue checkmarks on social media"
+    },
+    {
+      "signal": "3,500+ loyalty program members",
+      "importance": 8,
+      "format": "Counter display showing member count"
+    },
+    {
+      "signal": "Licensed and insured for 200 capacity",
+      "importance": 9,
+      "format": "Certificates behind bar"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 2 million drinks served since 2008",
+      "credibility_score": 8.5,
+      "context": "Longevity and volume demonstrate stability"
+    },
+    {
+      "stat": "73% of Friday night customers are weekly regulars",
+      "credibility_score": 9.2,
+      "context": "High retention indicates quality experience"
+    },
+    {
+      "stat": "Rated #3 sports bar in city by Tribune readers",
+      "credibility_score": 8.8,
+      "context": "Third-party validation from major publication"
+    },
+    {
+      "stat": "Host to 8 local league teams meeting weekly",
+      "credibility_score": 7.9,
+      "context": "Community hub status"
+    },
+    {
+      "stat": "Average customer visits 2.3 times per week",
+      "credibility_score": 9,
+      "context": "Frequency demonstrates value"
+    },
+    {
+      "stat": "87% would recommend to friends (survey n=400)",
+      "credibility_score": 8.3,
+      "context": "Net promoter score equivalent"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Craft beer selection with 24 rotating taps, cocktails made with fresh juices, kitchen chef from culinary school, reservation system for tables",
+    "Budget: Domestic beer focus, well drinks prominent, frozen food primary, first-come seating only",
+    "Premium: Bartenders know cocktail history, custom drink creation, proper glassware for each drink type",
+    "Budget: Simple mixed drinks, plastic cups after 10 PM, limited mixer options"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After third visit when they've become a familiar face, or immediately after a memorable experience like birthday celebration or their team winning",
+    "ask_method": "Bartender personally requests during slow moment: 'Hey, would you mind leaving us a quick review? You've been awesome to have here.' Hand them a card with QR code"
+  },
+  "competitive_advantages": [
+    "Only bar with both craft cocktails AND $3 happy hour beers within 2 miles",
+    "Latest kitchen hours (midnight) compared to competitors closing at 10 PM",
+    "Largest patio space (80 seats) with heaters and misters for year-round use",
+    "Exclusive UFC fight partnership - only venue showing all PPV events free",
+    "Established relationships with 15+ local employers for happy hour groups"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $18 premium cocktails at top of menu to make $12 regular cocktails seem reasonable. Show wine bottle prices to make by-glass seem affordable",
+    "sensitivity": "Beer drinkers notice $0.50 changes, cocktail drinkers accept $2 swings, shots are impulse buys up to $8",
+    "sweet_spots": [
+      "$5-7 for draft beers",
+      "$10-12 for cocktails",
+      "$8-10 for wines",
+      "$15-18 for appetizers",
+      "$25-30 for dinner checks"
+    ],
+    "decoy_pricing": "Offer medium draft at $6.50 between small $5 and large $7 to drive large sales - 71% choose large"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 50,
+    "approval_required": 100,
+    "competitor_research": 8
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.25,
+    "weekend": 1.15,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Bar seating",
+      "price_range": "$20-35 average check",
+      "target_customer": "Solo drinkers and couples",
+      "margin": 72
+    },
+    {
+      "tier": "Table service",
+      "price_range": "$35-60 average check",
+      "target_customer": "Groups and dinner guests",
+      "margin": 68
+    },
+    {
+      "tier": "VIP section",
+      "price_range": "$200+ minimum",
+      "target_customer": "Celebrations and corporate groups",
+      "margin": 78
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Push draft beer over bottles - 78% margin vs 65% margin, train staff to suggest",
+    "Upsell to premium spirits for just $2 more - adds $1.70 pure profit per drink",
+    "Combo deals linking high-margin appetizers with drinks - increases check 40%",
+    "Happy hour on slow nights only - Tuesday-Thursday to build baseline traffic",
+    "Charge $1 for rocks/neat pours - pure profit on preference",
+    "Feature cocktails using well spirits with premium perception - 82% margins"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -25,
+      "reason": "Dry January and resolutions",
+      "opportunity": "Focus on food and non-alcoholic options"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Cold weather, post-holiday budgets",
+      "opportunity": "Valentine's date night packages"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "March Madness and St. Patrick's Day",
+      "opportunity": "Basketball viewing parties"
+    },
+    {
+      "month": "April",
+      "variation": 5,
+      "reason": "Spring weather begins",
+      "opportunity": "Patio opening celebration"
+    },
+    {
+      "month": "May",
+      "variation": 20,
+      "reason": "Cinco de Mayo and graduations",
+      "opportunity": "Tequila promotions and group bookings"
+    },
+    {
+      "month": "June",
+      "variation": 25,
+      "reason": "Summer begins, outdoor events",
+      "opportunity": "Extend patio hours"
+    },
+    {
+      "month": "July",
+      "variation": 30,
+      "reason": "Peak summer and July 4th",
+      "opportunity": "Outdoor BBQ events"
+    },
+    {
+      "month": "August",
+      "variation": 25,
+      "reason": "Continued summer traffic",
+      "opportunity": "Back-to-school teacher specials"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Football season begins",
+      "opportunity": "Season ticket packages"
+    },
+    {
+      "month": "October",
+      "variation": 30,
+      "reason": "Halloween and playoff baseball",
+      "opportunity": "Costume contests and viewing parties"
+    },
+    {
+      "month": "November",
+      "variation": 20,
+      "reason": "Thanksgiving week surge",
+      "opportunity": "Reunion event hosting"
+    },
+    {
+      "month": "December",
+      "variation": 45,
+      "reason": "Holiday parties and celebrations",
+      "opportunity": "Corporate party packages"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Industry night specials, slow sports",
+      "avoid": "Live music, big events",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Trivia night, taco specials",
+      "avoid": "Premium pricing",
+      "conversion_rate": 5.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Wine specials, date nights",
+      "avoid": "Loud events",
+      "conversion_rate": 6.4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Start weekend early messaging",
+      "avoid": "Nothing - building night",
+      "conversion_rate": 8.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Happy hour, live music",
+      "avoid": "Quiet events",
+      "conversion_rate": 12.7
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Sports, events, premium pricing",
+      "avoid": "Discount promotions",
+      "conversion_rate": 14.3
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch, day drinking, sports",
+      "avoid": "Late night events",
+      "conversion_rate": 9.6
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th see 30% traffic drops as people pay rent and bills",
+    "cash_flow_peaks": "3rd, 17th, and last Friday show 40% increases from payday surges",
+    "slow_periods": "First Monday-Wednesday and third week Tuesday-Thursday consistently slowest"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 5-7 PM",
+      "crisis_type": "After-work rush overflow",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Saturday 8-11 PM",
+      "crisis_type": "Peak capacity management",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Sunday 12-4 PM",
+      "crisis_type": "Game day crowds",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "December 15-23",
+      "crisis_type": "Holiday party season",
+      "premium_multiplier": 1.4
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Game Day Package",
+      "components": [
+        "Reserved table",
+        "Bucket deals",
+        "Appetizer platter",
+        "Dedicated server"
+      ],
+      "pricing_model": "$30/person minimum",
+      "margin": 70
+    },
+    {
+      "name": "Birthday VIP",
+      "components": [
+        "Free champagne",
+        "Reserved area",
+        "Custom playlist",
+        "Free dessert"
+      ],
+      "pricing_model": "$200 minimum spend",
+      "margin": 75
+    },
+    {
+      "name": "Corporate Happy Hour",
+      "components": [
+        "Private section",
+        "Appetizer stations",
+        "Drink tickets",
+        "AV setup"
+      ],
+      "pricing_model": "$40/person",
+      "margin": 72
+    },
+    {
+      "name": "Date Night Special",
+      "components": [
+        "2 cocktails",
+        "Shared appetizer",
+        "Quiet booth",
+        "Dessert"
+      ],
+      "pricing_model": "$75 fixed price",
+      "margin": 65
+    }
+  ],
+  "upsell_paths": [
+    "Domestic draft ($5) → Craft draft ($7) → Craft cocktail ($12) → Premium cocktail ($15)",
+    "Well shot ($5) → Call shot ($7) → Premium shot ($10) → Flight tasting ($25)",
+    "House wine ($7) → Premium glass ($12) → Bottle for table ($45) → Reserve bottle ($85)",
+    "Chips ($4) → Wings ($12) → Burger meal ($18) → Steak dinner ($32)",
+    "Single visit → Return visit → Mug club member ($40) → VIP member ($200/year)",
+    "Walk-in customer → Reservation user → Event host → Corporate account"
+  ],
+  "retention_hooks": [
+    "Mug club membership - personal mug stored at bar, $2 off all drafts, exclusive events",
+    "Bartender relationship - knowing names, drinks, and stories creates emotional connection",
+    "Team affiliation - becoming the known spot for specific team fans builds community",
+    "Weekly events - trivia teams, poker nights, or karaoke creates routine commitment",
+    "Accumulated credit - spend $300, get $30 credit encourages continued visits",
+    "Social investment - regular seat, known friend group, established reputation",
+    "Exclusive access - members-only events, early access to tickets, special tastings"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Bring a friend, both get free appetizer",
+      "timing": "Slow weeknights",
+      "incentive": "$12 value per person",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Tag 3 friends on social, all get $5 off",
+      "timing": "New promotion launches",
+      "incentive": "Social sharing",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Book your group, organizer drinks free",
+      "timing": "Party planning season",
+      "incentive": "Free tab for host",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Review us, get free dessert next visit",
+      "timing": "3 days after first visit",
+      "incentive": "$8 dessert value",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Company referral earns recurring discount",
+      "timing": "B2B outreach",
+      "incentive": "15% off all corporate events",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Birthday club - bring 4+ people, birthday person free",
+      "timing": "Month of birthday",
+      "incentive": "$40+ value",
+      "conversion_rate": 52
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Food with drinks",
+      "attach_rate": 42,
+      "timing": "After second round ordered"
+    },
+    {
+      "service": "Shots with beer",
+      "attach_rate": 31,
+      "timing": "During celebrations or game scores"
+    },
+    {
+      "service": "Dessert after dinner",
+      "attach_rate": 18,
+      "timing": "When clearing entree plates"
+    },
+    {
+      "service": "Merchandise purchase",
+      "attach_rate": 8,
+      "timing": "After becoming regular (5+ visits)"
+    },
+    {
+      "service": "Event tickets",
+      "attach_rate": 22,
+      "timing": "When discussing upcoming games/shows"
+    },
+    {
+      "service": "Gift cards",
+      "attach_rate": 12,
+      "timing": "November-December holiday season"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Lunch service 11 AM - 2 PM",
+      "market_size": "$450K annual potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Sunday brunch program",
+      "market_size": "$320K annual potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Bottle shop retail license",
+      "market_size": "$200K annual potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Food truck for events",
+      "market_size": "$180K annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Second location in suburbs",
+      "market_size": "$2.4M annual potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Branded merchandise line",
+      "market_size": "$60K annual potential",
+      "difficulty": 3
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Duffy's Sports Grill's 'Game Day Guarantee' campaign featuring real-time social media engagement during NFL games with photo contests and live score updates, offering free appetizers if favorite team wins by 20+ points",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Combined social proof with gamification and immediate gratification. Created urgency around live events and encouraged user-generated content with branded hashtags. Leveraged sports viewing trigger with tangible reward.",
+        "metrics": "Average 4,200 engagements per game day post, 38% increase in Sunday traffic, 2,800+ user-generated photos per season",
+        "source": "Social Media Today - Sports Bar Marketing Case Studies 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "The Brass Tap's 'Craft Beer Tuesday' educational series on Instagram Stories showing bartenders explaining beer origins, tasting notes, and food pairings with 15-second clips and poll stickers asking followers to guess ABV",
+        "platform": "Instagram",
+        "why_it_worked": "Educational content positioned staff as experts, interactive elements drove engagement, consistent weekly timing built habit, and exclusive knowledge made followers feel insider status. Transformed commodity (beer) into experience.",
+        "metrics": "Story completion rate of 73% vs industry average 45%, 28% clickthrough to reservation link, 1,200+ weekly story views",
+        "source": "Restaurant Social Media Benchmarks Report 2024 - Rival IQ",
+        "confidence": "high"
+      },
+      {
+        "example": "Local pub 'The Ginger Man' viral TikTok series 'Bartender Roasts Bad Drink Orders' where bartender humorously critiques overly complicated cocktail requests while making them perfectly anyway",
+        "platform": "TikTok",
+        "why_it_worked": "Authentic personality-driven content, relatable humor targeting service industry workers and regular bar-goers, behind-the-scenes authenticity, created shareable entertainment value beyond just promotion",
+        "metrics": "3.2M views across 12 videos, 847K likes, 15,000+ new followers in 6 weeks, 22% increase in weekday traffic from 25-34 demographic",
+        "source": "TikTok for Restaurants Success Stories Q1 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Buffalo Wild Wings 'March Madness Bracket Challenge' email campaign with personalized bracket tracking, exclusive in-app offers unlocked by correct predictions, and leaderboard for free wings prize",
+        "platform": "Email/Mobile App",
+        "why_it_worked": "Leveraged major sporting event, personalization made each email relevant, gamification with rewards drove repeat engagement, created reason to visit multiple times during tournament",
+        "metrics": "42% email open rate (vs 20% industry average), 18% click-through rate, 34% of participants visited 3+ times during tournament, $2.1M incremental revenue",
+        "source": "Email Marketing Benchmarks for Hospitality 2024 - Mailchimp",
+        "confidence": "high"
+      },
+      {
+        "example": "Local brewery taproom 'Monday Motivation' LinkedIn posts featuring local business owners networking at their venue, with professional headshots and brief business spotlights, positioning bar as community business hub",
+        "platform": "LinkedIn",
+        "why_it_worked": "Unexpected platform for bar marketing, provided value to B2B audience, built community goodwill, attracted corporate happy hour bookings, differentiated from competition focused only on B2C channels",
+        "metrics": "Average 890 impressions per post (high for local business), 12 corporate event bookings directly attributed, 67% engagement from local business decision-makers",
+        "source": "LinkedIn Local Business Marketing Guide 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for food & beverage industry (bars typically 2.1-2.8% for quality content)",
+        "best_content_format": "Reels (3.79% engagement) and Stories with interactive stickers (73% completion for top performers), carousel posts showing menu items or events (2.4% engagement)",
+        "optimal_frequency": "4-7 posts per week, daily Stories, 3-5 Reels per week",
+        "best_posting_times": "Thursday-Saturday 11am-1pm and 5pm-9pm, Wednesday 7pm-9pm for weekend planning",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Food & Beverage Industry"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for bars/restaurants (event posts 1.2%, video 0.89%, photo 0.52%)",
+        "best_content_format": "Facebook Events for live music/sports (47% higher engagement), native video under 60 seconds, user-generated content shares",
+        "optimal_frequency": "3-5 posts per week, daily event updates during peak seasons",
+        "best_posting_times": "Friday 1pm-4pm, Saturday 12pm-1pm, weekdays 8pm-10pm",
+        "source": "Sprout Social Best Times to Post 2024 & Hootsuite Restaurant Social Media Report"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for food & beverage (bars with personality-driven content see 7-12%)",
+        "best_content_format": "Behind-the-scenes bartender content (15-30 seconds), trending audio with bar twist, POV videos, day-in-the-life content",
+        "optimal_frequency": "3-5 videos per week minimum, daily for growth phase",
+        "best_posting_times": "Tuesday-Thursday 7pm-11pm, Friday-Saturday 6pm-9pm (before going out)",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "20.6% open rate, 2.3% click-through rate for restaurant/bar industry",
+        "best_content_format": "Event announcements (28% open rate), exclusive offers with urgency (24% open), weekly entertainment calendar (22% open)",
+        "optimal_frequency": "1-2 emails per week maximum, special event blasts as needed",
+        "best_posting_times": "Tuesday-Wednesday 10am-12pm for weekend planning, Thursday 4pm-6pm for immediate weekend plans",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Food & Beverage"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts get 3.2x more actions than businesses without posts, photos increase calls by 35%",
+        "best_content_format": "Event posts, offer posts with specific end dates, high-quality food/drink photos, customer photo responses",
+        "optimal_frequency": "2-3 posts per week, daily during special events, respond to all reviews within 24 hours",
+        "best_posting_times": "Monday-Wednesday for weekend event promotion, day-of for happy hour specials",
+        "source": "Google Business Profile Insights Report 2024 & BrightLocal Local Consumer Review Survey"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Tonight/Today Urgency Hook",
+        "example": "TONIGHT: Live music + $5 craft cocktails until 9pm | Who's coming?",
+        "why_it_works": "Creates immediate FOMO and urgency, uses power word 'tonight' which triggers spontaneous decision-making, social proof question encourages tagging friends, specific time deadline drives action",
+        "source": "Analysis of 500+ high-performing bar social posts - Later.com 2024"
+      },
+      {
+        "hook_pattern": "Sports Event Tribal Identity Hook",
+        "example": "CALLING ALL [TEAM] FANS: We've got your game on 15+ screens, $3 domestics, and the loudest crowd in [city]",
+        "why_it_works": "Identifies specific tribe, promises atmosphere over just showing game, social proof of crowd, price point removes objection, creates belonging",
+        "source": "Sports Bar Marketing Playbook - Toast Restaurant Marketing 2023"
+      },
+      {
+        "hook_pattern": "Local Insider/Neighborhood Hook",
+        "example": "Your neighborhood spot since [year] - Where [neighborhood] comes to unwind",
+        "why_it_works": "Emphasizes community belonging and local identity, longevity builds trust, 'unwind' speaks to stress relief transformation, possessive 'your' creates ownership feeling",
+        "source": "Reddit r/barowners successful marketing thread analysis 2023-2024"
+      },
+      {
+        "hook_pattern": "Behind-the-Curtain/Bartender POV Hook",
+        "example": "POV: You just ordered a mojito at 11:58pm on a Saturday (bartender proceeds to make it perfectly anyway)",
+        "why_it_works": "Relatable humor for both customers and service workers, shows personality and professionalism, trending POV format, creates shareable entertainment value",
+        "source": "Viral TikTok Bar Content Analysis - Social Media Examiner 2024"
+      },
+      {
+        "hook_pattern": "Exclusive/Secret Menu Hook",
+        "example": "Ask your bartender about our secret off-menu cocktail (hint: it involves jalapeño and mezcal)",
+        "why_it_works": "Creates insider status, encourages conversation with staff, mystery drives curiosity, specific hint makes it feel real not gimmicky, worth sharing with friends",
+        "source": "Craft Cocktail Bar Marketing Case Studies - SevenRooms 2024"
+      },
+      {
+        "hook_pattern": "Social Proof/Crowd Hook",
+        "example": "Voted [City]'s Best Happy Hour 3 years running - See why 500+ people chose us last Friday",
+        "why_it_works": "Third-party validation reduces risk, specific numbers create credibility, recent timeframe shows current popularity, FOMO from others' choices",
+        "source": "Restaurant Email Subject Line A/B Testing Results - Constant Contact 2024"
+      },
+      {
+        "hook_pattern": "Transformation/Escape Hook",
+        "example": "Trade your work week stress for cold beer and good company - You've earned it",
+        "why_it_works": "Addresses specific pain point (work stress), promises clear transformation, permission-giving language ('earned it'), speaks to primary trigger",
+        "source": "Bar Customer Psychology Research - Modern Restaurant Management 2023"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "stuck at home again on a Friday night",
+        "all my usual spots are too crowded and loud",
+        "tired of the same boring routine every week",
+        "can't find a place that has the game AND isn't a total bro fest",
+        "everywhere around here is either dead or packed, no in-between",
+        "sick of overpriced drinks for mediocre atmosphere",
+        "don't want to drive 30 minutes just for a decent beer selection",
+        "my friends and I can never agree on where to go",
+        "hate showing up and there's a two-hour wait just to get a drink",
+        "looking for somewhere I can actually hear my date talk"
+      ],
+      "solution_phrases": [
+        "finally found my regular spot where everybody knows my name",
+        "the bartenders here actually remember what I drink",
+        "perfect neighborhood vibe - not too fancy, not too divey",
+        "they've got every game on and the crowd actually knows the sport",
+        "great happy hour that doesn't end at 6pm like everywhere else",
+        "can walk here from my apartment which is clutch",
+        "the patio is perfect for first dates - good lighting and not too loud",
+        "they always have something going on but it's not forced or gimmicky",
+        "best beer selection in the area and the staff can actually recommend stuff",
+        "feels like hanging out in someone's cool basement but with better drinks"
+      ],
+      "objection_phrases": [
+        "is it going to be too packed to even get in?",
+        "I don't want to deal with a cover charge for a regular bar",
+        "their drinks are probably watered down like every other place",
+        "parking is always a nightmare in that area",
+        "looks like a younger crowd, might feel out of place",
+        "do they even have food or is it just drinks?",
+        "I'm not paying $15 for a cocktail I can make at home",
+        "seems like the kind of place that cards everyone even if you're clearly 40",
+        "probably full of tourists, not actual locals",
+        "is it going to be all dudes watching sports?"
+      ],
+      "decision_factors": [
+        "whether they have good happy hour specials during the week",
+        "if the bartenders are friendly and not pretentious",
+        "can I get there without driving (Uber costs add up)",
+        "do they show my team's games reliably",
+        "is the crowd my age range or at least mixed",
+        "quality of beer selection, especially local craft options",
+        "whether there's outdoor seating for nice weather",
+        "if they have actual good food not just frozen apps",
+        "vibe is relaxed enough to have a conversation",
+        "they're open late enough on weekends",
+        "whether my friends already go there or know about it"
+      ],
+      "emotional_language": [
+        "just want to decompress and not think about work",
+        "miss having a third place that's not work or home",
+        "need somewhere I feel comfortable going alone",
+        "want to feel like a regular somewhere",
+        "looking for that neighborhood bar feeling",
+        "sick of trying too hard to have fun",
+        "just want a cold beer and to watch the game in peace",
+        "need to get out of the house and be around people",
+        "want somewhere that feels authentic not corporate",
+        "looking for that Friday feeling",
+        "need a place where I can just be myself"
+      ],
+      "sources": [
+        "Reddit r/beer, r/cocktails, r/asknyc bar recommendation threads 2023-2024",
+        "Yelp reviews analysis of 200+ bars rated 4+ stars",
+        "Google Reviews sentiment analysis of local bars",
+        "Facebook community group discussions about local nightlife",
+        "Twitter/X search for 'looking for a bar' and 'best bar for' queries"
+      ]
+    },
+    "competitive_gaps": [
+      "Midweek community-building content - most bars only promote Thursday-Saturday, missing opportunity to build weekday traffic with trivia, industry nights, or local business networking positioning",
+      "Staff personality and behind-the-scenes content - most bars post drinks and food, few showcase the actual humans that make the experience, missing emotional connection opportunity",
+      "Educational content about drinks - craft cocktail bars do some of this, but sports bars and neighborhood pubs rarely explain beer styles, origins, or tasting notes, missing chance to add value beyond promotion",
+      "Daytime/lunch positioning - most bar social content assumes evening/night audience, gap in reaching remote workers, lunch crowds, or day-drinking occasions",
+      "Accessibility and inclusivity messaging - few bars explicitly address concerns about crowding, noise levels, seating availability, or welcoming different demographics beyond generic 'everyone welcome' statements",
+      "Local community storytelling - most bars promote themselves, few tell stories about their regular customers, local partnerships, or neighborhood history that builds deeper connection",
+      "Response to negative triggers - bars promote fun but rarely acknowledge and address the friction points (parking, wait times, cover charges, dress codes) that prevent people from coming",
+      "Weather-based reactive content - few bars capitalize on unexpected weather changes with same-day promotions (rainy day specials, surprise patio opening, snow day comfort food)",
+      "Collaboration content with other local businesses - most bars operate in silo, missing cross-promotion opportunities with local breweries, food trucks, sports teams, or complementary businesses"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - February (Post-Holiday Slump)",
+        "opportunity": "Lowest revenue period, people recovering from holiday spending and dry January trends",
+        "content_angle": "Position as affordable escape from winter blues, promote 'treat yourself' messaging after deprivation, highlight comfort food and warming drinks, create indoor entertainment when outdoor activities limited, Super Bowl and Valentine's Day are key moments"
+      },
+      {
+        "period": "March Madness (Mid-March to Early April)",
+        "opportunity": "Second biggest sports viewing event after NFL, high engagement from casual sports fans, bracket culture creates sustained 3-week engagement",
+        "content_angle": "Bracket challenges with prizes, screen placement guarantees, themed food/drink specials per game, office pool watch party positioning, underdog celebration content, Cinderella story tie-ins"
+      },
+      {
+        "period": "Patio Season Launch (April-May)",
+        "opportunity": "First warm weather creates pent-up demand for outdoor drinking/dining, people eager to break winter isolation",
+        "content_angle": "Patio opening announcements with photo/video of space, spring cocktail menu reveals, dog-friendly patio emphasis, sunshine happy hour promotions, first outdoor live music events, 'finally' and 'spring has sprung' messaging"
+      },
+      {
+        "period": "Summer Sports Lull (June-July)",
+        "opportunity": "Gap between NBA/NHL playoffs and NFL season, only MLB which has lower bar viewership, but people want to be out socializing",
+        "content_angle": "Shift from sports to live music, outdoor events, trivia nights, cornhole tournaments, rosé and summer cocktails, beach/vacation vibes even if landlocked, Fourth of July party positioning, day drinking acceptance"
+      },
+      {
+        "period": "NFL Season (September-February)",
+        "opportunity": "Highest-traffic period for sports bars, weekly recurring audience, fantasy football drives engagement even for non-team-specific fans",
+        "content_angle": "Sunday Funday packages, fantasy football league hosting, team-specific specials, multi-screen viewing guarantees, halftime entertainment, Monday Night Football recovery specials, Thursday night preview content, playoff intensity escalation"
+      },
+      {
+        "period": "Holiday Party Season (November-December)",
+        "opportunity": "Corporate parties, friend group celebrations, highest revenue per customer period, advance booking competition",
+        "content_angle": "Private event space promotion starting in September, holiday party packages, ugly sweater contests, New Year's Eve ticket sales, 12 Days of Christmas daily specials, Friendsgiving positioning, Black Friday sports viewing, Christmas Eve locals-only vibe"
+      },
+      {
+        "period": "Weekly: Thursday Evening",
+        "opportunity": "Start of weekend for many, lower competition than Friday/Saturday, can build Thursday as signature night",
+        "content_angle": "'Thursday is the new Friday' messaging, industry night for service workers, trivia or game nights, extended happy hour, weekend preview content, 'beat the weekend rush' positioning"
+      },
+      {
+        "period": "Weekly: Sunday Afternoon/Evening",
+        "opportunity": "NFL during season, otherwise Sunday Funday brunch-to-evening transition, cure for Sunday scaries",
+        "content_angle": "Football season: game day central positioning; Off-season: Sunday Funday recovery brunch, industry worker weekend, 'extend your weekend' messaging, Monday preparation sympathy content"
+      },
+      {
+        "period": "Local Events: College Game Days, Concerts, Festivals",
+        "opportunity": "Pre-game and post-game traffic, visiting fans looking for team-friendly spots, locals avoiding crowded event venues",
+        "content_angle": "Official pre-game spot positioning, walk from venue emphasis, team colors specials, visiting fan welcome (or playful rivalry), local refuge from tourist crowds, post-concert wind-down spot"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Social Media Examiner Industry Reports",
+      "Toast Restaurant Marketing Resources",
+      "SevenRooms Hospitality Marketing Data",
+      "Reddit communities: r/barowners, r/beer, r/cocktails, r/asknyc",
+      "Yelp and Google Reviews analysis",
+      "TikTok for Business case studies",
+      "Hootsuite Restaurant Social Media Report 2024",
+      "Later.com social media analytics",
+      "BrightLocal Consumer Review Survey 2024",
+      "Modern Restaurant Management industry research",
+      "Influencer Marketing Hub benchmarks"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited specific A/B testing data for bar industry email subject lines - most data is broader restaurant category",
+      "TikTok engagement rates are rapidly evolving, 2024 data may shift significantly by platform algorithm changes",
+      "Some viral content examples lack precise attribution of revenue impact vs. just engagement metrics",
+      "LinkedIn benchmarks for bars are limited as most bars don't actively use platform - data extrapolated from hospitality and local business categories",
+      "Customer voice data is aggregated from reviews and forums - would benefit from direct survey or interview data for deeper insight"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new menu items, seasonal drinks, or entertainment offerings",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Secret menu insider teasing - Create mystery around new [cocktail/beer/food item] with bartender sneak peeks",
+        "Week 2: Launch day transformation - Show how new offering solves 'same boring routine' problem with fresh experience",
+        "Week 3: Regular customer testimonials - Feature neighborhood regulars trying and loving the new item",
+        "Week 4: FOMO urgency - Limited time or seasonal availability angle with crowd proof"
+      ],
+      "weekly_hooks": [
+        [
+          "Our bartenders have been perfecting something special... Ask them about the secret [drink name] dropping [date] 👀",
+          "SNEAK PEEK: [Bartender name] just made the first batch of our new [item]. Drop a 🔥 if you want first taste",
+          "You know that feeling when you find your new regular order? Get ready for [date]..."
+        ],
+        [
+          "TONIGHT: The wait is over - [New item name] is officially here! First 50 orders get [bonus/discount]",
+          "Trade your same old [current popular drink] for our new [item] - Your taste buds will thank you",
+          "Finally: A [drink/food] that actually lives up to the hype. See why the line started at 5pm 📸"
+        ],
+        [
+          "Your neighborhood regular [Customer name] said it best: '[testimonial quote]' - Come taste what everyone's talking about",
+          "[Number]+ people have tried our new [item] this week. Here's what they're saying... 🗣️",
+          "POV: You just became the friend who introduces everyone to their new favorite drink 🎯"
+        ],
+        [
+          "LAST CALL for [seasonal item] - Only available until [date]. Don't be the one asking 'why didn't I try it?' 😅",
+          "We've served [impressive number] of these in 3 weeks. Join the crowd before [urgency reason]",
+          "Your friends are already here trying [item]. Tag who you're bringing this weekend 👇"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'probably overpriced' - Show value through ingredient quality and bartender expertise in teaser content",
+        "Week 2: Address 'too crowded to try' - Offer specific off-peak times (Tuesday-Thursday) with guaranteed seating for new item trial",
+        "Week 3: Address 'might not like it' - Feature diverse customer testimonials showing it appeals to different tastes, offer taste-test option",
+        "Week 4: Address 'can I get this regularly' - Clarify if permanent menu addition or explain seasonal rotation to create urgency"
+      ],
+      "proof_timing": [
+        "Week 1: Behind-the-scenes bartender expertise - Show staff testing and perfecting the recipe over multiple attempts",
+        "Week 2: Ingredient sourcing credibility - Highlight local brewery partnership, fresh ingredients, or unique imported spirits",
+        "Week 3: Real customer reactions - User-generated content from first week, video testimonials, tagged photos from regulars",
+        "Week 4: Volume social proof - Share total number served, show crowded bar enjoying it, display sold-out moments"
+      ],
+      "cta_progression": [
+        "Week 1: Ask your bartender what we're working on this week (builds conversation and anticipation)",
+        "Week 2: Try [item] tonight and tag us in your photo - we're reposting the best reactions!",
+        "Week 3: Bring a friend who hasn't tried it yet - comment who you're bringing 👇",
+        "Week 4: Get here before [date] or wait until next [season] - reserve your spot for [day/time]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, daily Stories with polls and countdown stickers, 4-5 Reels showing preparation and reactions)",
+        "Facebook (3-4 posts/week focusing on event-style launch announcement and customer photo shares)",
+        "TikTok (4-5 videos/week with bartender POV making it, customer first-taste reactions, trending audio integration)",
+        "Email (Week 1 teaser, Week 2 launch announcement with exclusive early-bird offer, Week 4 last chance reminder)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on The Brass Tap's educational beer series (73% story completion) and Ginger Man's bartender personality content (3.2M views), combined with exclusive/secret menu hook pattern that creates insider status and encourages staff conversation. Launch timing leverages Thursday-Saturday 5pm-9pm optimal posting windows and Reels' 3.79% engagement rate."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building weekday traffic and community connection",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Bartender spotlight week - Feature staff personalities and drink expertise to build emotional connection",
+        "Week 2: Beer/cocktail education week - Teach customers about what they're drinking, add value beyond promotion",
+        "Week 3: Regular customer stories - Showcase neighborhood locals and create 'third place' belonging feeling",
+        "Week 4: Behind-the-scenes operations - Show authentic daily life, humanize the business",
+        "Week 5: Local partnership week - Highlight brewery collaborations, food truck partnerships, community connections",
+        "Week 6: Midweek traffic building - Focus on Tuesday-Thursday specials and why weekdays beat weekend crowds",
+        "Week 7: Sports culture week - Celebrate game-watching community without requiring specific game (off-season friendly)",
+        "Week 8: Customer appreciation - Thank regulars, share milestone moments, reinforce 'everybody knows your name' vibe"
+      ],
+      "weekly_hooks": [
+        [
+          "Meet [Bartender name]: Been slinging drinks here for [X years], remembers your order after one visit, makes the best [signature drink] in [city]",
+          "POV: [Bartender name] recommends the perfect drink based on your mood (and they're always right) 🎯",
+          "Your bartender is basically your therapist who serves alcohol - Meet the crew who makes this place home 🍺"
+        ],
+        [
+          "Beer 101: What's the difference between IPA, Pale Ale, and Lager? [Bartender] breaks it down in 30 seconds 🍻",
+          "Ever wonder why [local beer] tastes different than [national brand]? Here's the story behind your favorite draft...",
+          "Ask your bartender about [beer/cocktail term] - they'll explain it way better than Google (and give you a taste)"
+        ],
+        [
+          "This is [Regular name]. Comes in every Thursday for 6 years. Always orders [drink]. Part of what makes this place special 💙",
+          "Your neighborhood spot since [year] - Where [neighborhood] comes to unwind and become family",
+          "The best part of this job? Watching strangers become friends become regulars. Here's this week's story..."
+        ],
+        [
+          "Behind the bar at 2pm on a Tuesday: Prepping 200 limes, restocking 47 beer taps, and perfecting tonight's special 🔪",
+          "What really happens during our 'closed for cleaning' day - Spoiler: it's way more work than you think",
+          "Day in the life: How we go from empty bar at 3pm to packed house by 8pm 📹"
+        ],
+        [
+          "Supporting local isn't just a hashtag here - [Local brewery name] delivers fresh kegs every Tuesday and here's why that matters",
+          "This week's food truck: [Name] parks outside every [day]. Here's the combo we recommend with our [beer type] 🌮🍺",
+          "Shoutout to [local business] down the street - they send their teams here for happy hour, we send ours there for [service]. That's how neighborhoods work."
+        ],
+        [
+          "Tuesday-Thursday sweet spot: 30% less crowded, same great atmosphere, plus 20% off appetizers. Beat the weekend rush 🎯",
+          "Why fight weekend crowds? Wednesday is the new Friday - Trivia at 7pm, $4 craft drafts, and you can actually hear your friends talk",
+          "Your work week stress for cold beer and good company - You've earned it. See you tonight for [weekday special]."
+        ],
+        [
+          "We've got every game on 15+ screens, but the real MVP is the crowd that actually knows the sport 🏈",
+          "Sunday Funday: Where [city] recovers from the weekend and pretends Monday isn't coming",
+          "Game day guarantee: Your team's on our biggest screen, your drink's cold, and the crowd gets loud in the right moments"
+        ],
+        [
+          "500+ of you chose us last [day]. That's not just business, that's trust. Thank you for making this your spot 💙",
+          "Celebrating [milestone]: [Number] years, [number] regulars, countless stories. Here's to the next chapter together",
+          "To everyone who walks in and says 'the usual' - you're the reason we do this. Cheers to you 🍻"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Address 'bartenders are pretentious' - Show friendly, knowledgeable staff who remember customers and explain without condescension",
+        "Week 3-4: Address 'don't know anyone there' - Demonstrate welcoming regular community and how strangers become friends",
+        "Week 5-6: Address 'too crowded and noisy' - Promote weekday sweet spot with specific benefits and quieter atmosphere",
+        "Week 6-7: Address 'parking is nightmare' - Mention walk-ability, Uber partnership, or specific parking tips in content",
+        "Week 8: Address 'expensive for regular visits' - Introduce loyalty program or mug club casually as appreciation for regulars"
+      ],
+      "proof_timing": [
+        "Week 1: Staff tenure and expertise - Years of experience, certifications, competition wins",
+        "Week 2: Product quality - Source of ingredients, brewery partnerships, craft selection depth",
+        "Week 3-4: Customer loyalty - Long-term regulars, frequency of visits, community formed",
+        "Week 5: Local business relationships - Partnerships, collaborations, neighborhood integration",
+        "Week 6-7: Crowd proof - Show busy but manageable crowds on promoted days",
+        "Week 8: Longevity and milestones - Years in business, total customers served, awards won"
+      ],
+      "cta_progression": [
+        "Week 1: Come meet [bartender name] and tell them what you're in the mood for",
+        "Week 2: Ask your bartender to explain [beer/cocktail concept] - they love talking shop",
+        "Week 3: Tag a friend who needs to find their regular spot 👇",
+        "Week 4: Follow along tomorrow for behind-the-scenes [specific content]",
+        "Week 5: Try [local beer] with [food truck item] this [day] - trust us on this combo",
+        "Week 6: Skip the weekend chaos - join us [weekday] for [specific special]",
+        "Week 7: Who are you watching [game/sport] with this weekend? Tag your crew 👇",
+        "Week 8: Become a regular - join our mug club and save $3 per beer (link in bio)"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week, daily Stories with staff takeovers and customer spotlights, 3-4 Reels of bartender content)",
+        "Facebook (3-4 posts/week focusing on community stories and event announcements, strong for reaching 35+ demographic)",
+        "Google Business Profile (2-3 posts/week highlighting weekly specials and responding to all reviews within 24 hours)",
+        "Email (1 weekly digest every Tuesday highlighting week's events and specials, 22% open rate for entertainment calendar format)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap in 'staff personality and behind-the-scenes content' and 'midweek community-building content.' Based on Brass Tap's educational series success (73% completion rate vs 45% average) and customer voice data emphasizing 'bartenders remember what I drink' and 'perfect neighborhood vibe.' Leverages Tuesday-Wednesday optimal email timing for weekend planning while building weekday traffic."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign using viral-optimized content and high-frequency posting",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Relatable bartender humor - POV and roast-style content that service workers and bar-goers share for entertainment value",
+        "Week 1: Local pride and neighborhood identity - Content that makes locals want to tag friends and claim ownership",
+        "Week 2: User-generated content explosion - Incentivize customers to create shareable content with contests and features",
+        "Week 2: Trending audio hijacking - Take popular TikTok/Reel trends and add bar-specific twist for algorithm boost"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You just ordered a [complicated drink] at 11:58pm on a Saturday (bartender makes it perfectly anyway) 😤",
+          "Types of customers on Friday night: 1) The Regular 2) The First-Timer 3) The 'I'll have what they're having' - Which one are you?",
+          "Bartender roasts: Asking for 'something fruity but not sweet, strong but not too strong, unique but nothing weird' 🤔",
+          "When someone asks 'what's good here' and gestures at 47 taps and 200 bottles... (bartender stares into camera)",
+          "Red flags at a bar: [Humorous list]. Green flags: [Positive list]. We're the green flag bar 🚩✅"
+        ],
+        [
+          "CALLING ALL [NEIGHBORHOOD] LOCALS: Drop a 📍 if this is your spot - let's show [rival neighborhood] who runs this city",
+          "If you know, you know: [Hyper-local reference only locals understand]. Tag someone who gets it 👇",
+          "Your neighborhood spot since [year] - Where [neighborhood] comes to unwind. Share if this is your third place 💙",
+          "Only in [neighborhood]: [Specific local quirk]. That's why we love this community 🏘️",
+          "Voted [City]'s Best [Category] 3 years running - See why 500+ people chose us last Friday 🏆"
+        ],
+        [
+          "CONTEST: Best photo of your crew at our bar wins $100 tab. Tag us + use #[BrandHashtag] by Sunday. GO 📸",
+          "We'll repost the best reaction video to our new [item]. Tag us and show us your first taste 🎥",
+          "Caption this photo for a chance to win [prize]. Funniest answer gets announced Friday 💬",
+          "Show us your 'finally Friday' face - best one gets featured and a free round 🍻",
+          "Tag your group chat that needs to see this. Most tags wins [prize] 👥"
+        ],
+        [
+          "[Trending audio]: When your bartender says 'the usual?' and you've only been here twice (but you're officially a regular now) 🎵",
+          "Using [trending audio] to show every type of customer walking into happy hour 😂",
+          "[Trending dance/challenge] but make it bartender edition - who's doing this better? 💃",
+          "POV: [Trending format] + [bar-specific scenario] = viral moment incoming 🚀",
+          "Duet this if you've ever [relatable bar experience]. Let's see how many of you there are 👯"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'seems like younger crowd' - Show diverse age range in relatable humor content that appeals to 25-50 demographic",
+        "Week 2: Address 'probably full of tourists' - Heavy emphasis on local community, neighborhood references, regular customer features"
+      ],
+      "proof_timing": [
+        "Week 1 Day 1-3: Engagement proof - Respond to every comment quickly, show active community interaction",
+        "Week 1 Day 4-7: Viral metrics - Share view counts, share counts, tag counts as social proof of popularity",
+        "Week 2 Day 1-4: User-generated content volume - Showcase number of entries, participation level, community enthusiasm",
+        "Week 2 Day 5-7: Media mentions - Share any press, influencer visits, or third-party validation gained from viral content"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-3: Tag someone who needs to see this / Share if you relate",
+        "Week 1 Days 4-7: Follow for daily [content type] / Turn on notifications for more",
+        "Week 2 Days 1-4: Enter the contest - tag us + use #[hashtag]",
+        "Week 2 Days 5-7: Come see what the hype is about - visit this week and tag us in your story"
+      ],
+      "platform_priority": [
+        "TikTok (daily posts, 7-10 videos per week using trending audio and POV format for 7-12% engagement rate)",
+        "Instagram Reels (daily posts, 7-10 Reels mirroring TikTok content, 3.79% engagement rate)",
+        "Instagram Stories (multiple daily stories with poll stickers, question boxes, and countdown stickers for interaction)",
+        "Facebook (3-4 shareable posts per week focusing on contest announcements and user-generated content roundups)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Ginger Man's viral TikTok bartender roast series (3.2M views, 847K likes, 22% weekday traffic increase from 25-34 demographic) and proven 'Behind-the-Curtain/Bartender POV Hook' pattern. Leverages TikTok's 5.96% average engagement rate for food & beverage and Tuesday-Thursday 7pm-11pm optimal posting times. Contest strategy mirrors Duffy's user-generated content success (2,800+ photos per season)."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing drink expertise and elevating customer knowledge",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Beer fundamentals - Styles, brewing process, tasting notes for everyday drinkers",
+        "Week 2: Cocktail craft - Classic recipes, technique explanations, ingredient quality importance",
+        "Week 3: Local brewery deep-dive - Partner spotlight, brewery visit content, exclusive tap stories",
+        "Week 4: Food pairing science - Why certain drinks complement specific foods, elevate dining experience",
+        "Week 5: Seasonal drinking - What to drink when, temperature effects, glassware importance",
+        "Week 6: Bartender career spotlight - Industry expertise, competition wins, continuous education, professional respect"
+      ],
+      "weekly_hooks": [
+        [
+          "Beer 101: What's the actual difference between IPA, Pale Ale, and Lager? [Bartender] breaks it down in 30 seconds 🍺",
+          "Why does [local craft beer] cost $2 more than [domestic]? Here's what you're actually paying for (hint: it's worth it)",
+          "Tasting notes aren't pretentious - they're your roadmap to finding beers you'll love. Here's how to read them 📖"
+        ],
+        [
+          "The secret to a perfect Old Fashioned: It's not the whiskey, it's the [specific technique]. Watch [bartender] explain why ⏱️",
+          "Ever wonder why we stir martinis but shake margaritas? Science + tradition = better drinks. Here's the breakdown 🧊",
+          "Fresh vs. bottled citrus juice: We did a blind taste test. The results shocked even us 🍋"
+        ],
+        [
+          "Behind the tap: [Local brewery] delivers fresh kegs every Tuesday. Here's why that 3-day difference matters for your beer 🚚",
+          "Brewery visit: We took you inside [brewery name] to see where your favorite [beer] is made. The process is incredible 🏭",
+          "Small batch vs. mass production: Why [local beer] tastes different every season (and why that's actually a good thing)"
+        ],
+        [
+          "Food pairing 101: Why [beer type] makes [food item] taste better - it's chemistry, not coincidence 🧪",
+          "[Bartender] recommends: The perfect drink for every item on our menu. Here's the combo that'll change your life 🌮🍺",
+          "Hot wings + [specific beer style] = flavor explosion. Here's why the hops cut through the heat perfectly 🔥"
+        ],
+        [
+          "Summer beer vs. Winter beer: Your taste buds actually change with temperature. Here's what to drink when ☀️❄️",
+          "Why we serve [beer] in this specific glass - it's not fancy, it's functional. Here's the science 🍺",
+          "Temperature matters: We serve [beer] at exactly [temp] degrees. Here's what happens if it's too warm or too cold 🌡️"
+        ],
+        [
+          "Meet [Bartender]: Certified Cicerone, 15 years experience, competed in [competition]. Your drink is in expert hands 🏆",
+          "What [bartender] learned at [industry conference] that's changing how we serve [drink category] 📚",
+          "Behind the expertise: How our bartenders stay on top of 200+ beers, 50+ spirits, and endless cocktail trends 🎓"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'beer all tastes the same to me' - Educate on flavor profiles and help customers find preferences",
+        "Week 2: Address 'cocktails are overpriced' - Show craft, technique, and quality ingredients that justify pricing",
+        "Week 3: Address 'why pay more for local' - Explain freshness, quality, and community support value",
+        "Week 4: Address 'don't need food, just drinks' - Demonstrate how pairing enhances both food and drink experience",
+        "Week 5: Address 'doesn't matter what glass/temp' - Educate on how presentation affects taste and experience",
+        "Week 6: Address 'bartenders just pour drinks' - Showcase professional expertise and continuous education"
+      ],
+      "proof_timing": [
+        "Week 1: Staff certifications - Cicerone, TIPS, mixology training credentials",
+        "Week 2: Technique demonstrations - Video proof of proper methods, before/after comparisons",
+        "Week 3: Brewery partnerships - Official relationships, exclusive taps, direct sourcing",
+        "Week 4: Customer testimonials - Regulars who discovered new favorites through recommendations",
+        "Week 5: Industry standards - Reference professional guidelines, competition standards",
+        "Week 6: Awards and recognition - Bartender competition wins, industry publications, 'Best Of' awards"
+      ],
+      "cta_progression": [
+        "Week 1: Ask your bartender to recommend a beer based on [preference] - they'll find your new favorite",
+        "Week 2: Watch [bartender] make [cocktail] and ask questions - they love talking craft",
+        "Week 3: Try [local brewery beer] this week - available on tap [number]",
+        "Week 4: Order the [food + drink pairing] combo - tell us what you think in comments",
+        "Week 5: Notice the difference - we'll serve you [beer] in proper glassware at perfect temp",
+        "Week 6: Meet our certified bartenders - come in and learn something new about what you're drinking"
+      ],
+      "platform_priority": [
+        "Instagram Stories (daily educational content with poll stickers asking followers to guess facts, 73% completion rate for top performers)",
+        "Instagram Feed (3-4 educational posts per week with carousel format showing step-by-step processes, 2.4% engagement)",
+        "Facebook (2-3 longer-form educational posts per week for 35+ demographic who appreciates detailed content)",
+        "YouTube/Instagram Reels (2-3 longer educational videos per week, 60-90 seconds showing techniques)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on The Brass Tap's 'Craft Beer Tuesday' educational series achieving 73% story completion rate vs 45% industry average and 28% clickthrough to reservations. Addresses competitive gap in 'educational content about drinks' where most bars rarely explain beer styles, origins, or tasting notes. Customer voice data shows demand for 'staff can actually recommend stuff' and transformation from commodity to experience."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and user-generated content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive decision-making - Polls, votes, and crowd-sourced choices that give community ownership",
+        "Week 1: Debate and opinion content - Controversial-but-fun topics that spark conversation in comments",
+        "Week 2: Photo contest and tagging frenzy - Incentivize customers to create and share content",
+        "Week 2: Fill-in-the-blank and caption challenges - Easy participation content that drives comments"
+      ],
+      "weekly_hooks": [
+        [
+          "VOTE: Which should we bring back? 1️⃣ [Item A] or 2️⃣ [Item B]. Most comments wins. GO 👇",
+          "Help us decide: New Thursday special should be [Option 1] or [Option 2]? Comment your pick 🗳️",
+          "Poll: What's the move tonight? 🍺 Beer 🍸 Cocktails 🍷 Wine - React with the emoji",
+          "You choose: Next month's featured local brewery. Comment [Brewery A] or [Brewery B] below 👇",
+          "Quick poll: Better happy hour time? ⏰ 3-6pm or ⏰ 4-7pm - Most votes wins"
+        ],
+        [
+          "Settle this debate: Is a hot dog a sandwich? Wrong answers only in the comments 🌭",
+          "Controversial opinion: [Playful bar-related take]. Change our mind in the comments 💬",
+          "Best day to go out: Friday or Saturday? Defend your answer below 👇",
+          "Unpopular opinion: [Beer/drink take]. Let's fight about it (respectfully) in the comments 🥊",
+          "The great debate: Ranch or Blue Cheese with wings? This is where we draw the line 🍗"
+        ],
+        [
+          "CONTEST: Best photo of your crew at our bar this week wins $100 tab. Tag us + #[Hashtag] by Sunday 📸",
+          "Show us your 'finally Friday' face - tag us in your story tonight and we'll repost the best ones 🎉",
+          "Photo challenge: You + your favorite drink here. Most creative photo wins free drinks next visit 🍻",
+          "Tag 3 friends who need to join you here this weekend - most tags wins [prize] 👥",
+          "Repost this to your story and tag us - we're sending free appetizers to 5 random people who do 🎁"
+        ],
+        [
+          "Fill in the blank: 'I come to [bar name] for the _____, I stay for the _____.' Best answer wins [prize] ✍️",
+          "Caption this photo: [Funny bar scene image]. Funniest comment gets featured + free round 💬",
+          "Finish the sentence: 'You know you're a regular when _____.' We'll share the best answers 🍺",
+          "One word to describe your last visit here: _____ (we'll make a word cloud from answers) ☁️",
+          "Tag someone who: Always orders the same drink, knows all the bartenders, comes here every [day] 👇"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'don't feel like part of community' - Show how customer input directly influences decisions",
+        "Week 2: Address 'social media contests are rigged' - Publicly announce winners with transparency, show real prizes delivered"
+      ],
+      "proof_timing": [
+        "Week 1 Days 1-3: Participation proof - Share real-time vote counts, show community engagement happening",
+        "Week 1 Days 4-7: Implementation proof - Actually use winning poll result, show community influence",
+        "Week 2 Days 1-4: Entry volume - Share number of contest entries, showcase user-generated content flow",
+        "Week 2 Days 5-7: Winner announcements - Public recognition, show prizes being delivered, feature winning content"
+      ],
+      "cta_progression": [
+        "Week 1 Days 1-2: Vote in comments / React with emoji for your choice",
+        "Week 1 Days 3-5: Comment your opinion / Tag someone who agrees with you",
+        "Week 1 Days 6-7: Share this poll to your story / Help us reach [number] votes",
+        "Week 2 Days 1-3: Enter the contest - tag us + use #[hashtag]",
+        "Week 2 Days 4-5: Tag 3 friends / Caption this photo",
+        "Week 2 Days 6-7: Winners announced Friday - come celebrate with us this weekend"
+      ],
+      "platform_priority": [
+        "Instagram Stories (multiple daily stories with poll stickers, question boxes, emoji sliders for maximum interaction)",
+        "Instagram Feed (1-2 posts daily with comment-driving questions and clear instructions)",
+        "Facebook (1-2 posts daily leveraging Facebook's strong commenting culture and sharing features)",
+        "TikTok (3-5 videos per week with duet/stitch enabled, encouraging user response videos)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Duffy's Sports Grill's photo contest success (2,800+ user-generated photos per season, average 4,200 engagements per post) and Brass Tap's Instagram Story poll stickers achieving 73% completion rate. Leverages Instagram Stories' proven high engagement with interactive stickers and addresses customer voice desire for community belonging ('want to feel like a regular somewhere'). Contest timing uses Tuesday-Wednesday email optimal windows for weekend planning."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your team worked hard this quarter. Here's why your next corporate happy hour venue matters more than you think.\n\nProblem: Generic corporate events feel forced. Attendance drops. Team bonding doesn't happen.\n\nWhat we've learned hosting 50+ corporate events: The right atmosphere does the work for you.\n\n3 elements that make team events actually work:\n\n1. Flexible space that adapts to your group size (not cramped, not empty)\n2. Menu options that accommodate dietary restrictions without making it complicated\n3. Staff who understand this is about your team, not just another booking\n\nLast month, [COMPANY NAME] brought their team of 25 for quarterly celebration. Their feedback: \"First time people from different departments actually talked.\"\n\nThe ROI of team morale isn't just retention—it's productivity, collaboration, and culture.\n\nWhat's your biggest challenge with corporate team events? #CorporateCulture #TeamBuilding #[CityName]Business #WorkplaceWellness #LocalBusiness",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [NUMBER] years serving [CITY/NEIGHBORHOOD], here's what we know about building community in 2024.\n\nAttention spans are shorter. Social media is isolating. But the need for real connection is higher than ever.\n\nWe're not just a bar. We're a third place—that space between work and home where people become neighbors, strangers become friends, and community actually happens.\n\nWhat makes a third place work:\n\n→ Regulars who feel ownership (we remember your drink)\n→ Consistent presence (you know we're here Tuesday through Sunday)\n→ Low barrier to entry (no velvet ropes, no pretension)\n→ Shared experiences (live music, game days, trivia nights)\n\nInterest builds when people feel they belong somewhere.\n\nDesire grows when they see others experiencing that belonging.\n\nAction happens when they realize: \"This could be my spot.\"\n\nWe've watched first-time visitors become weekly regulars. Solo visitors find their friend group. Business relationships form over craft beer conversations.\n\nThat's not marketing. That's community infrastructure.\n\nWhere does your professional network actually connect face-to-face? #CommunityBuilding #LocalBusiness #[CityName] #ThirdPlace #SmallBusiness",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Another forgettable corporate happy hour at a chain restaurant. Awkward small talk. People checking phones.\n\nAfter: Your team actually laughing together. Organic conversations. Someone says \"we should do this more often.\"\n\nBridge: The right venue.\n\nWe're now booking corporate events for Q2. What makes us different:\n\n✓ Private space options that don't feel like a conference room\n✓ Customizable food/drink packages (not just apps and well drinks)\n✓ Dedicated event coordinator who handles details\n✓ AV setup for presentations if needed\n✓ Flexible timing (lunch, after-work, weekend options)\n\nRecent client: [INDUSTRY] company, 40 people, quarterly celebration. Their words: \"Best turnout we've had in 2 years.\"\n\nLimited availability for [MONTH] bookings.\n\nDM or email [EMAIL] to discuss your next event. Let's make it one people actually want to attend.\n\n#CorporateEvents #[CityName]Business #TeamEvents #BusinessNetworking #EventSpace",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your bartender explains: Why we serve [BEER STYLE] in this specific glass 🍺\n\n[BARTENDER NAME] breaks down the science:\n\n→ Glass shape affects aroma concentration\n→ Temperature retention varies by thickness  \n→ Rim width changes how beer hits your palate\n→ Proper pour = perfect head = better taste\n\nSwipe to see the difference between right glass vs. wrong glass for IPAs, stouts, and wheat beers.\n\nThat's why we're not just pouring drinks—we're serving them the way brewers intended.\n\nWhat's your go-to beer style? Drop it below and we'll tell you the perfect glassware 👇\n\n#CraftBeer #BeerEducation #[CityName]Bars #BartenderLife #BeerGeek",
+        "visual": "Carousel: Slide 1: Bartender holding different beer glasses. Slide 2: IPA in tulip glass vs. pint glass comparison. Slide 3: Stout in proper snifter showing cascading head. Slide 4: Wheat beer in weizen glass with lemon. Slide 5: Behind-bar shot of complete glassware collection. Professional lighting, clean bar background.",
+        "framework": "Educational AIDA"
+      },
+      "authority": {
+        "caption": "Unpopular opinion: Your \"favorite\" bar isn't about the drinks.\n\nIt's about the bartender who remembers you ordered Tito's soda last Tuesday.\n\nThe regular at the end who always has a good story.\n\nThe corner booth that's somehow always available when you need it.\n\nThe playlist that hits different at 7pm on a Thursday.\n\nWe've been [NEIGHBORHOOD]'s living room since [YEAR]. Not because we have the fanciest cocktails or the biggest TVs.\n\nBecause we remember: people don't need another bar. They need their bar.\n\nTag someone who gets it 🍻\n\n#[Neighborhood]Bars #LocalBar #CommunityFirst #NeighborhoodSpot #[CityName]Nightlife",
+        "visual": "Candid photo: Regular customer laughing with bartender, genuine moment not posed. Warm lighting, busy bar in background showing community atmosphere. Shot from slightly behind bar perspective showing connection between staff and customer.",
+        "framework": "Authority storytelling"
+      },
+      "promotional": {
+        "caption": "TONIGHT: [EVENT NAME] starts at [TIME] 🎸\n\nYour Thursday just got better:\n✓ Live music from [BAND/ARTIST]\n✓ $[PRICE] [DRINK SPECIAL] until [TIME]\n✓ [FOOD SPECIAL] available all night\n✓ Patio open (finally good weather)\n\nLast week we packed out. Tonight we're expecting the same energy.\n\nTag your crew below—who's coming? First 50 people get [BONUS OFFER]\n\nReservations: [LINK IN BIO] or walk-ins welcome\n\n#LiveMusic #[CityName]Nightlife #[Neighborhood] #ThursdayNight #LocalMusic",
+        "visual": "Reel concept: 15-second clip showing band setup, bartender pouring featured drink special, crowd from last week's event vibing, quick pan across food special, end with 'TONIGHT [TIME]' text overlay. Upbeat music track matching event genre.",
+        "framework": "Promotional AIDA"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🍺 YOUR GUIDE TO HAPPY HOUR (because not all deals are created equal)\n\nSeeing a lot of confusion about happy hour timing around [CITY/NEIGHBORHOOD], so here's what you should actually know:\n\n❌ MYTH: Happy hour is always 4-6pm\n✅ REALITY: Best bars run them when their regulars actually show up\n\nOur happy hour is [DAYS] from [TIME] to [TIME]. Here's why:\n\n→ We asked our regulars when they actually get off work (it's not 5pm anymore)\n→ [TIME] gives you time to decompress, not rush\n→ It runs long enough to actually enjoy it, not chug and leave\n\nWhat you get:\n• $[PRICE] select drafts (all local craft, not just domestics)\n• $[PRICE] well drinks (we use quality spirits, not bottom shelf)\n• $[PRICE] wine by the glass\n• Half-price apps (including our [POPULAR ITEM])\n\nPRO TIP: Tuesdays and Wednesdays are our secret best days—same deals, half the crowd, better chance of snagging the patio.\n\nQuestions about what's included? Drop them below and I'll answer every one.\n\nSee you tonight? 🍻\n\n#[CityName]HappyHour #[Neighborhood] #LocalBar #HappyHourDeals",
+        "framework": "Educational PAS"
+      },
+      "authority": {
+        "template": "Real talk about being a neighborhood bar in 2024:\n\nWe just hit [NUMBER] years in [NEIGHBORHOOD]. When we started, the goal was simple: create a spot where people felt like regulars, not customers.\n\nWhat we've learned:\n\n1. Community doesn't happen by accident. It takes showing up consistently, remembering names, and actually caring when regulars tell you about their week.\n\n2. You can't be everything to everyone. We're not the club. We're not the fancy cocktail bar. We're the place you go on a random Tuesday because you know it'll be good.\n\n3. Your staff makes or breaks the vibe. [BARTENDER NAME] has been here [NUMBER] years. [SERVER NAME] knows half the neighborhood by name. That's not training—that's culture.\n\n4. The little things matter more than the big things. Free popcorn. Remembering someone drinks Stella. Having the game on without being asked. Texting regulars when their favorite beer is back on tap.\n\n5. Authenticity beats marketing every time. We're not trying to go viral. We're trying to be here in 10 more years.\n\nTo everyone who's made this place what it is—thank you. You're not just customers. You're the reason we do this.\n\nWhat makes YOUR favorite local spot special? I'm genuinely curious.\n\n[NEIGHBORHOOD FACEBOOK GROUP MEMBERS]: Where does everyone actually go to unwind?",
+        "framework": "Authority storytelling"
+      },
+      "promotional": {
+        "template": "🏈 GAME DAY THIS SUNDAY: [TEAM] vs [OPPONENT]\n\nBefore you make plans, here's what we've got:\n\n📺 Every TV showing the game (yes, with sound)\n🍺 $[PRICE] domestic buckets during the game  \n🍗 Wings special: [NUMBER] wings for $[PRICE]\n🎯 Halftime cornhole tournament (winner gets $[PRIZE] bar tab)\n🔊 Crowd that actually knows football (no explaining offsides)\n\nDoors open at [TIME]. Kitchen open full game.\n\nWHY WATCH HERE:\n→ We're a [TEAM] bar (you're with your people)\n→ Every touchdown = [SPECIAL OFFER] for 5 minutes\n→ Parking in back lot + street (way easier than [COMPETITOR])\n→ If [TEAM] wins by 20+, everyone gets a free appetizer card for next visit\n\nCALLING ALL [TEAM] FANS: Tag your game day crew below!\n\nWant to reserve a table for 6+? Call [PHONE] or DM us. Walk-ins always welcome but it gets LOUD.\n\nLet's go [TEAM]! 🏈🍺\n\n#[Team]Nation #NFLSunday #[CityName]Sports #GameDay #SportsBar",
+        "framework": "Promotional AIDA"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just asked for a 'strong' drink (bartender explains what that actually means)",
+        "script": "VISUAL: Bartender looking at camera skeptically\n\nTEXT OVERLAY: \"Make it strong\"\n\nBARTENDER: \"Okay so here's the thing...\"\n\n[Cut to pouring drinks]\n\n\"Strong doesn't mean more alcohol. A vodka soda is the same ABV whether I pour 1.5oz or 2oz. You're just paying more.\"\n\n[Shows two drinks side by side]\n\n\"What you probably want: Less mixer, same alcohol. Just say 'light on the soda.'\"\n\n[Demonstrates proper pour]\n\n\"Or you want a spirit-forward drink. Ask for an Old Fashioned, Manhattan, Martini.\"\n\n[Final shot of finished drinks]\n\n\"Now you know. You're welcome.\"\n\nTEXT OVERLAY: \"Save this for next time\"\n\nCOMMENT BAIT: \"What's your go-to order? 👇\"\n\n#BartenderTok #CocktailTips #BehindTheBar #BarTender #DrinkRecipes",
+        "framework": "Educational hook"
+      },
+      "authority": {
+        "hook": "Red flags that you're in a bad bar (from a bartender of 10 years)",
+        "script": "VISUAL: Bartender walking through bar pointing at things\n\nTEXT OVERLAY: \"🚩 RED FLAGS 🚩\"\n\n[Point 1] \"Sticky bar top\" (wipes finger, makes face)\n\n[Point 2] \"Bartender on their phone ignoring customers\" (recreates scene)\n\n[Point 3] \"Beer taps covered in dust\" (shows clean taps at own bar)\n\n[Point 4] \"They don't know what's on tap\" (confused face)\n\n[Point 5] \"Bathroom hasn't been checked in hours\" (points to clean bathroom checklist)\n\n[Point 6] \"Well drinks taste like paint thinner\" (makes disgusted face)\n\n[Final shot] \"Meanwhile at a GOOD bar...\" (shows clean, organized bar, happy customers, engaged bartender)\n\nTEXT OVERLAY: \"You deserve better\"\n\n\"Come to a place that actually cares. [BAR NAME], [NEIGHBORHOOD]\"\n\nCOMMENT BAIT: \"What's YOUR biggest bar red flag?\"\n\n#BartenderLife #BarTok #LocalBar #RedFlags #ServiceIndustry",
+        "framework": "Authority comparison"
+      },
+      "promotional": {
+        "hook": "When you realize it's [DAY] and [BAR NAME] has [SPECIAL]",
+        "script": "VISUAL: Customer reacting to seeing special\n\nAUDIO: Trending sound [current viral audio]\n\nTEXT OVERLAY: \"Me remembering it's [TRIVIA/TACO/WING] [DAY]\"\n\n[Cut to bartender pouring drinks]\n\n\"$[PRICE] [DRINK SPECIAL]\"\n\n[Cut to kitchen plating food]\n\n\"$[PRICE] [FOOD SPECIAL]\"\n\n[Cut to crowd having fun]\n\n\"[EVENT] starts at [TIME]\"\n\n[Final shot: Customer with friends at table, all laughing]\n\nTEXT OVERLAY: \"See you tonight? 👀\"\n\n[Location tag appears]: \"[BAR NAME] - [NEIGHBORHOOD]\"\n\n[End screen]: \"Every [DAY] | [TIME] | [LOCATION]\"\n\nCOMMENT BAIT: \"Tag who you're bringing 👇\"\n\n#[CityName]Nightlife #[DayOfWeek]Vibes #LocalBar #FoodSpecials #[Neighborhood]",
+        "framework": "Promotional FOMO"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The beer you've been ordering wrong (+ what to try instead)",
+        "preview_text": "Our head bartender's guide to finding your new favorite",
+        "body": "Hey [FIRST_NAME],\n\nYou know that feeling when you order the same beer every time because it's... safe?\n\n[BARTENDER_NAME] (our head bartender of [NUMBER] years) sees it constantly. Great people stuck in a beer rut.\n\nSo we're doing something about it.\n\n**THIS WEEK ONLY: Free Beer Flight Upgrade**\n\nOrder any beer, get a free 4-beer tasting flight to try something new.\n\nHere's how it works:\n\n1. Tell [BARTENDER_NAME] what you normally drink\n2. They'll create a custom flight based on your taste\n3. You discover your new favorite (or confirm your current choice is perfect)\n\nNo pressure. No upsell. Just beer education from someone who actually knows their stuff.\n\n**When:** [DATES]\n**Where:** [LOCATION]\n**Cost:** Free with any beer purchase\n\nClick here to reserve your spot: [RESERVATION_LINK]\n\nOr just show up and mention this email.\n\nCheers to trying something new,\n[SIGNATURE]\n\nP.S. Last time we did this, 67% of people found a new favorite beer. Worth a shot, right?",
+        "framework": "Educational PAS"
+      },
+      "authority": {
+        "subject": "[FIRST_NAME], you're invited to our [NUMBER]-year anniversary",
+        "preview_text": "A thank you to the people who made us who we are",
+        "body": "Hi [FIRST_NAME],\n\n[NUMBER] years ago, we opened our doors in [NEIGHBORHOOD] with a simple goal: create a place where people felt like they belonged.\n\nYou made that happen.\n\nNot the marketing. Not the reviews. You—showing up, bringing friends, becoming part of our story.\n\n**We're celebrating, and you're the guest of honor.**\n\n**[DATE] | [TIME] | Anniversary Celebration**\n\nWhat we're doing:\n→ Complimentary appetizers all night (our thank you)\n→ $[PRICE] anniversary cocktails featuring drinks from our opening menu\n→ Live music from [ARTIST] at [TIME]\n→ Raffle for loyal customers (grand prize: [PRIZE])\n→ Photo booth with prints (because memories)\n\nThis isn't a sales event. It's a genuine thank you to the people who've made [BAR_NAME] more than just a bar.\n\n**RSVP here:** [LINK]\n(Helps us plan food quantities—walk-ins welcome too)\n\nOver [NUMBER] years, we've watched:\n→ First dates turn into marriages\n→ Solo visitors become friend groups  \n→ Strangers become neighbors\n→ Customers become family\n\nThat's not business. That's community.\n\nThank you for being part of ours.\n\nSee you [DATE],\n[OWNER/MANAGER_NAME]\n\nP.S. Seriously, thank you. We don't say it enough.",
+        "framework": "Authority gratitude"
+      },
+      "promotional": {
+        "subject": "🏈 [TEAM] game + free wings if they win by 20+",
+        "preview_text": "Game Day Guarantee: Your team crushes it, we cover appetizers",
+        "body": "Hey [FIRST_NAME],\n\n**SUNDAY: [TEAM] vs [OPPONENT]**\n\nBefore: Watching the game at home, alone, on your laptop because someone's using the main TV.\n\nAfter: Surrounded by [TEAM] fans, on 15+ screens, with $[PRICE] beer buckets and the energy you can't get at home.\n\nBridge: Just show up.\n\n**GAME DAY GUARANTEE:**\nIf [TEAM] wins by 20+ points, everyone in the building gets a free appetizer card for their next visit.\n\n(We're that confident. Or that loyal. Probably both.)\n\n**WHAT YOU GET:**\n→ Every TV showing the game with sound\n→ $[PRICE] domestic buckets during game\n→ [FOOD_SPECIAL] all day\n→ Halftime [CONTEST] (winner gets $[PRIZE])\n→ Parking in back lot + street\n→ Crowd that knows football\n\n**Doors open:** [TIME]\n**Kitchen open:** Full game\n**Reservations for 6+:** [PHONE] or reply to this email\n\n[RESERVE YOUR TABLE] ← Click here\n\nLast week we had [NUMBER]+ people for the game. Same energy expected Sunday.\n\nWho are you bringing? (Tag them when you share this)\n\nLet's go [TEAM],\n[SIGNATURE]\n\nP.S. If you're a [OPPONENT] fan... we'll still serve you. But you might want to sit in the back. 😂",
+        "framework": "Promotional BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[NUMBER]+ locals chose us last [DAY OF WEEK] - Here's why they skipped their usual spot",
+      "[NUMBER] craft beers on tap, [NUMBER] TVs, and zero pretentious bartenders",
+      "Voted [CITY]'s best [CATEGORY] [NUMBER] years running - [NUMBER]+ people can't be wrong",
+      "[NUMBER] happy hour specials until [TIME]pm (because 6pm cutoffs are criminal)",
+      "[NUMBER] screens showing [TEAM] tonight + [NUMBER] drink specials - Who's in?"
+    ],
+    "question_hooks": [
+      "Tired of bars that are either dead or so packed you can't get a drink?",
+      "Sick of driving 30 minutes just to find a decent beer selection?",
+      "Why are you still paying $15 for cocktails you could make at home?",
+      "Looking for a spot where the bartender actually remembers your drink?",
+      "Done with happy hours that end right when you get off work?"
+    ],
+    "story_hooks": [
+      "She walked in alone on a Tuesday. Now she's here every week with the same crew she met at our bar.",
+      "He couldn't find anywhere showing the [TEAM] game that wasn't a total bro fest. Then he found us.",
+      "They needed a first date spot where they could actually hear each other talk. Our patio became their spot.",
+      "Started as a quick after-work beer. Ended up finding his new Friday tradition and regular crew.",
+      "Was stuck in the same boring weekend routine. Now [NEIGHBORHOOD] knows where to find him every [DAY]."
+    ],
+    "fear_hooks": [
+      "Is your Friday night routine slowly killing your social life?",
+      "Are you missing the game because your usual spot is too packed to get in?",
+      "Still paying surge pricing on Ubers to bars across town when there's [BAR NAME] in [NEIGHBORHOOD]?",
+      "Is another weekend about to pass watching Netflix instead of actually living?",
+      "Are watered-down drinks and corporate vibes stealing your hard-earned money?"
+    ],
+    "howto_hooks": [
+      "How to actually enjoy happy hour without rushing out of work at 5pm sharp",
+      "How to watch [TEAM] play without dealing with obnoxious crowds and $12 beers",
+      "How to find your new regular spot without trying 15 different bars first",
+      "How to have a great Friday night without planning it like a military operation",
+      "How to become a regular somewhere without feeling awkward going alone the first time"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally found your spot",
+      "body": "0-3sec: Walk through door, bartender nods knowingly. 3-15sec: Quick cuts - your usual drink already being poured, fist bump with regular at next stool, perfect seat opens up at bar. 15-35sec: Bartender: 'Usual?' You nod. Show game on perfect TV angle, friend texts 'where you at?' you reply with location pin. 35-50sec: Voiceover: 'When the bartender knows your drink, your team's always on, and you can actually hear yourself think.' 50-60sec: Cheers with regulars, text overlay: 'Third place unlocked'",
+      "cta": "Find your spot. Link in bio for this week's specials"
+    },
+    "reels": {
+      "hook": "Red flags vs green flags at bars",
+      "body": "0-5sec: Split screen. RED side: watered down drinks, ignored by bartender, $18 cocktails. 5-20sec: GREEN side: bartender remembers your name, generous pours, $7 happy hour until 8pm. 20-28sec: Text overlay: 'Life's too short for red flag bars'",
+      "cta": "Green flags only. See you tonight"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'finally Friday' moment - that first sip when the work week ends. Tag us for a free appetizer next visit",
+      "hashtag": "#FridayFeelingUnlocked"
+    },
+    {
+      "prompt": "Bring a friend who's never been here. Film their reaction to our beer selection/atmosphere/food. Best reaction wins a $50 tab",
+      "hashtag": "#NewRegularChallenge"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Bartender Translations series - 'What customers say vs what bartenders hear' with bartender lip-syncing both parts. Example: Customer: 'Make it strong' / Bartender hears: 'I don't want to tip on the actual alcohol price'",
+      "why": "Service industry workers share religiously, relatable humor, showcases staff personality, creates ongoing series format, controversy drives comments"
+    },
+    {
+      "angle": "Real-time weather reactive content - Post within 30 minutes of unexpected weather. Rainy Tuesday: 'Rainy Day Remedy: $5 whiskey drinks and comfort food until the sun comes out (so probably forever)' with cozy interior shot",
+      "why": "Timely relevance, solves immediate problem (what to do now), shareability to friends making plans, demonstrates responsiveness, capitalizes on collective experience"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:06:51.704Z",
+    "last_tier2_refresh": "2025-11-28T00:06:51.704Z",
+    "last_tier3_refresh": "2025-11-28T00:06:51.704Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:06:51.704Z"
+  }
+}

@@ -43,14 +43,11 @@ serve(async (req) => {
       throw new Error('Apify API key not configured in Edge Function environment')
     }
 
-    if (!actorId) {
-      throw new Error('actorId is required')
-    }
-
-    // Allow scraperType to select pre-configured actors
+    // Allow scraperType to select pre-configured actors OR use direct actorId
     let finalActorId = scraperType ? SOCIAL_ACTORS[scraperType as keyof typeof SOCIAL_ACTORS] : actorId
+
     if (!finalActorId) {
-      throw new Error(`Unknown scraperType: ${scraperType}`)
+      throw new Error('Either actorId or scraperType is required')
     }
 
     // Convert actor ID format: apidojo/youtube-scraper -> apidojo~youtube-scraper
@@ -59,13 +56,34 @@ serve(async (req) => {
 
     console.log('[Apify Edge] Starting actor:', finalActorId, scraperType ? `(${scraperType})` : '')
 
-    // Start actor run
+    // OPTIMIZATION: Add aggressive limits to ALL actors to ensure they complete fast
+    // Edge Functions have a 60s hard limit, so actors MUST finish in ~45s
+    const optimizedInput = {
+      ...input,
+      // Force fast completion for web scrapers
+      maxRequestsPerCrawl: Math.min(input.maxRequestsPerCrawl || 10, 10),
+      maxCrawlPages: Math.min(input.maxCrawlPages || 5, 5),
+      maxConcurrency: Math.min(input.maxConcurrency || 3, 3),
+      // Aggressive timeouts (in seconds)
+      timeoutSecs: 40,
+      requestTimeoutSecs: 15,
+      pageLoadTimeoutSecs: 15,
+      // Reduce memory/compute to speed up
+      maxRequestRetries: 1,
+      // For dedicated scrapers (Twitter, Reddit, YouTube)
+      maxItems: Math.min(input.maxItems || 20, 20),
+      maxTweets: Math.min(input.maxTweets || 20, 20),
+      maxPosts: Math.min(input.maxPosts || 10, 10),
+      maxResults: Math.min(input.maxResults || 20, 20),
+    }
+
+    // Start actor run with waitForFinish to get results inline if fast enough
     const runResponse = await fetch(
-      `${APIFY_API_URL}/acts/${finalActorId}/runs?token=${APIFY_API_KEY}`,
+      `${APIFY_API_URL}/acts/${finalActorId}/runs?token=${APIFY_API_KEY}&waitForFinish=30`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input)
+        body: JSON.stringify(optimizedInput)
       }
     )
 
@@ -91,15 +109,33 @@ serve(async (req) => {
 
     const runData = await runResponse.json()
     const runId = runData.data.id
+    const initialStatus = runData.data.status
 
-    console.log('[Apify Edge] Actor started, run ID:', runId)
+    console.log('[Apify Edge] Actor started, run ID:', runId, 'Status:', initialStatus)
 
-    // Poll for completion (max 55 seconds for Edge Function timeout)
+    // If waitForFinish returned a completed run, get results immediately
+    if (initialStatus === 'SUCCEEDED') {
+      const datasetId = runData.data.defaultDatasetId
+      const datasetResponse = await fetch(
+        `${APIFY_API_URL}/datasets/${datasetId}/items?token=${APIFY_API_KEY}`
+      )
+
+      if (datasetResponse.ok) {
+        const results = await datasetResponse.json()
+        console.log('[Apify Edge] Immediate success! Results count:', results.length)
+        return new Response(
+          JSON.stringify({ success: true, data: results }),
+          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+    }
+
+    // Poll for completion (max 25 seconds remaining - since waitForFinish used 30s)
     const startTime = Date.now()
-    const timeout = 55000 // 55 seconds max (Edge Functions timeout at 60s)
+    const timeout = 25000 // 25 seconds more (total ~55s including waitForFinish)
 
     while (Date.now() - startTime < timeout) {
-      await new Promise(resolve => setTimeout(resolve, 3000)) // Poll every 3 seconds
+      await new Promise(resolve => setTimeout(resolve, 2000)) // Poll every 2 seconds (faster)
 
       const statusResponse = await fetch(
         `${APIFY_API_URL}/actor-runs/${runId}?token=${APIFY_API_KEY}`
@@ -145,7 +181,35 @@ serve(async (req) => {
       // Still running, continue polling
     }
 
-    // Timeout reached
+    // Timeout reached - but try to get partial results from dataset
+    console.log('[Apify Edge] Timeout reached, attempting to fetch partial results...')
+    try {
+      const statusResponse = await fetch(
+        `${APIFY_API_URL}/actor-runs/${runId}?token=${APIFY_API_KEY}`
+      )
+      const statusData = await statusResponse.json()
+      const datasetId = statusData.data.defaultDatasetId
+
+      if (datasetId) {
+        const datasetResponse = await fetch(
+          `${APIFY_API_URL}/datasets/${datasetId}/items?token=${APIFY_API_KEY}`
+        )
+        if (datasetResponse.ok) {
+          const results = await datasetResponse.json()
+          if (results.length > 0) {
+            console.log('[Apify Edge] Returning partial results:', results.length)
+            return new Response(
+              JSON.stringify({ success: true, data: results, partial: true }),
+              { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+            )
+          }
+        }
+      }
+    } catch (e) {
+      console.log('[Apify Edge] Could not fetch partial results:', e)
+    }
+
+    // No partial results available
     throw new Error('Actor run timed out after 55 seconds')
 
   } catch (error) {

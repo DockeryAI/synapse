@@ -65,6 +65,13 @@ class StreamingApiManager extends EventEmitter {
   private cache: Map<string, { data: any; timestamp: number }> = new Map();
   private CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
+  // PERMANENT FIX: Event batching to prevent 23+ separate re-renders
+  // Research source: React 18 batching only works within same event loop tick
+  // Async callbacks create new ticks, so we manually batch with a 200ms window
+  private eventBuffer: Map<ApiEventType, ApiUpdate> = new Map();
+  private batchFlushTimeout: ReturnType<typeof setTimeout> | null = null;
+  private readonly BATCH_WINDOW_MS = 200; // Batch events within 200ms window
+
   constructor() {
     super();
     this.setMaxListeners(50); // Support many components listening
@@ -741,9 +748,44 @@ class StreamingApiManager extends EventEmitter {
       fromCache
     };
 
-    console.log(`[StreamingAPI] Emitting update for ${type}`);
-    this.emit('api-update', update);
-    this.emit(type, update); // Also emit specific event
+    // PERMANENT FIX: Buffer events and emit in batches to prevent freeze
+    // This prevents 23+ separate re-renders that each trigger extractInsightsFromDeepContext
+    console.log(`[StreamingAPI] Buffering update for ${type}`);
+    this.eventBuffer.set(type, update);
+
+    // Clear existing flush timeout and schedule new one
+    if (this.batchFlushTimeout) {
+      clearTimeout(this.batchFlushTimeout);
+    }
+
+    // Flush batch after BATCH_WINDOW_MS (200ms) of inactivity
+    this.batchFlushTimeout = setTimeout(() => {
+      this.flushEventBatch();
+    }, this.BATCH_WINDOW_MS);
+  }
+
+  /**
+   * Flush all buffered events as a single batch
+   * This causes ONE re-render instead of N re-renders
+   */
+  private flushEventBatch(): void {
+    if (this.eventBuffer.size === 0) return;
+
+    const batchedUpdates = Array.from(this.eventBuffer.values());
+    console.log(`[StreamingAPI] Flushing batch of ${batchedUpdates.length} updates`);
+
+    // Emit a single batch event (UI should listen to this)
+    this.emit('api-batch-update', batchedUpdates);
+
+    // Also emit individual events for backwards compatibility
+    for (const update of batchedUpdates) {
+      this.emit('api-update', update);
+      this.emit(update.type, update);
+    }
+
+    // Clear buffer
+    this.eventBuffer.clear();
+    this.batchFlushTimeout = null;
   }
 
   private updateStatus(type: ApiEventType, status: ApiStatus['status']): void {
@@ -804,6 +846,13 @@ class StreamingApiManager extends EventEmitter {
    * Clear all listeners and reset state
    */
   reset(): void {
+    // Clear batch state
+    if (this.batchFlushTimeout) {
+      clearTimeout(this.batchFlushTimeout);
+      this.batchFlushTimeout = null;
+    }
+    this.eventBuffer.clear();
+
     this.removeAllListeners();
     this.apiStatuses.clear();
   }

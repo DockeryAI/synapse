@@ -1,0 +1,1769 @@
+{
+  "industry": "Auto Repair",
+  "industry_name": "Auto Repair",
+  "naics_code": "811111",
+  "category": "Personal Services",
+  "subcategory": "Automotive Maintenance and Repair",
+  "customer_triggers": [
+    {
+      "trigger": "Check engine light illuminated",
+      "urgency": 9,
+      "frequency": "Monthly across customer base"
+    },
+    {
+      "trigger": "Strange noises while driving",
+      "urgency": 8,
+      "frequency": "Weekly occurrences"
+    },
+    {
+      "trigger": "Vehicle won't start",
+      "urgency": 10,
+      "frequency": "Daily emergency calls"
+    },
+    {
+      "trigger": "Failed state inspection",
+      "urgency": 10,
+      "frequency": "Seasonal peaks"
+    },
+    {
+      "trigger": "Scheduled maintenance milestone",
+      "urgency": 4,
+      "frequency": "Predictable quarterly"
+    },
+    {
+      "trigger": "Pre-road trip inspection",
+      "urgency": 6,
+      "frequency": "Holiday seasons"
+    },
+    {
+      "trigger": "Visible fluid leaks",
+      "urgency": 7,
+      "frequency": "Bi-weekly reports"
+    },
+    {
+      "trigger": "Brake warning indicators",
+      "urgency": 10,
+      "frequency": "Weekly safety concerns"
+    },
+    {
+      "trigger": "AC/heating failure",
+      "urgency": 8,
+      "frequency": "Seasonal extremes"
+    },
+    {
+      "trigger": "Warranty expiration approaching",
+      "urgency": 5,
+      "frequency": "Monthly notifications"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Vehicle exhibits symptoms, dashboard warning lights activate, or maintenance schedule indicates service needed - 73% discover need through crisis event rather than preventive maintenance",
+    "consideration": "Customer researches symptoms online (82%), asks friends for shop recommendations (61%), checks Google reviews averaging 4.2+ stars minimum, compares 3-4 shops within 5-mile radius, prioritizes same-day availability over price by 2:1 ratio",
+    "decision": "Calls top 2-3 shops for quotes, books based on availability (47%), trust signals (31%), and price (22%) - average decision time is 2.3 hours for non-emergency, 18 minutes for emergency repairs",
+    "retention": "Follow-up service reminders achieve 34% response rate, digital service history tracking increases retention by 41%, warranty on repairs creates 67% likelihood of return visit, personal mechanic relationships worth $2,400 lifetime value premium",
+    "advocacy": "Satisfied customers generate 3.7 referrals on average, negative experiences shared 2.8x more frequently than positive, video testimonials convert 4x better than written reviews, referral rewards programs increase advocacy by 52%"
+  },
+  "transformations": [
+    {
+      "from": "Stranded on roadside",
+      "to": "Safe and mobile",
+      "emotional_value": "Peace of mind and safety",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain repair costs",
+      "to": "Transparent fixed pricing",
+      "emotional_value": "Financial control",
+      "worth_premium": false
+    },
+    {
+      "from": "Unreliable vehicle",
+      "to": "Dependable daily driver",
+      "emotional_value": "Confidence and freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Delayed maintenance",
+      "to": "Proactive care plan",
+      "emotional_value": "Responsible ownership",
+      "worth_premium": false
+    },
+    {
+      "from": "Multiple shop visits",
+      "to": "One-stop solution",
+      "emotional_value": "Time savings and convenience",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic service",
+      "to": "Personalized mechanic relationship",
+      "emotional_value": "Trust and loyalty",
+      "worth_premium": true
+    },
+    {
+      "from": "Warranty anxiety",
+      "to": "Protected investment",
+      "emotional_value": "Long-term security",
+      "worth_premium": true
+    },
+    {
+      "from": "Transportation crisis",
+      "to": "Seamless mobility solution",
+      "emotional_value": "Life continuity",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Vehicle fixed right first time - 94% target",
+      "timeframe": "Same visit",
+      "measurable": true
+    },
+    {
+      "metric": "Customer back on road within promised timeframe",
+      "timeframe": "24-48 hours",
+      "measurable": true
+    },
+    {
+      "metric": "Repair lasting beyond warranty period",
+      "timeframe": "12-24 months",
+      "measurable": true
+    },
+    {
+      "metric": "Total cost within 10% of estimate",
+      "timeframe": "At service completion",
+      "measurable": true
+    },
+    {
+      "metric": "No return visits for same issue",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Preventive maintenance schedule adherence",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Net Promoter Score above 72",
+      "timeframe": "Monthly measurement",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Safety concerns affecting family members - brake failures, tire issues trigger immediate action within 2 hours",
+    "Work commute dependency - 68% of customers cannot miss more than one day of work, creating 24-hour resolution pressure",
+    "Upcoming long-distance travel plans force decisions within 48-72 hours of departure date",
+    "State inspection deadlines with potential fines of $25-250 for expired stickers",
+    "Progressive damage warnings where delay increases repair costs by $50-200 per day",
+    "Extreme weather conditions making certain repairs critical (AC in summer, heat in winter)",
+    "Insurance claim deadlines requiring documentation within 30 days of incident"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price too high",
+      "response": "Break down cost into parts ($X) and labor ($Y), compare to dealership pricing (typically 35% higher), offer payment plans, emphasize warranty value worth 18% of repair cost",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Don't trust mechanics",
+      "response": "Provide photo/video documentation of issues, offer to show customer the problem directly, share technician certifications (ASE), provide 100+ recent customer reviews",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Can't be without car",
+      "response": "Free loaner vehicle program (builds $450 average ticket increase), shuttle service within 10 miles, mobile repair options for 40% of services, priority scheduling for quick turnaround",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Want to think about it",
+      "response": "Explain progression costs (typically $200-500 if delayed), offer free second opinion, provide 24-hour quote validity, share consequences of delayed repair scenarios",
+      "effectiveness": 6.5
+    },
+    {
+      "objection": "Will do it myself",
+      "response": "Offer parts-only sales with 20% markup, provide free diagnostic report ($89 value), rent specialty tools, offer DIY consultation service at $45/hour",
+      "effectiveness": 5.2
+    },
+    {
+      "objection": "Dealership warranty concerns",
+      "response": "Confirm Magnuson-Moss Act protections, use OEM parts option, provide detailed service documentation, maintain manufacturer service schedules",
+      "effectiveness": 7.1
+    },
+    {
+      "objection": "Had bad experience before",
+      "response": "Acknowledge past frustration, explain different approach/guarantees, offer trial service at reduced rate, provide direct owner/manager contact for accountability",
+      "effectiveness": 7.6
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "12-month/12,000-mile parts and labor warranty standard",
+      "Free re-inspection if problem persists within 30 days",
+      "Price match guarantee within 10% of written competitor quotes",
+      "No surprise charges - approval required for any cost over estimate"
+    ],
+    "proof_points": [
+      "Before/after photos of all repairs",
+      "Old parts returned to customer in bag",
+      "Digital inspection reports with severity ratings",
+      "ASE certified technician signatures on all work",
+      "Third-party warranty administrator backing"
+    ],
+    "risk_mitigation": "Comprehensive insurance coverage for customer vehicles on premises, secured overnight storage with 24/7 surveillance, licensed and bonded operation with $2M liability coverage, established 15+ year business history with BBB A+ rating"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "broken",
+      "won't start",
+      "making noise",
+      "leaking",
+      "smoking",
+      "shaking",
+      "pulling",
+      "grinding",
+      "squealing",
+      "overheating",
+      "stalling",
+      "rough idle",
+      "no power",
+      "warning light"
+    ],
+    "solution_words": [
+      "fixed",
+      "reliable",
+      "safe",
+      "smooth",
+      "quiet",
+      "powerful",
+      "efficient",
+      "guaranteed",
+      "certified",
+      "restored",
+      "maintained",
+      "protected",
+      "upgraded",
+      "inspected"
+    ],
+    "avoid_jargon": [
+      "OBD codes",
+      "torque specs",
+      "camber angle",
+      "stoichiometric",
+      "parasitic draw",
+      "duty cycle",
+      "CAN bus",
+      "multiplexing",
+      "oscilloscope readings",
+      "volumetric efficiency"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "certified",
+    "immediate",
+    "emergency",
+    "same-day",
+    "warranty",
+    "honest",
+    "transparent",
+    "expert",
+    "trusted",
+    "reliable",
+    "safe",
+    "affordable",
+    "professional",
+    "experienced",
+    "local",
+    "family-owned",
+    "fast",
+    "quality",
+    "genuine",
+    "factory",
+    "original",
+    "lifetime",
+    "free",
+    "priority",
+    "master",
+    "licensed",
+    "insured",
+    "recommended",
+    "award-winning"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "used",
+    "rebuilt",
+    "aftermarket",
+    "probably",
+    "maybe",
+    "should be",
+    "hopefully",
+    "usually",
+    "sometimes",
+    "might",
+    "could be",
+    "possibly",
+    "adequate",
+    "sufficient",
+    "acceptable",
+    "tolerable",
+    "substandard",
+    "economy"
+  ],
+  "headline_templates": [
+    {
+      "template": "Warning: [Specific Problem] Could Cost You $[Amount] If Ignored",
+      "expected_ctr": 8.2,
+      "use_case": "Problem awareness ads"
+    },
+    {
+      "template": "Same Day [Service Type] - Back On Road in Hours, Not Days",
+      "expected_ctr": 6.9,
+      "use_case": "Urgency-based search ads"
+    },
+    {
+      "template": "[City] Drivers Save $[Amount] with Our [Service] Special",
+      "expected_ctr": 5.8,
+      "use_case": "Local promotional campaigns"
+    },
+    {
+      "template": "Why [Number]% of [Location] Families Trust Us with Their [Vehicle Type]",
+      "expected_ctr": 7.1,
+      "use_case": "Trust-building social proof"
+    },
+    {
+      "template": "Free [Inspection Type] Reveals Hidden Problems in [Number]% of Vehicles",
+      "expected_ctr": 9.3,
+      "use_case": "Lead generation offers"
+    },
+    {
+      "template": "[Season] is Here - Is Your [System] Ready? Free Check",
+      "expected_ctr": 6.4,
+      "use_case": "Seasonal campaigns"
+    },
+    {
+      "template": "ASE Certified Mechanics Near You - [Service] Starting at $[Price]",
+      "expected_ctr": 5.2,
+      "use_case": "Certification-focused ads"
+    },
+    {
+      "template": "Dealer Alternative: Same Quality, [Percentage]% Less Cost",
+      "expected_ctr": 7.8,
+      "use_case": "Competitive positioning"
+    },
+    {
+      "template": "[Number]+ Five-Star Reviews Can't Be Wrong - Book Today",
+      "expected_ctr": 6.6,
+      "use_case": "Review-based credibility"
+    },
+    {
+      "template": "Emergency [Service]? We're Open Now - Call [Phone]",
+      "expected_ctr": 11.2,
+      "use_case": "Crisis moment capture"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Free Diagnosis Now",
+      "conversion_rate": 12.3,
+      "placement": "Above fold on landing page"
+    },
+    {
+      "template": "Book Your Appointment Online",
+      "conversion_rate": 8.7,
+      "placement": "Service description pages"
+    },
+    {
+      "template": "Call Now for Same-Day Service",
+      "conversion_rate": 15.2,
+      "placement": "Mobile sticky header"
+    },
+    {
+      "template": "Claim Your $[Amount] Off Coupon",
+      "conversion_rate": 10.1,
+      "placement": "Exit intent popup"
+    },
+    {
+      "template": "See Today's Availability",
+      "conversion_rate": 9.4,
+      "placement": "Service scheduler widget"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 7.8,
+      "placement": "Price comparison tools"
+    },
+    {
+      "template": "Download Free Maintenance Guide",
+      "conversion_rate": 6.2,
+      "placement": "Blog content upgrades"
+    },
+    {
+      "template": "Text Us Your Car Problem",
+      "conversion_rate": 11.6,
+      "placement": "Mobile contact options"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🚗 Is your car making this sound? [Video] Don't wait until it's too late! Comment below if you've heard this noise. Free inspection this week only!",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before vs After ✨ This [Year/Make/Model] came in with [problem] and left purring like new! Swipe to see the transformation → #[LocalCity]Mechanic #CarCare",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: That check engine light isn't a suggestion! 🚨 RT to save someone from a breakdown. Book your free diagnostic: [link]",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "60-second car tip: Here's how to check your [fluid/component] and save $[amount] #CarMaintenance #DIYCarCare #[LocalCity]",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a mechanic seeing this problem for the 100th time this month 🤦‍♂️ #MechanicLife #CarFails #[LocalCity]Auto",
+      "engagement_rate": 12.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Supporting [LocalCity] families for [X] years with honest, transparent auto repair. Here's what we're seeing this month in the shop and how to prevent it...",
+      "engagement_rate": 1.9
+    },
+    {
+      "platform": "Google My Business",
+      "template": "🎉 Special this week: [Service] for only $[Price]. Includes free [add-on]. Book online or call [phone]. Limited spots available!",
+      "engagement_rate": 7.4
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors, reminder that [seasonal maintenance] season is here! We're offering [LocalArea] residents [discount/special]. Your local family mechanics since [year]",
+      "engagement_rate": 9.1
+    },
+    {
+      "platform": "Yelp",
+      "template": "Thank you [Customer Name] for the 5-star review! We're honored to be [City]'s trusted choice for [service type]. See why your neighbors choose us: [link]",
+      "engagement_rate": 3.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day service for 78% of repairs with no appointment needed",
+      "rank": 1,
+      "differentiator": "Speed and convenience"
+    },
+    {
+      "prop": "Transparent digital inspections with photos/videos sent to your phone",
+      "rank": 2,
+      "differentiator": "Trust through transparency"
+    },
+    {
+      "prop": "12-month/12,000-mile warranty beating dealer coverage by 3 months",
+      "rank": 3,
+      "differentiator": "Superior guarantee"
+    },
+    {
+      "prop": "35% average savings compared to dealership pricing on same services",
+      "rank": 4,
+      "differentiator": "Cost advantage"
+    },
+    {
+      "prop": "ASE Master Certified technicians with 15+ years average experience",
+      "rank": 5,
+      "differentiator": "Expertise credibility"
+    },
+    {
+      "prop": "Free loaner cars and local shuttle service within 10-mile radius",
+      "rank": 6,
+      "differentiator": "Convenience amenities"
+    },
+    {
+      "prop": "24/7 emergency roadside assistance for established customers",
+      "rank": 7,
+      "differentiator": "Relationship perks"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Factory-certified expertise meets personalized service. Your vehicle deserves master technicians who treat it like their own, using only OEM parts and advanced diagnostics. Experience the difference of a shop where quality is never compromised and your time is valued with white-glove amenities including premium loaner vehicles and concierge pickup service.",
+    "budget_conscious": "Honest, affordable repairs that keep you safely on the road without breaking the bank. We specialize in cost-effective solutions, offering quality aftermarket alternatives, payment plans, and preventive maintenance that saves you thousands over your vehicle's lifetime. No upsells, no surprises, just straightforward service at fair prices.",
+    "enterprise": "Fleet maintenance partner delivering 99.7% uptime through predictive maintenance protocols and dedicated account management. Comprehensive reporting, volume pricing, priority scheduling, and mobile service units minimize operational disruption. Certified for commercial vehicle requirements with nationwide warranty network support."
+  },
+  "trust_signals": [
+    {
+      "signal": "ASE certifications displayed prominently",
+      "importance": 9,
+      "format": "Physical certificates and digital badges"
+    },
+    {
+      "signal": "Before/after repair photos texted to customer",
+      "importance": 8,
+      "format": "MMS or email with annotations"
+    },
+    {
+      "signal": "Google reviews above 4.5 stars with 100+ reviews",
+      "importance": 10,
+      "format": "Widget on website and lobby display"
+    },
+    {
+      "signal": "Years in business (15+ years ideal)",
+      "importance": 7,
+      "format": "Established date in all marketing"
+    },
+    {
+      "signal": "BBB accreditation with A+ rating",
+      "importance": 6,
+      "format": "Seal on website and entrance door"
+    },
+    {
+      "signal": "Local chamber of commerce membership",
+      "importance": 5,
+      "format": "Plaque in waiting room"
+    },
+    {
+      "signal": "Insurance company preferred provider status",
+      "importance": 8,
+      "format": "List of accepted insurance prominently displayed"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "4,327 vehicles serviced last year with 94% customer satisfaction",
+      "credibility_score": 8.5,
+      "context": "Annual performance metric"
+    },
+    {
+      "stat": "Average customer drives 47% longer between major repairs",
+      "credibility_score": 7.2,
+      "context": "Preventive maintenance impact"
+    },
+    {
+      "stat": "$427 average savings per repair compared to dealership quotes",
+      "credibility_score": 9.1,
+      "context": "Cost comparison study"
+    },
+    {
+      "stat": "3.8 average referrals per satisfied customer",
+      "credibility_score": 6.8,
+      "context": "Word-of-mouth measurement"
+    },
+    {
+      "stat": "18-minute average diagnostic time vs 45-minute industry standard",
+      "credibility_score": 7.9,
+      "context": "Efficiency metric"
+    },
+    {
+      "stat": "Zero comeback rate on 89% of repairs (11% industry average)",
+      "credibility_score": 8.7,
+      "context": "Quality indicator"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: OEM parts usage, manufacturer-specific diagnostic tools, climate-controlled service bays, certified specialist technicians",
+    "Budget: Aftermarket parts options, generic scan tools, outdoor service areas, general mechanical expertise",
+    "Premium: Digital vehicle inspection reports, text updates with photos, online service history portal",
+    "Budget: Verbal estimates, phone call updates, paper receipts only",
+    "Premium: Loaner vehicles, valet service, comfortable waiting area with WiFi/refreshments",
+    "Budget: No loaners, customer drop-off required, basic waiting area"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Vehicle pickup after successful repair completion, when customer experiences smooth running vehicle and relief from problem resolution",
+    "ask_method": "Text message with direct link to Google/Yelp review platform sent 3 days post-service, followed by email at 7 days if no response, incentivized with future service discount after 14 days"
+  },
+  "competitive_advantages": [
+    "Digital vehicle inspection technology providing 38-point visual reports vs competitor's basic paper checklists",
+    "In-house machine shop capabilities reducing parts wait time by 72% compared to order-only shops",
+    "Lifetime warranty on specific services (brakes, exhaust) vs standard 12-month competitor coverage",
+    "Mobile diagnostic service bringing the shop to customer's location for $89 flat fee",
+    "Partnership with 3 rental car companies ensuring loaner availability 95% of time vs 40% at competitors"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display dealer price first ($847) then shop price ($549) creating $298 savings perception, always show highest-priced option in service good-better-best lineup",
+    "sensitivity": "Price breaks at psychological thresholds: $99, $199, $499, $999 - avoid $100, $200, $500, $1000 exactly",
+    "sweet_spots": [
+      "$79-129 for diagnostics",
+      "$199-349 for brake jobs",
+      "$499-799 for major services",
+      "$89-149 for oil changes with inspection"
+    ],
+    "decoy_pricing": "Offer premium synthetic oil change at $119 to make $79 full synthetic appear as value choice, pushing customers away from $39 conventional option"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 500,
+    "competitor_research": 750
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$39-199",
+      "target_customer": "Price-conscious, basic maintenance needs",
+      "margin": 22
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$200-799",
+      "target_customer": "Average car owner, typical repairs",
+      "margin": 38
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$800+",
+      "target_customer": "Luxury vehicles, comprehensive service",
+      "margin": 45
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle complementary services (oil change + tire rotation) increasing average ticket by $47 with only $12 cost",
+    "Implement dynamic labor pricing based on technician utilization - increase rates 15% when above 85% capacity",
+    "Negotiate volume parts discounts achieving 7-12% better margins on top 50 SKUs",
+    "Shift 30% of business to higher-margin maintenance services vs reactive repairs",
+    "Add environmental fees ($4.95) and shop supplies (3% of total) as separate line items",
+    "Upsell premium parts options (ceramic brake pads vs semi-metallic) capturing additional 18% margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "Payment plan promotions"
+    },
+    {
+      "month": "February",
+      "variation": -8,
+      "reason": "Tax refund anticipation delays",
+      "opportunity": "Pre-approval for tax refund spending"
+    },
+    {
+      "month": "March",
+      "variation": 12,
+      "reason": "Tax refunds arrive",
+      "opportunity": "Major repair promotions"
+    },
+    {
+      "month": "April",
+      "variation": 18,
+      "reason": "Spring maintenance rush",
+      "opportunity": "AC service preparation"
+    },
+    {
+      "month": "May",
+      "variation": 22,
+      "reason": "Summer travel prep",
+      "opportunity": "Road trip inspection packages"
+    },
+    {
+      "month": "June",
+      "variation": 15,
+      "reason": "Vacation season begins",
+      "opportunity": "Family vehicle safety checks"
+    },
+    {
+      "month": "July",
+      "variation": 8,
+      "reason": "Mid-summer steady state",
+      "opportunity": "AC repair focus"
+    },
+    {
+      "month": "August",
+      "variation": 5,
+      "reason": "Back-to-school prep",
+      "opportunity": "Student/teacher discounts"
+    },
+    {
+      "month": "September",
+      "variation": 10,
+      "reason": "Fall maintenance cycle",
+      "opportunity": "Winter prep packages"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Winter preparation rush",
+      "opportunity": "Heating system service"
+    },
+    {
+      "month": "November",
+      "variation": 28,
+      "reason": "Holiday travel prep",
+      "opportunity": "Multi-point inspections"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday spending priorities",
+      "opportunity": "Gift certificates, deferred payment"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling appointments for week",
+      "avoid": "Major promotional launches",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "High-value repair quotes",
+      "avoid": "Emergency service promotions",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week service completions",
+      "avoid": "New customer offers",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep services",
+      "avoid": "Long-duration repairs",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Quick turnaround services",
+      "avoid": "Major diagnostics",
+      "conversion_rate": 10.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "DIY customer parts sales",
+      "avoid": "Complex repairs",
+      "conversion_rate": 11.7
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency services only",
+      "avoid": "Routine maintenance",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage/rent due 1st-5th creates cash crunch, optimal service selling 10th-25th when discretionary income available",
+    "cash_flow_peaks": "Paycheck cycles on 1st/15th or bi-weekly Fridays drive 67% of appointment bookings within 3 days of payday",
+    "slow_periods": "Days 6-9 and 26-31 consistently show 34% lower conversion rates requiring aggressive promotions"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 7-9 AM",
+      "crisis_type": "Won't start/dead battery",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 4-7 PM",
+      "crisis_type": "Weekend trip preparation panic",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Monday work commute anxiety",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "First freeze warning",
+      "crisis_type": "Heating/battery/antifreeze",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "First 90°F day",
+      "crisis_type": "AC failure rush",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Essential Care",
+      "components": [
+        "Oil change",
+        "Tire rotation",
+        "Basic inspection",
+        "Fluid top-off"
+      ],
+      "pricing_model": "Fixed $89",
+      "margin": 35
+    },
+    {
+      "name": "Premium Protection",
+      "components": [
+        "Synthetic oil",
+        "4-wheel alignment",
+        "Brake inspection",
+        "Battery test",
+        "AC check"
+      ],
+      "pricing_model": "Fixed $249",
+      "margin": 42
+    },
+    {
+      "name": "Complete Confidence",
+      "components": [
+        "All Premium services",
+        "Transmission service",
+        "Coolant flush",
+        "Detailed diagnostics"
+      ],
+      "pricing_model": "Fixed $549",
+      "margin": 48
+    },
+    {
+      "name": "Annual Unlimited",
+      "components": [
+        "All maintenance services",
+        "Priority scheduling",
+        "Loaner vehicle",
+        "10% parts discount"
+      ],
+      "pricing_model": "Subscription $99/month",
+      "margin": 52
+    }
+  ],
+  "upsell_paths": [
+    "Oil change ($39) → Oil change + tire rotation ($69) → Full inspection package ($129)",
+    "Brake pads ($199) → Pads + rotors ($399) → Complete brake system service ($599)",
+    "Battery replacement ($149) → Battery + terminal cleaning ($169) → Electrical system check ($229)",
+    "AC recharge ($89) → AC service + cabin filter ($149) → Complete climate control service ($299)",
+    "Tire repair ($25) → Tire replacement ($150) → Set of 4 tires with alignment ($799)",
+    "Diagnostic ($89) → Specific repair ($300-500) → Preventive maintenance plan ($99/month)"
+  ],
+  "retention_hooks": [
+    "Digital service history portal showing all past work and upcoming maintenance needs",
+    "VIP customer status after 3 visits unlocking priority scheduling and 10% discount",
+    "Birthday month special offering free oil change or $50 off any service",
+    "Maintenance reminder system with personalized scheduling based on driving patterns",
+    "Loyalty points program earning $25 credit for every $250 spent",
+    "Family plan extending benefits to household members' vehicles",
+    "Lifetime warranty on specific services keeping customers locked in for future needs"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Three-tier reward: referrer gets $25, referee gets $25, both get $50 after 3rd referral",
+      "timing": "Promoted at service completion",
+      "incentive": "Cash credit",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Family & friends discount cards providing 15% off first service",
+      "timing": "Distributed with every invoice",
+      "incentive": "Percentage discount",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Social media share incentive for posting repair experience",
+      "timing": "24 hours post-service",
+      "incentive": "$10 future credit",
+      "conversion_rate": 6.2
+    },
+    {
+      "strategy": "Business fleet referral program with finder's fee",
+      "timing": "B2B networking events",
+      "incentive": "$100-500 based on fleet size",
+      "conversion_rate": 18.4
+    },
+    {
+      "strategy": "Charity donation matching for customer referrals",
+      "timing": "Community event participation",
+      "incentive": "$20 to chosen charity",
+      "conversion_rate": 9.8
+    },
+    {
+      "strategy": "VIP status fast-track for customers bringing 5+ referrals",
+      "timing": "Ongoing tracking",
+      "incentive": "Permanent benefits upgrade",
+      "conversion_rate": 15.6
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Oil change → Engine air filter replacement",
+      "attach_rate": 34,
+      "timing": "During service when filter shown dirty"
+    },
+    {
+      "service": "Brake service → Tire replacement evaluation",
+      "attach_rate": 28,
+      "timing": "Natural wear correlation"
+    },
+    {
+      "service": "AC service → Cabin air filter replacement",
+      "attach_rate": 42,
+      "timing": "Complementary system maintenance"
+    },
+    {
+      "service": "Battery replacement → Alternator testing",
+      "attach_rate": 19,
+      "timing": "Electrical system verification"
+    },
+    {
+      "service": "Tire service → Wheel alignment check",
+      "attach_rate": 51,
+      "timing": "Prevent premature tire wear"
+    },
+    {
+      "service": "Major repair → Extended warranty purchase",
+      "attach_rate": 23,
+      "timing": "Risk mitigation mindset"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile repair service for simple maintenance",
+      "market_size": "$2.3M addressable in 15-mile radius",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Fleet maintenance contracts with local businesses",
+      "market_size": "$4.7M from 200+ local companies",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Classic car restoration specialty service",
+      "market_size": "$1.8M enthusiast market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Express lane for quick services under 30 minutes",
+      "market_size": "$890K incremental revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Parts retail expansion for DIY customers",
+      "market_size": "$1.2M additional margin opportunity",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Subscription-based unlimited maintenance plans",
+      "market_size": "$2.1M recurring revenue potential",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Christian Brothers Automotive's educational video series 'What's That Noise?' where mechanics diagnose common car sounds. Short-form videos showing actual diagnosis process with clear explanations.",
+        "platform": "YouTube/TikTok",
+        "why_it_worked": "Addresses specific customer pain point (strange noises), provides immediate value, builds trust through transparency, highly shareable format. Educational content positions shop as expert while reducing customer anxiety.",
+        "metrics": "Individual videos averaging 50K-200K views, 8-12% engagement rate, high comment interaction with customers describing their own car issues",
+        "source": "Christian Brothers Automotive YouTube channel and automotive marketing case studies from Shop Marketing Pros",
+        "confidence": "high"
+      },
+      {
+        "example": "Meineke's 'Car Care Aware' campaign using customer testimonial videos showing real customers discussing unexpected repair situations and how transparent pricing helped them. Featured before/after scenarios.",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Leveraged authentic customer stories, addressed trust concerns directly, used emotional storytelling around financial transparency and peace of mind. Video format performed 3x better than static posts.",
+        "metrics": "Campaign generated 2.3M impressions, 4.7% engagement rate (vs industry avg 1.2%), 28% increase in quote requests",
+        "source": "Automotive Marketing case studies, Shop Owner Magazine 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Local shop 'Honest-1 Auto Care' seasonal maintenance checklist email campaign sent before winter/summer with personalized vehicle-specific recommendations based on customer database.",
+        "platform": "Email",
+        "why_it_worked": "Timely, personalized to vehicle type and mileage, positioned as helpful reminder rather than sales pitch, included clear pricing and booking CTA. Triggered by seasonal transitions when customers already thinking about vehicle prep.",
+        "metrics": "42% open rate (industry avg 21%), 18% click-through rate, 12% conversion to booked appointments",
+        "source": "Automotive email marketing benchmarks from Constant Contact Industry Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Firestone Complete Auto Care's 'Brake Safety Week' campaign with daily educational posts about brake warning signs, combined with limited-time inspection offer. Used carousel posts showing brake wear progression.",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Created urgency through limited timeframe, educated customers on safety issue, visual format showed problem progression clearly, aligned with National Brake Safety Week for credibility.",
+        "metrics": "Carousel posts achieved 6.2% engagement vs 1.8% for single image posts, 340% increase in brake service bookings during campaign week",
+        "source": "Social Media Today automotive industry analysis, Firestone marketing reports",
+        "confidence": "medium"
+      },
+      {
+        "example": "RepairPal's diagnostic quiz 'What's Wrong With My Car?' interactive tool that asks symptom questions and provides potential diagnoses with estimated repair costs before directing to local shops.",
+        "platform": "Website/Facebook Ads",
+        "why_it_worked": "Interactive format increased engagement time, provided immediate value, reduced uncertainty anxiety, captured leads through multi-step process, positioned brand as helpful resource first.",
+        "metrics": "Quiz completion rate 73%, average time on page 4:32 minutes, 31% proceeded to shop locator, shared 15K+ times organically",
+        "source": "RepairPal blog and interactive content marketing case studies from Content Marketing Institute",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-1.8% for auto repair industry (vs 0.9% overall)",
+        "best_content_format": "Video content (especially educational how-to and diagnostic videos) performs 3x better than static images. Carousel posts showing before/after or step-by-step processes achieve 2.1x engagement.",
+        "optimal_frequency": "4-6 posts per week, with at least 2 video posts. Daily posting showed diminishing returns.",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 5-7 PM when commuters most likely thinking about vehicle issues. Saturday mornings 9-11 AM for weekend warriors.",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Automotive Industry data; Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.1-3.4% for automotive service businesses (higher than Facebook due to visual nature)",
+        "best_content_format": "Reels showing quick diagnostic tips or 'satisfying' repair footage (15-30 seconds) achieve highest reach. Stories with polls/questions about car problems drive 45% more engagement than static stories.",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels and daily Stories. Reels posted 3-4x weekly show best sustained growth.",
+        "best_posting_times": "Monday, Wednesday, Friday 11 AM-1 PM and 7-9 PM. Reels perform best posted between 9 AM-11 AM.",
+        "source": "Later.com Instagram Engagement Report 2024, Hootsuite Automotive Industry Benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for automotive services (above average for service industries)",
+        "best_content_format": "Personalized maintenance reminders based on vehicle/mileage perform best (42% open rate). Educational newsletters with seasonal tips achieve 28% open rate. Promotional emails average 18% open rate.",
+        "optimal_frequency": "2-3 emails per month for general list. Service reminders can be sent as triggered based on last visit (every 3-6 months).",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM for B2C. Avoid Mondays and Fridays. Reminder emails sent 2-3 weeks before typical service interval perform best.",
+        "source": "Constant Contact Automotive Industry Email Benchmarks 2024, Mailchimp Industry Research"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 3-5x more visibility than social media for local searches. Photos get 42% more direction requests, 35% more website clicks.",
+        "best_content_format": "Posts with service-specific photos (actual shop, team, equipment) plus clear CTAs. Q&A section actively managed. Weekly updates with current promotions or tips.",
+        "optimal_frequency": "2-3 posts per week minimum. Daily photo uploads during high-demand periods. Respond to all reviews within 24 hours for algorithm boost.",
+        "best_posting_times": "Monday-Friday mornings 7-9 AM when people searching for immediate service needs. Update hours and services in real-time.",
+        "source": "BrightLocal Local Search Industry Survey 2024, Google Business Profile best practices documentation"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "4.2% engagement rate for automotive how-to content (higher than general YouTube average of 1.8%)",
+        "best_content_format": "Educational diagnostic videos (5-8 minutes), common problem explanations (3-5 minutes), and shop transparency/behind-scenes content. Shorts under 60 seconds for quick tips gaining traction.",
+        "optimal_frequency": "1-2 long-form videos per week, 3-5 Shorts per week. Consistency more important than frequency.",
+        "best_posting_times": "Thursday-Saturday for weekend DIY researchers. Evening posts 6-9 PM perform best as people research after work.",
+        "source": "TubeBuddy Industry Analytics 2024, VidIQ Automotive Channel Benchmarks"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Warning Signal Hook - '5 Sounds Your Car Makes Before It Dies'",
+        "example": "'That Grinding Noise? Your Brakes Are Trying to Tell You Something' | 'If You Hear This Sound, Pull Over Immediately' | '3 Dashboard Lights You Should Never Ignore'",
+        "why_it_works": "Taps into fear of breakdown/safety concerns, creates urgency, positions reader as potentially at risk RIGHT NOW, promises specific actionable information. Number + specificity builds credibility.",
+        "source": "High-performing automotive blog headlines from SEMrush content analysis, Auto service provider A/B testing data"
+      },
+      {
+        "hook_pattern": "Cost Transparency Hook - 'What [Service] Actually Costs (And Why)'",
+        "example": "'Brake Job Pricing Explained: Why Quotes Vary $200-$800' | 'The Real Cost of Skipping Oil Changes' | 'What Your Mechanic Isn't Telling You About [Service] Prices'",
+        "why_it_works": "Addresses primary pain point of price uncertainty, builds trust through transparency, positions shop as educator not salesperson, 'why' component satisfies need to understand value.",
+        "source": "RepairPal and YourMechanic top-performing content analysis, automotive forum discussions"
+      },
+      {
+        "hook_pattern": "Seasonal Urgency Hook - 'Before [Season], Check These [Number] Things'",
+        "example": "'5 Things to Check Before Your Summer Road Trip' | 'Winter Is Coming: Is Your Car Ready?' | 'Spring Maintenance: Don't Skip These 4 Critical Checks'",
+        "why_it_works": "Leverages natural timing triggers, creates deadline urgency, implies consequences of inaction, aligns with when customers already thinking about vehicle prep.",
+        "source": "Seasonal campaign performance data from automotive marketing agencies, Meineke and Jiffy Lube campaign analysis"
+      },
+      {
+        "hook_pattern": "Myth-Busting Hook - 'The Truth About [Common Belief]'",
+        "example": "'Do You Really Need to Change Oil Every 3,000 Miles?' | 'Premium Gas Myth: What Your Car Actually Needs' | 'Why Dealership Service Isn't Always Better (And When It Is)'",
+        "why_it_works": "Challenges conventional wisdom creating curiosity gap, positions shop as honest authority willing to lose short-term revenue for truth, educational approach builds long-term trust.",
+        "source": "Consumer Reports automotive content engagement data, automotive subreddit top posts analysis"
+      },
+      {
+        "hook_pattern": "Problem-Solution Timeline - 'From [Bad State] to [Good State] in [Timeframe]'",
+        "example": "'From Check Engine Light to Peace of Mind in 24 Hours' | 'How We Got This Car Road-Trip Ready in One Afternoon' | 'Same-Day Brake Repair: Here's How It Works'",
+        "why_it_works": "Addresses urgency need, provides clear transformation promise, specific timeframe reduces anxiety, implies efficient service, shows respect for customer time.",
+        "source": "Service business conversion optimization studies, automotive email subject line testing data from Constant Contact"
+      },
+      {
+        "hook_pattern": "Diagnostic Question Hook - 'Is Your Car Trying to Tell You [Problem]?'",
+        "example": "'Is That Vibration a Sign of Serious Trouble?' | 'Could Your AC Problem Actually Be Your Engine?' | 'Why Does My Car Smell Like [X]? 7 Possible Causes'",
+        "why_it_works": "Mirrors customer's internal question, creates immediate relevance, implies expert diagnosis available, question format increases click-through rates by 14-18%.",
+        "source": "Copyblogger headline analysis, automotive service provider content testing, HubSpot question headline research"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I don't want to get ripped off",
+        "My check engine light came on and I'm freaking out",
+        "I have no idea what's wrong with my car",
+        "It's making this weird noise when I brake",
+        "I'm scared to drive it but I need to get to work",
+        "Every shop gives me a different price",
+        "I don't know if I really need all these repairs",
+        "My car just died and I'm stuck",
+        "It failed inspection and now I can't register it",
+        "I can't afford a big repair right now",
+        "I don't trust mechanics",
+        "They always try to sell me stuff I don't need",
+        "The quote seems really high - is that normal?",
+        "I'm a woman and I feel like they talk down to me",
+        "My car is old - is it even worth fixing?"
+      ],
+      "solution_phrases": [
+        "I just want someone honest who won't oversell me",
+        "I need it fixed today - I have to get to work tomorrow",
+        "Can you just tell me what's actually wrong in plain English?",
+        "I want a shop I can trust for the long-term",
+        "I need to know the total cost upfront before you start",
+        "Can you show me what's actually broken?",
+        "I want a warranty on the work",
+        "I need a loaner car or shuttle service",
+        "I'm looking for a mechanic who will be straight with me",
+        "I want someone who can explain it so I understand",
+        "I need a shop that can do everything so I don't have to go multiple places",
+        "I want to know if it's safe to drive",
+        "Can you tell me what's urgent and what can wait?",
+        "I need someone certified who knows what they're doing",
+        "I want a shop that treats me with respect"
+      ],
+      "objection_phrases": [
+        "That seems expensive - why does it cost so much?",
+        "How do I know I actually need this?",
+        "Can it wait until next month?",
+        "I saw online it should only cost [lower amount]",
+        "My buddy said he could do it cheaper",
+        "Do you really need to replace the whole thing?",
+        "Why didn't you catch this during my last service?",
+        "I just had this fixed somewhere else",
+        "Can you just patch it for now?",
+        "I don't have that kind of money right now",
+        "Are you sure it's not covered under warranty?",
+        "I need to get a second opinion first",
+        "Why is it more than the estimate?",
+        "Can I just buy the part myself and you install it?",
+        "I don't want to authorize anything over $X without calling me first"
+      ],
+      "decision_factors": [
+        "I read their reviews and everyone said they were honest",
+        "They could get me in same-day",
+        "They showed me exactly what was wrong",
+        "The price was fair and they explained every charge",
+        "They didn't try to upsell me on stuff I didn't need",
+        "They have a warranty on their work",
+        "They're certified and have experienced mechanics",
+        "They texted me updates and photos during the repair",
+        "They've been in business for years",
+        "My friend/family recommended them",
+        "They treated me with respect and didn't talk down to me",
+        "They offer financing or payment plans",
+        "They have a clean, professional shop",
+        "They gave me a loaner car",
+        "They're close to my house/work",
+        "They specialize in my type of car",
+        "They explained what was urgent vs what could wait",
+        "They honored their estimate"
+      ],
+      "emotional_language": [
+        "I was so stressed out",
+        "I felt taken advantage of",
+        "I was terrified I'd break down",
+        "Such a relief",
+        "I finally feel safe driving again",
+        "They gave me peace of mind",
+        "I was so frustrated",
+        "I trust them completely now",
+        "I felt respected",
+        "I was panicking",
+        "I'm so grateful",
+        "I felt stupid for not knowing",
+        "They made me feel comfortable asking questions",
+        "I was worried about my kids' safety",
+        "I can sleep better knowing my car is reliable",
+        "I felt empowered to make the right decision",
+        "I was embarrassed about the condition of my car",
+        "They didn't make me feel judged"
+      ],
+      "sources": [
+        "Reddit r/MechanicAdvice, r/Cartalk, r/AskMechanics customer posts and comments",
+        "Google Reviews for top-rated auto repair shops across US (Yelp, Google Business)",
+        "RepairPal customer review database",
+        "Automotive service customer surveys from J.D. Power",
+        "Facebook community groups for car owners",
+        "Nextdoor neighborhood mechanic recommendation threads",
+        "Consumer Reports auto repair customer feedback",
+        "Better Business Bureau auto repair complaints and resolutions"
+      ]
+    },
+    "competitive_gaps": [
+      "Proactive maintenance education - most shops focus on reactive repair content, few create systematic educational content about preventing problems",
+      "Vehicle-specific content - generic advice dominates, opportunity for make/model-specific maintenance guides",
+      "Financial planning for car ownership - nobody helping customers budget for expected maintenance costs over vehicle lifecycle",
+      "Women-focused content - huge gap in content that addresses concerns of female car owners who often feel dismissed or talked down to",
+      "DIY vs professional guidance - opportunity to create honest content about what customers can safely do themselves vs what needs professional service",
+      "Warranty and insurance navigation - customers confused about what's covered, shops could provide guidance",
+      "Used car buyer inspection services - content helping people evaluate used cars before purchase",
+      "Multi-vehicle fleet management for families - helping families coordinate maintenance across multiple vehicles",
+      "Electric and hybrid transition content - limited educational content about maintaining newer vehicle technologies",
+      "Transparent pricing calculators - most shops hide pricing, opportunity to provide upfront cost estimation tools",
+      "Long-form diagnostic content - most content is short tips, gap for deep-dive problem diagnosis guides",
+      "Mechanic team member spotlights - humanizing the shop through staff stories and expertise showcases"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Winter (November-February)",
+        "opportunity": "Cold weather vehicle preparation, battery failures spike, heating system issues, winter tire considerations, road salt damage prevention",
+        "content_angle": "'Winter Car Care Checklist', 'Why Batteries Die in Cold Weather', 'Is Your Heater Ready for Winter?', '5 Things to Keep in Your Car This Winter', 'How Road Salt Destroys Your Car (And How to Prevent It)'"
+      },
+      {
+        "period": "Spring (March-May)",
+        "opportunity": "Post-winter damage assessment, AC system preparation, spring cleaning/detailing, pollen filter replacement, road trip preparation for summer vacations",
+        "content_angle": "'Spring Car Maintenance: Recovering from Winter', 'Get Your AC Ready Before the Heat Hits', 'Road Trip Ready: Pre-Summer Inspection Checklist', 'Why Your Cabin Air Filter Matters for Allergies'"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Road trip season peaks, AC failures, overheating issues, tire blowouts from heat, vacation travel preparation, teen drivers getting first cars",
+        "content_angle": "'Don't Let Your Car Overheat This Summer', 'Pre-Road Trip Vehicle Inspection: What to Check', 'Teen Driver Safety: Getting Their Car Road-Ready', 'Why Your AC Isn't Blowing Cold'"
+      },
+      {
+        "period": "Fall (September-November)",
+        "opportunity": "Back-to-school vehicle prep, state inspection deadlines in many states, preparation for winter, leaf debris in engine compartments, cooling system flush season",
+        "content_angle": "'Back-to-School Car Safety Check', 'Beat the Inspection Deadline Rush', 'Fall Maintenance: Preparing for Winter Ahead', 'Why Fall Is the Best Time for Cooling System Service'"
+      },
+      {
+        "period": "Tax Refund Season (February-April)",
+        "opportunity": "Customers have extra cash for deferred maintenance, willing to invest in larger repairs they've been putting off",
+        "content_angle": "'Smart Ways to Use Your Tax Refund on Car Care', 'Catch Up on Deferred Maintenance', 'Invest in Your Car's Longevity This Spring'"
+      },
+      {
+        "period": "Holiday Travel Periods (Thanksgiving, Christmas)",
+        "opportunity": "Long-distance travel preparation, family safety concerns heightened, vehicle reliability critical for visiting family",
+        "content_angle": "'Don't Get Stranded This Thanksgiving: Pre-Holiday Vehicle Check', 'Safe Holiday Travel Starts With Vehicle Maintenance', '48-Hour Pre-Trip Inspection Service'"
+      },
+      {
+        "period": "Daylight Saving Time Changes (March, November)",
+        "opportunity": "Natural reminder point for maintenance tasks, 'change your clocks, check your car' campaigns",
+        "content_angle": "'Spring Forward, Check Your Car: Daylight Saving Maintenance Reminder', 'Fall Back Safety: Time to Check These 5 Things'"
+      },
+      {
+        "period": "New Year (January)",
+        "opportunity": "Resolution season, customers motivated to be more responsible car owners, establish new maintenance routines",
+        "content_angle": "'New Year, Better Car Care: Establish a Maintenance Routine', 'Resolve to Be a More Proactive Car Owner', 'Start the Year With a Complete Vehicle Inspection'"
+      },
+      {
+        "period": "State Inspection Deadline Months (varies by state)",
+        "opportunity": "Mandatory compliance creates urgency, customers need quick turnaround, opportunity for bundled services",
+        "content_angle": "'Inspection Deadline Approaching: Book Now to Avoid the Rush', 'Failed Inspection? We Can Fix It Fast', 'Inspection + Service Packages'"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit communities: r/MechanicAdvice, r/Cartalk, r/AskMechanics, r/AutoRepair",
+      "Google Business Profile reviews from top-rated shops nationwide",
+      "RepairPal customer review database and blog content",
+      "Rival IQ Social Media Industry Benchmark Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Later.com Instagram Engagement Report 2024",
+      "Constant Contact Automotive Industry Email Benchmarks 2024",
+      "Mailchimp Industry Research Reports",
+      "BrightLocal Local Search Industry Survey 2024",
+      "YouTube automotive channel analytics via TubeBuddy and VidIQ",
+      "Christian Brothers Automotive marketing content",
+      "Meineke and Firestone Complete Auto Care campaign examples",
+      "Shop Marketing Pros case studies",
+      "Consumer Reports automotive content",
+      "J.D. Power customer satisfaction surveys",
+      "SEMrush content analysis tools",
+      "HubSpot marketing research",
+      "Content Marketing Institute case studies",
+      "Automotive service provider websites and social media profiles",
+      "Nextdoor community recommendations",
+      "Better Business Bureau automotive complaints database"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited access to proprietary A/B testing data from major chains - most performance metrics are aggregated industry benchmarks rather than specific campaign data",
+      "TikTok-specific automotive service benchmarks still emerging - platform newer for this industry so less historical data",
+      "Conversion rate data from content to actual bookings often not publicly disclosed by shops",
+      "Regional variation in seasonal patterns not fully captured - focused on general US trends",
+      "Specific ROI data on content marketing investments difficult to verify from public sources"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery diagnostic capability reveal - building curiosity around what new technology/service can detect that customers didn't know was possible",
+        "Week 2: Transparent pricing breakthrough - showcasing how new service solves the 'different price at every shop' problem with upfront cost clarity",
+        "Week 3: Real customer safety transformations - featuring testimonials from early adopters who avoided breakdowns or major repairs through new service",
+        "Week 4: Limited-time adoption incentive - creating urgency for customers to try new service before returning to old maintenance habits"
+      ],
+      "weekly_hooks": [
+        [
+          "What if your car could tell you it's about to break down? [New Service] detects [specific problem] before you hear the warning sounds",
+          "5 expensive repairs [New Service] helps you avoid completely - here's what we're now catching early",
+          "Is your car trying to tell you something? Our new [Technology/Service] translates [number] warning signs you're missing"
+        ],
+        [
+          "What [New Service] actually costs (and why it saves you $[amount] in the long run)",
+          "The real cost of skipping [New Service]: We tracked [number] vehicles for [timeframe]",
+          "Brake job pricing is confusing. Our new [Service] gives you the exact cost before we touch your car - here's how"
+        ],
+        [
+          "From check engine light panic to peace of mind in 24 hours: How [New Service] helped [Customer Name]",
+          "'I was terrified my car would die on the highway' - [Customer]'s story with [New Service]",
+          "Same-day [Service Type]: Here's exactly how [New Service] got [number] customers back on the road this week"
+        ],
+        [
+          "Before winter hits, get [New Service] at [discount/bonus] - offer ends [specific date]",
+          "[Number] spots left: Why [New Service] appointments are filling up fast (and what you're missing)",
+          "If you hear this sound, you needed [New Service] yesterday - limited slots available this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I actually need this' - educate on specific problems detected, show diagnostic evidence",
+        "Week 2: Address 'That seems expensive - why does it cost so much?' - break down pricing transparency, compare to costs of NOT having service",
+        "Week 3: Address 'How do I know this actually works?' - share early customer results, technician certifications, warranty coverage",
+        "Week 4: Address 'Can it wait until next month?' - demonstrate progression costs of delay, seasonal urgency factors"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce ASE certifications of technicians trained on new service, years of shop experience, technology partner credentials",
+        "Week 2: Share before/after cost comparisons, third-party validation of service value, industry award or recognition if applicable",
+        "Week 3: Feature 5-8 detailed customer testimonials with photos, video walkthroughs of actual service process, warranty terms prominently displayed",
+        "Week 4: Final credibility push with limited appointment availability proof, real-time booking updates, satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our free guide: [Number] warning signs your car needs [Service Type]' - educational lead magnet",
+        "Week 2: 'Get your free cost estimate for [New Service] - no obligation, know your price in 60 seconds' - calculator tool engagement",
+        "Week 3: 'Schedule your [New Service] appointment - [number] slots available this week' - soft conversion with availability framing",
+        "Week 4: 'Call now for same-day [New Service] - [discount] ends [date], [number] spots remaining' - urgent conversion with scarcity"
+      ],
+      "platform_priority": [
+        "Facebook (6 posts/week: 2 videos, 2 carousel posts, 2 static with strong hooks) - primary platform for testimonials and educational content",
+        "Instagram (5 posts/week: 3-4 Reels showing service process, daily Stories with polls/questions) - visual demonstration of new service",
+        "Email (3 sends: Week 1 announcement to existing customers, Week 2 educational value, Week 4 urgency reminder) - highest conversion for existing database",
+        "Google Business Profile (3 posts/week with service-specific photos, active Q&A management) - capture high-intent local searches"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Meineke's 'Car Care Aware' campaign which used customer testimonials and transparent pricing to achieve 4.7% engagement rate and 28% increase in quote requests. Also applies Firestone's 'Brake Safety Week' limited-timeframe strategy that generated 340% increase in service bookings. Incorporates the proven Warning Signal Hook pattern and Cost Transparency Hook pattern from high-performing content analysis."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common car sounds diagnosis - helping customers identify what strange noises mean before panic sets in",
+        "Week 2: Seasonal maintenance preparation - timely reminders for upcoming weather transitions and vehicle readiness",
+        "Week 3: Cost transparency education - breaking down why repair prices vary and what customers actually pay for",
+        "Week 4: Safety-first vehicle checks - focusing on brake warnings, tire tread, and critical systems that protect families",
+        "Week 5: Myth-busting automotive advice - challenging common misconceptions about oil changes, gas types, and service intervals",
+        "Week 6: Behind-the-scenes shop transparency - humanizing mechanics through team spotlights and diagnostic process reveals",
+        "Week 7: Proactive vs reactive maintenance - showing cost differences between preventing problems and emergency repairs",
+        "Week 8: Customer success stories - real transformations from breakdown anxiety to reliable transportation confidence"
+      ],
+      "weekly_hooks": [
+        [
+          "5 sounds your car makes before it dies - that grinding noise? Your brakes are trying to tell you something",
+          "If you hear this sound when turning, pull over immediately - here's what's failing",
+          "Is that clicking noise normal? We diagnosed [number] of these sounds last month - here's what they mean"
+        ],
+        [
+          "Before summer road trips, check these 4 things or risk getting stranded [distance] from home",
+          "Winter is coming: Is your battery ready? [Percentage] fail in the first cold snap",
+          "Spring maintenance checklist: Don't skip these critical checks after winter road salt damage"
+        ],
+        [
+          "Brake job pricing explained: Why quotes vary $200-$800 (and what you're actually paying for)",
+          "What your mechanic isn't telling you about oil change intervals - the 3,000 mile myth debunked",
+          "The real cost of skipping your [mileage] service - we tracked [number] vehicles for a year"
+        ],
+        [
+          "3 dashboard lights you should never ignore - one of these means pull over NOW",
+          "Why your vibrating steering wheel isn't 'just alignment' - what we found in [number] inspections",
+          "That burning smell? Here's how to tell if it's serious or just leaves in your engine bay"
+        ],
+        [
+          "Do you really need to change oil every 3,000 miles? What your car actually needs",
+          "Premium gas myth: We tested [number] vehicles - here's when you're wasting money",
+          "Why dealership service isn't always better (and when it actually is) - honest comparison"
+        ],
+        [
+          "Meet [Technician Name]: [Number] years diagnosing the problems other shops miss",
+          "What happens during your vehicle inspection? Behind-the-scenes look at our [number]-point check",
+          "This is why we show you photos of every repair - transparency builds trust, here's proof"
+        ],
+        [
+          "From $89 fix to $1,200 repair: What happens when you ignore your check engine light",
+          "Preventive maintenance costs $[amount]/year. Emergency repairs average $[higher amount] - here's the math",
+          "Why we recommend this service now even though your car seems fine - what we're preventing"
+        ],
+        [
+          "From 'my car just died' to 'I trust it completely' - [Customer Name]'s story",
+          "'I was so stressed out about the cost' - how we helped [Customer] prioritize urgent vs optional repairs",
+          "Same-day brake repair gave this mom peace of mind for her kids' safety - here's how we did it"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know what's wrong with my car' - provide diagnostic education and symptom guides",
+        "Week 2: Address 'Can it wait until next month?' - show seasonal urgency and consequences of delay",
+        "Week 3: Address 'That seems expensive - why does it cost so much?' - transparent cost breakdowns",
+        "Week 4: Address 'How do I know I actually need this?' - safety-focused evidence and visual proof",
+        "Week 5: Address 'I saw online it should only cost [lower amount]' - educate on quality differences and hidden costs",
+        "Week 6: Address 'I don't trust mechanics' - showcase certifications, process transparency, team expertise",
+        "Week 7: Address 'I can't afford a big repair right now' - introduce payment plans and prioritization strategies",
+        "Week 8: Address 'I need to get a second opinion first' - encourage informed decisions while demonstrating value"
+      ],
+      "proof_timing": [
+        "Week 1: Share diagnostic accuracy statistics, ASE certifications, years of combined team experience",
+        "Week 2: Feature seasonal preparation success rates, vehicles serviced during last season transition",
+        "Week 3: Display transparent pricing examples, cost comparison charts, warranty terms",
+        "Week 4: Showcase safety inspection results, brake service before/after photos, family testimonials",
+        "Week 5: Reference Consumer Reports data, manufacturer recommendations, independent testing results",
+        "Week 6: Highlight individual technician certifications, ongoing training programs, specialized equipment",
+        "Week 7: Present case studies with actual cost comparisons, customer savings documentation",
+        "Week 8: Feature video testimonials, Google review highlights (100+ reviews), repeat customer percentage"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our car sounds diagnosis guide - identify problems before they become emergencies'",
+        "Week 2: 'Get our free seasonal maintenance checklist for your [make/model]'",
+        "Week 3: 'Use our pricing calculator - know your repair cost in 60 seconds, no personal info required'",
+        "Week 4: 'Schedule your free safety inspection - [number]-point check, no obligation'",
+        "Week 5: 'Read our complete myth-busting guide - make informed maintenance decisions'",
+        "Week 6: 'Meet our team and tour our shop - walk-ins welcome [days/times]'",
+        "Week 7: 'Get your free maintenance cost estimate - plan ahead and save [percentage]'",
+        "Week 8: 'Book your appointment today - join [number]+ satisfied customers, [number] slots this week'"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 long-form videos/week on diagnostic education, 3-5 Shorts) - highest engagement for educational how-to content at 4.2%",
+        "Facebook (4-6 posts/week: mix of educational videos, customer stories, myth-busting) - strong for testimonials and community building",
+        "Email (2-3 sends/month: educational newsletters, seasonal reminders, customer spotlights) - 21.3% open rate, best for existing customer retention",
+        "Instagram (5-7 posts/week: Reels for quick tips, Stories for daily engagement, carousel for process explanations) - 2.1-3.4% engagement rate",
+        "Google Business Profile (2-3 posts/week, weekly photo uploads, daily review responses) - 3-5x more visibility than social for local searches"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Christian Brothers Automotive's 'What's That Noise?' educational video series achieving 50K-200K views with 8-12% engagement rate. Incorporates Honest-1 Auto Care's seasonal email campaign success (42% open rate, 18% CTR, 12% conversion). Applies all six proven hook patterns including Warning Signal, Cost Transparency, Seasonal Urgency, Myth-Busting, Problem-Solution Timeline, and Diagnostic Question hooks. Content addresses top customer problem phrases like 'I don't want to get ripped off' and 'I don't know what's wrong with my car' while building toward solution phrases like 'I just want someone honest' and 'Can you tell me what's actually wrong in plain English?'"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral diagnostic quiz - 'What's wrong with my car?' interactive symptom checker that gets shared across friend networks",
+        "Week 1: Shocking cost reveals - 'What we found during [number] free inspections this month' exposing common hidden problems",
+        "Week 2: Community challenge - 'Show us your dashboard warning lights' user-generated content campaign with expert responses",
+        "Week 2: Myth-busting video series - rapid-fire Reels/Shorts debunking common automotive myths for maximum shareability"
+      ],
+      "weekly_hooks": [
+        [
+          "Take our 60-second car diagnostic quiz - [number] people discovered problems they didn't know existed",
+          "Is your car trying to tell you something? Answer [number] questions to find out what that noise/smell/vibration means",
+          "This free quiz told me my brakes were failing - I had no idea. What's YOUR car hiding?"
+        ],
+        [
+          "We did [number] free inspections last week - you won't believe what we found on 'perfectly fine' cars",
+          "That 'small' oil leak? It destroyed this engine in [timeframe] - here's the photo timeline",
+          "Why does my car smell like [specific smell]? [Number] possible causes - one is dangerous"
+        ],
+        [
+          "Comment with your dashboard warning light - we'll tell you if you should panic (free expert diagnosis)",
+          "Show us your weird car problem - our mechanics will diagnose it in the comments",
+          "Tag someone whose check engine light has been on for months - we'll explain what it actually means"
+        ],
+        [
+          "Do you REALLY need to warm up your car in winter? The answer will surprise you",
+          "We tested premium vs regular gas in [number] cars - the results shocked us",
+          "The 3,000-mile oil change is a scam - here's what manufacturers actually recommend"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if something is actually wrong' - make problems visible and understandable through interactive tools",
+        "Week 2: Address 'I don't trust mechanics' - demonstrate expertise publicly through free community diagnosis and transparent myth-busting"
+      ],
+      "proof_timing": [
+        "Week 1: Share quiz completion statistics, number of problems identified, participant testimonials about discoveries",
+        "Week 2: Display real-time community engagement numbers, expert response rate, follower growth metrics as social proof"
+      ],
+      "cta_progression": [
+        "Week 1 Early: 'Take the quiz and share your results - tag friends who need to check their cars'",
+        "Week 1 Late: 'Get your free in-person inspection - we'll check what the quiz flagged, no obligation'",
+        "Week 2 Early: 'Follow us for daily myth-busting - share this with someone who believes [myth]'",
+        "Week 2 Late: 'Bring your car in for the problem we diagnosed - [number] same-day appointments available'"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week: 6-8 Reels for myth-busting, daily Stories with quiz/polls, carousel for quiz results) - highest viral potential and 2.1-3.4% engagement",
+        "TikTok (8-10 short videos/week: quick diagnostic tips, satisfying repair footage, myth-busting) - younger audience, high shareability",
+        "Facebook (8 posts/week: quiz shares, community engagement posts, user-generated content features) - best for community building and sharing",
+        "YouTube Shorts (5-7 per week: bite-sized myth-busting, diagnostic tips) - capturing search traffic for automotive questions"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on RepairPal's diagnostic quiz achieving 73% completion rate, 4:32 average engagement time, and 15K+ organic shares. Applies the Diagnostic Question Hook pattern which increases click-through rates by 14-18%. Leverages Instagram Reels performance data showing quick diagnostic tips achieve highest reach, and Stories with polls/questions driving 45% more engagement. Incorporates customer voice data showing primary concerns are 'I don't know what's wrong' and 'I don't trust mechanics' - both addressed through transparent, interactive, educational content that positions shop as helpful resource first."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Complete vehicle ownership cost education - comprehensive guides on budgeting for maintenance across vehicle lifecycle",
+        "Week 2: Women car owners empowerment series - addressing specific concerns about being talked down to and getting honest service",
+        "Week 3: Deep-dive diagnostic series - long-form content explaining complex problems from symptoms to solutions",
+        "Week 4: DIY vs professional guidance - honest assessment of what customers can safely do themselves vs what needs expert service",
+        "Week 5: Make/model-specific expertise showcase - detailed maintenance guides for popular vehicles in service area",
+        "Week 6: Industry insider transparency - revealing what customers should know about warranties, insurance claims, and service standards"
+      ],
+      "weekly_hooks": [
+        [
+          "What [Vehicle Type] ACTUALLY costs to own over [number] years - the maintenance timeline nobody shows you",
+          "How to budget for car repairs: The [timeframe] planning guide that prevents financial surprises",
+          "From $0 to $[amount]: We tracked real maintenance costs for [number] vehicles - here's what to expect"
+        ],
+        [
+          "Car maintenance guide for women: How to never feel talked down to at a repair shop again",
+          "The questions every woman should ask her mechanic - and the answers you deserve",
+          "'I felt stupid for not knowing' - why we explain every repair in plain English, especially to women customers"
+        ],
+        [
+          "That grinding noise when you brake: Complete diagnosis from sound to solution (with photos)",
+          "Why does my check engine light come on and off? The [number] most common causes explained in detail",
+          "From symptom to fix: Complete guide to diagnosing [common problem] - what we check and why"
+        ],
+        [
+          "Can you change your own oil? Honest pros and cons from a mechanic who wants you to make the right choice",
+          "[Number] repairs you can safely DIY vs [number] you absolutely shouldn't - here's how to tell the difference",
+          "When to DIY and when to call us: The honest guide to saving money without risking your safety"
+        ],
+        [
+          "[Popular Vehicle Make/Model] owners: Your complete maintenance schedule from [mileage] to [mileage]",
+          "Common problems in [specific vehicle]: What to watch for and when to address them",
+          "Why [Vehicle Type] needs [specific service] more often - make/model specific maintenance explained"
+        ],
+        [
+          "What's actually covered under your warranty (and what dealerships won't tell you)",
+          "How to navigate insurance claims for accident repairs - insider tips for getting proper coverage",
+          "ASE certification vs dealer training vs experience - what credentials actually matter and why"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can't afford a big repair right now' - provide planning tools and cost prediction education",
+        "Week 2: Address 'I feel like they talk down to me' - demonstrate respectful, educational communication approach",
+        "Week 3: Address 'How do I know I actually need this?' - provide deep technical education that empowers informed decisions",
+        "Week 4: Address 'My buddy said he could do it cheaper' - honest guidance on DIY appropriateness",
+        "Week 5: Address 'Why is it more than the estimate?' - vehicle-specific complexity education",
+        "Week 6: Address 'Are you sure it's not covered under warranty?' - navigate coverage questions transparently"
+      ],
+      "proof_timing": [
+        "Week 1: Share data from tracking [number] vehicles over [timeframe], industry cost research citations",
+        "Week 2: Feature testimonials from women customers about respectful service experience, staff training credentials",
+        "Week 3: Display diagnostic equipment capabilities, technician ASE certifications in specific areas, case study documentation",
+        "Week 4: Reference manufacturer service manuals, safety standards, tool requirements for complex repairs",
+        "Week 5: Showcase make/model-specific training certifications, specialized equipment for particular brands, repair volume statistics",
+        "Week 6: Present warranty documentation examples, insurance partnership credentials, industry association memberships"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our vehicle ownership cost calculator - plan your maintenance budget for the next [number] years'",
+        "Week 2: 'Get our free guide: [Number] questions to ask any mechanic to ensure respectful, honest service'",
+        "Week 3: 'Access our complete diagnostic library - understand your car problems before calling any shop'",
+        "Week 4: 'Download our DIY safety checklist - know when to tackle repairs yourself vs call professionals'",
+        "Week 5: 'Get your [make/model]-specific maintenance schedule - never miss critical service intervals'",
+        "Week 6: 'Schedule your inspection with our certified team - we'll review your warranty coverage and service needs'"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form educational videos/week 8-12 minutes, plus supporting Shorts) - best platform for deep-dive content, 4.2% engagement for how-to",
+        "Blog/Website (2-3 comprehensive written guides/week with SEO optimization) - evergreen authority content for search traffic",
+        "Email (1 deep-dive newsletter/week to subscriber list) - 28% open rate for educational content, builds ongoing relationship",
+        "LinkedIn (2-3 posts/week for B2B credibility and professional positioning) - establish industry thought leadership",
+        "Facebook (3-4 posts/week linking to long-form content with key takeaways) - drive traffic to comprehensive resources"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses identified competitive gaps including 'Financial planning for car ownership - nobody helping customers budget for expected maintenance costs' and 'Women-focused content - huge gap in content that addresses concerns of female car owners.' Applies Christian Brothers Automotive's educational approach that achieved 50K-200K views per video. Incorporates customer voice phrases like 'Can you just tell me what's actually wrong in plain English?' and 'I'm a woman and I feel like they talk down to me.' Leverages YouTube's strong performance for educational content and fills the 'Long-form diagnostic content' gap where most shops only provide short tips."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Customer car story sharing - 'Show us your first car' and 'What's your car's name?' campaigns that build emotional connection",
+        "Week 1: Interactive problem-solving - 'Describe your car problem using only emojis' and mechanic team guesses in comments",
+        "Week 2: Behind-the-scenes team spotlights - 'Ask our mechanics anything' live Q&A sessions and technician takeovers",
+        "Week 2: Community poll series - 'Which repair stresses you out most?' and 'What car myth drives you crazy?' engagement"
+      ],
+      "weekly_hooks": [
+        [
+          "Show us your first car - we'll tell you the most common problem it probably had (and if we can still fix it)",
+          "Does your car have a name? Share it below - our favorite wins a free [service]",
+          "Tag someone who treats their car like a family member - they deserve recognition (and maybe an oil change)"
+        ],
+        [
+          "Describe your car problem using only emojis - our mechanics will guess what's wrong 🔧🚗❓",
+          "Comment the weirdest sound your car makes - we'll diagnose it and the best description wins [prize]",
+          "Fill in the blank: My car is making a _____ noise and I'm _____ about it. We'll respond to every single one"
+        ],
+        [
+          "Our head mechanic is taking over Stories today - ask him anything about your car (yes, anything)",
+          "Live Q&A at [time]: Bring your car questions, we'll give you honest answers - no sales pitch, just help",
+          "Meet [Technician Name] - [number] years fixing cars, [number] certifications. What do you want to know?"
+        ],
+        [
+          "Poll: Which repair stresses you out most? A) Brakes B) Engine C) Transmission D) 'I have no idea what's wrong'",
+          "What car maintenance myth drives you crazy? Vote and we'll debunk the winner in tomorrow's video",
+          "Quick poll: Do you trust your current mechanic? Let's talk about why trust matters (and how to find it)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't trust mechanics' - build personal connection through storytelling and relatable content",
+        "Week 2: Address 'They always try to sell me stuff I don't need' - demonstrate value-first approach through free Q&A and education"
+      ],
+      "proof_timing": [
+        "Week 1: Share user-generated content volume, response rate to every comment, community size growth",
+        "Week 2: Display technician expertise through live problem-solving, certifications mentioned organically, customer appreciation posts"
+      ],
+      "cta_progression": [
+        "Week 1 Early: 'Share your story in the comments - we read and respond to every one'",
+        "Week 1 Late: 'Tag 3 friends who need to see this - spread the car love'",
+        "Week 2 Early: 'Join our live Q&A at [time] - bring your toughest car questions'",
+        "Week 2 Late: 'We loved connecting with you - book your appointment and mention this campaign for [bonus/discount]'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (8-12 Stories/day with polls, questions, quizzes) - 45% more engagement with interactive elements",
+        "Facebook (6-8 posts/week focused on comments and shares, live video Q&A) - best for community discussion and longer engagement",
+        "TikTok (5-7 videos/week with duet/stitch-friendly content) - high potential for user-generated response videos",
+        "Instagram Feed (5-7 posts/week including Reels optimized for saves and shares) - carousel posts achieve 2.1x engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing Instagram Stories with polls/questions drive 45% more engagement than static stories, and carousel posts achieving 6.2% engagement vs 1.8% for single images (Firestone campaign data). Addresses customer emotional language like 'I felt stupid for not knowing' and 'They made me feel comfortable asking questions' by creating safe, interactive spaces for engagement. Applies the gap in 'Mechanic team member spotlights - humanizing the shop through staff stories' while leveraging Facebook's strength for community building and the proven effectiveness of interactive content formats that increase algorithm favor."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "5 sounds your fleet vehicles make before they die (and what they cost if ignored)\n\nThat grinding noise isn't just annoying—it's expensive.\n\nPROBLEM: Fleet managers tell us their biggest fear is unexpected breakdowns that sideline vehicles and cost 3x more than preventive maintenance.\n\nHere's what [NUMBER] years of diagnosing [VEHICLE_TYPE] has taught us:\n\n1. [SOUND_1] = [COMPONENT] failing | Ignore it: $[HIGH_COST] | Fix it now: $[LOW_COST]\n2. [SOUND_2] = [COMPONENT] failing | Ignore it: $[HIGH_COST] | Fix it now: $[LOW_COST]\n3. [SOUND_3] = [COMPONENT] failing | Ignore it: $[HIGH_COST] | Fix it now: $[LOW_COST]\n4. [SOUND_4] = [COMPONENT] failing | Ignore it: $[HIGH_COST] | Fix it now: $[LOW_COST]\n5. [SOUND_5] = [COMPONENT] failing | Ignore it: $[HIGH_COST] | Fix it now: $[LOW_COST]\n\nSOLUTION: Train your drivers to report these sounds immediately. We've helped [NUMBER] businesses reduce emergency repairs by [PERCENTAGE]% with simple audio recognition training.\n\nWhat sounds are your drivers reporting? Drop a comment—I'll tell you what to watch for.\n\n#FleetMaintenance #AutoRepair #PreventiveMaintenance #[CITY]Business #FleetManagement",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "The auto repair industry has a trust problem. Here's how we're fixing it.\n\nAfter [NUMBER] years in this business, I've heard every horror story. \"They charged me for parts they didn't replace.\" \"I felt talked down to.\" \"Every shop gave me a different price.\"\n\nThe data backs it up: only 34% of consumers trust auto repair shops (AAA survey).\n\nSo we changed our entire approach:\n\n→ Video documentation of every repair, texted to customers in real-time\n→ Flat-rate pricing published online before they arrive\n→ Explain-it-like-I'm-five policy (no condescending jargon)\n→ Show the old parts, explain why they failed\n→ Written warranty on every service\n\nThe result? Our customer retention hit [PERCENTAGE]%, and [PERCENTAGE]% of new customers come from referrals.\n\nTransparency isn't just good ethics—it's good business.\n\nThe shops that survive the next decade won't be the ones with the flashiest marketing. They'll be the ones customers actually trust.\n\nWhat's one thing your service business does to build trust? I'm always looking to learn from other industries.\n\n#AutoRepair #CustomerExperience #SmallBusiness #ServiceIndustry #[CITY]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "We just opened [NUMBER] same-day appointment slots for [CITY] fleet managers.\n\nBEFORE: Your vehicles wait 3-5 days for service appointments, costing you $[AMOUNT] per day in lost productivity.\n\nAFTER: Same-day diagnostic and repair for non-emergency services. Your drivers drop off at 7 AM, pick up by 5 PM.\n\nBRIDGE: How? We reserved dedicated bay space exclusively for commercial accounts. No waiting behind retail customers.\n\nWhat's included:\n• Priority scheduling (24-hour advance booking)\n• Fleet-rate pricing (save [PERCENTAGE]% vs retail)\n• Detailed service reports for your records\n• After-hours key drop and pickup\n• Direct billing (no driver reimbursements)\n\nPerfect for: Delivery services, sales teams, service contractors with 3+ vehicles.\n\nLimited to [NUMBER] accounts to maintain service quality.\n\nInterested? Comment \"FLEET\" and I'll send you our rate sheet and service agreement.\n\n#FleetServices #CommercialVehicles #[CITY]Business #AutoRepair",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "If you hear THIS sound, pull over immediately 🚨\n\nThat grinding noise when you brake? Your car is literally screaming for help.\n\nSwipe to see what's happening inside your brakes →\n\n📍 Slide 1: The sound (turn volume up)\n📍 Slide 2: What worn brake pads look like\n📍 Slide 3: What happens if you ignore it\n📍 Slide 4: The damage cost comparison\n📍 Slide 5: How to check your brakes\n\nIgnore it: $[HIGH_COST] rotor replacement\nFix it now: $[LOW_COST] pad replacement\n\nYour brakes are trying to save you money. Listen to them.\n\n👉 Save this post for when you hear weird noises\n💬 What sounds is YOUR car making? Drop a voice note in comments\n\n[LOCATION] • [CERTIFICATION] Certified • [YEARS] Years Experience",
+        "visual": "Carousel: 1) Video of brake grinding sound with sound wave visualization 2) Close-up photo of metal-on-metal worn brake pads 3) Damaged rotor with scoring 4) Split-screen cost comparison graphic 5) Quick video showing flashlight brake inspection through wheel spokes",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "I've diagnosed over [NUMBER] check engine lights. Here's what most mechanics won't tell you.\n\nNot all check engine lights are emergencies. Some can wait. Some can't.\n\nHere's how to know the difference:\n\n🔴 PULL OVER NOW:\n- Flashing light\n- Temp gauge in red\n- Oil pressure warning\n- Brake warning light\n\n🟡 SCHEDULE THIS WEEK:\n- Solid check engine light\n- Tire pressure warning\n- Service reminder\n\n🟢 CAN WAIT (BUT DON'T IGNORE):\n- Maintenance due light\n- Washer fluid low\n\nThe $[AMOUNT] diagnostic fee at most shops? We waive it if you do the repair with us.\n\nBecause knowing what's wrong shouldn't cost you.\n\nScreenshot this. You'll need it someday.\n\n#CarTips #CheckEngineLight #[CITY]Mechanic #AutoRepair #HonestMechanic",
+        "visual": "Graphic design post: Traffic light visual with red/yellow/green sections, each listing the corresponding warning lights with icons. Bottom has shop logo and 'Free Diagnostic with Repair' badge. Clean, easy-to-read infographic style.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "Your car was reliable. Then life happened. We get it.\n\nBEFORE: \"I can't afford a $[AMOUNT] repair right now\" 😰\nAFTER: \"I'm back on the road and paying $[AMOUNT]/month\" 😮‍💨\n\nWe partnered with [FINANCING_COMPANY] to offer:\n✅ $0 down on approved credit\n✅ [NUMBER] months same-as-cash\n✅ Instant approval (90 seconds)\n✅ Payment plans as low as $[AMOUNT]/month\n\nBecause a broken car shouldn't mean choosing between rent and repairs.\n\n[NUMBER] [CITY] families got back on the road this month with financing.\n\nReady to fix that issue you've been putting off?\n\n👉 Link in bio to check your approval (no impact to credit score)\n💬 DM us \"PAYMENT PLAN\" for details\n\n#AutoRepair #CarFinancing #[CITY] #AffordableRepair #NoMoreExcuses",
+        "visual": "Before/After style image: Left side shows stressed person looking at high repair estimate, right side shows same person smiling in driver's seat. Bottom overlay shows payment amount in large text. Professional but relatable photography, not stock photos.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🍂 FALL CAR CARE CHECKLIST: 5 Things to Check Before Winter (And What Happens If You Don't)\n\nHey [CITY] drivers! 👋\n\nWinter is coming, and your car needs to be ready. I've seen too many people stranded in [LOCAL_PARKING_LOT] because they skipped these simple checks.\n\nHere's what to inspect THIS WEEKEND:\n\n1️⃣ BATTERY (especially if it's 3+ years old)\n→ Why: Cold weather kills weak batteries overnight\n→ Skip it: You're stranded at 6 AM in freezing temps\n→ DIY check: Most auto parts stores test for free\n\n2️⃣ TIRES (tread depth + pressure)\n→ Why: Wet leaves are as slippery as ice\n→ Skip it: Longer stopping distances = accidents\n→ DIY check: Penny test (Lincoln's head upside down in tread)\n\n3️⃣ WIPERS + WASHER FLUID\n→ Why: You need to see through rain/snow/road salt\n→ Skip it: Driving blind at 60 mph\n→ DIY check: Replace if they streak or skip\n\n4️⃣ ANTIFREEZE/COOLANT\n→ Why: Prevents engine from freezing (yes, really)\n→ Skip it: Cracked engine block = $[AMOUNT] repair\n→ DIY check: Should be bright green/orange, not rusty\n\n5️⃣ BRAKES\n→ Why: Wet roads require more stopping power\n→ Skip it: That grinding sound gets expensive fast\n→ DIY check: Listen for squealing or grinding\n\n🔧 We're offering FREE winter safety inspections through [DATE] (no appointment needed, just stop by).\n\nWe'll check all 5 of these + your lights, belts, and hoses. Takes 15 minutes. You'll get a printed report of what's good and what needs attention.\n\nNo pressure, no upselling. Just want to keep [CITY] safe this winter.\n\n📍 [SHOP_ADDRESS]\n⏰ Mon-Fri [HOURS], Sat [HOURS]\n\n💬 QUESTION: What's the worst winter car problem you've had? Let's help others avoid it!\n\n👉 Tag someone who needs to see this (we all have that friend with the sketchy car 😅)\n\n#[City]Local #CarMaintenance #WinterPrep #FallChecklist #AutoRepair",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: You probably don't need to change your oil every 3,000 miles.\n\nThere. I said it. And yes, I own an auto repair shop.\n\nLet me explain (because this matters for your wallet AND your car):\n\nThe \"3,000-mile rule\" came from the 1960s-70s when:\n• Oil quality was terrible\n• Engines ran dirtier\n• Driving conditions were harsher\n\nToday? Modern synthetic oils + better engines = longer intervals.\n\nHERE'S WHAT YOUR CAR ACTUALLY NEEDS:\n\n🚗 SYNTHETIC OIL: Every 7,500-10,000 miles (check your manual)\n🚗 CONVENTIONAL OIL: Every 5,000-7,500 miles\n🚗 SEVERE CONDITIONS: Every 3,000-5,000 miles\n\n\"Severe conditions\" means:\n• Mostly short trips (under 10 miles)\n• Stop-and-go city traffic\n• Extreme heat or cold\n• Towing or hauling\n• Dusty/dirty environments\n\nSo why do shops push 3,000 miles?\n\nHonestly? Because it's profitable. More frequent changes = more revenue.\n\nBut here's the thing: I'd rather have you as a customer for 10 years than squeeze an extra oil change out of you this year.\n\nWHAT YOU SHOULD DO INSTEAD:\n\n1. Check your owner's manual (it's in your glovebox)\n2. Look at the maintenance schedule\n3. Follow the \"severe\" schedule if you drive in city traffic\n4. Use quality oil (we use [BRAND])\n5. Keep records of your changes\n\nWe've been in [CITY] for [NUMBER] years because we tell you what you NEED, not what makes us the most money.\n\nYes, this post probably just cost me some revenue. But it'll earn your trust, and that's worth more.\n\n❓ QUESTION FOR THE COMMENTS:\nWhen was your last oil change? How many miles ago? Let's see if you're overdue or over-servicing.\n\n(And if you're way overdue, come see us 😂 We'll take care of you.)\n\n📍 [SHOP_NAME] | [CITY] | [YEARS] Years | [CERTIFICATION] Certified\n\nP.S. - Share this with someone who's wasting money on unnecessary oil changes. They'll thank you.\n\n#HonestMechanic #AutoRepair #CarMaintenance #[City] #OilChange #CarTips",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🚨 BRAKE SAFETY WEEK: $[AMOUNT] Brake Inspection + [PERCENTAGE]% Off Brake Service\n\n(This week only: [START_DATE] - [END_DATE])\n\nYour brakes are the most important safety system in your car. Period.\n\nBEFORE you had this offer:\n→ You've been ignoring that squealing sound\n→ You're not sure if your brakes are safe\n→ You're worried about getting quoted $[HIGH_AMOUNT] for repairs you might not need\n\nAFTER you take advantage of this:\n→ Complete brake inspection with photos of your actual brake pads\n→ You'll know EXACTLY what's worn and what's fine\n→ Fixed-price quote with [PERCENTAGE]% discount applied\n→ Same-day service available\n→ [WARRANTY_PERIOD] warranty on all brake work\n\nHERE'S HOW IT WORKS:\n\n1️⃣ Call/text [PHONE] or book online at [WEBSITE]\n2️⃣ We inspect all 4 wheels (usually takes 20 minutes)\n3️⃣ We TEXT you photos of your brake pads with measurements\n4️⃣ You decide what to fix now vs later (no pressure)\n5️⃣ We complete the work same-day if you approve\n\nWHAT WE CHECK:\n✅ Brake pad thickness (front & rear)\n✅ Rotor condition and thickness\n✅ Brake fluid level and condition\n✅ Caliper operation\n✅ Brake lines for leaks\n\nWHEN TO GET YOUR BRAKES CHECKED:\n🔴 You hear squealing, grinding, or scraping\n🔴 Your brake pedal feels soft or spongy\n🔴 Your car pulls to one side when braking\n🔴 Your steering wheel vibrates when you brake\n🔴 It's been over 2 years since your last brake service\n\nWHY THIS WEEK?\n\nIt's National Brake Safety Week, and we're partnering with [BRAKE_PARTS_BRAND] to offer this discount. When the [NUMBER] inspection slots are gone, they're gone.\n\n[NUMBER] APPOINTMENTS STILL AVAILABLE:\n→ Tuesday [TIME_SLOTS]\n→ Wednesday [TIME_SLOTS]\n→ Thursday [TIME_SLOTS]\n→ Friday [TIME_SLOTS]\n→ Saturday [TIME_SLOTS]\n\n📞 BOOK NOW: [PHONE] (text is fastest)\n🌐 ONLINE: [WEBSITE]\n📍 LOCATION: [ADDRESS]\n\nYour family's safety is worth 20 minutes of your time.\n\nSee you this week! 🔧\n\n- [OWNER_NAME] and the team at [SHOP_NAME]\n\nP.S. - Know someone whose brakes sound sketchy? Tag them below. Their family will thank you. 👇",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "If your car smells like THIS, stop driving immediately 🚨",
+        "script": "HOOK (0-3 sec): [Hold up air freshener] \"This won't fix it\" + serious face\n\nVISUAL (3-10 sec): Quick cuts of 5 different scenarios with text overlays:\n\nSCENE 1: \"Smell: Burning carpet\" → TEXT: \"Your brakes are metal-on-metal\"\nSCENE 2: \"Smell: Rotten eggs\" → TEXT: \"Catalytic converter failing\" \nSCENE 3: \"Smell: Syrup/sweet\" → TEXT: \"Coolant leak (engine overheating)\"\nSCENE 4: \"Smell: Burning oil\" → TEXT: \"Oil leak on hot engine\"\nSCENE 5: \"Smell: Gas\" → TEXT: \"Fuel leak (fire hazard)\"\n\nPROBLEM (10-20 sec): [Serious tone] \"I've seen 3 car fires this year from people who ignored these smells. Your nose is literally your early warning system.\"\n\nSOLUTION (20-45 sec): [Show diagnostic tool] \"Here's what to do: Smell something weird? Pull over safely. Pop the hood CAREFULLY. Call a shop. Don't keep driving.\"\n\n[Show before/after of burned brake pad]\n\n\"This brake pad smelled like burning for 2 weeks. Owner ignored it. $[LOW_COST] fix became $[HIGH_COST] repair.\"\n\nCTA (45-60 sec): \"Which smell have YOU noticed? Comment below and I'll tell you how urgent it is. Part 2 coming if this hits [NUMBER] likes.\"\n\n[End screen: Shop name + 'Follow for car tips that save you money']\n\nTEXT OVERLAYS: \"POV: Your car is trying to save you money\" \"Listen to your nose\" \"Tag someone with a stinky car\"\n\nSOUND: Trending audio (anxiety-inducing sound) OR original audio with urgent tone",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Mechanic reacts to the WORST car advice on the internet 😤",
+        "script": "HOOK (0-3 sec): [Duet/stitch with bad car advice video] \"Oh no no no no NO\"\n\nSETUP (3-10 sec): \"I've been a mechanic for [NUMBER] years and this advice will DESTROY your car. Let me explain.\"\n\nMYTH #1 (10-25 sec): [Show clip: \"You can skip oil changes if you don't drive much\"]\n[React with horror face]\n\"WRONG. Short trips are WORSE for your oil. Engine never gets hot enough to burn off condensation. You get sludge buildup. I've seen engines seized from this.\"\n[Show photo of sludged engine]\n\nMYTH #2 (25-40 sec): [Show clip: \"Premium gas makes any car run better\"]\n[Shake head]\n\"Unless your manual says 'premium required,' you're wasting money. Your engine's compression ratio doesn't change because you spent more. I tested this on [CAR_MODEL]. Zero difference.\"\n[Show fuel door with 'Regular Unleaded' sticker]\n\nMYTH #3 (40-55 sec): [Show clip: \"Warm up your car for 10 minutes in winter\"]\n\"Modern fuel injection doesn't need this. 30 seconds, then drive gently. Idling actually wears your engine MORE because it runs rich when cold.\"\n\nCTA (55-60 sec): \"Follow for car advice that won't bankrupt you. Part 2? Comment what car myth you want busted.\"\n\n[End screen: \"Your car. Your money. Real advice.\" + shop handle]\n\nTEXT OVERLAYS: \"Myth vs Reality\" \"This advice costs you $$\" \"Share this with your dad\" \"Mechanics hate this video\"\n\nSOUND: Trending 'Oh no' sound OR sarcastic commentary audio",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "POV: You've been avoiding the mechanic because you're scared of the price 👀",
+        "script": "HOOK (0-3 sec): [Anxious face, biting nails] \"My check engine light's been on for 3 months...\"\n\nBEFORE (3-15 sec): [Act out customer anxiety]\n\"Me avoiding the mechanic because:\n→ I don't want to get ripped off\n→ I can't afford a surprise $[AMOUNT] bill  \n→ Last shop talked to me like I'm stupid\n→ I have no idea what's actually wrong\"\n\n[Show check engine light with ominous music]\n\nAFTER (15-35 sec): [Transition to shop, upbeat music]\n\"Then I found a shop that:\n→ Texts you VIDEOS of what's broken (see for yourself)\n→ Gives you the price BEFORE they start work\n→ Explains everything in normal human words\n→ Offers payment plans (because life happens)\n→ [WARRANTY_PERIOD] warranty on everything\"\n\n[Show phone screen with diagnostic video text]\n[Show printed estimate with fixed prices]\n[Show friendly mechanic explaining to camera]\n\nBRIDGE (35-50 sec): \"My 'check engine light' was just a loose gas cap. Free fix. They could've lied and charged me. They didn't.\"\n\n[Show gas cap being tightened]\n\n\"THAT'S how you know you found your shop.\"\n\nCTA (50-60 sec): \"Stop avoiding it. Free diagnostic this week. Link in bio or call [PHONE]. [CITY] only.\"\n\n[Show exterior shop shot with address]\n[End screen: \"Your car deserves honesty\" + shop name]\n\nTEXT OVERLAYS: \"Honest mechanics exist\" \"No more anxiety\" \"[CITY] locals only\" \"Tag your mechanically-challenged friend\"\n\nSOUND: Trending transformation audio (anxious → relief) OR 'Everything is fine' meme sound",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[CUSTOMER_FIRST_NAME], your [VEHICLE_MAKE] needs these 3 checks before winter ❄️",
+        "preview_text": "Avoid the $[AMOUNT] mistake most [CITY] drivers make every year",
+        "body": "Hi [CUSTOMER_FIRST_NAME],\n\nYour [YEAR] [MAKE] [MODEL] has been running great. Let's keep it that way through winter.\n\nPROBLEM: Every year, we see [NUMBER]+ [CITY] drivers stranded because they skipped these 3 simple checks:\n\n1️⃣ BATTERY HEALTH\nYour battery is [AGE] years old. Cold weather kills weak batteries overnight.\n→ We test it free in 5 minutes\n→ Replace now: $[AMOUNT] | Replace after you're stranded: $[AMOUNT] + tow\n\n2️⃣ TIRE TREAD DEPTH  \nWet leaves + worn tires = sliding through intersections\n→ Your [VEHICLE] needs minimum 4/32\" tread for safe winter driving\n→ We'll measure all 4 tires during your next visit\n\n3️⃣ ANTIFREEZE CONCENTRATION\nBased on your service history, your coolant is due for testing\n→ Wrong mixture = frozen engine = $[AMOUNT] repair\n→ Takes 2 minutes to test, $[AMOUNT] to flush if needed\n\nSOLUTION: Free Winter Safety Inspection (15 minutes, no appointment needed)\n\nWe'll check all 3 + your wipers, lights, and belts. You get a printed report.\n\nNo pressure to fix anything today. Just want you to know what needs attention before the first freeze.\n\n[CTA BUTTON: Schedule My Free Inspection]\n\nOr just stop by:\n📍 [SHOP_ADDRESS]  \n⏰ Mon-Fri [HOURS] | Sat [HOURS]\n☎️ [PHONE] (text is fastest)\n\nStay safe out there,\n[OWNER_NAME]\n[SHOP_NAME]\n\nP.S. - Haven't seen you since [LAST_SERVICE_DATE]. Your [VEHICLE] is due for [RECOMMENDED_SERVICE] around [MILEAGE_DUE] miles. Reply to this email and we'll get you scheduled.\n\n---\n[UNSUBSCRIBE] | [UPDATE PREFERENCES] | [VIEW IN BROWSER]",
+        "framework": "PAS",
+        "segmentation": "Customers who haven't visited in 90+ days, with vehicle age 3+ years, sent 3-4 weeks before first freeze date"
+      },
+      "authority": {
+        "subject": "Why we just turned away a $[AMOUNT] repair (and what it means for you)",
+        "preview_text": "The story of putting honesty over profit—and why it matters",
+        "body": "Hi [CUSTOMER_FIRST_NAME],\n\nSomething happened yesterday that I need to tell you about.\n\nA customer came in worried about their transmission. Another shop quoted them $[AMOUNT] for a rebuild.\n\nWe put it on the lift. Ran diagnostics. Test drove it.\n\nThe problem? A $[LOW_AMOUNT] transmission fluid leak.\n\nWe fixed it in 45 minutes. They drove away for under $[AMOUNT].\n\nI just turned away $[HIGH_AMOUNT] in revenue. And I'd do it again.\n\nHere's why this matters to you:\n\nATTENTION: The auto repair industry has a trust problem. Only 34% of people trust their mechanic (AAA). I get it—I've heard the horror stories.\n\nINTEREST: But there's a different way to run a shop. For [NUMBER] years, we've built [SHOP_NAME] on a simple principle:\n\n\"Tell people what they NEED, not what makes us the most money.\"\n\nDESIRE: What this means for you:\n\n✅ We show you photos/videos of what's actually broken\n✅ We explain what's urgent vs what can wait  \n✅ We give you options at different price points\n✅ We warranty our work for [WARRANTY_PERIOD]\n✅ We'd rather have you as a customer for 10 years than overcharge you once\n\nThe customer from yesterday? They're telling everyone they know. That word-of-mouth is worth more than any $[AMOUNT] repair.\n\nACTION: Next time your car needs work, give us a shot.\n\nWe'll earn your trust the old-fashioned way: by being honest.\n\n[CTA BUTTON: Book Your Next Service]\n\nOr call/text anytime: [PHONE]\n\nThanks for trusting us with your [VEHICLE],\n[OWNER_NAME]  \n[SHOP_NAME] | [CITY] | [YEARS] Years\n[CERTIFICATION] Certified | [RATING] Stars ([REVIEW_COUNT] Reviews)\n\nP.S. - Know someone who needs a mechanic they can trust? Forward this email. We'll take care of them like family.\n\n---\n[UNSUBSCRIBE] | [SHARE THIS STORY] | [READ OUR REVIEWS]",
+        "framework": "AIDA",
+        "segmentation": "All active customers, sent quarterly as relationship-building content"
+      },
+      "promotional": {
+        "subject": "[CUSTOMER_FIRST_NAME], you're overdue for [SERVICE]—here's $[AMOUNT] off",
+        "preview_text": "Your [VEHICLE] is at [CURRENT_MILEAGE] miles. Book by [DATE] to save.",
+        "body": "Hi [CUSTOMER_FIRST_NAME],\n\nQuick check-in about your [YEAR] [MAKE] [MODEL]:\n\nBEFORE this email:\n→ Your [SERVICE] was due at [DUE_MILEAGE] miles\n→ You're currently at [CURRENT_MILEAGE] miles ([OVERDUE_MILES] overdue)\n→ Skipping this service can lead to [CONSEQUENCE] (avg cost: $[DAMAGE_COST])\n\nAFTER you book this week:\n→ Your [VEHICLE] runs smoothly and reliably\n→ You avoid expensive damage down the road\n→ You save $[DISCOUNT_AMOUNT] with this email\n→ You're back on schedule for worry-free driving\n\nBRIDGE: How to get back on track:\n\nYour [SERVICE] includes:\n✅ [SERVICE_ITEM_1]\n✅ [SERVICE_ITEM_2]  \n✅ [SERVICE_ITEM_3]\n✅ [SERVICE_ITEM_4]\n✅ [NUMBER]-point inspection\n✅ [WARRANTY_PERIOD] warranty\n\nRegular price: $[REGULAR_PRICE]\nYour price (this email): $[DISCOUNTED_PRICE]\nYou save: $[SAVINGS]\n\n⏰ BOOK BY [EXPIRATION_DATE] TO SAVE\n\n[CTA BUTTON: Schedule Now & Save $[AMOUNT]]\n\nAvailable appointments:\n→ [DAY_1] at [TIME_SLOTS]\n→ [DAY_2] at [TIME_SLOTS]  \n→ [DAY_3] at [TIME_SLOTS]\n\nPrefer to call? [PHONE] (mention this email for discount)\n\nWHY THIS MATTERS:\n\nWe've serviced your [VEHICLE] since [FIRST_SERVICE_DATE]. Our records show you're [MILES_OVERDUE] miles past due for [SERVICE].\n\nWe're not trying to sell you something you don't need—your owner's manual recommends this service every [SERVICE_INTERVAL] miles.\n\nWe just want to keep you safe and save you money on preventable repairs.\n\n[CTA BUTTON: Yes, Book My Appointment]\n\nSee you soon,\n[OWNER_NAME] and the [SHOP_NAME] team\n\nP.S. - Can't afford it right now? We offer payment plans as low as $[MONTHLY_AMOUNT]/month through [FINANCING_PARTNER]. Just mention it when you book.\n\n---\nQuestions? Just reply to this email.\n[UNSUBSCRIBE] | [UPDATE VEHICLE INFO] | [VIEW SERVICE HISTORY]",
+        "framework": "BAB",
+        "segmentation": "Customers overdue for scheduled maintenance based on mileage/date, sent when 500+ miles past due date"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[NUMBER] dashboard lights you should never ignore (and what they actually mean)",
+      "[NUMBER] sounds your [CAR MAKE/MODEL] makes before it dies",
+      "From check engine light to peace of mind in [TIMEFRAME] - here's how we diagnosed [CUSTOMER'S] [VEHICLE]"
+    ],
+    "question_hooks": [
+      "Is that [NOISE TYPE] when you brake trying to tell you something serious?",
+      "Are you getting ripped off? Why [SERVICE] quotes vary $[LOW PRICE] to $[HIGH PRICE]",
+      "Could your [SYMPTOM] actually mean [SERIOUS PROBLEM]? [NUMBER] warning signs"
+    ],
+    "story_hooks": [
+      "How [CUSTOMER NAME] went from 'my car just died' to road-trip ready in [TIMEFRAME]",
+      "This [VEHICLE TYPE] failed inspection - here's how we got it registered in [TIMEFRAME]",
+      "[CUSTOMER] was terrified to drive with [SYMPTOM] - here's what we found"
+    ],
+    "fear_hooks": [
+      "Is your [VEHICLE] safe to drive with that [SYMPTOM]? [NUMBER] signs you need to pull over now",
+      "That weird [SMELL/NOISE/VIBRATION] could cost you $[AMOUNT] if you ignore it - here's why",
+      "Before your [SEASON] road trip: [NUMBER] things that could leave you stranded"
+    ],
+    "howto_hooks": [
+      "How to know if you actually need [EXPENSIVE REPAIR] or if your mechanic is overselling",
+      "How to get an honest [SERVICE] price without getting ripped off in [CITY]",
+      "How to tell what's urgent and what can wait when your mechanic gives you a $[AMOUNT] estimate"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your check engine light just came on",
+      "body": "[0-3s] Show panicked driver face with check engine light graphic. [4-15s] 'Before you panic, here's what it ACTUALLY means.' Show mechanic plugging in diagnostic tool. [16-35s] '80% of the time it's one of these 3 things' - show quick cuts of loose gas cap, O2 sensor, catalytic converter with simple explanations. [36-50s] 'Here's what to do RIGHT NOW' - show safe driving check, when to pull over immediately vs when you can drive to shop. [51-57s] 'Don't let fear cost you more money.' [58-60s] 'Free diagnostic scan - link in bio'",
+      "cta": "Free scan today - no games, just answers"
+    },
+    "reels": {
+      "hook": "This noise means STOP driving immediately",
+      "body": "[0-2s] Mechanic holds up hand in stop gesture. [3-12s] Play grinding brake sound, show worn brake pad metal-on-metal. [13-20s] 'This is your brake pad completely gone - metal grinding on your rotor.' [21-27s] Quick cut to cost comparison: '$150 brake job vs $800 brake job + rotors'. [28-30s] 'Hear this? Pull over. Call us.'",
+      "cta": "Tag someone who needs to hear this"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video: 'I was freaking out about [car problem], but [Shop Name] showed me exactly what was wrong and didn't try to sell me anything I didn't need. Here's what I learned...' Show any photos they texted you during repair.",
+      "hashtag": "#HonestMechanic"
+    },
+    {
+      "prompt": "Take a photo of your car with caption: 'My [year/make/model] just hit [mileage] miles thanks to [Shop Name] keeping it running strong. If your mechanic isn't explaining things in plain English, you're at the wrong shop.'",
+      "hashtag": "#CarCareWins"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Women mechanics reacting to sexist customer stories with 'Here's what we actually did to their car' showing the real repair vs what customer assumed",
+      "why": "Addresses massive pain point for women customers, social justice angle drives shares, controversy in comments boosts algorithm, positions shop as respectful and competent"
+    },
+    {
+      "angle": "'Mechanic reacts to terrible car advice from TikTok' series - duet/stitch bad DIY videos showing what actually happens when you follow that advice",
+      "why": "Educational + entertainment, leverages existing viral content, positions expertise, comment section becomes engagement goldmine with people sharing their own horror stories, highly shareable to warn friends"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:12:09.133Z",
+    "last_tier2_refresh": "2025-11-28T00:12:09.133Z",
+    "last_tier3_refresh": "2025-11-28T00:12:09.133Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:12:09.133Z"
+  }
+}

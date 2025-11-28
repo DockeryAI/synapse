@@ -1,0 +1,1693 @@
+{
+  "industry": "Primary Care",
+  "industry_name": "Primary Care",
+  "naics_code": "621111",
+  "category": "Healthcare",
+  "subcategory": "General Medical Practice",
+  "customer_triggers": [
+    {
+      "trigger": "Annual insurance deductible reset in January",
+      "urgency": 6,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "New concerning symptom lasting over a week",
+      "urgency": 8,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Prescription refill needed with expired prescription",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Required physical for work or school",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Chronic condition flare-up (diabetes, hypertension)",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Child sick preventing school attendance",
+      "urgency": 8,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Mental health concerns affecting daily life",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Preventive care reminder from insurance",
+      "urgency": 4,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "COVID or flu symptoms during outbreak",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "New insurance enrollment requiring PCP selection",
+      "urgency": 5,
+      "frequency": "Monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Patient realizes need through symptoms, insurance requirement, or preventive care reminder, searches for 'primary care doctor near me' or 'family physician accepting new patients', checks insurance provider directory and reads reviews focusing on wait times and bedside manner",
+    "consideration": "Evaluates 3-5 practices based on insurance acceptance, location within 10 miles, appointment availability within 2 weeks, office hours compatibility, and online reviews above 4 stars, calls to verify new patient acceptance",
+    "decision": "Selects practice offering soonest new patient appointment, convenient location, positive phone interaction, and ideally same-day sick visits, books appointment within 48 hours of initial search",
+    "retention": "Maintains relationship for average 7-10 years, brings family members, schedules annual physicals, uses for all non-emergency medical needs",
+    "advocacy": "Recommends to coworkers and neighbors seeking new PCP, leaves reviews after positive experiences, refers family members creating multi-generational patient families"
+  },
+  "transformations": [
+    {
+      "from": "Constantly worried about unexplained symptoms",
+      "to": "Peace of mind with clear diagnosis and treatment plan",
+      "emotional_value": "Anxiety relief and control",
+      "worth_premium": false
+    },
+    {
+      "from": "Managing multiple specialists without coordination",
+      "to": "Integrated care with one quarterback physician",
+      "emotional_value": "Simplified healthcare journey",
+      "worth_premium": true
+    },
+    {
+      "from": "Emergency room visits for non-emergencies",
+      "to": "Same-day sick appointments saving thousands",
+      "emotional_value": "Financial and time savings",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncontrolled diabetes with complications",
+      "to": "Stable blood sugar and improved quality of life",
+      "emotional_value": "Health security and longevity",
+      "worth_premium": true
+    },
+    {
+      "from": "Medication confusion and interactions",
+      "to": "Optimized prescription management",
+      "emotional_value": "Safety and confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Reactive sick care only",
+      "to": "Proactive preventive health partner",
+      "emotional_value": "Investment in future health",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with mental health alone",
+      "to": "Integrated behavioral health support",
+      "emotional_value": "Holistic wellness",
+      "worth_premium": true
+    },
+    {
+      "from": "Fragmented family healthcare",
+      "to": "One practice for entire family",
+      "emotional_value": "Convenience and continuity",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "A1C reduced from 9.5 to under 7 for diabetics",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Blood pressure controlled to under 130/80",
+      "timeframe": "3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Same-day appointment availability 85% of time",
+      "timeframe": "Daily",
+      "measurable": true
+    },
+    {
+      "metric": "Patient portal adoption rate above 70%",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Preventive care compliance rate over 80%",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "ER visit reduction by 40% for chronic patients",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction scores above 90th percentile",
+      "timeframe": "Quarterly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Prescription running out in next 48 hours with no refills remaining",
+    "Required physical form due for job or school within one week",
+    "Symptoms worsening daily suggesting infection requiring antibiotics",
+    "Insurance plan changing at month end requiring establishment of care",
+    "Travel planned requiring vaccination or medication preparation",
+    "Specialist referral needed but requires PCP authorization first",
+    "Mental health crisis developing requiring immediate intervention"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I don't have time for appointments",
+      "response": "We offer telehealth visits you can do from your office, early morning and evening slots, and guarantee you'll be seen within 15 minutes of appointment time",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I only go to the doctor when I'm sick",
+      "response": "Preventive care is covered 100% by insurance and catches problems early when they're easily treatable, saving you thousands in future medical costs",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "My last doctor never listened to me",
+      "response": "We schedule 30-minute appointments for new patients and 20 minutes for follow-ups, double the industry standard, ensuring you're heard and understood",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "I'm worried about the cost",
+      "response": "We verify insurance benefits before your visit, offer transparent pricing, and preventive care is free under all ACA plans, plus we have sliding scale fees for uninsured",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "I prefer urgent care for convenience",
+      "response": "We offer same-day sick visits at 1/3 the cost of urgent care, plus we know your history and can manage ongoing conditions they can't",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "I don't like taking medications",
+      "response": "We prioritize lifestyle modifications first and use medications only when necessary, always discussing alternatives and natural approaches when appropriate",
+      "effectiveness": 7.4
+    },
+    {
+      "objection": "I had a bad experience with primary care before",
+      "response": "We'd love to hear about your concerns and show you how we're different - our 4.8 star rating from over 2,000 patients reflects our commitment to patient-centered care",
+      "effectiveness": 8.2
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "New patient appointments within 1 week or referral to partner practice",
+      "Same-day sick visits guaranteed",
+      "Prescription refills within 24 hours",
+      "Test results communicated within 48 hours",
+      "No charge for brief phone consultations under 5 minutes"
+    ],
+    "proof_points": [
+      "All physicians board-certified in family or internal medicine",
+      "PCMH Level 3 certification for quality",
+      "Electronic health records with patient portal",
+      "On-site lab for immediate testing",
+      "Integrated behavioral health services"
+    ],
+    "risk_mitigation": "24/7 nurse triage line, hospital affiliation for admissions, comprehensive care coordination, detailed after-visit summaries, automatic appointment reminders, prescription interaction checking"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "tired all the time",
+      "something's not right",
+      "worried about",
+      "runs in my family",
+      "getting worse",
+      "can't afford emergency room",
+      "need refill",
+      "insurance requires",
+      "school form",
+      "feel overwhelmed"
+    ],
+    "solution_words": [
+      "comprehensive care",
+      "convenient",
+      "same-day",
+      "affordable",
+      "listening",
+      "personalized",
+      "preventive",
+      "coordinated",
+      "accessible",
+      "trusted"
+    ],
+    "avoid_jargon": [
+      "comorbidities",
+      "differential diagnosis",
+      "titration",
+      "prophylaxis",
+      "idiopathic",
+      "contraindicated",
+      "acute exacerbation",
+      "metabolic syndrome",
+      "polypharmacy"
+    ]
+  },
+  "power_words": [
+    "comprehensive",
+    "personalized",
+    "same-day",
+    "convenient",
+    "affordable",
+    "experienced",
+    "caring",
+    "accessible",
+    "coordinated",
+    "preventive",
+    "trusted",
+    "established",
+    "accepting",
+    "modern",
+    "efficient",
+    "thorough",
+    "responsive",
+    "integrated",
+    "holistic",
+    "evidence-based",
+    "patient-centered",
+    "collaborative",
+    "innovative",
+    "flexible",
+    "reliable",
+    "dedicated",
+    "proactive",
+    "quality",
+    "expert",
+    "attentive"
+  ],
+  "avoid_words": [
+    "assembly-line",
+    "rushed",
+    "impersonal",
+    "expensive",
+    "complicated",
+    "fragmented",
+    "outdated",
+    "crowded",
+    "bureaucratic",
+    "inflexible",
+    "generic",
+    "dismissive",
+    "unavailable",
+    "slow",
+    "disorganized",
+    "confusing",
+    "limited",
+    "basic",
+    "minimal",
+    "reactive"
+  ],
+  "headline_templates": [
+    {
+      "template": "Now Accepting New Patients - Same Week Appointments Available",
+      "expected_ctr": 7.8,
+      "use_case": "New patient acquisition"
+    },
+    {
+      "template": "Your Family's Health Partner - Infants to Seniors Welcome",
+      "expected_ctr": 6.4,
+      "use_case": "Family practice positioning"
+    },
+    {
+      "template": "Same-Day Sick Visits - No More Urgent Care Waits",
+      "expected_ctr": 8.9,
+      "use_case": "Convenience messaging"
+    },
+    {
+      "template": "Most Insurance Accepted - $0 Preventive Care Visits",
+      "expected_ctr": 7.2,
+      "use_case": "Insurance and cost focus"
+    },
+    {
+      "template": "Telehealth Appointments Available - See Your Doctor From Home",
+      "expected_ctr": 8.1,
+      "use_case": "Virtual care promotion"
+    },
+    {
+      "template": "Comprehensive Primary Care - One Doctor for All Your Needs",
+      "expected_ctr": 6.7,
+      "use_case": "Service scope messaging"
+    },
+    {
+      "template": "5-Star Rated Family Practice - See Why Neighbors Choose Us",
+      "expected_ctr": 7.5,
+      "use_case": "Social proof emphasis"
+    },
+    {
+      "template": "Managing Diabetes? Get Your A1C Under Control in 90 Days",
+      "expected_ctr": 6.9,
+      "use_case": "Condition-specific marketing"
+    },
+    {
+      "template": "Annual Physical Due? Book Your Preventive Care Visit Today",
+      "expected_ctr": 5.8,
+      "use_case": "Preventive care reminders"
+    },
+    {
+      "template": "New to the Area? Establish Care with Trusted Local Physicians",
+      "expected_ctr": 7.3,
+      "use_case": "New resident targeting"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your New Patient Visit",
+      "conversion_rate": 9.8,
+      "placement": "Homepage hero section"
+    },
+    {
+      "template": "Check Insurance & Book Online",
+      "conversion_rate": 11.2,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Schedule Same-Day Sick Visit",
+      "conversion_rate": 13.4,
+      "placement": "Urgent care alternative pages"
+    },
+    {
+      "template": "Start Telehealth Visit Now",
+      "conversion_rate": 10.7,
+      "placement": "Virtual care section"
+    },
+    {
+      "template": "Request Prescription Refill",
+      "conversion_rate": 8.9,
+      "placement": "Patient portal"
+    },
+    {
+      "template": "Download New Patient Forms",
+      "conversion_rate": 7.3,
+      "placement": "Appointment confirmation"
+    },
+    {
+      "template": "Call for Immediate Care",
+      "conversion_rate": 14.8,
+      "placement": "Mobile sticky header"
+    },
+    {
+      "template": "Message Your Doctor",
+      "conversion_rate": 9.4,
+      "placement": "Patient portal pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Flu season is here! We have flu shots available for the whole family. Most insurance covers vaccines 100%. Call [phone] or book online to protect your loved ones. What questions do you have about this year's flu vaccine?",
+      "engagement_rate": 5.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Did you know your annual physical is FREE with most insurance plans? It includes comprehensive screening, lab work, and personalized health planning. When was your last check-up? #PreventiveCare #HealthyLiving #PrimaryCare",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐ Now accepting new patients! Same-week appointments available. We offer comprehensive primary care for the whole family, from newborns to seniors. Most insurance accepted. Call [phone] to establish care today!",
+      "engagement_rate": 7.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "Tip: Set up your patient portal for 24/7 access to test results, prescription refills, and appointment scheduling. It's healthcare on your schedule! #DigitalHealth #PatientPortal",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Employers: Healthy employees are productive employees. We offer corporate wellness programs, on-site screenings, and executive physicals. Let's discuss how we can support your team's health goals.",
+      "engagement_rate": 3.7
+    },
+    {
+      "platform": "YouTube",
+      "template": "Understanding Your Blood Work Results - Dr. [Name] explains what those numbers mean and when you should be concerned. Knowledge is power when it comes to your health!",
+      "engagement_rate": 6.1
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hello neighbors! With cold and flu season approaching, remember we offer same-day sick visits. No need to wait hours at urgent care. We're your neighborhood health partner. Questions about our services?",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Questions to Ask at Your Annual Physical [Infographic] - Make the most of your preventive care visit with this helpful checklist",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "Doctor reacts to trending health myths! Here's what's actually true about [trending topic]. Follow for evidence-based health tips! #DoctorReacts #HealthMyths #MedicalFacts",
+      "engagement_rate": 12.7
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day sick appointments eliminating urgent care visits",
+      "rank": 1,
+      "differentiator": "Guaranteed availability unlike competitors"
+    },
+    {
+      "prop": "Comprehensive care from newborn to geriatric",
+      "rank": 2,
+      "differentiator": "True family practice unlike age-limited clinics"
+    },
+    {
+      "prop": "Integrated behavioral health for mental wellness",
+      "rank": 3,
+      "differentiator": "On-site counseling most practices lack"
+    },
+    {
+      "prop": "Extended hours including evenings and Saturdays",
+      "rank": 4,
+      "differentiator": "Accessibility beyond 9-5 limitations"
+    },
+    {
+      "prop": "In-house lab for immediate test results",
+      "rank": 5,
+      "differentiator": "No waiting days for basic labs"
+    },
+    {
+      "prop": "Care coordination with specialist network",
+      "rank": 6,
+      "differentiator": "Warm handoffs and closed-loop referrals"
+    },
+    {
+      "prop": "Multilingual staff serving diverse community",
+      "rank": 7,
+      "differentiator": "Cultural competency others miss"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience concierge-level primary care with extended appointments, direct physician access, and comprehensive executive health programs. Your health deserves personalized attention and proactive management.",
+    "budget_conscious": "Quality healthcare shouldn't break the bank. With most preventive care covered 100% by insurance, sliding scale fees for uninsured, and generic prescription programs, we make health accessible to everyone.",
+    "enterprise": "Keep your workforce healthy and productive with our corporate wellness solutions. From on-site screenings to executive physicals, we're your partner in employee health management."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certification verification for all providers",
+      "importance": 9,
+      "format": "Provider profile badges"
+    },
+    {
+      "signal": "Patient satisfaction scores and reviews",
+      "importance": 8,
+      "format": "Star ratings and testimonials"
+    },
+    {
+      "signal": "PCMH or quality certification badges",
+      "importance": 7,
+      "format": "Homepage credentials"
+    },
+    {
+      "signal": "Years in community and patient count",
+      "importance": 8,
+      "format": "About us statistics"
+    },
+    {
+      "signal": "Insurance acceptance list",
+      "importance": 9,
+      "format": "Searchable database"
+    },
+    {
+      "signal": "Hospital affiliations and admitting privileges",
+      "importance": 7,
+      "format": "Partnership listings"
+    },
+    {
+      "signal": "Response time guarantees",
+      "importance": 8,
+      "format": "Service commitments"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Serving 12,000+ families for over 15 years",
+      "credibility_score": 8.9,
+      "context": "Establishes trust through longevity and scale"
+    },
+    {
+      "stat": "98% patient satisfaction rate",
+      "credibility_score": 8.4,
+      "context": "From annual patient surveys"
+    },
+    {
+      "stat": "Same-day appointments available 90% of the time",
+      "credibility_score": 9.1,
+      "context": "Accessibility metric"
+    },
+    {
+      "stat": "Average wait time under 10 minutes",
+      "credibility_score": 8.6,
+      "context": "Efficiency indicator"
+    },
+    {
+      "stat": "4.7/5 stars from 1,500+ Google reviews",
+      "credibility_score": 8.8,
+      "context": "Third-party validation"
+    },
+    {
+      "stat": "85% of patients achieve health goals within 6 months",
+      "credibility_score": 8.2,
+      "context": "Outcome effectiveness"
+    }
+  ],
+  "quality_indicators": [
+    "Electronic health records with patient portal versus paper charts",
+    "On-site lab and imaging versus send-out only",
+    "Integrated behavioral health versus referral only",
+    "Extended hours and weekend availability versus banker's hours",
+    "Team-based care model versus solo practitioner",
+    "Quality metrics reporting versus no transparency"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "After successful diagnosis and treatment when patient expresses relief or gratitude",
+    "ask_method": "Email survey with direct link to review platforms, followed by text reminder if not completed"
+  },
+  "competitive_advantages": [
+    "Only practice with guaranteed same-day sick visits in 20-mile radius",
+    "Integrated behavioral health therapists on-site unique in market",
+    "Proprietary care coordination reducing specialist wait times by 50%",
+    "Direct employer contracting bypassing insurance limitations",
+    "Multi-generational care expertise from pediatrics to geriatrics",
+    "Advanced chronic disease management protocols exceeding quality benchmarks by 30%"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present comprehensive executive physical at $2,500 making standard physical seem free",
+    "sensitivity": "Highest concern at specialist referral needing prior authorization",
+    "sweet_spots": [
+      "$0 preventive care",
+      "$25-40 copays",
+      "$150-200 self-pay visits",
+      "$99/month membership"
+    ],
+    "decoy_pricing": "Offer premium concierge tier at $300/month to make $99 membership appear valuable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 500,
+    "competitor_research": 250
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.2,
+    "weekend": 1.15,
+    "holiday": 1.3
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Care",
+      "price_range": "$0-40 copay",
+      "target_customer": "Insurance patients",
+      "margin": 35
+    },
+    {
+      "tier": "Enhanced Access",
+      "price_range": "$99/month membership",
+      "target_customer": "Busy professionals",
+      "margin": 55
+    },
+    {
+      "tier": "Concierge Medicine",
+      "price_range": "$300-500/month",
+      "target_customer": "Executives",
+      "margin": 70
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Maximize annual wellness visit billing capturing all eligible codes",
+    "Implement chronic care management billing adding $40-60 per patient monthly",
+    "Add ancillary services like vaccines with 40% margins",
+    "Develop employer direct contracts eliminating insurance middleman",
+    "Create membership model for uninsured at higher margins than insurance",
+    "Bundle preventive services into packages for cash-pay patients"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 25,
+      "reason": "New Year health resolutions and deductible reset",
+      "opportunity": "Promote preventive care packages"
+    },
+    {
+      "month": "February",
+      "variation": 5,
+      "reason": "Continued resolution follow-through",
+      "opportunity": "Weight management programs"
+    },
+    {
+      "month": "March",
+      "variation": -5,
+      "reason": "Spring break disruptions",
+      "opportunity": "Travel medicine services"
+    },
+    {
+      "month": "April",
+      "variation": 10,
+      "reason": "Spring allergies begin",
+      "opportunity": "Allergy testing and treatment"
+    },
+    {
+      "month": "May",
+      "variation": 15,
+      "reason": "School/sports physicals",
+      "opportunity": "Student athlete packages"
+    },
+    {
+      "month": "June",
+      "variation": 8,
+      "reason": "Camp physicals",
+      "opportunity": "Pediatric focus"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Summer vacations",
+      "opportunity": "Telehealth for travelers"
+    },
+    {
+      "month": "August",
+      "variation": 20,
+      "reason": "Back-to-school requirements",
+      "opportunity": "School form fast-track"
+    },
+    {
+      "month": "September",
+      "variation": 18,
+      "reason": "Flu shot demand begins",
+      "opportunity": "Vaccine clinics"
+    },
+    {
+      "month": "October",
+      "variation": 22,
+      "reason": "Open enrollment decisions",
+      "opportunity": "New patient campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 15,
+      "reason": "Cold/flu season peaks",
+      "opportunity": "Same-day sick visits"
+    },
+    {
+      "month": "December",
+      "variation": -15,
+      "reason": "Holiday disruptions",
+      "opportunity": "Telehealth emphasis"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Sick visits from weekend illness",
+      "avoid": "Routine physicals",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Chronic disease management",
+      "avoid": "New patient visits",
+      "conversion_rate": 7.6
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Preventive care visits",
+      "avoid": "Urgent concerns",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Follow-up appointments",
+      "avoid": "Time-sensitive issues",
+      "conversion_rate": 7.4
+    },
+    {
+      "day": "Friday",
+      "best_for": "Prescription refills before weekend",
+      "avoid": "Complex new cases",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working adult convenience",
+      "avoid": "Specialty referrals",
+      "conversion_rate": 10.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Urgent care alternative",
+      "avoid": "Routine care",
+      "conversion_rate": 12.1
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Most patients prefer automatic billing on 1st of month",
+    "cash_flow_peaks": "Days 1-3 and 15-17 when paychecks typically arrive",
+    "slow_periods": "Days 10-14 and 24-28 see 20% fewer appointments"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 8am-10am",
+      "crisis_type": "Weekend illness needing work excuse",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Friday 3pm-6pm",
+      "crisis_type": "Prescription refills before weekend",
+      "premium_multiplier": 1.15
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Urgent care alternative needs",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "School mornings 7am-9am",
+      "crisis_type": "Sick child needs",
+      "premium_multiplier": 1.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Annual Wellness Plus",
+      "components": [
+        "Physical exam",
+        "Comprehensive labs",
+        "EKG",
+        "Health coaching",
+        "Vaccine updates"
+      ],
+      "pricing_model": "Insurance + $99",
+      "margin": 45
+    },
+    {
+      "name": "Chronic Care Management",
+      "components": [
+        "Monthly monitoring",
+        "Medication management",
+        "Care coordination",
+        "24/7 access",
+        "Quarterly labs"
+      ],
+      "pricing_model": "$60/month",
+      "margin": 60
+    },
+    {
+      "name": "Executive Health",
+      "components": [
+        "Comprehensive physical",
+        "Advanced diagnostics",
+        "Specialist consultations",
+        "Concierge access",
+        "Health optimization"
+      ],
+      "pricing_model": "$2,500 annual",
+      "margin": 65
+    },
+    {
+      "name": "Family Care Bundle",
+      "components": [
+        "4 family members",
+        "Unlimited visits",
+        "Telehealth included",
+        "Prescription discounts",
+        "Wellness programs"
+      ],
+      "pricing_model": "$199/month",
+      "margin": 52
+    }
+  ],
+  "upsell_paths": [
+    "Acute visit → Annual physical scheduling → Chronic care enrollment",
+    "Physical exam → Health screening additions → Wellness coaching program",
+    "Single family member → Whole family enrollment → Concierge upgrade",
+    "Basic visit → Preventive screening → Specialty referral coordination",
+    "Telehealth trial → Hybrid care model → Membership program",
+    "Episodic care → Continuous care relationship → Care management program"
+  ],
+  "retention_hooks": [
+    "Automated birthday greetings with health milestone reminders",
+    "Quarterly health tips newsletter personalized to conditions",
+    "Annual physical scheduling before insurance year ends",
+    "Prescription auto-refill program with delivery options",
+    "Family member discounts creating household loyalty",
+    "Loyalty program with reduced copays after 2 years",
+    "Direct physician messaging through patient portal"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Family member enrollment incentive",
+      "timing": "During successful treatment outcome",
+      "incentive": "$25 credit for each family member",
+      "conversion_rate": 7.8
+    },
+    {
+      "strategy": "Employer wellness program referrals",
+      "timing": "Annual benefits enrollment",
+      "incentive": "Reduced corporate rates",
+      "conversion_rate": 6.2
+    },
+    {
+      "strategy": "Specialist reciprocal referral network",
+      "timing": "Ongoing relationship building",
+      "incentive": "Mutual patient referrals",
+      "conversion_rate": 8.4
+    },
+    {
+      "strategy": "Community health fair presence",
+      "timing": "Quarterly events",
+      "incentive": "Free screening valued at $150",
+      "conversion_rate": 4.7
+    },
+    {
+      "strategy": "School nurse partnerships",
+      "timing": "Back-to-school season",
+      "incentive": "Priority scheduling for referrals",
+      "conversion_rate": 5.9
+    },
+    {
+      "strategy": "Insurance broker relationships",
+      "timing": "Open enrollment periods",
+      "incentive": "Educational materials and support",
+      "conversion_rate": 7.1
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Annual flu shot",
+      "attach_rate": 72,
+      "timing": "September-November visits"
+    },
+    {
+      "service": "Wellness coaching program",
+      "attach_rate": 28,
+      "timing": "After abnormal results"
+    },
+    {
+      "service": "Travel medicine consultation",
+      "attach_rate": 15,
+      "timing": "During routine visits"
+    },
+    {
+      "service": "Weight management program",
+      "attach_rate": 34,
+      "timing": "BMI over 30 discussions"
+    },
+    {
+      "service": "Smoking cessation support",
+      "attach_rate": 42,
+      "timing": "During any visit for smokers"
+    },
+    {
+      "service": "Mental health screening",
+      "attach_rate": 38,
+      "timing": "Annual physical or concern mention"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Add occupational medicine services",
+      "market_size": "$1.8M annual locally",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Develop chronic care management program",
+      "market_size": "$2.4M Medicare opportunity",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Launch employer wellness contracts",
+      "market_size": "$3.2M from local businesses",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Create weight loss clinic",
+      "market_size": "$1.5M cash-pay market",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Establish urgent care hours",
+      "market_size": "$2.7M market share available",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Implement direct primary care model",
+      "market_size": "$900K membership potential",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "One Medical's Instagram carousel posts featuring 'What to expect at your annual physical' with step-by-step visuals showing the appointment process, reducing anxiety for new patients",
+        "platform": "Instagram",
+        "why_it_worked": "Educational content that demystifies healthcare processes, uses friendly visuals, addresses common patient anxiety, and positions the practice as transparent and patient-centered",
+        "metrics": "Average engagement rate of 4.2% on educational carousel posts vs 2.1% industry average",
+        "source": "Healthcare Success case study on primary care social media performance, 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Cleveland Clinic's 'Health Essentials' blog content repurposed into short-form video answering 'When should I see a doctor vs. urgent care?' which generated high shares during flu season",
+        "platform": "Facebook/YouTube",
+        "why_it_worked": "Addresses a common decision point patients face, provides clear decision tree, positions primary care as the right choice for continuity, posted during high-relevance season",
+        "metrics": "Over 50,000 shares and 2.3M views during 2023 flu season",
+        "source": "Cleveland Clinic Health Essentials analytics report, January 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Forward Health's email campaign 'Your body doesn't wait for convenient appointment times' promoting same-day and evening appointments, sent on Monday mornings",
+        "platform": "Email",
+        "why_it_worked": "Speaks directly to working professionals' pain point, sent when people are planning their week, clear value proposition about convenience, strong call-to-action",
+        "metrics": "42% open rate, 12% click-through rate vs industry average of 21% and 2.5%",
+        "source": "Healthcare Marketing Report, Q2 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local primary care practice TikTok series 'Things I wish patients knew' by Dr. sharing quick medical myths and facts in 30-second videos",
+        "platform": "TikTok",
+        "why_it_worked": "Authentic physician voice, debunks common misconceptions, short-form format perfect for platform, builds trust through education rather than promotion",
+        "metrics": "Average 15,000-40,000 views per video, 8.7% engagement rate",
+        "source": "Medical Economics article 'How physicians are winning on TikTok', March 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Zocdoc's Google Ads campaign targeting 'primary care doctor accepting new patients near me' with landing pages showing real-time availability",
+        "platform": "Google Ads/Search",
+        "why_it_worked": "Captures high-intent search queries, removes friction by showing immediate availability, addresses the 'accepting new patients' concern upfront",
+        "metrics": "Conversion rate of 18% for new patient bookings, 3x industry average",
+        "source": "Search Engine Journal healthcare marketing benchmarks, 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for healthcare providers",
+        "best_content_format": "Video content (especially patient education and behind-the-scenes), followed by photo posts with health tips",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Tuesday-Thursday 9am-11am and 1pm-3pm local time",
+        "source": "Rival IQ Healthcare Social Media Benchmark Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.2% for medical practices",
+        "best_content_format": "Carousel posts for educational content, Reels for quick health tips and practice culture",
+        "optimal_frequency": "4-7 posts per week including 2-3 Reels",
+        "best_posting_times": "Monday and Wednesday 11am-1pm, Friday 9am-11am",
+        "source": "Healthcare Success Digital Marketing Report 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1% for healthcare professionals",
+        "best_content_format": "Long-form posts about healthcare trends, professional insights, and practice updates",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday 8am-10am",
+        "source": "Social Media Today Healthcare Engagement Study 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.72% open rate, 2.44% click-through rate for healthcare",
+        "best_content_format": "Personalized appointment reminders, seasonal health tips, new patient welcome series",
+        "optimal_frequency": "1-2 emails per month for newsletters, plus transactional emails",
+        "best_posting_times": "Tuesday-Thursday 9am-11am",
+        "source": "Mailchimp Email Marketing Benchmarks by Industry 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Reviews response rate of 89% correlates with 35% more appointment requests",
+        "best_content_format": "Weekly posts about services, health tips, practice updates, and photos of staff/facility",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Monday mornings for week-ahead planning",
+        "source": "BrightLocal Local Healthcare Search Study 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Question Hook - Common Symptom Concern",
+        "example": "When should you worry about a headache? / Is your cough just a cold or something more? / Should you see a doctor for back pain?",
+        "why_it_works": "Taps into health anxiety and need for professional guidance, positions doctor as trusted advisor, addresses specific symptoms people are actively experiencing",
+        "source": "Cleveland Clinic Health Essentials top-performing headlines analysis"
+      },
+      {
+        "hook_pattern": "Time/Convenience Promise",
+        "example": "Same-day appointments available / See a doctor today / No more waiting weeks for care / Evening and weekend appointments now open",
+        "why_it_works": "Directly addresses the #1 frustration with primary care (access and wait times), creates urgency, removes barriers to action",
+        "source": "Primary care practice Google Ads A/B testing data from Healthcare Success 2024"
+      },
+      {
+        "hook_pattern": "Cost Transparency/Savings",
+        "example": "Skip the $2,000 ER visit / Most visits covered 100% by insurance / Know your costs before you come in / Annual physical at no cost to you",
+        "why_it_works": "Addresses financial anxiety around healthcare, provides certainty in uncertain system, demonstrates value",
+        "source": "One Medical and Forward Health marketing materials analysis"
+      },
+      {
+        "hook_pattern": "Prevention/Control Framing",
+        "example": "Take control of your diabetes before it controls you / Prevent tomorrow's problems with today's checkup / Small steps now, big health wins later",
+        "why_it_works": "Appeals to desire for control and agency, focuses on positive outcomes rather than fear, motivates action through empowerment",
+        "source": "American Academy of Family Physicians patient engagement research 2023"
+      },
+      {
+        "hook_pattern": "Social Proof/Acceptance",
+        "example": "Now accepting new patients / Join 5,000+ families who trust us with their care / Rated 4.9 stars by patients like you / Your neighbors' trusted primary care",
+        "why_it_works": "Reduces risk perception through social validation, addresses 'accepting new patients' search query, builds credibility",
+        "source": "Zocdoc and Healthgrades high-performing provider profiles analysis"
+      },
+      {
+        "hook_pattern": "Simplification Promise",
+        "example": "One doctor for your whole family / All your care, one place / Healthcare made simple / Your health, simplified",
+        "why_it_works": "Addresses overwhelm of fragmented healthcare system, promises relief from complexity, appeals to desire for streamlined care",
+        "source": "Patient satisfaction surveys and review analysis from Press Ganey 2024"
+      },
+      {
+        "hook_pattern": "Relationship/Continuity Focus",
+        "example": "A doctor who actually knows you / More than just a 15-minute appointment / Your partner in lifelong health / Care that knows your story",
+        "why_it_works": "Differentiates from transactional urgent care, appeals to desire for personalized care, builds emotional connection",
+        "source": "Primary care patient preference studies, Journal of Family Practice 2023"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can never get an appointment when I'm actually sick",
+        "My doctor doesn't take my insurance anymore",
+        "I feel like I'm just a number, they don't really know me",
+        "I have to wait 6 weeks just for a physical",
+        "Every time I call they say the doctor is booked",
+        "I don't have a regular doctor, I just go to urgent care",
+        "My prescriptions keep running out and I can't get refills",
+        "I'm managing three different specialists and nobody talks to each other",
+        "I don't know if this is serious enough to see a doctor",
+        "The ER is so expensive but I don't know where else to go"
+      ],
+      "solution_phrases": [
+        "I can actually get in same day when I'm sick",
+        "My doctor knows my history and remembers me",
+        "They take time to listen and explain things",
+        "I can message my doctor through the app",
+        "They help coordinate all my specialists",
+        "The office is close to my work so it's convenient",
+        "They're in-network with my insurance",
+        "I trust them to tell me when I really need to worry",
+        "They do everything in one place - labs, vaccines, physicals",
+        "My whole family sees doctors here so it's easy"
+      ],
+      "objection_phrases": [
+        "I don't want to establish with someone new",
+        "What if I don't like the doctor?",
+        "I'm healthy, I don't really need a primary care doctor",
+        "How much is this going to cost me?",
+        "I don't have time for appointments",
+        "Are they even accepting new patients?",
+        "I'll just wait and see if it gets better",
+        "I can look it up online myself",
+        "My old doctor was fine, why switch?",
+        "I don't want to drive across town"
+      ],
+      "decision_factors": [
+        "Location and convenience to home or work",
+        "Accepts my insurance and is in-network",
+        "Can get appointments quickly, especially same-day",
+        "Doctor has good reviews and ratings online",
+        "Office has evening or weekend hours",
+        "Doctor listens and doesn't rush",
+        "Can see the same doctor consistently",
+        "Office is modern with online scheduling and messaging",
+        "Recommended by friend or family member",
+        "Can see my whole family at the same practice"
+      ],
+      "emotional_language": [
+        "Peace of mind knowing I have someone to call",
+        "Relief that someone finally listened to me",
+        "Grateful they got me in so quickly",
+        "Confident in their expertise and judgment",
+        "Frustrated with the healthcare system",
+        "Anxious about what symptoms might mean",
+        "Overwhelmed managing multiple conditions",
+        "Scared to ignore symptoms but scared of costs",
+        "Valued as a person not just a patient",
+        "Empowered to take control of my health"
+      ],
+      "sources": [
+        "Healthgrades primary care physician reviews 2024",
+        "Reddit r/AskDocs and r/healthcare patient discussions",
+        "Zocdoc patient reviews and booking behavior data",
+        "Google Business Profile reviews for primary care practices",
+        "Patient satisfaction surveys from Press Ganey 2024",
+        "Primary care patient forums and Facebook groups"
+      ]
+    },
+    "competitive_gaps": [
+      "Behind-the-scenes content showing the actual care team and practice culture - most practices only show doctors",
+      "Transparent cost information before appointments - patients constantly ask about costs but few practices address this proactively",
+      "Mental health integration messaging - primary care is front line for mental health but few market this capability",
+      "Preventive care ROI calculators or tools showing long-term value of regular checkups",
+      "Patient success stories in video format - most use text testimonials only",
+      "Educational content specifically for caregivers managing elderly parents' care",
+      "Chronic disease management programs marketed as distinct services rather than buried in general messaging",
+      "Comparison content: 'When to see primary care vs urgent care vs ER' - patients desperately need this",
+      "New patient onboarding video series to reduce anxiety and no-shows",
+      "Specific content for life transitions: new parents, newly insured, Medicare enrollment, chronic diagnosis"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year/Deductible Reset)",
+        "opportunity": "Insurance deductibles reset, people have health resolutions, HSA/FSA funds replenish",
+        "content_angle": "Preventive care campaigns, annual physical scheduling, 'start the year healthy' messaging, insurance maximization tips"
+      },
+      {
+        "period": "August-September (Back to School)",
+        "opportunity": "School and sports physicals required, parents focused on children's health",
+        "content_angle": "School physical reminders, sports clearance appointments, immunization updates, establishing care before school starts"
+      },
+      {
+        "period": "October-November (Flu Season Prep)",
+        "opportunity": "Flu vaccine availability, respiratory illness concerns, holiday travel planning",
+        "content_angle": "Flu shot campaigns, travel health consultations, immune system tips, when to get vaccinated timing"
+      },
+      {
+        "period": "November-December (Open Enrollment)",
+        "opportunity": "Insurance selection period, people choosing new plans and PCPs",
+        "content_angle": "'Accepting new patients' messaging, insurance acceptance updates, what to look for in a PCP, network participation"
+      },
+      {
+        "period": "May-June (Summer Prep)",
+        "opportunity": "Summer camp physicals, vacation planning, outdoor activity increase",
+        "content_angle": "Camp physical appointments, travel medicine, sun safety, tick/Lyme disease prevention, summer wellness"
+      },
+      {
+        "period": "March-April (Spring Allergies)",
+        "opportunity": "Seasonal allergy sufferers seeking relief, spring cleaning health focus",
+        "content_angle": "Allergy management, testing availability, prescription vs OTC guidance, environmental health tips"
+      },
+      {
+        "period": "December-February (Cold/Flu Peak)",
+        "opportunity": "Highest incidence of respiratory illness, COVID concerns, sick visits spike",
+        "content_angle": "Same-day sick appointments, telehealth options, when to seek care, symptom checkers, prevention tips"
+      },
+      {
+        "period": "April (Tax Season End)",
+        "opportunity": "HSA/FSA deadline awareness, financial planning mindset",
+        "content_angle": "Use-it-or-lose-it FSA reminders, HSA-eligible services, year-end health spending optimization"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Healthcare Social Media Benchmark Report 2024",
+      "Healthcare Success Digital Marketing Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Healthcare Search Study 2024",
+      "Cleveland Clinic Health Essentials blog analytics",
+      "Medical Economics physician marketing articles",
+      "Search Engine Journal healthcare marketing benchmarks",
+      "Healthgrades and Zocdoc patient reviews",
+      "Reddit healthcare communities (r/AskDocs, r/healthcare)",
+      "Press Ganey patient satisfaction surveys 2024",
+      "Journal of Family Practice patient preference studies",
+      "Google Business Profile reviews for primary care practices",
+      "One Medical and Forward Health marketing materials",
+      "American Academy of Family Physicians research"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for primary care email campaigns",
+      "TikTok engagement metrics for healthcare are emerging but sample sizes still limited",
+      "Specific conversion rate data from social media to appointments is proprietary to platforms",
+      "Real-time seasonal demand data requires proprietary scheduling system access"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Healthcare access frustration and the promise of same-day appointments",
+        "Week 2: Transparent convenience - evening hours, telehealth, and modern scheduling solutions",
+        "Week 3: Real patient relief stories - from weeks of waiting to same-day care",
+        "Week 4: Accepting new patients now - final call for immediate access"
+      ],
+      "weekly_hooks": [
+        [
+          "What if you could see a doctor the same day you're actually sick? [New service] makes it possible.",
+          "Your body doesn't wait for convenient appointment times. Neither should your doctor's schedule.",
+          "Tired of hearing 'the doctor is booked for 6 weeks'? We're changing that starting [date]."
+        ],
+        [
+          "Same-day appointments available now - because waiting weeks when you're sick shouldn't be normal",
+          "Evening and weekend appointments now open - healthcare that fits your schedule, not the other way around",
+          "See a doctor today - no more choosing between your health and your work schedule"
+        ],
+        [
+          "Join 500+ patients who got same-day care this month - here's what they're saying",
+          "'I actually got in the same day I called' - Real patients, real relief from [practice name]",
+          "Skip the 6-week wait - [Patient name] shares how same-day appointments changed their experience"
+        ],
+        [
+          "Now accepting new patients - immediate appointment availability won't last long",
+          "Last chance to establish care with same-day access - we're nearly at capacity",
+          "Your neighbors' trusted primary care is accepting new patients this week only"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time for appointments' with telehealth and flexible scheduling preview",
+        "Week 2: Address 'How much is this going to cost me?' with transparent pricing and insurance coverage details",
+        "Week 3: Address 'What if I don't like the doctor?' with patient testimonials and satisfaction guarantees",
+        "Week 4: Address 'Are they even accepting new patients?' with clear capacity and urgency messaging"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce physician credentials and years of experience in community",
+        "Week 2: Share facility photos, technology capabilities, and appointment booking screenshots",
+        "Week 3: Feature video testimonials from early adopters and patient satisfaction scores",
+        "Week 4: Final push with total patients served, average wait times, and 4.9-star rating social proof"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about our new same-day appointment system [link to landing page]",
+        "Week 2: See our available appointment times [calendar view link]",
+        "Week 3: Schedule your first appointment - same-day slots available [booking link]",
+        "Week 4: Book now - accepting final new patients this week [urgent booking link]"
+      ],
+      "platform_priority": [
+        "Google Business Profile (3 posts/week) - captures high-intent 'accepting new patients' searches",
+        "Facebook (5 posts/week) - video testimonials and educational content perform best",
+        "Email (2 sends) - existing patient base for referrals Week 1, new patient welcome Week 3",
+        "Instagram (4 posts/week) - behind-the-scenes and carousel explainers"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Forward Health's email campaign achieving 42% open rate with convenience messaging sent Monday mornings, and Zocdoc's 18% conversion rate targeting 'accepting new patients' searches with real-time availability. Hook patterns directly apply 'Time/Convenience Promise' and 'Social Proof/Acceptance' proven patterns."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common symptom decision-making - when to see primary care vs urgent care vs ER",
+        "Week 2: Preventive care value and insurance coverage education",
+        "Week 3: Chronic disease management success stories and tips",
+        "Week 4: Behind-the-scenes care team introductions and practice culture",
+        "Week 5: Medication management and prescription refill processes simplified",
+        "Week 6: Coordinated care - how we work with your specialists",
+        "Week 7: Cost transparency and insurance navigation help",
+        "Week 8: Patient success transformations - real health outcomes"
+      ],
+      "weekly_hooks": [
+        [
+          "When should you worry about a headache? Here's what your primary care doctor wants you to know",
+          "Is your cough just a cold or something more? Decision tree inside",
+          "Should you see a doctor for back pain? Save $2,000 by choosing the right care level"
+        ],
+        [
+          "Your annual physical is covered 100% by insurance - here's what we check",
+          "Small steps now, big health wins later - the ROI of preventive care",
+          "Prevent tomorrow's problems with today's checkup - what happens at your annual visit"
+        ],
+        [
+          "Take control of your diabetes before it controls you - [patient name]'s journey",
+          "From uncontrolled hypertension to stable blood pressure in 90 days",
+          "How [patient] avoided complications with consistent primary care management"
+        ],
+        [
+          "Meet the care team behind your appointments - more than just your doctor",
+          "A day in the life at [practice name] - what happens behind the scenes",
+          "Your care team: the nurse, MA, and coordinator who know your story"
+        ],
+        [
+          "Never run out of prescriptions again - how our refill system works",
+          "Managing multiple medications? Here's how we prevent dangerous interactions",
+          "Your prescription questions answered - from our pharmacist partner"
+        ],
+        [
+          "One doctor for all your specialists - how we coordinate your care",
+          "No more managing three doctors who don't talk - we're your healthcare quarterback",
+          "All your care, one place - integrated approach to complex conditions"
+        ],
+        [
+          "Know your costs before you come in - our transparent pricing promise",
+          "Most visits covered 100% by insurance - here's what you'll actually pay",
+          "HSA and FSA eligible services - maximize your health spending accounts"
+        ],
+        [
+          "'Someone finally listened to me' - how personalized care changed [patient]'s outcome",
+          "From anxious to empowered - patient stories of health transformation",
+          "Peace of mind knowing I have someone to call - why continuity matters"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if this is serious enough to see a doctor' with symptom guidance",
+        "Week 2: Address 'I'm healthy, I don't really need a primary care doctor' with prevention value",
+        "Week 3: Address 'I can look it up online myself' with expert guidance vs Dr. Google",
+        "Week 4: Address 'My last doctor never listened to me' with time and attention promises",
+        "Week 5: Address 'The system is too complicated' with simplification examples",
+        "Week 6: Address 'Nobody talks to each other' with coordination proof",
+        "Week 7: Address 'How much is this going to cost me?' with transparency",
+        "Week 8: Address 'I don't want to establish with someone new' with relationship-building proof"
+      ],
+      "proof_timing": [
+        "Week 1: Clinical decision-making credentials and board certifications",
+        "Week 2: Insurance partnerships and preventive care coverage verification",
+        "Week 3: Patient outcome data and chronic disease management success rates",
+        "Week 4: Team credentials, tenure, and staff stability metrics",
+        "Week 5: Medication management technology and pharmacy partnerships",
+        "Week 6: Specialist network and referral coordination testimonials",
+        "Week 7: Pricing transparency tools and insurance verification process",
+        "Week 8: 4.9-star ratings, patient satisfaction scores, and video testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Download our symptom decision guide [educational lead magnet]",
+        "Week 2: Schedule your free annual physical [low-barrier offer]",
+        "Week 3: Join our chronic disease management program [engagement]",
+        "Week 4: Meet our team - schedule a meet-and-greet visit [relationship building]",
+        "Week 5: Sign up for prescription auto-refill [service adoption]",
+        "Week 6: Request specialist coordination consultation [value demonstration]",
+        "Week 7: Get a cost estimate for your visit [transparency tool]",
+        "Week 8: Become a patient - we're accepting new families [conversion]"
+      ],
+      "platform_priority": [
+        "Facebook (4 posts/week) - video content and patient education perform 2x industry average",
+        "Email (1-2 newsletters/month) - seasonal health tips and practice updates",
+        "Google Business Profile (2-3 posts/week) - captures local search and builds review volume",
+        "Instagram (5 posts/week) - carousel educational posts average 4.2% engagement",
+        "LinkedIn (2 posts/week) - professional health insights for employer relationships"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Cleveland Clinic's 'Health Essentials' content generating 2.3M views by answering 'when to see doctor vs urgent care' decision points, and One Medical's carousel posts achieving 4.2% engagement with educational step-by-step content. Addresses competitive gap of 'comparison content patients desperately need' and uses proven 'Question Hook - Common Symptom Concern' pattern."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-ready medical myth-busting and health facts people need to share",
+        "Week 2: Interactive health challenges and community participation campaigns"
+      ],
+      "weekly_hooks": [
+        [
+          "Things I wish patients knew - debunking the 5 most common medical myths",
+          "Your doctor wants you to know: antibiotics don't work for viral infections (and 4 other facts)",
+          "Medical myths keeping you sick - what really works according to science",
+          "Is your cough just a cold or something more? 30-second decision guide",
+          "When should you actually go to the ER? This chart could save you $2,000",
+          "Should you see a doctor for back pain? The answer might surprise you"
+        ],
+        [
+          "Tag someone who needs to schedule their annual physical - we'll enter you both to win [incentive]",
+          "Share your biggest healthcare frustration in comments - most common answer gets addressed in video",
+          "Quick poll: When was your last physical? A) This year B) 1-2 years ago C) Can't remember D) What's a physical?",
+          "Challenge: Ask us any health question - we'll answer the top 10 in live Q&A Friday",
+          "Your neighbors are asking: [trending health question] - here's what you need to know",
+          "Comment your symptom concern - we'll tell you if it needs urgent attention (not medical advice, just guidance)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can look it up online myself' by demonstrating expert guidance superiority",
+        "Week 2: Address 'I don't have time for appointments' with quick-access telehealth and same-day options"
+      ],
+      "proof_timing": [
+        "Week 1: Physician credentials and years debunking myths with patients",
+        "Week 2: Community engagement metrics - '5,000+ families trust us' and patient testimonial clips"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily health facts you can actually use [social follow]",
+        "Week 1: Share this with someone who believes [myth] [viral spread]",
+        "Week 2: Drop your health questions below [engagement]",
+        "Week 2: Join our text community for instant health tips [list building]",
+        "Week 2: Schedule your 'I finally did it' annual physical [conversion with social proof]"
+      ],
+      "platform_priority": [
+        "TikTok (10-14 posts/week) - short myth-busting videos average 15K-40K views and 8.7% engagement",
+        "Instagram Reels (7-10 posts/week) - optimal for health tips and viral potential",
+        "Facebook (7 posts/week) - video content and interactive posts for shares",
+        "Google Business Profile (4 posts/week) - capture search traffic from viral content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on local primary care practice TikTok series 'Things I wish patients knew' achieving 15K-40K views per video with 8.7% engagement through authentic physician voice debunking myths. Leverages 'Question Hook - Common Symptom Concern' pattern and addresses competitive gap of educational content in short-form video format that builds trust through education rather than promotion."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The true cost of delayed primary care - financial and health ROI analysis",
+        "Week 2: Chronic disease prevention strategies - deep-dive educational series",
+        "Week 3: Healthcare system navigation - insurance, specialists, and coordination expertise",
+        "Week 4: Mental health integration in primary care - addressing the hidden epidemic",
+        "Week 5: Preventive care across life stages - from pediatrics to geriatrics",
+        "Week 6: The future of primary care - technology, access, and patient-centered innovation"
+      ],
+      "weekly_hooks": [
+        [
+          "Skipping annual physicals costs the average American $3,200 in preventable complications - here's the math",
+          "The hidden ROI of primary care: catching pre-diabetes early vs managing diabetes complications",
+          "Why urgent care seems cheaper but costs you more - a primary care doctor explains"
+        ],
+        [
+          "Prevent tomorrow's problems with today's checkup - the science of early intervention",
+          "Take control of your diabetes before it controls you - comprehensive management guide",
+          "From pre-hypertension to heart disease: the 10-year timeline we can interrupt"
+        ],
+        [
+          "One doctor for all your specialists - how care coordination actually works",
+          "Decoding your insurance: what's really covered 100% and how to maximize benefits",
+          "All your care, one place - the integrated approach to complex conditions explained"
+        ],
+        [
+          "Your primary care doctor is often your first mental health resource - here's why that matters",
+          "Depression screening at your annual physical - early detection saves lives",
+          "The mind-body connection: how we address mental health in every appointment"
+        ],
+        [
+          "What to expect at your annual physical - comprehensive guide by age and risk factors",
+          "Healthcare for new parents: the first-year wellness roadmap",
+          "Medicare enrollment guide - choosing the right primary care partner for your next chapter"
+        ],
+        [
+          "Healthcare made simple - how technology removes barriers to care",
+          "Same-day appointments and telehealth - the modern primary care model",
+          "A doctor who actually knows you - why continuity beats convenience-only care"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm healthy, I don't really need a primary care doctor' with prevention economics",
+        "Week 2: Address 'I'll just wait and see if it gets better' with early intervention outcomes",
+        "Week 3: Address 'Nobody talks to each other' with coordination methodology",
+        "Week 4: Address 'I don't want to burden my doctor with mental health' with integrated care approach",
+        "Week 5: Address 'I don't know what I need at my age' with life-stage guidance",
+        "Week 6: Address 'My old doctor was fine, why switch?' with modern care advantages"
+      ],
+      "proof_timing": [
+        "Week 1: Published research on preventive care ROI and cost-avoidance data",
+        "Week 2: Patient outcome statistics from chronic disease management programs",
+        "Week 3: Specialist partnership testimonials and coordination success metrics",
+        "Week 4: Mental health screening rates and intervention success stories",
+        "Week 5: Comprehensive care protocols and age-specific preventive guidelines",
+        "Week 6: Technology platform demonstrations and patient satisfaction with modern tools"
+      ],
+      "cta_progression": [
+        "Week 1: Download our preventive care ROI calculator [educational tool]",
+        "Week 2: Join our chronic disease management webinar [expert positioning]",
+        "Week 3: Request a care coordination consultation [value demonstration]",
+        "Week 4: Take our mental health screening - confidential and covered by insurance [engagement]",
+        "Week 5: Schedule your age-appropriate wellness visit [segmented conversion]",
+        "Week 6: Experience modern primary care - book your comprehensive new patient visit [full conversion]"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - 2.1% engagement rate for healthcare professional insights",
+        "Email (1 deep-dive newsletter/week) - long-form educational content",
+        "Facebook (3-4 posts/week) - video explanations and educational carousels",
+        "Instagram (4 posts/week) - carousel educational posts for step-by-step guides",
+        "Blog/Website (1 pillar article/week) - SEO and comprehensive resource library"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on One Medical's Instagram carousel posts 'What to expect at your annual physical' achieving 4.2% engagement through educational step-by-step content that demystifies healthcare processes and positions practice as transparent and patient-centered. Addresses competitive gaps of 'preventive care ROI calculators,' 'mental health integration messaging,' and 'educational content for life transitions.' Uses 'Prevention/Control Framing' and 'Simplification Promise' hook patterns proven effective."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Patient story sharing and community health wins celebration",
+        "Week 2: Interactive health education and Q&A participation"
+      ],
+      "weekly_hooks": [
+        [
+          "'Someone finally listened to me' - share your healthcare frustration or victory in comments",
+          "Tag your primary care MVP - the doctor who changed your health journey",
+          "What's one health question you're too embarrassed to ask? We'll answer anonymously",
+          "Share this if you've ever Googled symptoms at 2am and scared yourself",
+          "Poll: What keeps you from scheduling your annual physical? A) Time B) Cost C) Anxiety D) Feel fine",
+          "Comment a 🙋 if you've ever put off seeing a doctor and regretted it"
+        ],
+        [
+          "Ask me anything about primary care - dropping answers to top questions Friday at 2pm",
+          "Quick health quiz: How many of these preventive screenings are you up to date on?",
+          "Fill in the blank: I wish my doctor would _____ [most common answer gets addressed]",
+          "Share your best health tip - we'll feature the top 5 on our page",
+          "Which would you rather: A) Same-day sick visits B) Evening appointments C) Telehealth options D) All of the above",
+          "Challenge: Schedule one preventive health task this week and tell us what you chose"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My last doctor never listened to me' through patient testimonials and listening promises",
+        "Week 2: Address 'I don't have time for appointments' with flexible options and quick-win preventive tasks"
+      ],
+      "proof_timing": [
+        "Week 1: Patient video testimonials and user-generated content showcasing real experiences",
+        "Week 2: Live Q&A credibility, responsive engagement, and community size metrics"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in comments [engagement]",
+        "Week 1: Tag someone who needs to hear this [reach expansion]",
+        "Week 2: Submit your question for Friday's live Q&A [event registration]",
+        "Week 2: Join our text community for weekly health tips [list building]",
+        "Week 2: Take the first step - schedule your preventive visit [conversion]"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week including Stories) - 1.2% engagement rate, optimal for interactive features",
+        "Facebook (8-10 posts/week) - video and community discussion, highest for healthcare engagement",
+        "TikTok (7-10 posts/week) - authentic Q&A and patient story format",
+        "Google Business Profile (3-4 posts/week) - review generation and response showcase"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on BrightLocal data showing 89% review response rate correlates with 35% more appointment requests, and patient voice data revealing emotional language around 'relief that someone finally listened' and 'grateful they got me in quickly.' Leverages 'Relationship/Continuity Focus' hook pattern and competitive gap of behind-the-scenes content showing care team. Interactive content drives algorithm favor while building community trust."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Is your chronic disease management actually working?\n\nPROBLEM: 67% of patients with chronic conditions see multiple specialists who rarely communicate. Result? Duplicate tests, medication conflicts, and frustrated patients.\n\nAGITATE: Without a primary care physician coordinating care, patients face:\n• Conflicting treatment recommendations\n• Dangerous drug interactions\n• Unnecessary ER visits costing $2,000+\n• Preventable complications\n\nSOLUTION: Primary care as the quarterback of health.\n\nAt [PRACTICE NAME], we coordinate with all your specialists, review every medication, and catch problems before they become crises. Our patients with diabetes see [X]% better A1C control and [X]% fewer hospitalizations.\n\nWhat's your biggest challenge in managing multiple providers? Share below.\n\n#PrimaryCare #ChronicDiseaseManagement #IntegratedCare #HealthcareCoordination",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "The primary care crisis nobody's talking about:\n\nATTENTION: By 2030, we'll face a shortage of 48,000 primary care physicians. Meanwhile, Americans make 1 billion primary care visits annually.\n\nINTEREST: Here's what 15 years in family medicine has taught me:\n\nThe practices thriving aren't the ones with the fanciest equipment. They're the ones solving the real problem: ACCESS.\n\n• Same-day sick visits (not 3-week waits)\n• Evening/weekend hours for working families\n• Telehealth for simple concerns\n• Proactive outreach before problems escalate\n\nDESIRE: Patients don't want more healthcare. They want the RIGHT care, at the RIGHT time, without the runaround.\n\nACTION: We're proving it works. Our practice has:\n→ 42% fewer ER visits than national average\n→ 4.9-star rating across 500+ reviews\n→ 85% same-day appointment availability\n\nThe future of primary care is relationship-based, accessible, and preventive.\n\nWhat innovations are you seeing in primary care delivery?\n\n#HealthcareInnovation #PrimaryCare #ValueBasedCare #PatientExperience",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Remember when you could actually see your doctor when you were sick?\n\nBEFORE: \"The next available appointment is in 4 weeks.\"\n→ You go to urgent care instead\n→ They don't know your history\n→ No follow-up, no continuity\n→ Your actual problem never gets solved\n\nAFTER: What if your primary care worked like this:\n→ Same-day appointments when you're sick\n→ A doctor who knows your name and story\n→ Comprehensive care, not just quick fixes\n→ Coordination with specialists when needed\n→ Prevention that actually prevents\n\nBRIDGE: [PRACTICE NAME] is accepting new patients.\n\nWe've redesigned primary care around YOUR schedule:\n✓ Same-day sick visits\n✓ Evening hours until 7pm\n✓ Saturday appointments\n✓ Secure messaging with your care team\n✓ Most insurance accepted, transparent pricing\n\nLimited spots available for [MONTH]. \n\nReady for a primary care experience that actually works? Comment \"INFO\" or visit [WEBSITE] to schedule your first appointment.\n\n#PrimaryCare #NewPatients #SameDayAppointments #[CITY]Healthcare",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "When should you worry about a headache? 🤔\n\nSwipe for the 5 signs you need to see a doctor TODAY →\n\nMost headaches aren't serious, but these red flags mean it's time to get checked:\n\n1️⃣ Sudden \"thunderclap\" headache (worst of your life)\n2️⃣ Headache with fever, stiff neck, or confusion\n3️⃣ After a head injury\n4️⃣ With vision changes or difficulty speaking\n5️⃣ Different from your usual pattern\n\nSave this for the next time you're wondering if it's \"just a headache.\"\n\n💬 What health questions do you want answered next?\n\n[PRACTICE NAME] | [CITY] Primary Care\n📞 [PHONE] for same-day appointments\n\nHashtags in first comment ⬇️",
+        "visual": "Carousel: Slide 1 - Person holding head with concerned expression. Slides 2-6 - Each red flag illustrated with simple icon and clear text. Slide 7 - CTA with practice contact info. Clean, medical blue/white color scheme."
+      },
+      "authority": {
+        "caption": "Things I wish every patient knew (from 15 years as your family doctor) 👨‍⚕️\n\nYour annual physical is FREE with most insurance. Yes, really. $0.\n\nIt includes:\n✅ Comprehensive health screening\n✅ Blood work (cholesterol, diabetes, kidney function)\n✅ Cancer screenings based on your age\n✅ Personalized prevention plan\n✅ Time to discuss any concerns\n\nYet 60% of Americans skip it.\n\nHere's what happens when you don't:\n→ Diabetes caught at complications instead of pre-diabetes\n→ High blood pressure discovered during a stroke\n→ Cancer found at Stage 3 instead of Stage 1\n\nPrevention isn't expensive. Waiting is.\n\nWhen was your last physical? Drop the year below (no judgment!) 👇\n\n[PRACTICE NAME] | Accepting new patients\n🔗 Link in bio to schedule\n\n#PrimaryCare #PreventiveMedicine #AnnualPhysical #HealthTips #FamilyMedicine",
+        "visual": "Professional photo of doctor in white coat with stethoscope, friendly approachable expression, modern office background. Text overlay with key stat \"60% skip their annual physical\" in bold."
+      },
+      "promotional": {
+        "caption": "Same-day appointments available ⚡\n\nBecause your body doesn't wait for convenient appointment times.\n\nSick today? See us today.\n\n✓ Sore throat, cough, fever\n✓ Skin rashes and infections  \n✓ Minor injuries and sprains\n✓ UTIs and stomach issues\n✓ Prescription refills\n\nWhy choose us over urgent care?\n→ We know your medical history\n→ We coordinate with your specialists\n→ We follow up to make sure you're better\n→ Often LESS expensive with your insurance\n\n📱 Call or book online: [PHONE]\n📍 [ADDRESS]\n⏰ Open until 7pm weekdays, Saturdays 9-2\n\n[PRACTICE NAME] - Your family's trusted care since [YEAR]\n\nMost insurance accepted | New patients welcome\n\n#SameDayAppointment #PrimaryCare #[CITY]Doctor #FamilyMedicine #UrgentCare #WalkInClinic",
+        "visual": "Bright, welcoming photo of diverse patients (family with kids, young professional, senior) in modern waiting room. Text overlay \"Sick today? See us today.\" with phone number prominent. Professional but warm aesthetic."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🏥 ER vs. Urgent Care vs. Primary Care - When to go where?\n\nSaw this question come up in our local [CITY] group and wanted to share a quick guide that could save you time, money, and stress:\n\n🚨 GO TO THE ER FOR:\n• Chest pain or difficulty breathing\n• Severe bleeding or head injuries  \n• Stroke symptoms (face drooping, arm weakness, speech difficulty)\n• Severe allergic reactions\n• Anything life-threatening\n\n⚡ URGENT CARE IS GOOD FOR:\n• Minor broken bones or sprains\n• Cuts that need stitches\n• Moderate fever or flu symptoms\n• When your primary care is closed\n\n💙 CALL YOUR PRIMARY CARE FOR:\n• Ongoing symptoms (cough, rash lasting over a week)\n• Chronic condition management\n• Prescription refills\n• Annual check-ups and preventive care\n• Anything you want YOUR doctor (who knows your history) to evaluate\n\nHere's the thing nobody tells you: An ER visit averages $2,000+ even for non-emergencies. Urgent care runs $150-300. A primary care visit? Usually $20-50 copay, sometimes $0.\n\nAt [PRACTICE NAME], we offer same-day sick appointments specifically so you don't have to choose between waiting weeks or paying ER prices.\n\nQuestions? Drop them below and I'll answer! 👇\n\nP.S. Save this post for the next time you're wondering where to go!\n\n[PRACTICE NAME]\n📞 [PHONE] | Book online: [WEBSITE]\nAccepting new patients | Most insurance accepted"
+      },
+      "authority": {
+        "template": "Can we talk about what \"preventive care\" actually means? 🩺\n\nAfter 15 years in family medicine, I've noticed most people think preventive care = annual physical. And yes, that's part of it.\n\nBut here's what REALLY prevents disease:\n\n✅ Blood pressure checks that catch hypertension before your first stroke\n✅ A1C tests that identify pre-diabetes when it's still reversible  \n✅ Colonoscopy that removes polyps before they become cancer\n✅ Medication reviews that prevent dangerous interactions\n✅ Depression screenings that get you help before crisis\n✅ Vaccine updates that prevent serious illness\n\nReal talk: I've seen too many patients who were \"healthy\" until suddenly they weren't. The heart attack at 52. The diabetes diagnosis with kidney damage already present. The cancer found too late.\n\nEvery single one said the same thing: \"I felt fine. I didn't think I needed to see a doctor.\"\n\nThat's the thing about prevention - it works BEFORE you feel sick.\n\nYour body gives subtle warnings. Primary care physicians are trained to hear them.\n\nThe patients who do best aren't the ones who come in with problems. They're the ones who come in to PREVENT problems.\n\n💭 What's stopping you from scheduling your preventive care?\n\nCost? We can discuss what's covered.\nTime? We have evening and Saturday hours.\nFear? Let's talk about what to expect.\n\nComment below or message us. Your future self will thank you.\n\n[PRACTICE NAME] | [CITY]'s trusted family medicine practice\n📅 Schedule your preventive visit: [WEBSITE]\n☎️ Questions? Call [PHONE]"
+      },
+      "promotional": {
+        "template": "🎉 ACCEPTING NEW PATIENTS - Limited Spots for [MONTH]\n\nLooking for a primary care doctor who:\n✓ Actually listens and doesn't rush?\n✓ Gets you in same-day when you're sick?\n✓ Remembers your name and your story?\n✓ Coordinates all your care in one place?\n✓ Offers evening and weekend appointments?\n\nThat's exactly what we built [PRACTICE NAME] to be.\n\nHere's what makes us different:\n\n👨‍👩‍👧‍👦 WHOLE FAMILY CARE\nNewborns to grandparents, all in one practice. No more juggling multiple doctors.\n\n⚡ SAME-DAY AVAILABILITY  \nSick today? We'll see you today. Not next week, not next month.\n\n💻 MODERN CONVENIENCE\nOnline scheduling, secure messaging, prescription refills from your phone.\n\n🏥 COMPREHENSIVE SERVICES\nPhysicals, chronic disease management, minor procedures, vaccines - we do it all.\n\n💰 INSURANCE FRIENDLY\nWe accept most major insurance plans and provide transparent pricing.\n\nWhat our patients say:\n⭐⭐⭐⭐⭐ \"Finally, a doctor who treats me like a person, not a number.\" - Sarah M.\n⭐⭐⭐⭐⭐ \"Got me in same day when I was sick. Can't say enough good things.\" - Michael T.\n⭐⭐⭐⭐⭐ \"They coordinate with all my specialists. It's such a relief.\" - Patricia R.\n\n📍 Conveniently located in [NEIGHBORHOOD]\n📞 Call now: [PHONE]\n🔗 Book online: [WEBSITE]\n\nWe're accepting new patients through [DATE], but spots fill quickly. \n\nReady to have a primary care experience that actually works for your life?\n\nComment \"INTERESTED\" below or call us today!\n\n#[CITY]PrimaryCare #NewPatients #FamilyMedicine #AcceptingNewPatients #[CITY]Doctor #HealthcareYouDeserve"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're Googling your symptoms at 2am (stop doing this) 🚨",
+        "script": "HOOK: [Doctor in scrubs, holding phone, concerned face] \"POV: You're Googling your symptoms at 2am\"\n\nSECONDS 3-10: [Typing on phone] \"Headache + tired = brain tumor?!\" [Shocked face] \"Google says you have 6 months to live\"\n\nSECONDS 10-20: [Switch to professional mode] \"Okay real talk from your family doctor. Here's when you actually need to worry:\"\n\nSECONDS 20-40: [Text overlays with each point]\n\"🚨 Sudden severe headache - worst of your life\"\n\"🚨 Symptoms lasting over 2 weeks with no improvement\"  \n\"🚨 Fever over 103°F or lasting more than 3 days\"\n\"🚨 Unexplained weight loss (10+ pounds)\"\n\"🚨 Anything that scares you enough to Google at 2am\"\n\nSECONDS 40-50: [Friendly face] \"Most things? Not emergencies. But if you're worried enough to lose sleep, just call us.\"\n\nSECONDS 50-60: [Point at camera] \"We do same-day appointments. Way better than Dr. Google. Trust me.\"\n\n[Text overlay: PRACTICE NAME | PHONE | CITY]\n\nCAPTION: When Google convinces you every symptom is fatal 💀 #DoctorsofTikTok #MedicalAdvice #PrimaryCare #HealthTips #DoctorReacts"
+      },
+      "authority": {
+        "hook": "Things I wish patients knew (from 15 years as your doctor) 👨‍⚕️",
+        "script": "HOOK: [Doctor in white coat] \"Things I wish every patient knew - from 15 years as your family doctor\"\n\nSECONDS 3-15: [Counting on fingers]\n\"1. Your annual physical is FREE. Like actually $0 with most insurance.\n2. We WANT you to ask questions. That's literally what we're here for.\n3. 'Just to be safe' is a perfectly valid reason to call.\"\n\nSECONDS 15-30: [Serious tone]\n\"4. We can't help if you don't tell us the truth. I don't care if you smoke or skip your meds - I care about keeping you alive.\n5. Prevention is cheaper than treatment. Always.\"\n\nSECONDS 30-45: [Frustrated but caring]\n\"6. 'I'll wait and see if it gets better' has sent too many people to the ER with things we could've fixed easily.\n7. You're not bothering us. You're doing exactly what you should do.\"\n\nSECONDS 45-60: [Direct to camera]\n\"8. Having a primary care doctor you see regularly isn't old-fashioned. It's literally how you live longer.\n\nQuestions? Drop them below. I actually read these.\"\n\n[Text overlay: PRACTICE NAME | Link in bio]\n\nCAPTION: Real talk from your family doc 💙 What else do you want to know? #DoctorsofTikTok #PrimaryCare #MedicalAdvice #HealthcareTips #FamilyMedicine"
+      },
+      "promotional": {
+        "hook": "You don't have a primary care doctor? In THIS economy? 😳",
+        "script": "HOOK: [Shocked face] \"Wait, you don't have a primary care doctor? In THIS economy?!\"\n\nSECONDS 3-15: [Counting costs on fingers]\n\"ER visit for a sinus infection: $2,000\nUrgent care: $300  \nPrimary care same-day visit: $25 copay\n\nMath isn't mathing for you.\"\n\nSECONDS 15-30: [Transition to serious]\n\"But real talk - it's not just about money. Having a primary care doctor means:\n✓ Someone who knows your history\n✓ Same-day sick appointments\n✓ Prescription refills without the runaround\"\n\nSECONDS 30-45: [Pointing at camera]\n\"✓ Preventive care that actually prevents\n✓ Coordination when you need specialists  \n✓ A doctor who remembers your name\"\n\nSECONDS 45-60: [Friendly close]\n\"We're accepting new patients at [PRACTICE NAME]. Same-day appointments, evening hours, most insurance accepted.\n\nStop paying ER prices for strep throat. Link in bio.\"\n\n[Text overlay throughout: \"SAME DAY APPOINTMENTS\" \"EVENING HOURS\" \"NOW ACCEPTING NEW PATIENTS\"]\n\nCAPTION: Your wallet and your body will thank you 💰💙 New patients welcome! #PrimaryCare #HealthcareTips #NewPatients #SameDayAppointment #FamilyMedicine #[CITY]Doctor"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "5 signs your headache needs medical attention",
+        "preview_text": "Most aren't serious, but these red flags mean call us today",
+        "body": "Hi [FIRST_NAME],\n\nGot a headache? You're not alone - 9 out of 10 people experience them.\n\nMost headaches are just annoying, not dangerous. But as your primary care team, we want you to know when to call us.\n\n🚨 SEE A DOCTOR TODAY IF YOU HAVE:\n\n1. Sudden severe headache (\"worst of your life\")\n2. Headache with fever, stiff neck, or confusion  \n3. Headache after a head injury\n4. Vision changes or difficulty speaking\n5. Pattern change from your usual headaches\n\nWHEN TO SCHEDULE A REGULAR APPOINTMENT:\n• Headaches happening more frequently\n• Over-the-counter meds not helping\n• Headaches disrupting your daily life\n• You're concerned and want peace of mind\n\nWe offer same-day appointments for urgent concerns. Don't wait and worry - that's what we're here for.\n\n📞 Call [PHONE] or reply to this email\n💻 Book online: [LINK]\n\nYour health is our priority,\n\nDr. [NAME] and the [PRACTICE NAME] team\n\nP.S. When was your last check-up? If it's been over a year, let's get you scheduled. Most annual physicals are covered 100% by insurance."
+      },
+      "authority": {
+        "subject": "What your doctor wishes you knew about prevention",
+        "preview_text": "15 years in family medicine taught me this...",
+        "body": "Hi [FIRST_NAME],\n\nAfter 15 years in family medicine, I've learned something important:\n\nThe healthiest patients aren't the ones who never get sick. They're the ones who prevent problems before they start.\n\nHere's what that actually looks like:\n\n✅ ANNUAL PHYSICALS (yes, every year)\nCatches high blood pressure, pre-diabetes, and high cholesterol before they cause damage. Usually covered 100% by insurance.\n\n✅ AGE-APPROPRIATE SCREENINGS  \nColonoscopy, mammogram, skin checks - these find cancer when it's most treatable.\n\n✅ MEDICATION REVIEWS\nPrevents dangerous interactions and side effects. Especially important if you see multiple specialists.\n\n✅ VACCINE UPDATES\nFlu, pneumonia, shingles, COVID - these prevent serious illness and hospitalization.\n\n✅ CHRONIC CONDITION MANAGEMENT\nRegular monitoring keeps diabetes, hypertension, and other conditions under control.\n\nTHE TRUTH ABOUT PREVENTION:\n\nIt's not expensive - waiting is expensive.\nIt's not time-consuming - complications are time-consuming.  \nIt's not unnecessary - it's how you stay healthy long-term.\n\nWhen was your last preventive visit?\n\nIf it's been over a year, let's get you scheduled:\n📞 [PHONE]\n💻 [BOOKING_LINK]\n\nYour future self will thank you.\n\nTo your health,\n\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. Questions about what's covered by your insurance? Our team can check for you. Just call or reply to this email."
+      },
+      "promotional": {
+        "subject": "Your body doesn't wait for convenient appointment times ⚡",
+        "preview_text": "Same-day sick visits now available - here's how it works",
+        "body": "Hi [FIRST_NAME],\n\nIt's Monday morning. You wake up with a sore throat and fever.\n\nYour options:\n❌ Wait 3 weeks for your doctor's next available appointment\n❌ Pay $300+ at urgent care (and they don't know your history)\n❌ Go to the ER and spend $2,000+ for a strep test\n\nOR...\n\n✅ Call us and get a same-day appointment with YOUR doctor\n\nWE'VE REDESIGNED PRIMARY CARE AROUND YOUR SCHEDULE:\n\n⚡ Same-day sick visits when you need them\n🌙 Evening appointments until 7pm  \n📅 Saturday hours 9am-2pm\n💻 Online scheduling 24/7\n📱 Secure messaging with your care team\n\nWHY CHOOSE US OVER URGENT CARE?\n\n→ We know your medical history\n→ We coordinate with your specialists  \n→ We follow up to ensure you're better\n→ Often LESS expensive with your insurance\n→ Continuity of care that keeps you healthier long-term\n\nNEW PATIENTS WELCOME\n\nWe're accepting new patients this month. Limited spots available.\n\n📞 Call now: [PHONE]\n💻 Book online: [BOOKING_LINK]  \n📍 Conveniently located: [ADDRESS]\n\nMost insurance accepted | Transparent pricing | Whole family care\n\nReady for primary care that actually works for your life?\n\nLet's get you established,\n\nThe [PRACTICE NAME] Team\n\nP.S. Bring your family! We see patients from newborns to seniors, all in one practice. Makes healthcare so much simpler."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] families got same-day appointments this week when their [child/parent] got sick",
+      "[X]% of our patients avoided the ER by getting seen within [24 hours]",
+      "[X] prescriptions refilled in under [2 hours] without an office visit"
+    ],
+    "question_hooks": [
+      "Are you putting off that checkup because you can't get an appointment for [6 weeks]?",
+      "Are you managing [diabetes/high blood pressure] without a doctor who actually knows your story?",
+      "Are you stuck between 'is this serious enough for a doctor?' and 'I can't afford the ER'?"
+    ],
+    "story_hooks": [
+      "How [Sarah] finally got her [chronic condition] under control with a doctor who coordinates all [3] of her specialists",
+      "How [the Martinez family] stopped juggling [4 different doctors] and got everyone's care in one place",
+      "How [John] went from waiting [45 days] for appointments to getting seen the same day he felt sick"
+    ],
+    "fear_hooks": [
+      "Is your [persistent cough/unexplained pain] something serious, or can it wait another week?",
+      "Is your family's health at risk because you don't have a doctor to call when [symptoms] start?",
+      "Is ignoring your [annual physical] putting you at risk for [preventable conditions] you don't even know about?"
+    ],
+    "howto_hooks": [
+      "How to get your [work physical/school forms] done without waiting [weeks] for an appointment",
+      "How to manage [multiple specialists] without feeling like nobody's in charge of your overall health",
+      "How to know when [your symptoms] need a real doctor without paying [$2,000] for the ER"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're trying to figure out if you should go to the ER, urgent care, or call your doctor",
+      "body": "Scene 1 (0-15s): Show person googling symptoms at 2am, looking stressed. Text overlay: 'Is this serious?'\n\nScene 2 (15-35s): Split screen showing three scenarios:\n- ER: 'Chest pain, severe bleeding, can't breathe' (red)\n- Urgent Care: 'Sprained ankle, flu, minor cuts' (yellow)  \n- Primary Care: 'Ongoing symptoms, preventive care, prescription refills' (green)\n\nScene 3 (35-50s): Doctor speaking to camera: 'Here's the secret: if you have a primary care doctor, just call us first. We'll tell you exactly where to go and save you time and money.'\n\nScene 4 (50-60s): Text overlay: 'Don't have a PCP? That's the problem.' Show booking screen.",
+      "cta": "Link in bio to find a doctor accepting new patients"
+    },
+    "reels": {
+      "hook": "5 things your primary care doctor wishes you knew",
+      "body": "Fast-paced cuts with text overlays:\n1. 'We can treat 90% of what you think needs a specialist'\n2. 'Same-day appointments exist - just ask'\n3. 'We want you to message us between visits'\n4. 'Annual checkups catch things early = save money'\n5. 'We're not judging you - we've seen everything'\n\nEnd frame: Doctor smiling, text: 'Your health has a home here'",
+      "cta": "Book your first visit - link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us the moment you realized having a primary care doctor actually matters. What happened that made you finally establish care?",
+      "hashtag": "#MyHealthPartner"
+    },
+    {
+      "prompt": "Tell us about a time your primary care doctor caught something early or helped you avoid the ER. What peace of mind looks like for you.",
+      "hashtag": "#PrimaryCareWins"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Medical myths debunked by real doctors - 'You don't need antibiotics for that' series showing what actually works for common illnesses",
+      "why": "Challenges common misconceptions people argue about, saves-worthy for future reference, positions practice as educational authority, highly shareable during cold/flu season"
+    },
+    {
+      "angle": "Transparent cost comparison calculator: 'What this visit actually costs with your insurance' showing ER vs Urgent Care vs Primary Care for same issue",
+      "why": "Addresses #1 patient anxiety about healthcare costs, provides genuine utility, shareable to friends/family asking same questions, positions primary care as cost-effective choice"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:15:33.151Z",
+    "last_tier2_refresh": "2025-11-27T20:15:33.151Z",
+    "last_tier3_refresh": "2025-11-27T20:15:33.151Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:15:33.151Z"
+  }
+}

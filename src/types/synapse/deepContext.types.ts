@@ -64,12 +64,26 @@ export interface UVPContext {
   functionalDrivers?: string[]; // What they NEED (practical)
 }
 
+export interface WebsiteAnalysis {
+  testimonials?: string[];
+  proofPoints?: string[];
+  metaTags?: Record<string, string>;
+  keywords?: string[];
+  differentiators?: string[];
+  valuePropositions?: string[];
+  targetAudience?: string[];
+  customerProblems?: string[];
+  solutions?: string[];
+  confidence?: number;
+}
+
 export interface BusinessContext {
   profile: BusinessProfile;
   brandVoice: BrandVoiceProfile;
   uniqueAdvantages: string[];
   goals: BusinessGoal[];
   uvp?: UVPContext; // Target customer and value proposition
+  websiteAnalysis?: WebsiteAnalysis; // Data extracted from brand website
 }
 
 // ============================================================================

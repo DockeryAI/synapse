@@ -103,6 +103,7 @@ export interface UpdateSessionInput {
 
 export interface SessionListItem {
   id: string;
+  brand_id?: string;
   session_name: string;
   website_url: string;
   current_step: UVPStepKey;

@@ -29,9 +29,12 @@ import { connectionDiscoveryService } from './connection-discovery.service';
 import { recoverUVPFromSession } from '@/services/database/marba-uvp.service';
 import { redditAPI } from './reddit-apify-api';
 import { aiInsightSynthesizer } from './ai-insight-synthesizer.service';
-import { insightAtomizer } from './insight-atomizer.service';
+// V3 FIX: Atomizer DISABLED - it creates fake title variations, not genuine insights
+// import { insightAtomizer } from './insight-atomizer.service';
 import { apifySocialScraper } from './apify-social-scraper.service';
-import { contentSynthesisOrchestrator, type BusinessSegment as OrchestratorSegment } from './content-synthesis-orchestrator.service';
+import { contentSynthesisOrchestrator, type BusinessSegment as OrchestratorSegment, type EnrichedContext } from './content-synthesis-orchestrator.service';
+import { generateSynapses, type SynapseInput } from '@/services/synapse/SynapseGenerator';
+import { frameworkLibrary, type FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
 import type { DeepContext, RawDataPoint, CorrelatedInsight, BreakthroughOpportunity } from '@/types/synapse/deepContext.types';
 import type { DataPoint, DataSource, DataPointType, BusinessSegment, InsightDimensions, ContentPillar } from '@/types/connections.types';
 
@@ -92,6 +95,18 @@ export class StreamingDeepContextBuilder {
   private competitorMentions: Map<string, { count: number; sentiment: 'positive' | 'negative' | 'neutral'; mentions: string[] }> = new Map();
   private timingContext: { season?: string; events?: string[]; weather?: string; urgencyReason?: string } = {};
 
+  // FREEZE FIX: Batch progress notifications to prevent 15+ context rebuilds
+  // Problem: Each API completion was calling buildContextFromDataPoints (expensive ~500ms each)
+  // Solution: Buffer API completions and rebuild context only every 500ms
+  private progressBatchTimeout: ReturnType<typeof setTimeout> | null = null;
+  private pendingProgressNotification: boolean = false;
+  private readonly PROGRESS_BATCH_WINDOW_MS = 500; // Rebuild context max once per 500ms
+
+  // FREEZE FIX: Also batch context rebuilds separately
+  private contextRebuildTimeout: ReturnType<typeof setTimeout> | null = null;
+  private contextRebuildPending: boolean = false;
+  private readonly CONTEXT_REBUILD_BATCH_MS = 800; // Rebuild context max once per 800ms
+
   /**
    * Build DeepContext with true streaming - each API updates UI independently
    */
@@ -124,14 +139,83 @@ export class StreamingDeepContextBuilder {
       businessType: config.businessType || this.detectBusinessType()
     });
 
+    // 1.1 FAST PARALLEL: Start testimonial/meta extraction immediately (no LLM, just scraping)
+    // This runs in background - doesn't block any other operations
+    let fastExtractPromise: Promise<void> | null = null;
+    if (this.brandData.website) {
+      console.log('[Streaming/FastExtract] Starting parallel testimonial/meta extraction...');
+      fastExtractPromise = (async () => {
+        try {
+          const rawData = await websiteAnalyzer.extractRawTestimonialsAndMeta(this.brandData.website);
+
+          // Store immediately in context for sidebar access
+          if (!this.currentContext) {
+            this.currentContext = this.buildEmptyContext();
+          }
+          if (!this.currentContext.business) {
+            this.currentContext.business = {} as any;
+          }
+          if (!(this.currentContext.business as any).websiteAnalysis) {
+            (this.currentContext.business as any).websiteAnalysis = {};
+          }
+
+          // Merge raw testimonials/meta - these arrive FAST before LLM analysis
+          const existing = (this.currentContext.business as any).websiteAnalysis;
+          existing.testimonials = [...(existing.testimonials || []), ...rawData.testimonials];
+          existing.metaTags = { ...(existing.metaTags || {}), ...rawData.metaTags };
+          existing.keywords = [...(existing.keywords || []), ...rawData.keywords];
+
+          // Add as data points immediately
+          rawData.testimonials.forEach((t: string, i: number) => {
+            this.dataPoints.push({
+              id: `fast-testimonial-${Date.now()}-${i}`,
+              source: 'website' as DataSource,
+              type: 'customer_trigger' as DataPointType,
+              content: t,
+              metadata: { type: 'testimonial', fast_extracted: true },
+              createdAt: new Date()
+            });
+          });
+
+          rawData.keywords.forEach((k: string, i: number) => {
+            this.dataPoints.push({
+              id: `fast-keyword-${Date.now()}-${i}`,
+              source: 'website' as DataSource,
+              type: 'trending_topic' as DataPointType,
+              content: k,
+              metadata: { type: 'meta_keyword', fast_extracted: true },
+              createdAt: new Date()
+            });
+          });
+
+          if (rawData.testimonials.length > 0 || rawData.keywords.length > 0) {
+            console.log(`[Streaming/FastExtract] ✅ Got ${rawData.testimonials.length} testimonials, ${rawData.keywords.length} keywords (FAST)`);
+            // Notify UI immediately with this new data
+            this.notifyProgress(false);
+          }
+        } catch (err) {
+          console.warn('[Streaming/FastExtract] Non-blocking error:', err);
+          // Non-blocking - don't throw
+        }
+      })();
+    }
+
     // If forceFresh, invalidate cache for this brand first
     if (config.forceFresh) {
       console.log('[Streaming] FORCE FRESH enabled - invalidating cache for brand:', config.brandId);
       await intelligenceCache.invalidateByBrand(config.brandId);
     }
 
-    // Initialize empty context
+    // Initialize empty context - PRESERVE any websiteAnalysis from fast extract
+    const existingWebsiteAnalysis = this.currentContext?.business?.websiteAnalysis;
     this.currentContext = this.buildEmptyContext();
+    if (existingWebsiteAnalysis) {
+      if (!this.currentContext.business) {
+        this.currentContext.business = {} as any;
+      }
+      (this.currentContext.business as any).websiteAnalysis = existingWebsiteAnalysis;
+      console.log('[Streaming] Preserved websiteAnalysis from fast extract during context init');
+    }
 
     // 1.5 Load UVP data as baseline (this gives us immediate data)
     // CRITICAL: UVP MUST be loaded BEFORE APIs fire so searches are targeted
@@ -174,6 +258,13 @@ export class StreamingDeepContextBuilder {
       }
     }
     console.log(`[Streaming/uvp] ========== UVP LOADING END ==========`)
+
+    // V3 FIX: WARN if no UVP data - APIs will produce generic insights without it
+    // Changed from throw to warn to prevent page crash on session restore
+    if (!this.uvpData) {
+      console.warn('[Streaming] ⚠️ No UVP data found - proceeding with generic industry insights only');
+      // Continue without throwing - will use brand industry data as fallback
+    }
 
     // 1.6 Load product catalog data (from pm_products table)
     const productDataPoints = await this.loadProductCatalogData();
@@ -264,146 +355,174 @@ export class StreamingDeepContextBuilder {
     let correlatedInsights: CorrelatedInsight[] = [];
     let breakthroughs: BreakthroughOpportunity[] = [];
     try {
+      // PERFORMANCE FIX: Limit dataPoints BEFORE O(n²) connection discovery
+      // 100 points = 4,950 two-way iterations (manageable)
+      // 186 points = 17,205 two-way iterations (too slow)
+      const MAX_DATAPOINTS_FOR_CONNECTIONS = 100;
+      const limitedDataPoints = this.dataPoints.length > MAX_DATAPOINTS_FOR_CONNECTIONS
+        ? this.dataPoints
+            .sort((a, b) => (b.confidence || 0.5) - (a.confidence || 0.5))
+            .slice(0, MAX_DATAPOINTS_FOR_CONNECTIONS)
+        : this.dataPoints;
+      console.log(`[Streaming] PERFORMANCE: Using ${limitedDataPoints.length} of ${this.dataPoints.length} data points for connection discovery`);
+
       // Run the full connection discovery service (2-way through 5-way)
       const { twoWay, threeWay, fourWay, fiveWay, breakthroughs: rawBreakthroughs } =
-        await connectionDiscoveryService.discoverConnections(this.dataPoints, enhancedClusters);
+        await connectionDiscoveryService.discoverConnections(limitedDataPoints, enhancedClusters);
 
       console.log(`[Streaming] Connections: ${twoWay.length} 2-way, ${threeWay.length} 3-way, ${fourWay.length} 4-way, ${fiveWay.length} 5-way`);
 
-      // Convert to CorrelatedInsights with UVP matching
-      // INCREASED limits: was 3+5+10+15=33, now 10+20+40+80=150 connections
-      correlatedInsights = await this.convertConnectionsToCorrelatedInsights(
-        [...fiveWay.slice(0, 10), ...fourWay.slice(0, 20), ...threeWay.slice(0, 40), ...twoWay.slice(0, 80)]
-      );
+      // =========================================================================
+      // V3 PARALLEL ARCHITECTURE: Run these operations concurrently
+      // 1. Convert connections to correlated insights
+      // 2. Generate breakthrough opportunities (includes SynapseGenerator)
+      // 3. AI Insight Synthesizer
+      // =========================================================================
+      console.log(`[Streaming] V3 PARALLEL: Starting 3 concurrent operations...`);
 
-      // Generate rich breakthrough narratives with UVP validation
-      breakthroughs = await this.generateBreakthroughOpportunities(rawBreakthroughs, enhancedClusters);
+      // Map business type to orchestrator segment (needed for enriched context)
+      const segmentMap: Record<string, OrchestratorSegment> = {
+        'local': 'smb_local',
+        'b2b-national': 'b2b_national',
+        'b2b-global': 'b2b_global'
+      };
+      const segment = segmentMap[this.brandData?.businessType || 'local'] || 'smb_local';
 
-      console.log(`[Streaming] Generated ${correlatedInsights.length} correlated insights, ${breakthroughs.length} breakthroughs`);
+      // PERFORMANCE FIX: Limit total connections to prevent O(n) freeze on downstream processing
+      // Connections are already sorted by score (highest first), so we take the best ones
+      const MAX_TOTAL_CONNECTIONS = 500;
+      const rawConnections = [...fiveWay, ...fourWay, ...threeWay, ...twoWay];
+      const allConnections = rawConnections.slice(0, MAX_TOTAL_CONNECTIONS);
+      console.log(`[Streaming] PERFORMANCE: Limited connections from ${rawConnections.length} to ${allConnections.length}`);
 
-      // V3.1: Use AI Insight Synthesizer with FULL enriched context
-      // Integrates EQ Profile, Industry Profile, Segment guidelines, and UVP data
-      console.log(`[Streaming] V3.1: Building enriched context via ContentSynthesisOrchestrator...`);
-      try {
-        // Map business type to orchestrator segment
-        const segmentMap: Record<string, OrchestratorSegment> = {
-          'local': 'smb_local',
-          'b2b-national': 'b2b_national',
-          'b2b-global': 'b2b_global'
-        };
-        const segment = segmentMap[this.brandData?.businessType || 'local'] || 'smb_local';
+      // PARALLEL OPERATION 1: Convert connections to correlated insights
+      // V3 FIX: No slice limits - pass ALL connections, Atomizer handles dedup
+      const convertPromise = this.convertConnectionsToCorrelatedInsights(allConnections);
 
-        // Build enriched context with EQ, Industry Profile, and Segment
-        const enrichedContext = await contentSynthesisOrchestrator.buildEnrichedContext({
-          brandName: this.brandData?.name || 'Unknown',
-          industry: this.brandData?.industry || 'General',
-          naicsCode: this.brandData?.naics_code,
-          uvpData: {
-            target_customer: this.uvpData?.target_customer,
-            key_benefit: this.uvpData?.key_benefit,
-            transformation: this.uvpData?.transformation,
-            unique_mechanism: this.uvpData?.unique_mechanism,
-            proof_points: this.uvpData?.proof_points
-          },
-          segment
-        });
+      // PARALLEL OPERATION 2: Generate breakthrough opportunities (with SynapseGenerator)
+      const breakthroughPromise = this.generateBreakthroughOpportunities(rawBreakthroughs, enhancedClusters);
 
-        console.log(`[Streaming] V3.1: Enriched context built - EQ: ${enrichedContext.eqProfile.emotional_weight}% emotional, JTBD: ${enrichedContext.eqProfile.jtbd_focus}`);
+      // PARALLEL OPERATION 3: AI Insight Synthesizer (async)
+      const synthesizerPromise = (async () => {
+        try {
+          // Build enriched context with EQ, Industry Profile, and Segment
+          const enrichedContext = await contentSynthesisOrchestrator.buildEnrichedContext({
+            brandName: this.brandData?.name || 'Unknown',
+            industry: this.brandData?.industry || 'General',
+            naicsCode: this.brandData?.naics_code,
+            uvpData: {
+              target_customer: this.uvpData?.target_customer,
+              key_benefit: this.uvpData?.key_benefit,
+              transformation: this.uvpData?.transformation,
+              unique_mechanism: this.uvpData?.unique_mechanism,
+              proof_points: this.uvpData?.proof_points
+            },
+            segment
+          });
 
-        // Run AI Insight Synthesizer with enriched context
-        console.log(`[Streaming] V3.1: Running AI Insight Synthesizer (Opus 4.5 + Sonnet 4.5)...`);
-        const allConnections = [...fiveWay, ...fourWay, ...threeWay, ...twoWay];
-        const synthesizedInsights = await aiInsightSynthesizer.synthesizeInsights({
-          connections: allConnections.slice(0, 150),
-          dataPoints: this.dataPoints,
-          uvpData: this.uvpData,
-          brandData: this.brandData,
-          targetCount: 100, // Generate 100 AI-synthesized insights
-          enrichedContext // V3.1: Pass enriched context for EQ/Industry/Segment awareness
-        });
+          console.log(`[Streaming] V3 PARALLEL: Enriched context built - EQ: ${enrichedContext.eqProfile.emotional_weight}%`);
 
-        console.log(`[Streaming] V3: AI synthesized ${synthesizedInsights.length} insights`);
+          // Run AI Insight Synthesizer with enriched context
+          // V3 FIX: No slice limits - pass ALL connections
+          const synthesizedInsights = await aiInsightSynthesizer.synthesizeInsights({
+            connections: allConnections,
+            dataPoints: this.dataPoints,
+            uvpData: this.uvpData,
+            brandData: this.brandData,
+            targetCount: 500,
+            enrichedContext
+          });
+          return synthesizedInsights;
+        } catch (err) {
+          console.warn('[Streaming] V3 PARALLEL: AI Synthesizer failed:', err);
+          return [];
+        }
+      })();
 
-        // Merge AI-synthesized insights with correlated insights
-        // AI insights get higher priority due to quality
-        const aiCorrelatedInsights: CorrelatedInsight[] = synthesizedInsights.map(si => ({
-          id: si.id,
+      // Wait for ALL parallel operations to complete
+      const [convertedInsights, generatedBreakthroughs, synthesizedInsights] = await Promise.all([
+        convertPromise,
+        breakthroughPromise,
+        synthesizerPromise
+      ]);
+
+      correlatedInsights = convertedInsights;
+      breakthroughs = generatedBreakthroughs;
+
+      console.log(`[Streaming] V3 PARALLEL: All operations complete`);
+      console.log(`[Streaming] Generated ${correlatedInsights.length} correlated insights, ${breakthroughs.length} breakthroughs, ${synthesizedInsights.length} AI-synthesized`);
+
+      // Merge AI-synthesized insights with correlated insights (if any)
+      if (synthesizedInsights.length > 0) {
+        const aiCorrelatedInsights: CorrelatedInsight[] = synthesizedInsights.map((si: any) => ({
+          id: si.id || `ai-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           type: 'psychological_breakthrough' as const,
-          title: si.title,
-          description: si.hook,
-          uvpMatch: si.validation.uvpMatch,
-          sources: si.sources.map(s => ({
-            source: s.platform as DataSource,
-            content: s.quote,
-            confidence: si.scores.breakthrough / 100
+          title: si.title || 'Untitled Insight',
+          description: si.hook || '',
+          uvpMatch: Number(si.validation?.uvpMatch) || 0,
+          sources: (si.sources || []).map((s: any) => ({
+            source: (s?.platform || 'unknown') as DataSource,
+            content: s?.quote || '',
+            confidence: Number(si.scores?.breakthrough || 50) / 100
           })),
           psychology: {
-            triggerCategory: si.psychology.triggerType,
-            emotion: si.psychology.triggerType,
-            urgency: si.psychology.urgency === 'critical' ? 'immediate' :
-                     si.psychology.urgency === 'high' ? 'urgent' : 'eventual'
+            triggerCategory: si.psychology?.triggerType || 'unknown',
+            emotion: si.psychology?.triggerType || 'unknown',
+            urgency: (si.psychology?.urgency === 'critical' ? 'immediate' :
+                     si.psychology?.urgency === 'high' ? 'urgent' : 'eventual') as 'immediate' | 'urgent' | 'eventual'
           },
-          breakthroughScore: si.scores.breakthrough,
-          actionableInsight: si.cta,
-          timeSensitive: si.psychology.urgency === 'high' || si.psychology.urgency === 'critical'
+          breakthroughScore: Number(si.scores?.breakthrough) || 50,
+          actionableInsight: si.cta || '',
+          timeSensitive: si.psychology?.urgency === 'high' || si.psychology?.urgency === 'critical'
         }));
 
-        // Prepend AI insights to ensure they're shown first
-        correlatedInsights = [...aiCorrelatedInsights, ...correlatedInsights.filter(ci =>
-          !aiCorrelatedInsights.some(ai => ai.title === ci.title)
-        )].slice(0, 200);
-
-        console.log(`[Streaming] V3: Total insights after AI synthesis: ${correlatedInsights.length}`);
-      } catch (aiSynthesisError) {
-        console.warn('[Streaming] V3: AI synthesis failed (non-fatal):', aiSynthesisError);
-        // Continue with template-based insights
+        // V3 FIX: Prepend AI insights, no filtering or slicing
+        correlatedInsights = [...aiCorrelatedInsights, ...correlatedInsights];
+        console.log(`[Streaming] V3: Added ${aiCorrelatedInsights.length} AI insights, total before atomization: ${correlatedInsights.length}`);
       }
 
-      // V3: Atomize breakthroughs into 500+ content variations
-      console.log(`[Streaming] V3: Running Insight Atomizer for 500+ content variations...`);
-      try {
-        const atomizedInsights = insightAtomizer.atomizeInsights({
-          breakthroughs: rawBreakthroughs,
-          correlatedInsights,
-          uvpData: this.uvpData,
-          brandData: this.brandData,
-          targetCount: 500
-        });
+      // V3 FIX: DISABLED ATOMIZER - it creates fake variations, not genuine insights
+      // Instead, we use AI-synthesized insights directly (from synthesizerPromise above)
+      // The AI Insight Synthesizer uses ContentFrameworkLibrary for genuine unique content
+      console.log(`[Streaming] V3: Atomizer DISABLED - using genuine AI-synthesized insights only`);
 
-        console.log(`[Streaming] V3: Atomized into ${atomizedInsights.length} content variations`);
-
-        // Convert atomized insights to CorrelatedInsight format and append
-        const atomizedCorrelations: CorrelatedInsight[] = atomizedInsights.map(ai => ({
-          id: ai.id,
-          type: 'hidden_pattern' as const,
-          title: ai.title,
-          description: ai.hook,
-          sources: ai.sources.map(s => ({
-            source: (typeof s === 'string' ? s : s.platform || 'unknown') as DataSource,
-            content: typeof s === 'string' ? s : s.quote || '',
-            confidence: ai.breakthroughScore / 100
+      // V3 FIX: MERGE breakthroughs into correlatedInsights as single pipeline
+      // This eliminates duplicate patterns appearing in both arrays
+      if (breakthroughs.length > 0) {
+        const breakthroughsAsInsights: CorrelatedInsight[] = breakthroughs.map((b: BreakthroughOpportunity) => ({
+          id: b.id || `bt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          type: 'psychological_breakthrough' as const,
+          title: b.title,
+          description: b.hook || '',
+          uvpMatch: b.uvpValidation?.painPoint,
+          sources: b.sources.map(s => ({
+            source: s as DataSource,
+            content: b.uvpValidation?.evidence?.[0] || '',
+            confidence: (b.score || 50) / 100
           })),
           psychology: {
-            triggerCategory: ai.psychology.trigger,
-            emotion: ai.psychology.trigger,
-            urgency: ai.psychology.intensity > 0.7 ? 'immediate' : 'eventual'
+            triggerCategory: b.psychology?.triggerCategory || 'unknown',
+            emotion: b.psychology?.emotion || 'unknown',
+            urgency: (b.psychology?.urgency === 'critical' ? 'immediate' :
+                     b.psychology?.urgency === 'high' ? 'urgent' : 'eventual') as 'immediate' | 'urgent' | 'eventual'
           },
-          breakthroughScore: ai.breakthroughScore,
-          actionableInsight: ai.cta,
-          timeSensitive: ai.psychology.intensity > 0.7
+          breakthroughScore: b.score || 50,
+          actionableInsight: b.actionPlan || '',
+          timeSensitive: b.timing?.isTimeSensitive || false
         }));
-
-        // Merge atomized with existing, prioritizing AI-synthesized
-        const existingTitles = new Set(correlatedInsights.map(ci => ci.title.toLowerCase().substring(0, 50)));
-        const newAtomized = atomizedCorrelations.filter(ac =>
-          !existingTitles.has(ac.title.toLowerCase().substring(0, 50))
-        );
-
-        correlatedInsights = [...correlatedInsights, ...newAtomized].slice(0, 500);
-        console.log(`[Streaming] V3: Final insight count: ${correlatedInsights.length}`);
-      } catch (atomizeError) {
-        console.warn('[Streaming] V3: Atomization failed (non-fatal):', atomizeError);
+        correlatedInsights = [...correlatedInsights, ...breakthroughsAsInsights];
+        console.log(`[Streaming] V3: Merged ${breakthroughsAsInsights.length} breakthroughs into correlatedInsights`);
       }
+
+      console.log(`[Streaming] V3: Pre-dedup total insight count: ${correlatedInsights.length}`);
+
+      // V3 FIX: Fast title-based deduplication (embedding dedup was too slow)
+      // Uses normalized title comparison - fast and effective for exact/near duplicates
+      correlatedInsights = this.deduplicateInsightsByTitle(correlatedInsights);
+      console.log(`[Streaming] V3: Final unique insight count: ${correlatedInsights.length}`);
+
+      // Clear breakthroughs array since they're now merged into correlatedInsights
+      breakthroughs = [];
     } catch (correlationError) {
       console.warn('[Streaming] Correlation engine failed (non-fatal):', correlationError);
       // Fallback to basic correlation
@@ -437,21 +556,54 @@ export class StreamingDeepContextBuilder {
       this.currentContext.synthesis.breakthroughs = breakthroughs;
     }
 
-    // Add ALL raw data points for direct display (bypasses categorization limits)
+    // V3 FIX: Filter raw data points by quality before exposing to UI
+    // Only expose data points with meaningful content and reasonable correlation
     if (this.currentContext) {
-      this.currentContext.rawDataPoints = this.dataPoints.map(dp => ({
-        id: dp.id,
-        source: dp.source,
-        type: dp.type,
-        content: dp.content,
-        metadata: {
-          ...dp.metadata,
-          correlationScore: this.calculateDataPointCorrelationScore(dp)
-        },
-        createdAt: dp.createdAt,
-        embedding: dp.embedding
-      }));
-      this.currentContext.correlatedInsights = correlatedInsights;
+      const QUALITY_THRESHOLD = 0.3; // Minimum correlation score to display
+      const MIN_CONTENT_LENGTH = 20; // Minimum characters for meaningful content
+
+      const qualityFilteredDataPoints = this.dataPoints
+        .map(dp => ({
+          id: dp.id,
+          source: dp.source,
+          type: dp.type,
+          content: dp.content,
+          metadata: {
+            ...dp.metadata,
+            correlationScore: this.calculateDataPointCorrelationScore(dp)
+          },
+          createdAt: dp.createdAt,
+          embedding: dp.embedding
+        }))
+        .filter(dp => {
+          // Filter out low-quality data points
+          const hasMinLength = (dp.content?.length || 0) >= MIN_CONTENT_LENGTH;
+          const hasQualityScore = (dp.metadata.correlationScore || 0) >= QUALITY_THRESHOLD;
+          // Always keep high-value types regardless of score
+          const isHighValueType = ['customer_trigger', 'pain_point', 'competitor_mention', 'market_gap'].includes(dp.type);
+          return hasMinLength && (hasQualityScore || isHighValueType);
+        });
+
+      console.log(`[Streaming] V3: Filtered ${this.dataPoints.length} → ${qualityFilteredDataPoints.length} quality data points (threshold: ${QUALITY_THRESHOLD})`);
+
+      // CRITICAL FIX: Preserve ALL synthesis data BEFORE forceContextRebuild wipes them
+      // forceContextRebuild() calls buildContextFromDataPoints() which creates a fresh context
+      const preservedRawDataPoints = qualityFilteredDataPoints;
+      const preservedCorrelatedInsights = correlatedInsights;
+      const preservedBreakthroughs = this.currentContext.synthesis?.breakthroughs || [];
+      const preservedHiddenPatterns = this.currentContext.synthesis?.hiddenPatterns || [];
+
+      // FREEZE FIX: Force final context rebuild before notifying completion
+      // This ensures any pending batched rebuilds are completed
+      await this.forceContextRebuild();
+
+      // NOW assign ALL preserved data AFTER the rebuild
+      this.currentContext!.rawDataPoints = preservedRawDataPoints;
+      this.currentContext!.correlatedInsights = preservedCorrelatedInsights;
+      this.currentContext!.synthesis.breakthroughs = preservedBreakthroughs;
+      this.currentContext!.synthesis.hiddenPatterns = preservedHiddenPatterns;
+
+      console.log(`[Streaming] ✓ Preserved after rebuild: ${preservedRawDataPoints.length} rawDataPoints, ${preservedCorrelatedInsights.length} correlatedInsights, ${preservedBreakthroughs.length} breakthroughs, ${preservedHiddenPatterns.length} patterns`);
     }
 
     // Final progress update
@@ -639,8 +791,10 @@ export class StreamingDeepContextBuilder {
 
       console.log(`[Streaming/${api}] Complete: ${apiDataPoints.length} data points in ${Date.now() - startApiTime}ms`);
 
-      // Rebuild context and notify UI immediately
-      this.currentContext = await this.buildContextFromDataPoints();
+      // FREEZE FIX: Do NOT rebuild context for every API completion
+      // Instead, schedule a batched context rebuild
+      // Context will be rebuilt when notifyProgress actually flushes
+      this.scheduleContextRebuild();
       this.notifyProgress(false);
 
     } catch (error) {
@@ -712,12 +866,52 @@ export class StreamingDeepContextBuilder {
   }
 
   /**
-   * Notify UI of progress
+   * Notify UI of progress - BATCHED to prevent freeze
+   *
+   * FREEZE FIX: Instead of notifying immediately for every API,
+   * we batch notifications and only fire every 500ms.
+   * This prevents 15+ context rebuilds that each take 500ms.
    */
   private notifyProgress(isComplete: boolean): void {
     if (!this.onProgress || !this.currentContext) return;
 
+    // If this is the final notification, flush immediately
+    if (isComplete) {
+      if (this.progressBatchTimeout) {
+        clearTimeout(this.progressBatchTimeout);
+        this.progressBatchTimeout = null;
+      }
+      this.flushProgressNotification(true);
+      return;
+    }
+
+    // Mark that we have a pending notification
+    this.pendingProgressNotification = true;
+
+    // If we already have a pending flush, let it handle it
+    if (this.progressBatchTimeout) {
+      return;
+    }
+
+    // Schedule a batched notification flush
+    this.progressBatchTimeout = setTimeout(() => {
+      this.progressBatchTimeout = null;
+      if (this.pendingProgressNotification) {
+        this.flushProgressNotification(false);
+        this.pendingProgressNotification = false;
+      }
+    }, this.PROGRESS_BATCH_WINDOW_MS);
+  }
+
+  /**
+   * Actually send the progress notification to UI
+   */
+  private flushProgressNotification(isComplete: boolean): void {
+    if (!this.onProgress || !this.currentContext) return;
+
     const pendingApis = ALL_APIS.filter(api => !this.completedApis.has(api));
+
+    console.log(`[Streaming] Flushing progress: ${this.completedApis.size} APIs complete, ${this.dataPoints.length} data points`);
 
     this.onProgress({
       context: this.currentContext,
@@ -727,6 +921,41 @@ export class StreamingDeepContextBuilder {
       buildTimeMs: Date.now() - this.startTime,
       isComplete
     });
+  }
+
+  /**
+   * FREEZE FIX: Schedule a batched context rebuild
+   * Instead of rebuilding context for every API, batch them together
+   */
+  private scheduleContextRebuild(): void {
+    this.contextRebuildPending = true;
+
+    // If already scheduled, let the existing timeout handle it
+    if (this.contextRebuildTimeout) {
+      return;
+    }
+
+    // Schedule rebuild after batch window
+    this.contextRebuildTimeout = setTimeout(async () => {
+      this.contextRebuildTimeout = null;
+      if (this.contextRebuildPending) {
+        console.log(`[Streaming] Batched context rebuild with ${this.dataPoints.length} data points`);
+        this.currentContext = await this.buildContextFromDataPoints();
+        this.contextRebuildPending = false;
+      }
+    }, this.CONTEXT_REBUILD_BATCH_MS);
+  }
+
+  /**
+   * Force immediate context rebuild (for final completion)
+   */
+  private async forceContextRebuild(): Promise<void> {
+    if (this.contextRebuildTimeout) {
+      clearTimeout(this.contextRebuildTimeout);
+      this.contextRebuildTimeout = null;
+    }
+    this.currentContext = await this.buildContextFromDataPoints();
+    this.contextRebuildPending = false;
   }
 
   /**
@@ -834,9 +1063,18 @@ export class StreamingDeepContextBuilder {
 
   /**
    * Build context from accumulated data points
+   * IMPORTANT: Preserves websiteAnalysis if already set
    */
   private async buildContextFromDataPoints(): Promise<DeepContext> {
     const context = this.buildEmptyContext();
+
+    // PRESERVE websiteAnalysis from previous context (it's set separately by fetchWebsiteData)
+    if (this.currentContext?.business?.websiteAnalysis) {
+      if (!context.business) {
+        context.business = {} as any;
+      }
+      (context.business as any).websiteAnalysis = this.currentContext.business.websiteAnalysis;
+    }
 
     // Categorize data points
     const trendingTopics = this.dataPoints.filter(dp => dp.type === 'trending_topic');
@@ -1096,7 +1334,68 @@ export class StreamingDeepContextBuilder {
         });
       });
 
+      // TESTIMONIALS - customer quotes from website
+      analysis.testimonials?.forEach((testimonial: string, idx: number) => {
+        dataPoints.push({
+          id: `website-testimonial-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'customer_trigger' as DataPointType,
+          content: testimonial,
+          metadata: { confidence: analysis.confidence, type: 'testimonial' },
+          createdAt: new Date()
+        });
+      });
+
+      // KEYWORDS - meta tag keywords from website
+      analysis.keywords?.forEach((keyword: string, idx: number) => {
+        dataPoints.push({
+          id: `website-keyword-${Date.now()}-${idx}`,
+          source: 'website' as DataSource,
+          type: 'trending_topic' as DataPointType,
+          content: keyword,
+          metadata: { confidence: analysis.confidence, type: 'meta_keyword' },
+          createdAt: new Date()
+        });
+      });
+
+      // Store full website analysis in context for sidebar access
+      if (!this.currentContext) {
+        this.currentContext = this.buildEmptyContext();
+      }
+      if (!this.currentContext.business) {
+        this.currentContext.business = {} as any;
+      }
+      (this.currentContext.business as any).websiteAnalysis = {
+        testimonials: analysis.testimonials || [],
+        proofPoints: analysis.proofPoints || [],
+        metaTags: analysis.metaTags || {},
+        keywords: analysis.keywords || [],
+        differentiators: analysis.differentiators || [],
+        valuePropositions: analysis.valuePropositions || [],
+        targetAudience: analysis.targetAudience || [],
+        solutions: analysis.solutions || [],
+        customerProblems: analysis.customerProblems || [],
+        confidence: analysis.confidence
+      };
+
+      console.log('[Streaming/website] Stored websiteAnalysis in currentContext:', {
+        testimonials: analysis.testimonials?.length || 0,
+        proofPoints: analysis.proofPoints?.length || 0,
+        metaTags: Object.keys(analysis.metaTags || {}).length,
+        keywords: analysis.keywords?.length || 0,
+        differentiators: analysis.differentiators?.length || 0,
+        valuePropositions: analysis.valuePropositions?.length || 0,
+        solutions: analysis.solutions?.length || 0,
+        customerProblems: analysis.customerProblems?.length || 0
+      });
+
       console.log(`[Streaming/website] Extracted ${dataPoints.length} data points from website`);
+      if (analysis.testimonials?.length) {
+        console.log(`[Streaming/website] Found ${analysis.testimonials.length} testimonials`);
+      }
+      if (analysis.keywords?.length) {
+        console.log(`[Streaming/website] Found ${analysis.keywords.length} keywords from meta tags`);
+      }
     } catch (error) {
       console.error('[Streaming/website] Analysis failed:', error);
     }
@@ -4328,14 +4627,15 @@ export class StreamingDeepContextBuilder {
 
       console.log(`[Streaming/correlation] Found ${candidates.length} connection candidates`);
 
-      // Score and filter the best connections
-      for (const candidate of candidates.slice(0, 50)) { // Process top 50
+      // V3 FIX: Process ALL candidates - Atomizer handles dedup
+      // Lowered score threshold from 60 to 40 to get more insights
+      for (const candidate of candidates) {
         // Convert to Connection format and score it
         const connection = this.connectionFinder.toConnection(candidate, `conn-${Date.now()}-${Math.random().toString(36).substring(7)}`);
         const scoredConnection = this.connectionScorer.scoreConnection(connection, this.currentContext!);
 
-        // Only include high-value connections (score >= 60)
-        if (scoredConnection.breakthroughPotential.score >= 60) {
+        // V3 FIX: Lowered threshold from 60 to 40 - let Atomizer handle quality filtering
+        if (scoredConnection.breakthroughPotential.score >= 40) {
           const insight = this.convertConnectionToCorrelatedInsight(scoredConnection, candidate);
           correlatedInsights.push(insight);
         }
@@ -4366,8 +4666,9 @@ export class StreamingDeepContextBuilder {
       // Sort by breakthrough score
       correlatedInsights.sort((a, b) => b.breakthroughScore - a.breakthroughScore);
 
-      console.log(`[Streaming/correlation] Generated ${correlatedInsights.length} correlated insights`);
-      return correlatedInsights.slice(0, 100); // INCREASED from 30 to 100
+      // V3 FIX: No slice limit - return ALL, Atomizer handles dedup
+      console.log(`[Streaming/correlation] Generated ${correlatedInsights.length} correlated insights (no limit)`);
+      return correlatedInsights;
 
     } catch (error) {
       console.error('[Streaming/correlation] Error finding correlations:', error);
@@ -4852,19 +5153,13 @@ export class StreamingDeepContextBuilder {
    */
   private async convertConnectionsToCorrelatedInsights(connections: any[]): Promise<CorrelatedInsight[]> {
     const insights: CorrelatedInsight[] = [];
-    const seenTitles = new Set<string>();
-    const seenContentHashes = new Set<string>();
 
-    for (const conn of connections) {
-      // Create content hash for deduplication
-      const contentHash = conn.dataPoints
-        .map((dp: DataPoint) => dp.content.substring(0, 50).toLowerCase().replace(/\s+/g, ''))
-        .sort()
-        .join('|');
+    // PERFORMANCE FIX: Limit to prevent freeze (connections already sorted by score from allConnections)
+    const MAX_CONVERT = 300;
+    const limitedConnections = connections.slice(0, MAX_CONVERT);
+    console.log(`[Streaming] PERFORMANCE: Converting ${limitedConnections.length} of ${connections.length} connections to insights`);
 
-      // Skip duplicates
-      if (seenContentHashes.has(contentHash)) continue;
-      seenContentHashes.add(contentHash);
+    for (const conn of limitedConnections) {
 
       // Check for UVP matches across all data points in connection
       const uvpMatches: string[] = [];
@@ -4913,10 +5208,7 @@ export class StreamingDeepContextBuilder {
         }
       }
 
-      // Skip duplicate titles
-      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
-      if (seenTitles.has(titleKey)) continue;
-      seenTitles.add(titleKey);
+      // V3 FIX: NO TITLE DEDUP - Atomizer handles ALL deduplication
 
       insights.push({
         id: conn.id,
@@ -4940,9 +5232,9 @@ export class StreamingDeepContextBuilder {
       });
     }
 
-    console.log(`[Streaming] Deduplicated correlations: ${connections.length} → ${insights.length} unique`);
-    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
-    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore).slice(0, 300);
+    console.log(`[Streaming] Converted ${connections.length} connections → ${insights.length} correlations (no dedup)`);
+    // V3: Return all - Atomizer handles dedup
+    return insights.sort((a, b) => b.breakthroughScore - a.breakthroughScore);
   }
 
   /**
@@ -4970,19 +5262,22 @@ export class StreamingDeepContextBuilder {
 
     // V3: Batch generate AI titles for all connections BEFORE processing
     // This populates the cache so generateTitleWithHook returns AI titles
+    // V3 FIX: No slice limit - process ALL connections
     const connections = rawBreakthroughs
       .map(bt => bt.connections?.[0])
-      .filter(Boolean)
-      .slice(0, 100); // Process top 100 connections for AI titles
+      .filter(Boolean);
 
+    // V3 PARALLEL: Start AI title generation in background - don't await yet
+    let aiTitlePromise: Promise<void> | null = null;
     if (connections.length > 0) {
-      console.log(`[Streaming] V3: Batch generating AI titles for ${connections.length} connections...`);
+      console.log(`[Streaming] V3: Starting parallel AI title generation for ${connections.length} connections...`);
       const brandContext = {
-        name: this.deepContext?.brandProfile?.name || 'the business',
-        uvp: this.deepContext?.brandProfile?.uvpElements?.transformation || '',
-        industry: this.deepContext?.brandProfile?.industry || 'their industry'
+        name: this.currentContext?.brandProfile?.name || 'the business',
+        uvp: this.currentContext?.brandProfile?.uvpElements?.transformation || '',
+        industry: this.currentContext?.brandProfile?.industry || 'their industry'
       };
-      await connectionDiscoveryService.batchGenerateAITitles(connections, brandContext);
+      // Start but don't await - will complete in parallel with opportunity creation
+      aiTitlePromise = connectionDiscoveryService.batchGenerateAITitles(connections, brandContext);
     }
 
     // V2: Track dimension distribution for variety enforcement (with pillar + persona)
@@ -4998,52 +5293,24 @@ export class StreamingDeepContextBuilder {
     const dimensionSignatures = new Set<string>(); // Track unique dimension combos
     let lastHookFormulas: string[] = [];
 
-    // Calculate max per dimension (no stage >40%)
-    // V3 PHASE E: Increased target from 50 → 150 for 500+ insights
-    const targetCount = 150;
-    const maxPerStage = Math.ceil(targetCount * 0.40);
-    const maxPerEmotion = Math.ceil(targetCount * 0.25);
+    // V3 FIX: NO DIMENSION CAPS HERE - Atomizer handles all variety enforcement
+    // This function just enriches breakthroughs with metadata, doesn't filter
+    // Atomizer will create 8 formats × 4 stages and enforce its own caps
 
-    // V3 PHASE E: Increased from 150 → 300 raw breakthroughs for more content
-    for (const bt of rawBreakthroughs.slice(0, 300)) {
+    // Process ALL raw breakthroughs - let Atomizer handle variety
+    for (const bt of rawBreakthroughs) {
       const conn = bt.connections?.[0];
       if (!conn) continue;
 
-      // V2: Tag dimensions using connection discovery service
+      // V3 FIX: NO DEDUP - Atomizer handles ALL deduplication
+      // Just tag dimensions for metadata enrichment
       let dimensions: InsightDimensions | undefined;
       try {
         dimensions = connectionDiscoveryService.tagDimensions(conn, segment);
 
-        // V2: Combined content + dimensions hash for smart dedup
-        const combinedHash = connectionDiscoveryService.createCombinedHash(conn, dimensions);
-        if (combinedHashes.has(combinedHash)) {
-          continue; // Same content + same dimensions = skip
-        }
-
-        // V2: Check maximums (no stage >40%)
-        const stageCount = dimensionCounts.journeyStage.get(dimensions.journeyStage) || 0;
-        const emotionCount = dimensionCounts.emotion.get(dimensions.emotion) || 0;
-
-        if (stageCount >= maxPerStage) {
-          continue; // Skip if this stage is over-represented
-        }
-
-        if (emotionCount >= maxPerEmotion && (dimensionCounts.format.get(dimensions.format) || 0) >= maxPerEmotion) {
-          continue; // Skip if both emotion AND format are over max
-        }
-
-        // V2: Hook rotation - avoid consecutive repeats
-        let hookFormula = dimensions.hookFormula;
-        if (lastHookFormulas.slice(-3).includes(hookFormula)) {
-          hookFormula = connectionDiscoveryService.getRotatedHookFormula(conn);
-          dimensions.hookFormula = hookFormula;
-        }
-        lastHookFormulas.push(hookFormula);
-
-        // Update counts
-        combinedHashes.add(combinedHash);
-        dimensionCounts.journeyStage.set(dimensions.journeyStage, stageCount + 1);
-        dimensionCounts.emotion.set(dimensions.emotion, emotionCount + 1);
+        // Track dimension distribution for logging only
+        dimensionCounts.journeyStage.set(dimensions.journeyStage, (dimensionCounts.journeyStage.get(dimensions.journeyStage) || 0) + 1);
+        dimensionCounts.emotion.set(dimensions.emotion, (dimensionCounts.emotion.get(dimensions.emotion) || 0) + 1);
         dimensionCounts.format.set(dimensions.format, (dimensionCounts.format.get(dimensions.format) || 0) + 1);
         dimensionCounts.hookFormula.set(dimensions.hookFormula, (dimensionCounts.hookFormula.get(dimensions.hookFormula) || 0) + 1);
         if (dimensions.pillar) dimensionCounts.pillar.set(dimensions.pillar, (dimensionCounts.pillar.get(dimensions.pillar) || 0) + 1);
@@ -5053,7 +5320,7 @@ export class StreamingDeepContextBuilder {
         const dimSignature = `${dimensions.journeyStage}-${dimensions.emotion}-${dimensions.format}-${dimensions.pillar}`;
         dimensionSignatures.add(dimSignature);
       } catch (e) {
-        // Fallback if dimension tagging fails
+        // Fallback if dimension tagging fails - still process the breakthrough
       }
 
       // V2: Generate title using rotated hook formula (ALWAYS use hook formula when dimensions are available)
@@ -5247,8 +5514,9 @@ export class StreamingDeepContextBuilder {
     }
 
     // Also generate breakthroughs from UVP-seeded clusters
+    // V3 FIX: NO SLICE - process ALL UVP clusters, let downstream handle variety
     const uvpClusters = clusters.filter(c => c.isUVPSeeded && c.crossSourceCount >= 2);
-    for (const cluster of uvpClusters.slice(0, 5)) {
+    for (const cluster of uvpClusters) {
       // Skip if we already have a breakthrough for this UVP
       if (opportunities.some(o => o.uvpValidation?.painPoint === cluster.theme)) continue;
 
@@ -5301,7 +5569,210 @@ export class StreamingDeepContextBuilder {
     console.log(`  Hook Formulas: ${Array.from(dimensionCounts.hookFormula.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
     console.log(`  Unique Combinations: ${dimensionSignatures.size}`);
 
+    // =========================================================================
+    // V3: FULL V1 PIPELINE INTEGRATION (PARALLEL)
+    // SynapseGenerator + AI Titles run in parallel, then apply frameworks
+    // =========================================================================
+
+    // V3 PARALLEL: Wait for AI titles to complete (was running in parallel with loop above)
+    if (aiTitlePromise) {
+      console.log('[Streaming] V3: Waiting for parallel AI title generation to complete...');
+      await aiTitlePromise;
+      console.log('[Streaming] V3: AI title generation complete');
+    }
+
+    // V3.1: Run SynapseGenerator for AI-synthesized titles (top 30 connections)
+    let synapseEnhanced = false;
+    try {
+      // Skip if currentContext not available
+      if (!this.currentContext) {
+        console.log('[Streaming] V3.1: Skipping SynapseGenerator - currentContext not available');
+        throw new Error('currentContext not available');
+      }
+
+      const synapseInput: SynapseInput = {
+        business: {
+          name: this.currentContext?.brandProfile?.name || 'Business',
+          industry: this.currentContext?.brandProfile?.industry || 'general',
+          location: {
+            city: this.currentContext?.brandProfile?.location?.city || '',
+            state: this.currentContext?.brandProfile?.location?.state || ''
+          }
+        },
+        intelligence: this.currentContext,
+        detailedDataPoints: this.dataPoints.slice(0, 50) // Top 50 data points for provenance
+      };
+
+      console.log('[Streaming] V3.1: Running SynapseGenerator for AI synthesis...');
+      const synapseResult = await generateSynapses(synapseInput);
+
+      if (synapseResult.synapses.length > 0) {
+        console.log(`[Streaming] V3.1: SynapseGenerator produced ${synapseResult.synapses.length} AI-synthesized insights`);
+
+        // Enhance top opportunities with SynapseGenerator output
+        for (let i = 0; i < Math.min(synapseResult.synapses.length, opportunities.length); i++) {
+          const synapse = synapseResult.synapses[i];
+          const opp = opportunities[i];
+
+          // Replace with AI-synthesized content if available
+          if (synapse.title && synapse.title.length > 10) {
+            opp.title = synapse.title;
+          }
+          if (synapse.insight && synapse.insight.length > 10) {
+            opp.hook = synapse.insight;
+          }
+          if (synapse.callToAction) {
+            opp.actionPlan = opp.actionPlan + `\n🎯 AI Recommended CTA: ${synapse.callToAction}`;
+          }
+          // Add provenance from Synapse
+          if (synapse.deepProvenance) {
+            (opp as any).provenance = synapse.deepProvenance;
+          }
+        }
+        synapseEnhanced = true;
+      }
+    } catch (error) {
+      console.error('[Streaming] V3.1: SynapseGenerator error:', error);
+      // Continue with template-based content - don't block pipeline
+    }
+
+    // V3.2: Apply ContentFrameworkLibrary for framework selection
+    try {
+      console.log('[Streaming] V3.2: Applying ContentFrameworkLibrary...');
+
+      for (const opp of opportunities) {
+        // Build a mock insight for framework selection
+        const mockInsight = {
+          type: opp.psychology?.triggerCategory === 'pain_point' ? 'counter_intuitive' :
+                opp.psychology?.triggerCategory === 'aspiration' ? 'predictive_opportunity' : 'deep_psychology'
+        } as any;
+
+        // Select framework based on insight type and journey stage
+        const journeyStage = (opp as any).dimensions?.journeyStage || 'awareness';
+        const framework = frameworkLibrary.selectFramework(mockInsight, 'social', 'conversion');
+
+        // Add framework to opportunity
+        (opp as any).framework = {
+          id: framework.id,
+          name: framework.name,
+          stages: framework.stages.map(s => s.name)
+        };
+      }
+    } catch (error) {
+      console.warn('[Streaming] V3.2: ContentFrameworkLibrary failed:', error);
+    }
+
+    // V3.3: Apply ContentSynthesisOrchestrator for EQ-weighted scoring
+    try {
+      console.log('[Streaming] V3.3: Applying ContentSynthesisOrchestrator...');
+
+      const orchestratorSegment: OrchestratorSegment =
+        segment === 'SMB_LOCAL' ? 'smb_local' :
+        segment === 'SMB_REGIONAL' ? 'smb_regional' :
+        segment === 'B2B_NATIONAL' ? 'b2b_national' : 'b2b_global';
+
+      const enrichedContext = await contentSynthesisOrchestrator.buildEnrichedContext({
+        brandName: this.currentContext?.brandProfile?.name || 'Business',
+        industry: this.currentContext?.brandProfile?.industry || 'general',
+        naicsCode: this.currentContext?.brandProfile?.naicsCode,
+        uvpData: {
+          target_customer: this.currentContext?.brandProfile?.uvpElements?.targetCustomer,
+          key_benefit: this.currentContext?.brandProfile?.uvpElements?.keyBenefit,
+          transformation: this.currentContext?.brandProfile?.uvpElements?.transformation
+        },
+        segment: orchestratorSegment
+      });
+
+      // Score and re-rank opportunities
+      const scoredOpportunities = opportunities.map(opp => {
+        const mockSynthesized = {
+          id: opp.id,
+          title: opp.title,
+          hook: opp.hook,
+          psychology: { triggerType: opp.psychology?.triggerCategory },
+          dimensions: (opp as any).dimensions,
+          scores: { breakthrough: opp.score }
+        } as any;
+
+        const eqAlignment = this.calculateEQAlignmentScore(mockSynthesized, enrichedContext);
+        const industryRelevance = this.calculateIndustryRelevanceScore(mockSynthesized, enrichedContext);
+        const segmentFit = this.calculateSegmentFitScore(mockSynthesized, enrichedContext);
+
+        // Apply EQ weighting to final score
+        const emotionalWeight = enrichedContext.eqProfile.emotional_weight / 100;
+        const boostedScore = opp.score * (1 + (eqAlignment / 100) * emotionalWeight * 0.3);
+
+        return {
+          ...opp,
+          score: Math.round(boostedScore),
+          eqScore: Math.round((opp.eqScore || 50) * (1 + eqAlignment / 200)),
+          orchestratorScores: { eqAlignment, industryRelevance, segmentFit }
+        };
+      });
+
+      // Re-sort by boosted score
+      scoredOpportunities.sort((a, b) => b.score - a.score);
+
+      console.log(`[Streaming] V3.3: Orchestrator applied EQ/Industry/Segment scoring to ${scoredOpportunities.length} opportunities`);
+
+      return scoredOpportunities;
+    } catch (error) {
+      console.warn('[Streaming] V3.3: ContentSynthesisOrchestrator failed:', error);
+    }
+
     return opportunities.sort((a, b) => b.score - a.score);
+  }
+
+  // V3: EQ alignment scoring helper
+  private calculateEQAlignmentScore(insight: any, context: EnrichedContext): number {
+    const trigger = (insight.psychology?.triggerType || '').toLowerCase();
+    const weights = context.eqWeights;
+
+    if (trigger.includes('fear') || trigger.includes('pain') || trigger.includes('risk')) {
+      return weights.fear;
+    } else if (trigger.includes('aspiration') || trigger.includes('desire')) {
+      return weights.aspiration;
+    } else if (trigger.includes('trust') || trigger.includes('proof')) {
+      return weights.trust;
+    } else if (trigger.includes('urgent') || trigger.includes('now')) {
+      return weights.urgency;
+    } else if (trigger.includes('logic') || trigger.includes('roi')) {
+      return weights.logic;
+    }
+    return 50;
+  }
+
+  // V3: Industry relevance scoring helper
+  private calculateIndustryRelevanceScore(insight: any, context: EnrichedContext): number {
+    if (!context.industryProfile) return 50;
+
+    const content = ((insight.title || '') + ' ' + (insight.hook || '')).toLowerCase();
+    let score = 50;
+
+    const powerWords = context.industryProfile.power_words || [];
+    const matches = powerWords.filter((w: string) => content.includes(w.toLowerCase())).length;
+    score += Math.min(30, matches * 6);
+
+    const avoidWords = context.industryProfile.avoid_words || [];
+    const avoidMatches = avoidWords.filter((w: string) => content.includes(w.toLowerCase())).length;
+    score -= avoidMatches * 10;
+
+    return Math.max(0, Math.min(100, score));
+  }
+
+  // V3: Segment fit scoring helper
+  private calculateSegmentFitScore(insight: any, context: EnrichedContext): number {
+    const content = ((insight.title || '') + ' ' + (insight.hook || '')).toLowerCase();
+    const guidelines = context.segmentGuidelines;
+    let score = 50;
+
+    const languageMatches = guidelines.language.filter((t: string) => content.includes(t.toLowerCase())).length;
+    score += languageMatches * 8;
+
+    const avoidMatches = guidelines.avoidAreas.filter((a: string) => content.includes(a.toLowerCase())).length;
+    score -= avoidMatches * 15;
+
+    return Math.max(0, Math.min(100, score));
   }
 
   /**
@@ -5462,6 +5933,141 @@ export class StreamingDeepContextBuilder {
     }
 
     return dataPoints;
+  }
+
+  /**
+   * V3 FAST: Title-based deduplication for final insights
+   * Uses normalized title comparison - instant, no API calls
+   * Keeps highest-scoring insight when duplicates found
+   */
+  private deduplicateInsightsByTitle(insights: CorrelatedInsight[]): CorrelatedInsight[] {
+    if (insights.length === 0) return [];
+
+    console.log(`[Streaming/Dedup] Starting title-based dedup on ${insights.length} insights...`);
+    const startTime = Date.now();
+
+    // Normalize title for comparison (lowercase, remove punctuation, collapse whitespace)
+    const normalize = (title: string): string => {
+      return (title || '')
+        .toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+    };
+
+    // Group by normalized title, keep highest scoring
+    const titleMap = new Map<string, CorrelatedInsight>();
+
+    for (const insight of insights) {
+      const normalizedTitle = normalize(insight.title);
+      if (!normalizedTitle || normalizedTitle.length < 5) {
+        // Keep insights with very short/empty titles as-is
+        titleMap.set(`unique-${Date.now()}-${Math.random()}`, insight);
+        continue;
+      }
+
+      const existing = titleMap.get(normalizedTitle);
+      if (!existing) {
+        titleMap.set(normalizedTitle, insight);
+      } else {
+        // Keep the one with higher breakthrough score
+        const existingScore = existing.breakthroughScore || 0;
+        const newScore = insight.breakthroughScore || 0;
+        if (newScore > existingScore) {
+          titleMap.set(normalizedTitle, insight);
+        }
+      }
+    }
+
+    const deduplicated = Array.from(titleMap.values());
+    const removedCount = insights.length - deduplicated.length;
+    const elapsed = Date.now() - startTime;
+
+    console.log(`[Streaming/Dedup] Title dedup: ${insights.length} -> ${deduplicated.length} (removed ${removedCount}) in ${elapsed}ms`);
+
+    return deduplicated;
+  }
+
+  /**
+   * V3: Embedding-based deduplication for final insights (DISABLED - too slow)
+   * Uses semantic similarity on full content (title + hook) to catch rephrased duplicates
+   * Keeps highest-scoring insight when duplicates found
+   */
+  private async deduplicateInsightsByEmbedding(
+    insights: CorrelatedInsight[],
+    similarityThreshold: number = 0.85
+  ): Promise<CorrelatedInsight[]> {
+    if (insights.length === 0) return [];
+
+    console.log(`[Streaming/Dedup] Starting embedding-based dedup on ${insights.length} insights...`);
+    const startTime = Date.now();
+
+    // Create content strings for embedding (title + description for semantic matching)
+    const contentStrings = insights.map(insight =>
+      `${insight.title}. ${insight.description || ''}`
+    );
+
+    // Generate embeddings in batches
+    let embeddings: number[][];
+    try {
+      embeddings = await embeddingService.generateBatchEmbeddings(contentStrings);
+    } catch (error) {
+      console.error('[Streaming/Dedup] Failed to generate embeddings, skipping dedup:', error);
+      return insights; // Return original if embedding fails
+    }
+
+    // Track which insights to keep (by index)
+    const kept = new Set<number>();
+    const duplicateOf = new Map<number, number>(); // maps duplicate index -> original index
+
+    for (let i = 0; i < insights.length; i++) {
+      if (duplicateOf.has(i)) continue; // Already marked as duplicate
+
+      kept.add(i);
+
+      // Compare against all remaining insights
+      for (let j = i + 1; j < insights.length; j++) {
+        if (duplicateOf.has(j)) continue;
+
+        const similarity = embeddingService.cosineSimilarity(embeddings[i], embeddings[j]);
+
+        if (similarity >= similarityThreshold) {
+          // These are duplicates - keep the one with higher breakthrough score
+          const scoreI = insights[i].breakthroughScore || 0;
+          const scoreJ = insights[j].breakthroughScore || 0;
+
+          if (scoreJ > scoreI) {
+            // j is better, mark i as duplicate of j
+            kept.delete(i);
+            duplicateOf.set(i, j);
+            kept.add(j);
+          } else {
+            // i is better (or equal), mark j as duplicate of i
+            duplicateOf.set(j, i);
+          }
+        }
+      }
+    }
+
+    // Build deduplicated array
+    const deduplicated = Array.from(kept)
+      .sort((a, b) => a - b) // Maintain original order
+      .map(idx => insights[idx]);
+
+    const removedCount = insights.length - deduplicated.length;
+    const elapsed = Date.now() - startTime;
+
+    console.log(`\n╔══════════════════════════════════════════════════════════════╗`);
+    console.log(`║         INSIGHT DEDUPLICATION SUMMARY                        ║`);
+    console.log(`╠══════════════════════════════════════════════════════════════╣`);
+    console.log(`║  Input insights:    ${insights.length.toString().padStart(5)}                                    ║`);
+    console.log(`║  Duplicates found:  ${removedCount.toString().padStart(5)}                                    ║`);
+    console.log(`║  Unique insights:   ${deduplicated.length.toString().padStart(5)}                                    ║`);
+    console.log(`║  Similarity threshold: ${(similarityThreshold * 100).toFixed(0)}%                                 ║`);
+    console.log(`║  Processing time:   ${elapsed.toString().padStart(5)}ms                                   ║`);
+    console.log(`╚══════════════════════════════════════════════════════════════╝\n`);
+
+    return deduplicated;
   }
 }
 

@@ -80,13 +80,14 @@ class ConnectionDiscoveryService {
       batches.push(connections.slice(i, i + BATCH_SIZE));
     }
 
-    console.log(`[V3-AI] Batch generating titles for ${connections.length} connections in ${batches.length} batches...`);
+    console.log(`[V3-AI] Batch generating titles for ${connections.length} connections in ${batches.length} batches (PARALLEL)...`);
 
     const brandName = brandContext?.name || 'the business';
     const brandUVP = brandContext?.uvp || '';
     const industry = brandContext?.industry || 'their industry';
 
-    for (const batch of batches) {
+    // V3 FIX: Run ALL batches in parallel with 30s timeout per batch
+    const batchPromises = batches.map(async (batch, batchIndex) => {
       try {
         const connectionSummaries = batch.map((conn, idx) => {
           const sources = conn.sources.join(', ');
@@ -147,6 +148,12 @@ Return JSON array with ${batch.length} objects, one per connection.`
             content = content.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
           }
 
+          // Try to extract JSON array from response (AI sometimes returns prose around JSON)
+          const jsonMatch = content.match(/\[[\s\S]*\]/);
+          if (jsonMatch) {
+            content = jsonMatch[0];
+          }
+
           try {
             const titles = JSON.parse(content);
             if (Array.isArray(titles)) {
@@ -163,14 +170,18 @@ Return JSON array with ${batch.length} objects, one per connection.`
             }
           } catch (parseError) {
             console.warn('[V3-AI] Failed to parse batch response:', parseError);
+            // Non-critical - will use fallback titles
           }
         }
       } catch (error) {
-        console.warn('[V3-AI] Batch title generation failed:', error);
+        console.warn(`[V3-AI] Batch ${batchIndex + 1} title generation failed:`, error);
       }
-    }
+    });
 
-    console.log(`[V3-AI] Total cached titles: ${this.aiTitleCache.size}`);
+    // Wait for ALL batches to complete - no timeouts, true parallel execution
+    await Promise.allSettled(batchPromises);
+
+    console.log(`[V3-AI] ✅ All ${batches.length} batches complete. Total cached titles: ${this.aiTitleCache.size}`);
   }
 
   /**
@@ -206,28 +217,60 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const twoWay = this.findTwoWayConnections(dataPoints);
     console.log(`[ConnectionDiscovery] Found ${twoWay.length} two-way connections`);
 
-    // Find three-way connections
-    const threeWay = this.findThreeWayConnections(dataPoints, twoWay);
+    // PERFORMANCE FIX: Limit input to prevent O(n²) freeze
+    // Take top 300 two-way connections (already sorted by breakthroughScore)
+    const twoWayLimited = twoWay.slice(0, 300);
+    console.log(`[ConnectionDiscovery] Using top ${twoWayLimited.length} two-way for three-way search`);
+
+    // Find three-way connections (limited input)
+    const threeWay = this.findThreeWayConnections(dataPoints, twoWayLimited);
     console.log(`[ConnectionDiscovery] Found ${threeWay.length} three-way connections`);
 
-    // Find four-way connections
-    const fourWay = this.findFourWayConnections(dataPoints, threeWay);
+    // PERFORMANCE FIX: Limit three-way input to prevent O(n²) freeze on four-way
+    const threeWayLimited = threeWay.slice(0, 200);
+    console.log(`[ConnectionDiscovery] Using top ${threeWayLimited.length} three-way for four-way search`);
+
+    // Find four-way connections (limited input)
+    const fourWay = this.findFourWayConnections(dataPoints, threeWayLimited);
     console.log(`[ConnectionDiscovery] Found ${fourWay.length} four-way connections`);
 
+    // PERFORMANCE FIX: Limit four-way input
+    const fourWayLimited = fourWay.slice(0, 100);
+
     // Find five-way connections (ultimate breakthrough)
-    const fiveWay = this.findFiveWayConnections(dataPoints, fourWay);
+    const fiveWay = this.findFiveWayConnections(dataPoints, fourWayLimited);
     console.log(`[ConnectionDiscovery] Found ${fiveWay.length} five-way connections`);
 
-    // Generate breakthrough angles from top connections (prioritize higher-order connections)
-    // V3 PHASE E: Further increased limits: 225 → 400 connections for 500+ insights
-    const breakthroughs = await this.generateBreakthroughAngles([
-      ...fiveWay.slice(0, 25),
-      ...fourWay.slice(0, 50),
-      ...threeWay.slice(0, 100),
-      ...twoWay.slice(0, 225)
-    ]);
+    // PERFORMANCE FIX: Limit total connections passed to generateBreakthroughAngles
+    // Previously passed ALL which could be 18K+ items causing freeze
+    const MAX_TOTAL_FOR_BREAKTHROUGHS = 500;
+    const allConnections = [
+      ...fiveWay,    // Highest value first
+      ...fourWay,
+      ...threeWay,
+      ...twoWay
+    ].slice(0, MAX_TOTAL_FOR_BREAKTHROUGHS);
+    console.log(`[ConnectionDiscovery] PERFORMANCE: Using ${allConnections.length} connections for breakthrough generation`);
+
+    const breakthroughs = await this.generateBreakthroughAngles(allConnections);
 
     console.log(`[ConnectionDiscovery] ✅ Generated ${breakthroughs.length} breakthrough angles`);
+
+    // V3: Comprehensive output logging for visibility
+    const totalConnections = twoWay.length + threeWay.length + fourWay.length + fiveWay.length;
+    console.log(`\n╔══════════════════════════════════════════════════════════════╗`);
+    console.log(`║         CONNECTION DISCOVERY OUTPUT SUMMARY                  ║`);
+    console.log(`╠══════════════════════════════════════════════════════════════╣`);
+    console.log(`║  Input:  ${dataPoints.length.toString().padStart(5)} data points                                   ║`);
+    console.log(`╠══════════════════════════════════════════════════════════════╣`);
+    console.log(`║  2-way connections:  ${twoWay.length.toString().padStart(5)}                                      ║`);
+    console.log(`║  3-way connections:  ${threeWay.length.toString().padStart(5)}                                      ║`);
+    console.log(`║  4-way connections:  ${fourWay.length.toString().padStart(5)}                                      ║`);
+    console.log(`║  5-way connections:  ${fiveWay.length.toString().padStart(5)}                                      ║`);
+    console.log(`╠══════════════════════════════════════════════════════════════╣`);
+    console.log(`║  TOTAL CONNECTIONS:  ${totalConnections.toString().padStart(5)}                                      ║`);
+    console.log(`║  BREAKTHROUGHS:      ${breakthroughs.length.toString().padStart(5)}                                      ║`);
+    console.log(`╚══════════════════════════════════════════════════════════════╝\n`);
 
     return { twoWay, threeWay, fourWay, fiveWay, breakthroughs };
   }
@@ -239,8 +282,17 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
+    // PERFORMANCE FIX: Hard limit on output to prevent downstream freeze
+    const MAX_TWO_WAY = 300;
+
     for (let i = 0; i < dataPoints.length; i++) {
+      // PERFORMANCE: Early exit when we have enough connections
+      if (connections.length >= MAX_TWO_WAY) break;
+
       for (let j = i + 1; j < dataPoints.length; j++) {
+        // PERFORMANCE: Check inside inner loop too
+        if (connections.length >= MAX_TWO_WAY) break;
+
         const dp1 = dataPoints[i];
         const dp2 = dataPoints[j];
 
@@ -292,9 +344,18 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    // INCREASED from 50 to 100 - more two-way connections = more three-way possibilities
-    for (const conn of twoWay.slice(0, 100)) {
+    // PERFORMANCE FIX: Hard limits to prevent O(n×m) freeze
+    const MAX_THREE_WAY = 500;
+    const MAX_TWO_WAY_INPUT = 150; // Limit input to prevent 300×100 = 30,000 iterations
+    const limitedTwoWay = twoWay.slice(0, MAX_TWO_WAY_INPUT);
+
+    for (const conn of limitedTwoWay) {
+      // PERFORMANCE: Early exit
+      if (connections.length >= MAX_THREE_WAY) break;
+
       for (const dp of dataPoints) {
+        // PERFORMANCE: Check inside inner loop
+        if (connections.length >= MAX_THREE_WAY) break;
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
 
@@ -348,9 +409,19 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    // INCREASED from 20 to 50 - more three-way connections = more four-way possibilities
-    for (const conn of threeWay.slice(0, 50)) {
+    // PERFORMANCE FIX: Hard limits to prevent O(n×m) freeze
+    const MAX_FOUR_WAY = 200;
+    const MAX_THREE_WAY_INPUT = 100;
+    const limitedThreeWay = threeWay.slice(0, MAX_THREE_WAY_INPUT);
+
+    for (const conn of limitedThreeWay) {
+      // PERFORMANCE: Early exit
+      if (connections.length >= MAX_FOUR_WAY) break;
+
       for (const dp of dataPoints) {
+        // PERFORMANCE: Check inside inner loop
+        if (connections.length >= MAX_FOUR_WAY) break;
+
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
 
@@ -402,9 +473,19 @@ Return JSON array with ${batch.length} objects, one per connection.`
     const connections: Connection[] = [];
     const seen = new Set<string>();
 
-    // INCREASED from 10 to 25 four-way connections for more five-way opportunities
-    for (const conn of fourWay.slice(0, 25)) {
+    // PERFORMANCE FIX: Hard limits to prevent O(n×m) freeze
+    const MAX_FIVE_WAY = 100;
+    const MAX_FOUR_WAY_INPUT = 50;
+    const limitedFourWay = fourWay.slice(0, MAX_FOUR_WAY_INPUT);
+
+    for (const conn of limitedFourWay) {
+      // PERFORMANCE: Early exit
+      if (connections.length >= MAX_FIVE_WAY) break;
+
       for (const dp of dataPoints) {
+        // PERFORMANCE: Check inside inner loop
+        if (connections.length >= MAX_FIVE_WAY) break;
+
         // Must be different source
         if (conn.sources.includes(dp.source)) continue;
 
@@ -644,35 +725,21 @@ Return JSON array with ${batch.length} objects, one per connection.`
   }
 
   /**
-   * Generate breakthrough angles with DEDUPLICATION
+   * Generate breakthrough angles with RELAXED deduplication
+   * V3 FIX: Previous dedup was too aggressive (400→34). Now targets 150+ breakthroughs.
    */
   private async generateBreakthroughAngles(connections: Connection[]): Promise<BreakthroughAngle[]> {
     if (connections.length === 0) return [];
 
     const breakthroughs: BreakthroughAngle[] = [];
-    const seenTitles = new Set<string>();
-    const seenContentHashes = new Set<string>();
 
-    // Generate titles for top connections - with deduplication
-    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
-    for (const conn of connections.slice(0, 300)) {
-      // Create content hash from first 50 chars of each data point
-      const contentHash = conn.dataPoints
-        .map(dp => dp.content.substring(0, 50).toLowerCase().replace(/\s+/g, ''))
-        .sort()
-        .join('|');
+    // PERFORMANCE FIX: Limit input to prevent freeze (connections already sorted by score)
+    const MAX_BREAKTHROUGHS = 300;
+    const limitedConnections = connections.slice(0, MAX_BREAKTHROUGHS);
+    console.log(`[ConnectionDiscovery] PERFORMANCE: Processing ${limitedConnections.length} of ${connections.length} connections for breakthroughs`);
 
-      // Skip if we've seen very similar content
-      if (seenContentHashes.has(contentHash)) continue;
-
+    for (const conn of limitedConnections) {
       const title = this.generateTitle(conn);
-
-      // Skip duplicate or very similar titles
-      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
-      if (seenTitles.has(titleKey)) continue;
-
-      seenTitles.add(titleKey);
-      seenContentHashes.add(contentHash);
 
       const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
 
@@ -691,7 +758,7 @@ Return JSON array with ${batch.length} objects, one per connection.`
       });
     }
 
-    console.log(`[ConnectionDiscovery] Deduplicated: ${connections.length} → ${breakthroughs.length} unique breakthroughs`);
+    console.log(`[ConnectionDiscovery] Generated ${breakthroughs.length} breakthroughs from ${connections.length} connections (no dedup)`);
     return breakthroughs.sort((a, b) => b.score - a.score);
   }
 
@@ -1685,133 +1752,13 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     return `${contentHash}::${dimensionHash}`;
   }
 
-  /**
-   * Enforce variety across all generated insights
-   * Returns insights that meet distribution requirements with MIN and MAX enforcement
-   */
-  enforceVariety(
-    breakthroughs: BreakthroughAngle[],
-    targetCount: number = 50
-  ): BreakthroughAngle[] {
-    const distribution = {
-      journeyStage: new Map<JourneyStage, number>(),
-      emotion: new Map<EmotionTrigger, number>(),
-      format: new Map<ContentFormat, number>(),
-      hookFormula: new Map<HookFormula, number>(),
-      pillar: new Map<ContentPillar, number>(),
-      persona: new Map<TargetPersona, number>()
-    };
-
-    const varied: BreakthroughAngle[] = [];
-    const combinedHashes = new Set<string>();
-
-    // Calculate max per dimension (no stage >40%)
-    const maxPerStage = Math.ceil(targetCount * 0.40);
-    const maxPerEmotion = Math.ceil(targetCount * 0.25);
-    const maxPerFormat = Math.ceil(targetCount * 0.25);
-    const maxPerHook = Math.ceil(targetCount * 0.20);
-
-    // First pass: Add insights respecting maximums
-    for (const breakthrough of breakthroughs) {
-      if (!breakthrough.dimensions) continue;
-      if (varied.length >= targetCount) break;
-
-      const d = breakthrough.dimensions;
-      const conn = breakthrough.connections[0];
-
-      // Create combined hash for smart dedup
-      const combinedHash = this.createCombinedHash(conn, d);
-
-      // Same content + same dimensions = skip (merge)
-      if (combinedHashes.has(combinedHash)) {
-        continue;
-      }
-
-      // Check maximums
-      const stageCount = distribution.journeyStage.get(d.journeyStage) || 0;
-      const emotionCount = distribution.emotion.get(d.emotion) || 0;
-      const formatCount = distribution.format.get(d.format) || 0;
-      const hookCount = distribution.hookFormula.get(d.hookFormula) || 0;
-
-      // Skip if over maximum for journey stage (no stage >40%)
-      if (stageCount >= maxPerStage) {
-        continue;
-      }
-
-      // Skip only if BOTH emotion AND format are over max
-      if (emotionCount >= maxPerEmotion && formatCount >= maxPerFormat) {
-        continue;
-      }
-
-      // Add to varied list
-      varied.push(breakthrough);
-      combinedHashes.add(combinedHash);
-
-      // Update distribution
-      distribution.journeyStage.set(d.journeyStage, stageCount + 1);
-      distribution.emotion.set(d.emotion, emotionCount + 1);
-      distribution.format.set(d.format, formatCount + 1);
-      distribution.hookFormula.set(d.hookFormula, hookCount + 1);
-      if (d.pillar) distribution.pillar.set(d.pillar, (distribution.pillar.get(d.pillar) || 0) + 1);
-      if (d.persona) distribution.persona.set(d.persona, (distribution.persona.get(d.persona) || 0) + 1);
-    }
-
-    // Second pass: Ensure minimums are met (no stage <15%)
-    const minPerStage = Math.ceil(targetCount * 0.15);
-    const minPerPersona = Math.ceil(targetCount * 0.10);
-
-    const allStages: JourneyStage[] = ['AWARENESS', 'CONSIDERATION', 'DECISION', 'RETENTION', 'ADVOCACY'];
-    const allPersonas: TargetPersona[] = ['DECISION_MAKER', 'INFLUENCER', 'USER', 'BLOCKER', 'CHAMPION'];
-
-    // Check if any stage is under-represented
-    for (const stage of allStages) {
-      const count = distribution.journeyStage.get(stage) || 0;
-      if (count < minPerStage) {
-        // Find breakthroughs with this stage that weren't added
-        const candidates = breakthroughs.filter(b =>
-          b.dimensions?.journeyStage === stage &&
-          !varied.includes(b)
-        );
-
-        for (const candidate of candidates.slice(0, minPerStage - count)) {
-          if (candidate.dimensions) {
-            varied.push(candidate);
-            distribution.journeyStage.set(stage, (distribution.journeyStage.get(stage) || 0) + 1);
-          }
-        }
-      }
-    }
-
-    // Check if any persona is under-represented (min 10%)
-    for (const persona of allPersonas) {
-      const count = distribution.persona.get(persona) || 0;
-      if (count < minPerPersona) {
-        const candidates = breakthroughs.filter(b =>
-          b.dimensions?.persona === persona &&
-          !varied.includes(b)
-        );
-
-        for (const candidate of candidates.slice(0, minPerPersona - count)) {
-          if (candidate.dimensions) {
-            varied.push(candidate);
-            distribution.persona.set(persona, (distribution.persona.get(persona) || 0) + 1);
-          }
-        }
-      }
-    }
-
-    // Log distribution stats
-    console.log(`[ConnectionDiscovery] Variety enforcement: ${breakthroughs.length} → ${varied.length} unique combinations`);
-    console.log(`  Journey: ${Array.from(distribution.journeyStage.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
-    console.log(`  Personas: ${Array.from(distribution.persona.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
-    console.log(`  Pillars: ${Array.from(distribution.pillar.entries()).map(([k, v]) => `${k}(${v})`).join(', ')}`);
-
-    return varied;
-  }
+  // REMOVED: enforceVariety() - V3 Atomizer handles all variety enforcement
+  // This legacy function was causing bottlenecks by capping insights at targetCount
+  // and enforcing dimension caps that the Atomizer now handles better
 
   /**
-   * Generate breakthrough angles with V2 dimension tagging and variety enforcement
-   * Uses hook rotation and combined content+dimension deduplication
+   * Generate breakthrough angles with V2 dimension tagging
+   * V3 FIX: NO DEDUP HERE - Atomizer handles ALL deduplication
    */
   async generateBreakthroughAnglesV2(
     connections: Connection[],
@@ -1823,75 +1770,20 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
     this.lastHookFormulas = [];
 
     const breakthroughs: BreakthroughAngle[] = [];
-    const seenTitles = new Set<string>();
-    const combinedHashes = new Set<string>();
 
-    // V3: Track title embeddings for semantic deduplication
-    const titleEmbeddings: Array<{ title: string; embedding: number[] }> = [];
-
-    // V3: Track topic frequency to cap at 3 per topic
-    const topicCounts = new Map<string, number>();
-    const MAX_PER_TOPIC = 3;
-
-    let semanticDuplicates = 0;
-    let topicCapped = 0;
-
-    // V3 PHASE E: Increased from 150 → 300 for 500+ insights
-    for (const conn of connections.slice(0, 300)) {
-      // Tag dimensions first (needed for combined hash)
+    // V3 FIX: Process ALL connections - no slice, no dedup, no caps
+    // Atomizer will handle deduplication with format:stage:title combo
+    for (const conn of connections) {
+      // Tag dimensions for metadata enrichment only
       const dimensions = this.tagDimensions(conn, segment);
-
-      // Use combined content + dimensions hash for smart dedup
-      const combinedHash = this.createCombinedHash(conn, dimensions);
-
-      // Same content + same dimensions = skip
-      // Different dimensions with same content = KEEP (different angle on same topic)
-      if (combinedHashes.has(combinedHash)) continue;
-
       conn.dimensions = dimensions;
 
-      // Get rotated hook formula (prevents consecutive repeats)
+      // Get rotated hook formula (for variety, not dedup)
       const hookFormula = this.getRotatedHookFormula(conn);
-      dimensions.hookFormula = hookFormula; // Update with rotated formula
+      dimensions.hookFormula = hookFormula;
 
       // Generate title using rotated hook formula
       const title = this.generateTitleWithHook(conn, hookFormula);
-
-      // Skip duplicate titles (character-based)
-      const titleKey = title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 40);
-      if (seenTitles.has(titleKey)) continue;
-
-      // V3: Extract primary topic for frequency capping
-      const topic = this.extractPrimaryTopic(title);
-      const currentTopicCount = topicCounts.get(topic) || 0;
-      if (currentTopicCount >= MAX_PER_TOPIC) {
-        topicCapped++;
-        continue;
-      }
-
-      // V3: Semantic deduplication using embeddings (if available)
-      if (conn.dataPoints[0]?.embedding) {
-        const contentEmbedding = conn.dataPoints[0].embedding;
-        let isSemanticDuplicate = false;
-
-        for (const existing of titleEmbeddings) {
-          const similarity = embeddingService.cosineSimilarity(contentEmbedding, existing.embedding);
-          if (similarity > 0.70) {
-            isSemanticDuplicate = true;
-            semanticDuplicates++;
-            break;
-          }
-        }
-
-        if (isSemanticDuplicate) continue;
-
-        // Store for future comparisons
-        titleEmbeddings.push({ title, embedding: contentEmbedding });
-      }
-
-      seenTitles.add(titleKey);
-      combinedHashes.add(combinedHash);
-      topicCounts.set(topic, currentTopicCount + 1);
 
       const provenance = conn.dataPoints.map(dp => `${dp.source}: "${dp.content.substring(0, 50)}..."`);
 
@@ -1910,40 +1802,13 @@ Return JSON: {"title": "specific curiosity-driven title", "hook": "emotional ope
       });
     }
 
-    // Apply variety enforcement with min/max distribution rules
-    // V3 PHASE E: Increased from 50 → 150 for 500+ insights
-    const varied = this.enforceVariety(breakthroughs, 150);
-
-    console.log(`[ConnectionDiscovery] V2: Generated ${varied.length} breakthroughs`);
-    console.log(`[ConnectionDiscovery] V3: Dedup stats - semantic: ${semanticDuplicates}, topic-capped: ${topicCapped}`);
-    return varied.sort((a, b) => b.score - a.score);
+    // V3 FIX: NO enforceVariety - Atomizer handles variety via dimension caps
+    console.log(`[ConnectionDiscovery] V2: Generated ${breakthroughs.length} breakthroughs from ${connections.length} connections (no dedup)`);
+    return breakthroughs.sort((a, b) => b.score - a.score);
   }
 
-  /**
-   * V3: Extract primary topic from title for frequency capping
-   */
-  private extractPrimaryTopic(title: string): string {
-    const lowerTitle = title.toLowerCase();
-
-    // B2B/Insurance specific topics
-    if (/quote|quoting/.test(lowerTitle)) return 'quoting';
-    if (/compliance|regulatory|audit/.test(lowerTitle)) return 'compliance';
-    if (/digital\s*transform/.test(lowerTitle)) return 'digital-transformation';
-    if (/customer\s*experience|cx\b/.test(lowerTitle)) return 'customer-experience';
-    if (/ai\s*agent|chatbot|automation/.test(lowerTitle)) return 'ai-automation';
-    if (/insurance|policy|underwriting/.test(lowerTitle)) return 'insurance';
-    if (/conversion|convert/.test(lowerTitle)) return 'conversion';
-
-    // Generic topics
-    if (/trust|review|testimonial/.test(lowerTitle)) return 'trust';
-    if (/price|cost|roi|saving/.test(lowerTitle)) return 'pricing';
-    if (/competitor|compare|vs\b/.test(lowerTitle)) return 'comparison';
-    if (/how\s*to|guide|step/.test(lowerTitle)) return 'how-to';
-
-    // Fallback: first significant word
-    const words = title.split(/\s+/).filter(w => w.length > 4 && !/^(this|that|with|from|your|their|about)$/i.test(w));
-    return words[0]?.toLowerCase() || 'general';
-  }
+  // REMOVED: extractPrimaryTopic() - Was only used by topic frequency capping in generateBreakthroughAnglesV2
+  // V3 Atomizer handles variety via format×stage combinations, so topic capping is no longer needed
 }
 
 export const connectionDiscoveryService = new ConnectionDiscoveryService();

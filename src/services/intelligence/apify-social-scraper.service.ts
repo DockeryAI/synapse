@@ -370,16 +370,21 @@ class ApifySocialScraperService {
   /**
    * Scrape Twitter/X for real-time sentiment and viral discussions
    */
-  async scrapeTwitterSentiment(keywords: string[], limit: number = 50): Promise<TwitterSentiment> {
+  async scrapeTwitterSentiment(keywords: string[], limit: number = 20): Promise<TwitterSentiment> {
     try {
-      const searchQuery = keywords.join(' OR ')
+      // Build search queries for apidojo/tweet-scraper actor
+      // This actor expects 'searchTerms' as array of search strings
+      // Reduce to 3 keywords to speed up
+      const searchQueries = keywords.slice(0, 3).map(kw => kw.trim())
 
       const results = await this.runSocialScraper('TWITTER', {
-        searchTerms: [searchQuery],
-        maxTweets: limit,
-        includeReplies: true,
-        includeRetweets: false,
-        languageCode: 'en'
+        searchTerms: searchQueries,
+        maxTweets: 75, // Increased for more data points
+        addUserInfo: true,
+        scrapeTweetReplies: false,
+        // Actor-specific settings for better results
+        tweetsDesired: 75,
+        proxyConfiguration: { useApifyProxy: true }
       })
 
       const tweets = results.map((tweet: any) => ({
@@ -429,15 +434,72 @@ class ApifySocialScraperService {
 
   /**
    * Scrape Quora for deep questions revealing desires and fears
+   * V3: Added retry logic with exponential backoff + Serper fallback
    */
-  async scrapeQuoraInsights(keywords: string[], limit: number = 30): Promise<QuoraInsights> {
+  async scrapeQuoraInsights(keywords: string[], limit: number = 10): Promise<QuoraInsights> {
+    // V3: Try Apify first with retry, then fallback to Serper
+    let results: any[] = [];
+    let apifyFailed = false;
+
+    // Attempt 1: Try Apify with retry
+    for (let attempt = 1; attempt <= 2; attempt++) {
+      try {
+        console.log(`[Apify Social] Quora attempt ${attempt}/2...`);
+
+        // Build Quora search URLs for the generic web-scraper
+        // Use only 2 keywords to reduce crawl time
+        const startUrls = keywords.slice(0, 2).map(kw => ({
+          url: `https://www.quora.com/search?q=${encodeURIComponent(kw)}`
+        }));
+
+        results = await this.runSocialScraper('QUORA', {
+          startUrls,
+          maxRequestsPerCrawl: 50,
+          maxCrawlDepth: 2,
+          pageFunction: `async function pageFunction(context) {
+            const { $, request } = context;
+            const questions = [];
+            $('div[class*="Question"]').each((i, el) => {
+              questions.push({
+                question: $(el).find('span[class*="QuestionText"]').text().trim(),
+                url: request.url
+              });
+            });
+            return questions;
+          }`
+        });
+
+        if (results && results.length > 0) {
+          console.log(`[Apify Social] Quora succeeded with ${results.length} results`);
+          break; // Success, exit retry loop
+        }
+      } catch (error) {
+        console.warn(`[Apify Social] Quora attempt ${attempt} failed:`, error);
+        if (attempt < 2) {
+          // Exponential backoff: wait 2^attempt seconds
+          const waitMs = Math.pow(2, attempt) * 1000;
+          console.log(`[Apify Social] Waiting ${waitMs}ms before retry...`);
+          await new Promise(resolve => setTimeout(resolve, waitMs));
+        } else {
+          apifyFailed = true;
+        }
+      }
+    }
+
+    // V3: Fallback to Serper site:quora.com search if Apify fails
+    if (apifyFailed || !results || results.length === 0) {
+      console.log('[Apify Social] Quora Apify failed, using Serper site:quora.com fallback...');
+      try {
+        results = await this.fetchQuoraViaSerper(keywords);
+        console.log(`[Apify Social] Serper Quora fallback returned ${results.length} results`);
+      } catch (serperError) {
+        console.error('[Apify Social] Serper Quora fallback also failed:', serperError);
+        // Return empty results instead of throwing
+        return this.getEmptyQuoraInsights();
+      }
+    }
+
     try {
-      const results = await this.runSocialScraper('QUORA', {
-        searchQueries: keywords,
-        maxQuestions: limit,
-        includeAnswers: true,
-        sortBy: 'popular'
-      })
 
       const questions = results.map((item: any) => {
         const psychCategory = this.categorizeQuestion(item.question || '')
@@ -489,8 +551,79 @@ class ApifySocialScraperService {
       }
     } catch (error) {
       console.error('[Apify Social] Quora scraping error:', error)
-      throw error
+      return this.getEmptyQuoraInsights();
     }
+  }
+
+  /**
+   * V3: Fetch Quora data via Serper site:quora.com search as fallback
+   */
+  private async fetchQuoraViaSerper(keywords: string[]): Promise<any[]> {
+    const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
+    const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+    if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+      throw new Error('Supabase config missing for Serper fallback');
+    }
+
+    const results: any[] = [];
+
+    // Search Quora via Serper for each keyword
+    for (const keyword of keywords.slice(0, 3)) {
+      try {
+        const response = await fetch(`${SUPABASE_URL}/functions/v1/serper-proxy`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            q: `site:quora.com ${keyword}`,
+            num: 10
+          })
+        });
+
+        if (!response.ok) continue;
+
+        const data = await response.json();
+        const organic = data.organic || [];
+
+        // Convert Serper results to Quora format
+        for (const result of organic) {
+          if (result.link?.includes('quora.com')) {
+            results.push({
+              question: result.title?.replace(' - Quora', '').trim() || '',
+              url: result.link,
+              snippet: result.snippet || '',
+              upvotes: 0, // Not available from Serper
+              followers: 0,
+              answersCount: 0
+            });
+          }
+        }
+      } catch (e) {
+        console.warn(`[Apify Social] Serper Quora search failed for "${keyword}":`, e);
+      }
+    }
+
+    return results;
+  }
+
+  /**
+   * V3: Return empty QuoraInsights structure when all methods fail
+   */
+  private getEmptyQuoraInsights(): QuoraInsights {
+    return {
+      questions: [],
+      top_answers: [],
+      desires: [],
+      fears: [],
+      engagement_metrics: {
+        avg_upvotes: 0,
+        avg_answers: 0,
+        total_followers: 0
+      }
+    };
   }
 
   /**
@@ -548,14 +681,34 @@ class ApifySocialScraperService {
    */
   async scrapeTrustPilotReviews(
     companyName: string,
-    limit: number = 50
+    limit: number = 10
   ): Promise<TrustPilotReviews> {
     try {
+      // Build TrustPilot URL for the generic web-scraper
+      // Try common domain patterns for TrustPilot company pages
+      const slug = companyName.toLowerCase().replace(/[^a-z0-9]/g, '')
+      // Only use 1 URL to reduce crawl time
+      const startUrls = [
+        { url: `https://www.trustpilot.com/review/${slug}.com` }
+      ]
+
       const results = await this.runSocialScraper('TRUSTPILOT', {
-        companyName,
-        maxReviews: limit,
-        includeVerifiedOnly: false,
-        sortBy: 'recent'
+        startUrls,
+        maxRequestsPerCrawl: 50, // Increased for more reviews
+        maxCrawlDepth: 2,
+        pageFunction: `async function pageFunction(context) {
+          const { $, request } = context;
+          const reviews = [];
+          $('article[class*="review"], div[class*="ReviewCard"]').each((i, el) => {
+            reviews.push({
+              title: $(el).find('h2, [class*="title"]').text().trim(),
+              text: $(el).find('p[class*="text"], [class*="content"]').text().trim(),
+              rating: parseInt($(el).find('[data-rating], img[alt*="star"]').attr('data-rating') || '0'),
+              date: $(el).find('time, [class*="date"]').attr('datetime') || new Date().toISOString()
+            });
+          });
+          return reviews;
+        }`
       })
 
       const reviews = results.map((review: any) => ({
@@ -611,14 +764,35 @@ class ApifySocialScraperService {
   async scrapeG2Reviews(
     productName: string,
     category: string,
-    limit: number = 50
+    limit: number = 10
   ): Promise<G2Reviews> {
     try {
+      // Build G2 URL for the generic web-scraper
+      const slug = productName.toLowerCase().replace(/[^a-z0-9]/g, '-')
+      // Only use 1 URL to reduce crawl time
+      const startUrls = [
+        { url: `https://www.g2.com/products/${slug}/reviews` }
+      ]
+
       const results = await this.runSocialScraper('G2', {
-        productName,
-        category,
-        maxReviews: limit,
-        includeDetails: true
+        startUrls,
+        maxRequestsPerCrawl: 50, // Increased for more reviews
+        maxCrawlDepth: 2,
+        pageFunction: `async function pageFunction(context) {
+          const { $, request } = context;
+          const reviews = [];
+          $('div[class*="review"], article[class*="Review"]').each((i, el) => {
+            reviews.push({
+              title: $(el).find('h3, [class*="title"]').text().trim(),
+              text: $(el).find('[class*="body"], [class*="content"]').text().trim(),
+              pros: $(el).find('[class*="pros"], [class*="like"]').text().trim(),
+              cons: $(el).find('[class*="cons"], [class*="dislike"]').text().trim(),
+              rating: parseFloat($(el).find('[class*="rating"], [class*="stars"]').attr('data-rating') || '0'),
+              userRole: $(el).find('[class*="role"], [class*="title"]').first().text().trim()
+            });
+          });
+          return reviews;
+        }`
       })
 
       const reviews = results.map((review: any) => ({

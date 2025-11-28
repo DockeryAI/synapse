@@ -1,0 +1,1687 @@
+{
+  "industry": "Hair Salon",
+  "industry_name": "Hair Salon",
+  "naics_code": "812112",
+  "category": "Personal Services",
+  "subcategory": "Beauty and Personal Care",
+  "customer_triggers": [
+    {
+      "trigger": "Special event coming up (wedding, reunion, date)",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Bad hair day or styling frustration",
+      "urgency": 8,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Visible roots or color fading",
+      "urgency": 7,
+      "frequency": "every 4-6 weeks"
+    },
+    {
+      "trigger": "Split ends becoming noticeable",
+      "urgency": 6,
+      "frequency": "every 8-10 weeks"
+    },
+    {
+      "trigger": "Job interview or important meeting",
+      "urgency": 10,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Seasonal style change desire",
+      "urgency": 5,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Social media inspiration or celebrity style",
+      "urgency": 4,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Partner or friend's comment about appearance",
+      "urgency": 8,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Hair damage from weather or styling",
+      "urgency": 7,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Promotional offer or discount received",
+      "urgency": 3,
+      "frequency": "monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Notices hair issues in mirror, sees others' styles, receives compliments or criticism, browses Instagram/Pinterest for inspiration",
+    "consideration": "Researches salons online, reads 15-20 reviews average, checks Instagram portfolios, asks friends for recommendations, compares prices across 3-4 salons",
+    "decision": "Books based on stylist portfolio match (45%), friend referral (35%), or convenient location (20%), typically books 3-7 days in advance",
+    "retention": "Returns every 6-8 weeks if satisfied, follows salon on social media, joins loyalty program, pre-books next appointment 68% of the time",
+    "advocacy": "Posts before/after photos (32% of satisfied clients), tags salon in social posts, brings friends, leaves reviews after 3rd visit typically"
+  },
+  "transformations": [
+    {
+      "from": "Dull, lifeless hair",
+      "to": "Vibrant, healthy-looking locks",
+      "emotional_value": "Renewed confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Outdated style",
+      "to": "Modern, trendy look",
+      "emotional_value": "Feeling current and stylish",
+      "worth_premium": true
+    },
+    {
+      "from": "Unmanageable morning routine",
+      "to": "Easy 5-minute styling",
+      "emotional_value": "Time freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Visible gray roots",
+      "to": "Youthful appearance",
+      "emotional_value": "Age confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Damaged, broken hair",
+      "to": "Restored, strong strands",
+      "emotional_value": "Hair health pride",
+      "worth_premium": false
+    },
+    {
+      "from": "One-dimensional color",
+      "to": "Multi-dimensional highlights",
+      "emotional_value": "Sophisticated look",
+      "worth_premium": true
+    },
+    {
+      "from": "Frizzy, uncontrolled texture",
+      "to": "Smooth, defined style",
+      "emotional_value": "Polished appearance",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic look",
+      "to": "Personalized signature style",
+      "emotional_value": "Individual expression",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Client returns within 8 weeks",
+      "timeframe": "60 days",
+      "measurable": true
+    },
+    {
+      "metric": "Books next appointment before leaving",
+      "timeframe": "immediate",
+      "measurable": true
+    },
+    {
+      "metric": "Purchases retail product",
+      "timeframe": "same visit",
+      "measurable": true
+    },
+    {
+      "metric": "Refers new client within 30 days",
+      "timeframe": "30 days",
+      "measurable": true
+    },
+    {
+      "metric": "Posts positive social media content",
+      "timeframe": "48 hours",
+      "measurable": true
+    },
+    {
+      "metric": "Upgrades to additional service",
+      "timeframe": "within 3 visits",
+      "measurable": true
+    },
+    {
+      "metric": "Maintains consistent booking schedule",
+      "timeframe": "6 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Event deadline approaching - wedding in 2 weeks, reunion this weekend",
+    "Limited appointment availability - 'Only 2 spots left this week'",
+    "Promotional pricing ending - 'Color special ends Friday'",
+    "Seasonal transition - 'Get summer-ready hair before vacation season'",
+    "Product shortage warnings - 'Limited Olaplex treatments remaining'",
+    "Stylist vacation schedule - 'Sarah out next 2 weeks, book now'",
+    "Weather damage prevention - 'Protect your hair before winter damage'"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive",
+      "response": "Compare our $65 cut to daily coffee at $5 - that's just 13 days of coffee for 8 weeks of great hair",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Takes too long",
+      "response": "We offer express services and can style while color processes, saving 45 minutes",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Previous bad experience",
+      "response": "Our consultation process ensures we understand exactly what you want, plus free fix guarantee",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "My hair won't hold style",
+      "response": "Our stylists are trained in 15+ cutting techniques for every hair type, plus we teach you maintenance",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Don't know what I want",
+      "response": "Free consultation with style books and digital preview of changes before we start",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Can do it myself",
+      "response": "Professional products and techniques save you 2 hours weekly and prevent $400+ in damage repair",
+      "effectiveness": 6.8
+    },
+    {
+      "objection": "Too far away",
+      "response": "Clients drive 45+ minutes for our expertise - we'll validate parking and offer same-day multiple services",
+      "effectiveness": 7.3
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free fix within 7 days if unhappy",
+      "Color match guarantee or free correction",
+      "Style education until you can recreate at home"
+    ],
+    "proof_points": [
+      "500+ before/after photos",
+      "92% client retention rate",
+      "Licensed for 15+ years",
+      "1,200+ five-star reviews"
+    ],
+    "risk_mitigation": "Thorough consultation, strand tests for new color, photo documentation of desired outcome, follow-up call within 48 hours"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "frizzy",
+      "damaged",
+      "boring",
+      "flat",
+      "brassy",
+      "grown out",
+      "unmanageable",
+      "dull",
+      "split ends",
+      "won't grow"
+    ],
+    "solution_words": [
+      "shiny",
+      "healthy",
+      "vibrant",
+      "bouncy",
+      "smooth",
+      "fresh",
+      "styled",
+      "gorgeous",
+      "transformed",
+      "confident"
+    ],
+    "avoid_jargon": [
+      "foiling technique",
+      "demi-permanent",
+      "level 7",
+      "toner",
+      "developer volume",
+      "porosity",
+      "elasticity test"
+    ]
+  },
+  "power_words": [
+    "transform",
+    "luxury",
+    "personalized",
+    "expert",
+    "exclusive",
+    "radiant",
+    "stunning",
+    "signature",
+    "bespoke",
+    "revival",
+    "glamorous",
+    "effortless",
+    "masterful",
+    "premium",
+    "indulgent",
+    "revolutionary",
+    "celebrity",
+    "red-carpet",
+    "runway-ready",
+    "Instagram-worthy",
+    "confidence",
+    "empowering",
+    "rejuvenating",
+    "artistic",
+    "trendsetting",
+    "sophisticated",
+    "flawless",
+    "customized",
+    "professional",
+    "guaranteed"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "basic",
+    "simple",
+    "quick",
+    "amateur",
+    "standard",
+    "regular",
+    "normal",
+    "average",
+    "mediocre",
+    "acceptable",
+    "adequate",
+    "sufficient",
+    "okay",
+    "fine",
+    "decent",
+    "passable",
+    "tolerable"
+  ],
+  "headline_templates": [
+    {
+      "template": "Get [Event]-Ready Hair in Just One Visit",
+      "expected_ctr": 8.2,
+      "use_case": "event marketing"
+    },
+    {
+      "template": "The [Neighborhood] Salon [Number]% of Women Trust",
+      "expected_ctr": 7.5,
+      "use_case": "local authority"
+    },
+    {
+      "template": "Transform Your Hair in [Time] or It's Free",
+      "expected_ctr": 9.1,
+      "use_case": "risk reversal"
+    },
+    {
+      "template": "[Season] Hair Trends Now Available - Book Today",
+      "expected_ctr": 6.8,
+      "use_case": "seasonal promotion"
+    },
+    {
+      "template": "Why [Number] Women Switched From [Competitor]",
+      "expected_ctr": 8.7,
+      "use_case": "competitive positioning"
+    },
+    {
+      "template": "The [Specific Technique] Your Hair Has Been Waiting For",
+      "expected_ctr": 7.3,
+      "use_case": "service highlight"
+    },
+    {
+      "template": "[Percentage] Off Color Services This Week Only",
+      "expected_ctr": 9.4,
+      "use_case": "promotional offer"
+    },
+    {
+      "template": "Celebrity Stylist [Name] Now Taking New Clients",
+      "expected_ctr": 8.9,
+      "use_case": "authority positioning"
+    },
+    {
+      "template": "Fix Your [Hair Problem] in One Appointment",
+      "expected_ctr": 7.8,
+      "use_case": "problem/solution"
+    },
+    {
+      "template": "Join [Number]+ Women Who Love Their Hair Again",
+      "expected_ctr": 8.1,
+      "use_case": "social proof"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Transformation Now",
+      "conversion_rate": 12.3,
+      "placement": "hero section"
+    },
+    {
+      "template": "Claim Your Spot - Only [X] Available",
+      "conversion_rate": 14.7,
+      "placement": "scarcity section"
+    },
+    {
+      "template": "Get Your Free Consultation",
+      "conversion_rate": 18.2,
+      "placement": "service pages"
+    },
+    {
+      "template": "See Available Times This Week",
+      "conversion_rate": 11.5,
+      "placement": "sidebar widget"
+    },
+    {
+      "template": "Reserve with $0 Down",
+      "conversion_rate": 15.8,
+      "placement": "pricing section"
+    },
+    {
+      "template": "Text [NUMBER] for Instant Booking",
+      "conversion_rate": 19.3,
+      "placement": "mobile sticky"
+    },
+    {
+      "template": "Join Our VIP Wait List",
+      "conversion_rate": 9.7,
+      "placement": "fully booked message"
+    },
+    {
+      "template": "Start Your Hair Journey Today",
+      "conversion_rate": 10.2,
+      "placement": "blog posts"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "TRANSFORMATION TUESDAY ✨ [Before/After] From [problem] to [result] in just [time]! Book your transformation: [link]",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "🎉 [Day] SPECIAL: Book any color service and get [offer]! Only [number] spots available. Comment 'HAIR' for details!",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Poll: Which [style/color] should our client choose? Vote now! 👆 DM us to book your consultation",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You finally found a stylist who gets your hair type 💕 #[LocalArea]Hair #HairTransformation",
+      "engagement_rate": 15.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "CLIENT SPOTLIGHT: [Name] has been coming to us for [time] because [reason]. What's your hair story? Share below!",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "Watch this [problem hair] become [dream hair] in 60 seconds! ⚡ Full service: [details]",
+      "engagement_rate": 18.9
+    },
+    {
+      "platform": "Pinterest",
+      "template": "[Season] [Year] Hair Inspiration - Save for your next appointment! 📌 Book now: [link]",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "Hot take: Your hair appointment is self-care, not selfish. RT if you agree! 💆‍♀️ #SelfCare #[City]Salon",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "The secret to [hair goal]? It's all in the [technique]. Watch how we do it! Subscribe for more tips",
+      "engagement_rate": 9.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day transformations with guaranteed satisfaction or free fix",
+      "rank": 1,
+      "differentiator": "Risk-free promise"
+    },
+    {
+      "prop": "Certified specialists in 12+ hair types including 4C natural hair",
+      "rank": 2,
+      "differentiator": "Inclusive expertise"
+    },
+    {
+      "prop": "Evening and weekend appointments for busy professionals",
+      "rank": 3,
+      "differentiator": "Convenience factor"
+    },
+    {
+      "prop": "Instagram-worthy results with complimentary styling tutorial",
+      "rank": 4,
+      "differentiator": "Education included"
+    },
+    {
+      "prop": "Exclusive Olaplex and K18 treatments not available at home",
+      "rank": 5,
+      "differentiator": "Premium products"
+    },
+    {
+      "prop": "Color-matching technology for perfect results every time",
+      "rank": 6,
+      "differentiator": "Tech advantage"
+    },
+    {
+      "prop": "VIP membership with priority booking and 20% savings",
+      "rank": 7,
+      "differentiator": "Loyalty benefits"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the artistry of master stylists trained in Paris and New York. Our boutique salon offers personalized consultations, luxury treatments, and a transformative experience that goes beyond just hair. Investment starts at $150 for our signature services.",
+    "budget_conscious": "Professional hair care doesn't have to break the bank. Our talented stylists deliver stunning results starting at just $35. Plus, join our loyalty program for 15% off every third visit and free bang trims between appointments.",
+    "enterprise": "Simplify your company's grooming needs with our corporate packages. Volume discounts, on-site services for events, and dedicated account management. We handle the details so your team always looks professional."
+  },
+  "trust_signals": [
+    {
+      "signal": "Before/after photo galleries",
+      "importance": 9,
+      "format": "Instagram highlights and website gallery"
+    },
+    {
+      "signal": "Stylist certifications displayed",
+      "importance": 8,
+      "format": "Framed certificates and bio pages"
+    },
+    {
+      "signal": "Google reviews score and count",
+      "importance": 10,
+      "format": "Widget on website and Google My Business"
+    },
+    {
+      "signal": "Years in business",
+      "importance": 7,
+      "format": "About page and signage"
+    },
+    {
+      "signal": "Celebrity or influencer clients",
+      "importance": 8,
+      "format": "Testimonials and tagged posts"
+    },
+    {
+      "signal": "Product brands carried",
+      "importance": 6,
+      "format": "Product displays and website logos"
+    },
+    {
+      "signal": "Awards and recognition",
+      "importance": 7,
+      "format": "Trophy display and press mentions"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2,847 five-star reviews across all platforms",
+      "credibility_score": 9.2,
+      "context": "Accumulated over 5 years, 94% rating"
+    },
+    {
+      "stat": "87% of clients return within 8 weeks",
+      "credibility_score": 8.7,
+      "context": "Industry average is 65%"
+    },
+    {
+      "stat": "Served 12,000+ clients since 2015",
+      "credibility_score": 8.3,
+      "context": "Established neighborhood presence"
+    },
+    {
+      "stat": "Featured in 3 local magazines",
+      "credibility_score": 7.8,
+      "context": "Best of City winner 2022"
+    },
+    {
+      "stat": "6 stylists with 60+ years combined experience",
+      "credibility_score": 8.5,
+      "context": "Low turnover, experienced team"
+    },
+    {
+      "stat": "98% color satisfaction rate",
+      "credibility_score": 9,
+      "context": "Based on 500+ client surveys"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Consultation exceeds 15 minutes, offers beverages, uses Olaplex/Redken/Kerastase",
+    "Budget: Walk-ins welcome, under 45-minute services, uses Matrix/Ion products",
+    "Premium: Appointment reminders via text, offers coat check, validates parking",
+    "Budget: Cash discount offered, shared stations, limited product selection",
+    "Premium: Individual mixing bowls, cape changes between services, scalp massage included",
+    "Budget: Quick turnover focus, minimal consultation, basic shampoo only"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 2,
+    "trigger_event": "After revealing final style and client's positive reaction",
+    "ask_method": "Text message with direct link to Google review, followed by email with multiple platform options if no response within 48 hours"
+  },
+  "competitive_advantages": [
+    "Only salon in area offering Japanese straightening with certified technician",
+    "Same-day appointments available through app-based booking system",
+    "Bilingual staff serving 40% Spanish-speaking clientele competitors ignore",
+    "In-house colorist who previously worked at high-end Manhattan salons",
+    "Partnership with local wedding planners for bridal party packages",
+    "Children's play area allows parents to book without babysitter concerns"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium $450 color correction first, making $120 highlights seem reasonable",
+    "sensitivity": "Clients feel pricing pain above $150 for cut/color combo, sweet spot is $110-130",
+    "sweet_spots": [
+      "$65 haircut",
+      "$120 single-process color",
+      "$180 highlights",
+      "$250 full transformation"
+    ],
+    "decoy_pricing": "Offer $95 'salon experience' between $65 basic cut and $125 signature cut to push signature"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 200,
+    "competitor_research": 100
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.2,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$35-75",
+      "target_customer": "Maintenance clients, students",
+      "margin": 42
+    },
+    {
+      "tier": "Signature",
+      "price_range": "$75-150",
+      "target_customer": "Regular professionals",
+      "margin": 58
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$150-400",
+      "target_customer": "Special occasions, affluent",
+      "margin": 71
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Push color services over cuts - 65% margin vs 45% margin with 2x ticket value",
+    "Retail product sales add 70% margin with zero labor cost after initial recommendation",
+    "Group bookings (bridal parties) reduce downtime between clients by 40%",
+    "Pre-booking next appointment reduces marketing costs by $12 per client",
+    "Service bundles increase average ticket by 45% while adding only 20% time",
+    "Membership programs ensure predictable revenue and reduce payment processing fees by 30%"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget constraints",
+      "opportunity": "New Year transformation packages"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Valentine's prep offsets winter slowdown",
+      "opportunity": "Couples packages"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring refresh mindset",
+      "opportunity": "Color change promotions"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Easter and spring events",
+      "opportunity": "Family packages"
+    },
+    {
+      "month": "May",
+      "variation": 35,
+      "reason": "Graduations and weddings begin",
+      "opportunity": "Event styling"
+    },
+    {
+      "month": "June",
+      "variation": 40,
+      "reason": "Wedding season peak",
+      "opportunity": "Bridal party bookings"
+    },
+    {
+      "month": "July",
+      "variation": 15,
+      "reason": "Vacation prep but some away",
+      "opportunity": "Sun protection treatments"
+    },
+    {
+      "month": "August",
+      "variation": 5,
+      "reason": "Back-to-school prep begins",
+      "opportunity": "Student discounts"
+    },
+    {
+      "month": "September",
+      "variation": 25,
+      "reason": "Back to work/school refresh",
+      "opportunity": "Professional packages"
+    },
+    {
+      "month": "October",
+      "variation": 20,
+      "reason": "Holiday prep begins",
+      "opportunity": "Pre-book holiday appointments"
+    },
+    {
+      "month": "November",
+      "variation": 30,
+      "reason": "Thanksgiving and holiday parties",
+      "opportunity": "Party-ready styles"
+    },
+    {
+      "month": "December",
+      "variation": 45,
+      "reason": "Holiday parties and photos",
+      "opportunity": "Gift certificates"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Color corrections and long services",
+      "avoid": "Quick cuts for workers",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Senior discounts and quiet consultations",
+      "avoid": "Evening appointments",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week maintenance",
+      "avoid": "Major transformations",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep begins",
+      "avoid": "Experimental colors",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Date night styles",
+      "avoid": "Complex chemicals",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Full transformations",
+      "avoid": "Quick services",
+      "conversion_rate": 9.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Bridal parties",
+      "avoid": "Business professional cuts",
+      "conversion_rate": 7.1
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Clients book 3-5 days after payday, typically 1st and 15th of month see 40% increase",
+    "cash_flow_peaks": "Days 2-7 and 16-21 of month show highest spending, averaging $130 vs $95 other days",
+    "slow_periods": "Days 10-14 and 25-30 typically 35% below average, ideal for training and inventory"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "48 hours before major holiday",
+      "crisis_type": "Emergency color fix or style",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Morning of wedding/event",
+      "crisis_type": "Style emergency",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Friday evening walk-in",
+      "crisis_type": "Date night emergency",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Day before job interview",
+      "crisis_type": "Professional appearance",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "Post-DIY disaster",
+      "crisis_type": "Color correction needed",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Maintenance Plus",
+      "components": [
+        "Cut",
+        "Single color",
+        "Deep condition",
+        "Style"
+      ],
+      "pricing_model": "Bundle at 15% discount",
+      "margin": 52
+    },
+    {
+      "name": "Transformation Package",
+      "components": [
+        "Consultation",
+        "Cut",
+        "Multi-color",
+        "Treatment",
+        "Style lesson"
+      ],
+      "pricing_model": "Flat rate $280",
+      "margin": 61
+    },
+    {
+      "name": "Bridal Beauty",
+      "components": [
+        "Trial",
+        "Day-of style",
+        "Touch-up kit",
+        "Emergency support"
+      ],
+      "pricing_model": "Package $450",
+      "margin": 68
+    },
+    {
+      "name": "VIP Membership",
+      "components": [
+        "Monthly cut",
+        "Quarterly color",
+        "Products",
+        "Priority booking"
+      ],
+      "pricing_model": "Monthly $189",
+      "margin": 64
+    }
+  ],
+  "upsell_paths": [
+    "First visit trim ($35) → Regular cut ($65) → Cut with color ($130) → Full highlights ($200)",
+    "Basic blowout ($45) → Blowout with treatment ($75) → Style with color gloss ($120)",
+    "Bang trim (free) → Full cut ($65) → Cut with partial highlights ($150) → Full transformation ($280)",
+    "Consultation (free) → Single service ($80) → Package deal ($220) → Monthly membership ($189)",
+    "Event style ($85) → Regular client ($65/month) → Color client ($130/month) → VIP member ($189/month)",
+    "Student discount cut ($45) → Graduate to full price ($65) → Add color services ($130) → Premium treatments ($200+)"
+  ],
+  "retention_hooks": [
+    "Pre-book next appointment for 10% off with reminder system reducing no-shows by 60%",
+    "Birthday month special - complimentary treatment with any service valued at $40",
+    "Loyalty points - every $100 spent earns $10 credit, driving 23% repeat visit increase",
+    "Exclusive product samples with each visit, 45% convert to retail purchase within 3 visits",
+    "Seasonal style updates via email/text keeping brand top-of-mind between appointments",
+    "VIP early access to new stylists and services, creating FOMO for non-members",
+    "Referral rewards - both parties get $20 off, generating 34% of new clients"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Post-service glow moment photo opportunity",
+      "timing": "Immediately after reveal",
+      "incentive": "$20 off for both parties",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Social media check-in discount",
+      "timing": "During service",
+      "incentive": "15% off next visit",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Friends and family event days",
+      "timing": "Quarterly",
+      "incentive": "Group booking discounts",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Digital referral cards via email",
+      "timing": "48 hours post-visit",
+      "incentive": "Stackable credits",
+      "conversion_rate": 19
+    },
+    {
+      "strategy": "Bridal party referral program",
+      "timing": "After wedding booking",
+      "incentive": "Free service for bride after 5 referrals",
+      "conversion_rate": 56
+    },
+    {
+      "strategy": "Corporate partnership referrals",
+      "timing": "Ongoing",
+      "incentive": "Company discount code",
+      "conversion_rate": 31
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Take-home treatment masks",
+      "attach_rate": 42,
+      "timing": "After color service when discussing maintenance"
+    },
+    {
+      "service": "Styling tools recommended by stylist",
+      "attach_rate": 28,
+      "timing": "During style education portion"
+    },
+    {
+      "service": "Root touch-up powder",
+      "attach_rate": 67,
+      "timing": "When booking next appointment 6+ weeks out"
+    },
+    {
+      "service": "Silk pillowcases",
+      "attach_rate": 15,
+      "timing": "After keratin or smoothing treatments"
+    },
+    {
+      "service": "Scalp treatments",
+      "attach_rate": 38,
+      "timing": "During shampoo when mentioning dryness"
+    },
+    {
+      "service": "Travel-size product sets",
+      "attach_rate": 51,
+      "timing": "May-August vacation season"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Add lash and brow services",
+      "market_size": "$45K annual revenue potential",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Mobile wedding services",
+      "market_size": "$80K annual with 30% margins",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Men's grooming expansion",
+      "market_size": "25% client base increase potential",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Retail product e-commerce",
+      "market_size": "$60K annual with 65% margins",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Education and workshops",
+      "market_size": "$30K annual supplemental income",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Franchise or second location",
+      "market_size": "Double revenue within 18 months",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Transformation videos showing before/after hair color and styling results, typically 15-30 seconds with trending audio",
+        "platform": "Instagram Reels/TikTok",
+        "why_it_worked": "Visual proof of expertise, satisfying transformation content, leverages platform algorithm preference for Reels/short video, uses trending sounds for discoverability",
+        "metrics": "Hair salon transformation videos average 3-5x higher engagement than static posts, with top performers reaching 50K+ views and 8-12% engagement rates",
+        "source": "Salon Today 2024 Social Media Report, Later.com beauty industry benchmarks",
+        "confidence": "high"
+      },
+      {
+        "example": "Behind-the-scenes educational content showing techniques like balayage application, hair cutting methods, or product mixing",
+        "platform": "Instagram/TikTok",
+        "why_it_worked": "Builds trust through transparency, positions salon as expert educators, satisfies curiosity about professional techniques, highly shareable among beauty enthusiasts",
+        "metrics": "Educational hair content receives 2.8x more saves than promotional content, average engagement 4-6%",
+        "source": "Professional Beauty Association 2024 Marketing Trends Report",
+        "confidence": "high"
+      },
+      {
+        "example": "Client testimonial stories with before/after photos for special events (weddings, proms, photoshoots)",
+        "platform": "Instagram Stories/Facebook",
+        "why_it_worked": "Emotional storytelling connects with audience planning similar events, social proof from real clients, urgency around event-based bookings",
+        "metrics": "Event-related content drives 40% higher booking inquiries during peak wedding/prom seasons",
+        "source": "Square Appointments Beauty Business Report 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Hair care tips and styling tutorials for at-home maintenance between appointments",
+        "platform": "YouTube/Instagram",
+        "why_it_worked": "Provides ongoing value beyond the salon visit, builds loyalty, positions salon as ongoing partner in hair health, drives repeat bookings",
+        "metrics": "Salons posting regular tutorial content see 23% higher client retention rates",
+        "source": "Phorest Salon Software Client Retention Study 2023",
+        "confidence": "medium"
+      },
+      {
+        "example": "Limited-time seasonal promotions tied to specific transformations (summer blonde packages, fall rich tones, holiday party ready)",
+        "platform": "Email/Instagram",
+        "why_it_worked": "Creates urgency with time-limited offers, aligns with natural desire for seasonal change, packages services for higher ticket sales",
+        "metrics": "Seasonal campaign emails average 22-28% open rates and 4.5% click-through rates in salon industry",
+        "source": "Constant Contact Beauty Industry Benchmarks 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.2% for beauty/salon industry",
+        "best_content_format": "Reels (transformation videos, tutorials) followed by carousel posts showing multiple angles of finished styles",
+        "optimal_frequency": "4-7 posts per week with daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm, Sunday 9-11am",
+        "source": "Later.com 2024 Beauty Industry Benchmarks, Rival IQ Social Media Benchmark Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for local service businesses",
+        "best_content_format": "Before/after photo posts, client testimonials, video content showing salon atmosphere",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Saturday 9am-12pm",
+        "source": "Sprout Social 2024 Index, LocaliQ Local Business Social Media Report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3-8.7% for beauty content creators",
+        "best_content_format": "Short transformation videos (7-15 seconds), trending sound usage, educational quick tips",
+        "optimal_frequency": "1-3 posts per day for maximum algorithm reach",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-11pm, Friday 5-7pm",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-25% open rate, 2.5-4% click-through rate for salon industry",
+        "best_content_format": "Personalized appointment reminders, seasonal transformation showcases, exclusive subscriber-only promotions",
+        "optimal_frequency": "2-4 emails per month (bi-weekly or weekly)",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Sunday 6-8pm",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Constant Contact Industry Report 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 3x more engagement than regular website visits for local salons",
+        "best_content_format": "Photo posts of recent work, special offer announcements, Q&A responses",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Weekdays during business hours for maximum local search visibility",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Sterling Sky Google Business Profile Insights 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Transformation Promise with Time Frame",
+        "example": "From damaged to dream hair in one appointment | 3 hours to completely transformed locks | Went from box dye disaster to salon perfect in 4 hours",
+        "why_it_works": "Sets clear expectation of result and time investment, appeals to desire for quick transformation, creates urgency and excitement",
+        "source": "Analysis of top-performing salon Instagram posts, Salon Today marketing examples"
+      },
+      {
+        "hook_pattern": "Problem-Solution Question Hook",
+        "example": "Struggling with frizz every morning? | Tired of your color fading in 2 weeks? | Can't style your hair like your stylist does?",
+        "why_it_works": "Immediately identifies with customer pain point, creates curiosity for solution, feels personalized and relatable",
+        "source": "Professional Beauty Association email subject line testing data, salon marketing case studies"
+      },
+      {
+        "hook_pattern": "Social Proof + Specific Result",
+        "example": "Why 200+ brides trusted us with their wedding day hair | The color correction technique 500+ clients are obsessed with | How we helped 50+ women go gray gracefully",
+        "why_it_works": "Combines authority through numbers with specific desirable outcome, reduces risk perception, creates FOMO",
+        "source": "Analysis of high-converting salon landing pages and ad copy"
+      },
+      {
+        "hook_pattern": "Seasonal/Trend Tie-In",
+        "example": "The fall hair color everyone's asking for | Summer's biggest hair trend is here | Get holiday party ready with this style | Prom season's hottest look",
+        "why_it_works": "Leverages timely relevance and fear of missing out, aligns with customer's seasonal mindset, creates urgency",
+        "source": "Salon Centric seasonal marketing guides, beauty industry trend reports"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Expertise Reveal",
+        "example": "The technique we use for damage-free blonde | What really happens during a color correction | Professional secrets for long-lasting color | The one product we use on every client",
+        "why_it_works": "Satisfies curiosity about professional methods, builds trust through transparency, positions salon as expert authority",
+        "source": "Analysis of viral salon TikTok and Instagram content"
+      },
+      {
+        "hook_pattern": "Exclusive/Limited Offer with Urgency",
+        "example": "Only 5 spots left for holiday color | New client special ends Friday | First-time balayage clients save $50 this week | Last chance for summer blonde packages",
+        "why_it_works": "Creates scarcity and urgency, rewards action, clear call-to-action, time-bound decision making",
+        "source": "Square Appointments booking conversion data, salon email marketing case studies"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My hair just won't hold a curl no matter what I do",
+        "I can't get my hair to look like it does when I leave the salon",
+        "My roots are showing and I look so washed out",
+        "My hair is so damaged and broken from bleach",
+        "I have a wedding in 3 weeks and my hair is a disaster",
+        "My color fades to brassy orange after two weeks",
+        "I spend an hour every morning fighting with my hair",
+        "My hair feels like straw and nothing helps",
+        "I don't know what style would look good on me",
+        "I'm terrified of getting a bad haircut again"
+      ],
+      "solution_phrases": [
+        "I walked out feeling like a completely new person",
+        "My hair has never been healthier or shinier",
+        "I can actually style it myself now in 10 minutes",
+        "The color is exactly what I showed in the picture",
+        "I finally found someone who understands my hair texture",
+        "My hair feels so soft and looks so vibrant",
+        "I got so many compliments at the event",
+        "They really listened to what I wanted",
+        "The cut grows out so well, still looks great after 8 weeks",
+        "I feel confident and beautiful again"
+      ],
+      "objection_phrases": [
+        "I'm worried it will cost too much",
+        "I don't want to be there for 4 hours",
+        "What if they don't understand what I want",
+        "I'm scared they'll damage my hair more",
+        "I can't afford to come back every 4 weeks",
+        "I had a bad experience at another salon",
+        "I don't know if this style will work for my face shape",
+        "Will this color require too much maintenance",
+        "I'm nervous about going too short",
+        "I don't want to look too different or dramatic"
+      ],
+      "decision_factors": [
+        "I looked at all their before and after photos on Instagram",
+        "The reviews mentioned they're really good with curly hair",
+        "They use high-quality products that don't damage hair",
+        "The stylist did a thorough consultation before starting",
+        "They're experienced with the specific technique I wanted",
+        "The price included a conditioning treatment",
+        "They could get me in quickly for my event",
+        "A friend recommended them and her hair always looks amazing",
+        "They specialize in color corrections",
+        "The salon atmosphere felt welcoming and not intimidating"
+      ],
+      "emotional_language": [
+        "I feel so much more confident",
+        "I'm obsessed with my hair now",
+        "I couldn't stop looking in the mirror",
+        "I feel like myself again",
+        "This was exactly the transformation I needed",
+        "I feel beautiful for the first time in months",
+        "I'm so relieved I found someone who gets it",
+        "I feel younger and more vibrant",
+        "I'm not embarrassed about my hair anymore",
+        "I feel glamorous and put-together"
+      ],
+      "sources": [
+        "Reddit r/Hair, r/FancyFollicles customer discussions",
+        "Yelp and Google Reviews for top-rated salons",
+        "Facebook salon community groups",
+        "Instagram comments on salon transformation posts",
+        "Beauty industry customer feedback surveys from Phorest and Salon Iris"
+      ]
+    },
+    "competitive_gaps": [
+      "Long-form educational content about hair health science and why certain treatments work - most salons show results but don't explain the 'why' behind techniques",
+      "Transparent pricing breakdowns and what's included in different service tiers - customers frequently complain about surprise costs",
+      "Content specifically for hair texture diversity (4C hair, fine Asian hair, etc.) - most salon content features similar hair types",
+      "Maintenance cost calculators and realistic expectations for upkeep between appointments",
+      "Male grooming and styling content - heavily female-focused industry leaves gap for men's hair content",
+      "Hair loss, thinning, and scalp health content beyond basic tips - sensitive topic most avoid",
+      "Sustainability and eco-friendly practices in hair services - growing customer concern rarely addressed",
+      "Content for clients transitioning to gray/natural hair - trending topic with limited professional guidance",
+      "Accessibility content for clients with disabilities or sensory sensitivities in salon environments"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "New Year transformation mindset, post-holiday self-care, Valentine's Day preparation",
+        "content_angle": "New year, new you transformation packages, self-love hair refresh, date night ready styles, winter hair damage repair from holiday styling"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Spring refresh, prom season begins, Easter events, wedding season kickoff",
+        "content_angle": "Spring color trends, prom hair previews and booking reminders, bridal trial consultations, transitioning from winter to spring hair care"
+      },
+      {
+        "period": "May-June",
+        "opportunity": "Peak wedding season, graduation ceremonies, summer vacation prep, Father's Day",
+        "content_angle": "Bridal party packages, graduation glam, low-maintenance summer styles, sun protection for colored hair, men's grooming for Father's Day"
+      },
+      {
+        "period": "July-August",
+        "opportunity": "Back-to-school preparation, summer travel styles, late summer weddings",
+        "content_angle": "Easy styles for summer heat and humidity, chlorine damage repair, back-to-school makeovers for teens, vacation-ready low-maintenance cuts"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Fall color change desire, homecoming events, autumn wedding season, professional headshot season",
+        "content_angle": "Fall hair color trends (rich brunettes, warm tones), homecoming updos, corporate professional styles, Halloween creative colors"
+      },
+      {
+        "period": "November-December",
+        "opportunity": "Holiday party season, family photo sessions, New Year's Eve events, gift certificate sales",
+        "content_angle": "Holiday glam packages, family photo hair prep, party-ready styles, gift certificates for holiday giving, year-end self-care, New Year's Eve transformation"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Salon Today 2024 Social Media Report",
+      "Later.com Beauty Industry Benchmarks 2024",
+      "Professional Beauty Association Marketing Trends Report 2024",
+      "Square Appointments Beauty Business Report 2024",
+      "Phorest Salon Software Client Retention Study 2023",
+      "Constant Contact Beauty Industry Benchmarks 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Sprout Social 2024 Index",
+      "LocaliQ Local Business Social Media Report 2024",
+      "Influencer Marketing Hub TikTok Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Sterling Sky Google Business Profile Insights 2024",
+      "Reddit communities: r/Hair, r/FancyFollicles, r/HairCareScience",
+      "Yelp and Google Reviews analysis for top 50 rated salons",
+      "Instagram hashtag analysis: #salontransformation #hairgoals #beforeandafterhair",
+      "TikTok trending salon content analysis"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook variations in hair salon industry",
+      "Conversion rate data from social media to bookings is proprietary to salon management software companies",
+      "Specific ROI metrics for different content types are rarely published in detail",
+      "LinkedIn engagement data limited as platform is not primary channel for consumer-facing salons"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The transformation secret reveal - Teasing the technique behind [new service/product] with behind-the-scenes expertise content",
+        "Week 2: Launch week transformation showcase - Before/after results using [new service], client first experiences, limited-time introductory offers",
+        "Week 3: Real client transformation stories - Event-based success stories, styling maintenance tips for [new service], addressing hair texture diversity",
+        "Week 4: Last chance for exclusive launch pricing - FOMO creation with limited spots, seasonal tie-in urgency, gift certificate opportunities"
+      ],
+      "weekly_hooks": [
+        [
+          "The damage-free [technique/product] everyone's been asking about is almost here",
+          "What really happens during [new service] - professional secrets revealed this week",
+          "Only [X] stylists in [city] are trained in this technique, and we're one of them"
+        ],
+        [
+          "From [problem] to dream hair in one appointment - meet our [new service]",
+          "The [seasonal] hair trend everyone's asking for is finally available - only [X] spots left this week",
+          "[X] clients transformed in 48 hours - see why they're obsessed with [new service]"
+        ],
+        [
+          "Why [X]+ clients trusted us with their [event type] hair using [new service]",
+          "I walked out feeling like a completely new person - real stories from [new service] clients",
+          "The one treatment we're now using on every [hair type] client for [specific result]"
+        ],
+        [
+          "Last chance: First-time [new service] clients save $[X] - offer ends [day]",
+          "Only [X] spots left for [seasonal event] ready hair transformations",
+          "Final week for exclusive launch pricing on [new service] - don't miss your transformation"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know what style would look good on me' - Show consultation process and digital previews",
+        "Week 2: Address 'What if they don't understand what I want' - Feature thorough consultation examples and client communication",
+        "Week 3: Address 'I'm worried it will cost too much' - Break down pricing, what's included, value comparison to daily expenses",
+        "Week 4: Address 'Will this color require too much maintenance' - Provide realistic maintenance timelines and cost calculators"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce stylist credentials and specialized training certifications for new service",
+        "Week 2: Share dramatic before/after transformations with time frames and technique breakdowns",
+        "Week 3: Feature detailed client testimonials with event outcomes and emotional transformation stories",
+        "Week 4: Final credibility push with total client count, Instagram portfolio highlights, and satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about [new service] - comment with your biggest hair challenge",
+        "Week 2: Book your transformation - DM us or call for launch week availability",
+        "Week 3: Share your transformation goals - tag a friend who needs this",
+        "Week 4: Last chance to book - only [X] spots remaining, call now to secure launch pricing"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, daily Stories with countdown stickers and polls)",
+        "TikTok (2-3 transformation videos/day during launch week, 1/day other weeks)",
+        "Email (4 emails total - teaser, launch, social proof, final push)",
+        "Google Business Profile (3 posts/week with new service photos)",
+        "Facebook (3-4 posts/week for local community reach)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on transformation videos averaging 3-5x higher engagement and seasonal promotions achieving 22-28% email open rates. Launch timing leverages the 'Behind-the-Scenes Expertise Reveal' hook pattern which builds trust through transparency and the 'Transformation Promise with Time Frame' pattern that creates urgency."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Hair health education - The science behind treatments, why certain techniques work, damage prevention tips",
+        "Week 2: Styling tutorials for at-home maintenance - Easy 5-10 minute routines clients can replicate between appointments",
+        "Week 3: Transformation showcase week - Before/after results across different hair textures and types",
+        "Week 4: Behind-the-scenes technique reveals - Educational content on balayage, color mixing, cutting methods",
+        "Week 5: Client success stories and testimonials - Real experiences with emotional transformation language",
+        "Week 6: Seasonal hair care tips - Protection, maintenance, and trending colors for current season",
+        "Week 7: Hair texture diversity spotlight - Specific content for 4C hair, fine Asian hair, curly hair techniques",
+        "Week 8: Product recommendations and professional secrets - What stylists actually use and why it matters"
+      ],
+      "weekly_hooks": [
+        [
+          "Why your hair feels like straw and the one thing that actually helps",
+          "The professional secret for long-lasting color that costs nothing extra",
+          "What really causes split ends - it's not what you think"
+        ],
+        [
+          "Style your hair like your stylist does in just 10 minutes",
+          "The one technique that makes your blowout last 3 extra days",
+          "Can't get your hair to hold a curl? Try this professional method"
+        ],
+        [
+          "From damaged to dream hair in [X] hours - this week's transformations",
+          "Went from box dye disaster to salon perfect - see the process",
+          "[X] different hair types, [X] stunning transformations this week"
+        ],
+        [
+          "The technique we use for damage-free blonde revealed",
+          "Behind-the-scenes: What happens during a color correction",
+          "Watch how we create dimension with balayage placement"
+        ],
+        [
+          "I finally found someone who understands my hair texture - [Client name]'s story",
+          "My hair has never been healthier or shinier - real client results",
+          "I got so many compliments at [event] - transformation stories"
+        ],
+        [
+          "Protect your color from [seasonal element] with these pro tips",
+          "The [season] hair color everyone's asking for right now",
+          "[Season]'s biggest hair challenge solved in 3 steps"
+        ],
+        [
+          "The specialized technique for healthy 4C hair growth and retention",
+          "Fine hair solutions - how we create volume that lasts",
+          "Curly hair cutting methods that enhance your natural pattern"
+        ],
+        [
+          "The one product we use on every client for [specific benefit]",
+          "Professional vs drugstore - why we choose [product type]",
+          "How to tell if your hair products are actually working"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My hair is so damaged and nothing helps' - Show recovery science",
+        "Week 3: Address 'I'm terrified of getting a bad haircut again' - Demonstrate consultation process",
+        "Week 4: Address 'Will they damage my hair more' - Explain protective techniques",
+        "Week 5: Address 'I had a bad experience at another salon' - Share client recovery stories",
+        "Week 6: Address 'I can't afford to come back every 4 weeks' - Offer maintenance timelines",
+        "Week 7: Address 'Will this work for my hair type' - Show texture diversity results",
+        "Week 8: Address 'Too expensive products' - Explain professional product value and longevity"
+      ],
+      "proof_timing": [
+        "Week 1: Share educational credentials and training certifications",
+        "Week 2: Feature client retention statistics and repeat booking rates",
+        "Week 3: Showcase portfolio of 50+ transformations across hair types",
+        "Week 4: Highlight years of experience and specialized technique training",
+        "Week 5: Present detailed testimonials with full transformation timelines",
+        "Week 6: Share seasonal success rates and event-ready transformations",
+        "Week 7: Display expertise with diverse hair textures through specialized results",
+        "Week 8: Reveal product partnerships and professional-only access"
+      ],
+      "cta_progression": [
+        "Week 1: Save this for later - what's your biggest hair health question?",
+        "Week 2: Try this at home and tell us how it works",
+        "Week 3: Which transformation is your favorite? Comment below",
+        "Week 4: Want to learn more? DM us your technique questions",
+        "Week 5: Ready for your transformation? Link in bio to book",
+        "Week 6: Book your seasonal refresh - limited spots available",
+        "Week 7: Schedule a consultation for your specific hair type",
+        "Week 8: Shop our professional recommendations or ask us in-salon"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week, daily Stories for ongoing engagement)",
+        "TikTok (1-2 educational videos/day for algorithm favor)",
+        "Email (2 emails/month - educational spotlight and seasonal tips)",
+        "YouTube (1 long-form tutorial/week for evergreen SEO value)",
+        "Google Business Profile (2-3 posts/week with educational content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational hair content receiving 2.8x more saves than promotional content and salons posting regular tutorial content seeing 23% higher client retention rates. Cycle incorporates the proven 'Behind-the-Scenes Expertise Reveal' and 'Problem-Solution Question Hook' patterns while addressing the competitive gap of explaining the 'why' behind techniques."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral transformation content blitz - Maximum volume of 15-30 second before/after videos with trending audio, shareable wow-factor results",
+        "Week 2: Interactive engagement explosion - Polls, challenges, user-generated content prompts, trending participation content for algorithm boost"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You finally found a stylist who gets it - watch this transformation",
+          "This took [X] hours but the results are worth every minute",
+          "From [dramatic before state] to [stunning after state] - the full process",
+          "Wait for the reveal - you won't believe this is the same person",
+          "The transformation everyone's been asking to see",
+          "When your client says 'I trust you completely' - here's what happens"
+        ],
+        [
+          "Comment your biggest hair struggle and we'll respond with solutions",
+          "Blonde, brunette, or redhead? Vote for next week's transformation",
+          "Tag someone who needs a hair transformation - we're giving away a free [service]",
+          "Show us your inspiration photo - drop it in the comments",
+          "This or that: [Style A] vs [Style B] - which would you choose?",
+          "Finish this sentence: My dream hair would be ___"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if this style will work for my face shape' - Show diverse transformations on different face shapes",
+        "Week 2: Address 'I'm nervous about going too short' - Feature gradual transformation options and reversible choices"
+      ],
+      "proof_timing": [
+        "Week 1: Rapid-fire before/after proof with client permission tags and reaction videos",
+        "Week 2: User-generated content reshares, client testimonial Stories, Instagram follower count milestones"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily transformations - turn on notifications to never miss one",
+        "Week 1: Share this transformation - tag someone who needs to see this",
+        "Week 2: Join the conversation - comment your thoughts below",
+        "Week 2: Enter to win - follow, like, and tag 2 friends for a chance at free [service]"
+      ],
+      "platform_priority": [
+        "TikTok (3 posts/day with trending sounds for maximum viral potential)",
+        "Instagram Reels (2-3 Reels/day plus 8-10 Stories/day with interactive stickers)",
+        "Instagram Feed (1 carousel post/day with multiple transformation angles)",
+        "Facebook (2 posts/day targeting local community shares)",
+        "Google Business Profile (1 post/day with eye-catching transformation photos)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on transformation videos averaging 3-5x higher engagement with top performers reaching 50K+ views and 8-12% engagement rates on Instagram Reels/TikTok. TikTok beauty content achieves 5.3-8.7% engagement rates with 1-3 posts daily for maximum algorithm reach. Leverages 'Transformation Promise with Time Frame' hook pattern and trending audio for discoverability."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Hair health science deep-dive - The chemistry of color processing, bond-building treatments, damage repair at molecular level",
+        "Week 2: Advanced technique education - Masterclass-style content on balayage placement, precision cutting, color formulation",
+        "Week 3: Hair texture expertise showcase - Specialized knowledge for 4C hair, fine hair, curly hair cutting and styling methods",
+        "Week 4: Scalp health and hair loss solutions - Professional guidance on thinning, scalp conditions, growth optimization",
+        "Week 5: Sustainability and clean beauty practices - Eco-friendly salon practices, product ingredient education, ethical sourcing",
+        "Week 6: Transitioning to natural gray expertise - Professional support for embracing gray, blending techniques, gray hair health"
+      ],
+      "weekly_hooks": [
+        [
+          "The science behind why [treatment] actually repairs damaged hair at the molecular level",
+          "What your stylist knows about hair porosity that changes everything",
+          "Why professional color lasts longer - the chemistry explained"
+        ],
+        [
+          "The balayage placement technique for [face shape] that creates [specific effect]",
+          "How we formulate custom color - behind the scenes of color theory",
+          "The cutting method that makes your style grow out beautifully for 8+ weeks"
+        ],
+        [
+          "The specialized approach for healthy 4C hair that promotes growth and retention",
+          "Why fine hair needs different cutting angles - the technique that creates lasting volume",
+          "Curly hair cutting methods that enhance your natural pattern instead of fighting it"
+        ],
+        [
+          "Thinning hair solutions that actually work - professional guidance beyond basic tips",
+          "Scalp health signs your stylist notices and what they mean",
+          "The treatments we recommend for hair loss and why they're effective"
+        ],
+        [
+          "Our commitment to sustainable salon practices and what it means for your hair",
+          "Clean beauty ingredient education - what to look for and what to avoid",
+          "How we're reducing waste while delivering luxury transformations"
+        ],
+        [
+          "The professional guide to transitioning to gray gracefully and confidently",
+          "Gray blending techniques that look natural during the transition",
+          "Why gray hair needs different care - expert tips for vibrant silver"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My hair is so damaged and nothing helps' - Explain actual science of repair",
+        "Week 2: Address 'I can't get my hair to look like it does when I leave the salon' - Teach professional techniques",
+        "Week 3: Address 'Will this work for my hair type' - Demonstrate specialized expertise",
+        "Week 4: Address 'I'm embarrassed about my hair thinning' - Normalize and provide solutions",
+        "Week 5: Address 'I don't know if products are safe' - Educate on ingredients and practices",
+        "Week 6: Address 'I'm scared to go gray' - Provide professional transition support"
+      ],
+      "proof_timing": [
+        "Week 1: Share advanced training certifications and continuing education credentials",
+        "Week 2: Highlight years of experience and specialized technique mastery",
+        "Week 3: Display portfolio of successful results across all hair textures",
+        "Week 4: Present partnerships with trichologists and scalp health specialists",
+        "Week 5: Reveal eco-certifications, clean product partnerships, sustainability awards",
+        "Week 6: Showcase gray transition success stories and specialized gray hair training"
+      ],
+      "cta_progression": [
+        "Week 1: Save this educational series - bookmark for reference",
+        "Week 2: Ask your technique questions - we're answering everything this week",
+        "Week 3: Schedule a consultation to discuss your specific hair texture needs",
+        "Week 4: Book a scalp analysis - complimentary with any service this month",
+        "Week 5: Learn more about our sustainable practices - visit our website",
+        "Week 6: Ready to embrace your natural gray? Book your transition consultation"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form educational videos/week for SEO and depth)",
+        "Instagram (4-5 educational carousel posts/week with detailed captions)",
+        "Email (1 weekly newsletter with deep-dive educational content)",
+        "TikTok (1 educational video/day with quick tips format)",
+        "Facebook (3 posts/week targeting local community education)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational content receiving 2.8x more saves and salons establishing expertise through transparency building trust. Addresses competitive gaps including hair health science education, hair texture diversity content, scalp health guidance, sustainability practices, and gray transition support - all topics most salons avoid but customers seek."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive transformation decisions - Let community vote on styles, colors, techniques; polls for next client transformations; this-or-that style choices",
+        "Week 2: User-generated content celebration - Client transformation reshares, styling challenge participation, before/after submission requests, community spotlight features"
+      ],
+      "weekly_hooks": [
+        [
+          "You decide: Should we go blonde or brunette on this transformation? Vote now",
+          "This or that: [Specific style A] or [Specific style B] - comment your choice",
+          "Help us choose: Which [seasonal] color trend should we feature next?",
+          "Poll: What's your biggest hair struggle? We're solving the top answer",
+          "Vote: Which before/after should we post tomorrow?",
+          "You asked for it: [Specific request] transformation coming this week"
+        ],
+        [
+          "Show us your [salon name] transformation - tag us for a feature",
+          "We want to see how you're styling your hair at home - drop your pics",
+          "Client appreciation post: Thank you [client name] for trusting us with your [event]",
+          "Transformation Tuesday - share your before/after in the comments",
+          "Tag someone whose hair always looks amazing",
+          "Share your hair journey - we love seeing your transformation timeline"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't want to look too different or dramatic' - Show customizable options based on comfort level",
+        "Week 2: Address 'The salon atmosphere felt intimidating' - Showcase welcoming, inclusive community environment"
+      ],
+      "proof_timing": [
+        "Week 1: Share real-time voting results and community decision-making impact",
+        "Week 2: Feature client-submitted photos, testimonials, and user-generated success stories"
+      ],
+      "cta_progression": [
+        "Week 1: Vote now - your opinion matters, help us decide",
+        "Week 1: Comment below with your choice and why",
+        "Week 2: Tag us in your transformation photos for a chance to be featured",
+        "Week 2: Share your experience - DM us your story or comment below"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 Stories/day with poll, quiz, and question stickers)",
+        "Instagram Feed (2 posts/day with engagement-focused captions)",
+        "TikTok (2-3 videos/day with duet and stitch-friendly content)",
+        "Facebook (2 posts/day with community question prompts)",
+        "Google Business Profile (Q&A engagement, responding to all reviews)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram Reels and interactive content driving 3-5x higher engagement rates, and the proven effectiveness of social proof content including client testimonials driving 40% higher booking inquiries. Leverages platform features like polls and questions that boost algorithm favor while building authentic community connections through user-generated content."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The #1 mistake costing salons repeat clients? Not educating them on at-home maintenance.\n\nAfter analyzing 500+ client retention patterns, we discovered something crucial:\n\nPROBLEM: Clients leave your chair looking amazing, but can't recreate the style at home. They feel frustrated, assume they need \"salon magic,\" and skip their next appointment.\n\nAGITATION: Meanwhile, you're losing 23% potential rebookings because clients think professional results are impossible to maintain. They try YouTube tutorials, buy wrong products, and damage what you perfected.\n\nSOLUTION: We implemented a 3-minute post-service tutorial for every client:\n→ Show them the exact 3 products you used\n→ Demonstrate one key technique (sectioning, blow-dry angle, etc.)\n→ Send a follow-up video within 24 hours\n\nResult? Client retention jumped from 58% to 81% in 6 months.\n\nThe insight: Clients who can maintain 70% of their salon look at home become loyal advocates. They're not trying to replace you—they're staying camera-ready between visits.\n\nWhat's your post-appointment client education process? #SalonBusiness #ClientRetention #BeautyIndustry #SalonOwner #HairProfessional",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why the best salons are moving away from \"Instagram perfection\" marketing:\n\nATTENTION: Scroll through any salon's feed and you'll see the same thing—flawless transformations, perfect lighting, model-worthy clients. Beautiful, but is it working?\n\nINTEREST: We surveyed 300+ potential salon clients about what actually drives their booking decisions. The surprising winner? Realistic before-and-afters showing hair textures like theirs.\n\n67% said they're intimidated by \"too perfect\" content\n82% want to see everyday people, not just special occasions\n91% check reviews mentioning their specific hair concern\n\nDESIRE: The salons winning right now are showcasing:\n→ Real client stories (including the consultation process)\n→ Honest timelines (\"This correction took 2 sessions\")\n→ Specific solutions (\"How we fixed over-processed curls\")\n→ Behind-the-scenes expertise that builds trust\n\nACTION: This shift isn't about lower production quality—it's about authentic authority. When you show the problem-solving process, not just the final reveal, you attract clients who value your expertise over your aesthetic.\n\nReady to build trust-based marketing? Start by posting one \"realistic transformation\" this week showing the challenge you solved. Tag me—I'd love to see it.\n\n#SalonMarketing #BeautyBusiness #AuthenticBranding #SalonOwner #HairIndustry",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Salon owners spending $500/month on ads with inconsistent bookings\n\nAFTER: Same salons fully booked 3 weeks out with $0 ad spend\n\nWhat changed? They implemented our [SIGNATURE SYSTEM NAME].\n\nHere's what most salon marketing gets wrong: Chasing new clients while ignoring the goldmine—your existing database.\n\nOur clients discovered:\n→ 40% of past clients haven't booked in 90+ days (but they're not lost)\n→ Seasonal campaigns to dormant clients convert at 18-22%\n→ Referral systems from happy clients outperform paid ads 3:1\n\nBETTER approach:\n✓ Automated re-engagement sequences for clients overdue for color/cuts\n✓ VIP early-access to seasonal transformations (fall tones, holiday party hair)\n✓ Strategic content that positions you as the expert, not just a vendor\n\nWe're opening [NUMBER] spots for salons ready to fill their books with ideal clients who value quality over price.\n\nInterested? Comment \"BOOKED\" and I'll send you our [FREE RESOURCE: Salon Booking Blueprint] showing the exact 90-day system.\n\n#SalonGrowth #BeautyBusiness #SalonOwner #SalonMarketing #SmallBusiness",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Why your salon blowout lasts 3 days but your at-home version dies by noon 👇\n\nThe secret isn't the products (though they help)—it's these 3 pro techniques:\n\n1️⃣ SECTIONING: We use 6-8 sections, you're probably using 2. More sections = better tension = longer-lasting volume\n\n2️⃣ DIRECTION: Always pull hair UP and AWAY from roots while drying. You're probably pulling down (flattening volume before it sets)\n\n3️⃣ COOL SHOT: That button isn't optional—it locks in the style by closing the cuticle. 30 seconds per section changes everything\n\nBONUS: We dry hair 80% on medium heat, finish on high. You're probably blasting high heat the whole time (= damage + frizz)\n\nTry this tomorrow and DM me your results! Your blowouts are about to last way longer 💁‍♀️\n\nSave this for your next wash day ✨\n\n#HairTips #BlowoutTutorial #HairHacks #SalonSecrets #HairCare #[YOURCITY]Salon #HealthyHair #HairEducation #ProHairTips #StylistSecrets",
+        "visual": "Carousel post: Slide 1 - Split screen showing salon blowout vs home attempt with text overlay 'The difference isn't magic'. Slides 2-4 - Close-up hands demonstrating each technique with numbered text overlays. Slide 5 - Final result with 'Save this' reminder",
+        "framework": "Educational value-first"
+      },
+      "authority": {
+        "caption": "We've done 200+ color corrections this year. Here's what actually causes 'unfixable' damage:\n\nIt's not the bleach. It's not even box dye.\n\nIt's OVERLAPPING chemical processes without proper protein treatments between.\n\nMost damaged hair we see:\n→ Bleached over previous bleach without strand testing\n→ Permanent color applied to already-lightened ends\n→ Chemical straightening + lightening in same 6-week period\n\nYour hair can handle a LOT—but it needs strategic recovery time.\n\nThe clients with healthiest blonde/vibrant color? They:\n✓ Wait 4-6 weeks between major processes\n✓ Do 2-3 protein treatments between appointments\n✓ Communicate their full hair history (including at-home experiments)\n\nDamaged hair isn't a life sentence. But the fix takes patience, not another quick chemical process.\n\nQuestions about your specific situation? Drop them below—I'll answer every one 👇\n\n#ColorCorrection #HairHealth #SalonExpert #HairDamage #ColorSpecialist #[YOURCITY]Colorist #HairTransformation #HonestHairAdvice #ColorExpert #HealthyHairJourney",
+        "visual": "Single post: Before/after of color correction with professional lighting. Before shows damaged, uneven color. After shows healthy, dimensional result. Text overlay on image: '200+ corrections taught us this' with arrow pointing to healthy after photo",
+        "framework": "Authority positioning through expertise"
+      },
+      "promotional": {
+        "caption": "FALL TRANSFORMATION WEEK: Only 8 spots available 🍂\n\nFrom summer blonde to rich fall tones in one appointment.\n\nWhat's included:\n→ Custom color consultation (we'll look at inspo together)\n→ Full dimensional color or balayage\n→ Olaplex treatment for zero damage\n→ Cut + style\n→ Take-home color care kit\n\nInvestment: [PRICE] (normally [REGULAR PRICE])\n\nAvailable: [DATES]\n\nWhy clients love fall color week:\n\"I went from washed-out blonde to rich caramel and got 20+ compliments the first week\" - Sarah M.\n\nReady for your fall transformation? \n→ Comment 'FALL' for booking link\n→ DM for consultation\n→ Limited to 8 clients for personalized attention\n\nBooking opens to our followers first, then goes public Friday ⏰\n\n#FallHair #HairTransformation #[YOURCITY]Salon #FallHairColor #SalonSpecial #NewSeasonNewHair #HairGoals #BookNow #LimitedSpots #FallVibes",
+        "visual": "Carousel post: Slide 1 - Autumn aesthetic flat lay with hair swatches in fall tones, text overlay 'Fall Transformation Week'. Slide 2 - Before/after summer to fall color. Slide 3 - What's included list with checkmarks. Slide 4 - Client testimonial screenshot. Slide 5 - 'Only 8 spots' urgency reminder with booking CTA",
+        "framework": "Soft-sell with urgency and social proof"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 HAIR MYTH BUSTING: Can you really 'repair' split ends?\n\nI get asked this at least 5 times a week, so let's settle it once and for all!\n\nTHE TRUTH: Once a hair strand splits, it's split forever. No product, treatment, or miracle serum can fuse it back together. (I wish! I'd be a millionaire 😅)\n\nBUT HERE'S WHAT YOU CAN DO:\n\n✂️ Prevent new splits from forming:\n→ Regular trims every 8-10 weeks (yes, really)\n→ Silk pillowcases reduce friction while you sleep\n→ Leave-in conditioner on ends daily\n→ Heat protectant EVERY time you use hot tools\n\n🔬 Temporarily seal existing splits:\n→ Hair oils create a coating that makes splits less visible\n→ Keratin treatments smooth the cuticle\n→ These are cosmetic fixes, not repairs—but they work for special events!\n\n💇‍♀️ The best approach? Trim the damaged ends and start fresh with a prevention routine.\n\nThink of it like a frayed rope—you can't un-fray it, but you can cut off the damaged part and protect the rest.\n\nQuestions? Ask me anything below! I love talking hair science 🤓\n\n[SALON NAME] | [CITY] | Book your healthy hair consultation: [LINK]\n\n#HairMyths #HairCare #SplitEnds #HealthyHair #HairTips #[YourCity]Salon #HairHealth #SalonEducation #HairFacts",
+        "framework": "Educational myth-busting with actionable advice"
+      },
+      "authority": {
+        "template": "After 15 years behind the chair and 1,000+ wedding day styles, here's what I wish every bride knew about hair trials:\n\n🚫 SKIP THE PINTEREST OVERLOAD\n\nI've had brides show up with 47 saved pins of completely different styles. I get it—they're all gorgeous! But here's the thing:\n\nYour hair texture, face shape, dress neckline, and venue vibe should guide your choice more than a celebrity's red carpet look.\n\nInstead, bring:\n✓ 2-3 photos max of styles you love\n✓ Photos of your dress (especially the back and neckline)\n✓ Info about your venue (outdoor? formal? boho?)\n✓ Your comfort level (do you normally wear hair up or down?)\n\n💡 THE TRIAL IS A CONVERSATION, NOT A COPY\n\nMy job isn't to recreate a photo—it's to design a style that:\n→ Works with YOUR hair (not the model's extensions)\n→ Lasts through ceremony, photos, and reception\n→ Makes you feel like the best version of yourself\n→ Photographs beautifully from every angle\n\nThe brides who love their wedding hair most? They trusted the collaborative process and were open to modifications that worked better for them.\n\n👰‍♀️ Currently booking 2025 weddings. If you want a stylist who listens, problem-solves, and makes you feel absolutely stunning, let's chat.\n\nComment 'BRIDE' for our wedding hair info packet!\n\n#WeddingHair #BridalHair #[YourCity]Weddings #BridalBeauty #WeddingPlanning #BrideToBe #WeddingHairTrial #BridalStylist #2025Bride #WeddingTips",
+        "framework": "Authority through experience and expertise"
+      },
+      "promotional": {
+        "template": "🎉 CLIENT APPRECIATION WEEK: Because you're the reason we love what we do!\n\nThis week only (Monday-Friday), we're saying THANK YOU with exclusive perks:\n\n💝 REFER A FRIEND SPECIAL\nYour friend gets: $25 off their first visit\nYou get: $25 credit toward your next service\n(No limit—refer 5 friends, get $125!)\n\n💝 REBOOK BONUS\nBook your next appointment before you leave and get:\n→ Free deep conditioning treatment ($35 value)\n→ Priority scheduling for holidays\n\n💝 LOYALTY LOVE\nBeen with us 1+ year? Get a free:\n→ Gloss refresh (adds shine, no commitment)\n→ Scalp massage treatment\n→ Styling product sample kit\n\nJust mention \"Client Appreciation\" when you book!\n\n📅 This week only: [DATES]\n📞 Book now: [PHONE] or [LINK]\n\nHonestly, we have the best clients. You trust us with your hair, you share your lives with us, and you make every day at the salon feel less like work and more like catching up with friends.\n\nThank you for being part of our [SALON NAME] family! 💕\n\nWho are you referring? Tag them below! 👇\n\n#ClientAppreciation #[YourCity]Salon #SalonSpecial #ThankYou #ReferralReward #SalonLove #LoyaltyRewards #BookNow #HairSalon #CommunityLove",
+        "framework": "Promotional with gratitude and community focus"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're doing your hair wrong and don't even know it",
+        "script": "HOOK (0-3sec): [Text overlay: 'POV: You're doing your hair wrong'] Show frustrated person with frizzy hair\n\nPROBLEM (3-10sec): 'Why does your hair look amazing at the salon but terrible at home? It's not the products...'\n\nREVEAL (10-30sec): Quick cuts showing:\n→ 'You're brushing wet hair' (show detangling from ends up instead)\n→ 'You're using too much heat' (show medium heat demo)\n→ 'You're skipping this step' (show heat protectant spray)\n\nSOLUTION (30-50sec): 'Do this instead:' Fast-paced demo of correct technique with text overlays for each step\n\nCTA (50-60sec): 'Try this tomorrow and watch what happens. Follow for more hair secrets your stylist wants you to know ✨'\n\n[Text overlays throughout: Step numbers, key phrases, emphasis words]\n[Trending audio: Upbeat, popular sound]\n[Hashtags: #hairtok #hairhacks #hairtutorial #haircare #fyp]",
+        "framework": "Problem-solution with quick educational value"
+      },
+      "authority": {
+        "hook": "Stylist reacts to viral hair trends that actually damage your hair",
+        "script": "HOOK (0-3sec): [Text overlay: 'Hair stylist reacts to TikTok trends'] Shocked face pointing at screen\n\nSETUP (3-8sec): 'As a stylist who fixes these mistakes daily, we need to talk about...'\n\nREACTIONS (8-45sec): Quick cuts reacting to 3 trends:\nTrend 1: [Show clip] 'This one? Actually genius IF you...' [explain safe version]\nTrend 2: [Show clip] 'STOP. This is why I'm booked with damage repairs' [explain why it's harmful]\nTrend 3: [Show clip] 'This works but you're missing one crucial step...' [add professional insight]\n\nAUTHORITY CLOSE (45-60sec): 'Not all trends are bad, but your hair deserves better than trial and error. Here's what actually works:' [Quick tip]\n\n'Follow for honest hair advice from someone who fixes these mistakes every day'\n\n[Duet or green screen format showing the trends]\n[Text overlays: '❌ Don't' or '✅ Do this instead']\n[Hashtags: #hairstylist #hairtrends #hairtok #stylistreacts #hairadvice #fyp]",
+        "framework": "Authority through expert reaction and correction"
+      },
+      "promotional": {
+        "hook": "When you finally find a stylist who gets it",
+        "script": "HOOK (0-3sec): [Text overlay: 'When you find THE stylist'] Relieved/happy face\n\nRELATABLE SETUP (3-12sec): 'You know that feeling when:'\n→ Show before photo: 'You've had 5 bad experiences'\n→ Worried face: 'You're scared to try again'\n→ Hopeful look: 'But your hair is a disaster'\n\nTRANSFORMATION (12-40sec):\n→ Quick clips of consultation: 'They actually listen'\n→ Process shots: 'They explain what they're doing'\n→ Reveal: Spin showing final result\n→ [Text overlay: 'This is what it's supposed to feel like']\n\nSOCIAL PROOF (40-50sec): 'This is why our clients stay for years' [Quick montage of happy client reactions]\n\nSOFT CTA (50-60sec): 'New clients: We get it. We'll take care of you. Link in bio 💕'\n\n[Emotional trending audio]\n[Show before/after throughout]\n[Text overlays: Client thoughts/feelings]\n[Hashtags: #hairsalon #hairtransformation #[yourcity]salon #beforeandafter #newhairstyle #fyp]",
+        "framework": "Emotional storytelling with soft promotional close"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], your hair care routine is missing this one thing",
+        "preview_text": "The at-home step that makes salon results last 2x longer",
+        "body": "Hi [FIRSTNAME],\n\nQuick question: How long does your salon style usually last?\n\nIf you're like most of our clients, you leave looking amazing... but by day 2 or 3, you're back to fighting with your hair.\n\nHere's what's probably missing: **Strategic product layering**\n\nMost people either:\n❌ Use too many products (weighing hair down)\n❌ Use too few (not enough hold/protection)\n❌ Apply them in the wrong order (canceling out benefits)\n\nTHE RIGHT ORDER:\n1. **Leave-in conditioner** on damp ends (moisture base)\n2. **Heat protectant** on all hair you'll style (damage prevention)\n3. **Styling product** applied to specific areas (hold/texture)\n4. **Finishing spray or oil** after styling (seal and shine)\n\nThat's it. Four strategic products in the right order = salon results that last.\n\n**BONUS TIP:** The products we used on you last visit? They're listed in your client profile. Reply to this email and I'll send you the exact lineup we used on YOUR hair texture.\n\nWant to make your next appointment last even longer? Book your next visit and I'll walk you through your personalized at-home routine.\n\n[BOOK NOW BUTTON]\n\nTo gorgeous, manageable hair,\n[STYLIST NAME]\n[SALON NAME]\n\nP.S. - Already have products at home but not sure about the order? Reply with what you have and I'll create a custom routine for you!",
+        "framework": "PAS - Problem, Agitate, Solution with personalization"
+      },
+      "authority": {
+        "subject": "The color technique everyone's asking for (and why it might not be right for you)",
+        "preview_text": "Honest advice about balayage, trends, and what actually works",
+        "body": "Hi [FIRSTNAME],\n\nLet me guess—you've seen balayage all over Instagram and you're wondering if it's right for you?\n\nHere's something most salons won't tell you:\n\n**Not every trending technique works for every hair type, lifestyle, or budget.**\n\nAfter 15 years of doing color, I've learned that the BEST color isn't the trendiest—it's the one that:\n\n✓ Works with your natural texture and growth pattern\n✓ Fits your styling routine (be honest—are you really going to curl it daily?)\n✓ Matches your maintenance commitment (some techniques need touch-ups every 6 weeks, others last 4+ months)\n✓ Achieves the vibe you actually want (not just what looks good on someone else)\n\nFor example:\n→ **Balayage** = Low maintenance, natural grow-out, but requires length and works best on wavy/curly hair\n→ **Traditional highlights** = More dramatic contrast, more frequent touch-ups, stunning on straight hair\n→ **Color melts** = Seamless, dimensional, perfect for growing out a previous color\n\nThe technique matters less than choosing the RIGHT technique for YOU.\n\nThat's why we do thorough consultations before every color service—because my job isn't to give you what's trending, it's to give you what works.\n\n**Thinking about a color change?** Book a free 15-minute consultation (virtual or in-person) and we'll figure out exactly what will work for your hair, lifestyle, and goals.\n\n[BOOK CONSULTATION BUTTON]\n\nNo pressure, no sales pitch—just honest expert advice.\n\n[STYLIST NAME]\n[SALON NAME]\n\nP.S. - Not ready to book but have a color question? Just reply to this email. I read and respond to every one!",
+        "framework": "Authority through education and honest guidance"
+      },
+      "promotional": {
+        "subject": "⏰ [FIRSTNAME], 5 spots left for Fall Color Week",
+        "preview_text": "$50 off transformation packages—ends [DATE]",
+        "body": "Hi [FIRSTNAME],\n\nRemember when I mentioned Fall Color Week is coming?\n\nWell, it's here—and we're already down to just **5 available spots**.\n\nHere's what you get:\n\n🍂 **FALL TRANSFORMATION PACKAGE**\n→ Custom color consultation\n→ Full balayage, color melt, or dimensional color\n→ Olaplex treatment (keeps your hair healthy through the process)\n→ Precision cut + signature blowout\n→ Take-home color care kit ($45 value)\n\n**Investment:** [PROMOTIONAL PRICE] (Save $50 off regular price)\n\n**Available dates:** [SPECIFIC DATES]\n**Spots remaining:** 5\n\nWhy clients love this package:\n\n*\"I went from washed-out summer blonde to rich, dimensional brunette. The Olaplex treatment meant zero damage and I got compliments for WEEKS.\"* —Sarah M.\n\n*\"Best investment in myself all year. My hair looks expensive and I feel like a new person.\"* —Jennifer K.\n\nThis is perfect if you:\n✓ Want a seasonal refresh without commitment\n✓ Need a confidence boost heading into the holidays\n✓ Have been putting off that color change\n✓ Want to try a new technique with expert guidance\n\n**Ready to claim your spot?**\n\n[BOOK NOW BUTTON]\n\nSpots are first-come, first-served, and once they're gone, we won't offer this package again until spring.\n\nQuestions? Just reply to this email—I'm here to help!\n\nTo your fall transformation,\n[STYLIST NAME]\n[SALON NAME]\n\nP.S. - Not sure which color direction to go? Book a quick consultation call first and we'll figure it out together. No obligation to book the package if it's not right for you!",
+        "framework": "Promotional with urgency, social proof, and value emphasis"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] clients went from box dye disaster to salon perfect in [timeframe]",
+      "[X] brides trusted us with their wedding day hair transformation",
+      "From damaged straw to silky shine in [X] appointments"
+    ],
+    "question_hooks": [
+      "Tired of your color fading to brassy orange after [X] weeks?",
+      "Does your hair look amazing at the salon but you can't style it at home?",
+      "Scared of getting another bad [haircut/color] that takes months to fix?"
+    ],
+    "story_hooks": [
+      "How [client name] went from bleach damage to healthiest hair in [X] months",
+      "The bride who came to us [X] weeks before her wedding with [disaster description]",
+      "How we helped [X] women finally go gray gracefully and feel confident"
+    ],
+    "fear_hooks": [
+      "Is your [at-home color/heat styling] causing permanent damage you can't see yet?",
+      "Are you making these [X] mistakes that make your salon color fade faster?",
+      "Is waiting too long between [cuts/treatments] costing you healthy hair?"
+    ],
+    "howto_hooks": [
+      "How to get damage-free blonde without spending [X] hours in the salon",
+      "How to make your color last [X] weeks without constant touch-ups",
+      "How to style your hair like your stylist does in under [X] minutes"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You asked for 'sun-kissed blonde' but got orange brass instead",
+      "body": "Show damaged brassy hair → Apply toner with calming music → Reveal cool-toned blonde transformation → Text overlay: 'This is why we do a consultation first' → Show color wheel explaining warm vs cool tones → Final before/after split screen → 'Your hair deserves a stylist who understands color theory'",
+      "cta": "Link in bio to book your color correction consultation - let's fix it together"
+    },
+    "reels": {
+      "hook": "The hair styling trick salons don't want you to know",
+      "body": "Stylist demonstrates: 'We DO want you to know this' → Show proper round brush technique for volume → Split screen: wrong way vs right way → Text: 'This is why your blowout lasts 3 days when we do it' → Quick demo with product placement",
+      "cta": "Save this for your next wash day! Book a styling lesson in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film yourself right after leaving our salon - show us your reaction when you first see your hair in your car mirror! Tag us for a chance to win a free gloss treatment",
+      "hashtag": "#MyTransformationMoment"
+    },
+    {
+      "prompt": "Show us your 'day 5 hair' after your appointment - we want to see how our cuts and colors hold up in real life! Bonus points for showing your morning routine",
+      "hashtag": "#SalonHairAtHome"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Hairstylist reacts to viral hair hack videos - testing Pinterest/TikTok DIY tricks on real hair with professional commentary on what actually works vs what causes damage",
+      "why": "Taps into existing viral content, controversy drives comments and shares, positions salon as trusted expert, highly searchable content that captures DIY audience ready to book professional help"
+    },
+    {
+      "angle": "Texture-specific transformation series: '4C hair doesn't need to be straightened to be styled' or 'Fine hair CAN hold volume - here's how' - celebrating underrepresented hair types with expert techniques",
+      "why": "Fills competitive gap, highly shareable within specific communities, builds loyal niche audience, addresses pain point of feeling unseen by beauty industry, strong emotional resonance drives saves and tags"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:59:33.392Z",
+    "last_tier2_refresh": "2025-11-27T21:59:33.392Z",
+    "last_tier3_refresh": "2025-11-27T21:59:33.392Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:59:33.392Z"
+  }
+}

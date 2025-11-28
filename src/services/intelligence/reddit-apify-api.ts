@@ -120,9 +120,9 @@ export class RedditAPI {
       subreddit,
       sort = 'hot',
       timeFilter = 'month',
-      limit = 25,
+      limit = 15, // Reduced from 25 to fit in 40s timeout
       includeComments = true,
-      maxComments = 20
+      maxComments = 10 // Reduced from 20 to speed up
     } = options;
 
     console.log('[RedditAPI] Fetching via Apify:', { searchQuery, subreddit, sort, limit });
@@ -158,6 +158,7 @@ export class RedditAPI {
             'Authorization': `Bearer ${this.supabaseAnonKey}`
           },
           body: JSON.stringify({
+            actorId: 'trudax/reddit-scraper', // Required by Edge Function
             scraperType: 'REDDIT', // Use the REDDIT scraper type
             input: {
               startUrls,
@@ -491,21 +492,24 @@ export class RedditAPI {
     const topicMentions: Map<string, RedditTrendingTopic> = new Map();
 
     try {
-      // If specific subreddits provided, search each one
+      // If specific subreddits provided, search them IN PARALLEL (not sequential!)
       if (subreddits.length > 0) {
-        for (const subreddit of subreddits) {
-          const posts = await this.fetchRedditViaApify({
+        // Limit to 3 subreddits max for speed
+        const limitedSubreddits = subreddits.slice(0, 3);
+        const subredditPromises = limitedSubreddits.map(subreddit =>
+          this.fetchRedditViaApify({
             searchQuery: query,
             subreddit,
             sort: sortBy === 'relevance' ? 'hot' : sortBy,
             timeFilter,
-            limit: Math.ceil(limit / subreddits.length),
-            includeComments: true,
-            maxComments: commentsPerPost
-          });
+            limit: 5, // Reduced limit per subreddit for speed
+            includeComments: false, // Skip comments to speed up
+            maxComments: 0
+          }).catch(() => []) // Don't fail entire batch if one subreddit fails
+        );
 
-          this.processPosts(posts, allTriggers, allInsights);
-        }
+        const allPosts = await Promise.all(subredditPromises);
+        allPosts.forEach(posts => this.processPosts(posts, allTriggers, allInsights));
       } else {
         // General search across Reddit
         const posts = await this.fetchRedditViaApify({
@@ -526,9 +530,10 @@ export class RedditAPI {
 
       console.log('[RedditAPI] Extracted', allTriggers.length, 'triggers and', allInsights.length, 'insights');
 
+      // V3 FIX: NO SLICE - return ALL triggers and insights, Atomizer handles variety
       return {
-        triggers: allTriggers.slice(0, 50), // Top 50 triggers
-        insights: allInsights.slice(0, 30), // Top 30 insights
+        triggers: allTriggers,
+        insights: allInsights,
         trendingTopics: Array.from(topicMentions.values()),
         metadata: {
           searchQuery: query,
@@ -558,6 +563,7 @@ export class RedditAPI {
 
   /**
    * Process Apify posts and extract triggers/insights
+   * FIXED: Always add post title as insight even if patterns don't match
    */
   private processPosts(
     posts: any[],
@@ -569,9 +575,11 @@ export class RedditAPI {
       const postUrl = post.url || post.postUrl || '';
       const subreddit = post.subreddit || post.subredditName || 'unknown';
       const upvotes = post.upvotes || post.score || 0;
+      const title = post.title || '';
+      const body = post.text || post.selftext || '';
 
       // Analyze post title and text
-      const postText = `${post.title || ''} ${post.text || post.selftext || ''}`;
+      const postText = `${title} ${body}`;
       const postContext = {
         subreddit,
         upvotes,
@@ -586,6 +594,18 @@ export class RedditAPI {
       const postInsight = this.extractCustomerInsights(postText, postContext);
       if (postInsight) {
         allInsights.push(postInsight);
+      }
+
+      // CRITICAL FIX: If no pattern-matched insight, add title as raw insight anyway
+      // This ensures we get data points from every post instead of 0
+      if (!postInsight && title.length > 20) {
+        allInsights.push({
+          painPoint: title, // Treat Reddit post titles as potential pain points
+          context: body.substring(0, 300) || title,
+          subreddit,
+          upvotes,
+          url: postUrl
+        });
       }
 
       // Process comments if available

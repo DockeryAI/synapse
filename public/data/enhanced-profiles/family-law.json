@@ -1,0 +1,1726 @@
+{
+  "industry": "Family Law",
+  "industry_name": "Family Law",
+  "naics_code": "541110",
+  "category": "Professional Services",
+  "subcategory": "Legal Services - Domestic Relations",
+  "customer_triggers": [
+    {
+      "trigger": "Discovery of spouse's infidelity",
+      "urgency": 10,
+      "frequency": "Crisis event"
+    },
+    {
+      "trigger": "Domestic violence incident",
+      "urgency": 10,
+      "frequency": "Emergency"
+    },
+    {
+      "trigger": "Spouse serves divorce papers",
+      "urgency": 10,
+      "frequency": "Reactive crisis"
+    },
+    {
+      "trigger": "Child custody threat or dispute",
+      "urgency": 9,
+      "frequency": "Ongoing conflict"
+    },
+    {
+      "trigger": "Financial abuse discovery",
+      "urgency": 9,
+      "frequency": "Financial crisis"
+    },
+    {
+      "trigger": "Separation after counseling failure",
+      "urgency": 7,
+      "frequency": "Process conclusion"
+    },
+    {
+      "trigger": "Empty nest syndrome triggering split",
+      "urgency": 5,
+      "frequency": "Life transition"
+    },
+    {
+      "trigger": "Job loss affecting support payments",
+      "urgency": 8,
+      "frequency": "Economic event"
+    },
+    {
+      "trigger": "Relocation affecting custody",
+      "urgency": 8,
+      "frequency": "Life change"
+    },
+    {
+      "trigger": "Remarriage requiring modification",
+      "urgency": 6,
+      "frequency": "Life event"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Initial awareness typically through crisis event or friend's experience. 68% begin with Google searches for 'divorce lawyer near me' or 'custody attorney'. Emotional state is high anxiety, fear, anger. Research phase involves reading 10-15 articles, visiting 8-12 attorney websites, checking reviews obsessively. Average 72 hours of frantic research before first contact.",
+    "consideration": "Evaluation involves 3-5 attorney consultations over 1-2 weeks. Key factors: perceived fighter mentality (45%), emotional support capability (30%), track record (25%). Price important but secondary to perceived advocacy strength. Trust established through consultation empathy and strategic confidence. Reviews and referrals critical - 78% check state bar records.",
+    "decision": "Selection based on emotional connection (52%), strategic approach (28%), fee structure clarity (20%). Retainer signing often same-day for crisis situations, 3-7 days for planned divorces. Deciding factors include attorney availability, payment plans, and gut feeling about protection capability. Average retainer: $3,500-$7,500.",
+    "retention": "Client relationship intense during 6-18 month case duration. Satisfaction depends on communication frequency (daily during crises), emotional support, and fighting spirit. Post-case retention for modifications and enforcement. 35% return for post-decree issues within 3 years. Lifetime value: $15,000-$75,000.",
+    "advocacy": "Referrals peak 6-12 months post-resolution when emotional dust settles. Satisfied clients become zealous advocates, generating 3.8 average referrals. Support group and online forum recommendations powerful. Professional referrals from therapists (32%), financial advisors (21%), other attorneys (18%). Negative experiences generate 5x more reviews than positive."
+  },
+  "transformations": [
+    {
+      "from": "Terrified of losing children",
+      "to": "Confident in custody arrangement",
+      "emotional_value": "Parental security worth any price",
+      "worth_premium": true
+    },
+    {
+      "from": "Financial vulnerability and fear",
+      "to": "Protected assets and support secured",
+      "emotional_value": "Economic security",
+      "worth_premium": true
+    },
+    {
+      "from": "Abusive relationship trapped",
+      "to": "Safe and legally protected",
+      "emotional_value": "Personal safety priceless",
+      "worth_premium": true
+    },
+    {
+      "from": "Emotional chaos and confusion",
+      "to": "Clear path forward with support",
+      "emotional_value": "Mental health preservation",
+      "worth_premium": true
+    },
+    {
+      "from": "Unfair settlement risk",
+      "to": "Equitable division achieved",
+      "emotional_value": "Justice and fairness",
+      "worth_premium": true
+    },
+    {
+      "from": "Children caught in conflict",
+      "to": "Kids protected from drama",
+      "emotional_value": "Child welfare paramount",
+      "worth_premium": true
+    },
+    {
+      "from": "Reputation at risk",
+      "to": "Dignity preserved through process",
+      "emotional_value": "Social standing maintained",
+      "worth_premium": false
+    },
+    {
+      "from": "Endless conflict cycle",
+      "to": "Clean break and fresh start",
+      "emotional_value": "Freedom and peace",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Custody arrangement achieving client goals",
+      "timeframe": "6-12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Support payments 20-40% better than state guidelines",
+      "timeframe": "At settlement",
+      "measurable": true
+    },
+    {
+      "metric": "Asset protection preserving 60-75% of marital estate",
+      "timeframe": "Final decree",
+      "measurable": true
+    },
+    {
+      "metric": "Case resolution without trial (85% settlement rate)",
+      "timeframe": "6-18 months",
+      "measurable": true
+    },
+    {
+      "metric": "Protection order obtained within 48 hours",
+      "timeframe": "Emergency filing",
+      "measurable": true
+    },
+    {
+      "metric": "Post-decree modification success rate of 73%",
+      "timeframe": "As needed",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Court filing deadlines requiring response within 20-30 days or rights forfeited",
+    "Temporary order hearings scheduled within 2-3 weeks determining interim custody and support",
+    "Evidence preservation before spouse destroys financial records or digital communications",
+    "Asset dissipation prevention requiring immediate freezing of accounts and property transfers",
+    "School enrollment deadlines forcing custody determination for children's stability",
+    "Protective order expiration requiring renewal or permanent order proceedings",
+    "Tax filing status decisions affecting thousands in liabilities requiring immediate strategy"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I can't afford a lawyer",
+      "response": "You can't afford not to have one. Self-represented parties receive 40% less in settlements. We offer payment plans and often secure temporary support orders covering legal fees.",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "We can do this amicably ourselves",
+      "response": "That's wonderful if true, but 73% of 'amicable' divorces turn contentious over children or money. We can do collaborative divorce preserving relationships while protecting your rights.",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "I don't want to hurt the kids",
+      "response": "Professional representation actually shields children from conflict. We handle the difficult conversations so you can focus on being the stable parent they need.",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "All divorce lawyers just want to fight",
+      "response": "Our goal is resolution, not conflict. 85% of our cases settle without trial. But when fighting is necessary to protect you or your children, we're ready.",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Online divorce is so much cheaper",
+      "response": "Online forms can't negotiate custody, uncover hidden assets, or protect against future modifications. One overlooked issue costs more than our entire fee.",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "I need to think about it",
+      "response": "Every day you wait, your spouse could be hiding assets or building their case. A consultation doesn't commit you but protects your options. We can hold your retainer in trust until you're ready.",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free second opinion on any settlement offer",
+      "24-hour response time during case",
+      "Payment plan options for qualified clients",
+      "Transparent billing with detailed invoices"
+    ],
+    "proof_points": [
+      "750+ successful divorce cases with 89% client satisfaction",
+      "Board certified family law specialist",
+      "Former family court judge on team",
+      "Published author on custody strategies"
+    ],
+    "risk_mitigation": "Initial consultation fee credited toward retainer if hired within 7 days. Detailed fee agreement with scope limitations. Trust account protection for unused retainer funds. Clear communication protocols and expectations. Malpractice insurance of $5M per occurrence."
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "scared",
+      "betrayed",
+      "trapped",
+      "helpless",
+      "angry",
+      "confused",
+      "overwhelmed",
+      "unfair",
+      "threatening",
+      "desperate"
+    ],
+    "solution_words": [
+      "protected",
+      "empowered",
+      "supported",
+      "strategic",
+      "strong",
+      "clear",
+      "fair",
+      "secure",
+      "peaceful",
+      "fresh start"
+    ],
+    "avoid_jargon": [
+      "dissolution",
+      "petitioner",
+      "respondent",
+      "interrogatories",
+      "pendente lite",
+      "sua sponte",
+      "in camera",
+      "guardian ad litem",
+      "QDRO",
+      "bifurcation"
+    ]
+  },
+  "power_words": [
+    "protect",
+    "fight",
+    "secure",
+    "win",
+    "defend",
+    "advocate",
+    "champion",
+    "shield",
+    "empower",
+    "strategic",
+    "aggressive",
+    "experienced",
+    "proven",
+    "dedicated",
+    "fierce",
+    "compassionate",
+    "results",
+    "victory",
+    "justice",
+    "strength",
+    "support",
+    "guidance",
+    "expert",
+    "specialist",
+    "certified",
+    "exclusive",
+    "immediate",
+    "emergency",
+    "confidential",
+    "discreet"
+  ],
+  "avoid_words": [
+    "messy",
+    "ugly",
+    "battle",
+    "war",
+    "destroy",
+    "revenge",
+    "nasty",
+    "contentious",
+    "hostile",
+    "acrimonious",
+    "bitter",
+    "fault",
+    "blame",
+    "guilt",
+    "failure",
+    "broken",
+    "damaged",
+    "victim",
+    "lost cause",
+    "hopeless"
+  ],
+  "headline_templates": [
+    {
+      "template": "Protecting [City] Parents' Custody Rights Since 2005",
+      "expected_ctr": 5.8,
+      "use_case": "Local SEO pages"
+    },
+    {
+      "template": "What Your Spouse Doesn't Want You to Know About Divorce",
+      "expected_ctr": 8.3,
+      "use_case": "Content marketing"
+    },
+    {
+      "template": "Emergency Custody Attorney Available 24/7",
+      "expected_ctr": 9.7,
+      "use_case": "Crisis response ads"
+    },
+    {
+      "template": "7 Financial Mistakes That Cost Women Everything in Divorce",
+      "expected_ctr": 7.2,
+      "use_case": "Gender-specific content"
+    },
+    {
+      "template": "Former Judge Now Fighting for Your Family",
+      "expected_ctr": 6.9,
+      "use_case": "Authority positioning"
+    },
+    {
+      "template": "Free Consultation: Know Your Rights Before It's Too Late",
+      "expected_ctr": 5.4,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "High-Asset Divorce Specialist: Protecting What You've Built",
+      "expected_ctr": 8.1,
+      "use_case": "Affluent targeting"
+    },
+    {
+      "template": "Narcissist Spouse? Special Strategies That Work",
+      "expected_ctr": 10.2,
+      "use_case": "Psychological angle"
+    },
+    {
+      "template": "Dad's Rights Advocate: Equal Custody Is Possible",
+      "expected_ctr": 7.8,
+      "use_case": "Father demographic"
+    },
+    {
+      "template": "Collaborative Divorce: Protect Kids, Save Money",
+      "expected_ctr": 6.3,
+      "use_case": "Alternative approach"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Emergency Legal Help Now",
+      "conversion_rate": 18.3,
+      "placement": "Crisis pages"
+    },
+    {
+      "template": "Schedule Your Confidential Consultation",
+      "conversion_rate": 12.7,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Download Your Divorce Checklist",
+      "conversion_rate": 21.4,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Calculate Your Support Payments",
+      "conversion_rate": 15.8,
+      "placement": "Calculator tools"
+    },
+    {
+      "template": "Protect Your Rights - Call Now",
+      "conversion_rate": 14.2,
+      "placement": "Mobile sticky"
+    },
+    {
+      "template": "Start Your New Chapter Today",
+      "conversion_rate": 10.9,
+      "placement": "Emotional appeals"
+    },
+    {
+      "template": "Get Your Questions Answered Free",
+      "conversion_rate": 16.3,
+      "placement": "FAQ pages"
+    },
+    {
+      "template": "Text 'HELP' to [Number] for Immediate Response",
+      "conversion_rate": 22.7,
+      "placement": "Mobile campaigns"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Going through a divorce? You're not alone. Here are 5 resources every person needs during this difficult time... [link]",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Your kids need you strong. 💪 Here's how to protect your parental rights while keeping their best interests first. #CustodyRights #DivorceSupport",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "After 20 years practicing family law, the most important advice I give clients is this: Document everything. Here's why...",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: Changed your passwords yet? Digital security during divorce is crucial. Protect your accounts, emails, and finances NOW.",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "Divorce attorney reacts to terrible advice I see online [Part 1] #DivorceLawyer #LegalAdvice",
+      "engagement_rate": 14.6
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Prepare for Your First Meeting with a Divorce Attorney (Checklist Included)",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Co-Parenting Calendar Template: Keep Everyone on the Same Page [Free Download]",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Reddit",
+      "template": "[Local] Family attorney here. AMA about divorce, custody, or support laws in [State]",
+      "engagement_rate": 12.3
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Time-sensitive: New laws affecting custody | Body: Recent changes could impact your case...",
+      "engagement_rate": 26.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Aggressive representation securing maximum custody and support rights",
+      "rank": 1,
+      "differentiator": "Fighter reputation"
+    },
+    {
+      "prop": "24/7 availability for emergencies with immediate response guarantee",
+      "rank": 2,
+      "differentiator": "Crisis support"
+    },
+    {
+      "prop": "Former family court judge providing insider strategic advantage",
+      "rank": 3,
+      "differentiator": "Unique expertise"
+    },
+    {
+      "prop": "Flat-fee options removing financial uncertainty during difficult time",
+      "rank": 4,
+      "differentiator": "Pricing transparency"
+    },
+    {
+      "prop": "Collaborative approach minimizing conflict and protecting children",
+      "rank": 5,
+      "differentiator": "Child-focused philosophy"
+    },
+    {
+      "prop": "High-asset expertise protecting complex estates and business interests",
+      "rank": 6,
+      "differentiator": "Financial sophistication"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "When everything is at stake, you need exceptional representation. Our team of board-certified specialists, forensic accountants, and private investigators leaves nothing to chance. With experience in high-conflict, high-asset cases involving complex custody issues, hidden assets, and business valuations exceeding $10M, we deliver results that protect your future. White-glove service includes dedicated case manager, daily updates, and after-hours availability.",
+    "budget_conscious": "Quality representation shouldn't require bankruptcy. Our unbundled services let you choose what you need: document preparation ($500), court appearance ($1,500), or full representation with payment plans. We maximize efficiency through technology and streamlined processes, passing savings to you. Flat-fee divorces starting at $2,500 for uncontested cases. Your financial recovery starts with affordable legal help.",
+    "enterprise": "Executive divorce requires discretion, sophistication, and strategic excellence. We protect C-suite professionals, entrepreneurs, and public figures through confidential proceedings, reputation management, and complex asset protection. Our team coordinates with wealth managers, tax advisors, and corporate counsel. Recent victories: $8.3M settlement preservation, international custody win, stock option protection worth $4.2M."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board Certified Family Law Specialist",
+      "importance": 10,
+      "format": "Prominent credentialing"
+    },
+    {
+      "signal": "750+ successful cases with 89% satisfaction",
+      "importance": 9,
+      "format": "Success metrics"
+    },
+    {
+      "signal": "Former family court judge on team",
+      "importance": 9,
+      "format": "Unique authority"
+    },
+    {
+      "signal": "24/7 emergency availability",
+      "importance": 8,
+      "format": "Service commitment"
+    },
+    {
+      "signal": "5-star reviews from verified clients",
+      "importance": 7,
+      "format": "Social proof"
+    },
+    {
+      "signal": "Published author on divorce strategies",
+      "importance": 6,
+      "format": "Thought leadership"
+    },
+    {
+      "signal": "Women/Father's rights advocate recognition",
+      "importance": 7,
+      "format": "Specialty recognition"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "89% client satisfaction rate from 750+ cases",
+      "credibility_score": 9.1,
+      "context": "Volume and quality indicator"
+    },
+    {
+      "stat": "Average custody time increased by 40% for clients",
+      "credibility_score": 8.7,
+      "context": "Tangible results metric"
+    },
+    {
+      "stat": "$3.2M largest settlement secured for stay-at-home parent",
+      "credibility_score": 8.3,
+      "context": "Capability demonstration"
+    },
+    {
+      "stat": "73% of cases resolved without trial",
+      "credibility_score": 7.8,
+      "context": "Efficiency indicator"
+    },
+    {
+      "stat": "24-hour response time for all client communications",
+      "credibility_score": 8.5,
+      "context": "Service level commitment"
+    },
+    {
+      "stat": "4.8 star average from 300+ Google reviews",
+      "credibility_score": 8.9,
+      "context": "Third-party validation"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Board certification, former judges, forensic accountants, private investigators, 24/7 availability",
+    "Mid-tier: State bar member, 5+ years experience, standard business hours, paralegal support",
+    "Budget: Limited scope representation, document preparation, online tools, payment plans",
+    "Red flags: Guarantees specific outcomes, no specialization, unclear fees, bad bar record, pressure tactics"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 30,
+    "trigger_event": "One month after favorable settlement or custody order when relief and gratitude peak but before daily life normalizes",
+    "ask_method": "Personal call from attorney expressing appreciation for trust, followed by email request if positive response. Frame as helping others in similar situations."
+  },
+  "competitive_advantages": [
+    "Only firm with three board-certified family law specialists in county",
+    "Former family court judge provides unique strategic insights",
+    "In-house forensic accountant uncovers hidden assets others miss",
+    "24/7 emergency response team for crisis situations",
+    "Exclusive collaborative divorce training reducing costs by 50%",
+    "Bilingual team serving Hispanic community with cultural sensitivity"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Quote high-conflict litigation costs of $50,000+ to make $7,500 retainer seem reasonable. Present three retainer options with most choosing middle.",
+    "sensitivity": "Payment plan triggers at $3,000. Sticker shock at $10,000+ retainers. Sweet spot $5,000-7,500 for contested divorce.",
+    "sweet_spots": [
+      "$2,500 uncontested divorce flat fee",
+      "$5,000 standard retainer",
+      "$7,500 custody battle retainer",
+      "$15,000 high-asset retainer"
+    ],
+    "decoy_pricing": "Limited scope at $150/hour makes $300/hour full service seem like better value for complex cases"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 500,
+    "approval_required": 5000,
+    "competitor_research": 2500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 2,
+    "weekend": 2.5,
+    "holiday": 3
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Unbundled",
+      "price_range": "$500-$2,500",
+      "target_customer": "Simple cases, limited resources",
+      "margin": 35
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$5,000-$15,000",
+      "target_customer": "Typical contested divorce",
+      "margin": 52
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$15,000-$100,000+",
+      "target_customer": "High-asset, high-conflict cases",
+      "margin": 68
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Leverage paralegals for document preparation reducing attorney hours by 60%",
+    "Flat-fee uncontested divorces with streamlined process achieving 70% margins",
+    "Subscription model for post-decree modifications at $200/month with 85% margin",
+    "Group divorce workshops at $500/person with 20 attendees generate $10,000",
+    "Online course for self-represented parties at $497 with 95% margin",
+    "Referral fees from therapists, financial advisors average $2,000/month passive income"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 45,
+      "reason": "Post-holiday divorce surge",
+      "opportunity": "New Year, New Start campaigns"
+    },
+    {
+      "month": "February",
+      "variation": 32,
+      "reason": "Continued holiday aftermath",
+      "opportunity": "Valentine's Day reality check"
+    },
+    {
+      "month": "March",
+      "variation": 28,
+      "reason": "Tax filing triggers financial disputes",
+      "opportunity": "Financial protection messaging"
+    },
+    {
+      "month": "April",
+      "variation": 22,
+      "reason": "Spring fresh start mentality",
+      "opportunity": "Renewal and growth themes"
+    },
+    {
+      "month": "May",
+      "variation": 15,
+      "reason": "School year ending custody issues",
+      "opportunity": "Summer custody planning"
+    },
+    {
+      "month": "June",
+      "variation": 8,
+      "reason": "Wedding season contrast",
+      "opportunity": "Discrete, confidential services"
+    },
+    {
+      "month": "July",
+      "variation": -5,
+      "reason": "Vacation season lull",
+      "opportunity": "Virtual consultation promotion"
+    },
+    {
+      "month": "August",
+      "variation": 18,
+      "reason": "Back-to-school custody disputes",
+      "opportunity": "School decision urgency"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Post-summer reality check",
+      "opportunity": "Fall planning campaigns"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Holiday planning stress begins",
+      "opportunity": "Custody schedule focus"
+    },
+    {
+      "month": "November",
+      "variation": -10,
+      "reason": "Holiday pause",
+      "opportunity": "Preparation for January"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday cessation",
+      "opportunity": "Planning for New Year surge"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New case intake",
+      "avoid": "Court appearances",
+      "conversion_rate": 18.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Strategy sessions",
+      "avoid": "Emergency filings",
+      "conversion_rate": 15.7
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mediation sessions",
+      "avoid": "Confrontational meetings",
+      "conversion_rate": 14.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Court hearings",
+      "avoid": "Initial consultations",
+      "conversion_rate": 12.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency filings",
+      "avoid": "New client meetings",
+      "conversion_rate": 19.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working parent consultations",
+      "avoid": "Court matters",
+      "conversion_rate": 24.6
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Crisis calls",
+      "avoid": "Routine matters",
+      "conversion_rate": 31.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Support payments due 1st and 15th create payment anxiety, ideal for modification consultations",
+    "cash_flow_peaks": "Tax refund season (Feb-April) enables retainer payments, year-end bonuses (Dec) trigger January surge",
+    "slow_periods": "Mid-month (10th-20th) lowest inquiry volume, focus on content marketing and relationship building"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday evening domestic incident",
+      "crisis_type": "Protection order needed",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Holiday custody violation",
+      "crisis_type": "Emergency custody filing",
+      "premium_multiplier": 3.5
+    },
+    {
+      "time": "Spouse empties bank accounts",
+      "crisis_type": "Asset freeze required",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Child abduction threat",
+      "crisis_type": "Immediate court intervention",
+      "premium_multiplier": 4
+    },
+    {
+      "time": "Served papers day before deadline",
+      "crisis_type": "Rush response filing",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Peaceful Split",
+      "components": [
+        "Uncontested divorce",
+        "Document preparation",
+        "Court filing",
+        "Final decree"
+      ],
+      "pricing_model": "Flat fee $2,500",
+      "margin": 45
+    },
+    {
+      "name": "Custody Champion",
+      "components": [
+        "Full custody case",
+        "Guardian ad litem coordination",
+        "Psychological evaluations",
+        "Trial representation"
+      ],
+      "pricing_model": "Retainer $7,500",
+      "margin": 55
+    },
+    {
+      "name": "Asset Defender",
+      "components": [
+        "Forensic accounting",
+        "Business valuation",
+        "Hidden asset search",
+        "Complex property division"
+      ],
+      "pricing_model": "Retainer $15,000",
+      "margin": 62
+    },
+    {
+      "name": "Emergency Protection",
+      "components": [
+        "24/7 availability",
+        "Protection orders",
+        "Emergency custody",
+        "Crisis intervention"
+      ],
+      "pricing_model": "Premium rates $500/hour",
+      "margin": 75
+    }
+  ],
+  "upsell_paths": [
+    "Consultation ($300) → Limited scope ($2,500) - 35% conversion rate",
+    "Uncontested ($2,500) → Contested ($7,500) - 42% upgrade when issues arise",
+    "Basic divorce → Post-decree modifications ($200/month) - 58% subscribe",
+    "Divorce representation → Estate planning ($3,500) - 31% cross-sell",
+    "Individual → Therapy referral (commission) - 67% accept referral",
+    "Standard service → Emergency availability ($500/month) - 23% upgrade"
+  ],
+  "retention_hooks": [
+    "Post-decree modification subscription service for ongoing support - 73% retention",
+    "Annual legal check-ups for custody and support adjustments - 64% participation",
+    "Client support groups and resources creating community - 81% engagement",
+    "Priority scheduling for past clients needing quick assistance - 89% appreciation",
+    "Family law updates newsletter keeping clients informed - 56% open rate",
+    "Referral rewards program providing account credits - 45% participation",
+    "Children's counseling resources and co-parenting tools - 78% utilization"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Therapist partnership program with mutual referrals",
+      "timing": "Ongoing",
+      "incentive": "Reciprocal referrals",
+      "conversion_rate": 43
+    },
+    {
+      "strategy": "Client success story sharing with permission",
+      "timing": "30 days post-case",
+      "incentive": "$500 credit",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Divorce support group sponsorship and presence",
+      "timing": "Monthly",
+      "incentive": "Free resources",
+      "conversion_rate": 37
+    },
+    {
+      "strategy": "Financial advisor collaboration for asset division",
+      "timing": "During case",
+      "incentive": "Commission split",
+      "conversion_rate": 51
+    },
+    {
+      "strategy": "Social media advocacy rewards program",
+      "timing": "Post-resolution",
+      "incentive": "Gift cards",
+      "conversion_rate": 19
+    },
+    {
+      "strategy": "Professional networking with family therapists",
+      "timing": "Quarterly events",
+      "incentive": "Education credits",
+      "conversion_rate": 34
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Estate planning post-divorce",
+      "attach_rate": 31,
+      "timing": "3 months after final decree"
+    },
+    {
+      "service": "Bankruptcy consultation if needed",
+      "attach_rate": 18,
+      "timing": "During financial disclosure"
+    },
+    {
+      "service": "Real estate attorney for property transfer",
+      "attach_rate": 43,
+      "timing": "Settlement phase"
+    },
+    {
+      "service": "Criminal defense if allegations arise",
+      "attach_rate": 12,
+      "timing": "As needed"
+    },
+    {
+      "service": "Immigration law for international cases",
+      "attach_rate": 8,
+      "timing": "Initial consultation"
+    },
+    {
+      "service": "Business law for owner divorces",
+      "attach_rate": 22,
+      "timing": "Asset discovery phase"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Online divorce mediation platform",
+      "market_size": "$1.8B growing 35% annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Men's rights specialized practice",
+      "market_size": "$600M underserved market",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "LGBTQ+ family law expertise",
+      "market_size": "$400M growing market",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "International custody specialization",
+      "market_size": "$300M complex niche",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Collaborative divorce certification",
+      "market_size": "$500M alternative market",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Post-divorce coaching services",
+      "market_size": "$200M emerging market",
+      "difficulty": 2
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Cordell & Cordell's 'Men's Divorce' content series focusing specifically on fathers' rights and child custody issues for men. They created dedicated blog posts, videos, and social media content addressing male-specific divorce concerns.",
+        "platform": "Multi-platform (Blog, YouTube, Facebook)",
+        "why_it_worked": "Addressed an underserved niche with specific pain points. Used emotional hooks around father-child relationships and custody fears. Provided educational content that positioned them as specialists rather than generalists.",
+        "metrics": "Blog posts in this category consistently rank in top 3 Google results for 'fathers rights divorce' related searches. YouTube videos average 15K-50K views.",
+        "source": "cordellcordell.com and industry analysis from family law marketing forums",
+        "confidence": "high"
+      },
+      {
+        "example": "McKinley Irvin's 'Divorce 101' educational email series - a 7-part automated email course covering divorce basics, sent to website visitors who download their divorce guide. Each email addresses one major concern (finances, custody, timeline, etc.)",
+        "platform": "Email",
+        "why_it_worked": "Lead magnet strategy that provides immediate value while nurturing leads over time. Breaks overwhelming topic into digestible pieces. Positions firm as educator rather than salesperson. Builds trust through education-first approach.",
+        "metrics": "Reported 34% email open rate and 12% click-through rate in legal marketing case studies, significantly above legal industry averages of 21% and 2.8%",
+        "source": "Legal marketing case studies from Consultwebs and Mockingbird Marketing",
+        "confidence": "high"
+      },
+      {
+        "example": "Divorce attorney content on TikTok using 'myth-busting' format - short videos (30-60 seconds) debunking common divorce misconceptions like 'mothers always get custody' or 'you can hide assets in divorce'",
+        "platform": "TikTok",
+        "why_it_worked": "Short, snackable format perfect for platform. Uses pattern interrupt (myth vs reality). Addresses common fears and misconceptions. Educational without being preachy. Attorney James Sexton's TikTok account exemplifies this with videos regularly reaching 100K+ views.",
+        "metrics": "Family law attorneys using this format report 5-15% engagement rates on TikTok vs 1-3% on traditional platforms. James Sexton's account has 1.2M followers with individual videos reaching 500K-2M views.",
+        "source": "TikTok analytics and James Sexton's verified account @jamessexton",
+        "confidence": "high"
+      },
+      {
+        "example": "LinkedIn thought leadership posts from family law attorneys sharing 'what I wish clients knew before their first consultation' - vulnerable, human posts about emotional aspects of divorce work",
+        "platform": "LinkedIn",
+        "why_it_worked": "Authentic voice breaks through corporate speak. Shows empathy and understanding. Positions attorney as human, not just legal expert. Posts that show vulnerability and real client stories (anonymized) generate 3-5x more engagement than promotional posts.",
+        "metrics": "Posts using this format average 50-200 reactions and 10-30 comments vs typical legal posts with 5-15 reactions",
+        "source": "LinkedIn analysis of family law attorney posts and legal marketing benchmarks from Good2BSocial",
+        "confidence": "medium"
+      },
+      {
+        "example": "Facebook Live Q&A sessions addressing specific topics like 'Child Custody FAQs' or 'Protecting Your Assets in Divorce' - live 20-30 minute sessions with real-time question answering",
+        "platform": "Facebook",
+        "why_it_worked": "Live format creates urgency and FOMO. Real-time interaction builds trust. Addresses multiple concerns in one session. Recorded videos become evergreen content. Creates personal connection with attorney before consultation.",
+        "metrics": "Family law firms using monthly Facebook Live report 200-500 live viewers with 2,000-5,000 replay views. Generate 15-25 consultation requests per session.",
+        "source": "Family law marketing case studies from Spotlight Branding and attorney marketing forums",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.07% to 0.09% for legal services industry (2024)",
+        "best_content_format": "Video content (especially educational videos 2-5 minutes) and client testimonial videos outperform static posts by 3-5x. Facebook Live sessions generate highest engagement.",
+        "optimal_frequency": "3-5 posts per week for family law firms. Daily posting shows diminishing returns.",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM local time. Sunday evenings 6-8 PM also show elevated engagement for family law content (when people research after weekend reflection).",
+        "source": "Rival IQ 2024 Social Media Benchmark Report and legal marketing data from Scorpion Legal"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "0.54% for professional services (legal services typically 0.4-0.6%)",
+        "best_content_format": "Text-based thought leadership posts (1,200-1,500 characters) with personal stories outperform link posts. Document posts (PDF carousels) showing 2-3x higher engagement than standard posts.",
+        "optimal_frequency": "2-3 posts per week. Quality over quantity is critical on LinkedIn for legal professionals.",
+        "best_posting_times": "Tuesday-Thursday 7-8 AM and 12-1 PM. Wednesday shows highest overall engagement.",
+        "source": "LinkedIn Marketing Solutions 2024 benchmarks and Hootsuite Social Media Trends Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for professional services (family law specific data shows 0.6-1.2% for accounts under 10K followers)",
+        "best_content_format": "Carousel posts (educational slides) perform best with 1.4x more reach than single images. Reels showing 2-3x higher reach. Story highlights for FAQs highly effective.",
+        "optimal_frequency": "4-7 posts per week including 2-3 Reels. Daily Stories recommended.",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM. Wednesday and Friday show peak engagement. Evening posts (6-9 PM) also perform well.",
+        "source": "Later.com 2024 Instagram Engagement Report and legal marketing data from Consultwebs"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 21.5% for legal services. Click-through rate: 2.8%. Family law specific campaigns show higher rates: 25-35% open, 4-8% CTR",
+        "best_content_format": "Educational newsletters with single clear CTA. Case studies and client stories. 'What to expect' guides. Mobile-optimized essential (68% open on mobile).",
+        "optimal_frequency": "Bi-weekly for newsletters. Weekly for active leads in nurture sequences. Monthly for general database.",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM show highest open rates. Tuesday 10 AM optimal. Avoid Mondays and Fridays.",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Constant Contact Legal Industry Report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% average across all industries. Legal/educational content typically sees 4-8% engagement. Family law myth-busting content reports 8-15%.",
+        "best_content_format": "15-60 second videos. Myth-busting, quick tips, 'day in the life', emotional storytelling. Text overlay critical. Hook in first 3 seconds essential.",
+        "optimal_frequency": "3-7 posts per week. Consistency more important than volume. Daily posting ideal for growth phase.",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-9 PM EST. Friday 5-7 PM. Weekend mornings 9-11 AM.",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024 and legal TikTok creator analytics"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Myth-Busting Format: 'The truth about [common misconception]' or 'Myth: [false belief]. Reality: [truth]'",
+        "example": "Myth: Mothers always get custody. Reality: Courts decide based on best interest of child, not gender. or The truth about hiding assets in divorce (spoiler: you can't)",
+        "why_it_works": "Challenges existing beliefs and creates curiosity gap. Addresses common fears and misconceptions directly. Pattern interrupt gets attention. Provides immediate value by correcting dangerous assumptions.",
+        "source": "Analysis of high-performing family law social media posts and TikTok legal content"
+      },
+      {
+        "hook_pattern": "Urgent Warning Format: 'Don't [make this mistake] before [critical event]' or '[Number] things never to do during [situation]'",
+        "example": "Don't say these 3 things to your spouse before filing for divorce or 5 mistakes that will cost you custody (and how to avoid them) or What NOT to post on social media during your divorce",
+        "why_it_works": "Creates urgency and fear of loss. Taps into desire to avoid mistakes during high-stakes situation. Positions attorney as protective guide. Negative framing often outperforms positive in crisis situations.",
+        "source": "Family law email subject line testing data and legal marketing A/B test results from Mockingbird Marketing"
+      },
+      {
+        "hook_pattern": "Empathy-First Format: 'I know you're feeling [emotion] because [situation]' or 'If you're [struggling with X], you're not alone'",
+        "example": "I know you're terrified of losing your children - here's what actually happens in custody cases or If you're lying awake at night worrying about money after divorce, read this",
+        "why_it_works": "Validates emotions first before offering solutions. Creates immediate connection and trust. Shows understanding of their specific pain. Reduces feeling of isolation during crisis.",
+        "source": "High-performing family law blog posts and email campaigns from McKinley Irvin and Cordell & Cordell"
+      },
+      {
+        "hook_pattern": "Insider Reveal Format: 'What judges really think about [topic]' or 'What your attorney won't tell you about [situation]'",
+        "example": "What family court judges really consider in custody decisions or What divorce attorneys won't tell you about mediation (but should) or Inside the courtroom: How custody trials actually work",
+        "why_it_works": "Promises insider knowledge and behind-the-scenes access. Creates perception of transparency and honesty. Positions attorney as truth-teller. Satisfies desire to understand the system.",
+        "source": "Analysis of family law content marketing and legal blog performance data"
+      },
+      {
+        "hook_pattern": "Timeline/Process Format: 'Here's exactly what happens [during process]' or 'Your [situation] timeline: What to expect'",
+        "example": "Here's exactly what happens in your first 30 days after filing for divorce or Your custody case timeline: From filing to final order or What to expect at your divorce consultation (step-by-step)",
+        "why_it_works": "Reduces anxiety by making unknown process concrete and predictable. Provides structure during chaos. Positions attorney as guide. Satisfies need for control and information.",
+        "source": "Family law website analytics and lead magnet performance data from legal marketing firms"
+      },
+      {
+        "hook_pattern": "Cost/Value Format: 'How much does [service] really cost?' or 'Is [expensive option] worth it?'",
+        "example": "How much does a custody battle really cost? (And how to reduce it) or Is a contested divorce worth the cost? Here's how to decide or The real cost of not hiring an attorney",
+        "why_it_works": "Addresses primary objection (cost) head-on. Provides transparency in industry known for unclear pricing. Reframes cost as investment. Reduces sticker shock by setting expectations.",
+        "source": "Family law consultation request analysis and legal services pricing content performance"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm terrified I'll lose my kids",
+        "He's threatening to take everything",
+        "I can't afford to leave but I can't stay",
+        "She's turning the children against me",
+        "I don't know where to start or what to do first",
+        "He's hiding money and I can't prove it",
+        "I'm afraid I won't be able to support myself",
+        "The court system is stacked against fathers",
+        "I feel completely lost and overwhelmed",
+        "She's using the kids as weapons",
+        "I'm scared of what he'll do if I file",
+        "I can't sleep, can't eat, can't function",
+        "Everyone keeps telling me different things",
+        "I don't want to traumatize my children",
+        "He's controlled all the finances for years"
+      ],
+      "solution_phrases": [
+        "I need someone who will fight for me",
+        "I want an attorney who's been through this before",
+        "I need to know my children will be safe",
+        "I'm looking for someone who understands what I'm going through",
+        "I want to protect what I've worked for",
+        "I need clear answers, not legal jargon",
+        "I want this over as quickly as possible",
+        "I need someone aggressive who won't back down",
+        "I'm looking for an attorney who specializes in fathers' rights",
+        "I want fair, not greedy",
+        "I need someone who will explain everything step by step",
+        "I want an attorney who cares, not just another case number",
+        "I need to feel confident and protected",
+        "I'm looking for someone with courtroom experience",
+        "I want to move forward with my life"
+      ],
+      "objection_phrases": [
+        "I can't afford an attorney right now",
+        "Maybe we can work it out without lawyers",
+        "I'm worried this will make things worse",
+        "Do I really need an attorney for this?",
+        "I don't want to spend our kids' college fund on lawyers",
+        "Can't I just use an online divorce service?",
+        "I'm afraid of making my spouse angry",
+        "What if the attorney just drags this out to bill more hours?",
+        "I don't want to be one of those people who fights dirty",
+        "My friend did their own divorce and saved thousands",
+        "I'm worried about what people will think",
+        "Isn't mediation cheaper and better for the kids?",
+        "I don't want to air our dirty laundry in court",
+        "How do I know you're the right attorney for me?",
+        "I'm not ready to take this step yet"
+      ],
+      "decision_factors": [
+        "Experience with cases like mine specifically",
+        "How quickly they responded to my initial call",
+        "Whether they made me feel heard and understood",
+        "Their reputation and reviews from other clients",
+        "How they explained the process in terms I could understand",
+        "Whether they were honest about costs upfront",
+        "Their track record with custody cases",
+        "How aggressive or collaborative their approach is",
+        "Whether they specialize in family law or do everything",
+        "If they've worked with the judge in my county before",
+        "How comfortable I felt talking to them",
+        "Their availability and communication style",
+        "Whether they had experience with high-conflict cases",
+        "References from people I trust",
+        "My gut feeling after the consultation"
+      ],
+      "emotional_language": [
+        "terrified",
+        "overwhelmed",
+        "betrayed",
+        "scared to death",
+        "heartbroken",
+        "angry",
+        "desperate",
+        "anxious",
+        "paralyzed",
+        "protective",
+        "determined",
+        "lost",
+        "hopeful",
+        "relieved",
+        "empowered",
+        "vindicated",
+        "safe",
+        "confident",
+        "finally heard",
+        "fighting for my life"
+      ],
+      "sources": [
+        "Reddit r/Divorce discussions and advice threads",
+        "Reddit r/legaladvice family law posts",
+        "Avvo family law attorney reviews and Q&A",
+        "Google reviews for family law firms across multiple markets",
+        "Lawyers.com client reviews",
+        "Divorce support forum discussions (DivorceCare, SurvivingInfidelity)",
+        "Facebook family law attorney page comments and reviews",
+        "Yelp reviews for divorce attorneys"
+      ]
+    },
+    "competitive_gaps": [
+      "Mental health integration - very few family law firms address the psychological/therapeutic aspects of divorce or partner with therapists",
+      "Financial planning post-divorce - gap in content helping clients understand life after divorce financially, budgeting as single parent, rebuilding credit",
+      "Content for grandparents seeking custody/visitation rights - underserved audience",
+      "LGBTQ+ specific divorce content - most content assumes heterosexual marriage",
+      "Multilingual content and culturally sensitive divorce information for immigrant communities",
+      "Content addressing substance abuse issues in custody cases from the accused parent's perspective (rehabilitation, proving sobriety)",
+      "Post-divorce modification content - most focus on initial divorce, not life changes requiring modifications years later",
+      "Content for adult children dealing with parents' late-life divorce",
+      "Collaborative divorce and alternative dispute resolution - most content assumes litigation",
+      "Technology and social media evidence in divorce cases - how digital footprints affect cases"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (Divorce Month)",
+        "opportunity": "Highest spike in divorce filings historically occurs in January after holidays. Called 'Divorce Month' in the industry.",
+        "content_angle": "New Year, New Start messaging. 'Is this your year?' content. Preparation guides for those contemplating divorce. Fresh start narratives. Hope and renewal themes."
+      },
+      {
+        "period": "Back to School (Late August - September)",
+        "opportunity": "Second highest spike in divorce filings. Parents wait until summer ends to file. Child custody concerns peak as school year starts.",
+        "content_angle": "School-focused custody content. How to handle custody during school year. Protecting children during transition. Co-parenting schedules around school. Educational decision-making rights."
+      },
+      {
+        "period": "Valentine's Day (February)",
+        "opportunity": "Emotionally charged time highlighting relationship problems. High engagement on relationship-focused content.",
+        "content_angle": "Counter-programming to romance narrative. 'When love isn't enough' content. Recognizing signs it's over. Self-love and moving forward. Support for those spending it alone."
+      },
+      {
+        "period": "Tax Season (March - April)",
+        "opportunity": "Financial awareness peaks. Couples discover financial infidelity. Questions about filing status, dependents, tax implications of divorce.",
+        "content_angle": "Tax implications of divorce content. Filing status during separation. Claiming children as dependents. Division of tax refunds/debts. Financial discovery opportunities."
+      },
+      {
+        "period": "Summer Vacation (June - July)",
+        "opportunity": "Custody and visitation conflicts increase around summer schedules. Travel with children issues arise.",
+        "content_angle": "Summer custody schedule content. Vacation time division. Travel permission requirements. Long-distance visitation. Summer camp decision-making."
+      },
+      {
+        "period": "Holiday Season (November - December)",
+        "opportunity": "First holidays after separation are traumatic. Custody schedule conflicts peak. Family pressure intensifies. Many delay filing until after holidays.",
+        "content_angle": "Surviving first holidays apart. Holiday custody schedules. Managing family questions. Gift-giving guidelines. Creating new traditions. 'Should I wait until after holidays to file?' content."
+      },
+      {
+        "period": "Mother's Day / Father's Day",
+        "opportunity": "Emotionally charged days highlighting custody and parental rights issues. High engagement from parents in custody battles.",
+        "content_angle": "Fathers' rights content around Father's Day. Mothers dealing with alienation around Mother's Day. Celebrating parenthood despite divorce. Co-parenting respect content."
+      },
+      {
+        "period": "Wedding Season (May - September)",
+        "opportunity": "Prenuptial agreement questions increase. Remarriage modification issues arise. Contrast between new marriages and ending marriages creates engagement.",
+        "content_angle": "Prenuptial agreement education. Protecting assets before second marriage. How remarriage affects alimony/child support. Blended family legal considerations."
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "LinkedIn Marketing Solutions 2024",
+      "Hootsuite Social Media Trends Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Constant Contact Legal Industry Report 2024",
+      "Influencer Marketing Hub TikTok Engagement Report 2024",
+      "Later.com 2024 Instagram Engagement Report",
+      "Reddit r/Divorce and r/legaladvice communities",
+      "Avvo attorney reviews and Q&A platform",
+      "Google reviews for family law firms",
+      "Lawyers.com client testimonials",
+      "Cordell & Cordell content marketing",
+      "McKinley Irvin marketing materials",
+      "James Sexton TikTok account (@jamessexton)",
+      "Consultwebs legal marketing data",
+      "Mockingbird Marketing legal industry reports",
+      "Scorpion Legal marketing benchmarks",
+      "Good2BSocial legal marketing data",
+      "Spotlight Branding case studies",
+      "Family law marketing forums and communities"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to family law email subject lines - most is proprietary",
+      "Exact conversion rates from content to consultation bookings rarely published",
+      "TikTok benchmarks for legal industry still emerging - extrapolated from creator accounts and general benchmarks",
+      "Limited data on YouTube performance specific to family law (most video data from Facebook/TikTok)",
+      "Podcast marketing effectiveness for family law underrepresented in available research",
+      "Geographic variation in content performance not well documented - most data is national averages"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new family law service offerings (collaborative divorce program, fathers' rights package, post-divorce modification service)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes reveal - What family court judges really consider in [custody/divorce/support] decisions",
+        "Week 2: Myth-busting common misconceptions about [new service] that cost people thousands",
+        "Week 3: Real client transformations - From terrified and overwhelmed to protected and empowered",
+        "Week 4: Urgent deadline approach - Don't make these mistakes before your [consultation/filing/hearing]"
+      ],
+      "weekly_hooks": [
+        [
+          "What family court judges won't tell you about [new service approach] (but we will)",
+          "I know you're terrified of [losing your kids/financial ruin/making the wrong choice] - here's what actually happens with [new service]",
+          "The truth about [common misconception related to new service] - and why it matters for your case"
+        ],
+        [
+          "Myth: [False belief about service]. Reality: [How new service solves this differently]",
+          "Don't [make this costly mistake] before trying [new service] - here's why",
+          "5 things judges never tell you about [service area] (and how our [new service] protects you from all of them)"
+        ],
+        [
+          "She was lying awake terrified of losing her children - here's exactly how [new service] changed everything",
+          "He thought he couldn't afford to leave - then he discovered [new service] and secured [specific outcome]",
+          "If you're feeling completely lost and overwhelmed about [situation], you're not alone - here's the step-by-step path forward"
+        ],
+        [
+          "Don't say these 3 things to [your spouse/the judge/your attorney] before using [new service]",
+          "Your [custody case/divorce/modification] timeline with [new service]: What to expect in the next 30 days",
+          "How much does [new service] really cost? (And how it actually saves you money compared to [traditional approach])"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do I really need an attorney for this?' by showing insider knowledge and what's at stake",
+        "Week 2: Address 'Maybe we can work it out without lawyers' by showing when collaboration works vs. when protection is needed",
+        "Week 3: Address 'I'm worried this will make things worse' with client stories showing peaceful resolutions",
+        "Week 4: Address 'I can't afford an attorney right now' with payment plans, ROI data, and cost of NOT having representation"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce attorney credentials, specialization stats, years in family law, and courtroom experience with local judges",
+        "Week 2: Share process transparency - behind-the-scenes of how new service works, step-by-step breakdowns",
+        "Week 3: Feature 3-5 detailed client transformation stories (anonymized) with specific outcomes and emotional journey",
+        "Week 4: Final credibility push - case results data, settlement statistics, client reviews, and consultation testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide 'What to Expect: Your Complete [Service] Timeline'",
+        "Week 2: Watch our 5-minute video 'Inside the Courtroom: How [Service] Actually Works'",
+        "Week 3: Read how [Client Type] secured [specific outcome] - full case study available",
+        "Week 4: Schedule your confidential consultation this week - limited spots for [new service] available"
+      ],
+      "platform_priority": [
+        "Facebook (4-5 posts/week) - Best for video content and client testimonials, highest consultation conversion",
+        "Email (2 sends/week) - Nurture sequence to existing leads with educational content, 25-35% open rates",
+        "LinkedIn (2-3 posts/week) - Thought leadership positioning for professional audience and referral sources",
+        "Instagram (4-5 posts/week including 2 Reels) - Educational carousels and myth-busting short videos"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on McKinley Irvin's 'Divorce 101' email series success (34% open rate, 12% CTR) and the proven myth-busting format from TikTok legal content (8-15% engagement rates). Launch campaigns require heavy educational value to overcome skepticism of new offerings while building urgency through limited availability framing."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and nurturing leads through education-first approach",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Custody fundamentals - What judges really consider when deciding custody arrangements",
+        "Week 2: Financial protection - Uncovering hidden assets and securing fair property division",
+        "Week 3: Process demystification - Your divorce timeline from filing to final order, step-by-step",
+        "Week 4: Fathers' rights focus - Addressing the unique challenges men face in family court",
+        "Week 5: Co-parenting strategies - Creating sustainable custody schedules that protect children",
+        "Week 6: Cost transparency - Real numbers on divorce costs and how to reduce unnecessary expenses",
+        "Week 7: Emotional survival - Managing anxiety, overwhelm, and fear during the divorce process",
+        "Week 8: Post-divorce life - Modifications, enforcement, and moving forward successfully"
+      ],
+      "weekly_hooks": [
+        [
+          "What family court judges really think about [custody factor] - and how to use this in your case",
+          "If you're lying awake terrified of losing your children, here's what actually happens in custody decisions",
+          "Myth: Mothers always get custody. Reality: Here's what courts actually consider"
+        ],
+        [
+          "He's hiding money and I can't prove it - here's exactly how we uncover hidden assets",
+          "Don't let your spouse hide these 7 assets during divorce (and how to protect what's yours)",
+          "The truth about protecting your retirement in divorce - what you need to know now"
+        ],
+        [
+          "Here's exactly what happens in your first 30 days after filing for divorce",
+          "Your custody case timeline: From filing to final order - what to expect at each stage",
+          "I know you're feeling overwhelmed and don't know where to start - here's your step-by-step roadmap"
+        ],
+        [
+          "What judges never tell fathers about custody rights (but should)",
+          "The court system is NOT stacked against fathers - here's how to protect your parental rights",
+          "Don't make these 5 mistakes that cost fathers custody - and how to avoid them"
+        ],
+        [
+          "Creating a custody schedule that actually works - for you AND your children",
+          "She's using the kids as weapons - here's how to protect them from parental alienation",
+          "What NOT to say to your children during divorce (and what to say instead)"
+        ],
+        [
+          "How much does a custody battle really cost? (And 4 ways to reduce it)",
+          "Is a contested divorce worth the cost? Here's how to decide what's right for you",
+          "The real cost of NOT hiring an attorney - one overlooked issue costs more than our entire fee"
+        ],
+        [
+          "If you can't sleep, can't eat, can't function - you're not alone, here's how to cope",
+          "I know you're feeling betrayed and heartbroken - here's what I wish every client knew",
+          "Managing the emotional chaos of divorce while protecting yourself legally"
+        ],
+        [
+          "Life changed after your divorce? Here's when you can modify custody or support orders",
+          "What to do when your ex violates the custody agreement - enforcement options explained",
+          "Your post-divorce checklist: 7 legal steps people forget (that come back to haunt them)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Subtly address 'I don't want to traumatize my children' by showing how professional help protects kids",
+        "Week 2: Address 'He's controlled all the finances for years' by demonstrating financial discovery capabilities",
+        "Week 3: Address 'Everyone keeps telling me different things' by providing clear, authoritative information",
+        "Week 4: Address 'The court system is stacked against fathers' with facts and successful case examples",
+        "Week 5: Address 'I don't want to be one of those people who fights dirty' by showing collaborative approaches",
+        "Week 6: Address 'I can't afford an attorney right now' with payment options and ROI perspective",
+        "Week 7: Address 'I'm not ready to take this step yet' by validating feelings while providing support",
+        "Week 8: Address 'Can't I just use an online divorce service?' by showing long-term consequences of DIY mistakes"
+      ],
+      "proof_timing": [
+        "Week 1: Share general expertise - years in practice, cases handled, family law specialization",
+        "Week 2: Introduce financial discovery success stories - hidden assets found, settlements secured",
+        "Week 3: Feature client testimonials about clarity and guidance through confusing process",
+        "Week 4: Showcase fathers' rights case results and custody victories for male clients",
+        "Week 5: Share co-parenting success stories - high-conflict cases that reached workable agreements",
+        "Week 6: Provide transparent pricing information and client reviews mentioning value received",
+        "Week 7: Feature vulnerable, authentic attorney stories showing empathy and human connection",
+        "Week 8: Share long-term client relationships - modifications handled years later, ongoing trust"
+      ],
+      "cta_progression": [
+        "Week 1: Download 'Child Custody Guide: What Judges Consider' free resource",
+        "Week 2: Read our complete guide to 'Financial Discovery in Divorce'",
+        "Week 3: Watch our video 'Your Divorce Process Timeline Explained'",
+        "Week 4: Join our Facebook Live Q&A on Fathers' Rights this Thursday at 7pm",
+        "Week 5: Get our 'Co-Parenting Schedule Templates' workbook",
+        "Week 6: Schedule a free consultation to discuss your specific situation",
+        "Week 7: Comment below - what's your biggest fear about divorce? (We'll answer every question)",
+        "Week 8: Download our 'Post-Divorce Legal Checklist' - don't forget these critical steps"
+      ],
+      "platform_priority": [
+        "Email (bi-weekly newsletter) - Core educational content delivery, 25-35% open rates for family law",
+        "Facebook (3-4 posts/week) - Mix of educational posts, videos, and monthly Live Q&A sessions",
+        "LinkedIn (2 posts/week) - Thought leadership and professional positioning, document carousels",
+        "Instagram (4 posts/week including 2 Reels) - Visual education through carousels and short myth-busting videos",
+        "Blog/SEO (1 long-form post/week) - Deep-dive content optimized for search, repurposed across platforms"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on McKinley Irvin's educational email series model (34% open, 12% CTR vs industry 21% and 2.8%) and Cordell & Cordell's niche-focused content strategy. Evergreen cycles require heavy educational value (70%) to build trust over time, with minimal promotion (10%) to avoid sales fatigue. The 8-week cycle covers core family law concerns identified in customer voice data while rotating through different emotional and practical needs."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral-optimized content formats and high-frequency posting",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Myth-busting blitz - Debunking the 10 most dangerous divorce misconceptions in rapid-fire format",
+        "Week 2: Behind-the-courtroom secrets - What judges, attorneys, and the system don't tell you"
+      ],
+      "weekly_hooks": [
+        [
+          "Myth: Mothers always get custody. Reality: [Truth] - Share if you've heard this lie",
+          "The truth about hiding assets in divorce (spoiler: you can't and here's what happens when you try)",
+          "Don't post these 5 things on social media during your divorce - they WILL be used against you",
+          "What NOT to say to your spouse before filing for divorce - these 3 phrases will cost you",
+          "Myth: You can't get divorced if your spouse won't sign. Reality: [Truth]",
+          "5 mistakes that will cost you custody (and how to avoid every single one)"
+        ],
+        [
+          "What family court judges really think about [custody factor] - this will surprise you",
+          "What divorce attorneys won't tell you about mediation (but absolutely should)",
+          "Inside the courtroom: How custody trials actually work - the 7 things that matter most",
+          "He thought he'd lose everything - here's what actually happened in court",
+          "The one thing judges notice immediately in custody cases (and how to get it right)",
+          "What happens when you lie to the court - real consequences from real cases"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Maybe we can work it out without lawyers' by showing when DIY becomes dangerous",
+        "Week 2: Address 'Do I really need an attorney for this?' with insider knowledge that proves value"
+      ],
+      "proof_timing": [
+        "Week 1: Lead with shocking statistics and case examples that grab attention and establish expertise",
+        "Week 2: Share courtroom victories, client transformation snippets, and attorney credentials to convert awareness to trust"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post - you'll need it later. Tag someone who needs to see this.",
+        "Week 1: Comment 'GUIDE' and we'll send you our complete divorce preparation checklist",
+        "Week 1: Follow for daily divorce myths debunked - we're doing this all week",
+        "Week 2: Share your biggest divorce question below - we're answering every single one",
+        "Week 2: Watch our free masterclass 'What Judges Never Tell You' - link in bio",
+        "Week 2: Ready to talk about your specific situation? Book your free consultation - link in bio"
+      ],
+      "platform_priority": [
+        "TikTok (1-2 videos/day) - Highest engagement rates (8-15%) for myth-busting content, maximum viral potential",
+        "Instagram Reels (1-2/day) - Cross-post TikTok content, leverage Reels 2-3x higher reach",
+        "Facebook (2 posts/day) - Video content performs 3-5x better, share TikTok/Reels here",
+        "LinkedIn (1 post/day) - Document carousels with myth-busting format for professional audience",
+        "Email (2 sends this period) - Capture new followers with lead magnet, nurture into consultation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok legal content performance data showing 8-15% engagement rates for myth-busting format (vs 4-8% average for legal content) and James Sexton's success with 1.2M followers and videos reaching 500K-2M views. Short-form video myth-busting creates pattern interrupt and shareability essential for rapid awareness growth. High-frequency posting (daily content) critical for algorithm favor and momentum building."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing deep expertise and trust through comprehensive education",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The complete custody guide - Everything judges consider from best interest factors to evidence presentation",
+        "Week 2: Financial forensics in divorce - How we uncover hidden assets, value businesses, and secure fair division",
+        "Week 3: High-conflict divorce strategies - Protecting yourself when dealing with narcissistic or abusive spouses",
+        "Week 4: The father's rights deep-dive - Overcoming bias, securing custody, and protecting parental bonds",
+        "Week 5: Alternative dispute resolution mastery - When mediation works, when litigation is necessary, and collaborative divorce options",
+        "Week 6: Post-divorce legal landscape - Modifications, enforcement, relocation, and long-term protection strategies"
+      ],
+      "weekly_hooks": [
+        [
+          "What family court judges really consider in custody decisions - the complete guide they won't give you",
+          "Here's exactly what happens in a custody evaluation - from the psychologist's first call to the final report",
+          "If you're terrified of losing your children, here's every factor that actually matters in court"
+        ],
+        [
+          "He's hiding money and I can't prove it - here's our complete financial discovery process",
+          "The 12 places spouses hide assets (and exactly how forensic accountants find them)",
+          "What divorce attorneys won't tell you about business valuation - insider secrets from 20 years of cases"
+        ],
+        [
+          "She's a narcissist and the court doesn't see it - here's how to document and prove manipulation",
+          "Protecting yourself from a high-conflict spouse: Evidence, boundaries, and legal strategies that work",
+          "What judges need to see to recognize parental alienation - and how to present it effectively"
+        ],
+        [
+          "What judges never tell fathers about custody rights - the complete truth about gender bias in family court",
+          "The court system is NOT stacked against fathers - here's the data and how to leverage it",
+          "From supervised visitation to primary custody - how fathers win when they have the right strategy"
+        ],
+        [
+          "Is mediation right for your divorce? Here's how to decide (and when to walk away)",
+          "What divorce attorneys won't tell you about collaborative divorce - when it works beautifully and when it fails",
+          "Inside the courtroom vs. around the mediation table - real cost and outcome comparisons"
+        ],
+        [
+          "Life changed after divorce? Here's exactly when you can modify custody, support, or alimony orders",
+          "Your ex is violating the custody agreement - your complete enforcement options explained",
+          "The post-divorce legal mistakes that come back to haunt you 5 years later (and how to avoid them)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't want to traumatize my children' by showing how professional advocacy actually protects kids from conflict",
+        "Week 2: Address 'He's controlled all the finances for years' by demonstrating sophisticated discovery capabilities",
+        "Week 3: Address 'I'm worried this will make things worse' by showing how strategic approach de-escalates high-conflict situations",
+        "Week 4: Address 'The court system is stacked against fathers' with comprehensive data and case examples",
+        "Week 5: Address 'I don't want to be one of those people who fights dirty' by showing ethical, collaborative approaches",
+        "Week 6: Address 'What if the attorney just drags this out to bill more hours?' with transparency about efficient resolution strategies"
+      ],
+      "proof_timing": [
+        "Week 1: Establish credentials - years of custody case experience, courtroom track record, judicial relationships",
+        "Week 2: Demonstrate technical expertise - CPA partnerships, forensic accounting relationships, complex asset case results",
+        "Week 3: Share high-conflict case victories - protective orders obtained, alienation stopped, safety secured",
+        "Week 4: Showcase fathers' rights specialization - percentage of male clients, custody statistics, testimonials from fathers",
+        "Week 5: Present mediation and collaborative success rates - settlement percentages, time savings, cost comparisons",
+        "Week 6: Feature long-term client relationships - clients returning for modifications years later, ongoing trust testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive 'Child Custody Evidence Guide' - 40 pages of what judges want to see",
+        "Week 2: Register for our free webinar 'Financial Discovery in Divorce: Finding Hidden Assets' - Thursday 7pm",
+        "Week 3: Read our complete guide 'Protecting Yourself in High-Conflict Divorce' - 25 strategies that work",
+        "Week 4: Join our Facebook Live 'Fathers' Rights Q&A' - bring your questions, we'll answer everything",
+        "Week 5: Take our quiz 'Should You Mediate or Litigate?' - get personalized recommendation in 2 minutes",
+        "Week 6: Schedule your strategy consultation - let's discuss your specific situation and create your path forward"
+      ],
+      "platform_priority": [
+        "Blog/SEO (1 comprehensive 2,500+ word post/week) - Deep-dive content establishing subject matter expertise",
+        "Email (weekly educational series) - Deliver in-depth content to engaged subscribers, 25-35% open rates",
+        "LinkedIn (3 posts/week) - Long-form thought leadership posts and document carousels, 0.4-0.6% engagement",
+        "Facebook (3 posts/week including 1 Live session/week) - Live Q&A sessions generate 200-500 viewers, educational videos",
+        "YouTube (1 video/week) - Long-form educational content, evergreen SEO value, establish video authority"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Cordell & Cordell's niche specialization strategy (top 3 Google rankings for 'fathers rights divorce' searches, YouTube videos averaging 15K-50K views) and Facebook Live Q&A performance data (200-500 live viewers, 2,000-5,000 replays, 15-25 consultations per session). Authority building requires comprehensive, in-depth content that demonstrates mastery beyond surface-level advice. LinkedIn thought leadership posts showing vulnerability and expertise generate 3-5x more engagement than promotional content."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign maximizing interaction and algorithm favor through conversation-starting content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Community question blitz - Ask provocative questions about divorce experiences, fears, and decisions",
+        "Week 2: Interactive education - Polls, quizzes, and choose-your-own-adventure style legal scenarios"
+      ],
+      "weekly_hooks": [
+        [
+          "If you're going through divorce right now, what's keeping you awake at night? (We'll answer every response)",
+          "Fill in the blank: The hardest part of my divorce was ___________. Share your story below.",
+          "What's the one question you wish you'd asked your attorney before filing? Drop it in the comments.",
+          "I know you're feeling ___________ about your divorce. Comment with your emotion and we'll respond with specific help.",
+          "What divorce myth did you believe that turned out to be completely wrong? Let's debunk together.",
+          "If you could go back and tell yourself one thing before your divorce started, what would it be?"
+        ],
+        [
+          "POLL: What's your biggest divorce concern? A) Losing custody B) Financial security C) Legal costs D) Emotional trauma",
+          "Quiz in comments: True or False - Mothers always get primary custody. Reply and we'll explain the reality.",
+          "Scenario: Your spouse empties the bank account before you file. What do you do? A) B) C) - Best answer gets featured.",
+          "This or That: Mediation or Litigation? Comment which you'd choose and why - we'll tell you if you're right.",
+          "POLL: How did you know it was time to file for divorce? A) Infidelity B) Abuse C) Growing apart D) Financial issues E) Other",
+          "Pop quiz: Can you get divorced if your spouse won't sign papers? Reply YES or NO - we'll reveal the answer in 2 hours."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm not ready to take this step yet' by validating feelings and creating safe space for questions",
+        "Week 2: Address 'How do I know you're the right attorney for me?' by demonstrating responsiveness and expertise through interactions"
+      ],
+      "proof_timing": [
+        "Week 1: Build trust through authentic engagement - respond to every comment personally, show empathy and understanding",
+        "Week 2: Demonstrate expertise through quiz/poll answers - provide detailed explanations that showcase knowledge"
+      ],
+      "cta_progression": [
+        "Week 1: Drop your question below - we're answering every single one today",
+        "Week 1: Tag someone who needs to hear this. Share your story to help others feel less alone.",
+        "Week 1: Save this post and come back to read all the responses - this is becoming a great resource",
+        "Week 2: Vote in our poll and comment why you chose that answer",
+        "Week 2: Take our quiz in the comments - reply with your answer and we'll give you personalized feedback",
+        "Week 2: Follow us for daily interactive content like this - and DM us if you need private help with your situation"
+      ],
+      "platform_priority": [
+        "Facebook (2-3 posts/day) - Best platform for comments and community discussion, highest engagement for Q&A format",
+        "Instagram Stories (5-10 stories/day) - Poll stickers, question stickers, quiz stickers for maximum interaction",
+        "LinkedIn (1-2 posts/day) - Thought-provoking questions for professional audience, generates 50-200 reactions and 10-30 comments",
+        "TikTok (1-2 videos/day) - Duet and stitch-friendly content, comment-bait hooks, respond to comments with video replies",
+        "Email (1 send/week) - 'You asked, we answered' compilation of best community questions and responses"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on LinkedIn analysis showing vulnerable, question-based posts generate 3-5x more engagement than promotional content (50-200 reactions vs 5-15 for typical legal posts) and Facebook Live Q&A data showing 200-500 live viewers with 15-25 consultation requests per session. Interactive content formats (polls, quizzes, questions) signal to algorithms that content is valuable, increasing reach. Family law's emotional nature makes community-building and peer support particularly powerful for engagement."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What family court judges really consider in custody decisions (and it's not what you think)\n\nAfter [NUMBER] years in family law, I've seen parents make the same costly assumptions about custody cases.\n\nPROBLEM: Most parents believe custody is decided by [COMMON MYTH]. They walk into court unprepared for what judges actually evaluate.\n\nAGITATION: This misconception costs them credibility, time, and sometimes their custody arrangement. By the time they realize what matters, it's too late to course-correct.\n\nSOLUTION: Here's what judges actually prioritize:\n\n1. [FACTOR ONE] - Not your income, but your involvement\n2. [FACTOR TWO] - Communication patterns, not conflict history\n3. [FACTOR THREE] - Stability you provide, not the home size\n4. [FACTOR FOUR] - Your flexibility, not your demands\n5. [FACTOR FIVE] - The child's voice (age-appropriate)\n\nThe parents who understand this from day one? They document differently. They communicate differently. They present differently.\n\nWhat surprised you most about the custody process? Drop a comment below.\n\n#FamilyLaw #ChildCustody #DivorceAdvice #ParentalRights #LegalInsights",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "I told a potential client yesterday: \"You don't need me.\"\n\nATTENTION: That's not something most attorneys say when someone's ready to pay a retainer.\n\nINTEREST: But here's what I've learned in [NUMBER] years of family law - not every divorce needs a courtroom battle. This couple had [SITUATION DESCRIPTION]. They were communicating. They agreed on the major issues. They just needed guidance, not warfare.\n\nDESIRE: The best outcome isn't always the one that makes me the most money. It's the one that preserves your financial future, protects your kids from conflict, and lets you move forward without years of litigation trauma.\n\nI recommended mediation. They'll spend [AMOUNT] instead of [HIGHER AMOUNT]. Their kids won't testify. They'll be divorced in [TIMEFRAME] instead of [LONGER TIMEFRAME].\n\nACTION: That's the advice I wish every client heard before their first consultation: Explore every option. Litigation is a tool, not the default.\n\nIf you're facing divorce, ask yourself: What does winning actually look like for my family?\n\nThe answer might surprise you.\n\n#FamilyLawAttorney #DivorceMediation #LegalEthics #ThoughtLeadership #ClientFirst",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "\"How do I know you're the right attorney for me?\"\n\nBEFORE: A potential client asked me this last week. Fair question. Choosing a family law attorney when you're terrified and overwhelmed feels impossible.\n\nAFTER: Here's what I told them - and what I tell everyone who calls: You need an attorney who [SPECIALIZATION], has [EXPERIENCE METRIC], and makes you feel [EMOTIONAL OUTCOME].\n\nBRIDGE: That's exactly what we provide at [FIRM NAME]:\n\n→ [NUMBER]+ custody cases with [SUCCESS METRIC]\n→ Specialized focus on [NICHE/SPECIALTY]\n→ [UNIQUE APPROACH/METHODOLOGY]\n→ First consultation includes [SPECIFIC DELIVERABLE]\n→ Clear communication: [RESPONSE TIME PROMISE]\n\nWe don't take every case. We take cases where we know we can make a real difference.\n\nIf you're facing [SPECIFIC SITUATION], let's talk about whether we're the right fit.\n\nSchedule your consultation: [LINK]\n\n#FamilyLawAttorney #DivorceHelp #CustodyAttorney #[CITY]FamilyLaw #LegalConsultation",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 things NEVER to post on social media during your divorce 🚫\n\n(Slide 4 will shock you)\n\nYour social media IS evidence. Family court judges and opposing attorneys are watching. Here's what will hurt your case:\n\n1️⃣ Photos with new romantic partners\n2️⃣ Complaints about your ex or the court\n3️⃣ Pictures of expensive purchases or vacations\n4️⃣ Anything involving your children without permission\n5️⃣ Venting about custody or support disputes\n\nPROBLEM: One angry post can cost you custody time or financial advantages.\n\nAGITATION: I've seen clients lose credibility over a single Instagram story. Judges remember.\n\nSOLUTION: Best practice? Go dark on social media until your case is final. Or better yet - talk to an attorney about what's safe to share.\n\nSave this carousel for when you need it. Share it with someone going through divorce.\n\nQuestions? Drop them below 👇\n\n#DivorceAdvice #SocialMediaTips #FamilyLaw #CustodyTips #DivorceHelp #LegalAdvice #CoParenting #DivorceTips #FamilyLawAttorney #[CITY]Divorce",
+        "visual": "Carousel post - 5 slides with bold text overlays on branded background. Slide 1: Title with warning emoji. Slides 2-6: Each mistake with icon and brief explanation. Final slide: CTA to save/share with firm logo",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "What I wish every client knew before their first consultation 💔\n\nAfter [NUMBER] years in family law, I've sat across from hundreds of people in crisis. Here's the truth:\n\nYou don't need to have all the answers. You don't need to stop crying. You don't need to be \"ready.\"\n\nYou just need to take the first step.\n\nThe clients who do best? They come in scared but willing to trust the process. They ask questions. They're honest about their fears.\n\nYour consultation isn't a test. It's a conversation about your future.\n\nIf you're lying awake at night worrying about [CUSTODY/FINANCES/SAFETY], that's your sign. It's time to talk to someone who can help.\n\nYou deserve clarity. You deserve protection. You deserve to move forward.\n\nTag someone who needs to hear this today 🤍\n\n#FamilyLawyer #DivorceSupport #YouAreNotAlone #LegalHelp #FamilyLaw #DivorceAdvice #[CITY]Attorney #MentalHealthMatters #DivorceRecovery #NewBeginnings",
+        "visual": "Attorney in office, authentic candid shot (not posed). Warm, approachable lighting. Text overlay with key quote. Alternative: Behind-the-scenes consultation room photo",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "\"I can't afford an attorney right now\" 💰\n\nI hear this every week. Here's what I tell them:\n\nBEFORE: You can't afford NOT to have proper legal representation when your kids and assets are at stake.\n\nAFTER: Clients who tried DIY divorce first? They come back after making costly mistakes - and now it's more expensive to fix.\n\nBRIDGE: We offer:\n✅ Free [LENGTH] consultation\n✅ Payment plans available\n✅ Flat-fee options for [SPECIFIC SERVICES]\n✅ Clear pricing - no surprise bills\n\nOne bad decision costs more than good legal advice.\n\nProtect what matters most. Link in bio to schedule your consultation.\n\n#FamilyLawAttorney #AffordableLegalHelp #DivorceAttorney #CustodyLawyer #[CITY]FamilyLaw #LegalConsultation #DivorceHelp #FamilyLaw #PaymentPlans #ProtectYourRights",
+        "visual": "Professional headshot or firm exterior. Clean, trustworthy aesthetic. Text overlay highlighting free consultation or payment plans. Brand colors prominent",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "📋 YOUR DIVORCE CHECKLIST: What to Do in the First 30 Days\n\nIf you've just decided to file for divorce (or your spouse just served you), you're probably overwhelmed. I get it. After helping [NUMBER] families through this process, I created this checklist for what to do RIGHT NOW:\n\n✅ WEEK ONE:\n• Don't move out of the marital home (unless safety is a concern)\n• Document all assets, debts, and accounts\n• Secure important documents: tax returns, deeds, titles, insurance policies\n• Open your own bank account (but don't transfer marital funds yet)\n• Change passwords on personal accounts\n\n✅ WEEK TWO:\n• Consult with [NUMBER] family law attorneys\n• Stop posting on social media\n• Start a detailed journal of custody time, expenses, and important events\n• Take photos/videos of valuable items in the home\n• Get copies of recent financial statements\n\n✅ WEEK THREE-FOUR:\n• Retain an attorney\n• Create a realistic budget for post-divorce life\n• Research custody arrangements and parenting plans\n• Identify your priorities (what matters most vs. what you can compromise on)\n• Begin gathering evidence for contested issues\n\n🚨 CRITICAL MISTAKES TO AVOID:\n❌ Hiding assets or money\n❌ Bad-mouthing your spouse to the kids\n❌ Making major purchases or financial changes\n❌ Introducing kids to a new romantic partner\n❌ Refusing to communicate about the children\n\nPROBLEM: Most people make decisions in the first month they regret for years.\n\nAGITATION: These early mistakes can cost you custody time, financial advantages, and credibility with the judge. Once you've damaged your case, it's hard to recover.\n\nSOLUTION: Follow this checklist. Stay focused on facts, not emotions. Get professional guidance early.\n\nQuestions about any of these steps? Drop them in the comments. I'm here to help.\n\nSave this post. Share it with someone who needs it. You're not alone in this.\n\n#DivorceAdvice #FamilyLaw #DivorceChecklist #CustodyTips #[City]Divorce #DivorceHelp #FamilyLawAttorney #DivorceSupport #CoParenting #LegalAdvice",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 20 years practicing family law, here's the hardest truth I have to tell clients:\n\nYou can't control what your ex does. You can only control how you respond.\n\nI know that's not what you want to hear when:\n→ They're bad-mouthing you to the kids\n→ They're violating the parenting plan\n→ They're being unreasonable about everything\n→ They're using the children as weapons\n\nBelieve me, I've seen it all. The anger is justified. The desire for justice is real.\n\nBut here's what I've learned:\n\nThe parents who win in the long run? They're not the ones who fight hardest. They're the ones who stay calm, document everything, and let their ex's bad behavior speak for itself.\n\nJudges see through the drama. They reward the parent who:\n✓ Communicates respectfully (even when it's hard)\n✓ Follows court orders (even when the other parent doesn't)\n✓ Puts the children first (even when it costs them)\n✓ Keeps detailed records (dates, times, communications)\n✓ Takes the high road (every single time)\n\nI know it feels like you're letting them \"win.\" You're not.\n\nYou're building a case. You're protecting your credibility. You're showing the court who the stable parent is.\n\nYour ex's behavior will catch up with them. Your job is to make sure yours speaks for itself when it matters - in front of a judge.\n\nThis is the long game. Play it strategically.\n\nWhat's the hardest part of taking the high road for you? Let's talk about it in the comments. 💬\n\n#FamilyLaw #CoParenting #DivorceAdvice #CustodyBattle #HighConflictDivorce #ParentingTips #FamilyLawAttorney #DivorceSupport #LegalAdvice #[City]FamilyLaw",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "\"Do I really need an attorney, or can I just do this myself?\"\n\nI get asked this question at least once a week. Here's my honest answer:\n\nBEFORE: You're looking at DIY divorce because you want to save money and avoid conflict. That makes sense. Online divorce services promise quick, cheap, and easy.\n\nBut here's what they don't tell you:\n\n• You only get one chance to divide assets correctly\n• Custody arrangements are nearly impossible to modify later\n• You can't undo a settlement agreement once it's signed\n• Judges won't fix mistakes you made without an attorney\n• Your ex's attorney will take advantage of your lack of knowledge\n\nAFTER: Clients who come to me after trying DIY divorce have spent MORE money fixing their mistakes than they would have spent doing it right the first time.\n\nThey've lost:\n→ Retirement assets they didn't know they were entitled to\n→ Custody time because their parenting plan had gaps\n→ Child support because they calculated it wrong\n→ Property they didn't realize was marital\n\nBRIDGE: You need an attorney when:\n✅ You have children (custody is too important to guess)\n✅ You own property or have retirement accounts\n✅ Your spouse has an attorney (never go into court unrepresented)\n✅ There's any disagreement about assets, custody, or support\n✅ There's a history of domestic violence or substance abuse\n✅ You have a business or complex finances\n\nAt [FIRM NAME], we offer:\n→ Free [LENGTH] consultation to assess your situation\n→ Honest advice about whether you need full representation\n→ Limited scope options if you just need guidance on specific issues\n→ Payment plans to make quality legal help accessible\n→ [NUMBER]+ years of experience protecting families like yours\n\nYou deserve to know your options. You deserve to make informed decisions. You deserve protection.\n\nSchedule your free consultation: [LINK or PHONE]\n\nAFTER: Imagine walking into court confident, prepared, and protected. That's what proper legal representation gives you.\n\nDon't let saving money today cost you everything tomorrow.\n\n#FamilyLawAttorney #DivorceHelp #[City]Divorce #LegalAdvice #CustodyAttorney #DivorceAttorney #FamilyLaw #LegalConsultation #ProtectYourRights #DivorceSupport",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're hiding assets in your divorce and think you're getting away with it 👀",
+        "script": "HOOK (0-3 sec): [Attorney looking directly at camera with knowing expression] \"POV: You're hiding assets in your divorce...\"\n\nMYTH SETUP (3-10 sec): Text overlay: \"MYTH: I can hide money and they'll never find it\" [Show examples: crypto wallet, offshore account, cash under mattress - comedic]\n\nREALITY (10-30 sec): \"REALITY: Here's what happens\" [Quick cuts]\n• Discovery process finds EVERYTHING\n• Forensic accountants trace transactions\n• Subpoenas to banks, employers, crypto exchanges\n• Your social media posts show that 'hidden' vacation\n• Your tax returns don't match your story\n\nCONSEQUENCES (30-45 sec): Text overlay: \"What you'll lose:\" [Serious tone]\n• Judge awards spouse MORE because you lied\n• Contempt of court charges\n• Pay spouse's attorney fees\n• Criminal perjury charges possible\n• Lose ALL credibility for custody\n\nSOLUTION (45-60 sec): \"Don't hide assets. Protect them LEGALLY.\" [Point to camera]\n• Hire a family law attorney\n• Document everything properly\n• Understand what's marital vs separate\n• Get a fair division, not a fraudulent one\n\nCLOSE: \"The truth always comes out. Make sure you're on the right side of it.\" [Firm logo]\n\n#DivorceAdvice #FamilyLaw #LegalTikTok #DivorceAttorney #LawTok #FamilyLawyer #DivorceTips #LegalAdvice",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "What family court judges ACTUALLY think during custody hearings (I asked them) 👨‍⚖️",
+        "script": "HOOK (0-3 sec): [Attorney in professional setting] \"I asked 5 family court judges what they really think...\"\n\nATTENTION (3-8 sec): Text overlay: \"Here's what they told me (off the record)\" [Lean in conspiratorially]\n\nINTEREST (8-35 sec): [Quick cuts between points, text overlays]\n\n\"They notice:\"\n• Which parent bad-mouths the other (instant credibility loss)\n• Who interrupts and who stays calm (emotional regulation matters)\n• Your body language when your ex talks (they see everything)\n• Whether you focus on YOUR needs or THE CHILD'S needs\n• If you've actually read the parenting plan you're proposing\n\n\"They're thinking:\"\n• 'This parent wants to win, not co-parent' 🚩\n• 'This one actually prepared' ✅\n• 'Here we go, another high-conflict case' 😮‍💨\n• 'Finally, someone who gets it' 👏\n\nDESIRE (35-50 sec): \"The parents who do well?\" [Authoritative tone]\n• They answer questions directly\n• They have documentation ready\n• They show respect (even when it's hard)\n• They focus on stability for the kids\n• They've clearly worked with a good attorney\n\nACTION (50-60 sec): \"Your custody hearing isn't about winning. It's about proving you're the stable choice.\"\n\n[Point to camera] \"Act like the judge is watching. Because they are.\"\n\nCLOSE: \"Questions? Drop them below\" [Firm handle]\n\n#FamilyLaw #CustodyHearing #DivorceAdvice #LegalTikTok #FamilyCourt #LawTok #CustodyTips #ParentingPlan",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "5 signs you need a divorce attorney YESTERDAY (not tomorrow) ⚠️",
+        "script": "HOOK (0-3 sec): [Urgent tone, direct to camera] \"If ANY of these apply to you, call an attorney TODAY\"\n\nBEFORE (3-25 sec): [Quick cuts, text overlays with each sign]\n\n\"🚨 Sign 1: Your spouse just hired an attorney (you're already behind)\n🚨 Sign 2: They're threatening to take the kids\n🚨 Sign 3: Money is disappearing from accounts\n🚨 Sign 4: They filed a protective order\n🚨 Sign 5: They're pressuring you to sign something 'to save money'\"\n\n[Serious expression] \"These aren't 'eventually' situations. These are 'right now' emergencies.\"\n\nAFTER (25-45 sec): \"Here's what happens when you wait:\" [Concerned tone]\n• Your spouse gets ahead on strategy\n• Evidence disappears\n• You make statements that hurt your case\n• You sign away rights you didn't know you had\n• You lose leverage you can't get back\n\n\"Here's what happens when you act NOW:\" [Confident tone]\n• You protect your parental rights\n• You secure financial evidence\n• You stop making costly mistakes\n• You level the playing field\n• You get a strategy, not just a reaction\n\nBRIDGE (45-60 sec): [Direct, clear]\n\"At [FIRM NAME]:\n→ Free consultation within 24 hours\n→ [NUMBER] years protecting families\n→ We handle the [SPECIALTY] cases others won't\n→ Payment plans available\"\n\n[Point to camera] \"Link in bio. Don't wait until it's too late.\"\n\nCLOSE: Text overlay: \"Your family. Your future. Your call.\" [Firm logo and phone number]\n\n#DivorceAttorney #FamilyLaw #LegalHelp #EmergencyCustody #DivorceHelp #[City]Attorney #FamilyLawyer #LegalAdvice #ProtectYourRights",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 5 custody mistakes that lose cases (avoid these)",
+        "preview_text": "Don't let these common errors cost you time with your children",
+        "body": "PROBLEM:\n\nHi [FIRST_NAME],\n\nI've reviewed hundreds of custody cases, and I see the same mistakes over and over.\n\nThese aren't small errors. They're case-killers that cost parents custody time they'll never get back.\n\nThe worst part? Most people don't realize they're making them until it's too late.\n\nAGITATION:\n\nHere are the 5 mistakes I see most often:\n\n❌ MISTAKE #1: Bad-mouthing the other parent\nEven when justified, this destroys your credibility with judges. They assume you'll alienate the children.\n\n❌ MISTAKE #2: Violating the temporary parenting plan\nEven small violations signal you won't follow court orders. Judges remember.\n\n❌ MISTAKE #3: No documentation\nMemory isn't evidence. Without dates, times, and records, your word means nothing in court.\n\n❌ MISTAKE #4: Putting your needs before the children's\nJudges evaluate \"best interest of the child\" - not what's convenient for you.\n\n❌ MISTAKE #5: Social media oversharing\nYour posts ARE evidence. That angry rant? The judge will see it.\n\nSOLUTION:\n\nThe good news? All of these are preventable.\n\nHere's what to do instead:\n\n✅ Keep communication respectful (use writing, stay factual)\n✅ Follow ALL court orders exactly as written\n✅ Document everything in a custody journal\n✅ Focus every decision on your child's stability\n✅ Go dark on social media until your case is final\n\nWant the complete custody protection checklist?\n\nI've created a detailed guide covering:\n→ What to document (and how)\n→ Communication templates that protect you\n→ Evidence that actually matters in court\n→ Timeline of what to expect\n→ Questions to ask your attorney\n\n[DOWNLOAD FREE GUIDE]\n\nYour children are counting on you to get this right.\n\nLet me help you avoid the mistakes that cost other parents their custody time.\n\n[ATTORNEY NAME]\n[FIRM NAME]\nP.S. Have questions about your specific situation? Reply to this email or schedule a consultation: [LINK]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "What I learned from 500+ divorce cases (that surprised me)",
+        "preview_text": "After two decades in family law, these insights changed how I practice",
+        "body": "ATTENTION:\n\nHi [FIRST_NAME],\n\nAfter [NUMBER] years and 500+ divorce cases, I thought I'd seen everything.\n\nBut three patterns still surprise me - because they determine who moves forward successfully and who stays stuck in conflict for years.\n\nINTEREST:\n\nHere's what I've learned:\n\n💡 INSIGHT #1: The most expensive divorces aren't the ones with the most assets.\n\nThey're the ones where ego matters more than outcome. I've seen couples spend $100K fighting over $50K in assets. Why? Because \"winning\" became more important than their financial future.\n\nThe clients who do best? They know the difference between principles worth fighting for and pride that costs them everything.\n\n💡 INSIGHT #2: Custody isn't won in the courtroom.\n\nIt's won in the months before trial. The parent who:\n→ Documents consistently\n→ Communicates respectfully\n→ Follows temporary orders exactly\n→ Focuses on the child's needs\n\n...walks into court with credibility already established. The judge's decision is almost predictable.\n\n💡 INSIGHT #3: The \"aggressive\" attorney isn't always the right choice.\n\nClients often want someone who will \"fight\" and \"not back down.\" I get it. You're angry and hurt.\n\nBut the best outcomes come from strategic thinking, not aggressive posturing. Sometimes the smartest fight is the one you don't pick.\n\nDESIRE:\n\nThese insights changed how I practice family law.\n\nI focus on:\n✓ Long-term outcomes over short-term wins\n✓ Strategic decisions over emotional reactions\n✓ Your financial future over expensive litigation\n✓ Your children's wellbeing over courtroom drama\n✓ Solutions that let you move forward with your life\n\nACTION:\n\nIf you're facing divorce or custody issues, these three questions will guide you:\n\n1. What does success actually look like for my family?\n2. What am I willing to fight for vs. compromise on?\n3. What decision will I be proud of in 5 years?\n\nAnswer these honestly, and your path becomes clearer.\n\nNeed help thinking through your specific situation?\n\nSchedule a consultation: [LINK]\n\nLet's create a strategy that protects what matters most - your children, your assets, and your future.\n\n[ATTORNEY NAME]\n[FIRM NAME]\n[PHONE]\n\nP.S. I send insights like this weekly to help you navigate family law decisions. Want to make sure you don't miss them? Add [EMAIL] to your contacts.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], is your divorce costing more than it should?",
+        "preview_text": "3 ways we help clients save money (without compromising results)",
+        "body": "BEFORE:\n\nHi [FIRST_NAME],\n\nI know what you're thinking:\n\n\"I can't afford an attorney right now.\"\n\"Maybe I can just figure this out myself.\"\n\"All lawyers are expensive - what's the difference?\"\n\nI hear these concerns every single week.\n\nHere's the truth: You're right to think about cost. Divorce is already expensive emotionally. You shouldn't have to choose between good legal representation and financial stability.\n\nBut here's what most people don't realize...\n\nAFTER:\n\nThe clients who try to save money by going it alone or hiring the cheapest attorney?\n\nThey often spend MORE in the long run.\n\nWhy?\n→ They miss assets they're entitled to\n→ They agree to unfavorable custody arrangements\n→ They calculate child support incorrectly\n→ They make mistakes that require expensive fixes later\n→ They lose leverage they can't get back\n\nOne client came to me after trying DIY divorce. She'd already signed away $75K in retirement assets she didn't know she was entitled to. It cost her $15K in legal fees to try to fix it - and we could only recover part of what she'd lost.\n\nShe tried to save $5K. It cost her $90K.\n\nBRIDGE:\n\nAt [FIRM NAME], we do things differently:\n\n💰 TRANSPARENT PRICING\n→ Free [LENGTH] consultation\n→ Clear fee structure explained upfront\n→ No surprise bills\n→ Written estimate for your specific case\n\n💰 FLEXIBLE OPTIONS\n→ Payment plans available\n→ Flat-fee services for uncontested cases\n→ Limited scope representation if you just need guidance\n→ Unbundled services to control costs\n\n💰 EFFICIENT PROCESS\n→ [NUMBER]+ years of experience = faster resolution\n→ We focus on settlement when possible\n→ Strategic litigation only when necessary\n→ Technology that reduces billable hours\n\nOur goal isn't to maximize our fees. It's to protect your interests efficiently.\n\nWHAT YOU GET:\n✅ Experienced representation ([NUMBER]+ cases)\n✅ Specialization in [FAMILY LAW FOCUS AREA]\n✅ [SUCCESS METRIC or CREDENTIAL]\n✅ Direct access to [ATTORNEY NAME]\n✅ Clear communication every step\n\nREADY TO PROTECT YOUR FUTURE?\n\nSchedule your free consultation:\n[PHONE NUMBER]\n[ONLINE SCHEDULING LINK]\n\nDuring your consultation, we'll:\n→ Review your specific situation\n→ Explain your options clearly\n→ Provide honest assessment of costs\n→ Discuss payment arrangements\n→ Answer all your questions\n\nNo pressure. No sales pitch. Just honest advice about your best path forward.\n\nYou deserve quality legal representation. Let's make it work for your budget.\n\n[ATTORNEY NAME]\n[FIRM NAME]\n\nP.S. Don't let cost prevent you from getting the advice you need. Our free consultation means you can make an informed decision without any financial commitment. What do you have to lose? [SCHEDULE NOW]",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[NUMBER] things judges actually look at in custody cases (and [NUMBER] things that don't matter)",
+      "[NUMBER] financial mistakes that cost you thousands in divorce settlements",
+      "[NUMBER] things never to say to your kids during a custody battle"
+    ],
+    "question_hooks": [
+      "Are you terrified your ex is turning the children against you?",
+      "Are you lying awake wondering if you can afford to leave?",
+      "Are you scared your spouse is hiding assets and you can't prove it?"
+    ],
+    "story_hooks": [
+      "How [CLIENT NAME] protected her kids after discovering [SPOUSE'S] affair",
+      "How [FATHER] won 50/50 custody despite [EX-WIFE] claiming courts favor mothers",
+      "How [CLIENT] escaped [NUMBER] years of financial control and rebuilt their life"
+    ],
+    "fear_hooks": [
+      "Is your retirement account at risk from hidden debt your spouse created?",
+      "Is your custody arrangement in danger from your ex's new partner?",
+      "Is your child support payment about to increase because of [SPOUSE'S] false income claims?"
+    ],
+    "howto_hooks": [
+      "How to file for divorce without your spouse hiding all the money first",
+      "How to protect your relationship with your kids without bad-mouthing your ex",
+      "How to leave an abusive marriage without making [ABUSER] more dangerous"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "MYTH: Mothers always get custody",
+      "body": "I've practiced family law for 15 years and this is the biggest misconception. Courts don't favor mothers - they favor the best interest of the child. I've seen countless fathers win primary custody. What matters: involvement in daily care, stable home environment, work schedule flexibility, and relationship quality with the child. Document everything: school pickups, doctor visits, homework help, bedtime routines. The parent who shows up consistently wins, regardless of gender. Stop believing the myth and start building your case.",
+      "cta": "Free fathers' rights consultation - link in bio"
+    },
+    "reels": {
+      "hook": "Hiding assets in divorce?",
+      "body": "Forensic accountants find everything. Cryptocurrency, offshore accounts, cash businesses, underreported income - we've seen it all. Courts impose severe penalties for hiding assets including giving the other spouse a larger share and paying their attorney fees. The cover-up costs more than honesty. Three red flags we investigate: sudden business losses, transfers to family members, and lifestyle that doesn't match reported income.",
+      "cta": "Protect what's yours legally - consultation link below"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Share a 15-second video: 'One thing I wish I knew before my divorce was...' Be honest about what surprised you or what you'd tell others starting this journey.",
+      "hashtag": "#DivorceAdvice"
+    },
+    {
+      "prompt": "Post a photo of yourself today with the caption: 'This is what life after divorce looks like' and share one positive change since your divorce was finalized.",
+      "hashtag": "#LifeAfterDivorce"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Red flag checklist: '10 signs your spouse is preparing to file for divorce' with specific behaviors like opening separate bank accounts, consulting attorneys secretly, documenting your parenting",
+      "why": "Taps into fear and hypervigilance during marital conflict. Highly shareable as warning to friends. Positions firm as insider with protective knowledge"
+    },
+    {
+      "angle": "Collaborative post with therapist: 'Attorney + Therapist React to Common Divorce Advice' debunking bad advice from friends/family with both legal and emotional perspectives",
+      "why": "Novel format combining two expert voices. Addresses the gap in mental health integration. Shareable because it validates people's frustrations with bad advice from well-meaning friends"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:47:44.762Z",
+    "last_tier2_refresh": "2025-11-27T20:47:44.762Z",
+    "last_tier3_refresh": "2025-11-27T20:47:44.762Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:47:44.762Z"
+  }
+}

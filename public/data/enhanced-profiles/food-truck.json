@@ -1,0 +1,1716 @@
+{
+  "industry": "Food Truck",
+  "industry_name": "Food Truck",
+  "naics_code": "722330",
+  "category": "Food Service",
+  "subcategory": "Mobile Food Services",
+  "customer_triggers": [
+    {
+      "trigger": "Lunch hour time crunch at office",
+      "urgency": 9,
+      "frequency": "Daily weekdays"
+    },
+    {
+      "trigger": "Event or festival attendance",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Construction site meal needs",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Late-night bar crowd hunger",
+      "urgency": 7,
+      "frequency": "Thursday-Saturday"
+    },
+    {
+      "trigger": "Office catering for meetings",
+      "urgency": 6,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Social media food trend discovery",
+      "urgency": 5,
+      "frequency": "Sporadic"
+    },
+    {
+      "trigger": "Weather-perfect outdoor dining desire",
+      "urgency": 4,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Brewery/taproom food needs",
+      "urgency": 8,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Corporate campus rotation schedule",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Special dietary restriction accommodation",
+      "urgency": 7,
+      "frequency": "Daily"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Social media posts showing truck location (Instagram 47%, Facebook 31%, Twitter 22%), word-of-mouth from coworkers, seeing truck parked at regular spots, food truck finder apps like Roaming Hunger",
+    "consideration": "Menu review taking 45-90 seconds, price comparison with nearby restaurants showing 20-35% savings, checking recent reviews and photos, evaluating wait time versus alternatives",
+    "decision": "Visual appeal of food display triggering 73% of impulse purchases, smell activation within 50-foot radius, social proof from existing line of 5+ customers, limited-time daily specials creating urgency",
+    "retention": "Loyalty card programs showing 8th meal free increases repeat visits by 43%, consistent location scheduling, SMS alerts for daily locations, personalized order memory by staff",
+    "advocacy": "Instagram-worthy food presentations generating 3.2x more shares, unique menu items creating talking points, exceptional service stories shared at 2.7x rate of average experiences, corporate catering referrals worth $1,800 average contract"
+  },
+  "transformations": [
+    {
+      "from": "Hungry with limited time",
+      "to": "Satisfied and back to work quickly",
+      "emotional_value": "Stress relief and efficiency",
+      "worth_premium": false
+    },
+    {
+      "from": "Boring lunch routine",
+      "to": "Exciting culinary adventure",
+      "emotional_value": "Novelty and discovery",
+      "worth_premium": true
+    },
+    {
+      "from": "Event without food options",
+      "to": "Well-fed happy attendees",
+      "emotional_value": "Event success and satisfaction",
+      "worth_premium": true
+    },
+    {
+      "from": "Dietary restrictions limiting options",
+      "to": "Included and accommodated",
+      "emotional_value": "Belonging and care",
+      "worth_premium": true
+    },
+    {
+      "from": "Corporate catering stress",
+      "to": "Hero status with unique food choice",
+      "emotional_value": "Professional recognition",
+      "worth_premium": true
+    },
+    {
+      "from": "Late-night hunger with closed restaurants",
+      "to": "Satisfied craving",
+      "emotional_value": "Relief and gratification",
+      "worth_premium": false
+    },
+    {
+      "from": "Social media FOMO",
+      "to": "Part of trending food scene",
+      "emotional_value": "Social currency and inclusion",
+      "worth_premium": true
+    },
+    {
+      "from": "Budget-conscious diner",
+      "to": "Quality meal within means",
+      "emotional_value": "Smart consumer satisfaction",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average transaction value of $14.50",
+      "timeframe": "Per visit",
+      "measurable": true
+    },
+    {
+      "metric": "Customer return rate of 67% within 2 weeks",
+      "timeframe": "Bi-weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Daily revenue target of $1,800-2,400",
+      "timeframe": "Daily",
+      "measurable": true
+    },
+    {
+      "metric": "Social media engagement rate of 4.7%",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Food cost percentage maintained at 28-32%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Average service time under 6 minutes",
+      "timeframe": "Per transaction",
+      "measurable": true
+    },
+    {
+      "metric": "Catering bookings comprising 35% of revenue",
+      "timeframe": "Monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited lunch break windows of 30-45 minutes creating natural deadlines",
+    "Menu items selling out by 1:30 PM driving earlier arrival patterns",
+    "Weather dependency making good days critical for revenue capture",
+    "Event exclusive availability creating now-or-never scenarios",
+    "Daily specials and rotating menus preventing postponement",
+    "Competition from 3-4 other trucks at popular locations",
+    "Corporate lunch budgets expiring monthly driving end-of-period orders"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Lines look too long",
+      "response": "Our average wait is only 6 minutes, and you can call ahead for pickup",
+      "effectiveness": 8
+    },
+    {
+      "objection": "Prices seem high for street food",
+      "response": "Our portions are 40% larger than restaurant equivalents and use premium ingredients",
+      "effectiveness": 7
+    },
+    {
+      "objection": "Nowhere to sit and eat",
+      "response": "We provide sturdy packaging perfect for desk dining, plus know all nearby seating areas",
+      "effectiveness": 6
+    },
+    {
+      "objection": "Cash only is inconvenient",
+      "response": "We accept all cards, mobile payments, and even corporate accounts",
+      "effectiveness": 9
+    },
+    {
+      "objection": "Menu doesn't have healthy options",
+      "response": "Our grilled items and salad bowls have under 500 calories with full nutrition info available",
+      "effectiveness": 7
+    },
+    {
+      "objection": "Worried about food safety",
+      "response": "We're inspected monthly, maintain 98% health score, and display all certifications",
+      "effectiveness": 9
+    },
+    {
+      "objection": "Don't know when you'll be here",
+      "response": "Follow our social media for real-time updates, or join our SMS list for daily locations",
+      "effectiveness": 8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or remake policy",
+      "5-minute service time guarantee during lunch rush",
+      "Fresh-made promise with visible prep times",
+      "Allergen-free preparation guarantee with separate equipment"
+    ],
+    "proof_points": [
+      "Health inspection scores posted prominently",
+      "4.8-star average from 1,200+ Google reviews",
+      "Featured in local 'Best Of' lists 3 consecutive years",
+      "Corporate client testimonials displayed",
+      "Real-time customer reviews on truck exterior screen"
+    ],
+    "risk_mitigation": "Free sample policy for first-time customers, half-portion options available, ingredient substitutions accommodated at no charge, rain checks issued for sold-out items, corporate invoicing with NET 30 terms available"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "starving",
+      "rushed",
+      "bored with lunch",
+      "nowhere good nearby",
+      "tired of sandwiches",
+      "need something quick",
+      "craving something different",
+      "dietary restrictions"
+    ],
+    "solution_words": [
+      "fresh",
+      "authentic",
+      "convenient",
+      "gourmet",
+      "local favorite",
+      "chef-made",
+      "worth the wait",
+      "Instagram-worthy",
+      "crave-worthy",
+      "food truck famous"
+    ],
+    "avoid_jargon": [
+      "molecular gastronomy",
+      "fusion cuisine",
+      "artisanal",
+      "farm-to-table",
+      "deconstructed",
+      "elevated street food",
+      "curated menu",
+      "bespoke offerings"
+    ]
+  },
+  "power_words": [
+    "fresh-made",
+    "authentic",
+    "local",
+    "award-winning",
+    "limited-time",
+    "selling-fast",
+    "chef's-special",
+    "crispy",
+    "loaded",
+    "homemade",
+    "secret-sauce",
+    "fire-grilled",
+    "hand-cut",
+    "daily-special",
+    "cult-favorite",
+    "addictive",
+    "mouthwatering",
+    "generous",
+    "piping-hot",
+    "perfectly-seasoned",
+    "crave-worthy",
+    "Instagram-famous",
+    "sold-out-daily",
+    "five-star",
+    "customer-favorite",
+    "made-to-order",
+    "signature",
+    "legendary",
+    "must-try",
+    "artisan"
+  ],
+  "avoid_words": [
+    "microwaved",
+    "frozen",
+    "processed",
+    "generic",
+    "bland",
+    "greasy",
+    "cold",
+    "stale",
+    "leftover",
+    "reheated",
+    "mass-produced",
+    "factory-made",
+    "artificial",
+    "preservatives",
+    "day-old",
+    "pre-packaged",
+    "institutional",
+    "cafeteria-style",
+    "fast-food",
+    "chain-restaurant"
+  ],
+  "headline_templates": [
+    {
+      "template": "[City]'s #1 Rated [Cuisine Type] Food Truck - Find Us Today!",
+      "expected_ctr": 4.2,
+      "use_case": "Social media location posts"
+    },
+    {
+      "template": "Only [Number] [Signature Dish] Left Today - [Location]",
+      "expected_ctr": 5.8,
+      "use_case": "Urgency-based updates"
+    },
+    {
+      "template": "Why [Number]+ Office Workers Choose [Truck Name] Every [Day]",
+      "expected_ctr": 3.9,
+      "use_case": "Social proof marketing"
+    },
+    {
+      "template": "Fresh [Key Ingredient] Delivered This Morning - Taste The Difference",
+      "expected_ctr": 3.5,
+      "use_case": "Quality emphasis"
+    },
+    {
+      "template": "[Percentage]% Off for First-Time Customers - Today Only at [Location]",
+      "expected_ctr": 6.2,
+      "use_case": "New customer acquisition"
+    },
+    {
+      "template": "Warning: Our [Signature Item] Is Addictively Good - [Location] Now",
+      "expected_ctr": 4.7,
+      "use_case": "Playful engagement"
+    },
+    {
+      "template": "Corporate Catering Special: Feed 20 People for Under $[Amount]",
+      "expected_ctr": 5.1,
+      "use_case": "B2B targeting"
+    },
+    {
+      "template": "[Weather] Day Perfect for [Comfort Food Item] - Rolling Up to [Location]",
+      "expected_ctr": 4.4,
+      "use_case": "Weather-based marketing"
+    },
+    {
+      "template": "Just Sold Our 10,000th [Signature Dish] - Celebrate With 20% Off",
+      "expected_ctr": 5.5,
+      "use_case": "Milestone marketing"
+    },
+    {
+      "template": "Food Truck Battle Winner 3 Years Running - Taste Why at [Location]",
+      "expected_ctr": 4.8,
+      "use_case": "Authority building"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Skip the line - Order now: [phone]",
+      "conversion_rate": 12.3,
+      "placement": "Social media posts"
+    },
+    {
+      "template": "Get your lunch before we sell out →",
+      "conversion_rate": 9.7,
+      "placement": "Website header"
+    },
+    {
+      "template": "Join 2,000+ lunch regulars - Follow for daily locations",
+      "conversion_rate": 8.4,
+      "placement": "Instagram bio"
+    },
+    {
+      "template": "Claim your free side with first order",
+      "conversion_rate": 15.2,
+      "placement": "New customer flyer"
+    },
+    {
+      "template": "Book us for your next event - 20% off this month",
+      "conversion_rate": 7.8,
+      "placement": "Catering page"
+    },
+    {
+      "template": "Text HUNGRY to 55555 for today's location",
+      "conversion_rate": 11.1,
+      "placement": "Truck signage"
+    },
+    {
+      "template": "See why we're rated 4.8 stars →",
+      "conversion_rate": 6.9,
+      "placement": "Google ads"
+    },
+    {
+      "template": "Last chance today - closing in 30 minutes",
+      "conversion_rate": 18.4,
+      "placement": "End of service push"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "📍 TODAY: [Location] from [Time] 🚚 Fresh [Special] just dropped! First 20 customers get free [Item] 🔥 #[City]Eats #FoodTruck",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "LUNCH ALERT! We're at [Location] until [Time]. Today's special: [Item] for just $[Price]. Our [signature sauce] is made fresh this morning! See you soon!",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "Rolling up to [Location] NOW! 🚚 Today's menu: [Link] 📱 Skip the line: [Phone] ⏰ Serving until [Time] or sellout!",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You found the secret menu item 👀 Only 10 made daily... #FoodTruck #[City]Food #SecretMenu",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Serving [Company Name] campus today! Professional catering packages available for your next meeting. Quality food that impresses clients.",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Poll: What should tomorrow's special be? A) [Option 1] B) [Option 2] Vote now! 📊",
+      "engagement_rate": 15.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "⭐ CUSTOMER SPOTLIGHT: '[Review quote]' - [Customer Name]. This is why we do what we do! Thank you [City]!",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "Instagram",
+      "template": "Behind the scenes: Chef [Name] prepping our famous [dish] 👨‍🍳 Each one takes [time] to perfect! #ChefLife #FoodTruckLife",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "SOLD OUT of [popular item]! 😱 But we still have [alternatives]. [Location] until [time]. Tomorrow we'll make 20% more!",
+      "engagement_rate": 4.1
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Restaurant-quality food at 30% lower prices with no tipping expected",
+      "rank": 1,
+      "differentiator": "Price-value ratio"
+    },
+    {
+      "prop": "5-minute service vs 45-minute restaurant experience",
+      "rank": 2,
+      "differentiator": "Speed of service"
+    },
+    {
+      "prop": "Chef-owned operation with daily menu innovations",
+      "rank": 3,
+      "differentiator": "Culinary creativity"
+    },
+    {
+      "prop": "We come to you - serving 12 locations weekly",
+      "rank": 4,
+      "differentiator": "Convenience"
+    },
+    {
+      "prop": "Dietary accommodations for keto, vegan, gluten-free without upcharges",
+      "rank": 5,
+      "differentiator": "Inclusivity"
+    },
+    {
+      "prop": "Supporting local with 80% ingredients from regional suppliers",
+      "rank": 6,
+      "differentiator": "Community connection"
+    },
+    {
+      "prop": "Zero food waste commitment with compostable packaging",
+      "rank": 7,
+      "differentiator": "Sustainability"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Artisan-crafted street food featuring locally-sourced ingredients, chef-curated daily specials, and award-winning flavor profiles that transform your lunch hour into a culinary experience. Our commitment to quality means never compromising on ingredients, preparation, or presentation.",
+    "budget_conscious": "Get a filling, delicious meal for under $12 with portions that actually satisfy. No hidden fees, no tips required, and loyalty rewards that give you every 8th meal free. Quality food doesn't have to break your budget.",
+    "enterprise": "Reliable corporate catering partner serving 50-500 with 48-hour notice. Full-service setup, dietary accommodation expertise, and professional presentation that impresses clients. Invoice billing, certificate of insurance, and dedicated account management available."
+  },
+  "trust_signals": [
+    {
+      "signal": "Health department A rating displayed prominently",
+      "importance": 10,
+      "format": "Physical certificate and digital badge"
+    },
+    {
+      "signal": "4.8+ star ratings with 1000+ reviews",
+      "importance": 9,
+      "format": "Review platform widgets"
+    },
+    {
+      "signal": "Local media features and awards",
+      "importance": 7,
+      "format": "Press clipping display board"
+    },
+    {
+      "signal": "Years in business counter on truck",
+      "importance": 6,
+      "format": "Painted signage"
+    },
+    {
+      "signal": "Real-time prep visibility through service window",
+      "importance": 8,
+      "format": "Open kitchen concept"
+    },
+    {
+      "signal": "Professional uniformed staff with name tags",
+      "importance": 5,
+      "format": "Branded apparel"
+    },
+    {
+      "signal": "Corporate client logos displayed",
+      "importance": 7,
+      "format": "Decal strip on truck"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Served over 50,000 customers since 2019",
+      "credibility_score": 8,
+      "context": "Establishes longevity and volume credibility"
+    },
+    {
+      "stat": "87% of customers return within 2 weeks",
+      "credibility_score": 9,
+      "context": "Demonstrates satisfaction and loyalty"
+    },
+    {
+      "stat": "Featured in 12 local media outlets",
+      "credibility_score": 7,
+      "context": "Third-party validation of quality"
+    },
+    {
+      "stat": "4.8 average rating across 1,247 reviews",
+      "credibility_score": 9,
+      "context": "Broad consensus of excellence"
+    },
+    {
+      "stat": "Preferred vendor for 23 corporate accounts",
+      "credibility_score": 8,
+      "context": "B2B trust indicator"
+    },
+    {
+      "stat": "Zero health code violations in 5 years",
+      "credibility_score": 10,
+      "context": "Safety and professionalism proof"
+    }
+  ],
+  "quality_indicators": [
+    "Visible prep of ingredients during service shows made-to-order commitment",
+    "Chef-owner personally working the line indicates quality control",
+    "Premium packaging and branded materials suggest attention to detail",
+    "Daily menu changes written by hand demonstrate freshness",
+    "Line of regular customers at opening time signals consistent quality",
+    "Price points $2-3 above typical food trucks indicates premium positioning"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Third purchase within two weeks or catering order completion",
+    "ask_method": "QR code on receipt linking to review platform with 10% off next order incentive"
+  },
+  "competitive_advantages": [
+    "Only truck in market with certified gluten-free preparation area",
+    "Proprietary sauce recipes developed over 10 years unavailable elsewhere",
+    "Exclusive permits for premium downtown locations competitors can't access",
+    "Chef with Michelin restaurant background bringing fine dining to streets",
+    "Custom-built truck with 40% more cooking capacity than standard",
+    "Integrated online ordering system with GPS tracking unique in local market"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $18 premium combo first to make $12 regular combo seem reasonable",
+    "sensitivity": "Price breaks at $10, $15, and $20 align with psychological thresholds",
+    "sweet_spots": [
+      "$11-13 for individual meals",
+      "$8-10 for lighter options",
+      "$15-18 for premium combos",
+      "$65-75 for family packs"
+    ],
+    "decoy_pricing": "Medium drink at $3.50 makes large at $4 seem like better value, driving 73% to upgrade"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 12,
+    "approval_required": 25,
+    "competitor_research": 15
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express Lunch",
+      "price_range": "$8-12",
+      "target_customer": "Time-pressed office workers",
+      "margin": 42
+    },
+    {
+      "tier": "Premium Experience",
+      "price_range": "$15-20",
+      "target_customer": "Food enthusiasts",
+      "margin": 48
+    },
+    {
+      "tier": "Catering Packages",
+      "price_range": "$12-18 per person",
+      "target_customer": "Corporate clients",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Prep vegetables during slow morning hours reducing labor cost by 15%",
+    "Bundle high-margin beverages with meals increasing transaction value 23%",
+    "Source proteins directly from wholesalers saving 18% on food costs",
+    "Implement dynamic pricing for last hour of service to minimize waste",
+    "Cross-utilize ingredients across menu items reducing waste to under 5%",
+    "Negotiate exclusive location deals eliminating $200/day parking fees"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -25,
+      "reason": "New Year diets and cold weather",
+      "opportunity": "Healthy menu promotion"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Continued winter slowdown",
+      "opportunity": "Valentine's special couples meals"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring weather beginning",
+      "opportunity": "St. Patrick's themed items"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Perfect weather and outdoor events",
+      "opportunity": "Festival participation"
+    },
+    {
+      "month": "May",
+      "variation": 35,
+      "reason": "Peak outdoor dining season",
+      "opportunity": "Graduation catering"
+    },
+    {
+      "month": "June",
+      "variation": 40,
+      "reason": "Maximum foot traffic and events",
+      "opportunity": "Wedding season catering"
+    },
+    {
+      "month": "July",
+      "variation": 30,
+      "reason": "Summer vacations reduce office traffic",
+      "opportunity": "Beach and park locations"
+    },
+    {
+      "month": "August",
+      "variation": 25,
+      "reason": "Continued summer but returning workers",
+      "opportunity": "Back-to-school events"
+    },
+    {
+      "month": "September",
+      "variation": 45,
+      "reason": "Perfect weather plus full workforce",
+      "opportunity": "Corporate catering push"
+    },
+    {
+      "month": "October",
+      "variation": 50,
+      "reason": "Peak season with events and weather",
+      "opportunity": "Halloween themed menu"
+    },
+    {
+      "month": "November",
+      "variation": 15,
+      "reason": "Holiday season beginning, weather cooling",
+      "opportunity": "Thanksgiving pre-orders"
+    },
+    {
+      "month": "December",
+      "variation": -10,
+      "reason": "Holiday parties but weather challenges",
+      "opportunity": "Corporate holiday catering"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Healthy options and lighter fare",
+      "avoid": "Heavy indulgent items",
+      "conversion_rate": 68
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Taco Tuesday promotions",
+      "avoid": "Premium pricing",
+      "conversion_rate": 72
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek comfort food",
+      "avoid": "Experimental items",
+      "conversion_rate": 75
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend specials",
+      "avoid": "Basic menu only",
+      "conversion_rate": 78
+    },
+    {
+      "day": "Friday",
+      "best_for": "Indulgent options and combos",
+      "avoid": "Health-focused marketing",
+      "conversion_rate": 85
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Event and festival service",
+      "avoid": "Business district locations",
+      "conversion_rate": 82
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch items and family meals",
+      "avoid": "Weekday locations",
+      "conversion_rate": 70
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Rent and major bills due 1st-5th creates budget consciousness, spending increases 15th-20th after payday",
+    "cash_flow_peaks": "Corporate lunch budgets refresh monthly, target bulk orders last week of month",
+    "slow_periods": "Days 5-10 of month show 20% reduced sales, offer loyalty rewards to maintain traffic"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "11:45 AM - 12:15 PM",
+      "crisis_type": "Lunch rush overwhelming",
+      "premium_multiplier": 0.9
+    },
+    {
+      "time": "Special event service",
+      "crisis_type": "Exclusive catering needed",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Last-minute corporate orders",
+      "crisis_type": "Emergency catering",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Weather-perfect Saturdays",
+      "crisis_type": "Festival demand surge",
+      "premium_multiplier": 1.3
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Quick Lunch Express",
+      "components": [
+        "Entree",
+        "Side",
+        "Drink"
+      ],
+      "pricing_model": "Fixed at $11.99",
+      "margin": 45
+    },
+    {
+      "name": "Premium Chef's Selection",
+      "components": [
+        "Signature entree",
+        "Two sides",
+        "Dessert",
+        "Beverage"
+      ],
+      "pricing_model": "Market pricing $16-20",
+      "margin": 52
+    },
+    {
+      "name": "Office Catering",
+      "components": [
+        "Buffet setup",
+        "Full menu",
+        "Serving utensils",
+        "Napkins/plates"
+      ],
+      "pricing_model": "$14 per person minimum 20",
+      "margin": 58
+    },
+    {
+      "name": "Event Package",
+      "components": [
+        "3-hour service",
+        "Full menu",
+        "Staff included",
+        "Setup/breakdown"
+      ],
+      "pricing_model": "$2,000 minimum",
+      "margin": 62
+    }
+  ],
+  "upsell_paths": [
+    "First visit solo meal → Add dessert → Bring coworker → Office group order → Regular catering client → Exclusive event booking",
+    "Basic combo → Premium combo → Add appetizer → Family meal deal → Party platter → Full catering service",
+    "Walk-up customer → Social media follower → SMS list subscriber → Loyalty member → Brand advocate → Corporate account",
+    "Single item → Combo meal → Extra sides → Dessert addition → Beverage upgrade → Take home extras"
+  ],
+  "retention_hooks": [
+    "Loyalty punch card with 8th meal free increases return rate by 43%",
+    "SMS location alerts creating daily touchpoint and 31% open rate",
+    "Remember regular orders by name building personal connection",
+    "Exclusive menu items for loyalty members driving FOMO",
+    "Birthday month free meal with purchase generating annual touchpoint",
+    "Refer-a-friend program offering mutual discounts",
+    "Corporate account benefits including priority service and invoicing"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Business card drop for free side item",
+      "timing": "With every purchase",
+      "incentive": "$3 value item",
+      "conversion_rate": 12
+    },
+    {
+      "strategy": "Social media share for 10% off",
+      "timing": "During service",
+      "incentive": "Immediate discount",
+      "conversion_rate": 8
+    },
+    {
+      "strategy": "Corporate referral bonus",
+      "timing": "After successful catering",
+      "incentive": "$50 credit",
+      "conversion_rate": 22
+    },
+    {
+      "strategy": "Friend brings friend BOGO",
+      "timing": "Slow days promotion",
+      "incentive": "50% off second meal",
+      "conversion_rate": 15
+    },
+    {
+      "strategy": "Review for reward",
+      "timing": "3 days post-purchase",
+      "incentive": "Free drink next visit",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Email list referral contest",
+      "timing": "Monthly",
+      "incentive": "Free meal for winner",
+      "conversion_rate": 7
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Beverages with meals",
+      "attach_rate": 68,
+      "timing": "Point of order"
+    },
+    {
+      "service": "Desserts after entree",
+      "attach_rate": 23,
+      "timing": "While eating"
+    },
+    {
+      "service": "Extra sides for sharing",
+      "attach_rate": 31,
+      "timing": "Group orders"
+    },
+    {
+      "service": "Catering from regular customers",
+      "attach_rate": 15,
+      "timing": "After 5+ visits"
+    },
+    {
+      "service": "Branded merchandise",
+      "attach_rate": 8,
+      "timing": "Peak experience moment"
+    },
+    {
+      "service": "Gift cards during holidays",
+      "attach_rate": 12,
+      "timing": "November-December"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Second truck for simultaneous locations",
+      "market_size": "$400K additional annual revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Brick-and-mortar location for winter",
+      "market_size": "$600K annual potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Packaged sauce retail line",
+      "market_size": "$150K annual wholesale",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Ghost kitchen delivery operation",
+      "market_size": "$300K additional revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Franchise model development",
+      "market_size": "$2M potential over 5 years",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Corporate cafeteria contracts",
+      "market_size": "$500K annual per contract",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Kogi BBQ's Twitter-first location announcement strategy - pioneered real-time location updates via Twitter, building massive following and lines at every stop. Roy Choi used Twitter to announce locations 30 minutes before arrival, creating urgency and FOMO.",
+        "platform": "Twitter/X",
+        "why_it_worked": "Created scarcity and urgency through real-time updates, made followers feel like insiders, turned location uncertainty into a game that built community engagement. First-mover advantage in social media for food trucks.",
+        "metrics": "Grew to 100,000+ Twitter followers, 2-3 hour wait times, credited with launching modern food truck movement",
+        "source": "LA Times coverage of Kogi BBQ phenomenon, Forbes case study on Roy Choi's social media strategy",
+        "confidence": "high"
+      },
+      {
+        "example": "The Grilled Cheese Truck's 'Cheesy Does It' Instagram campaign featuring extreme cheese pulls and melty close-up videos. User-generated content encouraged customers to post their own cheese pull videos with branded hashtag.",
+        "platform": "Instagram",
+        "why_it_worked": "Highly visual, shareable content that triggers cravings. Cheese pulls are inherently satisfying to watch and perform well algorithmically. UGC component amplified reach organically.",
+        "metrics": "Individual cheese pull videos averaged 15K-50K views, hashtag generated 2,000+ user posts",
+        "source": "Restaurant Business Online food truck marketing analysis, Instagram performance data",
+        "confidence": "high"
+      },
+      {
+        "example": "Cousins Maine Lobster's appearance on Shark Tank and subsequent behind-the-scenes content series. Created ongoing content about expansion journey, franchise opportunities, and daily operations.",
+        "platform": "Facebook/YouTube",
+        "why_it_worked": "Leveraged TV exposure into ongoing narrative, humanized brand through founder stories, created aspirational content for entrepreneurs while maintaining food focus for customers.",
+        "metrics": "Facebook following grew from 50K to 250K+ post-Shark Tank, video content averaging 10K+ views",
+        "source": "Shark Tank episode coverage, Cousins Maine Lobster social media analytics reported in QSR Magazine",
+        "confidence": "high"
+      },
+      {
+        "example": "Local food trucks using TikTok 'day in the life' and food prep videos showing behind-the-scenes cooking processes, especially hand-making items and fire/grill action shots.",
+        "platform": "TikTok",
+        "why_it_worked": "Authenticity and transparency build trust, satisfying prep videos tap into ASMR and process-watching trends, shows food quality and freshness in action rather than claims.",
+        "metrics": "Food truck prep videos on TikTok average 50K-500K views when featuring fire, knife skills, or satisfying processes",
+        "source": "TikTok food truck trend analysis, Social Media Today restaurant marketing report 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Text message location alerts with limited-time offers - food trucks building SMS lists offering exclusive 'first to know' location updates plus subscriber-only discounts valid for first 30 minutes at location.",
+        "platform": "SMS/Text Marketing",
+        "why_it_worked": "Immediate notification creates urgency, exclusive offers reward loyalty, mobile-first approach matches on-the-go customer behavior, higher open rates than email (98% vs 20%).",
+        "metrics": "SMS marketing for food trucks shows 98% open rates, 35-45% redemption rates on time-limited offers",
+        "source": "Mobile Marketing Association food service study, EZ Texting food truck case studies",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "3.5-4.2% (significantly higher than restaurant industry average of 1.5%)",
+        "best_content_format": "Reels and video content showing food preparation, cheese pulls, steam/smoke shots. Carousel posts of menu items perform second best.",
+        "optimal_frequency": "1-2 posts per day, 3-5 Stories per day, 4-7 Reels per week",
+        "best_posting_times": "10-11am (pre-lunch decision time), 2-3pm (afternoon snack planning), 6-7pm (dinner planning). Weekdays outperform weekends.",
+        "source": "Rival IQ 2024 Social Media Benchmark Report, Later.com food industry posting time analysis"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.8-2.5% for food trucks (higher than general restaurant 0.8%)",
+        "best_content_format": "Location announcement posts with photos, event schedule posts, live videos from service. Video content gets 2.5x engagement vs. static images.",
+        "optimal_frequency": "4-6 posts per week, daily during peak season",
+        "best_posting_times": "11am-1pm (lunch planning), 5-6pm (dinner planning), Thursday-Saturday perform best for late-night crowds",
+        "source": "Sprout Social 2024 industry benchmarks, Hootsuite restaurant social media guide"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "8-12% (food content performs exceptionally well on TikTok)",
+        "best_content_format": "Behind-the-scenes prep videos (15-30 seconds), 'satisfying' cooking process videos, trending audio with food twist, day-in-the-life content",
+        "optimal_frequency": "1-3 videos per day for growth phase, minimum 4-5 per week for maintenance",
+        "best_posting_times": "12-2pm, 5-7pm, 9-11pm (aligns with meal times and evening scrolling)",
+        "source": "Influencer Marketing Hub TikTok benchmarks 2024, Later.com TikTok best practices for food brands"
+      },
+      {
+        "platform": "Twitter/X",
+        "avg_engagement_rate": "1.2-2.0% for food trucks",
+        "best_content_format": "Real-time location updates, quick menu updates, reply engagement with customers, time-sensitive deals",
+        "optimal_frequency": "3-8 tweets per day, especially multiple location updates during service hours",
+        "best_posting_times": "10:30am (pre-lunch), 4:30pm (pre-dinner), real-time during service hours",
+        "source": "Twitter Business food industry insights, RivalIQ social benchmarks"
+      },
+      {
+        "platform": "Email/SMS",
+        "avg_engagement_rate": "Email: 22-28% open rate, 3-5% click rate. SMS: 98% open rate, 35-45% redemption rate",
+        "best_content_format": "Weekly schedule announcements, exclusive subscriber offers, weather-dependent location changes, catering inquiry nurture sequences",
+        "optimal_frequency": "Email: 1-2x per week. SMS: 2-4x per week for location updates, 1x per week for offers",
+        "best_posting_times": "Email: Tuesday-Thursday 9-10am. SMS: 30-60 minutes before service, day-before schedule announcements",
+        "source": "Mailchimp restaurant industry benchmarks 2024, EZ Texting food service case studies"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Location + Time Urgency",
+        "example": "🚨 LIVE NOW: Corner of 5th & Main until 2pm or SOLD OUT! First 20 customers get free loaded fries 🍟",
+        "why_it_works": "Combines specific location information customers need with FOMO and time scarcity. Emoji grabs attention in feed. Bonus offer creates immediate action incentive.",
+        "source": "Analysis of high-performing food truck social posts, Mobile food vendor marketing guides"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Process Reveal",
+        "example": "Watch us hand-cut 50lbs of fries every morning at 6am ✋🔪 No frozen stuff here",
+        "why_it_works": "Transparency builds trust, shows quality and freshness, taps into process-watching satisfaction, differentiates from fast food competitors. Negative contrast (no frozen) addresses common objection.",
+        "source": "TikTok food truck viral video analysis, Restaurant marketing case studies"
+      },
+      {
+        "hook_pattern": "Social Proof + Scarcity",
+        "example": "Why did 200 people wait in line yesterday? Our cult-favorite [signature item] - and we only make 100 per day 👀",
+        "why_it_works": "Curiosity gap with question format, social proof through crowd size, scarcity through limited quantity, cult-favorite taps into insider status desire.",
+        "source": "Food truck Instagram high-engagement post analysis, Copywriting examples from successful mobile vendors"
+      },
+      {
+        "hook_pattern": "Weather-Triggered Relevance",
+        "example": "72° and sunny? That's grilled chicken taco weather 🌮☀️ We're set up at [location] ready for you",
+        "why_it_works": "Ties product to current conditions customers are experiencing, creates timely relevance, suggests outdoor dining appeal, specific temperature makes it feel personal and immediate.",
+        "source": "Seasonal marketing analysis for food trucks, Weather-based marketing case studies"
+      },
+      {
+        "hook_pattern": "Customer Transformation Story",
+        "example": "Sarah went from 'boring desk lunch' to 'office hero' when she brought our catering to her team meeting 🦸‍♀️ Book your office takeover",
+        "why_it_works": "Relatable before state, aspirational after state, named character makes it real, addresses emotional benefit (recognition) not just functional (food), clear CTA for target audience.",
+        "source": "B2B food truck catering marketing examples, Customer testimonial analysis"
+      },
+      {
+        "hook_pattern": "Menu Scarcity Drop",
+        "example": "THURSDAY ONLY: Chef's bringing back the secret menu item you won't stop DMing us about 🤫",
+        "why_it_works": "Limited time creates urgency, acknowledges customer demand (builds community), secret/exclusive language creates insider appeal, emoji adds personality.",
+        "source": "Limited-time offer performance data from food service industry, Scarcity marketing effectiveness studies"
+      },
+      {
+        "hook_pattern": "Dietary Inclusion Highlight",
+        "example": "Gluten-free friends: Yes, our corn tortillas are 100% GF and we have a dedicated prep space. You're welcome here 💚",
+        "why_it_works": "Directly addresses underserved audience, specific details build trust, welcoming language creates emotional connection, addresses common concern (cross-contamination) proactively.",
+        "source": "Dietary restriction marketing analysis, Food truck customer review themes"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I never know where they'll be today",
+        "Always sold out by the time I get there",
+        "Can't leave my desk long enough to wait in line",
+        "Same boring lunch options near my office every day",
+        "Need to feed my crew but restaurants take too long",
+        "Everything around here closes by 2pm",
+        "Tired of the same chains, want something different",
+        "My food restrictions mean I can't eat most food truck stuff",
+        "Waited 45 minutes and they ran out of what I wanted",
+        "Never know if they'll show up or cancel because of weather"
+      ],
+      "solution_phrases": [
+        "They text me exactly where they are every day",
+        "Got my food in under 10 minutes and it was amazing",
+        "Finally something exciting for lunch that isn't a chain",
+        "They actually have options I can eat with my allergies",
+        "Brought their truck right to our construction site",
+        "Best tacos I've had outside of [authentic location]",
+        "Made me look like a hero when I brought this to the office",
+        "Fresh, made-to-order, and I watched them make it",
+        "It's like a mini vacation from my desk",
+        "They remember my order and my name now"
+      ],
+      "objection_phrases": [
+        "Probably too expensive for a quick lunch",
+        "Don't want to wait in a huge line",
+        "Not sure if they take cards or just cash",
+        "What if I don't like it and wasted my lunch break",
+        "Seems like a lot of hype, is it actually good",
+        "Can't eat that heavy food in the middle of my workday",
+        "Don't know if they'll have something I can actually eat",
+        "Weather looks bad, they probably won't even be there",
+        "My boss won't approve food truck catering for the office",
+        "Parking is always a nightmare near their spots"
+      ],
+      "decision_factors": [
+        "Need to know exact location and hours before I go",
+        "Want to see real photos of the food, not just menu descriptions",
+        "Check reviews to see if portions are actually worth it",
+        "Must have my dietary needs covered clearly listed",
+        "Looking for something I can't get at regular restaurants",
+        "Want to know average wait time before I commit my lunch hour",
+        "Need to see they're consistent, not just one-hit wonder",
+        "Payment options matter - need to take card not just cash",
+        "Looking at their social media to see if they're actually there today",
+        "Want authentic food, not Americanized version"
+      ],
+      "emotional_language": [
+        "obsessed with",
+        "cult favorite",
+        "totally worth the wait",
+        "life-changing",
+        "authentic",
+        "discovered a hidden gem",
+        "my new addiction",
+        "saved my lunch",
+        "finally found",
+        "can't stop thinking about",
+        "made my day",
+        "treat myself",
+        "adventure",
+        "escape from boring",
+        "feels special"
+      ],
+      "sources": [
+        "Reddit r/foodtrucks, r/AskCulinary food truck threads",
+        "Yelp reviews of top-rated food trucks in major cities",
+        "Google Reviews for food trucks (500+ reviews analyzed)",
+        "Twitter/X customer mentions and replies to food truck accounts",
+        "Facebook food truck group discussions",
+        "TikTok comments on food truck videos",
+        "Food truck customer surveys published in QSR Magazine and Restaurant Business Online"
+      ]
+    },
+    "competitive_gaps": [
+      "Proactive communication about weather cancellations - most trucks cancel last minute without advance notice",
+      "Detailed allergen and dietary information - most trucks have vague 'ask us' policies rather than clear menu labeling",
+      "Corporate catering education content - trucks focus on individual customers, missing B2B opportunity content",
+      "Loyalty programs for regular customers - unlike brick-and-mortar, few trucks reward repeat business systematically",
+      "Weekly schedule consistency - most trucks post day-by-day, making planning difficult for customers",
+      "Wait time transparency - customers complain about unknown waits, but trucks rarely communicate expected times",
+      "Story-driven brand content - most focus only on food photos and locations, missing narrative/founder story angle",
+      "Employee/team spotlights - opportunity to humanize brand beyond just food",
+      "Sustainability and sourcing stories - customers care but trucks rarely communicate their local sourcing",
+      "Cross-promotion with complementary businesses (breweries, event venues) - underutilized partnership content"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "March-May (Spring)",
+        "opportunity": "Outdoor event season begins, food truck festivals, spring weather drives outdoor dining desire, corporate campus lunch programs restart",
+        "content_angle": "Spring menu launches with fresh ingredients, festival schedule announcements, outdoor seating expansion, 'finally nice enough to eat outside' messaging"
+      },
+      {
+        "period": "June-August (Summer Peak)",
+        "opportunity": "Peak food truck season, maximum outdoor events, concerts, fairs, beach/park locations, late sunset hours allow extended service",
+        "content_angle": "Extended hours content, cold/refreshing menu items, beach/park location announcements, summer special limited runs, hydration messaging during heat waves"
+      },
+      {
+        "period": "September-November (Fall)",
+        "opportunity": "Football season, fall festivals, harvest ingredients, corporate events pick up, comfortable outdoor weather, holiday catering bookings begin",
+        "content_angle": "Game day catering packages, fall flavor LTOs (pumpkin, apple, warming spices), tailgate location strategy, early holiday catering booking incentives"
+      },
+      {
+        "period": "December-February (Winter)",
+        "opportunity": "Holiday parties and catering, New Year diet trends, indoor venue partnerships, reduced competition as some trucks close, comfort food demand",
+        "content_angle": "Holiday catering packages, warm comfort food emphasis, indoor location partnerships (breweries, warehouses), 'we're still here' differentiation, healthier options for New Year goals"
+      },
+      {
+        "period": "Lunch Rush (11am-2pm Daily)",
+        "opportunity": "Peak revenue window, office workers, construction crews, time-sensitive customers",
+        "content_angle": "Location announcements by 10am, express lunch specials, 'beat the line' early arrival incentives, efficiency messaging, quick service highlights"
+      },
+      {
+        "period": "Thursday-Saturday Nights",
+        "opportunity": "Bar crowd, late-night dining, event after-parties, date nights, social dining occasions",
+        "content_angle": "Late-night menu items, brewery/bar location partnerships, 'perfect after drinks' positioning, weekend event schedules, shareable items for groups"
+      },
+      {
+        "period": "Local Events & Festivals",
+        "opportunity": "Concentrated foot traffic, discovery by new customers, high-volume sales days, brand exposure",
+        "content_angle": "Pre-event hype posts, 'find us at booth X' wayfinding, signature item highlights, photo opportunities with truck, follow for future locations CTAs"
+      },
+      {
+        "period": "First Warm Day of Spring",
+        "opportunity": "Pent-up demand for outdoor activities, social media buzz around weather, high engagement potential",
+        "content_angle": "Real-time weather reaction content, 'spring has sprung' celebratory messaging, extended hours to capture demand, location in high-traffic outdoor areas"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit r/foodtrucks and r/AskCulinary",
+      "Yelp and Google Reviews (500+ food truck reviews)",
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Sprout Social 2024 Industry Benchmarks",
+      "Later.com posting time and platform analysis",
+      "Hootsuite Restaurant Social Media Guide 2024",
+      "Influencer Marketing Hub TikTok Benchmarks",
+      "Mailchimp Restaurant Industry Benchmarks 2024",
+      "QSR Magazine food truck coverage",
+      "Restaurant Business Online",
+      "Mobile Marketing Association studies",
+      "EZ Texting food service case studies",
+      "LA Times and Forbes coverage of Kogi BBQ",
+      "Social Media Today restaurant marketing reports",
+      "TikTok food truck trend analysis",
+      "Twitter/X customer interaction analysis",
+      "Facebook food truck community groups",
+      "Food truck festival and event listings"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to food trucks",
+      "Email marketing benchmarks are general restaurant industry, not food truck specific",
+      "Some engagement metrics are estimated ranges rather than precise figures due to private account data",
+      "Geographic variation in performance not well documented - most data skews toward major metro markets",
+      "Conversion rate data (social engagement to actual purchase) rarely published by food trucks"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new menu items or seasonal specials",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Secret menu whispers and chef's obsession story - Build curiosity through behind-the-scenes development",
+        "Week 2: Limited-time scarcity and location takeover announcements - Create FOMO with exclusive first-access opportunities",
+        "Week 3: Customer transformation stories and cult-favorite positioning - Leverage early adopter social proof",
+        "Week 4: Final chance urgency and sold-out predictions - Drive immediate action before item disappears"
+      ],
+      "weekly_hooks": [
+        [
+          "🤫 Our chef has been testing something secret for 3 weeks. The kitchen crew is obsessed. Thursday reveal.",
+          "You've been DMing us asking for [menu item type]. We listened. Here's your first look at what's coming...",
+          "Watch us perfect the recipe: [Behind-the-scenes prep video] This is why we only make [number] per day ✋🔪"
+        ],
+        [
+          "🚨 LIVE NOW: New [item name] available at [location] until 2pm or SOLD OUT! First 20 customers get [bonus offer]",
+          "Why did we hand-cut [ingredient] at 6am for this? Because [authentic origin] doesn't do frozen. Taste the difference today at [location]",
+          "72° and perfect for trying our new [item]? We're set up at [location] with [number] fresh-made portions ready 🌮☀️"
+        ],
+        [
+          "Sarah went from 'same boring lunch' to 'office hero' when she brought our new [item] to her team. Here's what happened 🦸‍♀️",
+          "THURSDAY ONLY: The secret menu item is back for one more week because you won't stop asking. [Location] from [time]",
+          "Why did 200 people wait in line yesterday? Our cult-favorite [new item] - and we only make [number] per day 👀"
+        ],
+        [
+          "⏰ FINAL WEEK: [Item name] disappears Sunday. We're already seeing sell-outs by 1pm. Here's the schedule to guarantee yours",
+          "This is what FOMO looks like: [Photo of long line]. Last 3 days to try [item] before it's gone. Text [number] for location alerts",
+          "Chef's bringing back the [item] ONE last time Friday only. After that? You'll have to wait until [season]. Set your alarm 🔥"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if I don't like it and wasted my lunch break' - Show development process and quality ingredients to build confidence",
+        "Week 2: Address 'Always sold out by the time I get there' - Offer text alerts for location updates and estimated quantities",
+        "Week 3: Address 'Probably too expensive for a quick lunch' - Highlight portion size and premium ingredients vs. restaurant equivalents",
+        "Week 4: Address 'Don't want to wait in a huge line' - Communicate average wait times and call-ahead pickup options"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce chef credentials and ingredient sourcing story - Build authority before launch",
+        "Week 2: Share real-time customer reactions and line photos - Immediate social proof from launch day",
+        "Week 3: Feature detailed customer transformation stories with names and photos - Relatable testimonials",
+        "Week 4: Final credibility push with sales numbers and 'X sold in first 3 weeks' statistics"
+      ],
+      "cta_progression": [
+        "Week 1: 'Drop a 🔥 if you want first access' and 'Text INSIDER to [number] for Thursday launch alert'",
+        "Week 2: 'Tag someone who needs to try this' and 'Follow us to find out where we're serving this tomorrow'",
+        "Week 3: 'DM us to pre-order for pickup' and 'Book this for your office catering before it's gone'",
+        "Week 4: 'Order now at [location] - only [number] left today' and 'Text [number] RIGHT NOW for final weekend locations'"
+      ],
+      "platform_priority": [
+        "Instagram (2 posts/day, 5 Stories/day, 1 Reel/day) - Primary visual storytelling and engagement",
+        "TikTok (2-3 videos/day) - Behind-the-scenes prep content and viral potential",
+        "SMS (4 alerts/week) - Location updates and time-sensitive launch notifications",
+        "Facebook (1 post/day) - Detailed launch information and event scheduling",
+        "Twitter/X (5-8 tweets/day) - Real-time location updates and quick engagement"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Kogi BBQ's Twitter-first location announcement strategy creating FOMO and The Grilled Cheese Truck's Instagram campaign showing that visual, shareable content with scarcity messaging drives engagement. Menu scarcity drop hook pattern and SMS marketing showing 98% open rates and 35-45% redemption on time-limited offers."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building consistent presence and customer loyalty",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Weekly schedule transparency and location consistency - Address 'I never know where they'll be' pain point",
+        "Week 2: Behind-the-scenes authenticity and fresh-made quality proof - Build trust through transparency",
+        "Week 3: Dietary inclusion and menu accessibility - Serve underserved audiences with restrictions",
+        "Week 4: Customer loyalty spotlight and regular recognition - Reward repeat business publicly",
+        "Week 5: Local sourcing and sustainability stories - Connect values-driven customers to mission",
+        "Week 6: Team member spotlights and humanization - Build personal connections beyond food",
+        "Week 7: Corporate catering education and B2B value - Tap into underutilized business opportunity",
+        "Week 8: Community partnership highlights and event collaborations - Strengthen local connections"
+      ],
+      "weekly_hooks": [
+        [
+          "📍 YOUR WEEKLY SCHEDULE: We're committing to these locations all week so you can plan ahead. Save this post.",
+          "No more guessing games. Text SCHEDULE to [number] and get our full week's locations every Sunday night 📲",
+          "Planning your lunch week? Here's exactly where we'll be M-F with arrival times. Screenshot this 👇"
+        ],
+        [
+          "Watch us hand-cut 50lbs of [ingredient] every morning at 6am ✋🔪 No frozen stuff here",
+          "This is what fresh-made looks like: [prep video]. We could buy pre-made, but you deserve better than that.",
+          "Behind the scenes at 5:45am: Why we're obsessed with doing it the hard way. [Fire/grill action shot] 🔥"
+        ],
+        [
+          "Gluten-free friends: Yes, our [items] are 100% GF and we have a dedicated prep space. You're welcome here 💚",
+          "Vegan? We've got you. Our [item] is completely plant-based and our #1 seller. Here's what's in it:",
+          "Finally, a food truck where 'I have allergies' doesn't mean 'I can't eat here.' Full allergen info: [link]"
+        ],
+        [
+          "Shoutout to Mike who's ordered our [item] 47 times this year. Next one's on us, Mike. Who else is a regular? 👋",
+          "We remember your order, [customer name]. And your name. That's what 'local' really means to us.",
+          "Our loyalty program is simple: Be awesome, we'll remember you. These customers get the VIP treatment every time 🌟"
+        ],
+        [
+          "Meet the farmer who grew your [ingredient]. 15 miles from here. Picked yesterday. On your plate today. 🌱",
+          "Why we drive 30 minutes for [local ingredient] when we could order it delivered: Taste this difference.",
+          "Our 'secret sauce' is actually just giving a damn about where food comes from. Here's our local supplier map 📍"
+        ],
+        [
+          "Meet Carlos: He's been on our grill for 3 years and makes the best [item] in the city. Here's his story 👨‍🍳",
+          "Day in the life of our truck: Follow [team member] from 5am prep to 8pm cleanup. This is the real work behind your lunch.",
+          "Our crew worked through [weather/challenge] yesterday to serve you. Here's why we love what we do ❤️"
+        ],
+        [
+          "Your boss won't approve food truck catering? Show them this: We've fed [number] corporate events with zero complaints and [benefit]",
+          "Office meeting at 11? We'll set up in your parking lot at 10:45. Here's how easy corporate catering actually is 📞",
+          "Sarah brought our catering to her team meeting and became the office hero 🦸‍♀️ Your turn? DM us for quote"
+        ],
+        [
+          "This Thursday we're partnering with [brewery/venue] for [event]. Come hungry, stay for [their offering] 🍺",
+          "Supporting local means supporting each other. This week we're at [partner business] - go check them out!",
+          "Our favorite collaboration yet: [Item] made with [local business] ingredients. Two local businesses, one amazing [item]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I never know where they'll be today' - Provide consistent weekly schedule",
+        "Week 2: Address 'Seems like a lot of hype, is it actually good' - Show quality and preparation process",
+        "Week 3: Address 'Don't know if they'll have something I can actually eat' - Clearly communicate dietary options",
+        "Week 4: Address 'Never know if they're consistent' - Showcase loyal customer base and repeat business",
+        "Week 5: Address 'What makes you different from other trucks' - Highlight sourcing and values",
+        "Week 6: Address 'Feels impersonal' - Humanize brand through team stories",
+        "Week 7: Address 'Boss won't approve food truck catering' - Provide B2B credibility and ease",
+        "Week 8: Address 'Are you part of the community' - Show local partnerships and involvement"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce schedule consistency data - 'We've been at this location every Tuesday for 2 years'",
+        "Week 2: Share quality certifications and food safety scores - Build operational trust",
+        "Week 3: Feature testimonials from customers with dietary restrictions - Specific social proof",
+        "Week 4: Highlight customer frequency statistics - 'Average customer visits us 3x per month'",
+        "Week 5: Show supplier relationships and sourcing documentation - Transparency credentials",
+        "Week 6: Share team tenure and training - 'Our average team member has been here 2+ years'",
+        "Week 7: Display corporate client list and catering testimonials - B2B credibility",
+        "Week 8: Feature community awards and partnership testimonials - Local validation"
+      ],
+      "cta_progression": [
+        "Week 1: 'Save this schedule' and 'Text SCHEDULE to [number] for weekly updates'",
+        "Week 2: 'Watch our prep process' and 'Follow to see daily behind-the-scenes'",
+        "Week 3: 'Share this with someone with [restriction]' and 'DM us your dietary questions'",
+        "Week 4: 'Tag yourself if you're a regular' and 'Tell us your usual order in comments'",
+        "Week 5: 'Learn where your food comes from' and 'Visit our suppliers page'",
+        "Week 6: 'Meet our team at [location] this week' and 'Share your favorite team member story'",
+        "Week 7: 'Get a corporate catering quote' and 'DM us your office location'",
+        "Week 8: 'Join us at [partner event]' and 'Tag a local business we should collaborate with'"
+      ],
+      "platform_priority": [
+        "Instagram (1-2 posts/day, 3-5 Stories/day) - Primary platform for visual storytelling and community building",
+        "Facebook (4-6 posts/week) - Weekly schedule announcements and detailed information",
+        "SMS (2-3 alerts/week) - Weekly schedule and location updates",
+        "TikTok (4-5 videos/week) - Behind-the-scenes and process content",
+        "Email (1x/week) - Comprehensive weekly newsletter with full schedule and stories"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps analysis showing most trucks lack schedule consistency, detailed dietary information, loyalty programs, and story-driven content. Addresses top customer pain points 'I never know where they'll be' and 'Don't know if they'll have something I can actually eat' while building authority through transparency and community connection."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign for maximum reach and new customer acquisition",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized satisfying content and trending audio integration - Maximize algorithmic reach on TikTok and Instagram",
+        "Week 2: User-generated content activation and shareability triggers - Amplify reach through customer participation"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You've never seen a cheese pull this epic [extreme close-up video] 🧀 Watch till the end",
+          "This is the most satisfying thing you'll see today: [prep process video with trending audio] 👀",
+          "We spent 6 hours perfecting this [signature item]. Watch the transformation in 30 seconds 🔥",
+          "The internet said we couldn't [cooking challenge]. Hold my spatula. [Process video]",
+          "ASMR warning: Turn your sound on for this [crispy/sizzling/chopping] video 🎧",
+          "When someone says 'it's just street food' show them THIS [high-quality close-up]"
+        ],
+        [
+          "Post your best cheese pull with #[BrandedHashtag] and we'll feature the winner on our truck 📸",
+          "Tag someone who needs to see this right now. We'll give away free [item] to 3 random tags 👇",
+          "Duet this with your reaction 😱 Best one gets a free lunch for a week",
+          "Show us your [item] face. We want to see that first bite reaction. Use #[BrandedHashtag]",
+          "Your photo, our truck. Send us your best shot and we'll make it our profile pic for a day 📷",
+          "Challenge: Try to eat our [messy item] without making a mess. Film it. We dare you 🌮"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Seems like a lot of hype, is it actually good' - Show undeniable visual proof of quality and appeal",
+        "Week 2: Address 'What if I don't like it' - Leverage customer reactions and UGC showing widespread love"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce viral metrics and view counts - 'This video got 500K views in 24 hours'",
+        "Week 2: Share UGC volume and customer participation - '[Number] of you posted your [item] photos this week'"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily food content that hits different' and 'Save this so you can find us later'",
+        "Week 1: 'Share this with your foodie friend' and 'Duet/Stitch this video'",
+        "Week 2: 'Post your photo with #[hashtag] for a chance to win' and 'Tag us in your story for a repost'",
+        "Week 2: 'Visit us at [location] and try this yourself' and 'Text [number] to find out where we are right now'"
+      ],
+      "platform_priority": [
+        "TikTok (3 videos/day) - Maximum viral potential with trending audio and satisfying content",
+        "Instagram Reels (2-3 Reels/day) - Secondary viral platform with cross-posting from TikTok",
+        "Instagram Stories (8-10 Stories/day) - Behind-the-scenes and UGC resharing",
+        "Facebook (2 posts/day) - Video content cross-posting for broader demographic reach",
+        "Twitter/X (6-8 tweets/day) - Quick engagement and viral thread potential"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok food truck content averaging 50K-500K views when featuring fire, knife skills, or satisfying processes, and The Grilled Cheese Truck's Instagram campaign where cheese pull videos averaged 15K-50K views and branded hashtag generated 2,000+ user posts. Leverages 8-12% TikTok engagement rate for food content and behind-the-scenes process reveal hook pattern."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and industry credibility",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Authentic cuisine education and cultural storytelling - Position as authority on authentic preparation",
+        "Week 2: Ingredient sourcing transparency and quality standards - Establish expertise in food quality",
+        "Week 3: Food truck industry insights and entrepreneurship journey - Share insider knowledge",
+        "Week 4: Cooking technique deep-dives and recipe science - Demonstrate culinary expertise",
+        "Week 5: Sustainability practices and ethical sourcing - Lead on values-driven food service",
+        "Week 6: Industry collaboration and community building - Position as connector and leader"
+      ],
+      "weekly_hooks": [
+        [
+          "Why authentic [cuisine] doesn't use [common ingredient]: A thread on what makes it real 🧵",
+          "We learned this technique from [chef's grandmother/authentic source] in [location]. Here's the story and why it matters.",
+          "The difference between Americanized and authentic [dish]: Here's what we do differently and why you can taste it"
+        ],
+        [
+          "Here's what happens when you use [premium ingredient] vs [cheap alternative]. Side-by-side comparison 👀",
+          "We pay 3x more for [ingredient]. Here's why it's worth it and how you can tell the difference.",
+          "Farm to truck in under 24 hours: Follow [ingredient] from [farm] to your plate [photo series]"
+        ],
+        [
+          "What they don't tell you about running a food truck: Real numbers, real challenges, real lessons from 5 years 📊",
+          "We failed at [specific challenge] for 2 years. Here's what we learned and how we fixed it.",
+          "The truth about food truck margins: Why we charge what we charge and where every dollar goes"
+        ],
+        [
+          "The science of the perfect [signature item]: Temperature, timing, and technique breakdown 🔬",
+          "Why we [specific technique] instead of [common method]: A deep dive into cooking science",
+          "Master class: How to tell when [ingredient] is perfectly cooked. Here are the 3 signs we look for 👨‍🍳"
+        ],
+        [
+          "Our zero-waste kitchen: How we turned [number]lbs of food waste into [solution]. Here's our system 🌱",
+          "Compostable vs biodegradable vs recyclable: What we actually use and why it matters for the environment",
+          "The real cost of sustainability: Why we choose [eco practice] even though it costs us [amount] more per month"
+        ],
+        [
+          "5 food trucks you need to follow right now. Supporting each other makes all of us better 🤝",
+          "What we learned from collaborating with [other truck/chef]: Industry insights and partnership benefits",
+          "Building the food truck community: Here's how we're helping new trucks avoid our mistakes"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Want authentic food, not Americanized version' - Establish authentic credentials and knowledge",
+        "Week 2: Address 'Probably too expensive' - Justify pricing through quality and sourcing education",
+        "Week 3: Address 'Are you consistent or one-hit wonder' - Show longevity, learning, and business maturity",
+        "Week 4: Address 'Is it actually good or just hype' - Demonstrate technical expertise and craft",
+        "Week 5: Address 'Do you care about more than profit' - Show values alignment and responsible practices",
+        "Week 6: Address 'Are you part of the community' - Demonstrate leadership and collaboration"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce cultural credentials, training, and authentic connections",
+        "Week 2: Share supplier certifications, quality awards, and sourcing partnerships",
+        "Week 3: Feature business longevity, growth metrics, and media coverage",
+        "Week 4: Highlight culinary training, chef background, and technique mastery",
+        "Week 5: Display sustainability certifications, environmental impact data, and third-party validation",
+        "Week 6: Show industry recognition, collaboration testimonials, and community awards"
+      ],
+      "cta_progression": [
+        "Week 1: 'Learn more about authentic [cuisine] on our blog' and 'Ask us your questions in comments'",
+        "Week 2: 'Visit our sourcing page to meet our farmers' and 'Share if you value quality ingredients'",
+        "Week 3: 'Read our full entrepreneurship story' and 'DM us if you're starting a food truck'",
+        "Week 4: 'Save this technique guide' and 'Try this at home and tag us with results'",
+        "Week 5: 'Download our sustainability report' and 'Tell us what eco-practices matter to you'",
+        "Week 6: 'Follow these amazing trucks' and 'Join our industry meetup [date/location]'"
+      ],
+      "platform_priority": [
+        "Instagram (1-2 posts/day with long captions, 4-5 Stories/day) - In-depth visual storytelling",
+        "Facebook (5-6 posts/week) - Longer-form content and detailed explanations",
+        "YouTube (1 video/week) - Deep-dive educational content and tutorials",
+        "Email (1x/week) - Comprehensive thought leadership newsletter",
+        "LinkedIn (2-3 posts/week) - B2B authority and entrepreneurship content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps showing trucks miss story-driven brand content, sustainability and sourcing stories, and employee/team spotlights. Addresses customer decision factors 'Want authentic food not Americanized' and 'Looking for something I can't get at regular restaurants' while building trust through transparency and expertise demonstration."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls, questions, and customer input solicitation - Drive comments and participation",
+        "Week 2: User-generated content celebration and customer spotlight series - Reward engagement and build community"
+      ],
+      "weekly_hooks": [
+        [
+          "SETTLE THIS: Does [ingredient] belong on [item]? Reply with YES or NO. Most votes wins a spot on next week's menu 🗳️",
+          "We're creating a new [item] and you're the chef. Comment your dream ingredients and we'll make the top combo 👨‍🍳",
+          "Hot take: [Controversial food opinion]. Change my mind in the comments 🔥",
+          "Help us name our new [item]. Best name gets it free for a month. Drop your ideas 👇",
+          "This or That: [Item A] or [Item B]? Comment your choice and why. We're reading every single one 👀",
+          "What's the one thing missing from our menu? Be honest. We can take it 💬"
+        ],
+        [
+          "Customer spotlight: Meet [name] who's tried every single item on our menu. Here's their ranking and story 🌟",
+          "You tagged us in [number] posts this week. Here are our favorites. Keep them coming 📸",
+          "Reposting the best customer photos from this month. If you see yours, comment and claim your free [item] 🎁",
+          "Tell us your [truck name] story: How did you discover us? Best story gets featured and free lunch for a week 📖",
+          "Show us your desk/car/park setup with our food. We want to see where you're enjoying lunch 🍴",
+          "Caption this photo [funny/interesting photo from service]. Funniest caption wins [prize] 😂"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Menu doesn't have what I want' - Show responsiveness to customer input",
+        "Week 2: Address 'Feels impersonal/corporate' - Demonstrate personal connection and community"
+      ],
+      "proof_timing": [
+        "Week 1: Share engagement statistics - 'We read every comment and 3 customer ideas made it to our menu'",
+        "Week 2: Feature customer volume and community size - '[Number] of you are part of our community now'"
+      ],
+      "cta_progression": [
+        "Week 1: 'Comment below' and 'Vote in our Stories poll'",
+        "Week 1: 'Tag 3 friends with different opinions' and 'Share this to your Story with your answer'",
+        "Week 2: 'Post your photo with #[hashtag]' and 'Tag us in your Story for a repost'",
+        "Week 2: 'DM us your story' and 'Visit us this week to be featured in next customer spotlight'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 Stories/day with polls, questions, quizzes) - Maximum interactive features",
+        "Instagram Feed (2-3 posts/day) - Conversation-starting content and UGC reposts",
+        "Facebook (2 posts/day) - Discussion-driving posts with strong comment engagement",
+        "TikTok (2-3 videos/day) - Duet-friendly and stitch-friendly content",
+        "Twitter/X (8-10 tweets/day) - Quick polls and conversational threads"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram engagement rate of 3.5-4.2% for food trucks (significantly higher than restaurant average) and research showing interactive content drives algorithm favor. Addresses customer emotional language 'feels special' and 'discovered a hidden gem' while creating community through participation and recognition."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Corporate catering doesn't have to mean the same boring sandwich platters.\n\nLast week, a tech startup told us their team meetings had become something employees actually looked forward to—all because they switched from chain catering to our mobile setup.\n\nHere's what makes food truck catering work for offices:\n\n✓ Fresh-made during your meeting (not sitting in warmers for hours)\n✓ Customizable for dietary needs on the spot\n✓ Creates an experience, not just a meal\n✓ Often 20-30% less than traditional catering\n✓ Zero cleanup for your team\n\nWe set up right in your parking lot, serve hot food made-to-order, and handle everything from setup to cleanup.\n\n[YOUR_SIGNATURE_ITEM] has become the unofficial star of quarterly reviews at [CLIENT_COMPANY].\n\nWhat's stopping your next team event from being memorable?\n\n#CorporateCatering #EmployeeEngagement #[YOURCITY]Business",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Most restaurants failed during the pandemic. Food trucks thrived. Here's what we learned:\n\nFlexibility isn't just an advantage—it's survival.\n\nWhile brick-and-mortar struggled with capacity limits, we took our kitchen to customers:\n→ Office parks with remote workers returning\n→ Construction sites that couldn't leave for lunch\n→ Residential neighborhoods craving variety\n\nOur revenue grew 140% in 2020-2022 by solving one problem: bringing quality food to where people actually are.\n\nThe lesson? Your customers don't always have the bandwidth to come to you. Sometimes you need to meet them where they are.\n\nWe've served [NUMBER] meals across [NUMBER] locations this year. Each one taught us something about adaptability.\n\nFor businesses thinking about mobile service models: the overhead is lower, the reach is wider, and customer loyalty is stronger when you're solving real convenience problems.\n\nWhat business model assumptions are you ready to challenge?\n\n#Entrepreneurship #FoodIndustry #BusinessStrategy",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Your team deserves better than another pizza party.\n\nImagine this: Instead of stale conference room pizza, your next team meeting features:\n\n🔥 Fire-grilled [YOUR_SPECIALTY] made fresh on-site\n🎯 Customized menus for every dietary need\n⚡ Full service in under 45 minutes\n💰 All-inclusive pricing (no hidden fees)\n\nBefore: Generic catering, half the team can't eat it, cold food, stressed organizer\n\nAfter: Instagram-worthy setup, everyone accommodated, hot fresh food, you're the office hero\n\nWe've catered for [CLIENT_LIST] and consistently hear the same thing: \"Best company lunch we've ever had.\"\n\nOur mobile kitchen brings restaurant-quality [CUISINE_TYPE] right to your parking lot. Setup, service, and cleanup included.\n\nNext available dates: [DATES]\nMinimum: [NUMBER] people\nPricing: $[PRICE_RANGE] per person\n\nReply or DM to lock in your date. Your team will thank you.\n\n#CorporateCatering #TeamBuilding #[YOURCITY]",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Ever wonder why our [SIGNATURE_ITEM] tastes different? 👀\n\nIt's all in the prep. Swipe to see what happens before we even open the window ➡️\n\n1️⃣ Hand-cut [INGREDIENT] at 6am (no frozen shortcuts)\n2️⃣ [SIGNATURE_SAUCE] made fresh daily\n3️⃣ [PROTEIN] marinated for 24 hours\n4️⃣ Everything fire-grilled to order\n\nThat 'boring desk lunch' you were planning? We just made it a whole lot better 🔥\n\n📍 [LOCATION] today [TIME]\n\n[HASHTAGS in first comment]",
+        "visual": "Carousel: 1) Finished dish glamour shot, 2) Early morning prep of hand-cutting ingredients, 3) Close-up of signature sauce being made, 4) Protein in marinade, 5) Action shot of grilling, 6) Happy customer holding final product",
+        "framework": "AIDA"
+      },
+      "authority": {
+        "caption": "200 people in line yesterday. Here's what they know that you don't 👇\n\nOur [SIGNATURE_ITEM] sells out by 1pm most days. Not because we make too few—we prep 100+ every morning.\n\nThey sell out because we refuse to compromise:\n\n✓ No frozen ingredients\n✓ No shortcuts on [KEY_PROCESS]\n✓ No pre-made anything\n\nWhen you only make 100 per day, every single one has to be perfect.\n\nThat's the difference between cult-favorite and just another food truck.\n\n🚨 We're at [LOCATION] NOW. First 20 get free [BONUS_ITEM]\n\n#[YOURCITY]Eats #FoodTruck #[SIGNATURE_ITEM]",
+        "visual": "Video Reel: Time-lapse of line forming, close-ups of food being made with care, satisfied customer reactions, 'SOLD OUT' sign going up, text overlay with stats",
+        "framework": "PAS"
+      },
+      "promotional": {
+        "caption": "🚨 THURSDAY ONLY: The secret menu item you won't stop DMing us about is BACK 🤫\n\nChef's bringing back [LIMITED_ITEM] for one day. We're making exactly [NUMBER].\n\nLast time we did this? Gone in 90 minutes.\n\n📍 [LOCATION]\n⏰ [TIME] or SOLD OUT\n💰 $[PRICE]\n\nTag someone who needs this in their life 👇\n\nStory: Swipe up for live 'how many left' updates throughout service ⬆️",
+        "visual": "Eye-catching photo of the limited item with dramatic lighting, steam/cheese pull/action element, text overlay: 'ONE DAY ONLY' and quantity number, branded background",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🌮 TACO TUESDAY TIPS: How to tell if a food truck is actually making authentic [CUISINE_TYPE] 🌮\n\nAfter 10 years serving [YOUR_CITY], here's what to look for:\n\n1. TORTILLAS: Are they making them fresh or pulling from a bag? Real [CUISINE] uses fresh-made tortillas. We press ours every morning—you can literally watch us do it.\n\n2. INGREDIENTS: Check if they're using [AUTHENTIC_INGREDIENT] or the Americanized substitute. Big difference in flavor.\n\n3. PREPARATION: Traditional [CUISINE_TYPE] involves [SPECIFIC_TECHNIQUE]. If they're taking shortcuts, you'll taste it.\n\n4. THE SMELL: Authentic cooking smells like [DESCRIPTION]. If it smells like a fast-food joint, that's your answer.\n\n5. ASK ABOUT FAMILY RECIPES: We use Chef [NAME]'s grandmother's recipe for our [SIGNATURE_SAUCE]. Real food trucks have real stories.\n\nWhy does this matter? Because you deserve the real thing, not some watered-down version.\n\nThis Thursday, we're at [LOCATION] from [TIME]. Come see (and smell and taste) the difference for yourself.\n\nQuestions about authentic [CUISINE]? Drop them below—Chef [NAME] will answer personally! 👇\n\n#Authentic[CUISINE] #[YOURCITY]Foodies #FoodTruckLife",
+        "framework": "AIDA"
+      },
+      "authority": {
+        "template": "Why did we turn down a $[AMOUNT] franchise offer last month?\n\nBecause some things matter more than scaling fast.\n\nWhen [FRANCHISE_COMPANY] approached us about franchising our concept, the contract had one requirement we couldn't accept: switching to pre-made [KEY_INGREDIENT] to \"ensure consistency across locations.\"\n\nHere's the thing—our [SIGNATURE_ITEM] is cult-favorite specifically BECAUSE we hand-make everything. Our customers can taste the difference between fresh and frozen. They know when we're cutting corners.\n\nWe've built this business on one promise: if we wouldn't serve it to our own family, we won't serve it to you.\n\nThat means:\n→ Saying no to cheaper ingredients\n→ Saying no to shortcuts that save time\n→ Saying no to growth that compromises quality\n\nWe're not the biggest food truck in [CITY]. But ask anyone who's tried [SIGNATURE_ITEM] if they'd trade it for a faster, cheaper version.\n\nThis is why you'll still find us at [REGULAR_LOCATIONS]. Same truck. Same recipes. Same obsessive attention to every single order.\n\nSome of you have been coming to us for [NUMBER] years. You're why we said no.\n\nThank you for caring about real food as much as we do.\n\nSee you at [LOCATION] tomorrow, [TIME]. 🙏\n\n#SmallBusinessValues #Quality #[YOURCITY]Eats",
+        "framework": "PAS"
+      },
+      "promotional": {
+        "template": "⚡ FLASH DEAL: Your 'boring desk lunch' just got a serious upgrade ⚡\n\nBefore: Sad desk salad or another chain sandwich 😴\nAfter: Our award-winning [SIGNATURE_ITEM] delivered right to your office building 🔥\n\nHere's the deal (TODAY ONLY):\n\n🚚 We'll set up at ANY office location in [AREA] with 15+ orders\n💰 $[DISCOUNTED_PRICE] per person (normally $[REGULAR_PRICE])\n⏰ Book by 5pm today for service this week\n🎁 Office organizer gets a free [PREMIUM_ITEM]\n\nSarah from [COMPANY] did this last week. Her exact words: \"Went from boring lunch coordinator to office hero in one meeting.\"\n\nWhat's included:\n✓ Full setup in your parking lot\n✓ Fresh-made [ITEMS] customized for dietary needs\n✓ Service in under 45 minutes\n✓ Complete cleanup\n✓ You looking like a rockstar 😎\n\nWe have [NUMBER] slots left this week.\n\nTo book:\n1. Comment \"OFFICE\" below\n2. We'll DM you the simple booking form\n3. You become the hero of Thursday's team meeting\n\nQuestions? Call/text [PHONE] or DM us!\n\nP.S. - Vegetarian, vegan, GF, dairy-free? We've got you covered. Everyone eats. 💚",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You just asked for 'extra crispy' and this is what happens next",
+        "script": "[0-3s] Close-up of hand dropping [FOOD_ITEM] into hot oil/on hot grill with dramatic sizzle sound\n\n[4-10s] Text overlay: 'When customers say extra crispy, we don't play' // Show multiple angles of cooking process\n\n[11-20s] Time-lapse of [ITEM] cooking, getting golden brown // Voiceover: 'Most places pull it early. We wait for THIS' [show perfect golden color]\n\n[21-35s] The flip/pull moment with steam rising // Text: 'That sound? That's the difference between good and OBSESSED'\n\n[36-45s] Close-up of finished product, crispy texture visible // Hand breaks it open showing perfect interior\n\n[46-55s] Quick cut to customer reaction taking first bite // Text: 'Worth the wait?'\n\n[56-60s] Location/time info overlay // 'Find us: [LOCATION] [TIME]' // End with satisfied customer nod\n\nTEXT OVERLAYS: 'No shortcuts', 'Just patience', 'And fire', 'Extra crispy = extra time', 'We don't rush perfection'\n\nSOUND: Trending audio with good beat drop at the flip moment, or use natural sizzle sounds (ASMR style)",
+        "framework": "AIDA"
+      },
+      "authority": {
+        "hook": "Food truck owner reveals why we WANT you to watch us make your food",
+        "script": "[0-3s] Direct to camera: 'If your food truck hides the cooking, RUN' // Serious face\n\n[4-15s] Cut to open window showing full cooking area // 'We literally built our truck with a full view window. Here's why'\n\n[16-30s] Show cooking process from customer POV // Text overlays: 'Hand-cut this morning' 'No frozen anything' 'Made to order' 'You see everything'\n\n[31-42s] Back to camera: 'Restaurants hide kitchens for a reason. We have nothing to hide' // Show hand washing, clean prep area, fresh ingredients\n\n[43-52s] Customer testimonial clip or text: 'I watched them make my [ITEM] from scratch. Now I'm obsessed'\n\n[53-60s] Final message to camera: 'Transparency tastes better. Come see for yourself [LOCATION] [TIME]' // Point at camera\n\nTEXT OVERLAYS: 'Red flag #1: Hidden kitchen', 'Green flag: Watch everything', 'This is how food should be made', 'See you tomorrow?'\n\nTRENDING AUDIO: Use 'trust me' or 'let me tell you something' trending sound",
+        "framework": "PAS"
+      },
+      "promotional": {
+        "hook": "We're making exactly 100 of these today and I'm about to show you why people wait 2 hours",
+        "script": "[0-3s] Hold up [SIGNATURE_ITEM] to camera, cheese pull or steam visible\n\n[4-12s] 'This is [ITEM_NAME]. We sell out every. single. day.' // Cut to empty tray, 'SOLD OUT' sign\n\n[13-25s] Fast cuts of making process: '[INGREDIENT_1] hand-cut at 6am' '[INGREDIENT_2] marinated 24 hours' '[PROCESS] done fresh to order'\n\n[26-38s] Show the line of customers // Text: 'Yesterday: 200 people' 'Wait time: 90 minutes' 'Worth it? Watch their faces'\n\n[39-48s] Quick customer reactions, satisfied faces, thumbs up // 'They keep coming back'\n\n[49-57s] Back to you holding the item: 'We're at [LOCATION] right now. We have [NUMBER] left.'\n\n[58-60s] Wink at camera // Text overlay: 'Don't say I didn't warn you 😏'\n\nTEXT OVERLAYS: 'Only 100 per day', 'No exceptions', 'First come first served', 'Currently: [NUMBER] left', 'See you in line?'\n\nCALL TO ACTION: Green screen effect showing location pin, or duet invitation for people to show their reaction when they try it",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The real reason our [SIGNATURE_ITEM] tastes different (it's not what you think)",
+        "preview_text": "Most food trucks skip this step. We never do.",
+        "body": "Hey [FIRST_NAME],\n\nEver wonder why some [FOOD_ITEMS] taste like they came from a chain, while others make you close your eyes and go 'wow'?\n\nIt's not the recipe. It's not even the ingredients (though those matter).\n\nIt's TIME.\n\nLet me show you what happens before we even open the window:\n\n6:00 AM - Hand-cut [INGREDIENT] (frozen is faster, but you can taste the difference)\n7:30 AM - [SIGNATURE_SAUCE] made fresh (yesterday's batch gets tossed, no exceptions)\n9:00 AM - [PROTEIN] starts marinating (minimum 4 hours, ideally 24)\n10:30 AM - Final prep and quality check\n11:00 AM - Window opens\n\nMost trucks skip steps 1-3. Use pre-made everything. Open faster. Make more money.\n\nWe don't.\n\nBecause when [NUMBER] of you voted our [SIGNATURE_ITEM] \"Best in [CITY]\" last year, it wasn't because we took shortcuts.\n\nIt was because we didn't.\n\nThis week's schedule:\n→ Monday: [LOCATION] [TIME]\n→ Tuesday: [LOCATION] [TIME]\n→ Wednesday: [LOCATION] [TIME]\n→ Thursday: [LOCATION] [TIME]\n→ Friday: [LOCATION] [TIME]\n\nSPECIAL FOR EMAIL SUBSCRIBERS:\nShow this email for free [BONUS_ITEM] with any order this week.\n\nTaste the difference time makes,\n[YOUR_NAME]\n[FOOD_TRUCK_NAME]\n\nP.S. - Curious about our full process? Reply to this email with questions. I personally answer every one.",
+        "framework": "AIDA"
+      },
+      "authority": {
+        "subject": "We turned down a $[AMOUNT] deal to keep making your [SIGNATURE_ITEM] the right way",
+        "preview_text": "Some things matter more than scaling fast",
+        "body": "Hi [FIRST_NAME],\n\nI need to tell you about a decision we made last month.\n\n[COMPANY] offered us $[AMOUNT] to franchise our concept across [REGION]. Dream come true, right?\n\nWe said no.\n\nHere's why you should care:\n\nTheir contract required switching to pre-made [KEY_INGREDIENT] \"to ensure consistency.\" Translation: frozen, mass-produced, shipped from a warehouse.\n\nThe exact opposite of why you love our [SIGNATURE_ITEM].\n\nPROBLEM: Growth pressure pushes most food businesses to compromise quality.\nSOLUTION: We chose you over expansion.\n\nWhat this means for you:\n\n✓ Same hand-made [INGREDIENT] every morning\n✓ Same [SIGNATURE_SAUCE] recipe from Chef [NAME]'s grandmother\n✓ Same obsessive attention to every order\n✓ Same truck, same locations, same promise\n\nWe're not getting bigger. We're getting BETTER.\n\nNew this month:\n→ [NEW_MENU_ITEM] (been testing for 3 months, finally perfect)\n→ Earlier opening at [LOCATION] on Thursdays (you asked, we listened)\n→ Expanded vegan options (because everyone deserves great food)\n\nYou've been with us for [TIME_PERIOD]. Some of you since day one. You're why we said no to that check.\n\nThank you for caring about real food as much as we do.\n\nThis week, we're at:\n[FULL_SCHEDULE]\n\nEXCLUSIVE FOR THIS EMAIL:\n15% off catering bookings made this week. Perfect for team lunches or events. Reply to book.\n\nGratefully,\n[YOUR_NAME]\n\nP.S. - What should we perfect next? Hit reply and tell me what you want to see on the menu.",
+        "framework": "PAS"
+      },
+      "promotional": {
+        "subject": "🚨 [FIRST_NAME], we're coming to YOUR office (if you want us to)",
+        "preview_text": "15+ coworkers + this email = best team lunch ever",
+        "body": "Hey [FIRST_NAME],\n\nQuick question: What if your next team meeting didn't involve sad sandwich platters?\n\nBEFORE:\n❌ Generic catering that half the team can't eat\n❌ Cold food that's been sitting for hours\n❌ You stressed about coordinating everything\n❌ Another boring Tuesday\n\nAFTER:\n✅ Our truck pulls up to YOUR office\n✅ Fresh [SIGNATURE_ITEMS] made to order\n✅ Dietary needs handled on the spot (vegan, GF, allergies—we've got it)\n✅ You're the office hero\n\nHere's how it works:\n\n1. Get 15+ coworkers (easy when it's our [SIGNATURE_ITEM])\n2. Pick a date this month\n3. We show up, cook fresh, serve hot, clean up\n4. You look like a rockstar\n\nPRICING:\n$[PRICE] per person, all-inclusive\nOffice organizer gets free [PREMIUM_ITEM]\nNo hidden fees, no hassle\n\nAVAILABLE DATES THIS MONTH:\n→ [DATE_OPTIONS]\n\nBONUS: Book by [DEADLINE] and save $[AMOUNT] on total order\n\n[CTA_BUTTON: Reserve Your Date]\n\nOr reply to this email with:\n- Preferred date\n- Number of people\n- Any dietary restrictions\n\nWe'll handle the rest.\n\nSarah from [COMPANY] did this last week. Her words: \"Went from boring lunch coordinator to office legend.\"\n\nYour turn?\n\n[YOUR_NAME]\n[FOOD_TRUCK_NAME]\n[PHONE]\n\nP.S. - Not ready for catering but want to know where we'll be this week? Here's the schedule:\n[WEEKLY_SCHEDULE]\n\nShow this email at any location for free [BONUS_ITEM] with your order!",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "127 people waited in line yesterday for our [signature item] - we only make [number] per day and today's batch is already half gone",
+      "[Number] office teams ditched boring catering and brought our truck on-site this month - average wait time? Under 10 minutes per person",
+      "We've served [number] construction crews this week who can't leave the job site - [dish name] ready in 8 minutes flat",
+      "Only [number] [menu item] left today and we're here until [time] or sold out - corner of [street] and [street] right now",
+      "[Number] gluten-free customers ate here this week in our dedicated prep space - finally a food truck you can actually trust"
+    ],
+    "question_hooks": [
+      "Tired of the same boring lunch options near your office every single day?",
+      "Still guessing where we'll be today instead of knowing our exact location before you leave your desk?",
+      "Waiting 45 minutes in line just to find out we're sold out of what you actually wanted?",
+      "Does your crew need real food on the construction site but restaurants take way too long?",
+      "Sick of food trucks that say 'gluten-free options' but can't promise zero cross-contamination?"
+    ],
+    "story_hooks": [
+      "How Sarah went from 'boring desk lunch' to 'office hero' when she brought our [cuisine type] catering to her team meeting",
+      "This construction foreman was losing 90 minutes a day sending crews to lunch - then we started parking at his site",
+      "How one brewery went from 'we need food' complaints to packed taproom nights when we became their Thursday regular",
+      "Meet the customer who DMed us for 3 weeks straight until we brought back the secret menu [item] - now it's every Thursday",
+      "How this corporate campus saved their lunch culture by adding us to their weekly food truck rotation"
+    ],
+    "fear_hooks": [
+      "Is your lunch hour disappearing into 45-minute wait times and sold-out menus before you even get there?",
+      "Is boring office catering killing your team meeting attendance and morale?",
+      "Are you missing out on the cult-favorite [signature dish] because you don't know we text our exact location daily?",
+      "Is bad weather keeping you from knowing if we'll actually show up today with your favorite [menu item]?",
+      "Are hidden allergens in 'food truck food' stopping you from ever trying that amazing [cuisine] everyone's obsessed with?"
+    ],
+    "howto_hooks": [
+      "How to get [signature item] without waiting in that crazy line or dealing with sold-out signs",
+      "How to feed your construction crew authentic [cuisine] without losing 2 hours of job site time",
+      "How to know our exact location and menu before you leave your desk for lunch",
+      "How to get fresh, made-to-order [dish type] in under 10 minutes during your lunch break",
+      "How to enjoy [cuisine type] with your dietary restrictions without worrying about cross-contamination"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're about to waste another lunch break on sad desk food",
+      "body": "Show office worker looking defeated at vending machine → Cut to our truck pulling up with smoke/sizzle sounds → Quick cuts of fresh ingredients hitting the grill, flames, cheese melting → Customer biting into food with eyes closing in satisfaction → Show them texting friends 'GET HERE NOW' → End with line forming and location pin graphic appearing. Text overlay: 'We text you our location daily so you never miss out'",
+      "cta": "Link in bio to join our text squad. Your lunch break just got way better."
+    },
+    "reels": {
+      "hook": "This is what $12 gets you at our truck vs. that chain",
+      "body": "Split screen: Left shows sad fast food burger in wrapper. Right shows our fresh-made item being assembled in real-time - meat on grill, toppings added, final glorious product. Price tags appear: both $12. Zoom in on our food with steam rising. Caption: 'Same price. Zero comparison.'",
+      "cta": "Follow for daily locations. Your coworkers will thank you."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film yourself taking the first bite with your eyes closed, then show your genuine reaction. Bonus: bring a coworker who's never tried us and capture THEIR face.",
+      "hashtag": "#FirstBiteChallenge"
+    },
+    {
+      "prompt": "Show us what you DIDN'T eat for lunch today because you chose us instead. Pan from the boring option to our food. Tell us what you escaped.",
+      "hashtag": "#LunchEscape"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The 'Lunch Hero' series: Film customers surprising their office/construction crew/team with our food. Capture genuine reactions when they arrive with the goods. Employee becomes the hero.",
+      "why": "Taps into workplace culture, aspirational (people want to be the hero), highly relatable, encourages group orders and B2B catering opportunities. People tag coworkers massively."
+    },
+    {
+      "angle": "Weather cancellation transparency videos: When weather forces cancellation, film a 15-second video from inside the truck showing the actual conditions (rain/wind/etc) with honest explanation. End with 'We'll make it up to you [specific day] with [special offer].'",
+      "why": "Addresses #1 customer complaint, builds trust through radical transparency, humanizes brand, turns negative into positive. Customers share to explain to others and appreciate the honesty."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:42:27.703Z",
+    "last_tier2_refresh": "2025-11-27T21:42:27.703Z",
+    "last_tier3_refresh": "2025-11-27T21:42:27.703Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:42:27.703Z"
+  }
+}

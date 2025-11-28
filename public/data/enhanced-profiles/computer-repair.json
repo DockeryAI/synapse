@@ -1,0 +1,1731 @@
+{
+  "industry": "Computer Repair",
+  "industry_name": "Computer Repair",
+  "naics_code": "811212",
+  "category": "Technology",
+  "subcategory": "Technical Support Services",
+  "customer_triggers": [
+    {
+      "trigger": "Blue screen of death appears repeatedly",
+      "urgency": 10,
+      "frequency": "Weekly for 15% of computer users"
+    },
+    {
+      "trigger": "Computer won't turn on before important deadline",
+      "urgency": 10,
+      "frequency": "Daily occurrences across market"
+    },
+    {
+      "trigger": "Ransomware attack locks all files",
+      "urgency": 10,
+      "frequency": "Growing 47% annually"
+    },
+    {
+      "trigger": "Hard drive making clicking noises",
+      "urgency": 9,
+      "frequency": "Monthly for aging systems"
+    },
+    {
+      "trigger": "System running extremely slow affecting productivity",
+      "urgency": 8,
+      "frequency": "Daily for 30% of businesses"
+    },
+    {
+      "trigger": "Virus popup warnings appearing constantly",
+      "urgency": 8,
+      "frequency": "Weekly across consumer base"
+    },
+    {
+      "trigger": "Lost critical data without backup",
+      "urgency": 10,
+      "frequency": "Monthly for small businesses"
+    },
+    {
+      "trigger": "Spilled liquid on laptop keyboard",
+      "urgency": 9,
+      "frequency": "Daily incidents nationwide"
+    },
+    {
+      "trigger": "Screen cracked or display malfunctioning",
+      "urgency": 7,
+      "frequency": "Weekly occurrence"
+    },
+    {
+      "trigger": "WiFi connectivity issues preventing work",
+      "urgency": 8,
+      "frequency": "Daily for remote workers"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer experiences sudden computer failure or performance degradation, searches Google for 'computer repair near me' or asks colleagues for recommendations, reads reviews on Google My Business and Yelp focusing on response time and success rates",
+    "consideration": "Compares 3-5 local repair shops based on price transparency, turnaround time, warranty offerings, and technician certifications, calls for quotes and evaluates phone professionalism, checks if data recovery is included",
+    "decision": "Chooses based on fastest availability (47% of decisions), transparent flat-rate pricing (31%), or strong personal recommendation (22%), drops off device or schedules on-site service within 24 hours of initial problem",
+    "retention": "Returns for annual maintenance if reminded proactively, upgrades components when suggested during repairs, refers others after positive experience especially data recovery successes",
+    "advocacy": "Leaves detailed Google reviews mentioning specific technician names, recommends actively in local Facebook groups and Nextdoor, brings in family members' devices creating household loyalty worth $1,200-2,400 annually"
+  },
+  "transformations": [
+    {
+      "from": "Panicked about lost thesis or tax documents",
+      "to": "Relieved with full data recovery",
+      "emotional_value": "Priceless peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Frustrated by 5-minute boot times",
+      "to": "Productive with 30-second startups",
+      "emotional_value": "Regained work efficiency",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassed by virus-infected computer",
+      "to": "Confident in secured system",
+      "emotional_value": "Professional dignity restored",
+      "worth_premium": false
+    },
+    {
+      "from": "Anxious about business downtime costs",
+      "to": "Operating at full capacity",
+      "emotional_value": "Business continuity assured",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by technical complexity",
+      "to": "Empowered with understanding",
+      "emotional_value": "Technological confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Worried about privacy breach",
+      "to": "Secure with encrypted data",
+      "emotional_value": "Privacy protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about replacement costs",
+      "to": "Satisfied with affordable repair",
+      "emotional_value": "Financial relief",
+      "worth_premium": false
+    },
+    {
+      "from": "Helpless with broken family computer",
+      "to": "Hero who saved family photos",
+      "emotional_value": "Family gratitude",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Device boots successfully in under 60 seconds",
+      "timeframe": "Immediately after service",
+      "measurable": true
+    },
+    {
+      "metric": "All original data recovered and accessible",
+      "timeframe": "Within 48 hours",
+      "measurable": true
+    },
+    {
+      "metric": "No virus detections for 30 days post-service",
+      "timeframe": "30-day follow-up",
+      "measurable": true
+    },
+    {
+      "metric": "System performance improved by 40-70%",
+      "timeframe": "Benchmark before and after",
+      "measurable": true
+    },
+    {
+      "metric": "Customer productivity restored to pre-issue levels",
+      "timeframe": "Within one week",
+      "measurable": false
+    },
+    {
+      "metric": "Zero repeat issues within 90-day warranty",
+      "timeframe": "90 days post-repair",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction score above 4.7/5.0",
+      "timeframe": "7 days post-service",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Work presentation tomorrow morning with files trapped on dead computer",
+    "Tax deadline approaching with accounting software inaccessible",
+    "Online exam in 3 hours and laptop won't connect to WiFi",
+    "Customer database corrupted affecting entire business operations",
+    "Ransomware countdown timer showing 24 hours until permanent encryption",
+    "Remote work impossible without functioning computer costing $500/day in lost productivity",
+    "Family photos and videos of deceased relatives at risk of permanent loss"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "It might be cheaper to buy new",
+      "response": "Average repair costs $150-300 while replacement runs $800-1500, plus we'll transfer all your data and programs saving 8-12 hours of setup time valued at $400",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "How do I know you won't steal my data",
+      "response": "We're bonded and insured for $2 million, sign strict NDAs, perform all work in view of security cameras, and have served 5,000+ local customers with zero data breach incidents",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "I can't afford expensive repairs right now",
+      "response": "We offer free diagnostics to identify the exact issue, provide multiple repair options including budget solutions, and accept payment plans for repairs over $300 with no credit check",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "How long will I be without my computer",
+      "response": "67% of repairs complete same-day, we offer free loaner computers for repairs taking over 48 hours, and provide rush service for critical situations with 2-hour turnaround",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "What if it breaks again after you fix it",
+      "response": "All repairs include 90-day warranty with free re-service, our first-time fix rate is 94%, and we'll apply repair costs toward new computer purchase if issue recurs within 30 days",
+      "effectiveness": 9.4
+    },
+    {
+      "objection": "My computer is too old to be worth fixing",
+      "response": "Even 5-7 year old computers can run like new with $75 SSD upgrade providing 3-4 more years of life, saving $800+ in premature replacement costs",
+      "effectiveness": 7.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "No fix no fee policy on all diagnostic services",
+      "90-day parts and labor warranty standard",
+      "Price match guarantee against any local competitor quote",
+      "Data recovery or no charge on recovery attempts",
+      "Free re-service if same issue returns within warranty"
+    ],
+    "proof_points": [
+      "Licensed and insured with $2 million coverage",
+      "CompTIA A+ certified technicians",
+      "4.8 star average from 1,200+ Google reviews",
+      "BBB A+ rating maintained for 8 years",
+      "Microsoft Authorized Refurbisher status"
+    ],
+    "risk_mitigation": "Free diagnostic eliminates upfront cost risk, detailed quote before any work begins prevents surprise charges, option to be present during repairs addresses privacy concerns, secure data handling protocols with signed confidentiality agreements, established 15-year local presence provides accountability"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "frozen",
+      "crashed",
+      "dead",
+      "slow",
+      "virus",
+      "broken screen",
+      "won't turn on",
+      "lost files",
+      "blue screen",
+      "spinning wheel",
+      "overheating",
+      "strange noises",
+      "popup ads",
+      "hacked",
+      "water damage"
+    ],
+    "solution_words": [
+      "fast repair",
+      "data recovery",
+      "same-day service",
+      "fixed price",
+      "no data loss",
+      "warranty included",
+      "certified technician",
+      "free diagnosis",
+      "works like new",
+      "saved my files",
+      "quick turnaround",
+      "affordable",
+      "professional",
+      "trustworthy",
+      "local"
+    ],
+    "avoid_jargon": [
+      "RAM",
+      "motherboard",
+      "registry",
+      "BIOS",
+      "drivers",
+      "kernel panic",
+      "memory leak",
+      "fragmentation",
+      "partition",
+      "firmware",
+      "cache",
+      "protocols",
+      "packets",
+      "throughput",
+      "latency"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "same-day",
+    "recovered",
+    "certified",
+    "warrantied",
+    "professional",
+    "urgent",
+    "emergency",
+    "trusted",
+    "local",
+    "experienced",
+    "affordable",
+    "fast",
+    "reliable",
+    "secure",
+    "expert",
+    "immediate",
+    "priority",
+    "rescued",
+    "saved",
+    "fixed",
+    "restored",
+    "protected",
+    "insured",
+    "proven",
+    "recommended",
+    "specialized",
+    "authorized",
+    "transparent",
+    "honest"
+  ],
+  "avoid_words": [
+    "maybe",
+    "possibly",
+    "try",
+    "attempt",
+    "hopefully",
+    "should work",
+    "probably",
+    "might",
+    "uncertain",
+    "experimental",
+    "risky",
+    "complicated",
+    "expensive",
+    "time-consuming",
+    "difficult",
+    "problematic",
+    "unfixable",
+    "outdated",
+    "incompatible",
+    "limited"
+  ],
+  "headline_templates": [
+    {
+      "template": "Computer Dead? Same-Day Repair with 90-Day Warranty - Just $[PRICE]",
+      "expected_ctr": 4.2,
+      "use_case": "Google Ads for emergency searches"
+    },
+    {
+      "template": "Lost Your Files? 97% Data Recovery Success Rate - No Recovery, No Fee",
+      "expected_ctr": 5.8,
+      "use_case": "Data recovery campaigns"
+    },
+    {
+      "template": "Blue Screen of Death? Fixed in 2 Hours or It's Free",
+      "expected_ctr": 6.1,
+      "use_case": "Urgent repair searches"
+    },
+    {
+      "template": "[CITY] Computer Repair - 1,200+ Five-Star Reviews - Open Now",
+      "expected_ctr": 3.9,
+      "use_case": "Local SEO and maps"
+    },
+    {
+      "template": "Virus Removal Special: $69 Complete Cleanup + 1 Year Protection",
+      "expected_ctr": 4.7,
+      "use_case": "Promotional campaigns"
+    },
+    {
+      "template": "Broken Laptop Screen? Replaced Today Starting at $129",
+      "expected_ctr": 5.3,
+      "use_case": "Specific repair searches"
+    },
+    {
+      "template": "Is Your Computer Slow? Free Speed Test Reveals Hidden Problems",
+      "expected_ctr": 4.5,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "Water Damage? Emergency Computer Rescue Available 24/7",
+      "expected_ctr": 7.2,
+      "use_case": "Crisis situations"
+    },
+    {
+      "template": "Business Computers Down? Priority IT Support in 30 Minutes",
+      "expected_ctr": 5.9,
+      "use_case": "B2B emergency"
+    },
+    {
+      "template": "Save $500: Repair vs Replace Calculator Shows Your Best Option",
+      "expected_ctr": 4.8,
+      "use_case": "Educational content"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Free Diagnosis Now →",
+      "conversion_rate": 8.7,
+      "placement": "Above fold on homepage"
+    },
+    {
+      "template": "Call [PHONE] for Immediate Help",
+      "conversion_rate": 12.3,
+      "placement": "Sticky header on mobile"
+    },
+    {
+      "template": "Book Same-Day Repair",
+      "conversion_rate": 9.4,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Start Data Recovery Now - No Recovery, No Fee",
+      "conversion_rate": 11.2,
+      "placement": "Data loss pages"
+    },
+    {
+      "template": "Chat with Tech Expert",
+      "conversion_rate": 7.8,
+      "placement": "Bottom right chat widget"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 6.9,
+      "placement": "Pricing calculator"
+    },
+    {
+      "template": "Claim Your $20 Off First Repair",
+      "conversion_rate": 10.5,
+      "placement": "Exit intent popup"
+    },
+    {
+      "template": "Schedule Free Pickup",
+      "conversion_rate": 8.2,
+      "placement": "Mobile-only sticky footer"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ PSA: That 'Your Computer is Infected' popup is FAKE! Here's how to remove it safely: [LINK] Had this happen? Comment below!",
+      "engagement_rate": 4.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before/After: This laptop went from 5-minute boot time to 30 seconds with one simple upgrade! 💻✨ #ComputerRepair #TechTips #LocalBusiness",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "URGENT: New ransomware targeting [CITY] businesses. Free prevention guide: [LINK] RT to warn others! #Cybersecurity #SmallBusiness",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Study: Businesses lose $427/hour during computer downtime. Our average repair time: 2.3 hours. Your math: Clear ROI on professional IT support. Let's discuss your backup plan.",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors! Offering free computer health checks this Saturday 10am-2pm. Bring your slow computer and we'll diagnose it free. No obligation. [ADDRESS]",
+      "engagement_rate": 11.3
+    },
+    {
+      "platform": "Google My Business",
+      "template": "🎉 Special this week: Free virus scan with any repair! Plus, seniors save 15%. Call [PHONE] to schedule.",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "TITLE: Fix 90% of Computer Problems with These 5 Simple Steps | DESC: Before paying for repairs, try these fixes that solve most issues...",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Customer thinks their data is gone forever... watch this incredible recovery! #DataRecovery #ComputerRepair #TechTok #SavedTheDay",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Yelp",
+      "template": "Thank you [NAME] for the amazing review! We're thrilled we could recover your family photos. For anyone facing similar issues, we offer free consultations. #DataRecovery",
+      "engagement_rate": 4.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day repair with 90-day warranty on all services",
+      "rank": 1,
+      "differentiator": "Faster than 89% of competitors who average 3-5 days"
+    },
+    {
+      "prop": "No fix, no fee guarantee eliminates financial risk",
+      "rank": 2,
+      "differentiator": "Only 20% of shops offer true no-fee diagnostics"
+    },
+    {
+      "prop": "Free data backup included with every repair",
+      "rank": 3,
+      "differentiator": "$75 value that competitors charge separately"
+    },
+    {
+      "prop": "Certified technicians with 15+ years average experience",
+      "rank": 4,
+      "differentiator": "Industry average is 3-5 years experience"
+    },
+    {
+      "prop": "Transparent flat-rate pricing posted online",
+      "rank": 5,
+      "differentiator": "93% of competitors hide pricing until consultation"
+    },
+    {
+      "prop": "Free loaner computers for repairs over 48 hours",
+      "rank": 6,
+      "differentiator": "Unique service no local competitors offer"
+    },
+    {
+      "prop": "24/7 emergency support for business clients",
+      "rank": 7,
+      "differentiator": "After-hours availability rare in local market"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Enterprise-grade expertise for mission-critical systems. Our certified technicians average 15 years experience, maintain 99.7% first-time fix rates, and provide dedicated account management with guaranteed 2-hour response times. Your business continuity is our priority, backed by comprehensive SLAs and $2 million insurance coverage.",
+    "budget_conscious": "Professional computer repair doesn't have to break the bank. We offer transparent, flat-rate pricing starting at just $69, free diagnostics to avoid surprise costs, and budget-friendly repair options that extend your computer's life by 3-5 years. Why spend $800 on a new computer when a $150 repair solves the problem?",
+    "enterprise": "Comprehensive IT infrastructure support with predictable monthly costs. Our managed service plans include unlimited help desk support, proactive monitoring preventing 78% of failures, quarterly hardware audits, priority emergency response, and detailed compliance reporting. Scale your IT capabilities without scaling headcount."
+  },
+  "trust_signals": [
+    {
+      "signal": "CompTIA A+ and Network+ certifications displayed",
+      "importance": 8,
+      "format": "Framed certificates in waiting area"
+    },
+    {
+      "signal": "1,200+ Google reviews with 4.8 star average",
+      "importance": 10,
+      "format": "Review widget on website homepage"
+    },
+    {
+      "signal": "BBB A+ rating with accreditation seal",
+      "importance": 7,
+      "format": "Footer badge on all pages"
+    },
+    {
+      "signal": "Before/after performance benchmarks",
+      "importance": 9,
+      "format": "Printed report with every repair"
+    },
+    {
+      "signal": "15 years in business at same location",
+      "importance": 8,
+      "format": "About Us page timeline"
+    },
+    {
+      "signal": "Local business association memberships",
+      "importance": 6,
+      "format": "Chamber of Commerce window decal"
+    },
+    {
+      "signal": "Insurance and bonding documentation",
+      "importance": 9,
+      "format": "Available upon request"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 50,000 computers repaired since 2009",
+      "credibility_score": 9,
+      "context": "Demonstrates extensive experience and reliability"
+    },
+    {
+      "stat": "97% data recovery success rate",
+      "credibility_score": 10,
+      "context": "Critical for data loss situations"
+    },
+    {
+      "stat": "Average 2.3 hour turnaround for standard repairs",
+      "credibility_score": 8,
+      "context": "Faster than industry average of 24-48 hours"
+    },
+    {
+      "stat": "94% of customers recommend us to friends",
+      "credibility_score": 9,
+      "context": "Net Promoter Score indicator"
+    },
+    {
+      "stat": "Zero data breaches in 15 years of operation",
+      "credibility_score": 10,
+      "context": "Critical for privacy-conscious customers"
+    },
+    {
+      "stat": "Saved customers over $2 million vs replacement costs",
+      "credibility_score": 7,
+      "context": "Demonstrates value proposition"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Certified technicians, brand-name parts, extended warranties, climate-controlled repair facility",
+    "Budget: Generic parts, limited warranties, longer turnaround times, remote technicians",
+    "Premium: Detailed diagnostic reports, benchmark testing, preventive maintenance included",
+    "Budget: Basic problem fix only, no documentation, no follow-up service",
+    "Premium: White-glove pickup/delivery service, executive loaner program, dedicated account manager",
+    "Budget: Customer drop-off only, no loaners, general customer service queue"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After confirming device working properly for 72 hours post-repair",
+    "ask_method": "Automated SMS with direct link to Google review page, followed by email if no response within 48 hours, incentivized with 10% off next service"
+  },
+  "competitive_advantages": [
+    "Only local shop offering true 24/7 emergency service with 30-minute response",
+    "Proprietary data recovery lab equipment with cleanroom capability",
+    "Free lifetime phone support for any computer questions after first repair",
+    "Partnership with major corporations for certified warranty repairs",
+    "In-house parts inventory eliminating 2-3 day ordering delays",
+    "Mobile repair van providing on-site service within 10-mile radius"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $500 data recovery service first, making $150 standard repair seem affordable",
+    "sensitivity": "Price breaks at $99, $149, $249 align with psychological thresholds",
+    "sweet_spots": [
+      "$89-129 for virus removal",
+      "$149-199 for hardware repairs",
+      "$249-349 for screen replacements"
+    ],
+    "decoy_pricing": "Offer premium service at $299 to make $199 standard service appear as better value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 300,
+    "competitor_research": 200
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.3,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$149-249",
+      "target_customer": "Urgent business needs",
+      "margin": 65
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$89-149",
+      "target_customer": "General consumers",
+      "margin": 55
+    },
+    {
+      "tier": "Economy",
+      "price_range": "$49-89",
+      "target_customer": "Budget-conscious",
+      "margin": 40
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle antivirus software with repairs for additional $30 margin at 80% attach rate",
+    "Upsell SSD upgrades during slow computer repairs adding $75 margin",
+    "Implement diagnostic fee credited toward repair to eliminate free consultations",
+    "Source refurbished parts for older machines maintaining 50% margins",
+    "Offer maintenance contracts generating $40/month recurring revenue",
+    "Cross-sell data backup services during recovery jobs for $20/month subscriptions"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 15,
+      "reason": "Post-holiday malware from gift computers",
+      "opportunity": "Virus removal promotions"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Lower activity post-holiday spending",
+      "opportunity": "Maintenance specials"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Tax preparation computer failures",
+      "opportunity": "Data recovery emphasis"
+    },
+    {
+      "month": "April",
+      "variation": 30,
+      "reason": "Tax deadline panic repairs",
+      "opportunity": "Emergency service premiums"
+    },
+    {
+      "month": "May",
+      "variation": 5,
+      "reason": "Spring cleaning including computers",
+      "opportunity": "Tune-up packages"
+    },
+    {
+      "month": "June",
+      "variation": -5,
+      "reason": "Vacation season beginning",
+      "opportunity": "Business client focus"
+    },
+    {
+      "month": "July",
+      "variation": -15,
+      "reason": "Summer vacation lowest point",
+      "opportunity": "Deep discount promotions"
+    },
+    {
+      "month": "August",
+      "variation": 20,
+      "reason": "Back-to-school computer prep",
+      "opportunity": "Student specials"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Business fiscal year IT updates",
+      "opportunity": "Enterprise contracts"
+    },
+    {
+      "month": "October",
+      "variation": 10,
+      "reason": "Holiday preparation beginning",
+      "opportunity": "Upgrade promotions"
+    },
+    {
+      "month": "November",
+      "variation": 40,
+      "reason": "Black Friday damage and setup needs",
+      "opportunity": "New computer setup"
+    },
+    {
+      "month": "December",
+      "variation": 25,
+      "reason": "Year-end business needs and gift setup",
+      "opportunity": "Gift certificates"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Business emergency repairs",
+      "avoid": "Promotional emails",
+      "conversion_rate": 8.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Scheduling routine service",
+      "avoid": "Cold calling",
+      "conversion_rate": 7.5
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Educational content",
+      "avoid": "Price increases",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Promotional announcements",
+      "avoid": "Complex repairs",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency rush services",
+      "avoid": "Multi-day repairs",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Consumer walk-ins",
+      "avoid": "Business outreach",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency callouts",
+      "avoid": "Routine maintenance",
+      "conversion_rate": 6.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Business clients need repairs completed by 25th for month-end processing",
+    "cash_flow_peaks": "Consumers have most cash availability 3-5 days after typical pay dates (1st and 15th)",
+    "slow_periods": "Days 20-25 typically slowest as consumers await paychecks"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 8-10 AM",
+      "crisis_type": "Weekend damage discovered",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Work prep panic",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "April 10-15",
+      "crisis_type": "Tax deadline rush",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "December 24-26",
+      "crisis_type": "Holiday gift setup",
+      "premium_multiplier": 2.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Complete Care",
+      "components": [
+        "Diagnosis",
+        "Repair",
+        "1-year warranty",
+        "Data backup",
+        "Tune-up"
+      ],
+      "pricing_model": "Flat rate $249",
+      "margin": 62
+    },
+    {
+      "name": "Quick Fix",
+      "components": [
+        "Diagnosis",
+        "Single issue repair",
+        "30-day warranty"
+      ],
+      "pricing_model": "Hourly $89",
+      "margin": 48
+    },
+    {
+      "name": "Business Priority",
+      "components": [
+        "2-hour response",
+        "Loaner device",
+        "After-hours access",
+        "Monthly reports"
+      ],
+      "pricing_model": "Monthly $299",
+      "margin": 71
+    },
+    {
+      "name": "Data Rescue",
+      "components": [
+        "Recovery attempt",
+        "New drive if needed",
+        "Cloud backup setup"
+      ],
+      "pricing_model": "Success-based $399",
+      "margin": 58
+    }
+  ],
+  "upsell_paths": [
+    "Free diagnosis → Paid repair ($89-149 average)",
+    "Basic repair → Data backup service ($20/month subscription)",
+    "Virus removal → Antivirus software ($79/year)",
+    "Hardware repair → Performance upgrade (SSD $149)",
+    "Single repair → Maintenance plan ($39/month)",
+    "Consumer service → Small business IT contract ($500/month)"
+  ],
+  "retention_hooks": [
+    "Automated maintenance reminders every 6 months with discount codes",
+    "Free lifetime phone support creating ongoing relationship",
+    "Birthday month 20% discount emails maintaining engagement",
+    "Loyalty program with 10th service free",
+    "Annual free tune-up for customers spending over $500",
+    "Priority scheduling status for repeat customers",
+    "Referral rewards program providing account credits"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Business card handouts with referral tracking codes",
+      "timing": "At service completion",
+      "incentive": "$20 credit for both parties",
+      "conversion_rate": 12
+    },
+    {
+      "strategy": "Email campaign to satisfied customers",
+      "timing": "30 days post-service",
+      "incentive": "Free diagnostic for referrals",
+      "conversion_rate": 8
+    },
+    {
+      "strategy": "Social media sharing incentives",
+      "timing": "Immediately after positive review",
+      "incentive": "10% off next service",
+      "conversion_rate": 6
+    },
+    {
+      "strategy": "B2B partner program with IT consultants",
+      "timing": "Ongoing relationship",
+      "incentive": "15% commission",
+      "conversion_rate": 22
+    },
+    {
+      "strategy": "Family plan discounts",
+      "timing": "During initial service",
+      "incentive": "Household rate savings",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Corporate employee programs",
+      "timing": "After business contract",
+      "incentive": "Employee discount cards",
+      "conversion_rate": 15
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Antivirus software with virus removal",
+      "attach_rate": 68,
+      "timing": "During repair discussion"
+    },
+    {
+      "service": "SSD upgrade with slow computer fix",
+      "attach_rate": 43,
+      "timing": "After diagnostic results"
+    },
+    {
+      "service": "Data backup with data recovery",
+      "attach_rate": 81,
+      "timing": "Post-recovery relief moment"
+    },
+    {
+      "service": "Extended warranty with expensive repair",
+      "attach_rate": 37,
+      "timing": "At checkout"
+    },
+    {
+      "service": "Printer setup with computer repair",
+      "attach_rate": 22,
+      "timing": "During pickup"
+    },
+    {
+      "service": "Smart home setup with WiFi repair",
+      "attach_rate": 31,
+      "timing": "Follow-up call"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Managed IT services for SMBs",
+      "market_size": "$2.4M annually in service area",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Mobile device repair addition",
+      "market_size": "$1.8M annually locally",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Corporate training workshops",
+      "market_size": "$400K annually",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "E-waste recycling service",
+      "market_size": "$600K annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Remote support subscriptions",
+      "market_size": "$1.2M nationally accessible",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Retail computer sales",
+      "market_size": "$3.1M locally",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Ubreakifix's TikTok series showing dramatic 'before and after' phone repairs with satisfying transformation videos, particularly their screen replacement videos showing cracked screens being perfectly restored",
+        "platform": "TikTok",
+        "why_it_worked": "Satisfying visual transformations, short-form content (15-30 seconds), shows expertise without being salesy, taps into 'oddly satisfying' trend that drives high engagement",
+        "metrics": "Videos regularly achieve 100K+ views, with some viral posts reaching 1M+ views and 15-20% engagement rates",
+        "source": "TikTok @ubreakifix account analysis and social media marketing case studies from Hootsuite 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Micro Center's educational YouTube series 'How to Fix Common PC Problems' addressing specific error messages and blue screens with step-by-step troubleshooting, while offering professional help for complex issues",
+        "platform": "YouTube",
+        "why_it_worked": "Provides genuine value first, builds trust through education, captures search traffic for problem-specific queries, positions brand as expert while acknowledging when DIY isn't appropriate",
+        "metrics": "Videos average 50K-200K views, 8-12 minute watch time, strong comment engagement with viewers asking follow-up questions",
+        "source": "Micro Center YouTube channel analytics and Video Marketing Statistics 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local computer repair shops using Google Business Profile posts showing real customer devices with specific problems (with permission) and the fixed result, posted 3-5x per week",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Hyper-local targeting, shows real work not stock photos, builds social proof, appears in local search results, demonstrates capability with actual examples",
+        "metrics": "Shops using this strategy report 40-60% increase in profile views and 25-35% increase in direction requests according to local SEO case studies",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Sterling Sky Google Business Profile case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Best Buy Geek Squad's Facebook campaign during back-to-school season offering free diagnostics with posts featuring common student laptop problems (slow performance, won't boot, broken screens)",
+        "platform": "Facebook",
+        "why_it_worked": "Timely seasonal relevance, removed barrier to entry with free diagnostic, targeted specific audience segment (students/parents), addressed common pain points directly",
+        "metrics": "Campaign generated 3x normal appointment bookings during August-September period, 8.2% click-through rate on ads",
+        "source": "Geek Squad marketing materials and retail technology services benchmarks from Tech Services Industry Association 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Email campaign from regional repair chain featuring urgent subject line 'Is Your Hard Drive About to Fail? 5 Warning Signs' with educational content and clear CTA for free health check",
+        "platform": "Email",
+        "why_it_worked": "Fear-based hook addressing real concern, educational value builds trust, urgency without being pushy, clear actionable offer, mobile-optimized format",
+        "metrics": "42% open rate (vs industry average 21%), 12% click-through rate, 8% conversion to booked appointments",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and computer services industry reports",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% for business pages in computer repair/electronics repair sector",
+        "best_content_format": "Short videos (under 2 minutes) showing repair process, before/after images, and educational carousel posts about maintenance",
+        "optimal_frequency": "4-7 posts per week, with at least 2 video posts",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when people have time to deal with computer issues",
+        "source": "Rival IQ Social Media Benchmark Report 2024 and Hootsuite Best Times to Post 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.70% for technology/repair services accounts",
+        "best_content_format": "Reels showing quick repair tips, satisfying transformation videos, Stories for behind-the-scenes and urgent same-day service promotions",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels, daily Stories",
+        "best_posting_times": "Monday and Thursday 11 AM - 1 PM, evenings 7-9 PM",
+        "source": "Later Instagram Engagement Report 2024 and Sprout Social Industry Benchmarks"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 3-5x more profile views than profiles without regular posts",
+        "best_content_format": "Photo posts showing actual repairs, offer posts for seasonal promotions, update posts for same-day availability",
+        "optimal_frequency": "3-5 posts per week, daily during peak seasons",
+        "best_posting_times": "Monday-Friday mornings 8-10 AM when people discover computer problems at work start",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Sterling Sky GBP Research"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.1% for how-to and educational tech content",
+        "best_content_format": "8-12 minute troubleshooting tutorials, 3-5 minute quick fix videos, longer diagnostic guides for complex issues",
+        "optimal_frequency": "1-2 videos per week for consistency in algorithm",
+        "best_posting_times": "Tuesday and Wednesday 2-4 PM EST for maximum initial engagement",
+        "source": "Tubular Labs Video Benchmarks 2024 and YouTube Creator Insider insights"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.33% open rate, 2.62% click-through rate for computer and electronics services",
+        "best_content_format": "Problem-focused educational emails with clear CTAs, seasonal maintenance reminders, limited-time diagnostic offers",
+        "optimal_frequency": "2-4 emails per month, with additional emails during peak seasons",
+        "best_posting_times": "Tuesday-Thursday 10 AM - 12 PM, avoid Mondays and Fridays",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Campaign Monitor Industry Statistics"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "0.90% for B2B technology services",
+        "best_content_format": "Business continuity content, IT infrastructure tips, case studies for business clients, thought leadership on cybersecurity",
+        "optimal_frequency": "2-3 posts per week for B2B-focused repair services",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 12 PM when business decision-makers are active",
+        "source": "LinkedIn Marketing Solutions Benchmarks 2024 and Hootsuite B2B Social Media Report"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Warning Sign Pattern - 'X Signs Your [Device] Is About to [Catastrophic Failure]'",
+        "example": "5 Warning Signs Your Hard Drive Is About to Fail (And How to Save Your Data Now)",
+        "why_it_works": "Creates urgency through fear of loss, positions reader to self-diagnose, implies preventable disaster, suggests immediate action available",
+        "source": "Analysis of top-performing computer repair blog posts and email subject lines from HubSpot and computer repair forums"
+      },
+      {
+        "hook_pattern": "Time-Based Urgency - '[Action] Before [Deadline/Consequence]'",
+        "example": "Get Your Laptop Fixed Before Finals Week - Same Day Service Available",
+        "why_it_works": "Ties service to specific time pressure customer already feels, offers solution to time-bound problem, emphasizes speed of service",
+        "source": "Seasonal campaign analysis from university-area repair shops and Google Ads performance data"
+      },
+      {
+        "hook_pattern": "Cost Comparison - 'Stop Paying [High Amount] When You Could Pay [Lower Amount]'",
+        "example": "Why Pay $300 at Big Box Stores? Same Repair, $129 Here",
+        "why_it_works": "Directly addresses price objection, creates value contrast, positions as insider knowledge, implies same quality for less",
+        "source": "Local computer repair shop advertising analysis and Reddit r/computertechs discussions"
+      },
+      {
+        "hook_pattern": "Myth-Busting - 'The Truth About [Common Belief]'",
+        "example": "The Truth About 'Unfixable' Water Damage - We Saved 73% of Liquid-Damaged Laptops Last Month",
+        "why_it_works": "Challenges defeatist assumption, provides hope, uses specific statistics for credibility, suggests expertise beyond common knowledge",
+        "source": "High-performing blog content from iFixit and independent repair advocacy sites"
+      },
+      {
+        "hook_pattern": "Immediate Gratification - 'Same Day/While You Wait [Service]'",
+        "example": "Cracked Screen? Fixed While You Grab Lunch - Most Repairs Done in 60 Minutes",
+        "why_it_works": "Removes major objection (time without device), makes service feel convenient not disruptive, specific timeframe builds trust",
+        "source": "uBreakiFix and CPR Cell Phone Repair marketing materials and customer review analysis"
+      },
+      {
+        "hook_pattern": "DIY vs Professional - 'When to Fix It Yourself (And When to Call Us)'",
+        "example": "3 Computer Problems You Can Fix Yourself (And 5 You Absolutely Shouldn't Touch)",
+        "why_it_works": "Builds trust by admitting some things are DIY-able, positions business as honest advisor not just seller, helps customer self-qualify",
+        "source": "Micro Center and Newegg educational content performance analysis"
+      },
+      {
+        "hook_pattern": "Data Recovery Emotion - 'We Saved [Irreplaceable Item]'",
+        "example": "We Recovered 10 Years of Family Photos from a 'Dead' Hard Drive",
+        "why_it_works": "Taps into deep emotional fear of losing irreplaceable memories, provides hope in desperate situation, demonstrates capability with real outcome",
+        "source": "Data recovery service testimonials and case study analysis from DriveSavers and Ontrack"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "my computer won't turn on and I have a presentation tomorrow",
+        "blue screen of death keeps appearing out of nowhere",
+        "everything is running so slow I can't get any work done",
+        "I think I got hacked, there are weird popups everywhere",
+        "my hard drive is making a clicking sound and I'm freaking out",
+        "spilled coffee on my laptop this morning, is it toast?",
+        "computer just died and I haven't backed up in months",
+        "screen went black and won't come back on",
+        "getting constant virus warnings and don't know what's real",
+        "laptop overheating and shutting down randomly",
+        "lost all my files and I don't know what happened",
+        "computer takes 10 minutes to boot up every morning"
+      ],
+      "solution_phrases": [
+        "got my data back and I'm so relieved",
+        "computer runs like new again, boots up in seconds",
+        "they explained everything in terms I could understand",
+        "fixed while I waited, didn't have to leave it overnight",
+        "way cheaper than buying a new computer",
+        "they recovered files I thought were gone forever",
+        "same day service saved my project deadline",
+        "honest about what I actually needed vs upselling",
+        "showed me what was wrong instead of just telling me",
+        "now it's faster than when I bought it",
+        "they backed up everything before starting work",
+        "warranty on the repair gave me peace of mind"
+      ],
+      "objection_phrases": [
+        "how do I know you won't just tell me I need a new one",
+        "what if you can't recover my files, do I still pay",
+        "I'm worried about my personal data and privacy",
+        "how long will I be without my computer",
+        "is it even worth fixing or should I just buy new",
+        "I got quoted $400 somewhere else, why is yours different",
+        "can you really fix it same day or is that just marketing",
+        "what if the problem comes back after you fix it",
+        "I don't understand what's wrong, how do I know I'm not being ripped off",
+        "do I need to back everything up first or will you do that",
+        "I've been burned by computer repair places before",
+        "I can't afford to lose this data, are you sure you can get it back"
+      ],
+      "decision_factors": [
+        "can they fix it while I wait or same day",
+        "do they offer a warranty on repairs",
+        "reviews mentioning honest pricing and no upselling",
+        "whether they can recover my data safely",
+        "local shop vs sending it away somewhere",
+        "certifications and experience with my specific problem",
+        "upfront pricing before they start work",
+        "how many years they've been in business",
+        "whether they'll explain what's wrong in plain English",
+        "if they offer free diagnostics to know cost first",
+        "recommendations from friends or family",
+        "whether they work on my specific brand/model"
+      ],
+      "emotional_language": [
+        "panicking",
+        "freaking out",
+        "desperate",
+        "relieved",
+        "frustrated beyond belief",
+        "stressed about losing everything",
+        "grateful they saved my data",
+        "peace of mind",
+        "nightmare situation",
+        "lifesaver",
+        "so thankful",
+        "terrified I'd lose my thesis",
+        "embarrassed I let it get this bad",
+        "anxious about the cost",
+        "confident in my computer again"
+      ],
+      "sources": [
+        "Reddit r/techsupport customer posts 2023-2024",
+        "Google Reviews for top computer repair chains (uBreakiFix, Best Buy Geek Squad, CPR)",
+        "Yelp reviews for local computer repair shops in major metros",
+        "Reddit r/computertechs discussions about customer interactions",
+        "Trustpilot reviews for data recovery services",
+        "Facebook community group posts about computer problems",
+        "Twitter/X customer service interactions with repair companies"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent video documentation of actual repair process for customer's specific device (most just show generic repairs)",
+      "Real-time repair status updates via text/app (most require customers to call for updates)",
+      "Educational content about preventing common problems rather than just fixing them",
+      "Honest 'repair vs replace' calculators that help customers make informed decisions",
+      "Subscription-based preventive maintenance programs for small businesses",
+      "Content addressing remote work specific issues (home office setup, VPN problems, etc.)",
+      "Accessibility-focused content for seniors and non-technical users",
+      "Environmental impact messaging about repair vs replace (e-waste reduction)",
+      "Behind-the-scenes content showing diagnostic process and tools",
+      "Proactive seasonal maintenance reminders based on customer device age/history"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Back to School (August-September)",
+        "opportunity": "Students need laptops repaired or upgraded before semester starts, parents buying/fixing computers for kids",
+        "content_angle": "Student laptop tune-up packages, dorm-friendly repair tips, finals week survival guides, student discount promotions, 'before classes start' urgency messaging"
+      },
+      {
+        "period": "Tax Season (January-April)",
+        "opportunity": "People need computers working for tax preparation, fear of losing financial documents, accountants need reliable systems",
+        "content_angle": "Data recovery for tax documents, computer health checks before tax deadline, backup solutions for financial data, 'don't let computer problems delay your refund' messaging"
+      },
+      {
+        "period": "Holiday Shopping Season (November-December)",
+        "opportunity": "Increased online shopping means need for reliable computers, gift-giving opportunities for services, year-end business needs",
+        "content_angle": "Gift certificates for repairs, computer tune-ups before holiday shopping, Black Friday/Cyber Monday readiness, small business holiday prep services"
+      },
+      {
+        "period": "New Year (January)",
+        "opportunity": "New Year's resolutions include organization and productivity, business planning season, post-holiday device issues from heavy use",
+        "content_angle": "Fresh start computer cleanups, productivity optimization, 'new year new computer performance' campaigns, business IT planning content"
+      },
+      {
+        "period": "Spring Cleaning (March-April)",
+        "opportunity": "General decluttering and maintenance mindset, good weather means people tackle postponed tasks",
+        "content_angle": "Digital spring cleaning guides, computer maintenance as part of spring cleaning routine, file organization services, 'clean out the digital clutter' messaging"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Kids home from school using computers more, vacation planning requires working devices, slower business period needs promotion",
+        "content_angle": "Summer gaming PC upgrades, 'before you leave for vacation' checkups, keep kids' devices running content, summer slow-down discount promotions"
+      },
+      {
+        "period": "Fiscal Year End (varies by business, often June/December)",
+        "opportunity": "Businesses need systems running for financial close, budget use-it-or-lose-it spending, planning for next fiscal year",
+        "content_angle": "Business system audits, year-end IT health checks, budget-friendly upgrade options, 'end of fiscal year' B2B campaigns"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Hootsuite Social Media Trends 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Reddit r/techsupport and r/computertechs",
+      "Google Reviews for uBreakiFix, Best Buy Geek Squad, CPR Cell Phone Repair",
+      "Yelp computer repair business reviews",
+      "YouTube analytics for Micro Center and tech repair channels",
+      "TikTok @ubreakifix account",
+      "Later Instagram Engagement Report 2024",
+      "Sprout Social Industry Benchmarks",
+      "Sterling Sky Google Business Profile research",
+      "Campaign Monitor Industry Statistics",
+      "LinkedIn Marketing Solutions Benchmarks 2024",
+      "Tubular Labs Video Benchmarks 2024",
+      "HubSpot marketing blog analysis",
+      "Tech Services Industry Association reports 2024",
+      "iFixit blog and community forums",
+      "Trustpilot data recovery service reviews"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to computer repair industry",
+      "TikTok engagement metrics are estimates based on visible engagement rather than official analytics",
+      "Some platform benchmarks combine computer repair with broader electronics repair category",
+      "Seasonal opportunity timing may vary significantly by geographic region and climate",
+      "B2B-specific engagement rates less documented than B2C metrics"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching same-day data recovery service with real-time status tracking",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The panic of irreplaceable data loss and why traditional recovery takes too long",
+        "Week 2: Behind-the-scenes look at emergency data recovery technology and certified processes",
+        "Week 3: Real customer stories of recovered wedding photos, business files, and thesis papers",
+        "Week 4: Same-day guarantee with real-time tracking - no more anxious waiting"
+      ],
+      "weekly_hooks": [
+        [
+          "We Recovered 10 Years of Family Photos from a 'Dead' Hard Drive - Now Available Same-Day",
+          "5 Warning Signs Your Hard Drive Is About to Fail (And Why Waiting Could Cost You Everything)",
+          "The clicking sound that made [Customer Name] panic - and how we saved their entire business in 4 hours"
+        ],
+        [
+          "Watch: Inside Our Certified Data Recovery Lab - See How We Handle Your Irreplaceable Files",
+          "Why Traditional Data Recovery Takes 2 Weeks (And How We Do It Same-Day)",
+          "The Truth About 'Unfixable' Hard Drives - We've Saved 87% That Others Called Lost"
+        ],
+        [
+          "I thought I lost my thesis forever - grateful doesn't even cover it",
+          "From freaking out to relieved in 6 hours: Real data recovery stories from this month",
+          "We Saved [Customer's] Tax Documents 2 Hours Before the Deadline - Here's How"
+        ],
+        [
+          "Hard Drive Making Clicking Sounds? Get Your Data Back Today - Same Day Service Starts Now",
+          "Final 48 Hours: Free diagnostic + real-time recovery tracking for all emergency cases",
+          "Computer just died and you haven't backed up in months? We can help - while you wait"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can't afford to lose this data, are you sure you can get it back' with success rate statistics and certified process explanation",
+        "Week 2: Address 'I'm worried about my personal data and privacy' with security protocols, bonded insurance, and NDA details",
+        "Week 3: Address 'what if you can't recover my files, do I still pay' with no-data-no-charge guarantee and transparent pricing",
+        "Week 4: Address 'how long will I be without my computer' with same-day completion stats and real-time tracking demo"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce certifications and 87% success rate statistic to establish capability",
+        "Week 2: Share behind-the-scenes video of clean room and diagnostic process showing professional equipment",
+        "Week 3: Feature 5-7 detailed customer testimonials with before/after scenarios and emotional relief quotes",
+        "Week 4: Final credibility push with warranty terms, insurance documentation, and 5,000+ local customers served"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide '7 Things to Do Immediately When Your Hard Drive Fails'",
+        "Week 2: Watch our 3-minute video showing the data recovery process from start to finish",
+        "Week 3: Read how we saved [Customer's] irreplaceable files - could we help you too?",
+        "Week 4: Call now for free diagnostic - same-day recovery available with real-time status updates"
+      ],
+      "platform_priority": [
+        "Google Business Profile (5 posts/week) - captures high-intent local searches for emergency data recovery",
+        "Facebook (6 posts/week) - detailed customer stories and educational content for trust building",
+        "Email (2 sends) - targeted to existing customers about new service with urgency messaging",
+        "Instagram (4 posts/week) - behind-the-scenes Reels and satisfying data recovery transformations"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on 'Data Recovery Emotion' hook pattern showing 42% email open rates for urgent data loss messaging, combined with competitive gap of 'real-time repair status updates via text/app' and customer voice phrases like 'freaking out about losing data' and 'so relieved they saved my data'"
+    },
+    "evergreen": {
+      "description": "8-week repeatable educational authority cycle addressing common computer problems",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Warning signs your computer is about to fail - preventive education",
+        "Week 2: DIY fixes you can safely try vs. when to call professionals",
+        "Week 3: Common myths about computer repair debunked with real data",
+        "Week 4: Speed and performance optimization tips for home and business",
+        "Week 5: Data protection and backup strategies everyone needs",
+        "Week 6: Cost comparison - repair vs. replace decision framework",
+        "Week 7: Seasonal maintenance reminders tied to current time of year",
+        "Week 8: Customer success transformations and behind-the-scenes expertise"
+      ],
+      "weekly_hooks": [
+        [
+          "5 Warning Signs Your Hard Drive Is About to Fail (And How to Save Your Data Now)",
+          "Is Your Computer About to Crash? 7 Symptoms You Shouldn't Ignore",
+          "The clicking sound that means you have 24-48 hours to save your files"
+        ],
+        [
+          "3 Computer Problems You Can Fix Yourself (And 5 You Absolutely Shouldn't Touch)",
+          "When to Fix It Yourself vs. When to Call Us - An Honest Guide",
+          "This $15 fix could save you $300 - but only if you catch it early"
+        ],
+        [
+          "The Truth About 'Unfixable' Water Damage - We Saved 73% of Liquid-Damaged Laptops Last Month",
+          "Myth: Putting Your Phone in Rice Actually Works (Here's What Really Saves It)",
+          "Why your computer guy was wrong about needing a whole new system"
+        ],
+        [
+          "Why Your Computer Takes 10 Minutes to Boot (And How We Fix It in 30 Seconds)",
+          "From frustratingly slow to lightning fast - what actually works",
+          "Stop paying for new computers when a $120 upgrade makes it faster than new"
+        ],
+        [
+          "Computer just died and you haven't backed up in months? You're not alone - here's your emergency plan",
+          "The 3-2-1 backup rule that saved our customers from ransomware disasters",
+          "How one coffee spill taught this customer the $50 backup lesson"
+        ],
+        [
+          "Why Pay $800 for New When $180 Repair Gives You 3 More Years?",
+          "The honest repair vs. replace calculator big box stores won't show you",
+          "We'll tell you when buying new makes more sense than repairing - here's how to decide"
+        ],
+        [
+          "Get Your Laptop Ready for [Current Season] - Free Diagnostic This Week",
+          "Before [upcoming holiday/event] hits, make sure your computer won't let you down",
+          "[Season] computer problems we see every year - and how to prevent them"
+        ],
+        [
+          "We Recovered 10 Years of Family Photos from a 'Dead' Hard Drive",
+          "From blue screen nightmare to running like new - this week's transformations",
+          "Behind the scenes: How we diagnose problems in 15 minutes that others miss"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Build trust before addressing objections - pure education",
+        "Week 2: Address 'I don't know if I need professional help' by showing clear decision criteria",
+        "Week 3: Address 'I've been burned by computer repair places before' with myth-busting transparency",
+        "Week 4: Address 'is it even worth fixing or should I just buy new' with honest cost analysis",
+        "Week 5: Address 'how do I know you won't steal my data' with security protocols",
+        "Week 6: Address 'I got quoted $400 somewhere else, why is yours different' with transparent pricing",
+        "Week 7: Address 'how long will I be without my computer' with same-day service emphasis",
+        "Week 8: Address 'what if the problem comes back after you fix it' with warranty details"
+      ],
+      "proof_timing": [
+        "Week 1: Share industry statistics and research to establish knowledge base",
+        "Week 2: Introduce certifications and years of experience casually in educational content",
+        "Week 3: Feature specific success rate statistics (73% liquid damage recovery, 94% first-time fix)",
+        "Week 4: Share before/after performance metrics from real customer devices",
+        "Week 5: Highlight security measures, insurance, and data protection protocols",
+        "Week 6: Present transparent pricing examples and cost comparison data",
+        "Week 7: Showcase same-day service statistics and customer convenience testimonials",
+        "Week 8: Feature detailed customer transformation stories with emotional relief quotes"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free computer health checklist",
+        "Week 2: Watch our 2-minute video on DIY troubleshooting steps",
+        "Week 3: Read the full myth-busting guide on our blog",
+        "Week 4: Try our free repair vs. replace calculator tool",
+        "Week 5: Get our backup strategy guide - protect yourself before disaster strikes",
+        "Week 6: Schedule a free diagnostic to get honest pricing for your situation",
+        "Week 7: Book your seasonal tune-up - limited same-day slots available",
+        "Week 8: Call us about your computer problem - let's get you back to productive"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos/week) - 8-12 minute educational tutorials capture search traffic and build authority",
+        "Google Business Profile (4 posts/week) - educational posts with local SEO benefit for problem searches",
+        "Facebook (5 posts/week) - mix of educational carousels and short videos for engagement",
+        "Email (1 send/week) - educational content with soft CTAs to existing customer base",
+        "Instagram (3 Reels/week) - quick tips and satisfying transformations for broader reach"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Micro Center's educational YouTube series achieving 50K-200K views by 'providing genuine value first' and 'DIY vs Professional' hook pattern that 'builds trust by admitting some things are DIY-able, positions business as honest advisor not just seller'"
+    },
+    "awareness_burst": {
+      "description": "2-week viral-optimized rapid growth campaign using satisfying transformation content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Satisfying before-and-after repair transformations that tap into oddly satisfying trend",
+        "Week 2: Dramatic problem-to-solution reveals with emotional customer reactions"
+      ],
+      "weekly_hooks": [
+        [
+          "Watch this cracked screen go from shattered to perfect in 60 seconds",
+          "The most satisfying laptop transformation you'll see today",
+          "POV: You thought your computer was dead but we brought it back to life",
+          "This clicking hard drive sound means disaster - watch what we did",
+          "From blue screen nightmare to running perfectly - the transformation",
+          "Spilled an entire coffee on this laptop this morning - watch the rescue"
+        ],
+        [
+          "Customer's reaction when we recovered photos they thought were lost forever",
+          "We saved this thesis paper with 2 hours to spare - the relief was real",
+          "From panicking about lost tax documents to totally relieved",
+          "This customer thought they needed a new $1200 laptop - we fixed it for $180",
+          "Watch: The moment we powered on this 'dead' computer and everything worked",
+          "Before: Computer takes 10 minutes to start. After: 28 seconds. Same device."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Implicitly address 'can you really fix it' through visual proof of dramatic transformations",
+        "Week 2: Address 'is it worth fixing' by showing cost savings and customer relief in real reactions"
+      ],
+      "proof_timing": [
+        "Week 1: Let the visual transformations speak for themselves - show don't tell expertise",
+        "Week 2: Feature real customer reactions and emotional testimonials as authentic social proof"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone whose computer needs this kind of help",
+        "Week 2: Think your device is beyond saving? Send us a message - you might be surprised"
+      ],
+      "platform_priority": [
+        "TikTok (10-14 posts/week) - 15-30 second satisfying transformations optimized for viral potential",
+        "Instagram Reels (10-14 posts/week) - same content cross-posted for maximum reach",
+        "Facebook (7 posts/week) - slightly longer versions with more context for older demographic",
+        "YouTube Shorts (7 posts/week) - tap into shorts algorithm with transformation content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Ubreakifix's TikTok strategy achieving 100K+ views regularly and 1M+ viral posts with 15-20% engagement by showing 'dramatic before and after transformations' in 15-30 second videos that tap into 'oddly satisfying trend' and 'shows expertise without being salesy'"
+    },
+    "authority_builder": {
+      "description": "6-week deep-dive educational campaign establishing technical expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Comprehensive guide to understanding common error messages and what they really mean",
+        "Week 2: The complete diagnostic process - demystifying how professionals identify problems",
+        "Week 3: Data recovery science - explaining the technology and methods that save files",
+        "Week 4: Hardware vs. software issues - teaching customers to understand their problems",
+        "Week 5: Cybersecurity fundamentals - protecting against viruses, malware, and ransomware",
+        "Week 6: Future-proofing and maintenance - professional strategies for longevity"
+      ],
+      "weekly_hooks": [
+        [
+          "Blue Screen Error 0x0000007B - Here's Exactly What It Means and the 3 Likely Causes",
+          "Decoding the 12 Most Common Error Messages (In Plain English, Not Tech Speak)",
+          "Why 'Computer Won't Turn On' Has 47 Different Causes - And How We Narrow It Down"
+        ],
+        [
+          "Watch Our Complete 15-Minute Diagnostic Process - No Secrets, Just Expertise",
+          "The 7 Tools We Use to Diagnose Problems Others Miss (And Why They Matter)",
+          "How We Identify Problems in 15 Minutes That Big Box Stores Take Days to Find"
+        ],
+        [
+          "The Science of Data Recovery - How We Extract Files from 'Dead' Drives",
+          "Inside Our Clean Room - Why Professional Data Recovery Isn't DIY",
+          "The Truth About Data Recovery Success Rates - Real Numbers from 1,000 Recent Cases"
+        ],
+        [
+          "Is It Hardware or Software? The Complete Guide to Understanding Your Computer Problem",
+          "When Reinstalling Windows Actually Helps (And When It Makes Things Worse)",
+          "5 Hardware Failures That Look Like Software Problems - And How to Tell the Difference"
+        ],
+        [
+          "Ransomware Attacks Are Up 47% - Here's How to Protect Your Files Before It's Too Late",
+          "Real vs. Fake Virus Warnings - How to Tell If You're Actually Infected",
+          "The 3-Layer Security Strategy That Stops 99% of Malware (And It's Simpler Than You Think)"
+        ],
+        [
+          "The Professional Maintenance Schedule That Extends Computer Life by 3-5 Years",
+          "Which Upgrades Actually Matter in 2024 - And Which Are Wasted Money",
+          "How to Know When Repair Makes Sense vs. When Replacement Is Smarter - The Honest Framework"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't understand what's wrong, how do I know I'm not being ripped off' through education",
+        "Week 2: Address 'how do I know you actually know what you're doing' by showing detailed expertise",
+        "Week 3: Address 'I can't afford to lose this data, are you sure you can get it back' with science and statistics",
+        "Week 4: Address 'how do I know I actually need this repair' by teaching diagnostic thinking",
+        "Week 5: Address 'I think I got hacked, there are weird popups everywhere' with security education",
+        "Week 6: Address 'is it even worth fixing or should I just buy new' with professional decision framework"
+      ],
+      "proof_timing": [
+        "Week 1: Establish expertise through detailed technical knowledge explained accessibly",
+        "Week 2: Show professional tools, processes, and certifications in action",
+        "Week 3: Present success rate data from actual case history (87% recovery rate, 1000+ cases)",
+        "Week 4: Demonstrate diagnostic accuracy with before/after case studies",
+        "Week 5: Highlight security certifications, insurance, and protective measures",
+        "Week 6: Feature long-term customer relationships and multi-year success stories"
+      ],
+      "cta_progression": [
+        "Week 1: Download our complete error message decoder guide",
+        "Week 2: Watch the full diagnostic process video series",
+        "Week 3: Read our data recovery white paper with case studies",
+        "Week 4: Use our interactive problem diagnosis tool",
+        "Week 5: Get our free cybersecurity audit checklist",
+        "Week 6: Schedule a comprehensive system evaluation with our certified technicians"
+      ],
+      "platform_priority": [
+        "YouTube (2 videos/week) - long-form 8-12 minute educational content for search traffic and authority",
+        "LinkedIn (3 posts/week) - B2B-focused technical content for business decision-makers",
+        "Blog/Website (2 posts/week) - detailed written guides for SEO and reference material",
+        "Email (1 send/week) - in-depth educational content to nurture existing audience",
+        "Facebook (3 posts/week) - educational carousel posts and video snippets"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Micro Center's YouTube educational series averaging 50K-200K views with 8-12 minute watch time by 'providing genuine value first, builds trust through education, captures search traffic for problem-specific queries' and competitive gap of 'educational content about preventing common problems rather than just fixing them'"
+    },
+    "engagement_drive": {
+      "description": "2-week interactive community campaign driving conversations and user participation",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Crowdsourced computer horror stories and shared frustration experiences",
+        "Week 2: Community problem-solving and celebrating fixes together"
+      ],
+      "weekly_hooks": [
+        [
+          "What's the worst computer problem you've ever had? We'll guess if it was fixable in the comments",
+          "Fill in the blank: My computer always _____ at the worst possible time",
+          "Tag someone who needs to back up their files right now before disaster strikes",
+          "Poll: Have you ever lost important files? Yes and I'm still upset / Yes but recovered / No, I back up / What's a backup?",
+          "Comment your current computer frustration - we'll tell you if it's a quick fix or needs professional help",
+          "Share this if you've ever panicked about a blue screen before a big deadline"
+        ],
+        [
+          "Drop a 🔧 if your computer is running slow right now - we're giving free speed-up tips in replies",
+          "Before and After: Share your computer age in the comments and we'll tell you if an upgrade or replacement makes more sense",
+          "We're doing free diagnostics for 5 people who comment their computer problem - go!",
+          "Poll: When your computer acts up, do you: Panic immediately / Try to fix it yourself / Ignore it and hope / Call for help",
+          "Caption this disaster [photo of severely damaged device] - funniest answer gets free diagnostic",
+          "What's one computer myth you believed until recently? We'll confirm or bust it"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Build community trust by acknowledging shared frustrations without selling",
+        "Week 2: Demonstrate expertise helpfully in comments while offering paths to service"
+      ],
+      "proof_timing": [
+        "Week 1: Share relatable customer stories in responses showing you understand their pain",
+        "Week 2: Provide quick helpful answers in comments demonstrating accessible expertise"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story / Tag a friend / Vote in our poll",
+        "Week 2: Drop a comment for free advice / DM us your specific problem / Claim one of 5 free diagnostic spots"
+      ],
+      "platform_priority": [
+        "Facebook (12 posts/week) - high engagement platform for community discussion and polls",
+        "Instagram Stories (daily polls and questions) - interactive stickers drive participation",
+        "Instagram Feed (8 posts/week) - conversation-starting posts with strong comment engagement",
+        "TikTok (10 posts/week) - duet and stitch opportunities, comment engagement challenges",
+        "Google Business Profile (5 posts/week) - Q&A posts that encourage local community questions"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on platform benchmarks showing Instagram achieving 0.70% engagement for tech repair services (5x higher than Facebook's 0.13%) and research showing 'strong comment engagement with viewers asking follow-up questions' on educational content, plus customer voice data showing emotional language like 'panicking,' 'freaking out,' and 'frustrated beyond belief' that creates relatable community moments"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Business owners: That 5-minute computer boot time is costing you more than you think.\n\nPROBLEM: Slow systems aren't just annoying—they're bleeding productivity. Our analysis shows the average employee loses 47 minutes per week waiting for slow computers. That's $3,200/year per employee in wasted labor.\n\nAGITATE: Multiply that across your team. A 10-person office loses $32,000 annually to slow technology. Plus frustrated employees, missed deadlines, and lost competitive edge.\n\nSOLUTION: Three fixes that take under 2 hours:\n• SSD upgrades (10x faster boot times)\n• RAM expansion (smooth multitasking)\n• System optimization (remove bloatware)\n\nROI: Most businesses see full payback in 6-8 weeks through productivity gains alone.\n\nWhat's your biggest technology frustration costing your business? #BusinessIT #Productivity #TechSolutions #SmallBusiness #ITSupport",
+        "framework": "PAS",
+        "character_count": 847
+      },
+      "authority": {
+        "template": "After 15 years fixing [X,XXX] business computers, I've noticed something alarming:\n\n73% of ransomware attacks succeed because of one preventable mistake.\n\nATTENTION: Cybercriminals are targeting [YOUR_CITY] businesses with increasingly sophisticated attacks. Last quarter alone, we responded to [XX] ransomware incidents.\n\nINTEREST: The vulnerability isn't your firewall or antivirus—it's outdated backup protocols. Most businesses backup daily, but restore quarterly (or never). When ransomware hits, they discover backups are corrupted or incomplete.\n\nDESIRE: Our business clients now use the 3-2-1 rule:\n• 3 copies of data\n• 2 different media types\n• 1 offsite backup\n\nWe test restores monthly. Zero data loss in [XX] ransomware incidents this year.\n\nACTION: Free backup audit for [CITY] businesses this month. We'll assess your current setup and identify vulnerabilities—no obligation.\n\nComment 'AUDIT' or DM to schedule.\n\nHow confident are you in your current backup system? #Cybersecurity #DataProtection #BusinessContinuity",
+        "framework": "AIDA",
+        "character_count": 1089
+      },
+      "promotional": {
+        "template": "BEFORE: \"Our server crashed Friday at 4 PM. We lost the entire weekend scrambling.\"\n\nAFTER: \"Same issue happened, but we were back online in 90 minutes. Zero data loss.\"\n\nWhat changed? [BUSINESS_NAME] enrolled in our Business Continuity Program.\n\nBRIDGE: Most IT support is reactive—you call when something breaks. But downtime costs [YOUR_INDUSTRY] businesses an average of $5,600 per hour.\n\nOur proactive approach:\n✓ Monthly system health checks\n✓ Automated backup verification\n✓ Priority same-day response\n✓ Guaranteed 4-hour maximum downtime\n✓ Fixed monthly cost (no surprise bills)\n\nAFTER: [XX] local businesses now operate with confidence, knowing their technology is monitored 24/7.\n\n[SEASONAL_OFFER]: First 3 months at 30% off for new clients enrolled by [DATE].\n\nDM for a customized quote based on your infrastructure.\n\nWhat's your biggest technology worry keeping you up at night? #ManagedIT #BusinessSupport #TechSolutions",
+        "framework": "BAB",
+        "character_count": 983
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 warning signs your hard drive is about to fail 🚨 (Swipe to see what to do NOW) →\n\nThat clicking sound? Not normal. Here's what your computer is trying to tell you before it's too late.\n\nSlide through to learn:\n1️⃣ The clicking/grinding sound (URGENT)\n2️⃣ Files randomly disappearing\n3️⃣ Frequent freezing or crashes\n4️⃣ Slow file access times\n5️⃣ Error messages about disk problems\n\nLast slide: Emergency backup checklist ✅\n\nSeen any of these signs? Don't wait—comment below and I'll tell you your next move.\n\n[LOCATION] • Same-day data recovery available • [PHONE]\n\n#ComputerRepair #DataRecovery #TechTips #HardDrive #BackupYourData #TechHelp #LocalBusiness #EmergencyRepair #ComputerHelp #TechSupport",
+        "visual": "Carousel: Slide 1 - Close-up of hard drive with red warning overlay. Slide 2-6 - Each warning sign with icon and brief explanation. Slide 7 - Emergency backup checklist with checkboxes. Use bold text overlays and consistent brand colors.",
+        "framework": "Educational Value + CTA"
+      },
+      "authority": {
+        "caption": "We recovered 10 years of family photos from a 'dead' hard drive yesterday 📸💙\n\nThe customer was told by [BIG_BOX_STORE] it was 'unfixable.' She was in tears.\n\n4 hours later: Every. Single. Photo. Recovered.\n\nHere's what most people don't know about 'dead' drives:\n\n❌ Myth: If it won't turn on, data is gone forever\n✅ Truth: 73% of 'dead' drives are recoverable with proper tools\n\n❌ Myth: Water damage = total loss\n✅ Truth: We saved 68% of liquid-damaged devices last month\n\n❌ Myth: You need to send it away for weeks\n✅ Truth: Most recoveries done same-day in our lab\n\nBeen told your data is gone? There's still hope. DM us the symptoms—we'll give you an honest assessment (free, no obligation).\n\nWhat would you be devastated to lose? Drop a 💙 if it's photos.\n\n#DataRecovery #TechExpert #ComputerRepair #LostData #PhotoRecovery #HardDriveRepair #TechSavior #LocalTech",
+        "visual": "Before/after split screen: Left shows physically damaged hard drive, right shows recovered photo gallery displayed on screen. Emotional, hope-focused imagery. Customer testimonial quote overlay optional.",
+        "framework": "Myth-busting + Social Proof"
+      },
+      "promotional": {
+        "caption": "Cracked screen? Fixed while you grab lunch 🍕💻\n\nMost repairs done in 60 minutes or less.\n\nNo appointment needed • Walk-in friendly • Same-day guaranteed\n\n[SEASONAL_HOOK]: Back to school special 🎓\nStudent laptop repairs: $[XX] off with valid ID\nOffer ends [DATE]\n\nWhat we fix today:\n✓ Cracked screens\n✓ Battery replacements\n✓ Keyboard repairs\n✓ Charging port fixes\n✓ Software issues\n✓ Virus removal\n\nWarranty included on all repairs ✨\n\nLocation: [ADDRESS]\nHours: [HOURS]\nCall/Text: [PHONE]\n\nTag a student who needs this 👇\n\n#ComputerRepair #ScreenRepair #LaptopRepair #BackToSchool #StudentDiscount #SameDayRepair #LocalBusiness #TechRepair #QuickFix",
+        "visual": "Reel or static post showing satisfying screen replacement transformation. Time-lapse of cracked screen being removed and perfect new screen installed. End frame shows completed laptop with price overlay and 'While You Wait' text.",
+        "framework": "Immediate Gratification + Offer"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ [CITY] FRIENDS: That 'Microsoft Tech Support' call is a SCAM! Here's how to protect yourself:\n\nI've seen 5 customers THIS WEEK who fell for this. They're getting more convincing, so here's what you need to know:\n\n🚨 RED FLAGS:\n• They called YOU (Microsoft never calls)\n• They ask for remote access to your computer\n• They want payment via gift cards or wire transfer\n• They claim to see viruses/hackers on your system\n• They pressure you to act immediately\n\n✅ WHAT TO DO IF YOU GET THIS CALL:\n1. Hang up immediately (don't engage)\n2. Don't call any numbers they provide\n3. Don't give remote access to your computer\n4. If you're worried, call your local tech shop (like us!) directly\n\n😰 ALREADY GAVE THEM ACCESS?\nCall us IMMEDIATELY: [PHONE]\nWe can:\n• Disconnect their access\n• Scan for malware they installed\n• Secure your accounts\n• Check for unauthorized charges\n\nSame-day emergency appointments available.\n\n👉 SHARE this with elderly relatives and friends who might not know about these scams. They're targeting seniors especially hard right now.\n\nHave you or someone you know gotten one of these calls? Comment below to warn others about what they said!\n\n#ScamAlert #TechSupport #CyberSecurity #[CITY] #ProtectYourself #SeniorSafety #ComputerSecurity",
+        "framework": "Problem-Agitate-Solution"
+      },
+      "authority": {
+        "template": "TECH MYTH BUSTED: \"My computer is too old to fix, I need to buy new.\"\n\nAfter repairing [X,XXX] computers, I can tell you this is what Big Box stores WANT you to believe. Here's the truth:\n\n💰 THE REALITY:\nA $150 upgrade can make your 5-year-old computer faster than a brand new $500 laptop.\n\nHere's what we did for a customer last week:\n• 2015 laptop, \"too slow to use\"\n• Quoted $800 for new computer at [BIG_BOX_STORE]\n• We installed SSD + added RAM: $175 total\n• Result: Boots in 25 seconds, runs like new\n• Customer saved $625\n\n🤔 WHEN TO UPGRADE VS. REPAIR:\n\nRepair if:\n✓ Computer is less than 7 years old\n✓ You mainly use it for web, email, documents\n✓ Physical damage (screen, keyboard, etc.)\n✓ Performance issues (slow, crashes)\n\nReplace if:\n❌ Motherboard failure on 8+ year old system\n❌ You need latest gaming/video editing power\n❌ Repair costs exceed 60% of replacement cost\n\n💡 FREE HONEST ASSESSMENT:\nBring your computer in—we'll tell you if it's worth fixing or if you genuinely need new. No charge, no obligation. We'd rather be honest than make a quick sale.\n\nWe've actually talked people OUT of repairs when replacement made more sense. That's how we've earned [XXX] 5-star reviews.\n\nWhat's your oldest computer that's still running? Drop the year below! 👇\n\n[LOCATION] • [PHONE] • Walk-ins Welcome\n\n#ComputerRepair #TechTips #SaveMoney #HonestBusiness #LocalTech #[CITY]Business",
+        "framework": "Myth-Busting + Authority Building"
+      },
+      "promotional": {
+        "template": "🎓 CALLING ALL STUDENTS & PARENTS! 🎓\n\nFinals week is coming. Don't let a broken laptop derail your semester.\n\n⚡ EMERGENCY STUDENT REPAIR SPECIAL ⚡\nNow through [DATE]\n\n💻 What's Covered:\n• Cracked screens: $[XX] (reg $[XX])\n• Won't turn on: FREE diagnostic + 20% off repair\n• Running slow: $[XX] tune-up special\n• Virus removal: $[XX] (same day)\n• Data recovery: Student pricing available\n\n⏰ SAME-DAY SERVICE GUARANTEED\nMost repairs completed in 2-4 hours\nDrop off in the morning, pick up after class\n\n📚 STUDY HERE WHILE YOU WAIT:\nFree WiFi • Charging stations • Coffee available\n(We know you can't be without your laptop long!)\n\n✅ WHAT STUDENTS ARE SAYING:\n\"Saved my thesis! Had my laptop back in 3 hours before my deadline.\" - Sarah M.\n\"Way cheaper than the campus tech store and actually explained what was wrong.\" - Mike T.\n\"They recovered all my files from a completely dead hard drive. Lifesavers!\" - Jessica R.\n\n🎒 VALID STUDENT ID REQUIRED\n(High school, college, grad school all qualify)\n\n📍 LOCATION: [ADDRESS] (Right near [LANDMARK])\n📞 CALL/TEXT: [PHONE]\n⏰ HOURS: [HOURS] (Open late during finals week!)\n\n👉 TAG A STRESSED STUDENT WHO NEEDS THIS!\n\nComment \"STUDENT\" below and we'll DM you a special priority booking link.\n\n#StudentLife #Finals #LaptopRepair #CollegeLife #StudentDiscount #[CITY]College #BackToSchool #TechRepair #StudentDeals #EmergencyRepair",
+        "framework": "Before-After-Bridge with Urgency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your computer is trying to tell you it's dying but you keep ignoring it 💀",
+        "script": "HOOK (0-3s): [Show person ignoring obvious computer problems with text overlay: 'It's fine']\n\nPROBLEM (3-15s): *Computer making grinding noise* 'It's probably nothing' *Files disappearing* 'Must have moved them' *Takes 10 mins to boot* 'It's just old'\n\nTURN (15-30s): Then one day... *black screen* 'Wait no no no NO' *panic face* 'My thesis... my photos... everything...'\n\nSOLUTION (30-50s): Here's what your computer was trying to tell you: [Quick cuts showing each warning sign with text overlay]\n1. Clicking/grinding = hard drive dying\n2. Random freezes = overheating/failing RAM\n3. Slow boot = drive filling up/malware\n4. Files disappearing = BACKUP NOW\n5. Weird noises = STOP USING IT\n\nCTA (50-60s): See these signs? Text overlay: 'Bring it in BEFORE it dies' [Show business name/location] 'Same day data backup • [CITY]'\n\n[Use trending sound about ignoring problems, stitch format showing relatable computer struggles]\n\nTEXT OVERLAYS: 'The clicking sound' 'It's fine' 'Narrator: It was not fine' 'RIP 10 years of photos' 'Don't be like me'\n\n#ComputerRepair #TechTok #DataRecovery #LaptopRepair #TechFail #RelatableContent #BackupYourData",
+        "framework": "Problem-Agitate-Solution (POV format)"
+      },
+      "authority": {
+        "hook": "Big Box Store said 'unfixable, buy new.' We recovered everything. Here's what they don't want you to know 👀",
+        "script": "HOOK (0-3s): [Show 'dead' laptop] Text: 'Them: $800 for new laptop' 'Us: $150 to fix it'\n\nATTENTION (3-10s): Customer brought this in crying. [BIG_BOX] told her 10 years of photos were gone forever. Quoted $800 for new laptop.\n\nINTEREST (10-25s): [Show opening laptop, connecting to diagnostic tools] Here's the thing - 'unfixable' usually means 'we don't have the tools or time to actually fix it'\n\n[Quick cuts of repair process]\n• Removed hard drive\n• Bypassed failed components\n• Connected to recovery station\n\nDESIRE (25-45s): [Show files appearing on screen] Every. Single. Photo. Recovered. [Customer reaction if permitted]\n\nTotal cost: $150\nTime: 4 hours\nHer face: Priceless\n\nACTION (45-60s): Been told your data is 'gone forever'? Text overlay: 'There's still hope' [Show before/after stats] '73% of 'dead' drives recoverable'\n\n[End screen: Business name, 'Free assessment • [CITY] • Link in bio']\n\nTEXT OVERLAYS: 'They said unfixable' 'Watch this' '4 hours later' '10 years of memories saved' 'Don't give up on your data'\n\n#DataRecovery #TechTok #ComputerRepair #Satisfying #PlotTwist #TechExpert #BeforeAndAfter",
+        "framework": "AIDA with Satisfying Transformation"
+      },
+      "promotional": {
+        "hook": "Cracked your screen? Watch how fast we fix it 👀⚡ (This is so satisfying)",
+        "script": "HOOK (0-3s): [Close-up of badly cracked screen] Text: 'Dropped it this morning 😭' [Transition to timer starting]\n\nBEFORE (3-10s): [Show customer bringing in damaged device, worried face] Text: 'Me: How long?' 'Them: Grab lunch, come back'\n\nTRANSFORMATION (10-45s): [Time-lapse of repair - must be fast-paced, satisfying]\n• Remove cracked screen (show peeling off)\n• Clean frame\n• Install new screen (satisfying perfect placement)\n• Test (show perfect display)\n• Quality check\n\n[Use trending 'before/after' sound]\n\nAFTER (45-55s): [Show pristine screen, customer happy reaction] Text: '47 minutes later' '✨Like new✨' 'Warranty included'\n\nCTA (55-60s): [End screen with offer] 'Student Special: $[XX] off with ID' '[CITY] • Walk-ins welcome • Link in bio'\n\nTEXT OVERLAYS: 'POV: You dropped your laptop' 'Don't panic' 'Most repairs under 1 hour' 'Same day guaranteed' 'While you wait' 'Good as new'\n\n[Film vertically, use close-up shots, make it visually satisfying, fast-paced cuts]\n\n#ScreenRepair #Satisfying #OddlySatisfying #TechTok #PhoneRepair #LaptopRepair #BeforeAndAfter #Transformation #ASMR",
+        "framework": "Before-After-Bridge (Satisfying Format)"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "⚠️ Is Your Hard Drive About to Fail? 5 Warning Signs",
+        "preview_text": "Don't wait until it's too late—check for these symptoms NOW",
+        "body": "Hi [FIRST_NAME],\n\nYour hard drive doesn't die without warning. It tries to tell you—most people just don't know what to listen for.\n\nLast week, we had 3 customers lose everything because they ignored these signs:\n\n🚨 5 WARNING SIGNS YOUR HARD DRIVE IS FAILING:\n\n1. CLICKING OR GRINDING NOISES\nWhat it means: Mechanical failure imminent\nWhat to do: STOP using it, backup immediately\n\n2. FILES RANDOMLY DISAPPEARING\nWhat it means: Sectors failing, data corruption\nWhat to do: Run diagnostics, backup everything\n\n3. FREQUENT FREEZING OR CRASHES\nWhat it means: Drive struggling to read/write\nWhat to do: Check drive health with free tools [LINK]\n\n4. SLOW FILE ACCESS\nWhat it means: Drive working harder to find data\nWhat to do: Backup and consider replacement\n\n5. DISK ERROR MESSAGES\nWhat it means: Your computer is literally telling you\nWhat to do: Don't ignore it!\n\n📊 THE STATS:\n• Average hard drive lifespan: 3-5 years\n• 60% of people have never backed up\n• Data recovery costs: $500-$3,000\n• Prevention cost: $0-$150\n\n✅ WHAT TO DO RIGHT NOW:\n1. Check your computer's age\n2. Listen for unusual noises\n3. Backup your critical files (we can help)\n4. Schedule free health check if you see any signs\n\n🎁 FREE OFFER THIS WEEK:\nFree hard drive health assessment + backup consultation\nNo obligation, just peace of mind\n\nBook here: [LINK]\nOr reply to this email\n\n[BUSINESS_NAME]\n[PHONE] • [ADDRESS]\n\nP.S. - Don't wait until you see the 'blue screen of death.' By then, recovery is 10x more expensive. Check your system today.\n\n[UNSUBSCRIBE LINK]",
+        "framework": "PAS (Problem-Agitate-Solution)"
+      },
+      "authority": {
+        "subject": "We recovered $50K in lost business data yesterday. Here's what we learned.",
+        "preview_text": "The backup strategy that saved a local business from disaster",
+        "body": "Hi [FIRST_NAME],\n\nYesterday, a [CITY] business owner walked into our shop in tears.\n\nRansomware had locked every file. Customer records, invoices, projects—everything. The attackers wanted $15,000.\n\nHere's what happened next:\n\nBecause they had enrolled in our backup verification program 6 months ago, we:\n• Wiped the infected system\n• Restored from clean backup\n• Had them operational in 4 hours\n• Cost: $0 (covered under their plan)\n\nThey paid nothing to criminals. Lost zero data. Minimal downtime.\n\n🎯 THE LESSON:\nIt's not enough to HAVE backups. You need to VERIFY they work.\n\nWe analyzed 47 ransomware incidents this year:\n• 73% had backups configured\n• 61% of those backups FAILED to restore\n• Average recovery cost when backups failed: $8,400\n\n❌ COMMON BACKUP FAILURES:\n1. Backups not actually running (settings changed)\n2. Backup files corrupted (never tested)\n3. Incomplete backups (missing critical folders)\n4. Backups infected with same ransomware\n5. No one knows how to restore them\n\n✅ OUR 3-2-1 BUSINESS PROTECTION:\n• 3 copies of your data\n• 2 different storage types\n• 1 offsite/cloud backup\n• Monthly restore testing\n• Verified recovery procedures\n• Priority emergency response\n\n📊 INVESTMENT VS. COST:\nOur Business Continuity Program: $[XX]/month\nAverage ransomware recovery cost: $8,400\nAverage business downtime cost: $5,600/hour\n\nOne incident pays for 10+ years of protection.\n\n🎁 LIMITED OFFER:\nFree backup audit for [CITY] businesses\nWe'll assess your current setup and identify vulnerabilities\nNo obligation, just honest assessment\n\n[BOOK FREE AUDIT BUTTON]\n\nOnly [X] slots available this month.\n\n[BUSINESS_NAME]\n[PHONE] • [ADDRESS]\n\nP.S. - Forward this to your business owner friends. Ransomware attacks in [CITY] increased 47% this year. Help protect our local business community.\n\n[UNSUBSCRIBE LINK]",
+        "framework": "Story-Based Authority (Case Study)"
+      },
+      "promotional": {
+        "subject": "🎓 Student Emergency: Get Your Laptop Fixed Before Finals",
+        "preview_text": "Same-day repair + student discount. Don't let tech issues tank your GPA.",
+        "body": "Hi [FIRST_NAME],\n\nFinals week is [X] days away.\n\nLast semester, we had 23 panicked students walk in during finals week with dead laptops and unsaved projects.\n\nDon't be that student.\n\n⚡ STUDENT EMERGENCY REPAIR SPECIAL ⚡\nNow through [DATE]\n\nBEFORE: \"My laptop died and my thesis is due tomorrow 😭\"\n\nAFTER: \"Fixed in 3 hours, all my files recovered, passed with an A! 🎉\"\n\nBRIDGE: What changed? They brought it in BEFORE finals week, not during.\n\n💻 WHAT WE FIX:\n✓ Cracked screens - $[XX] (save $[XX])\n✓ Won't turn on - Free diagnostic\n✓ Running slow - $[XX] tune-up\n✓ Virus removal - $[XX] same-day\n✓ Data recovery - Student pricing\n\n⏰ SAME-DAY SERVICE GUARANTEED\n• Most repairs: 2-4 hours\n• Drop off morning, pick up afternoon\n• Emergency service available\n\n📚 STUDY WHILE YOU WAIT:\n• Free WiFi\n• Charging stations\n• Coffee available\n• Quiet work area\n\n💰 STUDENT DISCOUNT:\nValid student ID = automatic 20% off\n(High school, college, grad school all qualify)\n\n⭐ WHAT STUDENTS SAY:\n\"Saved my senior thesis. Forever grateful!\" - Sarah M.\n\"Honest pricing, fast service, explained everything.\" - Mike T.\n\"Recovered 4 years of notes from 'dead' laptop.\" - Jessica R.\n\n🎯 BOOK YOUR REPAIR NOW:\n[SCHEDULE BUTTON] - Priority booking for students\n\nOr walk in:\n📍 [ADDRESS] (Near [CAMPUS_LANDMARK])\n📞 [PHONE] - Text for fastest response\n⏰ [HOURS] - Open late during finals!\n\n✅ WHAT TO BRING:\n• Your laptop/device\n• Student ID\n• Charger (if you have it)\n• List of symptoms\n\nWe'll handle the rest.\n\n🎁 BONUS: Refer a friend, both get $10 off\n\n[BOOK NOW BUTTON]\n\nDon't let a broken laptop ruin your semester. We've got you covered.\n\n[BUSINESS_NAME]\nHelping [CITY] students since [YEAR]\n\nP.S. - Already having issues? Don't wait. Text us right now: [PHONE]. We'll get you scheduled ASAP.\n\n[UNSUBSCRIBE LINK]",
+        "framework": "BAB (Before-After-Bridge) with Urgency"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] Warning Signs Your Hard Drive Is About to Fail (Save Your Data Before It's Too Late)",
+      "[X] Things You're Doing That Are Slowly Killing Your [Laptop/Desktop] Right Now",
+      "[X] Files We Recovered from 'Dead' Hard Drives Last Month (Yours Might Not Be Toast Either)"
+    ],
+    "question_hooks": [
+      "Is Your [Computer/Laptop] Taking [X] Minutes to Boot Up Every Morning?",
+      "Are You Seeing the Blue Screen of Death More Than Once a Week?",
+      "Is That Clicking Sound From Your Hard Drive About to Cost You Everything?"
+    ],
+    "story_hooks": [
+      "How a [Job Title] Recovered [X] Years of [Client/Family] Files After a Complete Hard Drive Failure",
+      "How We Fixed a Coffee-Soaked Laptop in [X] Hours (And Saved a [Student's/Professional's] [Project/Thesis])",
+      "How [Customer Type] Got Their Computer Running Faster Than New for Under $[Amount]"
+    ],
+    "fear_hooks": [
+      "Is Your [Presentation/Thesis/Project] One Blue Screen Away from Disaster?",
+      "Are Those Virus Warnings Real or Fake? (The Wrong Click Could Lock All Your Files)",
+      "Is Your Overheating [Laptop/Computer] About to Fry Your [Motherboard/Data] for Good?"
+    ],
+    "howto_hooks": [
+      "How to Get Your [Laptop Screen/Keyboard/Port] Fixed Without Losing Your Computer for [Days/Weeks]",
+      "How to Recover Your Data from a Dead Hard Drive Without Paying $[High Amount] to Big Box Stores",
+      "How to Speed Up Your Slow Computer Without Buying a New One or Losing Your Files"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You spilled coffee on your laptop this morning",
+      "body": "0-3sec: Show laptop with liquid damage, won't turn on. 3-15sec: Fast-motion disassembly, cleaning corrosion with specialized tools. 15-35sec: Ultrasonic cleaning of components, replacing damaged parts. 35-50sec: Reassembly timelapse. 50-60sec: Laptop boots perfectly, customer relief reaction. Text overlay: 'Saved in 2 hours' + 'Data 100% intact'",
+      "cta": "Link in bio for same-day liquid damage repair"
+    },
+    "reels": {
+      "hook": "This clicking sound means you have 24 hours",
+      "body": "0-2sec: Close-up of hard drive making clicking noise. 2-10sec: Split screen showing failing drive vs healthy drive internals. 10-20sec: Data recovery process in clean room. 20-28sec: Customer files safely recovered on new drive. Text: 'Clicking = imminent failure' + 'Free diagnostic'",
+      "cta": "Save your data before it's too late - tap to book"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your computer before you brought it in vs. how it runs now. Bonus points for boot-up speed comparisons!",
+      "hashtag": "#ComputerRevival"
+    },
+    {
+      "prompt": "Tell us about the data we recovered that you thought was lost forever. What files meant the most?",
+      "hashtag": "#DataSaved"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Repair vs. Replace Calculator series showing real customer scenarios with actual costs - 'They wanted $800 for new laptop, we fixed it for $120'",
+      "why": "Challenges retail upselling narrative, saves people money, highly shareable to help friends/family make decisions, positions brand as consumer advocate"
+    },
+    {
+      "angle": "Tech Horror Stories series featuring most bizarre/dramatic repairs with satisfying resolutions - 'Laptop survived washing machine cycle' or 'Recovered wedding photos from burned hard drive'",
+      "why": "Extreme scenarios are inherently shareable, demonstrates expertise, emotional payoff creates engagement, people tag friends with similar disasters"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:04:13.604Z",
+    "last_tier2_refresh": "2025-11-27T20:04:13.604Z",
+    "last_tier3_refresh": "2025-11-27T20:04:13.604Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:04:13.604Z"
+  }
+}

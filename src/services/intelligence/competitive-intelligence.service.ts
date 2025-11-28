@@ -516,7 +516,7 @@ class CompetitiveIntelligenceService {
   }): Promise<ScoredOpportunity[]> {
     const scored: ScoredOpportunity[] = []
 
-    // Score content gaps
+    // Score content gaps - convert keywords into actionable content opportunities
     options.contentGaps.forEach(gap => {
       const roiScore = this.calculateROI({
         trafficPotential: gap.estimatedTraffic,
@@ -524,16 +524,17 @@ class CompetitiveIntelligenceService {
         competitiveGap: gap.competitorRank
       })
 
+      // Transform keyword gap into content topic suggestion (not SEO advice)
       scored.push({
         type: 'content',
-        title: `Rank for "${gap.keyword}"`,
-        description: `${gap.competitor} ranks #${gap.competitorRank} for this ${gap.searchVolume.toLocaleString()}/mo keyword`,
+        title: `Content opportunity: ${gap.keyword}`,
+        description: `Competitors own this topic. Create content showcasing your unique approach to ${gap.keyword}`,
         roiScore,
         difficulty: gap.opportunity === 'easy_win' ? 'easy' : gap.opportunity === 'medium' ? 'medium' : 'hard',
         estimatedImpact: {
           traffic: gap.estimatedTraffic
         },
-        actionable: `Create content targeting "${gap.keyword}" - ${gap.opportunity} opportunity`,
+        actionable: `Write content about "${gap.keyword}" that highlights your differentiation`,
         data: gap
       })
     })

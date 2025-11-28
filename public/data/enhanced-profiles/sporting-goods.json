@@ -1,0 +1,1766 @@
+{
+  "industry": "Sporting Goods",
+  "industry_name": "Sporting Goods",
+  "naics_code": "451110",
+  "category": "Retail",
+  "subcategory": "Sports and Recreation Equipment",
+  "customer_triggers": [
+    {
+      "trigger": "New season starting for youth sports league",
+      "urgency": 8,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Equipment failure before important game",
+      "urgency": 10,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Child outgrew current gear mid-season",
+      "urgency": 9,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "New Year fitness resolution commitment",
+      "urgency": 7,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Upcoming vacation requiring specialty gear",
+      "urgency": 8,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Team uniform order for league",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Injury requiring rehabilitation equipment",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Gift-giving occasion for athlete",
+      "urgency": 6,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Fitness tracker showing goal achievement",
+      "urgency": 5,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Social media fitness challenge participation",
+      "urgency": 7,
+      "frequency": "Bi-weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through team requirements (42%), social media inspiration (28%), friend recommendations (19%), or health wake-up call (11%). Research involves YouTube reviews (71%), brand websites (64%), and athlete endorsements (53%)",
+    "consideration": "Evaluating 2-3 retailers based on brand selection (81%), price competitiveness (76%), expert staff (68%), and try-before-buy options (73%). Online reviews influence 67% while pro athlete choices impact 44% of purchases",
+    "decision": "Purchase triggered by immediate need (56%), seasonal sale (31%), or package deals (13%). In-store fitting and testing critical for 78% of equipment purchases over $100. Brand loyalty influences 62% of repeat purchases",
+    "retention": "Loyalty driven by member pricing (69%), exclusive product access (54%), expert fitting services (71%), and community events (43%). Average customer lifetime value $2,800 over 4.3 years with proper engagement",
+    "advocacy": "Recommendations based on product performance (84%), staff expertise (76%), team discounts (65%), and community involvement (58%). Youth sports parents generate 3.7x more referrals than individual athletes"
+  },
+  "transformations": [
+    {
+      "from": "Couch potato feeling unhealthy",
+      "to": "Active person achieving fitness goals",
+      "emotional_value": "Health transformation pride",
+      "worth_premium": true
+    },
+    {
+      "from": "Benchwarmer with poor equipment",
+      "to": "Confident player with pro-level gear",
+      "emotional_value": "Performance enhancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Injured athlete facing setback",
+      "to": "Recovering champion with proper support",
+      "emotional_value": "Comeback story",
+      "worth_premium": true
+    },
+    {
+      "from": "Parent worried about child's safety",
+      "to": "Confident in protection quality",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Recreational player feeling outclassed",
+      "to": "Competitive participant with right tools",
+      "emotional_value": "Belonging and respect",
+      "worth_premium": false
+    },
+    {
+      "from": "Overwhelmed by equipment choices",
+      "to": "Informed buyer with expert guidance",
+      "emotional_value": "Confidence in decision",
+      "worth_premium": false
+    },
+    {
+      "from": "Team lacking unity",
+      "to": "Cohesive unit with matching gear",
+      "emotional_value": "Team pride",
+      "worth_premium": true
+    },
+    {
+      "from": "Weekend warrior with chronic pain",
+      "to": "Comfortable athlete with proper support",
+      "emotional_value": "Sustained enjoyment",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Performance improvement in sport",
+      "timeframe": "4-6 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Injury prevention through proper equipment",
+      "timeframe": "Season-long",
+      "measurable": true
+    },
+    {
+      "metric": "Weight loss or fitness goal achievement",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Team satisfaction with uniform quality",
+      "timeframe": "Full season",
+      "measurable": true
+    },
+    {
+      "metric": "Equipment durability beyond warranty",
+      "timeframe": "1-2 years",
+      "measurable": true
+    },
+    {
+      "metric": "Cost per use reaching under $1",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Child's continued sport participation",
+      "timeframe": "Multi-season",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Game tomorrow requiring replacement equipment immediately",
+    "Registration deadline for league requiring complete gear list",
+    "Limited edition release selling out within 48 hours",
+    "Seasonal clearance ending this weekend with 40-60% savings",
+    "Team order cutoff for custom printing in 5 days",
+    "Vacation departure requiring specialized equipment in 1 week",
+    "Physical therapy appointment needing specific equipment today",
+    "Tournament entry requiring regulation-approved gear by Friday"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Online prices are 20% cheaper",
+      "response": "Our free expert fitting prevents 31% injury rate from wrong size, plus instant availability for tonight's game. We match online prices with proof",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "My kid might quit the sport",
+      "response": "Our 90-day play guarantee offers full credit toward different sport. 73% of kids who quit cite poor equipment fit as a factor - we prevent that",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Used equipment is good enough",
+      "response": "Modern safety standards reduce injury risk by 47%. We offer payment plans and trade-in programs making new gear only $15-30 more per month",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Big box stores have better selection",
+      "response": "We stock 95% of needed items in common sizes, with expert fitting. Big stores waste 52 minutes finding help, we average 8 minutes to perfect fit",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "It's too expensive for recreational use",
+      "response": "Our entry-level lines perform at 80% of premium for 50% of cost. Proper equipment prevents $3,400 average sports injury medical costs",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "I don't know what I really need",
+      "response": "Our certified staff includes former coaches and athletes. Free consultations save average of $180 in unnecessary purchases",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Season is almost over",
+      "response": "End-of-season clearance plus off-season training gear packages. Starting now gives 4-month advantage for next season",
+      "effectiveness": 6.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "90-day play guarantee with full exchange",
+      "Perfect fit promise or free alterations",
+      "Price protection for 30 days after purchase",
+      "Manufacturer warranty handling in-store",
+      "Team satisfaction guarantee on bulk orders"
+    ],
+    "proof_points": [
+      "Official supplier to 47 local teams",
+      "4.8 star rating from 3,200+ athletes",
+      "Certified fitting specialists on staff",
+      "25-year reputation in community",
+      "Endorsed by 12 local coaches association"
+    ],
+    "risk_mitigation": "Free sizing consultations, demo equipment available, liberal return policy even on used items within 30 days, payment plans available, insurance claim assistance for damaged gear"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "slow",
+      "heavy",
+      "uncomfortable",
+      "broke",
+      "outgrown",
+      "outdated",
+      "painful",
+      "restriction",
+      "injury",
+      "losing",
+      "benched",
+      "cut from team"
+    ],
+    "solution_words": [
+      "performance",
+      "competitive edge",
+      "comfort",
+      "protection",
+      "confidence",
+      "winning",
+      "personal best",
+      "team unity",
+      "proper fit",
+      "latest technology",
+      "pro-level",
+      "game-ready"
+    ],
+    "avoid_jargon": [
+      "compression rating",
+      "denier",
+      "elastane percentage",
+      "EVA density",
+      "carbon composite",
+      "moisture-wicking coefficient",
+      "torsional rigidity",
+      "kinetic chain",
+      "proprioception"
+    ]
+  },
+  "power_words": [
+    "elite",
+    "performance",
+    "champion",
+    "winning",
+    "professional",
+    "explosive",
+    "unstoppable",
+    "dominant",
+    "precision",
+    "breakthrough",
+    "game-changing",
+    "revolutionary",
+    "proven",
+    "endorsed",
+    "official",
+    "authentic",
+    "limited-edition",
+    "exclusive",
+    "customized",
+    "personalized",
+    "lightweight",
+    "durable",
+    "advanced",
+    "innovative",
+    "tested",
+    "certified",
+    "guaranteed",
+    "trusted",
+    "essential",
+    "competitive"
+  ],
+  "avoid_words": [
+    "recreational",
+    "amateur",
+    "basic",
+    "entry-level",
+    "cheap",
+    "discount",
+    "imitation",
+    "generic",
+    "heavy",
+    "bulky",
+    "outdated",
+    "last-year's",
+    "clearance",
+    "irregular",
+    "seconds",
+    "defective",
+    "used",
+    "rental-grade",
+    "beginner",
+    "slow"
+  ],
+  "headline_templates": [
+    {
+      "template": "Gear Up: [Sport] Season Starts in [Days] Days",
+      "expected_ctr": 5.2,
+      "use_case": "Seasonal urgency"
+    },
+    {
+      "template": "[Percentage]% Off [Brand] - This Weekend Only",
+      "expected_ctr": 6.1,
+      "use_case": "Promotional sales"
+    },
+    {
+      "template": "Why [Number] Local Athletes Choose [Product]",
+      "expected_ctr": 4.3,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Transform Your Game with [Technology/Product]",
+      "expected_ctr": 4.8,
+      "use_case": "Performance focus"
+    },
+    {
+      "template": "Team Orders: Save [Amount]% on Bulk Uniforms",
+      "expected_ctr": 7.2,
+      "use_case": "B2B targeting"
+    },
+    {
+      "template": "Just In: [Athlete]'s Signature [Product] Line",
+      "expected_ctr": 5.7,
+      "use_case": "Celebrity endorsement"
+    },
+    {
+      "template": "Free Fitting Clinic: [Date] with [Expert]",
+      "expected_ctr": 4.9,
+      "use_case": "Event promotion"
+    },
+    {
+      "template": "[Number] Days to [Event] - Are You Ready?",
+      "expected_ctr": 5.4,
+      "use_case": "Event preparation"
+    },
+    {
+      "template": "Youth [Sport]: Complete Package Under $[Price]",
+      "expected_ctr": 6.3,
+      "use_case": "Parent targeting"
+    },
+    {
+      "template": "Injury Prevention: The [Product] Difference",
+      "expected_ctr": 4.6,
+      "use_case": "Safety focus"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Reserve Your Size",
+      "conversion_rate": 9.3,
+      "placement": "Product pages"
+    },
+    {
+      "template": "Get Fitted Today",
+      "conversion_rate": 8.7,
+      "placement": "Equipment sections"
+    },
+    {
+      "template": "Join Team Pricing",
+      "conversion_rate": 11.4,
+      "placement": "Team landing pages"
+    },
+    {
+      "template": "Try Before You Buy",
+      "conversion_rate": 7.8,
+      "placement": "High-ticket items"
+    },
+    {
+      "template": "Check League Requirements",
+      "conversion_rate": 6.9,
+      "placement": "Youth sports"
+    },
+    {
+      "template": "See in Action →",
+      "conversion_rate": 8.2,
+      "placement": "Video demos"
+    },
+    {
+      "template": "Claim Member Pricing",
+      "conversion_rate": 10.1,
+      "placement": "Loyalty program"
+    },
+    {
+      "template": "Start Training Today",
+      "conversion_rate": 7.3,
+      "placement": "Fitness equipment"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "🏆 Congrats to [Team] on their championship! Proud to be your gear supplier. #ChampionsMadeHere #[Sport]Life",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Parents: [Sport] season starts [Date]! Don't wait for sizing - our experts are here daily. Tag a team parent who needs to know!",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "Twitter",
+      "template": "BREAKING: [Brand] just dropped their new [Product]. First 20 customers get 20% off! Doors open at 9am. #[City]Sports",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "Rating youth sports gear parents actually buy 😂 #SportsMom #YouthSports #GearReview",
+      "engagement_rate": 14.6
+    },
+    {
+      "platform": "YouTube",
+      "template": "[Product] Review: 6-Month Test by Local Athletes | Honest Opinion",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Complete Youth [Sport] Checklist - Save for Season! Everything You Need Under $200",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to sponsor 47 local youth teams this season. Building tomorrow's champions today. #CommunityFirst",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Snapchat",
+      "template": "Flash Sale Alert! Show this snap for 25% off any [Category]. Today only!",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Registration open for free youth fitting clinic this Saturday. Proper gear prevents 70% of sports injuries. Reserve your spot!",
+      "engagement_rate": 10.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Expert fitting by certified specialists reducing injury risk by 47%",
+      "rank": 1,
+      "differentiator": "Professional expertise vs self-service"
+    },
+    {
+      "prop": "Team pricing available to all groups of 6+ saving 25-40%",
+      "rank": 2,
+      "differentiator": "Accessible bulk discounts"
+    },
+    {
+      "prop": "90-day play guarantee allowing sport changes",
+      "rank": 3,
+      "differentiator": "Risk elimination for parents"
+    },
+    {
+      "prop": "Same-day custom printing and alterations",
+      "rank": 4,
+      "differentiator": "Immediate personalization"
+    },
+    {
+      "prop": "Try-before-buy on equipment over $100",
+      "rank": 5,
+      "differentiator": "Performance validation"
+    },
+    {
+      "prop": "Free youth clinics and training sessions monthly",
+      "rank": 6,
+      "differentiator": "Community value-add"
+    },
+    {
+      "prop": "Exclusive access to limited releases and pro gear",
+      "rank": 7,
+      "differentiator": "Premium availability"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your performance with the same gear trusted by professionals. Our premium selection features cutting-edge technology and materials that deliver measurable advantages. When winning matters, compromise isn't an option.",
+    "budget_conscious": "Get in the game without breaking the bank. Our value lines deliver 80% of premium performance at 50% of the cost. Smart packages, payment plans, and trade-in programs make quality gear accessible to every athlete.",
+    "enterprise": "Comprehensive team solutions from uniform design to equipment management. Volume discounts up to 40%, dedicated account management, and flexible payment terms. We handle the gear, you focus on winning."
+  },
+  "trust_signals": [
+    {
+      "signal": "Official team supplier certifications displayed",
+      "importance": 9,
+      "format": "Wall of fame"
+    },
+    {
+      "signal": "Staff athletic achievements and certifications",
+      "importance": 8,
+      "format": "Bio displays"
+    },
+    {
+      "signal": "Professional athlete visits and signings",
+      "importance": 7,
+      "format": "Photo wall"
+    },
+    {
+      "signal": "Safety certification badges on equipment",
+      "importance": 10,
+      "format": "Product tags"
+    },
+    {
+      "signal": "Local championship teams testimonials",
+      "importance": 8,
+      "format": "Trophy case"
+    },
+    {
+      "signal": "Years serving community athletics",
+      "importance": 7,
+      "format": "Timeline display"
+    },
+    {
+      "signal": "Insurance approved vendor status",
+      "importance": 6,
+      "format": "Certificates"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Outfitted 2,400+ local athletes last season",
+      "credibility_score": 8.9,
+      "context": "POS transaction data with customer tags"
+    },
+    {
+      "stat": "47 championship teams trust our gear",
+      "credibility_score": 9.3,
+      "context": "Verified team purchase records"
+    },
+    {
+      "stat": "4.8 star average from 3,200+ reviews",
+      "credibility_score": 8.7,
+      "context": "Aggregated platform ratings"
+    },
+    {
+      "stat": "89% of customers return within 12 months",
+      "credibility_score": 8.2,
+      "context": "Loyalty program analytics"
+    },
+    {
+      "stat": "31% lower injury rate with our fitting service",
+      "credibility_score": 9.1,
+      "context": "Insurance partner study data"
+    },
+    {
+      "stat": "$340 average savings vs online mistakes",
+      "credibility_score": 7.6,
+      "context": "Return/exchange analysis"
+    }
+  ],
+  "quality_indicators": [
+    "Pro athlete signature series prominently featured vs recreational lines",
+    "Competition-grade certifications clearly marked on applicable gear",
+    "Weight specifications and material technology highlighted",
+    "Warranty duration prominently displayed as quality indicator",
+    "Brand heritage and professional endorsements visible",
+    "Performance testing data and ratings displayed where applicable"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 30,
+    "trigger_event": "Post-season success or personal achievement milestone",
+    "ask_method": "Email with photo request offering 15% next season discount for story sharing"
+  },
+  "competitive_advantages": [
+    "Only store with certified fitting specialists for all major sports",
+    "Exclusive regional dealer for 3 premium performance brands",
+    "Same-day team uniform printing and numbering capability",
+    "Deepest youth sports connections with every local league",
+    "In-house stringing and customization services",
+    "Former professional athletes on staff for authentic advice"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display professional model first at $500+, making $200 advanced seem reasonable, driving $100 intermediate sales",
+    "sensitivity": "High sensitivity on youth basics under $50, low sensitivity on safety and performance gear over $150",
+    "sweet_spots": [
+      "$30-60 for accessories",
+      "$75-150 for individual equipment",
+      "$200-400 for complete packages",
+      "$50-100 per uniform"
+    ],
+    "decoy_pricing": "Three tiers with middle option at 70% of premium price but 90% of features, capturing 58% of sales"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 250,
+    "competitor_research": 150
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.3,
+    "weekend": 1.1,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Youth Recreational",
+      "price_range": "$50-200",
+      "target_customer": "Parents of young athletes",
+      "margin": 40
+    },
+    {
+      "tier": "Competitive Amateur",
+      "price_range": "$200-800",
+      "target_customer": "Serious youth and adult athletes",
+      "margin": 35
+    },
+    {
+      "tier": "Team & League",
+      "price_range": "$1,000+",
+      "target_customer": "Coaches and team managers",
+      "margin": 25
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Accessory attachment averaging $32 per transaction at 55% margins",
+    "House brand basics at 85% quality for 50% higher margins",
+    "Protection plan sales on items over $150 at 72% margin",
+    "Seasonal pre-orders with deposits improving cash flow 40%",
+    "Custom printing services at 65% margins on $15 average",
+    "Trade-in program driving upgrade sales with 45% margins"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 35,
+      "reason": "New Year fitness resolutions",
+      "opportunity": "Fitness equipment and apparel"
+    },
+    {
+      "month": "February",
+      "variation": 15,
+      "reason": "Spring sports preparation",
+      "opportunity": "Baseball/softball gear"
+    },
+    {
+      "month": "March",
+      "variation": 40,
+      "reason": "Spring season start",
+      "opportunity": "Outdoor sports equipment"
+    },
+    {
+      "month": "April",
+      "variation": 30,
+      "reason": "Peak spring sports",
+      "opportunity": "Team uniform orders"
+    },
+    {
+      "month": "May",
+      "variation": 20,
+      "reason": "Summer prep beginning",
+      "opportunity": "Swimming and camping"
+    },
+    {
+      "month": "June",
+      "variation": 25,
+      "reason": "Summer sports camps",
+      "opportunity": "Training equipment"
+    },
+    {
+      "month": "July",
+      "variation": 15,
+      "reason": "Mid-summer steady",
+      "opportunity": "Water sports focus"
+    },
+    {
+      "month": "August",
+      "variation": 45,
+      "reason": "Fall sports preparation",
+      "opportunity": "Football and soccer"
+    },
+    {
+      "month": "September",
+      "variation": 35,
+      "reason": "Fall season active",
+      "opportunity": "Cold weather gear"
+    },
+    {
+      "month": "October",
+      "variation": 10,
+      "reason": "Season wind-down",
+      "opportunity": "Basketball transition"
+    },
+    {
+      "month": "November",
+      "variation": -5,
+      "reason": "Holiday shopping shift",
+      "opportunity": "Gift cards and packages"
+    },
+    {
+      "month": "December",
+      "variation": 25,
+      "reason": "Holiday gift buying",
+      "opportunity": "Premium items as gifts"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Team order processing",
+      "avoid": "Major promotions",
+      "conversion_rate": 5.4
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Restocking and displays",
+      "avoid": "Events",
+      "conversion_rate": 5.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Youth clinics",
+      "avoid": "Adult programs",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Thursday",
+      "best_for": "League nights",
+      "avoid": "Family events",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Weekend prep rush",
+      "avoid": "Complex fittings",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family shopping and fittings",
+      "avoid": "Team meetings",
+      "conversion_rate": 10.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Game day emergency needs",
+      "avoid": "Returns",
+      "conversion_rate": 8.6
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Teams pay on NET45 terms, affecting 15th-30th cash position",
+    "cash_flow_peaks": "1st-5th when parent paychecks arrive, 35% sales spike",
+    "slow_periods": "20th-25th historically 25% below average, ideal for inventory management"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Saturday 8-10am",
+      "crisis_type": "Game day equipment failure",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Weeknight 5-7pm",
+      "crisis_type": "Practice gear needed",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Sunday morning",
+      "crisis_type": "Tournament emergencies",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Season registration deadline",
+      "crisis_type": "Complete gear needed",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Championship week",
+      "crisis_type": "Performance upgrades",
+      "premium_multiplier": 1.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Youth Starter Package",
+      "components": [
+        "Basic equipment",
+        "Safety gear",
+        "Team bag",
+        "Fitting service"
+      ],
+      "pricing_model": "Bundled 20% savings",
+      "margin": 38
+    },
+    {
+      "name": "Elite Athlete Program",
+      "components": [
+        "Premium gear access",
+        "Priority fitting",
+        "Maintenance services",
+        "Upgrade credits"
+      ],
+      "pricing_model": "Annual membership $199",
+      "margin": 65
+    },
+    {
+      "name": "Team Complete Solution",
+      "components": [
+        "Uniforms",
+        "Equipment",
+        "Customization",
+        "Season support"
+      ],
+      "pricing_model": "Volume pricing tiers",
+      "margin": 28
+    },
+    {
+      "name": "Fitness Transformation",
+      "components": [
+        "Equipment package",
+        "Training plan",
+        "Progress tracking",
+        "Quarterly upgrades"
+      ],
+      "pricing_model": "6-month commitment",
+      "margin": 42
+    }
+  ],
+  "upsell_paths": [
+    "Basic shoes → Performance insoles → Compression socks → Recovery tools (2.8x value)",
+    "Entry racket → Intermediate → String upgrade → Full pro setup (4.2x value)",
+    "Single item → Matching set → Team package → Season supply (5.5x value)",
+    "Basic protection → Advanced safety → Performance enhancement → Complete system (3.9x value)",
+    "Fitness tracker → Heart rate monitor → Full monitoring suite → Smart home gym (8.3x value)",
+    "Water bottle → Hydration system → Nutrition products → Complete fuel package (4.6x value)"
+  ],
+  "retention_hooks": [
+    "Member pricing saving 15-20% on all purchases driving 73% renewal",
+    "Birthday month 25% discount achieving 81% redemption rate",
+    "Exclusive access to limited releases and athlete appearances",
+    "Free maintenance services for equipment purchased here",
+    "Seasonal sports camp discounts for customer families",
+    "Trade-in credits accumulating toward upgrades",
+    "VIP fitting appointments during peak seasons"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Team parent coordinators earn credits",
+      "timing": "Season registration",
+      "incentive": "$25 per family referred",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "Athlete ambassador social media program",
+      "timing": "Post-purchase success",
+      "incentive": "Exclusive gear access",
+      "conversion_rate": 14.3
+    },
+    {
+      "strategy": "Coach partnership with team benefits",
+      "timing": "Pre-season meetings",
+      "incentive": "Team discount tiers",
+      "conversion_rate": 31.2
+    },
+    {
+      "strategy": "Youth league sponsorship packages",
+      "timing": "Annual planning",
+      "incentive": "Branded presence",
+      "conversion_rate": 24.6
+    },
+    {
+      "strategy": "Fitness transformation testimonials",
+      "timing": "Goal achievement",
+      "incentive": "Free gear upgrades",
+      "conversion_rate": 11.8
+    },
+    {
+      "strategy": "Family member discounts",
+      "timing": "At purchase",
+      "incentive": "15% family rate",
+      "conversion_rate": 22.4
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Protection plans on equipment",
+      "attach_rate": 42,
+      "timing": "Point of sale over $150"
+    },
+    {
+      "service": "Maintenance products with gear",
+      "attach_rate": 56,
+      "timing": "During fitting process"
+    },
+    {
+      "service": "Apparel with equipment purchase",
+      "attach_rate": 38,
+      "timing": "Matching team colors"
+    },
+    {
+      "service": "Training aids with primary equipment",
+      "attach_rate": 29,
+      "timing": "Performance discussion"
+    },
+    {
+      "service": "Nutrition products with fitness gear",
+      "attach_rate": 33,
+      "timing": "Goal-setting conversation"
+    },
+    {
+      "service": "Recovery tools with intense sports",
+      "attach_rate": 47,
+      "timing": "Injury prevention talk"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Performance training facility",
+      "market_size": "$400K annual revenue potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Online team stores platform",
+      "market_size": "$250K revenue at 40% margin",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Sports medicine partnership",
+      "market_size": "$200K referral revenue",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Youth sports camp programs",
+      "market_size": "$300K seasonal revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Equipment rental service",
+      "market_size": "$150K with 60% margins",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Custom uniform production",
+      "market_size": "$500K at 45% margins",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Nike's 'You Can't Stop Us' campaign featuring split-screen footage of athletes from different sports performing synchronized movements, emphasizing resilience during COVID-19",
+        "platform": "YouTube/Instagram/Twitter",
+        "why_it_worked": "Emotional storytelling combined with technical excellence (4000+ clips edited together), released during pandemic when sports were cancelled, message of unity and perseverance resonated globally",
+        "metrics": "Over 100 million views across platforms, 5.6 million YouTube views in first week, became most awarded campaign at Cannes Lions 2021",
+        "source": "AdAge, Cannes Lions 2021 winners archive, Nike News",
+        "confidence": "high"
+      },
+      {
+        "example": "Dick's Sporting Goods 'Sports Matter' program featuring documentary-style content about underfunded youth sports programs, with real stories of athletes overcoming obstacles",
+        "platform": "YouTube/Website/Social Media",
+        "why_it_worked": "Authentic storytelling focused on community impact rather than product, aligned with brand purpose, featured real athletes and coaches, drove donations and brand loyalty",
+        "metrics": "Raised over $100 million for youth sports programs, 15+ million video views, 84% brand favorability increase among aware consumers",
+        "source": "Dick's Sporting Goods Foundation reports, PR Newswire, Sports Business Journal",
+        "confidence": "high"
+      },
+      {
+        "example": "Peloton's user-generated content strategy featuring member transformation stories with before/after photos and personal narratives shared on Instagram with #PelotonTransformation",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Leveraged social proof and authentic customer stories, created community feeling, showcased real results not professional athletes, encouraged ongoing engagement from existing customers",
+        "metrics": "Over 500,000 posts with brand hashtags, 3-5% engagement rate on UGC posts (vs 1-2% industry average), contributed to 172% revenue growth in 2020",
+        "source": "Peloton investor relations, Social Media Today analysis, Influencer Marketing Hub",
+        "confidence": "high"
+      },
+      {
+        "example": "REI's #OptOutside campaign encouraging people to spend Black Friday outdoors instead of shopping, closing all stores on the biggest retail day",
+        "platform": "Multi-channel (Social Media/PR/Email)",
+        "why_it_worked": "Counter-intuitive approach that aligned with brand values, generated massive PR coverage, positioned brand as authentic outdoor advocate, created movement beyond single campaign",
+        "metrics": "1.4 billion earned media impressions in first year, 6.7 billion impressions by 2019, 170+ organizations joined movement, record membership growth",
+        "source": "REI press releases, PR Week, AdWeek case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Gymshark's athlete influencer partnerships featuring workout tutorials, day-in-the-life content, and product integration with fitness influencers on YouTube and Instagram",
+        "platform": "Instagram/YouTube/TikTok",
+        "why_it_worked": "Built community of micro and macro influencers, created aspirational yet achievable content, focused on education and value not just promotion, leveraged influencer authenticity",
+        "metrics": "Grew from £250k to £250m revenue in 7 years, 5+ million Instagram followers, average engagement rate 4-6% (industry average 1-3%), valued at £1+ billion",
+        "source": "Forbes, Business of Fashion, Gymshark company reports",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for sporting goods brands (2024), with video content performing at 2.1-2.4%",
+        "best_content_format": "Reels and carousel posts showing product in action, user-generated content, transformation stories, workout tutorials",
+        "optimal_frequency": "4-7 posts per week, 1-2 Reels per day for maximum reach",
+        "best_posting_times": "Monday-Friday 11am-1pm and 7-9pm, Saturday 9am-11am (when people plan workouts)",
+        "source": "Rival IQ 2024 Social Media Benchmark Report, Hootsuite Social Trends 2024, Later.com sporting goods analysis"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for sporting goods industry (2024), video content 0.8-1.2%",
+        "best_content_format": "Video content (especially live videos of events/demos), community-building posts, customer testimonials, event promotions",
+        "optimal_frequency": "3-5 posts per week to maintain reach without oversaturation",
+        "best_posting_times": "Wednesday-Friday 1-3pm, weekends 12-1pm",
+        "source": "Rival IQ 2024 Benchmark Report, Sprout Social Index 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.69% for sports and fitness content (2024), significantly higher than other platforms",
+        "best_content_format": "Quick workout tips, product demonstrations, before/after transformations, trending audio with sports twist, behind-the-scenes content",
+        "optimal_frequency": "1-3 posts per day for algorithm favorability",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-11pm, Friday 5am-8am",
+        "source": "Influencer Marketing Hub TikTok Benchmarks 2024, HubSpot Social Media Trends 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Long-form content: 1.63% (likes/views), Short-form: 3-4%",
+        "best_content_format": "Product reviews and comparisons, how-to tutorials, athlete interviews, training programs, equipment maintenance guides",
+        "optimal_frequency": "2-4 long-form videos per week, daily Shorts for consistent presence",
+        "best_posting_times": "Thursday-Saturday 12-3pm, Sunday 9am-12pm",
+        "source": "Tubular Labs Sports Content Report 2024, Social Media Examiner"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 17.8%, Click rate: 2.4% for sporting goods retailers (2024)",
+        "best_content_format": "Personalized product recommendations, seasonal buying guides, exclusive early access, training tips with product integration",
+        "optimal_frequency": "2-3 emails per week, with increased frequency during peak seasons (back-to-school, holiday)",
+        "best_posting_times": "Tuesday-Thursday 10am-11am, Sunday 8-9pm",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Constant Contact Industry Report 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "2.1% for sports industry B2B content, thought leadership performs at 3-4%",
+        "best_content_format": "Industry insights, athlete success stories, company culture content, innovation announcements, sustainability initiatives",
+        "optimal_frequency": "2-3 posts per week for optimal engagement",
+        "best_posting_times": "Tuesday-Wednesday 8-10am and 12pm",
+        "source": "LinkedIn Marketing Solutions Benchmarks 2024, Hootsuite"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Transformation Challenge Hook",
+        "example": "From couch to 5K in 8 weeks - Here's exactly what changed | 30 days until you don't recognize yourself | The 90-day body transformation that shocked my doctor",
+        "why_it_works": "Provides specific timeframe creating urgency, promises measurable transformation, taps into aspiration and social proof, creates curiosity about method",
+        "source": "Analysis of top-performing fitness brand ads on Facebook Ad Library, Peloton and Nike email subject lines"
+      },
+      {
+        "hook_pattern": "Authority/Endorsement Hook",
+        "example": "The exact shoes worn by Olympic gold medalists | Pro athletes' #1 secret for faster recovery | Why college coaches recommend this training equipment",
+        "why_it_works": "Leverages expert authority and social proof, implies insider knowledge, suggests competitive advantage, reduces purchase risk",
+        "source": "Dick's Sporting Goods, Academy Sports email campaigns, Nike and Adidas ad copy analysis"
+      },
+      {
+        "hook_pattern": "Problem-Agitation Hook",
+        "example": "Still using equipment from 2015? Here's what you're missing | Your running shoes are destroying your knees (and you don't even know it) | The gear mistake that's costing you every game",
+        "why_it_works": "Identifies pain point, creates urgency through negative consequence, positions product as solution, uses fear of missing out or harm",
+        "source": "REI, Backcountry.com blog headlines, sporting goods Reddit discussions analysis"
+      },
+      {
+        "hook_pattern": "Curiosity Gap Hook",
+        "example": "The $20 item that changed my entire workout | What nobody tells you about buying your first bike | 3 things every runner gets wrong about shoes",
+        "why_it_works": "Creates information gap that demands closure, suggests valuable insider knowledge, low barrier to engagement, promises quick payoff",
+        "source": "Gymshark social media, Runner's World, Outside Magazine headline analysis"
+      },
+      {
+        "hook_pattern": "Seasonal/Urgency Hook",
+        "example": "Last chance before season starts - gear up now | 48 hours left: Pre-season sale ends Monday | Don't let your kid be the only one without proper equipment",
+        "why_it_works": "Creates time-based urgency, taps into FOMO, aligns with natural buying cycles, addresses parent anxiety about child preparedness",
+        "source": "Sports Authority, Academy Sports seasonal campaign analysis, back-to-school marketing examples"
+      },
+      {
+        "hook_pattern": "Social Proof/Community Hook",
+        "example": "Join 2 million athletes who switched to [product] | Why your gym buddies are all buying this | The gear taking over Instagram fitness feeds",
+        "why_it_works": "Leverages bandwagon effect, creates belonging desire, reduces decision anxiety through crowd validation, builds community identity",
+        "source": "Lululemon, Gymshark, Peloton social media and email campaigns"
+      },
+      {
+        "hook_pattern": "Contrarian/Myth-Busting Hook",
+        "example": "Stop wasting money on expensive running shoes | Why 'more cushioning' is actually making you slower | The training myth that's holding you back",
+        "why_it_works": "Challenges conventional wisdom creating curiosity, positions brand as truth-teller, attracts attention through controversy, builds trust through education",
+        "source": "REI Expert Advice content, Outside Online articles, sporting goods YouTube channels"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My kid outgrew his cleats and season starts in two weeks",
+        "I don't know which running shoes are right for my feet",
+        "Everything feels cheap and falls apart after a few months",
+        "I'm tired of looking like a beginner at the gym",
+        "My knees hurt every time I run and I don't know why",
+        "The equipment I need is always sold out in my size",
+        "I can't afford to replace all this gear every season",
+        "I have no idea what I actually need vs what's just marketing hype",
+        "My old gear is embarrassing but I don't know what to upgrade to",
+        "I'm worried about buying the wrong thing and wasting money",
+        "The cheap stuff broke right before the big game",
+        "I feel overwhelmed by all the options and technical specs"
+      ],
+      "solution_phrases": [
+        "Finally found shoes that don't hurt after mile 3",
+        "This gear made me feel like I belong on the field",
+        "Lasted two full seasons and still looks new",
+        "The staff actually knew what they were talking about",
+        "Got fitted properly and my performance improved immediately",
+        "Worth every penny - wish I'd upgraded sooner",
+        "My kid feels confident now that he has the right equipment",
+        "Game-changer for my training routine",
+        "Exactly what the pros use but at a price I can afford",
+        "This is the quality I was looking for",
+        "Finally gear that keeps up with my workouts",
+        "Made me look forward to training again"
+      ],
+      "objection_phrases": [
+        "That's way more than I wanted to spend",
+        "How do I know this will actually fit when it arrives",
+        "I can get something similar cheaper on Amazon",
+        "What if my kid loses interest in the sport next month",
+        "Do I really need all this or is it overkill",
+        "I'll just wait for it to go on sale",
+        "The reviews are mixed and I can't tell what's real",
+        "I'm not sure this is the right size/model for me",
+        "What if it doesn't work for my specific issue",
+        "I don't want to look like I'm trying too hard",
+        "Can I return it if it doesn't work out",
+        "Is this really better than what I have now"
+      ],
+      "decision_factors": [
+        "What the coach or other parents recommend",
+        "Whether it's the same brand the pros use",
+        "If I can return it easily if it doesn't work",
+        "How long it will last before needing replacement",
+        "Whether it comes in my size and preferred color",
+        "If there are real reviews from people like me",
+        "The reputation of the brand for quality",
+        "Whether I can try it on or test it first",
+        "If it's on sale or I can use a coupon",
+        "How quickly I can get it delivered",
+        "Whether it will help me perform better or prevent injury",
+        "If my friends or teammates have the same thing"
+      ],
+      "emotional_language": [
+        "confident",
+        "embarrassed",
+        "frustrated",
+        "excited",
+        "overwhelmed",
+        "proud",
+        "motivated",
+        "disappointed",
+        "anxious",
+        "relieved",
+        "accomplished",
+        "self-conscious",
+        "empowered",
+        "intimidated",
+        "determined",
+        "worried",
+        "satisfied",
+        "regretful",
+        "inspired",
+        "competitive",
+        "belonging",
+        "excluded",
+        "validated",
+        "inadequate",
+        "transformed"
+      ],
+      "sources": [
+        "Reddit r/running, r/fitness, r/basketball discussions",
+        "Amazon customer reviews for Nike, Adidas, Under Armour products",
+        "Dick's Sporting Goods and REI customer review sections",
+        "Facebook sporting goods groups and community discussions",
+        "Trustpilot reviews for major sporting goods retailers",
+        "YouTube comment sections on gear review videos",
+        "Quora questions about sporting goods purchases"
+      ]
+    },
+    "competitive_gaps": [
+      "Detailed sizing guides for different body types and sports - most brands provide generic size charts without sport-specific or body-type guidance",
+      "Long-term cost of ownership content - comparing durability and total cost over time rather than just upfront price",
+      "Equipment maintenance and care tutorials - how to extend life of gear, when to replace, proper cleaning methods",
+      "Sport-specific injury prevention education tied to proper equipment selection",
+      "Honest product comparisons within same brand - helping customers choose between good/better/best options",
+      "Content for parents who don't know the sport their child plays - translating coach requirements into actual products",
+      "Sustainable and eco-friendly options clearly marked and explained",
+      "Equipment trade-in or recycling programs for outgrown youth sports gear",
+      "Local community sports event calendars and grassroots sponsorship visibility",
+      "Adaptive sports equipment and inclusive sizing prominently featured"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January - New Year Resolution Season",
+        "opportunity": "Massive influx of fitness beginners, gym memberships spike, home fitness equipment searches peak",
+        "content_angle": "Beginner-friendly guides, 'start here' equipment bundles, transformation challenge launches, goal-setting content, accountability tools"
+      },
+      {
+        "period": "March-April - Spring Sports Season",
+        "opportunity": "Youth sports leagues start, outdoor activities resume, baseball/softball/soccer seasons begin",
+        "content_angle": "Youth league preparation checklists, team ordering guides, spring training tips, outdoor gear activation content"
+      },
+      {
+        "period": "May-June - Summer Sports & Graduation",
+        "opportunity": "Graduation gifts for athletes, summer camp preparation, outdoor recreation peak, vacation sports gear",
+        "content_angle": "Gift guides for graduates, summer camp packing lists, water sports content, hiking/camping preparation"
+      },
+      {
+        "period": "July-August - Back to School Sports",
+        "opportunity": "Fall sports preparation, school team tryouts, equipment replacement before new season, highest revenue period for youth sports",
+        "content_angle": "Back-to-school sports readiness, tryout preparation, team sports bundles, parent education content"
+      },
+      {
+        "period": "September-October - Fall Sports Peak & Marathon Season",
+        "opportunity": "Football season, fall marathon training, hunting season begins, cooler weather outdoor activities",
+        "content_angle": "Marathon training guides, football gear guides, cold-weather workout preparation, hunting season content"
+      },
+      {
+        "period": "November - Black Friday/Cyber Monday",
+        "opportunity": "Biggest retail period, gift buying begins, equipment upgrades, next season preparation",
+        "content_angle": "Holiday gift guides by sport/athlete type, deal announcements, wish list builders, gift cards promotion"
+      },
+      {
+        "period": "December - Holiday Gifting & Winter Sports",
+        "opportunity": "Peak gift-giving, winter sports equipment, ski season begins, fitness equipment for New Year prep",
+        "content_angle": "Last-minute gift guides, winter sports preparation, gift cards, New Year motivation teasers"
+      },
+      {
+        "period": "February - Valentine's Day & NBA All-Star",
+        "opportunity": "Couples fitness gifts, basketball season peak, winter sports continue, early spring training begins",
+        "content_angle": "Couples workout content, basketball culture content, winter clearance for spring prep"
+      },
+      {
+        "period": "Year-Round - Championship Events",
+        "opportunity": "Super Bowl, March Madness, NBA Finals, World Cup, Olympics - major sporting events drive engagement",
+        "content_angle": "Event-specific content, athlete spotlights, sport-specific gear tied to events, watch party content"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ 2024 Social Media Industry Benchmark Report",
+      "Hootsuite Social Media Trends 2024",
+      "Sprout Social Index 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Influencer Marketing Hub TikTok Benchmarks 2024",
+      "Facebook Ad Library (Nike, Adidas, Under Armour campaigns)",
+      "Reddit communities: r/running, r/fitness, r/basketball, r/sportinggoods",
+      "Amazon customer reviews (sporting goods category)",
+      "Dick's Sporting Goods and REI customer review sections",
+      "AdAge marketing case studies",
+      "Cannes Lions 2021 winners archive",
+      "Forbes sporting goods industry coverage",
+      "Business of Fashion retail analysis",
+      "PR Week campaign coverage",
+      "Sports Business Journal",
+      "YouTube sporting goods review channels",
+      "Trustpilot sporting goods retailer reviews",
+      "LinkedIn Marketing Solutions Benchmarks 2024",
+      "Later.com social media analysis",
+      "Tubular Labs Sports Content Report 2024"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook patterns - most examples are observational",
+      "Some platform benchmarks combine broader 'retail' or 'sports' categories rather than pure sporting goods NAICS 451110",
+      "Conversion rate data is often proprietary and not publicly shared by brands",
+      "TikTok benchmarks are newer and less standardized across reporting sources",
+      "Customer voice data heavily weighted toward online channels - in-store conversation data not readily available"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Performance breakthrough preview - teasing revolutionary features that solve common athlete pain points",
+        "Week 2: Pro athlete endorsement and field testing results - showcasing elite performance validation",
+        "Week 3: Real customer transformation stories - featuring early adopters achieving measurable improvements",
+        "Week 4: Last chance pre-season advantage - creating urgency before competition season begins"
+      ],
+      "weekly_hooks": [
+        [
+          "What nobody tells you about [product category] - until now",
+          "The gear mistake that's been costing you every game (we finally fixed it)",
+          "Pro athletes' #1 secret for [specific benefit] is dropping [launch date]"
+        ],
+        [
+          "The exact [product] used by [sport] champions - now available to everyone",
+          "48 hours in: [Product] is already changing how athletes train for [specific sport]",
+          "Why college coaches are recommending this revolutionary [product] to their teams"
+        ],
+        [
+          "From struggling to dominant in 3 weeks - here's exactly what changed",
+          "Join 2,000+ athletes who switched to [product] and never looked back",
+          "The $[price] item that transformed my entire [sport] performance"
+        ],
+        [
+          "Last chance before season starts - get [product] before your competition does",
+          "Only 48 hours left: Pre-season pricing ends [date]",
+          "Don't be the only one without the gear everyone's talking about"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know this is really better than what I have now' with innovation education and technology breakdown",
+        "Week 2: Address 'What if it doesn't work for my specific issue' with sport-specific applications and athlete testimonials",
+        "Week 3: Address 'The reviews are mixed and I can't tell what's real' with verified customer transformation stories and performance data",
+        "Week 4: Address 'That's way more than I wanted to spend' with performance ROI, injury prevention savings, and payment plan options"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce technical certifications, lab testing results, and innovation patents",
+        "Week 2: Share professional athlete endorsements, college coach recommendations, and expert reviews",
+        "Week 3: Feature verified customer testimonials, before/after performance metrics, and user-generated content",
+        "Week 4: Final credibility push with limited inventory alerts, waitlist numbers, and early sellout warnings from similar launches"
+      ],
+      "cta_progression": [
+        "Week 1: Join the waitlist to get early access and exclusive launch pricing",
+        "Week 2: Pre-order now and be first to experience game-changing performance",
+        "Week 3: Read real transformation stories and see if [product] is right for your goals",
+        "Week 4: Secure yours before season starts - limited stock, ships in 24 hours"
+      ],
+      "platform_priority": [
+        "Instagram (2 Reels/day, 1 carousel post/day) - highest engagement for product demos and transformation content",
+        "TikTok (2-3 posts/day) - viral potential for product reveals and athlete reactions",
+        "YouTube (1 long-form review, 3 Shorts/day) - detailed product breakdowns and comparison content",
+        "Email (5 emails over 4 weeks) - nurture waitlist and drive conversions with exclusive offers",
+        "Facebook (1 post/day) - retargeting and community building with detailed product education"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Nike's 'You Can't Stop Us' campaign success with emotional storytelling combined with technical excellence, and Peloton's transformation story strategy that achieved 3-5% engagement rates. Launch timing aligned with seasonal opportunities research showing back-to-school sports (July-August) as highest revenue period for youth sports equipment."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Equipment maintenance and longevity - extending gear life and maximizing investment value",
+        "Week 2: Injury prevention education - proper equipment selection for body type and sport demands",
+        "Week 3: Performance optimization tips - sport-specific training techniques with gear integration",
+        "Week 4: Community spotlight - local athletes, youth programs, and grassroots sports stories",
+        "Week 5: Beginner's guide series - translating coach requirements into actual product selections for parents",
+        "Week 6: Sustainability and gear lifecycle - trade-in programs, recycling, eco-friendly options",
+        "Week 7: Seasonal preparation - upcoming sport season readiness checklists and training calendars",
+        "Week 8: Expert Q&A - addressing common equipment questions and debunking purchasing myths"
+      ],
+      "weekly_hooks": [
+        [
+          "Your running shoes are destroying your knees (and you don't even know it)",
+          "The simple maintenance trick that doubles equipment lifespan",
+          "Stop wasting money on replacements - here's how to make gear last two full seasons"
+        ],
+        [
+          "The gear mistake that's costing you every game - and how proper fit prevents it",
+          "Why 'more cushioning' is actually making you slower (science-backed explanation)",
+          "Pro athletes' #1 secret for faster recovery isn't what you think"
+        ],
+        [
+          "3 things every [sport] player gets wrong about equipment selection",
+          "The exact training routine used by Olympic athletes - with gear you already own",
+          "From benchwarmer to starter in 90 days - the equipment changes that made the difference"
+        ],
+        [
+          "This 12-year-old from [local area] just broke the league record - here's her story",
+          "How we helped raise $50K for underfunded youth sports in our community",
+          "Meet the coach transforming kids' lives one practice at a time"
+        ],
+        [
+          "Your kid's coach said they need what? Here's the actual translation",
+          "First time buying [sport] equipment? Start here (parent's complete guide)",
+          "What you actually need vs. what's just marketing hype - honest breakdown"
+        ],
+        [
+          "Trade in outgrown gear, get credit toward next size - here's how our program works",
+          "The eco-friendly equipment revolution: performance meets sustainability",
+          "What happens to your old gear after trade-in? (You'll be surprised)"
+        ],
+        [
+          "Season starts in 4 weeks - your complete preparation checklist",
+          "Don't let your kid be the only one without proper equipment on day one",
+          "Last chance before tryouts - what coaches look for in equipment readiness"
+        ],
+        [
+          "Stop believing these 5 myths about buying sporting goods",
+          "The sizing question everyone asks (and the answer that will save you money)",
+          "Expert answers: Your top 10 equipment questions solved"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Everything feels cheap and falls apart after a few months' with maintenance education",
+        "Week 2: Address 'My knees hurt every time I run and I don't know why' with proper fitting importance",
+        "Week 3: Address 'I don't know which running shoes are right for my feet' with expert guidance value",
+        "Week 4: Address 'I'm not sure this is the right size/model for me' with community proof and fitting stories",
+        "Week 5: Address 'I have no idea what I actually need vs what's just marketing hype' with honest product education",
+        "Week 6: Address 'I can't afford to replace all this gear every season' with trade-in and sustainability programs",
+        "Week 7: Address 'The equipment I need is always sold out in my size' with seasonal preparation planning",
+        "Week 8: Address 'Can I return it if it doesn't work out' with guarantee and expert support assurance"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce durability testing data and customer longevity reviews",
+        "Week 2: Share injury prevention statistics and podiatrist/physical therapist endorsements",
+        "Week 3: Feature athlete performance improvement metrics and training expert testimonials",
+        "Week 4: Highlight community impact numbers, local partnerships, and grassroots program success",
+        "Week 5: Present expert staff credentials, fitting success rates, and beginner satisfaction scores",
+        "Week 6: Display sustainability certifications, trade-in program participation, and environmental impact data",
+        "Week 7: Show seasonal readiness success stories and coach recommendation letters",
+        "Week 8: Compile expert credentials, industry certifications, and customer satisfaction ratings"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free equipment maintenance guide and care calendar",
+        "Week 2: Book a free injury prevention fitting consultation with our experts",
+        "Week 3: Access our exclusive training tip library and performance optimization resources",
+        "Week 4: Nominate a local youth program for our community support grant",
+        "Week 5: Get your personalized beginner equipment checklist - takes 2 minutes",
+        "Week 6: Learn about our trade-in program and get an instant quote on your gear",
+        "Week 7: Reserve your spot for our pre-season prep workshop (limited availability)",
+        "Week 8: Schedule your expert fitting session - same day appointments available"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form/week, 5 Shorts/week) - best for educational tutorials and how-to content with 1.63% engagement",
+        "Instagram (5-7 posts/week, 1-2 Reels/day) - carousel posts for guides, Reels for quick tips at 2.1-2.4% engagement",
+        "Email (2-3/week) - educational content with 17.8% open rate for sporting goods",
+        "Facebook (3-5 posts/week) - community building and event promotion at 0.63% engagement",
+        "TikTok (1-2/day) - quick tips and myth-busting content at 5.69% engagement"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Dick's Sporting Goods 'Sports Matter' program success with authentic community-focused storytelling (84% brand favorability increase) and competitive gaps research identifying needs for maintenance tutorials, honest product comparisons, parent education, and sustainability programs. Content addresses all identified customer problem phrases while building long-term authority."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral challenge launch - transformation challenge with branded hashtag and community participation incentives",
+        "Week 2: Influencer amplification - micro and macro athlete influencers sharing challenge results and brand stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Join 10,000+ athletes in the #[BrandName]Challenge - 14 days to transform your [sport] game",
+          "The viral fitness challenge taking over Instagram feeds (and why you should join)",
+          "30 days until you don't recognize yourself - challenge starts Monday, who's in?",
+          "Tag 3 teammates who need to see this transformation challenge",
+          "What happens when 10,000 athletes commit to the same 2-week challenge? Let's find out",
+          "The challenge your gym buddies are all doing - here's how to join"
+        ],
+        [
+          "Why pro athletes are all posting about #[BrandName]Challenge this week",
+          "Challenge update: These transformation results after just 7 days are insane",
+          "The gear taking over social media feeds - here's what you're missing",
+          "Join 2 million athletes who are making this their secret weapon",
+          "Your favorite athletes just revealed their challenge results (you won't believe #3)",
+          "This is what happens when you commit to 14 days - real results from real athletes"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't want to look like I'm trying too hard' by showcasing diverse participant levels from beginners to pros",
+        "Week 2: Address 'What if my kid loses interest in the sport next month' by demonstrating sustainable habit formation and community support"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce challenge rules, expert endorsements from coaches/trainers, and early participant testimonials",
+        "Week 2: Share viral user-generated content, influencer results, transformation metrics, and community size milestones"
+      ],
+      "cta_progression": [
+        "Week 1: Join the challenge - tag us with #[BrandName]Challenge to enter prize drawings",
+        "Week 1: Share your starting point photo and follow [account] for daily motivation",
+        "Week 2: Post your transformation results - best stories win [prize package]",
+        "Week 2: Keep the momentum going - share this challenge with 3 friends who need to see it"
+      ],
+      "platform_priority": [
+        "TikTok (3 posts/day) - highest viral potential at 5.69% engagement, optimal for challenge content",
+        "Instagram (2 Reels/day, 3 Stories/day, 1 feed post/day) - visual transformation showcase at 2.1-2.4% video engagement",
+        "YouTube Shorts (3/day) - quick challenge updates and participant highlights",
+        "Facebook (2 posts/day) - community building and longer transformation stories",
+        "Email (1 daily challenge update) - nurture participants with tips and motivation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Peloton's user-generated content strategy success with #PelotonTransformation achieving 500,000+ posts and 3-5% engagement rates, and Gymshark's influencer partnership model that grew them from £250k to £250m revenue. Leverages transformation challenge hook pattern and social proof/community hook pattern from research, plus TikTok's 5.69% engagement rate for sports content."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Industry insights - data-driven analysis of equipment technology evolution and performance science",
+        "Week 2: Injury prevention expertise - partnering with sports medicine professionals for educational content",
+        "Week 3: Sustainability leadership - transparent supply chain, environmental impact, and innovation in eco-friendly materials",
+        "Week 4: Youth sports advocacy - supporting underfunded programs and democratizing access to quality equipment",
+        "Week 5: Performance science - breaking down biomechanics, material engineering, and athlete optimization",
+        "Week 6: Future of sports equipment - innovation pipeline, emerging technologies, and industry trends"
+      ],
+      "weekly_hooks": [
+        [
+          "The equipment technology revolution nobody's talking about (until now)",
+          "We analyzed 10,000 athlete injuries - here's what proper equipment actually prevents",
+          "Stop believing these 5 myths about sporting goods - industry insider truth"
+        ],
+        [
+          "Why your running shoes are destroying your knees (podiatrist explains)",
+          "The injury prevention secret that pro teams use but recreational athletes ignore",
+          "What college coaches know about equipment fit that parents don't"
+        ],
+        [
+          "The truth about 'eco-friendly' sporting goods (most brands won't tell you this)",
+          "How we're reducing equipment waste by 47% - complete transparency report",
+          "Sustainable performance: Why eco-friendly no longer means compromise"
+        ],
+        [
+          "We just donated $100K to underfunded youth sports - here's why it matters",
+          "The youth sports crisis nobody's addressing (and how we're helping)",
+          "Every kid deserves quality equipment - our commitment to access and equity"
+        ],
+        [
+          "The biomechanics of [sport]: Why equipment engineering matters more than you think",
+          "Olympic-level performance science, explained for everyday athletes",
+          "The exact material innovation that's changing how athletes train"
+        ],
+        [
+          "The future of sporting goods: 5 innovations launching in the next 2 years",
+          "What AI and smart materials mean for your performance in 2025",
+          "Industry predictions: How equipment technology will evolve by 2030"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do I really need all this or is it overkill' with science-backed performance data",
+        "Week 2: Address 'The staff actually knew what they were talking about' by showcasing expert credentials and training",
+        "Week 3: Address 'I can get something similar cheaper on Amazon' by explaining quality, durability, and total cost of ownership",
+        "Week 4: Address 'What if my kid loses interest in the sport next month' with community programs and flexible options",
+        "Week 5: Address 'How do I know this will actually fit when it arrives' with fitting technology and expert consultation",
+        "Week 6: Address 'Is this really better than what I have now' with innovation comparisons and upgrade value analysis"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce proprietary research, industry partnerships, and data analysis methodology",
+        "Week 2: Share medical professional endorsements, injury prevention statistics, and certified expert credentials",
+        "Week 3: Present third-party sustainability certifications, environmental audit results, and transparency reports",
+        "Week 4: Highlight community impact metrics, program success stories, and partnership testimonials",
+        "Week 5: Feature scientific studies, university research partnerships, and athlete performance data",
+        "Week 6: Display innovation patents, industry awards, and analyst recognition"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive industry research report (free whitepaper)",
+        "Week 2: Book a free injury prevention assessment with our certified specialists",
+        "Week 3: Read our complete sustainability report and environmental impact data",
+        "Week 4: Nominate a youth program for our community grant (applications open)",
+        "Week 5: Access our performance science library - exclusive educational content",
+        "Week 6: Join our innovation preview list - be first to test new technologies"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - thought leadership performs at 3-4% engagement for B2B sports content",
+        "YouTube (2 long-form videos/week) - deep-dive educational content ideal for authority building",
+        "Instagram (5 posts/week with carousel format) - detailed infographics and educational content",
+        "Email (1 newsletter/week) - in-depth analysis and exclusive insights for subscribers",
+        "Facebook (2-3 posts/week) - community discussion and longer-form educational content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on REI's #OptOutside campaign success generating 1.4 billion earned media impressions by aligning with brand values and positioning as authentic advocate, and Dick's Sporting Goods 'Sports Matter' program raising $100M through purpose-driven content. Addresses competitive gaps in injury prevention education, sustainability transparency, and honest product comparisons while leveraging contrarian/myth-busting hook pattern."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: User-generated content activation - transformation stories, workout challenges, and community spotlights with branded hashtags",
+        "Week 2: Interactive polls and debates - engaging community in equipment choices, training preferences, and sports culture discussions"
+      ],
+      "weekly_hooks": [
+        [
+          "Show us your transformation - share your before/after story and tag us for a chance to be featured",
+          "What's in your gym bag? Comment below and the best setup wins [prize]",
+          "Tag the teammate who always has the best gear - they deserve the recognition",
+          "Drop a 🔥 if you remember your first [sport] equipment (bonus points for photos)",
+          "Your workout playlist vs. ours - comment your go-to training song",
+          "Finish this: 'I knew I needed new equipment when...'"
+        ],
+        [
+          "Debate: Running shoes - max cushion or minimal? Comment your pick and why",
+          "Poll: What's the #1 thing you look for when buying equipment? (Vote in comments)",
+          "Hot take: You don't need expensive gear to perform like a pro. Agree or disagree?",
+          "Question for the community: What equipment purchase changed your game the most?",
+          "This or that: Training at home vs. gym? Drop your preference below",
+          "Controversial opinion: [Statement about equipment]. Change my mind in the comments"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I feel overwhelmed by all the options and technical specs' by crowdsourcing real user recommendations",
+        "Week 2: Address 'The reviews are mixed and I can't tell what's real' by facilitating authentic community discussions"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase user-generated content, customer transformation photos, and community member testimonials",
+        "Week 2: Highlight community consensus on product choices, crowd-validated recommendations, and peer endorsements"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story with #[BrandHashtag] - best submissions featured on our page",
+        "Week 1: Tag 3 friends who inspire your fitness journey",
+        "Week 2: Vote in comments - your input shapes our next product decisions",
+        "Week 2: Join the conversation - 100+ athletes already weighing in on this debate"
+      ],
+      "platform_priority": [
+        "Instagram (3 Reels/day, 5 Stories/day with polls/questions, 2 feed posts/day) - highest engagement at 2.1-2.4% for interactive content",
+        "TikTok (2-3 posts/day) - viral potential and comment engagement at 5.69% rate",
+        "Facebook (2 posts/day with discussion prompts) - community building and longer comment threads",
+        "YouTube Community Tab (1 poll/day) - engage subscribers between video uploads",
+        "Email (2 emails/week) - drive social participation and highlight best community content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Peloton's UGC strategy achieving 500,000+ branded hashtag posts and 3-5% engagement rates (vs 1-2% industry average), and Gymshark's community building approach that grew to 5M+ Instagram followers with 4-6% engagement. Leverages social proof/community hook pattern and customer voice data showing 'what the coach or other parents recommend' and 'if my friends or teammates have the same thing' as key decision factors."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The gear mistake that's costing youth sports programs thousands every season:\n\nPROBLEM: 68% of youth leagues over-purchase equipment based on roster size, not actual need. Result? Wasted budget and storage nightmares.\n\nAGITATION: When [Sport Season] hits, programs scramble to replace worn items while unused gear collects dust. Parents question where fees go. Coaches inherit disorganized equipment rooms.\n\nSOLUTION: Implement the 3-Tier Inventory System:\n→ Core items (replace annually): [Equipment Type]\n→ Growth items (size-flexible): [Equipment Type] \n→ Specialty items (shared pool): [Equipment Type]\n\nOne [City] league cut equipment costs 34% using this approach while improving player satisfaction.\n\nWhat's your biggest equipment management challenge? Let's solve it together.\n\n#YouthSports #SportsManagement #CommunityImpact #[Sport]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After outfitting 200+ teams across [Region], I've learned this:\n\nATTENTION: The sporting goods industry is shifting from product-focused to performance-outcome focused. Here's what that means for athletic programs:\n\nINTEREST: We're seeing 3 major trends:\n1. Data-informed equipment selection (not just brand loyalty)\n2. Sustainability requirements from schools/parents\n3. Injury prevention prioritized over cost savings\n\nDESIRE: Forward-thinking programs are partnering with suppliers who provide:\n→ Fitting expertise, not just product catalogs\n→ Season-long support, not one-time transactions  \n→ Performance tracking integration\n\nACTION: The programs that thrive? They treat equipment as performance infrastructure, not expense line items.\n\nExample: [Local Team] reduced injuries 40% after proper footwear assessment.\n\nReady to elevate your program? Comment 'PERFORMANCE' for our Program Director's Guide.\n\n#AthleticDirector #SportsInnovation #TeamPerformance",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Team parents scrambling at big-box stores, buying mismatched gear, kids showing up unprepared.\n\nAFTER: Coordinated team orders, bulk pricing, every player equipped properly on day one.\n\nBRIDGE: Our Team Program does the heavy lifting:\n→ Custom team portal with pre-approved gear\n→ Parent ordering deadline management  \n→ Bulk delivery to one location\n→ 15-25% savings vs. individual purchases\n→ Satisfaction guarantee on every item\n\n[League Name] equipped 12 teams this way last season. Zero equipment-related delays.\n\nSpring season approaching? Let's get your team organized now.\n\nDM me or comment 'TEAM READY' for program details.\n\n#TeamSports #YouthAthletics #[City]Sports #CoachLife",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your running shoes are destroying your knees (and you don't even know it) 👟⚠️\n\nMost runners replace shoes based on looks, not mileage. Here's the truth:\n\n✅ Replace every [300-500] miles\n✅ Track in notes app or Strava\n✅ Buy 2 pairs, rotate daily (extends life 60%)\n✅ Different shoes for different surfaces\n\nSwipe for the 4 signs your shoes are DONE →\n\nSlide 1: Tread comparison (new vs. worn)\nSlide 2: The quarter test (if coin disappears in tread, replace)\nSlide 3: Midsole compression check\nSlide 4: Uneven wear patterns (what they mean)\n\nSaved this post? Your knees will thank you 🙏\n\nQuestions? Drop them below 👇\n\n#RunningTips #InjuryPrevention #RunnersCommunity #MarathonTraining #[City]Runners",
+        "visual": "Carousel: Split image showing new vs worn shoe tread, close-up of midsole compression, wear pattern diagrams with annotations, final slide with checklist graphic",
+        "framework": "Problem-Solution"
+      },
+      "authority": {
+        "caption": "Why college coaches recommend this over expensive gear 🏆\n\nAfter 15 years outfitting [Regional/State] champions, here's what separates good players from great ones:\n\nIt's not the $300 bat. It's not the elite cleats.\n\nIt's PROPER FITTING.\n\n→ [Pro Athlete] uses custom-fitted [Equipment]\n→ [Local Team] went from last to finals after professional fitting\n→ Olympic training centers prioritize fit over brand\n\nWe've fitted [2,000+] athletes. The pattern is clear:\n\nRight fit = Better performance + Fewer injuries + Longer equipment life\n\nBringing our fitting lab to [Location] this Saturday. Free for athletes. Link in bio to reserve your spot.\n\nTag a player who needs this 👇\n\n#AthleticPerformance #CoachApproved #[Sport]Excellence",
+        "visual": "Before/after performance stats graphic, images of fitting process with athlete, coach testimonial quote overlay, event details graphic",
+        "framework": "Authority-Endorsement"
+      },
+      "promotional": {
+        "caption": "48 hours left before [Season] prices jump ⏰\n\nThe $[XX] item that changed my entire workout routine:\n\n[Product] - now $[XX] (regularly $[XX])\n\nWhat nobody tells you:\n→ Used by [Pro Team/Athlete]\n→ Lasts [2-3X] longer than [Competitor]\n→ [Specific benefit: \"Reduced my recovery time 40%\"]\n\nJoin [2,000+] athletes who switched. Sale ends [Day/Time].\n\n🔗 Shop: [Link in bio]\n💬 Questions? DM us\n📍 In-store: [Location]\n\n*Free shipping over $[XX]. Easy returns within [30] days.\n\n#[Sport]Gear #TrainingEssentials #AthletesOfInstagram #[City]Fitness",
+        "visual": "Product in action (athlete using it), close-up of quality details, customer transformation photo, urgency graphic with countdown timer",
+        "framework": "Urgency + Social Proof"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ PARENTS: [Sport] season starts [Date]! Here's your stress-free equipment checklist 👇\n\nDon't be the family scrambling the night before tryouts (we've all been there 😅)\n\n✅ REQUIRED ITEMS:\n→ [Equipment Item 1] - Sizing tip: [Specific advice]\n→ [Equipment Item 2] - What to look for: [Key feature]\n→ [Equipment Item 3] - Pro tip: [Money-saving advice]\n\n✅ RECOMMENDED (coaches love seeing these):\n→ [Optional Item 1]\n→ [Optional Item 2]\n\n✅ SKIP THESE (despite what other parents say):\n→ [Overhyped Item] - Here's why: [Explanation]\n\n💰 BUDGET BREAKDOWN:\nEssentials: $[XX]-$[XX]\nWith recommended: $[XX]-$[XX]\n\n🎯 Our experts are in-store daily for FREE fitting consultations. No appointment needed.\n\n📍 [Store Location]\n⏰ [Hours]\n📞 [Phone] for questions\n\nTAG a team parent who needs this! Let's get these kids ready to dominate 🏆\n\nP.S. - Team orders get 15-20% off. Have your coach contact us!\n\n#[City]Youth[Sport] #TeamMomLife #[Season]Sports",
+        "framework": "Educational + Community"
+      },
+      "authority": {
+        "template": "Why [Local Team] switched to us after 10 years with [Competitor] 🏆\n\nCoach [Name] called us frustrated: \"Half my team showed up with wrong equipment. Parents wasted money. Season started chaotic.\"\n\nSound familiar?\n\nHere's what we did differently:\n\n1️⃣ PRE-SEASON TEAM NIGHT\n→ Parents learned proper sizing\n→ Kids got fitted by experts\n→ Questions answered in real-time\n→ Team discount applied automatically\n\n2️⃣ SEASON-LONG SUPPORT  \n→ Mid-season growth spurts? We handle it\n→ Equipment failure? Same-day replacement\n→ New player joins? Coordinated with coach\n\n3️⃣ PERFORMANCE FOCUS\n→ Not just selling products\n→ Tracking injury prevention\n→ Upgrade recommendations based on skill development\n\nTHE RESULT:\n→ Zero equipment-related game delays\n→ Parent satisfaction scores: 9.2/10  \n→ Team won [Achievement]\n→ Re-signed for 3 more seasons\n\n\"Finally a supplier that understands youth sports isn't just retail - it's supporting our community's kids.\" - Coach [Name]\n\n━━━━━━━━━━━━━━\n\nCoaches/Athletic Directors: Want this for your program?\n\nComment \"TEAM PROGRAM\" or message us directly. Let's talk before [Upcoming Season].\n\nParents: Share this with your coach! 📲\n\n#YouthSports #[City]Athletics #CommunityFirst",
+        "framework": "Case Study + Social Proof"
+      },
+      "promotional": {
+        "template": "🚨 LAST CHANCE: Pre-Season Sale ends Monday 🚨\n\nFrom \"I can't afford to replace all this gear\" to \"Worth every penny - wish I'd upgraded sooner\"\n\nReal customer. Real quote. Here's what changed:\n\n[Customer Name] was using 3-year-old [Equipment Type]. Knees hurt after every game. Ready to quit [Sport].\n\nWe fitted him properly with [Product]. Not the most expensive. Not the cheapest. The RIGHT one.\n\n✅ Pain gone after first game\n✅ Performance improved immediately  \n✅ Still using it 2 seasons later\n✅ Total cost: Less than physical therapy would've been\n\nTHIS WEEKEND ONLY:\n→ [Product Category]: [XX]% off\n→ [Product Category]: Buy one, get one [XX]% off\n→ [Product Category]: $[XX] (regularly $[XX])\n\n🎁 BONUS: Free [Accessory] with purchase over $[XX]\n\n⏰ Sale ends Monday [Time]\n📍 [Store Location] | 🛒 Online: [Website]\n💳 Easy returns. Price match guarantee.\n\n━━━━━━━━━━━━━━\n\nNot sure what you need? \n👉 Comment your sport + biggest equipment frustration\n👉 We'll reply with personalized recommendations\n\nOr call/text: [Phone Number]\n\nDon't let your kid be the only one without proper equipment. Let's get them confident and ready. 💪\n\n#[City]Sports #PreSeasonSale #[Sport]Gear #YouthAthletics",
+        "framework": "Transformation Story + Urgency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been buying running shoes WRONG your whole life",
+        "script": "HOOK (0-3s): [Show person in running store looking confused at wall of shoes]\n\nPROBLEM (3-10s): \"Everyone picks shoes by brand or color. Then wonders why their knees hurt.\" [Quick cuts of people grabbing random shoes]\n\nREVEAL (10-25s): \"Here's what running stores don't tell you:\" [Text overlay]\n→ Wet foot test (show it) - reveals your arch type\n→ Gait analysis (quick demo) - shows how you land  \n→ THIS determines your shoe, not the brand\n\nDEMO (25-45s): [Split screen]\nLeft: Wrong shoe for foot type (show issues)\nRight: Correct shoe match (show difference)\n\n\"Same runner. Different shoes. Watch the knee alignment.\"\n\nSOLUTION (45-55s): \"Get fitted properly. FREE at [Store Name]. Takes 10 minutes. Lasts 500 miles.\"\n\nCTA (55-60s): \"Your knees will thank you. Link in bio for fitting appointment.\"\n\n[TEXT OVERLAYS: \"The wet test\", \"Your arch type matters\", \"Free fitting\", \"Save your knees\"]\n\n[TRENDING AUDIO: Educational voiceover trend or satisfying sounds]\n\n#RunningTips #FitnessTok #InjuryPrevention #RunTok",
+        "framework": "Problem-Solution Education"
+      },
+      "authority": {
+        "hook": "I've fitted 10,000+ athletes. Here's what separates good from ELITE",
+        "script": "HOOK (0-3s): [Show wall of championship photos/trophies]\n\"After fitting [X] state champions, I noticed a pattern...\"\n\nPATTERN (3-15s): [Quick cuts of athletes]\n\"It's NEVER about having the most expensive gear.\"\n[Show expensive equipment]\n\"Every single champion did THIS instead:\"\n\nREVEAL (15-35s): [Numbered list with quick visuals]\n1. \"Proper fit over brand name\" [Show fitting process]\n2. \"Maintained equipment religiously\" [Show care routine]  \n3. \"Upgraded based on SKILL not season\" [Show progression]\n\nPROOF (35-50s): \"[Local Athlete] was benched. Switched to properly fitted [Equipment]. Made varsity 3 months later.\"\n[Show before/after clips or photos]\n\nAUTHORITY (50-58s): \"Not selling you stuff. Fitting you for performance.\"\n[Show expert credentials/certifications]\n\nCTA (58-60s): \"Free assessment. Link in bio. Let's unlock your potential.\"\n\n[TEXT OVERLAYS: \"10K+ athletes\", \"The pattern\", \"It's not the price\", \"Performance > Price\"]\n\n[TRENDING AUDIO: Motivational or reveal-style trend]\n\n#AthleteTok #SportsPerformance #CoachTok #[Sport]Training",
+        "framework": "Authority Pattern Recognition"
+      },
+      "promotional": {
+        "hook": "The $40 thing that changed my entire workout (not what you think)",
+        "script": "HOOK (0-3s): [Hold up product mysteriously]\n\"This $40 thing did what $300 shoes couldn't...\"\n\nCURIOSITY (3-12s): [Show working out with obvious struggle]\n\"I was using [Wrong Equipment]. Every workout = pain.\"\n[Frustrated expressions, rubbing sore areas]\n\nREVEAL (12-25s): [Unbox/show product]\n\"Then I tried [Product]. Skeptical AF.\"\n\"First workout: Immediately felt the difference\"\n[Show using it - genuine reaction]\n\nTRANSFORMATION (25-45s): [Split screen or before/after]\n\"3 weeks later:\"\n→ No more [pain/issue]\n→ [Performance metric] improved  \n→ Actually EXCITED to train\n\n\"Same person. Different equipment. Watch:\"\n[Side-by-side comparison clips]\n\nSOCIAL PROOF (45-55s): \"2,000+ athletes switched. Now I get why.\"\n[Quick testimonial clips or comment screenshots]\n\nOFFER (55-60s): \"On sale til Monday. Link in bio. You're welcome.\"\n[Show price: $XX]\n\n[TEXT OVERLAYS: \"Game changer\", \"$40\", \"Why didn't I buy this sooner\", \"Sale ends Monday\"]\n\n[TRENDING AUDIO: Transformation or hype music trend]\n\n#FitnessGear #WorkoutEssentials #GymTok #FitnessTikTok #[Product]Review",
+        "framework": "Curiosity + Transformation"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your kid's cleats are wrong (here's how to fix it) ⚽",
+        "preview_text": "3 signs + the 10-minute solution that prevents injuries",
+        "body": "PROBLEM:\nHey [First Name],\n\nSaw you browsing [Product Category] on our site. Quick question:\n\nDoes [Child Name] complain about foot pain after practice?\n\nYou're not alone. 67% of youth athletes wear wrong-sized cleats. Here's why:\n\nAGITATION:\n→ Kids' feet grow fast (size changes every 3-4 months)\n→ Different brands fit differently (Nike ≠ Adidas sizing)  \n→ Sport-specific needs vary (soccer ≠ baseball cleats)\n\nResult? Blisters, poor performance, potential injuries.\n\nSOLUTION:\nThe 3-Point Cleat Check:\n\n✅ Thumb width between toe and end\n✅ Heel locked (no slipping)  \n✅ Flexibility test (can bend at ball of foot)\n\nFailed any? Time for new cleats.\n\n━━━━━━━━━━━━━━\n\n📍 FREE FITTING THIS WEEKEND\nBring [Child Name] in. Our experts will:\n→ Measure properly (both feet - they're often different!)\n→ Test multiple brands\n→ Find the RIGHT fit, not just a sale\n\n🎁 BONUS: Show this email for 15% off your purchase\n\n[BOOK FITTING APPOINTMENT]\n\nOr reply with questions. I'm here to help.\n\n- [Name], Youth Sports Specialist\n[Store Name] | [Phone]\n\nP.S. - Season starts [Date]. Beat the rush and book now!",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "How [Local Team] cut injuries 40% (and won state) 🏆",
+        "preview_text": "The equipment strategy every coach should steal",
+        "body": "ATTENTION:\nHi [First Name],\n\nCoach [Name] from [Local Team] called us last year with a problem:\n\n\"Too many injuries. Kids missing games. Parents frustrated.\"\n\nOne season later? State champions. 40% fewer injuries.\n\nHere's exactly what changed:\n\nINTEREST:\nWe implemented the Performance Equipment Protocol:\n\n1️⃣ PROPER ASSESSMENT\n→ Individual fitting sessions (not one-size-fits-all)\n→ Gait analysis for footwear\n→ Position-specific equipment matching\n\n2️⃣ QUALITY OVER COST\n→ Invested in injury-prevention gear first  \n→ Budget options for non-critical items\n→ Bulk team pricing made it affordable\n\n3️⃣ MAINTENANCE PROGRAM  \n→ Mid-season equipment checks\n→ Replacement schedule based on wear, not calendar\n→ Emergency backup inventory\n\nDESIRE:\nThe results speak for themselves:\n\n✅ 40% injury reduction\n✅ Improved player confidence  \n✅ Parents noticed performance boost\n✅ Won [Championship]\n✅ 100% team re-enrollment\n\n\"Best investment we made. The kids felt like pros, played like pros.\" - Coach [Name]\n\nACTION:\nWant this for your team?\n\nWe're offering FREE Team Program consultations for [Upcoming Season].\n\n[SCHEDULE CONSULTATION]\n\nOr reply to this email. Let's build your championship team.\n\nLimited to [X] teams this season.\n\n- [Name], Team Programs Director\n[Store Name] | [Phone]\n\nP.S. - Current teams get priority scheduling. Book before [Date].",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "⏰ [First Name], your cart expires in 24 hours",
+        "preview_text": "Plus: The item that's selling out fast (back in stock alert)",
+        "body": "BEFORE:\nHey [First Name],\n\nYou left these in your cart:\n→ [Product 1] - $[XX]\n→ [Product 2] - $[XX]\n\nI get it. Big purchase. Want to be sure.\n\nLet me help:\n\nAFTER:\nWhat if 3 months from now you're:\n✅ Performing better than ever\n✅ Pain-free after every workout  \n✅ Confident in your equipment\n✅ Wishing you'd bought sooner\n\nThat's what [XXX] customers told us last month.\n\nBRIDGE:\nHere's what makes this easy:\n\n💰 PRICE MATCH GUARANTEE\nFound it cheaper? We'll match it.\n\n📦 FREE SHIPPING (orders over $[XX])\nYours qualifies.\n\n↩️ EASY RETURNS (30 days)\nNot perfect? Return it. No hassle.\n\n⭐ REAL REVIEWS\n[Product 1]: [X.X]/5 stars ([XXX] reviews)\n\"[Customer quote about transformation]\"\n\n🚨 URGENT: [Product Name] is selling out\n→ Only [X] left in your size\n→ Next restock: [X] weeks\n→ [XX] people viewing right now\n\n━━━━━━━━━━━━━━\n\n🎁 SPECIAL OFFER (24 hours only):\nComplete your order now:\n→ Get [15]% off with code: COMPLETE15\n→ FREE [Accessory] (worth $[XX])\n→ Priority shipping\n\n[COMPLETE MY ORDER - $XXX]\n\nQuestions? Reply to this email or call [Phone].\n\nWe're here until [Time] today.\n\n- [Name]\n[Store Name]\n\nP.S. - Your cart expires [Day] at [Time]. After that, we can't guarantee inventory or pricing.",
+        "framework": "BAB + Urgency"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] pieces of gear every [sport] player needs before season starts",
+      "[X] signs your [equipment type] is destroying your [body part] (and costing you games)",
+      "[X] minutes to find the perfect [gear item] for your [skill level] - here's how",
+      "[X] parents already ordered [team equipment] for fall season - don't let your kid be last",
+      "[X] things pro [athletes] never buy (that beginners waste money on)"
+    ],
+    "question_hooks": [
+      "Still using [old equipment] from [year]? Here's what you're missing",
+      "Why does your [body part] hurt after every [activity] - could it be your [gear]?",
+      "Tired of [equipment] that falls apart after [timeframe]?",
+      "Does your kid feel self-conscious about their [gear item] compared to teammates?",
+      "Wondering if [expensive gear] is worth it or just marketing hype?"
+    ],
+    "story_hooks": [
+      "How [customer type] went from [beginner status] to [achievement] with the right [equipment]",
+      "The [price] [gear item] that made [customer] finally look forward to [activity]",
+      "How switching to [product type] stopped [customer's] [pain point] after [timeframe]",
+      "Why [customer] wishes they'd upgraded their [equipment] [timeframe] sooner",
+      "How [parent] solved the [kid outgrew gear] problem without breaking the bank"
+    ],
+    "fear_hooks": [
+      "Is your [cheap equipment] the reason you're not improving at [sport]?",
+      "Your [running shoes/gear] could be causing [injury] - here's how to tell",
+      "Don't let [wrong equipment] ruin your kid's confidence this season",
+      "Is [outdated gear] holding you back from [fitness goal]?",
+      "What if the [equipment] you bought doesn't fit when it arrives - here's your safety net"
+    ],
+    "howto_hooks": [
+      "How to find [perfect gear] for your [body type/skill level] without the overwhelm",
+      "How to get [pro-level equipment] without spending [high price]",
+      "How to make [sporting goods] last [X] seasons instead of [shorter timeframe]",
+      "How to know which [gear features] actually matter vs. what's just hype",
+      "How to outfit your [athlete] for [season] without guessing on sizes"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally stop buying cheap gear",
+      "body": "Show side-by-side: Left side - cheap shoes falling apart after 3 months, blisters, disappointment. Right side - quality gear at 6 months, still perfect, athlete smiling. Text overlay: 'I spent $60 three times' vs 'I spent $120 once'. End with before/after performance clips. Emotional beat: relief and confidence.",
+      "cta": "Link in bio - find gear that actually lasts"
+    },
+    "reels": {
+      "hook": "Your kid's coach said 'proper cleats'",
+      "body": "Fast cuts: confused parent reading text, overwhelmed in store, finding size guide, talking to staff, kid trying on shoes, kid scoring goal, parent's proud face. Text: 'From clueless to confident in 15 minutes.' Show product staying power across season.",
+      "cta": "Get the parent's guide - link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your gear that's lasted multiple seasons. Film a quick 15-sec video of you using it, then hold it up and tell us how long you've had it and why you're never switching brands.",
+      "hashtag": "#BuiltToLast"
+    },
+    {
+      "prompt": "Record the moment you first tried on gear that actually fits right. Capture your genuine reaction - we want to see that 'this is it' feeling when everything clicks.",
+      "hashtag": "#TheRightFit"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The 'Cheap Gear Hall of Shame' series - customers submit photos of equipment that failed at the worst moment (broken cleats before championship, ripped shorts mid-game) with dramatic reenactment voiceovers",
+      "why": "Relatable pain point, humor through shared frustration, encourages participation, creates FOMO around quality gear, highly shareable among sports communities"
+    },
+    {
+      "angle": "Parent translator series - decode what coaches actually mean when they say 'proper equipment' with split-screen showing what parents buy vs what's actually needed, featuring real coach explanations",
+      "why": "Solves major customer pain point, educational value drives saves/shares, positions brand as helpful ally, appeals to massive parent demographic in youth sports"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:39:37.603Z",
+    "last_tier2_refresh": "2025-11-27T22:39:37.603Z",
+    "last_tier3_refresh": "2025-11-27T22:39:37.603Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:39:37.603Z"
+  }
+}

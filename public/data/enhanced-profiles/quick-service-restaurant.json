@@ -1,0 +1,1766 @@
+{
+  "industry": "Quick Service Restaurant",
+  "industry_name": "Quick Service Restaurant",
+  "naics_code": "722513",
+  "category": "Food Service",
+  "subcategory": "Limited-Service Restaurants",
+  "customer_triggers": [
+    {
+      "trigger": "Hunger during lunch rush (11:30am-1:30pm)",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Family dinner solution after 5pm workday",
+      "urgency": 8,
+      "frequency": "3-4 times weekly"
+    },
+    {
+      "trigger": "Late-night cravings after 9pm",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Weekend breakfast convenience",
+      "urgency": 6,
+      "frequency": "Bi-weekly"
+    },
+    {
+      "trigger": "Office catering for meetings",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Kids' meal requests with toy promotions",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Sports event group orders",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Road trip convenience stops",
+      "urgency": 8,
+      "frequency": "Occasional"
+    },
+    {
+      "trigger": "Mobile app exclusive deals notification",
+      "urgency": 6,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Payday splurge meals",
+      "urgency": 5,
+      "frequency": "Bi-weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer notices hunger cues or meal planning needs, recalls brand through constant exposure to signage, apps, or advertising within 3-mile radius",
+    "consideration": "Compares 2-3 options based on speed (under 5 minutes), price ($6-12 range), location proximity, and current promotions within 30-second decision window",
+    "decision": "Orders through preferred channel (drive-thru 65%, mobile app 22%, in-store 13%) based on immediate convenience and wait time displays",
+    "retention": "Returns within 7-10 days driven by loyalty program points (average 2.3 visits weekly for active members), consistent quality expectations, and habitual convenience patterns",
+    "advocacy": "Shares experience when order exceeds expectations (18% likelihood), posts food photos on social media (12% of millennial customers), recommends for group orders"
+  },
+  "transformations": [
+    {
+      "from": "Hungry and pressed for time",
+      "to": "Satisfied and productive",
+      "emotional_value": "Relief and efficiency",
+      "worth_premium": false
+    },
+    {
+      "from": "Overwhelmed parent at dinnertime",
+      "to": "Family fed without stress",
+      "emotional_value": "Peace and family harmony",
+      "worth_premium": true
+    },
+    {
+      "from": "Craving specific menu item",
+      "to": "Craving satisfied instantly",
+      "emotional_value": "Immediate gratification",
+      "worth_premium": true
+    },
+    {
+      "from": "Group needing quick consensus",
+      "to": "Everyone satisfied with variety",
+      "emotional_value": "Social harmony",
+      "worth_premium": false
+    },
+    {
+      "from": "Budget-conscious meal seeker",
+      "to": "Fed within budget constraints",
+      "emotional_value": "Financial confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Late-night hunger",
+      "to": "Convenient satisfaction",
+      "emotional_value": "Comfort and convenience",
+      "worth_premium": true
+    },
+    {
+      "from": "Morning rush without breakfast",
+      "to": "Energized for the day",
+      "emotional_value": "Preparedness",
+      "worth_premium": false
+    },
+    {
+      "from": "Entertainment for children needed",
+      "to": "Happy kids with meal and toy",
+      "emotional_value": "Parental success",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Order completed in under 90 seconds (drive-thru)",
+      "timeframe": "Per transaction",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction score above 85%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Repeat visit within 14 days",
+      "timeframe": "Bi-weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Average ticket size increase by $1.50",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Mobile app adoption rate above 35%",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Food cost maintained under 28%",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Labor efficiency at 24% of sales",
+      "timeframe": "Daily",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited-time offers expiring within 24-48 hours create 34% conversion lift",
+    "Lunch hour time constraints with only 30-minute breaks drive 67% of 11am-2pm traffic",
+    "Mobile app countdown timers for deals increase order-now actions by 43%",
+    "Weather events (rain, snow) spike delivery orders by 85% within 2-hour windows",
+    "Major sporting events drive 3x normal volume in 30-minute pre-game window",
+    "End-of-day hunger at 5-7pm creates highest average ticket sizes ($18.50 vs $11.20 average)",
+    "Breakfast menu ending at 10:30am drives 28% of 10-10:30am orders"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive for fast food",
+      "response": "Highlight value menu items under $5 and combo meal savings of 15-20% versus individual items",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Unhealthy food options",
+      "response": "Feature salads, grilled options, and meals under 500 calories with visible calorie counts",
+      "effectiveness": 6.8
+    },
+    {
+      "objection": "Long wait times",
+      "response": "Show real-time wait displays, guarantee 90-second drive-thru, offer mobile order-ahead",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Inconsistent quality",
+      "response": "Emphasize fresh-made guarantees, satisfaction promise, and remake policy",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "Limited dietary options",
+      "response": "Highlight customization abilities, allergen menus, and plant-based alternatives",
+      "effectiveness": 6.5
+    },
+    {
+      "objection": "Poor service experiences",
+      "response": "Showcase employee training investments, customer service awards, and feedback response times",
+      "effectiveness": 7
+    },
+    {
+      "objection": "Prefer local restaurants",
+      "response": "Emphasize local franchisee ownership, community involvement, and local sourcing when applicable",
+      "effectiveness": 5.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or remake promise",
+      "Accurate order guarantee with compensation for errors",
+      "Fresh food promise with time stamps",
+      "Mobile order ready-time guarantee or free item"
+    ],
+    "proof_points": [
+      "4.2+ star average app ratings from 50,000+ reviews",
+      "Serving 2.5 million customers daily",
+      "98% order accuracy rate with digital ordering",
+      "Average 87% customer satisfaction scores"
+    ],
+    "risk_mitigation": "No-questions-asked remake policy, loyalty points for any service failure, manager empowerment for instant resolution up to $20 value, 24/7 customer service hotline with 3-minute average response"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "starving",
+      "hangry",
+      "rushed",
+      "no time",
+      "kids are hungry",
+      "nothing at home",
+      "too tired to cook",
+      "craving",
+      "quick bite",
+      "grab something"
+    ],
+    "solution_words": [
+      "fast",
+      "convenient",
+      "satisfying",
+      "value",
+      "fresh",
+      "hot",
+      "crispy",
+      "delicious",
+      "my usual",
+      "combo meal",
+      "drive-thru",
+      "mobile order"
+    ],
+    "avoid_jargon": [
+      "QSR",
+      "daypart",
+      "throughput",
+      "SKU",
+      "POS",
+      "back-of-house",
+      "speed of service metrics",
+      "labor matrix",
+      "theoretical food cost",
+      "mix optimization"
+    ]
+  },
+  "power_words": [
+    "fresh",
+    "hot",
+    "crispy",
+    "juicy",
+    "melted",
+    "loaded",
+    "craveable",
+    "signature",
+    "famous",
+    "all-new",
+    "limited-time",
+    "exclusive",
+    "combo",
+    "value",
+    "deal",
+    "free",
+    "extra",
+    "double",
+    "premium",
+    "artisan",
+    "hand-crafted",
+    "flame-grilled",
+    "made-to-order",
+    "customizable",
+    "award-winning",
+    "fan-favorite",
+    "bestselling",
+    "satisfying",
+    "indulgent",
+    "classic"
+  ],
+  "avoid_words": [
+    "processed",
+    "frozen",
+    "microwaved",
+    "reheated",
+    "leftover",
+    "generic",
+    "mass-produced",
+    "artificial",
+    "cheap",
+    "low-quality",
+    "unhealthy",
+    "fattening",
+    "greasy",
+    "stale",
+    "cold",
+    "soggy",
+    "bland",
+    "overpriced",
+    "slow",
+    "complicated"
+  ],
+  "headline_templates": [
+    {
+      "template": "Get [Product] for Just $[Price] - Today Only!",
+      "expected_ctr": 8.5,
+      "use_case": "Daily deals"
+    },
+    {
+      "template": "New [Product]: Try It Free with Any Combo Meal",
+      "expected_ctr": 7.2,
+      "use_case": "New product launch"
+    },
+    {
+      "template": "Feed Your Family of 4 for Under $[Price]",
+      "expected_ctr": 9.1,
+      "use_case": "Family value messaging"
+    },
+    {
+      "template": "[Number]% More [Ingredient] on Our New [Product]",
+      "expected_ctr": 6.8,
+      "use_case": "Product improvement"
+    },
+    {
+      "template": "Skip the Line: Order Ahead on Our App",
+      "expected_ctr": 7.9,
+      "use_case": "Digital adoption"
+    },
+    {
+      "template": "Limited Time: Buy One, Get One [Product]",
+      "expected_ctr": 10.2,
+      "use_case": "BOGO promotions"
+    },
+    {
+      "template": "Earn Double Points All Weekend Long",
+      "expected_ctr": 6.5,
+      "use_case": "Loyalty program"
+    },
+    {
+      "template": "Late Night Cravings? We're Open Until [Time]",
+      "expected_ctr": 5.8,
+      "use_case": "Extended hours"
+    },
+    {
+      "template": "Your Favorite [Product] Is Back!",
+      "expected_ctr": 8.7,
+      "use_case": "Returning favorites"
+    },
+    {
+      "template": "Free Delivery on Orders Over $[Amount]",
+      "expected_ctr": 9.4,
+      "use_case": "Delivery promotion"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Order Now",
+      "conversion_rate": 12.3,
+      "placement": "Hero banner"
+    },
+    {
+      "template": "Get Your Deal",
+      "conversion_rate": 10.8,
+      "placement": "Promotional tiles"
+    },
+    {
+      "template": "Start My Order",
+      "conversion_rate": 11.5,
+      "placement": "Menu pages"
+    },
+    {
+      "template": "Claim This Offer",
+      "conversion_rate": 13.2,
+      "placement": "Limited-time deals"
+    },
+    {
+      "template": "Add to Cart",
+      "conversion_rate": 14.7,
+      "placement": "Product details"
+    },
+    {
+      "template": "Order for Pickup",
+      "conversion_rate": 9.6,
+      "placement": "Mobile app"
+    },
+    {
+      "template": "Join Now & Save",
+      "conversion_rate": 8.4,
+      "placement": "Loyalty signup"
+    },
+    {
+      "template": "Find a Location",
+      "conversion_rate": 7.2,
+      "placement": "Homepage"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "That Friday feeling hits different with [Product emoji] Drop a [emoji] if you're craving this RN! #[Brand]Love",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "Facebook",
+      "template": "Who else is treating themselves to [Product] today? Tag your lunch buddy! [Limited offer details]",
+      "engagement_rate": 3.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "RT for a chance to win free [Product] for a month! Following + RT by [date] to enter. #[Brand]Giveaway",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You customized your [Product] order and it's *chef's kiss* Show us your creation! #[Brand]Hacks",
+      "engagement_rate": 12.3
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Swipe up for 20% off your next order! Today only [countdown sticker] [product image]",
+      "engagement_rate": 6.5
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Rating [Brand] menu items until I find the perfect 10/10 [quick cuts of reactions]",
+      "engagement_rate": 9.1
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Fueling productivity one [Product] at a time. How does your team handle lunch meetings? #CorporateCatering",
+      "engagement_rate": 2.1
+    },
+    {
+      "platform": "Snapchat",
+      "template": "Exclusive filter unlocks a free [Product]! Snap and show at checkout [AR filter demo]",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "[Brand] hack: Turn your [Product] into a gourmet meal with these 5 additions [infographic]",
+      "engagement_rate": 5.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Ready in 90 seconds or less through our drive-thru",
+      "rank": 1,
+      "differentiator": "Speed guarantee unmatched by competitors"
+    },
+    {
+      "prop": "Feed a family of 4 for under $20",
+      "rank": 2,
+      "differentiator": "Best price-per-person in category"
+    },
+    {
+      "prop": "Mobile ordering saves average 8 minutes per visit",
+      "rank": 3,
+      "differentiator": "Most advanced app with geolocation"
+    },
+    {
+      "prop": "Earn free food with every 5th purchase",
+      "rank": 4,
+      "differentiator": "Simplest reward structure"
+    },
+    {
+      "prop": "Fresh, never frozen beef on all burgers",
+      "rank": 5,
+      "differentiator": "Quality commitment at QSR prices"
+    },
+    {
+      "prop": "Open until 2am on weekends",
+      "rank": 6,
+      "differentiator": "Latest hours in most markets"
+    },
+    {
+      "prop": "Customizable options for any dietary need",
+      "rank": 7,
+      "differentiator": "Most flexible menu modifications"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience our signature recipes made with premium ingredients, hand-crafted preparation, and chef-inspired innovations that elevate fast food to fast-casual quality while maintaining the speed and convenience you expect",
+    "budget_conscious": "Stretch your dollar further with our value menu starting at $1, combo meals that save 20%, family bundles under $25, and daily app deals that put satisfying meals within any budget without compromising on taste or portion size",
+    "enterprise": "Streamline your corporate catering with dedicated account management, volume discounts starting at 15% for orders over $200, reliable delivery within guaranteed windows, and customizable packages that accommodate all dietary preferences for teams of 10-500"
+  },
+  "trust_signals": [
+    {
+      "signal": "4.5+ star rating with 10,000+ reviews",
+      "importance": 9,
+      "format": "Star display with review count"
+    },
+    {
+      "signal": "Serving customers since [year established]",
+      "importance": 7,
+      "format": "Heritage messaging"
+    },
+    {
+      "signal": "Real customer photos of food",
+      "importance": 8,
+      "format": "UGC gallery"
+    },
+    {
+      "signal": "Transparent nutritional information",
+      "importance": 6,
+      "format": "Calorie displays on menu"
+    },
+    {
+      "signal": "Local franchisee information",
+      "importance": 5,
+      "format": "Owner spotlight"
+    },
+    {
+      "signal": "Food safety certification displays",
+      "importance": 8,
+      "format": "Certificate badges"
+    },
+    {
+      "signal": "Response time to complaints under 24 hours",
+      "importance": 9,
+      "format": "Service guarantee badge"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2.5 million customers served daily across 1,200 locations",
+      "credibility_score": 9.2,
+      "context": "Scale and reach demonstration"
+    },
+    {
+      "stat": "87% of customers return within 30 days",
+      "credibility_score": 8.5,
+      "context": "Loyalty and satisfaction indicator"
+    },
+    {
+      "stat": "4.3 average star rating from 250,000+ app reviews",
+      "credibility_score": 8.8,
+      "context": "Broad customer approval"
+    },
+    {
+      "stat": "#1 rated QSR app for 3 consecutive years",
+      "credibility_score": 9,
+      "context": "Industry recognition"
+    },
+    {
+      "stat": "98.5% order accuracy with digital ordering",
+      "credibility_score": 7.9,
+      "context": "Operational excellence"
+    },
+    {
+      "stat": "Average customer saves $156 annually with our app",
+      "credibility_score": 8.3,
+      "context": "Value delivery proof"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Brioche buns, angus beef, artisan toppings, specialty sauces indicate $8-12 price points",
+    "Standard: Regular buns, standard beef patties, basic toppings suggest $5-8 range",
+    "Value: Smaller portions, basic ingredients, limited customization signal under $5 items",
+    "Fresh preparation visible through open kitchen concepts increases perceived value by 22%",
+    "Made-to-order messaging versus pre-made can justify 15-20% price premium",
+    "Local sourcing claims and sustainability practices appeal to premium-paying demographics"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After third successful mobile order or loyalty reward redemption when satisfaction peaks",
+    "ask_method": "In-app push notification with one-tap rating followed by optional comment, incentivized with 100 bonus points"
+  },
+  "competitive_advantages": [
+    "Largest drive-thru capacity with dual lanes reducing wait times by 40%",
+    "Proprietary app with geofencing starts orders automatically when customer is 5 minutes away",
+    "Only QSR with 24/7 breakfast menu in most markets",
+    "Exclusive partnership with leading delivery platforms for reduced fees",
+    "Industry-leading 14-day employee training program ensuring consistency",
+    "First to implement AI-powered demand forecasting reducing waste by 30%"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display premium combos at $12.99 first to make $8.99 regular combos appear as better value, achieving 65% selection rate for mid-tier options",
+    "sensitivity": "Price breaks occur at $5, $10, and $20 thresholds with significant drop-off above each level; $0.99 endings outperform round numbers by 18%",
+    "sweet_spots": [
+      "$7.99-8.99 for combo meals",
+      "$4.99-5.99 for sandwiches",
+      "$1.99-2.99 for sides",
+      "$15.99-19.99 for family meals"
+    ],
+    "decoy_pricing": "Medium drink at $2.29 makes large at $2.49 seem like exceptional value, driving 73% large size selection"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 25,
+    "approval_required": 50,
+    "competitor_research": 8
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.15,
+    "weekend": 1.1,
+    "holiday": 1.25
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Value",
+      "price_range": "$3-6",
+      "target_customer": "Price-conscious individuals, students",
+      "margin": 42
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$7-10",
+      "target_customer": "Regular lunch crowd, families",
+      "margin": 48
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$11-15",
+      "target_customer": "Quality-seekers, less price-sensitive",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Suggestive selling of high-margin beverages increases average check by $1.80 with 68% attachment rate",
+    "Combo bundling improves margins by 8% while providing perceived value discount of 15%",
+    "Limited-time offers using seasonal ingredients when costs are lowest boost margins by 12%",
+    "Digital-only deals reduce labor costs while maintaining price points, improving margins by 6%",
+    "Proprietary sauce sales as retail products generate 70% margins on brand loyalty",
+    "Breakfast daypart expansion leverages fixed costs across more hours, adding 18% to daily profits"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "New Year diet resolutions",
+      "opportunity": "Promote healthy options and salads"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Shorter month, cold weather",
+      "opportunity": "Comfort food promotions"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring break travel",
+      "opportunity": "Family meal deals"
+    },
+    {
+      "month": "April",
+      "variation": 8,
+      "reason": "Tax refunds, Easter",
+      "opportunity": "Premium item trials"
+    },
+    {
+      "month": "May",
+      "variation": 12,
+      "reason": "Graduation season, Mother's Day",
+      "opportunity": "Catering packages"
+    },
+    {
+      "month": "June",
+      "variation": 18,
+      "reason": "Summer vacation begins",
+      "opportunity": "Kids meal promotions"
+    },
+    {
+      "month": "July",
+      "variation": 22,
+      "reason": "Peak summer, July 4th",
+      "opportunity": "BBQ-themed LTOs"
+    },
+    {
+      "month": "August",
+      "variation": 20,
+      "reason": "Back-to-school prep",
+      "opportunity": "Family bundles"
+    },
+    {
+      "month": "September",
+      "variation": 10,
+      "reason": "Routine establishment",
+      "opportunity": "Loyalty program push"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Halloween, football season",
+      "opportunity": "Group order promotions"
+    },
+    {
+      "month": "November",
+      "variation": 8,
+      "reason": "Thanksgiving competition",
+      "opportunity": "Pre/post holiday convenience"
+    },
+    {
+      "month": "December",
+      "variation": 25,
+      "reason": "Holiday shopping trips",
+      "opportunity": "Gift card sales, party platters"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Value promotions, app deals",
+      "avoid": "Premium launches",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Taco Tuesday themes, family deals",
+      "avoid": "Breakfast pushes",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week lunch specials",
+      "avoid": "Late night promotions",
+      "conversion_rate": 7.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend trials, new items",
+      "avoid": "Complex customizations",
+      "conversion_rate": 7.5
+    },
+    {
+      "day": "Friday",
+      "best_for": "Indulgent items, group orders",
+      "avoid": "Health messaging",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family meals, all-day breakfast",
+      "avoid": "Business catering",
+      "conversion_rate": 10.1
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Hangover remedies, sports deals",
+      "avoid": "Early morning only",
+      "conversion_rate": 8.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th of month show 20% decreased premium item sales, value menu orders spike 35%",
+    "cash_flow_peaks": "3rd-5th and 18th-20th when paychecks clear, premium combos increase 28%, dessert attachment rises 40%",
+    "slow_periods": "7th-12th and 22nd-27th require aggressive promotions, BOGO offers see 45% higher redemption"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "11:45am-12:30pm weekdays",
+      "crisis_type": "Lunch rush overflow",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "5:30pm-7:00pm weekdays",
+      "crisis_type": "Dinner decision fatigue",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "10:00pm-2:00am Friday/Saturday",
+      "crisis_type": "Late night limited options",
+      "premium_multiplier": 1.2
+    },
+    {
+      "time": "Sports event times",
+      "crisis_type": "Group feeding urgency",
+      "premium_multiplier": 1.15
+    },
+    {
+      "time": "Severe weather events",
+      "crisis_type": "Delivery demand surge",
+      "premium_multiplier": 1.3
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Individual Quick Meal",
+      "components": [
+        "Entree",
+        "Side",
+        "Drink"
+      ],
+      "pricing_model": "Fixed combo pricing $7-9",
+      "margin": 45
+    },
+    {
+      "name": "Family Bundle",
+      "components": [
+        "4 Entrees",
+        "4 Sides",
+        "4 Drinks",
+        "1 Dessert"
+      ],
+      "pricing_model": "Bundled discount $24-28",
+      "margin": 48
+    },
+    {
+      "name": "Office Catering",
+      "components": [
+        "Bulk entrees",
+        "Sides",
+        "Drinks",
+        "Utensils",
+        "Delivery"
+      ],
+      "pricing_model": "Per person $8-12",
+      "margin": 52
+    },
+    {
+      "name": "Party Platter",
+      "components": [
+        "Appetizers",
+        "Entree variety",
+        "Sides",
+        "Desserts"
+      ],
+      "pricing_model": "Fixed tiers $40/$60/$80",
+      "margin": 58
+    }
+  ],
+  "upsell_paths": [
+    "Single item → Combo meal (add $2-3 for 40% more value)",
+    "Small size → Large size (add $0.50 for 60% more volume)",
+    "Combo meal → Add dessert (add $1.99 with meal)",
+    "Regular → Premium protein (add $1.50-2.50)",
+    "Individual order → Family bundle (consolidate 4 orders save 20%)",
+    "One-time → Loyalty member (free item after 5 visits)"
+  ],
+  "retention_hooks": [
+    "Loyalty points that expire in 60 days create 3.2x visit frequency",
+    "Personalized app offers based on order history achieve 28% redemption rate",
+    "Birthday month free item drives 89% redemption and $18 average ticket",
+    "Surprise and delight random upgrades create 34% social media mention rate",
+    "Exclusive app-only menu items generate 45% weekly app engagement",
+    "Gamified challenges (buy 3 breakfasts, get 4th free) increase daypart participation 52%",
+    "Local sports team partnerships with win-day deals build community connection"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Friend referral: Both get free combo",
+      "timing": "After 5th purchase",
+      "incentive": "$8 value each",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Family member add to account",
+      "timing": "Account creation",
+      "incentive": "Shared points pool",
+      "conversion_rate": 23.5
+    },
+    {
+      "strategy": "Social media share for discount",
+      "timing": "Post-purchase satisfaction",
+      "incentive": "20% off next order",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Corporate referral program",
+      "timing": "After first catering order",
+      "incentive": "15% ongoing discount",
+      "conversion_rate": 18.2
+    },
+    {
+      "strategy": "Student ambassador program",
+      "timing": "Beginning of semester",
+      "incentive": "Free monthly meals",
+      "conversion_rate": 31.4
+    },
+    {
+      "strategy": "Email list growth incentive",
+      "timing": "In-store with receipt",
+      "incentive": "Free side item",
+      "conversion_rate": 15.6
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Breakfast add to lunch customer",
+      "attach_rate": 22,
+      "timing": "Weekend mornings via app notification"
+    },
+    {
+      "service": "Catering to regular customers",
+      "attach_rate": 8,
+      "timing": "Before known office events/holidays"
+    },
+    {
+      "service": "Dessert to combo meals",
+      "attach_rate": 31,
+      "timing": "At point of sale with visual prompt"
+    },
+    {
+      "service": "Delivery to pickup customers",
+      "attach_rate": 18,
+      "timing": "Bad weather or busy periods"
+    },
+    {
+      "service": "Retail products in-store",
+      "attach_rate": 12,
+      "timing": "Checkout counter placement"
+    },
+    {
+      "service": "Gift cards to loyal customers",
+      "attach_rate": 24,
+      "timing": "November-December holiday season"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Ghost kitchen operations",
+      "market_size": "$2.8B additional revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Grocery store product line",
+      "market_size": "$450M category opportunity",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "International franchising",
+      "market_size": "$5.2B across 20 new markets",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Virtual brand creation",
+      "market_size": "$800M delivery-only segment",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Subscription meal programs",
+      "market_size": "$350M recurring revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Corporate wellness partnerships",
+      "market_size": "$600M B2B segment",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Wendy's Twitter roast campaign - engaging in witty, sarcastic responses to customer tweets and competitors, particularly their famous 'nuggs for Carter' tweet that became the most retweeted tweet of 2017",
+        "platform": "Twitter/X",
+        "why_it_worked": "Authentic brand voice, humor, real-time engagement, creating shareable moments that aligned with internet culture. The brand personality was consistent and unexpected for QSR",
+        "metrics": "Carter's tweet received 3.6 million retweets, becoming most retweeted of all time. Wendy's gained 186,000+ followers during campaign period. Average engagement rate 4-6x industry average",
+        "source": "AdWeek, Twitter Business Case Studies, Social Media Today",
+        "confidence": "high"
+      },
+      {
+        "example": "McDonald's 'Famous Orders' campaign featuring Travis Scott Meal, BTS Meal, and Saweetie Meal - celebrity partnership menu items with exclusive packaging and merchandise",
+        "platform": "Multi-platform (Instagram, TikTok, In-store, TV)",
+        "why_it_worked": "Leveraged celebrity fandoms, created FOMO with limited-time offers, drove app downloads, generated user-generated content as fans posted their meals. Made ordering feel exclusive and culturally relevant",
+        "metrics": "Travis Scott meal drove 4.6% increase in quarterly sales. BTS meal generated over 1 billion social media impressions. App downloads increased 486% during campaign weeks",
+        "source": "QSR Magazine, Restaurant Business Online, Marketing Dive",
+        "confidence": "high"
+      },
+      {
+        "example": "Chipotle's #ChipotleLidFlip TikTok challenge - encouraging users to flip bowl lids and catch them, integrated with menu promotions",
+        "platform": "TikTok",
+        "why_it_worked": "Participatory content that was easy to replicate, tapped into TikTok's challenge culture, created organic reach through user participation, tied to brand without being overly promotional",
+        "metrics": "Generated 230 million views in 6 days, 110,000+ user-generated videos created, drove significant foot traffic and app engagement",
+        "source": "TikTok for Business Case Studies, AdAge, Modern Restaurant Management",
+        "confidence": "high"
+      },
+      {
+        "example": "Taco Bell's Snapchat Cinco de Mayo lens that turned users' heads into giant tacos - first branded AR lens on platform",
+        "platform": "Snapchat",
+        "why_it_worked": "First-mover advantage on emerging platform feature, fun and shareable AR experience, perfectly timed to cultural moment, low barrier to participation",
+        "metrics": "224 million views in one day, users played with lens average of 24 seconds, reached 40% of Snapchat's daily active users",
+        "source": "Snapchat Business Case Studies, Digiday, The Drum",
+        "confidence": "high"
+      },
+      {
+        "example": "Chick-fil-A's 'Eat Mor Chikin' cow campaign across billboards, social media, and in-store - consistent brand mascots creating humorous content",
+        "platform": "Multi-platform (Billboards, Facebook, Instagram, In-store)",
+        "why_it_worked": "Consistent character-driven storytelling, humor that's family-friendly, memorable visual identity, campaigns that encourage engagement and photo opportunities",
+        "metrics": "Brand awareness increased from 32% to 97% since campaign launch. Social posts featuring cows average 2.5x higher engagement than product-only posts",
+        "source": "Marketing Week, QSR Magazine, Franchise Times",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.83% for QSR brands (industry average 0.47% across all industries)",
+        "best_content_format": "Reels and Stories showing food preparation, limited-time offers, and user-generated content. Carousel posts of menu items perform 1.4x better than single images",
+        "optimal_frequency": "4-7 posts per week, with daily Stories. Top QSR brands post 1-2 feed posts daily",
+        "best_posting_times": "Weekdays 11am-1pm and 7pm-9pm align with meal times. Thursdays and Fridays show 18% higher engagement",
+        "source": "Rival IQ 2024 Social Media Benchmark Report, Sprout Social QSR Industry Report 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for food and beverage brands, significantly higher than other platforms",
+        "best_content_format": "Behind-the-scenes content, menu hacks, employee-created content, challenges and trends. Videos 21-34 seconds perform best",
+        "optimal_frequency": "3-5 posts per week. Top performers post daily during peak campaigns",
+        "best_posting_times": "Tuesday-Thursday 2pm-6pm, Friday-Sunday 12pm-3pm when users browse during meal decision times",
+        "source": "Influencer Marketing Hub 2024, TikTok for Business Industry Insights, Hootsuite Social Trends 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.06% for QSR (lower than Instagram but higher reach). Video posts get 0.13% engagement",
+        "best_content_format": "Video content (especially recipe videos and product showcases), promotional posts with clear CTAs, local store events and community engagement",
+        "optimal_frequency": "3-5 posts per week. Over-posting decreases engagement by 23%",
+        "best_posting_times": "Weekdays 12pm-1pm and 5pm-6pm. Wednesday shows highest engagement at 18% above average",
+        "source": "Rival IQ 2024 Benchmark Report, Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "Twitter/X",
+        "avg_engagement_rate": "0.037% average, but QSR brands with strong voice achieve 0.15-0.3%",
+        "best_content_format": "Short-form witty text, real-time marketing, customer service responses, memes and cultural commentary. Images increase engagement by 150%",
+        "optimal_frequency": "3-10 tweets per day for active brands. Real-time engagement matters more than scheduled posts",
+        "best_posting_times": "Weekdays 12pm-1pm, 5pm-6pm. Trending topics and real-time moments override optimal timing",
+        "source": "Sprout Social 2024 Index, Twitter Business Best Practices"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate 20.8%, click-through rate 2.3% for restaurant industry",
+        "best_content_format": "Mobile-optimized designs with hero images of food, clear CTAs for app downloads or online ordering, personalized offers based on purchase history",
+        "optimal_frequency": "2-4 emails per month. Loyalty program members tolerate weekly emails. Over 5/month increases unsubscribes by 43%",
+        "best_posting_times": "Tuesday-Thursday 10am-11am or 8pm-9pm. Sunday evenings (6pm-8pm) show 15% higher open rates for dinner planning",
+        "source": "Mailchimp 2024 Email Marketing Benchmarks, Campaign Monitor Restaurant Industry Report"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Limited-Time Scarcity",
+        "example": "Only 3 days left for the [Menu Item]! | Back for a limited time only | While supplies last | Don't miss out - ends Sunday",
+        "why_it_works": "Creates FOMO and urgency, triggers immediate action rather than delayed decision-making. QSR customers respond to time-bound offers with 34% higher conversion than evergreen promotions",
+        "source": "QSR Magazine marketing analysis, Restaurant Dive promotional effectiveness studies"
+      },
+      {
+        "hook_pattern": "Craving Trigger with Sensory Words",
+        "example": "Craving something crispy? | That melted cheese feeling | Hot, fresh, and ready now | Juicy, never frozen",
+        "why_it_works": "Activates sensory memory and hunger cues, uses power words that trigger appetite. Brain imaging studies show food adjectives activate same regions as seeing food",
+        "source": "National Restaurant Association content research, Food Marketing Institute studies"
+      },
+      {
+        "hook_pattern": "Value Proposition Front-Load",
+        "example": "$5 Fill-Up Box is back | 2 for $6 Mix & Match | Free delivery on orders over $15 | Buy one, get one free",
+        "why_it_works": "Addresses primary decision factor (price) immediately, removes friction from consideration. 67% of QSR customers cite value as top decision factor",
+        "source": "Technomic Consumer Trend Reports, QSR Magazine pricing studies"
+      },
+      {
+        "hook_pattern": "Question That Identifies Pain Point",
+        "example": "Forgot to plan dinner again? | Too tired to cook tonight? | Need to feed the whole crew? | Lunch meeting in 30 minutes?",
+        "why_it_works": "Creates instant relatability and positions brand as solution to acknowledged problem. Questions increase engagement by 23% vs statements",
+        "source": "CoSchedule headline analysis, BuzzSumo QSR content research"
+      },
+      {
+        "hook_pattern": "Social Proof and Popularity",
+        "example": "America's favorite [item] | Our most-ordered combo | Fans' #1 choice | Tried by over 1 million people | What everyone's talking about",
+        "why_it_works": "Leverages bandwagon effect and reduces perceived risk. Social proof increases conversions by 15% in QSR digital ordering",
+        "source": "Restaurant Business Online, Deloitte Restaurant Consumer Survey"
+      },
+      {
+        "hook_pattern": "New/Exclusive Announcement",
+        "example": "Introducing the all-new [item] | You've never tasted anything like this | First-ever [innovation] | Exclusive to app users | Secret menu item revealed",
+        "why_it_works": "Appeals to novelty-seeking behavior and desire for exclusive access. New product announcements generate 3x normal engagement rates",
+        "source": "Franchise Times marketing analysis, Modern Restaurant Management"
+      },
+      {
+        "hook_pattern": "Direct Command with Benefit",
+        "example": "Skip the cooking tonight | Treat yourself this Friday | Feed your family for less | Order now, eat in 15 minutes | Make it a combo and save",
+        "why_it_works": "Removes decision fatigue with clear directive, pairs action with immediate benefit. Command-style CTAs convert 27% better than passive suggestions",
+        "source": "HubSpot CTA research, Unbounce conversion studies"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I don't have time to cook tonight",
+        "The kids are starving and nothing's planned",
+        "I'm too tired to even think about dinner",
+        "Everything takes too long to make from scratch",
+        "I need something fast that everyone will eat",
+        "We're on the road and need something quick",
+        "I forgot it was my turn to bring lunch for the meeting",
+        "The drive-thru line is always so long",
+        "I'm craving [specific item] so bad right now",
+        "I can't decide what to eat and I'm starving",
+        "Delivery fees are killing my budget",
+        "I never know what's actually available right now"
+      ],
+      "solution_phrases": [
+        "It was hot and ready in minutes",
+        "Everyone in my family found something they liked",
+        "The app made ordering so easy",
+        "I got a great deal with the combo",
+        "Exactly what I was craving",
+        "Saved me on a crazy busy night",
+        "The drive-thru was actually fast",
+        "Mobile order was ready when I got there",
+        "Fed the whole family for under $20",
+        "Hit the spot perfectly",
+        "Consistent - I know what I'm getting",
+        "Open late when nothing else is"
+      ],
+      "objection_phrases": [
+        "It's not the healthiest option",
+        "I feel guilty eating fast food",
+        "It adds up if you go too often",
+        "The quality isn't always consistent",
+        "Sometimes the order is wrong",
+        "I'm trying to watch what I eat",
+        "It's not as good as homemade",
+        "The app is confusing to use",
+        "I don't know if they have what I want",
+        "Delivery takes forever sometimes",
+        "The portion sizes vary by location",
+        "I hate when they forget items in my order"
+      ],
+      "decision_factors": [
+        "Speed - I need it now",
+        "Price - has to fit my budget",
+        "Location - has to be on my way",
+        "Consistency - I know what I'm getting",
+        "Options for picky eaters",
+        "Open when I need them (late night, early morning)",
+        "Mobile ordering available",
+        "Deals and promotions",
+        "Fresh, not sitting under heat lamps",
+        "Accurate orders - they get it right",
+        "Clean restaurant and bathrooms",
+        "Friendly service"
+      ],
+      "emotional_language": [
+        "lifesaver",
+        "guilty pleasure",
+        "comfort food",
+        "hit the spot",
+        "saved my butt",
+        "stress-free",
+        "treat myself",
+        "no-brainer",
+        "peace of mind",
+        "worth it",
+        "satisfying",
+        "relieved",
+        "happy kids = happy life",
+        "don't judge me",
+        "obsessed with"
+      ],
+      "sources": [
+        "Reddit r/fastfood threads 2023-2024",
+        "Yelp reviews for McDonald's, Wendy's, Chick-fil-A, Taco Bell (top 500 reviews analyzed)",
+        "Twitter customer service interactions and mentions",
+        "Google Reviews sentiment analysis",
+        "Facebook community group discussions about quick dinner solutions",
+        "TrustPilot QSR brand reviews",
+        "Consumer Affairs restaurant category reviews"
+      ]
+    },
+    "competitive_gaps": [
+      "Behind-the-scenes employee stories and day-in-the-life content - most brands focus only on food",
+      "Nutritional transparency and customization guidance - customers want this but few brands educate well",
+      "Local community involvement and franchise-level storytelling - mostly corporate messaging dominates",
+      "Educational content about sourcing and food preparation - opportunity to combat 'unhealthy' perception",
+      "User-generated content curation and customer spotlight features - underutilized despite high engagement",
+      "Meal planning and budgeting tips for families - addressing real pain point beyond just selling",
+      "Honest conversations about sustainability and waste reduction efforts",
+      "Interactive content like polls, quizzes about menu preferences - low usage despite high engagement",
+      "Franchise owner and operator perspectives - humanizing the brand",
+      "Regional menu variations and local flavor spotlights"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Resolution season, health-conscious consumers, budget reset after holidays",
+        "content_angle": "Highlight lighter menu options, value meals, customization for dietary goals. 'New Year, New You' without being preachy. Budget-friendly family meals"
+      },
+      {
+        "period": "February (Valentine's Day)",
+        "opportunity": "Couples looking for casual date nights, Galentine's celebrations, anti-Valentine's comfort food",
+        "content_angle": "Date night deals, heart-shaped items, 'treat yourself' messaging for singles, shareable combos for two"
+      },
+      {
+        "period": "March (March Madness)",
+        "opportunity": "Sports viewing parties, group orders, game-day snacking",
+        "content_angle": "Party packs, group catering options, delivery for game watching, bracket promotions tied to menu items"
+      },
+      {
+        "period": "April-May (Spring Break, End of School Year)",
+        "opportunity": "Family travel, road trips, kids out of school routine, teacher appreciation",
+        "content_angle": "Travel-friendly meals, kids eat free promotions, teacher discounts, easy family dinner solutions during activity season"
+      },
+      {
+        "period": "June-August (Summer)",
+        "opportunity": "Peak travel season, kids home all day, outdoor activities, late sunsets extending evening hours",
+        "content_angle": "Refreshing drinks and frozen treats, lunch solutions for kids at home, late-night summer hours, beach/pool trip convenience"
+      },
+      {
+        "period": "September (Back to School)",
+        "opportunity": "Routine reestablishment, busy parents, after-school activities, college students returning",
+        "content_angle": "Quick after-practice meals, student discounts, family night deals, breakfast options for rushed mornings"
+      },
+      {
+        "period": "October (Halloween)",
+        "opportunity": "Costume promotions, trick-or-treat tie-ins, party food needs",
+        "content_angle": "Halloween-themed items, costume contests, party packs for gatherings, pre-trick-or-treating dinner rush"
+      },
+      {
+        "period": "November (Thanksgiving)",
+        "opportunity": "Holiday travel, giving thanks themes, pre-holiday shopping fuel",
+        "content_angle": "Thanksgiving week convenience for busy cooks, Black Friday shopping fuel, gratitude campaigns, catering for Friendsgiving"
+      },
+      {
+        "period": "December (Holidays)",
+        "opportunity": "Shopping season, party catering, travel, gift card sales, New Year's Eve",
+        "content_angle": "Gift card promotions, party catering, late-night holiday shopping meals, limited-time festive items, New Year's Eve countdown deals"
+      },
+      {
+        "period": "Tax Season (April)",
+        "opportunity": "Tax refund spending, stress relief during filing",
+        "content_angle": "'Treat yourself with your refund' messaging, stress-relief comfort food, accountant appreciation deals"
+      },
+      {
+        "period": "Weekday Lunch Rush (Year-round)",
+        "opportunity": "Daily 11:30am-1:30pm peak, office workers, remote workers taking breaks",
+        "content_angle": "Lunch specials, quick service emphasis, mobile order ahead, combo deals, loyalty rewards for frequent visitors"
+      },
+      {
+        "period": "Sunday Evenings (Year-round)",
+        "opportunity": "Weekend ending, meal prep avoidance, 'Sunday Scaries' comfort seeking",
+        "content_angle": "Family dinner bundles, 'Skip the Sunday cooking' messaging, comfort food emphasis, prepare for the week ahead convenience"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-28",
+    "sources_consulted": [
+      "QSR Magazine",
+      "Restaurant Business Online",
+      "AdWeek",
+      "Marketing Dive",
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Sprout Social QSR Industry Report 2024",
+      "TikTok for Business Case Studies",
+      "Influencer Marketing Hub 2024",
+      "Mailchimp 2024 Email Marketing Benchmarks",
+      "Reddit r/fastfood",
+      "Yelp Reviews",
+      "Google Reviews",
+      "Technomic Consumer Trend Reports",
+      "National Restaurant Association research",
+      "Deloitte Restaurant Consumer Survey",
+      "Modern Restaurant Management",
+      "Franchise Times",
+      "Social Media Today",
+      "Digiday",
+      "The Drum",
+      "BuzzSumo",
+      "CoSchedule",
+      "HubSpot",
+      "Unbounce"
+    ],
+    "confidence_score": 9.2,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook patterns - most brands keep this proprietary",
+      "Exact conversion rates for specific campaigns often not disclosed",
+      "Some platform benchmarks combine QSR with broader restaurant category",
+      "Regional performance variations not well documented in public sources"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new menu items or limited-time offers",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery and anticipation - 'Something craveable is coming'",
+        "Week 2: Exclusive first access - 'You've never tasted anything like this'",
+        "Week 3: Fan reactions and social proof - 'What everyone's talking about'",
+        "Week 4: Final chance urgency - 'Limited-time ending soon'"
+      ],
+      "weekly_hooks": [
+        [
+          "You've been asking for it... something all-new drops [Date] 👀",
+          "Craving something you've never tasted before? [Days] until the wait is over",
+          "Our kitchen has been working on something juicy. First look coming [Day]"
+        ],
+        [
+          "Introducing the all-new [Menu Item] - hot, fresh, and available NOW",
+          "It's here! The [Menu Item] everyone's been waiting for. Order now on the app",
+          "You've never tasted anything like this: [Description]. Try it today for only [$Price]"
+        ],
+        [
+          "Over [Number] people have already tried the [Menu Item] - here's what they're saying",
+          "Fans' new #1 choice: The [Menu Item] is breaking records. Have you tried it yet?",
+          "That melted [ingredient] feeling 🤤 See why the [Menu Item] is going viral"
+        ],
+        [
+          "Only 3 days left for the [Menu Item]! Don't miss out",
+          "Last chance: The [Menu Item] ends [Day]. Order before it's gone",
+          "While supplies last - the [Menu Item] won't be around forever. Get yours now"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Build curiosity without revealing price - focus on exclusivity and novelty",
+        "Week 2: Address 'Is it worth trying?' with sensory descriptions and first-day promotions",
+        "Week 3: Counter 'inconsistent quality' concerns with customer testimonials and preparation videos",
+        "Week 4: Overcome 'I'll try it later' with scarcity messaging and final-day deals"
+      ],
+      "proof_timing": [
+        "Week 1: Behind-the-scenes kitchen testing footage and chef testimonials",
+        "Week 2: First customer reactions captured in-store and drive-thru footage",
+        "Week 3: User-generated content compilation showing real customers enjoying the item",
+        "Week 4: Sales milestone announcements ('Over 1 million sold') and final testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Sign up for early access alerts | Follow for the first look",
+        "Week 2: Order now on the app | Visit us today to be among the first",
+        "Week 3: Share your review and tag us | Post your [Menu Item] moment",
+        "Week 4: Order before it's gone | Last chance - get it today"
+      ],
+      "platform_priority": [
+        "TikTok (5-7 posts/week) - leverage 5.96% engagement for reveal videos and challenges",
+        "Instagram (1-2 feed posts daily + daily Stories) - visual showcase and countdown stickers",
+        "Twitter/X (3-5 tweets/day) - real-time reactions and witty banter",
+        "Facebook (4-5 posts/week) - reach older demographics with video showcases"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on McDonald's Famous Orders campaign generating 1 billion impressions and 486% app download increase through celebrity partnerships and limited-time exclusivity, combined with Chipotle's TikTok challenge generating 230M views in 6 days through participatory content"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building brand loyalty and consistent engagement",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Value spotlight - 'Feed your family for less than you think'",
+        "Week 2: Behind-the-scenes authenticity - 'Meet the people behind your meal'",
+        "Week 3: Menu hacks and customization - 'Make it exactly how you want it'",
+        "Week 4: Customer spotlight - 'Your stories, your favorites'",
+        "Week 5: Speed and convenience - 'From order to table in minutes'",
+        "Week 6: Local community connection - 'Your neighborhood, your [Brand]'",
+        "Week 7: Comfort food moments - 'The taste that hits the spot'",
+        "Week 8: Loyalty rewards focus - 'More visits, more savings'"
+      ],
+      "weekly_hooks": [
+        [
+          "Feed the whole family for under $20 with our [Combo Name]",
+          "$5 Fill-Up Box is back - everything you're craving in one deal",
+          "Buy one, get one free on [Item] - because everyone deserves a treat"
+        ],
+        [
+          "Ever wonder how we make your [Menu Item] so crispy? Here's the secret",
+          "Day in the life of our crew during lunch rush - it's organized chaos 🔥",
+          "Meet [Employee Name], making your favorites fresh every single day"
+        ],
+        [
+          "Secret menu hack: Add [ingredient] to your [item] for the ultimate upgrade",
+          "Did you know you can customize your [item] with [options]? Here's how",
+          "Our team's favorite way to order: [Description]. Try it and thank us later"
+        ],
+        [
+          "Shoutout to [Customer name] who's been coming here since [year] - what's your go-to order?",
+          "Tag someone who always orders the same thing (we see you 👀)",
+          "What's your [Brand] order that everyone thinks is weird? We won't judge"
+        ],
+        [
+          "Order now, eat in 15 minutes - mobile order makes it that easy",
+          "Skip the cooking tonight and let us handle dinner. You've earned it",
+          "The drive-thru was actually fast - see our average wait time: [time]"
+        ],
+        [
+          "Proud to support [Local School/Event] - thank you for being our neighbors",
+          "Your local [Location] team wishes you a great [Day/Event]",
+          "Hiring now at [Location] - join our crew and serve your community"
+        ],
+        [
+          "That melted cheese feeling when you need comfort food 🧀",
+          "Craving something hot and crispy? We've got you covered",
+          "Sometimes you just need your favorite [item]. No explanation needed"
+        ],
+        [
+          "Loyalty members: Your free [item] is waiting. Check the app",
+          "Every visit gets you closer to rewards. Have you joined yet?",
+          "Double points this week on all [category] orders - treat yourself"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'too expensive' with visible value propositions",
+        "Week 2: Counter 'unhealthy perception' with transparency about preparation",
+        "Week 3: Overcome 'limited options' by showcasing customization",
+        "Week 4: Build trust through real customer relationships",
+        "Week 5: Solve 'long wait times' with convenience proof",
+        "Week 6: Address 'corporate chain' feeling with local humanization",
+        "Week 7: Validate 'guilty pleasure' emotions positively",
+        "Week 8: Counter 'adds up cost' with loyalty savings demonstration"
+      ],
+      "proof_timing": [
+        "Week 1: Price comparison charts and family meal testimonials",
+        "Week 2: Food preparation videos and employee interviews",
+        "Week 3: Customer creation videos showing customization in action",
+        "Week 4: Long-time customer stories and photo compilations",
+        "Week 5: Real-time order tracking screenshots and speed guarantees",
+        "Week 6: Local event photos and community partnership announcements",
+        "Week 7: Relatable customer moments and comfort food psychology",
+        "Week 8: Loyalty program savings totals and member testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Check out our value menu | See all combo deals",
+        "Week 2: Follow for more behind-the-scenes | Meet our team",
+        "Week 3: Try this hack and tell us what you think | Share your creation",
+        "Week 4: Tag your [Brand] buddy | Share your favorite order",
+        "Week 5: Download the app for faster ordering | Order ahead now",
+        "Week 6: Visit your local [Location] | Join us at [Event]",
+        "Week 7: What are you craving? Tell us below | Order your comfort meal",
+        "Week 8: Join our rewards program | Redeem your points today"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week + daily Stories) - visual food content and community features",
+        "Facebook (3-4 posts/week) - local community engagement and promotions",
+        "TikTok (3-4 posts/week) - behind-the-scenes and employee content",
+        "Email (2 emails/month) - loyalty offers and personalized deals"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on identified competitive gaps in behind-the-scenes employee stories, local community involvement, and educational content about preparation, combined with Chick-fil-A's consistent character-driven storytelling achieving 97% brand awareness and 2.5x higher engagement on personality-driven content"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral mechanics and participatory content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral challenge launch - 'Show us your [Brand] moment'",
+        "Week 2: Amplification and rewards - 'The best entries win big'"
+      ],
+      "weekly_hooks": [
+        [
+          "The #[BrandChallenge] starts NOW - show us your best [action] for a chance to win free [item] for a year",
+          "Think you can [challenge action]? Post your attempt and tag us to enter",
+          "We're giving away [prize] to the most creative #[BrandChallenge] video. Ready, set, GO"
+        ],
+        [
+          "Over [number] entries already! Have you joined the #[BrandChallenge] yet?",
+          "These #[BrandChallenge] entries are WILD 🔥 Here are our favorites so far",
+          "Last 48 hours to enter the #[BrandChallenge]! Winners announced [Day]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Remove participation barriers - make challenge simple and fun, not complicated",
+        "Week 2: Address 'I'm not creative enough' by showcasing diverse entry styles and skill levels"
+      ],
+      "proof_timing": [
+        "Week 1: Seed content with employee and micro-influencer examples showing how easy it is",
+        "Week 2: Curate and share top user-generated content to inspire more participation"
+      ],
+      "cta_progression": [
+        "Week 1: Join the challenge now | Tag us with #[BrandChallenge] | Show us what you've got",
+        "Week 2: Final hours to enter | Vote for your favorite | Share your entry one more time"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 posts/week) - primary challenge platform with 5.96% engagement rate",
+        "Instagram Reels (5-7 posts/week) - cross-platform reach and Stories for countdown",
+        "Twitter/X (8-12 tweets/week) - real-time highlights and trending hashtag push",
+        "Facebook (5-6 posts/week) - reach older demographics with compilation videos"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Chipotle's #ChipotleLidFlip TikTok challenge generating 230 million views in 6 days and 110,000+ user-generated videos through easy-to-replicate participatory content, and Taco Bell's Snapchat lens reaching 40% of daily active users with 224M views through low-barrier fun experiences"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in quality, sourcing, and customer service",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Sourcing transparency - 'Where your food really comes from'",
+        "Week 2: Quality standards - 'What makes our [signature item] different'",
+        "Week 3: Nutrition education - 'Making informed choices easier'",
+        "Week 4: Sustainability commitment - 'How we're reducing our footprint'",
+        "Week 5: Food safety excellence - 'The standards you don't see'",
+        "Week 6: Innovation pipeline - 'How we create new favorites'"
+      ],
+      "weekly_hooks": [
+        [
+          "Ever wonder where our [ingredient] comes from? Let's take you to the source",
+          "Juicy, never frozen - here's what that actually means for your [item]",
+          "From farm to restaurant in [timeframe]: The journey of your [ingredient]"
+        ],
+        [
+          "What makes our [signature item] craveable? It starts with [specific process]",
+          "Hot, fresh, and made to order - here's our quality promise in action",
+          "We tested [number] recipes before perfecting your favorite [item]. Here's why"
+        ],
+        [
+          "Looking for meals under 500 calories? Here are your best options",
+          "Customization guide: How to build your perfect [item] for your dietary goals",
+          "All our nutrition info, allergen details, and calorie counts - fully transparent"
+        ],
+        [
+          "Our commitment to sustainability: [specific initiative] saves [impact] annually",
+          "Reducing waste one order at a time - here's what we're doing differently",
+          "Packaging innovation: How we're making every meal more eco-friendly"
+        ],
+        [
+          "Behind the scenes: Our food safety protocols go beyond industry standards",
+          "Fresh ingredients daily - here's our quality check process before opening",
+          "Temperature, timing, and cleanliness: The standards that protect every order"
+        ],
+        [
+          "How we create new menu items: From customer feedback to kitchen testing",
+          "Innovation in fast food - testing [new technology/process] for better [benefit]",
+          "You asked, we listened: [Customer request] is now on the menu because of you"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'mystery meat' concerns with sourcing transparency",
+        "Week 2: Counter 'inconsistent quality' with standardized process education",
+        "Week 3: Overcome 'unhealthy fast food' with nutritional guidance and options",
+        "Week 4: Respond to sustainability concerns with concrete initiatives",
+        "Week 5: Alleviate food safety worries with behind-the-scenes protocols",
+        "Week 6: Show responsiveness to customer needs through innovation stories"
+      ],
+      "proof_timing": [
+        "Week 1: Supplier partnerships, farm visit footage, certification badges",
+        "Week 2: Kitchen preparation videos, quality control documentation, chef testimonials",
+        "Week 3: Registered dietitian collaborations, third-party nutrition verification",
+        "Week 4: Sustainability certifications, waste reduction data, partnership announcements",
+        "Week 5: Health inspection scores, employee training credentials, audit results",
+        "Week 6: Customer survey results, test kitchen footage, R&D team interviews"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about our sourcing | Meet our suppliers",
+        "Week 2: See our quality process | Watch how it's made",
+        "Week 3: Explore our nutrition guide | Build your custom meal",
+        "Week 4: Read our sustainability report | Join our green initiatives",
+        "Week 5: Tour our kitchen standards | Ask us anything about safety",
+        "Week 6: Submit your menu ideas | Be part of our innovation"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week) - visual storytelling for sourcing and preparation",
+        "Facebook (4-5 posts/week) - longer-form educational content for engaged audiences",
+        "Email (3-4 emails over 6 weeks) - deep-dive educational series",
+        "TikTok (3-4 posts/week) - behind-the-scenes educational entertainment"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on identified competitive gap in educational content about sourcing and food preparation, and nutritional transparency - addressing customer desire for this information while combating 'unhealthy' perception. Customer voice data shows 'I don't know what's actually available' and health concerns as key objections"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign to boost interaction and algorithm performance",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Opinion polls and debates - 'Settle the great [food debate]'",
+        "Week 2: Customer takeover and UGC showcase - 'Your [Brand], your way'"
+      ],
+      "weekly_hooks": [
+        [
+          "Hot take: [Controversial food opinion]. Agree or disagree? 👇",
+          "Fries or onion rings? This debate ends today - vote below",
+          "What's your [Brand] order that everyone thinks is weird? Drop it in the comments"
+        ],
+        [
+          "Tag someone who always orders the same thing every single time",
+          "Fill in the blank: I can't go to [Brand] without ordering _____",
+          "Describe your go-to order using only emojis. We'll guess it 👇"
+        ],
+        [
+          "We're letting YOU run our account today - what should we post?",
+          "Show us your [Brand] meal setup and we'll feature the best ones",
+          "Caption this [funny image] - winner gets free [item] for a month"
+        ],
+        [
+          "Your photos, our feed - here are this week's best customer posts 📸",
+          "Shoutout to everyone who tagged us this week. You're all amazing",
+          "Which customer creation should we make an official menu item? Vote now"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection handling - pure engagement focus to build community",
+        "Week 2: Subtle value reinforcement through UGC showing satisfied customers"
+      ],
+      "proof_timing": [
+        "Week 1: Social proof through poll participation numbers and debate engagement",
+        "Week 2: Customer testimonials embedded in UGC features and community highlights"
+      ],
+      "cta_progression": [
+        "Week 1: Vote now | Comment your take | Tag a friend who needs to see this",
+        "Week 2: Share your photo and tag us | Show us your order | Enter to be featured"
+      ],
+      "platform_priority": [
+        "Instagram (7-10 posts/week + 2-3 Stories/day) - polls, questions, and UGC reposting",
+        "Twitter/X (10-15 tweets/week) - real-time conversations and witty responses",
+        "TikTok (5-7 posts/week) - duets, stitches, and response videos",
+        "Facebook (5-6 posts/week) - community polls and local engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Wendy's Twitter roast campaign achieving 4-6x industry average engagement through authentic brand voice and real-time engagement, combined with research showing interactive content like polls and quizzes are underutilized despite high engagement potential. Question hooks increase engagement by 23% vs statements"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The #1 mistake QSR operators make with mobile ordering? Not optimizing for the 11:30am-1:30pm lunch rush.\n\nHere's what the data shows:\n• 67% of customers cite speed as their top decision factor\n• Mobile orders placed before 11am see 34% higher satisfaction scores\n• Pre-order capability increases average ticket size by 23%\n\n3 strategies that work:\n\n1. [STRATEGY_ONE] - Enable advance ordering with specific pickup times\n2. [STRATEGY_TWO] - Send push notifications at 10:45am with lunch specials\n3. [STRATEGY_THREE] - Create express pickup lanes for mobile orders\n\nThe result? [BRAND] locations implementing these saw 28% reduction in wait times and 15% increase in lunch revenue.\n\nWhat's your biggest operational challenge during peak hours? #QSR #RestaurantTech #DigitalOrdering #FoodService #MobileCommerce",
+        "framework": "PAS",
+        "why_it_works": "Identifies common problem, uses data-driven authority, provides actionable solutions. Hook appears before truncation."
+      },
+      "authority": {
+        "template": "We just analyzed 3.2M QSR transactions across 847 locations.\n\nOne insight stood out:\n\nCustomers who use mobile ordering spend 23% more per visit and return 2.4x more frequently than walk-in customers.\n\nBut here's what most operators miss...\n\nIt's not about having an app. It's about removing friction from the decision-making process.\n\n[BRAND] proved this by:\n• Reducing app checkout to 3 taps\n• Showing real-time prep status\n• Remembering favorite orders\n• Offering app-exclusive deals\n\nThe outcome: 486% increase in app downloads during [CAMPAIGN_PERIOD] and sustained 34% month-over-month growth.\n\nThe future of QSR isn't just fast food. It's frictionless food.\n\nInterested in the full case study? Drop a comment or DM. #RestaurantInnovation #QSRTrends #CustomerExperience #DigitalTransformation",
+        "framework": "AIDA",
+        "why_it_works": "Attention-grabbing data, builds interest with insight, creates desire through results, clear action. Establishes thought leadership."
+      },
+      "promotional": {
+        "template": "Remember when feeding your team meant cold pizza and sad sandwiches?\n\nThose days are over.\n\n[BRAND]'s new corporate catering program delivers:\n✓ Hot, fresh meals in 30 minutes or less\n✓ Individual packaging (no sharing, no mess)\n✓ Flexible group ordering with dietary preferences\n✓ Volume pricing that beats your usual lunch spots\n\nBefore: Spending 45 minutes coordinating lunch orders, dealing with delivery delays, and still having team members unsatisfied.\n\nAfter: One click, one delivery time, everyone happy. Your lunch meeting actually starts on time.\n\n[NUMBER]+ companies in [CITY/REGION] already switched to [BRAND] for team meals.\n\nReady to upgrade your office lunch game? Link in comments for corporate account setup. First order gets [DISCOUNT/OFFER]. #CorporateCatering #OfficeLife #TeamLunch #WorkPerks",
+        "framework": "BAB",
+        "why_it_works": "Before-After-Bridge structure shows transformation. Addresses B2B pain points with social proof and clear CTA."
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: You just discovered the secret menu hack 🤫\n\nThat [MENU_ITEM] you love? Here's how to make it even better:\n\n1️⃣ [CUSTOMIZATION_TIP_ONE]\n2️⃣ [CUSTOMIZATION_TIP_TWO]\n3️⃣ [CUSTOMIZATION_TIP_THREE]\n\nTotal cost: Same price or +$[AMOUNT] 🙌\n\nTry it and tag us in your Stories! We're reposting the best ones this week.\n\n#[Brand]Hacks #SecretMenu #FoodHacks #[Brand]Love",
+        "visual": "Carousel post: Slide 1 - Finished customized item hero shot with dramatic lighting. Slide 2-4 - Step-by-step customization process showing each addition. Slide 5 - Side-by-side comparison of regular vs. customized version. Use bold text overlays on each slide.",
+        "framework": "Educational + participatory",
+        "why_it_works": "Carousel format performs 1.4x better. Creates shareable content and UGC opportunity. Hook visible before truncation."
+      },
+      "authority": {
+        "caption": "The most-ordered combo in America isn't what you think 👀\n\nAfter serving [NUMBER]M+ customers, here's what we learned about what you ACTUALLY crave:\n\n🥇 [TOP_COMBO] - ordered every [TIME_FREQUENCY]\n🥈 [SECOND_COMBO] - the late-night champion\n🥉 [THIRD_COMBO] - weekend breakfast winner\n\nThe surprise? [UNEXPECTED_INSIGHT] changed how we think about [MENU_CATEGORY].\n\nWhich one's your go-to? Drop an emoji:\n🔥 = #1\n💯 = #2  \n👑 = #3\n\n#[Brand]Favorites #FoodData #[Brand]Nation",
+        "visual": "Single post: Split-screen design showing all three combos with steam/action shots. Overlay text showing ranking numbers and frequency stats. Brand colors prominent. Include small data visualization element (simple bar chart or icons representing volume).",
+        "framework": "Authority + social proof",
+        "why_it_works": "Leverages popularity hook pattern. Data-driven content builds credibility. Emoji voting drives comments and engagement."
+      },
+      "promotional": {
+        "caption": "Only 3 days left 🚨\n\nThe [LIMITED_ITEM] everyone's been posting? Gone [DAY_OF_WEEK].\n\nLast chance to try what [NUMBER]K+ people are calling the best thing we've ever made.\n\nOrder now on the app 👆 Free delivery on orders over $[AMOUNT]\n\n#LimitedTime #[Brand] #[ItemName] #FOMO",
+        "visual": "Reel (15-30 seconds): Opening shot of item with 'LAST CHANCE' text overlay. Quick cuts of satisfied customers (UGC style), close-ups of key ingredients, final shot of app ordering screen. Use trending audio. End card with countdown timer showing days remaining.",
+        "framework": "Scarcity + FOMO",
+        "why_it_works": "Limited-time scarcity hook (proven pattern). Reels format gets higher engagement. Social proof with customer count. Clear CTA with value proposition."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 5 Ways to Save Money on Family Dinners (Without Sacrificing Quality)\n\nFeeding a family of 4+ gets expensive fast. Here's how smart parents are cutting costs while keeping everyone happy:\n\n1. [TIP_ONE] - Save $[AMOUNT] per visit\nExample: [SPECIFIC_EXAMPLE]\n\n2. [TIP_TWO] - The app-exclusive deals most people miss\nHow: [INSTRUCTIONS]\n\n3. [TIP_THREE] - Combo math that actually works\nInstead of: [SCENARIO_A]\nDo this: [SCENARIO_B]\nYou save: $[SAVINGS]\n\n4. [TIP_FOUR] - Best days for promotions\n[DAYS_AND_OFFERS]\n\n5. [TIP_FIVE] - The loyalty program hack\n[LOYALTY_STRATEGY]\n\nBonus tip: [BONUS_INSIGHT]\n\nWhat's your favorite money-saving trick? Share below - we're all in this together! 👇\n\n#FamilyDinner #BudgetMeals #ParentingHacks #FrugalLiving",
+        "framework": "Educational value + community",
+        "why_it_works": "Addresses key decision factor (price/value). Numbered list format performs well on Facebook. Encourages community sharing. Relatable parent voice."
+      },
+      "authority": {
+        "template": "We asked 10,000 customers what they REALLY want from their QSR experience.\n\nThe #1 answer wasn't cheaper prices or faster service.\n\nIt was this: \"Just get my order right.\"\n\nThat hit hard. So here's what we changed:\n\n✅ [CHANGE_ONE] - Now [RESULT_ONE]\n✅ [CHANGE_TWO] - Reduced order errors by [PERCENTAGE]%\n✅ [CHANGE_THREE] - [SPECIFIC_IMPROVEMENT]\n\nThe result? Order accuracy went from [OLD_STAT]% to [NEW_STAT]% in [TIME_PERIOD].\n\nBut we're not done. Next month we're rolling out [UPCOMING_FEATURE] based on your feedback.\n\nBecause here's what we believe: You're not just hungry. You're trusting us with your limited time, hard-earned money, and sometimes your only break in a crazy day.\n\nWe don't take that lightly.\n\nHave you noticed the improvements? What else should we focus on? Your feedback literally shapes what we do next. 💬\n\n[LOCATION_TAG for local stores]",
+        "framework": "Customer-centric authority",
+        "why_it_works": "Longer form works on Facebook. Builds trust through transparency. Emotional language from customer voice data. Community engagement question."
+      },
+      "promotional": {
+        "template": "🎉 IT'S BACK! 🎉\n\nThe [MENU_ITEM] that broke the internet is back for a limited time!\n\nRemember when [NOSTALGIA_REFERENCE]? Yeah, we missed it too.\n\nStarting [DATE]:\n🔥 [ITEM_NAME] returns\n💰 Special intro price: $[PRICE] (regularly $[REGULAR_PRICE])\n📱 Order on app for free [BONUS_ITEM]\n⏰ Only available until [END_DATE] or while supplies last\n\nFair warning: Last time we ran out in [TIME_PERIOD]. Seriously.\n\nWho's getting this on day one? Tag your [ITEM] crew! 👇\n\n[LINK_TO_ORDER]\n\n[LOCAL_STORE_TAGS]\n\n#[Brand] #[ItemName]IsBack #LimitedTime #[LocalCity]Eats",
+        "framework": "FOMO + nostalgia + value",
+        "why_it_works": "Scarcity hook with social proof. Nostalgia creates emotional connection. Clear value proposition and CTA. Tag prompts increase reach and engagement."
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "Wait, you've been ordering wrong this whole time? 😳",
+        "script": "HOOK (0-3s): 'Wait, you've been ordering wrong this whole time? 😳'\n\nVISUAL: Close-up of confused face, quick zoom\n\nSETUP (3-10s): 'As someone who worked at [BRAND] for [TIME], let me tell you the employee secrets...'\n\nVISUAL: Cut to uniform/name tag reveal\n\nTIP 1 (10-20s): '[HACK_ONE]' \nOVERLAY TEXT: 'Saves you $[AMOUNT]'\nVISUAL: Demonstrate the hack\n\nTIP 2 (20-35s): '[HACK_TWO]'\nOVERLAY TEXT: 'They never tell you this'\nVISUAL: Show before/after comparison\n\nTIP 3 (35-50s): '[HACK_THREE]'\nOVERLAY TEXT: 'You're welcome 😎'\nVISUAL: Final result reveal\n\nCLOSE (50-60s): 'Follow for more insider tips! Which one are you trying first?'\n\nVISUAL: Point to follow button, show all three hacks quickly\n\nSOUND: Trending audio - upbeat/informative vibe\n\n#[Brand] #FoodHacks #FastFoodSecrets #[Brand]Employee #FoodTok",
+        "framework": "Hook-educate-engage",
+        "why_it_works": "Behind-the-scenes content performs well. 21-34 second sweet spot for TikTok. Employee perspective adds authenticity. Trending format."
+      },
+      "authority": {
+        "hook": "I tried every [ITEM] in our city to find the best one 🔥",
+        "script": "HOOK (0-3s): 'I tried every [ITEM] in our city to find the best one 🔥'\n\nVISUAL: Fast cuts of different locations, items lined up\n\nSETUP (3-8s): 'Spent $[AMOUNT] and [NUMBER] hours. Here's the ranking...'\n\nVISUAL: Receipt flash, determined face\n\nLOCATION 5 (8-18s): '[COMPETITOR_ONE] - [RATING]/10'\n'[QUICK_REVIEW_POINT]'\nVISUAL: Bite, reaction shot\nOVERLAY: Rating graphic\n\nLOCATION 4-2 (18-45s): Rapid-fire reviews of [COMPETITOR_TWO], [COMPETITOR_THREE], [COMPETITOR_FOUR]\nVISUAL: Quick cuts, taste tests, key differentiators\n\nLOCATION 1 (45-58s): '[BRAND] - [RATING]/10 👑'\n'[WINNING_FACTORS]'\nVISUAL: Slow-mo bite, satisfied reaction, close-up of food\nOVERLAY: 'WINNER' graphic\n\nCLOSE (58-60s): 'Do you agree? Comment your ranking!'\n\nSOUND: Trending comparison/review audio\n\n#FoodReview #[Brand] #[City]Food #FoodTok #FastFood",
+        "framework": "Authority through comparison",
+        "why_it_works": "Comparison/ranking content highly shareable. Builds brand authority. Encourages debate in comments. Authentic review format TikTok users trust."
+      },
+      "promotional": {
+        "hook": "POV: You just found out [BRAND] has a secret menu item 👀",
+        "script": "HOOK (0-3s): 'POV: You just found out [BRAND] has a secret menu item 👀'\n\nVISUAL: Shocked face, dramatic zoom\n\nBUILD (3-12s): 'Literally nobody knows about this...'\n'You have to order it like this:'\n\nVISUAL: Cut to inside car at drive-thru\nOVERLAY: Text showing exact order phrase\n\nORDER (12-25s): '[SPECIFIC_ORDER_INSTRUCTIONS]'\n\nVISUAL: Ordering at speaker, employee confirmation\nOVERLAY: Step-by-step text\n\nREVEAL (25-45s): 'And you get THIS for only $[PRICE]'\n\nVISUAL: Unboxing/reveal of item, close-ups of key elements\nOVERLAY: Price tag graphic, 'SECRET MENU' stamp\n\nTASTE (45-55s): First bite reaction, close-up food shots\n\nVISUAL: Genuine satisfaction reaction\nOVERLAY: '[TASTE_DESCRIPTOR]' text\n\nCLOSE (55-60s): 'Try it and tag me! Only at [BRAND] 🔥'\n\nVISUAL: Point to screen, final food shot\n\nSOUND: Mysterious/exciting trending audio\n\n#[Brand] #SecretMenu #FoodHack #[Brand]SecretMenu #FastFoodSecrets",
+        "framework": "Exclusivity + FOMO",
+        "why_it_works": "Secret/exclusive hook drives shares. Participatory (try it yourself). Step-by-step format easy to follow. Creates UGC opportunity."
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The $[AMOUNT] dinner trick busy parents are using",
+        "preview_text": "Feed your family without the stress (or breaking the bank)",
+        "body": "**SUBJECT:** The $[AMOUNT] dinner trick busy parents are using\n\n**PREVIEW:** Feed your family without the stress (or breaking the bank)\n\n**BODY:**\n\nHey [FIRST_NAME],\n\nIt's 5:47pm. You just got home. The kids are asking what's for dinner.\n\nSound familiar?\n\nHere's what [NUMBER]+ smart parents discovered:\n\n**The Family Meal Formula:**\n\n✓ [COMBO_OPTION_ONE] = $[PRICE] (feeds [NUMBER])\n✓ [COMBO_OPTION_TWO] = $[PRICE] (feeds [NUMBER])\n✓ [COMBO_OPTION_THREE] = $[PRICE] (feeds [NUMBER])\n\nEach one:\n• Ready in [TIME] minutes\n• Something for picky eaters\n• Under $[BUDGET] total\n\n**Your exclusive app deal:** Use code [CODE] for $[DISCOUNT] off family meals this week.\n\n[CTA BUTTON: Order Dinner Now]\n\nP.S. Order before [TIME] and get free [BONUS_ITEM]. Because you deserve it.\n\n—The [BRAND] Team\n\n[FOOTER with app download links, preferences, unsubscribe]",
+        "framework": "Problem-Solution-Action",
+        "why_it_works": "Relatable problem from customer voice data. Clear value proposition. Personalization tokens. Mobile-optimized with clear CTA. Addresses 'overwhelmed parent' transformation."
+      },
+      "authority": {
+        "subject": "What [NUMBER]M orders taught us about your cravings",
+        "preview_text": "The data might surprise you (and help you order better)",
+        "body": "**SUBJECT:** What [NUMBER]M orders taught us about your cravings\n\n**PREVIEW:** The data might surprise you (and help you order better)\n\n**BODY:**\n\nHi [FIRST_NAME],\n\nWe analyzed every order from the past [TIME_PERIOD].\n\nThe results were fascinating:\n\n**What We Learned:**\n\n📊 **Most-ordered combo:** [COMBO_NAME]\n(Ordered every [FREQUENCY] - clearly you know what's good)\n\n📊 **Fastest-growing item:** [TRENDING_ITEM]\n([PERCENTAGE]% increase since [DATE])\n\n📊 **Surprising discovery:** [UNEXPECTED_INSIGHT]\n\n**What This Means for You:**\n\nBased on your order history ([LAST_ORDER] on [DATE]), you might love:\n\n→ [RECOMMENDATION_ONE] - Similar to what you usually order\n→ [RECOMMENDATION_TWO] - Top-rated by customers like you\n→ [RECOMMENDATION_THREE] - New item, [PERCENTAGE]% 5-star reviews\n\n[CTA BUTTON: Try Your Match]\n\n**Exclusive for data nerds like us:** Get [DISCOUNT]% off your next order of [RECOMMENDED_ITEM]. Code: [CODE]\n\nKeep the feedback coming - you literally shape our menu.\n\n—[SENDER_NAME]\n[TITLE], [BRAND]\n\n[FOOTER]",
+        "framework": "Insight-Personalization-Recommendation",
+        "why_it_works": "Data-driven authority. Personalization based on order history. Makes customer feel understood. Exclusive offer tied to content."
+      },
+      "promotional": {
+        "subject": "⚡ [FIRST_NAME], your favorite is back (3 days only)",
+        "preview_text": "The [ITEM] you asked for + free delivery. Ends [DAY].",
+        "body": "**SUBJECT:** ⚡ [FIRST_NAME], your favorite is back (3 days only)\n\n**PREVIEW:** The [ITEM] you asked for + free delivery. Ends [DAY].\n\n**BODY:**\n\n[HERO IMAGE: Limited-time item with countdown timer overlay]\n\n**It's back, [FIRST_NAME].**\n\nThe [ITEM_NAME] you've been asking about.\n\nBut only until [END_DATE]. Seriously - we're not extending it this time.\n\n**Your 3-Day Deal:**\n\n✓ [ITEM_NAME] - $[SPECIAL_PRICE] (save $[SAVINGS])\n✓ Free delivery on orders $[MINIMUM]+\n✓ [BONUS_OFFER if applicable]\n\n[LARGE CTA BUTTON: Order Now - 3 Days Left]\n\n**Why you'll love it:**\n\"[CUSTOMER_TESTIMONIAL]\" - [CUSTOMER_NAME]\n\n**Fair warning:** Last time we brought this back, it sold out in [TIME_PERIOD]. [NUMBER]+ already ordered today.\n\n**Your exclusive code:** [CODE]\n**Expires:** [DATE] at [TIME]\n\n[SECONDARY CTA: Add to Order]\n\n**Haven't tried it yet?**\nHere's what makes it special: [UNIQUE_SELLING_POINTS]\n\n[IMAGE: Close-up product shot]\n\nSee you at pickup,\nThe [BRAND] Team\n\nP.S. Ordering for the family? Use code [FAMILY_CODE] for $[AMOUNT] off orders $[MINIMUM]+\n\n[FOOTER with app download, store locator, social links, preferences]",
+        "framework": "Scarcity-Value-Social Proof",
+        "why_it_works": "Personalized subject line. Scarcity hook (3-day limit). Social proof with testimonial. Multiple CTAs. Mobile-optimized layout. Addresses FOMO and value decision factors."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[Number] families fed for under $[price] tonight",
+      "[Number] minutes from craving to eating",
+      "[Number] combo deals you didn't know existed",
+      "[Number] menu hacks that'll save you $[amount] this month",
+      "[Number] items you can mobile order and skip the line"
+    ],
+    "question_hooks": [
+      "Too tired to cook and the kids are already asking what's for dinner?",
+      "Craving [menu item] but worried about the drive-thru wait?",
+      "Forgot to plan lunch for the meeting again?",
+      "Still paying full price when there's a [discount] deal on the app?",
+      "Starving right now but everything takes too long to make?"
+    ],
+    "story_hooks": [
+      "How one mom feeds her picky eaters for under $[amount] every [day of week]",
+      "This [job title] never waits in line anymore - here's their secret",
+      "The family that was always too tired to cook found their weeknight lifesaver",
+      "How [customer type] gets hot [menu item] ready when they arrive every single time",
+      "The [number]-person office that solved their lunch meeting chaos in one app"
+    ],
+    "fear_hooks": [
+      "Is your lunch break disappearing in the drive-thru line?",
+      "Are delivery fees eating your entire [meal period] budget?",
+      "Is your family stuck eating the same [number] things because you're too tired to decide?",
+      "Are you missing out on the [menu item] everyone's obsessed with?",
+      "Is your go-to order costing $[amount] more than it should?"
+    ],
+    "howto_hooks": [
+      "How to feed [number] people for under $[amount] without cooking tonight",
+      "How to get [menu item] in [number] minutes without waiting in line",
+      "How to satisfy your [time of day] cravings without the guilt or the wait",
+      "How to skip the drive-thru chaos and still get it hot and fresh",
+      "How to order for picky eaters without everyone complaining"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You forgot dinner and have 12 minutes before everyone gets home",
+      "body": "0-3s: Panicked face checking clock. 3-10s: Open app, show 'favorites' auto-populating cart. 10-20s: Confirm order, timer shows 8 min prep time. 20-35s: Drive-thru montage set to trending audio. 35-50s: Pull up exactly as order's ready, employee hands bag. 50-57s: Home shot, family diving into food, relief on face. Text overlay: 'Mobile order saved my life again'",
+      "cta": "Download app, first order gets you free [item]. Link in bio 👆"
+    },
+    "reels": {
+      "hook": "The $20 family dinner challenge ✅",
+      "body": "0-5s: Show $20 bill on counter. 5-12s: Quick cuts of ordering family meal deal. 12-22s: Unpack spread of food covering table. 22-28s: Kids and adults grabbing items, everyone eating happily. Text: 'Fed 4 people, everyone happy, $3 left over'",
+      "cta": "Tap to see today's family deals"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'I forgot about dinner' panic face, then your relief face when our app saves the day. Bonus points for showing the fam's reaction when you pull up with the goods.",
+      "hashtag": "#DinnerHero"
+    },
+    {
+      "prompt": "Film your actual mobile order pickup - from pulling into the spot to driving away. Time it. We want to see those sub-3-minute pickups that prove we're actually FAST food.",
+      "hashtag": "#UnderThreeMinutes"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Employee 'order translation' series - showing what crew members actually hear vs what customers say ('Can I get uhhhhh...' becomes full order). Feature real employees, make them the stars.",
+      "why": "Humanizes brand, relatable humor, employees become micro-influencers, customers tag friends who order like this, drives recruitment and customer loyalty simultaneously"
+    },
+    {
+      "angle": "Regional menu item showdown - pit different cities' exclusive items against each other in bracket-style voting, with losing items potentially coming to winning regions for limited time.",
+      "why": "Creates FOMO, geographic rivalry drives engagement, customers advocate for their region, generates data on expansion opportunities, sustains multi-week conversation cycle"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:07:09.112Z",
+    "last_tier2_refresh": "2025-11-28T00:07:09.112Z",
+    "last_tier3_refresh": "2025-11-28T00:07:09.112Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:07:09.112Z"
+  }
+}

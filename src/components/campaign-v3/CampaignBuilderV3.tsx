@@ -3,6 +3,7 @@
  *
  * Main campaign builder interface with step-by-step flow.
  * Goal-first approach: Goal → Type → Products (optional) → Platforms → Duration → Review
+ * V3.2: Integrated with ContentSynthesisOrchestrator for EQ/UVP/Segment awareness
  *
  * Because building campaigns should be simple, not rocket science.
  */
@@ -14,7 +15,8 @@ import { DurationEnforcer } from '../../services/campaign-v3/DurationEnforcer';
 import { CampaignTypeSelector } from './CampaignTypeSelector';
 import { PlatformSelectorV3 } from './PlatformSelectorV3';
 import { ProductSelector } from '../campaign/product-selector';
-import { Package, Sparkles } from 'lucide-react';
+import { Package, Sparkles, Brain } from 'lucide-react';
+import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanner';
 import type {
   BusinessGoal,
   BusinessType,
@@ -24,6 +26,8 @@ import type {
   CampaignV3Config,
 } from '../../types/campaign-v3.types';
 import type { Product } from '@/features/product-marketing/types/product.types';
+import { useContentSynthesis } from '@/hooks/useContentSynthesis';
+import type { BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 
 interface CampaignBuilderV3Props {
   userId: string;
@@ -36,6 +40,14 @@ interface CampaignBuilderV3Props {
   enableProductSelection?: boolean;
   onComplete: (campaign: CampaignV3Config & { selectedProducts?: Product[] }) => void;
   onCancel?: () => void;
+  /** V3.2: Business segment for EQ-aware synthesis */
+  segment?: BusinessSegment;
+  /** V3.2: UVP data for orchestrator context */
+  uvpData?: {
+    target_customer?: string;
+    key_benefit?: string;
+    transformation?: string;
+  };
 }
 
 type Step = 'goal' | 'type' | 'products' | 'platforms' | 'duration' | 'schedule' | 'review';
@@ -50,6 +62,8 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
   enableProductSelection = false,
   onComplete,
   onCancel,
+  segment = 'smb_local',
+  uvpData,
 }) => {
   // State
   const [currentStep, setCurrentStep] = useState<Step>('goal');
@@ -60,6 +74,29 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
   const [selectedDuration, setSelectedDuration] = useState<CampaignDuration>();
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [isGenerating, setIsGenerating] = useState(false);
+
+  // V3.2: Use ContentSynthesisOrchestrator for EQ/UVP/Segment-aware campaign generation
+  const {
+    enrichedContext,
+    loadContext,
+    getRecommendedFramework,
+    contextError,
+    retryLoadContext,
+    clearErrors,
+    isContextLoading,
+  } = useContentSynthesis({
+    brandName: businessName,
+    industry: industry,
+    segment,
+    uvpData: uvpData || {}
+  });
+
+  // Load enriched context on mount
+  useEffect(() => {
+    if (businessName) {
+      loadContext();
+    }
+  }, [businessName, loadContext]);
 
   // Determine if products step should be shown
   const showProductsStep = enableProductSelection && brandId;
@@ -133,6 +170,11 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
     setIsGenerating(true);
 
     try {
+      // V3.2: Get recommended framework based on EQ profile
+      const recommendedFramework = enrichedContext
+        ? getRecommendedFramework('awareness')
+        : 'aida';
+
       const campaign = CampaignGeneratorV3.createQuickCampaign(
         userId,
         selectedGoal,
@@ -148,11 +190,26 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
       campaign.duration = selectedDuration;
       campaign.startDate = startDate;
 
-      // Include selected products if any
-      onComplete({
+      // V3.2: Attach enriched context for downstream synthesis
+      const enrichedCampaign = {
         ...campaign,
         selectedProducts: selectedProducts.length > 0 ? selectedProducts : undefined,
+        // V3.2: Pass orchestrator context for content generation
+        synthesisContext: enrichedContext ? {
+          eqProfile: enrichedContext.eqProfile,
+          segmentGuidelines: enrichedContext.segmentGuidelines,
+          recommendedFramework,
+          segment
+        } : undefined
+      };
+
+      console.log('[CampaignBuilderV3] V3.2: Campaign created with enriched context:', {
+        hasEnrichedContext: !!enrichedContext,
+        segment,
+        recommendedFramework
       });
+
+      onComplete(enrichedCampaign);
     } catch (error) {
       console.error('Failed to create campaign:', error);
       alert('Failed to create campaign. Please try again.');
@@ -220,6 +277,8 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
             startDate={startDate}
             businessName={businessName}
             selectedProducts={selectedProducts}
+            eqProfile={enrichedContext?.eqProfile}
+            segment={segment}
           />
         ) : null;
 
@@ -230,6 +289,14 @@ export const CampaignBuilderV3: React.FC<CampaignBuilderV3Props> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+      {/* V3.2: Synthesis Error Banner */}
+      <SynthesisErrorBanner
+        error={contextError}
+        onRetry={retryLoadContext}
+        onDismiss={clearErrors}
+        isRetrying={isContextLoading}
+      />
+
       {/* Progress Bar */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
@@ -484,7 +551,10 @@ const ReviewStep: React.FC<{
   startDate: Date;
   businessName: string;
   selectedProducts?: Product[];
-}> = ({ campaignType, platforms, duration, startDate, businessName, selectedProducts }) => {
+  /** V3.2: EQ Profile from enriched context */
+  eqProfile?: { emotional_weight: number; jtbd_focus: string };
+  segment?: BusinessSegment;
+}> = ({ campaignType, platforms, duration, startDate, businessName, selectedProducts, eqProfile, segment }) => {
   const campaignTypeData = CampaignTypeEngine.getType(campaignType);
   const estimatedPosts = CampaignTypeEngine.getEstimatedPostCount(campaignType, platforms.length);
 
@@ -498,6 +568,25 @@ const ReviewStep: React.FC<{
           Everything looks good? Let's launch!
         </p>
       </div>
+
+      {/* V3.2: EQ-Powered Badge */}
+      {eqProfile && (
+        <div className="p-4 bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 rounded-lg border border-pink-200 dark:border-pink-700">
+          <div className="flex items-center gap-3">
+            <div className="p-2 bg-pink-600 rounded-lg">
+              <Brain className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-pink-900 dark:text-pink-200">
+                EQ-Optimized Campaign
+              </h3>
+              <p className="text-sm text-pink-700 dark:text-pink-300">
+                Content tuned to {eqProfile.emotional_weight}% emotional resonance • {eqProfile.jtbd_focus} focus • {segment?.replace('_', ' ')} segment
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-4">
         <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">

@@ -60,6 +60,35 @@ export const BrandProvider: React.FC<BrandProviderProps> = ({
   const [loading, setLoading] = React.useState(false)
   const [error, setError] = React.useState<Error | null>(null)
 
+  // Validate localStorage brand exists in database on mount
+  React.useEffect(() => {
+    const validateStoredBrand = async () => {
+      const stored = localStorage.getItem('currentBrand')
+      if (!stored) return
+
+      try {
+        const brand = JSON.parse(stored)
+        const { default: supabase } = await import('@/lib/supabase').then(m => ({ default: m.supabase }))
+        const { data, error } = await supabase
+          .from('brands')
+          .select('id')
+          .eq('id', brand.id)
+          .maybeSingle()
+
+        if (error || !data) {
+          console.warn('[BrandContext] ⚠️ Stored brand no longer exists in database, clearing localStorage')
+          localStorage.removeItem('currentBrand')
+          localStorage.removeItem('temp_brand_id')
+          setCurrentBrandState(null)
+        }
+      } catch (err) {
+        console.error('[BrandContext] Error validating stored brand:', err)
+      }
+    }
+
+    validateStoredBrand()
+  }, [])
+
   // Persist brand to localStorage when it changes
   const setCurrentBrand = React.useCallback((brand: Brand) => {
     setCurrentBrandState(brand)
@@ -72,22 +101,36 @@ export const BrandProvider: React.FC<BrandProviderProps> = ({
     setError(null)
 
     try {
-      // TODO: Fetch brands from Supabase
-      // const { data, error } = await supabase
-      //   .from('brands')
-      //   .select('*')
-      //   .order('name')
-      // if (error) throw error
-      // setBrands(data || [])
+      // Fetch brands from Supabase
+      const { default: supabase } = await import('@/lib/supabase').then(m => ({ default: m.supabase }))
+      const { data, error: fetchError } = await supabase
+        .from('brands')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50)
 
-      throw new Error('Supabase connection not configured. Please set up Supabase to load brands.')
+      if (fetchError) {
+        console.error('[BrandContext] Error fetching brands:', fetchError)
+        throw fetchError
+      }
+
+      console.log('[BrandContext] Loaded', data?.length || 0, 'brands from database')
+      setBrands((data as Brand[]) || [])
+
+      // If we have brands but no currentBrand, select the most recent one
+      if (data && data.length > 0 && !currentBrand) {
+        const mostRecent = data[0] as Brand
+        console.log('[BrandContext] Auto-selecting most recent brand:', mostRecent.id)
+        setCurrentBrand(mostRecent)
+      }
     } catch (err) {
+      console.error('[BrandContext] Failed to load brands:', err)
       setError(err instanceof Error ? err : new Error('Failed to load brands'))
       setBrands([])
     } finally {
       setLoading(false)
     }
-  }, [])
+  }, [currentBrand, setCurrentBrand])
 
   const refreshBrand = React.useCallback(async () => {
     if (!currentBrand?.id) return

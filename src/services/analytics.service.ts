@@ -100,6 +100,129 @@ class AnalyticsService {
     });
   }
 
+  // ============================================
+  // V3.2 Synthesis Analytics
+  // ============================================
+
+  /**
+   * Track synthesis context loaded
+   */
+  trackSynthesisContextLoaded(params: {
+    segment: string;
+    industry: string;
+    eqWeight: number;
+    fromCache: boolean;
+    loadTimeMs?: number;
+  }): void {
+    this.track('synthesis_context_loaded', {
+      segment: params.segment,
+      industry: params.industry,
+      eq_weight: params.eqWeight,
+      from_cache: params.fromCache,
+      load_time_ms: params.loadTimeMs,
+    });
+  }
+
+  /**
+   * Track EQ score distribution for insights
+   */
+  trackEQScoreDistribution(params: {
+    insightCount: number;
+    avgEQScore: number;
+    minEQScore: number;
+    maxEQScore: number;
+    segment: string;
+  }): void {
+    this.track('eq_score_distribution', {
+      insight_count: params.insightCount,
+      avg_eq_score: params.avgEQScore,
+      min_eq_score: params.minEQScore,
+      max_eq_score: params.maxEQScore,
+      segment: params.segment,
+    });
+  }
+
+  /**
+   * Track when user toggles EQ sort
+   */
+  trackEQSortToggle(params: {
+    enabled: boolean;
+    component: string;
+    insightCount: number;
+  }): void {
+    this.track('eq_sort_toggled', {
+      enabled: params.enabled,
+      component: params.component,
+      insight_count: params.insightCount,
+    });
+  }
+
+  /**
+   * Track journey stage change (triggers re-synthesis)
+   */
+  trackJourneyStageChange(params: {
+    fromStage: string;
+    toStage: string;
+    insightCount: number;
+    component: string;
+  }): void {
+    this.track('journey_stage_changed', {
+      from_stage: params.fromStage,
+      to_stage: params.toStage,
+      insight_count: params.insightCount,
+      component: params.component,
+    });
+  }
+
+  /**
+   * Track re-synthesis completion
+   */
+  trackReSynthesis(params: {
+    journeyStage: string;
+    insightCount: number;
+    durationMs: number;
+    success: boolean;
+  }): void {
+    this.track('resynthesis_completed', {
+      journey_stage: params.journeyStage,
+      insight_count: params.insightCount,
+      duration_ms: params.durationMs,
+      success: params.success,
+    });
+  }
+
+  /**
+   * Track synthesis error
+   */
+  trackSynthesisError(params: {
+    errorType: 'context_load' | 'resynthesis' | 'scoring';
+    errorMessage: string;
+    segment?: string;
+    retryAttempt?: number;
+  }): void {
+    this.track('synthesis_error', {
+      error_type: params.errorType,
+      error_message: params.errorMessage,
+      segment: params.segment,
+      retry_attempt: params.retryAttempt,
+    });
+  }
+
+  /**
+   * Track UVP CTA generation
+   */
+  trackUVPCTAGenerated(params: {
+    insightId: string;
+    journeyStage: string;
+    ctaLength: number;
+  }): void {
+    this.track('uvp_cta_generated', {
+      insight_id: params.insightId,
+      journey_stage: params.journeyStage,
+      cta_length: params.ctaLength,
+    });
+  }
+
   /**
    * Get all events (for debugging)
    */

@@ -1,0 +1,1687 @@
+{
+  "industry": "Nail Salon",
+  "industry_name": "Nail Salon",
+  "naics_code": "812113",
+  "category": "Personal Services",
+  "subcategory": "Beauty and Wellness",
+  "customer_triggers": [
+    {
+      "trigger": "Special event coming up (wedding, vacation, date)",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Broken or damaged nail requiring immediate repair",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Grown-out gel or acrylics looking unprofessional",
+      "urgency": 8,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Seeing friend's fresh manicure on social media",
+      "urgency": 6,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Job interview or important meeting scheduled",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Seasonal color change desire (fall colors, summer brights)",
+      "urgency": 5,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Self-care mental health day needed",
+      "urgency": 7,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Gift certificate received or expiring soon",
+      "urgency": 8,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Nail art trend seen on TikTok or Instagram",
+      "urgency": 6,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Regular maintenance schedule (2-3 week cycle)",
+      "urgency": 7,
+      "frequency": "bi-weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Notices chipped polish in mirror, sees friend's nails, walks by salon, receives promotional text, sees Instagram ad during 73% higher engagement evening hours",
+    "consideration": "Checks Google reviews (4.5+ stars critical), compares prices across 3-4 salons, looks at Instagram portfolio, asks friends for recommendations, reads recent reviews focusing on cleanliness",
+    "decision": "Books based on availability within 48 hours (67% of bookings), proximity under 10 minutes drive, specific technician availability, current promotion offering 15-20% off",
+    "retention": "Satisfied with consistent quality, develops relationship with specific technician, joins membership program saving 20%, pre-books next appointment before leaving",
+    "advocacy": "Posts nail photos on social media (34% of satisfied customers), brings friends for group appointments, leaves 5-star review, refers 2-3 new customers annually worth $840 lifetime value each"
+  },
+  "transformations": [
+    {
+      "from": "Embarrassed by unkempt nails",
+      "to": "Confident professional appearance",
+      "emotional_value": "Self-assurance in meetings",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed and overwhelmed",
+      "to": "Relaxed and pampered",
+      "emotional_value": "Mental reset and self-care",
+      "worth_premium": true
+    },
+    {
+      "from": "Boring everyday look",
+      "to": "Trendy Instagram-worthy nails",
+      "emotional_value": "Social media validation",
+      "worth_premium": false
+    },
+    {
+      "from": "Damaged brittle nails",
+      "to": "Healthy protected nails",
+      "emotional_value": "Health improvement",
+      "worth_premium": true
+    },
+    {
+      "from": "Time-consuming home maintenance",
+      "to": "Professional long-lasting results",
+      "emotional_value": "Time freedom",
+      "worth_premium": true
+    },
+    {
+      "from": "Special event anxiety",
+      "to": "Picture-perfect confidence",
+      "emotional_value": "Event readiness",
+      "worth_premium": true
+    },
+    {
+      "from": "Outdated style",
+      "to": "Current seasonal trends",
+      "emotional_value": "Fashion forward feeling",
+      "worth_premium": false
+    },
+    {
+      "from": "Isolation and loneliness",
+      "to": "Social connection with technician",
+      "emotional_value": "Human connection",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Nails lasting 14+ days without chips",
+      "timeframe": "2 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Compliments received on nail appearance",
+      "timeframe": "weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Time saved versus DIY (2.5 hours weekly)",
+      "timeframe": "monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Professional appearance improvement",
+      "timeframe": "immediate",
+      "measurable": false
+    },
+    {
+      "metric": "Nail health improvement (strength, growth)",
+      "timeframe": "6-8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Cost per wear under $2/day",
+      "timeframe": "per service",
+      "measurable": true
+    },
+    {
+      "metric": "Zero infections or nail damage",
+      "timeframe": "ongoing",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Last-minute event requiring perfect nails within 24-48 hours",
+    "Visible nail damage affecting professional image immediately",
+    "Limited appointment slots with preferred technician (books 5-7 days out)",
+    "Flash sale ending in 24 hours offering 30% discount",
+    "Friend wanting to book group appointment for specific date",
+    "Expiring Groupon or gift certificate within 7 days",
+    "Seasonal design availability ending soon (holiday art, summer colors)"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive at $45-75 per service",
+      "response": "Compare to daily Starbucks at $6 - nails last 14 days making it $3.21/day for confidence",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Takes too much time (60-90 minutes)",
+      "response": "Self-care investment prevents burnout, plus free WiFi to work during service",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "Damages natural nails",
+      "response": "Modern techniques with proper removal cause zero damage, we use formaldehyde-free products",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Won't last on my lifestyle",
+      "response": "Our gel formula guaranteed 14 days, free fix within 48 hours if any issues",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Can do it myself at home",
+      "response": "Professional results last 3x longer, no cleanup, includes massage and cuticle care worth $25",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Worried about sanitation",
+      "response": "Hospital-grade autoclave sterilization, single-use files, state inspection certificate displayed",
+      "effectiveness": 9.4
+    },
+    {
+      "objection": "Don't know what I want",
+      "response": "Free consultation, 500+ design photos, technician recommendations based on lifestyle",
+      "effectiveness": 8.3
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free touch-up within 72 hours",
+      "Satisfaction guarantee or redo",
+      "Price match within 5 miles",
+      "Allergy test patch available"
+    ],
+    "proof_points": [
+      "1,847 five-star Google reviews",
+      "12 years in business",
+      "State licensed and insured",
+      "Featured in local magazine"
+    ],
+    "risk_mitigation": "New client special 25% off first visit, consultation included, patch test for sensitive clients, detailed aftercare instructions, 24/7 text support for concerns"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "chipped",
+      "broken",
+      "grown out",
+      "yellowing",
+      "weak",
+      "embarrassing",
+      "unprofessional",
+      "damaged",
+      "lifting",
+      "outdated"
+    ],
+    "solution_words": [
+      "flawless",
+      "long-lasting",
+      "stunning",
+      "professional",
+      "trendy",
+      "healthy",
+      "pampered",
+      "perfect",
+      "Instagram-worthy",
+      "confidence"
+    ],
+    "avoid_jargon": [
+      "apex",
+      "c-curve",
+      "inhibition layer",
+      "polymerization",
+      "monomer",
+      "primer pH",
+      "cross-linking",
+      "viscosity",
+      "adhesion promoter"
+    ]
+  },
+  "power_words": [
+    "flawless",
+    "luxurious",
+    "transformative",
+    "exclusive",
+    "pristine",
+    "indulgent",
+    "signature",
+    "bespoke",
+    "radiant",
+    "impeccable",
+    "effortless",
+    "stunning",
+    "premium",
+    "artisan",
+    "perfection",
+    "glamorous",
+    "sophisticated",
+    "rejuvenating",
+    "meticulous",
+    "exceptional",
+    "revolutionary",
+    "guaranteed",
+    "instant",
+    "professional",
+    "certified",
+    "award-winning",
+    "trending",
+    "limited",
+    "complimentary",
+    "VIP"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "basic",
+    "simple",
+    "plain",
+    "ordinary",
+    "standard",
+    "generic",
+    "amateur",
+    "DIY",
+    "homemade",
+    "rustic",
+    "experimental",
+    "trainee",
+    "apprentice",
+    "maybe",
+    "hopefully",
+    "trying",
+    "attempt"
+  ],
+  "headline_templates": [
+    {
+      "template": "Get [Event]-Ready Nails in Just 60 Minutes",
+      "expected_ctr": 4.2,
+      "use_case": "event marketing"
+    },
+    {
+      "template": "Why [Number]% of [City] Professionals Choose Our Nail Services",
+      "expected_ctr": 3.8,
+      "use_case": "social proof"
+    },
+    {
+      "template": "The Secret to Nails That Last 21+ Days",
+      "expected_ctr": 5.1,
+      "use_case": "benefit focus"
+    },
+    {
+      "template": "Book Today, Save $[Amount] on Your First Visit",
+      "expected_ctr": 6.3,
+      "use_case": "promotional"
+    },
+    {
+      "template": "Transform Your Nails from Damaged to Dazzling",
+      "expected_ctr": 4.7,
+      "use_case": "transformation"
+    },
+    {
+      "template": "[Season] Nail Trends Now Available - Limited Slots",
+      "expected_ctr": 4.4,
+      "use_case": "seasonal"
+    },
+    {
+      "template": "Join [Number]+ Happy Clients with Perfect Nails",
+      "expected_ctr": 3.9,
+      "use_case": "community"
+    },
+    {
+      "template": "Same-Day Appointments Available Until [Time]",
+      "expected_ctr": 7.2,
+      "use_case": "urgency"
+    },
+    {
+      "template": "Nail Emergency? We Fix Breaks in 15 Minutes",
+      "expected_ctr": 8.1,
+      "use_case": "problem-solving"
+    },
+    {
+      "template": "Certified Technicians, Hospital-Grade Sanitation",
+      "expected_ctr": 5.3,
+      "use_case": "trust-building"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Appointment Now →",
+      "conversion_rate": 12.3,
+      "placement": "above fold"
+    },
+    {
+      "template": "Claim Your 25% First-Time Discount",
+      "conversion_rate": 18.7,
+      "placement": "popup"
+    },
+    {
+      "template": "See Available Times Today",
+      "conversion_rate": 15.2,
+      "placement": "sticky header"
+    },
+    {
+      "template": "Text 'NAILS' to 55555 for Instant Booking",
+      "conversion_rate": 9.8,
+      "placement": "mobile"
+    },
+    {
+      "template": "Reserve Your Spot (Only 3 Left Today)",
+      "conversion_rate": 21.4,
+      "placement": "urgency banner"
+    },
+    {
+      "template": "Get Your Free Consultation",
+      "conversion_rate": 11.6,
+      "placement": "service page"
+    },
+    {
+      "template": "Join Our VIP List for Priority Booking",
+      "conversion_rate": 8.9,
+      "placement": "footer"
+    },
+    {
+      "template": "Schedule Your Transformation",
+      "conversion_rate": 10.2,
+      "placement": "gallery"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Transformation Tuesday! 💅 Swipe to see how we rescued these nails! #NailTransformation #[City]Nails",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Facebook",
+      "template": "⏰ Last-minute plans? We have same-day appointments available! Call [Phone] or book online. Your perfect nails are just one click away!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a nail tech and someone asks for 'something simple' *shows elaborate nail art* #NailTech #NailArt",
+      "engagement_rate": 15.3
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Poll: Classic French 🤍 or Bold Red ❤️? Vote now and show us your choice!",
+      "engagement_rate": 12.1
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: Chipped nails are not a personality trait. Book your appointment today! 💅✨ [Booking Link]",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "Pinterest",
+      "template": "[Season] Nail Inspiration: 10 Trending Designs Our Clients Are Loving",
+      "engagement_rate": 6.9
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "60-Second Nail Art Challenge: Watch Our Tech Create Magic! #Shorts #NailArt",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "First impressions matter. Professional nail care is self-care and career care. #ProfessionalImage",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "Google My Business",
+      "template": "🎉 New Month Special: Book 3 services, get the 4th FREE! Valid through [Date]",
+      "engagement_rate": 7.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Guaranteed 14-day wear without chips or lifting",
+      "rank": 1,
+      "differentiator": "Industry-leading durability promise"
+    },
+    {
+      "prop": "Same-day appointments available 7 days a week",
+      "rank": 2,
+      "differentiator": "Unmatched scheduling flexibility"
+    },
+    {
+      "prop": "Hospital-grade sanitation exceeding state requirements",
+      "rank": 3,
+      "differentiator": "Health and safety leadership"
+    },
+    {
+      "prop": "500+ designs with custom art capabilities",
+      "rank": 4,
+      "differentiator": "Artistic expertise and variety"
+    },
+    {
+      "prop": "VIP membership saving 20% on all services",
+      "rank": 5,
+      "differentiator": "Best value loyalty program"
+    },
+    {
+      "prop": "Bilingual staff and culturally diverse techniques",
+      "rank": 6,
+      "differentiator": "Inclusive service approach"
+    },
+    {
+      "prop": "Free fixes within 72 hours of service",
+      "rank": 7,
+      "differentiator": "Risk-free service guarantee"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the pinnacle of nail artistry with our master technicians. Using exclusively imported Japanese gel systems and Swiss precision tools, we create bespoke nail designs that reflect your unique style. Our private VIP suites offer a tranquil escape with complimentary champagne and aromatherapy.",
+    "budget_conscious": "Beautiful nails shouldn't break the bank. Our express services deliver professional results in 30 minutes, starting at just $25. Students and seniors save an extra 15%. Plus, our loyalty program means every 6th service is free. Quality and affordability meet here.",
+    "enterprise": "Elevate your team's professional image with our corporate wellness program. On-site services, volume discounts, and flexible scheduling ensure your employees always look their best. Trusted by Fortune 500 companies for convenience and consistency."
+  },
+  "trust_signals": [
+    {
+      "signal": "State license and insurance certificates displayed",
+      "importance": 10,
+      "format": "physical display"
+    },
+    {
+      "signal": "Before/after gallery with 500+ photos",
+      "importance": 8,
+      "format": "digital and print"
+    },
+    {
+      "signal": "Google reviews average 4.8 stars (1,847 reviews)",
+      "importance": 9,
+      "format": "widget embed"
+    },
+    {
+      "signal": "12 years in business, same location",
+      "importance": 7,
+      "format": "storefront signage"
+    },
+    {
+      "signal": "Featured in Local Magazine 'Best Of' 3 years",
+      "importance": 8,
+      "format": "award display"
+    },
+    {
+      "signal": "Real-time booking showing actual availability",
+      "importance": 6,
+      "format": "online system"
+    },
+    {
+      "signal": "Certified in medical-grade sanitation protocols",
+      "importance": 9,
+      "format": "certificate display"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "87% of clients rebook before leaving",
+      "credibility_score": 9.2,
+      "context": "Based on 2023 POS data analysis"
+    },
+    {
+      "stat": "Average client stays 4.7 years",
+      "credibility_score": 8.8,
+      "context": "Customer retention study 2019-2024"
+    },
+    {
+      "stat": "2,400+ five-star reviews across all platforms",
+      "credibility_score": 9.5,
+      "context": "Aggregated review data as of 2024"
+    },
+    {
+      "stat": "73% of new clients from referrals",
+      "credibility_score": 8.6,
+      "context": "New client intake survey results"
+    },
+    {
+      "stat": "Less than 0.01% service complaint rate",
+      "credibility_score": 9.1,
+      "context": "Quality assurance tracking since 2020"
+    },
+    {
+      "stat": "Featured in 15+ wedding party bookings monthly",
+      "credibility_score": 7.9,
+      "context": "Bridal party booking statistics"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Japanese gel brands, individual ventilation systems, massage chairs with heat, organic cuticle oils",
+    "Mid-tier: Known brand products, clean environment, standard pedicure chairs, complimentary beverages",
+    "Budget: Quick service focus, limited color selection, basic equipment, minimal amenities",
+    "Premium: 60-90 minute appointments, detailed cuticle work, custom nail art, hand massage included",
+    "Budget: 30-minute express services, basic shapes only, limited design options, self-service elements"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After sharing nail photos on social media or receiving compliments",
+    "ask_method": "Automated text with photo upload option and one-click review links to Google and Yelp"
+  },
+  "competitive_advantages": [
+    "Only salon in area offering medical-grade pedicures for diabetics",
+    "Exclusive distributor of Korean gel polish lasting 21+ days",
+    "Mobile app with virtual try-on for design selection",
+    "Child care area with certified attendant during appointments",
+    "Partnership with local hospital for healthcare worker discounts"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display luxury $150 spa manicure first, making $65 gel manicure seem reasonable",
+    "sensitivity": "Price breaks at $50, $75, $100 psychological thresholds",
+    "sweet_spots": [
+      "$45-55 for basic gel",
+      "$65-75 for gel with art",
+      "$85-95 for luxury services"
+    ],
+    "decoy_pricing": "Offer $60 regular polish to make $65 gel seem like better value with 2x longevity"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 100,
+    "competitor_research": 50
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.2,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Express",
+      "price_range": "$25-40",
+      "target_customer": "Busy professionals, maintenance clients",
+      "margin": 42
+    },
+    {
+      "tier": "Signature",
+      "price_range": "$45-75",
+      "target_customer": "Regular clients, special occasions",
+      "margin": 58
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$80-150",
+      "target_customer": "Celebrations, self-care enthusiasts",
+      "margin": 71
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle services for 15% discount but 23% higher total transaction",
+    "Upsell nail art adding $15-25 with 85% margin",
+    "Membership programs ensuring predictable revenue with 8% discount",
+    "Retail product sales with 65% margins on $300 monthly average",
+    "Group bookings with 10% discount but 40% labor efficiency gain",
+    "Off-peak pricing to maximize chair utilization during slow hours"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget recovery",
+      "opportunity": "New Year transformation packages"
+    },
+    {
+      "month": "February",
+      "variation": 5,
+      "reason": "Valentine's Day prep",
+      "opportunity": "Romantic reds and pinks promotion"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring break travel",
+      "opportunity": "Vacation-ready gel services"
+    },
+    {
+      "month": "April",
+      "variation": 12,
+      "reason": "Easter and spring events",
+      "opportunity": "Pastel color promotions"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Prom and graduation season",
+      "opportunity": "Student group bookings"
+    },
+    {
+      "month": "June",
+      "variation": 30,
+      "reason": "Wedding season peak",
+      "opportunity": "Bridal party packages"
+    },
+    {
+      "month": "July",
+      "variation": 20,
+      "reason": "Summer vacations and events",
+      "opportunity": "Bright summer colors"
+    },
+    {
+      "month": "August",
+      "variation": 15,
+      "reason": "Back-to-school prep",
+      "opportunity": "Teacher and student specials"
+    },
+    {
+      "month": "September",
+      "variation": -5,
+      "reason": "Routine establishment",
+      "opportunity": "Fall color transitions"
+    },
+    {
+      "month": "October",
+      "variation": 18,
+      "reason": "Halloween and fall events",
+      "opportunity": "Seasonal nail art"
+    },
+    {
+      "month": "November",
+      "variation": 22,
+      "reason": "Holiday party season begins",
+      "opportunity": "Glitter and metallics"
+    },
+    {
+      "month": "December",
+      "variation": 35,
+      "reason": "Holiday parties and travel",
+      "opportunity": "Gift certificates and party nails"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Quiet service, senior discounts",
+      "avoid": "Group bookings",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Regular maintenance appointments",
+      "avoid": "Special events",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week specials",
+      "avoid": "Nothing specific",
+      "conversion_rate": 4.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep beginning",
+      "avoid": "Early morning slots",
+      "conversion_rate": 6.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "After-work rush",
+      "avoid": "Complicated nail art",
+      "conversion_rate": 8.7
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Full services and events",
+      "avoid": "Walk-ins",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Relaxation services",
+      "avoid": "Business networking",
+      "conversion_rate": 5.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th create 48-hour booking dips",
+    "cash_flow_peaks": "3rd-7th and 18th-22nd show 40% higher bookings",
+    "slow_periods": "10th-14th and 25th-30th need promotional support"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 4pm-7pm",
+      "crisis_type": "Last-minute weekend plans",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "December 20-24",
+      "crisis_type": "Holiday party emergencies",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Valentine's Day minus 2 days",
+      "crisis_type": "Date night prep",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Prom week",
+      "crisis_type": "Teen nail emergencies",
+      "premium_multiplier": 1.4
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Maintenance Membership",
+      "components": [
+        "Bi-weekly gel",
+        "Monthly pedicure",
+        "10% retail discount"
+      ],
+      "pricing_model": "$99/month",
+      "margin": 52
+    },
+    {
+      "name": "Bridal Bliss",
+      "components": [
+        "Trial run",
+        "Wedding day service",
+        "Bridesmaids coordination",
+        "Touch-up kit"
+      ],
+      "pricing_model": "$350 flat",
+      "margin": 68
+    },
+    {
+      "name": "Corporate Wellness",
+      "components": [
+        "Monthly on-site service",
+        "Express options",
+        "Team building events"
+      ],
+      "pricing_model": "$75/employee",
+      "margin": 61
+    },
+    {
+      "name": "Seasonal Unlimited",
+      "components": [
+        "Unlimited basic services",
+        "Priority booking",
+        "Guest passes"
+      ],
+      "pricing_model": "$199/month",
+      "margin": 45
+    }
+  ],
+  "upsell_paths": [
+    "Basic manicure ($25) → Gel manicure ($45) → Gel with art ($65) → Luxury spa manicure ($85)",
+    "Walk-in client → Appointment booker → Package buyer → Membership holder → Brand advocate",
+    "Single service → Add pedicure → Include massage → Retail purchase → Gift certificate buyer",
+    "Express polish → Long-wear gel → Nail strengthening treatment → Medical pedicure → Quarterly packages"
+  ],
+  "retention_hooks": [
+    "Pre-book next appointment for 10% discount applied immediately",
+    "Birthday month free upgrade to luxury service tier",
+    "Loyalty points: $1 spent = 1 point, 100 points = $10 reward",
+    "Exclusive member-only booking times during peak hours",
+    "Personalized color and design history in client profile",
+    "Automated reminder texts with last service photos",
+    "VIP early access to new seasonal collections and techniques"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both parties get $15 off next service",
+      "timing": "After 3rd visit",
+      "incentive": "$15 credit each",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Social media tag rewards",
+      "timing": "Within 24 hours of service",
+      "incentive": "5% off next visit",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Bridal party group discounts",
+      "timing": "During consultation",
+      "incentive": "Bride free with 4+ bookings",
+      "conversion_rate": 67
+    },
+    {
+      "strategy": "Corporate referral program",
+      "timing": "After first team booking",
+      "incentive": "Company account credits",
+      "conversion_rate": 43
+    },
+    {
+      "strategy": "Family package deals",
+      "timing": "Holiday seasons",
+      "incentive": "4th family member free",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Review incentives",
+      "timing": "3 days post-service",
+      "incentive": "$5 off for photo review",
+      "conversion_rate": 41
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Cuticle oil retail",
+      "attach_rate": 31,
+      "timing": "During nail art selection"
+    },
+    {
+      "service": "Add paraffin treatment",
+      "attach_rate": 24,
+      "timing": "Winter months check-out"
+    },
+    {
+      "service": "Matching pedicure",
+      "attach_rate": 47,
+      "timing": "Summer season booking"
+    },
+    {
+      "service": "Nail strengthening treatment",
+      "attach_rate": 19,
+      "timing": "After removal service"
+    },
+    {
+      "service": "Gift certificate purchase",
+      "attach_rate": 12,
+      "timing": "Holiday season checkout"
+    },
+    {
+      "service": "Take-home care kit",
+      "attach_rate": 28,
+      "timing": "First-time gel service"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Medical pedicure certification",
+      "market_size": "$2.3M annually locally",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Mobile wedding services",
+      "market_size": "$850K seasonal",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Men's grooming services",
+      "market_size": "$1.1M growing 15% yearly",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Nail technician training academy",
+      "market_size": "$500K passive income",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Private label product line",
+      "market_size": "$300K additional revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Corporate wellness contracts",
+      "market_size": "$1.8M B2B market",
+      "difficulty": 5
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Olive & June's nail art tutorial series on Instagram Reels featuring step-by-step DIY manicure techniques with product placement",
+        "platform": "Instagram",
+        "why_it_worked": "Educational content that empowers users while showcasing products; short-form video format optimized for platform; addresses customer desire to recreate salon looks at home; builds brand authority",
+        "metrics": "Average 50K-200K views per Reel, 5-8% engagement rate on tutorial content",
+        "source": "Social Media Today case study on beauty brand Instagram strategies 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Local nail salon's before/after transformation posts on Instagram featuring damaged nails restored to healthy state with gel-x extensions",
+        "platform": "Instagram",
+        "why_it_worked": "Visual proof of transformation taps into key customer desire (damaged to healthy nails); carousel format increases engagement; authentic client results build trust; uses relevant hashtags like #nailrepair #gelnails",
+        "metrics": "Before/after posts generate 2-3x higher engagement than standard nail art posts according to beauty industry benchmarks",
+        "source": "Hootsuite Beauty & Wellness Social Media Benchmark Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Paintbox nail salon's TikTok trend participation featuring nail artists recreating viral nail art designs with professional techniques",
+        "platform": "TikTok",
+        "why_it_worked": "Leverages trending sounds and challenges; showcases professional expertise; appeals to younger demographic seeking trendy designs; encourages user-generated content and duets",
+        "metrics": "Trend-based content averages 100K+ views vs 10K for standard posts; 12% engagement rate",
+        "source": "TikTok for Business Beauty Industry Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Email campaign featuring 'Last-minute appointment availability' subject lines sent 24-48 hours before weekend slots",
+        "platform": "Email",
+        "why_it_worked": "Creates urgency; targets spontaneous self-care decision; capitalizes on weekend demand; personalized timing based on customer booking patterns",
+        "metrics": "40-45% open rates vs industry average 20-25%; 15% click-through rate",
+        "source": "Mailchimp Beauty & Personal Care Email Benchmarks 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Seasonal nail color collection launches tied to fashion week trends, posted as Instagram carousels with swipe-through color options",
+        "platform": "Instagram",
+        "why_it_worked": "Ties into broader fashion trends; carousel format keeps users engaged; seasonal relevance; positions salon as trend-forward; appeals to fashion-conscious customers",
+        "metrics": "Carousel posts receive 1.4x more reach and 3.1x more engagement than single image posts in beauty industry",
+        "source": "Later.com Instagram Engagement Study 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.8% for beauty/personal care industry",
+        "best_content_format": "Reels (average 4.2% engagement) followed by carousel posts (3.1% engagement), then single images (1.9% engagement)",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Reels per week performing best",
+        "best_posting_times": "Tuesday-Friday 9-11 AM and 7-9 PM; Saturday 11 AM-1 PM for weekend appointment booking",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Beauty & Personal Care Industry"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.15-0.25% for local service businesses",
+        "best_content_format": "Video posts (0.26% engagement), photo posts with local tags (0.18% engagement), customer testimonial posts",
+        "optimal_frequency": "3-5 posts per week; over-posting decreases engagement",
+        "best_posting_times": "Wednesday-Friday 1-3 PM; Sunday evenings 6-8 PM for week-ahead booking",
+        "source": "Sprout Social 2024 Social Media Benchmark Report"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for beauty content (significantly higher than other platforms)",
+        "best_content_format": "Short-form videos 15-30 seconds; trending audio usage; behind-the-scenes content; transformation videos",
+        "optimal_frequency": "1-3 videos per day for maximum algorithm favor; minimum 4 per week",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-11 PM EST; Friday 5-7 PM",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.5% open rate, 2.3% click-through rate for beauty/personal care",
+        "best_content_format": "Mobile-optimized single-column design; prominent before/after images; clear CTA buttons; personalized appointment reminders",
+        "optimal_frequency": "2-4 emails per month; weekly for active customers; appointment reminders 48 hours before",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM; Sunday 6-8 PM for week planning",
+        "source": "Mailchimp Email Marketing Benchmarks 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 7x more clicks than standard listings; photos increase requests for directions by 42%",
+        "best_content_format": "High-quality nail art photos; offer posts with specific promotions; update posts 2-3x weekly; respond to all reviews within 24 hours",
+        "optimal_frequency": "2-3 posts per week; daily story-style updates during peak seasons",
+        "best_posting_times": "Monday-Wednesday for weekend planning; Thursday-Friday for last-minute bookings",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Google Business Profile Best Practices"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgent availability/scarcity hook",
+        "example": "LAST-MINUTE SPOTS: 3 appointments available this Saturday 🚨 | Only 2 gel manicure slots left this week",
+        "why_it_works": "Creates FOMO and urgency; addresses spontaneous self-care trigger; scarcity increases perceived value; time-sensitive action required",
+        "source": "Salon email marketing case studies and high-performing Instagram posts"
+      },
+      {
+        "hook_pattern": "Transformation/Before-After hook",
+        "example": "From damaged and brittle to strong and stunning in one appointment 💅 | See how we rescued these broken nails",
+        "why_it_works": "Visual proof addresses key pain point (damaged nails); shows clear value proposition; taps into desire for healthy nails; builds credibility",
+        "source": "Analysis of top-performing Instagram posts in nail salon industry"
+      },
+      {
+        "hook_pattern": "Trend-jacking hook",
+        "example": "Everyone's asking for THIS nail trend (and here's why) | The fall color everyone's requesting | TikTok made me book this appointment",
+        "why_it_works": "Leverages social proof; FOMO from trending content; positions salon as current and relevant; addresses 'seeing friend's manicure' trigger",
+        "source": "TikTok and Instagram viral nail content analysis"
+      },
+      {
+        "hook_pattern": "Event-driven hook",
+        "example": "Wedding in 2 weeks? Here's your nail timeline | Pre-vacation nail prep: what actually lasts | Interview-ready nails in 60 minutes",
+        "why_it_works": "Directly addresses high-urgency customer triggers; provides solution to specific need; time-bound relevance; positions salon as problem-solver",
+        "source": "Salon booking data and seasonal marketing campaigns"
+      },
+      {
+        "hook_pattern": "Self-care/emotional benefit hook",
+        "example": "You deserve this reset 🧘‍♀️ | Your mental health day starts here | 60 minutes of pure relaxation (and perfect nails)",
+        "why_it_works": "Taps into emotional transformation (stressed to relaxed); permission-based marketing; addresses self-care trigger; premium positioning",
+        "source": "Spa and salon marketing best practices, customer review analysis"
+      },
+      {
+        "hook_pattern": "Educational/Expert authority hook",
+        "example": "Nail tech reveals: Why your gel polish chips after 3 days | The secret to making your manicure last 3+ weeks | What your nails are telling you about your health",
+        "why_it_works": "Positions salon as expert authority; provides value before asking for sale; addresses common frustration (short-lasting results); builds trust",
+        "source": "Beauty industry content marketing studies"
+      },
+      {
+        "hook_pattern": "Social proof/exclusivity hook",
+        "example": "Our most-requested design this month | Why clients drive 30+ minutes to see us | The signature service our regulars can't live without",
+        "why_it_works": "Leverages social proof; creates exclusivity appeal; implies superior quality; taps into desire for premium experience",
+        "source": "Luxury salon marketing analysis and customer testimonials"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "my nails are so embarrassing I hide my hands in meetings",
+        "my gel polish always chips within a week no matter where I go",
+        "I can't find anyone who does clean cuticle work",
+        "my nails are so damaged from acrylics they're paper thin",
+        "I never have time to maintain my nails myself",
+        "every salon I try rushes through and it shows",
+        "my nails break constantly and I'm so self-conscious",
+        "I can't get the designs I see on Instagram to look right",
+        "the smell at most salons gives me a headache",
+        "I have a wedding in two weeks and my nails look terrible"
+      ],
+      "solution_phrases": [
+        "finally found a place that takes their time and does it right",
+        "my manicure lasted three full weeks without chipping",
+        "they actually listen to what I want instead of doing their own thing",
+        "my nails have never been healthier or stronger",
+        "the atmosphere is so relaxing I actually look forward to appointments",
+        "they're always on time and respectful of my schedule",
+        "I get so many compliments on my nails now",
+        "they can recreate any design I show them perfectly",
+        "clean, professional, and no harsh chemical smell",
+        "I feel so confident and put-together after my appointments"
+      ],
+      "objection_phrases": [
+        "I can't justify spending that much on nails every few weeks",
+        "I'm worried about how clean the tools are",
+        "I don't want to be stuck with someone who doesn't understand what I want",
+        "what if I don't like it and I'm stuck with it for weeks",
+        "I've had bad experiences with nail damage before",
+        "I don't have time for a 2-hour appointment",
+        "I'm not sure they can match my skin tone for nude colors",
+        "I'm afraid they'll push services I don't want or need",
+        "I don't know if they can do the specific technique I want",
+        "I'm nervous about trying someone new"
+      ],
+      "decision_factors": [
+        "cleanliness and sanitation practices are my number one priority",
+        "I need to see their actual work on real clients not just promotional photos",
+        "how long the manicure actually lasts is worth paying more for",
+        "I want a nail tech who specializes in healthy natural nails not just extensions",
+        "being able to book online and get reminders is essential for my schedule",
+        "I read every single review before trying a new place",
+        "the vibe and atmosphere matters as much as the actual service",
+        "I need someone who can work with my nail damage and help repair it",
+        "consistency matters - I want the same quality every visit",
+        "location and parking have to be convenient or I won't go back"
+      ],
+      "emotional_language": [
+        "I feel so pampered and special",
+        "it's my me-time that I actually protect on my calendar",
+        "I feel confident and professional",
+        "it's such a mood booster when my nails look good",
+        "I feel like I have my life together when my nails are done",
+        "it's my monthly reset and stress relief",
+        "I feel beautiful and put-together",
+        "it's the one thing I do just for myself",
+        "I feel transformed walking out",
+        "it's my self-care non-negotiable"
+      ],
+      "sources": [
+        "Reddit r/Nails customer discussions and recommendations",
+        "Yelp and Google reviews for top-rated nail salons",
+        "Facebook beauty groups and nail salon recommendation threads",
+        "Instagram comments on nail salon posts",
+        "Beauty forum discussions on nail care and salon experiences"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about nail health and damage prevention - most salons only post finished work without teaching customers how to maintain results",
+      "Transparent pricing and service breakdowns - customers complain about unclear pricing and unexpected upsells",
+      "Behind-the-scenes sanitation and safety practices - customers care deeply but few salons showcase their protocols",
+      "Male grooming services and gender-neutral marketing - growing market segment largely ignored",
+      "Accessibility features and accommodations - rarely mentioned despite significant need",
+      "Nail health recovery programs - positioning services for damaged nail repair as a specialty",
+      "Detailed artist portfolios - helping customers choose the right nail tech for their specific style preference",
+      "Time-saving express services - many busy professionals want quality in 30-45 minutes",
+      "Sustainability and eco-friendly product options - growing concern not addressed by most salons",
+      "Loyalty program transparency and value communication - most programs are poorly explained"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "New Year self-care resolutions, Valentine's Day, winter wedding season",
+        "content_angle": "New year new nails campaigns; romantic red/pink collections; winter nail health recovery after holiday damage; Valentine's couples manicure packages"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Spring break, Easter, prom season beginning, spring wedding season peak",
+        "content_angle": "Spring color transitions; pastel collections; prom nail packages; vacation-proof manicure tips; spring refresh promotions"
+      },
+      {
+        "period": "May-June",
+        "opportunity": "Mother's Day, graduation season, peak wedding season, summer vacation prep",
+        "content_angle": "Mother-daughter manicure packages; graduation nail designs; bridal party services; summer-ready bright colors; vacation-lasting gel promotions"
+      },
+      {
+        "period": "July-August",
+        "opportunity": "Summer vacations, back-to-school prep, late summer weddings",
+        "content_angle": "Waterproof summer designs; teacher appreciation specials; beach-ready nails; back-to-school teen packages; vacation maintenance tips"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Fall fashion season, homecoming, Halloween, autumn wedding season",
+        "content_angle": "Fall color collections matching fashion trends; homecoming nail art; Halloween designs; autumn neutrals and earth tones; cozy season self-care"
+      },
+      {
+        "period": "November-December",
+        "opportunity": "Holiday parties, Thanksgiving, Christmas, New Year's Eve, gift certificate sales",
+        "content_angle": "Holiday nail art collections; party-ready metallics and glitters; gift certificate promotions; festive designs; year-end self-care; New Year's Eve glamour packages"
+      },
+      {
+        "period": "Year-round weekly patterns",
+        "opportunity": "Friday-Sunday booking peaks, Monday self-care, mid-week maintenance",
+        "content_angle": "Weekend availability alerts; Monday reset promotions; mid-week maintenance specials; last-minute Friday appointment posts"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Sprout Social 2024 Social Media Benchmark Report",
+      "Influencer Marketing Hub TikTok Engagement Benchmarks 2024",
+      "Later.com Instagram Engagement Study 2024",
+      "Hootsuite Beauty & Wellness Social Media Report 2024",
+      "TikTok for Business Beauty Industry Report 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Reddit r/Nails community discussions",
+      "Yelp and Google Business reviews for top-rated nail salons",
+      "Instagram engagement analysis of leading nail salon accounts",
+      "Beauty industry forum discussions and Facebook groups"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for specific nail salon campaigns",
+      "Specific A/B testing results for nail salon email subject lines are proprietary",
+      "Some platform benchmarks are beauty industry-wide rather than nail salon-specific",
+      "LinkedIn data limited as platform is not primary channel for B2C nail salon marketing"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Teasing the nail health revolution - Damaged to stunning transformation preview",
+        "Week 2: Introducing [new service/product] - The solution to chipping gel and brittle nails",
+        "Week 3: Real client transformations - From embarrassed to confident in one appointment",
+        "Week 4: Last chance exclusivity - Limited spots for signature [service] this month"
+      ],
+      "weekly_hooks": [
+        [
+          "Something's coming that will change how long your manicure lasts (hint: 3+ weeks) 👀",
+          "We've been testing this for 6 months on our regulars... now you'll see why they can't stop talking about it",
+          "If your gel polish chips after 3 days, this Thursday changes everything for you 💅"
+        ],
+        [
+          "FINALLY HERE: The [service] that our clients have been begging us to offer 🚨",
+          "Why your manicure chips after a week (and how our new [technique] fixes it permanently)",
+          "Introducing [service name] - The signature service our regulars drive 30+ minutes for"
+        ],
+        [
+          "From paper-thin and damaged to healthy and strong - See [Client Name]'s 4-week transformation",
+          "She was hiding her hands in meetings. Now she gets compliments daily. Here's what changed ✨",
+          "Real results: This bride's nails went from brittle disaster to flawless in 2 appointments"
+        ],
+        [
+          "LAST CALL: Only 8 spots left for [new service] this month 🚨",
+          "Everyone's requesting THIS and we're fully booked through [date] - grab your spot now",
+          "The fall service everyone's talking about - 3 appointments available this week only"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address skepticism about lasting results - Preview before/after without revealing full technique",
+        "Week 2: Address 'damages natural nails' concern - Showcase formaldehyde-free products and healthy nail focus",
+        "Week 3: Address 'too expensive' objection - Break down cost per day vs. daily coffee, emphasize 3-week longevity",
+        "Week 4: Address 'trying someone new' nervousness - Offer 48-hour satisfaction guarantee and free fix policy"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce behind-the-scenes testing footage and product ingredients/certifications",
+        "Week 2: Share nail tech credentials and specialized training for new service",
+        "Week 3: Feature 5-7 detailed before/after client transformations with testimonials",
+        "Week 4: Showcase social proof - number of bookings, waitlist size, client demand metrics"
+      ],
+      "cta_progression": [
+        "Week 1: Join the waitlist to be first to know when bookings open",
+        "Week 2: Book your consultation - DM us 'READY' or click link in bio to schedule",
+        "Week 3: Tag someone whose nails need this transformation - share this post to your story",
+        "Week 4: Book now - Only [X] spots remaining this month, link in bio or call [number]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week: 4 Reels, 2-3 carousel posts)",
+        "TikTok (4-5 videos/week: trend participation + educational)",
+        "Email (2 emails: Week 2 launch announcement, Week 4 urgency reminder)",
+        "Google Business Profile (3 posts/week: offer posts with new service details)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Olive & June's tutorial series success (50K-200K views per Reel) combined with before/after transformation posts generating 2-3x higher engagement. Launch timing mirrors seasonal collection launches tied to trends, using carousel format for 3.1x engagement boost."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Nail health education - Why your nails break and how to prevent damage",
+        "Week 2: Trend spotlight - Recreating viral TikTok nail designs with professional techniques",
+        "Week 3: Client transformation stories - Real damaged nail recovery journeys",
+        "Week 4: Behind-the-scenes sanitation - Clean tools and safety protocols showcase",
+        "Week 5: Expert tips - Making your manicure last 3+ weeks at home",
+        "Week 6: Seasonal color collections - Fashion-forward shades matching current trends",
+        "Week 7: Self-care messaging - Your monthly reset and stress relief ritual",
+        "Week 8: Community spotlight - Featuring client nail art and testimonials"
+      ],
+      "weekly_hooks": [
+        [
+          "Nail tech reveals: What your nails are telling you about your health 💅",
+          "Why your nails are brittle (and the 3 things we do to repair them)",
+          "From damaged and weak to strong and healthy - Here's the recovery timeline"
+        ],
+        [
+          "Everyone's asking for THIS nail trend (and here's why it's perfect for fall)",
+          "TikTok made me create this design - Professional version vs DIY attempt",
+          "The most-requested design this month - See why clients are obsessed ✨"
+        ],
+        [
+          "She was embarrassed to show her hands in meetings. Look at her nails now 🙌",
+          "Before: Paper-thin from acrylics. After: Healthy and strong. Here's how we did it",
+          "This transformation took 6 weeks - Damaged nails don't have to be permanent"
+        ],
+        [
+          "Here's exactly how we sanitize between every single client (full transparency)",
+          "Cleanliness is our #1 priority - Take a behind-the-scenes tour of our sanitation process",
+          "What clean really means: Our autoclave sterilization and single-use tool policy"
+        ],
+        [
+          "Nail tech reveals: The secret to making your manicure last 3+ weeks",
+          "Why your gel polish chips after 3 days (and the simple fix you're missing)",
+          "Do THIS tonight to add 5+ days to your manicure lifespan"
+        ],
+        [
+          "Fall's most stunning color just dropped - This shade looks flawless on every skin tone",
+          "The neutral everyone's requesting for job interviews and professional settings",
+          "Seasonal collection alert: 6 new shades inspired by Fashion Week trends 🍂"
+        ],
+        [
+          "You deserve this reset 🧘‍♀️ 60 minutes of pure relaxation (and impeccable nails)",
+          "Your mental health day starts here - Self-care isn't selfish, it's essential",
+          "This is your sign to book that appointment you've been putting off ✨"
+        ],
+        [
+          "Client spotlight: [Name]'s signature style and why she's been coming for 2 years",
+          "Tag your nail twin - Which of these 6 client styles matches your vibe?",
+          "Our community's most creative nail art this month - You guys are incredible 💕"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address nail damage concerns through education",
+        "Week 3: Address 'won't last' objection with transformation proof",
+        "Week 4: Address cleanliness concerns with transparency",
+        "Week 5: Address 'can do it myself' objection with expert tips showing complexity",
+        "Week 6: Address 'too expensive' through cost-per-wear breakdown",
+        "Week 7: Address 'takes too much time' by reframing as essential self-care",
+        "Week 8: Address 'trying someone new' through community trust signals"
+      ],
+      "proof_timing": [
+        "Week 1: Educational authority - Nail health credentials",
+        "Week 2: Trend authority - Professional technique superiority",
+        "Week 3: Results proof - Before/after transformations",
+        "Week 4: Safety certifications and sanitation protocols",
+        "Week 5: Expert tips demonstrating deep knowledge",
+        "Week 6: Fashion industry connections and trend forecasting",
+        "Week 7: Client retention testimonials and loyalty stories",
+        "Week 8: Community size and engagement metrics"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post for later + Follow for more nail health tips",
+        "Week 2: Comment which trend you want us to try next",
+        "Week 3: DM us if you need nail damage repair - We can help",
+        "Week 4: Book your appointment - Link in bio or call [number]",
+        "Week 5: Share this tip with someone who needs it",
+        "Week 6: Which shade is calling your name? Comment below 👇",
+        "Week 7: Book your self-care appointment - You've earned it",
+        "Week 8: Tag us in your nail photos to be featured next month"
+      ],
+      "platform_priority": [
+        "Instagram (5 posts/week: 3 Reels, 2 carousels)",
+        "TikTok (4 videos/week: educational + trend participation)",
+        "Google Business Profile (2-3 posts/week: photos + offers)",
+        "Email (2 emails/month: Week 3 transformation stories, Week 7 self-care reminder)",
+        "Facebook (3 posts/week: testimonials + local tags)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational content empowering users (Olive & June's 5-8% engagement on tutorials) and before/after posts generating 2-3x higher engagement. Addresses competitive gap of educational nail health content while maintaining promotional balance for sustainable growth."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral trend participation - Recreating trending TikTok nail designs with professional twist",
+        "Week 2: Controversial truth-telling - Exposing nail industry secrets and myths"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You asked for the viral chrome nails and actually got them right 💅 #nailtech #chromenails",
+          "Trying the TikTok nail hack that's going viral - Professional edition (you won't believe the difference)",
+          "This trend is EVERYWHERE and here's the professional way to make it last 3+ weeks",
+          "Duet this if you've tried this trend - Show us your version vs ours",
+          "The nail design breaking the internet - Here's why everyone's requesting it",
+          "We recreated [Trending Audio] with nail art and it's perfection ✨",
+          "When they ask for 'something trendy' - This is what we're doing this week"
+        ],
+        [
+          "Nail tech exposes: The real reason your gel polish chips after 3 days (salons don't want you to know this)",
+          "I'm about to make every nail salon mad but you deserve the truth about acrylics 🚨",
+          "The dirty secret about 'cheap' manicures that costs you more in the long run",
+          "Why we REFUSE to rush appointments (even when you're running late) - The truth matters",
+          "What your nail tech notices but won't tell you about your nail health",
+          "The one question you should ask before sitting down (protects you from damage)",
+          "Controversial opinion: Not everyone should get gel nails - Here's why"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'can't recreate Instagram designs' through viral proof",
+        "Week 2: Address 'all salons are the same' through truth-telling differentiation"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase professional technique superiority through trend comparisons",
+        "Week 2: Establish authority through industry insider knowledge and transparency"
+      ],
+      "cta_progression": [
+        "Week 1: Duet this, Stitch this, Tag someone who needs to see this, Use our sound",
+        "Week 2: Follow for more truth bombs, Save this before it gets taken down, Share to your story"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 videos/day: trending audio + controversial takes)",
+        "Instagram Reels (1-2 Reels/day: cross-post top TikTok content)",
+        "Instagram Stories (3-5 stories/day: behind-the-scenes + polls)",
+        "Facebook (1 post/day: controversial content for comments)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok trend participation averaging 100K+ views vs 10K for standard posts with 12% engagement rate. Paintbox's viral trend strategy combined with truth-telling hooks that generate high shareability and algorithm favor through controversial engagement."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Nail anatomy education - Understanding nail structure and growth cycles",
+        "Week 2: Product chemistry breakdown - What's actually in gel polish and why it matters",
+        "Week 3: Damage prevention masterclass - Proper removal techniques and nail protection",
+        "Week 4: Professional techniques explained - Why salon results differ from DIY",
+        "Week 5: Nail health diagnostics - Reading signs of deficiency and damage",
+        "Week 6: Long-term nail care strategy - Building a sustainable maintenance routine"
+      ],
+      "weekly_hooks": [
+        [
+          "Nail tech reveals: What your nails are telling you about your health (Part 1: Anatomy)",
+          "Why your nails grow at different speeds - The science behind nail growth cycles",
+          "Understanding your nail bed vs nail plate - This changes everything about care"
+        ],
+        [
+          "Here's exactly what's in gel polish (and why formaldehyde-free actually matters)",
+          "The chemistry of why some gel lasts 3 weeks and others chip in 3 days",
+          "Breaking down the ingredients: What makes our products different (with receipts)"
+        ],
+        [
+          "The #1 mistake causing permanent nail damage (and how to reverse it)",
+          "Why picking off gel polish ruins your nails - Here's what's actually happening",
+          "Proper removal technique that protects your natural nail - Step by step tutorial"
+        ],
+        [
+          "Why professional manicures last 3x longer than DIY - The techniques you can't replicate at home",
+          "The difference between $25 and $65 manicures - Breaking down what you're actually paying for",
+          "Cuticle care 101: Why this step makes or breaks your manicure longevity"
+        ],
+        [
+          "What ridges in your nails mean (and when to see a doctor vs a nail tech)",
+          "Reading your nails: 7 signs of vitamin deficiency you shouldn't ignore",
+          "When nail damage is cosmetic vs medical - Your diagnostic guide"
+        ],
+        [
+          "Building a nail care routine that actually works - Your 12-week transformation plan",
+          "How often you ACTUALLY need professional manicures (based on your lifestyle)",
+          "The sustainable approach to healthy nails - Balancing treatments with natural recovery"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address confusion about nail health basics",
+        "Week 2: Address concerns about product safety and ingredients",
+        "Week 3: Address 'damages natural nails' through prevention education",
+        "Week 4: Address 'can do it myself' by showing professional complexity",
+        "Week 5: Address health concerns and when to seek professional help",
+        "Week 6: Address 'too expensive' by showing long-term cost savings of proper care"
+      ],
+      "proof_timing": [
+        "Week 1: Establish educational credentials and certifications",
+        "Week 2: Share product certifications and safety testing",
+        "Week 3: Before/after damage recovery case studies",
+        "Week 4: Side-by-side professional vs DIY comparisons",
+        "Week 5: Medical professional partnerships or endorsements",
+        "Week 6: Long-term client success stories (1+ year journeys)"
+      ],
+      "cta_progression": [
+        "Week 1: Save this educational series - More coming all month",
+        "Week 2: Download our ingredient safety guide (link in bio)",
+        "Week 3: Comment your biggest nail damage concern - We'll address it",
+        "Week 4: Book a consultation to assess your specific needs",
+        "Week 5: DM us photos of your nail concerns for personalized advice",
+        "Week 6: Ready to start your transformation? Book your first appointment (link in bio)"
+      ],
+      "platform_priority": [
+        "Instagram (4 posts/week: 2 educational Reels, 2 carousel deep-dives)",
+        "Email (Weekly newsletter: Deep-dive educational content)",
+        "TikTok (3 videos/week: Educational content with trending sounds)",
+        "Blog/Website (Weekly long-form article expanding on each theme)",
+        "Google Business Profile (2 posts/week: Educational tips)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on educational/expert authority hook pattern showing nail techs revealing insider knowledge builds trust. Addresses competitive gap of educational content about nail health and damage prevention while positioning salon as expert authority before asking for sale."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls and preferences - Building community through choice participation",
+        "Week 2: User-generated content celebration - Featuring client nail art and stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Quick poll: Classic French tip or modern minimalist? Comment 1 or 2 👇",
+          "Help us decide: Which fall color should we add to our collection? Vote in stories!",
+          "Controversial take: Almond shape > Coffin shape. Change my mind in the comments 💅",
+          "This or that: Matte finish or glossy shine? Defending your answer required",
+          "Tag your nail twin: Are you a neutrals girl or bold colors only?",
+          "What's the longest your manicure has lasted? Drop the number below (we want receipts)",
+          "Fill in the blank: I feel _____ when my nails are freshly done. GO! ✨"
+        ],
+        [
+          "CLIENT SPOTLIGHT: [Name]'s signature style is everything - Tag someone with this aesthetic",
+          "You guys sent us your nail photos and we're OBSESSED - Swipe to see our favorites 💕",
+          "Featuring [Client Name]'s transformation journey - From damaged to stunning in 8 weeks",
+          "Our community's most creative nail art this month - Which one is your favorite? (1-6)",
+          "Real talk: [Client testimonial quote] - Drop a 💅 if you relate",
+          "Shoutout to everyone who trusted us with their wedding nails this month - You looked flawless",
+          "The design that started as a client request and became our most-booked service - Here's the story"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'not sure what I want' through interactive preference discovery",
+        "Week 2: Address 'trying someone new' nervousness through community trust signals"
+      ],
+      "proof_timing": [
+        "Week 1: Social proof through engagement metrics (poll results, comment volume)",
+        "Week 2: Visual proof through client transformations and testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Vote, Comment, Tag someone, Fill in the blank, Share your opinion",
+        "Week 2: Tag us to be featured, Share your nail photos, DM us your transformation story"
+      ],
+      "platform_priority": [
+        "Instagram (3-4 posts/day: Stories polls, Feed interactive posts, Reels with questions)",
+        "TikTok (2-3 videos/day: Duet-friendly content, Question stickers)",
+        "Facebook (2 posts/day: Poll posts, community questions)",
+        "Instagram Stories (5-8 stories/day: Polls, questions, quizzes)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on carousel posts receiving 3.1x more engagement than single images and the proven pattern of social proof/exclusivity hooks leveraging community participation. Addresses the trigger of 'seeing friend's fresh manicure on social media' by creating shareable, tag-worthy content that encourages user-generated contributions."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your employees' appearance impacts client trust more than you think.\n\nI've managed [NUMBER] team members in the beauty industry, and here's what the data shows:\n\nPROBLEM: 73% of clients judge business professionalism within the first 7 seconds. Unkempt hands during client meetings? That's costing you deals.\n\nAGITATION: Your team represents your brand in every handshake, presentation, and client interaction. Chipped polish and damaged nails send the wrong message about attention to detail.\n\nSOLUTION: We've developed a corporate wellness program specifically for [INDUSTRY] teams:\n• Bi-weekly maintenance appointments during lunch hours\n• Neutral, professional color palettes that align with your brand\n• Guaranteed 3+ week wear time (no mid-week touch-ups)\n• Group scheduling that doesn't disrupt workflow\n\nResult: [CLIENT COMPANY] reported 34% increase in client confidence scores after implementing quarterly team appointments.\n\nWhat does your team's first impression say about your attention to detail?\n\n#CorporateWellness #ProfessionalAppearance #EmployeeBenefits #[City]Business #TeamCulture",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 10,000+ appointments, I can tell you exactly why your manicure fails by day 3.\n\nATTENTION: The nail industry has a dirty secret—most damage happens in the prep, not the polish.\n\nINTEREST: Here's what actually determines longevity:\n\n1. Cuticle prep accounts for 60% of chip resistance\n2. Nail plate dehydration (not the polish brand) causes 80% of peeling\n3. Cap technique on free edge prevents 90% of tip wear\n\nDESIRE: At [SALON NAME], we've spent [NUMBER] years perfecting our [SIGNATURE TECHNIQUE]:\n• Medical-grade sanitation (hospital-level protocols)\n• Customized prep based on your nail's porosity\n• [SPECIFIC TECHNIQUE] that extends wear to 3+ weeks\n• Natural nail health prioritized over quick results\n\nOur client retention rate? 94%. Industry average? 34%.\n\nACTION: The difference between a 3-day manicure and a 3-week one? Expertise.\n\nReady to experience the difference proper technique makes? Link in profile.\n\n#NailHealth #BeautyIndustry #ProfessionalDevelopment #[City]Entrepreneur",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Hiding your hands in every client meeting.\nAFTER: Leading presentations with confidence.\n\nThe transformation isn't just cosmetic—it's professional.\n\n[CLIENT NAME], [JOB TITLE] at [COMPANY], came to us with severely damaged nails from years of acrylics. \"I was embarrassed to hand over my business card,\" she told us.\n\n8 weeks of our Nail Restoration Program:\n✓ Strengthened nail beds using [SPECIFIC TREATMENT]\n✓ Repaired damage with medical-grade [PRODUCT]\n✓ Maintained professional appearance throughout recovery\n✓ Now enjoys 4-week wear time with zero damage\n\nBRIDGE: If damaged nails are holding you back professionally, you're not alone. 67% of our corporate clients started with significant nail damage.\n\nAFTER: Our [PROGRAM NAME] rebuilds nail health while maintaining the polished appearance your career demands.\n\nExecutive Program includes:\n• Priority scheduling (early morning/lunch appointments)\n• Customized treatment plan\n• Professional color consultation\n• Guaranteed same-week emergency repairs\n\nLimited to [NUMBER] clients monthly. Investment: [PRICE]\n\nDM me \"EXECUTIVE\" for private consultation availability.\n\n#ExecutivePresence #ProfessionalWomen #CareerDevelopment",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "NAIL TECH REVEALS: Why your gel polish chips after 3 days 🚨\n\nIt's not the polish. It's not your nails. It's THIS.\n\n[Swipe for the 5 prep mistakes that are ruining your manicure]\n\n1️⃣ SKIPPING CUTICLE REMOVAL: Dead skin under polish = guaranteed lifting by day 2\n\n2️⃣ OVER-FILING THE PLATE: Thinning your nail makes it flexible = cracks and chips\n\n3️⃣ MOISTURE TRAPPED UNDERNEATH: Oil/lotion residue prevents bonding (this is the #1 culprit)\n\n4️⃣ NOT CAPPING THE FREE EDGE: Water seeps in from the tip = peeling starts\n\n5️⃣ RUSHING THE CURE TIME: Under-cured gel = soft polish that dents and chips\n\nThe fix? [TECHNIQUE NAME] prep that takes 15 minutes longer but lasts 3+ weeks.\n\nSave this for your next appointment and ask your tech about their prep process. Your nails deserve better than a 3-day manicure.\n\n📍 [CITY] | DM to book | Link in bio\n\n#nailtech #gelnails #manicuretips #nailcare #[city]nails #naileducation #healthynails #nailprep #gelmani #nailtutorial",
+        "visual": "Carousel: Slide 1 - Close-up of chipped gel nails with text overlay '3 days old'. Slides 2-6 - Split-screen showing wrong vs right technique for each mistake. Slide 7 - Before/after of proper prep results. Clean, educational graphics with arrows pointing to problem areas."
+      },
+      "authority": {
+        "caption": "Our most-requested design this month (and it's not what you'd expect) ✨\n\nWhile everyone else is doing [TRENDING DESIGN], our regulars keep asking for THIS.\n\nIt's our signature [DESIGN NAME]:\n→ Subtle enough for corporate meetings\n→ Special enough for date night\n→ Lasts 4+ weeks without looking grown out\n→ Works on every skin tone\n\nWhy clients drive 30+ minutes to see us:\n\n\"I've tried 6 salons in [CITY]. This is the only place that makes my manicure last through my toddler's bath time, my gym sessions, and my work laptop typing. It's not just about pretty nails—it's about nails that perform.\" - [CLIENT NAME]\n\nThe difference? [SPECIFIC TECHNIQUE/PRODUCT] that we spent 2 years perfecting.\n\nTap the link in bio to see availability. (Fair warning: [DAY] slots fill up 2 weeks out)\n\n#[city]nailsalon #luxurymanicure #nailsofinstagram #gelnails #nailart #[city]beauty #nailsalon #bestnails #manicure #naildesign",
+        "visual": "Carousel: Slide 1 - Hero shot of the signature design on multiple skin tones. Slide 2 - Close-up detail shot. Slide 3 - Same nails at 3 weeks (showing durability). Slide 4 - Client testimonial screenshot. Slide 5 - Behind-the-scenes of technique. Professional lighting, clean white background."
+      },
+      "promotional": {
+        "caption": "LAST-MINUTE SPOTS: 3 appointments available this Saturday 🚨\n\nWedding? Vacation? Just need a reset?\n\nWe had 3 cancellations and these slots won't last:\n\n🕐 Saturday 10 AM - Gel Manicure\n🕑 Saturday 1 PM - Full Set\n🕒 Saturday 3 PM - Gel Manicure + Pedicure\n\nWhat you get:\n✓ Our signature [TECHNIQUE] that lasts 3+ weeks\n✓ Complimentary design consultation\n✓ Same-day emergency repair guarantee\n✓ [BONUS OFFER for Saturday bookings]\n\nDM \"SATURDAY\" right now or tap link in bio.\n\nFirst to book gets it. (Seriously, these fill up in under an hour)\n\n📍 [ADDRESS]\n⏰ Slots available until 6 PM Saturday\n\n#[city]nails #lastminuteappointment #nailsalon #gelmanicure #weekendplans #saturdayvibes #nailappointment #[city]beauty #booknow #nailsonfleek",
+        "visual": "Single image: Flat lay of appointment slots shown as polaroids with times written on them, some marked with red 'BOOKED' stamps. Include a subtle clock showing time ticking. Bright, urgent color scheme (reds/oranges). Text overlay: 'ONLY 3 LEFT'."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 YOUR MANICURE SURVIVAL GUIDE: How to make it last 3+ weeks\n\nHey [CITY] friends! I'm seeing SO many of you frustrated that your gel manicures barely make it to week 2. After doing this for [NUMBER] years, here's exactly what works:\n\n🛁 THE FIRST 24 HOURS MATTER MOST:\n- No hot water (sorry, no hot yoga or long showers)\n- No cleaning products without gloves\n- Let the gel fully cure (it's still hardening!)\n\n🧴 DAILY MAINTENANCE:\n- Cuticle oil morning and night (yes, really)\n- Gloves for dishes, cleaning, gardening\n- Hand cream that's actually nail-safe (ask me which ones!)\n\n⚠️ WARNING SIGNS TO WATCH:\n- Lifting at cuticles? Book a repair within 48 hours\n- Dull finish? That's product buildup, not wear\n- Catching on things? The edge needs resealing\n\n🔧 THE SECRET WEAPON:\nCome back at week 2 for a free edge reseal (takes 5 minutes, free for our regulars). This single step doubles your wear time.\n\nReal talk: Your manicure's longevity is 50% the application, 50% your aftercare. We handle our half—this guide handles yours.\n\nQuestions? Drop them below! I'll answer every single one.\n\nAnd if you're dealing with constant chipping, DM me. We might need to adjust your base coat or prep routine.\n\n📍 [SALON NAME] | [CITY]\n🔗 Book your next appointment: [LINK]\n\n#[City]Nails #NailCare #ManicureTips #LocalBusiness #BeautyTips",
+        "framework": "Educational + Community Engagement"
+      },
+      "authority": {
+        "template": "Can we talk about something the nail industry doesn't want you to know?\n\nNot all \"gel\" manicures are actually gel. 😬\n\nI've had 3 clients this week come in with severe nail damage from what they THOUGHT was gel polish. Here's what's actually happening:\n\n❌ WHAT SOME SALONS DO:\nUse acrylic powder with gel top coat and call it \"gel\"\nApply builder gel as regular polish (way too thick)\nSkip proper prep and blame \"your nails\" when it fails\n\n✅ WHAT TRUE GEL SERVICE INCLUDES:\nProper nail plate prep (dehydration + pH balance)\nThin, even coats that cure completely\nCap the free edge on every single layer\nGentle removal that doesn't damage your natural nail\n\nTHE REAL COST:\nThat $25 \"gel manicure\"? You're paying for it in nail damage, constant repairs, and having to start over every 5 days.\n\nOur $[PRICE] service? Includes:\n→ [SPECIFIC TECHNIQUE] prep\n→ Medical-grade sanitation\n→ [PRODUCT LINE] professional gel\n→ Guaranteed 3-week wear\n→ Free removal with your next service\n→ Nail health assessment at every appointment\n\nI'm not saying this to bash other salons. I'm saying it because I'm tired of repairing damage that shouldn't have happened.\n\nYour nails deserve better.\n\nIf you're experiencing constant breakage, peeling, or thin nails after \"gel\" services, let's talk. We offer free damage consultations and can get you back to healthy nails in 6-8 weeks.\n\nComment \"CONSULT\" or message me directly. Let's fix this.\n\n[SALON NAME] | [CITY]\n[PHONE] | [WEBSITE]",
+        "framework": "Authority + Problem-Solution"
+      },
+      "promotional": {
+        "template": "⏰ WEDNESDAY ANNOUNCEMENT ⏰\n\nOkay friends, I need to fill some last-minute spots and I'm doing something I never do...\n\nTHIS WEEKEND ONLY:\nBook any service for Saturday or Sunday and get:\n\n🎁 FREE design upgrade (normally $[PRICE])\n🎁 FREE cuticle oil to take home\n🎁 Priority booking for your next appointment\n\nWHY THE DEAL?\nHonestly? We had 4 cancellations due to the weather last weekend, and I'd rather have you in my chair than an empty appointment slot.\n\nAVAILABLE SERVICES:\n💅 Gel Manicure - $[PRICE]\n💅 Full Set - $[PRICE]\n💅 Gel Mani + Pedi - $[PRICE]\n💅 Nail Repair + Polish - $[PRICE]\n\nWHAT MAKES US DIFFERENT:\n→ We're never rushed (full 60-90 min appointments)\n→ Same nail tech every time (consistency matters)\n→ We fix mistakes on the spot, no questions asked\n→ Clean, relaxing space (no harsh chemical smell)\n\nWEEKEND SLOTS AVAILABLE:\nSaturday: 9 AM, 11 AM, 2 PM, 4 PM\nSunday: 10 AM, 1 PM, 3 PM\n\nTO BOOK:\n1. Call/text [PHONE]\n2. Message us here\n3. Book online at [LINK]\n\nMention \"FACEBOOK WEEKEND\" to claim your free upgrades.\n\nFirst come, first served. Once they're gone, they're gone!\n\nP.S. - Bringing a friend? You both get the deal. 💕\n\n#[City]Nails #WeekendSpecial #NailSalon #LocalBusiness #SupportLocal #ManicurePedicure #[City]Beauty",
+        "framework": "Promotional + Urgency + Transparency"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're a nail tech and someone asks why their gel always chips 👀",
+        "script": "HOOK (0-3 sec): *frustrated client face* \"Why does my gel always chip after 3 days?\"\n\nSETUP (3-10 sec): *switch to nail tech mode* Let me show you the ACTUAL reason (and it's not your nails)\n\nREVEAL (10-30 sec):\n*Point to each issue on screen*\n1. *Show oily nail* \"See this? Moisture = lifting\"\n2. *Show improper capping* \"Not sealing the edge? Water gets in\"\n3. *Show thick polish* \"Too thick = peeling\"\n4. *Show rushed cure* \"Not enough cure time = soft polish\"\n\nSOLUTION (30-50 sec):\n*Show proper technique*\n\"Here's what we do differently:\"\n- *Dehydrate the plate* \"Completely dry\"\n- *Thin coats* \"Build it up slowly\"\n- *Cap every layer* \"Edge sealed tight\"\n- *Full cure* \"60 seconds minimum\"\n\nCTA (50-60 sec): *Show 3-week-old nails still perfect*\n\"This is week 3. Still flawless. That's the difference.\"\n*Point to bio* \"Link for appointments\"\n\nTEXT OVERLAYS:\n\"The real reason your gel chips\"\n\"It's not the polish brand\"\n\"It's the PREP\"\n\"Save this for your next appointment\"\n\nSOUND: Trending educational audio or original voiceover\n\nHASHTAGS: #nailtech #gelnails #nailtok #manicurehacks #nailcare #nailtutorial #gelmani",
+        "framework": "Educational + Value-First"
+      },
+      "authority": {
+        "hook": "Nail tech reveals what your nails say about your health 🚨",
+        "script": "HOOK (0-3 sec): *Close-up of nails with ridges* \"If your nails look like this, listen up\"\n\nATTENTION (3-8 sec): \"I see 30+ clients a week and these are the warning signs I never ignore\"\n\nCONTENT (8-45 sec):\n*Show each nail condition with text overlay*\n\n1. *Vertical ridges* \"Usually aging, but deep ones? Check your iron\"\n2. *White spots* \"Not calcium—it's trauma to the nail bed\"\n3. *Yellow tint* \"Could be polish staining OR fungal (yes, really)\"\n4. *Spoon-shaped* \"Anemia red flag—see your doctor\"\n5. *Horizontal lines* \"Serious illness or major stress event\"\n6. *Brittle/peeling* \"Dehydration or too much gel removal\"\n\nAUTHORITY (45-55 sec):\n\"After [NUMBER] years, I've learned: healthy nails = healthy you\"\n*Show healthy nails*\n\"This is what we're aiming for\"\n\nCTA (55-60 sec):\n\"Free nail health check with every appointment\"\n*Point to screen* \"Link in bio\"\n\nTEXT OVERLAYS:\n\"Your nails are telling you something\"\n\"Warning signs you can't ignore\"\n\"When to see a doctor\"\n\"Nail health matters\"\n\nSOUND: Serious/informative trending audio\n\nHASHTAGS: #nailhealth #nailtech #healthtips #nailtok #nailcare #wellness",
+        "framework": "Authority + Educational"
+      },
+      "promotional": {
+        "hook": "3 spots left this Saturday and I'm STRESSED 😅",
+        "script": "HOOK (0-3 sec): *Panicked face* \"NO. We have 3 cancellations for Saturday and I'm freaking out\"\n\nPROBLEM (3-10 sec): *Show empty appointment book*\n\"Weather cancellations = empty chairs = me stress cleaning at 2 AM\"\n\nOFFER (10-35 sec):\n*Transition to nail shots*\n\"So here's what I'm doing:\"\n\nSATURDAY SLOTS:\n*Show each time slot*\n- 10 AM: Gel mani\n- 1 PM: Full set  \n- 3 PM: Mani + pedi\n\n\"Book ANY of these and get:\"\n*List with fun graphics*\n✓ Free design upgrade\n✓ Free cuticle oil\n✓ Priority booking next time\n\nSOCIAL PROOF (35-50 sec):\n*Quick flash of before/afters*\n\"This is what you're getting\"\n*Show satisfied client reactions*\n\"Our clients actually stay for 3+ weeks\"\n\nURGENCY (50-60 sec):\n*Back to stressed face*\n\"First 3 to DM 'SATURDAY' get it\"\n*Point frantically at screen*\n\"GO GO GO\"\n*Show phone blowing up with messages*\n\"OK you guys are fast 😭\"\n\nTEXT OVERLAYS:\n\"EMERGENCY SATURDAY SLOTS\"\n\"3 spots only\"\n\"DM NOW\"\n\"Why are you still watching? GO!\"\n\nSOUND: Chaotic/urgent trending audio\n\nHASHTAGS: #nailsalon #lastminute #[city]nails #nailtok #saturdayvibes #nailappointment",
+        "framework": "Promotional + Urgency + Authentic"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Why your gel manicure only lasts 5 days (and how to fix it)",
+        "preview_text": "The #1 mistake that's ruining your manicure + our 3-week guarantee",
+        "body": "Hi [FIRST_NAME],\n\nYou're doing everything right—or so you think.\n\nYou're getting gel. You're avoiding dishes. You're being gentle.\n\nSo why is your manicure chipped by day 5?\n\nPROBLEM:\nAfter analyzing 1,000+ appointments, we found that 78% of early chipping comes from ONE mistake most people don't even know they're making.\n\nAGITATION:\nYou're spending $[PRICE] every week and a half. That's $[ANNUAL COST] a year on manicures that should last 3+ weeks.\n\nYou're embarrassed in meetings. You're hiding your hands. You're frustrated.\n\nSOLUTION:\nWe created a free guide: \"The 3-Week Manicure Method\"\n\nInside:\n→ The moisture mistake that causes 78% of lifting\n→ The 24-hour rule that doubles wear time  \n→ 5 products that are secretly destroying your gel\n→ Our nail tech's daily routine (takes 2 minutes)\n→ When to book a repair vs. starting over\n\nPLUS: Book your next appointment this week and get a free [PRODUCT] ($[VALUE] value) to implement what you learn.\n\n[DOWNLOAD GUIDE BUTTON]\n\nYour manicure should last as long as you paid for it to.\n\nLet's make that happen.\n\n[SIGNATURE]\n[SALON NAME]\n\nP.S. - Current clients: Show this email at your next appointment for a free cuticle oil upgrade.\n\n---\n\n[BOOK NOW BUTTON] | [CALL US] | [FOLLOW ON INSTAGRAM]",
+        "framework": "PAS + Value-First"
+      },
+      "authority": {
+        "subject": "I've done 10,000 manicures. Here's what actually matters.",
+        "preview_text": "Spoiler: It's not the polish brand (and other industry secrets)",
+        "body": "Hi [FIRST_NAME],\n\nAfter 10,000+ appointments, I can spot nail damage from across the room.\n\nAnd I need to tell you something the industry doesn't want you to know.\n\nATTENTION:\nThat $25 gel manicure? You're paying for it in nail damage.\n\nINTEREST:\nHere's what separates a $25 service from our $[PRICE] service:\n\n$25 SERVICE:\n- 5-minute prep (rushed)\n- Thick coats (faster application)\n- Skip the edge sealing\n- Harsh removal (damages your nail plate)\n- Result: 5-7 days wear, damaged nails\n\nOUR $[PRICE] SERVICE:\n- 15-minute [TECHNIQUE] prep\n- Thin, buildable coats\n- Edge sealed on every layer  \n- Gentle soak-off removal\n- Result: 3+ weeks wear, healthier nails\n\nDESIRE:\nOur clients don't just get longer-lasting manicures. They get:\n\n✓ Stronger natural nails (measurably thicker after 3 months)\n✓ Zero damage from removal\n✓ Compliments from strangers\n✓ Confidence in every handshake\n✓ Time back (fewer appointments needed)\n\n[CLIENT NAME] said it best:\n\"I used to get my nails done every week. Now it's every 4 weeks, and they actually look BETTER. I'm spending less and getting more.\"\n\nACTION:\nReady to experience the difference expertise makes?\n\nBook your first appointment this week:\n→ Get our signature [TREATMENT] (free, $[VALUE] value)\n→ Receive a personalized nail health assessment  \n→ Leave with a custom care plan\n\n[BOOK NOW BUTTON]\n\nLimited to [NUMBER] new clients this month.\n\nYour nails deserve better than cheap and fast.\n\n[SIGNATURE]\n[SALON NAME]\n\nP.S. - Dealing with damaged nails from previous services? We offer free damage consultations. Just reply to this email.\n\n---\n\n[VIEW BEFORE/AFTERS] | [READ REVIEWS] | [CALL US]",
+        "framework": "AIDA + Premium Positioning"
+      },
+      "promotional": {
+        "subject": "⏰ [FIRST_NAME], 3 spots left this Saturday",
+        "preview_text": "Wedding? Vacation? Last-minute plans? We've got you covered.",
+        "body": "Hi [FIRST_NAME],\n\nBEFORE: Scrambling to find a salon that can fit you in before your event.\n\nAFTER: Relaxing in our chair this Saturday with guaranteed results.\n\nHere's what happened:\n\nWe had 3 cancellations for this Saturday due to weather reschedules. These slots normally book out 2 weeks in advance.\n\nBRIDGE:\nInstead of leaving them empty, we're offering them to you first (our email list gets priority).\n\nAFTER:\nBook any of these slots and get:\n\nSATURDAY AVAILABILITY:\n🕐 10:00 AM - Gel Manicure\n🕐 1:00 PM - Full Set  \n🕐 3:00 PM - Mani + Pedi Package\n\nYOUR BONUSES:\n✓ Free design upgrade (normally $[PRICE])\n✓ Free [PRODUCT] to take home ($[VALUE])\n✓ Priority booking for your next appointment\n✓ Same-day emergency repair guarantee\n\nWHY BOOK WITH US:\n→ Guaranteed 3+ week wear time\n→ Same nail tech every visit (consistency matters)\n→ Medical-grade sanitation\n→ We fix mistakes on the spot, no questions\n→ Relaxing atmosphere (no harsh chemical smell)\n\nPERFECT FOR:\n- Wedding this weekend\n- Vacation starting Monday  \n- Important meeting or interview\n- Date night\n- Just because you deserve it\n\n[BOOK YOUR SPOT BUTTON]\n\nFirst come, first served. Once they're gone, they're gone.\n\nTo claim your spot:\n1. Click the button above\n2. Select your preferred time\n3. Mention code \"SATURDAY\" for your bonuses\n\nOr call/text us directly: [PHONE]\n\nQuestions? Just reply to this email.\n\nSee you Saturday!\n\n[SIGNATURE]\n[SALON NAME]\n\nP.S. - Bringing a friend? You both get the bonuses. Share this email and book together!\n\n---\n\n[BOOK NOW] | [CALL US] | [VIEW OUR WORK]\n\n*Offer valid for Saturday [DATE] appointments only. Subject to availability.",
+        "framework": "BAB + Urgency + Scarcity"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] clients stopped hiding their hands in meetings after [treatment type]",
+      "[X] ways your gel polish is chipping before day [number] (and how to fix it)",
+      "[X] appointments left this week for [service type] before we're fully booked",
+      "[X] weeks of chip-free wear: here's what makes our [service] different",
+      "[X] nail damage mistakes you're making with at-home removal"
+    ],
+    "question_hooks": [
+      "Are you hiding your damaged nails because [previous nail service] left them paper thin?",
+      "Are you embarrassed by how fast your gel polish chips no matter where you go?",
+      "Are you tired of nail techs who rush through cuticle work and it shows?",
+      "Are you stressed about [upcoming event] with nails that look terrible right now?",
+      "Are you avoiding handshakes because your grown-out [acrylics/gel] looks unprofessional?"
+    ],
+    "story_hooks": [
+      "How [client name] went from brittle, damaged nails to [X] weeks of compliments",
+      "How this bride got [Instagram-worthy nail design] perfectly recreated for her wedding",
+      "How we helped [client] repair [X] years of acrylic damage in [timeframe]",
+      "How [working professional] finally found a salon that respects her schedule and time",
+      "How this client went from constant breakage to the strongest nails she's ever had"
+    ],
+    "fear_hooks": [
+      "Is your current salon's sanitation putting your nail health at risk?",
+      "Is harsh chemical smell at your salon actually [health concern]?",
+      "Is your nail tech damaging your natural nails without you realizing it?",
+      "Is rushing through your appointment costing you [X] weeks of wear time?",
+      "Is improper removal causing permanent damage to your nail beds?"
+    ],
+    "howto_hooks": [
+      "How to get [X]+ weeks of chip-free gel without damaging your natural nails",
+      "How to repair damaged nails from acrylics without giving up manicures completely",
+      "How to recreate [trending TikTok nail design] that actually looks salon-quality",
+      "How to find a nail tech who listens instead of doing their own thing",
+      "How to get wedding-ready nails in [timeframe] even if they're damaged now"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You've been hiding your nails for months",
+      "body": "Show damaged nails in first 3 seconds. Cut to soaking/prep process with text overlay 'We don't cover damage, we repair it'. Show gentle cuticle work, strengthening treatment application. Before/after split screen at 30 seconds. Close-up of healthy, natural-looking nails. Text: 'From paper-thin to strong in 4 weeks'. Show client confidently showing off hands in meeting.",
+      "cta": "Link in bio to book your nail recovery consultation"
+    },
+    "reels": {
+      "hook": "The real reason your manicure chips in 3 days",
+      "body": "Quick cuts showing common mistakes: rushed cuticle prep, thick polish layers, no base coat, improper curing. Text overlays with X marks. Then show proper technique in 15 seconds: thorough prep, thin layers, proper sealing. End with '3 weeks later' showing perfect manicure.",
+      "cta": "Save this for your next appointment"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your before/after nail transformation! Film a quick video showing your nails when you arrived vs. when you left. Tell us how long it's been since your appointment and if you're still chip-free.",
+      "hashtag": "#NailTransformationTuesday"
+    },
+    {
+      "prompt": "What's your go-to nail color that makes you feel confident? Show us your current manicure and tell us where you wear it most (work, events, everyday).",
+      "hashtag": "#ConfidentHands"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Nail tech reacts to viral DIY nail hacks - testing what actually works vs. what damages nails",
+      "why": "Combines trending content format with educational value; viewers tag friends to debate; encourages comments; positions salon as expert authority"
+    },
+    {
+      "angle": "Time-lapse of extreme nail transformation with cost breakdown overlay showing salon service vs. months of DIY attempts",
+      "why": "Satisfying visual content; addresses price objection with value demonstration; shareable before/after; validates investment in professional service"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:59:51.104Z",
+    "last_tier2_refresh": "2025-11-27T21:59:51.104Z",
+    "last_tier3_refresh": "2025-11-27T21:59:51.104Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:59:51.104Z"
+  }
+}

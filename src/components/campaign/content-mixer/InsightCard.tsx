@@ -3,12 +3,13 @@
  *
  * Displays a single insight with drag-and-drop capability
  * Used in both the Insight Pool and Selection Area
+ * V3.2: Added EQ score display and dynamic UVP CTA
  */
 
 import { motion } from 'framer-motion';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical, X, TrendingUp, MapPin, Calendar, Building2, Star, Users, Zap } from 'lucide-react';
+import { GripVertical, X, TrendingUp, MapPin, Calendar, Building2, Star, Users, Zap, Brain } from 'lucide-react';
 import type { CategorizedInsight } from '@/types/content-mixer.types';
 
 interface InsightCardProps {
@@ -16,6 +17,10 @@ interface InsightCardProps {
   draggable?: boolean;
   inSelection?: boolean;
   onRemove?: () => void;
+  /** V3.2: EQ alignment score from orchestrator */
+  eqScore?: number;
+  /** V3.2: Dynamic UVP-aligned CTA from orchestrator */
+  uvpCTA?: string;
 }
 
 const categoryIcons = {
@@ -36,7 +41,14 @@ const categoryColors = {
   competitive: 'text-red-600 bg-red-50 dark:text-red-400 dark:bg-red-900/30'
 };
 
-export function InsightCard({ insight, draggable = true, inSelection = false, onRemove }: InsightCardProps) {
+export function InsightCard({
+  insight,
+  draggable = true,
+  inSelection = false,
+  onRemove,
+  eqScore,
+  uvpCTA
+}: InsightCardProps) {
   const {
     attributes,
     listeners,
@@ -123,7 +135,7 @@ export function InsightCard({ insight, draggable = true, inSelection = false, on
           {insight.insight}
         </p>
 
-        {/* Footer: Confidence + Data Source */}
+        {/* Footer: Confidence + Data Source + V3.2 EQ Badge */}
         <div className="flex items-center justify-between pl-9 text-xs">
           {/* Data Source */}
           <span className="text-gray-500 dark:text-gray-400 truncate flex items-center gap-1">
@@ -131,11 +143,37 @@ export function InsightCard({ insight, draggable = true, inSelection = false, on
             {insight.dataSource}
           </span>
 
-          {/* Confidence Badge */}
-          <span className={`px-2 py-0.5 rounded-full font-medium ${confidenceColor} border border-purple-200 dark:border-purple-700`}>
-            {Math.round(insight.confidence * 100)}%
-          </span>
+          <div className="flex items-center gap-1.5">
+            {/* V3.2: EQ Score Badge */}
+            {eqScore !== undefined && (
+              <span className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-full bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 font-medium border border-pink-200 dark:border-pink-700">
+                <Brain size={10} />
+                {eqScore}
+              </span>
+            )}
+
+            {/* Confidence Badge */}
+            <span className={`px-2 py-0.5 rounded-full font-medium ${confidenceColor} border border-purple-200 dark:border-purple-700`}>
+              {Math.round(insight.confidence * 100)}%
+            </span>
+          </div>
         </div>
+
+        {/* V3.2: Dynamic UVP-aligned CTA (if available) */}
+        {uvpCTA && inSelection && (
+          <motion.div
+            initial={{ opacity: 0, y: -5 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-2 pl-9 pt-2 border-t border-purple-100 dark:border-purple-800"
+          >
+            <span className="text-[10px] uppercase tracking-wide text-purple-600 dark:text-purple-400 font-semibold">
+              CTA:
+            </span>
+            <p className="text-xs text-purple-800 dark:text-purple-300 font-medium">
+              {uvpCTA}
+            </p>
+          </motion.div>
+        )}
       </div>
     </motion.div>
   );

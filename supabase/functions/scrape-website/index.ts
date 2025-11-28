@@ -87,6 +87,51 @@ serve(async (req) => {
     const descriptionMeta = document.querySelector('meta[name="description"]');
     const description = descriptionMeta?.getAttribute('content') || '';
 
+    // Extract ALL meta tags (keywords, og:tags, twitter:tags)
+    const metaTags: Record<string, string> = {};
+    document.querySelectorAll('meta').forEach(meta => {
+      const name = meta.getAttribute('name') || meta.getAttribute('property');
+      const content = meta.getAttribute('content');
+      if (name && content) {
+        metaTags[name] = content;
+      }
+    });
+
+    // Extract testimonials/reviews from common patterns
+    const testimonials: string[] = [];
+
+    // Look for blockquotes (common testimonial format)
+    document.querySelectorAll('blockquote').forEach(quote => {
+      const text = quote.textContent?.trim();
+      if (text && text.length > 20 && text.length < 500) {
+        testimonials.push(text);
+      }
+    });
+
+    // Look for testimonial-specific classes/IDs
+    document.querySelectorAll('[class*="testimonial"], [class*="review"], [class*="quote"], [id*="testimonial"]').forEach(elem => {
+      const text = elem.textContent?.trim();
+      if (text && text.length > 30 && text.length < 800 && !testimonials.includes(text)) {
+        testimonials.push(text);
+      }
+    });
+
+    // Look for data-testimonial or data-review attributes
+    document.querySelectorAll('[data-testimonial], [data-review]').forEach(elem => {
+      const text = elem.textContent?.trim();
+      if (text && text.length > 20 && text.length < 500 && !testimonials.includes(text)) {
+        testimonials.push(text);
+      }
+    });
+
+    // Look for common review/testimonial schema markup indicators
+    document.querySelectorAll('[itemtype*="Review"], [itemtype*="Testimonial"]').forEach(elem => {
+      const text = elem.textContent?.trim();
+      if (text && text.length > 20 && text.length < 800 && !testimonials.includes(text)) {
+        testimonials.push(text);
+      }
+    });
+
     // Extract headings
     const headings: string[] = [];
     document.querySelectorAll('h1, h2, h3').forEach(heading => {
@@ -192,6 +237,8 @@ serve(async (req) => {
           footer,          // Footer content with addresses
           addresses: addressList,  // Structured address elements
           structuredData: structured,  // JSON-LD and script tag data
+          metaTags,        // All meta tags (og:, twitter:, keywords, etc.)
+          testimonials,    // Extracted testimonials/reviews
         },
         metadata: {
           url,
@@ -200,6 +247,8 @@ serve(async (req) => {
           navigationLength: navigation?.length || 0,
           footerLength: footer?.length || 0,
           structuredDataLength: structured?.length || 0,
+          testimonialCount: testimonials?.length || 0,
+          metaTagCount: Object.keys(metaTags)?.length || 0,
         },
         timestamp: new Date().toISOString(),
       }),

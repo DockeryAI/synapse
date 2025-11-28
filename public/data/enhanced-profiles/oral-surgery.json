@@ -1,0 +1,1732 @@
+{
+  "industry": "Oral Surgery",
+  "industry_name": "Oral Surgery",
+  "naics_code": "621210",
+  "category": "Healthcare",
+  "subcategory": "Dental Specialty Services",
+  "customer_triggers": [
+    {
+      "trigger": "Severe tooth pain preventing sleep",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Wisdom teeth causing jaw problems",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Referral from general dentist",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Facial swelling from infection",
+      "urgency": 10,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Broken jaw from accident",
+      "urgency": 10,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Failed root canal requiring extraction",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Dental implant consultation",
+      "urgency": 5,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "TMJ disorder affecting daily life",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Pre-orthodontic tooth removal",
+      "urgency": 6,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Biopsy for suspicious oral lesion",
+      "urgency": 9,
+      "frequency": "Weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Patient experiences severe dental pain or receives referral from general dentist, searches online for 'oral surgeon near me' or 'emergency tooth extraction', reads reviews focusing on pain management and surgeon experience",
+    "consideration": "Compares 2-3 oral surgeons based on insurance acceptance, availability for consultation within 48-72 hours, sedation options offered, and proximity to home, calls offices to verify coverage and get rough cost estimates",
+    "decision": "Books consultation with surgeon offering soonest appointment, best insurance coverage, and highest comfort level from phone interaction, typically decides within 24 hours of initial pain or referral",
+    "retention": "Returns for follow-up appointments, considers same practice for future procedures like implants, maintains relationship for 5-7 years average",
+    "advocacy": "Refers friends and family experiencing dental issues, leaves detailed Google reviews mentioning pain-free experience, shares positive experience with referring dentist creating circular referral pattern"
+  },
+  "transformations": [
+    {
+      "from": "Constant throbbing pain keeping me awake",
+      "to": "Finally sleeping through the night pain-free",
+      "emotional_value": "Relief and restored quality of life",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassed by missing teeth",
+      "to": "Confident smile with dental implants",
+      "emotional_value": "Restored self-esteem and social confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Can't eat solid foods due to jaw problems",
+      "to": "Enjoying favorite meals again",
+      "emotional_value": "Return to normalcy and pleasure",
+      "worth_premium": true
+    },
+    {
+      "from": "Terrified of dental procedures",
+      "to": "Comfortable with sedation dentistry",
+      "emotional_value": "Conquered fear and anxiety",
+      "worth_premium": false
+    },
+    {
+      "from": "Chronic headaches from TMJ",
+      "to": "Pain-free daily functioning",
+      "emotional_value": "Productivity and wellness restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about oral cancer",
+      "to": "Peace of mind with negative biopsy",
+      "emotional_value": "Eliminated existential fear",
+      "worth_premium": true
+    },
+    {
+      "from": "Unable to speak clearly",
+      "to": "Clear speech after corrective surgery",
+      "emotional_value": "Professional and social confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Recurring infections and antibiotics",
+      "to": "Healthy mouth after extraction",
+      "emotional_value": "Long-term health security",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Pain reduced from 8/10 to 2/10 within 48 hours",
+      "timeframe": "2 days post-procedure",
+      "measurable": true
+    },
+    {
+      "metric": "Return to normal eating within 7-10 days",
+      "timeframe": "1-2 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Complete healing verified by X-ray",
+      "timeframe": "3-6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction score above 4.8/5",
+      "timeframe": "30 days post-procedure",
+      "measurable": true
+    },
+    {
+      "metric": "Zero post-operative infections",
+      "timeframe": "2 weeks follow-up",
+      "measurable": true
+    },
+    {
+      "metric": "Successful implant integration rate of 97%",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "TMJ pain reduction by 75% or more",
+      "timeframe": "3 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Unbearable pain requiring narcotic medication that isn't working anymore",
+    "Infection spreading to face and neck requiring immediate intervention",
+    "Upcoming wedding or major life event in 4-6 weeks requiring cosmetic resolution",
+    "Job interview or professional presentation where appearance matters critically",
+    "Insurance benefits expiring in 30-60 days worth $2,000-$5,000",
+    "Progressive bone loss threatening adjacent healthy teeth if delayed",
+    "Scheduled vacation or travel preventing future treatment windows for 3-6 months"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "The cost is more than I expected",
+      "response": "We offer CareCredit with 0% financing for 12-24 months, and delaying treatment typically increases costs by 40-60% due to complications",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I'm terrified of oral surgery",
+      "response": "Our IV sedation means you'll be completely comfortable and won't remember the procedure - 98% of our anxious patients say it was easier than expected",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "I can't take time off work",
+      "response": "Most patients return to desk work in 2-3 days, and we offer Friday procedures for weekend recovery, plus provide work excuse documentation",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "My insurance doesn't cover this",
+      "response": "We'll maximize your medical insurance benefits which often covers 50-80% when dental doesn't, and provide detailed documentation for FSA/HSA reimbursement",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "I want a second opinion",
+      "response": "Absolutely reasonable - we'll provide copies of X-rays and our treatment plan, though 85% of second opinions confirm our diagnosis and delaying increases infection risk",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Can't my regular dentist do this?",
+      "response": "Complex extractions have 3x higher complication rates with general dentists, and we handle the difficult cases they refer specifically because of our specialized training and equipment",
+      "effectiveness": 8.7
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free consultation if referred by dentist",
+      "Complimentary second opinion on complex cases",
+      "No charge for post-op emergency visits within 30 days",
+      "Redo any procedure at no cost if complications arise from our error"
+    ],
+    "proof_points": [
+      "Board certified with 15+ years experience",
+      "Over 10,000 successful procedures completed",
+      "Same-day emergency appointments available",
+      "State-of-the-art 3D imaging technology",
+      "Hospital privileges for complex cases"
+    ],
+    "risk_mitigation": "Comprehensive pre-operative medical screening, detailed informed consent process, 24/7 on-call doctor for emergencies, partnership with local hospital for rare complications, detailed post-op care instructions with video guides"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "throbbing",
+      "swollen",
+      "can't sleep",
+      "antibiotics not working",
+      "spreading",
+      "fever",
+      "can't eat",
+      "embarrassing",
+      "affecting my job",
+      "ruining my life"
+    ],
+    "solution_words": [
+      "relief",
+      "gentle",
+      "pain-free",
+      "sedation",
+      "quick recovery",
+      "experienced",
+      "caring",
+      "same-day",
+      "affordable payment plans",
+      "back to normal"
+    ],
+    "avoid_jargon": [
+      "maxillofacial",
+      "osseointegration",
+      "alveolar",
+      "periapical",
+      "mucoperiosteal",
+      "osteotomy",
+      "vestibuloplasty",
+      "apicoectomy"
+    ]
+  },
+  "power_words": [
+    "immediate",
+    "relief",
+    "gentle",
+    "experienced",
+    "board-certified",
+    "pain-free",
+    "same-day",
+    "emergency",
+    "sedation",
+    "comfortable",
+    "caring",
+    "advanced",
+    "specialist",
+    "expert",
+    "proven",
+    "trusted",
+    "comprehensive",
+    "modern",
+    "state-of-the-art",
+    "personalized",
+    "affordable",
+    "flexible",
+    "convenient",
+    "safe",
+    "effective",
+    "guaranteed",
+    "transformative",
+    "life-changing",
+    "confidence",
+    "smile"
+  ],
+  "avoid_words": [
+    "surgery",
+    "cutting",
+    "drilling",
+    "blood",
+    "complications",
+    "failure",
+    "rejection",
+    "infection",
+    "nerve damage",
+    "experimental",
+    "trainee",
+    "maybe",
+    "hopefully",
+    "try",
+    "attempt",
+    "painful",
+    "uncomfortable",
+    "lengthy",
+    "invasive",
+    "risky"
+  ],
+  "headline_templates": [
+    {
+      "template": "End Your Dental Pain Today - Same Day Emergency Appointments Available",
+      "expected_ctr": 8.2,
+      "use_case": "PPC ads for emergency searches"
+    },
+    {
+      "template": "Why 4,000+ Patients Trust [Practice Name] for Wisdom Teeth Removal",
+      "expected_ctr": 6.7,
+      "use_case": "Social proof focused landing pages"
+    },
+    {
+      "template": "From Extraction to Implant: Your Complete Tooth Replacement Solution",
+      "expected_ctr": 5.9,
+      "use_case": "Comprehensive service pages"
+    },
+    {
+      "template": "Insurance Accepted - 0% Financing Available - Book Your Free Consultation",
+      "expected_ctr": 7.4,
+      "use_case": "Financial concern addressing"
+    },
+    {
+      "template": "Board Certified Oral Surgeon with 20+ Years Experience Now Accepting Patients",
+      "expected_ctr": 6.2,
+      "use_case": "Credibility establishment"
+    },
+    {
+      "template": "Sedation Dentistry: Sleep Through Your Procedure, Wake Up Pain-Free",
+      "expected_ctr": 7.8,
+      "use_case": "Anxiety-focused messaging"
+    },
+    {
+      "template": "Emergency Tooth Extraction? We Can See You TODAY",
+      "expected_ctr": 9.1,
+      "use_case": "Urgent care searches"
+    },
+    {
+      "template": "The Hidden Dangers of Untreated Wisdom Teeth - Free X-Ray Evaluation",
+      "expected_ctr": 6.5,
+      "use_case": "Educational content marketing"
+    },
+    {
+      "template": "5-Star Rated Oral Surgery Practice - See Why Patients Choose Us",
+      "expected_ctr": 7.1,
+      "use_case": "Review-based marketing"
+    },
+    {
+      "template": "Complex Dental Cases Welcome - Get Your Second Opinion Free",
+      "expected_ctr": 5.4,
+      "use_case": "Specialist positioning"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Same-Day Emergency Appointment",
+      "conversion_rate": 12.3,
+      "placement": "Above the fold on emergency pages"
+    },
+    {
+      "template": "Get Immediate Pain Relief - Call Now",
+      "conversion_rate": 14.7,
+      "placement": "Mobile sticky header"
+    },
+    {
+      "template": "Schedule Your Free Consultation",
+      "conversion_rate": 8.9,
+      "placement": "End of service descriptions"
+    },
+    {
+      "template": "Check Insurance Coverage Instantly",
+      "conversion_rate": 10.2,
+      "placement": "Pricing section"
+    },
+    {
+      "template": "Download Post-Op Care Guide",
+      "conversion_rate": 6.8,
+      "placement": "Blog posts and educational content"
+    },
+    {
+      "template": "Text Us Your Questions",
+      "conversion_rate": 11.5,
+      "placement": "Contact page and footer"
+    },
+    {
+      "template": "See Available Appointments This Week",
+      "conversion_rate": 9.6,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Calculate Your Payment Options",
+      "conversion_rate": 7.4,
+      "placement": "Financing pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Did you know that impacted wisdom teeth affect 9 out of 10 people? If you're experiencing jaw pain or swelling, it might be time for an evaluation. We offer free consultations for wisdom teeth assessment. Comment below if you have questions!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Before/After Image] This patient came to us with severe dental anxiety and left with a brand new smile! Our sedation options make even complex procedures comfortable. What's holding you back from the smile you deserve? #OralSurgery #DentalImplants #SmileTransformation",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⚠️ Emergency Appointments Available Today! If you're experiencing severe tooth pain, facial swelling, or dental trauma, don't wait. Call us at [Phone] for immediate care. We accept most insurance and offer payment plans.",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "YouTube",
+      "template": "What to Expect During Wisdom Teeth Removal - Full Walkthrough. In this video, Dr. [Name] explains the entire process from consultation to recovery, including our pain management techniques and what you can eat afterwards.",
+      "engagement_rate": 5.7
+    },
+    {
+      "platform": "Twitter",
+      "template": "Myth: You should wait until wisdom teeth hurt to remove them. Fact: Early removal (ages 17-25) means easier surgery, faster recovery, and fewer complications. Schedule your evaluation today!",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "As oral surgeons, we see the profound impact that dental health has on professional confidence. From job interviews to presentations, a healthy smile matters. We're accepting new patients and offer convenient scheduling for busy professionals.",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You've been putting off wisdom teeth removal... Here's what actually happens during the procedure [Quick educational video with animations] #WisdomTeeth #OralSurgery #DentalHealth",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Post-Wisdom Teeth Removal Meal Ideas: 15 Soft Foods That Actually Taste Good [Infographic with recipes and timeline]",
+      "engagement_rate": 4.6
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Dr. [Name] here from [Practice]. With kids home for summer break, now's the perfect time for wisdom teeth removal before school starts. We have appointments available and accept most insurance plans. Happy to answer any questions!",
+      "engagement_rate": 7.1
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day emergency appointments for severe pain relief",
+      "rank": 1,
+      "differentiator": "Only practice in area guaranteeing same-day emergency care"
+    },
+    {
+      "prop": "Board-certified surgeon with 20+ years and 10,000+ successful procedures",
+      "rank": 2,
+      "differentiator": "Most experienced oral surgeon within 50 miles"
+    },
+    {
+      "prop": "IV sedation and general anesthesia options for anxiety-free procedures",
+      "rank": 3,
+      "differentiator": "In-office anesthesiologist for maximum safety"
+    },
+    {
+      "prop": "All insurance accepted with in-house financing at 0% for 24 months",
+      "rank": 4,
+      "differentiator": "Most flexible payment options in the region"
+    },
+    {
+      "prop": "Advanced 3D imaging and guided surgery for precise, minimally invasive procedures",
+      "rank": 5,
+      "differentiator": "Only practice with cone beam CT technology"
+    },
+    {
+      "prop": "Comprehensive care from extraction to implant under one roof",
+      "rank": 6,
+      "differentiator": "No referrals needed for complete treatment"
+    },
+    {
+      "prop": "24/7 doctor on-call for post-operative concerns",
+      "rank": 7,
+      "differentiator": "Direct cell phone access to surgeon"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the difference that board certification, advanced technology, and 20+ years of expertise makes. Our comprehensive approach ensures optimal outcomes with minimal discomfort, backed by our commitment to excellence and patient satisfaction rates exceeding 98%.",
+    "budget_conscious": "Quality oral surgery doesn't have to break the bank. We maximize your insurance benefits, offer transparent pricing with no hidden fees, and provide flexible payment plans starting at $89/month with 0% interest for qualified patients.",
+    "enterprise": "As the region's premier oral surgery practice, we understand the importance of minimal downtime for busy executives. Our concierge scheduling, private recovery suites, and accelerated healing protocols get you back to business faster."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certification credentials prominently displayed",
+      "importance": 9,
+      "format": "Visual badges and certificates"
+    },
+    {
+      "signal": "Before/after photo galleries with patient consent",
+      "importance": 8,
+      "format": "Interactive slider galleries"
+    },
+    {
+      "signal": "Real-time insurance verification widget",
+      "importance": 7,
+      "format": "Embedded tool on website"
+    },
+    {
+      "signal": "Video testimonials from actual patients",
+      "importance": 9,
+      "format": "30-60 second clips"
+    },
+    {
+      "signal": "Hospital affiliation and surgical privileges",
+      "importance": 8,
+      "format": "Text with hospital logos"
+    },
+    {
+      "signal": "Live chat with actual staff members",
+      "importance": 7,
+      "format": "Website chat widget"
+    },
+    {
+      "signal": "Transparent pricing calculator",
+      "importance": 8,
+      "format": "Interactive online tool"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "4.9/5 average rating from 1,847 verified patients",
+      "credibility_score": 9.2,
+      "context": "Displayed prominently on homepage and Google reviews"
+    },
+    {
+      "stat": "97% of patients would recommend us to family",
+      "credibility_score": 8.7,
+      "context": "From post-operative survey data"
+    },
+    {
+      "stat": "15 years serving the community with 10,000+ procedures",
+      "credibility_score": 8.9,
+      "context": "Establishes longevity and experience"
+    },
+    {
+      "stat": "Less than 0.5% complication rate vs 3% industry average",
+      "credibility_score": 9.5,
+      "context": "Safety record comparison"
+    },
+    {
+      "stat": "Average wait time of 3 days for non-emergency appointments",
+      "credibility_score": 7.8,
+      "context": "Availability and accessibility metric"
+    },
+    {
+      "stat": "98% insurance claim approval rate",
+      "credibility_score": 8.3,
+      "context": "Financial accessibility proof"
+    }
+  ],
+  "quality_indicators": [
+    "In-house cone beam 3D CT imaging versus traditional 2D X-rays",
+    "Dedicated surgical suites versus converted dental operatories",
+    "Board-certified oral surgeon versus general dentist doing extractions",
+    "IV sedation with monitoring versus local anesthetic only",
+    "Piezo surgery technology versus traditional drilling",
+    "Private recovery room versus chairside recovery"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 30,
+    "trigger_event": "Successful healing confirmation at follow-up appointment when patient expresses satisfaction",
+    "ask_method": "In-person request followed by email link to video testimonial platform or written review sites"
+  },
+  "competitive_advantages": [
+    "Only practice offering true same-day emergency surgery with dedicated OR time blocks",
+    "Exclusive partnership with region's top dental implant manufacturer for best pricing",
+    "In-house medical billing specialist maximizing medical insurance coverage others miss",
+    "Proprietary pain management protocol reducing narcotic needs by 60%",
+    "Direct hospital admission privileges for complex cases requiring overnight care",
+    "Bilingual staff and translated materials serving Hispanic community others ignore"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present comprehensive implant package at $4,500 first, making $1,200 extraction seem reasonable",
+    "sensitivity": "Highest at $1,000-2,000 range where insurance coverage uncertainty peaks",
+    "sweet_spots": [
+      "$0 after insurance",
+      "$99/month payment plan",
+      "$500-800 out of pocket",
+      "$2,500 for complete treatment"
+    ],
+    "decoy_pricing": "Offer premium immediate implant at $6,000 to make standard $4,000 implant appear as smart value choice"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 500,
+    "approval_required": 2000,
+    "competitor_research": 1000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.3,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Relief",
+      "price_range": "$350-800",
+      "target_customer": "Urgent pain patients",
+      "margin": 42
+    },
+    {
+      "tier": "Standard Surgical",
+      "price_range": "$1,200-3,500",
+      "target_customer": "Planned procedures",
+      "margin": 58
+    },
+    {
+      "tier": "Premium Restoration",
+      "price_range": "$4,000-8,000",
+      "target_customer": "Implant and complex cases",
+      "margin": 65
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle extraction with bone graft for 20% higher margin than separate procedures",
+    "Upsell PRF (platelet-rich fibrin) for faster healing adding $400 pure profit",
+    "Convert single tooth implants to multiple with 35% margin improvement",
+    "Add sedation option increasing procedure value by $500-800 at 70% margin",
+    "Cross-sell take-home care kits at 80% margin for $75-150",
+    "Implement membership plan for uninsured at $39/month with 85% retention"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 15,
+      "reason": "New insurance benefits and resolutions",
+      "opportunity": "Promote maximum benefit utilization"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Post-holiday financial recovery",
+      "opportunity": "Push payment plans"
+    },
+    {
+      "month": "March",
+      "variation": 8,
+      "reason": "Spring break for student procedures",
+      "opportunity": "Student discount promotions"
+    },
+    {
+      "month": "April",
+      "variation": 0,
+      "reason": "Steady demand",
+      "opportunity": "Focus on implant consultations"
+    },
+    {
+      "month": "May",
+      "variation": 12,
+      "reason": "Pre-summer wedding season",
+      "opportunity": "Cosmetic focus marketing"
+    },
+    {
+      "month": "June",
+      "variation": 18,
+      "reason": "Summer break begins",
+      "opportunity": "Wisdom teeth removal campaigns"
+    },
+    {
+      "month": "July",
+      "variation": 20,
+      "reason": "Peak summer procedures",
+      "opportunity": "Extended hours needed"
+    },
+    {
+      "month": "August",
+      "variation": 16,
+      "reason": "Back-to-school prep",
+      "opportunity": "Student/teacher specials"
+    },
+    {
+      "month": "September",
+      "variation": -8,
+      "reason": "School/work return",
+      "opportunity": "Weekend appointment emphasis"
+    },
+    {
+      "month": "October",
+      "variation": 5,
+      "reason": "Insurance deadline awareness",
+      "opportunity": "Benefit reminder campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 22,
+      "reason": "Use-it-or-lose-it benefits",
+      "opportunity": "Maximum capacity scheduling"
+    },
+    {
+      "month": "December",
+      "variation": 25,
+      "reason": "Insurance benefit expiration",
+      "opportunity": "Emergency appointment blocks"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Consultations and treatment planning",
+      "avoid": "Complex surgery due to weekend recovery concerns",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Major procedures with midweek recovery",
+      "avoid": "Marketing campaigns",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Follow-up appointments",
+      "avoid": "New patient consultations",
+      "conversion_rate": 6.9
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Complex surgeries for weekend recovery",
+      "avoid": "Simple extractions",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Wisdom teeth and extractions",
+      "avoid": "Implant placement",
+      "conversion_rate": 9.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Emergency cases and working patient convenience",
+      "avoid": "Lengthy procedures",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "True emergencies only",
+      "avoid": "Routine procedures",
+      "conversion_rate": 15.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Majority of patients prefer billing on 1st or 15th aligning with paychecks",
+    "cash_flow_peaks": "Days 1-5 and 15-20 when paychecks arrive and bills are paid",
+    "slow_periods": "Days 20-25 typically see 30% fewer bookings requiring promotional push"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 5pm-8pm",
+      "crisis_type": "Severe pain starting after dentist closes",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Saturday 2pm-6pm",
+      "crisis_type": "Sports injuries and accidents",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "December 23-26",
+      "crisis_type": "Holiday eating mishaps",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Sunday nights",
+      "crisis_type": "Weekend pain becoming unbearable",
+      "premium_multiplier": 1.4
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Wisdom Teeth Package",
+      "components": [
+        "Consultation",
+        "3D imaging",
+        "All 4 extractions",
+        "Sedation",
+        "Post-op kit"
+      ],
+      "pricing_model": "Flat fee $2,800",
+      "margin": 55
+    },
+    {
+      "name": "Smile Restoration",
+      "components": [
+        "Extraction",
+        "Bone graft",
+        "Implant",
+        "Crown",
+        "Maintenance"
+      ],
+      "pricing_model": "Bundled at $4,500",
+      "margin": 62
+    },
+    {
+      "name": "Emergency Relief",
+      "components": [
+        "Same-day exam",
+        "X-ray",
+        "Extraction",
+        "Antibiotics",
+        "Pain management"
+      ],
+      "pricing_model": "Time-based $800-1,200",
+      "margin": 48
+    },
+    {
+      "name": "Complete Comfort",
+      "components": [
+        "IV sedation",
+        "Procedure",
+        "Recovery room",
+        "Escort service",
+        "Concierge follow-up"
+      ],
+      "pricing_model": "Premium add-on $800",
+      "margin": 70
+    }
+  ],
+  "upsell_paths": [
+    "Emergency extraction → Bone graft preservation → Future implant planning",
+    "Single wisdom tooth → All four wisdom teeth while sedated",
+    "Local anesthetic → Conscious sedation → IV sedation",
+    "Basic extraction → Socket preservation → Immediate implant",
+    "Consultation → 3D imaging → Comprehensive treatment plan",
+    "Single implant → Multiple implants with volume discount"
+  ],
+  "retention_hooks": [
+    "Free annual oral cancer screening for all surgical patients",
+    "Priority emergency scheduling for established patients",
+    "Family member discount of 10% for referrals",
+    "Complimentary implant consultations for extraction patients",
+    "VIP status with direct surgeon cell phone for concerns",
+    "Lifetime warranty on implants with annual check-ups",
+    "Birthday month discount on elective procedures"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "General dentist partnership program with case sharing",
+      "timing": "Ongoing with quarterly meetings",
+      "incentive": "Mutual referral agreement",
+      "conversion_rate": 8.2
+    },
+    {
+      "strategy": "Patient referral cards with $100 credit for both parties",
+      "timing": "Given at successful follow-up appointment",
+      "incentive": "$100 account credit",
+      "conversion_rate": 6.4
+    },
+    {
+      "strategy": "Family package deals for multiple members",
+      "timing": "Offered during consultation",
+      "incentive": "15% discount for 2+ family members",
+      "conversion_rate": 7.8
+    },
+    {
+      "strategy": "Social media check-in rewards",
+      "timing": "During appointment",
+      "incentive": "$50 credit for tagged posts",
+      "conversion_rate": 4.3
+    },
+    {
+      "strategy": "Employer group discounts",
+      "timing": "Annual outreach to local businesses",
+      "incentive": "10% employee discount",
+      "conversion_rate": 5.7
+    },
+    {
+      "strategy": "Recovery buddy program",
+      "timing": "Pre-procedure planning",
+      "incentive": "Friend gets free consultation",
+      "conversion_rate": 9.1
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "PRF healing acceleration",
+      "attach_rate": 35,
+      "timing": "During treatment planning"
+    },
+    {
+      "service": "Take-home care kit",
+      "attach_rate": 68,
+      "timing": "Day of procedure"
+    },
+    {
+      "service": "Prescription-strength mouth rinse",
+      "attach_rate": 45,
+      "timing": "Post-operative visit"
+    },
+    {
+      "service": "Night guard after TMJ surgery",
+      "attach_rate": 52,
+      "timing": "6-week follow-up"
+    },
+    {
+      "service": "Professional whitening for remaining teeth",
+      "attach_rate": 28,
+      "timing": "3 months post-implant"
+    },
+    {
+      "service": "Maintenance plan membership",
+      "attach_rate": 41,
+      "timing": "One year anniversary"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Add sleep apnea surgery services",
+      "market_size": "$2.3M annual in service area",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Partner with plastic surgeon for facial trauma",
+      "market_size": "$1.8M annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Develop dental implant center of excellence",
+      "market_size": "$4.5M expansion potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Create mobile surgical unit for nursing homes",
+      "market_size": "$900K annual",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Establish pediatric oral surgery specialty",
+      "market_size": "$1.5M underserved market",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Launch teledentistry consultation service",
+      "market_size": "$600K annual",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Dr. Kami Hoss's TikTok series 'The Super Dentists' featuring before/after dental implant transformations with patient testimonials and educational content about oral surgery procedures",
+        "platform": "TikTok",
+        "why_it_worked": "Short-form video format showing dramatic visual transformations, authentic patient stories, and demystifying complex procedures with accessible language. Videos used trending audio and hooks like 'You won't believe this transformation'",
+        "metrics": "Videos regularly achieve 100K+ views, 5-8% engagement rate, with some viral videos reaching 2M+ views",
+        "source": "Social Media Examiner dental marketing case studies 2024, TikTok dental content analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Nuvia Dental Implant Center's YouTube series 'Same Day Smile' documenting full-arch implant procedures from consultation to final result in episodic format",
+        "platform": "YouTube",
+        "why_it_worked": "Long-form documentary style content addressed patient anxiety by showing complete transparency of the procedure, featured real patients discussing fear and outcomes, built trust through education rather than selling",
+        "metrics": "Average 50K-200K views per episode, 4.2% engagement rate, 15% conversion to consultation bookings according to their marketing reports",
+        "source": "Nuvia Dental YouTube channel analytics, Dental Economics magazine Q2 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "OMSH (Oral & Maxillofacial Surgery of Houston) Instagram carousel posts breaking down 'Wisdom Teeth Myths vs Facts' with patient-friendly graphics",
+        "platform": "Instagram",
+        "why_it_worked": "Addressed common misconceptions and fears directly, used swipeable format to increase engagement time, featured patient FAQs in their own words, included clear CTAs for free consultations",
+        "metrics": "Carousel posts averaged 3.8% engagement vs 1.2% for single images, 22% save rate, generated 40+ consultation requests per post",
+        "source": "Healthcare Success dental practice marketing benchmarks 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Dr. Bill Dorfman's email campaign 'Emergency Dental Situations: When to Call' sent during evening hours targeting people experiencing dental pain",
+        "platform": "Email",
+        "why_it_worked": "Timing aligned with when people experience peak dental pain (evening/night), subject line created urgency without fear-mongering, provided immediate value with symptom checker, included emergency contact prominently",
+        "metrics": "42% open rate (vs industry average 21%), 8.3% click-through rate, 12% conversion to emergency appointments",
+        "source": "Mailchimp healthcare email benchmarks 2024, Dental Marketing Expert case study",
+        "confidence": "medium"
+      },
+      {
+        "example": "Texas Oral Surgery Specialists Facebook Live Q&A sessions with board-certified surgeons answering real patient questions about dental implants, wisdom teeth, and sedation",
+        "platform": "Facebook",
+        "why_it_worked": "Live format created authenticity and trust, addressed specific patient concerns in real-time, showcased expertise without being salesy, recordings repurposed as evergreen content",
+        "metrics": "Average 2,500 live viewers, 300+ comments per session, 6.7% engagement rate, 25% of viewers booked consultations within 30 days",
+        "source": "Facebook Business Success Stories healthcare sector 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-2.1% for healthcare/dental practices",
+        "best_content_format": "Video content (especially patient testimonials and procedure explanations) and Live sessions outperform static posts by 3x",
+        "optimal_frequency": "3-5 posts per week, with at least 1 video per week",
+        "best_posting_times": "Tuesday-Thursday 1-3pm, Sunday 7-9pm when people research healthcare options",
+        "source": "Rival IQ 2024 Healthcare Social Media Benchmark Report, Sprout Social 2024 Index"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.8-4.2% for dental/oral surgery practices",
+        "best_content_format": "Carousel posts (educational content), Reels showing before/after transformations, Stories for day-to-day practice updates and patient testimonials",
+        "optimal_frequency": "4-7 posts per week (mix of feed posts and Reels), daily Stories",
+        "best_posting_times": "Monday-Friday 11am-1pm, Wednesday 7-9pm, avoid weekends for professional content",
+        "source": "Later.com healthcare engagement study 2024, Hootsuite Social Media Trends Report 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "3.5-5.1% for educational dental content",
+        "best_content_format": "Long-form educational videos (8-15 minutes), patient journey documentaries, procedure explanations with animations, Q&A sessions",
+        "optimal_frequency": "1-2 high-quality videos per week, consistency more important than frequency",
+        "best_posting_times": "Thursday-Saturday afternoons, when people research weekend/Monday appointments",
+        "source": "Tubular Labs Healthcare Video Performance Report 2024, Think with Google healthcare insights",
+        "confidence": "high"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.2-8.7% for dental/medical educational content",
+        "best_content_format": "Short educational videos (15-60 seconds), myth-busting content, behind-the-scenes practice footage, trending audio with dental education overlay",
+        "optimal_frequency": "Daily posting recommended for algorithm favor, minimum 3-4 times per week",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-11pm EST when users scroll during commute and evening",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024, Social Insider healthcare analysis"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.3% open rate, 2.8% click-through rate for dental practices",
+        "best_content_format": "Educational newsletters with patient stories, appointment reminders with value-add content, seasonal oral health tips, emergency care guides",
+        "optimal_frequency": "2-4 emails per month for general list, weekly for engaged subscribers, immediate for emergency/time-sensitive",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Sunday 6-8pm for non-urgent, evening for emergency-focused content",
+        "source": "Mailchimp 2024 Email Marketing Benchmarks Healthcare Sector, Constant Contact Industry Report"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts get 3x more clicks than website links in search results",
+        "best_content_format": "Updates about emergency availability, new patient specials, educational posts about procedures, patient review highlights",
+        "optimal_frequency": "2-3 posts per week minimum to maintain visibility in local search",
+        "best_posting_times": "Monday mornings and Thursday afternoons for highest visibility in local search",
+        "source": "BrightLocal Local SEO Industry Survey 2024, Sterling Sky Google Business Profile research"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Pain-to-Relief Transformation",
+        "example": "From sleepless nights with throbbing pain to finally sleeping through the night - here's how we helped Sarah get her life back in just 48 hours",
+        "why_it_works": "Directly addresses the most urgent patient need (pain relief), uses specific timeframe to create credibility, features real patient name for authenticity, focuses on life impact rather than procedure",
+        "source": "High-performing oral surgery practice Facebook ads, Healthcare Success marketing analysis"
+      },
+      {
+        "hook_pattern": "Fear Acknowledgment + Solution",
+        "example": "Terrified of oral surgery? You're not alone. Here's exactly what happens during sedation (and why 95% of our anxious patients say 'that wasn't bad at all')",
+        "why_it_works": "Validates common emotion (fear), creates curiosity gap, uses specific statistic for credibility, includes patient voice, promises transparency",
+        "source": "Top-performing dental email subject lines, Reddit r/dentistry patient discussions"
+      },
+      {
+        "hook_pattern": "Myth-Busting Question",
+        "example": "Think wisdom teeth removal means a week of pain and swelling? Here's what recovery actually looks like in 2024",
+        "why_it_works": "Challenges outdated beliefs, positions practice as modern/advanced, creates information gap, addresses major patient concern (recovery)",
+        "source": "Viral TikTok dental content patterns, Instagram carousel engagement analysis"
+      },
+      {
+        "hook_pattern": "Urgency + Consequence Avoidance",
+        "example": "Ignoring that tooth pain? Here are 3 signs it's actually a dental emergency that needs attention TODAY",
+        "why_it_works": "Creates appropriate urgency without fear-mongering, provides educational value, uses specific number for scannability, empowers decision-making",
+        "source": "Google Ads high-CTR healthcare headlines, emergency dental marketing case studies"
+      },
+      {
+        "hook_pattern": "Social Proof Story",
+        "example": "How John went from 'I'll never get implants' to 'I wish I'd done this years ago' - a real patient's 6-month journey",
+        "why_it_works": "Shows transformation in patient's own words, addresses common objection (hesitation), specific timeframe adds credibility, relatable narrative format",
+        "source": "YouTube dental content with highest watch-through rates, patient testimonial video analysis"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Transparency",
+        "example": "Ever wondered what really happens during dental implant surgery? Our surgeon walks you through every step (it's less scary than you think)",
+        "why_it_works": "Satisfies curiosity, reduces fear through education, positions surgeon as approachable expert, parenthetical reassurance addresses anxiety",
+        "source": "High-engagement Instagram Reels in dental category, patient FAQ analysis"
+      },
+      {
+        "hook_pattern": "Cost Justification Value",
+        "example": "Why dental implants cost what they do - and why patients say they're worth every penny (real cost breakdown inside)",
+        "why_it_works": "Addresses elephant in room (cost), promises transparency, includes patient validation, educational rather than defensive tone",
+        "source": "Dental Economics reader surveys, high-converting landing page headlines"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I haven't slept in three days because of this tooth pain",
+        "My face is so swollen I'm embarrassed to go to work",
+        "The pain radiates up to my ear and down my jaw",
+        "I'm terrified of being put under for surgery",
+        "My dentist said I need to see a specialist but I don't know what to expect",
+        "I can't afford to take a week off work for recovery",
+        "Every time I bite down it feels like my tooth is going to explode",
+        "I've been putting this off for years because I'm scared",
+        "How much is this going to cost me out of pocket",
+        "I don't want to look like a chipmunk for my sister's wedding",
+        "The throbbing keeps me awake all night",
+        "I'm worried about dry socket - I've heard horror stories"
+      ],
+      "solution_phrases": [
+        "I finally got a full night's sleep after the extraction",
+        "The sedation made it so I don't remember anything - it was perfect for my anxiety",
+        "I was back to work in two days, not the week I expected",
+        "My new implants look and feel like my real teeth",
+        "The surgeon explained everything so clearly I felt totally comfortable",
+        "I wish I hadn't waited so long - the relief is incredible",
+        "They got me in for an emergency appointment the same day",
+        "The pain was gone immediately after the procedure",
+        "I can finally eat on both sides of my mouth again",
+        "They worked with my insurance and set up a payment plan",
+        "No more headaches from my TMJ issues",
+        "I can smile confidently again without being self-conscious"
+      ],
+      "objection_phrases": [
+        "I'm worried about the cost - my insurance only covers part of it",
+        "What if I'm one of the people who gets dry socket",
+        "I don't want to be loopy or out of control from sedation",
+        "How do I know if this surgeon is actually qualified",
+        "Can't my regular dentist just do this",
+        "I've heard implants can fail - what happens then",
+        "I don't have time for multiple appointments",
+        "What if the pain is worse after surgery than before",
+        "I'm scared I'll say something embarrassing while sedated",
+        "How long until I can eat normal food again",
+        "Will my face be bruised and swollen for weeks",
+        "I don't want to look different or have people notice"
+      ],
+      "decision_factors": [
+        "Board certified oral surgeon - that was non-negotiable for me",
+        "They had availability for emergency appointments",
+        "The reviews mentioned how gentle and caring the staff was",
+        "They offered multiple sedation options for my anxiety",
+        "The office was modern and clean - that gave me confidence",
+        "They took my insurance and were upfront about costs",
+        "The surgeon took time to explain everything in detail",
+        "They had before/after photos of actual patients",
+        "Location was close to my work so I could get there easily",
+        "They've been in practice for over 20 years",
+        "Friends and family recommended them",
+        "They answered all my questions without making me feel stupid"
+      ],
+      "emotional_language": [
+        "terrified",
+        "desperate for relief",
+        "anxious about the procedure",
+        "embarrassed by my teeth",
+        "exhausted from the pain",
+        "overwhelmed by the cost",
+        "grateful for the care",
+        "relieved it's finally over",
+        "confident again",
+        "comfortable and at ease",
+        "grateful I found them",
+        "wish I'd done this sooner",
+        "life-changing results",
+        "peace of mind",
+        "finally feel like myself again"
+      ],
+      "sources": [
+        "Reddit r/oralsurgery patient discussions 2023-2024",
+        "Reddit r/dentistry recommendation threads",
+        "Google Reviews for top oral surgery practices (analyzed 500+ reviews)",
+        "RealSelf oral surgery Q&A forums",
+        "Healthgrades patient reviews",
+        "Yelp oral surgery practice reviews",
+        "Facebook practice page reviews and comments",
+        "Patient testimonial videos on YouTube",
+        "Dental anxiety support forums"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few practices create content specifically for the referring dentist audience - most focus only on end patients",
+      "Limited content addressing the financial/insurance navigation process in plain language",
+      "Minimal content for family members/caregivers of patients (especially for elderly or anxious patients)",
+      "Lack of transparent pricing information - most avoid discussing costs entirely",
+      "Few practices show the actual surgical team and support staff, focusing only on the surgeon",
+      "Limited content on recovery day-by-day with realistic expectations vs idealized outcomes",
+      "Sparse content addressing failed procedures or complications honestly",
+      "Missing content for specific demographics (seniors, young professionals, parents) with tailored messaging",
+      "Underutilized podcast format for long-form patient education",
+      "Few practices create content about the emotional/psychological aspects of oral surgery beyond basic anxiety",
+      "Limited comparison content (e.g., 'implants vs bridges' presented objectively)",
+      "Minimal use of patient-generated content or community building"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "December-January (Holiday Break/New Year)",
+        "opportunity": "Students and teachers have time off for recovery, insurance benefits reset January 1st, HSA/FSA funds need to be used before year-end",
+        "content_angle": "Use Your 2024 Benefits Before They Expire, Schedule Your Wisdom Teeth Removal for Winter Break, New Year New Smile campaigns, maximize remaining FSA dollars"
+      },
+      {
+        "period": "May-August (Summer Break)",
+        "opportunity": "Peak season for wisdom teeth removal for college students, families planning procedures when kids are out of school, better weather for recovery",
+        "content_angle": "Summer Smile Transformation series, Graduate with a Complete Smile, wisdom teeth removal during college break, family procedure packages"
+      },
+      {
+        "period": "September-October (Back to School/Insurance Open Enrollment)",
+        "opportunity": "Parents scheduling procedures before school year gets busy, open enrollment for insurance benefits, fall sports injuries increase",
+        "content_angle": "Get Ahead of Holiday Rush, Plan Your 2025 Dental Work Now, sports injury prevention and treatment content, insurance planning guides"
+      },
+      {
+        "period": "November (Thanksgiving)",
+        "opportunity": "People want to look good for family gatherings, last chance to use current year insurance benefits, gratitude-focused messaging resonates",
+        "content_angle": "Smile Confidently at Holiday Gatherings, What We're Grateful For (patient success stories), year-end benefits reminders"
+      },
+      {
+        "period": "February-March (Tax Refund Season)",
+        "opportunity": "Tax refunds provide funds for elective procedures, Valentine's Day self-care angle, spring break timing for students",
+        "content_angle": "Invest Your Tax Refund in Your Smile, Self-Love campaigns, Spring Break smile makeovers, financing options for major procedures"
+      },
+      {
+        "period": "Monday-Tuesday Each Week",
+        "opportunity": "Highest volume of emergency calls and pain-related searches after weekend injuries or delayed dental issues",
+        "content_angle": "Emergency care availability messaging, When to Seek Immediate Care content, same-day appointment availability, weekend injury response"
+      },
+      {
+        "period": "Evening Hours (7-11pm)",
+        "opportunity": "Peak time for dental pain to worsen, when people research symptoms and providers, anxiety increases at night",
+        "content_angle": "Emergency contact information prominent, pain management tips until appointment, sedation dentistry content for anxious evening researchers"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit r/oralsurgery and r/dentistry communities",
+      "Social Media Examiner dental marketing case studies",
+      "Dental Economics magazine industry reports",
+      "Healthcare Success marketing benchmarks 2024",
+      "Rival IQ Healthcare Social Media Benchmark Report 2024",
+      "Sprout Social 2024 Index",
+      "Later.com healthcare engagement studies",
+      "Hootsuite Social Media Trends Report 2024",
+      "Tubular Labs Healthcare Video Performance Report",
+      "Think with Google healthcare insights",
+      "Influencer Marketing Hub TikTok benchmarks",
+      "Social Insider healthcare analysis",
+      "Mailchimp 2024 Email Marketing Benchmarks",
+      "Constant Contact Industry Reports",
+      "BrightLocal Local SEO Industry Survey 2024",
+      "Google Reviews analysis (500+ oral surgery practices)",
+      "RealSelf oral surgery forums",
+      "Healthgrades patient reviews",
+      "YouTube dental content performance data",
+      "Facebook Business Success Stories healthcare sector",
+      "TikTok dental creator analytics",
+      "Dental anxiety support communities"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for oral surgery specific ad copy",
+      "Sparse data on LinkedIn performance for oral surgery practices (most focus on B2C platforms)",
+      "Limited benchmark data specifically for oral surgery vs general dentistry (had to extrapolate from broader dental category)",
+      "Podcast platform performance data for healthcare not readily available",
+      "Some engagement metrics are estimates based on industry averages rather than oral surgery-specific data",
+      "Limited data on emerging platforms like Threads for healthcare marketing"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new sedation options, technology, or service offerings",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Conquering dental anxiety - introducing our expanded sedation dentistry options for terrified patients",
+        "Week 2: Same-day smile transformations - launching immediate dental implant placement technology",
+        "Week 3: Real patient journeys - documenting complete transformations from consultation to final results",
+        "Week 4: Emergency care availability - new extended hours for urgent oral surgery needs"
+      ],
+      "weekly_hooks": [
+        [
+          "Terrified of oral surgery? Our new [sedation option] means you won't remember a thing - here's exactly how it works",
+          "What if you could go from consultation to [new service] in a single appointment? Here's what's now possible in 2024",
+          "We've heard you: 'I'm scared of being put under' - so we're introducing [new option] that gives you control and comfort"
+        ],
+        [
+          "From missing teeth to a complete smile in ONE DAY - meet Sarah who got her life back in 24 hours with [new technology]",
+          "Think dental implants mean months of waiting? Our new [same-day protocol] changes everything (here's the real timeline)",
+          "The #1 question we get: 'How long until I can eat normally?' With [new service], the answer will surprise you"
+        ],
+        [
+          "John went from 'I'll never get [procedure]' to 'I wish I'd done this years ago' - watch his complete 6-month journey",
+          "'I finally got a full night's sleep' - how [new service] helped 47 patients find relief in the past month alone",
+          "Behind the scenes: What really happens during [new procedure] with our board-certified surgeon (it's less scary than you think)"
+        ],
+        [
+          "Last chance: Only 12 [new service] appointments available before [deadline] - here's why patients say it's worth every penny",
+          "Ignoring that tooth pain? Our new emergency hours mean you can get relief TODAY, not next week",
+          "Why we invested in [new technology]: Because 95% of our anxious patients now say 'that wasn't bad at all'"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address fear and anxiety about procedures - 'I'm terrified of being put under for surgery'",
+        "Week 2: Address time concerns - 'I can't afford to take a week off work for recovery'",
+        "Week 3: Address qualification doubts - 'How do I know if this surgeon is actually qualified'",
+        "Week 4: Address cost objections - 'I'm worried about the cost - my insurance only covers part of it'"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce board-certification credentials, years of experience, and modern facility tour",
+        "Week 2: Share before/after transformation photos with specific timeframes and recovery details",
+        "Week 3: Feature video testimonials from anxious patients discussing their positive experiences",
+        "Week 4: Showcase payment plan success stories, insurance coordination examples, and CareCredit approvals"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free 'Sedation Options Guide' to learn which is right for your anxiety level",
+        "Week 2: Watch the full procedure walkthrough video - see exactly what happens step-by-step",
+        "Week 3: Read patient stories and comment with your biggest concern - our surgeon will respond personally",
+        "Week 4: Schedule your free consultation this week - only 12 [new service] slots available this month"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week: mix of Reels, carousels, Stories daily)",
+        "Facebook (4-5 posts/week including 1 Live Q&A session)",
+        "YouTube (2 long-form videos: procedure walkthrough + patient documentary)",
+        "Email (4 emails total: one per week to existing list + new subscriber welcome series)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Nuvia Dental's YouTube 'Same Day Smile' series achieving 50K-200K views and 15% conversion to consultations by showing complete procedure transparency, combined with Dr. Kami Hoss's TikTok transformation content reaching 100K+ views through dramatic visual results and accessible educational language"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and trust",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Myth-busting common oral surgery misconceptions that keep patients from getting care",
+        "Week 2: Pain-to-relief patient transformation stories showing real recovery timelines",
+        "Week 3: Emergency dental situations - when to call immediately vs when to wait",
+        "Week 4: The science behind sedation dentistry explained in plain language",
+        "Week 5: Dental implants vs bridges vs dentures - objective comparison for informed decisions",
+        "Week 6: Day-by-day recovery expectations with realistic photos and patient experiences",
+        "Week 7: Behind-the-scenes with our surgical team - meet the people caring for you",
+        "Week 8: Insurance and financing navigation - maximizing benefits and payment options"
+      ],
+      "weekly_hooks": [
+        [
+          "Think wisdom teeth removal means a week of pain and swelling? Here's what recovery actually looks like in 2024",
+          "Myth: 'Dry socket happens to everyone' - Reality: Only 2-5% of patients experience it, and here's how to prevent it",
+          "Your dentist was wrong about [common myth] - here's what board-certified oral surgeons actually recommend"
+        ],
+        [
+          "From sleepless nights with throbbing pain to finally sleeping through the night - how we helped [patient name] in just 48 hours",
+          "'I can finally eat on both sides of my mouth again' - [patient]'s journey from constant pain to complete relief",
+          "The pain was gone immediately after the procedure - why [patient] wishes she hadn't waited 3 years"
+        ],
+        [
+          "Ignoring that tooth pain? Here are 3 signs it's actually a dental emergency that needs attention TODAY",
+          "When facial swelling becomes dangerous - urgent symptoms you should never ignore",
+          "It's 9pm and your tooth is throbbing - here's exactly what to do right now"
+        ],
+        [
+          "Ever wondered what 'twilight sedation' actually feels like? Our patients describe the experience in their own words",
+          "Terrified of being loopy or out of control? Here's exactly what happens with IV sedation (and what you'll remember)",
+          "Why 98% of our anxious patients say sedation made the procedure easier than expected"
+        ],
+        [
+          "Dental implants vs bridges: Here's the honest cost breakdown over 10 years (the answer surprised us)",
+          "Why dental implants cost what they do - and why patients say they're worth every penny (real cost breakdown inside)",
+          "Dentures, bridges, or implants? Here's how to choose based on YOUR situation, not our sales goals"
+        ],
+        [
+          "Day 3 after wisdom teeth removal: What's normal swelling vs when to call us (with real patient photos)",
+          "The truth about recovery: Why your coworker's experience might be totally different from yours",
+          "From surgery to solid foods - realistic timeline for [procedure] recovery with patient examples"
+        ],
+        [
+          "Meet the team who'll be caring for you - from our board-certified surgeon to our sedation specialist",
+          "Behind the scenes: How we prepare your surgical suite and why our sterility protocols exceed hospital standards",
+          "What happens in the 30 minutes before your procedure? Our team walks you through every step"
+        ],
+        [
+          "Your dental insurance denied coverage? Here's how we successfully appeal 73% of denials",
+          "Medical insurance often covers 50-80% when dental doesn't - here's how to maximize your benefits",
+          "CareCredit approved in 10 minutes - real patients share how they financed their [procedure] with 0% interest"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address misconceptions and outdated beliefs about procedures",
+        "Week 2: Address fear through patient validation and success stories",
+        "Week 3: Address urgency confusion - when to act vs when to wait",
+        "Week 4: Address sedation anxiety and loss of control fears",
+        "Week 5: Address decision paralysis between treatment options",
+        "Week 6: Address recovery time and impact on daily life concerns",
+        "Week 7: Address trust and qualification concerns about the practice",
+        "Week 8: Address financial barriers and insurance confusion"
+      ],
+      "proof_timing": [
+        "Week 1: Share clinical research and statistics from dental journals",
+        "Week 2: Feature 2-3 detailed patient testimonials with photos",
+        "Week 3: Highlight emergency response times and same-day appointment availability",
+        "Week 4: Show sedation certifications and patient satisfaction scores",
+        "Week 5: Present comparison charts with sources and patient decision stories",
+        "Week 6: Display day-by-day recovery photos from real patients with consent",
+        "Week 7: Introduce team credentials, years of experience, continuing education",
+        "Week 8: Share successful insurance appeals and financing approval rates"
+      ],
+      "cta_progression": [
+        "Week 1: Comment with the myth you've heard - we'll fact-check it for you",
+        "Week 2: Download our free 'Recovery Guide' for realistic expectations",
+        "Week 3: Save our emergency number - available 24/7 for urgent situations",
+        "Week 4: Take our 2-minute quiz: Which sedation option matches your anxiety level?",
+        "Week 5: Schedule a free consultation to discuss which option is right for you",
+        "Week 6: Join our private Facebook group where patients share real recovery experiences",
+        "Week 7: Book a practice tour - meet the team and see our facility before committing",
+        "Week 8: Get your free insurance benefits check - we'll call your provider for you"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week: educational carousels, patient story Reels, daily Stories)",
+        "Facebook (3-4 posts/week including weekly Live Q&A)",
+        "Email (2 emails/month: educational newsletter + seasonal tips)",
+        "YouTube (1 video/week: rotate between education, patient stories, procedure explanations)",
+        "Google Business Profile (2-3 posts/week: updates, reviews, educational content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on OMSH Instagram carousel posts achieving 3.8% engagement (vs 1.2% for single images) and 22% save rate by addressing patient FAQs and myths directly, combined with platform benchmarks showing educational content outperforms promotional content by 3x on Facebook and achieves 2.8-4.2% engagement on Instagram"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign for visibility and reach",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized transformation reveals and before/after content across all platforms",
+        "Week 2: Interactive myth-busting and fear-addressing content designed for shares and saves"
+      ],
+      "weekly_hooks": [
+        [
+          "You won't believe this transformation - from [problem] to [result] in just [timeframe] (swipe to see the after)",
+          "POV: You finally stopped putting off [procedure] and got your life back (watch what happened)",
+          "This is what [X days] after [procedure] actually looks like - no filters, no perfect lighting, just real results",
+          "From 'I'm terrified' to 'I wish I'd done this years ago' - watch [patient]'s complete journey in 60 seconds",
+          "The moment [patient] saw her new smile for the first time (grab tissues, this one hits different)",
+          "Showing my [procedure] recovery day-by-day because nobody talks about what it's REALLY like"
+        ],
+        [
+          "Dentists hate when we share this, but here's what wisdom teeth removal actually costs in [city] (full breakdown)",
+          "I asked 100 oral surgery patients their biggest regret - #3 will surprise you",
+          "Red flag vs green flag oral surgeons - how to know if you're in good hands",
+          "Things I wish I knew before my [procedure] (a thread)",
+          "Is this a dental emergency? Comment your symptoms and our surgeon will tell you if you need to come in TODAY",
+          "Rate your dental anxiety 1-10 in the comments - we'll recommend the right sedation option for your number"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know what to expect' through transparent procedure documentation",
+        "Week 2: Address 'I'm not sure if I need this' through emergency symptom education and interactive assessment"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase dramatic before/after transformations with patient permission and real timeframes",
+        "Week 2: Feature crowd-sourced social proof through comments, shares, and patient-generated content reposts"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this transformation",
+        "Week 1: Save this for when you're ready to finally address [problem]",
+        "Week 1: Share your biggest fear about [procedure] in the comments",
+        "Week 2: Take our quiz in bio: Do you need emergency care or can it wait?",
+        "Week 2: Comment 'GUIDE' and we'll send you our free [procedure] preparation checklist",
+        "Week 2: Click the link in bio to see our next available emergency appointment"
+      ],
+      "platform_priority": [
+        "TikTok (daily posts: transformation reveals, myth-busting, trending audio overlays)",
+        "Instagram Reels (5-7 Reels/week: same content as TikTok, cross-posted and optimized)",
+        "Facebook (4-5 posts/week: longer-form transformations, shareable infographics, Live sessions)",
+        "YouTube Shorts (daily: repurposed TikTok content for additional reach)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Dr. Kami Hoss's TikTok transformation content regularly achieving 100K+ views with 5-8% engagement (some reaching 2M+ views) by using dramatic visual transformations, trending audio, and hooks like 'You won't believe this transformation', combined with TikTok's 5.2-8.7% average engagement rate for dental educational content and algorithm favor for daily posting"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science and evolution of oral surgery - from past to present innovations",
+        "Week 2: Board certification deep-dive - what it means and why it matters for patient safety",
+        "Week 3: Sedation dentistry mastery - comprehensive education on all options and safety protocols",
+        "Week 4: Complex case studies - solving difficult oral surgery challenges with advanced techniques",
+        "Week 5: Collaborative care - how oral surgeons work with general dentists and medical specialists",
+        "Week 6: The future of oral surgery - emerging technologies and techniques we're implementing"
+      ],
+      "weekly_hooks": [
+        [
+          "Ever wondered what really happens during dental implant surgery? Our board-certified surgeon walks you through every step (it's less scary than you think)",
+          "The technology we use for [procedure] didn't exist 5 years ago - here's how it changes your recovery timeline",
+          "Why oral surgery is actually a medical specialty, not just dentistry - and what that means for your care"
+        ],
+        [
+          "What 4 extra years of surgical residency actually teaches - and why it matters when you're in the chair",
+          "Board-certified vs general dentist performing oral surgery - here's the honest difference in training and outcomes",
+          "The certification exam I had to pass has a 15% fail rate - here's what they're testing for your safety"
+        ],
+        [
+          "How we monitor your vitals every 3 minutes during IV sedation - a behind-the-scenes look at patient safety",
+          "The 6 levels of sedation explained - from nitrous oxide to general anesthesia, which is right for your anxiety?",
+          "What happens if something goes wrong during sedation? Our emergency protocols explained (spoiler: we're prepared)"
+        ],
+        [
+          "The case that almost stumped me - how we solved [patient]'s complex [problem] after 3 other surgeons said no",
+          "When dental implants fail: The honest truth about the 2-5% and what we do to fix it",
+          "This patient came to us after a botched [procedure] elsewhere - here's how we corrected it and what went wrong the first time"
+        ],
+        [
+          "Why your general dentist refers you to us - and why that's actually better for your care than having one person do everything",
+          "The conversation between your dentist and me before your surgery - here's what we discuss about your case",
+          "How we coordinate with your medical doctors when you have [condition] - your complete care team explained"
+        ],
+        [
+          "The $200K technology we just installed - and why it cuts your surgery time in half",
+          "3D surgical planning: How we practice your exact procedure before you ever sit in the chair",
+          "The future of dental implants is here - how [new technology] is changing what's possible in 2024"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't understand what this procedure actually involves' through detailed education",
+        "Week 2: Address 'How do I know if this surgeon is actually qualified' through credential transparency",
+        "Week 3: Address 'What if something goes wrong with sedation' through safety protocol education",
+        "Week 4: Address 'What if the procedure fails or I'm a complicated case' through complex case examples",
+        "Week 5: Address 'Can't my regular dentist just do this' through specialist value explanation",
+        "Week 6: Address 'Is this practice using outdated methods' through technology and innovation showcase"
+      ],
+      "proof_timing": [
+        "Week 1: Share published research, clinical studies, and evidence-based practice protocols",
+        "Week 2: Display board certifications, hospital affiliations, professional memberships, continuing education",
+        "Week 3: Show sedation certifications, safety records, monitoring equipment, emergency preparedness",
+        "Week 4: Present complex case outcomes with patient consent, complication resolution examples",
+        "Week 5: Feature testimonials from referring dentists, collaborative care success stories",
+        "Week 6: Reveal new technology investments, training certifications, innovation adoption timeline"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive guide: 'Understanding [Procedure] - A Patient's Complete Resource'",
+        "Week 2: Read our surgeon's full credentials and training history on our About page",
+        "Week 3: Watch our sedation safety video - see exactly how we monitor you throughout your procedure",
+        "Week 4: Submit your complex case for a free second opinion consultation",
+        "Week 5: Ask your dentist why they refer to us - then schedule your specialist consultation",
+        "Week 6: Book a technology tour - see our advanced equipment and ask our surgeon anything"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 long-form videos/week: 10-15 minute deep-dive educational content)",
+        "LinkedIn (3-4 posts/week: professional content for referring dentists and healthcare network)",
+        "Blog/Website (2 comprehensive articles/week: SEO-optimized educational content)",
+        "Email (1 in-depth newsletter/week: detailed educational series)",
+        "Facebook (2-3 posts/week: reshared YouTube content, Live educational Q&As)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Nuvia Dental's YouTube 'Same Day Smile' long-form documentary series averaging 50K-200K views per episode with 4.2% engagement by providing complete transparency and building trust through education rather than selling, combined with YouTube's 3.5-5.1% engagement rate for educational dental content and Texas Oral Surgery's Facebook Live Q&A sessions achieving 2,500 live viewers and 25% booking consultations within 30 days"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Patient story sharing and community building through shared experiences",
+        "Week 2: Interactive Q&A and myth-busting with direct surgeon responses"
+      ],
+      "weekly_hooks": [
+        [
+          "Share your biggest fear about oral surgery in the comments - you're not alone and we'll address every single one",
+          "Finish this sentence: 'I wish I knew _____ before my oral surgery' - helping future patients learn from your experience",
+          "Tag someone who's been putting off [procedure] - they need to see this",
+          "What's the weirdest thing you said while coming out of sedation? (We'll start: one patient proposed to their dental assistant)",
+          "Rate your dental anxiety 1-10 - we'll recommend the perfect sedation option for your number",
+          "Drop a 🙋 if you've been putting off [procedure] for over a year - you're in good company"
+        ],
+        [
+          "Comment your oral surgery question and our board-certified surgeon will answer in the next 24 hours - nothing is off limits",
+          "Myth or fact? Drop your answer in the comments and we'll reveal the truth (you might be surprised)",
+          "This or that: Dental implants or bridges? Comment which you'd choose and why",
+          "Going Live in 1 hour: Ask our surgeon anything about [procedure] - drop your questions now",
+          "Fill in the blank: 'The worst part about [procedure] was _____' - let's set realistic expectations together",
+          "Show us your smile transformation! Tag us in your before/after and we'll feature our favorites this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address fear and anxiety through community validation and shared patient experiences",
+        "Week 2: Address information gaps and misconceptions through direct expert interaction"
+      ],
+      "proof_timing": [
+        "Week 1: Amplify patient-generated content, testimonials, and community member success stories",
+        "Week 2: Showcase surgeon expertise through real-time Q&A responses and myth-busting with sources"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in the comments - your experience could help someone take the first step",
+        "Week 1: Tag 3 friends who need to hear this",
+        "Week 1: Save this post and come back to read all the patient experiences in the comments",
+        "Week 2: Drop your questions below - our surgeon is answering all of them personally",
+        "Week 2: Join our Live Q&A session [day/time] - bring all your concerns",
+        "Week 2: Ready to take the next step? Click the link in bio to schedule your free consultation"
+      ],
+      "platform_priority": [
+        "Instagram (daily posts: Stories with polls, question stickers, Reels with engagement hooks, carousel discussion starters)",
+        "Facebook (daily posts: Live Q&A sessions, community discussion posts, patient story features)",
+        "TikTok (5-7 posts/week: duet-friendly content, stitch-optimized myth-busting, comment response videos)",
+        "Email (2 emails: one asking for patient stories, one sharing community highlights and inviting to Live session)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Texas Oral Surgery Specialists' Facebook Live Q&A sessions achieving average 2,500 live viewers, 300+ comments per session, 6.7% engagement rate, and 25% of viewers booking consultations within 30 days by addressing specific patient concerns in real-time and showcasing expertise authentically, combined with Instagram's 2.8-4.2% engagement rate for dental practices and carousel posts' 22% save rate when featuring patient FAQs"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "3 signs your patient needs an oral surgeon referral (not just a general dentist):\n\n[PROBLEM]: Many general dentists delay specialist referrals, leading to complications.\n\n[AGITATE]: Impacted wisdom teeth can cause cyst formation. Jaw pain might indicate TMJ requiring surgical intervention. Dental implants in compromised bone need specialized placement.\n\n[SOLUTION]:\n1. Impacted teeth with recurrent infections\n2. Complex extractions near nerve pathways\n3. Bone grafting requirements for implants\n\nBoard-certified oral surgeons complete 4-6 years additional training beyond dental school. We handle cases requiring:\n• Hospital-grade sedation\n• Surgical precision for nerve preservation\n• Advanced bone reconstruction\n\nEarly referral = better outcomes. Your patients deserve specialist care when complexity demands it.\n\nWhat referral criteria does your practice use? #OralSurgery #DentalReferrals #PatientCare #DentistryExcellence #SpecialistCare",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 20+ years performing [NUMBER] oral surgery procedures, here's what patients actually need to know:\n\n[ATTENTION]: The oral surgery field has transformed dramatically. What patients feared in 2004 isn't reality in 2024.\n\n[INTEREST]: Modern sedation protocols mean:\n• 95% of anxious patients report \"easier than expected\"\n• Same-day procedures with next-day return to work\n• Precision imaging reduces complications by 67%\n\n[DESIRE]: Technology advancement:\n→ 3D imaging for exact implant placement\n→ PRF therapy accelerates healing 40% faster\n→ Piezosurgery preserves surrounding tissue\n\n[ACTION]: The gap between patient perception and modern reality creates unnecessary delay. Education is our responsibility.\n\nWhen did you last update your referral partners on current capabilities? Let's elevate the conversation.\n\n#OralSurgeryInnovation #DentalTechnology #PatientEducation #ModernDentistry",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "[BEFORE]: Patients avoiding necessary oral surgery due to outdated fears and misinformation.\n\n[AFTER]: Confident patients choosing treatment because they understand modern options.\n\n[BRIDGE]: Our [PRACTICE NAME] approach:\n\n✓ Free consultation with board-certified surgeons\n✓ Transparent cost breakdown before treatment\n✓ Multiple sedation options (local to IV sedation)\n✓ Same-day emergency availability\n✓ Insurance coordination handled entirely by our team\n\nWe've treated [NUMBER] referred patients this year with [XX]% reporting \"exceeded expectations\" for comfort and results.\n\nCurrently accepting new referral partnerships with general dentists in [LOCATION]. Our team provides detailed post-op reports within 24 hours and co-manages complex cases.\n\nInterested in touring our facility? DM me to schedule.\n\n#DentalReferrals #OralSurgeryPartners #PatientCenteredCare",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Think wisdom teeth removal means a week of pain? Here's what recovery ACTUALLY looks like in 2024 🦷\n\nSwipe to see the truth about modern oral surgery recovery →\n\n[SLIDE 1]: Myth vs Reality\n[SLIDE 2]: Day 1 - What to expect\n[SLIDE 3]: Day 2-3 - Most patients here\n[SLIDE 4]: Day 4-7 - Back to normal\n[SLIDE 5]: Recovery tips that actually work\n\nOur patients return to work average [X] days post-procedure. Modern techniques = faster healing.\n\nQuestions about your specific case? Drop them below 👇\n\n#WisdomTeeth #OralSurgery #DentalFacts #ToothExtraction #DentalCare #OralHealth #DentistryLife",
+        "visual": "Carousel post with clean graphics comparing outdated recovery expectations vs modern reality. Slide 1: Split-screen 'myth vs fact'. Slides 2-4: Timeline graphics with simple icons. Slide 5: Checklist format with checkmarks. Brand colors, easy-to-read fonts, patient-friendly language.",
+        "framework": "Myth-Busting + Educational Value"
+      },
+      "authority": {
+        "caption": "Ever wondered what really happens during dental implant surgery? Dr. [NAME] walks you through every step (it's less scary than you think) 🔍\n\nWatch our board-certified surgeon explain:\n→ Why sedation makes you comfortable\n→ How we preserve bone and tissue\n→ What that 'osseointegration' word actually means\n→ Why 3D imaging changes everything\n\nFull procedure breakdown in our latest Reel. Tap to watch.\n\nBeen putting off implants because you're nervous? You're not alone - and we get it. Knowledge = confidence.\n\nSave this for when you're ready to learn more 📌\n\n#DentalImplants #OralSurgeon #DentalEducation #ImplantDentistry #TeethReplacement #DentalAnxiety #BoardCertified",
+        "visual": "Reel showing surgeon in scrubs explaining procedure using 3D model or animation overlay. Clean, professional office background. Surgeon speaking directly to camera with text overlays highlighting key points. Before/after patient photos (with consent) in final frames. Authentic, educational tone - not overly produced.",
+        "framework": "Behind-the-Scenes Transparency"
+      },
+      "promotional": {
+        "caption": "From 'I'll never get implants' to 'I wish I'd done this years ago' 💙\n\n[PATIENT NAME]'s journey:\n→ Missing teeth for 5 years\n→ Embarrassed to smile in photos\n→ Avoiding social situations\n→ Terrified of surgery\n\nToday? Confident, comfortable, and can't stop smiling.\n\nWhat changed? Our sedation options + transparent process + caring team.\n\nFree consultations available. Link in bio to book yours.\n\nReady to start your transformation? DM us 'CONSULT' 📩\n\n#SmileTransformation #DentalImplants #BeforeAndAfter #NewSmile #ConfidentSmile #OralSurgery #DentalJourney #PatientStory",
+        "visual": "Before/after transformation post. Before: Patient with missing teeth (tasteful, with consent). After: Patient smiling confidently. Side-by-side or swipe format. Include patient quote overlay. Professional photography with natural lighting. Patient's authentic emotion visible. Optional: video testimonial clip for Reels.",
+        "framework": "Social Proof Story"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ 3 Signs That Tooth Pain Is Actually a Dental Emergency\n\nNot sure if you should call us today or wait until Monday? Here's what you need to know:\n\n🚨 CALL IMMEDIATELY IF:\n\n1. Severe swelling affecting your face or neck\n→ This could indicate infection spreading. Don't wait.\n→ Swelling that closes your eye or affects breathing = ER + call us\n\n2. Uncontrolled bleeding after tooth injury\n→ Pressure with gauze for 15 minutes should slow bleeding\n→ Still bleeding? You need immediate care\n\n3. Pain so severe you can't sleep or function\n→ Throbbing that radiates to ear/jaw\n→ Pain not touched by over-the-counter medication\n→ This is your body saying \"help needed now\"\n\nWHAT CAN WAIT UNTIL REGULAR HOURS:\n• Dull, manageable ache\n• Sensitivity to hot/cold (without severe pain)\n• Minor chip without pain\n• Lost filling (if not painful)\n\nWe offer same-day emergency appointments at [PRACTICE NAME]. Call [PHONE] - we answer 24/7 for true emergencies.\n\nHave you experienced dental emergency before? What made you decide to seek immediate care? Share your story below to help others recognize the signs. 👇\n\n#DentalEmergency #ToothPain #OralSurgery #EmergencyDentist #DentalCare #[CITY]Dentist",
+        "framework": "Urgency + Consequence Avoidance"
+      },
+      "authority": {
+        "template": "Why do dental implants cost what they do? Let's talk about the elephant in the room. 💰\n\nI'm Dr. [NAME], and after placing [NUMBER]+ implants, I believe you deserve complete transparency about cost.\n\nHERE'S THE REAL BREAKDOWN:\n\n🔬 The Implant Itself: $[XXX-XXX]\n• Medical-grade titanium that fuses with your bone\n• Manufactured to exact specifications\n• Lasts 25+ years with proper care\n\n👨‍⚕️ The Surgical Expertise: $[XXX-XXX]\n• 4-6 years training beyond dental school\n• Board certification requirements\n• Precision placement using 3D imaging\n• Sedation monitoring and safety protocols\n\n🦴 Supporting Procedures (if needed): $[XXX-XXX]\n• Bone grafting to ensure implant success\n• Sinus lifts for upper jaw placement\n• Tissue management for optimal healing\n\n👑 The Crown/Restoration: $[XXX-XXX]\n• Custom-made to match your natural teeth\n• Porcelain that looks and functions like real tooth\n• Precision fit to your implant\n\nTOTAL INVESTMENT: $[X,XXX - X,XXX] per tooth\n\nWHY PATIENTS SAY IT'S WORTH IT:\n\"I spent $4,000 on my implant 8 years ago. That's $500/year to eat normally, smile confidently, and forget I ever lost a tooth.\" - Real patient review\n\nWE OFFER:\n✓ Insurance coordination (we handle the paperwork)\n✓ Payment plans starting at $[XX]/month\n✓ Free consultation to discuss YOUR specific cost\n✓ No surprise fees - you know the total upfront\n\nQuestions about cost? Ask them here. No judgment, just honest answers. This is a big decision and you deserve all the information.\n\nWhat questions do you have about dental implant investment? 👇",
+        "framework": "Cost Justification Value"
+      },
+      "promotional": {
+        "template": "🎉 We're opening [NUMBER] emergency appointment slots this week for patients in severe pain.\n\nIf you're:\n❌ Unable to sleep because of tooth pain\n❌ Dealing with facial swelling\n❌ Suffering from wisdom tooth problems\n❌ Experiencing pain that won't respond to medication\n\n...don't suffer through the weekend.\n\nHere's how it works:\n\n1️⃣ Call [PHONE] before [TIME] [DAY]\n2️⃣ We'll get you in within 24-48 hours\n3️⃣ Board-certified surgeon evaluates your situation\n4️⃣ We create a treatment plan that works for YOUR schedule and budget\n5️⃣ Most patients leave with relief the same day\n\nWHAT TO EXPECT:\n→ Free emergency consultation\n→ Same-day treatment options available\n→ Sedation for anxious patients\n→ Insurance and payment plans accepted\n→ No judgment - we're here to help, not lecture\n\n\"I called at 9am in excruciating pain. They got me in at 2pm the same day. The relief was immediate. I can't thank them enough.\" - [PATIENT NAME], Google Review\n\nOur [CITY] office has been serving the community for [NUMBER] years. We treat every patient like family.\n\n📞 Call [PHONE] to claim one of these emergency slots\n💻 Or book online: [WEBSITE]\n\nKnow someone suffering with tooth pain? Tag them below - they'll thank you later! 👇\n\n#EmergencyDental #ToothPain #[CITY]Dentist #OralSurgery #DentalEmergency #SameDayAppointment #PainRelief",
+        "framework": "Pain-to-Relief Transformation"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're terrified of getting your wisdom teeth out 😰",
+        "script": "HOOK (0-3sec): POV: You're terrified of getting your wisdom teeth out 😰\n\nVISUAL: Creator looking anxious at camera\n\nTEXT OVERLAY: \"Me googling wisdom teeth recovery at 2am\"\n\n(3-10sec): Here's what ACTUALLY happens (from a board-certified oral surgeon)\n\nVISUAL: Switch to professional setting, creator in scrubs\n\nTEXT: \"The real timeline 👇\"\n\n(10-25sec): Day of surgery: You'll be sedated, won't remember anything. Takes 30-45 minutes. You leave with gauze and instructions.\n\nVISUAL: Quick cuts showing office, recovery area\n\nTEXT: \"Day 0: Sleepy & swollen\"\n\n(25-40sec): Days 1-2: Peak swelling (chipmunk phase). Soft foods. Netflix. Ice packs. Most pain managed with ibuprofen.\n\nVISUAL: Creator with ice pack, eating smoothie\n\nTEXT: \"Days 1-2: Couch potato era\"\n\n(40-50sec): Days 3-4: Swelling down 50%. Back to light activity. Still soft foods but feeling human again.\n\nTEXT: \"Days 3-4: Almost normal\"\n\n(50-60sec): Week 2: Eating normally. Back to everything. Barely remember being worried.\n\nVISUAL: Creator smiling, eating solid food\n\nTEXT: \"You've got this! 💪\"\n\nCTA: Questions? Drop them below! ⬇️\n\nTRENDING AUDIO: Use current trending sound with voiceover\n\n#wisdomteeth #oralsurgery #dentist #dentalanxiety #wisdomteethremoval #dentaltok #surgery",
+        "framework": "Fear Acknowledgment + Solution"
+      },
+      "authority": {
+        "hook": "Oral surgeon reacts to dental myths on TikTok 🤦‍♂️",
+        "script": "HOOK (0-3sec): Oral surgeon reacts to dental myths I see on TikTok\n\nVISUAL: Creator in scrubs, disappointed face\n\nTEXT: \"Y'all... we need to talk\"\n\n(3-15sec): MYTH 1: \"Dry socket happens to everyone\"\n❌ Actually affects only 2-5% of patients\n✅ Follow instructions = you'll be fine\n\nVISUAL: Green screen with myth text, creator shaking head\n\nTEXT: \"Only 2-5%!\"\n\n(15-30sec): MYTH 2: \"You'll be in pain for weeks\"\n❌ Most patients need pain meds for 2-3 days max\n✅ Modern techniques = way less trauma\n\nVISUAL: Calendar graphic showing timeline\n\nTEXT: \"2-3 days, not weeks\"\n\n(30-45sec): MYTH 3: \"Sedation is dangerous\"\n❌ We monitor you the entire time\n✅ Safer than driving to our office\n\nVISUAL: Show monitoring equipment\n\nTEXT: \"Monitored every second\"\n\n(45-60sec): The internet loves drama. Your oral surgeon loves facts. Questions? I'll answer in comments!\n\nVISUAL: Creator pointing at camera\n\nTEXT: \"Ask me anything 👇\"\n\nCTA: Part 2? Comment what myths you've heard!\n\nTRENDING AUDIO: Myth-busting trending sound\n\n#dentist #oralsurgeon #mythbusters #dentaltok #wisdomteeth #dentalfacts #learnontiktok",
+        "framework": "Myth-Busting Question"
+      },
+      "promotional": {
+        "hook": "You won't believe this dental implant transformation 😱",
+        "script": "HOOK (0-3sec): You won't believe this dental implant transformation 😱\n\nVISUAL: Before photo of patient (with consent)\n\nTEXT: \"Missing teeth for 7 years\"\n\n(3-10sec): This patient avoided smiling in photos, covered their mouth when laughing, turned down job promotions because of confidence.\n\nVISUAL: Emotional story text on screen\n\nTEXT: \"Afraid to smile 💔\"\n\n(10-25sec): They were terrified of surgery. We offered sedation options. They chose twilight sedation - don't remember a thing.\n\nVISUAL: Office footage, calming environment\n\nTEXT: \"Sedation = zero anxiety\"\n\n(25-40sec): Procedure took 2 hours. Recovery was easier than expected. Back to work in 3 days.\n\nVISUAL: Timeline graphics\n\nTEXT: \"Easier than expected\"\n\n(40-55sec): 6 months later... REVEAL\n\nVISUAL: After photo - patient smiling confidently\n\nTEXT: \"Life. Changed. ✨\"\n\n(55-60sec): Free consultations available. Link in bio.\n\nVISUAL: Practice logo, CTA\n\nTEXT: \"Your turn? 🦷\"\n\nCTA: Ready for your transformation? Link in bio!\n\nTRENDING AUDIO: Emotional transformation audio\n\n#dentalimplants #smiletransformation #beforeandafter #dentalimplantsbeforeandafter #oralsurgery #newsmile #confidence #dentaltransformation",
+        "framework": "Social Proof Story"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "3 signs that tooth pain needs immediate attention (don't wait)",
+        "preview_text": "When to call us vs. when to wait - your quick guide",
+        "body": "Hi [FIRST_NAME],\n\nIt's [TIME] and you can't sleep because of tooth pain. Sound familiar?\n\nHere's how to know if you need to call us NOW or if it can wait until morning:\n\n🚨 CALL IMMEDIATELY IF YOU HAVE:\n\n1. Facial swelling (especially near eye or neck)\n→ Could indicate infection spreading\n→ This is serious - don't wait\n\n2. Severe pain that won't respond to medication\n→ Throbbing that radiates to ear/jaw\n→ Pain preventing sleep or normal function\n→ Your body is telling you something's wrong\n\n3. Uncontrolled bleeding after injury\n→ Pressure for 15+ minutes doesn't stop it\n→ You need immediate care\n\n✅ CAN USUALLY WAIT UNTIL REGULAR HOURS:\n• Dull, manageable ache\n• Sensitivity without severe pain\n• Minor chip (no pain)\n• Lost filling (if not painful)\n\nWHAT TO DO RIGHT NOW:\n\nEmergency? Call [PHONE] - we answer 24/7\n\nCan wait? Book online: [LINK]\n\nNot sure? Call anyway. We'd rather you check than suffer unnecessarily.\n\nWe've treated [NUMBER]+ emergency cases this year. You're in expert hands.\n\nStay comfortable,\nDr. [NAME] and team\n[PRACTICE NAME]\n\nP.S. Save this email. When tooth pain strikes at 2am, you'll know exactly what to do.\n\n[PHONE] | [WEBSITE] | [ADDRESS]",
+        "framework": "PAS (Problem-Agitate-Solution)"
+      },
+      "authority": {
+        "subject": "Why dental implants cost what they do (honest breakdown)",
+        "preview_text": "Complete transparency about pricing + what you're actually paying for",
+        "body": "Hi [FIRST_NAME],\n\nLet's talk about the elephant in the room: dental implant costs.\n\nAfter placing [NUMBER]+ implants, I believe you deserve complete transparency.\n\nHERE'S THE REAL BREAKDOWN:\n\n💎 The Implant: $[XXX-XXX]\n• Medical-grade titanium\n• Lasts 25+ years\n• Fuses with your bone permanently\n\n👨‍⚕️ Surgical Expertise: $[XXX-XXX]\n• Board-certified oral surgeon\n• 4-6 years training beyond dental school\n• 3D imaging for precision placement\n• Sedation monitoring and safety\n\n🦴 Supporting Procedures (if needed): $[XXX-XXX]\n• Bone grafting\n• Sinus lifts\n• Tissue management\n\n👑 Custom Crown: $[XXX-XXX]\n• Matches your natural teeth\n• Functions like a real tooth\n• Precision-crafted for your mouth\n\nTOTAL INVESTMENT: $[X,XXX-X,XXX] per tooth\n\nWHY PATIENTS SAY IT'S WORTH IT:\n\n\"I spent $4,000 eight years ago. That's $500/year to eat normally, smile confidently, and forget I ever lost a tooth.\" - Sarah M.\n\nWE MAKE IT AFFORDABLE:\n✓ Insurance coordination (we handle it)\n✓ Payment plans from $[XX]/month\n✓ Free consultation to discuss YOUR cost\n✓ No surprise fees - total cost upfront\n\nREADY TO LEARN YOUR SPECIFIC COST?\n\nBook free consultation: [LINK]\n\nOr call [PHONE] - we'll answer your questions honestly.\n\nYou deserve to know what you're investing in.\n\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. Putting it off because of cost? Let's talk. We've helped [NUMBER]+ patients find a way to afford the care they need.",
+        "framework": "AIDA (Attention-Interest-Desire-Action)"
+      },
+      "promotional": {
+        "subject": "⚠️ Emergency appointments available this week",
+        "preview_text": "In severe pain? We have slots opening up - here's how to get in fast",
+        "body": "Hi [FIRST_NAME],\n\nAre you:\n❌ Losing sleep because of tooth pain?\n❌ Dealing with facial swelling?\n❌ Suffering from wisdom tooth problems?\n\nWe're opening [NUMBER] emergency slots this week.\n\nBEFORE: Patients suffering for days, unable to eat or sleep, not knowing where to turn\n\nAFTER: Same-day relief, back to normal life, wondering why they waited so long\n\nBRIDGE: Our emergency appointment process\n\nHERE'S HOW IT WORKS:\n\n1. Call [PHONE] before [TIME] [DAY]\n2. We'll get you in within 24-48 hours\n3. Board-certified surgeon evaluates you\n4. Treatment plan that fits YOUR schedule/budget\n5. Most patients get relief the same day\n\nWHAT'S INCLUDED:\n→ Free emergency consultation\n→ Same-day treatment options\n→ Sedation available for anxious patients\n→ Insurance and payment plans accepted\n→ No judgment - just help\n\n\"Called at 9am in excruciating pain. They got me in at 2pm same day. The relief was immediate. I can't thank them enough.\" - James R., Google Review\n\nDON'T SUFFER THROUGH THE WEEKEND\n\nCall now: [PHONE]\nBook online: [LINK]\n\nThese emergency slots fill fast. If you're in pain, don't wait.\n\nWe're here to help,\nDr. [NAME] and team\n[PRACTICE NAME]\n\nP.S. Not in pain but know someone who is? Forward this email. They'll thank you.\n\n[PHONE] | [WEBSITE] | [ADDRESS]\n\nServing [CITY] for [NUMBER] years",
+        "framework": "BAB (Before-After-Bridge)"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "3 signs that tooth pain is actually a dental emergency that needs attention TODAY",
+      "From 3 sleepless nights to finally sleeping through the night - here's what happened in the first 48 hours after [extraction/implant surgery]",
+      "5 things I wish I'd known before my wisdom teeth removal (number 4 would have saved me so much anxiety)"
+    ],
+    "question_hooks": [
+      "Terrified of being put under for oral surgery? Here's exactly what sedation feels like (and why 95% of anxious patients say it wasn't scary at all)",
+      "Worried your face will be swollen like a chipmunk for your [upcoming event]? Here's what recovery actually looks like in 2024",
+      "Think you can't afford dental implants? Here's how [patient name] made it work with insurance and payment plans"
+    ],
+    "story_hooks": [
+      "How Sarah went from 'I haven't slept in three days from tooth pain' to 'I finally got a full night's sleep' in just 48 hours",
+      "From 'I've been putting this off for years because I'm scared' to 'I wish I hadn't waited so long' - John's implant journey",
+      "How Maria avoided dry socket and was back to eating normal food in [timeframe] after her wisdom teeth removal"
+    ],
+    "fear_hooks": [
+      "Is ignoring that throbbing tooth pain putting you at risk for a serious infection? Here are 3 warning signs you need emergency care",
+      "Worried about looking loopy or saying something embarrassing under sedation? Here's what really happens (and what you'll actually remember)",
+      "Is your jaw pain actually TMJ disorder affecting your daily life? Here's how to know if you need specialist care"
+    ],
+    "howto_hooks": [
+      "How to recover from wisdom teeth removal without the week-long swelling and chipmunk face everyone warned you about",
+      "How to get dental implants that look and feel like real teeth without breaking the bank or taking weeks off work",
+      "How to survive oral surgery when you're absolutely terrified of dental procedures - a complete guide for anxious patients"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You finally slept through the night after 3 days of tooth pain",
+      "body": "Show patient arriving in pain (clutching jaw) → Quick cuts of compassionate consultation → Sedation setup with calming music → Fast-forward transition → Patient waking up smiling → Next scene: peaceful sleep at home → Final scene: eating favorite food pain-free. Text overlays: 'Same day emergency appointment' → 'Sedation options for anxiety' → 'Pain gone immediately' → 'Back to normal in 48hrs'. Use trending audio about relief/transformation.",
+      "cta": "Link in bio for emergency appointments - we'll get you in today"
+    },
+    "reels": {
+      "hook": "What your oral surgeon won't tell you about recovery",
+      "body": "Day 1: Ice packs and Netflix (show cozy setup) → Day 2: Already back to soft foods (show smoothie bowl) → Day 3: Minimal swelling, back to work (professional outfit) → Day 5: Eating pizza (close-up bite). Text: 'Recovery is NOT as scary as Google says' → 'Actual timeline from our patients' → 'Everyone heals differently but this is typical'. Upbeat, reassuring music.",
+      "cta": "Save this for when you need it - free consultation link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video the night before your procedure showing what you're nervous about, then film again 48 hours after showing how you actually feel. Be honest about both - we want real experiences!",
+      "hashtag": "#MyOralSurgeryStory"
+    },
+    {
+      "prompt": "Show us the first 'normal' meal you ate after your procedure. What food were you craving most during recovery? Bonus points if you show your reaction!",
+      "hashtag": "#BackToBitingAgain"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Oral surgeon reacts to viral TikTok dental hacks and myths - debunking dangerous DIY extractions, explaining why certain trends cause more harm. Use stitch/duet features with popular dental myth videos.",
+      "why": "Combines education with entertainment, leverages existing viral content, positions surgeon as trusted authority, controversy drives comments and shares, highly searchable content"
+    },
+    {
+      "angle": "Before/after series showing actual day-by-day recovery with unfiltered photos - swelling, bruising, healing progression with honest patient narration about pain levels, what they ate, when they returned to work. Include 'chipmunk face' humor.",
+      "why": "Fills major content gap with transparent expectations, relatable humor reduces anxiety, highly saveable for people researching procedures, patient authenticity builds trust, share-worthy for people supporting friends/family going through same thing"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:16:28.259Z",
+    "last_tier2_refresh": "2025-11-27T20:16:28.259Z",
+    "last_tier3_refresh": "2025-11-27T20:16:28.259Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:16:28.259Z"
+  }
+}

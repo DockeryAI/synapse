@@ -1,15 +1,19 @@
 /**
  * Your Mix - Selected insights panel with compatibility indicators
+ * V3.2: Integrated with ContentSynthesisOrchestrator for EQ/UVP/Segment awareness
  */
 
 import React, { useMemo, useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Sparkles, Trash2, FileText, Zap, ChevronDown, ChevronUp, Mail, BookOpen, Newspaper, Globe, TrendingUp, CheckCircle2, Shield, Heart, Database } from 'lucide-react';
+import { X, Sparkles, Trash2, FileText, Zap, ChevronDown, ChevronUp, Mail, BookOpen, Newspaper, Globe, TrendingUp, CheckCircle2, Shield, Heart, Database, Brain, RefreshCw } from 'lucide-react';
+import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanner';
 import type { InsightCard } from './types';
 import { contentSynthesis, type SynthesizedContent } from '@/services/intelligence/content-synthesis.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 import { HumorSlider } from './HumorSlider';
 import type { FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
+import { useContentSynthesis } from '@/hooks/useContentSynthesis';
+import type { JourneyStage, BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 
 export interface YourMixProps {
   selectedInsights: InsightCard[];
@@ -18,6 +22,22 @@ export interface YourMixProps {
   onClear: () => void;
   onGenerate: () => void;
   framework?: FrameworkType | null; // External framework from recipe selection
+  /** V3.2: Business segment for EQ-aware synthesis */
+  segment?: BusinessSegment;
+  /** V3.2: Brand data for orchestrator context */
+  brandData?: {
+    name?: string;
+    industry?: string;
+    naicsCode?: string;
+  };
+  /** V3.2: UVP data for orchestrator context */
+  uvpData?: {
+    target_customer?: string;
+    key_benefit?: string;
+    transformation?: string;
+    unique_mechanism?: string;
+    proof_points?: string[];
+  };
 }
 
 interface ContentPreview {
@@ -29,37 +49,135 @@ interface ContentPreview {
 
 type ContentType = 'post' | 'blog' | 'newsletter' | 'email' | 'landing-page' | 'campaign';
 
-export function YourMix({ selectedInsights, context, onRemove, onClear, onGenerate, framework }: YourMixProps) {
+export function YourMix({
+  selectedInsights,
+  context,
+  onRemove,
+  onClear,
+  onGenerate,
+  framework,
+  segment = 'smb_local',
+  brandData,
+  uvpData
+}: YourMixProps) {
   const hasSelection = selectedInsights.length > 0;
   const [showContentMenu, setShowContentMenu] = useState(false);
   const [isPreviewExpanded, setIsPreviewExpanded] = useState(false);
   const [synthesizedContent, setSynthesizedContent] = useState<SynthesizedContent | null>(null);
   const [isSynthesizing, setIsSynthesizing] = useState(false);
   const [humorLevel, setHumorLevel] = useState<number>(1); // Default: Light humor
+  const [journeyStage, setJourneyStage] = useState<JourneyStage>('awareness');
 
   // Use external framework prop (from recipe) or allow internal override
   const activeFramework = framework || null;
 
-  // Synthesize content when insights or settings change
-  useEffect(() => {
-    if (selectedInsights.length > 0) {
-      setIsSynthesizing(true);
-      contentSynthesis.synthesizeContent(selectedInsights, context, {
-        humorLevel,
-        framework: activeFramework || undefined
-      })
-        .then(content => {
-          setSynthesizedContent(content);
-          setIsSynthesizing(false);
-        })
-        .catch(error => {
-          console.error('[YourMix] Synthesis error:', error);
-          setIsSynthesizing(false);
-        });
-    } else {
-      setSynthesizedContent(null);
+  // V3.2: Use ContentSynthesisOrchestrator for EQ/UVP/Segment-aware synthesis
+  const {
+    enrichedContext,
+    isContextLoading,
+    loadContext,
+    scoreInsights,
+    reSynthesizeForStage,
+    isReSynthesizing,
+    generateUVPCTA,
+    getRecommendedFramework,
+    contextError,
+    reSynthesisError,
+    retryLoadContext,
+    clearErrors
+  } = useContentSynthesis({
+    brandName: brandData?.name || context?.business?.profile?.name || 'Unknown',
+    industry: brandData?.industry || context?.business?.profile?.industry || 'General',
+    naicsCode: brandData?.naicsCode,
+    segment,
+    uvpData: uvpData || {
+      target_customer: context?.business?.uvp?.targetCustomer,
+      key_benefit: context?.business?.uvp?.keyBenefit,
+      transformation: context?.business?.uvp?.desiredOutcome
     }
-  }, [selectedInsights, context, humorLevel, activeFramework, framework]);
+  });
+
+  // Load enriched context on mount
+  useEffect(() => {
+    if (brandData?.name || context?.business?.profile?.name) {
+      loadContext();
+    }
+  }, [brandData?.name, context?.business?.profile?.name, loadContext]);
+
+  // V3.2: Synthesize content with EQ-aware orchestrator when insights or settings change
+  useEffect(() => {
+    const synthesize = async () => {
+      if (selectedInsights.length === 0) {
+        setSynthesizedContent(null);
+        return;
+      }
+
+      setIsSynthesizing(true);
+
+      try {
+        // If we have enriched context, use orchestrator for re-synthesis
+        if (enrichedContext) {
+          // Convert InsightCard to format expected by orchestrator
+          const insightsForSynthesis = selectedInsights.map(insight => ({
+            id: insight.id,
+            title: insight.title,
+            hook: insight.description || '',
+            body: [] as string[],
+            cta: 'Learn more',
+            scores: { breakthrough: insight.confidence * 100 }
+          })) as any[];
+
+          // Re-synthesize with EQ/segment context
+          const orchestratedInsights = await reSynthesizeForStage(insightsForSynthesis, journeyStage);
+
+          // Build synthesized content from orchestrated insights
+          const primaryInsight = orchestratedInsights[0];
+          const content: SynthesizedContent = {
+            title: primaryInsight?.title || selectedInsights[0].title,
+            hook: primaryInsight?.hook || selectedInsights[0].description || '',
+            body: orchestratedInsights.slice(1).map(i => i.title),
+            cta: generateUVPCTA(primaryInsight as any) || 'Learn more',
+            eqScore: primaryInsight?.eqAlignment || 50,
+            provenance: {
+              validation: orchestratedInsights.length >= 3 ? 'triple-validated' :
+                         orchestratedInsights.length >= 2 ? 'cross-validated' : 'single-source',
+              sources: selectedInsights.map(i => ({
+                name: i.category || 'Unknown',
+                quote: i.description,
+                confidence: i.confidence
+              })),
+              dataPoints: selectedInsights.length
+            }
+          };
+
+          setSynthesizedContent(content);
+        } else {
+          // Fallback to legacy synthesis if no enriched context
+          const content = await contentSynthesis.synthesizeContent(selectedInsights, context, {
+            humorLevel,
+            framework: activeFramework || undefined
+          });
+          setSynthesizedContent(content);
+        }
+      } catch (error) {
+        console.error('[YourMix] Synthesis error:', error);
+        // Fallback to legacy on error
+        try {
+          const content = await contentSynthesis.synthesizeContent(selectedInsights, context, {
+            humorLevel,
+            framework: activeFramework || undefined
+          });
+          setSynthesizedContent(content);
+        } catch (fallbackError) {
+          console.error('[YourMix] Fallback synthesis also failed:', fallbackError);
+        }
+      } finally {
+        setIsSynthesizing(false);
+      }
+    };
+
+    synthesize();
+  }, [selectedInsights, context, humorLevel, activeFramework, framework, enrichedContext, journeyStage, reSynthesizeForStage, generateUVPCTA]);
 
   // Calculate average confidence
   const avgConfidence = hasSelection
@@ -161,8 +279,31 @@ export function YourMix({ selectedInsights, context, onRemove, onClear, onGenera
     };
   }, [synthesizedContent]);
 
+  // Journey stage options for the filter
+  const journeyStageOptions: { value: JourneyStage; label: string }[] = [
+    { value: 'awareness', label: 'Awareness' },
+    { value: 'consideration', label: 'Consideration' },
+    { value: 'decision', label: 'Decision' },
+    { value: 'retention', label: 'Retention' }
+  ];
+
+  // Combined error for display
+  const synthesisError = contextError || reSynthesisError;
+
   return (
     <div className="h-full bg-white dark:bg-slate-900 rounded-xl border border-gray-200 dark:border-slate-700 flex flex-col">
+      {/* V3.2: Synthesis Error Banner */}
+      {synthesisError && (
+        <div className="p-2">
+          <SynthesisErrorBanner
+            error={synthesisError}
+            onRetry={retryLoadContext}
+            onDismiss={clearErrors}
+            isRetrying={isContextLoading}
+          />
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-slate-700">
         <div className="flex items-center justify-between mb-1">
@@ -178,9 +319,41 @@ export function YourMix({ selectedInsights, context, onRemove, onClear, onGenera
             </button>
           )}
         </div>
-        <p className="text-xs text-gray-600 dark:text-gray-400">
-          {selectedInsights.length} selected
-        </p>
+        <div className="flex items-center justify-between">
+          <p className="text-xs text-gray-600 dark:text-gray-400">
+            {selectedInsights.length} selected
+          </p>
+          {/* V3.2: EQ Indicator and Journey Stage Selector */}
+          <div className="flex items-center gap-2">
+            {(isSynthesizing || isReSynthesizing) && (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              >
+                <RefreshCw size={12} className="text-purple-500" />
+              </motion.div>
+            )}
+            {enrichedContext && (
+              <div className="flex items-center gap-1 px-1.5 py-0.5 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+                <Brain size={10} className="text-purple-600 dark:text-purple-400" />
+                <span className="text-[10px] font-medium text-purple-700 dark:text-purple-300">
+                  EQ:{enrichedContext.eqProfile.emotional_weight}%
+                </span>
+              </div>
+            )}
+            <select
+              value={journeyStage}
+              onChange={(e) => setJourneyStage(e.target.value as JourneyStage)}
+              className="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 focus:ring-1 focus:ring-purple-500"
+            >
+              {journeyStageOptions.map(option => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* Selected Insights */}

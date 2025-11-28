@@ -1,0 +1,1681 @@
+{
+  "industry": "Specialty Medical Practice",
+  "industry_name": "Specialty Medical Practice",
+  "naics_code": "621111",
+  "category": "Healthcare",
+  "subcategory": "Specialized Medicine",
+  "customer_triggers": [
+    {
+      "trigger": "Referral from primary care physician",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Chronic pain becoming unbearable",
+      "urgency": 10,
+      "frequency": "Multiple times daily"
+    },
+    {
+      "trigger": "Failed treatment at general practice",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Insurance coverage approval received",
+      "urgency": 7,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Sudden symptom escalation",
+      "urgency": 10,
+      "frequency": "Hourly"
+    },
+    {
+      "trigger": "Annual health screening abnormality",
+      "urgency": 6,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Second opinion requirement",
+      "urgency": 8,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Pre-surgical clearance needed",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Medication not working anymore",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Quality of life deterioration",
+      "urgency": 7,
+      "frequency": "Daily"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Patient experiences symptoms or receives abnormal test results from primary care, begins researching specialists through insurance provider directories, online reviews, and physician referrals. 73% start with insurance website, 45% ask for PCP recommendations, 82% read online reviews before calling",
+    "consideration": "Evaluates 3-5 specialists based on credentials, wait times, insurance acceptance, location proximity within 15-mile radius, and patient reviews above 4.2 stars. Calls offices to verify insurance, inquire about new patient availability within 2-3 weeks, and understands consultation fees ranging $250-$500",
+    "decision": "Books appointment with specialist offering earliest availability combined with strongest credentials, typically within 14-21 days. 67% choose based on wait time under 3 weeks, 89% require in-network coverage, 45% influenced by same-day callback from office staff",
+    "retention": "Continues care based on treatment effectiveness measured by 30% symptom improvement within 60 days, staff responsiveness with callbacks within 24 hours, appointment availability within 7 days for follow-ups, and insurance claim processing accuracy above 95%",
+    "advocacy": "Refers others after experiencing 50% or greater improvement in condition, receiving compassionate care during vulnerable moments, and having complex insurance issues resolved by practice staff. 34% actively refer within 6 months, generating average 2.3 new patients per advocate"
+  },
+  "transformations": [
+    {
+      "from": "Chronic pain sufferer unable to work",
+      "to": "Productive professional managing condition",
+      "emotional_value": "Life restoration worth $50,000+ annually",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about unexplained symptoms",
+      "to": "Confident with clear diagnosis and treatment plan",
+      "emotional_value": "Peace of mind invaluable to 92% of patients",
+      "worth_premium": true
+    },
+    {
+      "from": "Multiple failed treatments",
+      "to": "Finally finding effective solution",
+      "emotional_value": "Hope renewed after months of frustration",
+      "worth_premium": true
+    },
+    {
+      "from": "Insurance claim denials",
+      "to": "Approved coverage with practice advocacy",
+      "emotional_value": "Financial relief saving $15,000-$30,000",
+      "worth_premium": false
+    },
+    {
+      "from": "Isolated with rare condition",
+      "to": "Connected to specialist who understands",
+      "emotional_value": "Validation and expert guidance",
+      "worth_premium": true
+    },
+    {
+      "from": "Deteriorating quality of life",
+      "to": "Restored functionality and independence",
+      "emotional_value": "Freedom worth any price to 78% of patients",
+      "worth_premium": true
+    },
+    {
+      "from": "Medication side effects unbearable",
+      "to": "Optimized treatment with minimal impact",
+      "emotional_value": "Daily comfort restored",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Symptom reduction of 40% or greater",
+      "timeframe": "90 days",
+      "measurable": true
+    },
+    {
+      "metric": "Diagnostic accuracy confirmed by testing",
+      "timeframe": "First visit",
+      "measurable": true
+    },
+    {
+      "metric": "Treatment plan adherence above 85%",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Return to work or normal activities",
+      "timeframe": "120 days",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction score above 4.5/5",
+      "timeframe": "After each visit",
+      "measurable": true
+    },
+    {
+      "metric": "Insurance approval rate over 90%",
+      "timeframe": "Within 72 hours",
+      "measurable": true
+    },
+    {
+      "metric": "Reduction in emergency room visits by 60%",
+      "timeframe": "12 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Progressive symptoms worsening by 15-20% weekly requiring immediate intervention",
+    "Insurance deductible already met with only 3 months remaining in plan year",
+    "Upcoming surgery requiring specialist clearance within 30 days",
+    "Work disability paperwork deadline approaching in 10 business days",
+    "Referral authorization expiring in 60 days if unused",
+    "Quality of life score dropping below 40/100 on standardized assessments",
+    "Primary care physician marked referral as urgent/STAT priority"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Wait time is 6-8 weeks for new patients",
+      "response": "Offer waitlist with 48-hour callback for cancellations, provide interim care coordination with PCP, schedule telehealth consultation within 72 hours",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Not sure insurance covers specialty care",
+      "response": "Verify benefits immediately while on phone, explain exact out-of-pocket costs, offer payment plans starting at $75/month",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Located 45 minutes away",
+      "response": "Highlight unique expertise not available closer, offer consolidated appointments to minimize trips, provide telehealth follow-ups for 60% of visits",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Previous specialist didn't help",
+      "response": "Review different approach and advanced diagnostics available, share 73% success rate with similar cases, offer consultation guarantee",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Concerned about cost beyond insurance",
+      "response": "Provide written estimate within $50 accuracy, explain maximum out-of-pocket scenario, highlight cost of untreated condition averaging $25,000 annually",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Need time to think about it",
+      "response": "Offer to hold appointment slot for 48 hours, provide patient education materials, schedule follow-up call in 2 business days",
+      "effectiveness": 7.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Second opinion provided at no charge if diagnosis unclear",
+      "Insurance authorization handled by practice with 95% success rate",
+      "Same-day response to urgent concerns between appointments"
+    ],
+    "proof_points": [
+      "Board certification in specialty with 15+ years experience",
+      "Published research in condition treatment",
+      "4.7-star average rating from 500+ verified patients",
+      "Hospital affiliation with top-ranked medical center"
+    ],
+    "risk_mitigation": "Comprehensive insurance verification before first visit, detailed treatment cost estimates with 96% accuracy, payment plans available for amounts over $500, care coordination with referring physician throughout treatment"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "desperate",
+      "exhausted",
+      "frustrated",
+      "scared",
+      "confused",
+      "overwhelmed",
+      "debilitating",
+      "unbearable",
+      "hopeless",
+      "deteriorating"
+    ],
+    "solution_words": [
+      "relief",
+      "answers",
+      "expertise",
+      "compassionate",
+      "thorough",
+      "effective",
+      "specialized",
+      "experienced",
+      "comprehensive",
+      "personalized"
+    ],
+    "avoid_jargon": [
+      "idiopathic",
+      "differential diagnosis",
+      "pathophysiology",
+      "contraindicated",
+      "titration",
+      "prophylactic",
+      "refractory",
+      "comorbidity",
+      "etiology",
+      "prognosis"
+    ]
+  },
+  "power_words": [
+    "specialist",
+    "expert",
+    "board-certified",
+    "immediate",
+    "relief",
+    "proven",
+    "comprehensive",
+    "personalized",
+    "advanced",
+    "breakthrough",
+    "innovative",
+    "experienced",
+    "dedicated",
+    "results",
+    "transformation",
+    "recovery",
+    "solution",
+    "answers",
+    "hope",
+    "effective",
+    "trusted",
+    "recognized",
+    "leading",
+    "pioneering",
+    "exclusive",
+    "precision",
+    "targeted",
+    "customized",
+    "evidence-based",
+    "cutting-edge"
+  ],
+  "avoid_words": [
+    "experimental",
+    "try",
+    "maybe",
+    "hopefully",
+    "might",
+    "possibly",
+    "sometimes",
+    "usually",
+    "generic",
+    "basic",
+    "standard",
+    "typical",
+    "common",
+    "routine",
+    "general",
+    "average",
+    "adequate",
+    "sufficient",
+    "acceptable",
+    "satisfactory"
+  ],
+  "headline_templates": [
+    {
+      "template": "Finally, [Condition] Relief from Board-Certified Specialists",
+      "expected_ctr": 4.2,
+      "use_case": "Search ads"
+    },
+    {
+      "template": "Why 2,000+ Patients Trust Us for [Specialty] Care",
+      "expected_ctr": 3.8,
+      "use_case": "Social media"
+    },
+    {
+      "template": "Same-Week Appointments for [Urgent Condition]",
+      "expected_ctr": 5.1,
+      "use_case": "Emergency searches"
+    },
+    {
+      "template": "Insurance Accepted: Expert [Specialty] Care Within 14 Days",
+      "expected_ctr": 4.5,
+      "use_case": "Insurance directories"
+    },
+    {
+      "template": "From Diagnosis to Treatment: Your [Condition] Journey Starts Here",
+      "expected_ctr": 3.6,
+      "use_case": "Educational content"
+    },
+    {
+      "template": "The [City]'s Only [Subspecialty] Certified Practice",
+      "expected_ctr": 4.9,
+      "use_case": "Local searches"
+    },
+    {
+      "template": "Stop Living with [Symptom]: Advanced Solutions Available",
+      "expected_ctr": 4.3,
+      "use_case": "Display ads"
+    },
+    {
+      "template": "[Condition] Treatment: 73% Success Rate, 4.7-Star Reviews",
+      "expected_ctr": 5.3,
+      "use_case": "Review sites"
+    },
+    {
+      "template": "Second Opinion? Our Specialists Found Solutions Others Missed",
+      "expected_ctr": 4.7,
+      "use_case": "Referral campaigns"
+    },
+    {
+      "template": "Accepting New Patients: [Specialty] Experts with <3 Week Wait",
+      "expected_ctr": 5.5,
+      "use_case": "Urgent need targeting"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Request Appointment Within 14 Days",
+      "conversion_rate": 8.2,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Check Insurance Coverage Now",
+      "conversion_rate": 6.9,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Get Your Questions Answered: Free 10-Min Call",
+      "conversion_rate": 7.5,
+      "placement": "FAQ section"
+    },
+    {
+      "template": "Download Condition Guide",
+      "conversion_rate": 5.3,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Schedule Video Consultation Today",
+      "conversion_rate": 6.8,
+      "placement": "Telehealth page"
+    },
+    {
+      "template": "Join Priority Waitlist",
+      "conversion_rate": 4.7,
+      "placement": "Full calendar message"
+    },
+    {
+      "template": "Calculate Your Out-of-Pocket Costs",
+      "conversion_rate": 7.1,
+      "placement": "Pricing page"
+    },
+    {
+      "template": "See If You Qualify for Same-Week Visit",
+      "conversion_rate": 8.7,
+      "placement": "Urgent care section"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Living with [condition]? You're not alone. Our specialists have helped 2,000+ patients find relief. Learn about treatment options...",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "Instagram",
+      "template": "Behind every successful treatment is a dedicated team. Meet Dr. [Name], who's pioneered [treatment] for [condition] #HealthcareHeroes",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "New research shows 73% improvement in [condition] with [treatment approach]. Our practice is now offering this innovative solution.",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "FACT: Early intervention for [condition] improves outcomes by 60%. Don't wait. Same-week appointments available.",
+      "engagement_rate": 2.3
+    },
+    {
+      "platform": "YouTube",
+      "template": "Understanding [Condition]: Dr. [Name] Explains Symptoms, Diagnosis & Treatment Options [12-minute video]",
+      "engagement_rate": 5.6
+    },
+    {
+      "platform": "TikTok",
+      "template": "3 signs you need to see a specialist for [symptom] #MedicalAdvice #HealthTips #SpecialtyCare",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Complete Guide to Managing [Condition]: Symptoms Checklist, Treatment Options, Questions for Your Doctor",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Local specialist accepting new patients with most insurance plans. 4.7-star rating from neighbors. [Location]",
+      "engagement_rate": 4.5
+    },
+    {
+      "platform": "Google My Business",
+      "template": "NOW OFFERING: Telehealth consultations for established patients. Same-day appointments for urgent concerns.",
+      "engagement_rate": 5.9
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only practice in region with triple board certification in subspecialty",
+      "rank": 1,
+      "differentiator": "Unique expertise"
+    },
+    {
+      "prop": "Average 12-day wait vs 45-day regional average for new patients",
+      "rank": 2,
+      "differentiator": "Accessibility"
+    },
+    {
+      "prop": "Insurance authorization team achieves 95% approval rate",
+      "rank": 3,
+      "differentiator": "Financial peace of mind"
+    },
+    {
+      "prop": "Integrated care team includes nurses, coordinators, and therapists",
+      "rank": 4,
+      "differentiator": "Comprehensive approach"
+    },
+    {
+      "prop": "Published treatment protocols with 73% success rate",
+      "rank": 5,
+      "differentiator": "Proven outcomes"
+    },
+    {
+      "prop": "24/7 on-call service for established patients",
+      "rank": 6,
+      "differentiator": "Continuous care"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the difference of truly specialized care. Our triple board-certified team, advanced diagnostics, and personalized treatment protocols deliver outcomes that others can't match. With published success rates of 73% and same-week availability, we're the choice for patients who refuse to compromise on their health.",
+    "budget_conscious": "Quality specialty care doesn't have to break the bank. We accept most insurance plans, offer transparent pricing with estimates accurate to within $50, and provide flexible payment plans starting at $75/month. Our insurance team handles authorizations with a 95% success rate, maximizing your benefits.",
+    "enterprise": "Streamline your employee healthcare with our corporate wellness partnership. Dedicated scheduling, consolidated billing, same-day urgent appointments, and quarterly health metrics reporting. Reduce absenteeism by 40% and workers' comp claims by 35% with proactive specialty care management."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certifications and fellowships displayed prominently",
+      "importance": 10,
+      "format": "Visual badges"
+    },
+    {
+      "signal": "Real patient video testimonials with full names",
+      "importance": 9,
+      "format": "2-minute videos"
+    },
+    {
+      "signal": "Hospital affiliation with ranked medical center",
+      "importance": 8,
+      "format": "Logo and link"
+    },
+    {
+      "signal": "Published research and speaking engagements",
+      "importance": 7,
+      "format": "Publication list"
+    },
+    {
+      "signal": "Years in practice and patient volume treated",
+      "importance": 8,
+      "format": "Statistics graphic"
+    },
+    {
+      "signal": "Insurance acceptance and authorization success rate",
+      "importance": 9,
+      "format": "Insurance logos grid"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 15,000 successful procedures performed since 2009",
+      "credibility_score": 9.5,
+      "context": "Extensive experience indicator"
+    },
+    {
+      "stat": "4.7-star average from 500+ verified patient reviews",
+      "credibility_score": 8.8,
+      "context": "Consistent satisfaction"
+    },
+    {
+      "stat": "73% symptom improvement rate exceeds national average by 22%",
+      "credibility_score": 9.2,
+      "context": "Superior outcomes"
+    },
+    {
+      "stat": "Referred by 200+ primary care physicians in network",
+      "credibility_score": 8.5,
+      "context": "Professional endorsement"
+    }
+  ],
+  "quality_indicators": [
+    "Wait time under 15 minutes for scheduled appointments indicates operational excellence",
+    "Callback within 2 hours for clinical questions shows patient prioritization",
+    "Detailed written treatment plans provided same-day demonstrates thoroughness",
+    "Coordinator assigned to complex cases signals premium service level"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 90,
+    "trigger_event": "After achieving 40% symptom improvement milestone or successful procedure completion",
+    "ask_method": "Personal email from physician followed by coordinator call if positive response, offering $50 donation to patient's charity of choice"
+  },
+  "competitive_advantages": [
+    "Only practice offering same-day diagnostic testing with results in 4 hours",
+    "Proprietary treatment protocol with patent-pending delivery method",
+    "Direct insurance contracts eliminating prior authorization for 60% of procedures",
+    "In-house specialty pharmacy saving patients average $200/month on medications"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present comprehensive package at $5,000 before showing a-la-carte options starting at $350",
+    "sensitivity": "Price discussions after value established, never lead with cost",
+    "sweet_spots": [
+      "$1,500-2,500 for complete diagnostic workup",
+      "$350-500 for consultations",
+      "$3,000-5,000 for procedure packages"
+    ],
+    "decoy_pricing": "Premium package at $7,500 makes standard $3,500 package appear reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 1000,
+    "competitor_research": 500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.75,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$250-500/visit",
+      "target_customer": "Insurance-covered basic specialty care",
+      "margin": 35
+    },
+    {
+      "tier": "Enhanced",
+      "price_range": "$500-1,500/visit",
+      "target_customer": "Comprehensive care with expedited access",
+      "margin": 55
+    },
+    {
+      "tier": "Concierge",
+      "price_range": "$5,000-10,000/year",
+      "target_customer": "24/7 access, house calls, care coordination",
+      "margin": 70
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle diagnostics with consultation for 40% margin improvement over separate billing",
+    "Shift 30% of follow-ups to telehealth reducing overhead by $75 per visit",
+    "Negotiate direct contracts with top 5 insurers for 15% higher reimbursements",
+    "Implement automated prior authorization reducing staff costs by $50,000 annually",
+    "Add cash-pay wellness services with 70% margins to offset insurance losses",
+    "Optimize appointment scheduling to achieve 92% capacity utilization"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 35,
+      "reason": "New insurance deductibles reset, elective procedures delayed",
+      "opportunity": "Promote HSA/FSA payment options"
+    },
+    {
+      "month": "February",
+      "variation": 15,
+      "reason": "Patients meeting deductibles, scheduling procedures",
+      "opportunity": "Expedited scheduling campaigns"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring health focus, allergy season beginning",
+      "opportunity": "Allergy specialist promotions"
+    },
+    {
+      "month": "April",
+      "variation": 5,
+      "reason": "Steady demand, tax refunds available",
+      "opportunity": "Cash-pay procedure specials"
+    },
+    {
+      "month": "May",
+      "variation": 0,
+      "reason": "Pre-summer medical clearances",
+      "opportunity": "Sports medicine focus"
+    },
+    {
+      "month": "June",
+      "variation": -5,
+      "reason": "Vacation season beginning",
+      "opportunity": "Flexible scheduling options"
+    },
+    {
+      "month": "July",
+      "variation": -15,
+      "reason": "Peak vacation period",
+      "opportunity": "Telehealth emphasis"
+    },
+    {
+      "month": "August",
+      "variation": -10,
+      "reason": "Back-to-school preparations",
+      "opportunity": "Student health packages"
+    },
+    {
+      "month": "September",
+      "variation": 20,
+      "reason": "Return from summer, Q4 insurance planning",
+      "opportunity": "Preventive care campaigns"
+    },
+    {
+      "month": "October",
+      "variation": 25,
+      "reason": "Deductibles met, year-end approaching",
+      "opportunity": "Procedure scheduling push"
+    },
+    {
+      "month": "November",
+      "variation": 30,
+      "reason": "Maximize insurance benefits",
+      "opportunity": "Year-end benefit reminders"
+    },
+    {
+      "month": "December",
+      "variation": 40,
+      "reason": "Use-it-or-lose-it insurance benefits",
+      "opportunity": "Urgent scheduling for benefits"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New patient consultations",
+      "avoid": "Procedure scheduling",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Complex procedures",
+      "avoid": "Late appointments",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Follow-up appointments",
+      "avoid": "New patient intake",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Diagnostic testing",
+      "avoid": "Insurance calls",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Urgent consultations",
+      "avoid": "Major procedures",
+      "conversion_rate": 6.5
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working patient convenience",
+      "avoid": "Complex cases",
+      "conversion_rate": 5.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency overflow",
+      "avoid": "Routine care",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Majority of patients prefer billing on 1st or 15th, with 67% choosing autopay after third visit",
+    "cash_flow_peaks": "Days 5-10 and 20-25 when paychecks received, 40% higher payment completion",
+    "slow_periods": "Days 23-27 typically 30% lower volume, ideal for staff training and system updates"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 7-9 AM",
+      "crisis_type": "Weekend symptom escalation",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 3-6 PM",
+      "crisis_type": "Pre-weekend urgent needs",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Holiday weekends",
+      "crisis_type": "Emergency coverage gaps",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Diagnostic Fast Track",
+      "components": [
+        "Same-day consultation",
+        "Complete testing panel",
+        "Results interpretation",
+        "Treatment plan"
+      ],
+      "pricing_model": "Bundled flat rate $1,500",
+      "margin": 45
+    },
+    {
+      "name": "Comprehensive Care",
+      "components": [
+        "Initial consultation",
+        "3 follow-ups",
+        "Testing",
+        "Care coordination"
+      ],
+      "pricing_model": "Package price $3,500",
+      "margin": 55
+    },
+    {
+      "name": "Concierge Annual",
+      "components": [
+        "Unlimited visits",
+        "24/7 access",
+        "House calls",
+        "Care navigation"
+      ],
+      "pricing_model": "Annual retainer $8,500",
+      "margin": 70
+    },
+    {
+      "name": "Corporate Wellness",
+      "components": [
+        "Employee screenings",
+        "Lunch-and-learns",
+        "Priority scheduling",
+        "Quarterly reports"
+      ],
+      "pricing_model": "Per employee per month $45",
+      "margin": 60
+    }
+  ],
+  "upsell_paths": [
+    "Initial consultation ($350) → Diagnostic testing ($800) → Treatment plan ($1,500)",
+    "Basic follow-up ($250) → Enhanced monitoring ($500) → Comprehensive management ($1,000)",
+    "Insurance-covered visits → Concierge add-on ($300/month) → Full concierge ($700/month)",
+    "Single procedure ($2,500) → Package deal ($4,000) → Annual care plan ($8,000)",
+    "Telehealth consultation ($150) → In-person evaluation ($350) → Ongoing care ($500/month)",
+    "Second opinion ($400) → Transfer of care ($1,000) → Complex case management ($2,500)"
+  ],
+  "retention_hooks": [
+    "Automated appointment reminders with rescheduling links reducing no-shows by 40%",
+    "Quarterly progress reports showing measurable improvements maintaining 85% retention",
+    "Birthday and holiday cards with health tips creating emotional connection",
+    "VIP scheduling privileges after 6 visits ensuring access within 48 hours",
+    "Referral rewards program offering account credits building community",
+    "Patient portal with 24/7 access to records and messaging keeping engagement high",
+    "Exclusive educational webinars for established patients adding value beyond visits"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Patient success story sharing program",
+      "timing": "90 days post-treatment",
+      "incentive": "$50 credit per referral",
+      "conversion_rate": 8.2
+    },
+    {
+      "strategy": "Professional referral network cultivation",
+      "timing": "Quarterly relationship touches",
+      "incentive": "Expedited scheduling and direct line",
+      "conversion_rate": 12.5
+    },
+    {
+      "strategy": "Family member discounts",
+      "timing": "After positive outcome",
+      "incentive": "20% off consultation",
+      "conversion_rate": 15.3
+    },
+    {
+      "strategy": "Online review incentives",
+      "timing": "7 days post-visit",
+      "incentive": "Charity donation",
+      "conversion_rate": 6.7
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Nutrition counseling",
+      "attach_rate": 35,
+      "timing": "Second visit"
+    },
+    {
+      "service": "Physical therapy",
+      "attach_rate": 45,
+      "timing": "After diagnosis"
+    },
+    {
+      "service": "Specialty pharmacy",
+      "attach_rate": 60,
+      "timing": "With prescription"
+    },
+    {
+      "service": "Genetic testing",
+      "attach_rate": 25,
+      "timing": "Initial evaluation"
+    },
+    {
+      "service": "Wellness coaching",
+      "attach_rate": 20,
+      "timing": "Maintenance phase"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Telehealth to rural markets",
+      "market_size": "$2.5M annually",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Corporate wellness contracts",
+      "market_size": "$1.8M annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Satellite clinic locations",
+      "market_size": "$3.2M annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "International second opinions",
+      "market_size": "$900K annually",
+      "difficulty": 5
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Mayo Clinic's patient story videos featuring real patients discussing their journey from diagnosis to treatment, focusing on rare conditions and specialist care. These 2-3 minute videos combine emotional storytelling with medical expertise.",
+        "platform": "YouTube",
+        "why_it_worked": "Authentic patient testimonials build trust, emotional connection resonates with prospective patients facing similar conditions, demonstrates specialist expertise without being overly clinical, provides hope through transformation stories",
+        "metrics": "Average 50,000-200,000 views per video, 95%+ positive sentiment in comments, high watch-through rates (65-75%)",
+        "source": "Mayo Clinic YouTube channel and Healthcare Success marketing case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Cleveland Clinic's 'Health Essentials' blog featuring specialist-written articles on specific conditions with clear CTAs for appointments. Articles average 1,500-2,000 words with actionable patient advice.",
+        "platform": "Blog/Website",
+        "why_it_worked": "SEO-optimized content captures high-intent search traffic, specialist authorship builds credibility, educational approach positions practice as thought leader, clear patient education reduces appointment anxiety",
+        "metrics": "Articles generate 10,000-50,000 monthly organic visits, 4-6 minute average time on page, 12-15% conversion to appointment requests",
+        "source": "Cleveland Clinic Health Essentials blog and healthcare content marketing benchmarks from Healthgrades",
+        "confidence": "high"
+      },
+      {
+        "example": "Johns Hopkins Medicine Instagram carousel posts breaking down complex medical conditions into digestible slides with specialist commentary. Uses patient-friendly language with medical illustrations.",
+        "platform": "Instagram",
+        "why_it_worked": "Visual format makes complex medical information accessible, carousel format encourages engagement through swipes, specialist credibility combined with approachable tone, shareable content that patients send to family members",
+        "metrics": "3-5x higher engagement than single image posts, 8,000-15,000 likes per carousel, 200-500 shares, 2-3% engagement rate",
+        "source": "Johns Hopkins Medicine Instagram account and Hootsuite healthcare social media benchmarks 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Specialty practices using Google Business Profile posts announcing same-day/next-day appointment availability for urgent cases, with direct booking links",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Captures high-intent local search traffic at moment of need, addresses urgency trigger directly, removes friction with direct booking, appears in local pack for specialty searches",
+        "metrics": "40-60% higher click-through rates than standard posts, 25-35% conversion to booked appointments, particularly effective for pain management and urgent care specialists",
+        "source": "BrightLocal Local Healthcare Marketing Study 2024 and Google Business Profile healthcare benchmarks",
+        "confidence": "medium"
+      },
+      {
+        "example": "Email nurture sequences from specialty practices that educate referred patients before first appointment, including what to expect, what to bring, insurance information, and specialist credentials",
+        "platform": "Email",
+        "why_it_worked": "Reduces no-show rates by addressing anxiety and logistics, builds trust before first contact, positions specialist as partner in care, practical information reduces friction",
+        "metrics": "35-45% open rates, 15-20% click rates, 40% reduction in no-show rates, 25% increase in patient satisfaction scores",
+        "source": "Healthcare Email Marketing Benchmarks 2024 from Constant Contact and Patient Engagement Institute",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% (healthcare industry average, specialty practices see 0.15-0.25% with video content)",
+        "best_content_format": "Video content (patient testimonials, procedure explanations), followed by photo posts with educational captions",
+        "optimal_frequency": "3-5 posts per week, with at least 1-2 video posts weekly",
+        "best_posting_times": "Tuesday-Thursday 1-3 PM, Saturday 9-11 AM when patients research healthcare options",
+        "source": "Rival IQ Healthcare Social Media Benchmark Report 2024 and Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for healthcare, specialty medical practices with visual content see 0.6-1.2%",
+        "best_content_format": "Carousel posts (educational content), Reels (60-90 seconds explaining conditions/treatments), Stories for appointment availability",
+        "optimal_frequency": "4-7 posts per week, 3-5 Stories per week, 2-3 Reels per week",
+        "best_posting_times": "Monday-Friday 11 AM-1 PM, Wednesday 7-9 PM for highest engagement",
+        "source": "Later Instagram Engagement Report 2024 and Hootsuite Healthcare Social Media Benchmarks"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.2-1.8% for healthcare professionals and specialty practices",
+        "best_content_format": "Long-form posts (1,300+ characters) from specialists, case study summaries, medical research insights, professional achievements",
+        "optimal_frequency": "2-3 posts per week for optimal engagement without oversaturation",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 12 PM when healthcare professionals are active",
+        "source": "LinkedIn Healthcare Marketing Insights 2024 and Social Insider B2B Benchmarks"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Healthcare videos average 2.1% engagement, specialty practice educational content sees 3-4%",
+        "best_content_format": "Patient testimonials (2-4 minutes), condition explainer videos (3-5 minutes), procedure walkthroughs (5-8 minutes)",
+        "optimal_frequency": "1-2 videos per week for consistent growth, minimum 2 per month to maintain channel health",
+        "best_posting_times": "Sunday-Monday evenings 6-9 PM when patients research health conditions",
+        "source": "Vidooly Healthcare Video Benchmarks 2024 and Think With Google Healthcare Video Insights"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 21-24% for healthcare, specialty practices see 28-35% for appointment-related emails. Click rate: 2.5-3.5%",
+        "best_content_format": "Educational newsletters with specialist insights, appointment reminders with prep instructions, condition-specific content series",
+        "optimal_frequency": "1-2 emails per month for general audience, weekly for active patients, immediate for appointment confirmations",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM for highest open rates, avoid Monday mornings and Friday afternoons",
+        "source": "Mailchimp Healthcare Email Benchmarks 2024 and Constant Contact Medical Practice Statistics"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Healthcare practices see 45-65% higher engagement with regular posts (weekly), 3.2% average click-through rate on posts",
+        "best_content_format": "Appointment availability updates, new specialist announcements, patient education tips, office updates",
+        "optimal_frequency": "2-3 posts per week, daily for urgent availability or important updates",
+        "best_posting_times": "Post availability updates early morning (7-8 AM) and lunch hours (12-1 PM) when patients search for appointments",
+        "source": "BrightLocal Local Search Ranking Factors 2024 and Sterling Healthcare Local Marketing Report"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Problem Recognition + Specialist Solution",
+        "example": "When your primary care doctor says 'I want you to see a specialist' - here's what that really means and why it matters",
+        "why_it_works": "Validates the referral moment, reduces anxiety about the unknown, positions specialist as collaborative partner rather than scary next step, addresses common patient trigger point",
+        "source": "Healthcare content analysis from Cleveland Clinic and Mayo Clinic blog headlines"
+      },
+      {
+        "hook_pattern": "Failed Treatment Acknowledgment",
+        "example": "Tried everything for your chronic pain? Here's why standard treatments fail and what advanced options exist",
+        "why_it_works": "Directly speaks to frustrated patients who've tried multiple treatments, validates their experience, implies hope through advanced/specialist options, creates urgency for those suffering",
+        "source": "Pain management specialty practice marketing from Johns Hopkins and analyzed patient forum discussions"
+      },
+      {
+        "hook_pattern": "Symptom-Specific Urgency",
+        "example": "5 symptoms that mean you need a [specialty] specialist today, not next month",
+        "why_it_works": "Creates urgency through numbered list format, addresses symptom escalation trigger, educates while prompting action, taps into health anxiety constructively",
+        "source": "High-performing health content from WebMD, Healthline specialist practice partnerships"
+      },
+      {
+        "hook_pattern": "Insurance Navigation Support",
+        "example": "Your insurance approved the referral - here's exactly what happens next (and what to bring to your first appointment)",
+        "why_it_works": "Addresses major patient stressor (insurance/logistics), reduces appointment anxiety, provides practical value, positions practice as patient advocate",
+        "source": "Email subject line testing from healthcare marketing platforms and patient engagement studies"
+      },
+      {
+        "hook_pattern": "Rare Condition Validation",
+        "example": "You're not alone: How we've helped 500+ patients with [rare condition] find relief",
+        "why_it_works": "Combats isolation patients with rare conditions feel, demonstrates specific expertise and volume, implies hope through past success, builds trust through numbers",
+        "source": "Specialty practice marketing case studies from rare disease centers and patient testimonial analysis"
+      },
+      {
+        "hook_pattern": "Second Opinion Reassurance",
+        "example": "Seeking a second opinion isn't doubting your doctor - it's being smart about your health",
+        "why_it_works": "Removes guilt/hesitation patients feel about second opinions, reframes as responsible action, positions specialist as collaborative not competitive, addresses common objection",
+        "source": "Patient review analysis and specialty practice consultation marketing"
+      },
+      {
+        "hook_pattern": "Transformation Before/After",
+        "example": "From unable to work to running again: Sarah's journey from chronic pain to active life",
+        "why_it_works": "Provides concrete transformation example, uses relatable patient name and story, shows specific outcome patients want, creates emotional connection and hope",
+        "source": "Patient testimonial video performance analysis from major medical centers"
+      },
+      {
+        "hook_pattern": "Board Certification Authority",
+        "example": "What 'board-certified specialist' actually means for your care (and why it matters)",
+        "why_it_works": "Educates patients on credentials they see but don't understand, builds authority, differentiates from general practitioners, addresses trust/expertise concerns",
+        "source": "Healthcare content marketing best practices and patient education materials"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My regular doctor couldn't figure out what's wrong",
+        "I've tried everything and nothing works",
+        "The pain is so bad I can't sleep/work/function",
+        "I need someone who specializes in this specific condition",
+        "I'm tired of being passed around to different doctors",
+        "No one seems to take my symptoms seriously",
+        "I've been dealing with this for months/years with no answers",
+        "The medication stopped working and I don't know what to do",
+        "I'm scared because my symptoms are getting worse",
+        "I can't afford to keep missing work because of this",
+        "My quality of life is gone and I need real help",
+        "I don't want to just manage symptoms, I want to fix the problem"
+      ],
+      "solution_phrases": [
+        "Finally found a doctor who actually listens and understands",
+        "Got a clear diagnosis after years of uncertainty",
+        "They explained everything in terms I could understand",
+        "First time I felt hope that I could get better",
+        "They worked with my insurance to get coverage approved",
+        "The treatment plan was personalized to my specific situation",
+        "I got my life back",
+        "Can finally sleep/work/exercise again without pain",
+        "They didn't give up on me when other treatments failed",
+        "Felt validated that my symptoms were real and serious",
+        "Got answers in the first appointment",
+        "They treated me like a person, not just a case number"
+      ],
+      "objection_phrases": [
+        "I'm worried about the cost and if insurance will cover it",
+        "The wait time to see a specialist is so long",
+        "I don't know if I really need a specialist or if I'm overreacting",
+        "What if they can't help me either?",
+        "I'm nervous about what they might find",
+        "I don't want to start all over explaining my history again",
+        "Will they actually spend time with me or rush through the appointment?",
+        "I'm afraid of more invasive tests or procedures",
+        "My primary doctor didn't seem concerned, should I be?",
+        "I don't want to travel far for appointments",
+        "What if the specialist says it's all in my head?",
+        "I can't take more time off work for appointments"
+      ],
+      "decision_factors": [
+        "Board certified in the specific specialty I need",
+        "Takes my insurance and helps with authorization",
+        "Other patients with my condition had good outcomes here",
+        "Can get an appointment quickly, not months of waiting",
+        "Doctor's credentials and years of experience",
+        "Close to home/work with convenient hours",
+        "Staff is responsive and helpful with questions",
+        "Uses latest technology and treatment options",
+        "Referred by my primary care doctor I trust",
+        "Online reviews from real patients",
+        "They specialize in my exact condition, not just general",
+        "Warm, caring bedside manner, not just clinical expertise",
+        "Part of a reputable hospital system or medical group"
+      ],
+      "emotional_language": [
+        "desperate for answers",
+        "exhausted from the pain",
+        "frustrated with the healthcare system",
+        "scared about what's happening to my body",
+        "hopeful after finding the right specialist",
+        "relieved to finally have a diagnosis",
+        "grateful for someone who listens",
+        "anxious about the unknown",
+        "validated that I'm not crazy",
+        "empowered with a treatment plan",
+        "overwhelmed by the process",
+        "determined to get better",
+        "suffering in silence",
+        "at my breaking point",
+        "life-changing care",
+        "miracle worker",
+        "gave me my life back"
+      ],
+      "sources": [
+        "Healthgrades patient reviews for specialty practices",
+        "Reddit r/ChronicPain and r/AskDocs patient discussions",
+        "Vitals and ZocDoc specialty physician reviews",
+        "Google Reviews for top-rated specialty medical practices",
+        "Patient testimonial videos from Mayo Clinic, Cleveland Clinic, Johns Hopkins",
+        "Healthcare consumer forums and Facebook patient support groups",
+        "RateMDs specialty practice reviews"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing and cost estimates before first appointment - most practices avoid this topic until after consultation",
+      "Virtual consultation options for initial assessments - many specialty practices still require in-person only",
+      "Patient education content in languages other than English - significant gap in multilingual specialist content",
+      "Behind-the-scenes content showing the specialist's day, humanizing the practice - most content is overly clinical",
+      "Specific wait time transparency - practices rarely publish current appointment availability timelines",
+      "Insurance navigation guides specific to specialty procedures - generic insurance info doesn't help patients understand specialty coverage",
+      "Caregiver and family member resources - content almost exclusively targets the patient, not their support system",
+      "Condition-specific patient communities or support groups facilitated by the practice",
+      "Post-treatment lifestyle content - most practices focus on diagnosis/treatment but not ongoing quality of life",
+      "Interactive symptom checkers that help patients understand if they need specialty care vs. primary care",
+      "Comparison content explaining different treatment approaches without being overly promotional",
+      "Real-time appointment availability tools integrated into social media and website"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "High health insurance plan changes, new deductibles reset, patients with HSA/FSA funds to use, New Year health resolutions",
+        "content_angle": "New year, new insurance coverage - now's the time to address that health issue you've been putting off. Content on maximizing new insurance benefits, using FSA/HSA for specialist care, starting the year with a health plan"
+      },
+      {
+        "period": "March-April (Tax Season)",
+        "opportunity": "Patients receive tax refunds, financial planning for healthcare expenses, FSA/HSA contribution planning",
+        "content_angle": "Using tax refunds for health investments, understanding medical expense deductions, planning specialist care expenses"
+      },
+      {
+        "period": "May-June (Pre-Summer)",
+        "opportunity": "Patients want to feel better before summer activities, vacation planning around health needs, kids out of school making scheduling easier",
+        "content_angle": "Don't let pain ruin your summer plans, get treatment now to enjoy vacation, summer scheduling flexibility for working parents"
+      },
+      {
+        "period": "September (Back to School)",
+        "opportunity": "Return to routine after summer, parents have more time with kids in school, fall health planning",
+        "content_angle": "Back to school, back to taking care of yourself, establishing fall health routines, now that summer is over address postponed health issues"
+      },
+      {
+        "period": "October (Open Enrollment Season)",
+        "opportunity": "Health insurance open enrollment, patients evaluating coverage options, planning for next year's healthcare needs",
+        "content_angle": "Choosing insurance plans that cover specialty care, what to look for in specialist coverage, planning 2025 health priorities"
+      },
+      {
+        "period": "November-December (Year-End)",
+        "opportunity": "Use-it-or-lose-it insurance benefits, FSA/HSA deadline spending, meeting annual deductibles, holiday stress exacerbating conditions",
+        "content_angle": "Don't lose your benefits - use remaining insurance coverage before year-end, holiday stress management for chronic conditions, scheduling before deductible resets"
+      },
+      {
+        "period": "Chronic Disease Awareness Months (varies by specialty)",
+        "opportunity": "National awareness campaigns drive search traffic and conversation, media coverage of specific conditions, patient advocacy group activity",
+        "content_angle": "Align content with relevant awareness months (Arthritis Awareness Month in May, Pain Awareness Month in September, etc.), participate in awareness campaigns, offer educational content tied to national conversations"
+      },
+      {
+        "period": "Weather-Related Triggers",
+        "opportunity": "Seasonal conditions that exacerbate certain health issues (winter joint pain, spring allergies affecting sinus/ENT, summer heat and cardiovascular issues)",
+        "content_angle": "Seasonal symptom management tips, when weather-related symptoms require specialist care, preparing for seasonal flare-ups"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Mayo Clinic YouTube channel and marketing materials",
+      "Cleveland Clinic Health Essentials blog",
+      "Johns Hopkins Medicine social media accounts",
+      "Rival IQ Healthcare Social Media Benchmark Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Later Instagram Engagement Report 2024",
+      "Hootsuite Healthcare Social Media Benchmarks",
+      "LinkedIn Healthcare Marketing Insights 2024",
+      "Mailchimp Healthcare Email Benchmarks 2024",
+      "Constant Contact Medical Practice Statistics",
+      "BrightLocal Local Healthcare Marketing Study 2024",
+      "Healthgrades patient reviews and marketing benchmarks",
+      "Reddit healthcare communities (r/ChronicPain, r/AskDocs)",
+      "Google Reviews for specialty medical practices",
+      "ZocDoc and Vitals physician reviews",
+      "Healthcare Success marketing case studies",
+      "Patient Engagement Institute research",
+      "Think With Google Healthcare Video Insights",
+      "Vidooly Healthcare Video Benchmarks 2024",
+      "Sterling Healthcare Local Marketing Report"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specialty medical practice marketing campaigns",
+      "Specific conversion rate data from social media to appointments is proprietary to individual practices",
+      "TikTok benchmarks for specialty medical practices are limited as healthcare adoption is still emerging on this platform",
+      "Exact ROI metrics for different content types are rarely published due to HIPAA and competitive concerns",
+      "Detailed patient demographic breakdowns by platform engagement are not widely available"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new specialty services, treatment options, or specialist additions",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Advanced treatment option now available - addressing failed standard treatments",
+        "Week 2: Meet your new board-certified specialist - expertise and credentials showcase",
+        "Week 3: Real patient transformations - life restoration through specialized care",
+        "Week 4: Insurance coverage confirmed - removing financial barriers to access"
+      ],
+      "weekly_hooks": [
+        [
+          "Tried everything for your [condition]? Here's why standard treatments fail and what advanced options we're now offering",
+          "When your primary care doctor says 'I want you to see a specialist' - we've just added [new specialty service] to help you faster",
+          "5 symptoms that mean you need our new [specialty treatment] today, not next month"
+        ],
+        [
+          "What 'board-certified specialist' actually means for your [new service] care (and why it matters)",
+          "Finally found a doctor who actually listens: Meet Dr. [Name], our new [specialty] expert with [X] years treating [condition]",
+          "You're not alone: How our new [specialty service] has already helped [X] patients with [condition] find relief"
+        ],
+        [
+          "From unable to work to running again: [Patient Name]'s journey using our breakthrough [treatment] approach",
+          "Got my life back: Real patients share their experience with our new [specialty service]",
+          "Can finally sleep/work/exercise again: What [number] patients are saying about [new treatment]"
+        ],
+        [
+          "Your insurance approved the referral - here's exactly what happens next with our new [service] (and what to bring)",
+          "Don't lose your benefits - use remaining insurance coverage for our new [specialty treatment] before year-end",
+          "We worked with insurance to get coverage approved: [New service] now covered by [major insurers]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if they can't help me either?' - Position new service as solution where others failed",
+        "Week 2: Address 'Will they actually spend time with me or rush through?' - Showcase specialist's approach and credentials",
+        "Week 3: Address 'I don't know if I really need a specialist or if I'm overreacting' - Validate through patient stories showing similar starting points",
+        "Week 4: Address 'I'm worried about the cost and if insurance will cover it' - Provide transparent coverage information and payment options"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce clinical evidence and treatment success rates for new service",
+        "Week 2: Share specialist credentials, board certifications, years of experience, and training background",
+        "Week 3: Feature 3-5 patient video testimonials showing transformation with new service",
+        "Week 4: Display insurance acceptance confirmations, payment plan options, and cost transparency tools"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free guide: 'When Standard Treatments Fail - Understanding Advanced [Specialty] Options'",
+        "Week 2: Watch Dr. [Name]'s 3-minute video explaining the [new service] approach",
+        "Week 3: Read full patient stories and see if [new service] is right for your situation",
+        "Week 4: Schedule your consultation now - limited new patient slots available this month"
+      ],
+      "platform_priority": [
+        "Google Business Profile (3-4 posts/week) - Captures high-intent local search at decision moment",
+        "Email (2 sends/week) - Nurture existing patient base and referral list",
+        "YouTube (1 video/week) - Long-form specialist introduction and patient testimonials",
+        "Instagram (5-7 posts/week) - Educational carousels and story updates",
+        "Facebook (3-4 posts/week) - Video content and community engagement"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Google Business Profile data showing 40-60% higher CTR for urgent availability posts, patient testimonial videos averaging 65-75% watch-through rates, and email nurture sequences achieving 35-45% open rates for appointment-related content. Launch timing addresses insurance approval trigger (urgency 7, daily frequency) and failed treatment trigger (urgency 8, weekly frequency)."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and converting referrals",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Condition education - helping patients understand when they need specialist care vs primary care",
+        "Week 2: Treatment options explained - breaking down complex procedures into patient-friendly language",
+        "Week 3: Insurance navigation support - demystifying coverage, authorization, and costs",
+        "Week 4: Patient success stories - transformation narratives from diagnosis to recovery",
+        "Week 5: Specialist credentials and expertise - building trust through authority signals",
+        "Week 6: Symptom recognition - educating on warning signs that require immediate specialist attention",
+        "Week 7: Lifestyle and ongoing care - post-treatment quality of life content",
+        "Week 8: Second opinion guidance - positioning practice as collaborative partner in patient care"
+      ],
+      "weekly_hooks": [
+        [
+          "5 symptoms that mean you need a [specialty] specialist today, not next month",
+          "When your primary care doctor says 'I want you to see a specialist' - here's what that really means",
+          "Tried everything for your [condition]? Here's when it's time to see a specialist"
+        ],
+        [
+          "What to expect during your first [specialty] appointment - no surprises, just answers",
+          "Breaking down [complex procedure]: What it is, who needs it, and what results to expect",
+          "From diagnosis to treatment: Your personalized care journey explained in plain language"
+        ],
+        [
+          "Your insurance approved the referral - here's exactly what happens next (and what to bring to your first appointment)",
+          "Insurance denied your claim? Here's how we help 89% of patients get coverage approved",
+          "What your insurance actually covers for [specialty care] - and what you'll pay out of pocket"
+        ],
+        [
+          "From unable to work to running again: [Patient]'s journey from chronic [condition] to active life",
+          "You're not alone: How we've helped [X] patients with [rare condition] find relief",
+          "Got my life back: [Patient] shares their experience from first appointment to full recovery"
+        ],
+        [
+          "What 'board-certified specialist' actually means for your care (and why it matters)",
+          "Meet Dr. [Name]: [X] years of experience treating [specific condition] with [success rate]% success rate",
+          "[Number] advanced certifications, one mission: getting you the answers and relief you deserve"
+        ],
+        [
+          "Don't ignore these [number] warning signs - when symptoms mean you need specialist care immediately",
+          "The pain is so bad I can't sleep/work/function - recognizing when it's time to get help",
+          "Sudden symptom escalation: What's normal vs. what requires urgent specialist evaluation"
+        ],
+        [
+          "Life after treatment: What [X] patients wish they knew about managing [condition] long-term",
+          "Can finally sleep/work/exercise again: Maintaining your results beyond the treatment room",
+          "From treatment to thriving: Your roadmap for sustained relief and quality of life"
+        ],
+        [
+          "Seeking a second opinion isn't doubting your doctor - it's being smart about your health",
+          "What if they can't help me either? Why our approach is different from what you've tried",
+          "My regular doctor couldn't figure out what's wrong - how specialists approach complex cases differently"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I really need a specialist or if I'm overreacting' through symptom education",
+        "Week 2: Address 'I don't want to start all over explaining my history again' by showing streamlined intake process",
+        "Week 3: Address 'I'm worried about the cost and if insurance will cover it' with transparent coverage information",
+        "Week 4: Address 'What if they can't help me either?' through proven patient success stories",
+        "Week 5: Address 'Will they actually spend time with me or rush through the appointment?' via specialist approach showcase",
+        "Week 6: Address 'My primary doctor didn't seem concerned, should I be?' by educating on escalation signs",
+        "Week 7: Address 'I can't take more time off work for appointments' with telehealth and scheduling flexibility",
+        "Week 8: Address 'What if the specialist says it's all in my head?' by validating patient experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Educational authority - cite medical research and clinical guidelines",
+        "Week 2: Process transparency - show appointment flow and what patients experience",
+        "Week 3: Insurance partnerships - display accepted plans and authorization success rates",
+        "Week 4: Patient testimonials - video stories with specific condition outcomes",
+        "Week 5: Specialist credentials - board certifications, training, publications, years of experience",
+        "Week 6: Clinical outcomes data - success rates, patient satisfaction scores, treatment effectiveness",
+        "Week 7: Long-term follow-up data - sustained results and ongoing patient relationships",
+        "Week 8: Professional collaborations - relationships with referring physicians and medical community"
+      ],
+      "cta_progression": [
+        "Week 1: Take our 2-minute symptom assessment - understand if specialist care is right for you",
+        "Week 2: Download: What to Expect at Your First [Specialty] Appointment checklist",
+        "Week 3: Get your free insurance benefits verification - know your coverage before you book",
+        "Week 4: Watch [Patient]'s full story - see the transformation journey from start to finish",
+        "Week 5: Meet our specialists - explore credentials and areas of expertise",
+        "Week 6: Experiencing these symptoms? Schedule an urgent consultation within 48 hours",
+        "Week 7: Join our [Condition] Support Community - connect with others on similar journeys",
+        "Week 8: Schedule your second opinion consultation - get the answers you deserve"
+      ],
+      "platform_priority": [
+        "Blog/Website (2 long-form articles/week) - SEO capture of high-intent searches, 1,500-2,000 words",
+        "Email (1 newsletter/week) - Nurture referrals and existing patients with educational content",
+        "Instagram (4-7 posts/week) - Educational carousels and specialist insights",
+        "YouTube (1 video every 2 weeks) - Patient testimonials and condition explainers",
+        "Facebook (3-5 posts/week) - Community engagement and video content sharing",
+        "Google Business Profile (2-3 posts/week) - Local search visibility and appointment availability"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Cleveland Clinic Health Essentials blog generating 10,000-50,000 monthly organic visits with 12-15% conversion to appointments, Mayo Clinic patient story videos achieving 65-75% watch-through rates, and email nurture sequences reducing no-show rates by 40%. Addresses all five primary customer triggers with appropriate urgency sequencing."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign during awareness months or seasonal opportunities",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: National [Condition] Awareness Month - education on underdiagnosed symptoms and specialist solutions",
+        "Week 2: Don't suffer in silence - breaking stigma and connecting patients to specialized care"
+      ],
+      "weekly_hooks": [
+        [
+          "It's National [Condition] Awareness Month: 1 in [X] people suffer from [condition] - here's what you need to know",
+          "You're not alone: [X] million Americans live with [condition], but only [X]% get specialist care",
+          "5 symptoms that mean you need a [specialty] specialist - most people ignore #3 for years",
+          "Tried everything for your [condition]? Here's why standard treatments fail and what advanced options exist",
+          "My regular doctor couldn't figure out what's wrong - sound familiar? Here's when to see a specialist"
+        ],
+        [
+          "From unable to work to running again: Real stories from [X] patients who found relief this year",
+          "Don't let [condition] ruin your [season/life event] - get treatment now to enjoy what matters",
+          "Seeking a second opinion isn't doubting your doctor - it's being smart about your health",
+          "The pain is so bad I can't sleep/work/function - you don't have to live this way",
+          "Finally found a doctor who actually listens: What [X] patients say about getting specialized care"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I really need a specialist or if I'm overreacting' through awareness education and symptom validation",
+        "Week 2: Address 'The wait time to see a specialist is so long' by promoting immediate availability or waitlist priority during awareness month"
+      ],
+      "proof_timing": [
+        "Week 1: Share national statistics, awareness campaign partnerships, and educational authority on condition prevalence",
+        "Week 2: Feature rapid-fire patient testimonials (carousel format), success rate data, and social proof from community impact"
+      ],
+      "cta_progression": [
+        "Week 1: Join the conversation - comment with your experience or tag someone who needs to see this",
+        "Week 1: Download our free [Condition] Awareness Guide - share with someone who's suffering",
+        "Week 2: Take the 60-second [condition] symptom quiz - understand your risk level",
+        "Week 2: Schedule your consultation this month - priority appointments during [Awareness Month]"
+      ],
+      "platform_priority": [
+        "Instagram (7-10 posts/week) - High-frequency carousels, Reels, and Stories for maximum reach",
+        "Facebook (5-7 posts/week) - Shareable awareness content and video testimonials",
+        "YouTube (2 videos/week) - Condition explainers and patient story compilations",
+        "LinkedIn (3-4 posts/week) - Professional awareness content and specialist insights",
+        "Google Business Profile (daily posts) - Capitalize on awareness month search traffic"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on seasonal opportunities research showing national awareness campaigns drive search traffic spikes, Instagram carousel posts achieving 3-5x higher engagement than single images (8,000-15,000 likes, 2-3% engagement rate), and patient advocacy group activity creating conversation opportunities. Aligns with chronic disease awareness months and weather-related trigger patterns."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing specialist expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Debunking common myths about [specialty condition] - what patients get wrong",
+        "Week 2: The science behind [specialty treatment] - explaining complex medicine in simple terms",
+        "Week 3: When standard care isn't enough - understanding the specialist difference",
+        "Week 4: Latest research and breakthrough treatments in [specialty field]",
+        "Week 5: Case study deep-dive - complex cases and how we solved them",
+        "Week 6: Building your care team - how specialists collaborate with primary care for best outcomes"
+      ],
+      "weekly_hooks": [
+        [
+          "What 'board-certified specialist' actually means for your care (and why it matters)",
+          "The #1 myth about [condition] that keeps patients suffering unnecessarily",
+          "You're not alone: How we've helped [X] patients with [rare condition] find answers when others couldn't"
+        ],
+        [
+          "Breaking down [complex procedure]: What it is, who needs it, and what the research actually shows",
+          "Why [standard treatment] works for some but not others - the science behind personalized care",
+          "From diagnosis to treatment: The evidence-based approach that achieves [X]% success rates"
+        ],
+        [
+          "When your primary care doctor says 'I want you to see a specialist' - here's what that collaboration looks like",
+          "Tried everything and nothing works? Here's why specialist-level diagnostics find what others miss",
+          "My regular doctor couldn't figure out what's wrong - how advanced testing changes the game"
+        ],
+        [
+          "Breakthrough in [specialty field]: New treatment options that didn't exist 5 years ago",
+          "What [recent research study] means for patients with [condition] - expert analysis",
+          "The future of [specialty care]: Innovations we're bringing to our patients today"
+        ],
+        [
+          "From years of suffering to life restored: How we diagnosed [rare condition] others missed",
+          "The case that changed everything: Solving a [X]-year mystery for a patient",
+          "What if they can't help me either? Here's how we approach complex cases differently"
+        ],
+        [
+          "Seeking a second opinion isn't doubting your doctor - it's building the strongest care team",
+          "How specialists and primary care doctors work together for your best outcome",
+          "The collaborative approach: Why [X]% of our patients come through trusted physician referrals"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Will they actually spend time with me or rush through?' by showcasing thorough specialist approach",
+        "Week 2: Address 'I'm afraid of more invasive tests or procedures' through education on diagnostic precision",
+        "Week 3: Address 'What if they can't help me either?' by explaining advanced specialist capabilities",
+        "Week 4: Address 'Uses latest technology and treatment options' concern by highlighting innovation adoption",
+        "Week 5: Address 'My primary doctor didn't seem concerned, should I be?' through complex case examples",
+        "Week 6: Address 'I don't want to start all over explaining my history again' via care coordination explanation"
+      ],
+      "proof_timing": [
+        "Week 1: Establish credentials - board certifications, fellowships, years of specialized training",
+        "Week 2: Share published research, clinical trial participation, and evidence-based protocols",
+        "Week 3: Display diagnostic technology, advanced equipment, and specialized testing capabilities",
+        "Week 4: Highlight continuing education, conference presentations, and staying current with innovations",
+        "Week 5: Present complex case outcomes, rare condition expertise, and diagnostic success stories",
+        "Week 6: Show referring physician testimonials, professional network, and collaborative care model"
+      ],
+      "cta_progression": [
+        "Week 1: Read Dr. [Name]'s full credentials and specialized training background",
+        "Week 2: Download our evidence-based guide: Understanding [Condition] - What the Research Shows",
+        "Week 3: Watch: How Our Diagnostic Process Finds Answers Others Miss (5-minute video)",
+        "Week 4: Subscribe to our monthly research updates - stay informed on breakthrough treatments",
+        "Week 5: Explore our case study library - see if your situation matches patients we've helped",
+        "Week 6: Schedule your comprehensive evaluation - experience the specialist difference"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week) - Professional audience and referring physician engagement",
+        "Blog/Website (2 long-form articles/week) - Deep-dive educational content, 2,000+ words",
+        "YouTube (1 video/week) - Detailed condition explanations and treatment walkthroughs",
+        "Email (1 newsletter/week) - In-depth specialist insights to engaged subscriber base",
+        "Instagram (4-5 posts/week) - Educational carousels breaking down complex topics"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Cleveland Clinic blog articles generating 4-6 minute average time on page with 12-15% conversion rates, LinkedIn healthcare content achieving 1.2-1.8% engagement for professional posts over 1,300 characters, and YouTube educational videos seeing 3-4% engagement rates. Addresses decision factors: board certification, years of experience, latest technology, and specialist expertise in exact condition."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Patient story sharing - inviting community to share experiences and support each other",
+        "Week 2: Interactive education - polls, quizzes, and Q&A sessions on common conditions"
+      ],
+      "weekly_hooks": [
+        [
+          "What's one thing you wish you knew before your first specialist appointment? Share below to help others ⬇️",
+          "Tag someone who's been putting off seeing a specialist about their [condition] - they need to see this",
+          "From unable to work to running again - what does 'getting your life back' mean to you? Comment below 👇",
+          "Poll: What's your biggest concern about seeing a specialist? A) Cost B) Wait time C) Will they help D) Starting over",
+          "You're not alone: Share your [condition] journey in one word - we'll start: HOPEFUL"
+        ],
+        [
+          "True or False: You need a referral to see a specialist. Comment your answer (the truth might surprise you!)",
+          "Quiz time: Which of these symptoms requires immediate specialist care? Comment A, B, C, or D",
+          "Ask our specialist anything - drop your questions below and we'll answer in tomorrow's video 🎥",
+          "The pain is so bad I can't sleep - who else has been there? Let's talk about what helped ⬇️",
+          "Before/After: Share what changed for you after getting specialist care - inspire someone today"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm tired of being passed around to different doctors' through community validation and shared experiences",
+        "Week 2: Address 'No one seems to take my symptoms seriously' by creating space for patient voices and specialist responsiveness"
+      ],
+      "proof_timing": [
+        "Week 1: Feature user-generated content - repost patient stories and testimonials with permission",
+        "Week 2: Share real-time Q&A responses demonstrating specialist accessibility and expertise"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in the comments - your experience could help someone else",
+        "Week 1: Tag someone who needs to hear this - spread awareness and support",
+        "Week 2: Vote in our poll - help us understand what patients need most",
+        "Week 2: Ask your question below - our specialist will answer the top 5 in a video this Friday"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week) - Stories with polls, question stickers, and engagement features",
+        "Facebook (7-10 posts/week) - Community discussion posts and video Q&As",
+        "LinkedIn (4-5 posts/week) - Professional community engagement and thought-provoking questions",
+        "Instagram Reels (3-4/week) - 60-90 second quick tips and patient story snippets",
+        "Facebook Live (1 session/week) - Real-time Q&A with specialist"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram engagement rates of 0.6-1.2% for healthcare with carousel and interactive content performing 3-5x better than static posts, Facebook healthcare average of 0.15-0.25% engagement with video content outperforming, and customer voice data showing patients want validation ('felt validated that my symptoms were real'), connection ('you're not alone'), and to be heard ('finally found a doctor who actually listens')."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What 'board-certified specialist' actually means for your patients (and why it matters)\n\nMost patients see credentials but don't understand the rigorous training behind them. Here's what sets specialists apart:\n\n→ [X] additional years of focused training beyond medical school\n→ Passing comprehensive specialty board exams\n→ Ongoing continuing education requirements\n→ [X,XXX] hours treating [SPECIFIC CONDITION]\n\nWhen referring patients, you're connecting them with physicians who've dedicated their careers to mastering one area of medicine.\n\nThe difference? General practitioners see [X] cases annually. Specialists see [XXX]+.\n\nFor patients with [CONDITION], that depth of experience translates to:\n• Faster, more accurate diagnoses\n• Access to latest treatment protocols\n• Better outcomes (studies show [X]% improvement)\n\nYour referrals deserve this level of expertise.\n\nWhat factors do you prioritize when selecting specialists for your patients? 👇\n\n#HealthcareExcellence #MedicalSpecialty #PatientCare #PhysicianNetwork #[SPECIALTY]Medicine",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "After treating [X,XXX]+ patients with [CONDITION], here's what most general practitioners miss:\n\nThe latest research shows [X]% of [CONDITION] cases are initially misdiagnosed. Not because primary care physicians aren't skilled—but because these conditions mimic common ailments.\n\nOur practice just completed a [X]-month study tracking [XXX] patients referred after failed initial treatments. The findings:\n\n• [X]% had underlying [SPECIFIC ISSUE] undetected in standard workups\n• Average time to accurate diagnosis: [X] months from symptom onset\n• [X]% achieved significant improvement within [X] weeks of specialist treatment\n\nThis isn't about replacing primary care—it's about collaboration. The most successful outcomes happen when PCPs recognize the red flags early and refer promptly.\n\nKey indicators for immediate specialist referral:\n1. [SYMPTOM] persisting beyond [X] weeks\n2. [SYMPTOM] unresponsive to first-line treatments\n3. [SYMPTOM] interfering with daily function\n\nWe're publishing the full study in [JOURNAL] next month. Early intervention changes everything.\n\nColleagues: What referral patterns have you found most effective? Let's elevate care together.\n\n#MedicalResearch #[SPECIALTY] #EvidenceBasedMedicine #PhysicianCollaboration",
+        "framework": "AIDA",
+        "character_count": 1389
+      },
+      "promotional": {
+        "template": "Your patients with [CONDITION] deserve more than 'let's wait and see.'\n\nBefore: Patients bouncing between appointments, frustrated by trial-and-error approaches, quality of life declining.\n\nAfter: Clear diagnosis in first consultation, personalized treatment plans, [X]% reporting significant improvement within [X] weeks.\n\nWhat changed? Specialized expertise focused exclusively on [CONDITION].\n\nOur practice offers referring physicians:\n\n✓ [X]-hour turnaround on urgent referrals\n✓ Comprehensive consultation reports within [X] business days\n✓ Direct physician line for case discussions\n✓ Coordinated care plans that integrate with your treatment\n✓ [X]+ years combined specialist experience\n\nWe handle the complex cases so you can focus on comprehensive primary care. Your patients stay YOUR patients—we're here to support, not replace.\n\nCurrently accepting new referrals with appointments available within [X] weeks (urgent cases within [X] days).\n\nAccepting [LIST INSURANCE]. Credentialed with all major networks.\n\nReady to give your patients access to specialized care? Connect with our physician liaison: [CONTACT]\n\n#PhysicianReferrals #[SPECIALTY]Specialist #PatientOutcomes #HealthcarePartnership",
+        "framework": "BAB",
+        "character_count": 1298
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 symptoms that mean you need a [SPECIALTY] specialist today, not next month 🚨\n\nSwipe to learn the red flags your body is sending →\n\nYour primary care doctor is amazing, but some conditions need specialized expertise. Here's when to ask for that referral:\n\n1️⃣ [SYMPTOM] lasting longer than [X] weeks\n2️⃣ [SYMPTOM] getting worse despite treatment\n3️⃣ [SYMPTOM] preventing you from work/sleep/daily activities\n4️⃣ [SYMPTOM] that comes with [WARNING SIGN]\n5️⃣ [SYMPTOM] unresponsive to standard medications\n\nWe've helped [X,XXX]+ patients who thought they just had to 'live with it.' You don't.\n\nSeen these symptoms? Drop a 💙 and we'll send you info on what to ask your doctor.\n\nYour health matters. Don't wait.\n\n[PRACTICE NAME] | Board-Certified [SPECIALTY] Specialists\n📍 [LOCATION] | 📞 [PHONE]\n🔗 Link in bio to learn more\n\n#[Condition]Awareness #SpecialistCare #HealthEducation #[Specialty]Doctor #ChronicPain #MedicalHelp #PatientAdvocacy #HealthMatters #[Location]Healthcare #KnowTheWarningSigns",
+        "visual": "Carousel post with 6 slides: Slide 1 - Bold text '5 Red Flag Symptoms' with medical illustration background. Slides 2-6 - Each symptom on clean background with relevant icon/illustration. Use brand colors, ensure text is readable at small sizes. Professional medical aesthetic, not scary.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "From unable to work to running again 🏃‍♀️\n\nThis is Sarah. 18 months ago, chronic [CONDITION] meant she couldn't make it through a workday without debilitating [SYMPTOM].\n\nHer story sounds familiar:\n→ Saw 4 different doctors\n→ Tried 6 medications\n→ Told to 'just manage the pain'\n→ Quality of life: gone\n\nThen she found specialized care.\n\nWhat changed?\n✓ Comprehensive diagnostic workup (not just treating symptoms)\n✓ Personalized treatment plan for her specific case\n✓ Advanced options not available in general practice\n✓ A team that didn't give up\n\nToday: Back at work full-time. Training for a 5K. Living life again.\n\nWe've helped [XXX]+ patients with [CONDITION] find real relief. Not just management—actual improvement.\n\nYour transformation story could be next.\n\n💬 Dealing with [CONDITION]? Share your experience in comments—you're not alone.\n\n[PRACTICE NAME] | Transforming Lives Since [YEAR]\n📲 DM us or visit link in bio for consultation info\n\n#PatientStory #[Condition]Warrior #ChronicPainRelief #MedicalSuccess #SpecialistCare #HealthTransformation #RealResults #[Specialty]Medicine #HopeForHealing #PatientTestimonial",
+        "visual": "Split image or carousel: Professional photo of Sarah (with permission, face visible or silhouette if privacy preferred) looking healthy and active. Include pull quote: 'I got my life back.' Use authentic, non-stock imagery. Consider before/after lifestyle comparison (not medical images).",
+        "framework": "BAB"
+      },
+      "promotional": {
+        "caption": "Your insurance approved the referral. Now what? 🤔\n\nWe know the healthcare maze is overwhelming. Here's exactly what happens next:\n\n✅ Call [PHONE] or book online (link in bio)\n✅ We verify your insurance same-day\n✅ Appointments available within [X] weeks (urgent cases [X] days)\n✅ Bring: referral, insurance card, symptom timeline, current medications\n✅ First visit: [X] minutes with specialist, comprehensive evaluation\n✅ Leave with: clear diagnosis plan, next steps, direct care team contact\n\nNo runaround. No confusion. Just expert care.\n\n🎯 Currently accepting new patients\n🏥 Board-certified [SPECIALTY] specialists\n💼 Accept [MAJOR INSURANCE NAMES]\n📍 Convenient [LOCATION] location\n⏰ Extended hours available\n\nYou've waited long enough for answers. Let's get you scheduled.\n\n👉 Click link in bio or call [PHONE]\n💬 Questions? Drop them below—we respond within 24 hours\n\n[PRACTICE NAME] | Expert Care, Compassionate Approach\n\n#NewPatients #[Specialty]Specialist #[Location]Doctor #AcceptingInsurance #HealthcareHelp #MedicalCare #SpecialistAppointment #PatientCare #[Condition]Treatment #GetHelp #BookNow #[Location]Health",
+        "visual": "Clean, professional graphic showing the appointment process as simple steps (1-2-3 visual flow). Include practice logo, contact info, and 'Now Accepting New Patients' badge. Alternatively: welcoming photo of practice entrance/waiting area with overlay text of key info. Bright, inviting, reduces anxiety.",
+        "framework": "AIDA"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "💡 WHAT TO EXPECT AT YOUR FIRST SPECIALIST APPOINTMENT 💡\n\nGot a referral and feeling anxious about what comes next? You're not alone. Here's exactly what to expect when you visit a [SPECIALTY] specialist:\n\n📋 BEFORE YOUR APPOINTMENT:\n• Gather your medical records (we can request them, but having copies speeds things up)\n• List ALL current medications (including supplements)\n• Write down your symptoms: when they started, what makes them better/worse, how they affect your daily life\n• Prepare questions—there are no 'dumb' questions!\n• Verify insurance coverage (call us at [PHONE] and we'll help)\n\n🏥 DURING YOUR VISIT:\n• Plan for [X]-[X] minutes (we don't rush)\n• You'll meet with the specialist, not just a PA (though our PAs are amazing!)\n• We'll review your complete history—yes, it might feel repetitive, but details matter\n• Comprehensive examination specific to [CONDITION]\n• Discussion of diagnosis and treatment options\n• You'll leave with a clear plan and next steps\n\n✅ AFTER YOUR APPOINTMENT:\n• We send a detailed report to your referring doctor within [X] days\n• You'll receive written care instructions\n• Direct number to reach our care team with questions\n• Coordination of any needed tests or follow-ups\n\nREMEMBER: We're here to help, not judge. Been suffering for years? Tried everything? Scared about what we might find? We've heard it all, and we're here to support you.\n\nYour first visit is about partnership—we work WITH you to find solutions.\n\n❓ Questions about your upcoming appointment? Drop them in the comments and our team will answer!\n\n👍 Found this helpful? Share it with someone who just got a specialist referral!\n\n[PRACTICE NAME] | [LOCATION]\n📞 [PHONE] | 🌐 [WEBSITE]\n\n#HealthcareTips #SpecialistCare #PatientEducation #[Specialty] #MedicalAdvice #HealthcareJourney #[Location]Healthcare",
+        "framework": "PAS",
+        "engagement_tactics": "Encourages comments with questions, shareable for newly-referred patients, reduces appointment anxiety which decreases no-shows"
+      },
+      "authority": {
+        "template": "🔬 BREAKTHROUGH IN [CONDITION] TREATMENT 🔬\n\nAfter [X] years specializing in [CONDITION], I'm excited to share what new research means for patients who've been told 'there's nothing more we can do.'\n\nRecent studies published in [JOURNAL] show that [X]% of patients with [SPECIFIC CONDITION TYPE] respond to [NEW TREATMENT APPROACH]—even when previous treatments failed.\n\nWhat does this mean for YOU?\n\nIf you've been living with:\n→ [SYMPTOM] that won't go away\n→ Treatments that stopped working\n→ Side effects worse than the condition\n→ Being told to 'just manage it'\n\n...there may be new options.\n\nOur practice is now offering [TREATMENT/APPROACH], which combines:\n• [ELEMENT 1]\n• [ELEMENT 2]\n• [ELEMENT 3]\n\nEarly results from our [XXX] patients:\n✓ [X]% reduction in [SYMPTOM]\n✓ [X]% improved quality of life scores\n✓ [X]% able to reduce or eliminate previous medications\n✓ Results typically seen within [X] weeks\n\nThis isn't a miracle cure—it's evidence-based medicine using the latest research. And it's not right for everyone. But for patients who match the criteria, we're seeing transformative results.\n\nWHO'S A CANDIDATE?\n• Diagnosed with [SPECIFIC CONDITION]\n• Failed [X]+ previous treatment approaches\n• [SPECIFIC CRITERIA]\n• Willing to commit to [TREATMENT DURATION/REQUIREMENTS]\n\nWe're currently accepting patients for this program. Insurance coverage varies (we'll help you navigate this).\n\nWant to know if you're a candidate? Call [PHONE] and mention this post. We'll schedule a consultation to review your specific case.\n\nYou don't have to settle for 'managing' your condition. Let's explore what's possible.\n\nDr. [NAME], Board-Certified [SPECIALTY]\n[PRACTICE NAME] | [LOCATION]\n\n📚 Sources: [JOURNAL CITATION]\n📞 [PHONE] | 🌐 [WEBSITE]\n\n#MedicalBreakthrough #[Condition]Treatment #NewHope #[Specialty]Medicine #AdvancedTreatment #PatientCare #MedicalResearch #[Location]Health",
+        "framework": "AIDA",
+        "engagement_tactics": "Positions practice as cutting-edge, provides hope to frustrated patients, includes clear CTA with low-friction next step"
+      },
+      "promotional": {
+        "template": "⚡ URGENT APPOINTMENT AVAILABILITY ⚡\n\nWe just had [X] cancellations this week—which means we can see you MUCH sooner than our typical [X]-week wait.\n\nIf you're dealing with:\n❗ [SYMPTOM] that's getting worse\n❗ Pain interfering with work or sleep\n❗ A referral you've been putting off\n❗ Failed treatments and need answers NOW\n\n...we have appointments available:\n• [DAY] at [TIME]\n• [DAY] at [TIME]\n• [DAY] at [TIME]\n\nWHY WAIT?\n\nEvery day you're suffering is a day we could be working toward relief. The sooner we diagnose, the sooner we treat. The sooner we treat, the better your outcomes.\n\nOur patients tell us they wish they'd come in sooner. Don't be someone who waits until it's unbearable.\n\nWHAT WE TREAT:\n✓ [CONDITION 1]\n✓ [CONDITION 2]\n✓ [CONDITION 3]\n✓ [CONDITION 4]\n\nWHAT YOU GET:\n✓ Board-certified [SPECIALTY] specialists\n✓ [X]-minute comprehensive first visit\n✓ Same-day insurance verification\n✓ Clear diagnosis and treatment plan\n✓ Coordination with your primary care doctor\n\nWE ACCEPT: [INSURANCE NAMES] and most major plans\n\nLOCATION: [ADDRESS] (plenty of parking, accessible entrance)\n\n🚨 THESE SPOTS WILL FILL FAST 🚨\n\nTO BOOK:\n📞 Call [PHONE] and mention 'Facebook urgent availability'\n💻 Book online: [WEBSITE]\n💬 Message us here (we respond within 2 hours during business hours)\n\nYour health can't wait. Neither should you.\n\n[PRACTICE NAME]\nHelping [LOCATION] residents find relief since [YEAR]\n\n#UrgentCare #SpecialistAppointment #[Specialty]Doctor #[Location]Healthcare #PainRelief #GetHelpNow #MedicalCare #[Condition]Treatment #SameDayAppointment #HealthFirst",
+        "framework": "PAS",
+        "engagement_tactics": "Creates urgency with limited availability, removes barriers with clear booking options, addresses objections (wait times, insurance)"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your doctor says 'I want you to see a specialist' and you panic 😰",
+        "script": "HOOK: POV: Your doctor says 'I want you to see a specialist' and you panic 😰\n\n[0-3 sec] Text overlay: 'Wait...am I dying?!' Creator looking concerned at camera\n\n[4-10 sec] 'Let me tell you what that ACTUALLY means as a [SPECIALTY] specialist' - shift to reassuring tone\n\n[11-20 sec] 'First: You're NOT dying. A referral means your doctor wants expert eyes on something specific' - use hand gestures, casual but authoritative\n\n[21-35 sec] Quick cuts showing: '1. We have advanced training in ONE area' [show credentials/diploma] '2. We see [XXX] cases like yours every year' [show patient interaction - privacy compliant] '3. We work WITH your doctor, not instead of' [show collaboration]\n\n[36-48 sec] 'Your first appointment: We'll spend [X] minutes hearing YOUR story, doing a thorough exam, and making a plan TOGETHER' - direct to camera, warm tone\n\n[49-55 sec] 'You're not starting over. You're leveling up your care team.' - reassuring smile\n\n[56-60 sec] Text overlay: 'Questions? Drop them below 👇' + practice handle\n\nVISUALS: Mix of direct-to-camera talking, B-roll of office (clean, welcoming), quick text overlays for key points. Authentic, not overly produced. Natural lighting.\n\nSOUND: Trending audio (calm/reassuring vibe) OR original audio with clear voice\n\nTEXT OVERLAYS: 'Not dying, just getting expert help' 'Specialists = Extra training' 'Your doctor's still your doctor' 'We're here to help'\n\n#SpecialistDoctor #HealthcareTips #MedicalAdvice #DoctorTok #[Specialty]Specialist #PatientEducation #HealthAnxiety #MedicalReferral #DoctorExplains #LearnOnTikTok",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "I've treated [X,XXX] patients with chronic pain. Here's what NO ONE tells you 👀",
+        "script": "HOOK: I've treated [X,XXX] patients with chronic pain. Here's what NO ONE tells you 👀\n\n[0-3 sec] Direct eye contact, serious but approachable. Text: 'From a specialist who's seen it all'\n\n[4-12 sec] 'That pain you've had for months? Your body is SCREAMING that something's wrong. But here's the problem...' - lean in, conversational\n\n[13-25 sec] '...most people wait an average of [X] MONTHS before seeing a specialist' - show shock/frustration. Quick cut to text: 'Why??' then list: 'Think they're overreacting' 'Doctor said wait and see' 'Scared of what they'll find'\n\n[26-40 sec] 'Meanwhile, the longer you wait: 1. Condition gets worse 2. Treatment takes longer 3. Outcomes aren't as good' - count on fingers, matter-of-fact tone\n\n[41-52 sec] 'Early intervention changes EVERYTHING. The patients who do best? They don't wait until it's unbearable. They get help when symptoms start interfering with life.' - authoritative but caring\n\n[53-58 sec] 'Your pain is valid. Your symptoms are real. You deserve answers.' - direct to camera, empathetic\n\n[59-60 sec] Text overlay: 'Link in bio to learn more' + practice handle\n\nVISUALS: Primarily direct-to-camera in office setting (white coat optional - test both). Quick cuts to maintain pace. Use text overlays for statistics. Show empathy in facial expressions.\n\nSOUND: Original audio (builds authority) or trending sound that matches serious-but-helpful tone\n\nTEXT OVERLAYS: 'Specialist truth bomb' '[X] months average wait' 'Don't wait until it's unbearable' 'Early treatment = better outcomes'\n\n#ChronicPain #DoctorAdvice #PainManagement #[Specialty]Doctor #MedicalTruth #HealthcareTips #PainRelief #SpecialistCare #DoctorTok #YouDeserveAnswers",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "Just got a specialist referral? Do these 3 things BEFORE your appointment 📝",
+        "script": "HOOK: Just got a specialist referral? Do these 3 things BEFORE your appointment 📝\n\n[0-3 sec] Hold up 3 fingers, energetic. Text: 'This will save you TIME'\n\n[4-15 sec] 'Number 1: Write down your symptoms' - show notepad/phone notes. 'When did they start? What makes them better or worse? How do they affect your daily life? Trust me, you'll forget in the appointment.' - quick, helpful tone\n\n[16-28 sec] 'Number 2: List EVERYTHING you take' - show pill bottles. 'Medications, vitamins, supplements, that weird herbal thing your aunt recommended. Even if you think it doesn't matter - it matters.' - slightly humorous but serious\n\n[29-42 sec] 'Number 3: Prepare your questions' - show list. 'What's causing this? What are my treatment options? How long until I feel better? What if this doesn't work? There are NO dumb questions.' - reassuring, encouraging\n\n[43-52 sec] 'Bonus tip: Call ahead and verify your insurance. We can help with that. Removes SO much stress.' - helpful smile\n\n[53-58 sec] 'Come prepared, get better answers. Simple as that.' - confident nod\n\n[59-60 sec] Text: '[PRACTICE NAME] | [LOCATION] | Link in bio'\n\nVISUALS: Mix of creator showing items (notepad, pill bottles, phone) and direct-to-camera. Quick pace, helpful energy. Can use split-screen or text overlays for lists. Keep it practical and actionable.\n\nSOUND: Upbeat trending audio OR original audio with clear, friendly voice\n\nTEXT OVERLAYS: '1. Write symptoms' '2. List medications' '3. Prepare questions' 'Bonus: Verify insurance' 'Come prepared = better care'\n\n#SpecialistTips #DoctorAppointment #HealthcareTips #MedicalAdvice #PatientTips #[Specialty]Doctor #AppointmentPrep #HealthHacks #DoctorTok #GetOrganized",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "What to expect at your [SPECIALTY] appointment on [DATE]",
+        "preview_text": "Everything you need to know before your visit—we've got you covered",
+        "body": "Hi [FIRST_NAME],\n\nYour appointment with Dr. [SPECIALIST_NAME] is coming up on [DATE] at [TIME], and we want you to feel completely prepared.\n\n**HERE'S WHAT TO BRING:**\n✓ Photo ID and insurance card\n✓ Referral from your primary care doctor (if required by insurance)\n✓ List of current medications (including dosages)\n✓ Any recent test results or imaging (we can also request these)\n✓ Written list of symptoms and questions\n\n**WHAT WILL HAPPEN:**\nYour first visit will last approximately [X] minutes. You'll spend time with Dr. [NAME], not just a physician assistant. We'll:\n\n• Review your complete medical history\n• Discuss your symptoms in detail\n• Perform a comprehensive [SPECIALTY] examination\n• Order any necessary diagnostic tests\n• Develop a personalized treatment plan together\n\n**IMPORTANT LOGISTICS:**\n📍 Location: [ADDRESS] - [PARKING INSTRUCTIONS]\n⏰ Please arrive 15 minutes early to complete paperwork\n💼 We've verified your [INSURANCE NAME] coverage—your estimated copay is [$XX]\n📱 Need to reschedule? Call [PHONE] or reply to this email\n\n**YOUR QUESTIONS MATTER:**\nMany patients feel nervous about specialist appointments. That's completely normal. Please know:\n\n→ We've heard it all—there's no need to feel embarrassed\n→ We don't rush—you'll have time to discuss everything\n→ We work WITH your primary care doctor, not instead of\n→ Our goal is to help you feel better, not just diagnose\n\n**HAVE QUESTIONS BEFORE YOUR VISIT?**\nReply to this email or call our patient care team at [PHONE]. We're here Monday-Friday, [HOURS].\n\nWe're looking forward to meeting you and starting your journey to relief.\n\nWarm regards,\n\n[PRACTICE NAME] Patient Care Team\n\nP.S. Download our new patient forms here [LINK] to save time at your appointment.\n\n---\n[PRACTICE NAME] | [ADDRESS] | [PHONE]\n[WEBSITE] | [PATIENT PORTAL LINK]",
+        "framework": "PAS",
+        "send_timing": "3-5 days before appointment",
+        "segment": "New patients with upcoming appointments"
+      },
+      "authority": {
+        "subject": "New research on [CONDITION]: What it means for your treatment",
+        "preview_text": "Dr. [NAME] breaks down the latest findings and what's now possible",
+        "body": "Dear [FIRST_NAME],\n\nAs someone who's trusted us with your [CONDITION] care, I wanted to share exciting developments that may impact your treatment options.\n\nRecent research published in [JOURNAL] shows that [KEY FINDING]. For patients like you dealing with [SPECIFIC SYMPTOM], this could mean [BENEFIT].\n\n**WHAT THE RESEARCH SHOWS:**\n\nThe [X]-year study followed [XXX] patients with [CONDITION] and found:\n• [X]% experienced significant improvement with [APPROACH]\n• Results appeared within [TIMEFRAME]\n• [X]% were able to reduce previous medications\n• Long-term outcomes showed sustained benefits\n\n**WHAT THIS MEANS FOR YOU:**\n\nIf you've been experiencing:\n→ [SYMPTOM] despite current treatment\n→ Side effects from current medications\n→ Plateaued improvement\n→ Interest in additional options\n\n...this new approach might be worth discussing.\n\n**OUR PRACTICE IS NOW OFFERING:**\n\n[TREATMENT/APPROACH NAME], which combines [BRIEF DESCRIPTION]. We've already begun treating [XX] patients with promising early results.\n\nThis isn't right for everyone, but for patients who meet specific criteria, we're seeing outcomes that weren't possible even [X] years ago.\n\n**NEXT STEPS:**\n\nInterested in learning if you're a candidate? \n\n1. Reply to this email with \"Interested in [TREATMENT]\"\n2. Our clinical team will review your chart\n3. We'll reach out within [X] business days to discuss\n\nAlternatively, bring this up at your next scheduled appointment on [DATE], or call [PHONE] to schedule a consultation specifically to discuss this option.\n\n**THE SCIENCE MATTERS:**\n\nWe only offer treatments backed by rigorous research and proven outcomes. Every recommendation we make is grounded in evidence, not trends.\n\nYour trust in our care means everything. We're committed to bringing you the most advanced, effective treatments available.\n\nTo your health,\n\nDr. [FULL_NAME], [CREDENTIALS]\nBoard-Certified [SPECIALTY] Specialist\n[PRACTICE NAME]\n\nP.S. Read the full study summary here: [LINK TO PATIENT-FRIENDLY SUMMARY]\n\n---\n[PRACTICE NAME] | [PHONE] | [WEBSITE]\nManaging your care preferences? [UPDATE PREFERENCES LINK]",
+        "framework": "AIDA",
+        "send_timing": "Quarterly to active patients",
+        "segment": "Current patients with relevant diagnosis codes"
+      },
+      "promotional": {
+        "subject": "We have [X] appointments available this week—including [DAY]",
+        "preview_text": "Don't wait [X] weeks. Get the care you need now.",
+        "body": "Hi [FIRST_NAME],\n\nYou reached out about seeing a [SPECIALTY] specialist for [CONDITION/SYMPTOM]. I wanted to let you know we just had several cancellations—which means we can see you much sooner than our typical [X]-week wait.\n\n**AVAILABLE APPOINTMENTS THIS WEEK:**\n• [DAY, DATE] at [TIME]\n• [DAY, DATE] at [TIME]  \n• [DAY, DATE] at [TIME]\n\n**WHY WAITING HURTS YOU:**\n\nEvery day you're dealing with [SYMPTOM] is a day we could be working toward relief. Our patients consistently tell us they wish they'd come in sooner.\n\nThe sooner we:\n→ Accurately diagnose what's happening\n→ Start targeted treatment\n→ Address underlying causes\n\n...the better your outcomes and the faster your relief.\n\n**WHAT YOU'LL GET:**\n\n✓ [X]-minute comprehensive evaluation with Dr. [NAME]\n✓ Board-certified specialist with [X] years treating [CONDITION]\n✓ Clear diagnosis and personalized treatment plan\n✓ Coordination with your referring doctor\n✓ Direct access to our care team for questions\n\n**YOUR INSURANCE:**\n\nWe accept [INSURANCE_NAME]. Your estimated copay: [$XX] (we verify coverage before your visit, no surprises).\n\nNot sure about coverage? Reply to this email or call [PHONE]—we'll check for you.\n\n**LOCATION & LOGISTICS:**\n\n📍 [ADDRESS]\n🅿️ Free parking with accessible entrance\n⏰ Appointments available [DAYS/HOURS]\n📱 Telemedicine options for follow-ups\n\n**TO SCHEDULE:**\n\nThese spots will fill quickly. To claim one:\n\n1. **Call now:** [PHONE] (mention this email for priority scheduling)\n2. **Book online:** [SCHEDULING LINK]\n3. **Reply to this email** with your preferred time\n\nWe'll confirm within 2 hours during business hours.\n\n**YOU DESERVE ANSWERS:**\n\nLiving with [SYMPTOM] isn't 'just part of life.' You don't have to suffer while waiting for care.\n\nLet's get you on the path to relief—this week.\n\nReady to feel better?\n\n[PRACTICE NAME] Patient Scheduling\n[PHONE] | [WEBSITE]\n\nP.S. Can't make this week work? Reply anyway and we'll put you on our priority list for the next opening.\n\n---\n[PRACTICE NAME]\n[ADDRESS] | [PHONE]\nServing [LOCATION] since [YEAR]\n\n[UNSUBSCRIBE LINK] | [UPDATE PREFERENCES]",
+        "framework": "BAB",
+        "send_timing": "When urgent availability opens",
+        "segment": "Inquiry leads who haven't scheduled + waitlist contacts"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] patients with [rare condition] finally got answers after [timeframe] of being dismissed by other doctors",
+      "[X] warning signs that mean you need a [specialty] specialist this week, not in 3 months",
+      "[X] failed treatments later, here's what [specialty] specialists check that your primary care doctor can't"
+    ],
+    "question_hooks": [
+      "Are you tired of being passed around to different doctors with no real answers about [condition]?",
+      "Are you worried your insurance-approved referral will just lead to another doctor who doesn't take your symptoms seriously?",
+      "Are you suffering in silence because your medication stopped working and no one knows what to try next?"
+    ],
+    "story_hooks": [
+      "How [patient name] went from unable to work due to chronic pain to running again in [timeframe] with [specialty] treatment",
+      "How [patient name] finally got a clear diagnosis for [condition] after [X] years of 'we don't know what's wrong'",
+      "How [patient name] avoided surgery for [condition] using advanced [specialty] treatments most doctors don't offer"
+    ],
+    "fear_hooks": [
+      "Is your worsening [symptom] being ignored because your primary doctor doesn't specialize in [condition]?",
+      "Is your quality of life deteriorating while you wait months for a specialist appointment that could happen this week?",
+      "Is your [condition] progressing to irreversible damage while standard treatments keep failing?"
+    ],
+    "howto_hooks": [
+      "How to get a specialist appointment in days, not months, when your symptoms are getting worse",
+      "How to know if you really need a [specialty] specialist or if your primary care doctor can handle [condition]",
+      "How to prepare for your first specialist visit so you get answers, not just more referrals"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You've seen 5 doctors and still have no answers",
+      "body": "Scene 1 (0-15s): Show frustrated patient with stack of medical records. Text: 'When your PCP says refer to specialist'\n\nScene 2 (15-35s): Specialist reviewing records, actually listening. Text: 'First appointment: Got clear diagnosis. They explained EVERYTHING'\n\nScene 3 (35-50s): Patient smiling, doing activities they couldn't before. Text: '3 months later: Got my life back'\n\nScene 4 (50-60s): Close-up. Text: 'You deserve a doctor who specializes in YOUR condition'",
+      "cta": "Link in bio to book your specialist consultation"
+    },
+    "reels": {
+      "hook": "3 signs you need a specialist, not another PCP visit",
+      "body": "Quick cuts with on-screen text:\n1. 'Your symptoms have lasted 3+ months with no improvement' (0-10s)\n2. 'Your PCP has tried multiple treatments that didn't work' (10-20s)\n3. 'You're losing quality of life - can't work, sleep, or function' (20-28s)\n\nFinal frame: Specialist in white coat, reassuring expression",
+      "cta": "Don't wait months in pain. Same-week appointments available"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Share your 'before and after' story: What couldn't you do before treatment vs. what you can do now? Show us you living your life again - exercising, playing with kids, working pain-free, or just sleeping through the night.",
+      "hashtag": "#GotMyLifeBack"
+    },
+    {
+      "prompt": "Record a quick video: 'One thing I wish I knew before my first specialist appointment.' Help other patients feel prepared and less anxious about their upcoming visit.",
+      "hashtag": "#SpecialistTips"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Behind-the-scenes day in the life of a specialist showing actual patient interactions (with permission), explaining complex diagnoses in simple terms, and the detective work of finding rare conditions",
+      "why": "Humanizes specialists, demystifies the process, patients tag friends saying 'this is what I need', builds trust through transparency"
+    },
+    {
+      "angle": "Myth-busting carousel posts: 'What your symptoms ACTUALLY mean' addressing common misdiagnoses in primary care that require specialty expertise",
+      "why": "Patients recognize their own symptoms and share with others experiencing similar issues, positions practice as expert authority, saves to reference later"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:22:55.561Z",
+    "last_tier2_refresh": "2025-11-27T20:22:55.561Z",
+    "last_tier3_refresh": "2025-11-27T20:22:55.561Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:22:55.561Z"
+  }
+}

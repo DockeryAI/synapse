@@ -1,0 +1,2011 @@
+{
+  "industry": "Direct Property & Casualty Insurance",
+  "industry_name": "Direct Property & Casualty Insurance",
+  "naics_code": "524126",
+  "category": "Professional Services",
+  "subcategory": "Insurance Carriers",
+  "customer_triggers": [
+    {
+      "trigger": "Just purchased new home requiring homeowners insurance",
+      "urgency": 10,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Auto accident requiring immediate claim filing",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Received non-renewal notice from current carrier",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Premium increase notice exceeding 15% at renewal",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Adding teenage driver to auto policy",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Starting home-based business needing liability coverage",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Mortgage lender requiring proof of insurance",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Moving to flood-prone area requiring additional coverage",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Purchasing recreational vehicle or boat",
+      "urgency": 6,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Divorce requiring policy separation",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Storm damage claim denial from previous carrier",
+      "urgency": 10,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Credit score improvement enabling better rates",
+      "urgency": 5,
+      "frequency": "Monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": [
+      "Shocked by sudden 40% premium increase with no claims",
+      "Anxious about being underinsured after neighbor's total loss",
+      "Frustrated by poor claim handling from current carrier",
+      "Worried about coverage gaps discovered after reading policy"
+    ],
+    "consideration": [
+      "Comparing A.M. Best financial ratings between carriers",
+      "Calculating total cost including deductibles and coverage limits",
+      "Reading J.D. Power customer satisfaction scores",
+      "Evaluating local agent accessibility versus online-only service"
+    ],
+    "decision": [
+      "Bundling auto and home saves average $1,200 annually",
+      "24/7 claim hotline with guaranteed 2-hour adjuster contact",
+      "No rate increase guarantee for first claim under $5,000",
+      "Local catastrophe response team deployed within 48 hours"
+    ],
+    "retention": [
+      "Annual coverage review identifying average $300 in additional discounts",
+      "Loyalty rewards reducing deductibles by $100 every claim-free year",
+      "Priority claim processing for 5+ year customers",
+      "Accident forgiveness after 3 years claim-free"
+    ]
+  },
+  "transformations": [
+    {
+      "from": "Overpaying by 30% with inadequate coverage",
+      "to": "Properly protected with 20% lower premiums",
+      "emotional_payoff": "Financial confidence and peace of mind"
+    },
+    {
+      "from": "48-hour claim response with denied coverage",
+      "to": "Same-day adjuster contact with full coverage approval",
+      "emotional_payoff": "Relief and validation during crisis"
+    },
+    {
+      "from": "Generic policy missing critical endorsements",
+      "to": "Customized coverage matching exact risk profile",
+      "emotional_payoff": "Security knowing all assets are protected"
+    },
+    {
+      "from": "Annual premium surprises and hidden fees",
+      "to": "Transparent pricing with rate lock guarantees",
+      "emotional_payoff": "Trust and predictable budgeting"
+    },
+    {
+      "from": "Fighting for fair claim settlements alone",
+      "to": "Advocate adjuster maximizing your settlement",
+      "emotional_payoff": "Supported and fairly compensated"
+    },
+    {
+      "from": "Waiting weeks for claim resolution",
+      "to": "72-hour claim payment for covered losses",
+      "emotional_payoff": "Quick recovery and minimal disruption"
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Premium reduction",
+      "target": "15-30% average savings",
+      "measurement_method": "Year-over-year premium comparison with same coverage"
+    },
+    {
+      "metric": "Claim settlement speed",
+      "target": "72 hours for claims under $10,000",
+      "measurement_method": "Time from first notice of loss to payment issued"
+    },
+    {
+      "metric": "Coverage gap elimination",
+      "target": "100% of identified exposures covered",
+      "measurement_method": "Annual insurance review checklist completion"
+    },
+    {
+      "metric": "Customer satisfaction score",
+      "target": "Net Promoter Score above 70",
+      "measurement_method": "Post-claim and annual renewal surveys"
+    },
+    {
+      "metric": "Claim approval rate",
+      "target": "95% first-submission approval",
+      "measurement_method": "Claims approved without additional documentation"
+    },
+    {
+      "metric": "Policy retention rate",
+      "target": "90% annual renewal rate",
+      "measurement_method": "Policies renewed versus total eligible"
+    }
+  ],
+  "urgency_drivers": [
+    "Current policy expires in less than 30 days",
+    "Uninsured motorist accident requiring immediate coverage proof",
+    "Mortgage closing scheduled within 7 days",
+    "Hurricane season starting June 1st - binding restrictions apply",
+    "State minimum liability increasing next month",
+    "Open enrollment discount period ending in 2 weeks",
+    "Recent claim making current carrier non-renewal likely",
+    "Home inspection revealing risks requiring immediate coverage adjustment"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I've been with my carrier for 20 years",
+      "response_framework": "Loyalty is admirable, but carriers count on it to raise rates. Our average customer switching after 15+ years saves $1,400 annually while improving coverage.",
+      "social_proof_angle": "73% of long-term customers discovered they were overpaying by 25% or more"
+    },
+    {
+      "objection": "Switching insurance is too complicated",
+      "response_framework": "We handle everything: policy comparison, coverage verification, cancellation timing. Average switch takes 15 minutes of your time.",
+      "social_proof_angle": "98% of customers say switching was easier than expected"
+    },
+    {
+      "objection": "Cheaper insurance means worse coverage",
+      "response_framework": "Lower price often means lower overhead, not lower coverage. We'll match or exceed your current coverage and guarantee it in writing.",
+      "social_proof_angle": "Independent analysis shows our policies average 18% more coverage for 20% less cost"
+    },
+    {
+      "objection": "I don't want to lose my claim-free discount",
+      "response_framework": "We honor claim-free history from any carrier. Plus, our new customer discount often exceeds what you're currently receiving.",
+      "social_proof_angle": "New customers average $450 first-year savings even with maximum prior discounts"
+    },
+    {
+      "objection": "Online insurance companies won't be there when I need them",
+      "response_framework": "We maintain local catastrophe teams and guarantee faster response than traditional carriers. Our average claim contact: 2 hours versus industry average of 24 hours.",
+      "social_proof_angle": "J.D. Power ranks our claim satisfaction higher than 90% of traditional carriers"
+    },
+    {
+      "objection": "I need an agent I can meet in person",
+      "response_framework": "Our licensed advisors are available 24/7 by phone, video, or text. No appointment needed, no office hours restrictions.",
+      "social_proof_angle": "87% of our customers prefer instant video consultations over scheduling office visits"
+    },
+    {
+      "objection": "My situation is too complex for standard insurance",
+      "response_framework": "We specialize in complex risks: high-value homes, multiple properties, classic cars. Our underwriters have 15+ years average experience.",
+      "social_proof_angle": "We insure 40% more non-standard risks than traditional carriers"
+    },
+    {
+      "objection": "I don't trust online reviews",
+      "response_framework": "Check our A.M. Best A+ rating, BBB accreditation, and state insurance department records. We'll provide references from customers in your area.",
+      "social_proof_angle": "State insurance departments show 60% fewer complaints versus industry average"
+    }
+  ],
+  "risk_reversal": {
+    "guarantee_types": [
+      "30-day premium refund if not completely satisfied",
+      "Coverage match guarantee or we pay the difference",
+      "Rate lock guarantee for 2 years with no claims",
+      "Claim satisfaction guarantee or premium credit"
+    ],
+    "trial_options": [
+      "Month-to-month option for first 90 days",
+      "Single-item policy start before bundling",
+      "Supplemental coverage only to test service"
+    ],
+    "refund_positioning": "Switch risk-free with our 30-day money-back guarantee. If you're not saving money with better coverage, we'll refund your premium and help you return to your previous carrier."
+  },
+  "customer_language_dictionary": {
+    "pain_keywords": [
+      "rate increase",
+      "claim denied",
+      "dropped coverage",
+      "underinsured",
+      "premium shock",
+      "coverage gap",
+      "non-renewal",
+      "deductible",
+      "exclusion",
+      "waiting period",
+      "rate hike",
+      "cancellation notice",
+      "insufficient coverage",
+      "claim dispute",
+      "premium penalty"
+    ],
+    "aspiration_keywords": [
+      "fully protected",
+      "peace of mind",
+      "fair premium",
+      "comprehensive coverage",
+      "fast claims",
+      "trusted carrier",
+      "stable rates",
+      "maximum protection",
+      "worry-free",
+      "properly insured",
+      "asset protection",
+      "financial security",
+      "guaranteed replacement",
+      "full coverage",
+      "protected investment"
+    ],
+    "objection_phrases": [
+      "too good to be true",
+      "hidden fees",
+      "fine print",
+      "bait and switch",
+      "fly-by-night company",
+      "claims nightmare",
+      "lowball coverage",
+      "not available when needed",
+      "complicated process",
+      "losing my discounts",
+      "starting over",
+      "unknown company"
+    ],
+    "urgency_phrases": [
+      "policy expires soon",
+      "rates going up",
+      "coverage ending",
+      "binding restrictions",
+      "limited time offer",
+      "hurricane season approaching",
+      "mortgage requirement",
+      "registration deadline",
+      "non-renewal notice",
+      "cancellation pending",
+      "proof required immediately",
+      "closing next week"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "protected",
+    "comprehensive",
+    "immediate",
+    "approved",
+    "covered",
+    "secured",
+    "maximum",
+    "priority",
+    "exclusive",
+    "certified",
+    "verified",
+    "proven",
+    "trusted",
+    "awarded",
+    "recognized",
+    "accredited",
+    "licensed",
+    "bonded",
+    "established",
+    "recommended",
+    "preferred",
+    "premier",
+    "platinum",
+    "guaranteed replacement",
+    "full coverage",
+    "no deductible",
+    "claim-free discount",
+    "loyalty rewards",
+    "rate lock"
+  ],
+  "avoid_words": [
+    "cheap",
+    "budget",
+    "basic",
+    "minimal",
+    "adequate",
+    "sufficient",
+    "standard",
+    "typical",
+    "average",
+    "common",
+    "simple",
+    "generic",
+    "one-size-fits-all",
+    "cookie-cutter",
+    "mass-market",
+    "discount",
+    "economy",
+    "bare-bones",
+    "stripped-down",
+    "no-frills"
+  ],
+  "headline_templates": [
+    {
+      "template": "Cut Your {Insurance_Type} Premium by 30% in {Timeframe}",
+      "use_case": "Rate reduction focus",
+      "example": "Cut Your Homeowners Premium by 30% in 10 Minutes"
+    },
+    {
+      "template": "{Location} Drivers Save Average ${Amount} Switching from {Competitor}",
+      "use_case": "Competitive conquest",
+      "example": "Texas Drivers Save Average $1,200 Switching from State Farm"
+    },
+    {
+      "template": "Why {Number}% of {Competitor} Customers Overpay by ${Amount}",
+      "use_case": "Competitor disruption",
+      "example": "Why 67% of Allstate Customers Overpay by $500+"
+    },
+    {
+      "template": "Get {Coverage_Amount} More Coverage for {Percentage}% Less",
+      "use_case": "Value proposition",
+      "example": "Get $100,000 More Coverage for 20% Less"
+    },
+    {
+      "template": "{Time_Period} Claim Approval Guaranteed or {Benefit}",
+      "use_case": "Service guarantee",
+      "example": "48-Hour Claim Approval Guaranteed or Double Your Deductible Back"
+    },
+    {
+      "template": "Insurance Companies Hate This {State} Coverage Loophole",
+      "use_case": "Curiosity driver",
+      "example": "Insurance Companies Hate This Florida Coverage Loophole"
+    },
+    {
+      "template": "Before You Renew: {Number} Hidden Fees {Carrier} Doesn't Disclose",
+      "use_case": "Renewal disruption",
+      "example": "Before You Renew: 7 Hidden Fees Progressive Doesn't Disclose"
+    },
+    {
+      "template": "{Event} Victims: How to Maximize Your Insurance Settlement",
+      "use_case": "Claim assistance",
+      "example": "Hurricane Victims: How to Maximize Your Insurance Settlement"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Your Free Coverage Analysis",
+      "context": "Initial quote request",
+      "urgency_level": 5
+    },
+    {
+      "template": "See Your Savings in 60 Seconds",
+      "context": "Quick quote tool",
+      "urgency_level": 6
+    },
+    {
+      "template": "Lock In Your Rate Before {Date}",
+      "context": "Time-sensitive offer",
+      "urgency_level": 9
+    },
+    {
+      "template": "Start Saving ${Amount} Today",
+      "context": "Specific savings amount",
+      "urgency_level": 7
+    },
+    {
+      "template": "Claim Your ${Amount} New Customer Credit",
+      "context": "Incentive offer",
+      "urgency_level": 8
+    },
+    {
+      "template": "Switch & Save in 15 Minutes",
+      "context": "Ease and speed focus",
+      "urgency_level": 6
+    },
+    {
+      "template": "Get Instant Proof of Insurance",
+      "context": "Immediate need",
+      "urgency_level": 10
+    },
+    {
+      "template": "Compare Your Coverage Now",
+      "context": "Comparison shopping",
+      "urgency_level": 5
+    },
+    {
+      "template": "Reserve Your Renewal Discount",
+      "context": "Retention offer",
+      "urgency_level": 7
+    },
+    {
+      "template": "File Your Claim in 2 Minutes",
+      "context": "Claims portal",
+      "urgency_level": 10
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ {State} homeowners: That 'small' rate increase letter isn't small. Most don't realize a 15% hike means ${Amount} more per year. Here's what insurance companies don't want you to know about switching... [Link]",
+      "hook_type": "Warning/Alert"
+    },
+    {
+      "platform": "Twitter",
+      "template": "Just helped a family in {City} cut their premium from $3,200 to $2,100 with BETTER coverage. Your 'loyalty discount' might be costing you $1,000+/year. RT to save someone money today.",
+      "hook_type": "Social Proof"
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Professional insight: 73% of homeowners haven't reviewed their coverage in 3+ years. With property values up 40% since 2020, you're likely underinsured by $150,000+. Here's a 5-minute coverage audit that could save your assets.",
+      "hook_type": "Professional Authority"
+    },
+    {
+      "platform": "Instagram",
+      "template": "That moment when you realize your 'trusted' insurance company has been overcharging you for years 😤 Swipe to see how Sarah saved $1,400 just by comparing rates → [Carousel of savings screenshots]",
+      "hook_type": "Emotional Story"
+    },
+    {
+      "platform": "TikTok",
+      "template": "Insurance companies HATE this trick: Ask for your 'loss runs' report. It shows every discount you SHOULD be getting but aren't. Most people find 3-5 missing discounts worth $500+/year #insurancehacks #moneytok",
+      "hook_type": "Insider Secret"
+    },
+    {
+      "platform": "YouTube",
+      "template": "Why I Left {Major Carrier} After 15 Years (Saved $1,800!) - Full breakdown of hidden fees they don't want you to see [Thumbnail: Premium statement with fees circled]",
+      "hook_type": "Personal Story"
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Infographic: 10 Insurance Discounts You're Missing | Average savings per discount | How to qualify | Stack multiple for 40% off [Vertical infographic design]",
+      "hook_type": "Educational Resource"
+    },
+    {
+      "platform": "Reddit",
+      "template": "LPT: Your insurance 'loyalty' is costing you money. Just switched my parents from their 20-year carrier and saved them $1,500/year with identical coverage. Here's exactly how to do it without any gaps in coverage...",
+      "hook_type": "Helpful Advice"
+    }
+  ],
+  "value_propositions": [
+    {
+      "proposition": "Average savings of $1,247 annually with enhanced coverage",
+      "target_segment": "Multi-policy households",
+      "proof_point": "Analysis of 50,000+ switches in 2023"
+    },
+    {
+      "proposition": "Claims paid 5x faster than industry average",
+      "target_segment": "Previous claim filers",
+      "proof_point": "72-hour average vs 15-day industry standard"
+    },
+    {
+      "proposition": "No rate increase for 24 months guaranteed",
+      "target_segment": "Rate-shocked customers",
+      "proof_point": "Contractual rate lock provision"
+    },
+    {
+      "proposition": "30% more coverage for 20% less premium",
+      "target_segment": "Underinsured homeowners",
+      "proof_point": "Independent actuarial analysis"
+    },
+    {
+      "proposition": "Local catastrophe team response within 48 hours",
+      "target_segment": "Disaster-prone areas",
+      "proof_point": "500+ adjusters deployed for rapid response"
+    },
+    {
+      "proposition": "$0 deductible options for loyal customers",
+      "target_segment": "Long-term planners",
+      "proof_point": "Deductible reduction program after year 3"
+    },
+    {
+      "proposition": "One-call resolution for 90% of claims",
+      "target_segment": "Busy professionals",
+      "proof_point": "First-call resolution rate verified by J.D. Power"
+    }
+  ],
+  "messaging_frameworks": {
+    "before_after_bridge": "Before: Paying $3,500/year, denied roof claim, 30-day claim process. After: Paying $2,400/year, full roof replacement approved, 72-hour payment. Bridge: Our underwriting focuses on risk prevention, not claim denial.",
+    "problem_agitate_solve": "Problem: Insurance premiums increasing 15% annually. Agitate: That's $5,000 more over 3 years for the same coverage. Solve: Lock in rates for 2 years with our price protection guarantee.",
+    "features_advantages_benefits": {
+      "feature": "24/7 claim hotline",
+      "advantage": "File claims immediately after loss",
+      "benefit": "Faster payment and peace of mind during crisis"
+    }
+  },
+  "trust_signals": [
+    {
+      "signal": "A.M. Best A+ Superior rating",
+      "importance": 10,
+      "placement_priority": "Above fold on homepage"
+    },
+    {
+      "signal": "$2.3 billion in claims paid last year",
+      "importance": 9,
+      "placement_priority": "Claims page hero section"
+    },
+    {
+      "signal": "Licensed in all 50 states",
+      "importance": 8,
+      "placement_priority": "Footer and quote form"
+    },
+    {
+      "signal": "BBB A+ accreditation for 15 years",
+      "importance": 7,
+      "placement_priority": "Trust bar below navigation"
+    },
+    {
+      "signal": "4.8/5 stars from 45,000+ reviews",
+      "importance": 9,
+      "placement_priority": "Quote results page"
+    },
+    {
+      "signal": "Member of National Association of Insurance Commissioners",
+      "importance": 6,
+      "placement_priority": "About page"
+    },
+    {
+      "signal": "ISO 27001 certified for data security",
+      "importance": 7,
+      "placement_priority": "Quote form security badge"
+    },
+    {
+      "signal": "Featured in Wall Street Journal and Forbes",
+      "importance": 6,
+      "placement_priority": "Press mentions bar"
+    },
+    {
+      "signal": "Average customer tenure: 8.3 years",
+      "importance": 8,
+      "placement_priority": "Retention statistics section"
+    },
+    {
+      "signal": "97% claim satisfaction rate",
+      "importance": 10,
+      "placement_priority": "Claims landing page"
+    },
+    {
+      "signal": "Underwritten by carriers with 100+ year history",
+      "importance": 7,
+      "placement_priority": "Coverage details page"
+    },
+    {
+      "signal": "Real-time certificate of insurance delivery",
+      "importance": 8,
+      "placement_priority": "Purchase confirmation"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat_type": "Customer satisfaction",
+      "benchmark": "Net Promoter Score of 72 vs industry average 34",
+      "usage_context": "Homepage hero and testimonials page"
+    },
+    {
+      "stat_type": "Average savings",
+      "benchmark": "$1,247 annual savings for multi-policy customers",
+      "usage_context": "Quote form and results page"
+    },
+    {
+      "stat_type": "Claim speed",
+      "benchmark": "72-hour average claim payment vs 15-day standard",
+      "usage_context": "Claims page and service comparisons"
+    },
+    {
+      "stat_type": "Retention rate",
+      "benchmark": "91% annual renewal rate vs 84% industry average",
+      "usage_context": "About us and investor relations"
+    },
+    {
+      "stat_type": "Coverage adequacy",
+      "benchmark": "98% of claims fully covered vs 78% industry average",
+      "usage_context": "Coverage education content"
+    },
+    {
+      "stat_type": "First-call resolution",
+      "benchmark": "89% issues resolved on first contact",
+      "usage_context": "Customer service page"
+    },
+    {
+      "stat_type": "Digital adoption",
+      "benchmark": "94% of claims filed digitally in under 5 minutes",
+      "usage_context": "Mobile app promotion"
+    },
+    {
+      "stat_type": "Price competitiveness",
+      "benchmark": "Beat competitor quotes 76% of the time",
+      "usage_context": "Comparison tool results"
+    }
+  ],
+  "quality_indicators": [
+    "A.M. Best financial strength rating of A+ or higher",
+    "Claims ratio below 65% indicating financial stability",
+    "Average adjuster experience exceeding 10 years",
+    "Catastrophe reinsurance coverage exceeding $5 billion",
+    "Surplus ratio above 2:1 for claim paying ability",
+    "ISO ClaimSearch participation for fraud prevention",
+    "24/7/365 claim reporting availability",
+    "Mobile app rating above 4.5 stars with 10,000+ reviews"
+  ],
+  "testimonial_capture_timing": {
+    "ideal_moments": [
+      "72 hours after claim payment received",
+      "After annual review revealing additional savings",
+      "Following successful rate challenge resolution",
+      "Post-catastrophe when rapid response provided",
+      "After switching saves more than promised",
+      "When loyalty rewards reduce deductible"
+    ],
+    "question_prompts": [
+      "How much did you save compared to your previous carrier?",
+      "Describe your claim experience from start to finish",
+      "What surprised you most about switching?",
+      "How has proper coverage given you peace of mind?",
+      "What would you tell someone hesitant to switch?",
+      "How did we handle your unique situation?"
+    ],
+    "incentive_strategies": [
+      "$50 account credit for video testimonial",
+      "Entry into quarterly $1,000 premium payment drawing",
+      "Deductible reduction credit of $100 for detailed review",
+      "Donation to customer's charity of choice for participation"
+    ]
+  },
+  "competitive_advantages": [
+    "Only carrier offering true 2-year rate lock guarantees",
+    "Proprietary catastrophe modeling reduces rates in low-risk areas by 30%",
+    "In-house adjustment team versus third-party contractors",
+    "Real-time coverage verification for mortgage companies",
+    "Automatic coverage increases matching local construction costs",
+    "Diminishing deductible reducing $100 annually when claim-free",
+    "Guaranteed replacement cost with no depreciation on claims"
+  ],
+  "pricing_psychology": {
+    "sweet_spots": [
+      "$1,200-1,800/year for standard homeowners (3BR/2BA, $250k value)",
+      "$1,800-2,400/year for full auto coverage (2 vehicles, 2 drivers)",
+      "$2,800-3,500/year for bundled home and auto",
+      "$4,000-5,500/year for high-value home ($500k+) with full coverage"
+    ],
+    "anchoring_strategies": [
+      "Show competitor's premium first, then 30% savings",
+      "Display 'most comprehensive' option before standard",
+      "Present annual savings before monthly payment",
+      "Highlight 5-year total savings versus yearly difference"
+    ],
+    "decoy_pricing_models": [
+      "Basic coverage at $100/month to make $125 standard look valuable",
+      "Premium at $200/month to make $150 enhanced seem reasonable",
+      "Single policy pricing to drive bundle adoption"
+    ],
+    "payment_framing": [
+      "Per day cost: 'Full protection for less than your coffee'",
+      "Savings frame: 'Save $104/month versus your current carrier'",
+      "Investment frame: 'Protect your $400,000 investment for $150/month'",
+      "Comparison frame: 'Less than your cable bill for complete protection'"
+    ]
+  },
+  "price_sensitivity_thresholds": {
+    "budget_tier": {
+      "price_range": "$50-100/month",
+      "customer_profile": "State minimum coverage, older vehicles, renters"
+    },
+    "mid_tier": {
+      "price_range": "$100-200/month",
+      "customer_profile": "Standard coverage, 1-2 vehicles, starter homes"
+    },
+    "premium_tier": {
+      "price_range": "$200-400/month",
+      "customer_profile": "Full coverage, multiple vehicles, $300-500k homes"
+    },
+    "luxury_tier": {
+      "price_range": "$400+/month",
+      "customer_profile": "High-value homes $500k+, luxury vehicles, umbrella policies"
+    }
+  },
+  "emergency_premium_pricing": {
+    "after_hours_multiplier": 1,
+    "same_day_premium": 1,
+    "seasonal_surge_windows": [
+      "Hurricane season: June 1 - November 30 (binding restrictions)",
+      "Winter storm season: December - February (northern states)",
+      "Wildfire season: May - October (western states)",
+      "Tornado season: March - June (midwest corridor)"
+    ],
+    "justification_language": "Immediate coverage available at standard rates. No emergency surcharges or binding restrictions for qualifying properties."
+  },
+  "tiered_service_models": [
+    {
+      "tier_name": "Essential Protection",
+      "price_range": "$600-1,200/year",
+      "included_services": [
+        "State minimum required coverage",
+        "Online self-service portal",
+        "Email support within 24 hours",
+        "Basic claim filing assistance"
+      ],
+      "ideal_customer": "Price-sensitive, minimal assets, good driving record"
+    },
+    {
+      "tier_name": "Standard Coverage",
+      "price_range": "$1,200-2,400/year",
+      "included_services": [
+        "Comprehensive and collision coverage",
+        "Phone support 8am-8pm",
+        "Mobile app with digital ID cards",
+        "Claim advocate assistance",
+        "Annual coverage review"
+      ],
+      "ideal_customer": "Average homeowner, 1-2 vehicles, moderate assets"
+    },
+    {
+      "tier_name": "Enhanced Protection",
+      "price_range": "$2,400-4,000/year",
+      "included_services": [
+        "Full replacement cost coverage",
+        "24/7 priority phone support",
+        "Dedicated account manager",
+        "Accident forgiveness",
+        "Diminishing deductible",
+        "Quarterly coverage optimization"
+      ],
+      "ideal_customer": "Growing families, multiple properties, higher incomes"
+    },
+    {
+      "tier_name": "Premier Shield",
+      "price_range": "$4,000-8,000/year",
+      "included_services": [
+        "Maximum coverage limits",
+        "Concierge claim service",
+        "Personal risk advisor",
+        "Umbrella policy included",
+        "Identity theft protection",
+        "Legal defense coverage",
+        "Annual risk assessment"
+      ],
+      "ideal_customer": "High net worth, multiple homes, luxury vehicles"
+    },
+    {
+      "tier_name": "Executive Advantage",
+      "price_range": "$8,000+/year",
+      "included_services": [
+        "Customized coverage solutions",
+        "Private client services",
+        "Worldwide coverage",
+        "Art and jewelry protection",
+        "Cyber liability coverage",
+        "Family office coordination",
+        "Quarterly business reviews"
+      ],
+      "ideal_customer": "Ultra high net worth, complex assets, business owners"
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle discount of 25% drives 40% higher lifetime value",
+    "Paperless billing saves $24/year in processing costs",
+    "Auto-pay enrollment reduces payment default by 60%",
+    "Telematics programs identify 30% lower risk drivers for better pricing",
+    "Annual payment option improves cash flow and reduces admin costs by 15%",
+    "Digital self-service adoption cuts service costs by $50 per policy annually"
+  ],
+  "seasonal_patterns": [
+    {
+      "season": "Spring (March-May)",
+      "demand_level": 8,
+      "messaging_focus": "Storm season preparation and home buying",
+      "offer_type": "New homeowner discounts and flood coverage"
+    },
+    {
+      "season": "Hurricane Season Start (June)",
+      "demand_level": 10,
+      "messaging_focus": "Last chance for hurricane coverage",
+      "offer_type": "Expedited binding before restrictions"
+    },
+    {
+      "season": "Summer (July-August)",
+      "demand_level": 6,
+      "messaging_focus": "Vacation home and recreational vehicle coverage",
+      "offer_type": "Bundle deals for seasonal properties"
+    },
+    {
+      "season": "Back to School (September)",
+      "demand_level": 9,
+      "messaging_focus": "Teen driver additions and college student coverage",
+      "offer_type": "Good student discounts and away-at-school rates"
+    },
+    {
+      "season": "Fall (October-November)",
+      "demand_level": 7,
+      "messaging_focus": "Year-end financial planning and renewal reviews",
+      "offer_type": "Lock in next year's rates now"
+    },
+    {
+      "season": "Black Friday/Cyber Monday",
+      "demand_level": 8,
+      "messaging_focus": "Insurance savings as smart financial move",
+      "offer_type": "Double new customer credits"
+    },
+    {
+      "season": "Winter Holidays (December)",
+      "demand_level": 5,
+      "messaging_focus": "Protect new purchases and gift safety",
+      "offer_type": "Valuable items coverage additions"
+    },
+    {
+      "season": "New Year (January)",
+      "demand_level": 10,
+      "messaging_focus": "New year savings and financial resolutions",
+      "offer_type": "Switch and save promotions"
+    },
+    {
+      "season": "Tax Season (February-April)",
+      "demand_level": 8,
+      "messaging_focus": "Use tax refund to upgrade coverage",
+      "offer_type": "Annual payment discounts"
+    },
+    {
+      "season": "Winter Storm Season",
+      "demand_level": 9,
+      "messaging_focus": "Freeze damage and liability protection",
+      "offer_type": "Winter weather endorsements"
+    },
+    {
+      "season": "Wildfire Season (Western States)",
+      "demand_level": 10,
+      "messaging_focus": "Fire protection and evacuation coverage",
+      "offer_type": "Comprehensive fire coverage packages"
+    },
+    {
+      "season": "Tornado Season (Midwest)",
+      "demand_level": 9,
+      "messaging_focus": "Wind damage and total loss protection",
+      "offer_type": "Enhanced replacement cost coverage"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "lead_volume": "High",
+      "conversion_rate": "Above average",
+      "recommended_actions": [
+        "Launch week's promotional campaigns",
+        "Send renewal reminders",
+        "Follow up on weekend quote requests"
+      ]
+    },
+    {
+      "day": "Tuesday",
+      "lead_volume": "High",
+      "conversion_rate": "Highest",
+      "recommended_actions": [
+        "Push comparison tools",
+        "Host webinars on coverage gaps",
+        "Target business professional segments"
+      ]
+    },
+    {
+      "day": "Wednesday",
+      "lead_volume": "Medium",
+      "conversion_rate": "Average",
+      "recommended_actions": [
+        "Mid-week follow-up calls",
+        "Send abandoned quote reminders",
+        "Publish educational content"
+      ]
+    },
+    {
+      "day": "Thursday",
+      "lead_volume": "Medium",
+      "conversion_rate": "Above average",
+      "recommended_actions": [
+        "Launch weekend prep campaigns",
+        "Target procrastinators with urgency",
+        "Promote Friday deadline offers"
+      ]
+    },
+    {
+      "day": "Friday",
+      "lead_volume": "Low",
+      "conversion_rate": "Below average",
+      "recommended_actions": [
+        "Focus on claim services",
+        "Send weekend emergency contact info",
+        "Light touch engagement only"
+      ]
+    },
+    {
+      "day": "Saturday",
+      "lead_volume": "Medium",
+      "conversion_rate": "Average",
+      "recommended_actions": [
+        "Target homeowners doing research",
+        "Promote self-service tools",
+        "Share claim filing tips"
+      ]
+    },
+    {
+      "day": "Sunday",
+      "lead_volume": "High",
+      "conversion_rate": "Below average",
+      "recommended_actions": [
+        "Capture quote requests for Monday",
+        "Educational content focus",
+        "Build urgency for week ahead"
+      ]
+    }
+  ],
+  "monthly_patterns": {
+    "high_demand_weeks": [
+      "First week: New month budget planning and payment due dates",
+      "Third week: Mid-month financial reviews and paycheck timing",
+      "Last week: Month-end renewal deadlines and cancellation dates"
+    ],
+    "low_demand_periods": [
+      "Second week: Post-payment recovery period",
+      "Holiday weeks: Thanksgiving, Christmas, Fourth of July"
+    ],
+    "billing_cycle_impacts": "Months with 31 days see 8% higher quote volume on the 31st. Automatic payment failures spike on the 1st and 15th requiring proactive outreach."
+  },
+  "peak_crisis_times": [
+    {
+      "crisis_type": "Auto accident",
+      "when_it_happens": "Friday evening rush hour (4-7pm)",
+      "response_time_expectation": "Immediate tow and rental car within 2 hours"
+    },
+    {
+      "crisis_type": "Home water damage",
+      "when_it_happens": "Sunday morning discovery after Saturday night",
+      "response_time_expectation": "Emergency mitigation crew within 4 hours"
+    },
+    {
+      "crisis_type": "Hail damage",
+      "when_it_happens": "April-June afternoon storms (2-6pm)",
+      "response_time_expectation": "Adjuster contact within 24 hours"
+    },
+    {
+      "crisis_type": "Theft/burglary",
+      "when_it_happens": "Weekday mornings (10am-2pm) when homes empty",
+      "response_time_expectation": "Police report assistance and claim started immediately"
+    },
+    {
+      "crisis_type": "Fire damage",
+      "when_it_happens": "Winter evenings (6-10pm) from heating/cooking",
+      "response_time_expectation": "Emergency living expenses authorized within 2 hours"
+    },
+    {
+      "crisis_type": "Hurricane damage",
+      "when_it_happens": "August-October landfall periods",
+      "response_time_expectation": "Catastrophe team deployed within 48 hours"
+    },
+    {
+      "crisis_type": "Liability incident",
+      "when_it_happens": "Summer weekends during gatherings",
+      "response_time_expectation": "Legal consultation within 24 hours"
+    },
+    {
+      "crisis_type": "Tree fall damage",
+      "when_it_happens": "During storms, typically overnight",
+      "response_time_expectation": "Emergency removal authorized same day"
+    },
+    {
+      "crisis_type": "Frozen pipe burst",
+      "when_it_happens": "January-February cold snaps",
+      "response_time_expectation": "Water mitigation within 4 hours"
+    },
+    {
+      "crisis_type": "Hit and run",
+      "when_it_happens": "Parking lots during shopping hours",
+      "response_time_expectation": "Uninsured motorist claim started immediately"
+    }
+  ],
+  "service_packages": [
+    {
+      "package_name": "Basic Protection Bundle",
+      "services_included": [
+        "Liability coverage only",
+        "Property damage minimum",
+        "Uninsured motorist basic",
+        "Medical payments $5,000"
+      ],
+      "pricing_model": "$50-75/month",
+      "ideal_for": "Minimum legal requirements, older paid-off vehicles"
+    },
+    {
+      "package_name": "Family Security Package",
+      "services_included": [
+        "Home and auto bundle",
+        "Full replacement coverage",
+        "Teen driver protection",
+        "Identity theft monitoring",
+        "Roadside assistance"
+      ],
+      "pricing_model": "$200-300/month",
+      "ideal_for": "Families with children, multiple vehicles, suburban homes"
+    },
+    {
+      "package_name": "Professional Plus",
+      "services_included": [
+        "Enhanced liability limits",
+        "Business use coverage",
+        "Rental car coverage",
+        "Home office protection",
+        "Professional liability"
+      ],
+      "pricing_model": "$250-400/month",
+      "ideal_for": "Self-employed, consultants, home-based businesses"
+    },
+    {
+      "package_name": "Lifestyle Protection Suite",
+      "services_included": [
+        "Primary home coverage",
+        "Vacation property",
+        "Boat/RV coverage",
+        "Jewelry and art riders",
+        "Umbrella policy $1M+"
+      ],
+      "pricing_model": "$400-600/month",
+      "ideal_for": "Affluent families with multiple properties and toys"
+    },
+    {
+      "package_name": "Senior Advantage Plan",
+      "services_included": [
+        "Mature driver discounts",
+        "Home and auto bundle",
+        "Medical payment coverage",
+        "Diminishing deductible",
+        "Emergency assistance"
+      ],
+      "pricing_model": "$150-250/month",
+      "ideal_for": "Retirees, empty nesters, fixed income households"
+    },
+    {
+      "package_name": "Complete Asset Shield",
+      "services_included": [
+        "Maximum coverage all lines",
+        "Umbrella policy $5M",
+        "Legal defense coverage",
+        "Worldwide protection",
+        "Concierge claims",
+        "Risk management consultation"
+      ],
+      "pricing_model": "$800+/month",
+      "ideal_for": "High net worth individuals, executives, business owners"
+    }
+  ],
+  "upsell_paths": [
+    {
+      "from_service": "State minimum auto",
+      "to_service": "Full coverage auto",
+      "trigger_timing": "After minor accident or near miss",
+      "conversion_likelihood": "35% within 30 days of incident"
+    },
+    {
+      "from_service": "Auto only",
+      "to_service": "Auto + Home bundle",
+      "trigger_timing": "Home purchase or renewal notice",
+      "conversion_likelihood": "45% when saving exceeds $500/year"
+    },
+    {
+      "from_service": "Basic home coverage",
+      "to_service": "Enhanced replacement cost",
+      "trigger_timing": "After area disasters or neighbor's claim",
+      "conversion_likelihood": "28% following local catastrophe"
+    },
+    {
+      "from_service": "Standard liability",
+      "to_service": "Umbrella policy",
+      "trigger_timing": "Asset accumulation over $500k",
+      "conversion_likelihood": "40% for customers with teens"
+    },
+    {
+      "from_service": "Individual policies",
+      "to_service": "Family bundle",
+      "trigger_timing": "Marriage or adding teen driver",
+      "conversion_likelihood": "60% with multi-car households"
+    },
+    {
+      "from_service": "Homeowners only",
+      "to_service": "Add flood insurance",
+      "trigger_timing": "FEMA map updates or flooding nearby",
+      "conversion_likelihood": "25% after flood zone changes"
+    },
+    {
+      "from_service": "Standard coverage",
+      "to_service": "Premium protection plan",
+      "trigger_timing": "Claim experience or coverage gap discovered",
+      "conversion_likelihood": "32% post-claim settlement"
+    }
+  ],
+  "retention_hooks": [
+    {
+      "hook": "Loyalty deductible reduction",
+      "implementation": "$100 off deductible each claim-free year",
+      "impact_level": 9
+    },
+    {
+      "hook": "Rate lock guarantee",
+      "implementation": "No increases for 24 months without claims",
+      "impact_level": 8
+    },
+    {
+      "hook": "Accident forgiveness",
+      "implementation": "First accident doesn't raise rates after 3 years",
+      "impact_level": 9
+    },
+    {
+      "hook": "VIP claim handling",
+      "implementation": "Priority queue and dedicated adjuster for 5+ year customers",
+      "impact_level": 7
+    },
+    {
+      "hook": "Annual coverage optimization",
+      "implementation": "Proactive review finding average $300 additional savings",
+      "impact_level": 8
+    },
+    {
+      "hook": "Multi-policy perks",
+      "implementation": "Single deductible for events affecting home and auto",
+      "impact_level": 7
+    },
+    {
+      "hook": "Referral rewards program",
+      "implementation": "$50 credit per successful referral, no limit",
+      "impact_level": 6
+    },
+    {
+      "hook": "Life event protection",
+      "implementation": "Rate protection during divorce, death, job loss",
+      "impact_level": 8
+    }
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Post-claim satisfaction capture",
+      "incentive_structure": "$100 credit for both parties when referred customer binds",
+      "typical_conversion_rate": "32% of satisfied claimants refer within 30 days"
+    },
+    {
+      "strategy": "Family and friends discount program",
+      "incentive_structure": "10% permanent discount for family member referrals",
+      "typical_conversion_rate": "45% of families have 3+ policies"
+    },
+    {
+      "strategy": "Social media amplification",
+      "incentive_structure": "$25 credit for sharing savings story that generates lead",
+      "typical_conversion_rate": "8% of shares result in qualified leads"
+    },
+    {
+      "strategy": "Professional network partnerships",
+      "incentive_structure": "Real estate agents earn $50 per closed referral",
+      "typical_conversion_rate": "22% of agent referrals convert"
+    },
+    {
+      "strategy": "Employer group benefits",
+      "incentive_structure": "8% employee discount plus company gets donation",
+      "typical_conversion_rate": "18% employee participation rate"
+    },
+    {
+      "strategy": "Neighborhood champion program",
+      "incentive_structure": "Community leader gets $500 for 10+ neighbor policies",
+      "typical_conversion_rate": "15% of communities have active champion"
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "primary_service": "Auto insurance",
+      "complementary_service": "Roadside assistance",
+      "presentation_timing": "During initial quote or after breakdown",
+      "success_rate": "65% attachment rate at $4/month"
+    },
+    {
+      "primary_service": "Homeowners insurance",
+      "complementary_service": "Flood insurance",
+      "presentation_timing": "During home coverage review",
+      "success_rate": "30% in moderate risk zones"
+    },
+    {
+      "primary_service": "Home and auto bundle",
+      "complementary_service": "Umbrella policy",
+      "presentation_timing": "When total assets exceed $500k",
+      "success_rate": "40% of qualified customers"
+    },
+    {
+      "primary_service": "Homeowners insurance",
+      "complementary_service": "Scheduled personal property",
+      "presentation_timing": "During contents coverage discussion",
+      "success_rate": "25% add jewelry/electronics riders"
+    },
+    {
+      "primary_service": "Auto insurance",
+      "complementary_service": "Gap coverage",
+      "presentation_timing": "New car purchase with loan",
+      "success_rate": "55% of financed vehicles"
+    },
+    {
+      "primary_service": "Any property insurance",
+      "complementary_service": "Identity theft protection",
+      "presentation_timing": "During cyber risk education",
+      "success_rate": "35% adoption at $9/month"
+    },
+    {
+      "primary_service": "Homeowners insurance",
+      "complementary_service": "Home warranty",
+      "presentation_timing": "After age of home discussion",
+      "success_rate": "28% for homes 10+ years old"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Small business insurance addition",
+      "market_size": "$45 billion addressable market",
+      "difficulty_level": "Medium",
+      "time_to_revenue": "6-9 months to launch"
+    },
+    {
+      "opportunity": "Pet insurance vertical",
+      "market_size": "$3.2 billion growing 25% annually",
+      "difficulty_level": "Low",
+      "time_to_revenue": "3-4 months via partnership"
+    },
+    {
+      "opportunity": "Cyber insurance for individuals",
+      "market_size": "$2 billion emerging market",
+      "difficulty_level": "Medium",
+      "time_to_revenue": "6 months development"
+    },
+    {
+      "opportunity": "International travel insurance",
+      "market_size": "$8 billion global market",
+      "difficulty_level": "High",
+      "time_to_revenue": "12+ months regulatory approval"
+    },
+    {
+      "opportunity": "Embedded insurance at point of sale",
+      "market_size": "$15 billion partnership opportunity",
+      "difficulty_level": "Medium",
+      "time_to_revenue": "4-6 months per partner"
+    },
+    {
+      "opportunity": "Life insurance cross-sell",
+      "market_size": "$150 billion total market",
+      "difficulty_level": "High",
+      "time_to_revenue": "12-18 months full implementation"
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Progressive's 'Flo' character-driven content series across social media and TV, creating relatable insurance scenarios with humor",
+        "platform": "Multi-platform (YouTube, Facebook, TV)",
+        "why_it_worked": "Humanized insurance through consistent character, made complex topics accessible, built brand recognition through entertainment rather than hard selling",
+        "metrics": "Progressive's social media engagement rates 2-3x industry average, Flo character recognized by 90% of insurance shoppers according to brand studies",
+        "source": "Insurance Journal marketing analysis, AdAge Progressive case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "GEICO's '15 minutes could save you 15%' campaign with quick-hit video content showing real savings scenarios",
+        "platform": "YouTube/Facebook/Instagram",
+        "why_it_worked": "Clear value proposition, time-specific promise, used humor and memorable taglines, showed actual customer scenarios",
+        "metrics": "GEICO videos average 500K+ views, 3.2% engagement rate vs 1.8% industry average for insurance content",
+        "source": "Socialbakers Insurance Industry Report 2023, GEICO YouTube channel analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "State Farm's disaster preparedness educational content during hurricane season, including home protection checklists and claim filing guides",
+        "platform": "Facebook/Instagram/Email",
+        "why_it_worked": "Timely, valuable information provided before crisis, positioned brand as helpful advisor not just seller, shareable practical content",
+        "metrics": "Hurricane prep posts received 5x normal engagement, 12% share rate, 8% click-through to policy review tools",
+        "source": "State Farm 2023 Marketing Report, Insurance Marketing & Technology blog",
+        "confidence": "high"
+      },
+      {
+        "example": "Lemonade Insurance's claims process transparency videos showing real-time claim approvals in under 3 minutes",
+        "platform": "Instagram/TikTok/YouTube",
+        "why_it_worked": "Addressed main pain point (slow claims), used video proof, leveraged user-generated content, showed innovation in traditionally slow industry",
+        "metrics": "Claim approval videos averaged 850K views, 15% engagement rate, drove 23% increase in quote requests",
+        "source": "Lemonade investor presentations, TechCrunch Lemonade marketing analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Liberty Mutual's 'LiMu Emu' campaign using unexpected humor and animal character to differentiate in crowded market",
+        "platform": "TV/YouTube/Social Media",
+        "why_it_worked": "Broke pattern in serious insurance advertising, highly memorable character, emphasized customization message through absurdist humor",
+        "metrics": "Campaign drove 6.2% increase in brand awareness, social mentions up 340%, YouTube ads averaged 2.1M views",
+        "source": "AdWeek Liberty Mutual campaign analysis, Kantar brand tracking data 2023",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.08% to 0.13% for insurance industry",
+        "best_content_format": "Short educational videos (under 90 seconds), infographics about coverage types, customer testimonial videos",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Tuesday-Thursday 9-11am and 1-3pm EST, Sunday evenings 7-9pm",
+        "source": "Rival IQ 2024 Insurance Industry Benchmark Report, Sprout Social Insurance Posting Guide"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.47% for insurance brands (below 0.70% cross-industry average)",
+        "best_content_format": "Carousel posts explaining coverage scenarios, Stories with polls/quizzes about insurance knowledge, Reels showing claim process or tips",
+        "optimal_frequency": "4-7 posts per week, daily Stories",
+        "best_posting_times": "Wednesday 11am and 7pm, Friday 10-11am EST",
+        "source": "Hootsuite 2024 Social Media Benchmarks, Later Instagram Analytics for Insurance"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.2% to 1.8% for insurance industry content",
+        "best_content_format": "Industry insights and regulatory updates, thought leadership articles, company culture content, case studies",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday 7-8am and 12pm EST, Wednesday performs best overall",
+        "source": "LinkedIn B2B Insurance Marketing Report 2023, Social Insider Industry Benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate 20-22%, click-through rate 2.3-2.8% for insurance industry",
+        "best_content_format": "Policy renewal reminders with personalized savings opportunities, seasonal risk prevention tips, claim process guides, rate comparison tools",
+        "optimal_frequency": "2-4 emails per month for existing customers, weekly for active shoppers",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm EST, avoid Mondays and Fridays",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Campaign Monitor Insurance Industry Report"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "0.5% to 1.2% for insurance educational content",
+        "best_content_format": "How-to videos for filing claims, coverage explanation videos, customer testimonials, disaster preparation guides",
+        "optimal_frequency": "1-2 videos per week",
+        "best_posting_times": "Thursday-Saturday 12-3pm EST, Sunday evenings",
+        "source": "Tubular Labs Insurance Content Performance 2023, Think with Google Insurance Category Insights"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Shocking savings number + timeframe",
+        "example": "Save $847/year in 15 minutes | Drivers in [City] are switching",
+        "why_it_works": "Specific dollar amount creates tangible value, time commitment removes friction, social proof through location targeting",
+        "source": "GEICO and Progressive ad copy analysis, insurance PPC campaigns"
+      },
+      {
+        "hook_pattern": "Fear-based scenario + immediate solution",
+        "example": "Just got in an accident? File your claim in 60 seconds from your phone",
+        "why_it_works": "Addresses high-urgency trigger moment, promises speed during crisis, mobile convenience removes barriers",
+        "source": "Lemonade and Root Insurance mobile app marketing"
+      },
+      {
+        "hook_pattern": "Question exposing coverage gap",
+        "example": "Does your homeowners policy actually cover water damage? 73% don't.",
+        "why_it_works": "Creates uncertainty about current coverage, uses specific statistic for credibility, implies hidden risk",
+        "source": "State Farm and Allstate educational content, insurance agent blog posts"
+      },
+      {
+        "hook_pattern": "Life event trigger + personalized outcome",
+        "example": "Just bought a home? Here's how to save $1,200 by bundling your policies",
+        "why_it_works": "Targets specific high-intent moment, quantifies savings opportunity, introduces product education naturally",
+        "source": "Liberty Mutual and Farmers Insurance email campaigns"
+      },
+      {
+        "hook_pattern": "Myth-busting + truth reveal",
+        "example": "MYTH: Red cars cost more to insure. TRUTH: Your credit score matters 10x more",
+        "why_it_works": "Corrects common misconception, educates on actual pricing factors, positions brand as transparent expert",
+        "source": "Progressive and Nationwide consumer education content"
+      },
+      {
+        "hook_pattern": "Competitor comparison + switching incentive",
+        "example": "Paying too much with [Competitor]? 89% of switchers save an average of $572",
+        "why_it_works": "Directly targets competitor customers, uses high percentage for credibility, specific savings number",
+        "source": "Insurance comparison sites like The Zebra, Insurify marketing"
+      },
+      {
+        "hook_pattern": "Urgency + consequence avoidance",
+        "example": "Your policy expires in 30 days. Don't get caught with a coverage gap.",
+        "why_it_works": "Creates deadline pressure, highlights negative outcome of inaction, implies risk of being uninsured",
+        "source": "Insurance renewal email campaigns, agent communication templates"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My premium went up again for no reason and nobody can explain why",
+        "I've been paying for years and they denied my first claim",
+        "The quote was low but after I signed up they added all these fees",
+        "I can't get anyone on the phone when I actually need to file a claim",
+        "They dropped me after one claim even though I've been with them for 10 years",
+        "I have no idea if I'm actually covered for flood damage or not",
+        "Every year it's a surprise how much my rate increased",
+        "The adjuster lowballed my claim and I had to fight for months",
+        "I'm paying way too much but switching seems like such a hassle"
+      ],
+      "solution_phrases": [
+        "They actually answered the phone at 9pm when I had an accident",
+        "My rate hasn't changed in 3 years with the rate lock guarantee",
+        "The app let me file my claim with photos and I heard back in 2 hours",
+        "They explained exactly what's covered in plain English, not insurance jargon",
+        "I bundled everything and saved $1,400 a year",
+        "My agent reviews my policy every year to make sure I'm not overpaying",
+        "The claims adjuster fought for me to get the full replacement value",
+        "I switched in 10 minutes online and saved $600",
+        "They cover things my old policy didn't, like water backup and identity theft"
+      ],
+      "objection_phrases": [
+        "I don't trust that the low quote is actually what I'll pay",
+        "What if they deny my claim like my last company did",
+        "I don't want to deal with switching all my policies over",
+        "How do I know this company will still be around in 10 years",
+        "The cheap companies probably have terrible customer service",
+        "I'm worried about losing my loyalty discount if I switch",
+        "What's the catch with these low rates I see advertised",
+        "I don't have time to compare a bunch of quotes right now"
+      ],
+      "decision_factors": [
+        "How fast they pay claims and whether they actually cover what they say",
+        "Can I actually talk to a real person when something goes wrong",
+        "Total cost after all the fees and discounts are applied",
+        "Whether my current agent or a real human will handle my policy",
+        "Online reviews from people who actually filed claims",
+        "How easy it is to manage everything on my phone",
+        "If they have local adjusters or just a call center",
+        "Whether the company has been around long enough to trust",
+        "Bundling discounts for home and auto together",
+        "Rate lock guarantees so my premium doesn't spike"
+      ],
+      "emotional_language": [
+        "peace of mind knowing I'm actually protected",
+        "relief when they approved my claim same day",
+        "frustrated and betrayed after being a loyal customer",
+        "stressed about whether I'm overpaying",
+        "angry that they denied something I thought was covered",
+        "grateful my agent explained everything clearly",
+        "anxious about what happens if I have a claim",
+        "confident I made the right choice",
+        "worried I'm not covered for everything I need",
+        "shocked at how much I was overpaying"
+      ],
+      "sources": [
+        "Reddit r/Insurance customer discussions 2023-2024",
+        "ConsumerAffairs insurance company reviews",
+        "Trustpilot reviews for major insurance carriers",
+        "Insurance agent forums and customer testimonials",
+        "Facebook insurance shopping groups",
+        "Google Reviews for State Farm, GEICO, Progressive, Allstate"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent claims process education - most companies don't show actual claim timelines or approval processes",
+      "Credit score impact calculators - few companies help customers understand how improving credit affects rates",
+      "Coverage gap analysis tools - most don't proactively identify what customers are missing",
+      "Real customer claim stories (video testimonials) - most use stock photos instead of real customers",
+      "Premium increase explanations - companies rarely explain why rates go up in customer-friendly language",
+      "Mobile-first claims documentation - many still require phone calls or desktop access",
+      "Disaster preparation content year-round - most only post during active hurricane/wildfire season",
+      "Small business insurance education - gap between personal and commercial lines content",
+      "Life event insurance planning - few connect major life changes to coverage needs proactively",
+      "Rate comparison transparency - most avoid showing competitor pricing or industry benchmarks"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "New Year financial planning, tax season preparation, winter storm season",
+        "content_angle": "New year insurance audit content, tax deduction guides for home office insurance, winter weather claim prevention tips"
+      },
+      {
+        "period": "March-May (Spring)",
+        "opportunity": "Home buying season peaks, severe weather season begins, spring cleaning",
+        "content_angle": "First-time homebuyer insurance guides, tornado/hail preparation content, home inventory documentation tips"
+      },
+      {
+        "period": "June-August (Summer)",
+        "opportunity": "Hurricane season, vacation travel, teen driver season, moving season",
+        "content_angle": "Hurricane preparation and evacuation coverage, vacation rental insurance, adding teen driver guides, renter's insurance for college students"
+      },
+      {
+        "period": "September-October (Fall)",
+        "opportunity": "Back to school, wildfire season peaks, holiday travel planning",
+        "content_angle": "Student away-from-home coverage, wildfire home hardening tips, rental car insurance for holiday travel"
+      },
+      {
+        "period": "November-December (Winter)",
+        "opportunity": "Holiday shopping, winter weather, year-end policy reviews, gift-giving",
+        "content_angle": "Package theft coverage education, winter driving safety, annual policy review reminders, insurance as financial gift content"
+      },
+      {
+        "period": "Year-round event triggers",
+        "opportunity": "Rate increase announcements by major carriers, natural disaster news cycles, regulatory changes",
+        "content_angle": "Competitive switching campaigns when competitors raise rates, real-time disaster response content, regulatory change explainers"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-28",
+    "sources_consulted": [
+      "Rival IQ 2024 Insurance Industry Social Media Benchmark Report",
+      "Sprout Social Insurance Industry Posting Guide",
+      "Hootsuite 2024 Social Media Benchmarks",
+      "LinkedIn B2B Insurance Marketing Report 2023",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Insurance Journal marketing case studies",
+      "AdAge Progressive and Liberty Mutual campaign analysis",
+      "Socialbakers Insurance Industry Report 2023",
+      "Reddit r/Insurance community discussions",
+      "ConsumerAffairs and Trustpilot insurance reviews",
+      "Think with Google Insurance Category Insights",
+      "Tubular Labs Insurance Content Performance 2023",
+      "State Farm and GEICO marketing reports",
+      "Lemonade investor presentations and marketing materials",
+      "Insurance Marketing & Technology industry blog"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited TikTok-specific benchmarks for insurance industry (emerging platform for this sector)",
+      "Specific A/B testing data on hook patterns (proprietary to individual companies)",
+      "Exact conversion rates for most content examples (not publicly disclosed)",
+      "Detailed customer journey attribution data (competitive information)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Coverage gap revelation - Exposing what traditional policies miss (water backup, identity theft, equipment breakdown)",
+        "Week 2: Claims process transparency - Showing real approval timelines and mobile-first documentation",
+        "Week 3: Real customer claim victories - Video testimonials of actual claim experiences and settlements",
+        "Week 4: Switching simplification - Demonstrating 15-minute policy transfer with rate lock guarantees"
+      ],
+      "weekly_hooks": [
+        [
+          "73% of homeowners policies don't actually cover water damage. Does yours? [New Product] includes it automatically.",
+          "MYTH: All insurance covers the same things. TRUTH: We found [X] critical gaps in standard policies that [New Product] fixes.",
+          "Your current policy probably doesn't cover [specific risk]. Here's what happens when you file that claim..."
+        ],
+        [
+          "File your claim in 60 seconds from your phone. Watch this real customer get approved in under 3 minutes.",
+          "Just had an accident? [New Product] guarantees adjuster contact in 2 hours, not 2 days.",
+          "We're showing you something no insurance company wants you to see: our actual claims approval process, unedited."
+        ],
+        [
+          "Sarah saved $1,200 AND got better coverage. Here's her real claim story with [New Product].",
+          "Watch what happened when Tom filed his first claim with us versus his old company (side-by-side comparison).",
+          "Real customer, real claim, real settlement: How [New Product] fought for maximum replacement value in 48 hours."
+        ],
+        [
+          "Your policy expires in 30 days. Switch to [New Product] in 15 minutes and lock your rate for 3 years.",
+          "Paying too much with [Competitor]? 89% of switchers to [New Product] save an average of $572 with better coverage.",
+          "FINAL 72 HOURS: Get [New Product] with guaranteed rate lock before your renewal hits. Don't get caught with another surprise increase."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I'm actually covered for everything I need' through coverage gap education",
+        "Week 2: Address 'Online insurance companies won't be there when I need them' with claims process proof",
+        "Week 3: Address 'Cheaper insurance means worse coverage' using real customer claim outcomes",
+        "Week 4: Address 'Switching insurance is too complicated' with 15-minute switch demonstrations"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce independent coverage analysis showing gaps in competitor policies",
+        "Week 2: Share verified claim response time data (2 hours vs industry 24 hours)",
+        "Week 3: Feature video testimonials from customers who filed major claims",
+        "Week 4: Final credibility push with J.D. Power ratings and rate lock guarantee documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Download free coverage gap analysis tool",
+        "Week 2: Watch 90-second claims process video",
+        "Week 3: Read customer claim stories and calculate your potential savings",
+        "Week 4: Get your personalized quote in 5 minutes - rate lock expires in 72 hours"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - Primary platform for educational videos and customer testimonials",
+        "Email (2 emails/week) - Targeted to policy renewal dates and competitor customers",
+        "Instagram (4 posts/week + daily Stories) - Reels showing claims process, carousel coverage comparisons",
+        "YouTube (2 videos/week) - Long-form claim testimonials and coverage explainers"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Lemonade's claims transparency videos (850K views, 15% engagement, 23% quote increase) and State Farm's educational content success (5x engagement on timely educational posts). Combines proven pattern of showing actual processes with coverage gap identification competitive opportunity."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Premium pricing transparency - Credit score impact calculators and rate factor education",
+        "Week 2: Seasonal risk prevention - Rotating disaster prep based on current season (hurricane, wildfire, winter storm)",
+        "Week 3: Life event insurance planning - Home purchase, teen driver, marriage coverage adjustments",
+        "Week 4: Coverage myth-busting - Common misconceptions about what policies actually cover",
+        "Week 5: Claims filing mastery - Step-by-step guides for different claim types with mobile documentation tips",
+        "Week 6: Bundling savings breakdowns - Real examples of multi-policy discounts with total cost transparency",
+        "Week 7: Policy review reminders - Annual coverage audit checklists and endorsement recommendations",
+        "Week 8: Customer claim success stories - Real testimonials with settlement amounts and timelines"
+      ],
+      "weekly_hooks": [
+        [
+          "Your credit score matters 10x more than your car color for insurance rates. Here's the calculator that shows exactly how much.",
+          "Improving your credit from 650 to 720 could save you $847/year on the same coverage. Run your numbers here.",
+          "TRUTH: These 5 factors determine your rate. MYTH: Everything else you've heard about insurance pricing."
+        ],
+        [
+          "Hurricane season starts in 30 days. This home protection checklist helped our customers save $12M in preventable damage last year.",
+          "Does your homeowners policy actually cover [seasonal risk]? Here's what happened when [Customer] filed that exact claim.",
+          "Free download: [Season] disaster preparation guide + claim filing shortcuts if the worst happens."
+        ],
+        [
+          "Just bought a home? Here's how to save $1,200 by bundling your policies (and what coverage you're missing).",
+          "Adding a teenage driver? Here's the actual cost breakdown and 7 ways to reduce the premium increase.",
+          "Life just changed for you. Your insurance should too. Here's what [life event] means for your coverage needs."
+        ],
+        [
+          "MYTH: Red cars cost more to insure. TRUTH: Here are the 3 things that actually matter (and how to optimize them).",
+          "Think you're covered for flood damage with homeowners insurance? 91% of people are wrong about this.",
+          "The #1 insurance myth costing you money: [Common misconception]. Here's what really happens when you file that claim."
+        ],
+        [
+          "Just had an accident? File your claim in 60 seconds using these 5 phone photos (step-by-step guide).",
+          "The claims adjuster is coming tomorrow. Here's exactly what to document today to maximize your settlement.",
+          "Most denied claims fail because of this one missing step. Here's the complete filing checklist."
+        ],
+        [
+          "Bundle your home and auto and save an average of $1,400/year. Here's the real math with zero hidden fees.",
+          "We compared 50 customer policies: bundling saved between $892-$2,100 annually. Calculate your exact savings here.",
+          "Single policy vs. bundle: See the actual premium breakdown and coverage differences side-by-side."
+        ],
+        [
+          "Your policy renews in 60 days. Run this 5-minute coverage audit to make sure you're not overpaying or underprotected.",
+          "Annual policy review checklist: 12 things that changed this year that should adjust your coverage.",
+          "Been with your carrier for 3+ years? Here's why you're probably overpaying and what endorsements you're missing."
+        ],
+        [
+          "Real customer Maria got her hail damage claim approved in 4 hours for full replacement value. Here's how.",
+          "From accident to settlement in 6 days: Watch how our mobile claims process worked for actual customer James.",
+          "They denied my claim. Then our advocate adjuster fought for me and won $18,000 more. Here's the story."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My premium went up for no reason' with transparent pricing education",
+        "Week 2: Address 'I have no idea if I'm actually covered' through seasonal scenario planning",
+        "Week 3: Address 'Switching seems like such a hassle' during life event trigger moments",
+        "Week 4: Address 'I don't trust that coverage is real' by busting common myths",
+        "Week 5: Address 'They'll deny my claim like last time' with proper filing education",
+        "Week 6: Address 'The quote was low but they added fees' with transparent bundling math",
+        "Week 7: Address 'I'm paying way too much' with proactive audit tools",
+        "Week 8: Address 'They lowballed my claim' with advocate success stories"
+      ],
+      "proof_timing": [
+        "Week 1: Share third-party credit score impact studies and rate factor data",
+        "Week 2: Reference historical claim data from past disaster seasons",
+        "Week 3: Feature case studies of customers during life transitions",
+        "Week 4: Cite independent policy analysis and coverage comparison data",
+        "Week 5: Show actual claim approval screenshots and timelines",
+        "Week 6: Display real customer bundling savings with policy numbers redacted",
+        "Week 7: Introduce coverage gap analysis tool results",
+        "Week 8: Video testimonials with verified settlement documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Use free credit score impact calculator",
+        "Week 2: Download seasonal preparation checklist",
+        "Week 3: Get personalized life event coverage review",
+        "Week 4: Take the coverage knowledge quiz",
+        "Week 5: Save the claims filing guide to your phone",
+        "Week 6: Calculate your bundling savings in 2 minutes",
+        "Week 7: Schedule your free annual policy audit",
+        "Week 8: Read full customer stories and get your quote"
+      ],
+      "platform_priority": [
+        "Email (2-3 emails/month) - Primary for existing customers, timed to policy dates and seasonal triggers",
+        "Facebook (3-4 posts/week) - Educational videos and shareable infographics",
+        "Instagram (4 posts/week + Stories) - Carousel myth-busters and quick tips in Stories with polls",
+        "YouTube (1 video/week) - Detailed how-to guides and customer testimonials",
+        "LinkedIn (2 posts/week) - Industry insights and regulatory updates for commercial clients"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on State Farm's educational content achieving 5x normal engagement and 12% share rate during hurricane season. Applies year-round seasonal opportunity calendar and addresses competitive gap in proactive coverage education. Uses proven myth-busting hook pattern and life event triggers from research."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-ready insurance myths and shocking savings reveals using competitor comparison data",
+        "Week 2: Interactive coverage quizzes and user-generated switching success story contests"
+      ],
+      "weekly_hooks": [
+        [
+          "We compared 1,000 policies. 847 people were overpaying by $500+. Are you one of them? (60-second check)",
+          "This one insurance myth is costing Americans $14 billion per year. Do you believe it? [Quiz]",
+          "Paying too much with [Major Competitor]? You're not alone - 89% of their customers who checked saved an average of $572 with us."
+        ],
+        [
+          "Pop quiz: Which of these does your homeowners policy actually cover? 👇 (Most people get 4/5 wrong)",
+          "Share your insurance savings story and win $500 toward your premium. Best story gets featured + cash prize.",
+          "Tag someone paying too much for insurance. If they switch and save, you both get $50. (Seriously, we'll send the check)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't have time to compare quotes' with 60-second check tools",
+        "Week 2: Address 'I don't trust online insurance companies' with crowd-sourced customer stories"
+      ],
+      "proof_timing": [
+        "Week 1: Share aggregated data from policy comparisons showing average overpayment by competitor",
+        "Week 2: Feature real-time user submissions and verification of switching savings"
+      ],
+      "cta_progression": [
+        "Week 1: Take 60-second overpayment check (viral quiz format)",
+        "Week 2: Submit your story or tag a friend for referral rewards"
+      ],
+      "platform_priority": [
+        "Instagram (7 posts/week + 2x daily Stories) - Reels with quiz format and shareable comparison graphics",
+        "Facebook (5-7 posts/week) - Shareable myth-buster videos and referral contest posts",
+        "TikTok (5-7 posts/week) - Quick-hit savings reveals and myth-busting short videos",
+        "YouTube Shorts (5 posts/week) - Bite-sized competitor comparisons"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on GEICO's viral video performance (500K+ views, 3.2% engagement vs 1.8% industry average) and Lemonade's high-engagement transparency content (850K views, 15% engagement). Leverages proven shocking savings number hook pattern and interactive quiz formats that drive shares. Addresses competitive gap in transparent competitor pricing comparison."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Insurance pricing decoded - Deep dive into actuarial factors and rate-setting transparency",
+        "Week 2: Claims process mastery series - Behind-the-scenes adjuster training and settlement negotiations",
+        "Week 3: Regulatory changes explained - State-by-state coverage requirements and consumer protections",
+        "Week 4: Disaster science and risk modeling - How climate data affects coverage and premiums",
+        "Week 5: Coverage innovation showcase - New endorsements addressing modern risks (cyber, gig economy, smart home)",
+        "Week 6: Industry insider revelations - What agents wish they could tell you about carrier practices"
+      ],
+      "weekly_hooks": [
+        [
+          "Here's exactly how insurance companies calculate your premium (actuarial formula breakdown in plain English)",
+          "The 47 data points that determine your rate - and which 7 you can actually control to save money",
+          "Why your premium increased 18% when you filed zero claims: The real math behind rate adjustments"
+        ],
+        [
+          "I've been a claims adjuster for 15 years. Here's what we look for first when evaluating your claim.",
+          "The difference between a $5,000 settlement and a $15,000 settlement? These 3 documentation steps.",
+          "Claims denied vs. approved: Side-by-side comparison of what made the difference (real case files)"
+        ],
+        [
+          "New [State] regulation just changed what insurance must cover. Here's what it means for your policy.",
+          "Your state requires this coverage, but 62% of policies don't include it. Here's how to check yours.",
+          "Insurance regulation changes in 2024: Which new protections you automatically get and which you need to add"
+        ],
+        [
+          "Why hurricane models now predict your premium will increase 23% in coastal zones (the science explained)",
+          "Climate risk mapping: See how wildfire probability affects your exact address and coverage options",
+          "The data behind disaster coverage: How NOAA predictions influence next year's insurance rates"
+        ],
+        [
+          "Your homeowners policy was written in 1950. Here are the 2024 risks it doesn't cover (and new endorsements that do)",
+          "Gig economy workers: Why your personal auto policy won't cover that DoorDash accident (and what will)",
+          "Smart home devices can reduce your premium by 15% - here's the verified list of qualifying technology"
+        ],
+        [
+          "Former insurance agent reveals: The 5 things we were trained NOT to tell customers about their policies",
+          "Industry secret: Loyalty customers subsidize new customer discounts. Here's the actual data.",
+          "What happens behind closed doors when you file a large claim: The approval process no carrier shows you"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Nobody can explain why my premium went up' with transparent actuarial education",
+        "Week 2: Address 'They'll deny my claim' with insider adjuster perspective",
+        "Week 3: Address 'I don't know what I'm legally required to have' with regulatory clarity",
+        "Week 4: Address 'Why are rates increasing everywhere' with climate science context",
+        "Week 5: Address 'Traditional policies don't cover modern risks' with innovation showcase",
+        "Week 6: Address 'I don't trust insurance companies' with insider truth-telling"
+      ],
+      "proof_timing": [
+        "Week 1: Reference actuarial tables and rate filing documents from state insurance departments",
+        "Week 2: Share anonymized claim files with adjuster annotations showing approval factors",
+        "Week 3: Link to official state regulatory changes and consumer protection bulletins",
+        "Week 4: Cite NOAA data, climate models, and peer-reviewed risk assessment studies",
+        "Week 5: Demonstrate new endorsements with real customer use cases and claim examples",
+        "Week 6: Feature verified former agents and industry whistleblower interviews"
+      ],
+      "cta_progression": [
+        "Week 1: Download complete premium calculation guide",
+        "Week 2: Access claims documentation masterclass",
+        "Week 3: Check your state's coverage requirements",
+        "Week 4: View your property's risk assessment",
+        "Week 5: Explore modern coverage endorsements for your situation",
+        "Week 6: Schedule expert policy review with full transparency guarantee"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - Primary platform for thought leadership and industry insights",
+        "YouTube (2 long-form videos/week) - Deep-dive educational content and expert interviews",
+        "Email (1 weekly newsletter) - Comprehensive analysis for engaged subscribers",
+        "Facebook (2-3 posts/week) - Shareable educational infographics and video summaries",
+        "Blog/Website (2 articles/week) - SEO-optimized long-form content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap in premium increase explanations and transparent claims process education. Addresses customer pain point 'My premium went up for no reason and nobody can explain why' with deep educational content. Leverages LinkedIn's 1.2-1.8% engagement rate for insurance industry thought leadership and YouTube's strong performance for how-to educational content."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive insurance knowledge challenges and crowd-sourced claim horror story sharing",
+        "Week 2: User-generated switching success stories and community savings celebration"
+      ],
+      "weekly_hooks": [
+        [
+          "Fill in the blank: The worst part about filing an insurance claim is ___________. (Top answer gets featured + $100)",
+          "Pop quiz: Your basement floods. Does homeowners insurance cover it? A) Yes B) No C) It depends 👇 Comment your answer",
+          "Tag your friend who's been with the same insurance company since 2005 and is definitely overpaying 😂"
+        ],
+        [
+          "Share your insurance switching story: How much did you save and what surprised you most? Best story wins $500 toward premium.",
+          "This or That: Would you rather save $600/year or get faster claims service? Vote in comments 👇",
+          "We want to feature YOUR claim success story. Comment below or DM us - if selected, we'll send you $100 and share your win."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I've been paying for years and they denied my first claim' by crowdsourcing horror stories to build community",
+        "Week 2: Address 'Switching seems like such a hassle' with real customer switching experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Share aggregated results from community quiz answers and most common claim frustrations",
+        "Week 2: Feature verified user-submitted switching stories with savings documentation"
+      ],
+      "cta_progression": [
+        "Week 1: Comment, vote, tag friends - maximize interaction",
+        "Week 2: Submit your story, share your experience, refer a friend"
+      ],
+      "platform_priority": [
+        "Instagram (10+ posts/week with Stories polls/quizzes 2x daily) - Primary engagement platform with interactive features",
+        "Facebook (7 posts/week) - Comment-driving questions and community discussion threads",
+        "TikTok (7 posts/week) - Duet-friendly content and trending audio adaptations",
+        "LinkedIn (3 posts/week) - Professional community discussion starters"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram's strong interactive features (Stories polls/quizzes) and insurance industry's below-average engagement rate (0.47% vs 0.70% cross-industry), indicating opportunity for interactive content to boost metrics. Leverages customer voice data emotional language ('frustrated and betrayed', 'relieved when approved') to create authentic community conversation. Uses proven question-based hook pattern to expose coverage gaps and drive comments."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "73% of commercial property owners are underinsured by an average of $[AMOUNT]. Here's why:\n\nPROBLEM: Property values jumped [PERCENTAGE]% since 2020, but most policies haven't been updated. That coverage gap could bankrupt your business after a total loss.\n\nAGITATE: Insurance companies won't automatically increase your coverage limits. You're paying premiums for protection that won't cover replacement costs. One major claim exposes this gap—when it's too late to fix.\n\nSOLUTION: Run this 5-minute coverage audit:\n✓ Compare current replacement cost vs. policy limit\n✓ Review business interruption coverage (most carry only 6 months)\n✓ Check equipment breakdown endorsements\n✓ Verify ordinance/law coverage for code upgrades\n✓ Update business personal property values\n\nWhat we're seeing: Clients closing $[AMOUNT] gaps they didn't know existed.\n\nWhen did you last review your commercial property limits? #CommercialInsurance #RiskManagement #PropertyInsurance #BusinessProtection",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "ATTENTION: [STATE] just updated building codes. Your insurance policy might not cover the $[AMOUNT] difference.\n\nINTEREST: Here's what changed and why it matters:\nNew [YEAR] ordinance requires [SPECIFIC REQUIREMENT] for any structure repair exceeding 50% of value. Standard policies cover damage repair—but not the mandatory code upgrades.\n\nExample: $300K fire damage + $150K code compliance = $450K total cost. Your policy pays $300K. You're out $150K.\n\nDESIRE: Ordinance & Law Coverage (often under $200/year) covers:\n• Demolition of undamaged portions\n• Increased construction costs for code compliance\n• Loss of undamaged building value\n\nACTION: Review your declarations page. Look for \"Ordinance or Law Coverage\" endorsement. Missing it? Request a quote—most agents don't proactively offer this.\n\nDrop a comment if you need the specific code changes for [STATE]. Happy to share the compliance requirements. #InsuranceStrategy #BuildingCodes #RiskAdvisory",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: Paying $[AMOUNT]/year across 3 carriers with coverage gaps in flood and cyber liability.\n\nAFTER: $[AMOUNT]/year with single carrier, comprehensive coverage, and dedicated claims advocate.\n\nHow we did it:\n\n→ Consolidated auto, property, and liability under one program\n→ Added previously excluded perils (water backup, equipment breakdown)\n→ Negotiated 3-year rate lock guarantee\n→ Assigned priority claims handling with 4-hour response SLA\n\nThe difference? We don't just quote—we audit your entire risk profile against [NUMBER] coverage scenarios.\n\nMost businesses are either overpaying or underprotected (usually both).\n\nInterested in a no-obligation coverage analysis? We'll show you exactly where your current program has gaps and what optimization looks like. DM \"AUDIT\" or comment below. #BusinessInsurance #RiskManagement #InsuranceOptimization",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Does your homeowners policy actually cover water damage? 73% don't. 💧\n\nHere's what most policies EXCLUDE:\n❌ Flood damage (needs separate policy)\n❌ Sewer backup (requires endorsement)\n❌ Slow leaks/gradual damage\n❌ Sump pump failure\n\nWhat IS typically covered:\n✅ Sudden pipe bursts\n✅ Appliance malfunctions\n✅ Roof leaks from storm damage\n\nSwipe to see the [AMOUNT] mistake homeowners make ➡️\n\nSlide 2: Water Backup Coverage costs $[AMOUNT]/year, covers up to $[AMOUNT] in damage\nSlide 3: Flood Insurance avg $[AMOUNT]/year, required in high-risk zones\nSlide 4: Sump pump endorsement $[AMOUNT]/year, prevents $[AMOUNT] avg basement claim\n\nSave this for when you review your policy 📌\n\n#HomeownersInsurance #WaterDamage #InsuranceTips #HomeProtection #PropertyInsurance",
+        "visual": "Carousel: Slide 1 shows flooded basement with red X overlay, Slides 2-4 show coverage cards with cost vs. benefit breakdown, final slide shows checklist graphic"
+      },
+      "authority": {
+        "caption": "Just helped a family avoid a $[AMOUNT] coverage gap. Here's what happened 👇\n\nThey bought their home in [YEAR] for $[AMOUNT]. Policy coverage: $[AMOUNT].\n\nToday's replacement cost? $[AMOUNT].\n\nThe gap: $[AMOUNT] they'd pay out-of-pocket after a total loss.\n\nWhy this happens:\n→ Policies use original purchase price\n→ Construction costs up [PERCENTAGE]% since 2020\n→ Insurance companies don't auto-adjust\n→ Most people never review coverage limits\n\nThe fix took 10 minutes:\n✓ Updated replacement cost estimate\n✓ Added inflation guard endorsement\n✓ Reviewed all coverage limits\n✓ Premium increase: only $[AMOUNT]/month\n\nWhen did you last check your coverage limits? Most haven't in [NUMBER]+ years.\n\nDM \"REVIEW\" for a free coverage analysis 📊\n\n#InsuranceAgent #HomeInsurance #CoverageGap #PropertyProtection #InsuranceExpert",
+        "visual": "Before/after graphic showing coverage gap, split screen with house illustration on left and dollar amounts on right, professional branded design"
+      },
+      "promotional": {
+        "caption": "Paying too much with [COMPETITOR]? 89% of switchers save avg $[AMOUNT] 💰\n\nWhat you get:\n✅ Same or better coverage\n✅ [NUMBER]-year rate lock guarantee\n✅ 24/7 claims support\n✅ Mobile app claim filing\n✅ Bundling discounts up to [PERCENTAGE]%\n\nReal client: Switched from $[AMOUNT] to $[AMOUNT]/year. Better coverage. Zero hassle.\n\nThe process:\n1️⃣ Get quote in [NUMBER] minutes\n2️⃣ Compare side-by-side coverage\n3️⃣ We handle the switch (you do nothing)\n4️⃣ Start saving immediately\n\nLink in bio for instant quote or DM \"QUOTE\" 📱\n\nAvailable in: [STATE LIST]\n\n#InsuranceSavings #SwitchAndSave #AutoInsurance #HomeInsurance #InsuranceQuote #SaveMoney",
+        "visual": "Eye-catching graphic with dollar amount savings in large text, before/after premium comparison, customer testimonial quote overlay, branded call-to-action button"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ [STATE] HOMEOWNERS: Your policy might not cover the #1 cause of claims right now.\n\nWater damage accounts for [PERCENTAGE]% of homeowners claims, but here's the problem:\n\nMost standard policies DON'T cover:\n• Sewer backup ($[AMOUNT] avg claim)\n• Sump pump failure ($[AMOUNT] avg claim)\n• Gradual leaks that develop over time\n• Flood damage (requires separate policy)\n\nWhat happened to my client last month:\nPipe burst in finished basement. $47,000 damage. Policy covered the pipe repair ($800) but NOT the basement restoration because it was considered \"below grade water intrusion.\"\n\nShe didn't have the $[AMOUNT]/year water backup endorsement.\n\nHere's what TO DO:\n\n1. Call your agent and ask specifically about:\n   → Water backup coverage\n   → Sump pump endorsement\n   → Service line coverage\n   → Flood insurance (if near water)\n\n2. Check your declarations page for these endorsements\n\n3. If missing, add them NOW (before you need them)\n\nTotal cost for full water protection: Usually $[AMOUNT]-[AMOUNT]/year\nAverage water damage claim: $[AMOUNT]\n\nWorth it? Absolutely.\n\nDrop a 💧 if you're checking your policy today. Share to help someone avoid a $[AMOUNT] surprise.\n\nQuestions? Ask below—I'll answer every one.\n\n#HomeInsurance #WaterDamage #InsuranceTips #[CITY]Homeowners #PropertyProtection",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "INSURANCE INDUSTRY INSIDER INFO: Why your \"loyalty discount\" is costing you $[AMOUNT]/year.\n\nI've been in insurance for [NUMBER] years. Here's what companies don't advertise:\n\nThe \"Loyalty Penalty\" is real:\n• New customers get rates 15-30% lower than renewals\n• Your \"loyalty discount\" (usually 5-10%) doesn't offset annual rate increases\n• Companies count on you not shopping around\n• Average customer overpays $[AMOUNT]/year by year 5\n\nReal example from last week:\nClient with [CARRIER] for 12 years\nPaying: $3,847/year\nLoyal customer discount: $192\n\nWe quoted same coverage: $2,615/year\nSavings: $1,232/year\n\nShe was literally paying $1,000+ more for \"loyalty.\"\n\nHere's what I tell everyone:\n\n✓ Shop your insurance every 2-3 years (minimum)\n✓ Don't fear losing \"tenure\"—savings matter more\n✓ Get 3-5 quotes to compare (we do this for you)\n✓ Review coverage, not just price\n✓ Negotiate with current carrier using competitor quotes\n\nThe insurance you bought 5 years ago isn't the best deal today. Period.\n\nWant to know if you're overpaying? Drop your current premium in the comments (no personal info needed—just the number). I'll tell you if it's in the normal range for [STATE].\n\nOr DM me \"QUOTE\" and I'll run a comparison for you—takes 10 minutes, could save you $[AMOUNT]+.\n\nShare this with someone who hasn't shopped their insurance in years. You might save them over $1,000.\n\n#InsuranceTips #SaveMoney #InsuranceAgent #HomeInsurance #AutoInsurance #[STATE]Insurance",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Just got in an accident? File your claim in 60 seconds from your phone. ✅\n\nBEFORE (old insurance experience):\n→ Wait on hold for 45 minutes\n→ Describe accident multiple times to different people\n→ Wait 48-72 hours for adjuster assignment\n→ Play phone tag for a week\n→ Fight for fair settlement\n\nAFTER (our claims process):\n→ Open app, snap photos, submit in 60 seconds\n→ Adjuster assigned within 2 hours\n→ Initial contact same day (guaranteed)\n→ Direct deposit or check within [NUMBER] days for approved claims\n→ Dedicated advocate fights for YOUR maximum settlement\n\nReal client review (posted yesterday):\n\"Rear-ended at 7pm. Filed claim from the accident scene. Adjuster called me at 8:30pm same night. Check deposited 4 days later. Never experienced anything like this with [OLD CARRIER].\" - Sarah M., [CITY]\n\nWhat makes us different:\n✓ 24/7 claims support (real humans, not bots)\n✓ Mobile-first technology\n✓ Average claim response: [NUMBER] hours\n✓ [PERCENTAGE]% claim approval rate\n✓ Rated [RATING] stars for claims handling\n\nBONUS: Most clients save $[AMOUNT]-[AMOUNT]/year vs. [COMPETITOR] with better coverage.\n\nReady to switch to insurance that actually works when you need it?\n\n👉 Get your quote: [LINK]\n👉 Or comment \"QUOTE\" below\n👉 Call/text: [PHONE]\n\nAvailable in: [STATE LIST]\n\nTag someone who's frustrated with their current insurance company 👇\n\n#InsuranceClaims #AutoInsurance #BetterInsurance #ClaimsService #[CITY]Insurance #SwitchAndSave",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your insurance company denied your $18K claim because of THIS 👀",
+        "script": "[0-3s] Show shocked face reaction to claim denial letter\n\n[4-8s] TEXT OVERLAY: \"Claim denied: Maintenance issue, not covered damage\"\n\n[9-15s] \"Here's what they don't tell you when you buy the policy...\"\n\n[16-25s] Show 3 things insurance WON'T cover:\n- Gradual damage (slow leaks, wear and tear)\n- Lack of maintenance (old roof, ignored issues)\n- Certain water damage (sewer backup without endorsement)\n\n[26-35s] \"But HERE'S the trick to getting claims approved:\"\nShow checklist:\n✓ Document everything with photos/dates\n✓ Report damage immediately (within 24-48 hours)\n✓ Show proof of maintenance (receipts, inspection records)\n✓ Know what endorsements you actually have\n\n[36-45s] \"This client got denied initially but we helped them...\"\nShow before/after: Denied → $18K approved\n\n[46-55s] \"The difference? We knew which endorsement they had and how to file properly.\"\n\n[56-60s] CTA: \"Follow for more insurance secrets they don't want you to know. Part 2 coming tomorrow.\"\n\nTEXT OVERLAYS: \"Save this before you need it\", \"$18K mistake\", \"Insurance companies hate this\"\n\nSOUND: Trending audio about secrets/reveals",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "I've been an insurance agent for [NUMBER] years. Here's the #1 lie they tell you 🚨",
+        "script": "[0-3s] Serious face to camera: \"Insurance companies are lying to you about loyalty discounts\"\n\n[4-10s] \"That 10% loyalty discount? You're still overpaying by 25%.\"\n\n[11-18s] Show example on screen:\nYear 1: $2,000\nYear 5 with loyalty discount: $3,200\nNew customer rate: $2,100\n\n[19-28s] \"They WANT you to think you're getting a deal. Meanwhile new customers get rates $1,000+ lower than you.\"\n\n[29-38s] \"Here's what I do for clients:\"\nShow quick cuts:\n- Pull up current policy\n- Run 5 competitor quotes\n- Show side-by-side comparison\n- Average savings: $800-1,400/year\n\n[39-48s] \"Last week saved a family $1,232/year. Same coverage. Better company. 10 minute process.\"\n\n[49-55s] \"Your insurance company is counting on you NOT shopping around.\"\n\n[56-60s] \"Don't let them. Link in bio for free quote or comment QUOTE below.\"\n\nTEXT OVERLAYS: \"The loyalty penalty is real\", \"$1,232 saved\", \"They're counting on you not knowing this\"\n\nSOUND: Trending audio about exposing secrets",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "Just filed a claim at 9pm and got a call back in 47 minutes. Here's how 📱",
+        "script": "[0-3s] Show phone screen at 9:03pm with claim submission\n\n[4-8s] \"Most insurance: Leave voicemail, wait 2 days, play phone tag for a week\"\n\n[9-15s] Show frustrated person on hold, calendar flipping through days\n\n[16-22s] \"My insurance: Submitted claim from accident scene. Photos uploaded. Done in 90 seconds.\"\n\n[23-30s] Screen record of mobile app claim submission process (sped up)\n\n[31-38s] \"9:47pm - Adjuster called me back. SAME NIGHT.\"\nShow incoming call screenshot\n\n[39-46s] \"4 days later: $4,800 deposited in my account.\"\nShow bank deposit notification\n\n[47-52s] \"Oh and I'm paying $67/month LESS than my old insurance.\"\n\n[53-60s] \"Link in bio to switch. Or stay with insurance that ghosts you when you need them. Your choice.\"\n\nTEXT OVERLAYS: \"47 minutes\", \"4 days to payment\", \"Saving $804/year\", \"Old insurance could never\"\n\nSOUND: Trending audio about upgrades/improvements\n\nVISUAL STYLE: Native phone recordings, authentic reactions, not overly produced",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your homeowners policy doesn't cover this (but it should) 🏠",
+        "preview_text": "73% of policies are missing this $[AMOUNT]/year endorsement that covers $[AMOUNT] in damage",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: Does your homeowners policy cover sewer backup?\n\nIf you're like 73% of homeowners, the answer is no—and you don't even know it.\n\nPROBLEM:\nSewer backup causes $[AMOUNT] in damage on average. Your standard policy? Covers $0 of it.\n\nWhy this matters RIGHT NOW:\n→ [SEASON] weather increases sewer backup risk by [PERCENTAGE]%\n→ Tree roots, aging infrastructure, heavy rain all trigger backups\n→ One incident can flood your basement with sewage\n→ Cleanup, restoration, replacement: All on you without coverage\n\nSOLUTION:\nWater Backup Coverage endorsement:\n• Costs: $[AMOUNT]-[AMOUNT]/year\n• Covers: Up to $[AMOUNT] in damage\n• Includes: Cleanup, restoration, belongings replacement\n• Added to existing policy in 24 hours\n\nWHAT TO DO:\n1. Reply to this email with \"REVIEW\"\n2. I'll pull your current policy (takes 2 minutes)\n3. Show you exactly what's covered vs. what's missing\n4. Add missing endorsements if needed\n\nNo cost for the review. No obligation to add coverage.\n\nJust making sure you're protected before you need to be.\n\n[SIGNATURE]\n[AGENT_NAME]\n[PHONE] | [EMAIL]\n\nP.S. - I'm reviewing [NUMBER] policies this week for water coverage gaps. If you've been meaning to check yours, now's the time. Just reply \"REVIEW\" and I'll prioritize your policy.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "[FIRST_NAME], your policy is underinsured by $[AMOUNT] (here's why)",
+        "preview_text": "Property values up [PERCENTAGE]% since [YEAR]. Your coverage limits? Still at [YEAR] levels.",
+        "body": "Hi [FIRST_NAME],\n\nI ran the numbers on your policy and found something concerning.\n\nYour home is insured for: $[CURRENT_COVERAGE]\nActual replacement cost today: $[ACTUAL_COST]\nCoverage gap: $[GAP_AMOUNT]\n\nHere's what happened:\n\nATTENTION:\nConstruction costs jumped [PERCENTAGE]% since [YEAR]. Your policy limits haven't kept pace.\n\nINTEREST:\nWhat this means after a total loss:\n→ Insurance pays: $[CURRENT_COVERAGE]\n→ Rebuild costs: $[ACTUAL_COST]\n→ You pay out-of-pocket: $[GAP_AMOUNT]\n\nThis isn't theoretical. I've seen 3 clients face this exact scenario in the past [NUMBER] months.\n\nDESIRE:\nGood news: We can fix this in one phone call.\n\nUpdated coverage options:\n• Standard increase to $[NEW_COVERAGE]: +$[AMOUNT]/month\n• With inflation guard (auto-adjusts annually): +$[AMOUNT]/month\n• Extended replacement (up to [PERCENTAGE]% over limit): +$[AMOUNT]/month\n\nACTION:\nI've blocked time [DAY] at [TIME] and [TIME] for policy reviews.\n\nReply with your preferred time, or call me directly at [PHONE].\n\nThis is a 10-minute conversation that protects your biggest asset.\n\nLet's get it handled.\n\n[SIGNATURE]\n[AGENT_NAME]\n[CREDENTIALS]\n\nP.S. - Waiting until renewal in [MONTHS] months? Your home is underinsured right now. If something happens before then, that gap exists today.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "You're overpaying by $[AMOUNT]/year (I can prove it)",
+        "preview_text": "I ran your coverage through [NUMBER] carriers. Here's what I found...",
+        "body": "Hi [FIRST_NAME],\n\nBEFORE:\nYou're paying [CURRENT_CARRIER]: $[CURRENT_PREMIUM]/year\n\nAFTER:\nSame coverage with [NEW_CARRIER]: $[NEW_PREMIUM]/year\n\nSavings: $[SAVINGS]/year\n\nI ran your exact coverage through [NUMBER] carriers this morning. Here's the full breakdown:\n\n[CARRIER_1]: $[AMOUNT]/year\n[CARRIER_2]: $[AMOUNT]/year  ← Best rate\n[CARRIER_3]: $[AMOUNT]/year\nYour current: $[CURRENT_PREMIUM]/year\n\nWhat you get with [NEW_CARRIER]:\n✓ Same liability limits ($[AMOUNT])\n✓ Same deductible ($[AMOUNT])\n✓ BETTER claims rating ([RATING] vs [CURRENT_RATING])\n✓ [NUMBER]-year rate lock guarantee\n✓ 24/7 mobile claims filing\n✓ Accident forgiveness included\n\nThe switch process:\n1. You approve the quote (reply \"YES\" or call me)\n2. I handle ALL paperwork and carrier coordination\n3. New policy starts [DATE]\n4. Old policy cancels same day (no gap, no overlap)\n5. You start saving $[MONTHLY_SAVINGS]/month immediately\n\nTotal time required from you: 5 minutes to approve\n\nReady to save $[SAVINGS] this year?\n\nOption 1: Reply \"SWITCH\" to this email\nOption 2: Call/text me: [PHONE]\nOption 3: Click here to review full quote: [LINK]\n\nI've already done the work. Just need your green light.\n\n[SIGNATURE]\n[AGENT_NAME]\n[PHONE] | [EMAIL]\n\nP.S. - This quote is good for [NUMBER] days. After that, I'll need to re-run it. If you're interested, let's lock this in before rates change.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X]% of [City] homeowners are overpaying by $[Amount] because they haven't reviewed their policy in [Y] years",
+      "Save $[Amount] by bundling before your [Asset] policy renews in [X] days",
+      "[X] out of [Y] claim denials happen because of this coverage gap - check your policy in [Timeframe]"
+    ],
+    "question_hooks": [
+      "Did your premium jump [X]% at renewal and nobody explained why?",
+      "Are you still with the same carrier that denied your last claim?",
+      "Is your homeowners policy actually covering water backup damage or are you risking $[Amount]?"
+    ],
+    "story_hooks": [
+      "How a [City] family got their full roof replacement approved in [X] hours after [Y] carriers denied them",
+      "How [Customer Type] discovered they were overpaying $[Amount]/year with a [Timeframe] policy review",
+      "How one [X]-year loyal customer got dropped after their first claim - and found better coverage for $[Amount] less"
+    ],
+    "fear_hooks": [
+      "Is your home-based business exposing you to a $[Amount] liability gap your homeowners policy won't cover?",
+      "Could your carrier drop you after one claim like they did to [X]% of [City] homeowners last year?",
+      "Is your teenage driver about to add $[Amount] to your premium or could you pay $[Lower Amount] instead?"
+    ],
+    "howto_hooks": [
+      "How to switch carriers in [X] minutes without a coverage gap or mountains of paperwork",
+      "How to lock your rate for [X] years so you never get surprised by premium increases again",
+      "How to file a claim at [Time] and get approved in [X] hours without fighting an adjuster for months"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your insurance just denied your claim after 10 years of payments",
+      "body": "Show frustrated person on phone → Cut to agent saying 'it's not covered' → Transition to 'Here's what they don't tell you about claims' → Quick tips: 1) Read your actual policy declarations page 2) Document EVERYTHING with photos/videos 3) Ask for denial reason IN WRITING 4) File a complaint with your state insurance commissioner if unfair → Show real claim approval in 2 hours with transparent company → 'Insurance should work when you need it'",
+      "cta": "Get a quote from a company that actually pays claims - link in bio"
+    },
+    "reels": {
+      "hook": "I saved $847 in 11 minutes",
+      "body": "Show timer starting → Person on phone getting current policy details → Entering info into comparison tool → Show 3 quotes side by side → Highlight savings → Switch coverage online → Timer stops at 11:23 → Show confirmation email → 'Same coverage, $847 less per year' → Quick text overlay: 'Your loyalty is costing you money'",
+      "cta": "See how much you're overpaying - free quote tool below"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us the moment you got your claim approved! Record your reaction when you got the call/email/text that your claim was paid. Tell us: What happened? How fast was it? What did they cover? Bonus: Show the damage/incident that led to the claim.",
+      "hashtag": "#ClaimApproved"
+    },
+    {
+      "prompt": "Film your insurance policy review! Sit with your agent (or do it yourself) and show what you discovered - are you overpaying? Missing coverage? Found bundling discounts? Record your reaction to what you learn. Make it real, make it helpful.",
+      "hashtag": "#PolicyCheckup"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Insurance company secrets series: 'What your agent won't tell you' - reveal how credit score affects rates by exact points, why loyalty costs you money with data, hidden discounts most people miss, what 'full coverage' doesn't actually cover",
+      "why": "Exposes information asymmetry, empowers consumers, taps into frustration with industry opacity, highly shareable as 'insider knowledge', comment section drives algorithm"
+    },
+    {
+      "angle": "Real-time claim approval reactions: Film actual customers getting approval calls/notifications with their genuine reactions, show the timeline from incident to payment, include claim amount paid vs expected, contrast with 'my old company took 6 weeks' stories",
+      "why": "Emotional authenticity drives shares, addresses #1 customer fear (claim denial), social proof through real people, creates trust through transparency, highly relatable content"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T01:00:03.158Z",
+    "last_tier2_refresh": "2025-11-28T01:00:03.158Z",
+    "last_tier3_refresh": "2025-11-28T01:00:03.158Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T01:00:03.158Z"
+  }
+}

@@ -1,0 +1,1747 @@
+{
+  "industry": "Electrical Services",
+  "industry_name": "Electrical Services",
+  "naics_code": "238210",
+  "category": "Construction",
+  "subcategory": "Specialty Trade Contractors",
+  "customer_triggers": [
+    {
+      "trigger": "Circuit breaker keeps tripping when using appliances",
+      "urgency": 8,
+      "frequency": "Multiple daily calls"
+    },
+    {
+      "trigger": "Lights flickering throughout house",
+      "urgency": 9,
+      "frequency": "Several times daily"
+    },
+    {
+      "trigger": "Burning smell from outlets or electrical panel",
+      "urgency": 10,
+      "frequency": "Weekly emergency calls"
+    },
+    {
+      "trigger": "Power outage in part of home",
+      "urgency": 9,
+      "frequency": "Daily occurrences"
+    },
+    {
+      "trigger": "Outlets not working in kitchen or bathroom",
+      "urgency": 7,
+      "frequency": "Daily service requests"
+    },
+    {
+      "trigger": "Need electrical inspection for home sale",
+      "urgency": 6,
+      "frequency": "Weekly scheduled"
+    },
+    {
+      "trigger": "Installing new hot tub or EV charger",
+      "urgency": 4,
+      "frequency": "Growing daily"
+    },
+    {
+      "trigger": "Sparks when plugging in appliances",
+      "urgency": 10,
+      "frequency": "Several weekly"
+    },
+    {
+      "trigger": "Old fuse box needs panel upgrade",
+      "urgency": 5,
+      "frequency": "Monthly projects"
+    },
+    {
+      "trigger": "Storm damage to electrical service",
+      "urgency": 10,
+      "frequency": "Seasonal spikes"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Problem recognition through power failure (31%), safety concern from burning smell or sparks (42%), or home inspection requirement (27%). Immediate response is checking breaker panel, then frantically searching 'emergency electrician' on phone while family pressures for quick solution",
+    "consideration": "Evaluating 3-4 electricians based on licensing verification (89% check), emergency availability, transparent pricing, and insurance coverage. Reviews mentioning safety and professionalism weighted heavily. Response time promises crucial for emergency calls",
+    "decision": "Choice made within 1 hour for emergencies, 3-5 days for projects. Deciding factors: master electrician availability, detailed quote breakdown, warranty terms, and professional communication. Safety credentials trump price for electrical work",
+    "retention": "Electrical safety inspection programs capture 41% of customers annually. Smart home upgrade paths create ongoing relationships. Customers value electricians who document all work and provide detailed electrical system maps",
+    "advocacy": "Happy customers generate 2.7 referrals on average, shared through neighborhood apps (38%), real estate agents (29%), and contractor networks (33%). Before/after photos of panel upgrades and lighting projects drive social sharing"
+  },
+  "transformations": [
+    {
+      "from": "Daily breaker trips disrupting work-from-home",
+      "to": "Reliable power supporting home office productivity",
+      "emotional_value": "Career security and peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Dim, outdated lighting making home feel dated",
+      "to": "Bright, modern LED ambiance increasing home value",
+      "emotional_value": "Pride in home and energy savings",
+      "worth_premium": false
+    },
+    {
+      "from": "Fear of electrical fire from old wiring",
+      "to": "Safe, code-compliant system protecting family",
+      "emotional_value": "Family safety and security",
+      "worth_premium": true
+    },
+    {
+      "from": "Unable to charge electric vehicle at home",
+      "to": "Convenient overnight charging saving time and money",
+      "emotional_value": "Modern lifestyle enablement",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant extension cord hazards",
+      "to": "Adequate outlets wherever needed",
+      "emotional_value": "Convenience and safety",
+      "worth_premium": false
+    },
+    {
+      "from": "Failing inspection delaying home sale",
+      "to": "Clean inspection enabling closing",
+      "emotional_value": "Financial freedom to move forward",
+      "worth_premium": true
+    },
+    {
+      "from": "No outdoor lighting or security",
+      "to": "Well-lit, secure property perimeter",
+      "emotional_value": "Safety and curb appeal",
+      "worth_premium": false
+    },
+    {
+      "from": "Incompatible with smart home dreams",
+      "to": "Fully automated, voice-controlled home",
+      "emotional_value": "Living in the future today",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Power restored within 2-4 hours of arrival",
+      "timeframe": "Same day service",
+      "measurable": true
+    },
+    {
+      "metric": "Electrical safety hazards eliminated",
+      "timeframe": "Immediately upon completion",
+      "measurable": true
+    },
+    {
+      "metric": "Energy bills reduced 20-40% with LED conversion",
+      "timeframe": "First full billing cycle",
+      "measurable": true
+    },
+    {
+      "metric": "Home value increased $3,000-10,000",
+      "timeframe": "After panel upgrade",
+      "measurable": true
+    },
+    {
+      "metric": "Zero safety incidents post-service",
+      "timeframe": "Lifetime of installation",
+      "measurable": true
+    },
+    {
+      "metric": "Inspection passed on first attempt",
+      "timeframe": "Scheduled inspection date",
+      "measurable": true
+    },
+    {
+      "metric": "Smart home features fully operational",
+      "timeframe": "Day of installation",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Insurance company threatening coverage cancellation without panel upgrade within 30 days",
+    "Real estate closing in 72 hours requiring all electrical repairs completed and inspected",
+    "Medical equipment dependent family member needs reliable power immediately",
+    "Business losing $1,000+ per hour due to electrical failure affecting operations",
+    "Burning smell getting stronger indicating imminent fire risk requiring immediate response",
+    "Code enforcement citation giving 10 days to comply or face daily fines",
+    "Storm damage creating immediate electrocution hazard in yard where children play",
+    "HVAC system won't run during heat wave due to electrical issue"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Why do you charge more than the handyman who does electrical?",
+      "response": "Licensed electricians carry $2 million insurance, pull required permits, and guarantee code compliance. Unlicensed work voids your homeowner's insurance and creates serious fire risk. We fix handyman electrical mistakes weekly at 3x the original cost",
+      "effectiveness": 86
+    },
+    {
+      "objection": "Can't we just replace the outlet ourselves?",
+      "response": "Outlet problems often indicate dangerous wiring issues behind the wall. 67% of electrical fires start from DIY attempts. Our diagnostic includes thermal imaging to find hidden problems. We'd rather educate you on safety than profit from preventable disasters",
+      "effectiveness": 79
+    },
+    {
+      "objection": "The quote seems high for just adding a circuit",
+      "response": "New circuits require permit fees ($150), code-compliant materials ($200), and 3-4 hours of licensed labor including panel work. We include a whole-system safety check and 10-year warranty. Cheaper quotes often skip permits, creating problems when you sell",
+      "effectiveness": 74
+    },
+    {
+      "objection": "My brother-in-law is an electrician in another state",
+      "response": "That's great for advice, but electrical codes vary significantly by location. We're certified in local codes, carry local licensing, and maintain relationships with inspectors. We offer a professional courtesy discount for family in the trade - 15% off",
+      "effectiveness": 68
+    },
+    {
+      "objection": "We'll wait until we can afford the whole project",
+      "response": "Electrical issues worsen exponentially - what's $500 today becomes $2,000 next month. We offer phase-based solutions and 18-month zero-interest financing. Let's address safety issues now and plan cosmetic upgrades for later",
+      "effectiveness": 81
+    },
+    {
+      "objection": "How do I know you won't find more problems?",
+      "response": "Our comprehensive diagnostic includes infrared scanning and circuit analysis upfront. 92% of jobs complete at quoted price. If we find additional issues, we provide photo evidence and options - you're never obligated to proceed",
+      "effectiveness": 85
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Code compliance guarantee or we fix free including re-inspection fees",
+      "One-year workmanship warranty with 24/7 emergency callback",
+      "Surge protection guarantee up to $10,000 equipment coverage",
+      "Price match plus 10% for identical licensed competitor quotes",
+      "Satisfaction guarantee with payment held in escrow until approved"
+    ],
+    "proof_points": [
+      "Master electrician license displayed with 20+ years experience",
+      "1,000+ verified Google reviews with 4.9 average",
+      "Certified by all major manufacturers for warranty work",
+      "Featured electrical expert on local morning news",
+      "Zero safety incidents in company history"
+    ],
+    "risk_mitigation": "Comprehensive insurance coverage shown upfront, detailed contracts with clear scope, photo documentation of all work phases, permit pulling and inspection coordination included, and lifetime support for all installations"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "keeps tripping",
+      "no power",
+      "sparking",
+      "burning smell",
+      "flickering lights",
+      "outlets dead",
+      "shocking me",
+      "won't turn on",
+      "electrical fire",
+      "failed inspection",
+      "buzzing sound",
+      "getting hot"
+    ],
+    "solution_words": [
+      "licensed electrician",
+      "same-day service",
+      "up to code",
+      "safety inspection",
+      "guaranteed work",
+      "master certified",
+      "insurance approved",
+      "emergency available",
+      "free estimate",
+      "warranty included",
+      "financing available",
+      "permits included"
+    ],
+    "avoid_jargon": [
+      "amperage",
+      "voltage drop",
+      "load calculation",
+      "GFCI",
+      "AFCI",
+      "service entrance",
+      "bus bar",
+      "ground fault",
+      "branch circuit",
+      "feeder",
+      "raceway",
+      "NEC compliant"
+    ]
+  },
+  "power_words": [
+    "licensed",
+    "certified",
+    "safe",
+    "code-compliant",
+    "emergency",
+    "master",
+    "insured",
+    "guaranteed",
+    "immediate",
+    "professional",
+    "expert",
+    "reliable",
+    "trusted",
+    "experienced",
+    "available",
+    "warranty",
+    "inspection",
+    "approved",
+    "qualified",
+    "specialist",
+    "24/7",
+    "local",
+    "bonded",
+    "efficient",
+    "upgrade",
+    "modern",
+    "smart",
+    "energy-saving",
+    "secure",
+    "tested"
+  ],
+  "avoid_words": [
+    "dangerous",
+    "fire",
+    "death",
+    "electrocution",
+    "burned",
+    "shocked",
+    "illegal",
+    "violation",
+    "condemned",
+    "hazard",
+    "risk",
+    "unsafe",
+    "amateur",
+    "DIY",
+    "handyman",
+    "unlicensed",
+    "cash-only",
+    "no-permit",
+    "quick-fix",
+    "temporary"
+  ],
+  "headline_templates": [
+    {
+      "template": "Licensed Electrician Available Now - 24/7 Emergency Service",
+      "expected_ctr": 8.7,
+      "use_case": "Google Ads emergency"
+    },
+    {
+      "template": "Power Out? Restored in 2 Hours - Master Electrician",
+      "expected_ctr": 9.2,
+      "use_case": "Facebook emergency ads"
+    },
+    {
+      "template": "50% Off Electrical Safety Inspection - This Week Only",
+      "expected_ctr": 7.8,
+      "use_case": "Email campaigns"
+    },
+    {
+      "template": "EV Charger Installation - $500 Rebate Available",
+      "expected_ctr": 10.3,
+      "use_case": "Targeted social media"
+    },
+    {
+      "template": "[City]'s Most Trusted Electrician - 1,000+ Reviews",
+      "expected_ctr": 7.1,
+      "use_case": "Brand awareness"
+    },
+    {
+      "template": "Breaker Keeps Tripping? Fixed Today - Guaranteed",
+      "expected_ctr": 8.4,
+      "use_case": "Problem-specific ads"
+    },
+    {
+      "template": "Upgrade to 200 Amp Service - Increase Home Value",
+      "expected_ctr": 6.3,
+      "use_case": "Homeowner targeting"
+    },
+    {
+      "template": "Smart Home Wiring Experts - Control Everything",
+      "expected_ctr": 7.9,
+      "use_case": "Tech-savvy audience"
+    },
+    {
+      "template": "Commercial Electrical Services - Minimize Downtime",
+      "expected_ctr": 5.8,
+      "use_case": "B2B campaigns"
+    },
+    {
+      "template": "Generator Installation - Never Lose Power Again",
+      "expected_ctr": 9.6,
+      "use_case": "Storm season marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Call Now - Electrical Issues Worsen Quickly",
+      "conversion_rate": 15.2,
+      "placement": "Emergency pages"
+    },
+    {
+      "template": "Get Free Safety Inspection - Limited Spots",
+      "conversion_rate": 11.8,
+      "placement": "Homepage"
+    },
+    {
+      "template": "Book Licensed Electrician - Available Today",
+      "conversion_rate": 10.3,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Text Us Photos for Instant Quote",
+      "conversion_rate": 17.4,
+      "placement": "Mobile ads"
+    },
+    {
+      "template": "Schedule Your EV Charger Install",
+      "conversion_rate": 8.9,
+      "placement": "Specific service pages"
+    },
+    {
+      "template": "Claim $200 Off Panel Upgrade",
+      "conversion_rate": 13.2,
+      "placement": "Landing pages"
+    },
+    {
+      "template": "24/7 Emergency? We're 20 Minutes Away",
+      "conversion_rate": 19.1,
+      "placement": "Google Ads"
+    },
+    {
+      "template": "Check If You Qualify for Rebates",
+      "conversion_rate": 9.7,
+      "placement": "Energy efficiency pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚡ SAFETY TIP: If your outlet looks like this [burnt outlet photo], STOP using it immediately! This is a fire waiting to happen. Comment 'SAFE' for a free inspection checklist. #ElectricalSafety #[City]Electrician",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before & After: From 1950s fuse box to modern 200-amp panel! ⚡ Swipe to see how we brought this home into the 21st century → #ElectricalUpgrade #HomeImprovement",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors: With storm season approaching, now's the time to consider a whole-house generator. We're offering free consultations this month. Also, remember to test your GFCI outlets monthly! Here to help: [phone]",
+      "engagement_rate": 9.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Commercial property managers: Our infrared electrical inspections identify problems before they cause downtime. We've helped 75+ local businesses prevent costly failures. Let's connect about your preventive maintenance needs.",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: That space heater tripping your breaker? It's not the heater - your circuit is overloaded. This causes fires! Call a licensed electrician. #ElectricalSafety #[City]",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Safely Reset Your Circuit Breaker (And When NOT To)",
+      "engagement_rate": 12.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "Electrician reveals what your breaker panel says about your house's age 🏠⚡ #ElectricianLife #HomeTips #Safety",
+      "engagement_rate": 16.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Signs Your Home Needs Electrical Work [Infographic with warning signs and danger levels]",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Google Business",
+      "template": "Thank you [Customer] for trusting us with your panel upgrade! Your safety is our priority. Neighbors - mention this review for 20% off your electrical inspection!",
+      "engagement_rate": 5.7
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Prevent electrical fires with certified master electrician service",
+      "rank": 1,
+      "differentiator": "Only all-master electrician team locally"
+    },
+    {
+      "prop": "Same-day emergency response with 2-hour arrival guarantee",
+      "rank": 2,
+      "differentiator": "Fastest guaranteed response time"
+    },
+    {
+      "prop": "Upfront, flat-rate pricing with no hidden fees ever",
+      "rank": 3,
+      "differentiator": "True transparent pricing model"
+    },
+    {
+      "prop": "10-year warranty on all installations with lifetime support",
+      "rank": 4,
+      "differentiator": "Longest warranty in market"
+    },
+    {
+      "prop": "Code compliance guarantee including permit and inspection",
+      "rank": 5,
+      "differentiator": "Complete permit handling included"
+    },
+    {
+      "prop": "Energy audit included identifying 20-40% savings opportunities",
+      "rank": 6,
+      "differentiator": "Holistic efficiency approach"
+    },
+    {
+      "prop": "Smart home certified for all modern automation systems",
+      "rank": 7,
+      "differentiator": "Specialized training in home automation"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your home's electrical system is its nervous system - trust only master craftsmen with 20+ years experience. We use premium materials, provide detailed documentation, and offer concierge-level service. Our white-glove approach includes property protection and immaculate cleanup. Starting at $500 minimum service.",
+    "budget_conscious": "Professional electrical work doesn't require breaking the bank. We offer transparent pricing, multiple solution options, and flexible payment plans. Our focus is safety first, aesthetics second. Most repairs under $400, with financing available for larger projects.",
+    "enterprise": "Minimize operational risk with our commercial electrical division. 24/7 emergency response, predictive maintenance programs, and dedicated account management. Our commercial clients experience 71% fewer electrical failures and 42% lower annual electrical costs. Comprehensive SLA and maintenance contracts available."
+  },
+  "trust_signals": [
+    {
+      "signal": "Master electrician license prominently displayed",
+      "importance": 10,
+      "format": "Website header and vehicle wraps"
+    },
+    {
+      "signal": "Live insurance verification available",
+      "importance": 9,
+      "format": "Online portal access"
+    },
+    {
+      "signal": "Before/after gallery of 500+ local projects",
+      "importance": 8,
+      "format": "Categorized website gallery"
+    },
+    {
+      "signal": "Manufacturer certifications displayed",
+      "importance": 7,
+      "format": "Badge collection on homepage"
+    },
+    {
+      "signal": "Real-time technician background check results",
+      "importance": 9,
+      "format": "Email before arrival"
+    },
+    {
+      "signal": "City permit history publicly accessible",
+      "importance": 8,
+      "format": "Link to city database"
+    },
+    {
+      "signal": "Video testimonials from recognized businesses",
+      "importance": 8,
+      "format": "YouTube playlist"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "1,047 five-star reviews across platforms",
+      "credibility_score": 9,
+      "context": "Highest rated electrical service locally"
+    },
+    {
+      "stat": "Zero safety incidents in 23 years",
+      "credibility_score": 10,
+      "context": "Perfect safety record maintained"
+    },
+    {
+      "stat": "15,000+ homes and businesses served",
+      "credibility_score": 8,
+      "context": "Largest electrical contractor in county"
+    },
+    {
+      "stat": "Featured electrical expert on Channel 7",
+      "credibility_score": 8,
+      "context": "Monthly safety segment host"
+    },
+    {
+      "stat": "100% inspection pass rate last 3 years",
+      "credibility_score": 9,
+      "context": "Every job passes first inspection"
+    },
+    {
+      "stat": "A+ BBB rating for 15 consecutive years",
+      "credibility_score": 9,
+      "context": "Longest standing A+ rating locally"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Lutron, Leviton, Eaton components with lifetime warranties",
+    "Budget: Commercial Electric, Gardner Bender with standard warranties",
+    "Premium: Copper wiring throughout with hospital-grade outlets",
+    "Budget: Aluminum wiring repairs with standard outlets",
+    "Premium: Smart panels with app monitoring and surge protection",
+    "Budget: Standard 200-amp panels with basic breakers",
+    "Premium: Whole-house surge protection and generator integration"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "After successful inspection pass or project completion with customer expressing satisfaction",
+    "ask_method": "Automated text with direct Google review link, followed by video testimonial request with $75 credit offer for future service"
+  },
+  "competitive_advantages": [
+    "Only electrical contractor with in-house infrared inspection equipment for finding hidden issues",
+    "Exclusive Tesla Powerwall certified installer in three-county area",
+    "24/7 live master electrician phone support, not answering service",
+    "Fleet of 20 fully-stocked vehicles means no supply run delays",
+    "In-house continuing education program ensures latest code knowledge",
+    "Partnership with utility company for instant rebate processing"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present whole-house rewiring at $12,000 first, making $3,500 panel upgrade seem reasonable",
+    "sensitivity": "Price points at $199, $399, $799 to stay under psychological barriers",
+    "sweet_spots": [
+      "$89 for diagnostic",
+      "$249 for outlet installation",
+      "$1,899 for panel upgrade",
+      "$399 for EV outlet"
+    ],
+    "decoy_pricing": "Three-tier service: basic $189, standard $229, premium $249 - most choose $229"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 300,
+    "approval_required": 750,
+    "competitor_research": 1500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.5,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Response",
+      "price_range": "$299-1299",
+      "target_customer": "Urgent safety issues",
+      "margin": 0.48
+    },
+    {
+      "tier": "Standard Service",
+      "price_range": "$189-799",
+      "target_customer": "Planned repairs and upgrades",
+      "margin": 0.42
+    },
+    {
+      "tier": "Premium Projects",
+      "price_range": "$1,500-15,000",
+      "target_customer": "Whole-house and renovation",
+      "margin": 0.55
+    },
+    {
+      "tier": "Commercial Contracts",
+      "price_range": "$5,000-50,000",
+      "target_customer": "Business maintenance",
+      "margin": 0.38
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle inspection with repairs for 18% higher margins than separate services",
+    "Promote maintenance contracts for 45% higher lifetime value per customer",
+    "Direct manufacturer relationships improve parts margins by 25%",
+    "Offering financing captures 35% more high-ticket jobs at full margin",
+    "Standardized pricing book improves margins 10-15% over hourly billing",
+    "Cross-training in smart home systems adds $500 average ticket increase"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 1.2,
+      "reason": "Space heater overloads",
+      "opportunity": "Circuit upgrade promotions"
+    },
+    {
+      "month": "February",
+      "variation": 1,
+      "reason": "Normal demand",
+      "opportunity": "Indoor lighting projects"
+    },
+    {
+      "month": "March",
+      "variation": 1.3,
+      "reason": "Tax refund projects",
+      "opportunity": "Whole-house upgrades"
+    },
+    {
+      "month": "April",
+      "variation": 1.4,
+      "reason": "Spring renovation season",
+      "opportunity": "Outdoor lighting installs"
+    },
+    {
+      "month": "May",
+      "variation": 1.2,
+      "reason": "Pre-summer AC prep",
+      "opportunity": "Panel upgrade for AC"
+    },
+    {
+      "month": "June",
+      "variation": 1.5,
+      "reason": "Storm damage repairs",
+      "opportunity": "Generator sales"
+    },
+    {
+      "month": "July",
+      "variation": 1.6,
+      "reason": "AC overload issues",
+      "opportunity": "Emergency services"
+    },
+    {
+      "month": "August",
+      "variation": 1.4,
+      "reason": "Back-to-school prep",
+      "opportunity": "Home office wiring"
+    },
+    {
+      "month": "September",
+      "variation": 1.1,
+      "reason": "Fall maintenance",
+      "opportunity": "Safety inspections"
+    },
+    {
+      "month": "October",
+      "variation": 1.3,
+      "reason": "Holiday lighting prep",
+      "opportunity": "Outdoor outlet installs"
+    },
+    {
+      "month": "November",
+      "variation": 1.4,
+      "reason": "Black Friday prep",
+      "opportunity": "Commercial services"
+    },
+    {
+      "month": "December",
+      "variation": 1.8,
+      "reason": "Holiday decoration overloads",
+      "opportunity": "Emergency premiums"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Commercial service calls",
+      "avoid": "Residential estimates",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Scheduled installations",
+      "avoid": "Cold calling",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Inspection appointments",
+      "avoid": "Major projects",
+      "conversion_rate": 8.7
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Estimates and consultations",
+      "avoid": "Emergency allocation",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Project completions",
+      "avoid": "Starting major work",
+      "conversion_rate": 9.6
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Residential emergencies",
+      "avoid": "Commercial work",
+      "conversion_rate": 12.3
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Premium emergency service",
+      "avoid": "Routine maintenance",
+      "conversion_rate": 7.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Electric bills arrive around 5th causing sticker shock and upgrade interest until 15th",
+    "cash_flow_peaks": "Tax refunds in March-April, bonuses in December show 50% higher project acceptance",
+    "slow_periods": "Mid-month days 15-25 show 25% lower call volume but higher conversion on estimates"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "7:00-9:00 PM weekdays",
+      "crisis_type": "Dinner prep overloads",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "6:00-8:00 AM weekdays",
+      "crisis_type": "No power for morning routine",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "During severe storms",
+      "crisis_type": "Power loss and surges",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Christmas morning",
+      "crisis_type": "Decoration overloads",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Super Bowl Sunday",
+      "crisis_type": "Entertainment system failures",
+      "premium_multiplier": 2.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Safety Shield Plan",
+      "components": [
+        "Annual inspection",
+        "Priority service",
+        "20% discount",
+        "Surge protection"
+      ],
+      "pricing_model": "$349/year",
+      "margin": 0.68
+    },
+    {
+      "name": "Whole House Safety Upgrade",
+      "components": [
+        "Full inspection",
+        "GFCI/AFCI upgrades",
+        "Smoke detectors",
+        "Surge protection"
+      ],
+      "pricing_model": "$2,499 fixed",
+      "margin": 0.52
+    },
+    {
+      "name": "Smart Home Complete",
+      "components": [
+        "Smart switches",
+        "Voice control",
+        "App integration",
+        "Training"
+      ],
+      "pricing_model": "$3,500-5,500",
+      "margin": 0.48
+    },
+    {
+      "name": "EV Ready Package",
+      "components": [
+        "Panel upgrade",
+        "240V outlet",
+        "Permit",
+        "Inspection"
+      ],
+      "pricing_model": "$2,899 complete",
+      "margin": 0.45
+    }
+  ],
+  "upsell_paths": [
+    "Outlet repair → GFCI upgrade → Whole-room rewiring → Whole-house rewiring ($150 → $12,000)",
+    "Breaker replacement → Panel upgrade → Generator backup → Smart panel ($200 → $8,500)",
+    "Light switch repair → Dimmer upgrade → Smart switches → Whole-house automation ($75 → $5,000)",
+    "Inspection → Safety upgrades → Energy efficiency → Solar ready ($189 → $7,500)",
+    "Single fixture → Room lighting → Whole-house LED → Landscape lighting ($250 → $4,500)",
+    "Emergency repair → Maintenance plan → Preferred customer → Lifetime relationship ($299 → $20,000+)"
+  ],
+  "retention_hooks": [
+    "Annual safety inspection reminders with 25% seasonal discount for members",
+    "Smart home quarterly check-ins with new feature demonstrations",
+    "Priority emergency response for customers with service history",
+    "Digital home electrical blueprint updated with each service call",
+    "Exclusive access to new technology installations and rebates",
+    "Loyalty points program - every $100 earns $10 future credit",
+    "Free phone support for DIY questions to maintain relationship"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "$75 credit for successful referrals",
+      "timing": "Mentioned at completion",
+      "incentive": "Applied to any service",
+      "conversion_rate": 0.26
+    },
+    {
+      "strategy": "Neighborhood group discount program",
+      "timing": "Community events",
+      "incentive": "10% group rate",
+      "conversion_rate": 0.31
+    },
+    {
+      "strategy": "Contractor partnership program",
+      "timing": "Ongoing B2B",
+      "incentive": "Reciprocal referrals",
+      "conversion_rate": 0.47
+    },
+    {
+      "strategy": "Social media review rewards",
+      "timing": "Post-service",
+      "incentive": "$25 per platform",
+      "conversion_rate": 0.34
+    },
+    {
+      "strategy": "Annual customer appreciation event",
+      "timing": "Fall BBQ",
+      "incentive": "Free inspection",
+      "conversion_rate": 0.22
+    },
+    {
+      "strategy": "Three referrals earn free service call",
+      "timing": "Email campaign",
+      "incentive": "$349 value",
+      "conversion_rate": 0.19
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Panel upgrade → Generator installation",
+      "attach_rate": 0.38,
+      "timing": "During upgrade discussion"
+    },
+    {
+      "service": "EV charger → Solar consultation",
+      "attach_rate": 0.29,
+      "timing": "Energy conversation"
+    },
+    {
+      "service": "Inspection → Surge protection",
+      "attach_rate": 0.43,
+      "timing": "Safety review"
+    },
+    {
+      "service": "Indoor work → Landscape lighting",
+      "attach_rate": 0.24,
+      "timing": "While on property"
+    },
+    {
+      "service": "Emergency repair → Maintenance plan",
+      "attach_rate": 0.46,
+      "timing": "Post-crisis relief"
+    },
+    {
+      "service": "Smart switches → Security system",
+      "attach_rate": 0.31,
+      "timing": "Automation discussion"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Launch generator sales and service division",
+      "market_size": "$3.2M annual market",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Add solar installation certification",
+      "market_size": "$8.5M growing market",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Develop smart home specialization",
+      "market_size": "$2.8M annual",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Create commercial maintenance division",
+      "market_size": "$5.4M B2B market",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Partner with home builders for new construction",
+      "market_size": "$4.1M annual",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Acquire competitor's residential base",
+      "market_size": "500-800 customers",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Mr. Electric's 'Electrical Safety Tips' video series on YouTube showing common household electrical hazards with licensed electricians demonstrating proper solutions",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content addressing real safety concerns, featuring credentialed professionals, visual demonstrations of before/after scenarios, and actionable advice homeowners can understand",
+        "metrics": "Videos averaging 15K-50K views, 200+ comments per video, high watch-through rates on 3-5 minute format",
+        "source": "Mr. Electric YouTube channel and Home Service Marketing Hub case study",
+        "confidence": "high"
+      },
+      {
+        "example": "Local electrical contractors using Facebook posts with dramatic before/after photos of panel upgrades, featuring specific problems solved (breaker trips, flickering lights) with customer permission and testimonials",
+        "platform": "Facebook",
+        "why_it_worked": "Visual proof of transformation, relatable problems stated in customer language, local community engagement, trust-building through real customer stories",
+        "metrics": "Posts with before/after photos get 3-5x more engagement than text-only posts, averaging 50-200 reactions and 10-30 shares in local service areas",
+        "source": "ServiceTitan marketing benchmarks 2024 and analysis of top-performing electrical contractor Facebook pages",
+        "confidence": "high"
+      },
+      {
+        "example": "Emergency electrical service posts on Google Business Profile responding to 'burning smell' and 'sparking outlet' searches with immediate availability messaging and same-day service guarantees",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Matched high-urgency search intent, clear call-to-action, immediate response promise, mobile-optimized for on-the-spot searches",
+        "metrics": "Emergency service posts generate 40% more calls than standard service posts, with conversion rates of 15-25% for high-urgency keywords",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and electrical services industry data",
+        "confidence": "high"
+      },
+      {
+        "example": "Educational email series from Mister Sparky titled 'Is Your Home's Electrical System Safe?' with checklist of warning signs homeowners can identify themselves",
+        "platform": "Email",
+        "why_it_worked": "Empowered homeowners with knowledge while creating urgency, positioned company as helpful expert rather than salesy, included clear next steps for professional inspection",
+        "metrics": "Open rates of 28-35% (vs industry average 21%), click-through rates of 4.2%, generated 12% inspection bookings from email list",
+        "source": "Home services email marketing case studies from Constant Contact and Mailchimp industry reports 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "TikTok and Instagram Reels from younger electricians showing 'electrical fails' found in homes during service calls, explaining dangers and proper solutions in under 60 seconds",
+        "platform": "TikTok/Instagram Reels",
+        "why_it_worked": "Short-form video format native to platform, shocking/surprising content that stops scrolling, educational value, personality-driven content building trust with younger homeowners",
+        "metrics": "Top electrical safety Reels reaching 100K-500K views, engagement rates of 8-12% (significantly above platform averages), strong shares to homeowner groups",
+        "source": "Analysis of viral electrical contractor content on TikTok and Instagram, Later.com social media benchmarks 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for home services industry",
+        "best_content_format": "Photo posts (especially before/after transformations) and short videos under 2 minutes",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Tuesday-Thursday 9am-11am and 6pm-8pm local time",
+        "source": "Rival IQ 2024 Social Media Benchmark Report and ServiceTitan Home Services Marketing Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for home services/trades",
+        "best_content_format": "Reels (4-6x higher engagement than static posts), carousel posts showing process steps, Stories for behind-the-scenes and urgent updates",
+        "optimal_frequency": "4-7 posts per week including 3-4 Reels",
+        "best_posting_times": "Monday and Wednesday 11am-1pm, Thursday 7pm-9pm",
+        "source": "Hootsuite Social Media Trends Report 2024 and Later.com Instagram Engagement Study"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 2.5x more customer actions than businesses without posts",
+        "best_content_format": "Offer posts for promotions, Update posts for emergency availability, Photo posts for completed work",
+        "optimal_frequency": "2-3 posts per week minimum, daily for emergency services",
+        "best_posting_times": "Post emergency availability early morning (6-8am) when searches spike",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Google Business Profile best practices documentation"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.33% open rate, 2.62% click-through rate for home services",
+        "best_content_format": "Educational newsletters with safety tips, seasonal maintenance reminders, exclusive service discounts",
+        "optimal_frequency": "1-2 emails per month for newsletters, immediate sends for emergency service availability",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm for highest open rates",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Constant Contact Industry Report"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Home improvement content averages 3-5% engagement rate",
+        "best_content_format": "How-to videos 5-10 minutes, safety demonstration videos 3-5 minutes, customer testimonial videos 2-3 minutes",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Saturday-Sunday 9am-11am when homeowners research projects",
+        "source": "Tubular Labs YouTube Industry Reports 2024 and Think with Google home services research"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.59% for professional services",
+        "best_content_format": "Company updates, employee spotlights, industry certifications, commercial project showcases",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday 8am-10am and 12pm-2pm",
+        "source": "LinkedIn Marketing Solutions Benchmark Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Warning/Danger Pattern: '[Number] Signs Your [System] is Dangerous'",
+        "example": "5 Signs Your Electrical Panel is a Fire Hazard (And What to Do About It)",
+        "why_it_works": "Triggers fear and urgency around safety, provides specific actionable number, positions company as safety expert, appeals to homeowner's protective instincts",
+        "source": "Analysis of top-performing electrical service blog posts and Google Ads headlines"
+      },
+      {
+        "hook_pattern": "Cost Avoidance Pattern: 'This [Small Problem] Could Cost You [Large Amount]'",
+        "example": "That Flickering Light Could Cost You $15,000 in Fire Damage",
+        "why_it_works": "Reframes minor annoyance as major financial risk, creates urgency through specific dollar amount, motivates immediate action to avoid loss",
+        "source": "High-performing Facebook ad copy from electrical contractors and ServiceTitan marketing analysis"
+      },
+      {
+        "hook_pattern": "Myth-Busting Pattern: 'Why [Common Belief] is Wrong About [Topic]'",
+        "example": "Why Resetting Your Breaker Over and Over is Making the Problem Worse",
+        "why_it_works": "Challenges homeowner's default behavior, positions contractor as expert with insider knowledge, creates curiosity gap",
+        "source": "Top-performing electrical service YouTube video titles and email subject lines"
+      },
+      {
+        "hook_pattern": "Empowerment Pattern: 'How to Tell if You Need [Service] (Without Calling an Electrician Yet)'",
+        "example": "How to Tell if Your Wiring is Outdated (5 Things You Can Check Yourself)",
+        "why_it_works": "Respects homeowner intelligence, provides value upfront, builds trust before asking for business, reduces barrier to engagement",
+        "source": "High-engagement blog content from Mr. Electric, Mister Sparky, and independent contractors"
+      },
+      {
+        "hook_pattern": "Urgency + Specificity Pattern: '[Urgent Problem] + [Specific Timeframe]'",
+        "example": "No Power in Your Kitchen? We Can Fix It Today",
+        "why_it_works": "Addresses immediate pain point, provides specific solution timeline, matches high-urgency search intent",
+        "source": "Google Ads and Google Business Profile posts with highest conversion rates"
+      },
+      {
+        "hook_pattern": "Social Proof Pattern: '[Number] Homeowners in [Area] Just Discovered [Solution]'",
+        "example": "Why 847 Homeowners in [City] Upgraded Their Electrical Panels This Year",
+        "why_it_works": "Leverages bandwagon effect, provides local relevance, creates FOMO, builds credibility through numbers",
+        "source": "Facebook and Instagram ads from top-performing electrical service companies"
+      },
+      {
+        "hook_pattern": "Before/After Transformation: 'From [Pain State] to [Desired State] in [Timeframe]'",
+        "example": "From Daily Breaker Trips to Reliable Power in One Afternoon",
+        "why_it_works": "Shows clear transformation, manages expectations with specific timeline, focuses on outcome not process",
+        "source": "Case studies and testimonial content from electrical service providers"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "My breaker keeps tripping every time I use the microwave and coffee maker at the same time",
+        "I'm scared to use my outlets because I see sparks when I plug things in",
+        "The lights dim when the AC kicks on and I don't know if that's normal",
+        "I smell something burning near my electrical panel but I can't see anything wrong",
+        "Half my house just lost power and I don't know what to do",
+        "My home inspector said I need to upgrade my electrical panel before closing",
+        "I can't charge my Tesla at home because my garage doesn't have enough power",
+        "We keep blowing fuses and I'm tired of going to the hardware store",
+        "The previous owner did some sketchy wiring and I'm worried it's not safe",
+        "My outlets are warm to the touch and that can't be good"
+      ],
+      "solution_phrases": [
+        "I just want to know my family is safe and the house won't burn down",
+        "I need someone who can come out today because we have no power",
+        "I want a licensed electrician who knows the code and will do it right",
+        "I need enough outlets so I'm not running extension cords everywhere",
+        "I want to add value to my home and make it more modern",
+        "I need reliable power for my home office so I don't lose work",
+        "I want to charge my car overnight without worrying about the electrical system",
+        "I need someone who can explain what's wrong in terms I can understand",
+        "I want a permanent fix, not just a Band-Aid solution",
+        "I need peace of mind that everything is up to code and safe"
+      ],
+      "objection_phrases": [
+        "I'm worried this is going to cost a fortune and I don't have the budget right now",
+        "How do I know I actually need this or if you're just trying to upsell me?",
+        "Can't I just keep resetting the breaker instead of paying for a service call?",
+        "I don't want someone tearing up my walls and making a huge mess",
+        "How long is this going to take? I can't be without power for days",
+        "Do I really need a licensed electrician or can a handyman do this cheaper?",
+        "I'm renting so I don't know if my landlord will approve this",
+        "I got three quotes and they're all over the place - who do I trust?",
+        "Can this wait until next month or is it really urgent?",
+        "I'm worried about getting shocked or something going wrong during the work"
+      ],
+      "decision_factors": [
+        "They were licensed and insured which made me feel safe",
+        "They could come out the same day for an emergency",
+        "The electrician explained everything and showed me exactly what was wrong",
+        "They had great reviews from other people in my neighborhood",
+        "They gave me a written estimate upfront with no hidden fees",
+        "They've been in business locally for over 20 years",
+        "They guaranteed their work and offered a warranty",
+        "The price was fair and they offered financing options",
+        "They were professional and respectful of my home",
+        "They pulled permits and made sure everything was up to code"
+      ],
+      "emotional_language": [
+        "terrified",
+        "scared",
+        "worried",
+        "peace of mind",
+        "safe",
+        "relief",
+        "frustrated",
+        "anxious",
+        "confident",
+        "trust",
+        "professional",
+        "reliable",
+        "nightmare",
+        "disaster waiting to happen",
+        "finally fixed",
+        "huge weight off my shoulders",
+        "sleep better at night",
+        "protect my family",
+        "worth every penny",
+        "can't put a price on safety"
+      ],
+      "sources": [
+        "Google Reviews for electrical contractors in major metro areas",
+        "Reddit r/HomeImprovement threads about electrical issues",
+        "Yelp reviews for electrical services",
+        "Angi (formerly Angie's List) customer reviews",
+        "HomeAdvisor electrical service reviews",
+        "Facebook community group discussions about electrical problems",
+        "Nextdoor neighborhood recommendations and questions"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few electrical contractors create content specifically for first-time homeowners explaining basic electrical system maintenance",
+      "Limited content addressing electric vehicle charging installation from a whole-home electrical capacity perspective",
+      "Minimal educational content about smart home electrical requirements and panel capacity planning",
+      "Few contractors address the specific concerns of older homeowners aging in place (accessibility, safety features, medical equipment power needs)",
+      "Limited transparent pricing information or cost education (most avoid discussing price ranges entirely)",
+      "Sparse content on energy efficiency upgrades beyond basic LED installation",
+      "Few contractors create content for DIY-ers that establishes boundaries (what's safe to DIY vs. when to call a pro)",
+      "Limited video content showing actual work process to demystify what happens during service calls",
+      "Minimal content addressing rental property owners and landlord-specific electrical compliance requirements",
+      "Few contractors leverage customer success stories beyond basic testimonials (detailed case studies with problems, solutions, and outcomes)"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February (Winter Storm Season)",
+        "opportunity": "Increased searches for power outage solutions, generator installations, and emergency electrical repairs after storms",
+        "content_angle": "Winter electrical safety tips, backup power solutions, what to do when power goes out, preventing frozen pipe electrical issues"
+      },
+      {
+        "period": "March-May (Spring Home Improvement Season)",
+        "opportunity": "Homeowners planning renovations, outdoor lighting projects, and electrical upgrades before summer",
+        "content_angle": "Outdoor outlet installation for spring yard work, landscape lighting, electrical inspections before major renovations, pool and hot tub electrical requirements"
+      },
+      {
+        "period": "June-August (Peak AC Season)",
+        "opportunity": "Electrical system strain from air conditioning, breaker trips from high usage, panel upgrade needs become apparent",
+        "content_angle": "Can your electrical panel handle summer AC loads, preventing breaker trips during heat waves, whole-home surge protection for expensive HVAC systems"
+      },
+      {
+        "period": "September-October (Home Sale Season)",
+        "opportunity": "Home inspections revealing electrical issues, buyers and sellers needing code compliance work, pre-listing electrical upgrades",
+        "content_angle": "Common electrical issues that kill home sales, electrical upgrades that add value, passing electrical inspection for closing"
+      },
+      {
+        "period": "November-December (Holiday Season)",
+        "opportunity": "Holiday lighting installations, increased electrical load from decorations, kitchen electrical needs for holiday cooking",
+        "content_angle": "Safe holiday lighting installation, preventing breaker trips during holiday gatherings, outdoor outlet installation for decorations, kitchen electrical upgrades before hosting"
+      },
+      {
+        "period": "Tax Refund Season (February-April)",
+        "opportunity": "Homeowners have budget for deferred maintenance and upgrades, willing to invest tax refunds in home improvements",
+        "content_angle": "Smart ways to invest your tax refund in home safety, electrical upgrades that pay for themselves in energy savings, financing options for panel upgrades"
+      },
+      {
+        "period": "Back-to-School (August-September)",
+        "opportunity": "Home office setups for remote work/school, dedicated circuits for computers and equipment, improved lighting for study areas",
+        "content_angle": "Home office electrical requirements, creating dedicated circuits for work-from-home setups, proper lighting for remote learning spaces"
+      },
+      {
+        "period": "New Year (January)",
+        "opportunity": "Home improvement resolutions, energy efficiency goals, safety-focused homeowners planning upgrades",
+        "content_angle": "New Year electrical safety checklist, energy-saving electrical upgrades for 2024, planning your home's electrical improvements"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "ServiceTitan Home Services Marketing Report 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Hootsuite Social Media Trends Report 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Engagement Study 2024",
+      "LinkedIn Marketing Solutions Benchmark Report 2024",
+      "Constant Contact Industry Report 2024",
+      "Google Business Profile best practices documentation",
+      "Think with Google home services research",
+      "Tubular Labs YouTube Industry Reports 2024",
+      "Google Reviews for electrical contractors",
+      "Reddit r/HomeImprovement community",
+      "Yelp electrical service reviews",
+      "Angi customer reviews",
+      "HomeAdvisor reviews",
+      "Nextdoor neighborhood discussions",
+      "Mr. Electric YouTube channel",
+      "Mister Sparky marketing content",
+      "Top electrical contractor Facebook and Instagram pages"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited specific A/B testing data for electrical services headlines (most data extrapolated from broader home services category)",
+      "TikTok engagement benchmarks specific to electrical contractors are emerging but not yet standardized in industry reports",
+      "Conversion rate data from content to booking is often proprietary and not publicly shared by top performers",
+      "Some seasonal patterns are based on search trend data rather than actual booking data from electrical contractors"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new electrical services (EV charging, panel upgrades, smart home electrical)",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Safety concerns and hidden dangers with current electrical systems that the new service solves",
+        "Week 2: Modern lifestyle demands (EV charging, smart homes, work-from-home) requiring electrical capacity upgrades",
+        "Week 3: Real customer transformations from outdated to modern electrical systems",
+        "Week 4: Limited-time launch incentives and emergency availability for immediate installations"
+      ],
+      "weekly_hooks": [
+        [
+          "Why [847] Homeowners in [City] Can't Charge Their Tesla Without This Upgrade",
+          "[5] Signs Your Electrical Panel Can't Handle Your New [EV/Smart Home/Home Office]",
+          "That Flickering Light Could Mean Your Panel Can't Support [New Service] (Here's How to Tell)"
+        ],
+        [
+          "From Daily Breaker Trips to Reliable [EV Charging/Smart Home Power] in One Afternoon",
+          "How to Tell if You Need [Panel Upgrade/Dedicated Circuit] Without Calling an Electrician Yet",
+          "This [Outdated Panel] Could Cost You [$15,000] in Fire Damage (And Block Your [EV/Smart Home] Dreams)"
+        ],
+        [
+          "No Power for Your [Home Office/EV/Kitchen]? We Can Fix It Today with [New Service]",
+          "[Number] Homeowners Just Discovered They Can Finally [Charge at Home/Run All Appliances/Add Smart Devices]",
+          "Why Resetting Your Breaker Over and Over Won't Let You [Install EV Charger/Upgrade Kitchen/Add Circuits]"
+        ],
+        [
+          "Last Chance: [New Service] Installation Before [Holiday/Season/Price Increase]",
+          "Only [Number] Spots Left for Same-Day [Service] Installation This Month",
+          "From [Fear of Electrical Fire/No EV Charging/Constant Outages] to [Safe Modern System] - Final Week for [Discount]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know I actually need this or if you're just trying to upsell me?' with thermal imaging diagnostics and capacity calculations",
+        "Week 2: Address 'Can this wait until next month or is it really urgent?' by showing progressive damage and safety risks of delay",
+        "Week 3: Address 'The quote seems high for just adding a circuit' with transparent breakdown of permit fees, code-compliant materials, and warranty value",
+        "Week 4: Address 'I'm worried this is going to cost a fortune and I don't have the budget right now' with financing options and phased installation plans"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce licensed and certified credentials, insurance coverage, and years in business",
+        "Week 2: Share code compliance guarantees, permit pulling process, and inspector relationships",
+        "Week 3: Feature detailed before/after case studies with specific problems solved and customer testimonials from neighborhood",
+        "Week 4: Final push with written estimates, warranty guarantees, and limited availability urgency"
+      ],
+      "cta_progression": [
+        "Week 1: Download free electrical capacity assessment checklist to see if your system can handle [new service]",
+        "Week 2: Schedule free home electrical evaluation with thermal imaging (normally $150, free during launch)",
+        "Week 3: Book your installation and get [launch discount/bonus service/extended warranty]",
+        "Week 4: Call now for same-day installation - only [X] appointments left this month"
+      ],
+      "platform_priority": [
+        "Google Business Profile (daily posts for emergency availability and launch offers)",
+        "Facebook (4-5 posts/week with before/after photos and customer stories)",
+        "Instagram Reels (4-5 per week showing installation process and dramatic transformations)",
+        "Email (2 sends per week to existing list with exclusive early access)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on emergency electrical service posts on Google Business Profile generating 40% more calls than standard posts, Facebook before/after photos getting 3-5x more engagement, and Instagram Reels achieving 4-6x higher engagement than static posts. Launch timing leverages seasonal opportunities for EV charging (tax credits) and panel upgrades (home improvement season)."
+    },
+    "evergreen": {
+      "description": "8-week repeatable educational content cycle building authority and trust",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Electrical safety warning signs homeowners can identify themselves",
+        "Week 2: Cost avoidance through preventive maintenance and early problem detection",
+        "Week 3: Myth-busting common electrical misconceptions and dangerous DIY attempts",
+        "Week 4: Home value and modernization through electrical upgrades",
+        "Week 5: Energy efficiency and cost savings from electrical system optimization",
+        "Week 6: Code compliance and insurance protection for homeowner peace of mind",
+        "Week 7: Seasonal electrical preparation and maintenance checklists",
+        "Week 8: Customer success stories and community trust building"
+      ],
+      "weekly_hooks": [
+        [
+          "[5] Signs Your Electrical Panel is a Fire Hazard (And What to Do About It)",
+          "Is Your Home's Electrical System Safe? Here's How to Check Without Calling Anyone Yet",
+          "That Burning Smell Near Your Panel? Here's What It Means and Why You Can't Ignore It"
+        ],
+        [
+          "That Flickering Light Could Cost You [$15,000] in Fire Damage",
+          "Why Ignoring [Breaker Trips/Warm Outlets/Dimming Lights] Gets More Expensive Every Month",
+          "This [$500] Fix Now Prevents a [$5,000] Emergency Later (What Most Homeowners Miss)"
+        ],
+        [
+          "Why Resetting Your Breaker Over and Over is Making the Problem Worse",
+          "Why [Common Belief] About Extension Cords is Wrong and Dangerous",
+          "The Truth About DIY Electrical Work (And When It Voids Your Insurance)"
+        ],
+        [
+          "[Number] Electrical Upgrades That Actually Increase Your Home's Sale Price",
+          "Common Electrical Issues That Kill Home Sales (And How to Fix Them Before Listing)",
+          "Why Home Inspectors Flag [Outdated Panels/Aluminum Wiring/Missing GFCI] Every Time"
+        ],
+        [
+          "How [LED Upgrades/Panel Optimization/Smart Switches] Pay for Themselves in [Timeframe]",
+          "[Number] Ways Your Electrical System is Wasting Money Right Now",
+          "From [$300] Monthly Electric Bills to [$180] With These Electrical Efficiency Fixes"
+        ],
+        [
+          "What Your Homeowner's Insurance Won't Cover (And Why Permits Matter)",
+          "Why Licensed Electricians Cost More Than Handymen (And Save You Thousands)",
+          "[Number] Code Violations Found in Every [Third/Fourth] Home Inspection"
+        ],
+        [
+          "Your [Winter/Spring/Summer/Fall] Electrical Safety Checklist for [City] Homeowners",
+          "Preparing Your Electrical System for [Storm Season/Heat Wave/Holiday Lights/AC Load]",
+          "[Number] Things to Check Before [Season] Puts Stress on Your Electrical Panel"
+        ],
+        [
+          "From Daily Breaker Trips to Reliable Power in One Afternoon (Real Customer Story)",
+          "Why [847] Homeowners in [City] Trust [Company] for Electrical Safety",
+          "How We Helped [Customer Name] Go From [Fear State] to [Peace of Mind] in [Timeframe]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1-2: Build trust before addressing objections - focus on education and empowerment",
+        "Week 3: Address 'Can't I just keep resetting the breaker?' with safety data and progressive damage explanation",
+        "Week 4: Address 'Do I really need a licensed electrician or can a handyman do this cheaper?' with insurance and code compliance facts",
+        "Week 5: Address 'Can this wait until next month?' with cost escalation examples",
+        "Week 6: Address 'I got three quotes all over the place - who do I trust?' with transparent pricing education",
+        "Week 7: Reinforce value without direct objection handling",
+        "Week 8: Address 'Why do you charge more than competitors?' through customer success stories showing ROI"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce educational expertise and helpful resources",
+        "Week 2: Share specific examples of problems caught early vs. ignored",
+        "Week 3: Feature licensing, certifications, and insurance coverage",
+        "Week 4: Showcase years in business and local community presence",
+        "Week 5: Present energy audit results and efficiency case studies",
+        "Week 6: Highlight code compliance track record and inspector relationships",
+        "Week 7: Share seasonal preparation success stories",
+        "Week 8: Feature detailed customer testimonials with specific transformations and neighborhood locations"
+      ],
+      "cta_progression": [
+        "Week 1: Download free electrical safety checklist",
+        "Week 2: Read our guide on electrical warning signs",
+        "Week 3: Watch our video on common electrical myths",
+        "Week 4: Get our home value electrical upgrade guide",
+        "Week 5: Schedule free energy efficiency evaluation",
+        "Week 6: Request free electrical system inspection",
+        "Week 7: Book seasonal electrical safety check",
+        "Week 8: Call for same-day service or schedule consultation"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos/week with safety demonstrations and how-to content)",
+        "Facebook (3-5 posts/week with educational content and before/after photos)",
+        "Email (1-2 newsletters/month with safety tips and seasonal reminders)",
+        "Google Business Profile (2-3 posts/week with educational updates and completed work photos)",
+        "Instagram (4-7 posts/week including 3-4 Reels with quick safety tips)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Mr. Electric's educational video series averaging 15K-50K views with high watch-through rates, Mister Sparky's 'Is Your Home's Electrical System Safe?' email series achieving 28-35% open rates (vs 21% industry average), and educational content addressing real safety concerns performing consistently across all platforms. Cycle designed to match the proven hook patterns while building authority without constant selling."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid audience growth campaign using viral-optimized content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Shocking electrical fails and dangers found in local homes (fear-based viral content)",
+        "Week 2: Quick electrical safety tips and myth-busting that homeowners can immediately apply and share"
+      ],
+      "weekly_hooks": [
+        [
+          "You Won't Believe What We Found Behind This Wall in [Neighborhood] (And It's Not Alone)",
+          "This [DIY Electrical Mistake] Could Burn Down Your House Tonight",
+          "[Number] Homeowners in [City] Have This Deadly Electrical Problem and Don't Know It",
+          "The Scariest Electrical Panel We've Ever Seen (And Why It Passed Inspection)",
+          "Why Every Electrician in [City] is Sharing This Photo of [Dangerous Situation]"
+        ],
+        [
+          "The [Number] Second Test That Could Save Your Family's Life (Anyone Can Do This)",
+          "Why Everything You Know About [Electrical Topic] is Wrong",
+          "Licensed Electricians Don't Want You to Know This [Safety Tip] (Just Kidding, Please Do This)",
+          "Stop Doing This With Your [Extension Cords/Outlets/Breakers] Immediately",
+          "The Free Way to Check if Your Home Has This [$15,000] Problem"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Pre-empt 'You're just fear-mongering to get business' by showing real examples with explanations of what went wrong and how to prevent it",
+        "Week 2: Address 'This won't happen to me' by demonstrating how common these issues are in local area with specific neighborhood examples"
+      ],
+      "proof_timing": [
+        "Week 1: Establish credibility through licensed electrician credentials and years of experience seeing these problems",
+        "Week 2: Share specific local examples and number of homes served in the community"
+      ],
+      "cta_progression": [
+        "Week 1: Share this to warn your neighbors / Tag someone who needs to see this",
+        "Week 1: Comment below if you've seen this in your home",
+        "Week 2: Download our free safety checklist / Save this post for later",
+        "Week 2: Schedule free electrical safety inspection to check for these issues"
+      ],
+      "platform_priority": [
+        "TikTok/Instagram Reels (2-3 per day showing electrical fails and quick safety tips)",
+        "Facebook (4-5 posts/day with shocking photos and urgent safety warnings)",
+        "YouTube Shorts (1-2 per day with viral-format electrical content)",
+        "Google Business Profile (daily posts highlighting emergency availability)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok and Instagram Reels from electricians showing 'electrical fails' reaching 100K-500K views with 8-12% engagement rates (significantly above platform averages), and shocking/surprising content that stops scrolling. Facebook posts with dramatic before/after photos getting 3-5x more engagement than text-only posts. Strategy leverages emotional language like 'terrified,' 'scared,' 'disaster waiting to happen' from customer voice data."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expert positioning",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Deep-dive electrical code compliance and why it matters for homeowner protection",
+        "Week 2: Comprehensive guide to electrical system components and how they work together",
+        "Week 3: Advanced electrical planning for modern homes (EV charging, smart homes, renewable energy)",
+        "Week 4: The business of electrical work - licensing, insurance, and what separates professionals from handymen",
+        "Week 5: Electrical safety science - how fires start and prevention strategies",
+        "Week 6: Future of home electrical systems and preparing homes for next-generation demands"
+      ],
+      "weekly_hooks": [
+        [
+          "Everything You Need to Know About [Local] Electrical Code (And Why Your Insurance Cares)",
+          "Why Licensed Electricians Pull Permits (And Handymen Don't)",
+          "The [Number] Code Violations That Fail Home Inspections Every Time (Complete Guide)"
+        ],
+        [
+          "How Your Electrical Panel Actually Works (Explained for Homeowners)",
+          "The Complete Guide to [Breakers/Circuits/GFCI/AFCI] Every Homeowner Should Understand",
+          "From Service Entrance to Outlet: The Journey of Electricity Through Your Home"
+        ],
+        [
+          "How to Plan Your Home's Electrical System for [EV Charging/Solar Panels/Battery Backup]",
+          "The Complete Guide to Electrical Capacity Planning for Modern Smart Homes",
+          "Why Your [1970s/1980s/1990s] Electrical Panel Can't Handle [Modern Demands] (And What to Do)"
+        ],
+        [
+          "What [$2 Million] in Insurance Actually Covers (And Why It Matters for Your Project)",
+          "The Real Cost Breakdown of Professional Electrical Work (Permits, Materials, Labor, Warranty)",
+          "How to Verify an Electrician is Actually Licensed in [State] (And Why You Should)"
+        ],
+        [
+          "The Science of Electrical Fires: How They Start and [Number] Ways to Prevent Them",
+          "What Happens Inside Your Walls When [Breaker Trips/Outlet Sparks/Wire Overheats]",
+          "Thermal Imaging Reveals Hidden Electrical Dangers (What We Find in [Percentage] of Homes)"
+        ],
+        [
+          "Preparing Your Home's Electrical System for [2025/2030/Future] Technology Demands",
+          "The Coming Wave of [Home Batteries/Vehicle-to-Home/Smart Grid] and What Your Panel Needs",
+          "How [New Technology] Will Change Home Electrical Requirements in the Next [Number] Years"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do I really need permits?' with insurance and liability explanation",
+        "Week 2: Address 'This seems overly complicated' by demystifying electrical systems in accessible language",
+        "Week 3: Address 'I don't need all this future-proofing' with cost comparison of doing it right once vs. multiple upgrades",
+        "Week 4: Address 'Why do you charge more than competitors?' with transparent cost education",
+        "Week 5: Address 'My house has been fine for [X] years' with statistics on electrical fire causes",
+        "Week 6: Address 'I can't afford to upgrade everything now' with phased approach planning"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase deep knowledge of local codes and inspector relationships",
+        "Week 2: Demonstrate technical expertise through detailed explanations",
+        "Week 3: Feature advanced certifications (EV charging, solar, smart home specialists)",
+        "Week 4: Present comprehensive insurance coverage and business credentials",
+        "Week 5: Share thermal imaging equipment and diagnostic technology",
+        "Week 6: Highlight industry partnerships and continuing education commitments"
+      ],
+      "cta_progression": [
+        "Week 1: Download comprehensive electrical code compliance guide",
+        "Week 2: Watch our detailed video series on electrical system components",
+        "Week 3: Request free electrical capacity assessment for your future needs",
+        "Week 4: Read our transparent pricing guide and project cost breakdowns",
+        "Week 5: Schedule free thermal imaging inspection (limited availability)",
+        "Week 6: Book consultation for long-term electrical system planning"
+      ],
+      "platform_priority": [
+        "YouTube (2 videos/week with in-depth educational content 5-10 minutes)",
+        "LinkedIn (2-3 posts/week with professional insights and company updates)",
+        "Email (1 comprehensive newsletter/week with deep-dive content)",
+        "Facebook (3-4 posts/week with educational content and expert positioning)",
+        "Blog/Website (1 long-form article/week optimized for SEO)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Mr. Electric's educational video series demonstrating high watch-through rates on 3-5 minute format and featuring licensed electricians as credentialed professionals. Addresses competitive gap of 'limited transparent pricing information' and 'few contractors create content for first-time homeowners explaining basic electrical system maintenance.' Leverages decision factors of 'explained everything' and 'licensed and insured which made me feel safe.'"
+    },
+    "engagement_drive": {
+      "description": "2-week community interaction and algorithm boost campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive electrical safety challenges and crowd-sourced problem identification",
+        "Week 2: Community stories, user-generated content, and neighborhood electrical pride"
+      ],
+      "weekly_hooks": [
+        [
+          "Comment 'SAFE' if Your Home Has This Electrical Feature (Most Don't)",
+          "Drop a [emoji] if You've Ever [Reset a Breaker 5 Times/Seen Sparks/Smelled Burning]",
+          "Poll: What Scares You Most About Your Home's Electrical System? (We'll Address Top Answers)",
+          "Finish This Sentence: 'I Know I Need to Call an Electrician When...'",
+          "Tag Someone Who Still Uses Extension Cords as Permanent Wiring"
+        ],
+        [
+          "Share Your Craziest Electrical Problem Story (Best One Gets Free Inspection)",
+          "Show Us Your Electrical Panel (We'll Tell You What We See - Good or Bad)",
+          "Before and After Challenge: Share Your Electrical Upgrade Transformation",
+          "[Number] Homeowners in [Neighborhood] Just Made Their Homes Safer - Who's Next?",
+          "Caption This Electrical Fail (Winner Gets [Prize/Discount/Recognition])"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed about my electrical situation' by normalizing common problems and showing how frequent they are",
+        "Week 2: Address 'I don't want to admit I need help' by celebrating homeowners who proactively addressed issues"
+      ],
+      "proof_timing": [
+        "Week 1: Share quick responses demonstrating expertise in comment sections",
+        "Week 2: Feature community members who've used services with their permission and testimonials"
+      ],
+      "cta_progression": [
+        "Week 1 Day 1-3: Comment, share, tag engagement CTAs",
+        "Week 1 Day 4-7: Vote in polls, answer questions, share experiences",
+        "Week 2 Day 1-4: Submit photos, share stories, participate in challenges",
+        "Week 2 Day 5-7: Claim contest prizes, schedule free inspections, book consultations for engagement participants"
+      ],
+      "platform_priority": [
+        "Instagram Stories (3-5 per day with polls, questions, quizzes)",
+        "Facebook (4-5 posts/day with high-engagement formats like fill-in-blank and tag-a-friend)",
+        "TikTok (2-3 videos/day encouraging duets, stitches, and responses)",
+        "Google Business Profile (daily Q&A posts encouraging community questions)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram engagement rates of 1.94% for home services being significantly higher than Facebook (0.63%), and Stories format being optimal for behind-the-scenes and interactive content. Leverages customer emotional language like 'frustrated,' 'huge weight off my shoulders,' and 'can't put a price on safety' to create relatable conversation starters. Addresses competitive gap of 'limited video content showing actual work process to demystify what happens during service calls.'"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Why [NUMBER]% of commercial electrical fires start in places you'd never expect.\n\nLast month, we prevented a major fire at a [INDUSTRY] facility. The culprit? Not outdated wiring or overloaded circuits—it was [SPECIFIC PROBLEM] that most facility managers overlook.\n\nPROBLEM: Most commercial properties focus on visible electrical infrastructure while ignoring critical warning signs in [LOCATION/SYSTEM]. By the time you notice [SYMPTOM], you're already at risk.\n\nAGITATE: A single electrical fire averages $[AMOUNT] in damages, plus downtime costs, potential injuries, and regulatory scrutiny. Insurance doesn't cover negligence from missed inspections.\n\nSOLUTION: Here's what we check during commercial safety audits that most companies miss:\n• [CHECKPOINT 1]\n• [CHECKPOINT 2]\n• [CHECKPOINT 3]\n• [CHECKPOINT 4]\n\nWe've completed [NUMBER] commercial electrical safety audits across [REGION]. [PERCENTAGE]% revealed code violations the property owners didn't know existed.\n\nFacility managers: What's your biggest concern about your building's electrical infrastructure? #CommercialElectrical #FacilitySafety #ElectricalContractor #[City]Business #BuildingSafety",
+        "framework": "PAS",
+        "character_count": 1247
+      },
+      "authority": {
+        "template": "The electrical industry just changed, and most property owners don't know it yet.\n\nNew NEC [CODE YEAR] requirements for [SPECIFIC SYSTEM TYPE] mean that [PERCENTAGE]% of buildings in [REGION] are now technically non-compliant. Here's what this means for your property:\n\nATTENTION: If you're planning any electrical work, renovations, or preparing for sale, these code changes affect you directly.\n\nINTEREST: The updated requirements specifically target:\n1. [REQUIREMENT 1] - affects [BUILDING TYPE]\n2. [REQUIREMENT 2] - mandatory for [SITUATION]\n3. [REQUIREMENT 3] - critical for [APPLICATION]\n\nDESIRE: Proactive compliance means:\n→ No surprises during inspections\n→ Higher property values\n→ Reduced insurance liability\n→ Competitive advantage in [MARKET]\n\nACTION: We're offering complimentary code compliance assessments for [PROPERTY TYPE] throughout [MONTH]. Our licensed team will identify gaps and provide a prioritized upgrade roadmap.\n\nAs a [CERTIFICATION] certified contractor with [NUMBER] years serving [REGION], we've helped [NUMBER] properties navigate these transitions smoothly.\n\nDM me 'COMPLIANCE' for assessment details.\n\n#ElectricalCode #PropertyManagement #CommercialReal Estate #NEC[YEAR] #[City]Commercial",
+        "framework": "AIDA",
+        "character_count": 1312
+      },
+      "promotional": {
+        "template": "BEFORE: Paying $[AMOUNT]/month in energy waste from outdated electrical systems.\nAFTER: Saving $[AMOUNT]/month with modern, efficient infrastructure.\n\n[COMPANY NAME] just helped [CLIENT TYPE] reduce their electrical operating costs by [PERCENTAGE]% while improving safety and reliability.\n\nThe bridge? A strategic electrical infrastructure upgrade that paid for itself in [TIMEFRAME].\n\nMost commercial properties are running on electrical systems designed for [PAST ERA] power demands. Today's technology requirements—EV charging, server rooms, modern HVAC—are straining infrastructure never meant to handle these loads.\n\nThe result:\n• Higher utility bills from inefficiency\n• Frequent nuisance trips disrupting operations  \n• Deferred maintenance becoming emergency repairs\n• Safety risks from overloaded systems\n\nOur commercial electrical modernization program:\n✓ Complete infrastructure assessment\n✓ ROI analysis with payback timeline\n✓ Phased implementation to minimize disruption\n✓ Utility rebate coordination (averaging $[AMOUNT])\n✓ [WARRANTY PERIOD] warranty on all work\n\nWe've upgraded [NUMBER] commercial properties in [REGION], from [SIZE] facilities to [SIZE] complexes.\n\nQ4 is the ideal time for electrical projects—reduced demand, budget availability, and preparation for next year.\n\nInterested in an assessment? Comment 'UPGRADE' or message directly.\n\n#EnergyEfficiency #CommercialElectrical #FacilityUpgrade #[City]Business",
+        "framework": "BAB",
+        "character_count": 1389
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "That warm outlet isn't normal. 🔥\n\n[NUMBER] signs your electrical system is screaming for help (swipe to see what we found in homes this week) →\n\nSlide 1: Warm/hot outlets\nSlide 2: Flickering lights\nSlide 3: Burning smell\nSlide 4: Frequent breaker trips\nSlide 5: Sparking outlets\nSlide 6: What to do NOW\n\nIf you've noticed ANY of these, don't wait. That 'small' issue could cost you $[AMOUNT] in fire damage.\n\nWe respond to [NUMBER] emergency calls every week that started as 'just a little problem.'\n\nTag someone who needs to see this 👇\n\nSave this post for later—your future self will thank you.\n\n#ElectricalSafety #HomeSafety #[City]Electrician #ElectricalTips #HomeOwnerTips #SafetyFirst #LicensedElectrician #ElectricalFire #HomeImprovement #[City]Homes",
+        "visual": "Carousel: Slide 1 shows thermal image of hot outlet in red/orange. Slide 2-5 show clear before photos of each warning sign with red circle highlighting the problem. Slide 6 is checklist graphic with 'Call licensed electrician immediately' as top item. Professional but urgent tone in design.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "POV: You're an electrician in [YEAR] and you just opened this panel 😳\n\nThis is what we call a 'fire waiting to happen.' Here's what's wrong:\n\n❌ [PROBLEM 1]\n❌ [PROBLEM 2]  \n❌ [PROBLEM 3]\n\nThe homeowner had NO IDEA. They just knew their breaker kept tripping.\n\nAfter [NUMBER] years and [NUMBER] service calls, I've seen it all. But this one made even me pause.\n\nThe good news? We caught it before disaster struck.\n\nThe better news? You can prevent this in YOUR home.\n\n[NUMBER] things every homeowner should check:\n1. [CHECK 1]\n2. [CHECK 2]\n3. [CHECK 3]\n\nDrop a 🔥 if you learned something new.\n\nQuestions? Drop them below—I read every comment.\n\n#ElectricianLife #ElectricalPanel #HomeSafety #[City]Electrician #LicensedElectrician #ElectricalCode #MasterElectrician #HomeInspection #RealEstateEducation #[City]RealEstate",
+        "visual": "Reel or carousel: Opening shot of dangerous electrical panel (close-up). Text overlay pointing out each violation with arrows and labels. Final slide shows the upgraded, code-compliant panel. Use trending audio with voiceover explaining each issue. Authentic, educational tone—not overly produced.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "From daily breaker trips to reliable power in ONE afternoon ⚡\n\n[CLIENT NAME] couldn't use their microwave and coffee maker at the same time without losing power. Working from home was a nightmare.\n\nBEFORE: [DESCRIBE PAIN STATE]\nAFTER: [DESCRIBE TRANSFORMATION]\n\nSwipe to see the transformation →\n\nWhat we did:\n✓ [SERVICE 1]\n✓ [SERVICE 2]\n✓ [SERVICE 3]\n\nTime: [TIMEFRAME]\nInvestment: $[AMOUNT]\nTheir reaction: 'Worth every penny for peace of mind'\n\nThis is what we do. Every. Single. Day.\n\n[NUMBER] homes in [CITY] upgraded this year. If you're dealing with [PROBLEM], you're next.\n\nDM 'UPGRADE' for a free assessment.\nOr call: [PHONE]\n\nLicensed • Insured • [WARRANTY] Warranty\n\n#ElectricalUpgrade #HomeImprovement #[City]Electrician #PanelUpgrade #BeforeAndAfter #ElectricalContractor #HomeRenovation #[City]Homes #LicensedElectrician #ElectricalServices",
+        "visual": "Carousel: Slide 1 is dramatic before photo of old panel/problem. Slide 2 shows electrician working (action shot). Slide 3 is pristine after photo of new panel. Slide 4 is customer testimonial quote overlaid on their smiling photo. Slide 5 is CTA graphic with contact info. Professional photography with consistent branding.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚡ SAFETY ALERT: [NUMBER] Things You Should NEVER Do With Your Home's Electrical System ⚡\n\nNeighbors, I've been responding to emergency calls all week, and I keep seeing the same dangerous mistakes. I need to share this before someone gets hurt.\n\nPROBLEM: Most homeowners don't realize these common habits are putting their families at risk:\n\n🚫 [DANGEROUS PRACTICE 1]\nWhy it's dangerous: [EXPLANATION]\nWhat to do instead: [SAFE ALTERNATIVE]\n\n🚫 [DANGEROUS PRACTICE 2]  \nWhy it's dangerous: [EXPLANATION]\nWhat to do instead: [SAFE ALTERNATIVE]\n\n🚫 [DANGEROUS PRACTICE 3]\nWhy it's dangerous: [EXPLANATION]\nWhat to do instead: [SAFE ALTERNATIVE]\n\n🚫 [DANGEROUS PRACTICE 4]\nWhy it's dangerous: [EXPLANATION]\nWhat to do instead: [SAFE ALTERNATIVE]\n\nAGITATE: Just last month, a family in [NEIGHBORHOOD] had a close call because of [SPECIFIC INCIDENT]. Their smoke detector saved them, but it never should have happened.\n\nSOLUTION: Here's your action plan:\n\n✅ Walk through your home TODAY and check for these issues\n✅ If you find ANY of them, stop using that outlet/circuit immediately  \n✅ Call a licensed electrician (yes, really—not a handyman)\n✅ Don't wait for 'a better time' if you smell burning or see sparks\n\nYour family's safety is worth more than any service call.\n\nI'm offering FREE safety inspections for [CITY] homeowners this week. No obligation, no sales pitch—just want to make sure our community is safe.\n\nComment 'SAFETY' below and I'll send you our complete home electrical safety checklist.\n\nShare this with your neighbors—everyone needs to see this.\n\nStay safe, [CITY]! 🏡\n\n#[City]Community #ElectricalSafety #HomeSafety #[City]Electrician #SafetyFirst #LocalBusiness #CommunityFirst",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why [NUMBER] Homeowners in [CITY] Just Upgraded Their Electrical Panels (And Why You Should Pay Attention)\n\nATTENTION: If your home was built before [YEAR], this affects you.\n\nI've completed [NUMBER] panel upgrades in [CITY] just this year. That's not a coincidence—it's a trend driven by real needs:\n\nINTEREST: Here's what's happening:\n\n1️⃣ MODERN POWER DEMANDS\nToday's homes use [PERCENTAGE]% more electricity than [DECADE] homes. Your [AMP] panel was never designed for:\n• Electric vehicle charging\n• Central AC + multiple window units\n• Home offices with multiple devices\n• Smart home systems\n• Modern kitchen appliances\n\n2️⃣ SAFETY CONCERNS  \nOlder panels (especially [BRAND] and [BRAND]) have known failure rates. Insurance companies are starting to require upgrades or charging higher premiums.\n\n3️⃣ HOME VALUE\nReal estate agents report that updated electrical systems add $[AMOUNT]-$[AMOUNT] to home values and speed up sales by [PERCENTAGE]%.\n\nDESIRE: What a modern [AMP] panel gives you:\n✓ No more breaker trips when using multiple appliances\n✓ Safe EV charging capability  \n✓ Room for future additions (hot tub, shop, addition)\n✓ Lower insurance rates\n✓ Peace of mind that your family is safe\n✓ Code compliance for future sale\n\nACTION: The process is simpler than you think:\n\n→ Day 1: Assessment and permit ([TIMEFRAME])\n→ Day 2: Installation ([TIMEFRAME])  \n→ Day 3: Inspection and approval\n→ Total disruption: [TIMEFRAME]\n\nAverage investment: $[AMOUNT]-$[AMOUNT]\nAvailable financing: $[AMOUNT]/month\nUtility rebates: Up to $[AMOUNT]\n\nWe're [CERTIFICATION] certified, fully licensed and insured, and we've been serving [CITY] for [NUMBER] years.\n\nFree assessments available—we'll tell you honestly if you need an upgrade or if your current panel is fine.\n\nDM me or call [PHONE] to schedule.\n\nQuestions? Drop them below—I answer everything personally.\n\n#[City]Electrician #ElectricalPanel #HomeUpgrade #PanelUpgrade #[City]Homes #ElectricalSafety #HomeImprovement #LicensedElectrician",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "BEFORE: 'I'm scared to plug anything in because the outlet sparks every time.' 😰\n\nAFTER: 'I finally have peace of mind that my home is safe for my kids.' 😊\n\nThis was [CLIENT NAME]'s reality just [TIMEFRAME] ago.\n\nBRIDGE: Here's what we did:\n\nThe Problem:\n[CLIENT] called us after noticing [SPECIFIC SYMPTOMS]. As a parent of [NUMBER] kids under [AGE], the fear was keeping them up at night. They'd gotten [NUMBER] quotes ranging from $[LOW AMOUNT] to $[HIGH AMOUNT] and didn't know who to trust.\n\nWhat We Found:\n• [PROBLEM 1]\n• [PROBLEM 2]  \n• [PROBLEM 3]\n\nThe Solution:\n✓ [SERVICE PROVIDED 1]\n✓ [SERVICE PROVIDED 2]\n✓ [SERVICE PROVIDED 3]\n\nTimeline: Started [DAY], completed [DAY]\nInvestment: $[AMOUNT] (included [WARRANTY] warranty)\nFinancing: $[AMOUNT]/month option available\n\nThe Result:\n'[TESTIMONIAL QUOTE]' - [CLIENT NAME], [NEIGHBORHOOD]\n\n[Photos: Swipe to see the before/after →]\n\nThis is what we do every day. We don't just fix electrical problems—we give families peace of mind.\n\nWhat makes us different:\n🔹 [NUMBER]+ years serving [CITY]\n🔹 [CERTIFICATION] master electricians  \n🔹 [WARRANTY] warranty on all work\n🔹 Upfront pricing, no hidden fees\n🔹 [RATING] stars on Google ([NUMBER] reviews)\n🔹 Licensed, insured, bonded\n\nIf you're experiencing [PROBLEM TYPE], don't wait. That 'small' issue rarely stays small.\n\n📞 Call or text: [PHONE]\n💻 Book online: [WEBSITE]\n📧 Email: [EMAIL]\n\nFree estimates • Same-day emergency service • Financing available\n\nServing [CITY] and surrounding areas: [AREA 1], [AREA 2], [AREA 3]\n\nTag someone who needs to see this, or share to your story to help a neighbor! 🏡\n\n#[City]Electrician #ElectricalServices #LicensedElectrician #[City]Business #LocalElectrician #ElectricalRepair #HomeSafety #[City]Homes #TrustedContractor",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "If your outlet looks like THIS, get out of your house right now 🚨",
+        "script": "HOOK (0-3 sec): [Show burnt/damaged outlet close-up] 'If your outlet looks like THIS, get out of your house right now 🚨'\n\nPROBLEM (3-15 sec): [Cut to electrician face] 'I'm a licensed electrician and I see this EVERY. SINGLE. WEEK. Homeowners ignore the warning signs until...' [dramatic pause, cut to fire damage photo] 'This happens.'\n\nAGITATE (15-30 sec): [Quick cuts of warning signs] 'Here's what most people miss:\n• Warm outlets [touch outlet, show thermal camera]\n• Burning smell [sniff, make face]  \n• Flickering lights [show flickering]\n• Sparks when plugging in [demonstrate safely]\n\nYou think it's no big deal? [Pull out damaged wire] This is what's happening INSIDE your wall right now.'\n\nSOLUTION (30-50 sec): [Calm, direct to camera] 'What to do:\n1. STOP using that outlet immediately\n2. Turn off the breaker [show breaker panel]\n3. Call a LICENSED electrician—not your handyman uncle\n4. Don't wait for a 'better time'\n\nI've seen $[AMOUNT] in fire damage from a $[AMOUNT] repair people put off.'\n\nCTA (50-60 sec): 'Save this video. Share it with your family. Comment if you've seen any of these signs. Your life is worth more than a service call. #ElectricalSafety #HomeSafety #Electrician'\n\nTEXT OVERLAYS: 'WARNING SIGNS ⚠️' / 'Don't ignore these' / 'Could save your life' / 'Licensed electrician' / 'Share this'\n\nTREND: Use trending anxious/urgent audio, quick cuts, thermal camera footage for visual interest",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "POV: You just bought a house and I opened the electrical panel 💀",
+        "script": "HOOK (0-3 sec): [Dramatic reaction face] 'POV: You just bought a house and I opened the electrical panel 💀'\n\nATTENTION (3-10 sec): [Cut to panel, zoom in] 'As a master electrician with [NUMBER] years experience, even I was shocked. Watch what I found...'\n\nINTEREST (10-30 sec): [Point to violations] 'Red flag #1: [VIOLATION 1] [circle it]\nRed flag #2: [VIOLATION 2] [circle it]  \nRed flag #3: [VIOLATION 3] [circle it]\n\n[Cut to face] The home inspector MISSED all of this. This panel is literally [AGE] years old and hasn't been touched since [DECADE].'\n\nDESIRE (30-45 sec): [Show new panel being installed, time-lapse] 'Here's what we did: Complete [AMP] panel upgrade. Now this family has:\n✓ Safe, code-compliant power\n✓ Room for EV charger  \n✓ No more breaker trips\n✓ Peace of mind\n\n[Show happy homeowner] Done in [TIMEFRAME]. Changed their whole life.'\n\nACTION (45-60 sec): [Direct to camera] 'Buying a house? Selling a house? Get a REAL electrical inspection. Home inspectors aren't electricians.\n\nComment 'PANEL' for what to look for. Follow for more electrical fails and fixes. Part 2 coming tomorrow.\n\n#Electrician #ElectricalPanel #HomeBuying #HomeInspection #ElectricalFails #LicensedElectrician #RealEstate #HomeOwner #FirstTimeHomeBuyer'\n\nTEXT OVERLAYS: 'Home inspector approved this 😳' / 'Red flag' / 'Fire hazard' / 'The transformation' / 'Licensed electrician' / 'Get a real inspection'\n\nTREND: Use shocked/dramatic reaction trend format, before/after reveals, educational but entertaining tone",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "She couldn't use her microwave and coffee maker at the same time 😭",
+        "script": "HOOK (0-3 sec): [Show frustrated homeowner] 'She couldn't use her microwave and coffee maker at the same time 😭'\n\nBEFORE (3-15 sec): [Interview style] 'Every morning, same thing. Breaker trips. Had to choose between coffee or breakfast.' [Show old panel, breaker switching off]\n\n'Working from home? Forget it. Laptop, monitor, space heater? Nope. Pick two.'\n\n[Homeowner face] 'I was so frustrated I almost cried.'\n\nBRIDGE (15-40 sec): [Cut to electrician] 'This is SO common in [DECADE]s homes. They're running on [AMP] panels designed for like, a toaster and a radio.'\n\n[Time-lapse of work] 'We upgraded her to a modern [AMP] panel. Took [TIMEFRAME]. Here's what we did:' [Quick shots of work being done]\n\n'Pulled permit ✓\nAll code-compliant ✓  \n[WARRANTY] warranty ✓'\n\nAFTER (40-55 sec): [Happy homeowner] 'I can use EVERYTHING now. Microwave, coffee maker, toaster—all at once! My home office actually works!'\n\n[Show her making coffee, multiple appliances running] 'Best money I ever spent. Wish I'd done it years ago.'\n\nCTA (55-60 sec): [Electrician to camera] 'If this is you, stop suffering. Link in bio for free estimate. [CITY] area, same-day emergency service.\n\n#ElectricalUpgrade #HomeImprovement #PanelUpgrade #Electrician #[City] #BeforeAndAfter #HomeOwner #ElectricalServices #LicensedElectrician'\n\nTEXT OVERLAYS: 'The struggle was real' / 'Every morning' / 'The upgrade' / '[TIMEFRAME] later' / 'Life changing' / 'Link in bio'\n\nTREND: Use relatable struggle/transformation format, customer testimonial style, authentic reactions, trending audio with voiceover",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "⚠️ [FIRSTNAME], is your home's electrical system safe?",
+        "preview_text": "5 warning signs most homeowners miss (free checklist inside)",
+        "body": "Subject: ⚠️ [FIRSTNAME], is your home's electrical system safe?\nPreview: 5 warning signs most homeowners miss (free checklist inside)\n\n---\n\nHi [FIRSTNAME],\n\nPROBLEM:\nI responded to [NUMBER] emergency electrical calls last month. Every single one started the same way:\n\n'I noticed [SYMPTOM] a few weeks ago, but I didn't think it was a big deal...'\n\nHere's the truth: Your electrical system is screaming for help. Most homeowners just don't know what to listen for.\n\nAGITATE:\nThe [NUMBER] warning signs you're probably ignoring:\n\n🚨 [WARNING SIGN 1]\nWhat it means: [EXPLANATION]\nWhy it's dangerous: [RISK]\n\n🚨 [WARNING SIGN 2]  \nWhat it means: [EXPLANATION]\nWhy it's dangerous: [RISK]\n\n🚨 [WARNING SIGN 3]\nWhat it means: [EXPLANATION]\nWhy it's dangerous: [RISK]\n\n🚨 [WARNING SIGN 4]\nWhat it means: [EXPLANATION]\nWhy it's dangerous: [RISK]\n\n🚨 [WARNING SIGN 5]\nWhat it means: [EXPLANATION]\nWhy it's dangerous: [RISK]\n\nIf you've noticed even ONE of these, your home needs professional attention.\n\nSOLUTION:\nI've created a complete Home Electrical Safety Checklist that walks you through exactly what to check in every room of your home.\n\n→ Download your free checklist here [LINK]\n\nPLUS: Schedule a free safety inspection this month and receive:\n✓ Complete electrical system assessment\n✓ Written report of any issues found  \n✓ Prioritized repair recommendations\n✓ No-obligation estimate\n✓ [DISCOUNT]% off any repairs scheduled within [TIMEFRAME]\n\n→ Book your free inspection [LINK]\n\nYour family's safety is worth [TIMEFRAME] of your time.\n\nStay safe,\n[ELECTRICIAN NAME]\n[COMPANY NAME]\nLicensed Master Electrician • [LICENSE NUMBER]\n[PHONE] • [WEBSITE]\n\nP.S. Know someone who just bought a home? Forward this email—new homeowners especially need this checklist.\n\n---\n\nSEGMENT: All homeowners, especially homes built before [YEAR]\nTIMING: Tuesday 10am\nFOLLOW-UP: Send checklist download confirmation, then inspection booking reminder in 3 days",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "New electrical code changes affect [PERCENTAGE]% of [CITY] homes",
+        "preview_text": "What the NEC [YEAR] update means for your property value",
+        "body": "Subject: New electrical code changes affect [PERCENTAGE]% of [CITY] homes\nPreview: What the NEC [YEAR] update means for your property value\n\n---\n\nHi [FIRSTNAME],\n\nATTENTION:\nThe National Electrical Code just updated, and if you're planning ANY electrical work, renovations, or preparing to sell your home in the next [TIMEFRAME], this affects you directly.\n\nINTEREST:\nHere's what changed in NEC [YEAR]:\n\n📋 [MAJOR CHANGE 1]\nWho it affects: [PROPERTY TYPES]\nWhat it means: [EXPLANATION]\nCompliance deadline: [TIMEFRAME]\n\n📋 [MAJOR CHANGE 2]  \nWho it affects: [PROPERTY TYPES]\nWhat it means: [EXPLANATION]\nCompliance deadline: [TIMEFRAME]\n\n📋 [MAJOR CHANGE 3]\nWho it affects: [PROPERTY TYPES]\nWhat it means: [EXPLANATION]\nCompliance deadline: [TIMEFRAME]\n\nDESIRE:\nWhy this matters to you:\n\n💰 PROPERTY VALUE: Homes with updated electrical systems sell for $[AMOUNT]-$[AMOUNT] more and [PERCENTAGE]% faster\n\n🏠 RENOVATION REQUIREMENTS: Any permit-required work now triggers compliance updates\n\n📉 INSURANCE: Some carriers are requiring upgrades or increasing premiums for non-compliant systems\n\n✅ PEACE OF MIND: Modern code requirements are designed around today's safety standards and power demands\n\nACTION:\nGet ahead of this with our Code Compliance Assessment:\n\n✓ Complete review of your electrical system against NEC [YEAR]\n✓ Written report of compliance gaps\n✓ Prioritized upgrade roadmap with timeline options  \n✓ Accurate cost estimates\n✓ Utility rebate coordination (averaging $[AMOUNT] savings)\n\n→ Schedule your assessment [LINK]\n\nLimited availability: [NUMBER] assessment slots remaining this month\n\nAs a [CERTIFICATION] certified contractor with [NUMBER] years serving [CITY], we've helped [NUMBER] homeowners navigate code updates smoothly.\n\nQuestions? Reply to this email—I read and respond to every one personally.\n\nBest regards,\n[ELECTRICIAN NAME]\n[COMPANY NAME]\n[CREDENTIALS]\n[PHONE] • [WEBSITE]\n\nP.S. Preparing to sell? Get your assessment NOW. Buyers are increasingly requesting electrical inspections, and compliance issues can derail sales or reduce offers by $[AMOUNT]+.\n\n---\n\nSEGMENT: Homeowners with properties built before [YEAR], recent home buyers, pre-sale homeowners\nTIMING: Wednesday 11am  \nFOLLOW-UP: Send detailed NEC changes guide to those who click, assessment reminder in 5 days",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRSTNAME], ready to stop resetting your breaker every day?",
+        "preview_text": "Panel upgrade special: $[AMOUNT] off + [MONTHS] financing",
+        "body": "Subject: [FIRSTNAME], ready to stop resetting your breaker every day?\nPreview: Panel upgrade special: $[AMOUNT] off + [MONTHS] financing\n\n---\n\nHi [FIRSTNAME],\n\nBEFORE:\nImagine waking up tomorrow and being able to:\n✗ Use your microwave and coffee maker simultaneously\n✗ Run your AC without dimming the lights  \n✗ Work from home without power interruptions\n✗ Charge your EV overnight safely\n✗ Stop choosing which appliances you can use\n\nSound impossible? It's not.\n\nBRIDGE:\nLast week, we helped [CLIENT NAME] in [NEIGHBORHOOD] transform their daily electrical nightmare into reliable, worry-free power.\n\nTheir story:\n'We were resetting the breaker [NUMBER] times a day. I couldn't cook dinner without the lights dimming. Working from home was a joke—my computer would shut down mid-Zoom call. We were so frustrated.'\n\nWhat we did:\n→ Upgraded their [OLD AMP] panel to modern [NEW AMP] panel\n→ Added [NUMBER] circuits for proper distribution  \n→ Installed [ADDITIONAL FEATURES]\n→ Completed in [TIMEFRAME] with minimal disruption\n→ Included [WARRANTY] warranty\n\nAFTER:\n'It's like living in a completely different house. We can use EVERYTHING. No more breaker trips, no more dim lights, no more stress. Best investment we've made in our home.'\n\nInvestment: $[AMOUNT]\nTheir monthly payment: $[AMOUNT] with financing\nTheir reaction: 'Worth every penny'\n\nYOUR TURN:\n\n🔥 SPECIAL OFFER - [MONTH] ONLY:\n• $[AMOUNT] off complete panel upgrades\n• 0% financing for [MONTHS] months (OAC)  \n• FREE surge protection ($[VALUE] value)\n• [WARRANTY] parts & labor warranty\n• Lifetime workmanship guarantee\n\n→ Claim your discount [LINK]\n\nWHY NOW:\n✓ Beat the [SEASON] rush when demand spikes\n✓ Utility rebates still available (up to $[AMOUNT])\n✓ Lock in [YEAR] pricing before [NEXT YEAR] increases  \n✓ Get peace of mind before [UPCOMING SEASON]\n\nWHAT'S INCLUDED:\n• Complete electrical system assessment\n• Permit acquisition and inspection coordination\n• Professional installation by licensed master electricians\n• Full cleanup—we leave your home cleaner than we found it  \n• [WARRANTY] warranty on all work\n• Upfront pricing, no hidden fees\n\nTHE PROCESS:\n📅 Day 1: Assessment & permit ([TIMEFRAME])\n🔧 Day 2: Installation ([TIMEFRAME])\n✅ Day 3: Final inspection\n\nTotal disruption to your life: [TIMEFRAME]\nTotal improvement to your daily living: Priceless\n\n→ Schedule your free assessment [LINK]\n→ Or call/text: [PHONE]\n\nOnly [NUMBER] spots available at this special rate.\n\nServing [CITY] families since [YEAR] • [RATING] stars on Google • Licensed & Insured • [LICENSE NUMBER]\n\nReady to stop living with electrical frustration?\n\nBest regards,\n[ELECTRICIAN NAME]\n[COMPANY NAME]\n\nP.S. Not ready for a full upgrade? Reply with 'OPTIONS' and I'll send you alternative solutions for common electrical issues. There's always a solution that fits your situation and budget.\n\n---\n\nSEGMENT: Homeowners who've visited panel upgrade page, opened previous electrical safety emails, homes built before [YEAR]\nTIMING: Thursday 10:30am\nFOLLOW-UP: Send financing details to those who click, urgency reminder (spots filling) in 3 days, last chance email in 7 days",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[NUMBER] signs your electrical panel is a fire hazard (and what to do before it's too late)",
+      "[NUMBER] homeowners in [CITY] upgraded their panels this year - here's why you should too",
+      "From breaker trips to reliable power in [TIMEFRAME] - here's how we did it for [NUMBER] homes",
+      "[NUMBER] reasons your lights are dimming when the AC kicks on (and which one is dangerous)",
+      "[NUMBER] electrical code violations home inspectors find most often (is your house at risk?)"
+    ],
+    "question_hooks": [
+      "Are you still resetting your breaker instead of fixing the real problem?",
+      "Are your outlets warm to the touch? Here's what that burning smell really means",
+      "Is your garage ready for EV charging or will you need a [COST] electrical upgrade?",
+      "Are you running extension cords because you don't have enough outlets? Here's the safer solution",
+      "Is that flickering light just annoying or a [DOLLAR AMOUNT] fire hazard waiting to happen?"
+    ],
+    "story_hooks": [
+      "How [CUSTOMER NAME] went from daily breaker trips to powering their whole home office in one afternoon",
+      "How a [CITY] family discovered their panel was 40 years outdated during a routine inspection",
+      "How [CUSTOMER] finally got rid of that burning smell (and avoided a house fire)",
+      "How we restored power to [CUSTOMER]'s kitchen in [TIMEFRAME] without tearing up their walls",
+      "How [CUSTOMER] added [DOLLAR AMOUNT] to their home value with a simple electrical upgrade"
+    ],
+    "fear_hooks": [
+      "Is your home's electrical system a disaster waiting to happen? [NUMBER] warning signs you can't ignore",
+      "Is your fuse box putting your family at risk? What home inspectors look for before closing",
+      "Are those sparks from your outlets the first sign of electrical fire? Here's how to tell",
+      "Is your electrical panel from the [DECADE]s? Why that's costing you in safety and insurance rates",
+      "Is DIY electrical work from the previous owner a hidden danger in your walls?"
+    ],
+    "howto_hooks": [
+      "How to tell if you need a panel upgrade without calling an electrician yet ([NUMBER] things to check)",
+      "How to get same-day emergency electrical service in [CITY] (even on weekends)",
+      "How to stop paying for breaker resets and fix the problem permanently",
+      "How to add EV charging at home without overloading your electrical system",
+      "How to know if your electrician is licensed and insured (before they start work)"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You smell burning but can't find the source 🔥",
+      "body": "Electrician here - that burning smell is your electrical panel screaming for help. [Show panel with scorch marks] See these burn marks? This homeowner ignored the smell for 2 weeks. [Point to damaged breakers] These breakers were arcing inside the panel - house fire waiting to happen. [Show new panel installation] Here's the replacement - now their family sleeps safely. If you smell burning near your panel, DON'T WAIT. Turn off main breaker, call a licensed electrician TODAY.",
+      "cta": "Drop a 🔥 if you've smelled this - link in bio for emergency service"
+    },
+    "reels": {
+      "hook": "This outlet almost burned down their house 😱",
+      "body": "[Close-up of melted outlet] See this? Homeowner said it felt 'a little warm.' [Pull out outlet showing burnt wires] The wires were literally melting inside the wall. [Show new outlet installation] 20 minutes and $85 later - disaster prevented. Warm outlets = call an electrician IMMEDIATELY.",
+      "cta": "Save this - it could save your home 🏠"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us the electrical problem we fixed at your home! Film a quick 15-second video pointing to where the issue was (flickering lights, sparking outlet, etc.) and tell us how you feel now that it's fixed. Bonus: show your family enjoying the space safely!",
+      "hashtag": "#ElectricalSafety"
+    },
+    {
+      "prompt": "Did our electrician explain something that made you go 'wow, I never knew that!'? Share what you learned in a quick video or photo post. Help other homeowners stay safe by spreading the knowledge!",
+      "hashtag": "#ElectricalEducation"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Electrical Horror Stories Series - Show the scariest DIY electrical fails found during service calls with dramatic before/after reveals and safety education",
+      "why": "Combines shock value with educational content - homeowners share to warn friends/family, DIY-ers share in home improvement groups, creates urgency while positioning brand as safety expert"
+    },
+    {
+      "angle": "First-Time Homeowner Electrical Checklist - Create shareable infographic/video showing 10 things to check in your electrical panel with simple yes/no questions homeowners can answer themselves",
+      "why": "Empowers homeowners with actionable knowledge, highly shareable in real estate/homeowner groups, positions brand as helpful resource not salesy contractor, drives inspection bookings from those who answer 'no' to safety questions"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:16:15.619Z",
+    "last_tier2_refresh": "2025-11-27T21:16:15.619Z",
+    "last_tier3_refresh": "2025-11-27T21:16:15.619Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:16:15.619Z"
+  }
+}

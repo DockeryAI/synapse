@@ -25,9 +25,17 @@ export interface WebsiteMessagingAnalysis {
   proofPoints: string[]
   differentiators: string[]
   confidence: number
+
+  // NEW: Extracted testimonials and meta tags
+  testimonials?: string[]
+  metaTags?: Record<string, string>
+  keywords?: string[]
 }
 
 class WebsiteAnalyzerService {
+  // Store last scrape result for meta/testimonial access
+  private lastScrapeResult: any = null;
+
   /**
    * Extract website content from a URL
    * Uses Supabase Edge Function to proxy Apify API calls (avoids CORS)
@@ -66,6 +74,17 @@ class WebsiteAnalyzerService {
         throw new Error(data.error || 'Unknown error from Edge Function')
       }
 
+      // Store for later access
+      this.lastScrapeResult = data;
+
+      // Log extracted testimonials and meta tags
+      if (data.content.testimonials?.length > 0) {
+        console.log(`[WebsiteAnalyzer] Found ${data.content.testimonials.length} testimonials`)
+      }
+      if (data.content.metaTags) {
+        console.log(`[WebsiteAnalyzer] Found ${Object.keys(data.content.metaTags).length} meta tags`)
+      }
+
       // Combine title, description, text, and headings
       const fullText = [
         data.content.title,
@@ -81,6 +100,88 @@ class WebsiteAnalyzerService {
       console.error('[WebsiteAnalyzer] Failed to fetch website:', error)
       throw new Error(`Failed to fetch website: ${error instanceof Error ? error.message : 'Unknown error'}`)
     }
+  }
+
+  /**
+   * Get last scraped testimonials
+   */
+  getLastTestimonials(): string[] {
+    return this.lastScrapeResult?.content?.testimonials || [];
+  }
+
+  /**
+   * Get last scraped meta tags
+   */
+  getLastMetaTags(): Record<string, string> {
+    return this.lastScrapeResult?.content?.metaTags || {};
+  }
+
+  /**
+   * Get keywords from meta tags, title, headings, and content
+   * Extracts THEIR keywords - what they're already targeting
+   */
+  getKeywords(): string[] {
+    const metaTags = this.getLastMetaTags();
+    const content = this.lastScrapeResult?.content;
+    const keywords: Set<string> = new Set();
+
+    // 1. Meta keywords tag (primary source - their explicitly set keywords)
+    const keywordString = metaTags['keywords'] || metaTags['Keywords'] || '';
+    if (keywordString) {
+      keywordString.split(',').forEach((k: string) => {
+        const kw = k.trim().toLowerCase();
+        if (kw && kw.length >= 3 && kw.length <= 50) {
+          keywords.add(kw);
+        }
+      });
+    }
+
+    // 2. Title tag - extract significant words
+    const title = metaTags['title'] || metaTags['og:title'] || '';
+    if (title) {
+      this.extractSignificantWords(title).forEach(w => keywords.add(w));
+    }
+
+    // 3. Meta description - extract significant words
+    const description = metaTags['description'] || metaTags['og:description'] || '';
+    if (description) {
+      this.extractSignificantWords(description).forEach(w => keywords.add(w));
+    }
+
+    // 4. H1/H2 headings from raw content if available
+    const rawContent = content?.rawText || '';
+    if (rawContent) {
+      // Extract H1 and H2 headings (often contain key service/product terms)
+      const headingMatches = rawContent.match(/<h[12][^>]*>([^<]+)<\/h[12]>/gi) || [];
+      headingMatches.forEach((match: string) => {
+        const text = match.replace(/<[^>]+>/g, '').trim();
+        this.extractSignificantWords(text).forEach(w => keywords.add(w));
+      });
+    }
+
+    console.log(`[WebsiteAnalyzer] Extracted ${keywords.size} keywords from website`);
+    return Array.from(keywords).slice(0, 30); // Limit to top 30 keywords
+  }
+
+  /**
+   * Extract significant words from text (removes common stop words)
+   */
+  private extractSignificantWords(text: string): string[] {
+    const stopWords = new Set([
+      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with',
+      'by', 'from', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had',
+      'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must',
+      'can', 'this', 'that', 'these', 'those', 'it', 'its', 'you', 'your', 'we', 'our',
+      'they', 'their', 'what', 'which', 'who', 'when', 'where', 'why', 'how', 'all', 'each',
+      'every', 'both', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not',
+      'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just', 'as', 'if', 'then', 'else'
+    ]);
+
+    return text
+      .toLowerCase()
+      .replace(/[^a-z\s-]/g, ' ')
+      .split(/\s+/)
+      .filter(word => word.length >= 4 && word.length <= 30 && !stopWords.has(word));
   }
 
   /**
@@ -207,31 +308,17 @@ Return ONLY valid JSON (no markdown, no explanations):
       // =========================================================================
       let outcomeFocusedProps: TransformedValueProps | undefined
 
-      if (analysis.valuePropositions && analysis.valuePropositions.length > 0) {
-        try {
-          console.log('[WebsiteAnalyzer] Applying JTBD transformation to value props...')
+      // SPEED: Skip JTBD transformation - takes 60+ seconds and slows down dashboard
+      // The raw value propositions are sufficient for context building
+      console.log('[WebsiteAnalyzer] Skipping JTBD transformation for speed')
 
-          outcomeFocusedProps = await jtbdTransformer.transformValuePropositions(
-            analysis.valuePropositions,
-            {
-              businessName,
-              targetAudience: analysis.targetAudience,
-              customerProblems: analysis.customerProblems,
-              solutions: analysis.solutions,
-              differentiators: analysis.differentiators
-            }
-          )
+      // Get testimonials and meta tags from last scrape
+      const testimonials = this.getLastTestimonials();
+      const metaTags = this.getLastMetaTags();
+      const keywords = this.getKeywords();
 
-          console.log('[WebsiteAnalyzer] JTBD transformation complete:')
-          console.log('  - Primary outcome:', outcomeFocusedProps.primary.outcomeStatement.substring(0, 80) + '...')
-          console.log('  - Supporting outcomes:', outcomeFocusedProps.supporting.length)
-          console.log('  - Transformation quality:', outcomeFocusedProps.transformationQuality.score)
-
-        } catch (error) {
-          console.error('[WebsiteAnalyzer] JTBD transformation failed (non-critical):', error)
-          // Continue without transformation - graceful degradation
-        }
-      }
+      console.log('[WebsiteAnalyzer] Testimonials found:', testimonials.length);
+      console.log('[WebsiteAnalyzer] Keywords found:', keywords.length);
 
       return {
         valuePropositions: analysis.valuePropositions || [],
@@ -241,7 +328,10 @@ Return ONLY valid JSON (no markdown, no explanations):
         solutions: analysis.solutions || [],
         proofPoints: analysis.proofPoints || [],
         differentiators: analysis.differentiators || [],
-        confidence
+        confidence,
+        testimonials,
+        metaTags,
+        keywords
       }
     } catch (error) {
       console.error('[WebsiteAnalyzer] AI analysis failed:', error)
@@ -255,7 +345,10 @@ Return ONLY valid JSON (no markdown, no explanations):
         solutions: [],
         proofPoints: [],
         differentiators: [],
-        confidence: 0
+        confidence: 0,
+        testimonials: [],
+        metaTags: {},
+        keywords: []
       }
     }
   }
@@ -276,6 +369,68 @@ Return ONLY valid JSON (no markdown, no explanations):
     } catch (error) {
       console.error('[WebsiteAnalyzer] analyzeWebsite failed:', error)
       throw error
+    }
+  }
+
+  /**
+   * FAST: Extract ONLY testimonials and meta tags from raw scrape (no LLM)
+   * Use this for parallel extraction without blocking other operations
+   */
+  async extractRawTestimonialsAndMeta(url: string): Promise<{
+    testimonials: string[];
+    metaTags: Record<string, string>;
+    keywords: string[];
+  }> {
+    try {
+      console.log('[WebsiteAnalyzer/FastExtract] Fetching raw data from:', url)
+
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        return { testimonials: [], metaTags: {}, keywords: [] };
+      }
+
+      const response = await fetch(
+        `${SUPABASE_URL}/functions/v1/scrape-website`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+          },
+          body: JSON.stringify({ url })
+        }
+      )
+
+      if (!response.ok) {
+        console.error('[WebsiteAnalyzer/FastExtract] Failed:', response.status);
+        return { testimonials: [], metaTags: {}, keywords: [] };
+      }
+
+      const data = await response.json()
+
+      if (!data.success) {
+        return { testimonials: [], metaTags: {}, keywords: [] };
+      }
+
+      // Store for later access
+      this.lastScrapeResult = data;
+
+      // Extract keywords from meta tags
+      const metaTags = data.content?.metaTags || {};
+      const keywordString = metaTags['keywords'] || metaTags['Keywords'] || '';
+      const keywords = keywordString
+        ? keywordString.split(',').map((k: string) => k.trim()).filter(Boolean)
+        : [];
+
+      console.log(`[WebsiteAnalyzer/FastExtract] Got ${data.content?.testimonials?.length || 0} testimonials, ${keywords.length} keywords`);
+
+      return {
+        testimonials: data.content?.testimonials || [],
+        metaTags,
+        keywords
+      };
+    } catch (error) {
+      console.error('[WebsiteAnalyzer/FastExtract] Error:', error);
+      return { testimonials: [], metaTags: {}, keywords: [] };
     }
   }
 }

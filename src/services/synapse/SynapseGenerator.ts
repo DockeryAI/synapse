@@ -261,7 +261,58 @@ function extractBusinessSpecialization(intelligence: any): {
   console.log('[SynapseGenerator] Extracting specialization from DeepContext...');
   console.log('[SynapseGenerator] Available sections:', Object.keys(intelligence || {}));
 
-  // Try multiple possible locations for website data
+  // V3 FIX: Check business.uvp and business.profile - this is where DeepContext stores UVP data
+  const businessUvp = intelligence?.business?.uvp;
+  const businessProfile = intelligence?.business?.profile;
+
+  if (businessUvp) {
+    console.log('[SynapseGenerator] Found business.uvp, extracting UVP data...');
+
+    if (businessUvp.uniqueSolution) {
+      result.specialization = businessUvp.uniqueSolution;
+      result.differentiators.push(businessUvp.uniqueSolution);
+    }
+    if (businessUvp.keyBenefit) {
+      result.valueProps.push(businessUvp.keyBenefit);
+    }
+    if (businessUvp.targetCustomer) {
+      result.targetAudience.push(businessUvp.targetCustomer);
+    }
+    if (businessUvp.desiredOutcome) {
+      result.valueProps.push(businessUvp.desiredOutcome);
+    }
+    if (businessUvp.customerProblem) {
+      result.differentiators.push(`Solves: ${businessUvp.customerProblem}`);
+    }
+  }
+
+  if (businessProfile) {
+    console.log('[SynapseGenerator] Found business.profile, extracting brand data...');
+
+    if (businessProfile.industry) {
+      result.differentiators.push(`Specializes in ${businessProfile.industry}`);
+    }
+    if (businessProfile.name && !result.specialization) {
+      result.specialization = `${businessProfile.name} - ${businessProfile.industry || 'industry'} specialist`;
+    }
+  }
+
+  // Also check for brandProfile (alternative structure)
+  const brandProfile = intelligence?.brandProfile;
+  if (brandProfile?.uvpElements) {
+    const uvp = brandProfile.uvpElements;
+    if (uvp.transformation && !result.specialization) {
+      result.specialization = uvp.transformation;
+    }
+    if (uvp.keyBenefit && !result.valueProps.includes(uvp.keyBenefit)) {
+      result.valueProps.push(uvp.keyBenefit);
+    }
+    if (uvp.targetCustomer && !result.targetAudience.includes(uvp.targetCustomer)) {
+      result.targetAudience.push(uvp.targetCustomer);
+    }
+  }
+
+  // Try multiple possible locations for website data (fallback)
   const sections = [
     intelligence?.business?.uniqueAdvantages || [],
     intelligence?.competitiveIntel?.opportunities || [],

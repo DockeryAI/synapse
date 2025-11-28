@@ -685,8 +685,8 @@ export function PowerMode({ context, onGenerate }: PowerModeProps) {
         ? content.substring(0, 60).split(/[,.]|that |which /)[0].trim() + '...'
         : content.split(/[,.]|that |which /)[0].trim();
 
-      // Skip if too short or empty
-      if (conciseTitle.length < 10) return;
+      // Skip if empty (lowered from 10 chars to allow shorter insights)
+      if (conciseTitle.length < 3) return;
 
       insights.push({
         id: `raw-${dp.id || idx}`,

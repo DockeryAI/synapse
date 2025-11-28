@@ -43,6 +43,7 @@ import { useSessionAutoSave } from '@/hooks/useSessionAutoSave';
 import type { UVPStepKey } from '@/types/session.types';
 import { useBrand } from '@/contexts/BrandContext';
 import { supabase } from '@/lib/supabase';
+import { getOrCreateBrand, validateBrandExists } from '@/services/brand/brand-persistence.service';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { syncUVPProductsToCatalog } from '@/services/product-marketing/uvp-product-sync.service';
@@ -193,14 +194,19 @@ export const OnboardingPageV5: React.FC = () => {
   }, []);
 
   // Check for session ID in URL params for restoration
+  // Track if we've already attempted to restore to avoid duplicate calls
+  const [sessionRestoreAttempted, setSessionRestoreAttempted] = React.useState(false);
+
   React.useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
     const sessionId = searchParams.get('sessionId');
 
-    if (sessionId && currentBrand?.id) {
+    // Only attempt restore once, and only if we have a sessionId
+    if (sessionId && !sessionRestoreAttempted) {
+      setSessionRestoreAttempted(true);
       restoreSession(sessionId);
     }
-  }, [currentBrand?.id]);
+  }, [sessionRestoreAttempted]);
 
   // Check for and migrate pending UVP data after authentication
   React.useEffect(() => {
@@ -238,6 +244,17 @@ export const OnboardingPageV5: React.FC = () => {
         // Set session ID
         setCurrentSessionId(session.id);
 
+        // Also restore the brand from session's brand_id
+        if (session.brand_id && !currentBrand) {
+          console.log('[OnboardingPageV5] Restoring brand from session:', session.brand_id);
+          const { getBrandById } = await import('@/services/brand/brand-persistence.service');
+          const brandResult = await getBrandById(session.brand_id);
+          if (brandResult.success && brandResult.brand) {
+            setCurrentBrand(brandResult.brand as any);
+            console.log('[OnboardingPageV5] Brand restored:', brandResult.brand.name);
+          }
+        }
+
         // Restore business data
         if (session.business_info) {
           setExtractedBusinessName(session.business_info.name);
@@ -264,7 +281,12 @@ export const OnboardingPageV5: React.FC = () => {
         // Restore UVP data
         if (session.products_data) setProductServiceData(session.products_data as any);
         if (session.customer_data?.selected) setSelectedCustomerProfile(session.customer_data.selected as any);
-        if (session.transformation_data?.selected) setSelectedTransformation(session.transformation_data.selected as any);
+        // Transformation can come from transformation_data OR from complete_uvp.transformationGoal
+        if (session.transformation_data?.selected) {
+          setSelectedTransformation(session.transformation_data.selected as any);
+        } else if (session.complete_uvp?.transformationGoal) {
+          setSelectedTransformation(session.complete_uvp.transformationGoal as any);
+        }
         if (session.solution_data?.selected) setSelectedSolution(session.solution_data.selected as any);
         if (session.benefit_data?.selected) setSelectedBenefit(session.benefit_data.selected as any);
         if (session.complete_uvp) setCompleteUVP(session.complete_uvp as any);
@@ -664,41 +686,23 @@ export const OnboardingPageV5: React.FC = () => {
       // Get user if authenticated, null if not (user_id is nullable)
       const { data: { user } } = await supabase.auth.getUser();
 
-      // First, check if a brand with this website already exists
-      const { data: existingBrand, error: findError } = await supabase
-        .from('brands')
-        .select('*')
-        .eq('website', url)
-        .maybeSingle();
+      // PERMANENT FIX: Use centralized brand service to get or create brand
+      // This ensures only ONE brand per website URL and handles race conditions
+      console.log('[OnboardingPageV5] Finding or creating brand for website:', url);
+      const brandResult = await getOrCreateBrand({
+        website: url,
+        name: businessName,
+        industry: industry.displayName,
+        userId: user?.id || null,
+      });
 
-      if (existingBrand && !findError) {
-        // Use existing brand for this website
-        console.log('[OnboardingPageV5] ✅ Found existing brand for website:', existingBrand.id, existingBrand.name);
-        setCurrentBrand(existingBrand);
-      } else {
-        // Create new brand for this website
-        console.log('[OnboardingPageV5] Creating NEW brand for website:', url);
-        const { data: brandData, error: brandError } = await supabase
-          .from('brands')
-          .insert({
-            name: businessName,
-            industry: industry.displayName,
-            website: url,
-            user_id: user?.id || null, // Nullable - allows unauthenticated onboarding
-            emotional_quotient: null, // Will be set after EQ calculation
-            eq_calculated_at: null,
-          })
-          .select()
-          .single();
-
-        if (brandError) {
-          console.error('[OnboardingPageV5] FAILED to create brand in database:', brandError);
-          throw new Error(`Brand creation failed: ${brandError.message}. Cannot continue without real brand.`);
-        }
-
-        setCurrentBrand(brandData);
-        console.log('[OnboardingPageV5] ✅ NEW brand created in database:', brandData.id);
+      if (!brandResult.success || !brandResult.brand) {
+        console.error('[OnboardingPageV5] FAILED to get/create brand:', brandResult.error);
+        throw new Error(`Brand creation failed: ${brandResult.error}. Cannot continue without real brand.`);
       }
+
+      setCurrentBrand(brandResult.brand);
+      console.log('[OnboardingPageV5] ✅ Brand ready:', brandResult.brand.id, brandResult.isNew ? '(NEW)' : '(EXISTING)');
 
       // =========================================================================
       // USE PRE-EXTRACTED DATA FROM ORCHESTRATOR (no redundant AI calls!)
@@ -995,43 +999,84 @@ export const OnboardingPageV5: React.FC = () => {
 
       setIsExtracting(false);
 
-      // Create or find session for this URL
-      if (currentBrand?.id && !currentSessionId) {
+      // Create or find brand and session for this URL
+      // This ensures sessions are persisted to DB from the start of onboarding
+      if (!currentSessionId) {
         const normalizedUrl = url.startsWith('http') ? url : `https://${url}`;
-        console.log('[OnboardingPageV5] Creating/finding session for URL:', normalizedUrl);
+        console.log('[OnboardingPageV5] Creating/finding brand and session for URL:', normalizedUrl);
+
         try {
-          const sessionResult = await sessionManager.findOrCreateSession(
-            currentBrand.id,
-            normalizedUrl,
-            extractedBusinessName || 'Business'
-          );
+          // PERMANENT FIX: Use centralized brand service
+          // This validates existing brand and creates new one if needed
+          let brandId = currentBrand?.id;
 
-          if (sessionResult.success && sessionResult.session) {
-            setCurrentSessionId(sessionResult.session.id);
-            console.log('[OnboardingPageV5] Session created/found:', sessionResult.session.id, 'IsNew:', sessionResult.isNew);
-
-            // Save initial scraped content
-            if (sessionResult.isNew) {
-              await sessionManager.updateSession({
-                session_id: sessionResult.session.id,
-                scraped_content: {
-                  content: websiteContent,
-                  urls: websiteUrls,
-                },
-                business_info: {
-                  name: extractedBusinessName || 'Business',
-                  location: extractedLocation || '',
-                },
-                industry_info: {
-                  industry: industry.displayName,
-                  specialization: '',
-                  naics_code: industry.naicsCode,
-                },
-              });
+          // Validate existing brand or get/create new one
+          if (brandId) {
+            const isValid = await validateBrandExists(brandId);
+            if (!isValid) {
+              console.warn('[OnboardingPageV5] ⚠️ Current brand no longer exists in DB');
+              brandId = undefined;
             }
           }
+
+          if (!brandId) {
+            console.log('[OnboardingPageV5] Getting or creating brand for session...');
+            const { data: { user } } = await supabase.auth.getUser();
+
+            const brandResult = await getOrCreateBrand({
+              website: normalizedUrl,
+              name: extractedBusinessName || 'My Business',
+              industry: industry?.displayName || 'General',
+              userId: user?.id || null,
+            });
+
+            if (brandResult.success && brandResult.brand) {
+              brandId = brandResult.brand.id;
+              setCurrentBrand(brandResult.brand);
+              console.log('[OnboardingPageV5] Brand ready for session:', brandId, brandResult.isNew ? '(NEW)' : '(EXISTING)');
+            } else {
+              console.warn('[OnboardingPageV5] Failed to get/create brand:', brandResult.error);
+            }
+          }
+
+          // Now create session if we have a brand
+          if (brandId) {
+            const sessionResult = await sessionManager.findOrCreateSession(
+              brandId,
+              normalizedUrl,
+              extractedBusinessName || 'Business'
+            );
+
+            if (sessionResult.success && sessionResult.session) {
+              setCurrentSessionId(sessionResult.session.id);
+              console.log('[OnboardingPageV5] Session created/found:', sessionResult.session.id, 'IsNew:', sessionResult.isNew);
+
+              // Save initial scraped content
+              if (sessionResult.isNew) {
+                await sessionManager.updateSession({
+                  session_id: sessionResult.session.id,
+                  scraped_content: {
+                    content: websiteContent,
+                    urls: websiteUrls,
+                  },
+                  business_info: {
+                    name: extractedBusinessName || 'Business',
+                    location: extractedLocation || '',
+                  },
+                  industry_info: {
+                    industry: industry.displayName,
+                    specialization: '',
+                    naics_code: industry.naicsCode,
+                  },
+                });
+                console.log('[OnboardingPageV5] Initial session data saved to DB');
+              }
+            }
+          } else {
+            console.warn('[OnboardingPageV5] Could not create session - no brand ID available');
+          }
         } catch (error) {
-          console.error('[OnboardingPageV5] Failed to create/find session:', error);
+          console.error('[OnboardingPageV5] Failed to create/find brand or session:', error);
         }
       }
 
@@ -1099,59 +1144,20 @@ export const OnboardingPageV5: React.FC = () => {
     try {
       console.log('[OnboardingPageV5] Creating/updating brand and saving insights...');
 
-      // Step 1: Create or update brand in Supabase
-      const { data: existingBrand, error: checkError } = await supabase
-        .from('brands')
-        .select('id')
-        .eq('name', refinedData.businessName)
-        .maybeSingle();
+      // PERMANENT FIX: Use centralized brand service
+      const brandResult = await getOrCreateBrand({
+        website: businessData.url,
+        name: refinedData.businessName,
+        industry: businessData.industry,
+      });
 
-      if (checkError) {
-        console.error('[OnboardingPageV5] Error checking for existing brand:', checkError);
+      if (!brandResult.success || !brandResult.brand) {
+        console.error('[OnboardingPageV5] Error getting/creating brand:', brandResult.error);
+        throw new Error('Failed to get/create brand');
       }
 
-      let brandId: string;
-
-      if (existingBrand) {
-        // Update existing brand
-        brandId = existingBrand.id;
-        console.log('[OnboardingPageV5] Updating existing brand:', brandId);
-
-        const { error: updateError } = await supabase
-          .from('brands')
-          .update({
-            industry: businessData.industry,
-            website: businessData.url,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', brandId);
-
-        if (updateError) {
-          console.error('[OnboardingPageV5] Error updating brand:', updateError);
-        }
-      } else {
-        // Create new brand
-        console.log('[OnboardingPageV5] Creating new brand');
-
-        const { data: newBrand, error: createError } = await supabase
-          .from('brands')
-          .insert({
-            name: refinedData.businessName,
-            industry: businessData.industry,
-            website: businessData.url,
-            description: businessData.specialization,
-          })
-          .select()
-          .single();
-
-        if (createError || !newBrand) {
-          console.error('[OnboardingPageV5] Error creating brand:', createError);
-          throw new Error('Failed to create brand');
-        }
-
-        brandId = newBrand.id;
-        console.log('[OnboardingPageV5] Created new brand:', brandId);
-      }
+      const brandId = brandResult.brand.id;
+      console.log('[OnboardingPageV5] Brand ready:', brandId, brandResult.isNew ? '(NEW)' : '(EXISTING)');
 
       // Step 2: Build BusinessInsights object from gathered data
       const insights: BusinessInsights = {
@@ -1206,13 +1212,13 @@ export const OnboardingPageV5: React.FC = () => {
       setCurrentBrand(brandData);
       console.log('[OnboardingPageV5] Brand set in context');
 
-      // Step 5: Navigate to dashboard
-      console.log('[OnboardingPageV5] Onboarding complete - redirecting to dashboard');
-      navigate('/dashboard');
+      // Step 5: Navigate to V4 Content Engine
+      console.log('[OnboardingPageV5] Onboarding complete - redirecting to V4 Content');
+      navigate('/v4-content');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save insights:', error);
-      // Navigate to dashboard anyway to prevent blocking the user
-      navigate('/dashboard');
+      // Navigate to V4 Content anyway to prevent blocking the user
+      navigate('/v4-content');
     }
   };
 
@@ -1311,64 +1317,25 @@ export const OnboardingPageV5: React.FC = () => {
 
     if (!collectedData || !businessData || !refinedData) {
       console.error('[OnboardingPageV5] Missing required data for saving');
-      navigate('/dashboard');
+      navigate('/v4-content');
       return;
     }
 
     try {
-      // Step 1: Create or update brand in Supabase
-      const { data: existingBrand, error: checkError } = await supabase
-        .from('brands')
-        .select('id')
-        .eq('name', refinedData.businessName)
-        .maybeSingle();
+      // PERMANENT FIX: Use centralized brand service
+      const brandResult = await getOrCreateBrand({
+        website: businessData.url,
+        name: refinedData.businessName,
+        industry: businessData.industry,
+      });
 
-      if (checkError) {
-        console.error('[OnboardingPageV5] Error checking for existing brand:', checkError);
+      if (!brandResult.success || !brandResult.brand) {
+        console.error('[OnboardingPageV5] Error getting/creating brand:', brandResult.error);
+        throw new Error('Failed to get/create brand');
       }
 
-      let brandId: string;
-
-      if (existingBrand) {
-        // Update existing brand
-        brandId = existingBrand.id;
-        console.log('[OnboardingPageV5] Updating existing brand:', brandId);
-
-        const { error: updateError } = await supabase
-          .from('brands')
-          .update({
-            industry: businessData.industry,
-            website: businessData.url,
-            updated_at: new Date().toISOString(),
-          })
-          .eq('id', brandId);
-
-        if (updateError) {
-          console.error('[OnboardingPageV5] Error updating brand:', updateError);
-        }
-      } else {
-        // Create new brand
-        console.log('[OnboardingPageV5] Creating new brand');
-
-        const { data: newBrand, error: createError } = await supabase
-          .from('brands')
-          .insert({
-            name: refinedData.businessName,
-            industry: businessData.industry,
-            website: businessData.url,
-            description: businessData.specialization,
-          })
-          .select()
-          .single();
-
-        if (createError || !newBrand) {
-          console.error('[OnboardingPageV5] Error creating brand:', createError);
-          throw new Error('Failed to create brand');
-        }
-
-        brandId = newBrand.id;
-        console.log('[OnboardingPageV5] Created new brand:', brandId);
-      }
+      const brandId = brandResult.brand.id;
+      console.log('[OnboardingPageV5] Brand ready:', brandId, brandResult.isNew ? '(NEW)' : '(EXISTING)');
 
       // Step 2: Save validated value propositions
       const validatedProps = collectedData.valuePropositions.filter(vp =>
@@ -1400,13 +1367,13 @@ export const OnboardingPageV5: React.FC = () => {
       setCurrentBrand(brandData);
       console.log('[OnboardingPageV5] Brand set in context');
 
-      // Step 6: Navigate to dashboard
-      console.log('[OnboardingPageV5] Track E onboarding complete - redirecting to dashboard');
-      navigate('/dashboard');
+      // Step 6: Navigate to V4 Content Engine
+      console.log('[OnboardingPageV5] Track E onboarding complete - redirecting to V4 Content');
+      navigate('/v4-content');
     } catch (error) {
       console.error('[OnboardingPageV5] Failed to save Track E data:', error);
-      // Navigate to dashboard anyway to prevent blocking the user
-      navigate('/dashboard');
+      // Navigate to V4 Content anyway to prevent blocking the user
+      navigate('/v4-content');
     }
   };
 
@@ -1797,15 +1764,8 @@ export const OnboardingPageV5: React.FC = () => {
     // Show loading screen immediately
     setIsSynthesizingUVP(true);
 
-    // PRE-LOAD DASHBOARD: Start loading dashboard intelligence in background
-    // This runs parallel to UVP synthesis so dashboard is ready when user finishes
-    if (currentBrand?.id) {
-      console.log('[UVP Flow] 🚀 Pre-loading dashboard intelligence in background...');
-      dashboardPreloader.preloadDashboard(currentBrand.id).catch(err => {
-        // Don't block UVP flow if preload fails
-        console.warn('[UVP Flow] Dashboard preload error (non-blocking):', err);
-      });
-    }
+    // NOTE: Dashboard preloading moved AFTER UVP is saved to database
+    // Otherwise APIs fall back to generic industry searches instead of UVP-targeted ones
 
     // Synthesize complete UVP with AI before showing synthesis page
     if (selectedCustomerProfile && selectedTransformation && selectedSolution && selectedBenefit) {
@@ -1858,6 +1818,13 @@ export const OnboardingPageV5: React.FC = () => {
             const result = await saveCompleteUVP(synthesizedUVP, brandId);
             if (result.success) {
               console.log('[UVP Flow] UVP auto-saved successfully:', result.uvpId);
+
+              // NOW start dashboard preloading - UVP is saved so APIs will use it
+              console.log('[UVP Flow] 🚀 Starting dashboard preload AFTER UVP saved...');
+              dashboardPreloader.preloadDashboard(brandId).catch(err => {
+                // Don't block UVP flow if preload fails
+                console.warn('[UVP Flow] Dashboard preload error (non-blocking):', err);
+              });
             } else {
               console.warn('[UVP Flow] UVP auto-save failed:', result.error);
             }
@@ -1918,7 +1885,7 @@ export const OnboardingPageV5: React.FC = () => {
           });
         }
 
-        navigate('/dashboard');
+        navigate('/v4-content');
       } else {
         throw new Error(result.error || 'Failed to save UVP');
       }
@@ -2704,49 +2671,30 @@ export const OnboardingPageV5: React.FC = () => {
                 localStorage.setItem('website_url', websiteUrl);
               }
 
-              // Check if brand exists, create if needed
-              // NOTE: We save to brand database even without auth - brand was created during onboarding
+              // PERMANENT FIX: Use centralized brand service
               let brandId = currentBrand?.id;
 
               if (!brandId) {
-                console.warn('[UVP Flow] No brand found, creating in database...');
+                console.warn('[UVP Flow] No brand found, getting or creating...');
                 try {
-                  // First, check if a brand with this website already exists
-                  const { data: existingBrand } = await supabase
-                    .from('brands')
-                    .select('*')
-                    .eq('website', websiteUrl || '')
-                    .maybeSingle();
+                  const brandResult = await getOrCreateBrand({
+                    website: websiteUrl || '',
+                    name: extractedBusinessName || 'My Business',
+                    industry: currentBrand?.industry || selectedIndustry?.displayName || 'General',
+                    userId: user?.id || null,
+                  });
 
-                  if (existingBrand) {
-                    brandId = existingBrand.id;
-                    setCurrentBrand(existingBrand);
-                    console.log('[UVP Flow] Found existing brand for website:', brandId);
-                  } else {
-                    // Create new brand (user_id is optional, null for anonymous users)
-                    const { data: brandData, error: brandError } = await supabase
-                      .from('brands')
-                      .insert({
-                        name: extractedBusinessName || 'My Business',
-                        industry: currentBrand?.industry || selectedIndustry?.displayName || 'General',
-                        website: websiteUrl || '',
-                        user_id: user?.id || null
-                      })
-                      .select()
-                      .single();
-
-                    if (brandError) {
-                      console.error('[UVP Flow] Failed to create brand:', brandError);
-                      alert('Unable to save: Could not create business profile. Please contact support.');
-                      return;
-                    }
-
-                    brandId = brandData.id;
-                    setCurrentBrand(brandData);
-                    console.log('[UVP Flow] Brand created successfully:', brandId);
+                  if (!brandResult.success || !brandResult.brand) {
+                    console.error('[UVP Flow] Failed to get/create brand:', brandResult.error);
+                    alert('Unable to save: Could not create business profile. Please contact support.');
+                    return;
                   }
+
+                  brandId = brandResult.brand.id;
+                  setCurrentBrand(brandResult.brand);
+                  console.log('[UVP Flow] Brand ready:', brandId, brandResult.isNew ? '(NEW)' : '(EXISTING)');
                 } catch (err) {
-                  console.error('[UVP Flow] Error creating brand:', err);
+                  console.error('[UVP Flow] Error getting/creating brand:', err);
                   alert('An error occurred while creating your business profile. Please try again.');
                   return;
                 }
@@ -2759,8 +2707,8 @@ export const OnboardingPageV5: React.FC = () => {
 
                 if (result.success) {
                   console.log('[UVP Flow] UVP saved successfully:', result.uvpId);
-                  // Navigate to dashboard immediately - no blocking alert
-                  navigate('/dashboard');
+                  // Navigate to V4 Content immediately - no blocking alert
+                  navigate('/v4-content');
                 } else {
                   console.error('[UVP Flow] Failed to save UVP:', result.error);
                   alert(`Failed to save UVP: ${result.error}\n\nPlease check the console for more details.`);

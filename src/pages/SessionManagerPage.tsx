@@ -94,24 +94,29 @@ export function SessionManagerPage() {
         }
       }
 
-      // If we have a brand, also load database sessions
+      // ALWAYS load from database - use brand filter if available, otherwise get all
+      let result;
       if (currentBrand?.id) {
-        const result = await sessionManager.listSessions(currentBrand.id);
+        console.log('[SessionManagerPage] Loading sessions for brand:', currentBrand.id);
+        result = await sessionManager.listSessions(currentBrand.id);
+      } else {
+        // No brand selected - load ALL sessions from database
+        console.log('[SessionManagerPage] No brand selected - loading ALL sessions from database');
+        result = await sessionManager.listAllSessions();
+      }
 
-        if (result.success && result.sessions) {
-          allSessions.push(...result.sessions);
-        } else if (allSessions.length === 0) {
-          // Only show error if we have no localStorage sessions either
-          setError(result.error || 'Failed to load sessions');
-        }
+      if (result.success && result.sessions) {
+        // Add database sessions (avoid duplicates with localStorage sessions)
+        const localStorageSessionIds = new Set(allSessions.map(s => s.id));
+        const dbSessions = result.sessions.filter(s => !localStorageSessionIds.has(s.id));
+        allSessions.push(...dbSessions);
+        console.log('[SessionManagerPage] Loaded', dbSessions.length, 'sessions from database');
+      } else if (allSessions.length === 0) {
+        // Only show error if we have no sessions at all
+        setError(result.error || 'Failed to load sessions');
       }
 
       setSessions(allSessions);
-
-      // If we have no sessions at all, show appropriate message
-      if (allSessions.length === 0 && !currentBrand?.id) {
-        setError('No saved sessions. Start a new UVP to begin!');
-      }
     } catch (err) {
       console.error('[SessionManagerPage] Error loading sessions:', err);
       setError(String(err));

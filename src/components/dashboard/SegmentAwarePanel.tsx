@@ -87,11 +87,26 @@ export function detectSegment(context: DeepContext | null): BusinessSegment {
                   competitors.length < 10;
 
   // Check for global indicators
+  const globalKeywords = ['global', 'international', 'enterprise', 'worldwide', 'multi-national'];
+  const globalCities = ['london', 'new york', 'san francisco', 'singapore', 'tokyo', 'berlin', 'amsterdam'];
+  const locationCity = location?.city?.toLowerCase() || '';
+  const locationCountry = location?.country?.toLowerCase() || '';
+
   const isGlobal = competitors.some(c => c.includes('.com') || c.includes('international')) ||
-                   industry.includes('global') ||
+                   globalKeywords.some(kw => industry.includes(kw)) ||
+                   // Enterprise software/SaaS/AI is typically global
+                   (industry.includes('software') || industry.includes('saas') || industry.includes('ai') || industry.includes('platform')) ||
+                   // Global tech hub locations
+                   globalCities.some(city => locationCity.includes(city)) ||
+                   // UK-based companies are typically global
+                   locationCountry.includes('uk') || locationCountry.includes('united kingdom') ||
+                   // Check business description for global signals
+                   profile?.description?.toLowerCase().includes('enterprise') ||
+                   profile?.description?.toLowerCase().includes('global') ||
                    context.competitiveIntel?.blindSpots?.some(bs =>
                      bs.topic?.toLowerCase().includes('international') ||
-                     bs.topic?.toLowerCase().includes('global')
+                     bs.topic?.toLowerCase().includes('global') ||
+                     bs.topic?.toLowerCase().includes('enterprise')
                    );
 
   // Determine segment

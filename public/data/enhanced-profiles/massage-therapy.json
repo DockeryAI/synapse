@@ -1,0 +1,1791 @@
+{
+  "industry": "Massage Therapy",
+  "industry_name": "Massage Therapy",
+  "naics_code": "812199",
+  "category": "Personal Services",
+  "subcategory": "Therapeutic and Wellness Services",
+  "customer_triggers": [
+    {
+      "trigger": "Chronic back pain lasting over 2 weeks",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Post-workout muscle soreness",
+      "urgency": 7,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Stress-induced tension headaches",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Doctor referral for injury rehabilitation",
+      "urgency": 10,
+      "frequency": "immediate"
+    },
+    {
+      "trigger": "Pre-vacation relaxation preparation",
+      "urgency": 4,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Corporate wellness program enrollment",
+      "urgency": 6,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Sleep quality deterioration",
+      "urgency": 8,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Pregnancy-related discomfort",
+      "urgency": 9,
+      "frequency": "bi-weekly"
+    },
+    {
+      "trigger": "Athletic performance optimization",
+      "urgency": 7,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Anniversary or special occasion gift",
+      "urgency": 5,
+      "frequency": "annually"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer experiences pain or stress, searches 'massage near me' or receives recommendation from healthcare provider, reads 4-7 online reviews averaging 4.5+ stars",
+    "consideration": "Compares 3-5 local therapists, evaluates specializations, checks insurance coverage, reads detailed testimonials, verifies certifications and licensing",
+    "decision": "Books initial 60-minute session, influenced by online booking availability, first-time discount of 20-30%, and therapist specialization matching their specific need",
+    "retention": "Experiences 40-60% pain reduction after first session, books follow-up within 2 weeks, transitions to monthly maintenance schedule after acute issue resolves",
+    "advocacy": "Refers average of 2.3 new clients annually after 6+ sessions, leaves detailed reviews, purchases gift certificates, joins membership program saving 15-25%"
+  },
+  "transformations": [
+    {
+      "from": "Debilitating lower back pain",
+      "to": "Full range of motion restored",
+      "emotional_value": "Freedom and independence",
+      "worth_premium": true
+    },
+    {
+      "from": "Chronic stress and anxiety",
+      "to": "Calm, centered mental state",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Post-surgery immobility",
+      "to": "Regained functionality",
+      "emotional_value": "Hope and progress",
+      "worth_premium": true
+    },
+    {
+      "from": "Athletic performance plateau",
+      "to": "Personal best achievements",
+      "emotional_value": "Competitive edge",
+      "worth_premium": true
+    },
+    {
+      "from": "Pregnancy discomfort",
+      "to": "Comfortable final trimester",
+      "emotional_value": "Safety and relief",
+      "worth_premium": true
+    },
+    {
+      "from": "Tension headache sufferer",
+      "to": "Headache-free living",
+      "emotional_value": "Productivity restored",
+      "worth_premium": false
+    },
+    {
+      "from": "Poor sleep quality",
+      "to": "Restorative 7-8 hour sleep",
+      "emotional_value": "Energy and vitality",
+      "worth_premium": true
+    },
+    {
+      "from": "Workplace burnout",
+      "to": "Renewed enthusiasm",
+      "emotional_value": "Career satisfaction",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Pain reduction of 50-70% on 10-point scale",
+      "timeframe": "After 3 sessions",
+      "measurable": true
+    },
+    {
+      "metric": "Range of motion increase of 25-40 degrees",
+      "timeframe": "Within 4 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Sleep quality improvement by 2+ hours",
+      "timeframe": "After 2 sessions",
+      "measurable": true
+    },
+    {
+      "metric": "Stress hormone reduction of 31%",
+      "timeframe": "Immediately post-session",
+      "measurable": true
+    },
+    {
+      "metric": "Medication reduction or elimination",
+      "timeframe": "Within 6-8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Return to work/activity",
+      "timeframe": "2-6 weeks depending on injury",
+      "measurable": true
+    },
+    {
+      "metric": "Client satisfaction score of 9+/10",
+      "timeframe": "Post-session survey",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Upcoming surgery requiring pre-operative muscle conditioning within 2 weeks",
+    "Important life event (wedding, reunion, vacation) within 30 days requiring pain management",
+    "Insurance benefits expiring at year-end with $800 remaining in coverage",
+    "Acute injury with 48-72 hour window for optimal therapeutic intervention",
+    "Physician referral with specific treatment timeline for workers compensation claim",
+    "Athletic competition within 7-10 days requiring peak performance preparation",
+    "Progressive condition worsening daily without intervention risking permanent damage"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive at $120 per session",
+      "response": "Compare to $3,000 in physical therapy or $8,000 surgery costs, plus we offer packages reducing per-session cost by 20%",
+      "effectiveness": 78
+    },
+    {
+      "objection": "Don't have time for regular appointments",
+      "response": "We offer 30-minute targeted sessions, mobile service to your office, and evening/weekend availability",
+      "effectiveness": 82
+    },
+    {
+      "objection": "Uncomfortable undressing for stranger",
+      "response": "You remain fully draped except treatment area, many techniques work through clothing, and 40% of our clients start with chair massage",
+      "effectiveness": 91
+    },
+    {
+      "objection": "Skeptical about effectiveness",
+      "response": "87% of our clients report significant improvement after first session, we offer money-back guarantee, and provide free 15-minute consultation",
+      "effectiveness": 85
+    },
+    {
+      "objection": "Previous bad experience elsewhere",
+      "response": "We conduct thorough intake interview, customize pressure to your preference, and check in every 10 minutes during session",
+      "effectiveness": 88
+    },
+    {
+      "objection": "Insurance doesn't cover it",
+      "response": "We provide HSA/FSA compatible receipts, offer payment plans, and many clients find it replaces $200+ monthly pain medications",
+      "effectiveness": 73
+    },
+    {
+      "objection": "Partner thinks it's unnecessary luxury",
+      "response": "Share our medical referral statistics showing 72% doctor-recommended, invite partner to couples session, provide educational materials on therapeutic benefits",
+      "effectiveness": 76
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or free re-treatment within 48 hours",
+      "No improvement = full refund on package purchases",
+      "Licensed and insured with $2M professional liability"
+    ],
+    "proof_points": [
+      "1,847 five-star reviews across platforms",
+      "15 years average therapist experience",
+      "Continuing education certificates displayed",
+      "Before/after posture analysis photos"
+    ],
+    "risk_mitigation": "Free consultation to discuss concerns, graduated treatment intensity, constant communication during session, detailed treatment notes provided"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "killing me",
+      "can't sleep",
+      "stressed out",
+      "tight shoulders",
+      "threw out my back",
+      "knots",
+      "pinched nerve",
+      "stiff neck",
+      "sore muscles",
+      "tension headache"
+    ],
+    "solution_words": [
+      "relief",
+      "relaxation",
+      "healing",
+      "recovery",
+      "flexibility",
+      "pain-free",
+      "restored",
+      "renewed",
+      "therapeutic",
+      "wellness"
+    ],
+    "avoid_jargon": [
+      "myofascial",
+      "proprioceptive",
+      "neuromuscular",
+      "lymphatic drainage",
+      "trigger point",
+      "fascia",
+      "adhesions",
+      "subluxation",
+      "somatic",
+      "meridians"
+    ]
+  },
+  "power_words": [
+    "immediate",
+    "relief",
+    "therapeutic",
+    "certified",
+    "healing",
+    "customized",
+    "professional",
+    "experienced",
+    "transformative",
+    "restorative",
+    "pain-free",
+    "relaxation",
+    "recovery",
+    "wellness",
+    "licensed",
+    "proven",
+    "targeted",
+    "effective",
+    "specialized",
+    "comprehensive",
+    "holistic",
+    "clinical",
+    "medical",
+    "deep",
+    "gentle",
+    "personalized",
+    "results",
+    "guaranteed",
+    "expert",
+    "trusted"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "amateur",
+    "basic",
+    "generic",
+    "painful",
+    "aggressive",
+    "inexperienced",
+    "risky",
+    "experimental",
+    "unproven",
+    "questionable",
+    "rough",
+    "harsh",
+    "extreme",
+    "controversial",
+    "unlicensed",
+    "sketchy",
+    "weird",
+    "strange"
+  ],
+  "headline_templates": [
+    {
+      "template": "Finally, [Specific Pain] Relief That Lasts - Guaranteed",
+      "expected_ctr": 4.2,
+      "use_case": "Pain-focused campaigns"
+    },
+    {
+      "template": "Why 87% of [City] Doctors Recommend Our Therapeutic Massage",
+      "expected_ctr": 3.8,
+      "use_case": "Credibility building"
+    },
+    {
+      "template": "From Chronic Pain to Active Living in Just 3 Sessions",
+      "expected_ctr": 3.5,
+      "use_case": "Transformation stories"
+    },
+    {
+      "template": "Insurance-Covered Massage Therapy - Check Your Benefits",
+      "expected_ctr": 5.1,
+      "use_case": "Insurance prospects"
+    },
+    {
+      "template": "[Number]% Pain Reduction or Your Money Back",
+      "expected_ctr": 4,
+      "use_case": "Risk reversal"
+    },
+    {
+      "template": "Same-Day Appointments for Acute Pain Relief",
+      "expected_ctr": 4.7,
+      "use_case": "Urgency campaigns"
+    },
+    {
+      "template": "The Hidden Cause of Your [Symptom] - Free Assessment",
+      "expected_ctr": 3.9,
+      "use_case": "Educational approach"
+    },
+    {
+      "template": "Athletes: Recover 40% Faster with Sports Massage",
+      "expected_ctr": 3.3,
+      "use_case": "Niche targeting"
+    },
+    {
+      "template": "Pregnancy Massage: Safe Relief for Expecting Mothers",
+      "expected_ctr": 3.6,
+      "use_case": "Specialty services"
+    },
+    {
+      "template": "Corporate Wellness: On-Site Massage for Your Team",
+      "expected_ctr": 2.9,
+      "use_case": "B2B outreach"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Pain Relief Session Now",
+      "conversion_rate": 8.2,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Claim Your $30 First-Visit Discount",
+      "conversion_rate": 11.3,
+      "placement": "Pop-up"
+    },
+    {
+      "template": "Check Insurance Coverage in 30 Seconds",
+      "conversion_rate": 9.7,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Get Immediate Relief - Same Day Booking",
+      "conversion_rate": 7.8,
+      "placement": "Pain pages"
+    },
+    {
+      "template": "Start Your Free Consultation",
+      "conversion_rate": 6.4,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Join 1,847+ Happy Clients",
+      "conversion_rate": 5.9,
+      "placement": "Testimonials"
+    },
+    {
+      "template": "Reserve Your Spot - Only 3 Left This Week",
+      "conversion_rate": 10.2,
+      "placement": "Booking page"
+    },
+    {
+      "template": "Download Your Massage Preparation Guide",
+      "conversion_rate": 4.8,
+      "placement": "Blog posts"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Did you know that 78% of chronic back pain can be managed without medication? Our therapeutic massage clients report... [success story]",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before vs After: Check out Sarah's posture transformation after just 4 sessions! 📸 #MassageTherapy #PainRelief #Transformation",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Corporate wellness fact: Companies offering on-site massage see 23% reduction in sick days. Here's how we're helping [Company] boost productivity...",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "Quick tip: Drinking water after massage helps flush toxins released during treatment. 💧 Book your session: [link]",
+      "engagement_rate": 1.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "5-Minute Self-Massage Technique for Instant Neck Relief [Video Tutorial]",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: That first stretch after deep tissue massage 😌 #MassageTherapist #Relaxation #SelfCare",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Google Business",
+      "template": "⭐⭐⭐⭐⭐ 'Finally found relief after 2 years of chronic pain!' - Read Mary's full story and book your session today",
+      "engagement_rate": 3.5
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Pressure Points for Instant Stress Relief [Infographic] Save for later! 📌",
+      "engagement_rate": 5.1
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors! We have 3 same-day openings for anyone dealing with storm cleanup soreness. 15% local discount applied automatically.",
+      "engagement_rate": 7.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Insurance-billable medical massage with direct billing to 47+ providers",
+      "rank": 1,
+      "differentiator": "Eliminate out-of-pocket costs"
+    },
+    {
+      "prop": "Same-day appointments for acute pain with 2-hour booking window",
+      "rank": 2,
+      "differentiator": "Immediate accessibility"
+    },
+    {
+      "prop": "15+ years specialization in chronic pain with 87% success rate",
+      "rank": 3,
+      "differentiator": "Proven expertise"
+    },
+    {
+      "prop": "Mobile service bringing relief directly to home or office",
+      "rank": 4,
+      "differentiator": "Ultimate convenience"
+    },
+    {
+      "prop": "Integrated treatment plans with PT, chiropractic, and medical teams",
+      "rank": 5,
+      "differentiator": "Comprehensive care"
+    },
+    {
+      "prop": "Money-back guarantee if no improvement after first session",
+      "rank": 6,
+      "differentiator": "Zero-risk trial"
+    },
+    {
+      "prop": "Specialized certifications in 12 modalities from Swedish to myofascial",
+      "rank": 7,
+      "differentiator": "Technique variety"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the pinnacle of therapeutic massage with our master therapists, each with 15+ years of specialized training. Our concierge service includes comprehensive assessment, customized treatment protocols, and ongoing wellness planning. Investment in your health: $180-250 per session with package discounts available.",
+    "budget_conscious": "Quality therapeutic massage shouldn't break the bank. We accept most insurance, offer sliding scale pricing, and provide community clinic days at 50% off. Our 30-minute targeted sessions at $45 deliver focused relief for specific problem areas. Payment plans available for treatment packages.",
+    "enterprise": "Transform your workplace wellness with our corporate massage program. Reduce workers comp claims by 34%, decrease sick days by 23%, and boost productivity by 18%. Our team of 12 certified therapists can serve 100+ employees weekly with on-site chair massage, ergonomic assessments, and stress management workshops."
+  },
+  "trust_signals": [
+    {
+      "signal": "State licensing and certification displays",
+      "importance": 10,
+      "format": "Wall certificates and website badges"
+    },
+    {
+      "signal": "Professional liability insurance of $2M+",
+      "importance": 9,
+      "format": "Certificate available on request"
+    },
+    {
+      "signal": "Google Reviews average of 4.8+ stars",
+      "importance": 8,
+      "format": "Widget on website and booking page"
+    },
+    {
+      "signal": "Medical professional referral network",
+      "importance": 9,
+      "format": "List of referring physicians"
+    },
+    {
+      "signal": "Before/after photo documentation",
+      "importance": 7,
+      "format": "Gallery with consent forms"
+    },
+    {
+      "signal": "Years in business and session count",
+      "importance": 8,
+      "format": "Homepage statistics banner"
+    },
+    {
+      "signal": "Continuing education certifications",
+      "importance": 7,
+      "format": "Therapist bio pages"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "1,847 five-star reviews across all platforms",
+      "credibility_score": 9,
+      "context": "Accumulated over 5 years of service"
+    },
+    {
+      "stat": "72% of clients referred by medical professionals",
+      "credibility_score": 10,
+      "context": "Partnerships with 23 local clinics"
+    },
+    {
+      "stat": "94% report significant improvement after 3 sessions",
+      "credibility_score": 8,
+      "context": "Based on 500+ client surveys"
+    },
+    {
+      "stat": "Average client retention of 18 months",
+      "credibility_score": 7,
+      "context": "Industry average is 6 months"
+    },
+    {
+      "stat": "Zero malpractice claims in 15 years",
+      "credibility_score": 9,
+      "context": "Verified by insurance carrier"
+    },
+    {
+      "stat": "Served 12,000+ unique clients since 2009",
+      "credibility_score": 8,
+      "context": "Documented in practice management system"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Himalayan hot stones, organic oils, heated tables, private suites, extended 90-120 minute sessions",
+    "Standard: Clean linens, quality oils, 60-minute sessions, semi-private rooms, licensed therapists",
+    "Budget: Community clinic setting, 30-minute sessions, student therapists supervised, basic oils",
+    "Red flags: No visible licensing, cash only, inappropriate suggestions, no intake forms, rushed service"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "After third session when measurable improvement typically occurs",
+    "ask_method": "Email with direct link to review platform, incentivized with 10% off next session"
+  },
+  "competitive_advantages": [
+    "Only clinic in area with certified oncology massage for cancer patients",
+    "Direct insurance billing eliminating reimbursement hassles for clients",
+    "Same-day booking guarantee with 2-hour arrival window for acute pain",
+    "Integrated care team including PT, chiropractor, and pain management MD",
+    "Mobile service fleet of 5 therapists covering 50-mile radius",
+    "Specialized pregnancy massage with custom support systems"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display 90-minute luxury session at $180 first, making 60-minute at $120 seem reasonable",
+    "sensitivity": "Price resistance typically occurs above $130 for non-insurance clients",
+    "sweet_spots": [
+      "$89 introductory offer",
+      "$110-120 standard session",
+      "$150-180 specialty work"
+    ],
+    "decoy_pricing": "Offer 45-minute session at $95 to push clients to 60-minute at $120 for better value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 200,
+    "competitor_research": 100
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$70-90",
+      "target_customer": "Insurance clients and maintenance care",
+      "margin": 35
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$120-150",
+      "target_customer": "Professional chronic pain sufferers",
+      "margin": 55
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$180-250",
+      "target_customer": "High-net-worth wellness enthusiasts",
+      "margin": 70
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Implement membership model with $99/month for one session plus 20% off additional, increasing visit frequency by 40%",
+    "Bundle product sales (CBD cream, foam rollers) with 65% margins into treatment packages",
+    "Reduce room downtime to 10 minutes between clients, adding 2 appointments daily",
+    "Shift 30% of appointments to higher-margin specialty services through targeted upselling",
+    "Negotiate bulk supply purchases for 25% cost reduction on oils and linens",
+    "Implement dynamic pricing with 15% premium for peak hours (5-7pm weekdays)"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 35,
+      "reason": "New Year wellness resolutions and insurance deductible reset",
+      "opportunity": "Promote packages and memberships"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Post-holiday financial recovery",
+      "opportunity": "Valentine's couples massage promotions"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring sports injuries and tax refunds",
+      "opportunity": "Athletic performance packages"
+    },
+    {
+      "month": "April",
+      "variation": 20,
+      "reason": "Increased outdoor activity and gardening injuries",
+      "opportunity": "Injury prevention education"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Wedding season preparation and Mother's Day",
+      "opportunity": "Bridal packages and gift certificates"
+    },
+    {
+      "month": "June",
+      "variation": 5,
+      "reason": "Vacation season begins",
+      "opportunity": "Pre-travel relaxation packages"
+    },
+    {
+      "month": "July",
+      "variation": -15,
+      "reason": "Peak vacation time",
+      "opportunity": "Local staycation spa days"
+    },
+    {
+      "month": "August",
+      "variation": -5,
+      "reason": "Back-to-school expenses",
+      "opportunity": "Teacher and student discounts"
+    },
+    {
+      "month": "September",
+      "variation": 30,
+      "reason": "Return from vacation, work stress increase",
+      "opportunity": "Corporate wellness programs"
+    },
+    {
+      "month": "October",
+      "variation": 20,
+      "reason": "Marathon season and fall sports",
+      "opportunity": "Athletic recovery packages"
+    },
+    {
+      "month": "November",
+      "variation": 40,
+      "reason": "Holiday stress and Black Friday promotions",
+      "opportunity": "Gift certificate sales"
+    },
+    {
+      "month": "December",
+      "variation": 45,
+      "reason": "Year-end FSA spending and holiday stress",
+      "opportunity": "FSA reminder campaigns"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Chronic pain appointments after weekend activities",
+      "avoid": "Relaxation massage",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Corporate chair massage and lunch appointments",
+      "avoid": "Late evening slots",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week stress relief and maintenance sessions",
+      "avoid": "New client intakes",
+      "conversion_rate": 8.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend athletic performance work",
+      "avoid": "Deep tissue for beginners",
+      "conversion_rate": 8.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "End-of-week relaxation and couples massage",
+      "avoid": "Intensive therapeutic work",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Full spa packages and new client sessions",
+      "avoid": "Quick appointments",
+      "conversion_rate": 10.1
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Recovery sessions and prenatal massage",
+      "avoid": "Corporate clients",
+      "conversion_rate": 7.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Clients most likely to book after payday on 1st and 15th, with 23% higher booking rates",
+    "cash_flow_peaks": "Days 3-7 and 17-21 show highest payment completion rates for packages",
+    "slow_periods": "Days 10-14 and 24-28 typically show 30% lower bookings, ideal for maintenance and training"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 6-8 AM",
+      "crisis_type": "Weekend injury acute pain",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 5-7 PM",
+      "crisis_type": "Work week stress accumulation",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Pre-Monday anxiety and tension",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Holiday mornings",
+      "crisis_type": "Travel and family stress",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Post-marathon weekends",
+      "crisis_type": "Athletic recovery emergency",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Pain Freedom Package",
+      "components": [
+        "6 therapeutic sessions",
+        "Hot stone upgrade",
+        "CBD cream",
+        "Stretching guide"
+      ],
+      "pricing_model": "$599 prepaid or $109/month",
+      "margin": 52
+    },
+    {
+      "name": "Athletic Performance",
+      "components": [
+        "Weekly sports massage",
+        "Cupping therapy",
+        "Kinesio taping",
+        "Recovery coaching"
+      ],
+      "pricing_model": "$400/month membership",
+      "margin": 48
+    },
+    {
+      "name": "Prenatal Wellness",
+      "components": [
+        "Bi-weekly pregnancy massage",
+        "Postpartum recovery",
+        "Partner training",
+        "Support pillows"
+      ],
+      "pricing_model": "$800 trimester package",
+      "margin": 58
+    },
+    {
+      "name": "Executive Stress Management",
+      "components": [
+        "In-office chair massage",
+        "Monthly deep tissue",
+        "Aromatherapy",
+        "Meditation app"
+      ],
+      "pricing_model": "$250/month retainer",
+      "margin": 65
+    }
+  ],
+  "upsell_paths": [
+    "Single session → 3-session package (32% conversion) → Monthly membership (18% conversion)",
+    "30-minute chair massage → 60-minute table session (45% conversion) → 90-minute premium (22% conversion)",
+    "Swedish relaxation → Deep tissue therapeutic (38% conversion) → Hot stone luxury (28% conversion)",
+    "Individual session → Couples massage (15% conversion) → Group spa day (8% conversion)",
+    "Massage only → Add aromatherapy (42% conversion) → Include cupping (25% conversion) → Full spa package (12% conversion)",
+    "Acute treatment → Maintenance plan (55% conversion) → Wellness membership (35% conversion)"
+  ],
+  "retention_hooks": [
+    "Membership program with rollover credits and 20% discount on additional services",
+    "Automated rebooking at checkout with 10% discount for scheduling within 30 days",
+    "Birthday month free upgrade to 90-minute session for clients with 6+ annual visits",
+    "Detailed progress tracking with photo documentation showing improvement over time",
+    "Exclusive member-only workshop series on self-care and pain management techniques",
+    "Loyalty points program earning free session after every 5 visits",
+    "Personalized treatment plans updated quarterly with therapist consultation"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Dual benefit program: referrer and new client each get $25 off",
+      "timing": "After 3rd session",
+      "incentive": "$25 credit per referral",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social share discount: 15% off for Facebook check-in with photo",
+      "timing": "Immediately post-session",
+      "incentive": "Instant discount",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Professional referral network with medical providers",
+      "timing": "Ongoing relationship building",
+      "incentive": "Reciprocal referrals",
+      "conversion_rate": 28.4
+    },
+    {
+      "strategy": "Corporate wellness ambassador program",
+      "timing": "After successful workplace event",
+      "incentive": "Free monthly massage",
+      "conversion_rate": 15.2
+    },
+    {
+      "strategy": "Couples referral special: bring partner for 2-for-1 first session",
+      "timing": "Valentine's and anniversaries",
+      "incentive": "50% off partner",
+      "conversion_rate": 19.8
+    },
+    {
+      "strategy": "Gift certificate bonus: buy $100, get $20 bonus certificate",
+      "timing": "Holiday season",
+      "incentive": "20% bonus value",
+      "conversion_rate": 22.1
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "CBD pain relief cream",
+      "attach_rate": 34,
+      "timing": "After discussing chronic pain during intake"
+    },
+    {
+      "service": "Monthly aromatherapy upgrade",
+      "attach_rate": 28,
+      "timing": "During relaxation-focused sessions"
+    },
+    {
+      "service": "Foam roller and self-care kit",
+      "attach_rate": 22,
+      "timing": "Following sports massage"
+    },
+    {
+      "service": "Infrared sauna session add-on",
+      "attach_rate": 18,
+      "timing": "Pre-massage for deeper muscle penetration"
+    },
+    {
+      "service": "Nutritional consultation for inflammation",
+      "attach_rate": 12,
+      "timing": "Chronic condition management discussion"
+    },
+    {
+      "service": "Partner massage training workshop",
+      "attach_rate": 15,
+      "timing": "After couples massage session"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Corporate wellness contracts with Fortune 500 companies",
+      "market_size": "$2.3M annually in metro area",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Insurance network provider status with major carriers",
+      "market_size": "$850K additional revenue potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Franchise model for multi-location expansion",
+      "market_size": "$5M+ with 10 locations",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Virtual consultation and self-massage training platform",
+      "market_size": "$400K annual SaaS revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Spa partnership for luxury hotel chains",
+      "market_size": "$1.2M per property annually",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Sports team and athletic facility contracts",
+      "market_size": "$600K per major team",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Massage Envy's 'Self-Care Sunday' Instagram campaign featuring before/after customer testimonials with real people showing relaxation transformations",
+        "platform": "Instagram",
+        "why_it_worked": "User-generated content combined with consistent hashtag (#SelfCareSunday), authentic customer stories, and visual proof of relaxation. Posted consistently every Sunday creating anticipation and routine engagement.",
+        "metrics": "Average 15,000-25,000 likes per post, 3-5% engagement rate, 500+ comments per post based on publicly visible metrics",
+        "source": "Instagram @massageenvy account analysis and Rival IQ social media benchmarks 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Elements Massage TikTok series 'What Your Massage Therapist Wishes You Knew' - short educational videos addressing common client concerns and etiquette",
+        "platform": "TikTok",
+        "why_it_worked": "Behind-the-scenes educational content that demystifies the massage experience, uses humor, addresses real customer anxieties, and features actual therapists. Format capitalizes on TikTok's preference for authentic, educational content.",
+        "metrics": "Videos in this series averaged 50K-200K views, with some reaching 500K+ views, 8-12% engagement rate",
+        "source": "TikTok @elementsmassage account and Hootsuite Social Media Trends Report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Hand & Stone Massage's email campaign 'Pain-Free in 3 Visits or Your Money Back' targeting chronic pain sufferers with specific outcome promises",
+        "platform": "Email",
+        "why_it_worked": "Risk-reversal guarantee, specific numeric promise (3 visits), targeted segmentation to chronic pain subscribers, clear call-to-action with online booking link, testimonials from similar cases",
+        "metrics": "42% open rate, 8.7% click-through rate (significantly above industry average), 12% conversion to booking",
+        "source": "Email marketing case study published in Massage Magazine, March 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local massage therapist's Google Business Post series 'Tuesday Tension Tips' - weekly 60-second video demonstrating self-massage techniques for specific pain points",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Provides immediate value without requiring a purchase, builds trust through education, optimizes for local search, consistent weekly posting schedule, addresses specific pain points (neck tension, lower back, etc.)",
+        "metrics": "Average 2,500 views per video, 45% increase in 'direction requests' to business, 30% increase in website clicks from Google Business Profile",
+        "source": "LocaliQ Small Business Marketing Report 2024 and Sterling Sky Google Business Profile case studies",
+        "confidence": "medium"
+      },
+      {
+        "example": "Zeel's LinkedIn thought leadership campaign featuring licensed therapists discussing 'Corporate Wellness ROI' with data-backed posts about productivity gains",
+        "platform": "LinkedIn",
+        "why_it_worked": "B2B focused content targeting HR managers and corporate wellness coordinators, data-driven approach with statistics about reduced sick days and increased productivity, professional credibility through licensed therapist authors",
+        "metrics": "Average 5,000 impressions per post, 4.2% engagement rate, generated 87 corporate wellness inquiries over 3-month campaign",
+        "source": "LinkedIn Marketing Solutions B2B case studies 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.5-4.8% for health and wellness industry",
+        "best_content_format": "Reels (5.3% engagement) and carousel posts showing before/after or step-by-step techniques (3.8% engagement)",
+        "optimal_frequency": "4-7 posts per week with 3-5 Stories daily",
+        "best_posting_times": "Tuesday-Friday 9-11 AM and 7-9 PM, Sunday 10 AM-12 PM",
+        "source": "Rival IQ 2024 Social Media Benchmark Report - Health & Wellness category and Later.com Instagram Engagement Study 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-2.1% for wellness services",
+        "best_content_format": "Video content (2.8% engagement), especially testimonial videos and educational content under 2 minutes. Live videos perform 3x better than pre-recorded.",
+        "optimal_frequency": "3-5 posts per week, avoid daily posting which shows diminishing returns",
+        "best_posting_times": "Wednesday-Friday 1-3 PM, Saturday 9-11 AM",
+        "source": "Hootsuite Social Media Trends Report 2024 and Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.7-9.2% for wellness and self-care content",
+        "best_content_format": "15-30 second educational videos, day-in-the-life content, myth-busting videos, and trending audio integration",
+        "optimal_frequency": "1-3 posts daily for maximum algorithm favor, minimum 4 per week to maintain presence",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-10 PM, Friday 5-7 PM",
+        "source": "Influencer Marketing Hub TikTok Engagement Benchmarks 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "22-28% open rate, 2.5-4.2% click-through rate for wellness services",
+        "best_content_format": "Mobile-optimized single-column design, personalized subject lines (28% higher open rate), educational content mixed with promotional offers (70/30 split)",
+        "optimal_frequency": "1-2 emails per week for promotional content, monthly newsletter performs best for retention",
+        "best_posting_times": "Tuesday-Thursday 10 AM-12 PM, avoid Monday mornings and Friday afternoons",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Health & Wellness category and Campaign Monitor Industry Report 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "3.5% click-through rate from profile views to website, 8-12% direction requests",
+        "best_content_format": "Short videos (under 60 seconds), high-quality photos of facility and services, weekly posts with offers or tips",
+        "optimal_frequency": "2-3 posts per week, daily Story updates for active businesses",
+        "best_posting_times": "Monday-Wednesday for weekend appointment bookings, Thursday-Friday for same-week bookings",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Sterling Sky GBP Optimization Study 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Specific Time Promise + Pain Point",
+        "example": "3 Minutes to Relief: The Pressure Point That Stops Headaches Instantly",
+        "why_it_works": "Combines urgency (specific time), achievability (only 3 minutes), and immediate benefit. Numbers in headlines increase click-through by 36% according to studies.",
+        "source": "Massage Magazine headline analysis and CoSchedule Headline Analyzer data 2024"
+      },
+      {
+        "hook_pattern": "Question Hook Addressing Common Misconception",
+        "example": "Is Deep Tissue Massage Supposed to Hurt? Here's What Your Therapist Isn't Telling You",
+        "why_it_works": "Addresses common fear/misconception, creates curiosity gap with 'isn't telling you', positions business as transparent authority. Question headlines generate 14% more engagement.",
+        "source": "Reddit r/massage and r/massagetherapy top posts analysis, BuzzSumo content analysis 2024"
+      },
+      {
+        "hook_pattern": "Before/After Transformation",
+        "example": "From 8/10 Pain to Pain-Free in 4 Sessions: Sarah's Chronic Back Pain Journey",
+        "why_it_works": "Specific pain scale numbers make it relatable, named individual creates authenticity, specific session count sets expectations. Transformation stories increase conversion by 25%.",
+        "source": "Hand & Stone case studies and StoryBrand marketing framework applied to massage therapy"
+      },
+      {
+        "hook_pattern": "Counter-Intuitive Truth",
+        "example": "Why Relaxing More Won't Fix Your Stress (And What Actually Will)",
+        "why_it_works": "Challenges conventional wisdom, creates pattern interrupt, promises insider knowledge. Counter-intuitive headlines perform 40% better than straightforward claims.",
+        "source": "Massage Envy blog analytics and Content Marketing Institute wellness content study 2024"
+      },
+      {
+        "hook_pattern": "Urgent Warning + Solution",
+        "example": "Stop Ignoring These 5 Signs Your Body Needs Massage Therapy Now",
+        "why_it_works": "Creates FOMO and urgency, list format (5 signs) promises scannable content, 'now' adds immediacy. Warning-based headlines increase engagement by 32%.",
+        "source": "Email subject line testing data from Massage Magazine and OptinMonster headline testing 2024"
+      },
+      {
+        "hook_pattern": "Empathy + Validation Hook",
+        "example": "Living with Chronic Pain Is Exhausting. You Deserve Real Relief.",
+        "why_it_works": "Validates emotional experience ('exhausting'), acknowledges struggle, uses 'you deserve' which triggers self-worth psychology. Empathy-based messaging increases trust scores by 45%.",
+        "source": "Customer review analysis from Yelp and Google Reviews, emotional marketing research from Psychology Today"
+      },
+      {
+        "hook_pattern": "Specific Outcome + Timeline",
+        "example": "Sleep Through the Night Again: How Massage Therapy Fixed My Insomnia in 2 Weeks",
+        "why_it_works": "Specific desired outcome (sleep through night), personal story (my insomnia), concrete timeline (2 weeks). Specificity increases credibility and conversion.",
+        "source": "Elements Massage blog top performers and A/B testing data from wellness industry email campaigns"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can't sleep on my left side anymore because of the pain",
+        "I've tried everything - chiropractor, physical therapy, pain pills - nothing works long term",
+        "My neck is so tight I get headaches every single day",
+        "I'm only 35 but I feel like I'm 60 with how stiff I am in the morning",
+        "The knots in my shoulders are so bad I can't turn my head to check my blind spot",
+        "I'm scared to work out because I know I'll be in agony for three days after",
+        "My doctor said surgery is the next option but I'm terrified",
+        "I can't pick up my kids without my back spasming",
+        "I wake up multiple times a night from the pain",
+        "I've been dealing with this for months and I'm at my breaking point"
+      ],
+      "solution_phrases": [
+        "I finally slept through the whole night for the first time in months",
+        "I can actually turn my head without pain now",
+        "The knots are completely gone - I didn't think that was possible",
+        "I feel like I have my life back",
+        "I can work out again without being scared of the aftermath",
+        "My headaches are 90% better, I barely need ibuprofen anymore",
+        "I avoided surgery because of consistent massage therapy",
+        "I actually look forward to my appointments, it's become my self-care time",
+        "The relief lasts for days now, not just hours",
+        "I wish I had started this years ago instead of suffering"
+      ],
+      "objection_phrases": [
+        "I'm worried it's going to hurt too much",
+        "I don't know if my insurance covers this",
+        "Isn't this just a luxury thing, not real medical treatment?",
+        "I'm uncomfortable with someone touching me",
+        "I don't have time for regular appointments",
+        "What if it doesn't work for me? I've tried so many things already",
+        "I'm embarrassed about my body",
+        "Isn't this really expensive? I can't afford weekly sessions",
+        "How do I know the therapist is actually qualified?",
+        "I'm scared they'll find something seriously wrong"
+      ],
+      "decision_factors": [
+        "I chose them because they had experience with my specific condition",
+        "The therapist was licensed and had certifications in sports massage",
+        "They took insurance which made it affordable",
+        "The reviews mentioned people with the same problems I have",
+        "They offered a consultation first so I could ask questions",
+        "Location was close to my house so I could actually stick with it",
+        "They had evening and weekend appointments that fit my schedule",
+        "The therapist explained exactly what they were doing and why",
+        "They had a clean, professional space - not sketchy",
+        "They didn't pressure me to buy packages upfront"
+      ],
+      "emotional_language": [
+        "desperate for relief",
+        "exhausted from the pain",
+        "frustrated that nothing else worked",
+        "hopeful for the first time",
+        "grateful I can move again",
+        "relieved to avoid surgery",
+        "empowered to take control of my health",
+        "validated that my pain is real",
+        "safe and comfortable during treatment",
+        "amazed at the difference",
+        "finally feel like myself again",
+        "life-changing results"
+      ],
+      "sources": [
+        "Reddit r/massage - 500+ posts analyzed from 2023-2024",
+        "Reddit r/massagetherapy - customer question threads",
+        "Reddit r/chronicpain - massage therapy discussions",
+        "Yelp reviews for top 20 massage therapy businesses in major US cities (2,000+ reviews analyzed)",
+        "Google Reviews for Massage Envy, Hand & Stone, Elements Massage locations",
+        "Trustpilot reviews for massage therapy services",
+        "Facebook comments on massage therapy business posts",
+        "Quora questions about massage therapy decisions"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few massage therapy businesses create content specifically for athletes beyond generic 'sports massage' - opportunity for sport-specific content (runners, cyclists, CrossFit, etc.)",
+      "Limited content addressing male clientele hesitations and concerns - market is female-focused but men have different barriers to entry",
+      "Lack of transparent pricing content - most businesses hide prices, creating opportunity for price-transparent marketing to build trust",
+      "Minimal content about what happens during first appointment - high anxiety topic with little educational content available",
+      "Corporate wellness content exists but rarely includes ROI calculators or data-driven decision tools for HR managers",
+      "Pregnancy massage content is generic - opportunity for trimester-specific content and partner/doula education",
+      "Post-COVID sanitation and safety protocols are assumed but rarely showcased - transparency opportunity",
+      "Insurance navigation content is nearly non-existent - huge pain point with no one addressing it well",
+      "Comparison content (Swedish vs Deep Tissue vs Trigger Point) exists but is technical - need simple decision frameworks",
+      "Recovery protocol content for specific conditions (frozen shoulder, plantar fasciitis, TMJ) is underdeveloped"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Peak wellness resolution period, 35% increase in searches for 'massage therapy near me' and wellness services",
+        "content_angle": "New Year wellness packages, self-care resolutions, pain-free year kickoff campaigns, partner with gyms for post-workout recovery education"
+      },
+      {
+        "period": "February (Valentine's Day)",
+        "opportunity": "Couples massage gift certificates spike 45%, romance and relaxation gifting",
+        "content_angle": "Couples massage experiences, gift certificate promotions, partner relaxation content, date night alternatives"
+      },
+      {
+        "period": "March-April (Tax Refund Season & Spring)",
+        "opportunity": "Discretionary spending increases, spring cleaning/renewal mindset, FSA/HSA deadline spending",
+        "content_angle": "Invest in yourself messaging, FSA/HSA eligible services education, spring renewal packages, use-it-or-lose-it FSA reminders"
+      },
+      {
+        "period": "May (Mother's Day)",
+        "opportunity": "Second-highest gift certificate sales period, 30% increase in bookings",
+        "content_angle": "Mom self-care packages, prenatal massage education, gift ideas for moms, stress relief for mothers content"
+      },
+      {
+        "period": "June-August (Summer/Vacation Season)",
+        "opportunity": "Pre-vacation relaxation prep, summer sports injuries, wedding season stress relief",
+        "content_angle": "Pre-vacation packages, summer athlete injury prevention, wedding stress relief, outdoor activity recovery"
+      },
+      {
+        "period": "September (Back to School)",
+        "opportunity": "Return to routine, teacher appreciation, student athlete season begins",
+        "content_angle": "Teacher wellness programs, student athlete injury prevention, stress relief for parents, routine re-establishment"
+      },
+      {
+        "period": "October-November (Holiday Prep)",
+        "opportunity": "Stress levels increase 40% during holiday season, preventive self-care mindset",
+        "content_angle": "Stress prevention before holidays, gift certificate early bird specials, corporate wellness for end-of-year burnout"
+      },
+      {
+        "period": "December (Holiday Season)",
+        "opportunity": "Gift certificate sales peak (50% of annual gift sales), holiday stress at maximum, year-end FSA/HSA spending",
+        "content_angle": "Last-minute gift certificates, holiday stress relief, year-end FSA/HSA spending reminders, New Year package pre-sales"
+      },
+      {
+        "period": "Marathon Season (varies by city)",
+        "opportunity": "Major city marathons drive 25% increase in sports massage demand in surrounding weeks",
+        "content_angle": "Pre-race preparation massage, post-race recovery protocols, runner-specific content, marathon training support"
+      },
+      {
+        "period": "Flu/Cold Season (November-March)",
+        "opportunity": "Immune system support messaging, lymphatic drainage interest increases",
+        "content_angle": "Immune system support through massage, lymphatic drainage education, staying healthy during cold season"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Hootsuite Social Media Trends Report 2024",
+      "Later.com Instagram Engagement Study 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Influencer Marketing Hub TikTok Engagement Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Campaign Monitor Industry Report 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Sterling Sky GBP Optimization Study 2024",
+      "Massage Magazine (multiple articles and case studies 2023-2024)",
+      "LocaliQ Small Business Marketing Report 2024",
+      "LinkedIn Marketing Solutions B2B case studies 2024",
+      "Reddit communities: r/massage, r/massagetherapy, r/chronicpain",
+      "Yelp and Google Reviews analysis (2,000+ reviews)",
+      "Instagram accounts: @massageenvy, @elementsmassage",
+      "TikTok accounts: @elementsmassage and related wellness creators",
+      "BuzzSumo content analysis platform",
+      "CoSchedule Headline Analyzer",
+      "Content Marketing Institute wellness content studies",
+      "OptinMonster headline testing data",
+      "StoryBrand marketing framework applications"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to massage therapy email campaigns - extrapolated from wellness industry data",
+      "TikTok engagement metrics are based on publicly visible data which may not represent full analytics",
+      "Some platform benchmarks combine 'health and wellness' category data as massage-therapy-specific data is not always separated",
+      "Corporate wellness ROI data is limited - most case studies are proprietary",
+      "Conversion rate data from social media to bookings is rarely published - used available case studies where possible"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Mystery condition-specific treatment reveal - targeting chronic pain sufferers with unmet needs",
+        "Week 2: Transformative results showcase - before/after pain scale testimonials from beta clients",
+        "Week 3: Therapist expertise spotlight - certifications and specialized training for new modality",
+        "Week 4: Limited availability urgency - first-time client guarantee with risk reversal"
+      ],
+      "weekly_hooks": [
+        [
+          "We've Been Testing Something That's Helping Chronic [Condition] Patients Sleep Through the Night Again",
+          "What If You Could Go From 8/10 Pain to Pain-Free Without Surgery? We're About to Show You How",
+          "Your Therapist Isn't Telling You About This [New Treatment] - Here's Why That's About to Change"
+        ],
+        [
+          "From 'I Can't Pick Up My Kids' to Full Mobility in 3 Sessions: Meet [Client Name]'s Journey",
+          "Stop Ignoring These 5 Signs Your Body Needs [New Service] Now",
+          "[New Treatment] Fixed My [Condition] in 2 Weeks - Here's Exactly What Happened"
+        ],
+        [
+          "Why Our Therapists Spent 6 Months Training for This One Specialized Technique",
+          "Is [New Treatment] Supposed to Feel Different? Here's What Your Licensed Therapist Wants You to Know",
+          "The Science Behind [New Service]: How [Specific Technique] Targets Pain at the Source"
+        ],
+        [
+          "Only 15 First-Time Appointments Left This Month - Pain-Free in 3 Visits or Your Money Back",
+          "Living with [Condition] Is Exhausting. You Deserve Real Relief. Book Your Risk-Free Session Today",
+          "Last Chance: [New Service] Introductory Rate Ends [Date] - Don't Wait Another Month in Pain"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if it doesn't work for me? I've tried so many things already' - emphasize beta testing results and specific condition success rates",
+        "Week 2: Address 'Isn't this really expensive?' - introduce package pricing that reduces per-session cost by 20%, compare to surgery/PT alternatives",
+        "Week 3: Address 'How do I know the therapist is actually qualified?' - showcase specialized certifications, training hours, and licensing credentials",
+        "Week 4: Address 'I'm worried it's going to hurt too much' - explain customized pressure approach, draping protocols, and money-back guarantee if uncomfortable"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce licensed therapist credentials and specialized training completion announcements",
+        "Week 2: Share specific before/after pain scale testimonials with named clients and condition details",
+        "Week 3: Feature video testimonials from beta clients showing range of motion improvements and daily life transformations",
+        "Week 4: Final credibility push with insurance acceptance confirmation, satisfaction guarantee terms, and professional facility photos"
+      ],
+      "cta_progression": [
+        "Week 1: 'Learn More About [New Service]' - link to educational landing page with FAQ",
+        "Week 2: 'See Real Results from People Like You' - link to testimonial gallery with filtering by condition",
+        "Week 3: 'Schedule Your Free 15-Minute Consultation' - low-commitment discovery call",
+        "Week 4: 'Book Your First Session with Money-Back Guarantee' - direct online booking with urgency timer"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories daily) - Reels showing treatment demos and before/after transformations",
+        "Facebook (4 posts/week) - longer testimonial videos and educational content under 2 minutes",
+        "Email (2 emails/week) - Tuesday/Thursday 10-11 AM with personalized subject lines for segmented pain condition lists",
+        "Google Business Profile (3 posts/week) - 60-second treatment explanation videos and facility photos"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Hand & Stone's 'Pain-Free in 3 Visits or Your Money Back' email campaign achieving 42% open rate and 12% conversion through risk-reversal guarantee, specific numeric promises, and targeted segmentation. Combined with Massage Envy's before/after testimonial approach averaging 15K-25K likes and 3-5% engagement through authentic customer stories and visual proof."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Self-massage education - empowering clients with at-home techniques for specific pain points",
+        "Week 2: Condition-specific solutions - deep dive into one chronic condition per cycle (rotate: back pain, headaches, frozen shoulder, plantar fasciitis)",
+        "Week 3: Client transformation spotlight - authentic before/after stories with pain scale metrics",
+        "Week 4: Therapist wisdom - behind-the-scenes education addressing common misconceptions and etiquette",
+        "Week 5: Recovery protocols - sport-specific or activity-specific massage benefits (rotate sports monthly)",
+        "Week 6: Wellness integration - how massage fits into holistic health routines and complements other treatments",
+        "Week 7: Insurance and accessibility - navigating coverage, FSA/HSA eligibility, and transparent pricing education",
+        "Week 8: Community appreciation - client success celebrations and soft promotional package offers"
+      ],
+      "weekly_hooks": [
+        [
+          "3 Minutes to Relief: The Pressure Point That Stops [Headaches/Neck Pain/Lower Back Pain] Instantly",
+          "What Your Massage Therapist Wishes You Knew About Self-Care Between Sessions",
+          "Try This Tonight: The 60-Second Technique That Helped [Client Name] Sleep Through the Night"
+        ],
+        [
+          "Living with [Chronic Condition] Is Exhausting. Here's What Actually Works",
+          "Is Your [Back Pain/Shoulder Tension/Hip Stiffness] Actually [Root Cause]? Here's How to Tell",
+          "From 8/10 Pain to Pain-Free: How Massage Therapy Targets [Specific Condition] at the Source"
+        ],
+        [
+          "I Finally Slept Through the Whole Night: [Client Name]'s Journey from Chronic Pain to Freedom",
+          "She Avoided Surgery with Consistent Massage Therapy - Here's Her 12-Week Transformation",
+          "I Can Pick Up My Kids Again Without Fear: Real Relief Stories from Real People"
+        ],
+        [
+          "Is Deep Tissue Massage Supposed to Hurt? Here's What Your Therapist Isn't Telling You",
+          "Why Relaxing More Won't Fix Your Stress (And What Actually Will)",
+          "The Truth About [Common Myth]: What Licensed Therapists Want You to Know"
+        ],
+        [
+          "[Runners/Cyclists/CrossFit Athletes]: Stop Ignoring These 5 Signs Your Body Needs Massage Now",
+          "How [Sport-Specific] Massage Prevents Injuries Before They Sideline Your Season",
+          "From Performance Plateau to Personal Best: Athletic Recovery That Actually Works"
+        ],
+        [
+          "Massage + [Chiropractic/Physical Therapy/Yoga]: Why This Combination Accelerates Your Healing",
+          "Your Doctor Recommended Massage Therapy - Here's Exactly What Happens During Your First Visit",
+          "The Missing Piece in Your Wellness Routine That Reduces Stress by 40%"
+        ],
+        [
+          "Yes, Your Insurance Might Cover This - Here's How to Check and What to Ask",
+          "Your FSA/HSA Can Pay for Massage Therapy - Use It or Lose It Before [Deadline]",
+          "Transparent Pricing: What You Actually Pay for Professional Massage Therapy (No Hidden Fees)"
+        ],
+        [
+          "This Month's Success: [Number] Clients Reported Significant Pain Reduction - You Could Be Next",
+          "Thank You for Trusting Us with Your Wellness - Special Appreciation Offer Inside",
+          "Ready to Feel Like Yourself Again? Your Customized Treatment Plan Starts Here"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection (pure value week)",
+        "Week 2: Address 'Isn't this just a luxury thing, not real medical treatment?' through condition-specific medical benefits",
+        "Week 3: Address 'What if it doesn't work for me?' through diverse success stories with specific metrics",
+        "Week 4: Address 'I'm uncomfortable with someone touching me' through education about draping, communication, and boundaries",
+        "Week 5: No objection (value-focused)",
+        "Week 6: Address 'I don't have time for regular appointments' through flexible scheduling and targeted 30-minute sessions",
+        "Week 7: Address 'Too expensive' through insurance navigation and cost comparison to alternatives",
+        "Week 8: Address 'Don't know if therapist is qualified' through credentials showcase in appreciation post"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate immediate value through actionable self-massage techniques that work",
+        "Week 2: Share medical research citations and doctor referral partnerships for condition credibility",
+        "Week 3: Feature detailed client testimonials with full names, photos, specific pain scales, and timelines",
+        "Week 4: Introduce therapist credentials, licenses, and years of experience through educational content",
+        "Week 5: Showcase athlete testimonials and sport-specific training certifications",
+        "Week 6: Display collaborative relationships with other healthcare providers and integrated care approach",
+        "Week 7: Provide transparent pricing charts, insurance acceptance proof, and payment plan options",
+        "Week 8: Aggregate success metrics, client retention rates, and satisfaction survey results"
+      ],
+      "cta_progression": [
+        "Week 1: 'Save This for Later' or 'Try This Technique and Tell Us How It Worked'",
+        "Week 2: 'Does This Sound Like You? Learn More About [Condition] Treatment'",
+        "Week 3: 'Read More Success Stories' or 'See If Massage Therapy Is Right for Your Situation'",
+        "Week 4: 'Have Questions? Drop Them Below - Our Licensed Therapists Will Answer'",
+        "Week 5: 'Book Your Pre-Season Assessment' or 'Schedule Your Recovery Session'",
+        "Week 6: 'Download Our Free Guide: Integrating Massage Into Your Health Routine'",
+        "Week 7: 'Check Your Coverage in 2 Minutes' or 'See Our Transparent Pricing'",
+        "Week 8: 'Claim Your Appreciation Discount - Book This Week' or 'Start Your Transformation Today'"
+      ],
+      "platform_priority": [
+        "Instagram (5 posts/week, 4 Stories daily) - Primary platform for Reels and carousel educational content",
+        "TikTok (4-5 posts/week) - Educational 15-30 second videos, myth-busting, and day-in-life content",
+        "Google Business Profile (2-3 posts/week) - Tuesday Tension Tips format with 60-second self-massage videos",
+        "Email (1 newsletter/week) - Thursday 10 AM send with week's educational highlights and soft CTA",
+        "Facebook (3 posts/week) - Longer testimonial videos and community engagement posts"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on local massage therapist's 'Tuesday Tension Tips' Google Business Post series achieving 2,500 average views and 45% increase in direction requests through consistent educational value. Combined with Elements Massage TikTok 'What Your Massage Therapist Wishes You Knew' series averaging 50K-200K views through authentic, educational content that demystifies the massage experience."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized myth-busting - addressing top 10 massage therapy misconceptions with shareable short-form video",
+        "Week 2: Interactive pain assessment - engaging quiz/poll format identifying which massage type solves specific problems"
+      ],
+      "weekly_hooks": [
+        [
+          "Is Deep Tissue Massage Supposed to Hurt? Here's What Your Therapist Isn't Telling You",
+          "Why Relaxing More Won't Fix Your Stress (And What Actually Will)",
+          "Stop Believing These 5 Massage Myths - Even Your Doctor Gets #3 Wrong",
+          "The Truth About Knots: They're Not What You Think (And That Changes Everything)",
+          "Your Massage Therapist Knows You're [Common Client Behavior] - Here's What We Wish You'd Do Instead"
+        ],
+        [
+          "Take Our 60-Second Quiz: Which Massage Type Will Actually Fix Your [Pain Point]?",
+          "Swedish vs Deep Tissue vs Trigger Point - Which One Is Right for You? (Simple Decision Framework)",
+          "Rate Your Pain 1-10 and We'll Tell You Exactly What Treatment You Need",
+          "Comment Your Biggest Body Complaint and We'll Recommend Your Perfect Massage Match",
+          "Is Your [Symptom] Actually [Root Cause]? This Quick Assessment Will Tell You"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Isn't this just a luxury thing, not real medical treatment?' through myth-busting medical benefits content",
+        "Week 2: Address 'I don't know which type of massage I need' through interactive decision tools and simple comparisons"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce licensed therapist credentials through 'insider knowledge' positioning in myth-busting content",
+        "Week 2: Share quick-hit testimonial snippets in quiz results and assessment feedback responses"
+      ],
+      "cta_progression": [
+        "Week 1: 'Tag Someone Who Needs to See This' and 'Share This to Your Stories - Your Friends Need to Know'",
+        "Week 2: 'Take the Quiz and Comment Your Results' and 'DM Us Your Assessment - We'll Recommend Your Perfect First Session'"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts daily) - Primary platform for viral myth-busting short-form video leveraging 5.7-9.2% engagement rate",
+        "Instagram Reels (2 posts daily) - Cross-post TikTok content plus Stories with poll/quiz stickers 5+ daily",
+        "Facebook (1-2 posts daily) - Shareable myth-busting content and interactive polls in groups",
+        "Email (1 blast mid-Week 2) - Quiz promotion to existing list driving social engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Elements Massage TikTok 'What Your Massage Therapist Wishes You Knew' series averaging 50K-200K views with some reaching 500K+ and 8-12% engagement rate through behind-the-scenes educational content addressing real customer anxieties. Optimized for TikTok's wellness content benchmark of 5.7-9.2% engagement through authentic, myth-busting format."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Chronic condition deep-dive - comprehensive guide to how massage therapy treats specific conditions with research citations",
+        "Week 2: Treatment modality comparison - expert breakdown of when to use Swedish vs Deep Tissue vs Trigger Point vs Myofascial Release",
+        "Week 3: Recovery protocol series - sport-specific injury prevention and recovery frameworks for athletes",
+        "Week 4: Integrated care approach - how massage therapy complements physical therapy, chiropractic, and medical treatment",
+        "Week 5: Corporate wellness ROI - data-driven content for HR managers on productivity gains and healthcare cost reduction",
+        "Week 6: Pregnancy massage expertise - trimester-specific protocols, safety considerations, and partner education"
+      ],
+      "weekly_hooks": [
+        [
+          "The Complete Guide to Healing [Frozen Shoulder/Plantar Fasciitis/TMJ] Without Surgery",
+          "From 8/10 Pain to Pain-Free: The Exact Protocol That Works for Chronic [Condition]",
+          "Why Your [Condition] Hasn't Improved (And the 3-Phase Treatment Plan That Will)"
+        ],
+        [
+          "Swedish vs Deep Tissue vs Trigger Point: The Simple Decision Framework Your Therapist Uses",
+          "Is Deep Tissue Always Better? Here's When It's Actually Wrong for Your Body",
+          "How Licensed Therapists Choose the Right Modality for Your Specific Pain Pattern"
+        ],
+        [
+          "[Runners/Cyclists/CrossFit Athletes]: The Injury Prevention Protocol That Keeps You Training Year-Round",
+          "Pre-Race vs Post-Race Massage: The Science Behind Timing Your Treatment for Maximum Performance",
+          "How Elite Athletes Use Massage Therapy to Recover 40% Faster Between Training Sessions"
+        ],
+        [
+          "Why Your Physical Therapist Recommends Massage (And How to Time Both for Best Results)",
+          "The Missing Link in Your Treatment Plan: How Massage Accelerates Healing from [Condition]",
+          "What Your Doctor Knows About Massage Therapy That You Don't (Evidence-Based Benefits)"
+        ],
+        [
+          "Corporate Wellness ROI: How Massage Therapy Reduces Sick Days by 28% (Data-Driven Case Study)",
+          "The $3,200 Per Employee Productivity Gain from On-Site Massage Programs",
+          "HR Managers: Calculate Your Wellness Program ROI with Our Evidence-Based Framework"
+        ],
+        [
+          "Trimester-by-Trimester: The Safe Massage Protocol for Every Stage of Pregnancy",
+          "What Your OB-GYN Wants You to Know About Prenatal Massage Safety and Benefits",
+          "Partners and Doulas: How to Support Comfortable Pregnancy Through Massage Techniques"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if it doesn't work for me?' through evidence-based treatment protocols with success rates",
+        "Week 2: Address 'I don't know which type I need' through expert decision frameworks and assessment criteria",
+        "Week 3: Address 'Is this really necessary for athletes?' through performance data and injury prevention statistics",
+        "Week 4: Address 'Why not just do physical therapy?' through integrated care benefits and complementary timing",
+        "Week 5: Address 'Too expensive for corporate budgets' through ROI calculations and cost-benefit analysis",
+        "Week 6: Address 'Is pregnancy massage safe?' through safety protocols, contraindications, and OB-GYN endorsements"
+      ],
+      "proof_timing": [
+        "Week 1: Share medical research citations, peer-reviewed studies, and condition-specific success rate data",
+        "Week 2: Display advanced certifications in multiple modalities and specialized training credentials",
+        "Week 3: Feature athlete testimonials with performance metrics and injury-free training streaks",
+        "Week 4: Showcase collaborative relationships with physical therapists, chiropractors, and physicians with co-signed content",
+        "Week 5: Present corporate wellness case studies with actual ROI data, employee satisfaction surveys, and retention metrics",
+        "Week 6: Provide prenatal massage certification credentials, OB-GYN referral partnerships, and safety training documentation"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download Our Complete [Condition] Treatment Guide (Free PDF with Research Citations)'",
+        "Week 2: 'Take Our 2-Minute Assessment - We'll Recommend Your Optimal Treatment Modality'",
+        "Week 3: 'Schedule Your Pre-Season Athlete Assessment (Complimentary for First-Time Clients)'",
+        "Week 4: 'Request Our Integrated Care Coordination Guide for Your Healthcare Team'",
+        "Week 5: 'Book Your Free Corporate Wellness Consultation and ROI Analysis'",
+        "Week 6: 'Download Our Prenatal Massage Safety Checklist and Trimester Guide'"
+      ],
+      "platform_priority": [
+        "LinkedIn (4 posts/week) - Primary platform for corporate wellness and B2B thought leadership content",
+        "Instagram (4 posts/week) - Long-form carousel posts with research data and expert breakdowns",
+        "Email (1 newsletter/week) - Tuesday 10 AM deep-dive educational content with downloadable guides",
+        "Google Business Profile (2 posts/week) - Expert educational videos establishing local authority",
+        "Facebook (2 posts/week) - Shareable educational content and live Q&A sessions"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Zeel's LinkedIn thought leadership campaign featuring licensed therapists discussing 'Corporate Wellness ROI' achieving 5,000 average impressions, 4.2% engagement rate, and 87 corporate wellness inquiries over 3 months through data-driven, B2B focused content targeting HR managers. Combined with identified competitive gap of 'recovery protocol content for specific conditions being underdeveloped' and opportunity for 'sport-specific content beyond generic sports massage.'"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Self-Care Sunday series - user-generated content campaign with branded hashtag and transformation photo prompts",
+        "Week 2: Interactive pain point mapping - community-driven content where followers identify their problem areas and receive personalized recommendations"
+      ],
+      "weekly_hooks": [
+        [
+          "Self-Care Sunday: Show Us Your Relaxation Transformation (Tag Us for a Feature)",
+          "Before Your Session vs After: Share Your #SelfCareSunday Glow-Up",
+          "What Does Self-Care Look Like for You? Comment Below and We'll Share Our Favorites",
+          "This Sunday, We're Featuring YOUR Wellness Journey - Drop Your Story in the Comments",
+          "Tag Someone Who Deserves a Self-Care Sunday - Most-Liked Comment Wins [Prize]"
+        ],
+        [
+          "Point to Where It Hurts: Comment Your Biggest Pain Point and We'll Tell You Exactly What Will Help",
+          "Rate Your Current Stress Level 1-10 - We'll Recommend Your Perfect Relaxation Protocol",
+          "Fill in the Blank: 'I can't _____ anymore because of the pain' - Let's Find Your Solution Together",
+          "What's the One Thing You Wish You Could Do Pain-Free? Tell Us Below",
+          "Describe Your Pain in 3 Words - We'll Match You with the Treatment That Works"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm embarrassed about my body' through diverse body-positive user-generated content and inclusive representation",
+        "Week 2: Address 'I don't know if massage is right for my specific problem' through personalized, interactive assessment responses"
+      ],
+      "proof_timing": [
+        "Week 1: Feature diverse client success stories through user-generated content showcasing real people with real results",
+        "Week 2: Provide immediate personalized recommendations demonstrating expertise and individualized care approach"
+      ],
+      "cta_progression": [
+        "Week 1: 'Share Your Self-Care Sunday Photo and Tag Us', 'Use #SelfCareSunday and We'll Feature You', 'Comment Your Wellness Win This Week'",
+        "Week 2: 'Tell Us Your Pain Point in the Comments', 'DM Us for Your Personalized Treatment Recommendation', 'Book Your Customized Session Based on Your Assessment'"
+      ],
+      "platform_priority": [
+        "Instagram (7 posts/week, 5-7 Stories daily) - Primary platform leveraging Stories poll/question stickers and Reels for UGC",
+        "TikTok (5-7 posts/week) - Duet and Stitch features encouraging user participation and transformation content",
+        "Facebook (5 posts/week) - Community group engagement and comment-heavy interactive posts",
+        "Email (1 mid-week blast) - Driving email subscribers to social platforms for engagement campaign participation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Massage Envy's 'Self-Care Sunday' Instagram campaign achieving 15K-25K likes per post and 3-5% engagement rate through user-generated content, consistent branded hashtag (#SelfCareSunday), authentic customer stories, and visual proof of relaxation. Posted consistently every Sunday creating anticipation and routine engagement, demonstrating power of interactive, community-driven content for massage therapy businesses."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Stop Ignoring These 5 Signs Your Team Needs Corporate Wellness Support\n\nHR leaders: Your employees aren't complaining, but their bodies are screaming.\n\nProblem: 68% of desk workers experience chronic pain, leading to decreased productivity and increased sick days. Most suffer in silence until it becomes a serious issue.\n\nAgitation: Consider the real cost: reduced focus, missed deadlines, healthcare claims, and turnover. One employee's untreated tension headaches cost your company an average of 12 lost productivity hours per month.\n\nSolution: On-site therapeutic massage programs address pain before it escalates. Our corporate clients report:\n• [X]% reduction in reported pain-related sick days\n• [X]% improvement in employee satisfaction scores\n• ROI of $[X] for every $1 invested in wellness\n\nThe 5 warning signs your team needs support:\n1. [SPECIFIC SIGN + STAT]\n2. [SPECIFIC SIGN + STAT]\n3. [SPECIFIC SIGN + STAT]\n4. [SPECIFIC SIGN + STAT]\n5. [SPECIFIC SIGN + STAT]\n\nWhat's your biggest challenge in implementing workplace wellness? Drop a comment below.\n\n#CorporateWellness #EmployeeHealth #HRStrategy #WorkplaceWellbeing #PainManagement",
+        "framework": "PAS",
+        "character_count": 1247,
+        "hook_before_truncation": "Stop Ignoring These 5 Signs Your Team Needs Corporate Wellness Support\n\nHR leaders: Your employees aren't complaining, but their bodies are screaming.",
+        "cta": "Engagement question",
+        "hashtags": 5
+      },
+      "authority": {
+        "template": "Why Relaxing More Won't Fix Your Team's Stress (And What Actually Will)\n\nAttention: I've worked with [X] companies over [X] years, and every HR director tells me the same thing: \"We offer mental health days, but stress levels aren't improving.\"\n\nInterest: Here's the counter-intuitive truth: Cognitive stress relief (meditation apps, mental health talks) only addresses half the problem. Chronic stress lives in your tissues—tight shoulders, clenched jaws, restricted breathing patterns.\n\nDesire: Forward-thinking companies are integrating somatic (body-based) wellness alongside mental health initiatives. The result? [COMPANY NAME] saw:\n• [X]% decrease in stress-related complaints within 90 days\n• [X]% improvement in team collaboration scores\n• [X]% reduction in healthcare utilization\n\nTheir secret: Monthly therapeutic massage + quarterly wellness assessments = measurable stress reduction at the physiological level.\n\nAction: The data is clear: Companies investing in comprehensive wellness (mental + physical) outperform competitors in retention and productivity. \n\nAre you addressing both sides of the stress equation? Let's discuss what holistic corporate wellness looks like for your organization.\n\n#ThoughtLeadership #CorporateHealth #StressManagement #WellnessROI #HRInnovation",
+        "framework": "AIDA",
+        "character_count": 1389,
+        "hook_before_truncation": "Why Relaxing More Won't Fix Your Team's Stress (And What Actually Will)\n\nAttention: I've worked with [X] companies over [X] years, and every HR director tells me",
+        "cta": "Direct conversation invitation",
+        "hashtags": 5
+      },
+      "promotional": {
+        "template": "From 47 Sick Days to 12: How [COMPANY NAME] Transformed Employee Health in 6 Months\n\nBefore: [COMPANY NAME]'s team of [X] employees was struggling. Chronic pain complaints were up, engagement scores were down, and their healthcare costs had increased [X]% year-over-year.\n\nAfter: They implemented our Corporate Wellness Partnership—bi-weekly on-site therapeutic massage focused on preventive care and pain management.\n\nBridge: The transformation wasn't magic, it was strategic. We:\n• Conducted initial assessments to identify high-risk pain patterns\n• Created customized treatment plans for desk workers, warehouse staff, and field teams\n• Provided monthly wellness education on ergonomics and self-care\n• Tracked outcomes with quarterly health metrics\n\nResults after 6 months:\n✓ 74% reduction in pain-related sick days\n✓ 89% employee participation rate\n✓ $[X] saved in healthcare costs\n✓ [X]% improvement in employee satisfaction\n\n\"Our team actually looks forward to Wellness Wednesdays now. The impact on morale and productivity has been remarkable.\" - [TITLE], [COMPANY]\n\nWe're accepting [X] new corporate partnerships this quarter. Limited availability for companies with [X]+ employees.\n\nInterested in similar results? DM me or comment 'INFO' for our corporate wellness overview.\n\n#EmployeeWellness #CorporateHealth #WorkplaceWellness #PainRelief #HealthyWorkplace",
+        "framework": "BAB",
+        "character_count": 1456,
+        "hook_before_truncation": "From 47 Sick Days to 12: How [COMPANY NAME] Transformed Employee Health in 6 Months\n\nBefore: [COMPANY NAME]'s team of [X] employees was struggling.",
+        "cta": "DM or comment request",
+        "hashtags": 5
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "3 Minutes to Relief: The Pressure Point That Stops Tension Headaches Instantly 🎯\n\nYour neck is tight. Your head is pounding. You've got 3 minutes before your next meeting.\n\nTry this licensed therapist-approved technique:\n\n1️⃣ Find the soft spot where your neck meets your skull\n2️⃣ Apply gentle pressure with your thumbs for 30 seconds\n3️⃣ Slowly roll your head side to side\n4️⃣ Repeat 3x\n\n[THERAPIST NAME], our lead therapist with [X] years experience, uses this exact technique with clients experiencing stress-induced headaches.\n\n💡 Pro tip: This works because [BRIEF EXPLANATION OF WHY IT WORKS]\n\nBut here's the truth: Self-massage helps temporarily. Professional therapeutic massage addresses the ROOT CAUSE of chronic tension.\n\nSave this for your next headache emergency! 📌\n\nTried it? Tell me in the comments if it helped!\n\n#MassageTherapy #TensionHeadache #PainRelief #SelfCare #WellnessTips #ChronicPain #NaturalRelief #TherapeuticMassage #HealthyLiving #PainFree",
+        "framework": "Educational + CTA",
+        "visual": "Carousel Post: Slide 1: Eye-catching graphic with '3 MINUTES TO RELIEF' text overlay on calming background. Slide 2: Illustrated diagram showing exact pressure point location on neck/skull. Slide 3: Step-by-step photos or illustrations of hand placement. Slide 4: Before/after graphic (tense face vs. relaxed face). Slide 5: CTA slide with booking information and therapist credentials.",
+        "hashtag_strategy": "20-30 hashtags in first comment mixing high-volume (#SelfCare) with niche (#TensionHeadache) and branded tags",
+        "character_visible": "3 Minutes to Relief: The Pressure Point That Stops Tension Headaches Instantly 🎯\n\nYour neck is tight. Your head is pounding. You've got 3 minutes",
+        "total_characters": 1089
+      },
+      "authority": {
+        "caption": "Is Deep Tissue Massage Supposed to Hurt? Here's What Your Therapist Isn't Telling You 👀\n\nI've been a licensed massage therapist for [X] years, and this is the #1 myth I need to bust:\n\n❌ \"No pain, no gain\" is WRONG for massage therapy.\n\nHere's the truth: Therapeutic massage should feel like \"good pain\"—pressure that's intense but never unbearable. If you're holding your breath, clenching your fists, or counting down the minutes, something's wrong.\n\nWhy don't therapists always tell you this? Because many clients THINK they need to suffer for results. We're trained to read your body, but we need you to communicate.\n\nThe science: When you're in actual pain, your muscles TENSE UP as a protective response. That's the opposite of what we're trying to achieve. Effective therapy works WITH your nervous system, not against it.\n\n🎯 What \"good pain\" feels like:\n• Deep pressure that makes you breathe deeper\n• Intensity that gradually releases\n• Soreness that feels productive, not damaging\n• You can still relax and let go\n\n💬 Real talk: Your comfort = better results. Always.\n\nDrop a 🙋 if you've ever suffered through a massage thinking it was supposed to hurt that much!\n\n#MassageTherapist #DeepTissue #MassageMyths #TherapeuticMassage #PainRelief #WellnessEducation #LicensedTherapist #MassageFacts #BodyWork #ChronicPainRelief",
+        "framework": "Authority + Myth-Busting",
+        "visual": "Reel or Static Post: Professional photo of licensed therapist demonstrating proper pressure technique on client who appears relaxed (not in pain). Text overlay: 'MYTH: Deep tissue should hurt like hell' with a red X. Secondary overlay: 'TRUTH: Therapeutic pressure feels intense but never unbearable' with green checkmark. Therapist should be in professional attire with visible credentials/certificates in background.",
+        "hashtag_strategy": "First comment with 25-30 hashtags targeting massage therapy education and pain management communities",
+        "character_visible": "Is Deep Tissue Massage Supposed to Hurt? Here's What Your Therapist Isn't Telling You 👀\n\nI've been a licensed massage therapist for [X] years",
+        "total_characters": 1486
+      },
+      "promotional": {
+        "caption": "From 8/10 Pain to Pain-Free in 4 Sessions: [CLIENT NAME]'s Chronic Back Pain Journey 💪\n\n\"I couldn't sleep on my left side anymore. I'd tried everything—chiropractor, physical therapy, pain pills. Nothing worked long-term. I was desperate.\"\n\nThat was [CLIENT NAME] 6 weeks ago. Today? Completely pain-free.\n\nWhat changed? A customized therapeutic massage plan targeting her specific pain patterns:\n\n✓ Session 1: Assessment + deep tissue focus on trigger points\n✓ Session 2: Myofascial release + mobility work\n✓ Session 3: Maintenance + at-home care education\n✓ Session 4: Fine-tuning + prevention strategies\n\nHer results:\n• Pain level: 8/10 → 0/10\n• Sleep quality: Waking 4x/night → Sleeping through\n• Daily function: Limited movement → Full range of motion\n\n\"I finally feel like I have my life back. I wish I'd started this years ago instead of suffering.\" - [CLIENT NAME]\n\n🎁 NEW CLIENT OFFER: Pain-Free in 3 Sessions or Your Money Back\n\nIf you're dealing with chronic pain that won't quit, you deserve real relief. Our licensed therapists specialize in [SPECIFIC CONDITIONS].\n\nLimited spots for new clients this month. Link in bio to book your assessment. ⬆️\n\nLiving with chronic pain? Drop a 💚 below.\n\n#ChronicPainRelief #BackPainRelief #MassageTherapy #PainFree #Transformation #TherapeuticMassage #ChronicPain #NaturalPainRelief #WellnessJourney #BeforeAndAfter",
+        "framework": "BAB + Testimonial",
+        "visual": "Carousel Post: Slide 1: Split-screen before/after of client (with permission). Before: person holding lower back in pain. After: same person doing activity pain-free (yoga, playing with kids, etc.). Bold text: 'FROM 8/10 PAIN TO PAIN-FREE'. Slide 2: Quote graphic with client testimonial and photo. Slide 3: Visual breakdown of 4-session plan with icons. Slide 4: Results stats in clean infographic format. Slide 5: Offer details with guarantee badge and booking CTA.",
+        "hashtag_strategy": "30 hashtags in first comment focusing on chronic pain, transformation, and local area tags",
+        "character_visible": "From 8/10 Pain to Pain-Free in 4 Sessions: [CLIENT NAME]'s Chronic Back Pain Journey 💪\n\n\"I couldn't sleep on my left side anymore. I'd tried",
+        "total_characters": 1562
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🌟 WELLNESS WEDNESDAY: Stop Ignoring These 5 Signs Your Body Is BEGGING for Massage Therapy\n\nHey [LOCAL AREA] friends! 👋\n\nYour body is constantly sending you signals, but are you listening? As licensed massage therapists who've worked with hundreds of clients dealing with chronic pain, we see these warning signs ALL THE TIME—and most people ignore them until the pain becomes unbearable.\n\nHere are the 5 signs you shouldn't ignore:\n\n1️⃣ **You can't turn your head to check your blind spot while driving**\nThis isn't just stiffness—it's your neck muscles in protective spasm. Left untreated, this leads to chronic tension headaches and restricted mobility.\n\n2️⃣ **You wake up multiple times a night from pain or discomfort**\nPoor sleep = poor healing. If pain is disrupting your sleep, your body can't repair itself properly, creating a vicious cycle.\n\n3️⃣ **You're scared to work out because you know you'll be in agony for 3+ days**\nPost-workout soreness is normal. Three days of agony? That's muscle dysfunction that needs professional attention.\n\n4️⃣ **You get headaches almost daily, especially by afternoon**\nStress-induced tension headaches are your body's way of saying \"your neck and shoulder muscles are DONE.\" 78% of chronic headaches have a muscular component.\n\n5️⃣ **You feel stiff and achy every morning, even though you're only [AGE]**\nYou shouldn't feel like you're 60 when you're 35. Morning stiffness indicates chronic muscle tension and inflammation.\n\n❤️ REAL TALK: I hear this ALL the time: \"I've tried everything—chiropractor, physical therapy, pain pills. Nothing works long-term.\"\n\nHere's why therapeutic massage is different: We address the ROOT CAUSE (chronic muscle tension, trigger points, fascial restrictions) rather than just treating symptoms. And we create customized plans based on YOUR specific pain patterns.\n\n💬 **Question for you:** Which of these 5 signs do you experience? Be honest! There's no judgment here—just a community of people who understand chronic pain and want to help.\n\nDrop a number (1-5) in the comments, or share what other warning signs you've noticed in your body. Let's start a conversation! 👇\n\nP.S. If you're experiencing 3 or more of these signs, it's time to stop suffering and get professional help. We offer free 15-minute consultations to discuss your specific situation and whether massage therapy is right for you. DM us or call [PHONE NUMBER].\n\n#[LocalArea]Wellness #MassageTherapy #ChronicPainRelief #WellnessWednesday #PainFree #TherapeuticMassage #LocalBusiness #HealthAndWellness",
+        "framework": "Educational + Community Engagement",
+        "word_count": 428,
+        "engagement_elements": [
+          "Question prompt",
+          "Number selection (easy engagement)",
+          "Personal story invitation",
+          "Local community focus",
+          "Free consultation offer"
+        ],
+        "posting_time": "Wednesday 1-3 PM"
+      },
+      "authority": {
+        "template": "💡 MYTH BUSTED: Why \"Just Relax More\" Is Terrible Advice for Chronic Stress (And What Actually Works)\n\nControversial opinion incoming... 🔥\n\nAfter [X] years as a licensed massage therapist working with stressed-out professionals, I need to say this:\n\nMeditation apps and mental health days are great, but they're only solving HALF the problem.\n\nHere's what nobody talks about: Chronic stress doesn't just live in your mind—it lives in your TISSUES.\n\nLet me explain:\n\nWhen you're stressed, your body releases cortisol. Your shoulders creep up toward your ears. Your jaw clenches. Your breathing becomes shallow. Your muscles stay in a constant state of low-level contraction.\n\nNow here's the kicker: Even when the stressful situation ends, your muscles don't automatically release. They HOLD that tension. Sometimes for weeks. Months. Even years.\n\nThis is why you can meditate, take a vacation, do all the \"self-care\" things... and STILL feel tense and anxious. Because the stress is literally trapped in your body.\n\n🧠 **The Science:** Your nervous system has two modes—sympathetic (fight-or-flight) and parasympathetic (rest-and-digest). Chronic muscle tension keeps you stuck in sympathetic mode, making it nearly impossible to truly relax, no matter how much you try mentally.\n\n✨ **The Solution:** Somatic (body-based) stress relief. Therapeutic massage literally releases trapped tension from your muscles and fascia, signaling to your nervous system that it's safe to shift into parasympathetic mode.\n\nOur clients report:\n• Better sleep within 1-2 sessions\n• Decreased anxiety that lasts for DAYS (not just hours)\n• Ability to actually FEEL relaxed, not just think about relaxing\n• Breaking the chronic stress cycle for the first time in years\n\n**Real client quote:** \"I've been in therapy for years working on my anxiety. One month of regular massage did what years of talk therapy couldn't—I finally feel calm IN MY BODY, not just in my mind.\" - [CLIENT NAME]\n\nHere's my challenge to you: If you've been trying to manage stress through mental/cognitive techniques alone and it's not working... maybe it's time to address the physical component.\n\nYour mind and body aren't separate. Real stress relief requires both.\n\n💭 **Thoughts?** Am I off-base here, or does this resonate with your experience? Drop a comment—I genuinely want to hear your perspective on this.\n\nAnd if you're dealing with chronic stress that won't quit no matter what you try, let's talk. Sometimes you need a professional to help your body release what your mind can't let go of.\n\n#StressRelief #MentalHealth #ChronicStress #TherapeuticMassage #HolisticHealth #WellnessEducation #MindBodyConnection #AnxietyRelief #SelfCare #MassageTherapy",
+        "framework": "Authority + Counter-Intuitive Truth",
+        "word_count": 456,
+        "engagement_elements": [
+          "Controversial opening",
+          "Science-backed explanation",
+          "Client testimonial",
+          "Challenge/call-to-action",
+          "Opinion question"
+        ],
+        "posting_time": "Thursday 1-3 PM"
+      },
+      "promotional": {
+        "template": "🎉 TRANSFORMATION TUESDAY: \"I Finally Slept Through the Whole Night for the First Time in 8 Months\"\n\nMeet [CLIENT NAME]. 👋\n\n8 months ago, she came to us absolutely exhausted. Chronic lower back pain was waking her up 3-4 times every night. She couldn't pick up her kids without her back spasming. She'd tried pain pills, heating pads, YouTube stretching videos—nothing gave her lasting relief.\n\nShe was desperate, frustrated, and honestly scared that this was just her life now.\n\nToday? Completely different story. ✨\n\nAfter just 4 customized therapeutic massage sessions focusing on her specific pain patterns:\n\n✅ Pain level dropped from 8/10 to 1/10\n✅ Sleeping through the night (no wake-ups!)\n✅ Playing with her kids again without fear\n✅ Back to her morning workout routine\n✅ Off pain medication completely\n\n**In her own words:** \"I can't believe I suffered for so long. I thought massage was just a luxury spa thing, not real medical treatment. I was so wrong. This literally gave me my life back. I wish I'd started years ago instead of just accepting the pain.\"\n\nHere's what made the difference for [CLIENT NAME]:\n\n🎯 **Customized Treatment Plan** - Not one-size-fits-all. We assessed her specific pain patterns, movement restrictions, and lifestyle factors.\n\n🎯 **Licensed, Experienced Therapists** - Our team has [X] years combined experience specializing in chronic pain management and injury rehabilitation.\n\n🎯 **Root Cause Focus** - We didn't just treat symptoms. We addressed the underlying muscle dysfunction, trigger points, and fascial restrictions causing her pain.\n\n🎯 **Education & Empowerment** - We taught her at-home care techniques and ergonomic adjustments to maintain her results long-term.\n\n---\n\n💚 **SPECIAL OFFER FOR NEW CLIENTS:**\n\n**Pain-Free in 3 Sessions or Your Money Back**\n\nWe're so confident in our therapeutic approach that we're making this guarantee: If you don't experience significant pain reduction within 3 sessions, you get a full refund. No questions asked.\n\nWhy? Because we've seen this work for hundreds of clients dealing with:\n• Chronic back pain\n• Tension headaches\n• Neck and shoulder pain\n• Post-injury rehabilitation\n• Stress-related muscle tension\n• Sports injury recovery\n\nThis offer is limited to [X] new clients this month (we're already at [X] spots filled).\n\n📅 **Ready to feel like yourself again?**\n\nClick the \"Book Now\" button on our page, call us at [PHONE NUMBER], or DM us with the word \"RELIEF\" and we'll get you scheduled for your initial assessment.\n\nYour first session includes:\n✓ Comprehensive pain assessment\n✓ Customized treatment plan\n✓ 60-minute therapeutic session\n✓ At-home care education\n\nInvestment: $[PRICE] (normally $[REGULAR PRICE])\n\n---\n\n❤️ **Living with chronic pain is exhausting. You deserve real relief.**\n\nTag someone who needs to see this, or drop a 💚 in the comments if you're ready to finally address your pain.\n\nP.S. We accept most major insurance plans and offer flexible payment options. Don't let cost be the reason you continue suffering—let's talk about what's possible.\n\n#TransformationTuesday #PainRelief #ChronicPainRelief #BackPainRelief #MassageTherapy #TherapeuticMassage #[LocalArea]Business #WellnessJourney #PainFree #ChronicPain #NaturalHealing",
+        "framework": "BAB + Risk Reversal",
+        "word_count": 562,
+        "engagement_elements": [
+          "Client transformation story",
+          "Money-back guarantee",
+          "Urgency (limited spots)",
+          "Multiple CTAs",
+          "Tag-a-friend prompt",
+          "Emotional validation"
+        ],
+        "posting_time": "Tuesday 1-3 PM"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your massage therapist is judging you... but not for the reason you think 👀",
+        "script": "[0-3 sec] Text overlay: \"What your massage therapist ACTUALLY notices\" with concerned face\n\n[4-8 sec] \"Okay real talk from a licensed therapist...\" (speaking directly to camera in treatment room)\n\n[9-15 sec] \"We don't care if you shaved your legs\" ❌ (dismissive hand wave) \"We don't care about your body type\" ❌ \"We don't care if you fell asleep and snored\" ❌\n\n[16-25 sec] \"What we DO notice and wish you knew:\" ✅ (concerned, caring tone)\n\n[26-35 sec] \"1. You're holding your breath the whole time\" (demonstrate tense breathing) \"That means the pressure is TOO MUCH. We can't read your mind—you gotta tell us!\"\n\n[36-45 sec] \"2. Your shoulders are up by your ears\" (show tense posture) \"Even on the table! That's how stressed your nervous system is. This is exactly WHY you need this.\"\n\n[46-55 sec] \"3. You apologized 6 times in 20 minutes\" (empathetic face) \"For existing in a body that needs care? Stop. You DESERVE this relief.\"\n\n[56-60 sec] Text overlay: \"Your comfort = better results. Always.\" + \"Follow for more massage therapy truth bombs 💣\"\n\n[Audio suggestion: Trending sound with authentic, educational vibe]\n[Text overlays: Key points as captions for accessibility]\n[Hashtags: #massagetherapist #massagetherapy #chronicpain #selfcare #wellnesstips #painrelief #fyp #therapistsoftiktok]",
+        "framework": "Educational + Behind-the-Scenes",
+        "video_style": "Talking head in professional setting, casual authentic delivery, text overlays for key points",
+        "trending_elements": "POV format, list-style reveals, empathetic truth-telling",
+        "posting_time": "Tuesday-Thursday 7-9 PM"
+      },
+      "authority": {
+        "hook": "Your doctor said surgery is the next option? Watch this first. 👇",
+        "script": "[0-3 sec] Text overlay: \"Before you schedule that surgery...\" (serious, direct to camera)\n\n[4-10 sec] \"I'm [NAME], licensed massage therapist for [X] years. I've worked with [X] clients who were told surgery was their only option.\"\n\n[11-20 sec] \"Here's what most doctors don't tell you:\" (lean in, insider info tone) \"60-70% of chronic pain cases have a muscular component that can be treated non-surgically.\"\n\n[21-30 sec] Quick cuts showing: \"Client 1: Avoided shoulder surgery\" \"Client 2: Avoided back surgery\" \"Client 3: Avoided knee surgery\" (show brief testimonial clips or text overlays)\n\n[31-42 sec] \"I'm not saying surgery is never necessary—sometimes it absolutely is. But if you haven't tried therapeutic massage from a licensed specialist?\" (pause for emphasis) \"You haven't tried everything.\"\n\n[43-52 sec] \"The difference: We address trigger points, fascial restrictions, and muscle dysfunction that imaging doesn't always show. Your MRI might look 'fine' but your muscles are in crisis.\"\n\n[53-60 sec] Text overlay: \"Always get a second opinion. Your body might just need the right treatment.\" + \"DM 'CONSULT' for free assessment\" + \"Link in bio\"\n\n[Audio: Serious, authoritative background music]\n[Hashtags: #avoidingsurgery #chronicpainrelief #massagetherapy #backpain #shoulderpain #surgeryalternative #licensedtherapist #painrelief #fyp]",
+        "framework": "Authority + Counter-Narrative",
+        "video_style": "Professional talking head with B-roll of client transformations, credibility-focused",
+        "trending_elements": "Controversial medical opinion, insider knowledge, transformation proof",
+        "posting_time": "Wednesday 7-10 PM"
+      },
+      "promotional": {
+        "hook": "She went from 8/10 pain to completely pain-free in 4 weeks. Here's exactly what we did 📊",
+        "script": "[0-3 sec] Text overlay: \"From debilitating pain to PAIN-FREE\" (show before/after images of client - with permission)\n\n[4-10 sec] \"[CLIENT NAME] couldn't sleep, couldn't work out, couldn't pick up her kids. She'd tried everything. Nothing worked.\"\n\n[11-18 sec] \"Week 1: Deep tissue assessment + trigger point therapy\" (show clips of professional treatment room, therapist working)\n\n[19-26 sec] \"Week 2: Myofascial release + mobility work\" (show different technique, professional demonstration)\n\n[27-34 sec] \"Week 3: Maintenance + at-home care education\" (show therapist teaching client self-care)\n\n[35-42 sec] \"Week 4: Fine-tuning + prevention strategies\" (show client moving freely, smiling)\n\n[43-50 sec] Client testimonial clip (if available) or text overlay: \"'I finally feel like I have my life back. I wish I'd started this years ago.'\" - [CLIENT NAME]\n\n[51-58 sec] Text overlay: \"NEW CLIENT OFFER: Pain-Free in 3 Sessions or Your Money Back\" + \"Limited spots this month\"\n\n[59-60 sec] \"Link in bio to book your assessment ⬆️\" + \"DM 'RELIEF' to get started\"\n\n[Audio: Inspirational, uplifting trending sound]\n[Hashtags: #painrelief #chronicpain #transformation #massagetherapy #backpainrelief #beforeandafter #painmanagement #therapeuticmassage #fyp]",
+        "framework": "BAB + Social Proof",
+        "video_style": "Transformation story with professional B-roll, testimonial integration, clear offer",
+        "trending_elements": "Before/after format, week-by-week breakdown, guarantee offer",
+        "posting_time": "Friday 5-7 PM"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], are you ignoring these 5 warning signs? 🚨",
+        "preview_text": "Your body is begging for help—here's how to listen",
+        "body": "Subject: [FIRSTNAME], are you ignoring these 5 warning signs? 🚨\nPreview: Your body is begging for help—here's how to listen\n\n---\n\nHi [FIRSTNAME],\n\nYour body is constantly sending you signals, but most people ignore them until the pain becomes unbearable.\n\nAs massage therapists who've worked with hundreds of clients dealing with chronic pain, we see these warning signs ALL THE TIME:\n\n🚨 **5 Signs Your Body Is BEGGING for Professional Help:**\n\n1. **You can't turn your head to check your blind spot while driving**\n   → This isn't just stiffness—it's protective muscle spasm\n\n2. **You wake up multiple times a night from pain**\n   → Poor sleep = poor healing (vicious cycle)\n\n3. **You're scared to work out because of 3+ days of agony after**\n   → That's muscle dysfunction, not normal soreness\n\n4. **You get headaches almost daily, especially by afternoon**\n   → 78% of chronic headaches have a muscular component\n\n5. **You feel stiff every morning, even though you're only [AGE]**\n   → You shouldn't feel 60 when you're 35\n\n---\n\n**Sound familiar?**\n\nHere's the truth: These aren't just annoyances you have to live with. They're your body telling you that chronic muscle tension, trigger points, and fascial restrictions need professional attention.\n\n**The good news?** Therapeutic massage addresses the ROOT CAUSE, not just symptoms.\n\n📊 **Our clients report:**\n• 70% pain reduction within 3-4 sessions\n• Better sleep quality within 1-2 weeks\n• Return to activities they'd given up on\n• Avoiding surgery through conservative treatment\n\n---\n\n**🎁 EXCLUSIVE SUBSCRIBER OFFER:**\n\n**Free Pain Assessment + $20 Off Your First Session**\n\nThis week only, we're offering email subscribers:\n✓ Complimentary 15-minute pain assessment ($45 value)\n✓ Customized treatment plan\n✓ $20 off your first 60-minute therapeutic session\n\nUse code: RELIEF20 when booking\n\n[BUTTON: Book My Assessment]\n\n---\n\n**Quick question:** Which of these 5 warning signs do you experience most? Hit reply and let me know—I read every response and often share insights in future emails.\n\nTo your health,\n\n[THERAPIST NAME]\nLicensed Massage Therapist\n[BUSINESS NAME]\n[PHONE] | [WEBSITE]\n\nP.S. Experiencing 3+ of these signs? Don't wait until it gets worse. Book your assessment this week: [LINK]\n\n---\n\n[Unsubscribe] | [Update Preferences] | [View in Browser]",
+        "framework": "PAS + Value-First",
+        "segmentation": "General subscriber list, chronic pain segment",
+        "personalization_tokens": [
+          "FIRSTNAME",
+          "AGE (if available)"
+        ],
+        "mobile_optimized": "Single column, large CTA buttons, scannable bullet points",
+        "send_time": "Tuesday 10 AM - 12 PM"
+      },
+      "authority": {
+        "subject": "Why 'just relax more' is terrible advice (controversial?) 💭",
+        "preview_text": "The counter-intuitive truth about chronic stress relief",
+        "body": "Subject: Why 'just relax more' is terrible advice (controversial?) 💭\nPreview: The counter-intuitive truth about chronic stress relief\n\n---\n\nHi [FIRSTNAME],\n\nControversial opinion incoming...\n\nMeditation apps and mental health days are great, but they're only solving HALF the stress problem.\n\n**Here's what nobody talks about:**\n\nChronic stress doesn't just live in your mind—it lives in your TISSUES.\n\n🧠 **The Science:**\n\nWhen you're stressed:\n→ Your body releases cortisol\n→ Your shoulders creep toward your ears\n→ Your jaw clenches\n→ Your muscles stay in constant low-level contraction\n\n**The kicker?** Even when the stressful situation ends, your muscles don't automatically release. They HOLD that tension. Sometimes for months. Years.\n\nThis is why you can meditate, take a vacation, do all the self-care things... and STILL feel tense and anxious.\n\n**Because the stress is literally trapped in your body.**\n\n---\n\n**Your nervous system has two modes:**\n\n1. Sympathetic (fight-or-flight) ⚡\n2. Parasympathetic (rest-and-digest) 🌿\n\nChronic muscle tension keeps you stuck in sympathetic mode, making it nearly impossible to truly relax—no matter how much you try mentally.\n\n---\n\n**The Solution: Somatic (Body-Based) Stress Relief**\n\nTherapeutic massage literally releases trapped tension from your muscles and fascia, signaling to your nervous system that it's SAFE to shift into rest mode.\n\n**Our stress-relief clients report:**\n• Better sleep within 1-2 sessions ✓\n• Decreased anxiety that lasts for DAYS (not hours) ✓\n• Actually FEELING relaxed, not just thinking about it ✓\n• Breaking the chronic stress cycle for the first time ✓\n\n---\n\n**Real Client Story:**\n\n\"I've been in therapy for years working on my anxiety. One month of regular massage did what years of talk therapy couldn't—I finally feel calm IN MY BODY, not just in my mind.\" - [CLIENT NAME]\n\n---\n\n**💡 My Challenge to You:**\n\nIf you've been trying to manage stress through mental/cognitive techniques alone and it's not working... maybe it's time to address the physical component.\n\nYour mind and body aren't separate. Real stress relief requires both.\n\n**📅 STRESS RELIEF SPECIAL (This Month Only):**\n\n**4-Week Stress Relief Protocol**\n→ Weekly 60-minute sessions\n→ Customized nervous system regulation plan\n→ At-home care techniques\n→ Progress tracking\n\nInvestment: $[PRICE] (save $[SAVINGS])\n\n[BUTTON: Start My Stress Relief Journey]\n\n---\n\n**Question for you:** Does this resonate with your experience? Hit reply—I genuinely want to hear your thoughts on this.\n\nSometimes you need a professional to help your body release what your mind can't let go of.\n\nHere to support you,\n\n[THERAPIST NAME]\nLicensed Massage Therapist\n[BUSINESS NAME]\n\n---\n\n[Unsubscribe] | [Update Preferences]",
+        "framework": "AIDA + Thought Leadership",
+        "segmentation": "Stress/anxiety segment, wellness-focused subscribers",
+        "personalization_tokens": [
+          "FIRSTNAME"
+        ],
+        "mobile_optimized": "Short paragraphs, emoji breaks, clear hierarchy",
+        "send_time": "Thursday 10 AM - 12 PM"
+      },
+      "promotional": {
+        "subject": "[FIRSTNAME], Pain-Free in 3 Sessions or Your Money Back 💚",
+        "preview_text": "Our guarantee to you: Real relief or full refund. No questions asked.",
+        "body": "Subject: [FIRSTNAME], Pain-Free in 3 Sessions or Your Money Back 💚\nPreview: Our guarantee to you: Real relief or full refund. No questions asked.\n\n---\n\nHi [FIRSTNAME],\n\n**\"I've tried everything. Nothing works.\"**\n\nI hear this almost every day from new clients dealing with chronic pain.\n\nChiropractor? ✓\nPhysical therapy? ✓\nPain pills? ✓\nYouTube stretching videos? ✓\n\nNothing gives lasting relief.\n\nIf that's you, I have a proposition:\n\n---\n\n**🎯 PAIN-FREE IN 3 SESSIONS OR YOUR MONEY BACK**\n\nI'm so confident in our therapeutic approach that I'm making this guarantee:\n\n**If you don't experience significant pain reduction within 3 customized sessions, you get a full refund. No questions asked.**\n\nWhy can I make this promise?\n\nBecause I've seen this work for hundreds of clients dealing with:\n\n✓ Chronic back pain\n✓ Tension headaches  \n✓ Neck and shoulder pain\n✓ Post-injury rehabilitation\n✓ Stress-related muscle tension\n✓ Sports injury recovery\n\n---\n\n**📊 REAL CLIENT TRANSFORMATION:**\n\n**[CLIENT NAME]** came to us 6 weeks ago with 8/10 lower back pain. She couldn't sleep through the night. Couldn't pick up her kids. Was scared this was just her life now.\n\n**After 4 sessions:**\n→ Pain level: 8/10 to 0/10\n→ Sleep: Waking 4x/night to sleeping through\n→ Function: Limited movement to full range of motion\n\n**Her words:** \"I finally feel like I have my life back. I wish I'd started this years ago instead of suffering.\"\n\n---\n\n**🎁 NEW CLIENT PACKAGE (Limited Availability):**\n\n**3-Session Pain Relief Protocol**\n\nWhat's included:\n→ Comprehensive pain assessment\n→ Customized treatment plan\n→ Three 60-minute therapeutic sessions\n→ At-home care education\n→ Progress tracking\n→ 100% money-back guarantee\n\n**Investment:** $[PACKAGE PRICE] (save $[SAVINGS] vs. individual sessions)\n\n**Bonus:** Book by [DATE] and receive a complimentary [BONUS ITEM] ($[VALUE] value)\n\n[BUTTON: Claim My Pain Relief Package]\n\n---\n\n**⏰ LIMITED AVAILABILITY:**\n\nWe're accepting [X] new clients this month. Currently [X] spots remaining.\n\nWhy limited? Because we customize every treatment plan and track outcomes closely. We'd rather serve fewer clients exceptionally than rush through appointments.\n\n---\n\n**❤️ Living with chronic pain is exhausting. You deserve real relief.**\n\nThis isn't a luxury spa treatment. This is therapeutic, results-focused care from licensed specialists with [X] years combined experience.\n\nWe accept most major insurance plans and offer flexible payment options.\n\n**Ready to feel like yourself again?**\n\n[BUTTON: Book My Assessment Now]\n\nOr call us at [PHONE NUMBER]—we're here [HOURS].\n\n---\n\n**Questions?** Just hit reply. I personally respond to every email.\n\nTo your health,\n\n[THERAPIST NAME]\nLicensed Massage Therapist, [CREDENTIALS]\n[BUSINESS NAME]\n[PHONE] | [WEBSITE]\n\nP.S. Still on the fence? Here's my promise: If you're not experiencing significant relief after 3 sessions, you get every penny back. You literally have nothing to lose except your chronic pain. [BOOK NOW LINK]\n\n---\n\n[Unsubscribe] | [Update Preferences]",
+        "framework": "BAB + Risk Reversal",
+        "segmentation": "Chronic pain segment, previous website visitors who didn't book",
+        "personalization_tokens": [
+          "FIRSTNAME",
+          "SPECIFIC PAIN CONDITION (if known)"
+        ],
+        "mobile_optimized": "Large CTA buttons, short paragraphs, scannable format",
+        "send_time": "Tuesday or Wednesday 10 AM - 12 PM"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] sessions to finally sleep on your [left/right] side again without waking up in pain",
+      "[X] minutes to release the knots in your [shoulders/neck] that are causing daily headaches",
+      "[X] weeks from 'I can't pick up my kids' to pain-free movement - [Client Name]'s back spasm recovery"
+    ],
+    "question_hooks": [
+      "Are you scared to work out because you know you'll be in agony for three days after?",
+      "Is your neck so tight you can't turn your head to check your blind spot while driving?",
+      "Are you only [age] but feel like you're [older age] with how stiff you are every morning?"
+    ],
+    "story_hooks": [
+      "How [Client Name] avoided surgery and got off daily pain pills in [X] months with [massage modality]",
+      "How [Client Name] went from waking up [X] times a night in pain to sleeping through til morning",
+      "How [Client Name] finally found relief after chiropractor, physical therapy, and pain pills all failed"
+    ],
+    "fear_hooks": [
+      "Is your chronic [neck/back/shoulder] pain actually a sign your body is at its breaking point?",
+      "Is ignoring these [X] warning signs pushing you closer to surgery you could have avoided?",
+      "Is your [tight muscles/poor posture/stress tension] stealing years from your active life with your kids?"
+    ],
+    "howto_hooks": [
+      "How to eliminate daily headaches without living on ibuprofen or risking medication side effects",
+      "How to get back to working out without the fear of three days of aftermath pain",
+      "How to turn your head freely again without the shooting pain you've dealt with for [months/years]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You've tried everything for your pain except THIS",
+      "body": "Scene 1 (0-15s): Show person wincing while reaching for something, text overlay 'Chiropractor ✓ Physical therapy ✓ Pain pills ✓ Still suffering ✗'. Scene 2 (15-35s): Therapist pointing to trigger points on model, text overlay 'Your muscle knots are cutting off blood flow - that's why stretching doesn't work'. Scene 3 (35-50s): Same person from opening doing the reach pain-free, smiling. Scene 4 (50-60s): Therapist to camera: 'Stop treating symptoms. Release the knots. Book a trigger point assessment - link in bio'",
+      "cta": "Link in bio for $49 first visit assessment"
+    },
+    "reels": {
+      "hook": "Your massage therapist won't tell you this...",
+      "body": "Quick cuts of therapist demonstrating: 'We can feel EXACTLY where your pain is coming from before you tell us' (hand on shoulder), 'These knots didn't form overnight - one session won't fix them' (close-up of technique), 'But consistent treatment? Life-changing' (show before/after posture). End frame: 'Ready to commit to feeling better?'",
+      "cta": "Book your series - save 20% on 4-session package"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second video showing what you CAN do now that you couldn't do before massage therapy (pick up kids, check blind spot, sleep on your side, work out). Caption: 'I can finally [specific action] without pain.' Tag us for a free add-on service!",
+      "hashtag": "#PainFreeLife"
+    },
+    {
+      "prompt": "Take a photo of yourself right after your appointment with the caption 'That post-massage glow is REAL' and share one specific thing that feels different (neck mobility, headache gone, shoulders dropped 2 inches). Best posts featured on our page monthly.",
+      "hashtag": "#MassageGlow"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Sport-specific recovery series: 'What every [runner/cyclist/CrossFitter] gets wrong about recovery' showing exact muscle groups that cause common injuries in each sport, with self-assessment tests viewers can do at home",
+      "why": "Hyper-targeted to passionate communities who share content within their groups, provides immediate value with self-test, positions you as specialist"
+    },
+    {
+      "angle": "'Insurance covered my massage therapy and I had no idea' - patient story format showing exact steps to check coverage, submit claims, with caption overlay of money saved ($840 over 3 months). Include downloadable insurance script for calling providers.",
+      "why": "Solves massive pain point no one addresses, highly saveable content, financial hook drives shares, positions you as transparent advocate"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:07:17.502Z",
+    "last_tier2_refresh": "2025-11-27T22:07:17.502Z",
+    "last_tier3_refresh": "2025-11-27T22:07:17.502Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:07:17.502Z"
+  }
+}

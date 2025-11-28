@@ -1,0 +1,1737 @@
+{
+  "industry": "Pest Control",
+  "industry_name": "Pest Control",
+  "naics_code": "561710",
+  "category": "Construction",
+  "subcategory": "Exterminating and Pest Control Services",
+  "customer_triggers": [
+    {
+      "trigger": "Visible pest sighting in living space",
+      "urgency": 10,
+      "frequency": "immediate"
+    },
+    {
+      "trigger": "Droppings or pest evidence found",
+      "urgency": 9,
+      "frequency": "within 24 hours"
+    },
+    {
+      "trigger": "Strange noises in walls/attic at night",
+      "urgency": 8,
+      "frequency": "within 48 hours"
+    },
+    {
+      "trigger": "Property damage from pests discovered",
+      "urgency": 9,
+      "frequency": "same day"
+    },
+    {
+      "trigger": "Neighbor mentions pest problem",
+      "urgency": 6,
+      "frequency": "within week"
+    },
+    {
+      "trigger": "Seasonal preventive maintenance due",
+      "urgency": 4,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Real estate transaction pending",
+      "urgency": 10,
+      "frequency": "within 72 hours"
+    },
+    {
+      "trigger": "Health inspector citation",
+      "urgency": 10,
+      "frequency": "immediate"
+    },
+    {
+      "trigger": "Employee or customer complaint",
+      "urgency": 9,
+      "frequency": "same day"
+    },
+    {
+      "trigger": "Allergic reaction or bite incident",
+      "urgency": 10,
+      "frequency": "immediate"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer discovers pest evidence through visual sighting (42%), property damage (28%), or health concerns (30%). Initial research focuses on DIY solutions for 72 hours before seeking professional help when problem persists or worsens",
+    "consideration": "Compares 3-4 local providers within 48 hours, reading average of 7 reviews per company. Key evaluation criteria: same-day service (67%), warranty terms (58%), eco-friendly options (43%), price transparency (71%). Phone calls preferred over online forms by 3:1 ratio",
+    "decision": "Books service within 4-6 hours of initial contact for urgent issues, 2-3 days for preventive. Price becomes secondary to speed and guarantee for infestations. 78% choose provider offering immediate inspection even at 20-30% premium",
+    "retention": "Quarterly service contracts retain 68% of customers versus 23% for one-time treatments. Email reminders 10 days before service increase show rates by 34%. Customers stay average 4.2 years with preventive plans versus 1.3 interactions for reactive service",
+    "advocacy": "Peak referral window 7-14 days post-successful treatment when relief emotions highest. Customers who receive follow-up call at day 10 are 3.4x more likely to refer. Average customer generates 2.3 referrals in first year when incentivized with $50 credit per referral"
+  },
+  "transformations": [
+    {
+      "from": "Embarrassed about pest problem",
+      "to": "Proud of clean, protected home",
+      "emotional_value": "Social confidence restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Fearful of health risks",
+      "to": "Peace of mind for family safety",
+      "emotional_value": "Protection of loved ones",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about property damage",
+      "to": "Confident in asset protection",
+      "emotional_value": "Financial security",
+      "worth_premium": true
+    },
+    {
+      "from": "Disgusted by living conditions",
+      "to": "Comfortable in own space",
+      "emotional_value": "Quality of life improvement",
+      "worth_premium": false
+    },
+    {
+      "from": "Worried about business reputation",
+      "to": "Confident in customer experience",
+      "emotional_value": "Professional credibility",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by DIY failure",
+      "to": "Relief with professional solution",
+      "emotional_value": "Time and stress savings",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about recurring issues",
+      "to": "Secure with preventive protection",
+      "emotional_value": "Long-term certainty",
+      "worth_premium": true
+    },
+    {
+      "from": "Concerned about pet/child safety",
+      "to": "Assured with eco-friendly treatment",
+      "emotional_value": "Family wellness priority",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Complete elimination of visible pests",
+      "timeframe": "7-14 days",
+      "measurable": true
+    },
+    {
+      "metric": "No pest sightings for 30+ days",
+      "timeframe": "1 month post-treatment",
+      "measurable": true
+    },
+    {
+      "metric": "Reduction in pest-related anxiety",
+      "timeframe": "immediate post-treatment",
+      "measurable": false
+    },
+    {
+      "metric": "Property damage prevention",
+      "timeframe": "ongoing quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Cost savings versus DIY attempts",
+      "timeframe": "6 month comparison",
+      "measurable": true
+    },
+    {
+      "metric": "Sleep quality improvement",
+      "timeframe": "within 48 hours",
+      "measurable": false
+    },
+    {
+      "metric": "Zero callbacks for same issue",
+      "timeframe": "90 day warranty period",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Visible pest activity increasing daily with sighting frequency doubling every 48 hours",
+    "Health department inspection scheduled within 72 hours requiring compliance documentation",
+    "Real estate closing contingent on clear pest inspection within 5 business days",
+    "Guest or event arriving within week creating reputation risk worth $5,000+ in lost business",
+    "Pest-related allergic reactions requiring medical attention costing $500+ per incident",
+    "Structural damage accumulating at $50-200 daily for termite or carpenter ant infestations",
+    "Sleep deprivation from bed bugs or nocturnal pests affecting work performance and costing productivity"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price seems too high",
+      "response": "Our treatment eliminates the problem in one visit 94% of the time, while DIY attempts average 4.3 tries costing more overall. Plus we include a 90-day warranty saving you $400+ in retreatments",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I can handle it myself",
+      "response": "Professional-grade products are 3x more effective than retail options. Most DIY attempts push pests deeper into walls, making future treatment 40% more expensive. We solve it right the first time",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Worried about chemicals and pets",
+      "response": "We use EPA-approved, pet-safe treatments that are actually 60% less toxic than most household cleaners. Your pets can return to treated areas in just 2 hours versus 24-48 hours for older methods",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Don't have time to prepare",
+      "response": "Our prep requirements take just 15 minutes - we handle 90% of the preparation. We work around your schedule with evening and weekend appointments at no extra charge",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Had bad experience before",
+      "response": "We understand your frustration. That's why we offer a 100% satisfaction guarantee with free re-treatment if needed. Our success rate is 94% on first treatment, and we document everything with photos for your peace of mind",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Just need a quote first",
+      "response": "I can provide an exact quote over the phone in 3 minutes based on your specific situation. If you book today, we lock in this price for 12 months of service, saving you $180 from future rate increases",
+      "effectiveness": 7.4
+    },
+    {
+      "objection": "Want to wait and see",
+      "response": "Pest populations double every 3-4 weeks. Waiting typically increases treatment cost by 35% and extends resolution time from 1 visit to 2-3 visits. We can start treatment today and stop the multiplication cycle immediately",
+      "effectiveness": 8.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% elimination guarantee or full refund within 90 days",
+      "Free re-treatment within warranty period",
+      "Damage protection up to $1,000 for covered pests",
+      "Price match plus 10% if lower quote found",
+      "24-hour response time guarantee or 20% discount"
+    ],
+    "proof_points": [
+      "Before/after photo documentation of all treatments",
+      "4.8 star average from 2,400+ verified reviews",
+      "Licensed and insured with $2M coverage",
+      "EPA certification displayed prominently",
+      "15+ years average technician experience",
+      "Real-time GPS tracking of technician arrival"
+    ],
+    "risk_mitigation": "Comprehensive service agreement outlining exact treatment methods, expected timeline for results (typically 7-14 days for full elimination), clear warranty terms covering 90 days post-treatment, detailed safety data sheets for all products used, and 24/7 emergency hotline for any concerns during treatment period"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "infestation",
+      "crawling",
+      "biting",
+      "nesting",
+      "swarming",
+      "contamination",
+      "droppings",
+      "damage",
+      "sleepless",
+      "embarrassing",
+      "spreading",
+      "multiplying",
+      "overwhelming"
+    ],
+    "solution_words": [
+      "eliminate",
+      "protect",
+      "prevent",
+      "safe",
+      "guaranteed",
+      "permanent",
+      "professional",
+      "certified",
+      "eco-friendly",
+      "peace of mind",
+      "fast-acting",
+      "long-lasting",
+      "thorough"
+    ],
+    "avoid_jargon": [
+      "IPM",
+      "pyrethroid",
+      "IGR",
+      "bait matrix",
+      "pheromone",
+      "desiccant",
+      "fumigant",
+      "rodenticide",
+      "larvicide",
+      "mechanical exclusion",
+      "harborage",
+      "conducive conditions"
+    ]
+  },
+  "power_words": [
+    "Guaranteed",
+    "Eliminate",
+    "Immediate",
+    "Professional",
+    "Safe",
+    "Certified",
+    "Permanent",
+    "Today",
+    "Fast",
+    "Proven",
+    "Trusted",
+    "Complete",
+    "Effective",
+    "Eco-friendly",
+    "Licensed",
+    "Experienced",
+    "Thorough",
+    "Affordable",
+    "Reliable",
+    "Local",
+    "Emergency",
+    "Free",
+    "Warranty",
+    "Results",
+    "Expert",
+    "Solution",
+    "Protection",
+    "Prevention",
+    "Peace",
+    "Family-safe"
+  ],
+  "avoid_words": [
+    "Cheap",
+    "Spray",
+    "Poison",
+    "Toxic",
+    "Dangerous",
+    "Maybe",
+    "Try",
+    "Hopefully",
+    "Attempt",
+    "Chemicals",
+    "Pesticides",
+    "Kill",
+    "Exterminate",
+    "Infestation",
+    "Plague",
+    "Disgusting",
+    "Dirty",
+    "Shameful",
+    "Temporary",
+    "Partial"
+  ],
+  "headline_templates": [
+    {
+      "template": "Pests Gone in 24 Hours - Guaranteed or It's FREE",
+      "expected_ctr": 8.4,
+      "use_case": "Emergency response ads"
+    },
+    {
+      "template": "[City] Homeowners: Eliminate [Pest] Today with Same-Day Service",
+      "expected_ctr": 7.2,
+      "use_case": "Local search ads"
+    },
+    {
+      "template": "Why 2,400+ [City] Families Trust Us for Pest-Free Homes",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof campaigns"
+    },
+    {
+      "template": "BREAKING: New Eco-Safe Treatment Eliminates Pests 3X Faster",
+      "expected_ctr": 7.9,
+      "use_case": "Innovation positioning"
+    },
+    {
+      "template": "$50 OFF Emergency Pest Control - Today Only",
+      "expected_ctr": 9.1,
+      "use_case": "Promotional offers"
+    },
+    {
+      "template": "The Hidden Damage Pests Cause (And How to Stop It)",
+      "expected_ctr": 6.5,
+      "use_case": "Educational content"
+    },
+    {
+      "template": "Pest Problem? Get Free Inspection + Quote in Minutes",
+      "expected_ctr": 7.6,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "5-Star Rated: See Why We're [City]'s #1 Pest Control",
+      "expected_ctr": 7.3,
+      "use_case": "Reputation marketing"
+    },
+    {
+      "template": "Kids & Pets Safe: Our Natural Pest Solutions Work",
+      "expected_ctr": 8.2,
+      "use_case": "Safety-conscious audience"
+    },
+    {
+      "template": "Landlords: Protect Your Investment from Pest Damage",
+      "expected_ctr": 6.9,
+      "use_case": "B2B targeting"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get FREE Inspection Today",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Call Now: [Phone] - 24/7 Emergency Service",
+      "conversion_rate": 14.7,
+      "placement": "Header bar"
+    },
+    {
+      "template": "Schedule Service in 30 Seconds",
+      "conversion_rate": 10.8,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Claim Your $50 OFF Coupon",
+      "conversion_rate": 11.4,
+      "placement": "Exit intent"
+    },
+    {
+      "template": "See Prices & Book Online",
+      "conversion_rate": 9.6,
+      "placement": "Pricing section"
+    },
+    {
+      "template": "Get Rid of Pests TODAY - Click Here",
+      "conversion_rate": 13.2,
+      "placement": "Emergency pages"
+    },
+    {
+      "template": "Text 'PEST' to 55555 for Instant Quote",
+      "conversion_rate": 8.9,
+      "placement": "Mobile only"
+    },
+    {
+      "template": "Start Your Protection Plan",
+      "conversion_rate": 10.2,
+      "placement": "Membership pages"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🐜 Seeing ants in your kitchen? Here's the #1 mistake homeowners make when treating them (hint: spray makes it WORSE). Comment 'HELP' for our free guide!",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before & After ✨ This [City] home went from infested to protected in just ONE treatment! Swipe to see how we did it → DM us for 20% off your first service 🏡",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: That one spider means 20+ hiding nearby 🕷️ Don't wait for an infestation. [City] residents get FREE inspection this week only: [link]",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Commercial property managers: Pest issues cost an average of $8,000 in lost tenants and repairs annually. Our quarterly prevention plans reduce pest incidents by 94%. Let's discuss ROI-focused solutions for your properties.",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You called us about 'just one mouse' 😅 *shows 20+ entry points* This is why DIY fails! #PestControl #[City]Homes #PestFree",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "YouTube",
+      "template": "THUMBNAIL: '😱 What's REALLY Living in Your Walls?' | VIDEO: '3 Signs You Have a Serious Pest Problem (And What to Do TODAY)'",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Seeing increased ant activity with this weather? We're offering free inspections for [Neighborhood] residents this week. We've helped 50+ families on this street stay pest-free! 🏘️",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Google My Business",
+      "template": "🎉 Special: First-time customers get $75 off quarterly protection plans! With pests multiplying 2x faster in summer heat, now's the time to protect your home. Book online for same-day service!",
+      "engagement_rate": 4.5
+    },
+    {
+      "platform": "Yelp",
+      "template": "Thank you [City] for voting us Best Pest Control 3 years running! 🏆 Celebrating with 30% off all new service agreements this month. Over 2,400 five-star reviews can't be wrong!",
+      "engagement_rate": 3.9
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-day service with 2-hour arrival windows versus industry standard 4-6 hour blocks",
+      "rank": 1,
+      "differentiator": "Operational efficiency through route optimization"
+    },
+    {
+      "prop": "90-day warranty versus standard 30-day, saving customers average $400 in re-treatments",
+      "rank": 2,
+      "differentiator": "Superior treatment efficacy"
+    },
+    {
+      "prop": "Pet-safe, child-safe treatments that allow re-entry in 2 hours versus 24-48 hours",
+      "rank": 3,
+      "differentiator": "Advanced eco-friendly formulations"
+    },
+    {
+      "prop": "One-treatment success rate of 94% versus industry average 76%",
+      "rank": 4,
+      "differentiator": "Comprehensive inspection and treatment protocol"
+    },
+    {
+      "prop": "Transparent flat-rate pricing with no hidden fees, saving 20% versus competitors",
+      "rank": 5,
+      "differentiator": "Honest pricing model"
+    },
+    {
+      "prop": "15+ year experienced technicians versus industry average 3 years",
+      "rank": 6,
+      "differentiator": "Investment in training and retention"
+    },
+    {
+      "prop": "24/7 emergency response for existing customers at no extra charge",
+      "rank": 7,
+      "differentiator": "Customer-first service philosophy"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your home deserves the gold standard in pest protection. Our master technicians, with 15+ years of expertise, deliver guaranteed elimination using the safest, most effective treatments available. We don't just solve today's problem - we prevent tomorrow's. Investment in quarterly protection: $149-199/month for complete peace of mind, protecting your family and your largest asset with our $25,000 damage warranty.",
+    "budget_conscious": "Professional pest control for less than your monthly coffee budget. Starting at just $39/month with our annual plan, you get the same guaranteed results as our premium service. We believe everyone deserves a pest-free home, which is why we offer flexible payment plans, senior discounts, and price matching. No corners cut on quality - just smart service delivery that passes savings to you.",
+    "enterprise": "Protecting your business reputation and bottom line with scalable, compliant pest management solutions. Our enterprise programs reduce pest incidents by 94%, ensure health code compliance with detailed documentation, and provide 24/7 emergency response to protect your operations. With dedicated account management and custom protocols for your industry, we're not just a vendor - we're your pest management partner. Average ROI: 400% through prevented closures and health violations."
+  },
+  "trust_signals": [
+    {
+      "signal": "State license number prominently displayed",
+      "importance": 10,
+      "format": "Visual badge on all materials"
+    },
+    {
+      "signal": "$2M liability insurance coverage",
+      "importance": 9,
+      "format": "Certificate available on request"
+    },
+    {
+      "signal": "4.8 star rating from 2,400+ reviews",
+      "importance": 9,
+      "format": "Review widget on website"
+    },
+    {
+      "signal": "Before/after photo gallery",
+      "importance": 8,
+      "format": "Case study format"
+    },
+    {
+      "signal": "15+ years average technician experience",
+      "importance": 8,
+      "format": "Team bio section"
+    },
+    {
+      "signal": "BBB A+ rating for 10+ years",
+      "importance": 7,
+      "format": "Accreditation badge"
+    },
+    {
+      "signal": "Local family-owned since 1995",
+      "importance": 7,
+      "format": "About us story"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "2,400+ five-star reviews with 4.8 average rating",
+      "credibility_score": 9.5,
+      "context": "Verified across Google, Yelp, and Facebook"
+    },
+    {
+      "stat": "94% first-treatment success rate",
+      "credibility_score": 9,
+      "context": "Based on 12-month service data audit"
+    },
+    {
+      "stat": "Serving 15,000+ homes in [Metro Area]",
+      "credibility_score": 8.5,
+      "context": "Established market presence since 1995"
+    },
+    {
+      "stat": "Average customer retention of 4.2 years",
+      "credibility_score": 8.8,
+      "context": "Industry average is 2.1 years"
+    },
+    {
+      "stat": "Zero health violations in commercial accounts",
+      "credibility_score": 9.2,
+      "context": "Across 500+ restaurant and hotel clients"
+    },
+    {
+      "stat": "68% of new customers from referrals",
+      "credibility_score": 9,
+      "context": "Organic growth through satisfaction"
+    }
+  ],
+  "quality_indicators": [
+    "Technicians arrive in branded, GPS-tracked vehicles with professional uniforms versus unmarked personal vehicles",
+    "Digital service reports with photos sent within 2 hours versus handwritten carbon copies",
+    "Integrated pest management approach with exclusion work versus spray-only treatments",
+    "Quarterly service plans with proactive monitoring versus reactive call-only service",
+    "Eco-friendly product options and detailed safety sheets versus one-size-fits-all chemicals"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 10,
+    "trigger_event": "After successful elimination confirmed and customer expresses relief or satisfaction during follow-up call",
+    "ask_method": "Automated SMS with direct link to review platform, followed by personal email from technician if no response within 48 hours, incentivized with $25 credit toward next service"
+  },
+  "competitive_advantages": [
+    "Only company offering true 2-hour arrival windows with 98% on-time rate through AI route optimization",
+    "Exclusive access to new bio-enzymatic treatments that eliminate odors while treating pests",
+    "In-house entomologist on staff for complex identification and treatment protocols",
+    "Mobile app allowing customers to track technician arrival, view treatment history, and schedule instantly",
+    "Partnership with local wildlife rehabilitators for humane removal and relocation of protected species"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Lead with quarterly plan at $149/month, making one-time $399 service seem reasonable and annual $99/month plan appear as exceptional value",
+    "sensitivity": "Price resistance peaks at $500 for one-time service, $150/month for ongoing. Sweet spot is $350-399 one-time, $89-119 monthly",
+    "sweet_spots": [
+      "$399 for comprehensive one-time treatment",
+      "$119/month for quarterly service",
+      "$89/month for annual prepay"
+    ],
+    "decoy_pricing": "Premium quarterly plan at $149/month makes standard $119/month plan conversion rate increase by 43%"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 500,
+    "competitor_research": 400
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Protection",
+      "price_range": "$79-99/month",
+      "target_customer": "Budget-conscious homeowners",
+      "margin": 42
+    },
+    {
+      "tier": "Complete Care",
+      "price_range": "$119-149/month",
+      "target_customer": "Family-focused suburbanites",
+      "margin": 58
+    },
+    {
+      "tier": "Premium Shield",
+      "price_range": "$199-299/month",
+      "target_customer": "Luxury homes and estates",
+      "margin": 67
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Route density optimization clustering services by zip code increases efficiency 30% and margins by 12%",
+    "Quarterly prepayment discounts improve cash flow while maintaining 55% margins through reduced service costs",
+    "Technician commission on upsells to warranty extensions generates additional 8% margin per customer",
+    "Digital-first customer service reduces support costs by 40% while improving satisfaction scores",
+    "Bulk product purchasing agreements reduce material costs by 25% at volumes over 1,000 gallons annually",
+    "Predictive maintenance scheduling reduces callbacks by 60%, saving $125 per prevented return visit"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -30,
+      "reason": "Cold weather reduces pest activity",
+      "opportunity": "Rodent prevention focus"
+    },
+    {
+      "month": "February",
+      "variation": -25,
+      "reason": "Continued cold, low activity",
+      "opportunity": "Annual plan sales push"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring emergence begins",
+      "opportunity": "Ant prevention campaigns"
+    },
+    {
+      "month": "April",
+      "variation": 45,
+      "reason": "Prime ant and termite season",
+      "opportunity": "Termite inspections"
+    },
+    {
+      "month": "May",
+      "variation": 65,
+      "reason": "Peak spring pest activity",
+      "opportunity": "Wasp and bee services"
+    },
+    {
+      "month": "June",
+      "variation": 70,
+      "reason": "Maximum insect reproduction",
+      "opportunity": "Mosquito treatments"
+    },
+    {
+      "month": "July",
+      "variation": 75,
+      "reason": "Heat drives pests indoors",
+      "opportunity": "Commercial kitchen focus"
+    },
+    {
+      "month": "August",
+      "variation": 70,
+      "reason": "Late summer surge",
+      "opportunity": "Back-to-school specials"
+    },
+    {
+      "month": "September",
+      "variation": 40,
+      "reason": "Fall invaders seeking shelter",
+      "opportunity": "Overwintering prevention"
+    },
+    {
+      "month": "October",
+      "variation": 35,
+      "reason": "Rodents moving indoors",
+      "opportunity": "Rodent exclusion services"
+    },
+    {
+      "month": "November",
+      "variation": 10,
+      "reason": "Holiday prep inspections",
+      "opportunity": "Gift certificates"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday season slowdown",
+      "opportunity": "Next year contracts"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling callbacks and follow-ups",
+      "avoid": "Cold calling residential",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Commercial inspections and quotes",
+      "avoid": "Major treatments",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Residential service delivery",
+      "avoid": "Nothing specific",
+      "conversion_rate": 9.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Premium service appointments",
+      "avoid": "Price-sensitive offers",
+      "conversion_rate": 8.8
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency response marketing",
+      "avoid": "Annual plan sales",
+      "conversion_rate": 10.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family decision maker availability",
+      "avoid": "B2B outreach",
+      "conversion_rate": 11.3
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Online booking and research",
+      "avoid": "Phone calls before noon",
+      "conversion_rate": 6.5
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Mortgage payments on 1st drive budget consciousness until 5th, credit cards due 15th create second sensitivity window",
+    "cash_flow_peaks": "Paydays on 1st and 15th show 40% higher acceptance of premium services within 48 hours of deposit",
+    "slow_periods": "Days 20-25 consistently show 30% lower booking rates as customers await next paycheck"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 5-8 PM",
+      "crisis_type": "Weekend event pest discovery",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Sunday 6-9 PM",
+      "crisis_type": "Pre-Monday workweek panic",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Holiday eve mornings",
+      "crisis_type": "Guest arrival preparation",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Restaurant: 5-7 AM",
+      "crisis_type": "Pre-opening inspection failure",
+      "premium_multiplier": 2.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Pest-Free Guarantee",
+      "components": [
+        "Quarterly treatments",
+        "Free callbacks",
+        "24/7 support",
+        "Annual termite inspection"
+      ],
+      "pricing_model": "Monthly subscription",
+      "margin": 58
+    },
+    {
+      "name": "One-Time Elimination",
+      "components": [
+        "Comprehensive treatment",
+        "30-day warranty",
+        "Follow-up inspection"
+      ],
+      "pricing_model": "Flat fee",
+      "margin": 52
+    },
+    {
+      "name": "Commercial Compliance",
+      "components": [
+        "Monthly service",
+        "Documentation portal",
+        "Emergency response",
+        "Staff training"
+      ],
+      "pricing_model": "Annual contract",
+      "margin": 64
+    },
+    {
+      "name": "Real Estate Ready",
+      "components": [
+        "Full inspection",
+        "Treatment if needed",
+        "Certification letter",
+        "90-day warranty"
+      ],
+      "pricing_model": "Package price",
+      "margin": 61
+    }
+  ],
+  "upsell_paths": [
+    "One-time treatment → Quarterly plan (38% conversion at 30-day follow-up)",
+    "Quarterly plan → Add termite protection (24% attach rate year one)",
+    "Basic quarterly → Premium with mosquito (31% upgrade summer months)",
+    "Interior only → Add exterior barrier (42% add within 6 months)",
+    "Single property → Multi-property discount (28% of landlords expand)",
+    "Pest control → Wildlife exclusion (19% add after rodent issues)"
+  ],
+  "retention_hooks": [
+    "Grandfather pricing that locks in rates for loyal customers, saving them 15-20% versus new customer rates",
+    "Pest-free guarantee that provides unlimited free re-treatments between scheduled services",
+    "Priority scheduling privileges giving 24-hour booking advantage during peak season",
+    "Annual termite inspections included free with quarterly plans ($150 value)",
+    "Referral rewards accumulating toward free months of service",
+    "Seasonal add-on services at member-only rates (mosquito, holiday lights, gutter cleaning)",
+    "Dedicated technician assignment creating relationship and consistency"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Double-sided reward: $50 off for referrer and referee",
+      "timing": "10 days post-service",
+      "incentive": "$50 credit each",
+      "conversion_rate": 34
+    },
+    {
+      "strategy": "Neighborhood group discount for 3+ homes",
+      "timing": "During area marketing",
+      "incentive": "15% off for all",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Social media share contest",
+      "timing": "Monthly drawing",
+      "incentive": "Free quarter of service",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Business card drop program",
+      "timing": "Ongoing with techs",
+      "incentive": "$25 per conversion",
+      "conversion_rate": 22
+    },
+    {
+      "strategy": "Email forward campaign",
+      "timing": "Quarterly newsletter",
+      "incentive": "$10 instant credit",
+      "conversion_rate": 15
+    },
+    {
+      "strategy": "Review-to-referral conversion",
+      "timing": "Post 5-star review",
+      "incentive": "Exclusive referral code",
+      "conversion_rate": 41
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Termite protection",
+      "attach_rate": 32,
+      "timing": "Annual inspection or wood damage discovered"
+    },
+    {
+      "service": "Mosquito and tick control",
+      "attach_rate": 28,
+      "timing": "April-May presummer"
+    },
+    {
+      "service": "Wildlife exclusion",
+      "attach_rate": 18,
+      "timing": "After rodent service"
+    },
+    {
+      "service": "Attic insulation replacement",
+      "attach_rate": 12,
+      "timing": "Post-rodent contamination"
+    },
+    {
+      "service": "Moisture control systems",
+      "attach_rate": 15,
+      "timing": "During termite inspection"
+    },
+    {
+      "service": "Commercial kitchen deep clean",
+      "attach_rate": 22,
+      "timing": "Restaurant quarterly service"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Lawn care services bundling",
+      "market_size": "$2.3M additional revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Smart home pest monitoring devices",
+      "market_size": "$850K recurring revenue stream",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Commercial franchise partnerships",
+      "market_size": "$4.1M across 200 locations",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Property management contracts",
+      "market_size": "$3.2M from 50 large complexes",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Municipal and government contracts",
+      "market_size": "$1.8M annual contracts",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Subscription box prevention products",
+      "market_size": "$600K e-commerce revenue",
+      "difficulty": 5
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Terminix 'Pest ID' educational video series on YouTube showing close-up identification of common household pests with clear explanations of risks and solutions",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content that addresses immediate customer need (identifying what pest they have) while establishing authority. Videos averaged 50K+ views with high watch time because they solved an urgent problem before pitching services",
+        "metrics": "Average 50,000+ views per video, 4-6 minute average watch time, high retention rate",
+        "source": "Terminix YouTube channel and Pest Control Technology Magazine case study 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Orkin's seasonal pest forecast infographic campaign shared across social media showing predicted pest activity by region and month",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Timely, shareable content that positions company as expert while creating urgency. Local targeting made content highly relevant. Users tagged neighbors and shared to warn others",
+        "metrics": "2.3x higher engagement rate than average posts, 45% share rate, significant traffic to booking page",
+        "source": "Orkin social media channels and Social Media Examiner pest control industry report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local pest control company's before/after rodent exclusion work photos on Facebook with detailed explanation of process",
+        "platform": "Facebook",
+        "why_it_worked": "Visual proof of results builds trust and demonstrates expertise. Transparency about process reduces anxiety. Shows the 'hidden' work customers don't see. Generated high engagement from homeowners in service area",
+        "metrics": "3-5x higher engagement than text-only posts, significant comment threads asking questions, multiple booking requests per post",
+        "source": "PCT Magazine local marketing success stories 2023 and multiple pest control Facebook business pages",
+        "confidence": "high"
+      },
+      {
+        "example": "Aptive Environmental's TikTok series 'A Day in the Life of a Pest Tech' showing real technicians on calls, finding pests, and solving problems",
+        "platform": "TikTok",
+        "why_it_worked": "Humanizes the service, satisfies curiosity about the job, shows real expertise in action. Short-form video format perfect for showing dramatic pest discoveries. Appeals to both potential customers and potential employees",
+        "metrics": "Videos regularly exceed 100K views, some viral videos over 1M views, strong engagement in comments",
+        "source": "Aptive Environmental TikTok account and Pest Control Technology digital marketing report 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Email campaign from regional pest control company with subject line 'We found termites in 3 homes on your street this month' sent to neighborhood clusters",
+        "platform": "Email",
+        "why_it_worked": "Hyper-local urgency creates immediate relevance and fear of missing a problem. Proximity to known issues drives action. Respectful of privacy while creating FOMO",
+        "metrics": "42% open rate (vs 20% industry average), 8.3% click-through rate, 12% conversion to inspection booking",
+        "source": "Email marketing case study in Pest Management Professional magazine 2023",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% to 0.18% for pest control industry",
+        "best_content_format": "Photo posts (especially before/after), video demonstrations, and educational carousels outperform text-only by 3x",
+        "optimal_frequency": "4-6 posts per week for local companies, daily for larger brands",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm and 6-9pm local time; Saturday mornings 9-11am",
+        "source": "Rival IQ Social Media Benchmark Report 2024 and Pest Control Technology digital marketing survey 2023"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.67% for service-based businesses including pest control",
+        "best_content_format": "Reels showing pest identification, treatment process, or dramatic discoveries perform best. Stories with polls and questions about pest problems drive high engagement",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels",
+        "best_posting_times": "Weekdays 11am-1pm and 7-9pm; avoid early mornings",
+        "source": "Hootsuite Industry Benchmarks 2024 and analysis of top pest control company Instagram accounts"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 2-3x more calls when updated 3+ times per week",
+        "best_content_format": "Offer posts with seasonal promotions, update posts with pest activity alerts, photo posts showing completed work",
+        "optimal_frequency": "3-5 posts per week minimum for local visibility",
+        "best_posting_times": "Monday mornings for weekly promotions, Friday afternoons for weekend service availability",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and Google Business Profile best practices for home services"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "20-22% open rate, 2.5-3.5% click-through rate for pest control industry",
+        "best_content_format": "Educational newsletters with seasonal pest tips, service reminders for existing customers, urgent alerts about local pest activity",
+        "optimal_frequency": "Monthly for educational content, quarterly for promotions, immediate for urgent local pest alerts",
+        "best_posting_times": "Tuesday-Thursday 8-10am for highest open rates",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Constant Contact industry analysis"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "Educational pest control videos average 3-5% engagement rate (likes, comments, shares relative to views)",
+        "best_content_format": "How-to identification videos (3-5 min), treatment process explanations, pest prevention tips, dramatic infestation discoveries",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Less critical than other platforms; focus on SEO optimization and thumbnails",
+        "source": "YouTube Creator Academy data and analysis of top pest control channels including Terminix, Orkin, and independent technicians"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgent local threat",
+        "example": "We've treated 12 homes in [Neighborhood] for termites this month - is yours next?",
+        "why_it_works": "Creates immediate proximity-based urgency and FOMO. Taps into fear of being unaware of a problem neighbors have discovered. Makes the threat feel imminent and local rather than abstract",
+        "source": "High-performing Facebook ads and email campaigns from regional pest control companies"
+      },
+      {
+        "hook_pattern": "Seasonal timing trigger",
+        "example": "Termite swarm season starts in 2 weeks - here's what to watch for",
+        "why_it_works": "Ties pest activity to observable seasonal changes customers are already noticing. Creates natural urgency based on pest biology rather than artificial scarcity",
+        "source": "Orkin and Terminix seasonal campaign analysis, pest control industry email subject line testing"
+      },
+      {
+        "hook_pattern": "Hidden danger revelation",
+        "example": "5 signs of termites homeowners miss until it's too late",
+        "why_it_works": "Taps into fear of unknown problems and desire to avoid costly surprises. Positions company as having expertise to see what customers cannot",
+        "source": "High-performing YouTube video titles and Facebook post analysis"
+      },
+      {
+        "hook_pattern": "Social proof with specificity",
+        "example": "Rated #1 pest control in [County] - here's what customers say",
+        "why_it_works": "Specific numbers are more credible than vague claims. Local social proof reduces perceived risk. Implies that many neighbors have already vetted the service",
+        "source": "Landing page testing data from pest control marketing agencies and review analysis"
+      },
+      {
+        "hook_pattern": "Problem identification helper",
+        "example": "Hearing scratching in your walls? Here's how to tell what it is",
+        "why_it_works": "Meets customers at their immediate point of need (identifying their problem). Educational approach builds trust before pitching. High shareability as people tag others with similar questions",
+        "source": "Top-performing Reddit posts in r/pestcontrol and high-engagement social media posts"
+      },
+      {
+        "hook_pattern": "Cost of inaction",
+        "example": "What 6 months of ignoring mice will cost you (it's not just the damage)",
+        "why_it_works": "Frames small preventive cost against large reactive cost. Quantifies the financial risk of delay. Appeals to loss aversion psychology",
+        "source": "Email marketing A/B testing results and pest control advertising case studies"
+      },
+      {
+        "hook_pattern": "Myth-busting authority",
+        "example": "Why store-bought sprays don't work (and what does)",
+        "why_it_works": "Positions company as expert correcting misinformation. Addresses common objection to professional service. Creates curiosity gap about the 'right' way",
+        "source": "High-performing blog posts and video content from major pest control brands"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I saw one mouse and now I'm terrified there are more in the walls",
+        "We keep finding these little black droppings and I don't know what they're from",
+        "There's scratching in the attic at night and it's keeping me up",
+        "I'm embarrassed to have people over because of the roaches",
+        "We tried the sprays from Home Depot but they keep coming back",
+        "I found a line of ants in my kitchen and followed it to a huge nest outside",
+        "My landlord won't do anything and I have a baby in the house",
+        "We're about to sell our house and I'm worried the inspection will find termites",
+        "Something is chewing through the wiring in my garage",
+        "I can't tell if these are bed bugs or just regular bites",
+        "The smell in the crawl space is getting worse and I think something died down there",
+        "My neighbors have rats and now I'm seeing them in my yard too"
+      ],
+      "solution_phrases": [
+        "I just want someone who can get rid of them permanently",
+        "Looking for a company that will actually guarantee their work",
+        "Need someone who can come out today, this can't wait",
+        "Want a company that's safe for pets and kids",
+        "Hoping to find someone who will explain what they're doing and why",
+        "Need a real exterminator, not just someone who sprays",
+        "Want someone who will find where they're getting in and seal it up",
+        "Looking for preventive service so this never happens again",
+        "Need a company that will come back if the problem returns",
+        "Want someone licensed and insured, not just a guy with a truck",
+        "Need detailed documentation for my real estate transaction",
+        "Looking for eco-friendly options that actually work"
+      ],
+      "objection_phrases": [
+        "I'm worried about the chemicals around my kids and pets",
+        "The quotes I'm getting seem really expensive for just spraying",
+        "How do I know they won't just come back next month",
+        "I don't want to be locked into some long contract",
+        "Can't I just do this myself and save the money",
+        "I'm concerned about strangers coming into my house",
+        "What if the treatment doesn't work, am I out the money",
+        "I've been burned by pest control companies before who didn't fix it",
+        "Do I really need ongoing service or is that just a sales tactic",
+        "I'm renting so I don't want to pay for something the landlord should cover",
+        "The reviews are mixed and I don't know who to trust",
+        "I need to see proof this will actually work before I spend that much"
+      ],
+      "decision_factors": [
+        "Same-day or next-day service availability",
+        "Guarantee that they'll come back for free if pests return",
+        "Technician explains what they found and what they're doing",
+        "Licensed, bonded, and insured with proof",
+        "Clear pricing with no hidden fees or upsells",
+        "Reviews from neighbors or people in my area",
+        "Uses pet-safe and child-safe treatments",
+        "Will seal entry points, not just spray chemicals",
+        "Provides documentation and treatment records",
+        "Offers both one-time and ongoing prevention options",
+        "Technician is professional, clean, and respectful of my home",
+        "Company has been in business locally for years",
+        "Will work with my schedule including evenings/weekends",
+        "Explains what I can do to prevent future problems"
+      ],
+      "emotional_language": [
+        "terrified",
+        "disgusted",
+        "embarrassed",
+        "desperate",
+        "freaking out",
+        "can't sleep",
+        "peace of mind",
+        "violated (feeling about pests in home)",
+        "helpless",
+        "anxious",
+        "grossed out",
+        "relieved (after treatment)",
+        "stressed",
+        "worried sick",
+        "finally feel safe again",
+        "nightmare",
+        "traumatized",
+        "paranoid now",
+        "can finally relax"
+      ],
+      "sources": [
+        "Reddit r/pestcontrol community posts and comments (2023-2024)",
+        "Google Reviews for top 50 pest control companies in major US cities",
+        "Yelp reviews for local pest control services",
+        "Nextdoor neighborhood pest control recommendation threads",
+        "Facebook comments on pest control company posts and ads",
+        "HomeAdvisor and Angi customer reviews and questions",
+        "Pest control company intake forms and customer service transcripts (published case studies)"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about pest prevention (most focus only on treatment/elimination)",
+      "Transparent pricing information upfront (most require contact for quote)",
+      "Behind-the-scenes content showing actual treatment process and why it works",
+      "Addressing mental health impact of infestations (anxiety, sleep disruption, stress)",
+      "Content for renters specifically (most content assumes homeownership)",
+      "Seasonal preparation guides 4-6 weeks before pest season (not just during)",
+      "Comparison content explaining different treatment methods and when each is appropriate",
+      "Follow-up content for existing customers about maintaining pest-free status",
+      "Integration of smart home pest monitoring technology",
+      "Content addressing pest issues in specific home types (condos, apartments, old homes, new construction)",
+      "Sustainability and environmental impact of treatments (beyond just 'eco-friendly' claims)",
+      "Financial content about pest damage and insurance coverage"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "March-April (Spring)",
+        "opportunity": "Termite swarm season begins, ants become active, spring cleaning mindset",
+        "content_angle": "Preventive inspection campaigns, 'Spring pest forecast' content, termite awareness education, ant prevention tips before they invade"
+      },
+      {
+        "period": "May-July (Early Summer)",
+        "opportunity": "Peak mosquito season, outdoor entertaining season, kids home from school",
+        "content_angle": "Mosquito control for backyard events, tick prevention for families, outdoor pest-proofing guides, summer camp preparation"
+      },
+      {
+        "period": "August-September (Late Summer/Early Fall)",
+        "opportunity": "Pests seeking indoor shelter as weather changes, back-to-school, rodents seeking food sources",
+        "content_angle": "Fall pest-proofing before cold weather, rodent exclusion content, stinging insect nest removal, preparing homes for winter"
+      },
+      {
+        "period": "October (Fall)",
+        "opportunity": "Rodent awareness week (October 20-26), Halloween pest themes, winterization",
+        "content_angle": "Educational content about rodent risks, Halloween-themed pest content (spiders, bats), sealing homes before winter"
+      },
+      {
+        "period": "November-December (Winter)",
+        "opportunity": "Holiday hosting concerns, winter pest issues (rodents indoors, overwintering pests), gift certificates",
+        "content_angle": "Pre-holiday home preparation, pest control gift certificates for new homeowners, winter pest myths, protecting stored decorations"
+      },
+      {
+        "period": "January-February (Winter)",
+        "opportunity": "New Year home improvement goals, tax refund season, planning for spring",
+        "content_angle": "Annual pest prevention plans, New Year home protection resolutions, early bird spring service discounts, winter indoor pest issues"
+      },
+      {
+        "period": "Real Estate Season (Year-round peaks in Spring/Summer)",
+        "opportunity": "Home inspections, buyer concerns, seller preparation",
+        "content_angle": "Pre-listing pest inspections, termite letters for closings, new homeowner pest prevention packages"
+      },
+      {
+        "period": "Weather Events",
+        "opportunity": "Flooding brings mosquitoes and water bugs, drought drives pests indoors seeking water, heat waves increase pest activity",
+        "content_angle": "Real-time weather-triggered content, emergency pest response, post-storm pest prevention"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit r/pestcontrol community",
+      "Pest Control Technology Magazine",
+      "Pest Management Professional Magazine",
+      "Terminix, Orkin, and Aptive Environmental social media channels",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Hootsuite Industry Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Google Reviews for major pest control companies",
+      "Yelp pest control service reviews",
+      "Nextdoor community discussions",
+      "YouTube pest control channels",
+      "HomeAdvisor and Angi customer reviews",
+      "Social Media Examiner industry reports",
+      "Constant Contact industry analysis",
+      "National Pest Management Association resources"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook patterns (most is proprietary)",
+      "Exact conversion rates for most campaigns not disclosed",
+      "TikTok benchmark data for pest control specifically is limited (used broader home services data)",
+      "Some engagement metrics are estimates based on visible data rather than official reports",
+      "LinkedIn benchmarks for pest control are sparse (included in research but limited industry-specific data)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Hidden pest activity reveal - showing what traditional treatments miss that our new service catches",
+        "Week 2: Permanent elimination proof - demonstrating how new approach seals entry points vs just spraying",
+        "Week 3: Real customer transformations - from terrified and embarrassed to peaceful and confident",
+        "Week 4: Limited availability urgency - seasonal timing creates natural deadline for protection"
+      ],
+      "weekly_hooks": [
+        [
+          "We found something in [X] homes this month that other pest companies completely missed - here's what to look for",
+          "The #1 reason pest treatments fail (and how our new [Service] guarantees they won't come back)",
+          "What we discovered after inspecting 500+ homes: [X]% have this hidden pest entry point"
+        ],
+        [
+          "Watch what happens when we treat [Pest] the traditional way vs our new permanent method",
+          "Before/After: This [Neighborhood] home had tried 3 companies before us - here's what we did differently",
+          "Why store-bought sprays don't work for [Pest] (and what our new treatment does instead)"
+        ],
+        [
+          "She was terrified to have guests over because of roaches - here's her home 30 days after our new [Service]",
+          "Rated #1 pest control in [County] - customers say this about our new guaranteed approach",
+          "5 families in [Neighborhood] just got our new [Service] - here's what they're saying"
+        ],
+        [
+          "[Pest] season starts in 2 weeks - only [X] spots left for our new preventive treatment",
+          "We're treating 12 homes in [Neighborhood] this week with our new system - is yours protected?",
+          "Final 48 hours: Lock in our new [Service] before [Seasonal Event] brings the swarms"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Can't I just do this myself' by showing professional-grade difference and hidden issues DIY misses",
+        "Week 2: Address 'Had bad experience before' by demonstrating what makes this approach different with guarantee",
+        "Week 3: Address 'Worried about chemicals and pets' with safety data and pet-safe treatment documentation",
+        "Week 4: Address 'Price seems too high' with cost of inaction data and warranty value breakdown"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce licensed and certified credentials, years in business locally, EPA approvals",
+        "Week 2: Share before/after photo documentation with detailed process explanations and entry point sealing proof",
+        "Week 3: Feature video testimonials from local customers with specific results and neighborhood references",
+        "Week 4: Final push with 90-day guarantee documentation, 94% first-treatment success rate, and same-day availability proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free '[Pest] Identification Guide' to see what you're dealing with",
+        "Week 2: Watch our 3-minute video showing exactly how the new treatment process works",
+        "Week 3: Schedule your free inspection - we'll show you entry points and explain the solution (no obligation)",
+        "Week 4: Call now for same-day service - only [X] appointments left before [Seasonal Peak]"
+      ],
+      "platform_priority": [
+        "Facebook (5-6 posts/week) - best for before/after photos and local neighborhood targeting",
+        "Google Business Profile (4-5 posts/week) - critical for local search and immediate booking",
+        "Instagram Reels (3-4/week) - demonstrate treatment process and dramatic pest discoveries",
+        "Email (1 launch announcement + 1 mid-campaign + 1 final push) - existing customer base activation"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Orkin's seasonal forecast campaign achieving 2.3x higher engagement and 45% share rate by combining timely urgency with educational authority, plus local pest control before/after photos generating 3-5x engagement and direct booking requests"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Pest identification education - helping customers recognize what they're dealing with",
+        "Week 2: Prevention tips and home maintenance - seasonal pest-proofing guidance",
+        "Week 3: Behind-the-scenes expertise - showing the professional process and why it works",
+        "Week 4: Local pest activity updates - what's active in the area right now",
+        "Week 5: Myth-busting common misconceptions - correcting DIY mistakes and misinformation",
+        "Week 6: Customer success stories - real transformations with specific details",
+        "Week 7: Safety and family protection - pet-safe methods and health risk education",
+        "Week 8: Seasonal preparation - getting ready for next pest season 4-6 weeks ahead"
+      ],
+      "weekly_hooks": [
+        [
+          "Hearing scratching in your walls? Here's how to tell if it's mice, rats, or squirrels",
+          "5 signs of termites homeowners miss until it's too late (check your home today)",
+          "Found droppings but can't identify them? This guide shows what each pest leaves behind"
+        ],
+        [
+          "Seal these 7 entry points before [Season] or you'll be calling us in a panic",
+          "What 6 months of ignoring mice will cost you (it's not just the damage)",
+          "The #1 thing attracting [Pest] to your home (and how to fix it in 20 minutes)"
+        ],
+        [
+          "A day in the life: Watch what our technician found in 3 homes today",
+          "Why we don't just spray and leave - here's the real work that eliminates pests permanently",
+          "What happens during a professional pest inspection (the hidden problems we find)"
+        ],
+        [
+          "We've treated 12 homes in [Neighborhood] for [Pest] this month - here's what we're seeing",
+          "[Pest] activity is spiking in [Area] right now - watch for these warning signs",
+          "Your neighbors are asking about [Pest] - here's what's happening locally"
+        ],
+        [
+          "Why store-bought sprays don't work for roaches (and what does)",
+          "The truth about 'eco-friendly' pest control (what actually works vs marketing)",
+          "Do ultrasonic pest repellers work? We tested them in 50 homes - here are the results"
+        ],
+        [
+          "She couldn't sleep because of the scratching - here's her home 30 days after treatment",
+          "This [Neighborhood] family tried DIY for 4 months before calling us - what we found",
+          "From embarrassed to proud: How we helped this homeowner prepare for holiday guests"
+        ],
+        [
+          "Our treatments are 60% less toxic than most household cleaners - here's the safety data",
+          "Your pets can return to treated areas in just 2 hours - here's why our methods are safer",
+          "5 health risks of [Pest] infestations (and how fast professional treatment eliminates them)"
+        ],
+        [
+          "Termite swarm season starts in 6 weeks - here's your preparation checklist",
+          "[Pest] will be seeking shelter soon as temperatures drop - seal these spots now",
+          "What to do this month to avoid [Pest] problems next season"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: None - pure education builds trust",
+        "Week 2: Address 'I can handle it myself' with prevention complexity",
+        "Week 3: Address 'Had bad experience before' by showing professional difference",
+        "Week 4: None - establish local authority",
+        "Week 5: Address DIY objections with myth-busting proof",
+        "Week 6: Address 'Price seems too high' through customer ROI stories",
+        "Week 7: Address 'Worried about chemicals and pets' with safety data",
+        "Week 8: Address 'Don't have time to prepare' with easy scheduling options"
+      ],
+      "proof_timing": [
+        "Week 1: Share pest identification expertise and educational credentials",
+        "Week 2: Show years of local experience and homes protected",
+        "Week 3: Feature licensed technician certifications and training",
+        "Week 4: Display local market leadership and neighborhood density",
+        "Week 5: Present testing data and professional-grade product access",
+        "Week 6: Showcase verified customer reviews with specific results",
+        "Week 7: Provide EPA approval documentation and safety certifications",
+        "Week 8: Highlight guarantee terms and free re-treatment policy"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free pest identification guide",
+        "Week 2: Get our seasonal pest prevention checklist",
+        "Week 3: Watch our treatment process video",
+        "Week 4: Sign up for local pest activity alerts",
+        "Week 5: Read our complete myth-busting guide",
+        "Week 6: Schedule your free inspection (no obligation)",
+        "Week 7: Request our pet-safe treatment information packet",
+        "Week 8: Book your preventive service before [Season]"
+      ],
+      "platform_priority": [
+        "Facebook (4-5 posts/week) - educational content performs best, high shareability in local groups",
+        "Google Business Profile (3-4 posts/week) - critical for local SEO and immediate service requests",
+        "YouTube (1-2 videos/week) - evergreen educational content with long-term SEO value",
+        "Email (1 monthly newsletter) - nurture existing customers with seasonal tips",
+        "Instagram (3-4 posts/week including Stories) - visual pest identification and process content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Terminix educational video series averaging 50K+ views by solving immediate customer needs before pitching, combined with local pest control educational posts generating 3-5x engagement and establishing authority that drives organic booking requests"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Dramatic pest discoveries and shocking finds - highly shareable content that spreads organically",
+        "Week 2: Interactive community engagement - polls, questions, and user-generated content about local pest issues"
+      ],
+      "weekly_hooks": [
+        [
+          "You won't believe what we found in this [Neighborhood] attic today (video)",
+          "This is why you should NEVER ignore [early warning sign] - here's what we discovered",
+          "POV: You're a pest tech and you open this crawl space (watch what happens)",
+          "Tag someone who needs to see this before it's too late",
+          "We've been doing this 15 years and we've NEVER seen anything like what we found today",
+          "This homeowner had no idea this was happening in their walls (swipe to see)"
+        ],
+        [
+          "Quick poll: Have you seen [Pest] in your home in the last 30 days? (Results will shock you)",
+          "Drop a 🏠 if you've ever dealt with [Pest] - let's see how common this really is",
+          "What pest are you most terrified of? Comment below (we'll do an educational video on the top answer)",
+          "Homeowners of [City]: What pest problem keeps you up at night? We're listening",
+          "Share your worst pest horror story below - best one gets a free inspection",
+          "True or False: [Common pest myth] - comment your answer and we'll reveal the truth tomorrow"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Don't address objections - focus purely on awareness and shareability",
+        "Week 2: Subtly address 'Had bad experience before' through community responses showing our different approach"
+      ],
+      "proof_timing": [
+        "Week 1: Show dramatic visual proof of expertise (finding hidden infestations others missed)",
+        "Week 2: Display community engagement proof (hundreds of local residents interacting, sharing experiences)"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this, Share this with your neighbors, Follow for more shocking finds",
+        "Week 2: Comment your experience, Vote in our poll, Share your pest story, Sign up for alerts about [Pest] in your area"
+      ],
+      "platform_priority": [
+        "TikTok/Instagram Reels (2-3 posts/day) - highest viral potential for dramatic pest content",
+        "Facebook (6-7 posts/week) - best for local sharing and neighborhood tagging",
+        "Instagram Stories (3-5/day) - polls, questions, and interactive stickers for engagement",
+        "Nextdoor (3-4 posts/week) - hyper-local community discussions and recommendations"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Aptive Environmental's TikTok 'Day in the Life' series regularly exceeding 100K views with some viral videos over 1M by showing dramatic pest discoveries and satisfying curiosity, plus interactive Facebook content generating high engagement through neighborhood tagging and sharing"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Pest biology and behavior science - deep educational content on why pests do what they do",
+        "Week 2: Treatment methodology breakdown - explaining different approaches and when each is appropriate",
+        "Week 3: Seasonal pest forecasting - data-driven predictions and regional pest activity patterns",
+        "Week 4: Property-specific pest challenges - different solutions for condos, apartments, old homes, new construction",
+        "Week 5: Integrated pest management - sustainable, eco-friendly approaches with scientific backing",
+        "Week 6: Pest damage and prevention economics - financial impact data and ROI of prevention"
+      ],
+      "weekly_hooks": [
+        [
+          "The real reason [Pest] invade homes (it's not what you think) - a deep dive into pest biology",
+          "Why [Pest] are more active at night: The science behind pest behavior patterns",
+          "How [Pest] navigate your home: Understanding the biology that helps us eliminate them permanently"
+        ],
+        [
+          "Baiting vs Spraying vs Exclusion: When to use each method and why (complete guide)",
+          "Why we don't just spray and leave: The science behind effective pest elimination",
+          "The treatment methods other companies won't tell you about (and when they're necessary)"
+        ],
+        [
+          "Our 2024 [Region] pest forecast: What to expect each month based on 15 years of data",
+          "Why [Pest] activity will spike in [Month] - here's the science and how to prepare",
+          "Predicting pest patterns: How weather, construction, and seasons affect what we're seeing"
+        ],
+        [
+          "Why apartment pest control is completely different than single-family homes (and what works)",
+          "Old home vs new construction: The unique pest challenges of each and specific solutions",
+          "Condo pest control challenges: Shared walls, HOA restrictions, and effective strategies"
+        ],
+        [
+          "What 'eco-friendly' pest control actually means: The science behind sustainable elimination",
+          "Integrated Pest Management explained: How we reduce chemical use by 60% while improving results",
+          "The environmental impact of different treatment methods: Data-backed comparison"
+        ],
+        [
+          "What 6 months of termite damage costs: Real data from insurance claims in [Region]",
+          "The ROI of preventive pest control: Cost analysis over 1, 3, and 5 years",
+          "Does homeowners insurance cover pest damage? Here's what 500 policies revealed"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: None - establish pure expertise first",
+        "Week 2: Address 'I can handle it myself' by showing complexity of proper treatment selection",
+        "Week 3: None - continue building forecasting authority",
+        "Week 4: Address 'One-size-fits-all concerns' by showing property-specific expertise",
+        "Week 5: Address 'Worried about chemicals and pets' with scientific environmental data",
+        "Week 6: Address 'Price seems too high' with comprehensive financial impact analysis"
+      ],
+      "proof_timing": [
+        "Week 1: Establish scientific credentials, certifications, and ongoing training",
+        "Week 2: Share treatment methodology certifications and professional-grade product access",
+        "Week 3: Display 15+ years of local data collection and pattern analysis",
+        "Week 4: Showcase portfolio of diverse property types successfully treated",
+        "Week 5: Present EPA partnerships, environmental certifications, and sustainability awards",
+        "Week 6: Provide case studies with documented cost savings and damage prevention ROI"
+      ],
+      "cta_progression": [
+        "Week 1: Download our complete pest biology guide",
+        "Week 2: Get our treatment method comparison chart",
+        "Week 3: Sign up for monthly pest forecast emails for [Region]",
+        "Week 4: Request your property-specific pest assessment",
+        "Week 5: Read our complete IPM white paper",
+        "Week 6: Schedule your cost-benefit analysis consultation"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 detailed videos/week) - long-form educational content with SEO value",
+        "Blog/Website (2 in-depth articles/week) - comprehensive guides that rank for educational searches",
+        "LinkedIn (3-4 posts/week) - professional audience for commercial pest control authority",
+        "Facebook (3-4 posts/week) - share blog content to residential audience",
+        "Email newsletter (weekly educational digest) - nurture subscribers with deep expertise"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Terminix educational video series solving immediate customer needs with 50K+ views and 4-6 minute watch times by establishing authority before pitching, combined with Orkin's seasonal forecast campaign positioning company as expert while creating urgency through data-driven predictions"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive pest problem solving - community members share issues and get real-time expert answers",
+        "Week 2: User-generated content showcase - featuring customer experiences, photos, and transformation stories"
+      ],
+      "weekly_hooks": [
+        [
+          "Comment a photo of what you found and we'll identify it for you (free expert ID)",
+          "Describe the sound you're hearing in your walls - we'll tell you exactly what it is",
+          "Drop your zip code below and we'll tell you the #1 pest issue in your area right now",
+          "Ask us ANYTHING about pest control - we're answering every question today",
+          "Show us your pest problem (comment or DM) and we'll explain exactly how to solve it",
+          "What's the weirdest place you've found a pest? Best story gets featured tomorrow"
+        ],
+        [
+          "Share your before/after pest control success story - tag us and use #PestFreeLiving",
+          "Customers: Post a photo of your protected home and tell us how it feels to have peace of mind again",
+          "Show us the entry point we sealed for you - let's celebrate these wins together",
+          "Tag a neighbor who helped you find a great pest control company (hint: it's us)",
+          "Share this post and tell us: What does a pest-free home mean to your family?",
+          "Repost your favorite tip from our page and tell others what you learned"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address all objections through live Q&A responses - transparent, helpful, educational",
+        "Week 2: Let customer testimonials address objections organically through their transformation stories"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate expertise through rapid, accurate problem diagnosis in comments",
+        "Week 2: Showcase customer results through user-generated content and testimonial features"
+      ],
+      "cta_progression": [
+        "Week 1: Comment your question, Share your pest photo, Drop your location for local insights, DM us for private help",
+        "Week 2: Tag us in your story, Use our hashtag, Share your experience, Recommend us to a friend, Leave us a review"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-7/day) - polls, question stickers, and interactive features drive highest engagement",
+        "Facebook (8-10 posts/week) - community discussions and comment threads perform well",
+        "TikTok (3-4/day) - duets, stitches, and response videos to customer content",
+        "Google Business Profile (daily Q&A responses) - public answers build trust and SEO value",
+        "Nextdoor (daily community interaction) - hyper-local engagement and recommendation requests"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on local pest control Facebook posts generating 3-5x higher engagement through visual content and significant comment threads with questions leading to multiple booking requests, plus community interaction patterns showing neighbors tag each other when pest content is personally relevant and helpful"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Property managers: The #1 pest complaint that destroys tenant retention (and how to prevent it)\n\nAfter analyzing 500+ tenant move-outs, we found rodent issues caused 34% of early lease terminations.\n\nThe problem? Most PM companies treat pests reactively instead of systematically.\n\nHere's our prevention framework that reduced pest complaints by 67%:\n\n→ Quarterly exterior inspections (not just when tenants call)\n→ Seal entry points during turnover (costs $200, saves $2,000+ in lost rent)\n→ Educate tenants on food storage (simple PDF reduces calls 40%)\n→ Document everything for liability protection\n\nThe ROI: One prevented infestation pays for a year of prevention.\n\nWhat's your biggest challenge with pest management across multiple properties?\n\n#PropertyManagement #FacilityManagement #CommercialPestControl #PreventiveMaintenance #TenantRetention",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why integrated pest management (IPM) is becoming the industry standard for commercial properties:\n\nTraditional pest control = spray and pray. IPM = systematic elimination.\n\nAfter 15 years serving [NUMBER]+ commercial clients, here's what we've learned:\n\nThe shift isn't about being \"eco-friendly\" (though that's a bonus). It's about effectiveness and liability reduction.\n\nIPM approach:\n• Inspection: Identify root causes, not just symptoms\n• Prevention: Seal entry points, eliminate attractants\n• Monitoring: Catch problems before they escalate\n• Targeted treatment: Minimum chemical use, maximum impact\n• Documentation: Complete records for compliance\n\nResults our clients see:\n→ 78% reduction in repeat treatments\n→ Lower chemical exposure liability\n→ Audit-ready documentation\n→ Tenant complaints drop significantly\n\nThe future of commercial pest control isn't more chemicals. It's smarter systems.\n\nFacility managers: What questions do you have about implementing IPM?\n\n#IntegratedPestManagement #CommercialRealEstate #FacilitiesManagement #SustainableBusiness",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "We just opened [NUMBER] spots for our Commercial Property Protection Program in [CITY/REGION].\n\nBefore: Reactive pest calls disrupting operations, tenant complaints, emergency weekend treatments.\n\nAfter: Scheduled quarterly service, zero surprises, documented compliance, happy tenants.\n\nWhat's included:\n✓ Comprehensive property assessment\n✓ Customized prevention plan\n✓ Quarterly treatments + unlimited emergency calls\n✓ Detailed reporting for your records\n✓ 90-day guarantee on all treatments\n\nBetter: One fixed monthly rate. No surprise invoices.\n\nIdeal for: Multi-unit residential, office buildings, retail centers, warehouses.\n\nWe're limiting enrollment to ensure service quality. Current clients include [TYPE OF PROPERTIES].\n\nInterested? Comment 'INFO' or DM me directly. I'll send our program overview and pricing.\n\n#CommercialPestControl #PropertyManagement #FacilitiesManagement [CITY]Business",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 signs of termites homeowners miss until it's $10K+ in damage 😱\n\nSwipe to see what to look for →\n\n1️⃣ Mud tubes on foundation (looks like dried dirt lines)\n2️⃣ Hollow-sounding wood when you tap it\n3️⃣ Discarded wings near windows in spring\n4️⃣ Tiny holes in drywall\n5️⃣ Sagging floors or doors that stick\n\nSaw any of these? Don't panic, but don't wait either.\n\nDrop a 🏠 if you learned something new!\n\nFree termite inspection link in bio - we'll check your home in 30 min and give you honest answers.\n\n#TermiteControl #HomeOwnerTips #PestPrevention #[CITY]Homes #HomeInspection #TermiteDamage #HomeMaintenance",
+        "visual": "Carousel: Slide 1 - Bold text '5 Signs You're Missing'. Slides 2-6 - Close-up photos of each sign with arrows/circles highlighting the problem. Slide 7 - Before/after of treated home with CTA.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "POV: You're a pest tech and find THIS in someone's attic 😳\n\nMost homeowners have NO idea this is happening above their heads.\n\nWe've treated [NUMBER]+ homes in [CITY] this year, and here's what we're seeing:\n\n→ Rodent activity up 40% (warmer winters = year-round breeding)\n→ Termite swarms starting 3 weeks earlier than normal\n→ More homes with multiple pest issues (rats + roaches = disaster)\n\nThe homes that never call us? They do 3 things:\n✓ Seal gaps around pipes and vents\n✓ Keep firewood 20+ feet from house\n✓ Fix moisture issues immediately\n\nPrevention costs $200. Fixing damage costs $5,000+.\n\nTag someone who needs to check their attic 👇\n\n#PestControl #[CITY]Homes #HomeOwnership #RodentControl #AtticInspection #HomeMaintenance",
+        "visual": "Reel: Technician opening attic access, camera follows flashlight revealing rodent droppings/damage, cut to sealed entry points, end with satisfied homeowner. Use trending audio with text overlays for each point.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "We treated 12 homes on [STREET NAME] for termites this month 😬\n\nIf you live in [NEIGHBORHOOD], you need to see this.\n\nTermite swarm season = they're looking for new homes to infest. Your neighbors' problem becomes your problem FAST.\n\nWhat we're doing:\n✓ Free inspections for [NEIGHBORHOOD] residents this week\n✓ 30-minute thorough check (not a sales pitch)\n✓ Honest assessment - if you don't need treatment, we'll tell you\n✓ Same-day treatment available\n\nWorth it? One homeowner avoided $8,400 in damage because we caught it early.\n\nLink in bio to book your free inspection. Limited spots this week.\n\nDM us your address - we'll tell you if we've treated nearby homes 📍\n\n#[CITY]PestControl #TermiteControl #[NEIGHBORHOOD] #PestInspection #HomeProtection",
+        "visual": "Story series: Slide 1 - Map of neighborhood with pins showing treated homes. Slide 2 - Termite damage close-up. Slide 3 - Technician doing inspection. Slide 4 - Swipe up/link sticker for booking. Use urgent red/yellow color scheme.",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🐭 NEIGHBORHOOD ALERT: If you're hearing scratching in your walls at night, read this.\n\nI'm seeing a LOT of posts in [CITY] groups about \"something in the attic\" lately. Here's what's actually happening:\n\nMice can fit through a hole the size of a DIME. One pregnant female = 50+ mice in 3 months.\n\nWhat that scratching really means:\n→ They're nesting in your insulation (ruins it)\n→ Chewing electrical wires (fire hazard - not exaggerating)\n→ Leaving droppings that spread disease\n→ Getting into your food storage\n\nThe WORST thing you can do? Ignore it and hope it goes away. It won't.\n\nThe SECOND worst thing? Use poison without sealing entry points. Dead mice in your walls = horrible smell for weeks.\n\nWhat actually works:\n1. Find and seal EVERY entry point (this is 80% of the solution)\n2. Trap existing mice humanely\n3. Clean and sanitize affected areas\n4. Monitor to ensure they're gone\n\nDIY works for 1-2 mice. If you're hearing them every night, it's beyond that.\n\nWe're offering free inspections this week because I'd rather you know what you're dealing with than guess. We'll show you exactly where they're getting in and give you options - even if that's doing some of it yourself.\n\nComment 'HELP' if you want the inspection link. Or tag someone who keeps posting about weird noises 😅\n\nStay safe, [CITY]! 🏡",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why we're seeing more pest problems in [CITY] this year (and what it means for your home):\n\nAfter treating 500+ homes since January, I'm noticing patterns:\n\n🔴 Warmer winter = rodents breeding year-round instead of seasonally\n🔴 New construction nearby = displaced wildlife looking for new homes (that's yours)\n🔴 Supply chain issues = cheaper building materials with more gaps\n\nTranslation: The \"set it and forget it\" approach to pest control doesn't work anymore.\n\nHomes we NEVER get calls from have 3 things in common:\n\n1. Quarterly exterior inspections (catches problems before you see pests inside)\n2. Immediate moisture fixes (90% of pest issues start with water)\n3. Sealed entry points during routine maintenance\n\nThe cost difference:\n→ Prevention: $200-400/year\n→ Reactive treatment after infestation: $800-3,000+\n→ Damage repair: $2,000-15,000\n\nI've been doing this for [NUMBER] years in [CITY]. The homes that invest in prevention literally never have emergencies.\n\nThe homes that wait until they see pests? Always more expensive, more stressful, more damage.\n\nNot trying to scare anyone - just sharing what I see every single day.\n\nQuestions? Ask away. I'll answer honestly even if it means you handle it yourself. 👍\n\n[Share this with your neighborhood group - everyone should know this]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "🚨 FLASH OPENING: We have 8 same-day appointments available tomorrow (Thursday) in [CITY/NEIGHBORHOOD].\n\nNormally booked 2 weeks out, but we had cancellations.\n\nPerfect if you:\n→ Found droppings and can't sleep until it's handled\n→ Have guests coming and need the problem GONE\n→ Keep seeing the same pest no matter what you spray\n→ Need documentation for a real estate transaction\n→ Are just DONE dealing with this yourself\n\nWhat you get:\n✓ Licensed technician (not a random guy with a truck)\n✓ Thorough inspection of your entire property\n✓ Same-visit treatment for most issues\n✓ Explanation of what we found and what we're doing\n✓ 90-day guarantee - we come back free if they return\n✓ Pet & kid-safe treatment options\n\nWhat it costs: Honest quote after inspection. Most homes $150-400 depending on severity. No hidden fees.\n\nWhy the urgency? These 8 slots will fill by noon. Pest problems don't wait for convenient timing.\n\nTo grab a spot:\n1. Comment 'TOMORROW' below\n2. I'll DM you the booking link\n3. Choose your time (morning or afternoon blocks)\n\nFirst come, first served. After these fill, next availability is March 15th.\n\nQuestions before booking? Ask below - I'm responding all morning! 👇",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You used the spray from Home Depot and made it WORSE 😳",
+        "script": "HOOK: [Show someone spraying store-bought pesticide, cut to MORE bugs appearing]\n\nSec 3-10: 'Here's what actually happens when you use bug spray wrong...'\n[Text overlay: 'The spray you can't see']\n[Show diagram of bugs scattering to other rooms]\n\nSec 10-20: 'You killed the 10 you saw. But 100 just moved to your bedroom.'\n[Cut to technician finding bugs in unexpected places]\n[Text: 'They're just hiding now']\n\nSec 20-35: 'What actually works:'\n[Quick cuts showing each step]\n• Find the nest (not just the scouts)\n• Treat the SOURCE\n• Seal entry points\n• Monitor for 2 weeks\n\nSec 35-50: [Show before/after of proper treatment]\n'This is why DIY works for 1-2 bugs but fails for infestations'\n[Text: 'Save the $30 spray, call a pro']\n\nSec 50-60: 'Link in bio for free inspection - we'll show you what you're actually dealing with'\n[End with satisfied customer testimonial clip]\n\n#PestControl #HomeTok #DIYFail #BugSpray #PestControlTips #HomeOwner #Infestation",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "Pest tech reveals what we find in 'clean' houses 🏠",
+        "script": "HOOK: [Technician at nice-looking house] 'This $800K home has a MASSIVE rodent problem'\n\nSec 3-10: [Walk to side of house]\n'Here's what homeowners miss...'\n[Point to tiny gap under garage door]\n[Text: 'Mice need a gap THIS BIG' with dime for scale]\n\nSec 10-25: [Show attic access]\n'They think their house is sealed. Then I show them this.'\n[Reveal insulation damage, droppings]\n[Text: 'This is in 60% of homes we inspect']\n\nSec 25-40: 'The 3 entry points EVERY house has:'\n[Quick cuts with text overlays]\n1. Garage door seal (worn out)\n2. Pipe penetrations (never sealed)\n3. Attic vents (no screen)\n\nSec 40-55: [Show sealing process]\n'$200 to seal everything. $5,000 to fix the damage if you wait.'\n[Before/after shots]\n\nSec 55-60: 'Part 2: I'll show you how to check your own house'\n[Text: 'Follow for Part 2 tomorrow']\n\n#PestControlTech #DayInTheLife #HomeInspection #RodentControl #HomeMaintenance #PestPrevention #HomeOwnerTips",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "We found termites in 3 houses on the same street this week 😬",
+        "script": "HOOK: [Show map with 3 pins] 'If you live in [NEIGHBORHOOD], watch this'\n\nSec 3-12: [Serious tone, direct to camera]\n'Termite swarm season just started. Your neighbors' problem is about to be YOUR problem.'\n[Show termite swarm footage]\n[Text: 'They're looking for new homes to infest']\n\nSec 12-25: 'What we're seeing in [CITY]:'\n[Cut to inspection footage]\n• Swarms 3 weeks early this year\n• Colonies spreading to adjacent properties\n• Damage homeowners had NO IDEA about\n[Show damage close-ups]\n\nSec 25-40: 'Here's what to do RIGHT NOW:'\n[Text overlays with each point]\n1. Check your foundation for mud tubes\n2. Look for discarded wings near windows\n3. Tap your baseboards (hollow sound = bad)\n\nSec 40-55: [Shift to solution]\n'Free inspections this week only for [NEIGHBORHOOD] residents'\n[Show technician doing thorough inspection]\n'30 minutes. Honest assessment. No pressure.'\n\nSec 55-60: 'Link in bio. Limited spots. Don't wait until you see damage.'\n[Text: 'One inspection could save you $10K']\n\n#TermiteControl #[CITY] #HomeOwner #PestControl #TermiteInspection #HomeProtection #[NEIGHBORHOOD]",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "5 signs of termites you're probably missing (check #3)",
+        "preview_text": "One homeowner caught this early and saved $8,400 in damage",
+        "body": "Hi [FIRST_NAME],\n\nTermite swarm season just started in [CITY], and I'm already getting panicked calls from homeowners who had no idea they had a problem.\n\nHere are the 5 signs most people miss until it's too late:\n\n1. MUD TUBES on your foundation\nLook like dried dirt lines running up from ground to wood. Termites build these as highways.\n\n2. HOLLOW-SOUNDING WOOD\nTap your baseboards and door frames. Hollow sound = they've eaten the inside.\n\n3. DISCARDED WINGS near windows\nAfter swarming, termites shed wings. Little piles near windows = active colony nearby.\n\n4. TINY HOLES in drywall\nSize of a pinhead. Often mistaken for nail holes.\n\n5. STUCK DOORS or sagging floors\nTermite damage causes wood to warp. Not just \"house settling.\"\n\nSaw any of these? Don't panic, but don't wait either.\n\nWe're offering free 30-minute inspections this week. I'll check your property thoroughly and give you honest answers - even if that means you don't need treatment.\n\n[BOOK FREE INSPECTION BUTTON]\n\nOne [NEIGHBORHOOD] homeowner caught termites early last month and avoided $8,400 in structural damage. Worth 30 minutes of your time.\n\nStay protected,\n[TECHNICIAN NAME]\n[COMPANY NAME]\n\nP.S. Forward this to your neighbors - termites spread from property to property. If one house has them, adjacent homes should check too.",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "[FIRST_NAME], here's what's happening with pests in [CITY] this spring",
+        "preview_text": "Quarterly pest forecast from your local experts",
+        "body": "Hi [FIRST_NAME],\n\nEvery quarter, we analyze pest activity across the [NUMBER]+ properties we service in [CITY/REGION].\n\nHere's what we're seeing this spring - and what it means for your home:\n\n🔴 RODENT ACTIVITY: Up 40% from last year\nWhy: Warmer winter = year-round breeding instead of seasonal\nWhat to do: Check attic and garage for entry points NOW before summer heat drives them inside\n\n🔴 TERMITE SWARMS: Starting 3 weeks earlier than normal\nWhy: Early warm spell triggered swarming\nWhat to do: Inspect foundation for mud tubes, especially on south-facing walls\n\n🔴 ANT COLONIES: Larger and more aggressive\nWhy: Wet winter = thriving colonies\nWhat to do: Seal cracks in foundation, keep mulch 12\" away from house\n\n🔴 MOSQUITO BREEDING: Expected to be severe\nWhy: Standing water from recent rains\nWhat to do: Dump any standing water weekly, even small amounts\n\nHOMES THAT NEVER CALL US:\nThey do quarterly walkarounds checking these specific things. I created a simple checklist you can use:\n\n[DOWNLOAD PREVENTION CHECKLIST BUTTON]\n\nOf course, if you'd rather have us handle it, our quarterly service covers all of this plus unlimited emergency calls if anything pops up between visits.\n\nCurrent clients are seeing 78% fewer pest issues compared to reactive-only treatment.\n\n[LEARN ABOUT QUARTERLY SERVICE BUTTON]\n\nQuestions about anything you're seeing at your property? Just reply to this email - I read and respond to every one.\n\nHere to help,\n[YOUR NAME]\n[TITLE], [COMPANY NAME]\n\nServing [CITY] since [YEAR]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "We treated 12 homes in [NEIGHBORHOOD] for termites this month",
+        "preview_text": "Free inspection for neighbors - limited spots this week",
+        "body": "Hi [FIRST_NAME],\n\nI wanted to reach out because we've treated 12 properties in [NEIGHBORHOOD] for termites in the past 30 days.\n\nWhen we see clusters like this, it usually means colonies are spreading to adjacent properties.\n\nBEFORE you had this email:\nWaiting until you see obvious damage, then paying $3,000-15,000 for treatment + repairs\n\nAFTER you take action:\nFree 30-minute inspection catches it early, treatment costs $800-1,200, zero structural damage\n\nBETTER:\nWe find nothing and you have peace of mind (happens 40% of the time)\n\nWhat's included in the free inspection:\n✓ Thorough exterior and interior check\n✓ Attic and crawlspace inspection\n✓ Honest assessment - if you don't need treatment, we'll tell you\n✓ Written report you can keep for your records\n✓ No obligation, no pressure\n\nWhy this week? Termite swarm season is peak right now. Colonies are actively spreading.\n\nWe're limiting free inspections to [NUMBER] [NEIGHBORHOOD] residents this week to ensure quality.\n\n[BOOK YOUR FREE INSPECTION BUTTON]\n\nAvailable times:\n• Tuesday-Thursday: 9am-5pm\n• Saturday: 9am-2pm\n\nOne homeowner on [NEARBY STREET] caught termites during our inspection last month and avoided $8,400 in damage. She was shocked - had no idea they were there.\n\nWorth 30 minutes to check?\n\n[BOOK NOW BUTTON]\n\nQuestions? Just reply to this email or call [PHONE NUMBER].\n\nProtecting [CITY] homes since [YEAR],\n[YOUR NAME]\n[COMPANY NAME]\n\nP.S. These inspection slots typically fill within 48 hours. If you're even slightly concerned, grab a spot now. You can always cancel if needed.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] homes in [Neighborhood] treated for [pest] this week - here's what we found",
+      "[X] signs you have [pest] in your walls (most homeowners miss #[number])",
+      "We've sealed [X] entry points in [City] homes this month - average cost of damage prevented: $[amount]",
+      "[X] days is all it takes for [pest] to go from 1 to an infestation",
+      "[X]% of [City] homes have termites right now and don't know it"
+    ],
+    "question_hooks": [
+      "Hearing scratching in your [location] at night?",
+      "Found droppings but can't tell what they're from?",
+      "Tried the Home Depot sprays and they're still coming back?",
+      "Worried the home inspection will find termites before your closing?",
+      "Saw one mouse and terrified there are more in the walls?"
+    ],
+    "story_hooks": [
+      "How a [Neighborhood] family went from roach-infested to pest-free in [X] days (and stayed that way)",
+      "This [City] homeowner ignored scratching sounds for [X] months - here's what it cost them",
+      "How we saved a [City] home sale after the inspector found termite damage",
+      "From 'too embarrassed to have guests' to pest-free: [Name]'s [pest] elimination story",
+      "What happened when a [City] landlord finally dealt with the rat problem (tenants' reaction)"
+    ],
+    "fear_hooks": [
+      "Is your crawl space hiding [X]-figure damage right now?",
+      "Could the scratching in your attic be chewing through your electrical wiring?",
+      "Are your neighbors' rats already in your walls?",
+      "Is that 'one mouse' you saw actually [X] living in your home?",
+      "Could those bites on your [family member] actually be bed bugs?"
+    ],
+    "howto_hooks": [
+      "How to get rid of [pest] permanently without toxic chemicals around your [kids/pets]",
+      "How to tell what's in your walls without cutting holes everywhere",
+      "How to pest-proof your home before [season] without spending a fortune",
+      "How to get your landlord to pay for pest control (even if they're ignoring you)",
+      "How to pass a termite inspection when you're selling in [X] weeks"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You saw ONE mouse...",
+      "body": "Show homeowner seeing mouse, then cut to thermal camera revealing 15+ mice in walls. Text overlay: 'What you see' vs 'What we see'. Show technician finding entry points with borescope camera. Quick cuts of exclusion work sealing holes. End with clean thermal scan showing zero activity. Text: 'That one mouse? Never alone.'",
+      "cta": "Link in bio for free inspection - we find what you can't see"
+    },
+    "reels": {
+      "hook": "This is what $49 spray vs $300 professional treatment actually looks like",
+      "body": "Split screen: DIY spray killing visible ants vs professional finding and treating the actual nest outside. Show colony with thousands of ants. Text: 'You're treating the symptom. We eliminate the cause.' Quick shot of guarantee certificate.",
+      "cta": "Stop wasting money on sprays. Book real results."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video showing the one spot where you first saw pests, then pan to show your whole home and say 'Now I can finally relax in my own space again.' Show our truck/technician if comfortable. Share what peace of mind feels like.",
+      "hashtag": "#PestFreeFinally"
+    },
+    {
+      "prompt": "Take a photo of your kids/pets playing in the yard or living room. Caption it with 'Used to worry about what was crawling around. Now we just worry about [normal parent stuff].' Tag us and share how you reclaimed your space.",
+      "hashtag": "#SafeAtHome"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Thermal camera reveals hidden rodent highways in walls of normal-looking homes in [specific neighborhood]. Series showing different local houses with shocking infestations invisible to homeowners.",
+      "why": "Hyper-local fear trigger + satisfying reveal + tags neighbors. People share to warn friends on same street. Curiosity about own home drives engagement."
+    },
+    {
+      "angle": "Monthly pest forecast map for your exact zip code: 'In [City] this month we're seeing: Termite swarms (April 15-30), Ant invasions (starting now), Mosquito spike (after rain).' Highly specific, timely, saves as reference.",
+      "why": "Immediately useful and shareable. People tag neighbors and save for later. Creates urgency for preventive booking. Positions as local expert with insider knowledge."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:33:02.270Z",
+    "last_tier2_refresh": "2025-11-27T21:33:02.270Z",
+    "last_tier3_refresh": "2025-11-27T21:33:02.270Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:33:02.270Z"
+  }
+}

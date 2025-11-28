@@ -1,0 +1,1698 @@
+{
+  "industry": "Fine Dining Restaurant",
+  "industry_name": "Fine Dining Restaurant",
+  "naics_code": "722511",
+  "category": "Food Service",
+  "subcategory": "Upscale Full-Service Restaurants",
+  "customer_triggers": [
+    {
+      "trigger": "Special occasion celebration (anniversary, birthday, promotion)",
+      "urgency": 9,
+      "frequency": "2-3 times annually"
+    },
+    {
+      "trigger": "Business entertainment for important clients",
+      "urgency": 8,
+      "frequency": "Monthly for corporate accounts"
+    },
+    {
+      "trigger": "Romantic date night planning",
+      "urgency": 7,
+      "frequency": "Quarterly for couples"
+    },
+    {
+      "trigger": "Visiting VIP or out-of-town guests",
+      "urgency": 9,
+      "frequency": "3-4 times yearly"
+    },
+    {
+      "trigger": "Milestone achievements requiring memorable dining",
+      "urgency": 8,
+      "frequency": "2-3 times annually"
+    },
+    {
+      "trigger": "Holiday celebrations requiring upscale venue",
+      "urgency": 10,
+      "frequency": "5-6 times yearly"
+    },
+    {
+      "trigger": "Corporate team celebrations or executive meetings",
+      "urgency": 7,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Food enthusiast seeking new culinary experiences",
+      "urgency": 6,
+      "frequency": "Monthly for foodies"
+    },
+    {
+      "trigger": "Social status signaling through dining choices",
+      "urgency": 5,
+      "frequency": "Bi-monthly"
+    },
+    {
+      "trigger": "Wine pairing dinners or chef's table experiences",
+      "urgency": 8,
+      "frequency": "Quarterly for enthusiasts"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovery through Michelin guides, Zagat ratings, social media influencer posts, word-of-mouth from trusted sources, or corporate concierge recommendations - typically 3-4 weeks before special occasion",
+    "consideration": "Reviews on OpenTable, Resy, Google with 4.5+ stars, Instagram visual validation, menu preview online, price point assessment against occasion importance, availability checking for preferred dates",
+    "decision": "Reservation made 2-3 weeks in advance for weekends, dietary accommodation confirmation, special request arrangements, deposit or cancellation policy acceptance, calendar blocking",
+    "retention": "Post-dining survey within 48 hours, personalized thank you from management, birthday/anniversary database entry, exclusive event invitations, preferred reservation status after 3 visits",
+    "advocacy": "Social media posts during/after meal (67% share photos), detailed reviews on multiple platforms, direct referrals to social circle, corporate account recommendations, return visits with new guests"
+  },
+  "transformations": [
+    {
+      "from": "Ordinary evening",
+      "to": "Unforgettable culinary journey",
+      "emotional_value": "Creating lifetime memories",
+      "worth_premium": true
+    },
+    {
+      "from": "Standard business meeting",
+      "to": "Impressive client entertainment",
+      "emotional_value": "Professional relationship building",
+      "worth_premium": true
+    },
+    {
+      "from": "Regular date night",
+      "to": "Romantic milestone celebration",
+      "emotional_value": "Relationship investment",
+      "worth_premium": true
+    },
+    {
+      "from": "Simple meal",
+      "to": "Multi-sensory gastronomic experience",
+      "emotional_value": "Cultural sophistication",
+      "worth_premium": true
+    },
+    {
+      "from": "Basic celebration",
+      "to": "Luxury experience with personalized touches",
+      "emotional_value": "Feeling truly special",
+      "worth_premium": true
+    },
+    {
+      "from": "Dining out",
+      "to": "Exclusive access to renowned chef's artistry",
+      "emotional_value": "Culinary education and discovery",
+      "worth_premium": true
+    },
+    {
+      "from": "Social gathering",
+      "to": "Status-elevating venue choice",
+      "emotional_value": "Social capital enhancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Wine with dinner",
+      "to": "Sommelier-guided journey through rare vintages",
+      "emotional_value": "Connoisseur development",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Guest satisfaction score above 9.2/10",
+      "timeframe": "Monthly average",
+      "measurable": true
+    },
+    {
+      "metric": "Average check size of $175-250 per person",
+      "timeframe": "Quarterly tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Reservation fill rate of 85% for prime slots",
+      "timeframe": "Weekly measurement",
+      "measurable": true
+    },
+    {
+      "metric": "Return guest rate of 40% within 6 months",
+      "timeframe": "Semi-annual analysis",
+      "measurable": true
+    },
+    {
+      "metric": "Social media mentions generating 500+ engagements",
+      "timeframe": "Per month",
+      "measurable": true
+    },
+    {
+      "metric": "Wine sales representing 35-45% of total revenue",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Private dining room bookings at 70% capacity",
+      "timeframe": "Monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Limited seating with 30-day advance booking for weekends during peak season",
+    "Special menu items available only for current season (3-4 week window)",
+    "Celebrity chef appearances or guest chef collaborations with fixed dates",
+    "Wine allocation releases with limited quantities requiring immediate reservation",
+    "Holiday prix fixe menus requiring deposits 2-3 weeks in advance",
+    "Anniversary of restaurant opening with exclusive menu for one week only",
+    "Last-minute availability notifications for coveted chef's table experiences"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive for regular dining",
+      "response": "Position as investment in extraordinary experiences, highlight value through included courses, service, ambiance worth 3x fast casual",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Dress code requirements feel restrictive",
+      "response": "Frame as part of special occasion experience, offer specific guidance, emphasize enhancing overall ambiance for all guests",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Portions too small for the price",
+      "response": "Educate on multi-course progression, quality of ingredients (organic, imported, rare), culinary technique value, typical 7-9 courses totaling substantial meal",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Takes too long (3+ hours)",
+      "response": "Reframe as entertainment experience not just meal, highlight pacing designed for conversation and enjoyment, option for abbreviated menu",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Intimidating or pretentious atmosphere",
+      "response": "Emphasize warm hospitality training, knowledgeable staff as guides not gatekeepers, accommodation of all comfort levels",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Dietary restrictions hard to accommodate",
+      "response": "Highlight chef's creativity with restrictions, advance notice enables custom menu creation, 48-hour notice ensures exceptional alternatives",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Parking difficulties in urban location",
+      "response": "Offer valet service details, nearby garage partnerships with validation, rideshare drop-off zone, emphasize destination-worthy experience",
+      "effectiveness": 7.3
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Satisfaction guarantee with meal replacement if not delighted",
+      "Dietary accommodation guarantee with 48-hour notice",
+      "Special occasion recognition guarantee",
+      "Timely seating guarantee within 15 minutes of reservation"
+    ],
+    "proof_points": [
+      "James Beard Award nominations",
+      "Wine Spectator Award of Excellence",
+      "AAA Four Diamond rating",
+      "4.7+ star average across 500+ reviews",
+      "15-year track record of excellence",
+      "Executive chef with Michelin star experience"
+    ],
+    "risk_mitigation": "Reservation deposits fully refundable with 48-hour notice, wine selection assistance from certified sommelier, detailed menu descriptions preventing surprises, ability to modify prix fixe based on preferences"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "special occasion worthy",
+      "impressive venue",
+      "memorable experience",
+      "sophisticated atmosphere",
+      "culinary excellence",
+      "impeccable service",
+      "exclusive access",
+      "refined palate",
+      "gastronomic journey"
+    ],
+    "solution_words": [
+      "unforgettable evening",
+      "culinary artistry",
+      "personalized attention",
+      "sommelier-selected",
+      "locally-sourced",
+      "seasonally-inspired",
+      "chef-curated",
+      "tableside preparation",
+      "amuse-bouche",
+      "tasting menu"
+    ],
+    "avoid_jargon": [
+      "molecular gastronomy",
+      "deconstructed",
+      "foam",
+      "essence",
+      "reduction",
+      "sous vide",
+      "emulsion",
+      "gastrique",
+      "chiffonade",
+      "brunoise"
+    ]
+  },
+  "power_words": [
+    "exclusive",
+    "acclaimed",
+    "award-winning",
+    "renowned",
+    "intimate",
+    "sophisticated",
+    "artisanal",
+    "curated",
+    "bespoke",
+    "exceptional",
+    "memorable",
+    "celebrated",
+    "exquisite",
+    "refined",
+    "impeccable",
+    "extraordinary",
+    "prestigious",
+    "distinctive",
+    "masterful",
+    "elevated",
+    "luxurious",
+    "personalized",
+    "seasonal",
+    "rare",
+    "limited",
+    "signature",
+    "handcrafted",
+    "premier",
+    "unparalleled",
+    "authentic"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "fast",
+    "quick",
+    "basic",
+    "simple",
+    "ordinary",
+    "common",
+    "regular",
+    "standard",
+    "typical",
+    "average",
+    "mediocre",
+    "acceptable",
+    "adequate",
+    "sufficient",
+    "frozen",
+    "processed",
+    "chain"
+  ],
+  "headline_templates": [
+    {
+      "template": "Experience [City]'s Most Celebrated [Cuisine Type] This [Season]",
+      "expected_ctr": 4.2,
+      "use_case": "Seasonal campaign launch"
+    },
+    {
+      "template": "Reserve Your Table at [Restaurant]: Where [Number] James Beard Winners Create Magic",
+      "expected_ctr": 5.1,
+      "use_case": "Credibility-focused acquisition"
+    },
+    {
+      "template": "Last [Number] Tables Available for [Holiday/Event] - Book Your Celebration Now",
+      "expected_ctr": 6.8,
+      "use_case": "Urgency-driven booking"
+    },
+    {
+      "template": "[Chef Name] Presents: [Number]-Course Journey Through [Region/Season]",
+      "expected_ctr": 4.7,
+      "use_case": "Special menu promotion"
+    },
+    {
+      "template": "Join Us for an Exclusive [Wine Region] Wine Dinner - [Date]",
+      "expected_ctr": 5.3,
+      "use_case": "Event promotion"
+    },
+    {
+      "template": "Celebrating [Number] Years of Culinary Excellence in [Location]",
+      "expected_ctr": 3.9,
+      "use_case": "Anniversary marketing"
+    },
+    {
+      "template": "Your Table Awaits: Private Dining for Groups of [Number Range]",
+      "expected_ctr": 4.5,
+      "use_case": "Corporate/group targeting"
+    },
+    {
+      "template": "New [Season] Menu: [Number] Courses of [Ingredient/Theme] Perfection",
+      "expected_ctr": 5.6,
+      "use_case": "Menu launch announcement"
+    },
+    {
+      "template": "Reserve Now: Chef's Table Experience with [Chef Name]",
+      "expected_ctr": 6.2,
+      "use_case": "Premium experience promotion"
+    },
+    {
+      "template": "[Day] Availability: Experience Fine Dining at Its Peak",
+      "expected_ctr": 4.1,
+      "use_case": "Fill slow periods"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Reserve Your Table",
+      "conversion_rate": 8.7,
+      "placement": "Hero section of website"
+    },
+    {
+      "template": "Book Your Celebration",
+      "conversion_rate": 9.2,
+      "placement": "Special occasions page"
+    },
+    {
+      "template": "View Tonight's Menu",
+      "conversion_rate": 6.4,
+      "placement": "Homepage and social media"
+    },
+    {
+      "template": "Join Our Wine Club",
+      "conversion_rate": 5.8,
+      "placement": "Wine list page and email footer"
+    },
+    {
+      "template": "Plan Your Private Event",
+      "conversion_rate": 7.3,
+      "placement": "Corporate/events section"
+    },
+    {
+      "template": "Explore Tasting Menu",
+      "conversion_rate": 7.9,
+      "placement": "Menu preview sections"
+    },
+    {
+      "template": "Check Availability",
+      "conversion_rate": 8.1,
+      "placement": "Date-specific promotions"
+    },
+    {
+      "template": "Gift an Experience",
+      "conversion_rate": 6.7,
+      "placement": "Holiday marketing campaigns"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Tonight's special: [Dish name with stunning photo] paired with [Wine]. Limited availability - link in bio for reservations.",
+      "engagement_rate": 7.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "Join us this [Day] for our [Event/Feature]. Chef [Name] has created an extraordinary [number]-course menu featuring [key ingredients]. Reserve your table: [link]",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "JUST ANNOUNCED: [Celebrity/Chef] dining with us [Date]. Limited seats available for this exclusive evening. Book now: [link] #FineDining #[City]Eats",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Behind the scenes: Watch Chef prepare tonight's [signature dish]. Swipe up to reserve your culinary journey.",
+      "engagement_rate": 9.1
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Elevate your next business dinner at [Restaurant]. Private dining rooms and curated menus for corporate entertaining. Connect for exclusive corporate rates.",
+      "engagement_rate": 3.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "60-second chef technique showcase with dramatic plating reveal. 'Can you guess the price of this dish?' engagement hook",
+      "engagement_rate": 12.4
+    },
+    {
+      "platform": "Instagram Reels",
+      "template": "Speed transformation of raw ingredients to final plated masterpiece with trending audio. Caption: 'Your table awaits'",
+      "engagement_rate": 10.8
+    },
+    {
+      "platform": "Facebook Events",
+      "template": "Wine Dinner with [Vineyard]: [Date] at [Time]. [Price] per person includes [number] courses with pairings. Limited to [number] guests.",
+      "engagement_rate": 6.5
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Seasonal tablescapes and plating inspiration boards. 'Plan your special celebration at [Restaurant]' with booking link",
+      "engagement_rate": 3.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only restaurant in region with Master Sommelier on staff",
+      "rank": 1,
+      "differentiator": "Unmatched wine expertise and rare vintage access"
+    },
+    {
+      "prop": "Farm-to-table with exclusive contracts with local organic farms",
+      "rank": 2,
+      "differentiator": "Ingredients unavailable elsewhere, picked daily"
+    },
+    {
+      "prop": "Chef with 3 Michelin stars from previous restaurants",
+      "rank": 3,
+      "differentiator": "World-class culinary expertise and innovation"
+    },
+    {
+      "prop": "Historic building with original architecture from 1890s",
+      "rank": 4,
+      "differentiator": "Unique ambiance impossible to replicate"
+    },
+    {
+      "prop": "Personalized menu creation for dietary needs with 48-hour notice",
+      "rank": 5,
+      "differentiator": "Customization level beyond competitors"
+    },
+    {
+      "prop": "Only certified Kobe beef serving location within 200 miles",
+      "rank": 6,
+      "differentiator": "Exclusive access to ultra-premium ingredients"
+    },
+    {
+      "prop": "Private dining rooms with dedicated service team",
+      "rank": 7,
+      "differentiator": "Corporate entertainment superiority"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "An extraordinary culinary journey awaits. Our award-winning team creates unforgettable experiences through innovative cuisine, exceptional service, and an extensive wine collection curated by our Master Sommelier. Each dish represents the pinnacle of culinary artistry, featuring the finest seasonal ingredients sourced from our exclusive farm partnerships. Reserve your table for an evening where every detail has been perfected for your enjoyment.",
+    "budget_conscious": "Experience fine dining with our prix fixe menu offerings, providing exceptional value for special occasions. Early week dining specials offer the same exquisite cuisine and service at accessible price points. Our bar menu features signature dishes in smaller portions, perfect for experiencing our cuisine without the full commitment. Wine by the glass selections allow you to enjoy premium pairings within your comfort zone.",
+    "enterprise": "Elevate your corporate entertaining in our private dining spaces designed for discretion and sophistication. Our dedicated events team ensures flawless execution for board dinners, client entertainment, and team celebrations. Customized menus accommodate all dietary preferences, while our Master Sommelier creates pairings that impress the most discerning palates. Corporate accounts receive priority booking, specialized billing arrangements, and exclusive access to chef's table experiences."
+  },
+  "trust_signals": [
+    {
+      "signal": "James Beard Award nominations/wins",
+      "importance": 10,
+      "format": "Homepage badge and press section"
+    },
+    {
+      "signal": "AAA Four/Five Diamond rating",
+      "importance": 9,
+      "format": "Entrance display and website header"
+    },
+    {
+      "signal": "Wine Spectator Award of Excellence",
+      "importance": 8,
+      "format": "Wine list cover and dining room display"
+    },
+    {
+      "signal": "Years in business (15+ years)",
+      "importance": 7,
+      "format": "About page and anniversary messaging"
+    },
+    {
+      "signal": "Celebrity and critic endorsements",
+      "importance": 8,
+      "format": "Testimonial carousel and press quotes"
+    },
+    {
+      "signal": "Professional photography of dishes/ambiance",
+      "importance": 9,
+      "format": "Website gallery and social media"
+    },
+    {
+      "signal": "Transparent pricing on website",
+      "importance": 7,
+      "format": "Sample menus with clear pricing"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 10,000 five-star reviews across all platforms",
+      "credibility_score": 9.2,
+      "context": "Consistent excellence across years of service"
+    },
+    {
+      "stat": "87% of first-time diners become repeat guests",
+      "credibility_score": 8.7,
+      "context": "Exceptional experience driving loyalty"
+    },
+    {
+      "stat": "Booked solid 30 days in advance for weekend prime times",
+      "credibility_score": 8.9,
+      "context": "High demand validates quality"
+    },
+    {
+      "stat": "Host to 12 Fortune 500 CEO dinners annually",
+      "credibility_score": 9.5,
+      "context": "Trusted by elite business leaders"
+    },
+    {
+      "stat": "Featured in 23 national publications in past year",
+      "credibility_score": 8.4,
+      "context": "Media recognition of excellence"
+    },
+    {
+      "stat": "4.8 average rating from 500+ OpenTable verified diners",
+      "credibility_score": 9.1,
+      "context": "Consistent delivery of expectations"
+    }
+  ],
+  "quality_indicators": [
+    "Tableside Caesar salad or flambé preparation showcasing classical technique",
+    "Separate cheese course with selection from dedicated cheese cave",
+    "House-made bread with multiple varieties and compound butters",
+    "Crystal glassware with different shapes for specific wine varietals",
+    "Linen napkins replaced when guest leaves table",
+    "Amuse-bouche presented with chef's compliments before ordering"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 2,
+    "trigger_event": "Day after special occasion dining when emotional high remains",
+    "ask_method": "Personalized email from manager thanking for visit, simple star rating with optional comment, incentive of priority reservation access for detailed review"
+  },
+  "competitive_advantages": [
+    "Only restaurant with tableside cocktail cart featuring vintage spirits collection worth $50,000",
+    "Direct import relationships with European truffle suppliers ensuring best selection October-January",
+    "Chef's table inside kitchen limited to 6 guests nightly with 20+ course menu",
+    "Temperature-controlled wine cellar with 5,000 bottles including verticals back to 1960s",
+    "Partnerships with three local farms providing exclusive access to heritage vegetables and rare breeds",
+    "Only dry-aging room in region with 45-day aged beef program"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Lead with $450 chef's tasting menu making $125 three-course prix fixe seem reasonable, wine list showing $5,000 bottles making $150 bottles appear moderate",
+    "sensitivity": "Price increases best absorbed during menu changes (quarterly), 3-5% adjustments go unnoticed, beyond 7% requires value addition",
+    "sweet_spots": [
+      "$125-150 per person for celebrations",
+      "$200-250 for business entertainment",
+      "$350+ for once-in-lifetime experiences"
+    ],
+    "decoy_pricing": "Middle wine tier priced to push toward higher margin premium tier, second most expensive entrée drives orders to most expensive"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 150,
+    "approval_required": 250,
+    "competitor_research": 200
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.3,
+    "weekend": 1.2,
+    "holiday": 1.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Bar Dining",
+      "price_range": "$75-100 per person",
+      "target_customer": "Casual fine dining seekers, younger demographics",
+      "margin": 62
+    },
+    {
+      "tier": "À La Carte Dining Room",
+      "price_range": "$125-175 per person",
+      "target_customer": "Special occasion celebrants, business diners",
+      "margin": 68
+    },
+    {
+      "tier": "Chef's Tasting Menu",
+      "price_range": "$250-450 per person",
+      "target_customer": "Culinary enthusiasts, ultra-high net worth individuals",
+      "margin": 74
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Wine pairings generate 70% margins versus 65% on food, push through sommelier recommendations",
+    "Supplemental courses (cheese, caviar) at $35-75 each with 80% margins",
+    "Cocktail program with house-made ingredients achieving 85% margins on $18-22 drinks",
+    "Special occasion packages bundling flowers, cake, photography for 25% upcharge",
+    "Corporate buyouts at 20% premium over individual covers",
+    "Cooking classes and wine dinners at 82% margins through group dynamics"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday budget recovery, resolutions",
+      "opportunity": "Restaurant Week participation, prix fixe promotions"
+    },
+    {
+      "month": "February",
+      "variation": 25,
+      "reason": "Valentine's Day surge",
+      "opportunity": "Romantic packages, special menus at premium pricing"
+    },
+    {
+      "month": "March",
+      "variation": 5,
+      "reason": "Spring awakening, tax refunds",
+      "opportunity": "New spring menu launch, wine dinners"
+    },
+    {
+      "month": "April",
+      "variation": 10,
+      "reason": "Easter, spring celebrations",
+      "opportunity": "Brunch expansion, family-style offerings"
+    },
+    {
+      "month": "May",
+      "variation": 20,
+      "reason": "Mother's Day, graduations",
+      "opportunity": "Special menus, extended hours"
+    },
+    {
+      "month": "June",
+      "variation": 15,
+      "reason": "Wedding season, anniversaries",
+      "opportunity": "Private event focus, celebration packages"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Vacation season, outdoor preference",
+      "opportunity": "Patio emphasis, lighter summer menu"
+    },
+    {
+      "month": "August",
+      "variation": -12,
+      "reason": "Continued vacation period",
+      "opportunity": "Local staycation marketing, resident specials"
+    },
+    {
+      "month": "September",
+      "variation": 8,
+      "reason": "Return to routine, harvest season",
+      "opportunity": "Harvest menu, wine collection releases"
+    },
+    {
+      "month": "October",
+      "variation": 12,
+      "reason": "Fall comfort dining, business return",
+      "opportunity": "Truffle season, game menus"
+    },
+    {
+      "month": "November",
+      "variation": 18,
+      "reason": "Thanksgiving week, holiday parties begin",
+      "opportunity": "Private dining push, gift card sales"
+    },
+    {
+      "month": "December",
+      "variation": 35,
+      "reason": "Holiday celebrations, year-end entertainment",
+      "opportunity": "Premium pricing accepted, buyouts, special events"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Industry night promotions, wine dinners",
+      "avoid": "Major launches or events",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Wine-focused promotions, chef's experiments",
+      "avoid": "Premium pricing pushes",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Business dinners, wine club events",
+      "avoid": "Romantic marketing",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend buzz, media events",
+      "avoid": "Family promotions",
+      "conversion_rate": 5.7
+    },
+    {
+      "day": "Friday",
+      "best_for": "Date nights, celebrations",
+      "avoid": "Discounting",
+      "conversion_rate": 8.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Special occasions, premium experiences",
+      "avoid": "Any discounting",
+      "conversion_rate": 9.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch, family gatherings, early dinners",
+      "avoid": "Late night events",
+      "conversion_rate": 6.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Corporate cards refresh on 1st, personal entertainment budgets peak 5th-10th after payday",
+    "cash_flow_peaks": "1st week (expense accounts reset), 3rd week (mid-month celebrations)",
+    "slow_periods": "Last week of month (budget conscious), days immediately after major holidays"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Valentine's Day 5-9pm",
+      "crisis_type": "Proposal pressure, perfect evening demands",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "New Year's Eve 8pm-midnight",
+      "crisis_type": "Ultimate celebration expectations",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Mother's Day brunch 11am-2pm",
+      "crisis_type": "Family harmony critical",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "December Saturdays 6-9pm",
+      "crisis_type": "Holiday party overflow",
+      "premium_multiplier": 1.7
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Celebration Package",
+      "components": [
+        "Priority reservation",
+        "Champagne greeting",
+        "Personalized menu",
+        "Dessert with message",
+        "Commemorative photo"
+      ],
+      "pricing_model": "Fixed $75 addition to per person",
+      "margin": 78
+    },
+    {
+      "name": "Business Excellence",
+      "components": [
+        "Private dining room",
+        "Dedicated server",
+        "AV equipment",
+        "Customized menu",
+        "Expedited billing"
+      ],
+      "pricing_model": "20% service charge plus minimum",
+      "margin": 72
+    },
+    {
+      "name": "Culinary Journey",
+      "components": [
+        "Chef's table seating",
+        "Kitchen tour",
+        "20+ courses",
+        "Wine pairings",
+        "Signed menu"
+      ],
+      "pricing_model": "Fixed price $450 per person",
+      "margin": 76
+    },
+    {
+      "name": "Wine Enthusiast",
+      "components": [
+        "Sommelier consultation",
+        "Rare wine access",
+        "Cheese course",
+        "Wine notes",
+        "Cellar tour"
+      ],
+      "pricing_model": "$200 supplement to dinner",
+      "margin": 82
+    }
+  ],
+  "upsell_paths": [
+    "Bar menu taster → Full dinner reservation within 30 days (32% conversion)",
+    "Three-course dinner → Five-course with wine pairing (28% take rate)",
+    "Regular diner → Wine club member after 3 visits (18% conversion)",
+    "Standard reservation → Private dining for next occasion (22% upgrade)",
+    "À la carte → Chef's tasting menu for special occasion (25% progression)",
+    "Individual diner → Corporate account after business meal success (15% conversion)"
+  ],
+  "retention_hooks": [
+    "Birthday and anniversary database with personalized offers 30 days before",
+    "Exclusive preview invitations for seasonal menu changes (quarterly)",
+    "Points program offering complimentary course after 5 visits",
+    "Direct chef's table booking access for frequent diners",
+    "Preferred reservation status during peak periods after 10 visits annually",
+    "Wine locker program for collectors with personalized storage",
+    "First access to special events and celebrity chef collaborations"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Post-meal gift card offer for friend referral",
+      "timing": "With check presentation",
+      "incentive": "$50 card for both parties after friend's visit",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social media photo contest with dining credit prize",
+      "timing": "Monthly",
+      "incentive": "$200 dinner for two",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Corporate account referral bonus",
+      "timing": "After successful event",
+      "incentive": "10% credit toward next event",
+      "conversion_rate": 15.2
+    },
+    {
+      "strategy": "Wine club member guest privileges",
+      "timing": "Ongoing",
+      "incentive": "Member pricing for guests, points for referrer",
+      "conversion_rate": 18.5
+    },
+    {
+      "strategy": "Celebration package gifting option",
+      "timing": "Holiday seasons",
+      "incentive": "10% off gift purchases over $500",
+      "conversion_rate": 9.8
+    },
+    {
+      "strategy": "Influencer partnership program",
+      "timing": "Quarterly campaigns",
+      "incentive": "Complimentary tasting menu for quality content",
+      "conversion_rate": 22.4
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Wine pairings with tasting menu",
+      "attach_rate": 68,
+      "timing": "During reservation or arrival"
+    },
+    {
+      "service": "Cheese course addition",
+      "attach_rate": 34,
+      "timing": "After entrée service"
+    },
+    {
+      "service": "Cocktail program before dinner",
+      "attach_rate": 78,
+      "timing": "Upon seating"
+    },
+    {
+      "service": "Special occasion photography",
+      "attach_rate": 22,
+      "timing": "Reservation confirmation"
+    },
+    {
+      "service": "Gift cards during holiday dining",
+      "attach_rate": 15,
+      "timing": "Check presentation November-December"
+    },
+    {
+      "service": "Cooking class enrollment",
+      "attach_rate": 8,
+      "timing": "Post-meal follow up"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Lunch service addition targeting business district",
+      "market_size": "$2.3M annual potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Catering services for high-end events",
+      "market_size": "$1.8M annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Retail wine shop with rare selections",
+      "market_size": "$850K annual potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Subscription meal kits with signature dishes",
+      "market_size": "$1.2M annual potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Sister casual concept leveraging brand equity",
+      "market_size": "$3.5M annual potential",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Cookbook and merchandise line",
+      "market_size": "$400K annual potential",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Alinea Chicago's behind-the-scenes kitchen preparation videos showing Chef Grant Achatz and team creating signature dishes with intricate plating techniques",
+        "platform": "Instagram",
+        "why_it_worked": "Showcased artistry and craftsmanship, gave exclusive peek into creative process, humanized the chef, created aspiration and desire to experience in person",
+        "metrics": "Average 50K-150K views per video, 3-5% engagement rate, significantly higher than restaurant industry average",
+        "source": "Instagram @alinearestaurant, Social Media Examiner restaurant marketing case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Eleven Madison Park's seasonal menu announcement campaign featuring ingredient stories from local farmers and purveyors, shot in documentary style",
+        "platform": "Instagram/Email",
+        "why_it_worked": "Connected diners to food provenance story, emphasized sustainability and local sourcing, created anticipation for menu changes, aligned with values of target demographic",
+        "metrics": "20-30% email open rates (vs 15% industry average), 4.2% engagement on Instagram posts",
+        "source": "Restaurant Business Online, Eleven Madison Park social media channels",
+        "confidence": "high"
+      },
+      {
+        "example": "The French Laundry's reservation release announcements using scarcity and exclusivity messaging, coupled with chef Thomas Keller's personal philosophy content",
+        "platform": "Email/Website",
+        "why_it_worked": "Created urgency around limited availability, positioned dining as rare privilege, used chef's reputation and storytelling to build emotional connection",
+        "metrics": "Reservations fill within minutes of release, 40%+ email open rates, waitlist of thousands",
+        "source": "Eater.com coverage, OpenTable restaurant insights",
+        "confidence": "high"
+      },
+      {
+        "example": "Osteria Francescana's (Modena, Italy) Instagram campaign showcasing Chef Massimo Bottura's artistic plating as visual art pieces, with minimal text",
+        "platform": "Instagram",
+        "why_it_worked": "Treated food as art, appealed to aesthetic sensibilities, highly shareable visual content, international appeal transcending language barriers",
+        "metrics": "Average 40K+ likes per post, 1.5M+ followers, featured in countless food publications",
+        "source": "Instagram @massimobottura, Vogue food journalism",
+        "confidence": "high"
+      },
+      {
+        "example": "SingleThread Farms' integrated storytelling across their rooftop farm, guest rooms, and restaurant experience through episodic content series",
+        "platform": "Instagram/YouTube",
+        "why_it_worked": "Created complete narrative around farm-to-table concept, differentiated through unique integrated experience, built anticipation through serialized content",
+        "metrics": "Featured in 100+ publications, Michelin 3-star rating, consistently booked months in advance",
+        "source": "Sonoma Magazine, SingleThread social channels",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.5-4.5% for fine dining restaurants (vs 1.22% overall restaurant average)",
+        "best_content_format": "High-quality food photography, behind-the-scenes Reels, chef stories, plating process videos",
+        "optimal_frequency": "4-7 posts per week, 1-2 Reels per week, daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm local time, Sunday 5-7pm",
+        "source": "Sprout Social 2024 Restaurant Industry Report, Later.com restaurant benchmarks"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.5% for upscale dining",
+        "best_content_format": "Event announcements, special menu features, customer testimonials, video content",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 12-1pm and 5-6pm",
+        "source": "Hootsuite Social Media Trends 2024, Toast Restaurant Marketing Report"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "18-25% open rate, 2-4% click-through rate for fine dining",
+        "best_content_format": "Exclusive reservation access, seasonal menu previews, chef's table invitations, wine pairing events",
+        "optimal_frequency": "2-4 emails per month (bi-weekly to weekly)",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, Sunday 4-6pm",
+        "source": "Mailchimp Restaurant Industry Benchmarks 2024, Constant Contact hospitality data"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-8% for restaurant content",
+        "best_content_format": "Quick plating videos, chef reactions, ingredient prep ASMR, day-in-the-life content",
+        "optimal_frequency": "3-5 posts per week for consistent growth",
+        "best_posting_times": "Tuesday-Thursday 7-9pm, Saturday 9-11am",
+        "source": "TikTok for Business Restaurant Insights 2024, Social Media Today"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "High-quality photos receive 42% more direction requests, 35% more website clicks",
+        "best_content_format": "Professional dish photography, interior ambiance shots, menu updates, special events",
+        "optimal_frequency": "2-3 posts per week, respond to all reviews within 24-48 hours",
+        "best_posting_times": "Consistent posting more important than timing",
+        "source": "Google Business Profile Insights, BrightLocal Restaurant SEO Study 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Scarcity + Exclusivity",
+        "example": "Only 12 tables available for our Winter Truffle Tasting Menu - Reservations open December 1st",
+        "why_it_works": "Creates urgency and FOMO, positions restaurant as exclusive destination, appeals to status-seeking behavior",
+        "source": "OpenTable reservation data, fine dining email campaigns"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Mastery",
+        "example": "Watch our chef transform a single ingredient into 7 different textures",
+        "why_it_works": "Showcases expertise and craftsmanship, creates intrigue, educates while entertaining, builds appreciation for complexity",
+        "source": "Alinea, Eleven Madison Park Instagram content analysis"
+      },
+      {
+        "hook_pattern": "Provenance Story",
+        "example": "This morning's catch: Day boat scallops from Maine, on your plate tonight",
+        "why_it_works": "Emphasizes freshness and quality, connects diners to source, builds trust, appeals to sustainability values",
+        "source": "Chez Panisse, Blue Hill marketing communications"
+      },
+      {
+        "hook_pattern": "Milestone Celebration Positioning",
+        "example": "Where San Francisco celebrates life's most important moments for over 20 years",
+        "why_it_works": "Taps into emotional significance of occasions, positions as trusted choice for meaningful events, social proof through longevity",
+        "source": "Fine dining restaurant website copy analysis, Yelp review patterns"
+      },
+      {
+        "hook_pattern": "Sensory Anticipation",
+        "example": "Imagine: Butter-poached lobster meeting white truffle, finished tableside",
+        "why_it_works": "Engages imagination, creates vivid mental imagery, emphasizes theater and experience, triggers desire",
+        "source": "The French Laundry, Per Se marketing materials"
+      },
+      {
+        "hook_pattern": "Award/Recognition Validation",
+        "example": "Michelin-starred excellence, now accepting reservations for our 2024 season",
+        "why_it_works": "Provides third-party credibility, reduces perceived risk, appeals to discerning diners, justifies premium pricing",
+        "source": "Michelin Guide restaurant communications"
+      },
+      {
+        "hook_pattern": "Seasonal/Limited Time",
+        "example": "Spring menu debuts April 15th - featuring ramps, morels, and peas at their peak",
+        "why_it_works": "Creates natural urgency, emphasizes freshness and seasonality, gives reason to return, appeals to food enthusiasts",
+        "source": "Gramercy Tavern, Canlis seasonal marketing campaigns"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I need somewhere special for our anniversary, not just another restaurant",
+        "Looking for a place that will really impress our clients",
+        "Tired of the same boring date night options",
+        "Want an experience, not just a meal",
+        "Need to make a reservation somewhere that shows I put thought into this",
+        "Hard to find restaurants that live up to the hype",
+        "Worried about spending this much and being disappointed",
+        "Don't want to feel rushed or like just another table",
+        "Need somewhere that can handle dietary restrictions without compromising the experience",
+        "Looking for that wow factor for out-of-town guests"
+      ],
+      "solution_phrases": [
+        "The attention to detail made us feel so special",
+        "Every course was a work of art",
+        "This is where we celebrate all our big moments",
+        "The service was impeccable without being stuffy",
+        "Worth every penny for the memories we made",
+        "They made our anniversary unforgettable",
+        "Our clients were blown away - exactly what we needed",
+        "Finally found our special occasion spot",
+        "The chef's table experience was once in a lifetime",
+        "They treated us like VIPs from the moment we walked in"
+      ],
+      "objection_phrases": [
+        "The price is steep - need to make sure it's worth it",
+        "Worried it will be too formal or uncomfortable",
+        "Hard to get a reservation when we want one",
+        "Not sure if the portions will be filling enough",
+        "Concerned about the dress code",
+        "Hope it's not pretentious or snobby",
+        "Worried my kids won't have anything they'll eat",
+        "Don't know enough about wine to navigate the list",
+        "Afraid I won't understand the menu descriptions",
+        "Concerned about hidden costs or unexpected charges"
+      ],
+      "decision_factors": [
+        "Michelin stars or James Beard awards",
+        "Reviews mentioning exceptional service",
+        "Ability to accommodate special requests",
+        "Ambiance and atmosphere for the occasion",
+        "Chef's reputation and background",
+        "Quality of ingredients and sourcing practices",
+        "Wine program and sommelier expertise",
+        "Uniqueness of the dining experience",
+        "Consistency of positive reviews",
+        "Private dining options for business or groups",
+        "Proximity to hotels or downtown for visitors",
+        "Social media presence showing beautiful plating"
+      ],
+      "emotional_language": [
+        "unforgettable",
+        "magical",
+        "blown away",
+        "extraordinary",
+        "once in a lifetime",
+        "felt so special",
+        "absolutely stunning",
+        "exceeded expectations",
+        "worth the splurge",
+        "bucket list",
+        "perfect evening",
+        "truly memorable",
+        "impressive",
+        "phenomenal",
+        "exquisite"
+      ],
+      "sources": [
+        "Yelp fine dining reviews 2023-2024",
+        "Reddit r/finedining community discussions",
+        "OpenTable diner reviews",
+        "Google Reviews for Michelin-starred restaurants",
+        "TripAdvisor fine dining forums",
+        "Resy restaurant review sections"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing and value communication - most fine dining restaurants hide prices until reservation, creating anxiety",
+      "Educational content about how to navigate fine dining experiences for first-timers",
+      "Accessibility content showing fine dining can be approachable, not intimidating",
+      "Post-visit content and recipes allowing guests to recreate simplified versions at home",
+      "Staff spotlight content humanizing the team beyond just the chef",
+      "Sustainability and waste reduction stories - mentioned but rarely shown in detail",
+      "Virtual experiences or online cooking classes with chefs",
+      "Clear communication about what makes the price worth it (labor, ingredients, technique)",
+      "Content for corporate event planners and concierge services",
+      "Pairing guides and wine education content for non-experts"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "November-December (Holiday Season)",
+        "opportunity": "Peak season for special occasion dining, corporate events, and gift certificate sales",
+        "content_angle": "Holiday tasting menus, New Year's Eve experiences, private dining for corporate parties, gift experiences, festive ambiance content"
+      },
+      {
+        "period": "January-February (Winter)",
+        "opportunity": "Anniversary season (many engagements happen during holidays), Valentine's Day, winter truffle season",
+        "content_angle": "Romantic dining experiences, winter ingredient features (truffles, game meats), anniversary packages, Valentine's alternatives (pre/post Feb 14)"
+      },
+      {
+        "period": "March-May (Spring)",
+        "opportunity": "Spring ingredients, graduation season, Mother's Day, wedding season begins",
+        "content_angle": "Spring menu launches, seasonal ingredient spotlights (ramps, morels, peas), Mother's Day brunch/dinner, rehearsal dinner packages"
+      },
+      {
+        "period": "June-August (Summer)",
+        "opportunity": "Peak tourist season, outdoor dining, lighter seasonal menus, tomato and stone fruit season",
+        "content_angle": "Summer tasting menus, patio dining ambiance, local farm partnerships, destination dining for travelers, al fresco experiences"
+      },
+      {
+        "period": "September-October (Fall)",
+        "opportunity": "Restaurant weeks, harvest season, fall ingredients, corporate entertainment ramps up",
+        "content_angle": "Fall menu transitions, truffle season begins, wine harvest celebrations, business dining promotions, chef's table experiences"
+      },
+      {
+        "period": "Year-round: Monthly",
+        "opportunity": "Wine dinners, chef collaborations, special ingredient availability",
+        "content_angle": "Monthly wine pairing events, visiting chef series, ingredient-focused tasting menus, cooking demonstrations"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Instagram accounts of Alinea, Eleven Madison Park, The French Laundry, Osteria Francescana",
+      "Sprout Social 2024 Restaurant Industry Report",
+      "Later.com restaurant social media benchmarks",
+      "Hootsuite Social Media Trends 2024",
+      "Toast Restaurant Marketing Report",
+      "Mailchimp Restaurant Industry Benchmarks 2024",
+      "OpenTable restaurant insights and reservation data",
+      "Yelp fine dining reviews",
+      "Reddit r/finedining community",
+      "Google Business Profile Insights",
+      "TikTok for Business Restaurant Insights 2024",
+      "Eater.com fine dining coverage",
+      "Restaurant Business Online",
+      "Michelin Guide communications",
+      "TripAdvisor fine dining reviews",
+      "Resy platform reviews"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for fine dining email campaigns",
+      "Specific conversion rate data from social media to reservations (proprietary)",
+      "Exact ROI figures for different content types (restaurants don't typically share)",
+      "Detailed demographic breakdowns by platform for fine dining specifically"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching seasonal menu or exclusive dining experience",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Ingredient provenance and seasonal anticipation - teasing rare ingredients and farm partnerships",
+        "Week 2: Behind-the-scenes culinary mastery - revealing chef's creative process and plating artistry",
+        "Week 3: Guest experience transformations - showcasing unforgettable moments and emotional reactions",
+        "Week 4: Scarcity and exclusive reservation access - creating urgency for limited availability"
+      ],
+      "weekly_hooks": [
+        [
+          "This morning's harvest: [Seasonal ingredient] from [Local farm/region], arriving at peak perfection for our [Season] menu debut",
+          "Our chef has been working with [Rare ingredient] for 6 months. Watch the first reveal of what's coming [Date]",
+          "Only [Number] diners will experience our [Season] tasting menu each evening - reservations open [Date]"
+        ],
+        [
+          "Watch our acclaimed chef transform a single [Ingredient] into 7 different textures and temperatures",
+          "Behind the pass: The intricate 12-step process that makes our [Signature dish] unforgettable",
+          "From farm to plate in 6 hours - follow [Ingredient]'s journey from [Source] to your table tonight"
+        ],
+        [
+          "Where [City] celebrates life's most important moments - see how we made their anniversary unforgettable",
+          "Our clients were blown away: How [Dish/Experience] turned a business dinner into a memorable partnership",
+          "This is what happens when you trust our chef with your milestone celebration - [Guest testimonial preview]"
+        ],
+        [
+          "Final call: Only [Number] tables remain for our [Menu name] experience - Reservations close [Date]",
+          "Michelin-starred [Season] menu now open for booking - [Number] courses of exceptional artistry",
+          "Last chance to secure your table for [Special experience] before we're fully booked through [Month]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address intimidation factor - emphasize warm hospitality and knowledgeable staff as guides",
+        "Week 2: Address concerns about understanding the experience - educate on multi-course progression and what to expect",
+        "Week 3: Address portion size concerns - showcase 7-9 course progression totaling substantial, satisfying meal",
+        "Week 4: Address price value - highlight rare ingredients, culinary technique, and investment in extraordinary memories"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce farm partnerships and ingredient sourcing credentials to build quality trust",
+        "Week 2: Share chef's background, awards (Michelin stars, James Beard) and culinary training",
+        "Week 3: Feature authentic guest testimonials about special occasions and exceeded expectations",
+        "Week 4: Final push with reservation scarcity proof (sold out dates, waitlist numbers, press mentions)"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about our seasonal ingredient philosophy [Link to blog/story]",
+        "Week 2: Watch the full behind-the-scenes video series on our Stories",
+        "Week 3: Share your most memorable dining moment with us in the comments",
+        "Week 4: Reserve your table now - limited availability for [Month] bookings [Reservation link]"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 1-2 Reels, daily Stories) - primary platform for visual storytelling and engagement",
+        "Email (2 emails over 4 weeks) - exclusive early access announcements to VIP list",
+        "Google Business Profile (2-3 posts/week) - capture high-intent local searchers",
+        "Facebook (3 posts/week) - event announcements and reaching corporate planners"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Eleven Madison Park's seasonal menu announcement campaigns (20-30% email open rates) and Alinea's behind-the-scenes content (50K-150K views, 3-5% engagement). Combines provenance storytelling with scarcity messaging proven by The French Laundry's reservation releases (40%+ open rates, fills within minutes)."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and maintaining engagement",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Culinary craftsmanship education - techniques and artistry behind signature preparations",
+        "Week 2: Ingredient sourcing stories - farmer partnerships and sustainable practices",
+        "Week 3: Staff spotlight series - humanizing the team beyond the chef",
+        "Week 4: Wine and beverage education - pairing guides for non-experts",
+        "Week 5: Guest milestone celebrations - showcasing unforgettable moments created",
+        "Week 6: Seasonal ingredient transitions - what's coming next and why it matters",
+        "Week 7: Navigating fine dining guide - making the experience approachable for first-timers",
+        "Week 8: Chef's inspiration and philosophy - connecting food to art and culture"
+      ],
+      "weekly_hooks": [
+        [
+          "The difference between good and extraordinary: Watch how we [Specific technique] our [Dish]",
+          "What 15 years of culinary training looks like in a single plate - the artistry of [Dish name]",
+          "Why our chef spends 3 hours on a dish you'll enjoy in minutes - craftsmanship revealed"
+        ],
+        [
+          "Meet [Farmer name]: The hands behind this morning's [Ingredient] that will grace your plate tonight",
+          "From [Region] to your table: The 48-hour journey of our [Premium ingredient]",
+          "This is what true farm-to-table looks like - our partnership with [Local farm] since [Year]"
+        ],
+        [
+          "Behind every impeccable evening is [Staff member name] - meet our [Role] who makes magic happen",
+          "The team you don't see: How our [Department] ensures every detail is perfect",
+          "What it takes to create unforgettable service - a day with [Staff member]"
+        ],
+        [
+          "Wine pairing decoded: Why [Wine] perfectly complements [Dish] - no sommelier degree required",
+          "The 3 things our sommelier considers when pairing your meal - insider knowledge shared",
+          "Intimidated by our wine list? Here's how to navigate it like a pro"
+        ],
+        [
+          "She said yes at table 12 last night - where [City] celebrates life's most important moments",
+          "Their 50th anniversary deserved something extraordinary - this is how we delivered",
+          "From first date to wedding venue - couples who grew with us share their stories"
+        ],
+        [
+          "Why we're obsessed with [Seasonal ingredient] right now - peak season means peak flavor",
+          "What's leaving our menu (and why you'll miss it): Saying goodbye to [Ingredient] until next [Season]",
+          "Sneak peek: [New seasonal ingredient] arrives next week and our chef is already experimenting"
+        ],
+        [
+          "First time at a fine dining restaurant? Here's exactly what to expect from arrival to departure",
+          "The 5 questions it's totally okay to ask your server - we want you to feel comfortable",
+          "Dress code decoded: What to wear for an exceptional evening (hint: it's more relaxed than you think)"
+        ],
+        [
+          "How a walk through [Location/Museum/Nature] inspired our [Dish name] - art meets cuisine",
+          "The philosophy behind our menu: Why every dish tells a story worth savoring",
+          "What [Cultural influence] taught our chef about [Cooking principle] - culinary inspiration revealed"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address quality concerns - showcase technique and expertise justifying premium experience",
+        "Week 3: Address pretentiousness fears - humanize staff and emphasize warm, welcoming service culture",
+        "Week 4: Address wine intimidation - educate and empower guests to feel confident",
+        "Week 5: Reinforce value - show emotional ROI through milestone celebrations and memories created",
+        "Week 7: Address first-timer anxiety - provide clear guidance and normalize questions",
+        "Week 8: Address worth concerns - connect price to artistry, philosophy, and complete experience"
+      ],
+      "proof_timing": [
+        "Week 1: Chef credentials and culinary training background",
+        "Week 2: Supplier relationships and ingredient quality certifications",
+        "Week 3: Staff expertise and tenure (service excellence indicators)",
+        "Week 4: Sommelier credentials and wine program awards",
+        "Week 5: Real guest testimonials and celebration photos (with permission)",
+        "Week 6: Press mentions and food critic reviews",
+        "Week 7: Accessibility proof - diverse guest demographics enjoying experience",
+        "Week 8: Awards, Michelin stars, James Beard recognition recap"
+      ],
+      "cta_progression": [
+        "Week 1: Watch our technique tutorial series [Link to content hub]",
+        "Week 2: Discover our farm partners and sourcing story [Website link]",
+        "Week 3: Follow us for daily behind-the-scenes moments in Stories",
+        "Week 4: Download our seasonal pairing guide [Lead magnet]",
+        "Week 5: Share your celebration story - tag us in your special moments",
+        "Week 6: Join our VIP list for early menu preview access [Email signup]",
+        "Week 7: Save our First-Timer's Guide for your upcoming visit [Shareable content]",
+        "Week 8: Book your table for an unforgettable experience [Reservation link]"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week, 1 Reel/week, daily Stories) - primary engagement and visual storytelling",
+        "Email (2-3 emails/month) - nurture VIP list with exclusive content and early access",
+        "Google Business Profile (2-3 posts/week) - maintain visibility for local search and reviews",
+        "YouTube (1 long-form video/month) - educational content and technique deep-dives",
+        "Facebook (3 posts/week) - reach older demographics and corporate event planners"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gaps research showing need for educational content, staff spotlights, accessibility messaging, and wine education for non-experts. Addresses all top customer decision factors (chef reputation, service quality, ingredient sourcing) while maintaining engagement through variety. Incorporates Osteria Francescana's artistic approach (40K+ likes per post) with SingleThread's integrated storytelling model."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral-optimized content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-worthy plating artistry and sensory ASMR content - maximizing shareability",
+        "Week 2: Exclusive peek into rare ingredients and luxury experiences - aspiration-driven content"
+      ],
+      "weekly_hooks": [
+        [
+          "Watch what happens when [Rare ingredient] meets [Technique] - the most satisfying 30 seconds you'll see today",
+          "POV: You're about to experience [Signature dish] for the first time - every texture, every flavor revealed",
+          "The sound of [Cooking technique/plating action] is pure culinary ASMR - turn your volume up",
+          "This is what [Dollar amount] of [Luxury ingredient] looks like on a plate - worth every penny",
+          "Imagine: [Sensory description of dish] finished tableside in front of you - this is fine dining",
+          "Only [Number] people will taste this [Rare ingredient dish] this season - here's why it's extraordinary"
+        ],
+        [
+          "Behind the curtain: The chef's table view nobody else gets to see during service",
+          "What a Michelin-starred [Dish] looks like from start to finish - 47 steps of perfection",
+          "This [Ingredient] traveled [Distance/unique journey] to reach your plate tonight - the story matters",
+          "The moment our chef reveals the [Season's] most anticipated dish - exclusive first look",
+          "How we transform [Common ingredient] into something you've never experienced before",
+          "This is what happens at table [Number] when you celebrate your [Milestone] with us"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Pre-empt 'not for me' objection - show approachable moments and joyful reactions, not just intimidating perfection",
+        "Week 2: Address value perception - showcase ingredient quality, technique complexity, and complete experience worth"
+      ],
+      "proof_timing": [
+        "Week 1: Leverage user-generated content and guest reactions (authentic social proof)",
+        "Week 2: Feature awards, press mentions, and influencer/critic endorsements for credibility"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this / Share this with your foodie friend",
+        "Week 1: Save this for your next special occasion / Follow for daily culinary artistry",
+        "Week 2: Visit our profile to explore the full experience / Click link in bio to learn more",
+        "Week 2: Reserve your table before we're fully booked [Reservation link]"
+      ],
+      "platform_priority": [
+        "Instagram Reels (2-3 per day) - highest engagement rate and shareability for restaurant content",
+        "TikTok (2-3 posts per day) - 5-8% engagement rate, viral potential for technique and ASMR content",
+        "Instagram Feed (1 post per day) - high-quality still photography for aspirational content",
+        "Instagram Stories (4-6 per day) - behind-the-scenes moments and urgency messaging",
+        "Facebook (1 share per day of top Instagram content) - extend reach to older demographics"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok's 5-8% engagement rate for restaurant content (plating videos, ASMR, chef reactions) and Instagram's 2.5-4.5% engagement for fine dining (vs 1.22% overall). Leverages Osteria Francescana's minimal-text visual art approach (40K+ likes, highly shareable) and Alinea's behind-the-scenes content performance (50K-150K views). Optimized for Tuesday-Thursday 7-9pm TikTok posting and Tuesday-Thursday 11am-1pm Instagram timing."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing culinary expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Culinary philosophy and approach - establishing unique perspective and methodology",
+        "Week 2: Ingredient expertise - deep knowledge of sourcing, seasonality, and quality standards",
+        "Week 3: Technique mastery series - educating on classical and modern culinary methods",
+        "Week 4: Sustainability and ethical practices - demonstrating values-aligned leadership",
+        "Week 5: Industry insights and trends - positioning as forward-thinking authority",
+        "Week 6: Mentorship and legacy - sharing knowledge and elevating the culinary profession"
+      ],
+      "weekly_hooks": [
+        [
+          "Why we'll never compromise on [Principle] - the philosophy that defines every dish we create",
+          "What [Years] of culinary experience taught our chef about what truly makes a meal unforgettable",
+          "The 3 non-negotiables in our kitchen that separate good from extraordinary dining"
+        ],
+        [
+          "How to identify truly exceptional [Ingredient] - the expertise we've developed over [Years] working with [Suppliers]",
+          "Why we refuse to serve [Ingredient] outside of [Specific timeframe] - seasonality matters more than you think",
+          "The difference between [Premium ingredient] and [Standard version] - what you're actually paying for"
+        ],
+        [
+          "The classical French technique behind our [Dish] - and why it takes 3 days to perfect",
+          "Modern meets traditional: How we apply [Classic technique] to [Contemporary ingredient]",
+          "What most restaurants get wrong about [Cooking method] - the precision that changes everything"
+        ],
+        [
+          "Our zero-waste kitchen philosophy: How we honor every ingredient from [Source] to plate",
+          "Why we partner exclusively with regenerative farms - the future of fine dining is sustainable",
+          "The true cost of quality: What ethical sourcing means for our menu and our planet"
+        ],
+        [
+          "The emerging trend we're embracing (and the one we're avoiding) - our take on the future of fine dining",
+          "What [Industry development] means for how you'll dine in [Timeframe] - insights from our chef",
+          "Why the next generation of fine dining will focus on [Trend] - and how we're leading the way"
+        ],
+        [
+          "How we're training the next generation of culinary talent - our commitment to the craft",
+          "The lessons our chef learned from [Mentor/Experience] that shape our kitchen today",
+          "Why giving back to the culinary community makes us better - knowledge shared is excellence multiplied"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'all fine dining is the same' - differentiate through unique philosophy and approach",
+        "Week 2: Address ingredient skepticism - prove deep expertise and quality standards",
+        "Week 3: Address 'overpriced for what it is' - educate on technique complexity and skill required",
+        "Week 4: Address sustainability concerns - demonstrate authentic commitment beyond marketing",
+        "Week 5: Address 'out of touch' perception - show forward-thinking relevance and adaptability",
+        "Week 6: Address trust barriers - demonstrate integrity through mentorship and community investment"
+      ],
+      "proof_timing": [
+        "Week 1: Chef's training background, culinary lineage, and formative experiences",
+        "Week 2: Supplier certifications, farm partnerships, and sourcing documentation",
+        "Week 3: Awards for specific dishes, technique recognition, competition wins",
+        "Week 4: Sustainability certifications, waste reduction metrics, partnership validations",
+        "Week 5: Press coverage of innovations, industry speaking engagements, trend-setting recognition",
+        "Week 6: Mentee success stories, industry contributions, James Beard/Michelin recognition recap"
+      ],
+      "cta_progression": [
+        "Week 1: Read our full culinary philosophy on our website [Link]",
+        "Week 2: Explore our farm and supplier partnerships [Content hub link]",
+        "Week 3: Watch the complete technique masterclass series [Video link]",
+        "Week 4: Download our sustainability report and commitments [PDF]",
+        "Week 5: Join the conversation - what trends matter most to you? [Comment prompt]",
+        "Week 6: Experience the culmination of our expertise - book your table [Reservation link]"
+      ],
+      "platform_priority": [
+        "Instagram (4-5 posts/week, 1 long-form Reel/week) - thought leadership content with depth",
+        "Email (1 in-depth newsletter/week) - detailed educational content for engaged subscribers",
+        "YouTube (1 long-form video every 2 weeks) - technique demonstrations and philosophy discussions",
+        "LinkedIn (2 posts/week) - reach corporate clients and industry professionals",
+        "Blog/Website (1 article/week) - SEO-optimized thought leadership content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap around educational content and transparency. Based on customer decision factors emphasizing chef's reputation, ingredient sourcing practices, and uniqueness of experience. Incorporates Eleven Madison Park's ingredient storytelling approach (20-30% email open rates) and The French Laundry's chef philosophy content strategy. Builds trust through the proof progression that fine dining customers prioritize (Michelin/James Beard, sourcing practices, chef background)."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm performance",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive culinary challenges and user-generated content prompts - building community participation",
+        "Week 2: Conversation starters and preference polling - deepening relationships and gathering insights"
+      ],
+      "weekly_hooks": [
+        [
+          "Show us your most memorable dining moment - tag us and share what made it unforgettable",
+          "If you could have dinner with anyone (living or historical), who and what would you order? Tell us below",
+          "Caption this: [Behind-the-scenes photo] - funniest response gets a surprise from our chef",
+          "Your perfect celebration meal - describe it in 3 words. We'll share the best ones in Stories",
+          "What's the one dish you'd travel across the country to taste again? We want to hear your food bucket list",
+          "Tag your dining partner - the one who always knows the best places and appreciates every detail"
+        ],
+        [
+          "Help us decide: Should our next tasting menu feature [Option A] or [Option B]? Vote in Stories",
+          "What intimidates you most about fine dining? (We want to make it better) - honest answers only",
+          "Fill in the blank: The sign of an exceptional restaurant is ___________",
+          "This or that: [Ingredient A] vs [Ingredient B] / [Preparation method A] vs [Preparation method B] - vote below",
+          "What's the best advice you'd give someone dining with us for the first time? Share your tips",
+          "If our chef could teach you one technique, what would you want to learn? Top requests get tutorial videos"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address intimidation through community normalization - show diverse people enjoying and engaging",
+        "Week 2: Address accessibility by asking for feedback - demonstrate openness and willingness to adapt"
+      ],
+      "proof_timing": [
+        "Week 1: Reshare user-generated content and guest photos (with permission) as social proof",
+        "Week 2: Share poll results and community insights - prove active, engaged community exists"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in comments / Tag someone who gets it / Post your photo and tag us",
+        "Week 1: Vote in our Stories poll / DM us your answer / Use our hashtag to be featured",
+        "Week 2: Tell us what you think - your opinion shapes our experience / Join the conversation below",
+        "Week 2: Book your table and become part of our story [Reservation link] / Join our community - follow and turn on notifications"
+      ],
+      "platform_priority": [
+        "Instagram Stories (6-8 per day with polls, questions, quizzes) - highest interaction rate for engagement features",
+        "Instagram Feed (2 posts per day) - conversation-starting posts optimized for comments",
+        "Facebook (2 posts per day) - reach older demographic with discussion-prompting content",
+        "TikTok (1-2 posts per day) - duet/stitch-friendly content and trend participation",
+        "Email (1 mid-campaign) - bring email list into social conversation with exclusive poll"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Optimized for Instagram's 2.5-4.5% engagement rate for fine dining content, leveraging interactive features that boost algorithm performance. Based on platform benchmark research showing daily Stories and conversation-starting content drive highest engagement. Addresses customer voice data around wanting to feel special and part of exclusive community. Timing aligned with Tuesday-Thursday 11am-1pm and 7-9pm optimal posting windows for maximum participation."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Corporate dining isn't about impressing clients. It's about creating the environment where deals close naturally.\n\nAfter hosting 500+ corporate events, here's what separates memorable business dinners from forgettable ones:\n\nPROBLEM: Your clients have been to countless business dinners. They've sat through awkward silences, mediocre food, and transactional conversations that feel forced.\n\nAGITATE: Meanwhile, your competitors are creating experiences that build genuine relationships. They're choosing venues that do the heavy lifting—where exceptional service, ambiance, and cuisine become conversation starters, not distractions.\n\nSOLUTION: The [NUMBER] elements of business dining that builds partnerships:\n\n→ [ELEMENT 1]: [Brief explanation with specific example]\n→ [ELEMENT 2]: [Brief explanation with specific example]  \n→ [ELEMENT 3]: [Brief explanation with specific example]\n\nOur private dining team works with [CITY]'s top firms to design experiences that strengthen business relationships, not just feed them.\n\nWhat's been your most memorable business dinner? What made it work?\n\n#CorporateDining #BusinessEntertainment #[CITY]Business #ClientRelations #ExecutiveDining",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After [NUMBER] years in fine dining, I've learned this: The best restaurants don't chase trends. They set them.\n\nATTENTION: Last week, [NOTABLE PUBLICATION] featured our approach to [SPECIFIC CULINARY TECHNIQUE/PHILOSOPHY]. But what they didn't mention is why it matters to you.\n\nINTEREST: The fine dining landscape has shifted. Diners aren't just seeking Michelin stars—they're seeking authenticity, provenance, and experiences that can't be replicated at home.\n\nHere's what we're seeing:\n\n• [TREND 1] is replacing [OLD APPROACH]\n• [PERCENTAGE]% of our guests now ask about [SPECIFIC CONCERN]\n• [INGREDIENT/TECHNIQUE] has become the new benchmark for excellence\n\nDESIRE: This is why we've restructured our entire sourcing model around [SPECIFIC PHILOSOPHY]. Every ingredient tells a story—from our [SPECIFIC PARTNER] who [SPECIFIC DETAIL] to our [SEASONAL ELEMENT] that arrives within [TIMEFRAME] of harvest.\n\nACTION: For restaurateurs and hospitality leaders: How are you adapting to the modern diner's expectations? Let's discuss in the comments.\n\n#HospitalityLeadership #FineDining #CulinaryInnovation #RestaurantIndustry #[CITY]Restaurants",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Your team closed the biggest deal of the quarter. Now where do you celebrate?\n\nBEFORE: Most corporate celebrations feel like obligations. Generic private rooms, standard menus, predictable service. Your team deserves better.\n\nAFTER: Imagine your team experiencing [UNIQUE ELEMENT]—a [NUMBER]-course journey where Chef [NAME] personally presents [SIGNATURE DISH]. Where your sommelier curates pairings based on your team's preferences. Where every detail reinforces: this milestone mattered.\n\nBRIDGE: Our Corporate Celebration Program transforms achievement recognition into unforgettable experiences.\n\nWhat's included:\n→ Dedicated event coordinator from inquiry to final course\n→ Customizable [NUMBER]-[NUMBER] course menus featuring [SEASONAL ELEMENTS]\n→ Private dining spaces for [NUMBER]-[NUMBER] guests\n→ Sommelier-guided wine experiences\n→ Personalized menu cards and celebration elements\n\nLimited availability for Q[QUARTER] bookings. Our corporate clients include [NOTABLE COMPANIES/INDUSTRIES].\n\nDM me directly or visit [LINK] to discuss your next milestone celebration.\n\n#CorporateEvents #TeamCelebration #PrivateDining #[CITY]Events #BusinessMilestones",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "The difference between good plating and unforgettable plating? It's these [NUMBER] techniques Chef [NAME] uses on every dish. Swipe to see the transformation →\n\n[TECHNIQUE 1]: [Brief explanation]\n[TECHNIQUE 2]: [Brief explanation]  \n[TECHNIQUE 3]: [Brief explanation]\n\nWhich slide surprised you most? 👇\n\n[Reserve your table—link in bio]",
+        "visual": "Carousel: Slide 1 - Before/after split of same dish. Slides 2-4 - Close-up process shots showing each technique being applied. Slide 5 - Final plated masterpiece on restaurant table with ambiance. Use consistent lighting, overhead and 45-degree angles.",
+        "framework": "Educational Value"
+      },
+      "authority": {
+        "caption": "This morning's [INGREDIENT] came from [SPECIFIC SOURCE/LOCATION].\n\nBy tonight, it will be [TRANSFORMATION].\n\nThis is what [NUMBER] years of relationships with [TYPE OF PURVEYORS] looks like. This is why our menu changes with the seasons, not trends.\n\nFrom [SOURCE] to your table in [TIMEFRAME]. No shortcuts. No compromises.\n\n📍 [RESTAURANT NAME]\n🎟️ Reservations: Link in bio",
+        "visual": "Split-screen Reel: Left side shows ingredient at source (farm/boat/market) in natural morning light. Right side shows Chef [NAME] working with same ingredient in kitchen, then final plated dish. Documentary-style, authentic, minimal editing. Text overlay: 'Morning' → 'Tonight' → '[TIMEFRAME] from source to table'",
+        "framework": "Provenance Story"
+      },
+      "promotional": {
+        "caption": "Only [NUMBER] tables. One unforgettable evening.\n\n[EVENT NAME] returns [DATE]. Chef [NAME]'s [NUMBER]-course exploration of [THEME/INGREDIENT], paired with [WINE/BEVERAGE ELEMENT].\n\nLast time, we sold out in [TIMEFRAME]. This time, our guests get first access.\n\nReservations open [DATE] at [TIME]. Link in bio.\n\nWhere [CITY] celebrates [TYPE OF OCCASIONS].\n\n✨ [SPECIFIC UNIQUE ELEMENT]\n🍷 [PAIRING DETAIL]\n📅 [DATE], [TIME] seating",
+        "visual": "High-impact single image: Signature dish from previous event, shot in dramatic lighting against dark background. Plate positioned on elegant table setting with subtle candlelight. Overlay text: '[EVENT NAME] / [DATE] / Only [NUMBER] Tables'. Story stickers: Countdown timer, 'Reserve Now' link, behind-the-scenes preparation footage.",
+        "framework": "Scarcity + Exclusivity"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "Planning your anniversary dinner? Here's what fine dining insiders know (that most diners don't):\n\nAfter hosting thousands of celebrations, we've learned exactly what transforms a special dinner into an unforgettable memory.\n\n🕐 TIMING MATTERS\nBook [TIMEFRAME] in advance for weekend prime times. But here's the secret: [DAY] evenings at [TIME] offer the same exceptional experience with more availability and unhurried service.\n\n💬 COMMUNICATE YOUR STORY\nMention your celebration when booking. Our team personalizes everything from table selection to pacing. Celebrating 10 years together hits different than a first date—we adjust accordingly.\n\n🍷 TRUST YOUR SOMMELIER  \nYou don't need to be a wine expert. Share your preferences ([EXAMPLES]) and budget. Our sommeliers create pairings that enhance your meal, not intimidate you.\n\n🎯 THE MENU STRATEGY\nDietary restrictions? Allergies? Adventurous or prefer familiar? Tell us in advance. Chef [NAME] creates alternatives that match the experience, never compromise it.\n\n✨ BEYOND THE RESERVATION\nAsk about: [SPECIFIC OFFERINGS LIKE KITCHEN TOURS, CHEF INTERACTIONS, SPECIAL PREPARATIONS]\n\nWhat questions do you have about planning your celebration? Our team is here to help make it perfect.\n\nReservations: [LINK] or call [PHONE]\n\n#[CITY]Dining #AnniversaryDinner #FineDiningTips #SpecialOccasions #DateNightIdeas",
+        "framework": "Educational Value"
+      },
+      "authority": {
+        "template": "Why we're closing for [NUMBER] days next month—and what it means for you:\n\nMost restaurants never close. We're not most restaurants.\n\nEvery [TIMEFRAME], our entire team—from Chef [NAME] to our newest line cook—travels to [LOCATION/EVENT]. We visit [SPECIFIC PLACES: farms, wineries, producers]. We taste, learn, and challenge everything we think we know.\n\nThis year's focus: [SPECIFIC THEME/INGREDIENT/TECHNIQUE]\n\nWhat we're exploring:\n→ [SPECIFIC RESEARCH AREA 1]\n→ [SPECIFIC RESEARCH AREA 2]  \n→ [SPECIFIC RESEARCH AREA 3]\n\nWhen we reopen on [DATE], you'll experience the results: [SPECIFIC MENU CHANGES/NEW OFFERINGS]\n\nThis is our commitment to you. Excellence isn't maintaining standards—it's constantly raising them.\n\nOur [SEASON] menu will reflect:\n✓ New relationships with [TYPE OF PURVEYORS]\n✓ Techniques we're bringing back from [LOCATION]\n✓ Ingredients you won't find anywhere else in [CITY]\n\nWe're now accepting reservations for our reopening week. First [NUMBER] bookings receive [SPECIAL OFFERING].\n\nThis is what [NUMBER] years of [ACCOLADE] looks like. This is why [CITY] trusts us with their most important moments.\n\nReservations: [LINK]\n\n[Share this with someone who appreciates the craft behind exceptional dining]\n\n#FineDining #CulinaryExcellence #[CITY]Restaurants #ChefLife #BehindTheScenes",
+        "framework": "Authority Building"
+      },
+      "promotional": {
+        "template": "Your table is waiting. (But not for long.)\n\n[SEASONAL] Menu Preview: Available [DATE RANGE]\n\nChef [NAME] just finalized our [SEASON] menu, and it's our most ambitious yet.\n\nWhat to expect:\n\n🌿 [DISH 1 NAME]\n[Brief sensory description that creates anticipation]\n\n🍷 [DISH 2 NAME]  \n[Brief sensory description that creates anticipation]\n\n✨ [DISH 3 NAME]\n[Brief sensory description that creates anticipation]\n\nPlus [NUMBER] additional courses featuring [SPECIFIC SEASONAL INGREDIENTS] at their absolute peak.\n\nWHY NOW:\n→ [INGREDIENT 1] has a [TIMEFRAME] season\n→ [INGREDIENT 2] is only available from [SPECIFIC SOURCE] for [TIMEFRAME]\n→ This menu won't repeat—when the season changes, so do we\n\nPRICING: [NUMBER]-course tasting menu: $[PRICE] | Wine pairings: $[PRICE]\n\nAVAILABILITY: [DAY-DAY], [TIME] and [TIME] seatings\n\nOur [PREVIOUS SEASON] menu sold out [TIMEFRAME] before the season ended. If you've been waiting for the right moment—this is it.\n\nBook now: [LINK] or call [PHONE]\n\n💭 Where [CITY] celebrates:\n→ Anniversaries that deserve to be unforgettable  \n→ Clients who expect the extraordinary\n→ Moments too important for ordinary\n\nQuestions about the menu, dietary accommodations, or private dining? Comment below or DM us.\n\n#[CITY]FineDining #SeasonalMenu #TastingMenu #FoodieLife #[CITY]Eats #SpecialOccasion",
+        "framework": "Seasonal Urgency + Social Proof"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're about to spend $300 on dinner. Here's how to make sure it's worth it 👇",
+        "script": "HOOK: 'POV: You're about to spend $300 on dinner. Here's how to make sure it's worth it 👇'\n\n[TEXT OVERLAY: 'Fine dining insider secrets']\n\nSECOND 0-3: Show reservation screen/restaurant exterior\n'I've worked in Michelin restaurants for [NUMBER] years. Here's what nobody tells you:'\n\nSECOND 4-15: Quick cuts between scenes\n'1. BOOK WEIRD TIMES' [Show empty elegant dining room]\n'Tuesday 5:30pm = same food, better service, easier reservations'\n\nSECOND 16-30: Kitchen footage\n'2. TALK TO YOUR SERVER' [Show server interaction]\n'Tell them it's your anniversary. Tell them you're nervous. They WANT to make it perfect.'\n\nSECOND 31-45: Close-up dish shots\n'3. THE TASTING MENU IS THE MOVE' [Show multiple courses]\n'You get the chef's vision. You try things you'd never order. That's the whole point.'\n\nSECOND 46-60: Final plated dish, then restaurant ambiance\n'4. PUT YOUR PHONE DOWN' [Show couple enjoying meal]\n'Take ONE photo. Then be present. This is why you came.'\n\n[END SCREEN: 'Questions? Drop them below 👇' + Restaurant handle]\n\nCALL-OUT TEXT OVERLAYS: Use trending font, strategic placement on each tip",
+        "framework": "Educational Hook"
+      },
+      "authority": {
+        "hook": "This ingredient costs $[PRICE] per pound. Watch what we do with it 🤯",
+        "script": "HOOK: 'This ingredient costs $[PRICE] per pound. Watch what we do with it 🤯'\n\n[TEXT OVERLAY: 'Why fine dining costs what it costs']\n\nSECOND 0-5: Hands holding [LUXURY INGREDIENT]\n'This is [INGREDIENT] from [SPECIFIC SOURCE]. It arrived [TIMEFRAME] ago.'\n\nSECOND 6-15: Quick prep shots\n'Chef [NAME] will touch it [NUMBER] times before it reaches your table.'\n[Show: cleaning, portioning, initial prep]\n\nSECOND 16-30: Cooking process - fast cuts\n'[NUMBER] years of training for this moment.'\n[Show: specific technique, precision, focus]\n[TEXT: 'Temperature: [SPECIFIC]' 'Timing: [SPECIFIC]']\n\nSECOND 31-45: Plating sequence\n'Every element has a purpose.'\n[Show: sauce application, garnish placement, final touches]\n[TEXT: '[NUMBER] components' '[NUMBER] textures']\n\nSECOND 46-60: Final reveal + guest reaction\n'From [SOURCE] to your table. No shortcuts.'\n[Show: finished dish, ambient dining room, satisfied diner]\n\n[END SCREEN: 'This is [RESTAURANT NAME]' + booking link]\n\nAUDIO: Use trending sound or kitchen ASMR (sizzling, plating sounds)",
+        "framework": "Behind-the-Scenes Mastery"
+      },
+      "promotional": {
+        "hook": "We're only doing this [NUMBER] times. Here's why you need to be there 👀",
+        "script": "HOOK: 'We're only doing this [NUMBER] times. Here's why you need to be there 👀'\n\n[TEXT OVERLAY: '[EVENT NAME] / [DATE]']\n\nSECOND 0-5: Dramatic dish reveal\n'[NUMBER] courses. [NUMBER] tables. One night only.'\n\nSECOND 6-15: Flash through previous event footage\n'Last time we did this, it sold out in [TIMEFRAME].'\n[Show: packed dining room, happy guests, stunning dishes]\n[TEXT: 'Sold out ✓' 'Waitlist: [NUMBER] people']\n\nSECOND 16-30: This event's unique elements\n'This time: [UNIQUE ELEMENT 1]'\n[Show: specific ingredient/technique]\n'Plus: [UNIQUE ELEMENT 2]'\n[Show: chef interaction/special element]\n\nSECOND 31-45: The experience\n'What you get:'\n[Quick cuts with text overlays]\n'✓ [NUMBER]-course tasting'\n'✓ [PAIRING ELEMENT]'\n'✓ [EXCLUSIVE ELEMENT]'\n'✓ [SPECIAL TOUCH]'\n\nSECOND 46-60: Urgency + CTA\n'[NUMBER] tables total. Reservations open [DATE] at [TIME].'\n[Show: calendar, clock, reservation button]\n'Link in bio. Don't sleep on this.'\n\n[END SCREEN: '[EVENT NAME]' + '[DATE]' + 'Reserve now ↗️']\n\nVISUAL STYLE: Fast-paced, high-energy, trending transitions. Use popular audio or create anticipation with sound design.",
+        "framework": "Scarcity + FOMO"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The [NUMBER] things we wish every guest knew before their first visit",
+        "preview_text": "Make your experience unforgettable—insider tips from our team",
+        "body": "SUBJECT: The [NUMBER] things we wish every guest knew before their first visit\nPREVIEW: Make your experience unforgettable—insider tips from our team\n\n---\n\nHi [FIRST_NAME],\n\nYour reservation is [NUMBER] days away. We're already preparing to make it exceptional.\n\nBut first—a few insider tips that transform good dinners into unforgettable ones:\n\n**PROBLEM: Most guests don't know how to get the most from their fine dining experience.**\n\nWe see it constantly: Diners who feel intimidated by the wine list. Couples who rush through courses. Guests who don't mention dietary preferences until they're seated.\n\nYou're investing in this experience. Here's how to maximize it:\n\n**1. COMMUNICATE WITH US**\n→ Celebrating something? Tell us when you book\n→ Dietary needs? We need [TIMEFRAME] notice to prepare properly  \n→ Nervous about wine? That's literally what our sommelier loves most\n\n**2. TRUST THE TASTING MENU**\n→ It's Chef [NAME]'s vision, fully realized\n→ You'll try [NUMBER] dishes you'd never order solo\n→ Pacing is built in—no decision fatigue\n\n**3. ARRIVE [NUMBER] MINUTES EARLY**\n→ Settle in, have a cocktail, absorb the ambiance\n→ Rushed arrivals = rushed experiences\n→ We hold your table for [NUMBER] minutes\n\n**4. ASK QUESTIONS**\n→ How was this prepared?\n→ Where did this ingredient come from?  \n→ What's the story behind this dish?\n→ Our team loves sharing—that's part of the experience\n\n**5. BE PRESENT**\n→ One photo is fine. Twenty photos disrupts your experience\n→ This is why you came—to disconnect and savor\n\nYOUR RESERVATION DETAILS:\n📅 [DATE] at [TIME]\n👥 Party of [NUMBER]\n📍 [ADDRESS]\n\nQuestions before you arrive? Simply reply to this email.\n\nWe're looking forward to hosting you.\n\n[SIGNATURE]\n[NAME], [TITLE]\n[RESTAURANT NAME]\n\nP.S. If this is a special occasion, reply and let us know. We love making moments memorable.\n\n[FOOTER: Modify reservation | Dietary preferences | Contact us]"
+      },
+      "authority": {
+        "subject": "[ACCOLADE]: What this means for your next visit",
+        "preview_text": "How [AWARD/RECOGNITION] changes everything (and nothing)",
+        "body": "SUBJECT: [ACCOLADE]: What this means for your next visit\nPREVIEW: How [AWARD/RECOGNITION] changes everything (and nothing)\n\n---\n\nDear [FIRST_NAME],\n\n**ATTENTION: Yesterday, [AWARDING ORGANIZATION] announced [SPECIFIC ACCOLADE].**\n\nWe're honored. Humbled. And honestly, a little overwhelmed by your messages of congratulations.\n\nBut here's what we want you to know:\n\n**INTEREST: This recognition validates what you already knew.**\n\nYou've been celebrating your anniversaries here. Bringing your most important clients. Trusting us with your milestone moments.\n\nThe [ACCOLADE] doesn't change our commitment to you—it confirms it.\n\nWhat the [JUDGES/ORGANIZATION] recognized:\n→ Our [TIMEFRAME] relationships with [TYPE] purveyors\n→ Chef [NAME]'s approach to [SPECIFIC PHILOSOPHY]\n→ The [NUMBER] hours our team invests in [SPECIFIC DETAIL]\n→ Our obsession with [SPECIFIC ELEMENT]\n\n**DESIRE: Here's what DOES change:**\n\nStarting [DATE], we're introducing:\n\n✨ **[NEW OFFERING 1]**\n[Brief description of enhanced experience]\n\n✨ **[NEW OFFERING 2]**  \n[Brief description of new menu element/service]\n\n✨ **[NEW OFFERING 3]**\n[Brief description of exclusive access/benefit]\n\n**ACTION: You get first access.**\n\nBefore we announce publicly, our loyal guests get priority reservations for:\n\n→ [SPECIAL EVENT/MENU] on [DATE]\n→ [EXCLUSIVE OFFERING] available [TIMEFRAME]\n→ [UNIQUE EXPERIENCE] limited to [NUMBER] guests\n\nBook by [DATE] using code: [CODE]\n\n[RESERVE NOW BUTTON]\n\nThis [ACCOLADE] belongs to you as much as us. You've been here since [TIMEFRAME/MILESTONE]. You've trusted us with your most important moments. You've told your friends, brought your family, and returned again and again.\n\nThank you for making us [CITY]'s choice for celebrations that matter.\n\nGratefully,\n\n[SIGNATURE]\nChef [NAME] and the entire [RESTAURANT NAME] team\n\nP.S. Want to experience what earned us [ACCOLADE]? Our [SIGNATURE TASTING MENU] is available [DAYS], [TIMES]. [BOOK NOW LINK]\n\n[FOOTER: View our accolades | Press coverage | Share your [RESTAURANT] memory]"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your table awaits (but only for [TIMEFRAME])",
+        "preview_text": "[SEASONAL] menu preview—[NUMBER] tables left for opening week",
+        "body": "SUBJECT: [FIRST_NAME], your table awaits (but only for [TIMEFRAME])\nPREVIEW: [SEASONAL] menu preview—[NUMBER] tables left for opening week\n\n---\n\nHi [FIRST_NAME],\n\n**BEFORE:** Another season, another menu, another reservation.\n\n**AFTER:** The dinner that becomes the story you tell for years.\n\n**BRIDGE:** The difference? Timing.\n\nOur [SEASON] menu debuts [DATE]. And right now, you have first access.\n\n**WHAT CHEF [NAME] HAS CREATED:**\n\n🌿 **[COURSE 1]**\n[INGREDIENT] from [SOURCE] | [TECHNIQUE] | [PAIRING]\n[One-line sensory description]\n\n🍷 **[COURSE 2]**  \n[INGREDIENT] from [SOURCE] | [TECHNIQUE] | [PAIRING]\n[One-line sensory description]\n\n✨ **[COURSE 3]**\n[INGREDIENT] from [SOURCE] | [TECHNIQUE] | [PAIRING]\n[One-line sensory description]\n\n→ Plus [NUMBER] additional courses featuring ingredients at their absolute peak\n\n**WHY THIS MENU MATTERS:**\n\n→ [INGREDIENT 1] has a [TIMEFRAME] season—when it's gone, it's gone\n→ [INGREDIENT 2] only reaches this quality for [TIMEFRAME]  \n→ [UNIQUE ELEMENT] available exclusively [TIMEFRAME]\n→ This exact menu will never repeat\n\n**YOUR PRIORITY ACCESS:**\n\n✓ Book before [DATE] for opening week ([DATE RANGE])\n✓ [BENEFIT 1 for early bookers]\n✓ [BENEFIT 2 for early bookers]\n✓ Flexible modification until [TIMEFRAME] before reservation\n\n**AVAILABILITY:**\n→ [DAY-DAY] | [TIME] and [TIME] seatings\n→ [NUMBER]-course tasting: $[PRICE]\n→ Wine pairings: $[PRICE]\n→ Only [NUMBER] tables per service\n\n[RESERVE YOUR TABLE - BUTTON]\n\n**THIS IS FOR:**\n→ The anniversary that deserves more than ordinary\n→ The client meeting that needs to impress  \n→ The celebration you'll remember decades from now\n→ The 'we finally did it' moment\n\nLast season, our [PREVIOUS SEASONAL] menu sold out [TIMEFRAME] before the season ended. Guests who waited missed [SPECIFIC DISH/INGREDIENT].\n\nDon't let that be you.\n\nYour table is ready. The season won't wait.\n\n[RESERVE NOW - BUTTON]\n\nQuestions? Simply reply—our team responds within [TIMEFRAME].\n\nTo unforgettable moments,\n\n[SIGNATURE]\n[NAME], [TITLE]\n[RESTAURANT NAME]\n\nP.S. Bringing guests with dietary restrictions? Mention it when you book. Chef [NAME] creates alternatives that match the experience, never compromise it.\n\n[FOOTER: View full menu | Private dining | Gift certificates | Modify preferences]"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "Only [12] tables available for our [Winter Truffle] tasting menu - reservations open [December 1st]",
+      "[3] Michelin stars, [1] unforgettable evening - now booking [Spring 2024]",
+      "[7] courses that turned a [first date] into an engagement story"
+    ],
+    "question_hooks": [
+      "Are you tired of [anniversary dinners] that feel like just another meal?",
+      "Is your [client dinner] important enough to risk on an untested restaurant?",
+      "Are you worried [spending this much] won't deliver the wow factor you need?"
+    ],
+    "story_hooks": [
+      "How a [nervous proposal] became the most magical moment of their lives with our [chef's table experience]",
+      "How [one corporate dinner] landed the biggest deal of the year and became their go-to celebration spot",
+      "How we transformed a [dietary restriction concern] into the most memorable tasting menu they've ever experienced"
+    ],
+    "fear_hooks": [
+      "Is your [anniversary celebration] at risk of feeling like every other [boring date night]?",
+      "Could your [important client dinner] fall flat because the restaurant doesn't live up to the hype?",
+      "Is your [special occasion] going to be ruined by [rushed service] and [cookie-cutter experiences]?"
+    ],
+    "howto_hooks": [
+      "How to [impress out-of-town guests] without [worrying about restaurant quality]",
+      "How to [celebrate your milestone] without [feeling like just another table]",
+      "How to [navigate our wine list] without [sommelier intimidation] - your personal guide included"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're wondering if fine dining is actually worth $300",
+      "body": "Shot 1 (0-3s): Close-up of bill with price circled. Shot 2 (4-15s): Time-lapse of chef hand-making pasta from scratch, 47 steps shown in fast motion. Shot 3 (16-30s): Split screen showing grocery store tomato vs. heirloom tomato from local farm with farmer cameo. Shot 4 (31-45s): Reveal full 9-course progression with voiceover: 'You're not paying for food. You're paying for 6 hours of prep, 15 years of training, and ingredients you can't buy.' Shot 5 (46-60s): Final plating shot with text overlay showing breakdown: $80 ingredients, $120 labor/expertise, $100 experience/ambiance.",
+      "cta": "Book your once-in-a-lifetime experience. Link in bio."
+    },
+    "reels": {
+      "hook": "First time at a Michelin restaurant? Here's what they won't tell you.",
+      "body": "Shot 1 (0-2s): Nervous diner looking at menu. Shot 2 (3-10s): Quick cuts with text overlays: 'Ask questions - chefs LOVE talking food' 'No wrong wine choice - that's what sommeliers are for' 'Dress code? Business casual is fine'. Shot 3 (11-20s): Show relaxed, smiling diners being guided by staff. Shot 4 (21-28s): Beautiful dish reveal with text: 'You belong here.' Shot 5 (29-30s): Logo and reservation link.",
+      "cta": "Ready for your first Michelin experience? Reserve now."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Share a photo of your most memorable dish from your visit and tell us which course surprised you most. Tag us for a chance to win a complimentary wine pairing on your next reservation.",
+      "hashtag": "#WorthEveryBite"
+    },
+    {
+      "prompt": "Record a 15-second reaction video of your favorite moment from your evening - could be a dish reveal, an amuse-bouche surprise, or the ambiance. Best reactions featured in our monthly guest spotlight.",
+      "hashtag": "#FineDiningMoment"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Price breakdown transparency series - show exactly where your $250 per person goes: $65 ingredients with farmer stories, $95 labor showing 18-hour prep days, $45 ambiance/rent, $45 service training. Film in documentary style with real numbers on screen.",
+      "why": "Addresses biggest objection (price anxiety), educational, builds trust, shareable to justify spending to partners, fills competitive gap around transparent value communication"
+    },
+    {
+      "angle": "Staff transformation stories - '5 years ago I was washing dishes, today I'm your sous chef' series featuring real team members' journey from entry-level to expertise, showing the human investment behind each plate.",
+      "why": "Humanizes the experience, creates emotional connection, differentiates from competitors, taps into underdog narrative, highly shareable feel-good content, addresses 'pretentious' objection"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:39:35.505Z",
+    "last_tier2_refresh": "2025-11-27T21:39:35.505Z",
+    "last_tier3_refresh": "2025-11-27T21:39:35.505Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:39:35.505Z"
+  }
+}

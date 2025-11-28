@@ -1,0 +1,1711 @@
+{
+  "industry": "Dry Cleaning/Laundry",
+  "industry_name": "Dry Cleaning/Laundry",
+  "naics_code": "812320",
+  "category": "Personal Services",
+  "subcategory": "Garment Care Services",
+  "customer_triggers": [
+    {
+      "trigger": "Wine spill on expensive dress at dinner party",
+      "urgency": 10,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Job interview tomorrow with only wrinkled suit available",
+      "urgency": 10,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Wedding or formal event within 72 hours",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Return from business trip with week's worth of laundry",
+      "urgency": 6,
+      "frequency": "Bi-weekly"
+    },
+    {
+      "trigger": "Seasonal wardrobe changeover requiring bulk cleaning",
+      "urgency": 5,
+      "frequency": "Bi-annual"
+    },
+    {
+      "trigger": "Moving or downsizing requiring garment preparation",
+      "urgency": 7,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Discovery of moth damage or mustiness in stored clothes",
+      "urgency": 8,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Partner mentions appearance concerns about clothing",
+      "urgency": 7,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Overwhelming household laundry exceeding 3+ loads",
+      "urgency": 6,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Special care fabric requiring professional handling",
+      "urgency": 8,
+      "frequency": "Monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer discovers stain or realizes important garment needs professional care, searches 'dry cleaner near me' or 'same day dry cleaning' on Google. Compares 2-3 options based on proximity, reviews averaging 4+ stars, and visible pricing. Increasingly considers pickup/delivery options after seeing 40% of competitors offer this service.",
+    "consideration": "Evaluates based on turnaround time (24-48 hours standard vs same-day premium), pricing transparency, specialty services like wedding dress preservation or leather cleaning, and convenience factors including parking availability and hours. Reads detailed reviews about garment damage, lost items, and customer service responses.",
+    "decision": "Chooses cleaner offering needed turnaround time with clear pricing, often influenced by first-time customer discounts of 20-30% or free pickup/delivery trial. Location within 5 minutes or delivery option seals decision for 65% of new customers. Online scheduling capability increases conversion by 40%.",
+    "retention": "Returns when cleaner maintains consistent quality, remembers preferences like starch level or hanging specifications, and offers loyalty benefits. Text notifications for ready items and automatic monthly billing for regular customers strengthen retention. Average customer lifetime extends from 18 to 36 months with subscription model.",
+    "advocacy": "Recommends after exceptional stain removal, saving expensive garment, or outstanding customer service during crisis. Shares positive experiences in neighborhood groups when cleaner handles wedding dress or difficult restoration perfectly. Each satisfied customer generates average 1.8 referrals within first year."
+  },
+  "transformations": [
+    {
+      "from": "Professional with wrinkled, stained wardrobe",
+      "to": "Confident executive with impeccable appearance",
+      "emotional_value": "Career advancement potential",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed parent drowning in laundry",
+      "to": "Organized household with time for family",
+      "emotional_value": "8+ hours weekly time savings",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about ruined expensive garment",
+      "to": "Relieved with restored designer piece",
+      "emotional_value": "Saved $500+ replacement cost",
+      "worth_premium": true
+    },
+    {
+      "from": "Embarrassed by clothing appearance",
+      "to": "Proud of professional presentation",
+      "emotional_value": "Social confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Struggling with specialty fabric care",
+      "to": "Confident in garment longevity",
+      "emotional_value": "Investment protection",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about event preparation",
+      "to": "Ready with perfectly prepared outfit",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Guilty about environmental impact",
+      "to": "Eco-conscious with green cleaning",
+      "emotional_value": "Environmental responsibility",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Garments ready within promised timeframe",
+      "timeframe": "Per order",
+      "measurable": true
+    },
+    {
+      "metric": "Zero damage or loss claims per 100 items",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Stain removal success rate above 85%",
+      "timeframe": "Per item",
+      "measurable": true
+    },
+    {
+      "metric": "Customer returns within 30 days",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Same-day turnaround availability when needed",
+      "timeframe": "Daily",
+      "measurable": true
+    },
+    {
+      "metric": "Accurate preference memory (starch, creases, etc.)",
+      "timeframe": "Per visit",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Job interview or important presentation within 24 hours requiring professional appearance",
+    "Wedding, funeral, or formal event tomorrow with no backup outfit available",
+    "Discovered stain on only appropriate outfit hours before crucial meeting",
+    "Moving or travel deadline requiring bulk cleaning within 48 hours",
+    "Seasonal storage deadline before moth damage or mildew risk increases",
+    "Insurance claim requiring professional cleaning documentation within 72 hours",
+    "Special garment sale or donation deadline requiring preparation"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Dry cleaning is too expensive for regular use",
+      "response": "Our subscription plans reduce per-item costs by 35%, and proper professional care extends garment life by 3x, actually saving you $2,000+ annually on clothing replacement. Plus, the time you save - 6 hours weekly - is worth far more than the service cost.",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I can wash everything at home",
+      "response": "Home washing reduces garment lifespan by 50% and can't handle 30% of modern fabrics properly. Professional cleaning removes 99% of bacteria and allergens, preserves fabric integrity, and maintains garment shape and color. One ruined $200 dress covers months of professional service.",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "I don't trust cleaners with expensive items",
+      "response": "We're insured for $1 million per item, use individual barcode tracking, and have handled over 50,000 luxury garments with 99.97% success rate. Our specialists are certified in haute couture care, and we offer photographic documentation of your items' condition.",
+      "effectiveness": 8.6
+    },
+    {
+      "objection": "Too inconvenient to drop off and pick up",
+      "response": "Our free pickup and delivery service saves you 45 minutes per trip. Schedule online in 30 seconds, we pick up from your doorstep, and return within 48 hours. With our route density, delivery actually costs us less than maintaining storefront hours.",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "Chemicals are bad for health and environment",
+      "response": "We use GreenEarth® silicon-based cleaning, certified by EPA as environmentally safe. It's odorless, gentle on fabrics, and leaves no chemical residue. Our process uses 50% less energy than home washing and recycles 95% of solvents.",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Takes too long when I need things quickly",
+      "response": "We offer guaranteed same-day service until 10 AM, 2-hour rush service for emergencies, and maintain 95% on-time delivery rate. Our app shows real-time order status, and VIP members get priority processing cutting standard times by 50%.",
+      "effectiveness": 7.8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction guarantee with free re-cleaning",
+      "Garment replacement guarantee up to $1,000 per item",
+      "On-time delivery promise or 50% discount",
+      "Stain removal guarantee or no charge",
+      "Missing button or repair replacement at no cost"
+    ],
+    "proof_points": [
+      "$1 million garment protection insurance",
+      "4.7-star rating from 3,000+ verified customers",
+      "Certified Master Drycleaner on staff",
+      "Member of Drycleaning & Laundry Institute",
+      "15 years serving community with same ownership"
+    ],
+    "risk_mitigation": [
+      "Photo documentation of items upon receipt",
+      "24-hour customer service response guarantee",
+      "Individual item tracking with barcode system",
+      "Specialist consultation for challenging items",
+      "Clear care labels and process explanation"
+    ]
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stained",
+      "wrinkled",
+      "smelly",
+      "ruined",
+      "shrunken",
+      "faded",
+      "piling up",
+      "no time",
+      "expensive mistake",
+      "special occasion",
+      "don't know how",
+      "delicate fabric"
+    ],
+    "solution_words": [
+      "pristine",
+      "professional",
+      "convenient",
+      "expert care",
+      "like new",
+      "fresh",
+      "pressed",
+      "restored",
+      "protected",
+      "ready",
+      "pickup and delivery",
+      "eco-friendly",
+      "trusted",
+      "guaranteed"
+    ],
+    "avoid_jargon": [
+      "perchloroethylene",
+      "hydrocarbon",
+      "wet cleaning",
+      "spotting",
+      "pressing",
+      "blocking",
+      "sizing",
+      "solvents",
+      "tensioning",
+      "curing",
+      "distillation"
+    ]
+  },
+  "power_words": [
+    "pristine",
+    "restored",
+    "convenient",
+    "expert",
+    "guaranteed",
+    "professional",
+    "express",
+    "luxury",
+    "impeccable",
+    "fresh",
+    "crisp",
+    "delivered",
+    "sustainable",
+    "trusted",
+    "flawless",
+    "premium",
+    "seamless",
+    "spotless",
+    "revived",
+    "protected",
+    "personalized",
+    "effortless",
+    "reliable",
+    "certified",
+    "meticulous",
+    "exclusive",
+    "transformed",
+    "preserved",
+    "radiant"
+  ],
+  "avoid_words": [
+    "chemical",
+    "toxic",
+    "shrink",
+    "fade",
+    "damage",
+    "lost",
+    "delayed",
+    "forgotten",
+    "expensive",
+    "complicated",
+    "harsh",
+    "odor",
+    "residue",
+    "wrinkled",
+    "mistake",
+    "ruined",
+    "cheap",
+    "slow",
+    "inconvenient",
+    "risky"
+  ],
+  "headline_templates": [
+    {
+      "template": "Free Pickup & Delivery - Dry Cleaning Made Easy",
+      "expected_ctr": 5.2,
+      "use_case": "Service awareness"
+    },
+    {
+      "template": "Save 30% on Your First Dry Cleaning Order",
+      "expected_ctr": 6.1,
+      "use_case": "New customer acquisition"
+    },
+    {
+      "template": "Same-Day Dry Cleaning - Ready by 5 PM",
+      "expected_ctr": 7.3,
+      "use_case": "Urgency-driven"
+    },
+    {
+      "template": "Eco-Friendly Dry Cleaning in [City] - No Harsh Chemicals",
+      "expected_ctr": 4.8,
+      "use_case": "Environmental conscious"
+    },
+    {
+      "template": "Why 5,000 [City] Professionals Trust Us With Their Wardrobe",
+      "expected_ctr": 4.2,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Wedding Dress Cleaning & Preservation Experts",
+      "expected_ctr": 3.9,
+      "use_case": "Specialty service"
+    },
+    {
+      "template": "Unlimited Dry Cleaning for $99/Month",
+      "expected_ctr": 5.7,
+      "use_case": "Subscription promotion"
+    },
+    {
+      "template": "Remove Any Stain or It's Free - Guaranteed",
+      "expected_ctr": 6.5,
+      "use_case": "Risk reversal"
+    },
+    {
+      "template": "Download App, Get 50% Off First Order",
+      "expected_ctr": 7.8,
+      "use_case": "App adoption"
+    },
+    {
+      "template": "24-Hour Turnaround on All Dry Cleaning",
+      "expected_ctr": 5.3,
+      "use_case": "Speed emphasis"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Schedule Free Pickup",
+      "conversion_rate": 4.8,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 3.9,
+      "placement": "Pricing page"
+    },
+    {
+      "template": "Start Free Trial",
+      "conversion_rate": 6.2,
+      "placement": "Subscription offer"
+    },
+    {
+      "template": "Book Rush Service",
+      "conversion_rate": 7.1,
+      "placement": "Emergency service"
+    },
+    {
+      "template": "Download App & Save",
+      "conversion_rate": 5.5,
+      "placement": "Mobile promotion"
+    },
+    {
+      "template": "Claim 30% Discount",
+      "conversion_rate": 6.8,
+      "placement": "First-time offer"
+    },
+    {
+      "template": "See Price List",
+      "conversion_rate": 3.2,
+      "placement": "Service menu"
+    },
+    {
+      "template": "Chat With Expert",
+      "conversion_rate": 4.3,
+      "placement": "Specialty items"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🧺 Laundry piling up? Let us handle it! Free pickup & delivery, professional cleaning, and your clothes back in 48 hours. First order 30% off: [link]",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "From stained to stunning! ✨ Watch this wine stain disappear like magic. Book your pickup today - link in bio! #DryCleaningMagic #LaundryDay #[City]Business",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Busy professionals: Reclaim 5 hours weekly with our corporate laundry service. Pickup from office, delivered pressed and ready. Ask about corporate accounts.",
+      "engagement_rate": 2.4
+    },
+    {
+      "platform": "Twitter",
+      "template": "Interview tomorrow? We offer same-day dry cleaning until 10 AM. Your success is our priority. Book now: [link] 🎯",
+      "engagement_rate": 1.9
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! Family-owned dry cleaner here for 15 years. Offering 30% off for new customers and free pickup/delivery in [neighborhood]. Let us help with your garment care!",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐⭐⭐⭐⭐ Thank you for 1000+ 5-star reviews! Celebrating with 25% off all services this week. Book online: [link]",
+      "engagement_rate": 4.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You spilled coffee on your white shirt... 😱 Watch our stain removal magic! #LaundryHacks #StainRemoval #CleanTok",
+      "engagement_rate": 11.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Ultimate Stain Removal Guide - Save this for emergencies! 📌 Professional tips from master dry cleaners.",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "YouTube Community",
+      "template": "New video: 5 Fabrics You Should NEVER Wash at Home! What's your worst laundry disaster? Comment below! 👇",
+      "engagement_rate": 5.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Save 5+ hours weekly with free pickup and delivery service",
+      "rank": 1,
+      "differentiator": "Only cleaner with same-day pickup scheduling"
+    },
+    {
+      "prop": "Extend garment life by 3x with professional fabric care",
+      "rank": 2,
+      "differentiator": "Certified Master Drycleaner on staff"
+    },
+    {
+      "prop": "100% eco-friendly cleaning with no toxic chemicals",
+      "rank": 3,
+      "differentiator": "GreenEarth® certified facility"
+    },
+    {
+      "prop": "Guaranteed stain removal or your money back",
+      "rank": 4,
+      "differentiator": "Industry-leading 95% success rate"
+    },
+    {
+      "prop": "24-hour standard turnaround with real-time tracking",
+      "rank": 5,
+      "differentiator": "Automated notification system"
+    },
+    {
+      "prop": "Subscription plans saving 35% for regular users",
+      "rank": 6,
+      "differentiator": "Flexible pause/resume options"
+    },
+    {
+      "prop": "Specialist care for luxury and vintage garments",
+      "rank": 7,
+      "differentiator": "Museum-quality preservation techniques"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your wardrobe care with our concierge dry cleaning service. Our Master Cleaners treat each garment as a masterpiece, using museum-quality techniques and eco-luxury processes. From haute couture to heirloom pieces, experience the gold standard in garment care with white-glove pickup service and meticulous attention to detail that discerning clients expect.",
+    "budget_conscious": "Quality dry cleaning doesn't mean breaking the bank. Our efficient processes and subscription plans make professional garment care affordable for everyone. Save 35% with our monthly plans, enjoy free pickup/delivery, and protect your clothing investment without the premium price tag. Real care, honest prices, no compromises on quality.",
+    "enterprise": "Streamline your company's garment care with our corporate solutions. From uniform management to executive wardrobe services, we handle volume efficiently while maintaining premium standards. Consolidated billing, dedicated account management, and employee perks programs available. Reduce administrative burden while ensuring your team always looks professional."
+  },
+  "trust_signals": [
+    {
+      "signal": "Before/after photos of challenging stain removals",
+      "importance": 9,
+      "format": "Website gallery and social media"
+    },
+    {
+      "signal": "Insurance certificates and bonding documentation",
+      "importance": 10,
+      "format": "Displayed in store and online"
+    },
+    {
+      "signal": "Industry certifications and association memberships",
+      "importance": 8,
+      "format": "Wall display and website badges"
+    },
+    {
+      "signal": "Real-time order tracking system",
+      "importance": 7,
+      "format": "Mobile app and SMS updates"
+    },
+    {
+      "signal": "Transparent pricing with no hidden fees",
+      "importance": 9,
+      "format": "Online price calculator"
+    },
+    {
+      "signal": "Local business awards and recognition",
+      "importance": 6,
+      "format": "Trophy display and press mentions"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "3,000+ five-star reviews across all platforms",
+      "credibility_score": 9,
+      "context": "Verified customer feedback"
+    },
+    {
+      "stat": "99.97% garment safety record over 50,000 items",
+      "credibility_score": 10,
+      "context": "Insurance claim data"
+    },
+    {
+      "stat": "85% customer retention rate",
+      "credibility_score": 8,
+      "context": "3-year customer analysis"
+    },
+    {
+      "stat": "Average customer saves $1,200 annually on clothing replacement",
+      "credibility_score": 7,
+      "context": "Customer survey data"
+    },
+    {
+      "stat": "15-minute average pickup response time",
+      "credibility_score": 6,
+      "context": "Route optimization metrics"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Hand-finishing, individual inspection, designer brand expertise, climate-controlled storage",
+    "Standard: Machine pressing, quality control checks, brand knowledge, proper storage",
+    "Budget: Basic cleaning, standard pressing, bulk processing, simple packaging",
+    "Excellence: Detailed invoicing, garment photography, personal preferences noted, consistent results"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 1,
+    "trigger_event": "Day after delivery when customer sees transformed garments",
+    "ask_method": "Email with before/after photos and one-click review request, 10% future discount incentive"
+  },
+  "competitive_advantages": [
+    "Only cleaner offering true 24-hour turnaround with tracking",
+    "Exclusive GreenEarth® certified facility in market area",
+    "Master Drycleaner certification holder on staff",
+    "Integrated app with photo documentation and preferences",
+    "Only service with evening and weekend delivery windows"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show premium shirt service at $15 first, making $7 standard price seem reasonable",
+    "sensitivity": "Price breaks at $49, $99, and $199 align with expense approval levels",
+    "sweet_spots": [
+      "$6-8 per shirt",
+      "$12-15 per pants",
+      "$25-35 per suit",
+      "$15-20 per dress"
+    ],
+    "decoy_pricing": "Offer 'Express Clean' at $12 to make $15 'Premium Care' with extras seem better value"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 100,
+    "approval_required": 150,
+    "competitor_research": 75
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 2,
+    "weekend": 1.5,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic",
+      "price_range": "$5-10/item",
+      "target_customer": "Price-conscious regular maintenance",
+      "margin": 30
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$12-20/item",
+      "target_customer": "Quality-focused professionals",
+      "margin": 50
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$25-50/item",
+      "target_customer": "High-end garment owners",
+      "margin": 65
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Route density optimization reducing delivery costs by 40% per stop",
+    "Subscription model improving cash flow and reducing acquisition costs",
+    "Bulk processing during off-peak hours maximizing equipment utilization",
+    "Specialty service upsells with 70% margins on stain treatment",
+    "Supply buying cooperatives reducing chemical costs by 25%",
+    "Automated sorting and tagging reducing labor by 2 hours daily"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -20,
+      "reason": "Post-holiday budget recovery",
+      "opportunity": "New Year organization promotions"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Low formal events",
+      "opportunity": "Valentine's Day date night specials"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring wardrobe transition",
+      "opportunity": "Winter storage services"
+    },
+    {
+      "month": "April",
+      "variation": 25,
+      "reason": "Spring events and weddings begin",
+      "opportunity": "Wedding party group discounts"
+    },
+    {
+      "month": "May",
+      "variation": 30,
+      "reason": "Graduation and wedding season",
+      "opportunity": "Formal wear packages"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Peak wedding season",
+      "opportunity": "Bridal preservation services"
+    },
+    {
+      "month": "July",
+      "variation": -10,
+      "reason": "Summer casual wear period",
+      "opportunity": "Vacation prep bundles"
+    },
+    {
+      "month": "August",
+      "variation": 5,
+      "reason": "Back-to-work preparation",
+      "opportunity": "Professional wardrobe refresh"
+    },
+    {
+      "month": "September",
+      "variation": 20,
+      "reason": "Fall wardrobe transition",
+      "opportunity": "Summer storage services"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Holiday party season begins",
+      "opportunity": "Event wear specials"
+    },
+    {
+      "month": "November",
+      "variation": 25,
+      "reason": "Holiday events increase",
+      "opportunity": "Table linen services"
+    },
+    {
+      "month": "December",
+      "variation": 40,
+      "reason": "Peak holiday parties",
+      "opportunity": "Rush service premiums"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Weekend event recovery",
+      "avoid": "Early morning rush",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Regular maintenance drop-offs",
+      "avoid": "Delivery windows",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week pickups",
+      "avoid": "Nothing specific",
+      "conversion_rate": 4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend prep orders",
+      "avoid": "Late pickup slots",
+      "conversion_rate": 5.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Rush services for weekend",
+      "avoid": "After 4 PM",
+      "conversion_rate": 6.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Bulk household orders",
+      "avoid": "Rush services",
+      "conversion_rate": 5.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Week prep services",
+      "avoid": "Morning slots",
+      "conversion_rate": 4.5
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Avoid promotions on 1st and 15th, target 5th-12th and 20th-27th for best response",
+    "cash_flow_peaks": "Subscription renewals highest on 3rd-5th after payday deposits clear",
+    "slow_periods": "Days 25-30 show 35% lower order volume except for emergency services"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 7-9 AM",
+      "crisis_type": "Weekend stain discovery",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Thursday 5-7 PM",
+      "crisis_type": "Friday meeting prep",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Event minus 24 hours",
+      "crisis_type": "Formal wear emergency",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Work week preparation",
+      "premium_multiplier": 1.6
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Wash & Fold",
+      "components": [
+        "Washing",
+        "Drying",
+        "Folding",
+        "Packaging"
+      ],
+      "pricing_model": "Per pound $1.50-2.50",
+      "margin": 35
+    },
+    {
+      "name": "Professional Package",
+      "components": [
+        "5 shirts",
+        "2 suits",
+        "2 pants",
+        "Free pickup/delivery"
+      ],
+      "pricing_model": "Bundle $75/week",
+      "margin": 45
+    },
+    {
+      "name": "Executive Unlimited",
+      "components": [
+        "Unlimited items",
+        "Priority service",
+        "Storage",
+        "Repairs included"
+      ],
+      "pricing_model": "Subscription $299/month",
+      "margin": 55
+    },
+    {
+      "name": "Household Bundle",
+      "components": [
+        "All family laundry",
+        "Linens",
+        "Comforters",
+        "Weekly service"
+      ],
+      "pricing_model": "Flat rate $150/week",
+      "margin": 40
+    }
+  ],
+  "upsell_paths": [
+    "Single item → 5-item bundle for 20% off → Weekly service subscription",
+    "Basic cleaning → Add pressing for $3 → Premium hand-finishing for $5",
+    "Shirt service → Add suit cleaning → Complete wardrobe management",
+    "One-time → 10-visit package → Monthly unlimited subscription",
+    "Individual → Household account → Referral to office colleagues",
+    "Standard turnaround → Rush service → VIP priority access"
+  ],
+  "retention_hooks": [
+    "Automatic 10% discount applied after 10 visits building loyalty",
+    "Birthday month free cleaning of one special garment",
+    "Preference profile maintained for consistent service across visits",
+    "VIP status with priority scheduling after 6 months",
+    "Seasonal reminders for wardrobe storage and retrieval",
+    "Exclusive access to same-day slots for regular customers",
+    "Annual garment inspection and preservation consultation free"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both parties receive $20 credit",
+      "timing": "After first successful order",
+      "incentive": "$20 each",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Office group signup discount",
+      "timing": "Corporate outreach",
+      "incentive": "25% off for 5+ signups",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Social media share rewards",
+      "timing": "After positive review",
+      "incentive": "$5 per share",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Apartment building exclusive deals",
+      "timing": "Property partnership",
+      "incentive": "Building-wide 20% discount",
+      "conversion_rate": 35
+    },
+    {
+      "strategy": "Wedding party packages",
+      "timing": "Bridal service booking",
+      "incentive": "Group rates for party",
+      "conversion_rate": 55
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Alteration services",
+      "attach_rate": 25,
+      "timing": "During fitting check"
+    },
+    {
+      "service": "Leather and suede cleaning",
+      "attach_rate": 30,
+      "timing": "Seasonal transitions"
+    },
+    {
+      "service": "Wedding dress preservation",
+      "attach_rate": 65,
+      "timing": "Post-wedding cleaning"
+    },
+    {
+      "service": "Rug and curtain cleaning",
+      "attach_rate": 20,
+      "timing": "Spring/fall cleaning"
+    },
+    {
+      "service": "Shoe repair and cleaning",
+      "attach_rate": 35,
+      "timing": "With suit cleaning"
+    },
+    {
+      "service": "Storage services",
+      "attach_rate": 40,
+      "timing": "Seasonal changeover"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Corporate uniform management",
+      "market_size": "$500K annual contracts",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Airbnb linen service",
+      "market_size": "200+ properties locally",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Restoration services",
+      "market_size": "$100K insurance claims",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Mobile app with AI stain identification",
+      "market_size": "Digital transformation",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Subscription wardrobe management",
+      "market_size": "$200-500/month clients",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Hotel and restaurant linen contracts",
+      "market_size": "$1M+ B2B market",
+      "difficulty": 7
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Mulberrys Cleaners 'Stain of the Week' educational series on Instagram showing before/after transformations of difficult stains with detailed explanations of cleaning processes",
+        "platform": "Instagram",
+        "why_it_worked": "Educational content combined with visual proof, builds trust through transparency, creates anticipation with weekly cadence, uses carousel format to show process steps",
+        "metrics": "Average 3-5x higher engagement than standard posts, 200-400 likes per post, strong save rates",
+        "source": "Instagram @mulberryscleaners, Social media marketing case studies for service businesses",
+        "confidence": "high"
+      },
+      {
+        "example": "Tide Cleaners' TikTok videos showing 'oddly satisfying' wrinkle removal and stain disappearing in time-lapse format, often set to trending audio",
+        "platform": "TikTok",
+        "why_it_worked": "Taps into ASMR and satisfaction trend, uses platform-native format, leverages trending sounds, short-form visual content perfect for the transformation narrative",
+        "metrics": "Videos regularly achieve 10K-50K+ views, 500-2000 likes, strong completion rates",
+        "source": "TikTok @tidecleaners, dry cleaning industry social media analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "ZIPS Cleaners email campaign offering 'First Day Back to Work' discount after major holidays with subject line 'Your Suits Miss You (And We Do Too)'",
+        "platform": "Email",
+        "why_it_worked": "Timing aligned with customer need (post-holiday return to office), personable tone, clear value proposition, addresses specific pain point of wrinkled work clothes after time off",
+        "metrics": "28% open rate (vs 21% industry average), 4.2% click-through rate",
+        "source": "Email marketing benchmarks for service industries, dry cleaning association reports",
+        "confidence": "medium"
+      },
+      {
+        "example": "Lapels Dry Cleaning franchise locations using Google My Business posts highlighting same-day service with customer testimonials and specific turnaround times",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Addresses high-urgency customer triggers, appears in local search at moment of need, social proof from real customers, specific service promise builds trust",
+        "metrics": "Locations using weekly GMB posts see 35% more direction requests and 25% more calls",
+        "source": "Local service business marketing studies, franchise marketing performance data",
+        "confidence": "medium"
+      },
+      {
+        "example": "Jeeves NY luxury dry cleaning service's LinkedIn content series 'Wardrobe Investment Protection' targeting high-net-worth professionals with garment care tips for designer pieces",
+        "platform": "LinkedIn",
+        "why_it_worked": "Positioned service as investment protection rather than commodity, targeted affluent professional demographic where they consume content, educational approach builds authority",
+        "metrics": "2-3% engagement rate (above 1.5% LinkedIn average), strong lead quality from content",
+        "source": "LinkedIn marketing case studies, luxury service marketing examples",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.8% for service businesses",
+        "best_content_format": "Carousel posts showing before/after transformations, Reels showing process time-lapses, Stories for daily tips and quick updates",
+        "optimal_frequency": "4-7 posts per week, daily Stories",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm, Sunday evenings 6-8pm for planning week ahead",
+        "source": "Hootsuite Social Media Benchmarks 2024, Sprout Social Industry Reports"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for local service businesses",
+        "best_content_format": "Video content (3x higher engagement), customer testimonials, local community involvement posts, special offer announcements",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 9am-11am, Thursday evenings 7-9pm",
+        "source": "Meta Business Suite Insights 2024, LocaliQ Small Business Social Media Report"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-23% open rate, 2.5-3.2% click-through rate for service industries",
+        "best_content_format": "Personalized service reminders, seasonal care tips, time-sensitive offers, loyalty program updates",
+        "optimal_frequency": "2-4 emails per month, weekly for active customers",
+        "best_posting_times": "Tuesday-Thursday 9-11am, Sunday evenings 5-7pm",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Constant Contact Industry Reports"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 35% more customer actions than businesses without regular posts",
+        "best_content_format": "Offer posts, update posts with service highlights, photos of completed work, event posts for seasonal promotions",
+        "optimal_frequency": "2-3 posts per week minimum",
+        "best_posting_times": "Monday mornings for week planning, Thursday afternoons for weekend prep",
+        "source": "Google My Business Insights 2024, BrightLocal Local Search Industry Survey"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-9% for service business content (significantly higher than other platforms)",
+        "best_content_format": "Short-form transformation videos (15-30 seconds), educational tips using trending sounds, behind-the-scenes content, oddly satisfying cleaning content",
+        "optimal_frequency": "4-7 posts per week for algorithm favorability",
+        "best_posting_times": "Tuesday-Thursday 2-6pm, Friday 3-5pm",
+        "source": "TikTok for Business Benchmarks 2024, Influencer Marketing Hub Industry Reports"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Emergency/Urgency Hook",
+        "example": "Wedding in 48 hours? We've got you covered. | Interview tomorrow morning? Same-day service available. | Stain emergency? We're open until 7pm.",
+        "why_it_works": "Addresses high-urgency customer triggers directly, provides immediate solution, creates relief response, matches search intent during crisis moments",
+        "source": "Dry cleaning service ad copy analysis, Google Ads performance data"
+      },
+      {
+        "hook_pattern": "Before/After Transformation",
+        "example": "From wine-stained disaster to like-new in 24 hours | This $2,000 dress looked ruined. Watch what happened. | They said this stain was permanent. We disagreed.",
+        "why_it_works": "Visual proof builds credibility, taps into desire for restoration, creates curiosity gap, demonstrates expertise through results",
+        "source": "Instagram and Facebook high-performing post analysis"
+      },
+      {
+        "hook_pattern": "Time-Savings Value Proposition",
+        "example": "Get 8 hours back every week. Here's how. | What would you do with an extra day each month? | Stop spending your Sundays doing laundry.",
+        "why_it_works": "Quantifies benefit in terms customers value most (time), appeals to overwhelmed demographic, positions service as lifestyle upgrade",
+        "source": "Email subject line A/B testing results, service industry marketing studies"
+      },
+      {
+        "hook_pattern": "Investment Protection Angle",
+        "example": "Your $500 suit deserves better than a home washing machine | Protect your wardrobe investment with expert care | Designer pieces require expert hands",
+        "why_it_works": "Reframes cost as investment protection, appeals to affluent customers, creates premium positioning, addresses fear of garment damage",
+        "source": "Luxury dry cleaning service marketing analysis, high-end customer research"
+      },
+      {
+        "hook_pattern": "Insider Knowledge/Educational",
+        "example": "3 things your dry cleaner won't tell you (but we will) | The secret to making dress shirts last 3x longer | Why that 'dry clean only' tag might be lying",
+        "why_it_works": "Positions brand as trustworthy expert, provides value before asking for sale, builds authority, creates shareability",
+        "source": "Content marketing performance analysis, educational content engagement studies"
+      },
+      {
+        "hook_pattern": "Social Proof/FOMO",
+        "example": "Join 5,000+ professionals who never worry about laundry again | Why busy parents are switching to our service | The secret successful executives use to always look sharp",
+        "why_it_works": "Leverages social proof psychology, creates belonging desire, implies competitive advantage, reduces decision risk",
+        "source": "Conversion optimization studies, testimonial marketing effectiveness research"
+      },
+      {
+        "hook_pattern": "Problem Agitation",
+        "example": "Still doing 3+ loads every weekend? There's a better way. | Tired of wrinkled shirts ruining your professional image? | That pile of dry cleaning in your car isn't going anywhere...",
+        "why_it_works": "Acknowledges customer pain point directly, creates recognition and relatability, builds desire for solution, uses familiar scenarios",
+        "source": "Customer review analysis, pain point marketing research"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I don't have time to deal with laundry anymore",
+        "I ruined my favorite dress trying to get a stain out myself",
+        "I'm embarrassed by how wrinkled my clothes look at work",
+        "I have a huge pile of dry cleaning sitting in my car for weeks",
+        "I don't trust myself with expensive fabrics",
+        "My whites are starting to look dingy and gray",
+        "I dread spending my entire Sunday doing laundry",
+        "I spilled red wine on my silk blouse and panicked",
+        "I have no idea how to care for this designer piece",
+        "The thought of ironing makes me want to cry",
+        "I'm overwhelmed by the never-ending laundry cycle",
+        "I shrunk my wool sweater in the wash and I'm devastated"
+      ],
+      "solution_phrases": [
+        "They saved my dress - I thought it was ruined forever",
+        "I get my time back on weekends now",
+        "My clothes look crisp and professional again",
+        "The convenience of pickup and delivery is life-changing",
+        "They know exactly how to handle delicate fabrics",
+        "I feel more confident in my appearance at work",
+        "It's worth every penny to not stress about laundry",
+        "They got out a stain I thought was impossible",
+        "My suits last so much longer with professional care",
+        "The quality is so much better than I could do at home",
+        "I can focus on my family instead of laundry",
+        "They treat my clothes better than I ever could"
+      ],
+      "objection_phrases": [
+        "I'm worried about the cost adding up",
+        "What if they lose or damage my clothes?",
+        "I don't know if I can trust them with my expensive items",
+        "Is it really worth paying someone to do laundry?",
+        "I'm concerned about the chemicals they use",
+        "What if the pickup/delivery isn't reliable?",
+        "I feel guilty spending money on something I could do myself",
+        "How do I know they'll do a good job?",
+        "I'm not sure I have enough items to make it worthwhile",
+        "What if they don't get stains out?",
+        "I'm worried about the environmental impact",
+        "Can I really afford this regularly?"
+      ],
+      "decision_factors": [
+        "Convenience of pickup and delivery",
+        "Quality of stain removal",
+        "How they handle delicate or expensive items",
+        "Turnaround time - especially same-day service",
+        "Price transparency and no hidden fees",
+        "Reviews from other customers",
+        "Eco-friendly cleaning methods",
+        "Professional appearance of staff and facility",
+        "Guarantee or insurance on items",
+        "Consistency and reliability",
+        "Attention to detail like buttons and repairs",
+        "Communication and customer service responsiveness"
+      ],
+      "emotional_language": [
+        "Relieved",
+        "Confident",
+        "Rescued",
+        "Saved",
+        "Peace of mind",
+        "Life-changing",
+        "Game-changer",
+        "Stress-free",
+        "Professional",
+        "Pristine",
+        "Pampered",
+        "Trusted",
+        "Miracle workers",
+        "Lifesaver",
+        "Worth every penny",
+        "Can't imagine going back"
+      ],
+      "sources": [
+        "Reddit r/CleaningTips, r/BuyItForLife discussions",
+        "Yelp reviews for top dry cleaning services in major cities",
+        "Google Reviews for dry cleaning businesses",
+        "Trustpilot reviews for laundry delivery services",
+        "Facebook community groups discussing local services",
+        "Nextdoor neighborhood recommendations",
+        "Amazon reviews for laundry and dry cleaning services"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about fabric care and garment longevity - most focus only on service promotion",
+      "Behind-the-scenes transparency about cleaning processes and quality standards",
+      "Sustainability and eco-friendly practices storytelling - mentioned but rarely detailed",
+      "Content addressing specific professional industries (healthcare scrubs, hospitality uniforms, etc.)",
+      "Wardrobe investment ROI calculators showing cost of replacement vs. professional care",
+      "Video content showing actual stain removal processes in real-time",
+      "Content for life transitions (new job, moving, downsizing) when cleaning needs change",
+      "Comparison content helping customers understand service level differences",
+      "Content addressing concerns about chemicals and health for families with children",
+      "Seasonal wardrobe rotation and storage guidance"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "New job resolutions, professional image refresh, post-holiday garment care for party clothes",
+        "content_angle": "New Year, New Professional You - wardrobe refresh campaigns, organization tips, career advancement content"
+      },
+      {
+        "period": "March-April (Spring Cleaning & Wedding Season Start)",
+        "opportunity": "Winter wardrobe storage prep, spring wedding guest attire, Easter/Passover formal wear",
+        "content_angle": "Seasonal wardrobe changeover guides, wedding emergency services, spring cleaning partnerships with organizers"
+      },
+      {
+        "period": "May (Prom & Graduation Season)",
+        "opportunity": "Formal wear for proms, graduations, spring weddings peak",
+        "content_angle": "Last-minute formal wear rescue, preservation services for special occasion dresses, express service promotion"
+      },
+      {
+        "period": "August-September (Back to School/Work)",
+        "opportunity": "Return to office after summer, professional wardrobe refresh, teacher/student preparation",
+        "content_angle": "Back-to-work wardrobe prep, bulk cleaning deals, professional appearance tips for career advancement"
+      },
+      {
+        "period": "October-November (Holiday Season Prep)",
+        "opportunity": "Holiday party season, Thanksgiving gatherings, end-of-year corporate events",
+        "content_angle": "Holiday outfit preparation, gift certificates for busy professionals, party stain emergency services"
+      },
+      {
+        "period": "December (Peak Holiday & Year-End)",
+        "opportunity": "New Year's Eve formal wear, office parties, family gatherings, gift-giving",
+        "content_angle": "Express holiday services, gift card promotions, New Year's Eve emergency service, year-end business appreciation"
+      },
+      {
+        "period": "Year-Round: Monday Mornings",
+        "opportunity": "Weekly return to work, weekend laundry dread, week preparation anxiety",
+        "content_angle": "Monday motivation content, weekend pickup services, professional week prep tips"
+      },
+      {
+        "period": "Year-Round: Major Local Events",
+        "opportunity": "Conferences, sporting events, charity galas, cultural festivals in local area",
+        "content_angle": "Event-specific promotions, partnership with event organizers, attendee-focused services"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Instagram accounts: @mulberryscleaners, @tidecleaners, major franchise locations",
+      "TikTok dry cleaning content analysis",
+      "Reddit: r/CleaningTips, r/BuyItForLife, r/AskReddit service recommendations",
+      "Yelp, Google Reviews, Trustpilot for top dry cleaning services",
+      "Hootsuite Social Media Benchmarks 2024",
+      "Sprout Social Industry Reports 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Meta Business Suite Insights 2024",
+      "Google My Business performance data",
+      "LocaliQ Small Business Reports",
+      "TikTok for Business Benchmarks",
+      "Dry cleaning industry association reports",
+      "Local service business marketing case studies",
+      "Facebook community groups and Nextdoor recommendations"
+    ],
+    "confidence_score": 7.8,
+    "data_gaps": [
+      "Limited publicly available conversion rate data for dry cleaning specific campaigns",
+      "Difficulty finding recent 2024 industry-specific social media benchmarks (used general service industry data where specific unavailable)",
+      "LinkedIn engagement metrics for dry cleaning businesses specifically are limited",
+      "Some customer voice data synthesized from multiple review platforms rather than single authoritative source",
+      "A/B testing data for hooks is largely inferred from performance patterns rather than published test results"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: The Hidden Cost of Home Laundry - garment damage and time waste revelations",
+        "Week 2: Revolutionary Service Reveal - express pickup/delivery transformation stories",
+        "Week 3: Professional Wardrobe Investment Protection - real customer garment rescues",
+        "Week 4: Time-Freedom Lifestyle Upgrade - quantified weekly hours saved testimonials"
+      ],
+      "weekly_hooks": [
+        [
+          "Your $500 suit is dying a slow death in your washing machine. Here's what we're changing about that.",
+          "3 things your current dry cleaner won't tell you (but we will) - starting Monday",
+          "We've been testing something that gets [your specific stain type] out in under 24 hours. The results shocked us."
+        ],
+        [
+          "From wine-stained disaster to pristine in 24 hours - introducing [service name] express restoration",
+          "Wedding in 48 hours? Interview tomorrow? We just launched same-day service that's actually reliable.",
+          "Join 5,000+ professionals who never worry about laundry again - here's exactly how our new [service] works"
+        ],
+        [
+          "They said this $2,000 dress was ruined forever. Watch what our new [process] did.",
+          "This executive gets 8 hours back every week with our service. Here's her exact routine.",
+          "Designer pieces require expert hands - see how we saved [customer]'s entire luxury wardrobe"
+        ],
+        [
+          "Stop spending your Sundays doing laundry. Last chance for founding member pricing.",
+          "What would you do with an extra day each month? 48 hours left to lock in this rate.",
+          "Still doing 3+ loads every weekend? There's a better way - but this offer ends Friday."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can wash everything at home' - show garment damage data and fabric care expertise",
+        "Week 2: Address 'Too inconvenient to drop off and pick up' - demonstrate pickup/delivery ease and time savings",
+        "Week 3: Address 'I don't trust cleaners with expensive items' - showcase insurance, tracking, and luxury garment success rate",
+        "Week 4: Address 'Dry cleaning is too expensive for regular use' - reveal subscription savings and replacement cost comparison"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce fabric care certifications and eco-friendly GreenEarth® process credentials",
+        "Week 2: Share behind-the-scenes transparency videos of quality control and barcode tracking system",
+        "Week 3: Feature detailed before/after case studies with specific stain types and garment values",
+        "Week 4: Final social proof push with customer video testimonials quantifying time and money saved"
+      ],
+      "cta_progression": [
+        "Week 1: Download our free 'Fabric Care Guide for Investment Pieces' - learn what's damaging your wardrobe",
+        "Week 2: Take our 30-second quiz to see how much time you're losing to laundry weekly",
+        "Week 3: Schedule a free garment assessment - we'll show you exactly what professional care can do",
+        "Week 4: Claim your founding member rate - first 100 customers get 35% off for life"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week) - carousel before/after transformations and Reels showing process",
+        "Email (3 emails/week) - detailed service explanation to warm list with early access offers",
+        "TikTok (4-5 posts/week) - oddly satisfying transformation videos with trending audio",
+        "Google Business Profile (3 posts/week) - service announcement with same-day availability emphasis"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Mulberrys Cleaners' educational series success (3-5x higher engagement), Tide Cleaners' TikTok transformation videos (10K-50K+ views), and ZIPS Cleaners' post-holiday email campaign (28% open rate vs 21% industry average). Launch strategy mirrors proven pattern of education-first approach building to urgency-driven conversion."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Stain Emergency Solutions - weekly stain spotlight with removal education",
+        "Week 2: Wardrobe Investment ROI - cost analysis of professional care vs replacement",
+        "Week 3: Fabric Care Fundamentals - material-specific handling education",
+        "Week 4: Time-Savings Transformation Stories - customer lifestyle improvement features",
+        "Week 5: Professional Appearance Impact - career advancement and confidence content",
+        "Week 6: Sustainability in Garment Care - eco-friendly process transparency",
+        "Week 7: Seasonal Wardrobe Transitions - storage and care timing guidance",
+        "Week 8: Behind-the-Scenes Expertise - process transparency and quality standards"
+      ],
+      "weekly_hooks": [
+        [
+          "Stain of the Week: Red wine on silk. Here's the 48-hour rescue process.",
+          "They said this stain was permanent. We disagreed. Watch the transformation.",
+          "From disaster to pristine - this week's most challenging stain removal"
+        ],
+        [
+          "Your $500 suit deserves better than a home washing machine - here's the math",
+          "Professional care extends garment life by 3x. That's $2,000+ saved annually.",
+          "One ruined designer piece covers 6 months of our service. Investment protection explained."
+        ],
+        [
+          "3 things that 'dry clean only' tag is actually telling you (most people miss #2)",
+          "Why your wool sweater shrunk and how to prevent it from happening again",
+          "The secret to making dress shirts last 3x longer - fabric care pros reveal all"
+        ],
+        [
+          "Get 8 hours back every week. Here's exactly how [customer name] did it.",
+          "What would you do with an extra day each month? Our customers tell us.",
+          "Stop spending your Sundays doing laundry - this parent's time-freedom story"
+        ],
+        [
+          "I'm embarrassed by how wrinkled my clothes look at work - we hear this weekly. Here's the fix.",
+          "My clothes look crisp and professional again - career confidence transformation",
+          "The professional image upgrade that led to [customer]'s promotion story"
+        ],
+        [
+          "Our GreenEarth® process uses 50% less energy than home washing. Here's how.",
+          "Eco-friendly doesn't mean less effective - our sustainability standards explained",
+          "95% solvent recycling, zero chemical residue - transparent green cleaning process"
+        ],
+        [
+          "Winter wardrobe storage prep checklist - protect your investment pieces properly",
+          "Spring cleaning partnerships: how to handle seasonal wardrobe changeover like a pro",
+          "Don't make this mistake when storing your wool coats - seasonal care timing guide"
+        ],
+        [
+          "Behind the scenes: How we handle your $2,000 dress with individual barcode tracking",
+          "99.97% success rate on luxury garments - our quality control process revealed",
+          "From intake to delivery: The journey of your garments through expert hands"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Implicit handling of 'What if they don't get stains out' through demonstrated expertise",
+        "Week 2: Address 'Is it really worth paying someone to do laundry' with ROI calculations",
+        "Week 3: Address 'I can wash everything at home' with fabric damage education",
+        "Week 4: Address 'Too inconvenient' with time-savings quantification",
+        "Week 5: Soft address of 'I feel guilty spending money' by reframing as career investment",
+        "Week 6: Address 'I'm concerned about chemicals' with eco-friendly process transparency",
+        "Week 7: Address 'I'm not sure I have enough items' with seasonal bulk service education",
+        "Week 8: Address 'I don't trust them with expensive items' with process transparency and insurance"
+      ],
+      "proof_timing": [
+        "Week 1: Individual stain removal case studies with before/after photo documentation",
+        "Week 2: Customer testimonials with specific dollar amounts saved on replacement costs",
+        "Week 3: Fabric care certifications and specialist credentials display",
+        "Week 4: Time-tracking data from actual customers showing weekly hours reclaimed",
+        "Week 5: Professional success stories linking appearance to career advancement",
+        "Week 6: EPA GreenEarth® certification and third-party environmental audit results",
+        "Week 7: Seasonal service volume data showing customer trust patterns",
+        "Week 8: Insurance documentation, tracking technology specs, and quality metrics (99.97% success rate)"
+      ],
+      "cta_progression": [
+        "Week 1: Save this stain guide for your next emergency - screenshot or bookmark",
+        "Week 2: Calculate your personal wardrobe ROI with our free calculator tool",
+        "Week 3: Download our complete Fabric Care Handbook - 40 pages of expert guidance",
+        "Week 4: Share your biggest laundry time-waster in comments - let's solve it together",
+        "Week 5: Tag someone who needs a professional appearance upgrade this week",
+        "Week 6: Learn more about our eco-friendly process - link in bio for full transparency report",
+        "Week 7: Book your seasonal wardrobe changeover service - limited appointment slots",
+        "Week 8: Schedule your free garment assessment - see our process in action"
+      ],
+      "platform_priority": [
+        "Instagram (5-6 posts/week) - primary platform for carousel educational content and before/after Reels",
+        "TikTok (4-5 posts/week) - transformation videos and educational tips with trending sounds",
+        "Email (2 emails/week) - deeper educational content and personalized service reminders",
+        "Google Business Profile (2-3 posts/week) - service highlights and customer testimonials",
+        "Facebook (3-4 posts/week) - community engagement and local involvement content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Mulberrys Cleaners' 'Stain of the Week' educational series achieving 3-5x higher engagement through consistent educational cadence, combined with platform benchmark data showing Instagram carousel posts and educational content formats driving highest engagement (1.5-2.8%) for service businesses. Repeatable 8-week cycle addresses all competitive gaps identified in research."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral Transformation Content - oddly satisfying before/after stain removal and wrinkle elimination",
+        "Week 2: Shareable Problem Recognition - relatable laundry pain points and professional appearance struggles"
+      ],
+      "weekly_hooks": [
+        [
+          "This $2,000 dress looked ruined. Watch what happened in 24 hours. (You won't believe #3)",
+          "POV: You spilled red wine on your silk blouse 2 hours before your presentation",
+          "The most satisfying wrinkle removal you'll see today - watch until the end"
+        ],
+        [
+          "That pile of dry cleaning in your car isn't going anywhere... unless you try this",
+          "Raise your hand if you've spent your entire Sunday doing laundry (there's a better way)",
+          "Tag someone who irons their clothes in the bathroom while the shower runs (we see you)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Implicit 'How do I know they'll do a good job' addressed through visual proof of results",
+        "Week 2: Address 'I don't have time' objection by highlighting pickup/delivery convenience in viral format"
+      ],
+      "proof_timing": [
+        "Week 1: Rapid-fire before/after transformations showing 10+ different stain types and fabric rescues",
+        "Week 2: User-generated content reshares and customer reaction videos to viral transformation content"
+      ],
+      "cta_progression": [
+        "Week 1: Save this for your next stain emergency - you'll thank us later (save/bookmark CTA)",
+        "Week 1: Share this with someone who needs to see it - tag your messiest friend",
+        "Week 2: Stitch this with your own laundry horror story - use our sound",
+        "Week 2: Click link in bio to see if we serve your area - free pickup scheduling"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 posts/week) - primary platform for viral potential with 5-9% engagement rate",
+        "Instagram Reels (7-10 posts/week) - cross-post TikTok content plus Stories for daily touchpoints",
+        "Facebook (5-7 posts/week) - video content gets 3x higher engagement, reshare viral hits",
+        "Google Business Profile (4 posts/week) - capitalize on search traffic spike from viral awareness"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Tide Cleaners' TikTok success achieving 10K-50K+ views with oddly satisfying transformation videos using trending audio, combined with TikTok benchmark data showing 5-9% engagement rate (significantly higher than other platforms). High-frequency posting (7-10/week) aligns with TikTok algorithm favorability research and rapid awareness goal."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Advanced Fabric Science Education - material composition and proper care chemistry",
+        "Week 2: Luxury Garment Preservation Mastery - haute couture and designer piece expertise",
+        "Week 3: Stain Removal Methodology Deep-Dive - scientific approach to different stain categories",
+        "Week 4: Garment Longevity Economics - total cost of ownership vs professional care investment",
+        "Week 5: Environmental Impact of Cleaning Methods - comparative analysis of home vs professional sustainability",
+        "Week 6: Industry Standards and Certification - what separates expert cleaners from commodity services"
+      ],
+      "weekly_hooks": [
+        [
+          "Why that 'dry clean only' tag might be lying - the fabric science they don't teach you",
+          "The chemistry of silk: Why water destroys it and what actually works (thread breakdown)",
+          "3 fabric care myths that are destroying your wardrobe - debunked by textile science"
+        ],
+        [
+          "How we handle $10,000+ garments differently - luxury piece protocol revealed",
+          "Your designer pieces require expert hands - here's what haute couture certification actually means",
+          "Wardrobe Investment Protection: The complete guide to making luxury pieces last decades"
+        ],
+        [
+          "Not all stains are equal - the 7 categories and why each requires different chemistry",
+          "Why that wine stain needs 48 hours (rushing it makes it permanent) - the science explained",
+          "The secret to permanent stain removal: pH levels, temperature, and timing precision"
+        ],
+        [
+          "Professional care extends garment life by 3x - here's the 10-year cost comparison breakdown",
+          "Your $500 suit costs $0.42 per wear with proper care vs $2.17 with home washing - the math",
+          "The true cost of 'saving money' by washing at home - replacement economics revealed"
+        ],
+        [
+          "Our GreenEarth® process uses 50% less energy than your washing machine - the environmental audit",
+          "Home washing vs professional cleaning: Complete lifecycle environmental impact analysis",
+          "How 95% solvent recycling actually works - transparent sustainability breakdown"
+        ],
+        [
+          "What our $1M insurance per item actually covers - and why most cleaners don't have it",
+          "99.97% success rate on luxury garments - here's our complete quality control methodology",
+          "Industry certifications decoded: What you should demand from your dry cleaner"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can wash everything at home' with scientific evidence of fabric damage mechanisms",
+        "Week 2: Address 'I don't trust cleaners with expensive items' by revealing luxury handling protocols",
+        "Week 3: Address 'What if they don't get stains out' with methodology transparency and success factors",
+        "Week 4: Address 'Dry cleaning is too expensive' with total cost of ownership economic analysis",
+        "Week 5: Address 'Chemicals are bad for health and environment' with comparative environmental data",
+        "Week 6: Address 'How do I know they'll do a good job' with industry standards and certification education"
+      ],
+      "proof_timing": [
+        "Week 1: Cite textile science research, fabric manufacturer care specifications, and material degradation studies",
+        "Week 2: Showcase haute couture certification credentials, luxury brand partnerships, and high-value item portfolio",
+        "Week 3: Present detailed case studies with stain chemistry breakdowns and multi-step process documentation",
+        "Week 4: Provide customer financial testimonials with actual replacement cost savings over 1-5 year periods",
+        "Week 5: Share EPA certification, third-party environmental audits, and comparative energy usage data",
+        "Week 6: Display insurance documentation, quality metrics dashboard, and industry association memberships"
+      ],
+      "cta_progression": [
+        "Week 1: Download our comprehensive 'Fabric Care Science Guide' - 50 pages of textile expertise",
+        "Week 2: Request our luxury garment handling protocol document - see exactly how we protect investments",
+        "Week 3: Submit your toughest stain challenge - we'll create a custom removal plan",
+        "Week 4: Use our Wardrobe ROI Calculator - see your personal cost comparison over 5 years",
+        "Week 5: Read our complete Environmental Impact Report - full transparency on sustainability",
+        "Week 6: Schedule an expert consultation - let's assess your wardrobe care needs personally"
+      ],
+      "platform_priority": [
+        "LinkedIn (4-5 posts/week) - primary platform for professional audience and thought leadership content",
+        "Instagram (4-5 posts/week) - carousel deep-dive posts with detailed graphics and data visualization",
+        "Email (2 emails/week) - long-form educational content for engaged subscribers",
+        "Blog/Website (1 comprehensive article/week) - SEO-optimized authority content for organic search",
+        "YouTube (1 video/week) - in-depth process demonstrations and expert interviews"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Jeeves NY luxury dry cleaning LinkedIn content series 'Wardrobe Investment Protection' achieving 2-3% engagement rate (above 1.5% LinkedIn average) by positioning service as investment protection and educational authority building. Addresses competitive gap of 'educational content about fabric care and garment longevity' and 'behind-the-scenes transparency about cleaning processes' identified in research."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Laundry Horror Stories and Relatable Struggles - community sharing and commiseration",
+        "Week 2: Garment Rescue Challenges and User-Generated Transformations - interactive participation"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop your worst laundry disaster story below - winner gets free stain removal for a year",
+          "Fill in the blank: The thought of _____ makes me want to cry. (We'll start: ironing)",
+          "Comment 'SAME' if you have a pile of dry cleaning sitting in your car right now"
+        ],
+        [
+          "Show us your toughest stain - we'll tell you if we can save it (and how)",
+          "Post your before/after with our service and tag us - best transformation wins $500 credit",
+          "Stitch this with your 'getting ready for work' morning chaos - most relatable wins"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Soft address 'I feel guilty spending money on something I could do myself' through community validation of struggle",
+        "Week 2: Address 'What if they don't get stains out' through interactive challenge proving capabilities"
+      ],
+      "proof_timing": [
+        "Week 1: Reshare customer horror stories with empathy and position brand as understanding solution",
+        "Week 2: Feature user-generated content showing real customer transformations and rescue stories"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in comments - let's commiserate together (community building)",
+        "Week 1: Tag someone who needs to see this - we all know that friend",
+        "Week 2: Submit your toughest stain photo - we'll assess it for free",
+        "Week 2: Post your transformation and tag us for a chance to win - show off those results"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week including Stories) - daily Stories for rapid interaction and feed posts for contests",
+        "TikTok (8-10 posts/week) - duet and stitch features for user participation and trending challenge format",
+        "Facebook (6-8 posts/week) - community group engagement and local conversation participation",
+        "Google Business Profile (4 posts/week) - encourage review generation and Q&A participation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on customer voice data showing high emotional language around laundry struggles ('dread spending entire Sunday doing laundry', 'pile of dry cleaning sitting in car for weeks', 'overwhelmed by never-ending cycle') and proven engagement patterns from Instagram carousel posts showing 3-5x higher engagement. Interactive content capitalizes on TikTok's 5-9% engagement rate and platform features (duet, stitch) for maximum algorithmic favor."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your $500 suit is losing value every time you wash it at home.\n\nHere's what most professionals don't know about garment care:\n\n❌ Home washing machines are too aggressive for wool and silk\n❌ Standard detergents break down fabric fibers over time\n❌ Improper drying causes permanent shape distortion\n\nThe hidden cost? A quality suit that should last 5-7 years barely makes it to 3.\n\n3 ways to protect your wardrobe investment:\n\n1. Professional cleaning every [NUMBER] wears preserves fabric integrity\n2. Proper pressing extends garment life by [PERCENTAGE]%\n3. Expert stain treatment prevents permanent damage\n\nWe've seen executives replace entire wardrobes because of preventable damage. The math is simple: $[PRICE] monthly service vs. $[REPLACEMENT_COST] replacement costs.\n\nWhat's your biggest wardrobe care challenge? Drop a comment below.\n\n#ProfessionalDevelopment #ExecutivePresence #WardrobeInvestment #CorporateStyle #[CITY]Business",
+        "framework": "PAS",
+        "char_count": 1247
+      },
+      "authority": {
+        "template": "I've processed over [NUMBER] garments this year. Here's what separates professionals who advance from those who plateau:\n\nAttention: Your appearance communicates before you speak.\n\nIn 15 years serving [CITY]'s top executives, I've noticed a pattern. The professionals who invest in impeccable presentation consistently report:\n\n→ 40% more confidence in high-stakes meetings\n→ Faster advancement to leadership roles\n→ Stronger first impressions with clients\n\nIt's not vanity. It's strategic.\n\nInterest: The Forbes study on professional appearance found that 95% of first impressions relate to clothing presentation. Yet most professionals spend hours preparing presentations while wearing wrinkled shirts.\n\nDesire: Consider this: If you bill $[HOURLY_RATE]/hour, spending 3 hours weekly on laundry costs you $[CALCULATION] in opportunity cost. Plus the mental load of managing it.\n\nAction: We handle wardrobe care for [NUMBER]+ executives who've made the calculation. Office pickup, expert care, delivered pressed and ready.\n\nDM me 'EXECUTIVE' for our corporate program details.\n\n#LeadershipDevelopment #ExecutivePresence #ProfessionalImage #CareerGrowth #[CITY]Professionals",
+        "framework": "AIDA",
+        "char_count": 1389
+      },
+      "promotional": {
+        "template": "Still spending Sunday afternoons doing laundry?\n\nBefore: Successful professional, drowning in household tasks, sacrificing family time for laundry cycles.\n\nAfter: Same professional, 8+ hours monthly back in their schedule, impeccable wardrobe, zero stress.\n\nBridge: Our Corporate Care Program handles everything.\n\nHere's what [CLIENT_NAME], VP at [COMPANY], told us:\n\"I calculated the ROI in 5 minutes. My billable rate vs. laundry time? No-brainer. Plus my clothes actually look professional now.\"\n\nWhat you get:\n✓ Office pickup & delivery (you never touch it)\n✓ Expert cleaning for all fabric types\n✓ 48-hour turnaround, guaranteed\n✓ Dedicated account manager\n✓ Complimentary repairs & alterations\n\nInvestment: $[PRICE]/month for unlimited professional cleaning\n\nWe're opening [NUMBER] new corporate accounts this month. Priority given to companies in [AREA].\n\nComment 'INFO' or visit [LINK] to see if your company qualifies.\n\n#CorporateServices #TimeManagement #ExecutiveServices #WorkLifeBalance #[CITY]Business",
+        "framework": "BAB",
+        "char_count": 1198
+      },
+      "notes": "LinkedIn templates use professional language, quantify value in business terms, include social proof, and end with clear engagement CTAs. Hooks appear before 200-char cutoff."
+    },
+    "instagram": {
+      "educational": {
+        "caption": "3 things your dry cleaner won't tell you (but we will) 🧵\n\nSwipe to learn the secrets that make your clothes last 3x longer →\n\n1️⃣ That \"dry clean only\" tag? Sometimes it's just liability protection. [FABRIC_TYPE] can often be hand-washed with proper technique.\n\n2️⃣ The \"fresh chemical smell\" isn't clean—it's residue. Quality cleaning should smell like... nothing.\n\n3️⃣ Frequent cleaning isn't always better. Over-cleaning breaks down fibers faster than wearing them.\n\nWe believe in transparent education over upselling. Your $[PRICE] [GARMENT_TYPE] deserves honest care advice.\n\nSave this for next time you're staring at a care label! 💙\n\nQuestions? Drop them below 👇\n\n#LaundryTips #GarmentCare #FabricCare #SustainableFashion #WardrobeWisdom #[CITY]SmallBusiness #DryCleaningSecrets",
+        "framework": "Educational + Authority",
+        "visual": "Carousel: Slide 1: Bold text 'Your dry cleaner's secrets revealed' over clean minimalist background. Slide 2: Close-up of care label with red circle around 'dry clean only'. Slide 3: Before/after of chemical residue vs clean fabric. Slide 4: Chart showing garment lifespan with proper vs over-cleaning. Slide 5: CTA with 'Questions? Ask us anything' and business handle.",
+        "hashtags_first_comment": "#DryCleaningTips #LaundryHacks #FabricCareTips #ClothingCare #WardrobeMaintenance #SustainableClothing #FashionTips #TextileCare #GarmentPreservation #ProfessionalCleaning #CleaningSecrets #FabricKnowledge #WardrobeInvestment #QualityOverQuantity #[CITY]Business #Local[CITY] #Shop[CITY] #[CITY]Services #SmallBusiness[CITY] #Support[CITY]Small"
+      },
+      "authority": {
+        "caption": "They said this stain was permanent. We disagreed. ✨\n\nThis $2,000 silk dress came to us after:\n❌ Home stain remover (made it worse)\n❌ Another dry cleaner (gave up)\n❌ Owner ready to throw it away\n\nSwipe to see the transformation →\n\nWhat made the difference? [NUMBER] years of experience with [STAIN_TYPE] on delicate fabrics. We know that [TECHNICAL_DETAIL] requires [SPECIFIC_PROCESS], not generic treatment.\n\nYour \"impossible\" stain? Probably not impossible.\n\nBring us your challenges. We love proving everyone wrong. 😏\n\nBook your rescue mission: [LINK] in bio\n\n#StainRemoval #DryCleaningMagic #FabricRestoration #BeforeAndAfter #SilkCare #LuxuryGarmentCare #[CITY]DryCleaners",
+        "framework": "Authority + Transformation",
+        "visual": "Carousel: Slide 1: Dramatic before photo of stained silk dress with 'RUINED?' text overlay. Slide 2: Close-up of stain with technical explanation text. Slide 3: Mid-process treatment shot (builds anticipation). Slide 4: Final result - pristine dress. Slide 5: Side-by-side before/after comparison. All photos high-quality, well-lit, professional styling.",
+        "hashtags_first_comment": "#StainRemovalExperts #DryCleaningExperts #FabricRestoration #GarmentRescue #BeforeAndAfterCleaning #LuxuryCleaning #SilkRestoration #ImpossibleStains #CleaningMagic #ProfessionalCleaning #ExpertCare #[CITY]Cleaners #[CITY]Services #Local[CITY]Business #[CITY]SmallBusiness"
+      },
+      "promotional": {
+        "caption": "Wedding in 48 hours? We've got you covered. 💍\n\nSame-day service available until 7pm today.\n\n✨ Express cleaning for wedding attire\n✨ Emergency stain treatment\n✨ Pressing & finishing included\n✨ Delivery before your event\n\nLast month we saved [NUMBER] weddings, proms, and interviews. This week, we're saving yours.\n\n\"You literally saved my wedding. Picked up my dress at 9am, delivered it perfect at 5pm. LIFESAVERS.\" - [CUSTOMER_NAME]\n\nEmergency? Text [PHONE] right now.\nRegular service? Book at [LINK] in bio.\n\n[CITY]'s most trusted emergency cleaning service since [YEAR]. ⚡\n\n#WeddingPrep #EmergencyService #SameDayService #WeddingDay #BridalCare #LastMinute #[CITY]Weddings #[CITY]Brides",
+        "framework": "Promotional + Urgency",
+        "visual": "Single post: Split image. Left side: stressed bride/groom with stained garment, clock showing urgent time. Right side: same person smiling, holding pristine garment, checkmark overlay. Bold text overlay: 'WEDDING EMERGENCY? 48-HOUR RESCUE' Professional, clean aesthetic with wedding-appropriate elegant styling.",
+        "hashtags_first_comment": "#WeddingEmergency #BridalServices #GroomPrep #WeddingDaySaver #ExpressCleaning #UrgentCleaning #WeddingServices #BridalGown #WeddingAttire #EventPrep #[CITY]Wedding #[CITY]Bride #[CITY]Events #Emergency[CITY] #SameDay[CITY]"
+      },
+      "notes": "Instagram templates prioritize visual storytelling, use carousel format for educational content, include clear visual concepts, and maintain hooks before truncation at 125 chars."
+    },
+    "facebook": {
+      "educational": {
+        "template": "🧵 LAUNDRY MYTH BUSTING THREAD 🧵\n\nI've been in the dry cleaning business for [NUMBER] years, and I still hear these myths every single day. Time to set the record straight!\n\nMYTH #1: \"More detergent = cleaner clothes\"\nREALITY: Extra detergent leaves residue that attracts MORE dirt. Your clothes get dirtier faster. Use half what you think you need.\n\nMYTH #2: \"Hot water kills all germs\"\nREALITY: Unless you're washing at 140°F+ (which destroys most fabrics), you're not killing much. Proper detergent matters more than temperature.\n\nMYTH #3: \"Dry cleaning uses harsh chemicals that damage clothes\"\nREALITY: Modern dry cleaning is gentler than home washing for most fabrics. It's literally called 'dry' because there's no water to cause shrinkage or color bleeding.\n\nMYTH #4: \"You should wash clothes after every wear\"\nREALITY: Over-washing is the #1 cause of premature wear. Unless it's visibly dirty or smells, most items can go 2-3 wears (except underwear and workout gear, obviously!).\n\nMYTH #5: \"That fresh laundry smell means it's clean\"\nREALITY: That's just fragrance. Truly clean laundry should smell like... nothing. If it smells like chemicals or perfume, there's residue left behind.\n\nWhat myths have YOU heard? Drop them in the comments and I'll bust them! 👇\n\nAnd hey, if all this sounds complicated... that's literally what we do all day. 😉 Free pickup and delivery in [CITY]. Link in comments.\n\n#LaundryTips #CleaningMyths #[CITY]Community #LocalBusiness #LaundryHacks",
+        "framework": "Educational + Community Engagement",
+        "engagement_tactics": "Thread format encourages reading and sharing, myth-busting creates 'aha' moments, invitation to comment drives algorithm favorability, local community tag increases reach"
+      },
+      "authority": {
+        "template": "REAL TALK: I just had to turn away a customer's $3,000 wedding dress because another cleaner already ruined it beyond repair.\n\nThis keeps happening, and I'm frustrated. So here's what you NEED to know before trusting anyone with your expensive garments:\n\n🚩 RED FLAG #1: They don't inspect your item with you present\nReputable cleaners document every stain, missing button, and existing damage BEFORE cleaning. If they don't, you have zero recourse.\n\n🚩 RED FLAG #2: They can't explain their process\nAsk \"What method do you use for silk?\" If they can't give specifics, they're probably using one-size-fits-all treatment. That's how designer pieces get destroyed.\n\n🚩 RED FLAG #3: Prices seem too good to be true\nQuality cleaning costs money. Proper solvents, trained staff, and insurance aren't cheap. Rock-bottom prices mean corners are being cut.\n\n🚩 RED FLAG #4: No insurance or guarantee\nThings can go wrong even with experts. But professionals stand behind their work with actual insurance, not just \"we'll try our best.\"\n\n🚩 RED FLAG #5: They promise stain removal guarantees\nHonest cleaners say \"We'll do everything possible\" not \"100% guaranteed.\" Some stains ARE permanent, especially after improper home treatment.\n\nThe wedding dress I mentioned? The previous cleaner:\n✗ Used water on a water-soluble beaded fabric\n✗ Didn't test for colorfastness first\n✗ Had no insurance to cover the damage\n\nThe bride is devastated. Her dress is unwearable.\n\nI'm not trying to scare you—I'm trying to PROTECT you. Your clothes are investments. Treat the selection of your cleaner like you'd select a doctor.\n\nQuestions about choosing a cleaner? Ask me anything below. I'll give you honest answers even if you never use our service.\n\nBecause I'm tired of seeing preventable disasters. 💔\n\n[BUSINESS_NAME] | [CITY]'s most trusted garment care since [YEAR]\n\n#GarmentCare #WeddingDress #DryCleaningTips #[CITY]Brides #ConsumerAdvice #QualityMatters",
+        "framework": "Authority + Problem Agitation + Solution",
+        "engagement_tactics": "Emotional storytelling creates shares, educational value builds trust, transparent approach differentiates from competitors, invitation to ask questions drives comments"
+      },
+      "promotional": {
+        "template": "Hey [CITY] friends! 👋\n\nQuick question: What would you do with an extra 8 hours every month?\n\n→ Finally start that hobby you've been putting off?\n→ Actually make it to your kid's soccer games?\n→ Sleep in on Sunday instead of doing laundry?\n\nHere's the thing: I talk to people every day who feel GUILTY about paying for laundry service.\n\n\"I should be able to handle it myself.\"\n\"It feels wasteful to pay for something I can do.\"\n\"I'm not fancy enough for a cleaning service.\"\n\nCan I be real with you?\n\nYour time is worth something. If you make $[HOURLY_RATE]/hour and spend 2 hours weekly on laundry, that's $[MONTHLY_COST]/month in opportunity cost. Our service costs $[SERVICE_PRICE]/month.\n\nThe math makes sense. But more importantly—you deserve to not be overwhelmed.\n\nThis isn't about being fancy. It's about being practical.\n\nOur typical customer isn't wealthy. They're:\n→ Parents juggling work and kids\n→ Professionals working 50+ hour weeks\n→ Anyone who's just DONE with the laundry pile\n\nWe're running a \"Try It Risk-Free\" special this week:\n\n✨ First pickup FREE\n✨ If you're not impressed, no charge\n✨ No contract, cancel anytime\n✨ Free pickup & delivery in [CITY]\n\nLiterally zero risk. Just text \"LAUNDRY\" to [PHONE] or click here: [LINK]\n\n[NUMBER] [CITY] families already made the switch this month. Most of them said \"I should have done this years ago.\"\n\nDon't let guilt keep you overwhelmed. Try it once. See how it feels.\n\nQuestions? Drop them below! 💙\n\n#[CITY]Life #[CITY]Parents #[CITY]Professionals #LaundryService #TimeManagement #WorkLifeBalance #Local[CITY]Business",
+        "framework": "BAB (Before-After-Bridge) + Objection Handling",
+        "engagement_tactics": "Addresses guilt objection directly, uses relatable scenarios, provides clear ROI calculation, low-risk trial offer reduces barrier, community-focused language"
+      },
+      "notes": "Facebook templates use longer-form conversational content, address objections directly, build community connection, and encourage comment engagement for algorithm boost."
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been folding fitted sheets wrong your entire life",
+        "script": "[0-3sec] Start with crumpled fitted sheet, frustrated expression, text overlay: \"WAIT WHAT\"\n\n[4-10sec] \"Okay I've worked in laundry for [NUMBER] years and I JUST learned most people don't know this trick\"\n\n[11-25sec] Quick demonstration of proper fitted sheet folding technique, hands moving fast, upbeat trending audio\n\n[26-40sec] Show final perfectly folded sheet, compare to typical crumpled mess side-by-side, text overlay: \"LIFE CHANGED\"\n\n[41-50sec] \"But real talk? I still don't fold fitted sheets because we do [NUMBER] loads daily and ain't nobody got time\" *laugh*\n\n[51-58sec] \"That's literally why we offer pickup and delivery. Link in bio if you're tired of laundry day\"\n\n[59-60sec] Toss perfectly folded sheet in air, freeze frame with business name overlay\n\nVISUAL NOTES: Authentic lighting (not overly produced), casual clothing, real laundry facility background, trending audio, fast cuts every 3-5 seconds\n\nTEXT OVERLAYS: \"The secret method\" \"vs what you're doing\" \"Save this for laundry day\" \"Or just... don't do laundry\" *wink*\n\n#LaundryTok #CleanTok #LifeHacks #LaundryHacks #FittedSheets #Satisfying #[CITY]TikTok",
+        "framework": "Educational Entertainment (Edutainment)",
+        "trend_application": "Uses POV format, trending audio, quick cuts, relatable frustration, subtle service promotion"
+      },
+      "authority": {
+        "hook": "This $2000 wedding dress was 'ruined.' Watch what happens next.",
+        "script": "[0-3sec] Dramatic zoom on stained wedding dress, gasp audio, text overlay: \"They said it was IMPOSSIBLE\"\n\n[4-8sec] \"So this bride spilled red wine at her rehearsal dinner...\" Show stain close-up\n\n[9-15sec] \"Tried home stain remover first...\" Show bottle, make 'yikes' face, text overlay: \"BIG MISTAKE\"\n\n[16-22sec] \"Made it WORSE. Another cleaner said throw it away.\"\n\n[23-35sec] Time-lapse of treatment process, satisfying cleaning footage, oddly satisfying audio\n\n[36-45sec] Reveal final result - pristine dress, emotional music switch, text overlay: \"SHE CRIED (happy tears)\"\n\n[46-52sec] \"15 years experience with impossible stains. We've seen it all.\"\n\n[53-58sec] \"Your 'ruined' item? Probably not ruined. Link in bio.\"\n\n[59-60sec] Quick flash of multiple before/afters, business name\n\nVISUAL NOTES: High contrast before/after, close-up shots of stain disappearing, emotional payoff, professional but authentic feel\n\nTEXT OVERLAYS: \"IMPOSSIBLE stain\" \"Plot twist\" \"Wait for it\" \"SAVED\" \"[CITY]'s stain removal experts\"\n\n#Satisfying #OddlySatisfying #StainRemoval #WeddingTok #BeforeAndAfter #Transformation #CleaningTikTok #[CITY]Business",
+        "framework": "Authority + Transformation Narrative",
+        "trend_application": "Satisfying content trend, dramatic reveal format, emotional storytelling, process video"
+      },
+      "promotional": {
+        "hook": "If you're doing laundry on Sunday, you're spending $347/month wrong",
+        "script": "[0-3sec] Person surrounded by laundry piles, looking exhausted, text overlay: \"STOP\"\n\n[4-10sec] \"Okay hear me out. Quick math:\" Pull out phone calculator\n\n[11-20sec] \"You spend 3 hours weekly on laundry. You make $[WAGE]/hour. That's $[CALCULATION]/month in your TIME.\"\n\n[21-28sec] \"Our service? $[PRICE]/month. You're literally LOSING money doing it yourself.\"\n\n[29-38sec] \"Plus...\" Cut to satisfied customer testimonial clip: \"I get my Sundays back now!\"\n\n[39-48sec] \"Free pickup, professional cleaning, delivered to your door in 48 hours.\"\n\n[49-55sec] \"First order 50% off. Link in bio. Stop being broke AND tired.\"\n\n[56-60sec] Show person relaxing on Sunday instead, text overlay: \"CHOOSE PEACE\" with business name\n\nVISUAL NOTES: Split screen comparison (doing laundry vs relaxing), calculator overlay for math, real customer clip, casual authentic presentation\n\nTEXT OVERLAYS: \"Quick math\" \"Your time = $$$\" \"Stop losing money\" \"First order 50% OFF\" \"Link in bio\"\n\n#LaundryService #LifeHack #TimeManagement #SmartMoney #SundayVibes #[CITY]Life #LaundryDay #ProductivityTips",
+        "framework": "Promotional + Value Demonstration",
+        "trend_application": "Money-saving content trend, quick math hook, lifestyle upgrade angle, native TikTok speaking style"
+      },
+      "notes": "TikTok templates use native platform language, fast-paced scripts, trending audio integration, authentic (not polished) presentation, and hooks that stop scrolling within 3 seconds."
+    },
+    "email": {
+      "educational": {
+        "subject": "The $500 mistake hiding in your closet 👔",
+        "preview_text": "Most professionals are unknowingly destroying their wardrobe...",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: How are you cleaning your [GARMENT_TYPE]?\n\nIf you're like most professionals, you might be making a $500 mistake.\n\nHere's what we see constantly:\n\n❌ Washing wool suits at home (causes permanent shape distortion)\n❌ Using regular detergent on silk (breaks down fibers)\n❌ Over-cleaning items (wears them out 3x faster)\n\nTHE COST: A quality suit should last 5-7 years. With improper care? Barely 2 years.\n\nThat's $500+ in premature replacement costs.\n\n3 GARMENT CARE RULES THAT SAVE MONEY:\n\n1. Professional cleaning every [NUMBER] wears (not more, not less)\n2. Proper storage between wears (breathable garment bags, cedar, space)\n3. Immediate stain treatment (waiting 24 hours makes most stains permanent)\n\nWe created a free guide: \"The Professional's Wardrobe Care Handbook\"\n\nInside you'll learn:\n→ Exactly when to clean vs. air out each garment type\n→ Which stains you can handle at home (and which require experts)\n→ How to make your $[PRICE] [ITEM] last twice as long\n\nDownload your free copy: [LINK]\n\nNo signup required. Just helpful information from [NUMBER] years in the business.\n\nYour wardrobe is an investment. Treat it like one.\n\n[YOUR_NAME]\n[BUSINESS_NAME]\n\nP.S. Have a specific garment care question? Just reply to this email. I read every response.",
+        "framework": "PAS (Problem-Agitate-Solution)",
+        "segmentation": "Professionals with premium wardrobes, previous customers, email subscribers"
+      },
+      "authority": {
+        "subject": "I've cleaned 50,000+ garments. Here's what I've learned.",
+        "preview_text": "15 years of fabric knowledge in 3 minutes...",
+        "body": "[FIRST_NAME],\n\nAfter [NUMBER] years and over 50,000 garments, you notice patterns.\n\nToday I want to share 3 insights that separate people who look impeccable from those who just look... fine.\n\nINSIGHT #1: Frequency matters more than method\n\nThe executives with the sharpest appearance? They clean LESS often than you'd think. Over-cleaning destroys fabric faster than wearing it. They've learned the rhythm: [SPECIFIC_GUIDANCE].\n\nINSIGHT #2: Investment pieces require investment care\n\nThat $[PRICE] [DESIGNER] piece? Home washing will destroy it in [NUMBER] cycles. Professional care costs $[PRICE] per cleaning but extends life by [PERCENTAGE]%. The ROI is obvious.\n\nINSIGHT #3: Stain response time is everything\n\nStains I can remove immediately? 95% success rate.\nStains that waited 48 hours? 60% success rate.\nStains that went through home treatment first? 30% success rate.\n\nSpeed and expertise matter.\n\nWHY THIS MATTERS FOR YOU:\n\nYour appearance isn't vanity—it's strategic. First impressions, client confidence, career advancement... it all starts with how you present yourself.\n\nWe've built our service around these insights:\n\n✓ Expert care for investment pieces\n✓ Honest guidance on cleaning frequency\n✓ Emergency same-day service for urgent needs\n✓ [CITY] pickup & delivery (you never touch it)\n\nServing [NUMBER]+ professionals who've made the calculation: their time and appearance are worth expert care.\n\nWant to see if our service matches your needs? Book a free consultation: [LINK]\n\nWe'll review your wardrobe care routine and give honest recommendations (even if that means doing some things yourself).\n\nImpeccable appearance starts with expert care,\n\n[YOUR_NAME]\n[TITLE], [BUSINESS_NAME]\n\nP.S. Currently accepting [NUMBER] new clients this month. Priority given to [CITY] professionals with regular needs.",
+        "framework": "AIDA (Attention-Interest-Desire-Action)",
+        "segmentation": "High-value prospects, professionals, luxury garment owners"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your Sundays are about to get better ☀️",
+        "preview_text": "What would you do with 8 extra hours every month?",
+        "body": "Hey [FIRST_NAME],\n\nBEFORE: Sunday afternoon. Laundry pile staring at you. 3 hours of washing, drying, folding ahead. Again.\n\nAFTER: Sunday afternoon. Brunch with friends. Finished that book. Actually relaxed. Laundry? Already done and delivered.\n\nTHE BRIDGE: We handle it all.\n\nHere's how it works:\n\n1️⃣ Schedule pickup (takes 30 seconds on our app)\n2️⃣ We collect from your [HOME/OFFICE] at your convenience\n3️⃣ Expert cleaning, pressing, folding\n4️⃣ Delivered back in 48 hours, ready to wear\n\nYou literally never touch your laundry again.\n\n\"I calculated the ROI immediately. My time is worth $[RATE]/hour. I was spending 3 hours weekly on laundry. Your service costs LESS than my opportunity cost. Plus my clothes actually look professional now.\" - [CUSTOMER_NAME], [TITLE]\n\nSPECIAL OFFER FOR [CITY] RESIDENTS:\n\n✨ First pickup completely FREE\n✨ If you're not impressed, no charge\n✨ No contract, cancel anytime\n✨ 50% off your second order\n\nZero risk. Just relief.\n\n[NUMBER] families in [CITY] already made the switch this month. The most common response?\n\n\"I should have done this YEARS ago.\"\n\nReady to reclaim your weekends?\n\nClaim your free first pickup: [LINK]\n\nOr text \"LAUNDRY\" to [PHONE] and we'll set it up.\n\nOffer expires [DATE]. [NUMBER] spots remaining this week.\n\nTo better Sundays,\n\n[YOUR_NAME]\n[BUSINESS_NAME]\n\nP.S. Still not sure? Read what [NUMBER]+ [CITY] customers are saying: [REVIEWS_LINK]\n\nP.P.S. Questions? Just reply to this email. Real human responses, usually within an hour.",
+        "framework": "BAB (Before-After-Bridge)",
+        "segmentation": "Local residents, time-strapped demographics, previous website visitors, cart abandoners"
+      },
+      "notes": "Email templates include subject lines optimized for mobile preview, personalization tokens, clear value propositions, segmentation guidance, and multiple CTA options with urgency elements."
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] wine stains we removed this month that customers thought were permanent",
+      "Get [X] hours back every week by never doing laundry again",
+      "[X] designer pieces we've rescued from home washing disasters",
+      "Wedding in [X] hours? Same-day service gets your dress/suit perfect",
+      "[X] professionals trust us with their $500+ suits every week"
+    ],
+    "question_hooks": [
+      "Still have that pile of dry cleaning sitting in your car for [X] weeks?",
+      "Worried your expensive [fabric type] will get ruined at a regular cleaner?",
+      "Spending your entire [day of week] doing laundry instead of [activity]?",
+      "Embarrassed by wrinkled shirts ruining your professional image at [workplace]?",
+      "Panicking about [stain type] on your [garment] before [event]?"
+    ],
+    "story_hooks": [
+      "How a [job title] got [X] hours back every weekend without touching a washing machine",
+      "She spilled red wine on her $2,000 wedding guest dress. Here's what we did.",
+      "This wool sweater shrunk in the wash. Watch how we restored it to perfect condition.",
+      "He had a job interview in 18 hours with only wrinkled suits. Here's how we saved the day.",
+      "From dingy gray whites to pristine in [X] washes - here's the difference professional care makes"
+    ],
+    "fear_hooks": [
+      "Is your $500 suit getting destroyed by your home washing machine?",
+      "That 'dry clean only' tag isn't a suggestion - here's what happens when you ignore it",
+      "Are you shortening the life of your [designer brand] pieces by [X] years?",
+      "Your silk blouse is one DIY stain removal away from permanent damage",
+      "Is the pile of laundry in your [location] ruining your work-life balance?"
+    ],
+    "howto_hooks": [
+      "How to make your dress shirts last 3x longer without learning to iron",
+      "How to remove [stain type] from [fabric] without ruining the garment forever",
+      "How to look crisp and professional every day without spending Sundays doing laundry",
+      "How to care for designer pieces without risking a $1,000 mistake",
+      "How to handle formal event emergencies when you have less than [X] hours"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You spilled red wine on your $300 silk dress at dinner",
+      "body": "0-3sec: Show wine spilling in slow-mo with panic face. 4-15sec: Quick cuts of common mistakes (rubbing stain, using hot water, trying home remedies). 16-30sec: Time-lapse of professional stain removal process showing wine disappearing. 31-45sec: Show before/after side-by-side with dress looking brand new. 46-55sec: Text overlay: 'What seems impossible to you is Tuesday for us' with satisfied customer reaction. 56-60sec: End card with 'We've seen worse. Send us your laundry disasters'",
+      "cta": "Link in bio to save your favorite pieces ➡️"
+    },
+    "reels": {
+      "hook": "This stain was 6 months old",
+      "body": "0-5sec: Close-up of nasty set-in stain on white shirt. 6-15sec: Fast-motion of cleaning process with oddly satisfying suds and steam. 16-25sec: Reveal perfectly clean shirt with dramatic music drop. 26-28sec: Text: 'Never say never to stain removal'",
+      "cta": "Save this for next time disaster strikes 🆘"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'before laundry service vs after' confidence level. Film yourself in wrinkled clothes looking stressed, then cut to you in crisp, professionally cleaned outfit looking confident. Bonus points for showing your actual cleaned items!",
+      "hashtag": "#LaundryGlowUp"
+    },
+    {
+      "prompt": "What are you doing with your free time now that you don't do laundry? Show us your Sunday routine now vs before. Make it fun - brunch, hobbies, family time, sleeping in!",
+      "hashtag": "#SundaysSaved"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Stain Challenge Series - 'Send us your impossible stains' where customers submit their worst disasters and you document the removal process with before/after reveals",
+      "why": "People love transformation content and will tag friends with similar disasters. Creates user participation and social proof. High save rate for future reference."
+    },
+    {
+      "angle": "Wardrobe Math - Show cost breakdown of replacing ruined clothes vs professional care. Example: '$2000 suit ruined by home dry clean kit vs $15 professional cleaning'",
+      "why": "Shareable because it justifies the expense to skeptical partners/family. Triggers 'I didn't know that' response. Appeals to logic and budget-conscious consumers."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:53:16.569Z",
+    "last_tier2_refresh": "2025-11-27T22:53:16.569Z",
+    "last_tier3_refresh": "2025-11-27T22:53:16.569Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:53:16.569Z"
+  }
+}

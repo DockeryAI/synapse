@@ -21,7 +21,7 @@ export const COMPLETE_NAICS_CODES: NAICSOption[] = [
 
   // ===== 140 PRE-GENERATED PROFILES (OPUS 4.1) =====
 
-  { naics_code: '511210', display_name: 'Software Publishers', category: 'Technology', has_full_profile: true, keywords: ['software publishers', 'software publisher', 'saas', 'software as a service', 'software company', 'software product', 'software platform'], popularity: 101 },
+  { naics_code: '511210', display_name: 'Software Publishers', category: 'Technology', has_full_profile: false, keywords: ['software publishers', 'software publisher', 'saas', 'software as a service', 'software company', 'software product', 'software platform'], popularity: 101 },
   { naics_code: '541519', display_name: 'MSP (Managed Service Provider)', category: 'Technology', has_full_profile: true, keywords: ["msp (managed service provider)","msp","(managed","service","provider)"], popularity: 100 },
   { naics_code: '541512', display_name: 'Cybersecurity Services', category: 'Technology', has_full_profile: true, keywords: ["cybersecurity services","cybersecurity","services"], popularity: 99 },
   { naics_code: '621210', display_name: 'General Dentistry', category: 'Healthcare', has_full_profile: true, keywords: ["general dentistry","general","dentistry","dentist","dental","dental care"], popularity: 98 },
@@ -154,7 +154,7 @@ export const COMPLETE_NAICS_CODES: NAICSOption[] = [
   { naics_code: '311811', display_name: 'Bakery', category: 'Food Service', has_full_profile: true, keywords: ["bakery","bakery"], popularity: -29 },
   { naics_code: '312120', display_name: 'Brewery/Winery', category: 'Food Service', has_full_profile: true, keywords: ["brewery/winery","brewery","winery"], popularity: -30 },
   { naics_code: '311999', display_name: 'Food Manufacturing', category: 'Food Service', has_full_profile: true, keywords: ["food manufacturing","food","manufacturing"], popularity: -31 },
-  { naics_code: '311919', display_name: 'Specialty Food Products', category: 'Food Service', has_full_profile: true, keywords: ["specialty food products","specialty","food","products"], popularity: -32 },
+  { naics_code: '311999', display_name: 'Specialty Food Products', category: 'Food Service', has_full_profile: true, keywords: ["specialty food products","specialty","food","products"], popularity: -32 },
   { naics_code: '722320', display_name: 'Private Chef Services', category: 'Food Service', has_full_profile: true, keywords: ["private chef services","private","chef","services"], popularity: -33 },
   { naics_code: '721110', display_name: 'Hotel/Motel', category: 'Food Service', has_full_profile: true, keywords: ["hotel/motel","hotel","motel"], popularity: -34 },
   { naics_code: '721191', display_name: 'Bed & Breakfast', category: 'Food Service', has_full_profile: true, keywords: ["bed & breakfast","bed","breakfast"], popularity: -35 },
@@ -439,9 +439,9 @@ export const COMPLETE_NAICS_CODES: NAICSOption[] = [
   { naics_code: '811411', display_name: 'Home Appliance Repair', category: 'Personal Services', keywords: ['appliance repair', 'washer repair', 'dryer repair'] , has_full_profile: false },
 
   // ===== INSURANCE SERVICES (5 codes) =====
-  { naics_code: '524126', display_name: 'Direct Property & Casualty Insurance', category: 'Professional Services', keywords: ['insurance', 'property insurance', 'casualty insurance', 'insurance carrier', 'auto insurance', 'home insurance', 'business insurance'] , has_full_profile: false, popularity: 75 },
-  { naics_code: '524210', display_name: 'Insurance Agencies and Brokerages', category: 'Professional Services', keywords: ['insurance agent', 'insurance agency', 'insurance broker', 'insurance', 'auto insurance', 'home insurance', 'life insurance', 'health insurance', 'business insurance'] , has_full_profile: false, popularity: 80 },
-  { naics_code: '524298', display_name: 'Insurance Related Activities', category: 'Professional Services', keywords: ['insurance', 'claims adjuster', 'insurance consultant', 'risk management', 'insurance services'] , has_full_profile: false, popularity: 50 },
+  { naics_code: '524126', display_name: 'Direct Property & Casualty Insurance', category: 'Professional Services', keywords: ['insurance', 'property insurance', 'casualty insurance', 'insurance carrier', 'auto insurance', 'home insurance', 'business insurance'] , has_full_profile: true, popularity: 75 },
+  { naics_code: '524210', display_name: 'Insurance Agencies and Brokerages', category: 'Professional Services', keywords: ['insurance agent', 'insurance agency', 'insurance broker', 'insurance', 'auto insurance', 'home insurance', 'life insurance', 'health insurance', 'business insurance'] , has_full_profile: true, popularity: 80 },
+  { naics_code: '524298', display_name: 'Insurance Related Activities', category: 'Professional Services', keywords: ['insurance', 'claims adjuster', 'insurance consultant', 'risk management', 'insurance services'] , has_full_profile: true, popularity: 50 },
   { naics_code: '5242', display_name: 'Insurance Agencies & Brokerages', category: 'Professional Services', keywords: ['insurance agent', 'insurance broker', 'insurance agency', 'insurance', 'broker'] , has_full_profile: false, popularity: 78 },
   { naics_code: '5241', display_name: 'Insurance Carriers', category: 'Professional Services', keywords: ['insurance carrier', 'insurance company', 'insurance provider', 'insurance'] , has_full_profile: false, popularity: 70 },
 

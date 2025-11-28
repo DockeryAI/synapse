@@ -39,6 +39,211 @@ const getTypeColor = (type: InsightType) => {
   }
 };
 
+/**
+ * V3 Validation Labels from the V1 pipeline
+ * Based on source count: 5+ sources = multi-validated, 4 = cross-platform, 3 = validated, 2 = emerging, 1 = early
+ */
+type ValidationLabel = 'multi-validated-breakthrough' | 'cross-platform-insight' | 'validated-pattern' | 'emerging-signal' | 'early-indicator';
+
+const VALIDATION_BADGE_CONFIG: Record<ValidationLabel, {
+  label: string;
+  emoji: string;
+  borderClass: string;
+  bgClass: string;
+  badgeGradient: string;
+  priority: number;
+}> = {
+  'multi-validated-breakthrough': {
+    label: '5+ SOURCES',
+    emoji: '🏆',
+    borderClass: 'border-amber-400 dark:border-amber-500 ring-2 ring-amber-200 dark:ring-amber-900/50',
+    bgClass: 'bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-950/30 dark:to-yellow-950/30',
+    badgeGradient: 'from-amber-500 to-yellow-500',
+    priority: 100,
+  },
+  'cross-platform-insight': {
+    label: '4 SOURCES',
+    emoji: '🌐',
+    borderClass: 'border-purple-400 dark:border-purple-500 ring-2 ring-purple-200 dark:ring-purple-900/50',
+    bgClass: 'bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950/30 dark:to-pink-950/30',
+    badgeGradient: 'from-purple-500 to-pink-500',
+    priority: 80,
+  },
+  'validated-pattern': {
+    label: '3 SOURCES',
+    emoji: '✓',
+    borderClass: 'border-blue-400 dark:border-blue-500 ring-1 ring-blue-200 dark:ring-blue-900/50',
+    bgClass: 'bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20',
+    badgeGradient: 'from-blue-500 to-indigo-500',
+    priority: 60,
+  },
+  'emerging-signal': {
+    label: '2 SOURCES',
+    emoji: '📡',
+    borderClass: 'border-green-400 dark:border-green-500 ring-1 ring-green-200 dark:ring-green-900/50',
+    bgClass: 'bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-950/20 dark:to-emerald-950/20',
+    badgeGradient: 'from-green-500 to-emerald-500',
+    priority: 40,
+  },
+  'early-indicator': {
+    label: 'EARLY',
+    emoji: '🔍',
+    borderClass: 'border-gray-300 dark:border-gray-600',
+    bgClass: '',
+    badgeGradient: 'from-gray-500 to-slate-500',
+    priority: 20,
+  },
+};
+
+/**
+ * Get validation label from insight sources or rawData
+ */
+const getValidationLabel = (insight: InsightCard): ValidationLabel => {
+  // Check rawData for explicit validationLabel
+  const rawLabel = insight.rawData?.validationLabel || insight.rawData?.validation?.validationLabel;
+  if (rawLabel && rawLabel in VALIDATION_BADGE_CONFIG) {
+    return rawLabel as ValidationLabel;
+  }
+
+  // Calculate from source count
+  const sourceCount = insight.sources?.length || 1;
+  if (sourceCount >= 5) return 'multi-validated-breakthrough';
+  if (sourceCount === 4) return 'cross-platform-insight';
+  if (sourceCount === 3) return 'validated-pattern';
+  if (sourceCount === 2) return 'emerging-signal';
+  return 'early-indicator';
+};
+
+/**
+ * Determine if insight is a breakthrough or correlated insight
+ * Returns styling info for visual differentiation
+ * V3: Now uses validation labels from V1 pipeline
+ */
+const getBreakthroughStyle = (insight: InsightCard): {
+  isBreakthrough: boolean;
+  isCorrelated: boolean;
+  borderClass: string;
+  bgClass: string;
+  badge: string | null;
+  badgeGradient: string;
+  priority: number;
+} => {
+  const id = insight.id || '';
+  const category = insight.category || '';
+
+  // Get validation label from V1 pipeline
+  const validationLabel = getValidationLabel(insight);
+  const config = VALIDATION_BADGE_CONFIG[validationLabel];
+
+  // Legacy breakthrough detection + V3 multi-validated
+  if (id.startsWith('breakthrough-') || category.includes('Breakthrough') || validationLabel === 'multi-validated-breakthrough') {
+    const connectionMatch = category.match(/(5-WAY|4-WAY|3-WAY)/);
+    return {
+      isBreakthrough: true,
+      isCorrelated: false,
+      borderClass: config.borderClass,
+      bgClass: config.bgClass,
+      badge: connectionMatch ? connectionMatch[1] : `${config.emoji} ${config.label}`,
+      badgeGradient: config.badgeGradient,
+      priority: config.priority,
+    };
+  }
+
+  // Cross-platform insights (4 sources)
+  if (validationLabel === 'cross-platform-insight') {
+    return {
+      isBreakthrough: false,
+      isCorrelated: true,
+      borderClass: config.borderClass,
+      bgClass: config.bgClass,
+      badge: `${config.emoji} ${config.label}`,
+      badgeGradient: config.badgeGradient,
+      priority: config.priority,
+    };
+  }
+
+  // Validated patterns (3 sources) or legacy correlated
+  if (validationLabel === 'validated-pattern' || id.startsWith('correlated-') || category.includes('Validated') || category.includes('Psychological')) {
+    return {
+      isBreakthrough: false,
+      isCorrelated: true,
+      borderClass: config.borderClass,
+      bgClass: config.bgClass,
+      badge: `${config.emoji} ${config.label}`,
+      badgeGradient: config.badgeGradient,
+      priority: config.priority,
+    };
+  }
+
+  // Emerging signals (2 sources)
+  if (validationLabel === 'emerging-signal') {
+    return {
+      isBreakthrough: false,
+      isCorrelated: false,
+      borderClass: config.borderClass,
+      bgClass: config.bgClass,
+      badge: `${config.emoji} ${config.label}`,
+      badgeGradient: config.badgeGradient,
+      priority: config.priority,
+    };
+  }
+
+  // Early indicators (1 source) - subtle styling
+  return {
+    isBreakthrough: false,
+    isCorrelated: false,
+    borderClass: '',
+    bgClass: '',
+    badge: null,
+    badgeGradient: 'from-gray-400 to-gray-500',
+    priority: 0,
+  };
+};
+
+/**
+ * Extract psychology info from insight for badge display
+ */
+const getPsychologyBadge = (insight: InsightCard): { emotion: string; color: string } | null => {
+  const rawData = insight.rawData || {};
+  const metadata = rawData.metadata || rawData.psychology || {};
+
+  // Check for emotion in various locations
+  const emotion = metadata.emotion || rawData.emotion || rawData.emotionalDriver;
+  if (!emotion) return null;
+
+  // Map emotions to display colors
+  const emotionColors: Record<string, string> = {
+    'frustration': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
+    'fear': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    'anxiety': 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300',
+    'stress': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300',
+    'hope': 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300',
+    'excitement': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300',
+    'desire': 'bg-pink-100 text-pink-700 dark:bg-pink-900/30 dark:text-pink-300',
+    'aspiration': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
+  };
+
+  const emotionLower = emotion.toLowerCase();
+  const colorClass = Object.entries(emotionColors).find(([key]) => emotionLower.includes(key))?.[1]
+    || 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300';
+
+  return { emotion: emotion.charAt(0).toUpperCase() + emotion.slice(1), color: colorClass };
+};
+
+/**
+ * Extract UVP validation info from insight
+ */
+const getUVPValidation = (insight: InsightCard): string | null => {
+  const rawData = insight.rawData || {};
+
+  // Check various locations for UVP match
+  const uvpMatch = rawData.uvpMatch || rawData.uvpValidation?.painPoint || rawData.metadata?.uvpMatch;
+  if (!uvpMatch) return null;
+
+  // Truncate long pain points
+  return uvpMatch.length > 30 ? uvpMatch.substring(0, 30) + '...' : uvpMatch;
+};
+
 const getTypeIcon = (type: InsightType) => {
   switch (type) {
     case 'customer':
@@ -196,12 +401,18 @@ export function InsightGrid({
   activeFilter,
   onFilterChange,
 }: InsightGridProps) {
-  // Sort insights with selected ones first, then by EQ score * confidence
+  // Sort insights: breakthroughs first, then selected, then by EQ score * confidence
   const visibleInsights = [...insights].sort((a, b) => {
+    // Breakthrough priority (highest)
+    const aBreakthrough = getBreakthroughStyle(a).priority;
+    const bBreakthrough = getBreakthroughStyle(b).priority;
+    if (bBreakthrough !== aBreakthrough) return bBreakthrough - aBreakthrough;
+
+    // Selected items next
     const aSelected = selectedInsights.includes(a.id) ? 1 : 0;
     const bSelected = selectedInsights.includes(b.id) ? 1 : 0;
-    // Selected items first
     if (bSelected !== aSelected) return bSelected - aSelected;
+
     // Then by EQ-weighted score (EQ * 0.6 + confidence * 0.4)
     const aScore = calculateInsightEQ(a) * 0.6 + a.confidence * 100 * 0.4;
     const bScore = calculateInsightEQ(b) * 0.6 + b.confidence * 100 * 0.4;
@@ -256,6 +467,22 @@ export function InsightGrid({
               const Icon = getTypeIcon(insight.type);
               const gradientColor = getTypeColor(insight.type);
               const hasDetails = insight.description || insight.evidence || insight.actionableInsight;
+              const breakthroughStyle = getBreakthroughStyle(insight);
+
+              // Build class names with breakthrough styling
+              const baseClasses = 'relative rounded-lg border-2 transition-all';
+              const expandedClass = isExpanded ? 'col-span-3' : '';
+
+              let stateClasses: string;
+              if (isSelected) {
+                stateClasses = 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 shadow-md';
+              } else if (breakthroughStyle.isBreakthrough) {
+                stateClasses = `${breakthroughStyle.borderClass} ${breakthroughStyle.bgClass} shadow-lg`;
+              } else if (breakthroughStyle.isCorrelated) {
+                stateClasses = `${breakthroughStyle.borderClass} ${breakthroughStyle.bgClass} shadow-sm`;
+              } else {
+                stateClasses = 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-sm';
+              }
 
               return (
                 <motion.div
@@ -265,19 +492,22 @@ export function InsightGrid({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.8 }}
                   transition={{ delay: idx * 0.02 }}
-                  className={`relative rounded-lg border-2 transition-all ${
-                    isExpanded ? 'col-span-3' : ''
-                  } ${
-                    isSelected
-                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-900/30 shadow-md'
-                      : 'border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:border-purple-300 dark:hover:border-purple-700 hover:shadow-sm'
-                  }`}
+                  className={`${baseClasses} ${expandedClass} ${stateClasses}`}
                 >
                   {/* Condensed View */}
                   <button
                     onClick={() => onToggleInsight(insight.id)}
                     className="w-full p-3 text-left"
                   >
+                    {/* V3 Validation Badge - Dynamic gradient based on source count */}
+                    {breakthroughStyle.badge && (
+                      <div className={`absolute -top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold z-10 bg-gradient-to-r ${breakthroughStyle.badgeGradient} text-white ${
+                        breakthroughStyle.isBreakthrough ? 'shadow-md' : 'shadow-sm'
+                      }`}>
+                        {breakthroughStyle.badge}
+                      </div>
+                    )}
+
                     {/* Confidence Badge */}
                     <div className={`absolute top-2 right-2 px-2 py-0.5 bg-gradient-to-r ${gradientColor} rounded-full`}>
                       <span className="text-xs font-bold text-white">
@@ -286,7 +516,7 @@ export function InsightGrid({
                     </div>
 
                     {/* Icon */}
-                    <div className={`inline-flex items-center justify-center w-6 h-6 bg-gradient-to-br ${gradientColor} rounded-lg mb-2`}>
+                    <div className={`inline-flex items-center justify-center w-6 h-6 bg-gradient-to-br ${gradientColor} rounded-lg mb-2 ${breakthroughStyle.badge ? 'mt-2' : ''}`}>
                       <Icon className="w-3 h-3 text-white" />
                     </div>
 
@@ -294,6 +524,49 @@ export function InsightGrid({
                     <h4 className="text-sm font-semibold text-gray-900 dark:text-white pr-8">
                       {insight.title}
                     </h4>
+
+                    {/* Metadata Badges Row - Psychology, UVP, Sources */}
+                    {(() => {
+                      const psychBadge = getPsychologyBadge(insight);
+                      const uvpValidation = getUVPValidation(insight);
+                      const hasMultiSource = insight.sources && insight.sources.length > 1;
+
+                      if (!psychBadge && !uvpValidation && !hasMultiSource) return null;
+
+                      return (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {/* Psychology Badge */}
+                          {psychBadge && (
+                            <span className={`px-1.5 py-0.5 text-[9px] font-medium rounded ${psychBadge.color}`}>
+                              🧠 {psychBadge.emotion}
+                            </span>
+                          )}
+
+                          {/* UVP Validation Badge */}
+                          {uvpValidation && (
+                            <span className="px-1.5 py-0.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-[9px] font-medium rounded">
+                              ✓ {uvpValidation}
+                            </span>
+                          )}
+
+                          {/* Multi-Source Badge - for ALL cards with multiple sources */}
+                          {hasMultiSource && (
+                            <>
+                              {insight.sources!.slice(0, 3).map((src, i) => (
+                                <span key={i} className="px-1.5 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-[9px] rounded">
+                                  {getFriendlySourceName(src.source)}
+                                </span>
+                              ))}
+                              {insight.sources!.length > 3 && (
+                                <span className="px-1.5 py-0.5 bg-gray-100 dark:bg-slate-700 text-gray-600 dark:text-gray-300 text-[9px] rounded">
+                                  +{insight.sources!.length - 3}
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </div>
+                      );
+                    })()}
 
                     {/* Selection Indicator */}
                     {isSelected && (

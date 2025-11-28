@@ -1,5 +1,23 @@
 /**
- * DeepContext Builder Service
+ * @deprecated LEGACY SERVICE - DO NOT USE FOR NEW DEVELOPMENT
+ *
+ * This is the OLD non-streaming DeepContext builder.
+ * Use streaming-deepcontext-builder.service.ts instead for:
+ * - Netflix-style progressive loading
+ * - V3 Atomizer integration (500+ insights)
+ * - AI Insight Synthesizer integration
+ * - Parallel API execution
+ *
+ * Still used by:
+ * - SynapsePage.tsx (legacy)
+ * - ContentCalendarHub.tsx (legacy)
+ * - SynapseContentDiscovery.tsx (legacy)
+ *
+ * TODO: Migrate above pages to use trueProgressiveBuilder, then delete this file
+ *
+ * ============================================================================
+ *
+ * DeepContext Builder Service (LEGACY)
  *
  * The missing orchestration layer that aggregates data from all intelligence APIs
  * and builds the comprehensive DeepContext required for breakthrough content generation.

@@ -1,6 +1,7 @@
 /**
  * ContentGenerator Component
  * Modal interface for generating content with MARBA or Synapse modes
+ * V3.2: Integrated with ContentSynthesisOrchestrator for EQ/UVP/Segment awareness
  * Tasks 316-331
  */
 
@@ -19,11 +20,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Sparkles, Zap, Edit, Save, Info } from 'lucide-react';
+import { Sparkles, Zap, Edit, Save, Info, Brain } from 'lucide-react';
+import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanner';
 import { ContentCalendarService } from '@/services/content-calendar.service';
 import { EdginessSlider } from '@/components/synapse/EdginessSlider';
 import { CharacterCountBadge } from '@/components/synapse/CharacterCountBadge';
 import { CharacterValidator } from '@/services/synapse/validation/CharacterValidator';
+import { useContentSynthesis } from '@/hooks/useContentSynthesis';
+import type { BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 import type {
   Platform,
   GenerationMode,
@@ -44,6 +48,12 @@ interface ContentGeneratorProps {
   opportunityId?: string;
   pillars?: ContentPillar[];
   onContentCreated?: (contentId: string) => void;
+  /** V3.2: Brand name for orchestrator context */
+  brandName?: string;
+  /** V3.2: Industry for orchestrator context */
+  industry?: string;
+  /** V3.2: Business segment for EQ-aware synthesis */
+  segment?: BusinessSegment;
 }
 
 /**
@@ -67,6 +77,9 @@ export function ContentGenerator({
   opportunityId,
   pillars = [],
   onContentCreated,
+  brandName = 'Unknown',
+  industry = 'General',
+  segment = 'smb_local',
 }: ContentGeneratorProps) {
   const [platform, setPlatform] = useState<Platform>('instagram');
   const [topic, setTopic] = useState('');
@@ -84,6 +97,29 @@ export function ContentGenerator({
 
   // Character validator instance
   const characterValidator = new CharacterValidator();
+
+  // V3.2: Use ContentSynthesisOrchestrator for EQ/UVP/Segment-aware content generation
+  const {
+    enrichedContext,
+    loadContext,
+    getRecommendedFramework,
+    contextError,
+    retryLoadContext,
+    clearErrors,
+    isContextLoading,
+  } = useContentSynthesis({
+    brandName,
+    industry,
+    segment,
+    uvpData: {}
+  });
+
+  // Load enriched context on mount
+  useEffect(() => {
+    if (open && brandName) {
+      loadContext();
+    }
+  }, [open, brandName, loadContext]);
 
   /**
    * Reset form when modal closes
@@ -158,6 +194,7 @@ export function ContentGenerator({
 
   /**
    * Generate content
+   * V3.2: Passes enriched context for EQ/segment-aware generation
    */
   const handleGenerate = async () => {
     if (!topic.trim()) {
@@ -169,6 +206,17 @@ export function ContentGenerator({
     setVariations([]);
     setSelectedVariation(null);
 
+    // V3.2: Get recommended framework from orchestrator
+    const recommendedFramework = enrichedContext
+      ? getRecommendedFramework('awareness')
+      : 'aida';
+
+    console.log('[ContentGenerator] V3.2: Generating with enriched context:', {
+      hasEnrichedContext: !!enrichedContext,
+      segment,
+      recommendedFramework
+    });
+
     try {
       const result = await ContentCalendarService.generateContent({
         brandId,
@@ -176,6 +224,13 @@ export function ContentGenerator({
         topic,
         pillarId,
         mode,
+        // V3.2: Pass orchestrator context for EQ-aware generation
+        synthesisContext: enrichedContext ? {
+          eqProfile: enrichedContext.eqProfile,
+          segmentGuidelines: enrichedContext.segmentGuidelines,
+          recommendedFramework,
+          segment
+        } : undefined
       });
 
       // Mock response for demo (replace with actual API response)
@@ -328,6 +383,14 @@ export function ContentGenerator({
             Create engaging content with AI assistance
           </DialogDescription>
         </DialogHeader>
+
+        {/* V3.2: Synthesis Error Banner */}
+        <SynthesisErrorBanner
+          error={contextError}
+          onRetry={retryLoadContext}
+          onDismiss={clearErrors}
+          isRetrying={isContextLoading}
+        />
 
         <div className="space-y-6">
           {/* Platform Selector */}

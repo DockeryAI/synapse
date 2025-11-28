@@ -1,0 +1,1690 @@
+{
+  "industry": "Bakery",
+  "industry_name": "Bakery",
+  "naics_code": "311811",
+  "category": "Food Service",
+  "subcategory": "Retail Bakeries",
+  "customer_triggers": [
+    {
+      "trigger": "Morning coffee and pastry routine",
+      "urgency": 7,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Birthday cake needed this week",
+      "urgency": 9,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Office meeting catering tomorrow",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Weekend farmers market visit",
+      "urgency": 5,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Holiday dessert planning",
+      "urgency": 8,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Fresh bread for dinner tonight",
+      "urgency": 6,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Wedding cake consultation",
+      "urgency": 10,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Kids' school bake sale donation",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Gluten-free options needed for guest",
+      "urgency": 9,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Comfort food craving on rainy day",
+      "urgency": 4,
+      "frequency": "weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Smell of fresh bread while walking by, Instagram posts of decorated cakes, Google searches for 'bakery near me', friend recommendations for best croissants, seeing delivery van around town",
+    "consideration": "Checking online menu for prices and options, reading reviews about freshness and taste, looking at cake portfolio photos, comparing custom cake prices, verifying allergen-free options available",
+    "decision": "Confirming items are available today, seeing fresh batch just came out, finding out about daily special, getting text that custom order is ready, walking by and seeing favorite item in case",
+    "retention": "Joining loyalty program for free pastry after 10 purchases, pre-ordering weekly bread subscription, becoming known by name with usual order ready, getting first access to seasonal items, receiving birthday month discount",
+    "advocacy": "Posting Instagram photos of beautiful cakes, bringing boxes to office regularly, recommending for all celebrations, defending against chain competition, gifting bakery boxes during holidays"
+  },
+  "transformations": [
+    {
+      "from": "Grocery store cake shopper",
+      "to": "Custom cake connoisseur",
+      "emotional_value": "Uniqueness worth 3x grocery price",
+      "worth_premium": true
+    },
+    {
+      "from": "Boring breakfast routine",
+      "to": "Morning ritual enjoyment",
+      "emotional_value": "Daily joy worth $5 premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressful event planning",
+      "to": "Confident dessert solution",
+      "emotional_value": "Peace of mind worth 40% markup",
+      "worth_premium": true
+    },
+    {
+      "from": "Dietary restriction frustration",
+      "to": "Included and satisfied",
+      "emotional_value": "Inclusion worth 50% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Homemade baking failure",
+      "to": "Hero with perfect dessert",
+      "emotional_value": "Success worth $75 custom order",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic gift giver",
+      "to": "Thoughtful gift presenter",
+      "emotional_value": "Appreciation worth $40 gift box",
+      "worth_premium": true
+    },
+    {
+      "from": "Unknown neighbor",
+      "to": "Bakery regular family",
+      "emotional_value": "Community worth 2x visits weekly",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Morning rush selling out by 9:30 AM daily",
+      "timeframe": "3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Custom cake orders booked 3 weeks out",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Average transaction increasing from $12 to $18",
+      "timeframe": "4 months",
+      "measurable": true
+    },
+    {
+      "metric": "Wholesale accounts reaching 25 coffee shops",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Weekend foot traffic up 40% year-over-year",
+      "timeframe": "12 months",
+      "measurable": true
+    },
+    {
+      "metric": "Loyalty members hitting 2,000 active users",
+      "timeframe": "9 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Only 6 croissants left - we don't make more today",
+    "Custom cake orders need 72-hour minimum notice",
+    "Fresh bread comes out at 4 PM - usually gone by 5:30",
+    "Holiday orders must be placed by December 15th",
+    "Today's special Danish - 30% off until 2 PM only",
+    "Last day to order Thanksgiving pies is tomorrow",
+    "Wedding season booking up - only 3 Saturdays left in June"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive vs grocery store",
+      "response": "We bake fresh daily with organic ingredients - grocery items are 3-5 days old with preservatives. Try our day-old rack for 40% off to experience the quality difference",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "Not on my diet",
+      "response": "We offer keto, gluten-free, vegan, and sugar-free options daily. Our almond flour muffins have just 3g net carbs",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Too far to drive regularly",
+      "response": "Order online for pickup to save time, or join our delivery zone for $5 flat fee on orders over $30. Many customers do weekly orders",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "Don't eat enough bread",
+      "response": "Our breads freeze perfectly for up to 3 months. Buy 3 loaves, freeze 2, and save 15% with bulk discount",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Had a stale item once",
+      "response": "That's not our standard - everything is dated and we guarantee freshness. Bring your receipt for a full replacement plus a free pastry for the inconvenience",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "Can make it myself cheaper",
+      "response": "Factor in ingredients, time (4+ hours), electricity, and cleanup. Our economies of scale mean professional quality for less than homemade total cost",
+      "effectiveness": 7.2
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% freshness guarantee - baked today or free replacement",
+      "Custom cake satisfaction or remake at no charge",
+      "Allergen-free items tested and certified",
+      "On-time delivery or 20% discount"
+    ],
+    "proof_points": [
+      "4.8 stars from 1,200+ Google reviews",
+      "Winner of Best Bakery 5 years running",
+      "Featured in Food & Wine magazine",
+      "20 years at same location"
+    ],
+    "risk_mitigation": "Free samples available all day, small sizes to try before committing, detailed allergen charts posted, photo approval required before custom cake pickup"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "need dessert",
+      "birthday tomorrow",
+      "bringing something",
+      "breakfast meeting",
+      "special diet",
+      "impress guests",
+      "treat myself",
+      "gift needed",
+      "potluck tonight",
+      "carb craving"
+    ],
+    "solution_words": [
+      "fresh baked",
+      "made today",
+      "custom decorated",
+      "beautiful cake",
+      "artisan bread",
+      "flaky croissant",
+      "decadent",
+      "homemade taste",
+      "local bakery",
+      "from scratch"
+    ],
+    "avoid_jargon": [
+      "lamination",
+      "proofing",
+      "crumb structure",
+      "hydration ratio",
+      "autolyse",
+      "poolish",
+      "scoring",
+      "bench rest",
+      "bulk fermentation",
+      "windowpane test"
+    ]
+  },
+  "power_words": [
+    "fresh",
+    "warm",
+    "homemade",
+    "today",
+    "artisan",
+    "custom",
+    "local",
+    "organic",
+    "flaky",
+    "buttery",
+    "decadent",
+    "handcrafted",
+    "daily",
+    "scratch",
+    "traditional",
+    "authentic",
+    "golden",
+    "crispy",
+    "soft",
+    "moist",
+    "rich",
+    "heavenly",
+    "irresistible",
+    "award-winning",
+    "famous",
+    "secret recipe",
+    "limited",
+    "seasonal",
+    "just-baked",
+    "small-batch"
+  ],
+  "avoid_words": [
+    "mass-produced",
+    "factory",
+    "frozen",
+    "preserved",
+    "artificial",
+    "cheap",
+    "discount",
+    "day-old",
+    "leftover",
+    "generic",
+    "plain",
+    "basic",
+    "simple",
+    "industrial",
+    "commercial",
+    "wholesale",
+    "bulk",
+    "machine-made",
+    "processed",
+    "stabilizers"
+  ],
+  "headline_templates": [
+    {
+      "template": "Fresh [Item] Just Out of the Oven - Limited Quantity",
+      "expected_ctr": 13.7,
+      "use_case": "Daily fresh alerts"
+    },
+    {
+      "template": "Order Your [Holiday] [Item] Now - Only [X] Days Left",
+      "expected_ctr": 11.8,
+      "use_case": "Holiday urgency"
+    },
+    {
+      "template": "Why [Number] Neighbors Choose [Bakery] for [Occasion]",
+      "expected_ctr": 9.6,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "New: [Dietary] Options That Actually Taste Amazing",
+      "expected_ctr": 10.4,
+      "use_case": "Product launch"
+    },
+    {
+      "template": "This Week Only: Buy 2 [Item], Get 3rd Free",
+      "expected_ctr": 12.3,
+      "use_case": "Promotions"
+    },
+    {
+      "template": "[Day]'s Special: [Item] for Just $[Price]",
+      "expected_ctr": 8.9,
+      "use_case": "Daily deals"
+    },
+    {
+      "template": "Last Chance: [Event] Orders Close [Day]",
+      "expected_ctr": 14.2,
+      "use_case": "Deadline urgency"
+    },
+    {
+      "template": "Behind the Scenes: How We Make [Signature Item]",
+      "expected_ctr": 7.8,
+      "use_case": "Engagement content"
+    },
+    {
+      "template": "[Number]% of Customers Say This Is Their Favorite [Item]",
+      "expected_ctr": 9.2,
+      "use_case": "Testimonial"
+    },
+    {
+      "template": "Surprise: We Now Deliver to [Neighborhood]",
+      "expected_ctr": 11.5,
+      "use_case": "Service expansion"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Order for Tomorrow →",
+      "conversion_rate": 9.8,
+      "placement": "Website banner"
+    },
+    {
+      "template": "See Today's Specials",
+      "conversion_rate": 8.3,
+      "placement": "Email header"
+    },
+    {
+      "template": "Reserve Your Cake Now",
+      "conversion_rate": 12.4,
+      "placement": "Instagram bio"
+    },
+    {
+      "template": "Get Directions & Hours",
+      "conversion_rate": 7.6,
+      "placement": "Google My Business"
+    },
+    {
+      "template": "Join Our Bread Club",
+      "conversion_rate": 11.2,
+      "placement": "In-store signage"
+    },
+    {
+      "template": "Claim Birthday Treat",
+      "conversion_rate": 15.7,
+      "placement": "Loyalty emails"
+    },
+    {
+      "template": "Text ORDER to 44444",
+      "conversion_rate": 10.3,
+      "placement": "Receipt footer"
+    },
+    {
+      "template": "Try Free Sample Inside",
+      "conversion_rate": 18.2,
+      "placement": "Window sign"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "🥐 Fresh out of the oven! Today's special: [Item] for just $[Price]. Who's treating themselves? #[LocalBakery] #FreshBaked",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Facebook",
+      "template": "TOMORROW: Fresh [bread type] available at [time]. Pre-order now to guarantee yours! 🍞 Link in comments.",
+      "engagement_rate": 6.4
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "[Poll] What should tomorrow's special be? A) [Option 1] B) [Option 2] You decide! 🗳️",
+      "engagement_rate": 15.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "The satisfying crack of fresh sourdough... [ASMR video] #BakeryLife #Sourdough #[City]Eats",
+      "engagement_rate": 19.7
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: We just pulled [number] dozen [item] from the oven. First come, first served! 🏃‍♀️💨",
+      "engagement_rate": 7.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "[Season] cake inspiration 🎂 Which design is your favorite? Order custom cakes at [website]",
+      "engagement_rate": 11.4
+    },
+    {
+      "platform": "Facebook Events",
+      "template": "[Day] Special Event: [Theme] Decorating Class - Limited to 12 spots. Register now!",
+      "engagement_rate": 8.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Providing fresh baked goods for corporate meetings across [City]. Let's discuss your catering needs!",
+      "engagement_rate": 4.6
+    },
+    {
+      "platform": "Google Posts",
+      "template": "⭐ Now Open Until [Time]! Fresh bread, pastries, and custom cakes available. Order ahead: [phone]",
+      "engagement_rate": 5.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Everything baked fresh daily on-site - never frozen, never day-old",
+      "rank": 1,
+      "differentiator": "Only scratch bakery within 5 miles"
+    },
+    {
+      "prop": "Custom cakes with 72-hour turnaround - grocery stores need 1 week",
+      "rank": 2,
+      "differentiator": "Fastest custom cake service"
+    },
+    {
+      "prop": "Certified gluten-free kitchen section - safe for celiac customers",
+      "rank": 3,
+      "differentiator": "Only certified facility in county"
+    },
+    {
+      "prop": "Open at 6 AM daily - fresh pastries with your morning coffee",
+      "rank": 4,
+      "differentiator": "Earliest opening bakery"
+    },
+    {
+      "prop": "Family recipes passed down 3 generations since 1952",
+      "rank": 5,
+      "differentiator": "Longest-running family bakery"
+    },
+    {
+      "prop": "Local ingredients from 8 area farms when possible",
+      "rank": 6,
+      "differentiator": "Strongest local sourcing commitment"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Artisanal techniques using French butter, organic flours, and locally-sourced ingredients. Our master baker trained in Paris, bringing authentic European methods. Custom designs that are Instagram-worthy works of art. Premium packaging perfect for gifting.",
+    "budget_conscious": "Day-old rack with 40% savings on yesterday's fresh items. Bulk discounts on orders over $30. Tuesday is Student Day with 20% off. Loyalty program earns free items. Basic celebration cakes starting at just $18. Weekly specials on overstocked items.",
+    "enterprise": "Corporate catering with delivery and setup included. Net 30 payment terms for established accounts. Standing orders with guaranteed availability. Custom branded packaging available. Volume discounts starting at 20% for 50+ items. Dedicated account manager for orders over $500/month."
+  },
+  "trust_signals": [
+    {
+      "signal": "Family-owned since 1952 - 3rd generation",
+      "importance": 10,
+      "format": "Story display on wall"
+    },
+    {
+      "signal": "4.8 stars from 1,200+ reviews",
+      "importance": 9,
+      "format": "Google reviews widget"
+    },
+    {
+      "signal": "Health department A rating",
+      "importance": 10,
+      "format": "Certificate by register"
+    },
+    {
+      "signal": "Best Bakery Award 5 years running",
+      "importance": 8,
+      "format": "Trophy display case"
+    },
+    {
+      "signal": "Featured in Food & Wine magazine",
+      "importance": 7,
+      "format": "Framed article on wall"
+    },
+    {
+      "signal": "Certified organic ingredients",
+      "importance": 8,
+      "format": "Certification logos on menu"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 50,000 custom cakes created since 1952",
+      "credibility_score": 9.1,
+      "context": "Experience and longevity demonstration"
+    },
+    {
+      "stat": "87% of customers return within 30 days",
+      "credibility_score": 8.7,
+      "context": "Quality and satisfaction indicator"
+    },
+    {
+      "stat": "Serving 500+ daily customers on average",
+      "credibility_score": 8.3,
+      "context": "Popular community destination"
+    },
+    {
+      "stat": "98% on-time delivery for custom orders",
+      "credibility_score": 9.4,
+      "context": "Reliability for important events"
+    },
+    {
+      "stat": "Featured in 200+ wedding celebrations annually",
+      "credibility_score": 8.5,
+      "context": "Trusted for life's big moments"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: European butter, organic flour, Madagascar vanilla, hand-piped decorations, custom fondant work",
+    "Budget: Standard butter, all-purpose flour, artificial vanilla, simple buttercream, basic decorations",
+    "Premium: Individual packaging, gold foil labels, ribbon-tied boxes, custom printed bags",
+    "Budget: Plastic clamshells, generic bags, basic white boxes, no customization"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 1,
+    "trigger_event": "Immediately after custom cake pickup when they see the final product, or next morning after serving at event when they receive compliments",
+    "ask_method": "Follow-up text 24 hours after pickup: 'How did everyone love the cake? We'd be honored if you'd share your experience in a quick review' with direct link"
+  },
+  "competitive_advantages": [
+    "Only bakery offering both traditional and allergen-free options daily",
+    "Shortest custom cake turnaround time (72 hours vs 1 week)",
+    "Earliest opening hours capturing morning commute traffic",
+    "Strongest social media presence with 15K local followers",
+    "Only bakery with dedicated parking lot in downtown area"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $85 custom cakes prominently to make $45 standard cakes seem reasonable. Show per-slice pricing ($4) to minimize whole cake sticker shock ($48)",
+    "sensitivity": "Bread buyers notice $0.25 changes, cake buyers accept $5 variations, pastry buyers focus on value bundles not individual prices",
+    "sweet_spots": [
+      "$2-4 for individual pastries",
+      "$6-8 for specialty items",
+      "$25-35 for basic cakes",
+      "$5-7 for bread loaves",
+      "$15-20 for dozen items"
+    ],
+    "decoy_pricing": "Offer 6-pack of muffins at $11 between single ($2.50) and dozen ($18) to drive dozen sales - 68% choose dozen"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 75,
+    "approval_required": 150,
+    "competitor_research": 10
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 1.75
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Walk-in retail",
+      "price_range": "$8-15 average transaction",
+      "target_customer": "Daily customers",
+      "margin": 65
+    },
+    {
+      "tier": "Custom orders",
+      "price_range": "$45-150 per order",
+      "target_customer": "Celebration planners",
+      "margin": 72
+    },
+    {
+      "tier": "Wholesale accounts",
+      "price_range": "$200-500 weekly",
+      "target_customer": "Coffee shops and restaurants",
+      "margin": 45
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Push decorated items over plain - 75% margin vs 60% margin on same base product",
+    "Bundle pastries in 4-packs and 6-packs - increases transaction 250% with 70% margin",
+    "Upsell from buttercream to fondant decorations - adds $20 with $18 profit",
+    "Feature high-margin seasonal items prominently - pumpkin items have 80% margins",
+    "Pre-order discounts reduce waste while maintaining margins through volume",
+    "Day-old rack moves inventory while protecting fresh product premium pricing"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -30,
+      "reason": "Post-holiday diet season",
+      "opportunity": "Push healthy options and portion-controlled items"
+    },
+    {
+      "month": "February",
+      "variation": 10,
+      "reason": "Valentine's Day surge",
+      "opportunity": "Heart-shaped everything and chocolate focus"
+    },
+    {
+      "month": "March",
+      "variation": -5,
+      "reason": "Lent dietary restrictions",
+      "opportunity": "Fish-shaped breads for Fridays"
+    },
+    {
+      "month": "April",
+      "variation": 15,
+      "reason": "Easter and Passover",
+      "opportunity": "Decorated eggs and unleavened options"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "Mother's Day and graduations",
+      "opportunity": "Cake pre-orders and party platters"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Wedding season peak",
+      "opportunity": "Showcase wedding cake portfolio"
+    },
+    {
+      "month": "July",
+      "variation": 5,
+      "reason": "Summer vacation impact",
+      "opportunity": "Picnic-friendly items and travel boxes"
+    },
+    {
+      "month": "August",
+      "variation": 0,
+      "reason": "Back-to-school prep",
+      "opportunity": "Lunch box treats and teacher gifts"
+    },
+    {
+      "month": "September",
+      "variation": 10,
+      "reason": "Fall comfort food season",
+      "opportunity": "Apple and pumpkin everything"
+    },
+    {
+      "month": "October",
+      "variation": 30,
+      "reason": "Halloween and fall festivals",
+      "opportunity": "Decorated cookies and themed cakes"
+    },
+    {
+      "month": "November",
+      "variation": 45,
+      "reason": "Thanksgiving pies and rolls",
+      "opportunity": "Pre-order campaigns and bulk deals"
+    },
+    {
+      "month": "December",
+      "variation": 60,
+      "reason": "Holiday everything",
+      "opportunity": "Gift boxes and cookie platters"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Weekly bread stock-up",
+      "avoid": "New product launches",
+      "conversion_rate": 5.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Senior discount day",
+      "avoid": "Custom cake pickups",
+      "conversion_rate": 6.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek treat specials",
+      "avoid": "Large catering orders",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend pre-orders",
+      "avoid": "Limited quantities",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Office catering, weekend prep",
+      "avoid": "Early closing",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Custom cake pickups, family visits",
+      "avoid": "Wholesale focus",
+      "conversion_rate": 15.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch pastries, family dinners",
+      "avoid": "Late hours",
+      "conversion_rate": 13.4
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th see 20% dips as customers manage budgets",
+    "cash_flow_peaks": "First and third Friday show 35% increases from paychecks",
+    "slow_periods": "Second Tuesday through Thursday consistently slowest traffic"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Saturday 9-11 AM",
+      "crisis_type": "Weekend rush depleting inventory",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Day before holidays",
+      "crisis_type": "Last-minute panic orders",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 4-6 PM",
+      "crisis_type": "Weekend dinner bread rush",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "December 20-24",
+      "crisis_type": "Holiday order overflow",
+      "premium_multiplier": 1.75
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Breakfast Meeting Box",
+      "components": [
+        "12 pastries",
+        "Coffee cake",
+        "Fruit",
+        "Plates/napkins"
+      ],
+      "pricing_model": "$65 flat rate",
+      "margin": 68
+    },
+    {
+      "name": "Celebration Package",
+      "components": [
+        "Custom cake",
+        "Dozen cupcakes",
+        "Cookies",
+        "Candles"
+      ],
+      "pricing_model": "$120-180",
+      "margin": 70
+    },
+    {
+      "name": "Weekly Bread Club",
+      "components": [
+        "3 loaves weekly",
+        "Monthly pastry box",
+        "10% off all other items"
+      ],
+      "pricing_model": "$45/month subscription",
+      "margin": 62
+    },
+    {
+      "name": "Wedding Tasting",
+      "components": [
+        "6 cake flavors",
+        "4 filling options",
+        "Design consultation",
+        "Champagne"
+      ],
+      "pricing_model": "$75 (applied to order)",
+      "margin": 40
+    }
+  ],
+  "upsell_paths": [
+    "Single pastry ($3) → 4-pack ($10) → Dozen box ($22) → Catering platter ($45)",
+    "Basic cake ($25) → Custom decoration ($45) → Tiered cake ($125) → Wedding cake ($400+)",
+    "Bread loaf ($6) → Bread club ($45/month) → Wholesale account ($200/week)",
+    "Cookie ($2) → Decorated cookie ($4) → Cookie bouquet ($35) → Cookie wedding favors ($3/each, 100 minimum)",
+    "Walk-in customer → Email subscriber → Loyalty member → Corporate account",
+    "Seasonal buyer → Monthly visitor → Weekly regular → Daily customer"
+  ],
+  "retention_hooks": [
+    "Bread club subscription - 3 loaves weekly at 20% discount, never run out",
+    "Punch card loyalty - 10th item free, encourages regular visits",
+    "Birthday club - free cake slice during birthday month, annual touchpoint",
+    "Pre-order privileges - first access to seasonal items and guaranteed availability",
+    "Taste tester program - try new items free in exchange for feedback",
+    "Family account - track all family birthdays and anniversaries with reminders",
+    "Referral rewards - bring new customer, both get free pastry"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Wedding cake couples get 25% off anniversary cakes forever",
+      "timing": "At final payment",
+      "incentive": "Lifetime value",
+      "conversion_rate": 67
+    },
+    {
+      "strategy": "Share custom cake photo, tag us for 15% off next order",
+      "timing": "Day after event",
+      "incentive": "$10-20 value",
+      "conversion_rate": 43
+    },
+    {
+      "strategy": "Corporate accounts earn $50 credit per new business referral",
+      "timing": "Quarterly review",
+      "incentive": "Account credit",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Bring a friend Tuesday - both get free coffee with purchase",
+      "timing": "Slow day promotion",
+      "incentive": "$3 value each",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Gift box buyers get 20% off coupon to include",
+      "timing": "Holiday season",
+      "incentive": "Gift value add",
+      "conversion_rate": 22
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Coffee with pastry",
+      "attach_rate": 68,
+      "timing": "Morning rush 6-9 AM"
+    },
+    {
+      "service": "Bread with dinner items",
+      "attach_rate": 42,
+      "timing": "After 3 PM"
+    },
+    {
+      "service": "Cookies with cakes",
+      "attach_rate": 35,
+      "timing": "Custom order pickup"
+    },
+    {
+      "service": "Gift boxes during holidays",
+      "attach_rate": 25,
+      "timing": "November-December"
+    },
+    {
+      "service": "Catering add-ons",
+      "attach_rate": 58,
+      "timing": "Order confirmation call"
+    },
+    {
+      "service": "Seasonal items",
+      "attach_rate": 38,
+      "timing": "Register point of sale"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Coffee bar addition",
+      "market_size": "$380K annual potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Lunch sandwich program",
+      "market_size": "$290K annual potential",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Online nationwide shipping",
+      "market_size": "$450K annual potential",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Baking class studio",
+      "market_size": "$120K annual potential",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Food truck for events",
+      "market_size": "$160K annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Frozen product line in groceries",
+      "market_size": "$550K annual potential",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Milk Bar's 'Bake Club' subscription service launch on Instagram featuring behind-the-scenes baking videos and user-generated content of customers making signature recipes at home",
+        "platform": "Instagram",
+        "why_it_worked": "Combined educational content with community building; leveraged founder Christina Tosi's celebrity status; created FOMO with limited-time recipe releases; encouraged user participation and sharing",
+        "metrics": "Average engagement rate of 3.2% on recipe videos, 45% higher than static product photos; subscription waitlist of 10,000+ in first month",
+        "source": "Shopify Plus case study on Milk Bar's DTC strategy, 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Crumbl Cookies' weekly rotating menu announcements on TikTok, posted every Sunday evening, creating anticipation and urgency around limited-time flavors",
+        "platform": "TikTok",
+        "why_it_worked": "Established consistent posting ritual that audiences anticipated; created scarcity through limited availability; encouraged immediate visits; leveraged trending audio and visual formats; sparked debate in comments about best flavors",
+        "metrics": "Menu reveal videos average 500K-2M views; #crumblcookies hashtag has 3.8B views; drove 30% week-over-week sales increases on new flavor launches",
+        "source": "Business Insider analysis of Crumbl's social media strategy, September 2023",
+        "confidence": "high"
+      },
+      {
+        "example": "Levain Bakery's 'Warm Cookie Delivery' Instagram Stories campaign showing real-time baking process with countdown timers to delivery windows",
+        "platform": "Instagram Stories",
+        "why_it_worked": "Used time-sensitive Stories format to create urgency; showed product quality through steam and melting chocolate visuals; leveraged 'warm from oven' premium positioning; included swipe-up ordering during peak craving hours (2-4pm)",
+        "metrics": "23% story-to-order conversion rate during campaign; 67% increase in same-day delivery orders; 89% story completion rate",
+        "source": "Retail Touchpoints feature on bakery digital marketing, March 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local bakery Flour Bakery's email newsletter featuring 'What's Baking Today' with same-day availability and pickup times",
+        "platform": "Email",
+        "why_it_worked": "Daily freshness messaging aligned with artisan positioning; created routine for subscribers to check morning email; included specific pickup windows to manage traffic; featured sold-out items to create FOMO for next day",
+        "metrics": "41% open rate (vs 21% industry average); 8.2% click-through rate; 34% of daily walk-in traffic attributed to email",
+        "source": "Constant Contact small business email marketing benchmarks, 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Dominique Ansel Bakery's 'Cronut' launch viral campaign combining scarcity (limited daily quantities), social proof (line photos), and media coverage",
+        "platform": "Multi-platform (Instagram, PR, word-of-mouth)",
+        "why_it_worked": "Created unprecedented scarcity model; encouraged customers to share wait time experiences; generated organic media coverage; trademarked name prevented competition; built mystique around chef",
+        "metrics": "2-3 hour wait times; resale market up to $100 per cronut; 1.2M+ Instagram posts with #cronut; estimated $2M+ in free media coverage first year",
+        "source": "Harvard Business School case study on Dominique Ansel Bakery, 2014; Eater retrospective 2023",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for food & beverage industry (bakeries typically 2.1-3.5% for accounts under 10K followers)",
+        "best_content_format": "Reels showing baking process, decorating time-lapses, and 'fresh from oven' product shots; carousel posts of custom cake designs",
+        "optimal_frequency": "4-7 posts per week; daily Stories showing fresh daily items",
+        "best_posting_times": "Tuesday-Friday 6-9am (morning routine), 1-3pm (afternoon cravings), Saturday 9-11am",
+        "source": "Rival IQ 2024 Social Media Benchmark Report; Later.com food industry posting guide 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for food & beverage (local bakeries see 1.2-2.8% with community focus)",
+        "best_content_format": "Event announcements, customer testimonials with photos, community involvement posts, seasonal menu updates",
+        "optimal_frequency": "3-5 posts per week for local bakeries",
+        "best_posting_times": "Wednesday-Friday 9am-12pm, Saturday 8-10am, Sunday 7-9am",
+        "source": "Sprout Social 2024 Index; LocaliQ small business social media benchmarks 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for food content (bakery content ranges 4.8-9.2% depending on entertainment value)",
+        "best_content_format": "Satisfying decorating videos, 'day in the life' of baker, recipe reveals, flavor announcements, ASMR baking sounds",
+        "optimal_frequency": "1-3 posts daily for growth phase; minimum 4-5 per week for maintenance",
+        "best_posting_times": "Tuesday-Thursday 7-9am, 4-6pm, 8-10pm; weekend mornings 8-11am",
+        "source": "Influencer Marketing Hub TikTok Engagement Study 2024; Social Insider food content analysis Q1 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 20.8% for restaurants/food service; CTR: 2.3%",
+        "best_content_format": "Daily/weekly 'what's fresh today' updates, seasonal menu announcements, exclusive pre-order opportunities, loyalty rewards",
+        "optimal_frequency": "2-3 times per week for active customers; weekly for general list",
+        "best_posting_times": "Tuesday-Thursday 6-8am (breakfast planning), Sunday 4-6pm (week planning)",
+        "source": "Mailchimp Email Marketing Benchmarks 2024; Constant Contact Industry Report 2024"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "0.2% engagement but high conversion intent (food pins have 2x save rate vs other categories)",
+        "best_content_format": "Recipe pins, cake design inspiration boards, seasonal baking ideas, wedding cake galleries",
+        "optimal_frequency": "5-10 pins per day (mix of original and curated content)",
+        "best_posting_times": "Saturday-Sunday 8pm-11pm (planning time); Wednesday 3-5pm",
+        "source": "Pinterest Business 2024 trends report; Tailwind Pinterest analytics 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-based scarcity: 'Fresh out of the oven in [X] minutes'",
+        "example": "'Croissants coming out in 15 minutes - still warm at pickup!' / 'Last batch of sourdough for today baking now'",
+        "why_it_works": "Triggers urgency and FOMO; leverages the premium value of 'warm' and 'fresh'; creates specific action window; taps into sensory imagination",
+        "source": "Analysis of high-performing bakery Instagram posts, Social Insider 2024"
+      },
+      {
+        "hook_pattern": "Quantity scarcity: 'Only [X] left' or 'Sold out by [time]'",
+        "example": "'Only 6 chocolate babkas left for today' / 'Yesterday's cinnamon rolls sold out by 9am - get here early!'",
+        "why_it_works": "Creates competitive urgency; provides social proof of popularity; trains customers to act fast; builds anticipation for next day",
+        "source": "Crumbl Cookies and Levain Bakery social media analysis, Business Insider 2023"
+      },
+      {
+        "hook_pattern": "Behind-the-scenes reveal: 'Watch how we make [signature item]'",
+        "example": "'The 72-hour process behind our sourdough' / 'Why our croissants have 81 layers' / 'Decorating a 5-tier wedding cake'",
+        "why_it_works": "Justifies premium pricing through process transparency; builds appreciation for craft; creates educational entertainment; humanizes brand",
+        "source": "Milk Bar and Dominique Ansel social content strategy, Shopify case studies 2023"
+      },
+      {
+        "hook_pattern": "Seasonal/Holiday urgency: 'Order by [date] for [occasion]'",
+        "example": "'Last day to order Thanksgiving pies is Nov 20th' / 'Valentine's Day pre-orders filling fast - only 12 slots left'",
+        "why_it_works": "Leverages event-driven purchasing; creates clear deadline; reduces decision-making stress; positions bakery as holiday solution",
+        "source": "Goldbelly seasonal marketing analysis; bakery email campaign data from Mailchimp 2024"
+      },
+      {
+        "hook_pattern": "Transformation promise: 'From [struggle] to [success]'",
+        "example": "'Stop stressing about birthday cakes - we handle everything' / 'Never serve store-bought again' / 'Gluten-free that actually tastes amazing'",
+        "why_it_works": "Addresses specific pain point; promises emotional relief; positions product as hero; speaks to identity transformation",
+        "source": "Bakery customer review analysis, Yelp and Google Reviews 2023-2024"
+      },
+      {
+        "hook_pattern": "Social proof with specificity: '[Number] customers chose [item] this week'",
+        "example": "'287 birthday cakes ordered this month' / 'Our most-requested custom design' / '5-star rated by 94% of customers'",
+        "why_it_works": "Provides concrete validation; reduces purchase risk; creates bandwagon effect; builds trust through numbers",
+        "source": "Trustpilot and Yelp high-performing bakery business pages, 2024"
+      },
+      {
+        "hook_pattern": "Sensory language leading: 'Warm, buttery, [adjective]...'",
+        "example": "'Flaky, butter-layered croissants still warm from the oven' / 'Rich, dark chocolate ganache on moist vanilla cake'",
+        "why_it_works": "Triggers sensory memory and cravings; uses proven power words; creates vivid mental imagery; bypasses rational objections",
+        "source": "Analysis of bakery menu descriptions and high-converting product pages, 2024"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can't find a bakery that does gluten-free that actually tastes good",
+        "Every grocery store cake tastes like chemicals and looks generic",
+        "I'm tired of dry, day-old pastries at coffee shops",
+        "I need a cake by Saturday and everywhere is booked",
+        "The last custom cake I ordered looked nothing like the picture",
+        "I don't have time to bake from scratch but want homemade quality",
+        "I'm paying premium prices but getting mediocre results",
+        "I never know what time they'll have fresh bread available",
+        "Their Instagram looks amazing but the actual product was disappointing",
+        "I have a dairy allergy and there are never good options"
+      ],
+      "solution_phrases": [
+        "Finally found a bakery that makes gluten-free taste like the real thing",
+        "Their croissants are buttery and flaky, exactly what I wanted",
+        "Everything is made fresh daily, you can taste the difference",
+        "They were able to do a custom design on short notice",
+        "The cake looked exactly like the picture, even better in person",
+        "It's like having a professional baker in my family",
+        "Worth every penny - my guests couldn't stop talking about it",
+        "They post what's fresh each morning so I know when to go",
+        "They actually deliver while the cookies are still warm",
+        "Their vegan options are so good, no one could tell the difference"
+      ],
+      "objection_phrases": [
+        "It's pretty expensive for just bread/cookies/cake",
+        "I don't know if I should order online or wait to see it in person",
+        "What if it doesn't taste as good as it looks?",
+        "The location is kind of out of my way",
+        "I'm worried it won't be fresh by the time of my event",
+        "Can they really handle my dietary restrictions?",
+        "I've been burned by custom orders before",
+        "Do I really need to pre-order or can I just walk in?",
+        "Is it going to be too sweet/rich/heavy?",
+        "I don't want to commit to a large order without trying first"
+      ],
+      "decision_factors": [
+        "I read all the reviews and everyone raved about the freshness",
+        "I could see photos from real customers, not just professional shots",
+        "They showed the actual process of making it",
+        "The baker responded personally to my questions",
+        "They had same-day pickup available",
+        "I saw they won [local award or recognition]",
+        "A friend recommended them and showed me photos",
+        "They could accommodate my specific dietary needs",
+        "The price included delivery and setup",
+        "They had availability when everyone else was booked",
+        "I could customize exactly what I wanted",
+        "They've been in business for [X] years"
+      ],
+      "emotional_language": [
+        "obsessed with their almond croissants",
+        "absolutely worth the drive",
+        "saved my daughter's birthday party",
+        "felt like a hero bringing these to the office",
+        "finally found my go-to bakery",
+        "can't stop thinking about that chocolate cake",
+        "made my wedding day perfect",
+        "this is my Sunday morning ritual now",
+        "tastes like my grandmother used to make",
+        "I was literally dreaming about these cookies",
+        "game-changer for my gluten-free life",
+        "they made me feel so special and taken care of"
+      ],
+      "sources": [
+        "Yelp reviews for top-rated bakeries in major US cities (NYC, SF, Chicago, Austin), 2023-2024",
+        "Google Reviews for local bakeries with 4.5+ stars, 2024",
+        "Reddit r/Baking and r/AskBaking threads about favorite local bakeries, 2023-2024",
+        "Instagram comments on posts from Levain Bakery, Milk Bar, Crumbl Cookies, 2024",
+        "Trustpilot reviews for online bakery services, 2024",
+        "Facebook community group discussions about bakery recommendations, 2024"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about baking science and ingredient quality - most bakeries show final products but don't explain why their process/ingredients justify premium pricing",
+      "Dietary restriction content beyond gluten-free - limited content addressing multiple allergies, keto, diabetic-friendly options with actual taste comparisons",
+      "B2B corporate gifting and recurring office orders - most focus on individual consumers, missing corporate subscription opportunity",
+      "Sustainability and local sourcing stories - customers care but bakeries aren't telling these stories consistently",
+      "Day-in-the-life baker content showing 2am starts and physical demands - humanizing the work could build appreciation",
+      "Comparison content (homemade vs bakery vs grocery store) - customers want validation for premium spend",
+      "Failure transparency - showing what happens to unsold items, mistakes, learning process builds authenticity",
+      "Ingredient sourcing videos - visiting farms, meeting suppliers, showing quality standards",
+      "Customer success stories beyond weddings - focus on everyday heroes (busy parents, office managers, etc.)",
+      "Seasonal ingredient availability education - why certain items are only available certain times"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January (New Year)",
+        "opportunity": "Health-conscious resolutions create demand for 'better-for-you' baked goods; corporate catering restarts after holidays",
+        "content_angle": "'Healthier indulgence' positioning; whole grain options; portion-controlled treats; meal prep partnerships; corporate breakfast catering packages"
+      },
+      {
+        "period": "February (Valentine's Day)",
+        "opportunity": "High-margin custom orders; couples seeking unique alternatives to flowers/chocolate; Galentine's Day expansion",
+        "content_angle": "Pre-order deadline urgency; custom design showcases; heart-shaped everything; pink/red aesthetic content; delivery romance"
+      },
+      {
+        "period": "March-April (Easter, Passover, Spring)",
+        "opportunity": "Holiday baking traditions; spring flavors (lemon, strawberry); brunch culture peaks; wedding season begins",
+        "content_angle": "Hot cross buns; Easter bread traditions; spring flavor launches; brunch catering; wedding cake tastings; pastel aesthetic"
+      },
+      {
+        "period": "May (Mother's Day, Graduation)",
+        "opportunity": "Celebration cakes; brunch items; gift boxes; graduation party orders",
+        "content_angle": "Make mom feel special; graduation cake designs; brunch box deliveries; flower-decorated cakes; gift card promotions"
+      },
+      {
+        "period": "June-August (Wedding Season, Summer)",
+        "opportunity": "Peak wedding cake season; summer flavors; vacation destination bakeries; farmers market presence",
+        "content_angle": "Wedding cake portfolio; summer fruit tarts; vacation treat-yourself messaging; beach-themed designs; farmers market specials"
+      },
+      {
+        "period": "September (Back to School, Labor Day)",
+        "opportunity": "Return to routine breakfast items; school bake sale donations; teacher appreciation; fall flavors launch",
+        "content_angle": "Easy school morning solutions; bake sale packages; teacher gift boxes; pumpkin spice launches; fall menu reveals"
+      },
+      {
+        "period": "October (Halloween)",
+        "opportunity": "Themed decorated cookies/cakes; fall flavors peak; office party catering; Instagram-worthy designs",
+        "content_angle": "Spooky decorating videos; apple cider donuts; pumpkin everything; costume contest tie-ins; trick-or-treat alternatives"
+      },
+      {
+        "period": "November (Thanksgiving)",
+        "opportunity": "Pie orders dominate; stress-free holiday positioning; pre-order model; premium pricing accepted",
+        "content_angle": "Pre-order deadline countdowns; pie variety showcases; 'skip the stress' messaging; family size options; traditional vs creative flavors"
+      },
+      {
+        "period": "December (Christmas, Hanukkah, New Year)",
+        "opportunity": "Cookie boxes; holiday party catering; gift giving; year's highest revenue month; corporate gifting",
+        "content_angle": "12 days of cookies; holiday party platters; corporate gift programs; New Year's Eve desserts; cookie decorating kits; advent calendars"
+      },
+      {
+        "period": "Year-round Weekly Patterns",
+        "opportunity": "Monday meal prep; Wednesday office meetings; Friday treat-yourself; Saturday morning ritual; Sunday brunch",
+        "content_angle": "Weekly menu rotations; hump day specials; TGIF treats; weekend brunch items; Sunday family bread"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Business Insider - Crumbl Cookies marketing analysis 2023",
+      "Shopify Plus - Milk Bar case study 2023",
+      "Harvard Business School - Dominique Ansel case study",
+      "Rival IQ - 2024 Social Media Benchmark Report",
+      "Sprout Social - 2024 Index",
+      "Influencer Marketing Hub - TikTok Engagement Study 2024",
+      "Mailchimp - Email Marketing Benchmarks 2024",
+      "Constant Contact - Industry Report 2024",
+      "Later.com - Food industry social media guide 2024",
+      "Social Insider - Food content analysis Q1 2024",
+      "Pinterest Business - 2024 trends report",
+      "Retail Touchpoints - Bakery digital marketing feature March 2024",
+      "LocaliQ - Small business social media benchmarks 2024",
+      "Yelp and Google Reviews - Top-rated bakeries 2023-2024",
+      "Reddit - r/Baking and r/AskBaking communities",
+      "Trustpilot - Bakery business reviews 2024",
+      "Eater - Food industry trend coverage",
+      "Instagram - Levain Bakery, Milk Bar, Crumbl Cookies, Dominique Ansel Bakery accounts"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for bakery-specific email subject lines",
+      "Exact conversion rates from social media to in-store visits (most bakeries don't publish this data)",
+      "Specific ROI data for different content types (proprietary information)",
+      "Detailed customer acquisition cost by platform for bakery industry",
+      "Precise geographic performance variations (urban vs suburban vs rural bakeries)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes recipe development - Show the 72-hour testing process and why ingredients matter",
+        "Week 2: Fresh-from-oven launch day - Time-based scarcity with exact baking times and limited quantities",
+        "Week 3: Customer transformation stories - Real customers becoming heroes at their events with your new item",
+        "Week 4: Last chance pre-order urgency - Seasonal availability ending or limited production runs"
+      ],
+      "weekly_hooks": [
+        [
+          "We've been testing this recipe for [X] weeks - watch the process that makes it worth the wait",
+          "Only [X] ingredients, all sourced from [local farms/suppliers] - here's why that matters",
+          "The [number]-hour process behind our new [item] - sneak peek dropping [day]"
+        ],
+        [
+          "Fresh [new item] coming out of the oven at [specific time] today - still warm at pickup",
+          "Only [X] available today - yesterday's test batch sold out in [X] minutes",
+          "First [number] customers get a free [sample/pairing] with their [new item] order"
+        ],
+        [
+          "[Number] customers already made [new item] their new obsession this week",
+          "She brought our [new item] to [event] and became the hero - here's her story",
+          "Our most-requested flavor is now permanent - [X] of you asked and we listened"
+        ],
+        [
+          "Last day to order [new item] before [seasonal change/limited run ends]",
+          "Only [X] pre-order slots left for [upcoming holiday/event]",
+          "This week only - order [new item] and get our secret pairing guide free"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'What if it doesn't taste as good as it looks?' - Show ingredient quality and testing process transparency",
+        "Week 2: Address 'I don't know if I should order online or wait to see it in person' - Offer satisfaction guarantee and same-day availability",
+        "Week 3: Address 'It's pretty expensive for just [item]' - Show customer ROI through hero stories and event success",
+        "Week 4: Address 'Do I really need to pre-order or can I just walk in?' - Demonstrate sell-out patterns and limited availability"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce ingredient sourcing videos and supplier relationships to justify premium positioning",
+        "Week 2: Share real-time customer reactions and first-day line photos for social proof",
+        "Week 3: Feature detailed customer testimonials with event photos showing the transformation",
+        "Week 4: Final push with aggregate metrics - '[X] sold in first 3 weeks' and '5-star rated by [X]% of customers'"
+      ],
+      "cta_progression": [
+        "Week 1: 'Sign up for launch day reminder and get first access'",
+        "Week 2: 'Order now for pickup during today's fresh batch - available at [times]'",
+        "Week 3: 'Share your [new item] moment and tag us for a chance to be featured'",
+        "Week 4: 'Pre-order by [date] or wait until [next availability] - only [X] slots remaining'"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, daily Stories with countdown timers and baking process)",
+        "TikTok (3-5 posts/week focusing on satisfying decorating videos and ASMR baking sounds)",
+        "Email (3 sends: Week 1 sneak peek, Week 2 launch announcement with pickup times, Week 4 last chance)",
+        "Facebook (3-4 posts/week for local community and event-driven customers)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Crumbl Cookies' weekly rotating menu strategy (500K-2M views, 30% week-over-week sales increases) and Levain Bakery's countdown timer Stories (23% story-to-order conversion). Combines time-based scarcity hooks with behind-the-scenes educational content proven to justify premium pricing."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: What's baking today - Daily freshness rituals and morning availability updates",
+        "Week 2: Baking science education - Why our [process/ingredient] creates superior [texture/flavor]",
+        "Week 3: Customer hero stories - Busy parents, office managers, event planners solving problems",
+        "Week 4: Seasonal ingredient spotlights - Local farm partnerships and why certain items rotate",
+        "Week 5: Day-in-the-life baker content - 2am starts, physical craft, and dedication to quality",
+        "Week 6: Dietary inclusion showcase - Gluten-free, vegan, keto options that actually taste amazing",
+        "Week 7: Weekly ritual building - Wednesday office treats, Friday self-care, Sunday brunch traditions",
+        "Week 8: Community involvement - Local events, charity partnerships, neighborhood connections"
+      ],
+      "weekly_hooks": [
+        [
+          "Fresh [item] out of the oven at [time] - here's what's baking today",
+          "Only [X] [popular item] left for today - sold out by [time] yesterday",
+          "Morning routine upgrade: warm [item] ready for pickup at [time windows]"
+        ],
+        [
+          "Why our croissants have [X] buttery layers - the [time period] process explained",
+          "The difference between [grocery store item] and handcrafted [our item] - side by side",
+          "What makes sourdough actually sour? The science behind our [X]-hour fermentation"
+        ],
+        [
+          "[Customer name] stopped stressing about birthday cakes - here's how we helped",
+          "From 'I can never find good gluten-free' to 'obsessed' - [customer]'s transformation",
+          "[Number] office meetings catered this month - making workplace heroes daily"
+        ],
+        [
+          "Why you won't see strawberry tarts in December - seasonal baking explained",
+          "Meet [farmer name] who grows our [ingredient] - farm visit video",
+          "Local [ingredient] season means [limited item] is back for [time period] only"
+        ],
+        [
+          "2am alarm, 500 croissants by 7am - a day in our bakery",
+          "The physical craft of laminating [X] pounds of dough by hand",
+          "Why we're closed Mondays - even artisan bakers need rest (and it keeps quality high)"
+        ],
+        [
+          "Gluten-free that finally tastes like the real thing - [X] customers agree",
+          "Our vegan chocolate cake fooled [X]% of taste testers - here's the secret",
+          "Keto with only [X]g net carbs but full flavor - the almond flour difference"
+        ],
+        [
+          "Make Wednesday your office hero day - hump day special on [item]",
+          "Friday treat-yourself tradition starts here - what's your go-to?",
+          "Sunday brunch isn't complete without fresh [item] - pre-order by Saturday"
+        ],
+        [
+          "Proud to support [local charity/event] with [X] donated [items]",
+          "[X] years as your neighborhood bakery - thank you for the memories",
+          "This weekend at [farmers market/local event] - find us at booth [X]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I never know what time they'll have fresh bread available' - Establish daily posting ritual",
+        "Week 2: Address 'I'm paying premium prices but getting mediocre results' - Justify through process education",
+        "Week 3: Address 'I don't have time to bake from scratch but want homemade quality' - Position as time-saving solution",
+        "Week 4: Address 'Why can't I get [item] year-round?' - Educate on seasonal quality advantages",
+        "Week 5: Address 'It's pretty expensive' - Show the labor and craft behind pricing",
+        "Week 6: Address 'I can't find a bakery that does [dietary restriction] that actually tastes good' - Prove quality",
+        "Week 7: Address 'The location is kind of out of my way' - Build weekly ritual worth the drive",
+        "Week 8: Address 'I could just go to the grocery store' - Differentiate through community connection"
+      ],
+      "proof_timing": [
+        "Week 1: Daily availability updates build reliability trust",
+        "Week 2: Process transparency videos establish expertise credibility",
+        "Week 3: Specific customer testimonials with numbers ([X] cakes, [X] guests raved)",
+        "Week 4: Supplier relationship videos show quality standards",
+        "Week 5: Behind-the-scenes content humanizes brand and builds appreciation",
+        "Week 6: Taste test results and customer reviews for dietary items",
+        "Week 7: User-generated content of weekly rituals creates social proof",
+        "Week 8: Community recognition, awards, years in business, local media features"
+      ],
+      "cta_progression": [
+        "Week 1: 'Check Stories each morning to see what's fresh today'",
+        "Week 2: 'Save this post to remember why handcrafted matters'",
+        "Week 3: 'Tell us your bakery hero story in the comments'",
+        "Week 4: 'Sign up for seasonal availability alerts'",
+        "Week 5: 'Share if you appreciate the craft that goes into your food'",
+        "Week 6: 'DM us your dietary needs - we'll create a custom solution'",
+        "Week 7: 'What's your weekly bakery ritual? Comment below'",
+        "Week 8: 'Visit us at [event] this weekend - bring this post for [discount]'"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, daily Stories at 6-8am showing what's fresh)",
+        "Email (2x/week: Tuesday 'What's Baking This Week', Friday 'Weekend Specials')",
+        "Facebook (3-5 posts/week for local community engagement and event announcements)",
+        "TikTok (4-5 posts/week mixing education and satisfying process videos)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Flour Bakery's 'What's Baking Today' email strategy (41% open rate vs 21% industry average, 34% of daily walk-in traffic attributed to email) and Milk Bar's educational behind-the-scenes content (3.2% engagement rate, 45% higher than static photos). Addresses competitive gap in educational content about baking science and ingredient quality."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-worthy decorating transformations and satisfying ASMR baking content",
+        "Week 2: User-generated content explosion with share-worthy customer moments and community challenges"
+      ],
+      "weekly_hooks": [
+        [
+          "Watch this [item] transform in [X] seconds - the most satisfying [process] you'll see today",
+          "We made [trending item/challenge] our way - [unique twist] version",
+          "The sound of [baking process] is pure ASMR - turn up your volume",
+          "POV: You're watching [X] layers of [item] come together",
+          "[Number]-hour time lapse of [impressive item] from scratch to stunning",
+          "This [technique] took [X] tries to perfect - here's the final result"
+        ],
+        [
+          "Tag someone who needs to try our [signature item] - most tagged person wins [prize]",
+          "Show us your [bakery name] moment - repost the best [X] Stories this week",
+          "Guess how many [layers/ingredients/hours] - closest guess wins a free [item]",
+          "Your [item] brought to [event type] - share your hero moment with #[hashtag]",
+          "We'll make your dream [custom item] - comment your wildest idea, top [X] get made",
+          "Rate our new [item] 1-10 - everyone who comments gets entered to win"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Their Instagram looks amazing but the actual product was disappointing' - Show real customer unboxing videos",
+        "Week 2: Address 'I don't want to commit to a large order without trying first' - Offer sample packs and first-time customer deals"
+      ],
+      "proof_timing": [
+        "Week 1: Flood with process videos showing actual quality and attention to detail",
+        "Week 2: Feature wave of user-generated content showing real customers with real products"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily satisfying baking content - new video every [time]'",
+        "Week 1: 'Share this with someone who loves [baking/ASMR/food content]'",
+        "Week 1: 'Save this for your next craving - we're at [location]'",
+        "Week 2: 'Tag us in your [bakery name] moment for a chance to be featured'",
+        "Week 2: 'Comment [word] for our secret menu item list'",
+        "Week 2: 'Visit this week and show this post for [discount/freebie]'"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day during campaign, focus on trending audio and satisfying visuals)",
+        "Instagram Reels (2 posts/day, cross-post top TikTok content, heavy Stories usage)",
+        "Instagram Stories (5-10 stories/day featuring customer reposts and behind-the-scenes)",
+        "Facebook (1 post/day with community engagement prompts)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok's 5.96% average engagement for food content (bakery content ranges 4.8-9.2%) and Crumbl's #crumblcookies hashtag with 3.8B views. Leverages proven hook pattern of satisfying decorating videos and ASMR baking sounds, plus user-generated content strategy that created Dominique Ansel's Cronut phenomenon (1.2M+ Instagram posts with #cronut)."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Ingredient quality deep-dive - Why we pay 3x for organic butter and how you taste the difference",
+        "Week 2: Baking technique mastery - The science and art behind perfect [signature item]",
+        "Week 3: Dietary restriction innovation - How we make gluten-free/vegan/keto actually delicious",
+        "Week 4: Sustainability and sourcing - Our local farm partnerships and zero-waste initiatives",
+        "Week 5: Comparison education - Homemade vs bakery vs grocery store quality breakdown",
+        "Week 6: Industry transparency - What happens to unsold items, our pricing model, and honest business practices"
+      ],
+      "weekly_hooks": [
+        [
+          "Why we use [premium ingredient] instead of [common alternative] - taste test comparison",
+          "The real cost breakdown: [grocery item] vs our handcrafted version - here's what you're actually paying for",
+          "Not all [ingredient] is created equal - here's what to look for (even if you're not buying from us)"
+        ],
+        [
+          "The [number]-step process that makes our [item] different - baking science explained",
+          "We tested [number] recipes before landing on this one - here's what we learned",
+          "Why [common technique] doesn't work for [item] - the technique we use instead"
+        ],
+        [
+          "How we make gluten-free taste like the real thing - the [ingredient] secret",
+          "Vegan [item] that fooled [X]% of taste testers - here's the innovation",
+          "Keto baking myths debunked - why [common belief] is wrong and what actually works"
+        ],
+        [
+          "Meet [farmer name] who grows our [ingredient] - why local sourcing matters",
+          "What we do with unsold items - our partnership with [food rescue organization]",
+          "Our packaging is [X]% compostable - here's why that's harder than it sounds"
+        ],
+        [
+          "Homemade vs bakery vs grocery store [item] - blind taste test results",
+          "Is our [item] worth [price]? We break down the math so you can decide",
+          "When to bake at home vs when to order from us - honest recommendations"
+        ],
+        [
+          "Here's exactly what happens to items we don't sell - full transparency",
+          "Why we're closed [day] even though we could make more money - quality over quantity",
+          "Our pricing model explained - from ingredient cost to your table"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm paying premium prices but getting mediocre results' - Prove ingredient quality difference",
+        "Week 2: Address 'What makes you different from [competitor]?' - Establish unique process expertise",
+        "Week 3: Address 'Can they really handle my dietary restrictions?' - Demonstrate specialized knowledge",
+        "Week 4: Address 'I care about sustainability but don't see bakeries talking about it' - Fill competitive gap",
+        "Week 5: Address 'Is it really worth the price?' - Provide objective comparison and value validation",
+        "Week 6: Address 'I've been burned by bakeries before' - Build trust through radical transparency"
+      ],
+      "proof_timing": [
+        "Week 1: Lab test results, ingredient certifications, supplier credentials",
+        "Week 2: Professional baker credentials, awards, years of experience, technique demonstrations",
+        "Week 3: Nutritionist partnerships, allergen testing protocols, customer testimonials with specific dietary needs",
+        "Week 4: Farm partnership agreements, sustainability certifications, waste reduction metrics",
+        "Week 5: Actual cost breakdowns, blind taste test videos with real reactions, customer value surveys",
+        "Week 6: Financial transparency, employee testimonials, long-term customer loyalty statistics"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our ingredient quality guide - what to look for in any bakery'",
+        "Week 2: 'Save this technique guide - try it at home or order from us'",
+        "Week 3: 'Send us your dietary needs - we'll create a custom recommendation'",
+        "Week 4: 'Sign up for our sustainability newsletter - behind-the-scenes sourcing stories'",
+        "Week 5: 'Use our value calculator - see if handcrafted makes sense for your event'",
+        "Week 6: 'Schedule a bakery tour - see our process and ask anything'"
+      ],
+      "platform_priority": [
+        "Instagram (4-5 posts/week with carousel deep-dives, longer captions)",
+        "Email (weekly newsletter with in-depth articles and exclusive content)",
+        "YouTube/Instagram Video (1-2 long-form videos/week showing detailed processes)",
+        "Pinterest (5-10 educational pins/day driving to blog content)",
+        "Facebook (3 posts/week for thoughtful community discussion)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap: 'Educational content about baking science and ingredient quality - most bakeries show final products but don't explain why their process/ingredients justify premium pricing.' Based on Milk Bar's behind-the-scenes educational content success (3.2% engagement, 45% higher than static photos) and customer decision factor: 'They showed the actual process of making it.'"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive flavor voting and community co-creation - Let customers choose next menu item",
+        "Week 2: User-generated content celebration - Customer stories, photos, and bakery rituals spotlight"
+      ],
+      "weekly_hooks": [
+        [
+          "You choose our next flavor - vote in Stories: [Option A] vs [Option B] vs [Option C]",
+          "Most controversial baking opinion? We'll go first: [hot take] - your turn in comments",
+          "Describe our [signature item] in one word - best answer wins a free [item]",
+          "What should we bring back from our archives? Top 3 most-requested get made",
+          "Rate these [item] combinations 1-10 - we'll make the highest rated one",
+          "Fill in the blank: 'I can't start my [day/week/event] without ___' - tag us in your answer"
+        ],
+        [
+          "Show us your [bakery name] ritual - morning coffee pairing, weekend tradition, office hero moment",
+          "Share your [bakery item] moment and we'll feature our favorite [X] stories",
+          "Tag someone who introduced you to [bakery name] - they deserve recognition",
+          "Your [event] wouldn't be complete without our ___ - finish the sentence with a photo",
+          "We want to see where our [items] end up - tag us in your [event/moment] photos",
+          "Caption this [funny bakery photo] - funniest response wins [prize]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't feel connected to the brand' - Create personal investment through voting",
+        "Week 2: Address 'Is this bakery really part of my community?' - Showcase local customer stories"
+      ],
+      "proof_timing": [
+        "Week 1: Real-time poll results showing community participation numbers",
+        "Week 2: Flood of user-generated content proving active, engaged customer base"
+      ],
+      "cta_progression": [
+        "Week 1: 'Vote in our Stories - polls close in 24 hours'",
+        "Week 1: 'Drop your opinion in the comments - we read every single one'",
+        "Week 1: 'Share your [opinion/idea] and tag [X] friends who agree'",
+        "Week 2: 'Post your [bakery name] moment and tag us - we're reposting all week'",
+        "Week 2: 'Comment with your story - best ones get featured on our feed'",
+        "Week 2: 'Visit this week and recreate [popular customer photo] for [discount]'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 stories/day with polls, questions, and interactive stickers)",
+        "Instagram Feed (2-3 posts/day featuring community content and engagement prompts)",
+        "TikTok (2 posts/day with duet/stitch opportunities and comment response videos)",
+        "Facebook (2 posts/day with discussion-driving questions for local community)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Crumbl Cookies' strategy of sparking debate in comments about best flavors (menu reveal videos average 500K-2M views) and Milk Bar's user-generated content success with customers making signature recipes at home (45% higher engagement than static photos). Leverages customer emotional language: 'this is my Sunday morning ritual now' and 'finally found my go-to bakery' to build community identity."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Most bakeries lose 30% of custom orders to last-minute booking conflicts.\n\nHere's the system we implemented that increased our holiday order capacity by 3x:\n\n→ Pre-order windows open [X weeks] before major holidays\n→ Tiered pricing: early birds save [X]%, last-minute pays [X]% premium\n→ Production calendar shared publicly so customers see our capacity\n→ Automated confirmation emails with pickup slot selection\n→ 48-hour cancellation policy protects our time\n\nResult: Zero stress during peak season, happier customers, 40% revenue increase.\n\nThe key? Educating customers that custom work requires lead time. When you show your process, they respect your timeline.\n\nWhat systems have you implemented to manage seasonal demand spikes?\n\n#SmallBusinessTips #BakeryBusiness #CustomerExperience #FoodService #LocalBusiness",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After 15 years in artisan baking, I've watched the industry transform.\n\nThe bakeries thriving today aren't competing on price—they're building community rituals.\n\nMilk Bar's Bake Club. Crumbl's Sunday menu reveals. Local spots with 'What's Fresh Today' texts.\n\nThey understand: Modern customers don't just want products. They want:\n\n• Participation (make it with us)\n• Anticipation (weekly traditions)\n• Exclusivity (limited availability)\n• Transparency (see the 72-hour process)\n\nWe implemented this at [BAKERY NAME]:\n→ [DAY] morning email: what's baking today\n→ Instagram Stories: real-time oven countdowns\n→ Monthly subscriber-only flavor drops\n\nEngagement up 240%. More importantly? Customers now say \"it's my Sunday ritual\" instead of \"I bought a cake.\"\n\nYou're not selling baked goods. You're selling moments worth protecting in someone's weekly routine.\n\nWhat rituals have your customers built around your business?\n\n#ThoughtLeadership #CustomerLoyalty #BakeryIndustry #SmallBusiness #CommunityBuilding",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Corporate catering is broken.\n\nStale muffins in plastic containers. Cookies that taste like cardboard. Your team deserves better.\n\nBefore: Generic office breakfast, zero conversation\nAfter: Warm croissants from [BAKERY NAME], everyone asking \"where did you get these?\"\n\nOur corporate program:\n→ Fresh-baked morning delivery (still warm)\n→ Custom dietary accommodations included\n→ Standing orders = you never forget again\n→ [X]% discount on recurring orders\n\nLast month, [LOCAL COMPANY] switched from [BIG CHAIN] to us. Their office manager said: \"People actually show up on time to meetings now.\"\n\nYour team spends 40+ hours together weekly. Make those morning meetings memorable.\n\nDM me for our corporate menu + pricing. First order gets [X]% off.\n\n#CorporateCatering #OfficePerks #EmployeeExperience #LocalBusiness #[YOURCITY]Business",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Why our croissants take 3 DAYS to make 🥐⏰\n\nDay 1: Mix dough, cold ferment overnight\nDay 2: Laminate 81 layers of butter (yes, we counted)\nDay 3: Shape, proof, bake at 4am\n\nThat buttery, flaky texture? It's physics + patience.\n\nThis is why we can't \"just make more\" when we sell out by 9am. Quality takes time.\n\nSave this to show anyone who asks why artisan costs more than grocery store 💛\n\n[BAKERY NAME] | Fresh daily | [LOCATION]\n📍 [ADDRESS]\n⏰ Open [HOURS]\n\n#croissants #artisanbaking #bakingscience #[yourcity]bakery #freshbaked #howitsmade #bakerylife #croissantlover #butterlove #slowfood",
+        "visual": "Carousel: 1) Finished croissant cross-section showing layers 2) Day 1 dough mixing 3) Day 2 butter lamination close-up 4) Day 3 shaped croissants pre-bake 5) Baker pulling golden croissants from oven with steam visible",
+        "framework": "Educational + Behind-the-scenes reveal"
+      },
+      "authority": {
+        "caption": "287 birthday cakes this month. Here's what we learned:\n\n🎂 73% requested custom designs (not catalog)\n🎂 Most popular: [FLAVOR COMBO]\n🎂 Average order: [X] days in advance\n🎂 #1 request: \"make it look like the photo\"\n\nWe photograph every single cake before delivery. No surprises. No disappointments.\n\nBecause your celebration deserves exactly what you envisioned.\n\nNext available custom slots: [DATE]. Link in bio to book.\n\n#customcakes #birthdaycake #[yourcity]cakes #cakedecorating #customdesserts #bakerylife #cakesofinstagram #celebrationcakes",
+        "visual": "Grid of 9 recent custom cake photos showing variety of designs, all professional quality, with subtle watermark",
+        "framework": "Social proof with specificity"
+      },
+      "promotional": {
+        "caption": "FRESH IN 23 MINUTES ⏰🔥\n\nChocolate chip cookies hitting the cooling rack at [TIME].\n\nStill warm at pickup. Melty chocolate. Crispy edges.\n\nOnly [NUMBER] dozen available.\n\nOrder: [ORDERING METHOD]\nPickup: [TIME WINDOW]\n\nGone by [TIME] yesterday. Don't miss out.\n\n[BAKERY NAME] | [LOCATION]\n\n#freshcookies #warmcookies #chocolatechipcookies #[yourcity]bakery #freshbaked #cookielover #treatyourself #bakedtoday",
+        "visual": "Video: Cookies coming out of oven with visible steam, chocolate still bubbling, baker's hands placing on cooling rack. Text overlay: 'READY IN 23 MIN' with countdown timer graphic",
+        "framework": "Time-based scarcity"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🍰 CAKE ORDERING 101: What Every Customer Should Know\n\nFriends, I'm seeing too many last-minute cake emergencies! Let me help you plan better:\n\n✅ SIMPLE DESIGNS (sheet cakes, basic decoration): Order 3-5 days ahead\n✅ CUSTOM DESIGNS (specific colors, themes, toppers): Order 7-10 days ahead\n✅ WEDDING/TIERED CAKES: Order 4-6 weeks ahead\n✅ HOLIDAY CAKES (Thanksgiving, Christmas, graduations): Order 2-3 weeks ahead\n\nWhy the lead time?\n• We bake fresh (never frozen)\n• Custom colors need testing\n• Intricate designs take 4-6 hours\n• We limit daily orders to maintain quality\n\nPRO TIP: Our calendar fills up fast for weekend pickups. Tuesday-Thursday pickups = more availability + sometimes we can do rush orders!\n\nQuestions? Ask below! I'm here to help make your celebration perfect 💛\n\nP.S. We do keep a few walk-in cakes daily, but they're first-come-first-served and limited designs.\n\n[BAKERY NAME] | [LOCATION] | [PHONE]\nOrder online: [WEBSITE]\n\n#[YourCity]Bakery #CakeTips #PartyPlanning #LocalBusiness #CustomCakes",
+        "framework": "Educational + Problem-solving"
+      },
+      "authority": {
+        "template": "Something beautiful happened yesterday that I have to share ❤️\n\nA mom came in, almost in tears. Her daughter has celiac disease and has never had a \"real\" birthday cake—always felt left out at parties.\n\nHer 8th birthday is Saturday.\n\nWe spent 30 minutes talking about her daughter's favorite colors (purple and teal), her obsession with butterflies, and what flavors she dreams about.\n\nToday, we're baking a custom gluten-free vanilla cake with chocolate buttercream, decorated with hand-piped butterflies.\n\nThis is why we invested in a dedicated gluten-free kitchen space. Why we source certified ingredients. Why we train our team on cross-contamination.\n\nBecause EVERY kid deserves to feel special on their birthday.\n\nTo all the parents navigating food allergies: We see you. We've got you. Your child's celebration matters just as much.\n\n🦋 We do custom gluten-free, dairy-free, nut-free, and vegan options\n🦋 Dedicated prep space to prevent cross-contamination\n🦋 Same beautiful designs as our regular cakes\n🦋 Taste-testing available before you order\n\nDM me or call [PHONE] to discuss your needs. Let's make magic happen.\n\n#GlutenFree #FoodAllergies #InclusiveBaking #[YourCity] #CustomCakes #CeliacSafe #AllergyFriendly #LocalBakery #CommunityFirst",
+        "framework": "Emotional storytelling + Authority"
+      },
+      "promotional": {
+        "template": "☀️ SUNDAY MORNING RITUAL ALERT ☀️\n\nIt's happening again...\n\n→ Fresh sourdough (cooling now)\n→ Almond croissants (out of oven at 8am)\n→ Cinnamon rolls with cream cheese frosting (8:30am)\n→ Blueberry scones (9am)\n\nPro tip from our regulars: Get here before 10am. Last Sunday we sold out of croissants by 9:47am 😅\n\nCoffee's brewing. Oven's hot. We're ready for you.\n\n📍 [ADDRESS]\n⏰ Open until [TIME] (or until we sell out)\n☎️ Call ahead to reserve: [PHONE]\n\nWhat's your Sunday morning bakery order? Tell us below! 👇\n\n[BAKERY NAME] | Making your mornings better since [YEAR]\n\n#SundayMorning #FreshBaked #[YourCity]Bakery #WeekendVibes #SourdoughBread #Croissants #CinnamonRolls #LocalBakery #SupportLocal #BakeryLife",
+        "framework": "Time-based scarcity + Community ritual"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You asked for a custom cake with 2 days notice",
+        "script": "[0-3s] Baker staring at camera, exhausted expression, text: \"POV: 2 days notice for custom cake\"\n\n[4-10s] Fast cuts showing: mixing bowls, oven, decorating tools with text overlays: \"Baking: 4 hours\" \"Cooling: 3 hours\" \"Decorating: 5 hours\"\n\n[11-20s] Show calendar with X's through days, text: \"Why we need 7-10 days:\"\n\n[21-35s] Bullet points appear:\n• Custom colors = testing batches\n• Intricate designs = 6+ hours\n• We bake FRESH (not frozen)\n• Quality over speed\n\n[36-45s] Show finished gorgeous cake, text: \"This took 14 hours total\"\n\n[46-55s] Baker smiling: \"But it's worth it when you see their face\"\n\n[56-60s] Text: \"Book your custom cake early!\" + [BAKERY NAME] + [LOCATION]\n\n#bakertok #customcakes #cakedecorating #bakingtiktok #caketok #bakerylife #cakebusiness #behindthescenes",
+        "framework": "Educational + Behind-the-scenes"
+      },
+      "authority": {
+        "hook": "We sold out by 9am. Here's why we won't 'just make more'",
+        "script": "[0-3s] Empty bakery case, text: \"SOLD OUT 9:47am\" customer in background looking disappointed\n\n[4-8s] Cut to baker: \"You asked why we don't just make more...\"\n\n[9-20s] Show 4am alarm, baker arriving in dark, text: \"We start at 4am. Everything's fresh TODAY.\"\n\n[21-35s] Fast montage: mixing, shaping, proofing with timestamps showing hours passing\n\n[36-45s] Text overlays: \"Our oven holds 6 dozen croissants\" \"Each batch = 25 minutes\" \"We can't speed up chemistry\"\n\n[46-52s] Show perfect golden croissants: \"Quality takes time. We won't compromise.\"\n\n[53-60s] Text: \"Get here early or pre-order\" + [BAKERY NAME] + \"Tomorrow's menu in bio\"\n\n#bakertok #croissants #artisanbaking #smallbusiness #qualityoverquantity #bakerylife #freshbaked #supportlocal",
+        "framework": "Authority + Scarcity education"
+      },
+      "promotional": {
+        "hook": "Baking your order RIGHT NOW (you have 47 minutes to get here)",
+        "script": "[0-3s] Oven door opening, steam billowing out, text: \"YOUR COOKIES IN 47 MIN\"\n\n[4-10s] Show cookies on tray going into oven, set timer dramatically\n\n[11-18s] Text: \"Chocolate chip cookies\" \"Still warm pickup\" \"Only 8 dozen available\"\n\n[19-30s] Quick cuts: chocolate melting, dough spreading, golden edges forming\n\n[31-40s] Timer beeping, pulling cookies out with visible steam and melty chocolate\n\n[41-50s] Close-up of breaking cookie open, cheese-pull but with melted chocolate\n\n[51-60s] Text: \"Order now: [ORDERING METHOD]\" \"Pickup by [TIME]\" \"[BAKERY NAME] [LOCATION]\" with urgent countdown timer graphic\n\n#freshcookies #warmcookies #chocolatechip #cookietok #bakery #freshbaked #treatyourself #[yourcity]",
+        "framework": "Time-based urgency + Sensory"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The real reason artisan bread costs more (it's not what you think)",
+        "preview": "Spoiler: It's about time, not ingredients...",
+        "body": "Hi [FIRST_NAME],\n\nSomeone asked yesterday why our sourdough is $8 when grocery store bread is $3.\n\nFair question. Here's the honest answer:\n\nGROCERY STORE LOAF:\n• Mixed: 10 minutes\n• Proofed: 1 hour (with commercial yeast)\n• Baked: 20 minutes\n• Total time: 90 minutes\n• Shelf life: 7-10 days (preservatives)\n\nOUR SOURDOUGH:\n• Mixed: 20 minutes\n• Fermented: 24-72 hours (wild yeast)\n• Shaped: 15 minutes\n• Final proof: 4-6 hours\n• Baked: 45 minutes\n• Total time: 3 DAYS\n• Shelf life: 3-5 days (no preservatives)\n\nWe can't speed up fermentation. That's where the flavor develops. Where the texture becomes perfect. Where it becomes easier to digest.\n\nYou're not paying for flour and water. You're paying for 72 hours of careful attention.\n\nWorth it? Our customers think so. (We sold out by 11am yesterday.)\n\nThis week's sourdough schedule:\n• Wednesday: Seeded multigrain\n• Friday: Classic country loaf\n• Saturday: Rosemary olive oil\n\nPre-order to guarantee yours: [LINK]\n\nBaking real bread,\n[BAKER NAME]\n[BAKERY NAME]\n\nP.S. Want to see the process? Reply to this email and I'll send you our behind-the-scenes video.",
+        "framework": "PAS (Problem-Agitate-Solution)"
+      },
+      "authority": {
+        "subject": "We're changing our wedding cake policy (here's why)",
+        "preview": "After 200+ wedding cakes, we learned something important...",
+        "body": "Hi [FIRST_NAME],\n\nAfter creating 200+ wedding cakes, we're making a change.\n\nStarting [DATE], we're requiring all wedding cake clients to do a tasting appointment before we accept their order.\n\nWhy?\n\nLast month, a bride ordered our \"most popular\" flavor combo without tasting. Day-of, she loved the design but wished she'd chosen different flavors.\n\nHer photos are beautiful. But every time she looks at them, she thinks about the cake she wishes she'd had.\n\nThat broke my heart.\n\nYour wedding cake isn't just dessert. It's in your photos forever. It's what guests remember. It's worth 90 minutes to get it exactly right.\n\nOUR NEW PROCESS:\n\n1. Complimentary tasting appointment (up to 6 flavors)\n2. Design consultation (bring inspiration photos)\n3. Customization discussion (dietary needs, preferences)\n4. Detailed proposal with timeline\n\nNo more guessing. No more regrets.\n\nCurrent wedding bookings for [YEAR]:\n• [MONTH]: 3 slots left\n• [MONTH]: 7 slots available\n• [MONTH]: Filling fast\n\nBook your tasting: [LINK]\n\nWe're not the cheapest. We're not the fastest.\n\nBut we'll make sure your cake is exactly what you dreamed of.\n\nCheers,\n[BAKER NAME]\n[BAKERY NAME]\n\nP.S. Already have a wedding cake order with us? You're grandfathered in, but tastings are always available if you want to adjust anything.",
+        "framework": "Authority + Customer-first positioning"
+      },
+      "promotional": {
+        "subject": "⏰ Last call: Thanksgiving pre-orders close [DATE]",
+        "preview": "Only 12 pie slots left + what's already sold out",
+        "body": "Hi [FIRST_NAME],\n\nQuick Thanksgiving update:\n\n✅ SOLD OUT:\n• Pumpkin pies (all 40 slots gone)\n• Pecan pies (waitlist only)\n\n⚠️ FILLING FAST (12 slots left):\n• Apple crumble pie\n• Sweet potato pie\n• Chocolate cream pie\n\n📅 ORDER DEADLINE: [DATE] at midnight\n📦 PICKUP: [DATE], [TIME WINDOW]\n\nWHY PRE-ORDER?\n→ Guaranteed availability (we don't make extras)\n→ Skip the line (dedicated pickup window)\n→ Less stress (one thing checked off your list)\n\nNew this year: Build-your-own pie bundle\n• Choose any 3 pies: $[PRICE] (save $[AMOUNT])\n• Choose any 5 pies: $[PRICE] (save $[AMOUNT])\n• Perfect for large gatherings\n\nORDER NOW: [LINK]\n\nNot hosting this year? Our 6\" mini pies serve 4-6 people perfectly.\n\nLast year we had to turn away 30+ customers on pickup day. Don't let that be you.\n\nOrder by [DATE], stress less on Thanksgiving.\n\n[BAKER NAME]\n[BAKERY NAME]\n[PHONE] (call with questions)\n\nP.S. Forgot someone has a dietary restriction? We have gluten-free and vegan options too (limited availability).",
+        "framework": "Urgency + Scarcity + Solution"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] birthday cakes ordered this week - here's why parents keep coming back",
+      "Only [X] [signature items] left for today (sold out by [time] yesterday)",
+      "[X] customers said our gluten-free [item] tastes better than regular - here's the secret",
+      "[X]-hour process behind every sourdough loaf (most bakeries skip this)",
+      "[X] wedding cakes delivered this month without a single 'it doesn't match the photo' complaint"
+    ],
+    "question_hooks": [
+      "Tired of dry, day-old pastries at your coffee shop?",
+      "Need a custom cake by [day] and everywhere else is booked?",
+      "Paying premium prices but getting grocery-store taste?",
+      "Does your gluten-free guest always get stuck with the sad fruit plate?",
+      "Worried your custom cake won't look anything like the picture you showed them?"
+    ],
+    "story_hooks": [
+      "How [customer name] saved their daughter's birthday party with a same-day cake order",
+      "The mom who finally found gluten-free croissants her kids can't tell apart from regular",
+      "How our [item] made [customer] the office hero (they've ordered 6 times since)",
+      "The bride who cried happy tears when she saw her wedding cake matched her Pinterest board exactly",
+      "How [customer] stopped stressing about [holiday] desserts and started enjoying the day"
+    ],
+    "fear_hooks": [
+      "Is your special occasion at risk because you're waiting to order that custom cake?",
+      "Still planning to grab a grocery store cake the day before? Here's what happened last time someone tried that",
+      "Ordering custom desserts online without seeing real customer photos first? Here's why that's risky",
+      "Is your morning coffee ritual ruined by stale pastries that sat out since 6am?",
+      "Trusting a new bakery with your wedding cake without seeing their actual process? Here's what to ask first"
+    ],
+    "howto_hooks": [
+      "How to get homemade-quality [baked good] without spending your Sunday in the kitchen",
+      "How to impress your [guests/coworkers/family] with [item] that's still warm at pickup",
+      "How to order a custom cake on short notice without compromising on design or taste",
+      "How to find gluten-free [item] that actually tastes like the real thing (not cardboard)",
+      "How to never serve disappointing store-bought [item] again (even on busy weeks)"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: It's 2am and you're wondering why your croissants cost $6",
+      "body": "Show baker arriving in dark, laminating butter into dough (time-lapse), folding process with text overlay '3 days of work', '84 layers of butter', close-up of steam and flaky layers. Cut to grocery store croissant comparison - flat, no layers. Final shot: golden croissant breaking apart with butter dripping. Text: 'This is why.'",
+      "cta": "Link in bio for today's fresh batch (sells out by noon)"
+    },
+    "reels": {
+      "hook": "We throw away $200 of perfect bread every night",
+      "body": "Show beautiful unsold loaves at closing time. Text: 'Day-old isn't fresh enough for you.' Quick cuts of donation to local shelter, happy faces. End with baker's hands pulling fresh loaves from oven at 5am. Text: 'Fresh or nothing.'",
+      "cta": "Pre-order yours so nothing goes to waste"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film yourself breaking open our croissant/cookie/bread in slow-mo. Capture the steam, the layers, the first bite reaction. No script needed - just real reactions.",
+      "hashtag": "#WorthTheCalories"
+    },
+    {
+      "prompt": "Show what you brought to the party/office/event and film people's reactions when they taste it. Bonus: capture the 'wait, where is this from?' questions.",
+      "hashtag": "#BakeryHero"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The '$8 Cookie Math Breakdown' - show exact cost of premium butter ($4.20), organic flour ($0.80), vanilla ($1.15), labor (baker's 2am wake-up), rent, vs grocery store cookie ($0.40 ingredients, factory made). End with side-by-side taste test.",
+      "why": "Validates premium pricing, educates on value, shareable to justify purchases to skeptical partners/friends, taps into 'cost of goods' curiosity trend"
+    },
+    {
+      "angle": "'Grocery Store Cake vs Us' blind taste test with brutally honest reactions. Show the chemical taste, waxy frosting comments. Creates debate in comments, gets shares from people validating their bakery choices.",
+      "why": "Comparison content performs well, triggers emotional 'I knew it!' response, gives permission to spend more, highly shareable to justify decisions"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-28T00:05:54.553Z",
+    "last_tier2_refresh": "2025-11-28T00:05:54.553Z",
+    "last_tier3_refresh": "2025-11-28T00:05:54.553Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-26T00:05:54.553Z"
+  }
+}

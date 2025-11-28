@@ -21,12 +21,31 @@ serve(async (req) => {
 
     const body = await req.json()
 
-    // Default to 'sonar' model if not specified
-    if (!body.model) {
-      body.model = 'sonar'
+    // Convert simplified query format to Perplexity's native format
+    let requestBody: any
+
+    if (body.query) {
+      // Simplified format from V4 services: { query: string, format?: string }
+      requestBody = {
+        model: body.model || 'sonar',
+        messages: [
+          {
+            role: 'user',
+            content: body.query
+          }
+        ]
+      }
+    } else if (body.messages) {
+      // Native Perplexity format - pass through
+      requestBody = {
+        model: body.model || 'sonar',
+        messages: body.messages
+      }
+    } else {
+      throw new Error('Request must include either "query" or "messages"')
     }
 
-    console.log('[Perplexity Proxy] Making request with model:', body.model)
+    console.log('[Perplexity Proxy] Making request with model:', requestBody.model)
 
     const response = await fetch(PERPLEXITY_API_URL, {
       method: 'POST',
@@ -34,7 +53,7 @@ serve(async (req) => {
         'Authorization': `Bearer ${PERPLEXITY_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(requestBody)
     })
 
     if (!response.ok) {

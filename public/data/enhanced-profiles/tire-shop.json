@@ -1,0 +1,1664 @@
+{
+  "industry": "Tire Shop",
+  "industry_name": "Tire Shop",
+  "naics_code": "441320",
+  "category": "Personal Services",
+  "subcategory": "Automotive Retail and Service",
+  "customer_triggers": [
+    {
+      "trigger": "Tread depth below 2/32 inch on penny test",
+      "urgency": 10,
+      "frequency": "Every 25,000-50,000 miles"
+    },
+    {
+      "trigger": "Failed state safety inspection",
+      "urgency": 10,
+      "frequency": "Annual inspection cycles"
+    },
+    {
+      "trigger": "Visible tire damage from pothole or curb",
+      "urgency": 9,
+      "frequency": "Accident-based, seasonal"
+    },
+    {
+      "trigger": "Uneven tire wear noticed during rotation",
+      "urgency": 7,
+      "frequency": "Every 5,000-8,000 miles"
+    },
+    {
+      "trigger": "Seasonal change requiring winter/summer tires",
+      "urgency": 8,
+      "frequency": "Bi-annual"
+    },
+    {
+      "trigger": "Vibration or pulling while driving",
+      "urgency": 9,
+      "frequency": "Problem-based occurrence"
+    },
+    {
+      "trigger": "Slow leak requiring frequent air fills",
+      "urgency": 6,
+      "frequency": "Monthly annoyance point"
+    },
+    {
+      "trigger": "Vehicle purchase requiring new tires",
+      "urgency": 8,
+      "frequency": "Every 4-7 years average"
+    },
+    {
+      "trigger": "Tire pressure monitoring system warning",
+      "urgency": 7,
+      "frequency": "Weekly to monthly"
+    },
+    {
+      "trigger": "Pre-road trip safety inspection",
+      "urgency": 8,
+      "frequency": "2-3 times yearly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer recognizes tire issues through visual inspection (38%), warning lights (24%), vehicle handling problems (19%), or failed inspection (19%). Research indicates 72% of customers delay tire replacement by average 2,500 miles past recommended point due to cost concerns. Initial awareness to action typically spans 2-3 weeks.",
+    "consideration": "Comparison shopping across 3-4 providers including big-box retailers ($400-600 for set), independent shops ($500-800), and dealerships ($700-1200). Customers spend average 4.5 hours researching online, reading 12+ reviews, comparing warranties, and seeking recommendations from 2-3 trusted sources before deciding.",
+    "decision": "Purchase decision factors rank as: safety rating (31%), price including installation (28%), warranty coverage (22%), brand reputation (11%), and immediate availability (8%). Customers typically commit within 72 hours of quote when safety concerns exist, extending to 2 weeks for preventive replacement.",
+    "retention": "Successful retention requires competitive alignment pricing within 10% of market, free services like rotation and repair, and relationship building through consistent service. Shops retaining customers through full tire lifecycle (4-6 years) generate 3.2x revenue versus single transaction.",
+    "advocacy": "Customers become advocates after experiencing honest wear assessments, quality installation preventing comebacks, and standing behind warranty claims. Tire shop referrals generate highest-value customers with average tickets 35% higher than cold traffic."
+  },
+  "transformations": [
+    {
+      "from": "Fearful about blowout risk",
+      "to": "Confident in vehicle safety",
+      "emotional_value": "Family protection worth $200 premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by tire specifications",
+      "to": "Informed about best options",
+      "emotional_value": "Expert guidance valued at $100",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about being oversold",
+      "to": "Trusting transparent recommendations",
+      "emotional_value": "Honest advice builds lifetime loyalty",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about installation quality",
+      "to": "Assured with certified installation",
+      "emotional_value": "Professional service worth 20% more",
+      "worth_premium": true
+    },
+    {
+      "from": "Concerned about warranty coverage",
+      "to": "Protected with comprehensive guarantee",
+      "emotional_value": "Peace of mind worth extra $50/tire",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about immediate need",
+      "to": "Relieved with same-day service",
+      "emotional_value": "Convenience worth 15% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain about tire longevity",
+      "to": "Confident with mileage warranty",
+      "emotional_value": "Long-term value proposition",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average ticket increased from $580 to $740",
+      "timeframe": "6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Alignment attachment rate reaching 45%",
+      "timeframe": "Monthly tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Installation time under 45 minutes for set of 4",
+      "timeframe": "Per service",
+      "measurable": true
+    },
+    {
+      "metric": "Warranty claim rate below 1.5%",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Customer lifetime value exceeding $2,400",
+      "timeframe": "4-year cycle",
+      "measurable": true
+    },
+    {
+      "metric": "Road hazard warranty sales at 65% attachment",
+      "timeframe": "Monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "State inspection failure requires immediate replacement for legal compliance within 10 days",
+    "Cord showing or steel belt visible creates immediate safety hazard requiring same-day service",
+    "Winter storm forecast drives 300% demand surge in 48-hour window for snow tire installation",
+    "Pre-vacation inspection revealing worn tires triggers immediate replacement for trip safety",
+    "Lease turn-in within 30 days requires OEM-spec tires to avoid $800+ wear charges",
+    "Insurance claim from road damage requires rapid replacement for rental car return"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I can get them cheaper online",
+      "response": "Online tires cost $50-80 per tire for mounting, balancing, disposal, and valve stems. Our installed price includes lifetime rotation, flat repair, and road hazard warranty saving you $400+ over tire life",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "I only need two tires, not four",
+      "response": "Mismatched tires cause differential wear costing $2,000+ in repairs. AWD vehicles require matched sets for warranty. We offer 12-month financing making four tires same monthly cost as two",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "These tires should have lasted longer",
+      "response": "Let's review your alignment history and rotation records. Improper alignment causes 50% faster wear. Our free alignment check could double your next set's lifespan, saving $400",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "The warranty seems expensive",
+      "response": "Road hazard protection at $20 per tire covers damage replacement that occurs in 23% of tires. One pothole replacement saves you $200, making this profitable insurance",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I need to check other prices",
+      "response": "We'll match any local competitor's written quote and add free lifetime rotation valued at $240. Our 60,000-mile warranty exceeds others by 20,000 miles",
+      "effectiveness": 8.8
+    },
+    {
+      "objection": "Can't this wait another month?",
+      "response": "Each 1/32\" of wear lost reduces wet traction by 15%. Waiting risks hydroplaning accidents averaging $4,500 in damages. We offer 6-month zero interest making it $100 monthly",
+      "effectiveness": 7.6
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "30-day ride satisfaction guarantee with free replacement",
+      "Price match plus 10% of difference",
+      "Free replacement for workmanship issues lifetime",
+      "Mileage warranty honored at 600+ locations nationwide",
+      "Free flat repair even for non-customers"
+    ],
+    "proof_points": [
+      "TIA certified installers with 20+ years average experience",
+      "4.8-star rating from 3,400+ verified customers",
+      "Zero NHTSA safety complaints in 15 years operation",
+      "A+ BBB rating with complaint resolution under 24 hours",
+      "Exclusive dealer for top 5 tire brands"
+    ],
+    "risk_mitigation": "Free pre-purchase test drive on premium models, written warranty documentation, photo documentation of installation, complimentary first rotation at 30 days to ensure satisfaction, 24/7 roadside assistance included"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "bald",
+      "worn",
+      "unsafe",
+      "vibration",
+      "pulling",
+      "leak",
+      "blowout",
+      "hydroplaning",
+      "failed inspection",
+      "cord showing"
+    ],
+    "solution_words": [
+      "safe",
+      "reliable",
+      "guaranteed",
+      "premium",
+      "all-season",
+      "high-performance",
+      "long-lasting",
+      "quiet",
+      "comfortable",
+      "warranty"
+    ],
+    "avoid_jargon": [
+      "ply rating",
+      "UTQG ratings",
+      "load index",
+      "speed rating",
+      "aspect ratio",
+      "contact patch",
+      "rolling resistance",
+      "asymmetric tread",
+      "sipe density",
+      "tread compound"
+    ]
+  },
+  "power_words": [
+    "guaranteed",
+    "lifetime",
+    "certified",
+    "premium",
+    "professional",
+    "immediate",
+    "authentic",
+    "factory",
+    "original",
+    "maximum",
+    "superior",
+    "advanced",
+    "exclusive",
+    "proven",
+    "trusted",
+    "authorized",
+    "genuine",
+    "comprehensive",
+    "unlimited",
+    "priority",
+    "expert",
+    "precision",
+    "performance",
+    "safety-rated",
+    "weather-ready",
+    "road-tested",
+    "warranty-backed",
+    "installed today",
+    "free rotation",
+    "price-match"
+  ],
+  "avoid_words": [
+    "cheap",
+    "budget",
+    "used",
+    "retread",
+    "discontinued",
+    "clearance",
+    "seconds",
+    "blemished",
+    "import",
+    "generic",
+    "knockoff",
+    "economy",
+    "basic",
+    "adequate",
+    "fair",
+    "acceptable",
+    "minimum",
+    "sufficient",
+    "risky",
+    "worn"
+  ],
+  "headline_templates": [
+    {
+      "template": "Buy 3 Tires, Get 4th FREE - This Week Only",
+      "expected_ctr": 11.3,
+      "use_case": "Promotional campaign"
+    },
+    {
+      "template": "Warning: Your Tires Failed the Penny Test",
+      "expected_ctr": 9.8,
+      "use_case": "Safety urgency"
+    },
+    {
+      "template": "$100 Off Set of 4 Michelin Tires + Free Installation",
+      "expected_ctr": 10.2,
+      "use_case": "Brand promotion"
+    },
+    {
+      "template": "Same-Day Installation Available - 4 Tires in 45 Minutes",
+      "expected_ctr": 8.7,
+      "use_case": "Convenience focus"
+    },
+    {
+      "template": "Why 67% of [City] Drivers Choose Our Shop",
+      "expected_ctr": 7.9,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Free Alignment Check with Tire Purchase ($89 Value)",
+      "expected_ctr": 9.1,
+      "use_case": "Value addition"
+    },
+    {
+      "template": "0% Financing for 12 Months on All Tires",
+      "expected_ctr": 10.8,
+      "use_case": "Payment options"
+    },
+    {
+      "template": "Winter Tires In Stock - Install Before the Storm",
+      "expected_ctr": 12.4,
+      "use_case": "Seasonal urgency"
+    },
+    {
+      "template": "Fleet Pricing: Save 40% on 10+ Vehicles",
+      "expected_ctr": 6.8,
+      "use_case": "B2B targeting"
+    },
+    {
+      "template": "Lifetime Warranty on All Tire Services",
+      "expected_ctr": 8.3,
+      "use_case": "Trust building"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Instant Quote on Your Size",
+      "conversion_rate": 14.2,
+      "placement": "Tire selector tool"
+    },
+    {
+      "template": "Check Availability - Install Today",
+      "conversion_rate": 15.8,
+      "placement": "Inventory page"
+    },
+    {
+      "template": "Book Your Free Tire Inspection",
+      "conversion_rate": 11.3,
+      "placement": "Service page"
+    },
+    {
+      "template": "Calculate Your Monthly Payment",
+      "conversion_rate": 12.7,
+      "placement": "Financing calculator"
+    },
+    {
+      "template": "Reserve Winter Tires Now - Save $200",
+      "conversion_rate": 13.9,
+      "placement": "Seasonal banner"
+    },
+    {
+      "template": "Text TIRES to 44444 for $100 Off",
+      "conversion_rate": 10.8,
+      "placement": "Billboard/radio"
+    },
+    {
+      "template": "Schedule Installation - 3 Bays Open",
+      "conversion_rate": 16.2,
+      "placement": "Urgency banner"
+    },
+    {
+      "template": "Download $75 Coupon to Phone",
+      "conversion_rate": 17.4,
+      "placement": "Mobile popup"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Can you see Lincoln's head on a penny? Your tires are UNSAFE! Schedule free inspection in comments for $100 off new set!",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before/After: Customer drove 80,000 miles on these tires with proper rotation! 📸 Tag us in your tire photos for 20% off service",
+      "engagement_rate": 7.4
+    },
+    {
+      "platform": "Twitter",
+      "template": "FLASH FRIDAY: Next 5 customers get FREE alignment ($89 value) with 4 tire purchase! Call now: [phone] 🚗",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "Watch us install 4 tires in 37 minutes ⏱️ Think we can beat it? Comment your guess! #TireShop #SpeedInstall",
+      "engagement_rate": 14.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Fleet managers: Reduce tire costs by 40% with our commercial program. 75+ companies trust us. Case study link below.",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Check Tire Wear in 60 Seconds | Plus exclusive subscriber discount for viewers only",
+      "engagement_rate": 9.6
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Pothole season is here! Free tire inspection for neighbors this Saturday. We'll donate $10 to [Local Charity] for each inspection 🏘️",
+      "engagement_rate": 8.2
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐ NEW: Express lane for tire repair - no appointment needed! Most repairs under $25 and done in 20 minutes",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "Pinterest",
+      "template": "Ultimate Tire Buying Guide: Save this checklist for your next purchase! Includes exclusive Pinterest-only coupon code",
+      "engagement_rate": 3.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Lifetime free rotation and balancing with purchase saving $480 over tire life",
+      "rank": 1,
+      "differentiator": "Only shop offering true lifetime service"
+    },
+    {
+      "prop": "45-minute installation guarantee or 25% off your next service",
+      "rank": 2,
+      "differentiator": "Fastest certified installation in market"
+    },
+    {
+      "prop": "Road hazard warranty covering 100% replacement for 3 years",
+      "rank": 3,
+      "differentiator": "Longest full-coverage period available"
+    },
+    {
+      "prop": "Free alignment check and report with every tire purchase",
+      "rank": 4,
+      "differentiator": "Prevents premature wear others miss"
+    },
+    {
+      "prop": "0% financing for 18 months on purchases over $400",
+      "rank": 5,
+      "differentiator": "Longest interest-free period locally"
+    },
+    {
+      "prop": "Mobile installation available for fleet accounts",
+      "rank": 6,
+      "differentiator": "Only on-site commercial service"
+    },
+    {
+      "prop": "Price match guarantee plus 10% of difference in cash",
+      "rank": 7,
+      "differentiator": "Most aggressive price protection"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the confidence of premium tires installed by certified professionals. Our master technicians ensure perfect balance, optimal alignment, and maximum longevity with every installation. Includes lifetime services and nationwide warranty protection for complete peace of mind.",
+    "budget_conscious": "Quality tires don't require premium prices. Our value line offers safe, reliable tires starting at $59 each installed. Every purchase includes free lifetime rotation and repair, plus flexible payment options that fit any budget. Join 10,000 smart shoppers saving 35% versus dealerships.",
+    "enterprise": "Maximize fleet uptime with dedicated commercial service, volume pricing 40% below retail, and comprehensive tire management programs. Our fleet solutions serve 75+ regional businesses with mobile service, centralized billing, and detailed wear analytics that reduce costs by average 32% annually."
+  },
+  "trust_signals": [
+    {
+      "signal": "TIA certification prominently displayed",
+      "importance": 10,
+      "format": "Wall certificates and badges"
+    },
+    {
+      "signal": "Brand authorization from top 5 manufacturers",
+      "importance": 9,
+      "format": "Showroom displays"
+    },
+    {
+      "signal": "Before/after installation photos texted",
+      "importance": 8,
+      "format": "Digital documentation"
+    },
+    {
+      "signal": "4.8-star rating from 3,400+ reviews",
+      "importance": 10,
+      "format": "Multiple platform widgets"
+    },
+    {
+      "signal": "25 years same location and ownership",
+      "importance": 8,
+      "format": "Historical photos and story"
+    },
+    {
+      "signal": "Insurance and bonding certificates",
+      "importance": 7,
+      "format": "Lobby display"
+    },
+    {
+      "signal": "NHTSA safety compliance documentation",
+      "importance": 9,
+      "format": "Government certification"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "127,000+ tires installed with 99.2% satisfaction rate",
+      "credibility_score": 9.4,
+      "context": "Customer survey data over 5 years"
+    },
+    {
+      "stat": "Serving three generations of local families since 1987",
+      "credibility_score": 9.1,
+      "context": "Documented customer genealogy"
+    },
+    {
+      "stat": "Average customer saves $450 versus dealership pricing",
+      "credibility_score": 8.6,
+      "context": "Price comparison study of 1,000 invoices"
+    },
+    {
+      "stat": "Winner of 'Best Tire Shop' award 7 consecutive years",
+      "credibility_score": 8.3,
+      "context": "Chamber of Commerce recognition"
+    },
+    {
+      "stat": "Zero safety-related comebacks in 50,000+ installations",
+      "credibility_score": 9.7,
+      "context": "Insurance audit verification"
+    },
+    {
+      "stat": "Fleet partner to 75+ local businesses and government agencies",
+      "credibility_score": 8.8,
+      "context": "Published client list with testimonials"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Name-brand tires with 80,000+ mile warranty, nitrogen inflation, laser alignment, certified installation, climate-controlled waiting area",
+    "Mid-tier: Major brand alternatives with 60,000 mile warranty, standard installation, computer balancing, comfortable waiting area",
+    "Budget: Value brand tires with 40,000 mile warranty, basic installation and balancing, simple waiting area",
+    "Red flags: No brand names visible, cash-only operation, no written warranties, rushed installation under 30 minutes, no proper lift equipment"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "After first rotation appointment when customer experiences improved ride quality and sees even wear patterns",
+    "ask_method": "Automated email with direct Google review link, followed by SMS at day 14, incentivized with $25 credit toward next service"
+  },
+  "competitive_advantages": [
+    "Exclusive regional dealer for three premium tire brands competitors cannot source",
+    "Only shop with Hunter Elite alignment system providing 3D measurement accuracy",
+    "In-house nitrogen generation system providing free lifetime fills unique in market",
+    "Mobile installation fleet serving commercial accounts competitors cannot match",
+    "24/7 emergency road service with 45-minute response time year-round",
+    "Proprietary customer portal showing real-time tread depth tracking and predictive replacement"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show premium tire at $249 each first, making mid-tier at $149 appear as smart value choice",
+    "sensitivity": "Price points at $399, $599, $799 for sets align with financing approval levels and mental budgets",
+    "sweet_spots": [
+      "$79 per tire budget",
+      "$119 per tire value",
+      "$159 per tire premium",
+      "$199+ per tire luxury"
+    ],
+    "decoy_pricing": "Position 70,000-mile warranty tires at $139 to make 80,000-mile at $149 seem like obvious choice for $10 more"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 400,
+    "approval_required": 800,
+    "competitor_research": 600
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.35,
+    "holiday": 2.25
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Value Installation",
+      "price_range": "$299-$499 per set",
+      "target_customer": "Budget-conscious, older vehicles, basic transportation",
+      "margin": 28
+    },
+    {
+      "tier": "Standard Service",
+      "price_range": "$499-$799 per set",
+      "target_customer": "Average consumer, family vehicles, daily drivers",
+      "margin": 42
+    },
+    {
+      "tier": "Premium Performance",
+      "price_range": "$799-$1,499 per set",
+      "target_customer": "Luxury vehicles, sports cars, commercial trucks",
+      "margin": 55
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle alignment service at $89 with 65% margin when purchased with tires versus $119 standalone",
+    "Promote road hazard warranty with 85% margin and 67% attachment rate adding $80 pure profit per set",
+    "Implement TPMS service at $15 per sensor with 70% margin and 100% necessity on 2008+ vehicles",
+    "Offer nitrogen inflation upgrade at $39.99 with 90% margin and 45% take rate",
+    "Create tire storage program at $79/season with 95% margin for seasonal changeover customers",
+    "Develop subscription model for rotation and balance at $19.99/month with 80% margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -20,
+      "reason": "Post-holiday budget recovery",
+      "opportunity": "New Year safety resolutions"
+    },
+    {
+      "month": "February",
+      "variation": -12,
+      "reason": "Winter weather limits shopping",
+      "opportunity": "Tax refund early birds"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Tax refunds and pothole damage",
+      "opportunity": "Spring break travel prep"
+    },
+    {
+      "month": "April",
+      "variation": 25,
+      "reason": "Spring maintenance surge",
+      "opportunity": "All-season tire promotions"
+    },
+    {
+      "month": "May",
+      "variation": 20,
+      "reason": "Summer vacation preparation",
+      "opportunity": "Road trip safety packages"
+    },
+    {
+      "month": "June",
+      "variation": 18,
+      "reason": "Continued summer prep",
+      "opportunity": "Performance tire upgrades"
+    },
+    {
+      "month": "July",
+      "variation": 10,
+      "reason": "Mid-summer maintenance",
+      "opportunity": "Heat-related blowout prevention"
+    },
+    {
+      "month": "August",
+      "variation": 8,
+      "reason": "Back-to-school vehicle prep",
+      "opportunity": "Student safety specials"
+    },
+    {
+      "month": "September",
+      "variation": 12,
+      "reason": "Fall maintenance cycle",
+      "opportunity": "Wet weather traction focus"
+    },
+    {
+      "month": "October",
+      "variation": 35,
+      "reason": "Winter tire changeover rush",
+      "opportunity": "Snow tire packages"
+    },
+    {
+      "month": "November",
+      "variation": 40,
+      "reason": "Black Friday and winter prep",
+      "opportunity": "Bundle deals and financing"
+    },
+    {
+      "month": "December",
+      "variation": -25,
+      "reason": "Holiday spending priorities",
+      "opportunity": "Gift certificates and fleet services"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Commercial fleet service",
+      "avoid": "Retail promotions",
+      "conversion_rate": 7.3
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Senior citizen specials",
+      "avoid": "Emergency repairs",
+      "conversion_rate": 8.4
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek service specials",
+      "avoid": "Large installs",
+      "conversion_rate": 8.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend inspections",
+      "avoid": "Complex alignments",
+      "conversion_rate": 9.2
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency repairs, quick service",
+      "avoid": "Time-consuming jobs",
+      "conversion_rate": 10.1
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Family vehicle service",
+      "avoid": "Commercial accounts",
+      "conversion_rate": 13.4
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency service premium pricing",
+      "avoid": "Routine maintenance",
+      "conversion_rate": 8.9
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Major bills due 1st-5th create price sensitivity, vehicle payments 15th-20th trigger maintenance awareness, credit cards close 25th-30th",
+    "cash_flow_peaks": "Paychecks on 1st, 15th, and Fridays show 50% sales increase within 72 hours of deposit",
+    "slow_periods": "Days 7-13 typically 30% below average requiring aggressive promotions and financing offers"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday morning 6-8 AM",
+      "crisis_type": "Flat tire discovered",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 3-6 PM",
+      "crisis_type": "Pre-weekend trip emergency",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "First snow forecast",
+      "crisis_type": "Winter tire panic buying",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Sunday emergency calls",
+      "crisis_type": "Stranded motorist",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Holiday travel days",
+      "crisis_type": "Pre-trip safety",
+      "premium_multiplier": 2.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Basic Four",
+      "components": [
+        "4 tires installed",
+        "Computer balancing",
+        "Valve stems",
+        "Disposal"
+      ],
+      "pricing_model": "Starting at $399",
+      "margin": 32
+    },
+    {
+      "name": "Protection Plus",
+      "components": [
+        "4 premium tires",
+        "Lifetime rotation",
+        "Road hazard warranty",
+        "Alignment check",
+        "Nitrogen inflation",
+        "TPMS service"
+      ],
+      "pricing_model": "$799-$999",
+      "margin": 48
+    },
+    {
+      "name": "Fleet Maintenance",
+      "components": [
+        "Volume pricing",
+        "Mobile service",
+        "Wear tracking",
+        "Scheduled replacement",
+        "Centralized billing",
+        "DOT compliance"
+      ],
+      "pricing_model": "Contract at 40% below retail",
+      "margin": 35
+    },
+    {
+      "name": "Performance Package",
+      "components": [
+        "High-performance tires",
+        "Track alignment",
+        "Corner balancing",
+        "Pressure optimization",
+        "Heat cycling"
+      ],
+      "pricing_model": "$1,299-$1,999",
+      "margin": 58
+    }
+  ],
+  "upsell_paths": [
+    "Basic tire sale → Road hazard warranty (+$80) → Alignment service (+$89) → Nitrogen upgrade (+$40)",
+    "Two tire purchase → Four tire package (safety compliance) → Spare tire inspection → Full-size spare upgrade",
+    "Budget tire buyer → Mid-tier upgrade (+$30/tire) → Premium warranty → Lifetime rotation package",
+    "Single vehicle → Multiple family vehicles → Fleet account → Maintenance contract → Referral partner",
+    "Walk-in customer → Appointment customer → Service plan member → Brand advocate → Commercial referrer",
+    "Repair service → Inspection → Replacement quote → Financing approval → Full installation → Maintenance plan"
+  ],
+  "retention_hooks": [
+    "Free lifetime rotation and balance creating touchpoint every 5,000 miles for relationship building",
+    "Digital tread depth tracking with predictive replacement alerts increasing planning purchases by 52%",
+    "VIP club with priority scheduling and 15% discount driving 71% member retention rate",
+    "Free annual alignment checks catching issues early and building trust for future sales",
+    "Tire storage service for seasonal customers ensuring twice-yearly guaranteed business",
+    "Family fleet discounts for multiple vehicles increasing household capture rate by 83%",
+    "24/7 emergency road service creating loyalty through crisis assistance moments"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "$50 off for both parties on tire sets",
+      "timing": "After successful installation",
+      "incentive": "Mutual benefit discount",
+      "conversion_rate": 14.3
+    },
+    {
+      "strategy": "Family member pricing extension",
+      "timing": "During service completion",
+      "incentive": "Same price for relatives",
+      "conversion_rate": 19.7
+    },
+    {
+      "strategy": "Commercial account referral bonuses",
+      "timing": "After 6 months fleet service",
+      "incentive": "$250 per fleet referral",
+      "conversion_rate": 8.4
+    },
+    {
+      "strategy": "Social media photo contest",
+      "timing": "New tire installation",
+      "incentive": "$100 monthly winner",
+      "conversion_rate": 11.2
+    },
+    {
+      "strategy": "Neighborhood group discounts",
+      "timing": "Community events",
+      "incentive": "15% off for 5+ buyers",
+      "conversion_rate": 15.8
+    },
+    {
+      "strategy": "Review reward program",
+      "timing": "One week post-service",
+      "incentive": "$20 future credit",
+      "conversion_rate": 26.4
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Wheel alignment with tire purchase",
+      "attach_rate": 45,
+      "timing": "Point of sale when wear patterns visible"
+    },
+    {
+      "service": "Road hazard warranty protection",
+      "attach_rate": 67,
+      "timing": "During price presentation"
+    },
+    {
+      "service": "TPMS sensor replacement",
+      "attach_rate": 23,
+      "timing": "When sensors over 7 years old"
+    },
+    {
+      "service": "Brake inspection and service",
+      "attach_rate": 31,
+      "timing": "During tire installation with wheels off"
+    },
+    {
+      "service": "Suspension component replacement",
+      "attach_rate": 18,
+      "timing": "When alignment cannot be corrected"
+    },
+    {
+      "service": "Wheel and rim upgrades",
+      "attach_rate": 12,
+      "timing": "Performance tire purchases"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile tire service for corporate campuses and residential",
+      "market_size": "$3.5M annual revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Wholesale tire distribution to smaller shops",
+      "market_size": "$2.8M B2B opportunity",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Performance tuning and suspension center",
+      "market_size": "$1.2M specialty market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Commercial truck tire center",
+      "market_size": "$4.5M untapped segment",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Online tire sales with local installation",
+      "market_size": "$2.0M e-commerce addition",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Wheel repair and refinishing service",
+      "market_size": "$800K complementary revenue",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Discount Tire's 'Thank You' customer appreciation campaign featuring real customer stories and testimonials across social media, emphasizing their no-pressure sales approach and free services like tire rotations and air pressure checks",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Authentic customer testimonials build trust, highlighting free services addresses price anxiety, and user-generated content increases engagement. The campaign emphasized their unique selling proposition of free lifetime rotations and repairs.",
+        "metrics": "Discount Tire maintains 4.5+ star ratings across 1000+ locations with high engagement on service-related posts",
+        "source": "Discount Tire social media channels and Trustpilot reviews analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Les Schwab's seasonal winter tire educational video series showing real-world testing of all-season vs winter tires, including stopping distance demonstrations and snow performance comparisons",
+        "platform": "YouTube",
+        "why_it_worked": "Educational content addressing safety concerns, visual proof of performance differences, and timing aligned with seasonal needs. Videos demonstrated tangible safety benefits rather than just selling products.",
+        "metrics": "Les Schwab YouTube videos on winter tire safety average 50K-200K views with high retention rates",
+        "source": "Les Schwab Tires YouTube channel analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "Tire Rack's detailed tire comparison tool and customer review system allowing side-by-side specifications, real customer ratings, and performance data visualization",
+        "platform": "Website/Email",
+        "why_it_worked": "Empowers customers to make informed decisions, reduces overwhelm from too many options, builds trust through transparency, and addresses the 'being oversold' anxiety. Data-driven approach appeals to research-oriented buyers.",
+        "metrics": "Tire Rack's review system contains over 2 million customer reviews with 40%+ of customers using comparison tools before purchase",
+        "source": "Tire Rack website and e-commerce case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Local tire shops using Facebook posts about pothole damage with before/after photos during spring pothole season, offering free inspections",
+        "platform": "Facebook",
+        "why_it_worked": "Timely content aligned with seasonal road conditions, visual proof of damage resonates with local drivers, free inspection removes barrier to action, and community-focused approach builds local trust",
+        "metrics": "Posts with pothole damage photos generate 3-5x higher engagement than standard promotional posts in automotive service categories",
+        "source": "Social media marketing benchmarks for automotive services",
+        "confidence": "medium"
+      },
+      {
+        "example": "Goodyear's 'Penny Test' educational content and infographics explaining tread depth safety across social platforms with clear visual demonstrations",
+        "platform": "Instagram/Facebook/Pinterest",
+        "why_it_worked": "Simple DIY safety check empowers customers, addresses immediate safety concern, shareable educational content, and positions brand as helpful expert rather than salesperson",
+        "metrics": "Educational safety content in automotive category generates 2-3x more shares than promotional content",
+        "source": "Goodyear social media content and automotive marketing studies",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.07-0.15%",
+        "best_content_format": "Photo posts showing tire damage/before-after, educational videos about tire safety, and customer testimonial posts",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Weekdays 12-3pm and weekends 9am-12pm when people are planning errands",
+        "source": "Rival IQ Social Media Benchmark Report 2024 - Automotive Services category"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.5-1.2%",
+        "best_content_format": "Carousel posts with tire tips, Reels showing installation process or tire damage examples, Stories with polls about tire knowledge",
+        "optimal_frequency": "4-7 posts per week plus daily Stories",
+        "best_posting_times": "Weekdays 11am-1pm and 7-9pm",
+        "source": "Later.com Instagram Engagement Report 2024 and automotive service industry data"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "3-5% click-through rate on posts",
+        "best_content_format": "Service updates, seasonal promotions, customer photos, and Q&A responses",
+        "optimal_frequency": "2-3 posts per week minimum",
+        "best_posting_times": "Monday-Thursday mornings for weekend traffic planning",
+        "source": "Local SEO Guide and Google Business Profile best practices 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "18-22% open rate, 2-3% click-through rate",
+        "best_content_format": "Seasonal tire change reminders, service due notifications, educational content about tire maintenance, and exclusive customer offers",
+        "optimal_frequency": "1-2 emails per month, with seasonal campaigns during spring/fall",
+        "best_posting_times": "Tuesday-Thursday 10am-2pm",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 - Automotive category"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2-4% engagement rate on educational content",
+        "best_content_format": "How-to videos, tire comparison demonstrations, seasonal preparation guides, and behind-the-scenes installation content",
+        "optimal_frequency": "1-2 videos per month with consistent scheduling",
+        "best_posting_times": "Weekends and weekday evenings 6-9pm",
+        "source": "Think with Google Automotive Content Study 2023-2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Safety urgency + specific test",
+        "example": "Can your tires pass the penny test? Here's what worn tread really means for your family's safety",
+        "why_it_works": "Combines immediate actionable test with emotional safety concern for family, creating urgency without being salesy",
+        "source": "Tire industry blog posts and high-engagement social media content"
+      },
+      {
+        "hook_pattern": "Seasonal timing + cost avoidance",
+        "example": "Winter is coming - don't wait until the first snowfall when prices spike and wait times double",
+        "why_it_works": "Creates FOMO and urgency while positioning early action as money-saving, appeals to practical decision-making",
+        "source": "Les Schwab and Discount Tire seasonal email campaigns"
+      },
+      {
+        "hook_pattern": "Common mistake revelation",
+        "example": "3 tire-buying mistakes that cost drivers $500+ (and how to avoid them)",
+        "why_it_works": "Promises insider knowledge, specific dollar amount creates tangible value, positions business as helpful expert",
+        "source": "Tire Rack and Consumer Reports automotive content"
+      },
+      {
+        "hook_pattern": "Question + surprising answer",
+        "example": "Do all-season tires really work in winter? The test results might surprise you",
+        "why_it_works": "Engages curiosity, challenges common assumptions, promises data-backed answers to reduce decision anxiety",
+        "source": "Automotive educational content and tire manufacturer marketing"
+      },
+      {
+        "hook_pattern": "Free value + specific benefit",
+        "example": "Free tire inspection reveals hidden damage that could cause blowouts - no appointment needed",
+        "why_it_works": "Removes barrier with free offer, addresses specific safety fear, emphasizes convenience",
+        "source": "Local tire shop promotional campaigns and Google Ads analysis"
+      },
+      {
+        "hook_pattern": "Symptom identification",
+        "example": "If your car pulls to one side, your tires are trying to tell you something important",
+        "why_it_works": "Helps customers self-diagnose problems they're experiencing, creates urgency through personalization",
+        "source": "Automotive service marketing and customer search query analysis"
+      },
+      {
+        "hook_pattern": "Transparency promise",
+        "example": "We'll show you exactly what we found - photos of your tires before you decide anything",
+        "why_it_works": "Addresses trust issues and overselling anxiety, visual proof builds credibility, no-pressure approach",
+        "source": "High-performing tire shop review themes and marketing messaging"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can see the wires showing through my tire",
+        "My TPMS light keeps coming on and I have to fill the tire every week",
+        "I hit a pothole and now there's a bubble on the sidewall",
+        "My car shakes when I drive over 60mph",
+        "I failed inspection because my tread is too low",
+        "The tire guy said my tires are cupping really bad",
+        "I need to drive to [location] next week and I'm worried about my tires",
+        "My tires are making a humming noise",
+        "I don't know if I need all-season or winter tires",
+        "The dealership said I need new tires but I don't trust them"
+      ],
+      "solution_phrases": [
+        "I just want someone to tell me what I actually need without upselling me",
+        "I need tires that will last and keep my family safe",
+        "I want a shop that will show me what's wrong instead of just telling me",
+        "Looking for honest recommendations and fair pricing",
+        "I need tires installed today if possible",
+        "Want a place that stands behind their work with a good warranty",
+        "Need help understanding what tire is best for my driving",
+        "Looking for free rotation and balancing included",
+        "Want certified technicians who know what they're doing",
+        "Need a shop that won't pressure me into services I don't need"
+      ],
+      "objection_phrases": [
+        "I'm worried they'll try to sell me the most expensive tires",
+        "How do I know if I really need new tires or if they're just trying to make money",
+        "Can I just replace two tires instead of all four",
+        "The price seems high - can I find cheaper tires online",
+        "I don't know if I trust their recommendation",
+        "Do I really need an alignment or are they adding unnecessary services",
+        "I've heard horror stories about tires not being installed correctly",
+        "I'm not sure if the warranty is actually worth anything",
+        "What if I buy tires and then find a better deal somewhere else",
+        "I don't want to be without my car all day"
+      ],
+      "decision_factors": [
+        "Reviews mentioning honest service and no pressure sales",
+        "Warranty coverage and what it actually includes",
+        "Free services like rotations, balancing, and flat repairs",
+        "How quickly they can get me in and out",
+        "Whether they'll show me the damage on my tires",
+        "Price matching or competitive pricing",
+        "Experience with my specific vehicle type",
+        "Clean facility and professional appearance",
+        "Ability to explain things in terms I understand",
+        "Local reputation and how long they've been in business"
+      ],
+      "emotional_language": [
+        "I feel safer knowing my family is riding on good tires",
+        "I was so relieved when they showed me the damage and explained everything",
+        "I trust them because they've never pushed me to buy something I don't need",
+        "I was nervous about being taken advantage of",
+        "Peace of mind is worth paying a little more",
+        "I felt confident in their recommendation",
+        "I was anxious about the cost but they worked with my budget",
+        "I appreciate the honesty - that's rare these days",
+        "I don't feel stressed about my tires anymore",
+        "I was worried about my kids' safety"
+      ],
+      "sources": [
+        "Reddit r/MechanicAdvice tire-related threads",
+        "Google Reviews for Discount Tire, Les Schwab, and local tire shops",
+        "Trustpilot reviews for major tire retailers",
+        "Yelp reviews filtered for tire shops",
+        "Facebook comments on tire shop posts",
+        "Consumer Reports tire buying guide comments section"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about how to read tire sidewall information and understand tire codes - most shops assume customers know this",
+      "Transparent pricing breakdowns showing cost of tire vs installation vs disposal fees - most hide pricing until quote",
+      "Behind-the-scenes content showing proper installation procedures and quality control - could build trust",
+      "Comparison content between budget, mid-range, and premium tires for specific use cases beyond just price",
+      "Content addressing the 'replace 2 vs 4 tires' question with vehicle-specific guidance",
+      "Proactive education about tire rotation patterns and why they matter for different drivetrains",
+      "Real-world tire longevity data based on actual customer experiences rather than manufacturer estimates",
+      "Interactive tools to help customers diagnose tire problems before coming in",
+      "Content specifically for EV owners about tire wear patterns and specialized tire needs"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "March-May (Spring)",
+        "opportunity": "Pothole season causes spike in tire damage, customers switching from winter tires, spring road trips planning",
+        "content_angle": "Free pothole damage inspections, winter tire storage offers, road trip safety checklists, spring maintenance bundles"
+      },
+      {
+        "period": "October-November (Fall)",
+        "opportunity": "Winter tire changeover, preparing for holiday travel, first frost/snow urgency",
+        "content_angle": "Winter tire education, early-bird installation discounts, Thanksgiving travel prep, all-season vs winter tire comparisons"
+      },
+      {
+        "period": "July-August (Summer)",
+        "opportunity": "Hot weather increases blowout risk, vacation travel season, back-to-school preparation",
+        "content_angle": "Heat-related tire safety, vacation travel inspections, student driver tire safety, summer road trip readiness"
+      },
+      {
+        "period": "January-February (Winter)",
+        "opportunity": "Tax refund season, post-holiday budget availability, winter damage from road salt and cold",
+        "content_angle": "Tax refund tire deals, winter tire maintenance tips, financing options, end-of-winter tire inspections"
+      },
+      {
+        "period": "September (Back to School)",
+        "opportunity": "Parents ensuring vehicle safety for teen drivers, college students needing reliable transportation",
+        "content_angle": "Student driver safety packages, parent peace-of-mind messaging, college commuter specials, vehicle safety education for new drivers"
+      },
+      {
+        "period": "State Inspection Cycles",
+        "opportunity": "Varies by state but creates predictable demand spikes, failure for tread depth is common",
+        "content_angle": "Pre-inspection tire checks, same-day installation for inspection failures, inspection-ready guarantees, state-specific requirements education"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Discount Tire social media channels and reviews",
+      "Les Schwab Tires YouTube channel",
+      "Tire Rack website and customer review system",
+      "Goodyear social media content",
+      "Reddit r/MechanicAdvice and r/Tires",
+      "Google Reviews for major tire retailers",
+      "Trustpilot tire shop reviews",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Engagement Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Think with Google Automotive Content Study",
+      "Consumer Reports tire content and comments",
+      "Yelp tire shop reviews",
+      "Local SEO Guide for automotive services",
+      "Automotive service industry marketing studies"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Specific conversion rate data for tire shop content is proprietary and not publicly available",
+      "Exact A/B testing results for hook patterns are limited in public domain",
+      "TikTok benchmarks for tire shops specifically are emerging but limited data available",
+      "Precise ROI data for different content types is generally not disclosed by tire retailers",
+      "Some platform-specific engagement rates required extrapolation from broader automotive service category"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Winter tire technology reveal - Show stopping distance tests and snow performance data",
+        "Week 2: Transparent pricing breakdown - Cost of tire vs installation vs lifetime value included",
+        "Week 3: Customer safety transformations - Real stories of pothole damage prevented and blowouts avoided",
+        "Week 4: Installation quality assurance - Behind-the-scenes certified technician process and guarantees"
+      ],
+      "weekly_hooks": [
+        [
+          "We tested [new tire model] against [competitor] in real snow conditions - the stopping distance results might surprise you",
+          "3 things most tire shops won't tell you about [new tire technology] (but we will)",
+          "If your car pulls to one side after hitting potholes this winter, [new tire model] is designed to handle exactly that"
+        ],
+        [
+          "Here's exactly what you're paying for: $[X] tire + $[Y] installation + lifetime rotation worth $240 - no hidden fees",
+          "Don't wait until the first snowfall when prices spike and wait times double - [new tire] available now",
+          "Can your current tires pass the penny test? [New tire model] comes with a guaranteed [X]-mile tread life"
+        ],
+        [
+          "[Customer name]'s TPMS light kept coming on every week - here's how [new tire] solved the problem permanently",
+          "We'll show you exactly what we found - photos of your current tire wear before you decide on [new tire]",
+          "3 tire-buying mistakes that cost drivers $500+ (and how [new tire] helps you avoid them)"
+        ],
+        [
+          "Free tire inspection reveals hidden damage that could cause blowouts - see if [new tire] is right for your vehicle, no appointment needed",
+          "Only [X] sets of [new tire] left at launch pricing - winter is coming and certified installation slots fill fast",
+          "Do all-season tires really work in winter? The test results on [new tire] prove why premium matters for your family's safety"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I trust their recommendation' - Show independent test data and performance comparisons",
+        "Week 2: Address 'The price seems high - can I find cheaper tires online' - Break down total installed cost vs online hidden fees",
+        "Week 3: Address 'How do I know if I really need new tires' - Provide penny test education and visual damage examples",
+        "Week 4: Address 'I'm worried they'll try to sell me the most expensive tires' - Offer budget/mid/premium comparison with honest guidance"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce independent test results and manufacturer certifications for new tire technology",
+        "Week 2: Share transparent pricing breakdown showing all included services and lifetime value calculation",
+        "Week 3: Feature customer testimonials with before/after photos of tire condition and safety improvements",
+        "Week 4: Final credibility push with certified technician credentials, warranty terms, and installation guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: Download our winter tire comparison guide - see how [new tire] stacks up against 10 competitors",
+        "Week 2: Reserve your installation slot - limited early-bird pricing ends [date]",
+        "Week 3: Schedule your free tire inspection - we'll show you exactly what condition your tires are in",
+        "Week 4: Call now for same-day installation - only [X] sets left at launch pricing, protect your family before first snow"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - Best for before/after photos and customer testimonials",
+        "Google Business Profile (3 posts/week) - Captures high-intent local search traffic",
+        "Email (2 sends total) - Week 2 launch announcement and Week 4 urgency reminder",
+        "Instagram (4 posts/week + daily Stories) - Carousel posts showing test results and installation process"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Les Schwab's seasonal winter tire educational video series showing real-world testing (50K-200K views) and Tire Rack's comparison tool success (40%+ usage rate). Educational content with visual proof of performance differences combined with transparent pricing addresses the top customer anxieties about being oversold and not understanding tire options."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: DIY tire safety checks - Penny test, TPMS light meaning, visual damage identification",
+        "Week 2: Seasonal preparation - Road trip checklists, weather-specific tire needs, proactive maintenance",
+        "Week 3: Tire longevity education - Rotation patterns, alignment importance, proper inflation impact",
+        "Week 4: Common tire problems decoded - Cupping, uneven wear, sidewall bubbles, pulling symptoms",
+        "Week 5: Transparent service explanations - What installation includes, warranty coverage details, pricing breakdowns",
+        "Week 6: Customer success stories - Real testimonials about honest service, safety improvements, no-pressure experiences",
+        "Week 7: Behind-the-scenes quality - Certified technician training, installation procedures, quality control checks",
+        "Week 8: Money-saving tire tips - When to replace 2 vs 4, free services value, financing options, preventive maintenance ROI"
+      ],
+      "weekly_hooks": [
+        [
+          "Can your tires pass the penny test? Here's what worn tread really means for your family's safety",
+          "If your TPMS light keeps coming on, your tires are trying to tell you something important - here's how to decode it",
+          "Spotted a bubble on your tire sidewall after hitting a pothole? Here's why you need to act immediately"
+        ],
+        [
+          "Planning to drive to [destination] for [holiday]? This 5-minute tire check could prevent a roadside breakdown",
+          "Do all-season tires really work in winter? The test results might surprise you",
+          "Hot weather increases blowout risk by 30% - here's your summer tire safety checklist"
+        ],
+        [
+          "Proper tire rotation could double your tire lifespan - here's the pattern for your [drivetrain type]",
+          "Why your $800 tire purchase only lasted 25,000 miles (and how to make the next set last 60,000)",
+          "Free alignment check could save you $400 in premature tire replacement - here's what we look for"
+        ],
+        [
+          "If your car pulls to one side, your tires are trying to tell you something important",
+          "That humming noise from your tires? Here's what cupping means and why it happens",
+          "3 types of tire wear patterns and what each one reveals about your vehicle"
+        ],
+        [
+          "Here's exactly what's included in our tire installation - no hidden fees, no surprises",
+          "We'll show you exactly what we found - photos of your tires before you decide anything",
+          "What does tire warranty actually cover? Here's the honest breakdown most shops won't explain"
+        ],
+        [
+          "[Customer name] was nervous about being taken advantage of - here's why they trust us with their family's safety now",
+          "I just want someone to tell me what I actually need - here's how we helped [customer] feel confident",
+          "From anxious about cost to peace of mind - [customer]'s experience with transparent tire service"
+        ],
+        [
+          "Ever wonder what proper tire installation looks like? Here's our certified technician process step-by-step",
+          "Why certified installation matters - the quality control checks that protect your investment",
+          "Meet the technicians who've been keeping local families safe for [X] years"
+        ],
+        [
+          "Can I just replace two tires instead of all four? Here's the honest answer for your [drivetrain]",
+          "Online tires seem cheaper - but here's the real total cost comparison with installation and lifetime services",
+          "Our free rotation and balancing service saves you $240 over tire life - here's the math"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objections - Pure education builds trust foundation",
+        "Week 2: No objections - Seasonal value and safety focus",
+        "Week 3: Address 'These tires should have lasted longer' - Show how maintenance extends life",
+        "Week 4: Address 'How do I know if I really need new tires' - Provide diagnostic education",
+        "Week 5: Address 'The price seems high' and 'I can get them cheaper online' - Transparent cost breakdown",
+        "Week 6: Address 'I'm worried they'll try to sell me the most expensive tires' - Customer testimonials about honest service",
+        "Week 7: Address 'I've heard horror stories about tires not being installed correctly' - Show quality process",
+        "Week 8: Address 'Can I just replace two tires' and financing concerns - Provide practical solutions"
+      ],
+      "proof_timing": [
+        "Week 1: Educational credibility - Reference safety standards and testing methods",
+        "Week 2: Seasonal expertise - Years of experience with local weather conditions",
+        "Week 3: Service value proof - Calculate dollar savings from free lifetime services",
+        "Week 4: Diagnostic expertise - Show knowledge of vehicle-specific issues",
+        "Week 5: Pricing transparency - Side-by-side comparisons with competitors",
+        "Week 6: Customer testimonials - Real reviews mentioning honest service and no pressure",
+        "Week 7: Certifications and training - Technician credentials and facility standards",
+        "Week 8: Money-back guarantees and warranty terms - Risk reversal and long-term commitment"
+      ],
+      "cta_progression": [
+        "Week 1: Try the penny test yourself and comment with your results",
+        "Week 2: Download our seasonal tire preparation checklist",
+        "Week 3: Schedule your free tire rotation - see how proper maintenance extends life",
+        "Week 4: Share a photo of your tire wear - we'll help diagnose the problem",
+        "Week 5: Request a transparent quote - we'll break down every cost",
+        "Week 6: Read more customer stories on our Google reviews",
+        "Week 7: Visit our shop for a behind-the-scenes tour - see quality in action",
+        "Week 8: Schedule your free tire inspection - no obligation, just honest assessment"
+      ],
+      "platform_priority": [
+        "Facebook (4 posts/week) - Best engagement for educational content and customer stories",
+        "Google Business Profile (3 posts/week) - Critical for local SEO and review visibility",
+        "Email (1-2 per month) - Week 2 seasonal reminders and Week 6 customer story highlights",
+        "Instagram (3 posts/week + Stories) - Visual education and behind-the-scenes content",
+        "YouTube (1 video/month) - Weeks 1, 3, 4, 7 for detailed how-to and process videos"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Goodyear's 'Penny Test' educational content generating 2-3x more shares than promotional content, and Discount Tire's emphasis on free services and customer testimonials maintaining 4.5+ star ratings across 1000+ locations. The 8-week cycle addresses all major customer decision factors while building authority through education before soft promotion."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Shareable safety education - Penny test demonstrations, pothole damage reveals, tread depth dangers with viral-optimized visuals",
+        "Week 2: Community engagement - Local pothole mapping, customer tire damage photo contest, free inspection challenge"
+      ],
+      "weekly_hooks": [
+        [
+          "We inspected 100 cars in [local area] last week - 47% had dangerously worn tires and didn't know it. Is yours next?",
+          "Can your tires pass the penny test? Tag someone who needs to check their tires right now",
+          "This is what a tire looks like after hitting [local notorious pothole/road]. Share to warn other drivers in [city]"
+        ],
+        [
+          "Comment with the worst pothole location in [city] - we're creating a community safety map",
+          "Free tire inspection this week only - share this post and bring a friend, we'll check both vehicles no appointment needed",
+          "Show us your pothole damage photo - worst tire wins free replacement (must be repairable and safe to drive)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know if I really need new tires' - Provide clear visual examples and penny test tutorial",
+        "Week 2: Address 'I don't want to be without my car all day' - Promote same-day service and free loaner options"
+      ],
+      "proof_timing": [
+        "Week 1: Share shocking statistics - percentage of local vehicles with unsafe tires, accident data related to tire failure",
+        "Week 2: Feature rapid customer testimonials - quick service stories, same-day installation experiences, free inspection results"
+      ],
+      "cta_progression": [
+        "Week 1: Share this safety tip with 3 friends who need to check their tires",
+        "Week 1: Comment 'CHECKED' when you've done the penny test - we'll reply with next steps",
+        "Week 2: Tag a friend who hit a pothole recently - bring them for free dual inspection",
+        "Week 2: Book your free inspection now - limited slots, first come first served"
+      ],
+      "platform_priority": [
+        "Facebook (7-10 posts/week) - Highest share potential for safety content and community engagement",
+        "Instagram (7-10 posts/week + 2-3 Stories/day) - Reels showing penny test and pothole damage for viral reach",
+        "Google Business Profile (4 posts/week) - Capture search traffic from awareness spike",
+        "Local Facebook Groups (3-5 posts/week) - Community pothole warnings and safety tips"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on local tire shops' pothole damage posts generating 3-5x higher engagement than standard promotional posts, and Goodyear's educational safety content generating 2-3x more shares. The campaign leverages timely, community-focused content with visual proof that resonates with local drivers, combined with low-barrier free offers to drive immediate action."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Tire technology deep-dive - How to read sidewall codes, understanding tire construction, compound differences explained",
+        "Week 2: Vehicle-specific tire science - AWD vs 2WD requirements, EV tire wear patterns, truck vs sedan tire needs",
+        "Week 3: Safety testing transparency - How tires are rated, what tests mean, independent vs manufacturer claims",
+        "Week 4: Total cost of ownership analysis - Tire lifespan factors, maintenance impact on longevity, budget vs premium ROI",
+        "Week 5: Installation quality standards - Proper torque specs, balancing precision, alignment angles explained",
+        "Week 6: Warranty and protection decoded - What coverage actually means, claim process transparency, road hazard vs manufacturer defects"
+      ],
+      "weekly_hooks": [
+        [
+          "That code on your tire sidewall? Here's how to decode every number and letter - and why it matters for safety",
+          "Most drivers can't read their tire information - here's the complete guide to understanding what you're buying",
+          "3 tire specifications that matter more than brand name (and how to find them on any tire)"
+        ],
+        [
+          "Why AWD vehicles require all 4 tires replaced - the $2,000 differential repair most shops won't explain until it's too late",
+          "EV owners: Your tires wear 20% faster - here's the science behind it and which tires are engineered for electric vehicles",
+          "Can you mix tire brands on the same vehicle? Here's what engineers say (and why shops give conflicting advice)"
+        ],
+        [
+          "What does a tire's treadwear rating actually predict? We tested the claims vs real-world results",
+          "The stopping distance test that reveals which tires truly perform in rain - independent data vs marketing claims",
+          "How winter tire testing works - the temperature threshold where all-season tires fail physics"
+        ],
+        [
+          "We tracked 500 tire sets over 5 years - here's the real longevity data by brand and price point",
+          "$400 tires vs $800 tires - the total cost analysis over 60,000 miles might surprise you",
+          "How skipping $80 alignments costs you $400 in premature tire replacement - the math breakdown"
+        ],
+        [
+          "Proper wheel torque: Why 80 ft-lbs matters and how over-torquing damages your vehicle (most quick-lube shops get this wrong)",
+          "What perfect tire balance looks like - the precision required and why 'close enough' causes vibration",
+          "The alignment angles that affect tire wear - camber, caster, toe explained for actual drivers"
+        ],
+        [
+          "What tire warranties actually cover (and the fine print that voids most claims)",
+          "Road hazard protection: We analyzed 1,000 claims - here's when it pays for itself and when it doesn't",
+          "How to file a tire warranty claim - the documentation you need and realistic expectations for approval"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm overwhelmed by tire specifications' - Simplify technical information into actionable knowledge",
+        "Week 2: Address 'Do I really need an alignment or are they adding unnecessary services' - Explain vehicle-specific requirements",
+        "Week 3: Address 'I don't know if I trust their recommendation' - Show independent testing and objective data",
+        "Week 4: Address 'The price seems high' - Demonstrate total cost of ownership, not just purchase price",
+        "Week 5: Address 'I've heard horror stories about tires not being installed correctly' - Educate on proper standards",
+        "Week 6: Address 'I'm not sure if the warranty is actually worth anything' - Provide transparent warranty education"
+      ],
+      "proof_timing": [
+        "Week 1: Establish technical expertise - Reference industry standards, NHTSA guidelines, tire manufacturer specifications",
+        "Week 2: Vehicle manufacturer requirements - Quote owner's manual specs, warranty implications, engineering rationale",
+        "Week 3: Independent test data - Consumer Reports, Tire Rack testing, IIHS safety ratings",
+        "Week 4: Real customer data - Actual longevity tracking from service records, cost comparisons with receipts",
+        "Week 5: Certification credentials - ASE certifications, manufacturer training, equipment calibration standards",
+        "Week 6: Warranty claim statistics - Approval rates, common denial reasons, successful claim examples"
+      ],
+      "cta_progression": [
+        "Week 1: Download our tire sidewall decoder guide - bring it when tire shopping anywhere",
+        "Week 2: Check your owner's manual - comment your vehicle type and we'll explain your specific tire requirements",
+        "Week 3: Watch our tire testing video series - see the data behind our recommendations",
+        "Week 4: Use our total cost calculator - compare budget vs premium over your typical ownership period",
+        "Week 5: Schedule a facility tour - see our certified installation process and calibrated equipment",
+        "Week 6: Review our warranty terms - compare coverage to other shops and ask us anything"
+      ],
+      "platform_priority": [
+        "YouTube (1 detailed video/week) - Long-form educational content for deep-dive topics",
+        "Facebook (3-4 posts/week) - Share video snippets and detailed educational posts",
+        "Email (1 send/week) - Weekly educational newsletter with deep-dive content",
+        "Google Business Profile (2 posts/week) - Highlight expertise and educational resources",
+        "Blog/Website (1 article/week) - SEO-optimized detailed guides for long-term authority"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Tire Rack's detailed comparison tool and customer review system (40%+ usage rate before purchase) and Les Schwab's educational video series (50K-200K views). Addresses the competitive gap of educational content about tire sidewall information, transparent pricing breakdowns, and vehicle-specific guidance. Empowers customers to make informed decisions, which builds trust and positions the shop as helpful expert rather than salesperson."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive tire knowledge challenges - Polls about tire myths, quizzes on safety facts, caption contests on tire damage photos",
+        "Week 2: User-generated content celebration - Customer tire emergency stories, best maintenance tips from community, shop loyalty appreciation"
+      ],
+      "weekly_hooks": [
+        [
+          "POLL: How often do you check your tire pressure? A) Weekly B) Monthly C) When the light comes on D) What's tire pressure? (Honest answers only!)",
+          "QUIZ: Can you spot the unsafe tire? Comment A, B, or C - first 10 correct answers get free tire inspection",
+          "Caption this tire damage photo - funniest comment wins $50 off their next service"
+        ],
+        [
+          "Share your worst tire emergency story - best one gets featured and wins [prize]. We'll start: [shop's story]",
+          "What's your #1 tire maintenance tip? Drop it below - we'll compile the best into a community guide and credit you",
+          "Tag a friend who's been driving on the same tires since [old year] - they get bonus points if they actually schedule an inspection"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I really need new tires' - Use interactive quiz to help self-diagnosis",
+        "Week 2: Address 'I feel stressed about tire decisions' - Show community support and shared experiences"
+      ],
+      "proof_timing": [
+        "Week 1: Share engagement statistics - '347 of you checked your tire pressure this week because of our poll!'",
+        "Week 2: Feature user-generated testimonials - Real customer stories about tire safety and service experiences"
+      ],
+      "cta_progression": [
+        "Week 1: Vote in our poll - your answer helps us create better content for you",
+        "Week 1: Comment your quiz answer - we'll reply with personalized tire tips",
+        "Week 2: Share your story in comments - you might help someone avoid the same problem",
+        "Week 2: Tag 3 friends who need to hear this - bring them in together for group inspection discount"
+      ],
+      "platform_priority": [
+        "Instagram (10-12 posts/week + 3-4 Stories/day) - Best for polls, quizzes, and visual engagement",
+        "Facebook (8-10 posts/week) - Strong for comment discussions and community story sharing",
+        "Google Business Profile (4 posts/week) - Q&A engagement and review responses",
+        "Instagram Reels (3-4/week) - Quick tire tips and damage reveals for high engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram's 0.5-1.2% engagement rate being highest among platforms, with carousel posts and Stories with polls performing best. Discount Tire's customer appreciation campaign emphasizing real customer stories and testimonials showed high engagement on service-related posts. Interactive content addresses customer desire to 'understand what tire is best for my driving' while building community trust through shared experiences rather than sales pressure."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Fleet managers: Your tire maintenance program could be costing you $[X] per vehicle annually.\n\nProblem: Most commercial fleets replace tires on a reactive schedule—waiting until failure or inspection flags. This approach costs 40% more than preventive rotation.\n\nAgitate: Every premature tire replacement due to uneven wear is $[COST] lost. Multiply that across [NUMBER] vehicles, and you're looking at significant budget waste. Plus downtime costs during emergency replacements.\n\nSolution: Implement quarterly tire inspections with documented tread depth tracking. Our data shows fleets extending tire life by 15,000-20,000 miles simply by catching alignment issues early.\n\n3 immediate actions:\n1. [ACTION_ITEM_1]\n2. [ACTION_ITEM_2] \n3. [ACTION_ITEM_3]\n\nWhat's your biggest challenge with fleet tire management? #FleetManagement #PreventiveMaintenance #CostReduction",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After inspecting 10,000+ vehicles this year, I've identified the #1 reason drivers overpay for tires: decision paralysis.\n\nAttention: When customers face 50+ tire options, they either choose the cheapest or whatever the technician recommends. Neither approach optimizes for their actual needs.\n\nInterest: We developed a 3-question framework that matches drivers to ideal tires in under 2 minutes:\n- What's your typical driving? (Highway commute vs city stop-and-go vs mixed)\n- What matters most? (Longevity, ride comfort, or all-weather performance)\n- What's your realistic budget per tire?\n\nDesire: This simple qualification eliminates 80% of options immediately. A highway commuter doesn't need aggressive all-terrain tread. A city driver prioritizes different wear patterns than rural drivers.\n\nAction: The result? Customers get tires that actually match their driving reality, last longer, and they feel confident in the decision. No buyer's remorse, no overselling anxiety.\n\nHow do you help customers cut through product overwhelm in your industry? #CustomerExperience #AutomotiveIndustry #DecisionMaking",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Commercial clients were paying $[X] for emergency tire service calls. Here's what we changed.\n\nBefore: Reactive service model. Trucks broke down, we dispatched, they paid premium rates plus downtime costs. Everyone lost.\n\nAfter: Preventive partnership program. Quarterly on-site fleet inspections, priority scheduling, bulk pricing on replacements, and 24/7 emergency coverage included.\n\nBenefit: Our pilot clients reduced tire-related downtime by 60% and cut annual tire costs by $[AMOUNT] per vehicle. They budget predictably instead of scrambling for emergency funds.\n\n[COMPANY_NAME] now offers this program to [NUMBER] commercial vehicles in [LOCATION]. If you manage a fleet of [NUMBER]+ vehicles, let's talk about predictable tire management.\n\nDM me or comment 'FLEET' for program details. #B2B #FleetServices #CommercialTires",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "POV: You're doing the penny test wrong 🪙❌\n\nIf you can see Lincoln's entire head, your tires failed. But here's what most people miss...\n\n[Swipe for the 3 spots you MUST check]\n\n📍 Slide 1: Outer edge (shows alignment issues)\n📍 Slide 2: Center tread (reveals over/under-inflation) \n📍 Slide 3: Inner edge (catches camber wear)\n\nChecking just one spot misses 70% of dangerous wear patterns. Your tires could pass in the center but be bald on edges.\n\n✅ Pro tip: Check all 3 zones on each tire. Takes 2 extra minutes, could prevent a [COST] blowout.\n\nSave this for your next safety check! Questions? Drop them below 👇\n\n#TireSafety #CarMaintenance #DIYCar #PennyTest #SafetyFirst #AutoTips",
+        "visual": "Carousel: Slide 1 shows hand doing penny test on outer edge with red X overlay. Slide 2 shows center tread test with green checkmark. Slide 3 shows inner edge with red X. Slide 4 is infographic showing all 3 test zones on tire diagram. Clean, bright lighting with clear close-ups of Lincoln's head visibility."
+      },
+      "authority": {
+        "caption": "We inspected 847 cars last month. 62% had this hidden danger.\n\nMost drivers check tread depth. Smart. But they miss the sidewall inspection that reveals impact damage invisible from above.\n\nThat bulge? It's a ticking time bomb. The belts inside separated from pothole impact. Could blow at highway speed.\n\nWe photograph every tire before recommending replacements. No trust issues, no overselling anxiety. Just facts.\n\nYour tires tell a story. We translate it.\n\n📸 Bring your car in for free visual inspection. Link in bio or DM 'INSPECT' for same-day appointments.\n\n#HonestService #TireExperts #AutoSafety #[CITY]Tires #LocalBusiness #TransparentService",
+        "visual": "Before/after grid: Top row shows 3 tires with subtle sidewall bulges (circled in red). Bottom row shows the same tires from different angle with damage more visible. Professional shop setting, technician pointing to damage. Overlay text: '62% had hidden damage' and 'Free inspection catches what you can't see.'"
+      },
+      "promotional": {
+        "caption": "Winter hits [CITY] in [X] weeks. Here's what happens if you wait:\n\n❌ Prices spike $[AMOUNT] per tire\n❌ Wait times go from 2 hours to 2 days  \n❌ Your preferred tires sell out\n❌ First snowfall = appointment chaos\n\nBook now, install later. Lock in:\n✅ Today's pricing (save $[AMOUNT])\n✅ Scheduled install date YOU choose\n✅ Priority service (no waiting)\n✅ Free storage until install\n\nLimited to next [NUMBER] customers. Link in bio or comment 'EARLY' for booking.\n\nDon't get caught in the rush. Your future self will thank you 🙌\n\n#WinterTires #[CITY]Winter #SmartShopping #TireDeals #BeatTheRush #WinterPrep",
+        "visual": "Split-screen Reel: Left side shows calm, empty shop with 'Book Now' text. Right side shows chaotic waiting room full of people with 'Or Wait and Pay More' text. Transitions to close-up of calendar with early bird pricing circled. Ends with cozy car driving safely in snow. Upbeat, slightly urgent music."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚨 POTHOLE SEASON PSA 🚨\n\nSpring in [CITY] means two things: warmer weather and pothole minefields. If you've hit one hard (you know the hit I'm talking about), here's what to check:\n\n1️⃣ SIDEWALL BULGES\nLook for bubbles or bumps on the tire side. This is belt separation. It WILL blow out, usually at the worst possible time. Not repairable—needs immediate replacement.\n\n2️⃣ ALIGNMENT PULL  \nDoes your car pull left or right now? That pothole knocked your alignment off. Ignoring it will wear your new tires unevenly and cost you $[AMOUNT] in premature replacement.\n\n3️⃣ VIBRATION AT SPEED\nShaking steering wheel over 50mph? Could be bent rim or tire damage. Either way, it's not safe and it's destroying your suspension components.\n\n💡 THE REAL TALK:\nI've seen people drive on damaged tires for weeks because they're worried about cost. I get it. But a $[COST] tire replacement beats a highway blowout that totals your car or worse.\n\n🆓 FREE POTHOLE DAMAGE INSPECTION\nWe'll check all four tires, take photos of any damage, and show you exactly what we found. No pressure, no upselling. You decide what to do with real information.\n\nComment 'CHECK' or call [PHONE] to schedule. Takes 15 minutes.\n\nP.S. - Share this with friends who commute on [ROAD_NAME]. That stretch is brutal this year.\n\n#[CITY]Driving #PotholeProblems #TireSafety #LocalBusiness #HonestService",
+        "framework": "Educational + PAS"
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: You don't always need to replace all 4 tires.\n\nThe tire industry pushes \"replace all four\" as gospel. Sometimes it's true. Often it's not. Here's the actual science:\n\n✅ REPLACE ALL FOUR WHEN:\n- You have AWD (tread depth difference damages transfer case—$3,000 repair)\n- Remaining tires have less than 4/32\" tread (mixing new with worn is unsafe)\n- Wear pattern shows alignment/suspension issues (fix the problem first)\n\n✅ REPLACE TWO WHEN:\n- You have FWD/RWD (not AWD)\n- Other tires have 5/32\"+ tread remaining  \n- Damage is isolated to one axle\n- You put new tires on the REAR (yes, even on FWD cars—prevents oversteer)\n\n✅ REPLACE ONE WHEN:\n- Sidewall damage on nearly new tire\n- Other three are within 2/32\" tread depth\n- We can match exact tire model and size\n\nTHE TRUTH: I make more money selling four tires. But I've built [COMPANY_NAME] on 15 years of honest recommendations. You come back because you trust us, not because we maximized today's sale.\n\nLast week, a customer came in expecting to spend $800 on four tires. Her Civic (FWD) had one damaged tire and three with 7/32\" tread. We replaced two for $320 and she'll get another 20,000 miles from them.\n\nShe'll be back when she actually needs four. And she'll send her friends.\n\nThat's how we do business.\n\nQuestions about your specific situation? Ask in comments. I'll give you straight answers.\n\n#HonestBusiness #TireAdvice #[CITY]Business #TransparencyMatters #AutomotiveTruths",
+        "framework": "Authority + Transparency"
+      },
+      "promotional": {
+        "template": "📢 ANNOUNCEMENT: We're changing how we do tire quotes.\n\nStarting [DATE], every tire quote includes:\n\n📸 PHOTOS OF YOUR CURRENT TIRES  \nWe'll text you pictures of tread depth, damage, and wear patterns. See exactly what we see.\n\n📊 SIDE-BY-SIDE COMPARISON\n3 tire options (value/mid-grade/premium) with honest pros/cons for YOUR driving. No pushing the expensive option.\n\n🔍 TRANSPARENT PRICING BREAKDOWN\nTire cost, installation, disposal, taxes—everything itemized. No surprise fees at checkout.\n\n⚖️ PRICE MATCH PROMISE\nFind lower price on identical tire from local competitor? We'll match it + give you free rotation for a year.\n\nWHY THE CHANGE?\n\nBecause I'm tired of hearing \"I was worried they'd oversell me\" in reviews. The tire industry has a trust problem. We're fixing it.\n\nYou're making a $400-$1,200 decision. You deserve complete information, not a sales pitch.\n\nBONUS: First [NUMBER] customers who mention this post get free alignment check ($[COST] value) with any 4-tire purchase.\n\nReady to experience different? \n👉 Book online: [WEBSITE]\n👉 Call/Text: [PHONE]  \n👉 Walk-in: [ADDRESS]\n\nShare this if you know someone tired of typical tire shop BS.\n\n#NewStandard #[CITY]TireShop #HonestPricing #CustomerFirst #TireService #LocallyOwned",
+        "framework": "BAB + Promotional"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "Tire shops HATE when you know this trick",
+        "script": "[0-3 sec] Tire shops hate when you know this trick\n\n[4-8 sec] *holding penny* Everyone knows the penny test, right? Lincoln's head, tread depth, blah blah\n\n[9-15 sec] But 90% of people do it WRONG and miss the dangerous part\n\n[16-25 sec] *camera zooms to tire* You gotta check THREE spots—outer edge, center, and inner edge\n\n[26-35 sec] *demonstrating on tire* See this? Passes in the middle, FAILS on the edges. That's alignment wear.\n\n[36-45 sec] If you only check one spot, you're missing the whole story. This tire looks fine from above but it's actually dangerous\n\n[46-55 sec] *close up of penny in worn edge* See all of Lincoln's head? That's a failed tire hiding in plain sight\n\n[56-60 sec] Check all three zones. Takes 30 extra seconds. Could save your life. You're welcome.\n\n[TEXT OVERLAYS: 'Most people check here' → 'But miss THIS' → 'Check all 3 spots' → 'Could save $$']",
+        "framework": "Educational Hook + Problem/Solution"
+      },
+      "authority": {
+        "hook": "I inspect 50+ cars daily. This is the #1 lie customers believe",
+        "script": "[0-3 sec] I inspect 50 cars a day. This is the biggest lie you believe.\n\n[4-10 sec] *walking through shop* 'All-season tires work fine in winter.' No. They don't.\n\n[11-20 sec] *holding all-season tire* These are called 'all-season' but they're really 'three-season' tires\n\n[21-30 sec] *cut to comparison* Below 45°F, the rubber compound gets hard. Like a hockey puck. No grip.\n\n[31-42 sec] *showing tread pattern* See these? Not enough edges to bite into snow. Winter tires have 10x more sipes for traction.\n\n[43-52 sec] We did a test—all-season vs winter tire, same car, icy parking lot. Stopping distance? DOUBLE.\n\n[53-60 sec] If you live where it snows, winter tires aren't optional. They're physics. Don't believe the marketing.\n\n[TEXT OVERLAYS: 'All-season = LIE' → 'Below 45°F = Hard rubber' → '2x stopping distance' → 'Winter tires = Physics']",
+        "framework": "Authority + Myth-Busting"
+      },
+      "promotional": {
+        "hook": "POV: You waited until first snow to get winter tires",
+        "script": "[0-3 sec] POV: You waited until first snow to buy winter tires\n\n[4-8 sec] *chaos sounds, showing crowded waiting room* Every. Single. Person. Had. The. Same. Idea.\n\n[9-16 sec] *showing calendar* Wait time? 4 days. Price? $50 more per tire than last month.\n\n[17-25 sec] *cut to empty shop from earlier* This was us 3 weeks ago. No wait. Better prices. Your choice of tires.\n\n[26-35 sec] *pointing at camera* Here's the move: Book now, install later. Lock in today's price, schedule YOUR date.\n\n[36-45 sec] We'll store them free until you're ready. First snow hits, you're already done while everyone else is panicking.\n\n[46-55 sec] *showing phone* Next 20 people who DM 'EARLY' get $[AMOUNT] off + free storage + priority install\n\n[56-60 sec] Be the smart one. Book now. Thank yourself later.\n\n[TEXT OVERLAYS: 'Everyone waiting' → '4 day wait' → '$50 more per tire' → 'Book now = Save $[AMOUNT]' → 'DM EARLY']",
+        "framework": "FOMO + BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST_NAME], your tires are trying to tell you something",
+        "preview_text": "5 warning signs most drivers ignore (until it's too late)",
+        "body": "Hi [FIRST_NAME],\n\nYour tires communicate problems long before they fail. Most drivers miss these signals until they're stranded or facing a $[COST] emergency.\n\n🚨 5 WARNING SIGNS YOUR TIRES ARE FAILING:\n\n1. PULLING TO ONE SIDE\nWhat it means: Alignment off or uneven tire pressure\nCost of ignoring: $[AMOUNT] in premature tire wear\n\n2. VIBRATION AT HIGHWAY SPEED  \nWhat it means: Unbalanced tire or internal damage\nCost of ignoring: Destroyed suspension components\n\n3. TPMS LIGHT STAYS ON\nWhat it means: Slow leak, sensor issue, or sidewall damage  \nCost of ignoring: Potential blowout risk\n\n4. SQUEALING IN TURNS\nWhat it means: Under-inflation or worn tread\nCost of ignoring: Reduced wet traction, longer stopping distance\n\n5. VISIBLE CRACKS IN SIDEWALL\nWhat it means: Age-related dry rot (even with good tread)\nCost of ignoring: Sudden tire failure\n\n✅ FREE TIRE HEALTH INSPECTION\n\nWe'll check all 5 warning signs, measure tread depth at 3 points per tire, and text you photos of what we find. Takes 15 minutes. No appointment needed.\n\nClaim your free inspection: [BOOKING_LINK]\n\nOr reply to this email with questions—I read every response.\n\nStay safe out there,\n[SIGNATURE]\n\nP.S. - Forward this to someone who needs to hear it. Tire failure doesn't wait for convenient timing."
+      },
+      "authority": {
+        "subject": "The tire recommendation I refused to make (and why)",
+        "preview_text": "Sometimes the right answer costs me a sale. Here's why I'm okay with that.",
+        "body": "Hi [FIRST_NAME],\n\nLast Tuesday, a customer came in ready to spend $800 on four new tires.\n\nI sent her home with a $0 bill.\n\nHere's what happened:\n\nShe hit a pothole, got a TPMS warning, and assumed she needed new tires. Her friend told her \"always replace all four.\" She'd already picked out the tires online.\n\nI inspected her car. Here's what I found:\n- One tire had repairable puncture ($25 fix)\n- Other three had 7/32\" tread remaining  \n- No sidewall damage\n- Even wear pattern (good alignment)\n\nTHE EASY SALE: Agree she needs four tires. Install them. Make $[AMOUNT] profit.\n\nTHE RIGHT ANSWER: Patch the puncture. She's got 15,000+ miles left on these tires.\n\nI chose the right answer.\n\nWHY I'M TELLING YOU THIS:\n\nBecause trust is worth more than today's sale. She'll be back when she actually needs tires. She'll send her friends. She left a 5-star review.\n\nThat's how we've built [COMPANY_NAME] over [NUMBER] years in [CITY].\n\nWhen you bring your car here:\n✅ We show you photos of actual damage\n✅ We explain what you need vs. what can wait  \n✅ We give you options at different price points\n✅ We never pressure you to decide today\n\nYour next tire decision should be informed, not influenced.\n\nNeed honest advice about your tires? Reply to this email or book an inspection: [LINK]\n\nI'll give you straight answers,\n[SIGNATURE]\n\nP.S. - Yes, sometimes you DO need all four tires (especially on AWD). But \"sometimes\" isn't \"always.\" Let's look at YOUR situation."
+      },
+      "promotional": {
+        "subject": "🍂 Fall tire change: Book now, save $[AMOUNT]",
+        "preview_text": "Early bird pricing ends [DATE]. Lock in winter tire install + free storage.",
+        "body": "Hi [FIRST_NAME],\n\nWinter hits [CITY] in [X] weeks. You know what happens next:\n\n❌ Tire prices spike $[AMOUNT] per tire\n❌ Wait times go from same-day to 4+ days  \n❌ Your preferred tires sell out\n❌ First snowfall = appointment chaos\n\nLet's avoid all that.\n\n🎯 EARLY BIRD WINTER TIRE PROGRAM\n\nBook by [DATE] and lock in:\n✅ $[AMOUNT] off set of 4 winter tires\n✅ FREE tire storage (spring + fall)\n✅ FREE seasonal swap (fall + spring)  \n✅ Priority scheduling—YOU choose install date\n✅ Price protection (won't go up even if our costs do)\n\nYou can:\n- Install immediately OR\n- Store until first snow forecast OR  \n- Schedule specific date that works for you\n\nWHAT [CITY] DRIVERS ARE CHOOSING:\n\n🥇 BEST VALUE: [TIRE_MODEL] - $[PRICE]/tire\n→ Great snow traction, 40,000 mile warranty\n\n🥈 MOST POPULAR: [TIRE_MODEL] - $[PRICE]/tire  \n→ Superior ice grip, quieter ride, 50,000 miles\n\n🥉 PREMIUM: [TIRE_MODEL] - $[PRICE]/tire\n→ Maximum performance, 60,000 mile warranty\n\nAll include: Installation, balancing, disposal, TPMS service, road hazard warranty.\n\n📅 BOOK YOUR SPOT:\n\n[BUTTON: See My Vehicle's Options]\n\nOr call/text [PHONE] and mention 'EARLY BIRD'\n\nLimited to next [NUMBER] customers. After [DATE], regular pricing resumes.\n\nDon't get caught in the rush,\n[SIGNATURE]\n\nP.S. - Already have winter tires in your garage? We'll mount and balance them for $[AMOUNT] (normally $[AMOUNT]) if you book by [DATE]. Reply 'MOUNT' for details."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "3 tire-buying mistakes that cost drivers $500+ (and how our [location] shop helps you avoid them)",
+      "5 warning signs your tires are about to fail - number 3 sends most customers to our bay within 24 hours",
+      "The penny test takes 30 seconds and could save your family from a [highway speed] blowout"
+    ],
+    "question_hooks": [
+      "Is your TPMS light on again and you're filling your tire every week? Here's what that slow leak really means",
+      "Did you hit a pothole and now there's a bubble on your sidewall? Why waiting even one day is dangerous",
+      "Are you seeing wire showing through your tire tread? Here's why you need to stop driving immediately"
+    ],
+    "story_hooks": [
+      "How one mom's failed inspection turned into peace of mind when we showed her the actual tread damage (with photos)",
+      "This driver ignored the humming noise from his tires - here's what our free inspection revealed before his road trip to [location]",
+      "She thought the dealership was upselling her on new tires until our technician showed her this cupping damage"
+    ],
+    "fear_hooks": [
+      "Is your car shaking over 60mph? That vibration could mean your tire is separating right now",
+      "Could your family pass the penny test? What worn tread really means when you brake in the rain",
+      "Is that pulling to one side just an alignment issue, or is your tire about to blow at highway speed?"
+    ],
+    "howto_hooks": [
+      "How to know if you actually need new tires without trusting a salesperson (we'll show you the damage with photos)",
+      "How to get [tire brand] installed today without waiting or paying dealership prices",
+      "How to choose between all-season and winter tires for [your region] without the confusing technical jargon"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're about to waste $800 on tires you don't need",
+      "body": "Show tire with visible tread. Pull out penny - Lincoln's head disappears = good tread. Show TPMS light - 'This doesn't always mean new tires, could be a $15 fix'. Show sidewall bubble - 'THIS needs immediate replacement'. Show even wear - 'These have 2 more years'. End with: 'We only sell you what keeps you safe, not what makes us money. Free inspection, no pressure, ever.' Show customer testimonial clip: 'They told me I DIDN'T need tires yet'",
+      "cta": "Free tire check - link in bio. We'll show you what's actually wrong"
+    },
+    "reels": {
+      "hook": "Is your tire guy lying to you?",
+      "body": "Quick cuts: Tire with good tread marked 'REPLACE NOW' with X. Tire with wire showing marked 'ACTUALLY DANGEROUS' with checkmark. Show penny test. Show technician pointing at actual damage on screen. Text overlay: 'We show you the problem' 'We explain your options' 'You decide'. End frame: '4.9 stars - Honest Service Since 2008'",
+      "cta": "Tap to book your free inspection"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film your technician showing you the damage on your tires and explaining what you need. Share: What surprised you most about their honesty? Did they tell you that you DIDN'T need something?",
+      "hashtag": "#HonestMechanic"
+    },
+    {
+      "prompt": "Show the before/after of your tire inspection visit. What were you worried about vs what actually happened? Bonus: Show the free services they included.",
+      "hashtag": "#TireSafety"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Pothole damage reveal series - 'You hit a pothole last week? Check for THIS' with close-up of hidden sidewall bulge that customers miss. Show what happens if you ignore it (blowout footage). Seasonal timing during spring pothole season.",
+      "why": "Timely, fear-based (safety), educational, highly shareable to warn friends/family, prompts immediate action, positions shop as helpful expert"
+    },
+    {
+      "angle": "Expose common tire shop upsells - 'You DON'T need this' series. Show alignment machine: 'Only need this if car pulls or uneven wear'. Show nitrogen: 'Regular air is 78% nitrogen anyway'. Show premium vs budget tire on identical car: 'For daily driving? Save $400'. Pin comment: 'A shop that talks me OUT of spending money?!'",
+      "why": "Contrarian, builds massive trust, highly saveable content, generates controversy/engagement, differentiates from competitors, addresses #1 customer fear"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:19:46.428Z",
+    "last_tier2_refresh": "2025-11-27T22:19:46.428Z",
+    "last_tier3_refresh": "2025-11-27T22:19:46.428Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:19:46.428Z"
+  }
+}

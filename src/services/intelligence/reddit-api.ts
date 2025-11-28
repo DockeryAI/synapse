@@ -636,9 +636,10 @@ export class RedditAPI {
 
       console.log('[RedditAPI] ✅ Extracted', allTriggers.length, 'triggers and', allInsights.length, 'insights');
 
+      // V3 FIX: NO SLICE - return ALL triggers and insights, Atomizer handles variety
       return {
-        triggers: allTriggers.slice(0, 50), // Top 50 triggers
-        insights: allInsights.slice(0, 30), // Top 30 insights
+        triggers: allTriggers,
+        insights: allInsights,
         trendingTopics: Array.from(topicMentions.values()),
         metadata: {
           searchQuery: query,

@@ -17,6 +17,8 @@
 import { supabase } from '@/lib/supabase';
 import type { CompleteUVP, CustomerProfile, TransformationGoal, UniqueSolution, KeyBenefit, ProductServiceData } from '@/types/uvp-flow.types';
 import { getOrCreateTempBrand } from '@/services/onboarding/temp-brand.service';
+import { contentSynthesisOrchestrator } from '@/services/intelligence/content-synthesis-orchestrator.service';
+import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
 
 // ============================================================================
 // Database Row Types
@@ -172,6 +174,17 @@ export async function saveCompleteUVP(
     }
 
     console.log('[MarbaUVPService] UVP saved successfully:', uvpId);
+
+    // V3 FIX: Invalidate caches when UVP is saved
+    // This ensures next insight generation uses fresh UVP data
+    try {
+      contentSynthesisOrchestrator.clearAllCaches();
+      await intelligenceCache.invalidateByBrand(effectiveBrandId);
+      console.log('[MarbaUVPService] Caches invalidated after UVP save');
+    } catch (cacheError) {
+      console.warn('[MarbaUVPService] Cache invalidation failed (non-fatal):', cacheError);
+    }
+
     return {
       success: true,
       uvpId,

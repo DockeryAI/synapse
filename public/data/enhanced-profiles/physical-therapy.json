@@ -1,0 +1,1730 @@
+{
+  "industry": "Physical Therapy",
+  "industry_name": "Physical Therapy",
+  "naics_code": "621340",
+  "category": "Healthcare",
+  "subcategory": "Rehabilitation Services",
+  "customer_triggers": [
+    {
+      "trigger": "Post-surgical recovery requiring immediate rehabilitation",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Chronic back pain affecting work performance",
+      "urgency": 9,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Sports injury preventing athletic participation",
+      "urgency": 9,
+      "frequency": "Seasonal"
+    },
+    {
+      "trigger": "Worker's compensation claim requiring documentation",
+      "urgency": 8,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Auto accident injuries with insurance coverage",
+      "urgency": 8,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Elderly parent falling and losing mobility",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Failed conservative treatment requiring specialist intervention",
+      "urgency": 7,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Pre-surgical prehabilitation to improve outcomes",
+      "urgency": 6,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Return-to-work clearance deadline approaching",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Insurance authorization expiring within 30 days",
+      "urgency": 8,
+      "frequency": "Weekly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Patient experiences pain or mobility limitation, searches online for 'physical therapy near me' or receives physician referral, reads 4-7 online reviews averaging 4.2+ stars before considering options",
+    "consideration": "Compares 3-4 local clinics based on insurance acceptance, proximity within 15 minutes drive time, availability within 48-72 hours, and specialization match to their condition",
+    "decision": "Books initial evaluation after confirming insurance coverage with 80% choosing clinics offering same-week appointments and direct billing, influenced heavily by front desk responsiveness within 2 hours",
+    "retention": "Continues treatment plan averaging 8-12 visits over 6-8 weeks when seeing measurable progress documented every 2-3 sessions and receiving personalized home exercise programs via mobile app",
+    "advocacy": "Refers 2-3 friends/family members within 6 months when pain reduction exceeds 60% and functional improvement allows return to desired activities, leaves positive reviews after discharge"
+  },
+  "transformations": [
+    {
+      "from": "Unable to walk without severe pain",
+      "to": "Walking 3 miles daily pain-free",
+      "emotional_value": "Freedom and independence restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing work due to injury",
+      "to": "Full return to work capacity",
+      "emotional_value": "Financial security and professional identity",
+      "worth_premium": true
+    },
+    {
+      "from": "Unable to play with grandchildren",
+      "to": "Active participant in family activities",
+      "emotional_value": "Priceless family connections",
+      "worth_premium": true
+    },
+    {
+      "from": "Facing potential surgery",
+      "to": "Surgery avoided through conservative care",
+      "emotional_value": "Relief from surgical risks and costs",
+      "worth_premium": true
+    },
+    {
+      "from": "Dependent on pain medications",
+      "to": "Drug-free pain management",
+      "emotional_value": "Health consciousness and control",
+      "worth_premium": false
+    },
+    {
+      "from": "Athletic career in jeopardy",
+      "to": "Return to competitive performance",
+      "emotional_value": "Identity and future preserved",
+      "worth_premium": true
+    },
+    {
+      "from": "Wheelchair-bound post-stroke",
+      "to": "Walking with minimal assistance",
+      "emotional_value": "Dignity and hope renewed",
+      "worth_premium": true
+    },
+    {
+      "from": "Chronic pain sufferer for years",
+      "to": "75% pain reduction in 8 weeks",
+      "emotional_value": "Life transformation and optimism",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Pain reduction of 50% or greater on VAS scale",
+      "timeframe": "4 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Range of motion improvement of 25+ degrees",
+      "timeframe": "6 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Return to work without restrictions",
+      "timeframe": "8-12 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Functional outcome score improvement of 40+ points",
+      "timeframe": "6 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Complete independence in daily activities",
+      "timeframe": "10 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Discontinuation of pain medication",
+      "timeframe": "6-8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Patient satisfaction score above 9/10",
+      "timeframe": "End of care",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Insurance authorization expires in 30 days requiring immediate start",
+    "Surgical date scheduled creating 4-week prehab window",
+    "Return-to-work deadline with potential job loss if not met",
+    "Athletic season starting in 6 weeks requiring full recovery",
+    "Progressive condition worsening 5-10% weekly without intervention",
+    "Pain medication causing adverse effects requiring alternative solution",
+    "Quality of life deteriorating affecting mental health and relationships"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Treatment costs too much with high deductible",
+      "response": "Offer flexible payment plans, highlight cost of surgery alternative at $35,000+, provide superbill for HSA/FSA reimbursement",
+      "effectiveness": 78
+    },
+    {
+      "objection": "Don't have time for 2-3 visits weekly",
+      "response": "Provide early morning 6am and evening 7pm slots, offer intensive weekend programs, implement telehealth hybrid model saving 40% visit time",
+      "effectiveness": 82
+    },
+    {
+      "objection": "Previous PT didn't help",
+      "response": "Conduct thorough evaluation identifying missed diagnoses, use advanced techniques like dry needling, show specific success stories with similar failed PT cases",
+      "effectiveness": 71
+    },
+    {
+      "objection": "Can do exercises at home myself",
+      "response": "Explain manual therapy techniques impossible to self-perform, demonstrate immediate pain relief in-clinic, provide free movement screen showing compensations",
+      "effectiveness": 69
+    },
+    {
+      "objection": "Insurance only covers limited visits",
+      "response": "Maximize early visits for education, transition to monthly maintenance program at $65, provide comprehensive home program extending benefits",
+      "effectiveness": 74
+    },
+    {
+      "objection": "Location too far to drive regularly",
+      "response": "Offer telehealth for 50% of visits, coordinate with closer PT for basic sessions, provide intensive monthly sessions with home program",
+      "effectiveness": 66
+    },
+    {
+      "objection": "Afraid PT will make pain worse",
+      "response": "Start with gentle pain-free movements, explain soreness vs injury, offer 100% satisfaction guarantee for first visit",
+      "effectiveness": 85
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free initial consultation if not satisfied",
+      "Match competitor pricing within 5 miles",
+      "Re-evaluation at no charge if goals not met in 4 weeks"
+    ],
+    "proof_points": [
+      "87% of patients achieve goals within planned visits",
+      "4.8 star average Google rating from 450+ reviews",
+      "Board-certified specialists with 15+ years average experience",
+      "Same-day appointment availability for urgent cases"
+    ],
+    "risk_mitigation": "Detailed treatment contracts outlining expected outcomes, progress tracking via validated outcome measures every 2 weeks, direct access to therapist via secure messaging for questions between visits"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "stabbing pain",
+      "can't sleep",
+      "missing work",
+      "getting worse",
+      "tried everything",
+      "losing hope",
+      "affecting my marriage",
+      "can't play sports",
+      "need surgery"
+    ],
+    "solution_words": [
+      "pain-free",
+      "back to normal",
+      "stronger than before",
+      "avoid surgery",
+      "return to sport",
+      "sleep through night",
+      "pick up grandkids",
+      "work without pain"
+    ],
+    "avoid_jargon": [
+      "mobilization",
+      "therapeutic modalities",
+      "neuromuscular re-education",
+      "proprioception",
+      "kinetic chain",
+      "movement dysfunction",
+      "motor control",
+      "biomechanical"
+    ]
+  },
+  "power_words": [
+    "pain-free",
+    "immediate relief",
+    "breakthrough",
+    "revolutionary",
+    "proven",
+    "guaranteed",
+    "personalized",
+    "expert",
+    "specialized",
+    "advanced",
+    "cutting-edge",
+    "evidence-based",
+    "rapid",
+    "lasting",
+    "transformative",
+    "comprehensive",
+    "targeted",
+    "innovative",
+    "results-driven",
+    "certified",
+    "experienced",
+    "trusted",
+    "leading",
+    "premier",
+    "exclusive",
+    "customized",
+    "accelerated",
+    "maximum",
+    "optimal",
+    "complete"
+  ],
+  "avoid_words": [
+    "maybe",
+    "hopefully",
+    "try",
+    "attempt",
+    "possibly",
+    "might",
+    "sometimes",
+    "occasional",
+    "slow",
+    "lengthy",
+    "expensive",
+    "painful",
+    "difficult",
+    "complex",
+    "uncertain",
+    "variable",
+    "depends",
+    "potentially",
+    "modest",
+    "marginal"
+  ],
+  "headline_templates": [
+    {
+      "template": "Finally Pain-Free: How [Location] Residents Avoid Surgery with Advanced PT",
+      "expected_ctr": 4.2,
+      "use_case": "General awareness campaign"
+    },
+    {
+      "template": "Back to Work in 4 Weeks: Workers Comp PT That Actually Works",
+      "expected_ctr": 5.8,
+      "use_case": "Workers compensation targeting"
+    },
+    {
+      "template": "Why Athletes Choose Us: Return to Sport 40% Faster Than Average",
+      "expected_ctr": 6.1,
+      "use_case": "Sports injury campaigns"
+    },
+    {
+      "template": "Medicare Covers 100%: Senior Balance Program Prevents Falls",
+      "expected_ctr": 7.3,
+      "use_case": "Medicare audience"
+    },
+    {
+      "template": "Same-Day Pain Relief: Emergency PT Appointments Available Now",
+      "expected_ctr": 8.2,
+      "use_case": "Urgent care alternative"
+    },
+    {
+      "template": "Post-Surgery Recovery: Get Back to Life 3 Weeks Faster",
+      "expected_ctr": 5.4,
+      "use_case": "Surgical referrals"
+    },
+    {
+      "template": "Chronic Pain Breakthrough: 87% Success Rate Without Medications",
+      "expected_ctr": 6.7,
+      "use_case": "Chronic pain sufferers"
+    },
+    {
+      "template": "Free Injury Screen: Know Your Risk in 15 Minutes",
+      "expected_ctr": 9.1,
+      "use_case": "Lead generation"
+    },
+    {
+      "template": "Virtual PT Now Available: Professional Care from Home",
+      "expected_ctr": 4.8,
+      "use_case": "Telehealth promotion"
+    },
+    {
+      "template": "Direct Access PT: No Doctor Referral Needed - Start Today",
+      "expected_ctr": 5.9,
+      "use_case": "Direct access states"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Free Pain Assessment Now",
+      "conversion_rate": 12.3,
+      "placement": "Above fold website"
+    },
+    {
+      "template": "Get Immediate Relief - Call [Phone]",
+      "conversion_rate": 8.7,
+      "placement": "Google Ads"
+    },
+    {
+      "template": "Start Your Recovery Today →",
+      "conversion_rate": 10.2,
+      "placement": "Email campaigns"
+    },
+    {
+      "template": "Reserve Your Spot - Only 3 Left This Week",
+      "conversion_rate": 14.6,
+      "placement": "Landing pages"
+    },
+    {
+      "template": "Download Free Exercise Guide",
+      "conversion_rate": 22.4,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "See If You Qualify for Direct Access PT",
+      "conversion_rate": 9.8,
+      "placement": "Social media"
+    },
+    {
+      "template": "Schedule Your $49 Evaluation (Save $150)",
+      "conversion_rate": 11.3,
+      "placement": "Promotional campaigns"
+    },
+    {
+      "template": "Text PAIN to 55555 for Same-Day Appointment",
+      "conversion_rate": 15.7,
+      "placement": "Print advertising"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🎯 MYTH BUSTER: 'Rest is best for back pain' FALSE! Studies show early PT reduces recovery time by 50%. Share if this surprised you!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before/After: 8 weeks from wheelchair to 5K finish line! 💪 Sarah's incredible journey proves anything is possible. What's your comeback story?",
+      "engagement_rate": 7.8
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Employers: Every $1 spent on workplace PT saves $3 in workers comp claims. Here's our free ergonomic assessment guide for remote workers.",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Fix shoulder pain in 60 seconds! Try this wall slide exercise 3x daily. Full rehabilitation program in comments.",
+      "engagement_rate": 11.3
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Your PT shows you the knot causing your headaches for 6 months 🤯 #DryNeedling #InstantRelief #PTLife",
+      "engagement_rate": 18.6
+    },
+    {
+      "platform": "Twitter",
+      "template": "New study: PT first for back pain saves $4,000 vs. starting with imaging. Yet only 7% try PT first. Time to change that.",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10-Minute Morning Routine for Chronic Back Pain - Save for Later! [Infographic with exercises]",
+      "engagement_rate": 5.4
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐ Special: Free injury screen this Friday 2-6pm. Call 555-0100 to reserve your 15-minute slot!",
+      "engagement_rate": 8.9
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors: We're offering free fall risk assessments for seniors this month. Already helped 50+ local residents stay safe at home.",
+      "engagement_rate": 12.4
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Avoid surgery in 89% of cases through targeted conservative care",
+      "rank": 1,
+      "differentiator": "Highest surgery avoidance rate in region"
+    },
+    {
+      "prop": "Same-day appointments for urgent injuries",
+      "rank": 2,
+      "differentiator": "Only clinic with 7-day availability"
+    },
+    {
+      "prop": "Direct insurance billing with no upfront costs",
+      "rank": 3,
+      "differentiator": "Immediate care without financial barrier"
+    },
+    {
+      "prop": "Board-certified specialists in orthopedic and sports PT",
+      "rank": 4,
+      "differentiator": "Advanced certifications beyond entry-level"
+    },
+    {
+      "prop": "Cutting-edge technology including AlterG anti-gravity treadmill",
+      "rank": 5,
+      "differentiator": "Equipment typically found only in pro sports"
+    },
+    {
+      "prop": "Personalized app with exercise videos and progress tracking",
+      "rank": 6,
+      "differentiator": "Tech-enabled continuity of care"
+    },
+    {
+      "prop": "Lifetime warranty on treatment with free return visits if pain returns",
+      "rank": 7,
+      "differentiator": "Industry's only lifetime guarantee"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience the difference of doctorate-level care with advanced certifications, cutting-edge technology, and personalized attention in our boutique setting. Your recovery is our only priority, with 60-minute one-on-one sessions and concierge-level service including home visits and 24/7 therapist access.",
+    "budget_conscious": "Quality PT shouldn't break the bank. We accept all major insurance, offer flexible payment plans starting at $25/month, and provide free community clinics monthly. Our group sessions reduce costs by 60% while maintaining excellent outcomes. HSA/FSA accepted with instant reimbursement processing.",
+    "enterprise": "Reduce workers' compensation costs by 67% with our on-site injury prevention and ergonomic programs. Our corporate wellness solutions include lunch-and-learn sessions, workstation assessments, and direct-to-employer billing. Average ROI of 4:1 with measurable reduction in lost work days."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certification in orthopedic or sports specialization",
+      "importance": 9,
+      "format": "Credentials displayed prominently"
+    },
+    {
+      "signal": "15+ years of clinical experience with complex cases",
+      "importance": 8,
+      "format": "Therapist bio pages with photos"
+    },
+    {
+      "signal": "4.8+ star rating with 200+ Google reviews",
+      "importance": 10,
+      "format": "Review widget on every page"
+    },
+    {
+      "signal": "Direct hospital affiliation and surgeon referrals",
+      "importance": 7,
+      "format": "Partner logos and testimonials"
+    },
+    {
+      "signal": "Published research or teaching positions",
+      "importance": 6,
+      "format": "Academic credentials section"
+    },
+    {
+      "signal": "Professional athlete or team PT experience",
+      "importance": 8,
+      "format": "Case studies and photos"
+    },
+    {
+      "signal": "State-of-the-art facility with latest equipment",
+      "importance": 7,
+      "format": "Virtual tour and equipment gallery"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 10,000 patients successfully treated since 2010",
+      "credibility_score": 8.5,
+      "context": "Established practice with extensive experience"
+    },
+    {
+      "stat": "97% patient satisfaction rate from post-discharge surveys",
+      "credibility_score": 9.2,
+      "context": "Consistent quality across all therapists"
+    },
+    {
+      "stat": "Average pain reduction of 73% within 6 visits",
+      "credibility_score": 9,
+      "context": "Measurable outcomes tracked systematically"
+    },
+    {
+      "stat": "Referred by 45+ local physicians and surgeons",
+      "credibility_score": 8.8,
+      "context": "Medical community endorsement"
+    },
+    {
+      "stat": "Return-to-sport rate of 94% for athletes",
+      "credibility_score": 8.3,
+      "context": "Specialized sports medicine expertise"
+    },
+    {
+      "stat": "Saved patients combined $2.3 million in avoided surgeries",
+      "credibility_score": 7.9,
+      "context": "Economic value demonstration"
+    }
+  ],
+  "quality_indicators": [
+    "One-on-one treatment sessions lasting full 45-60 minutes versus 15-minute tech-assisted visits",
+    "Doctorate-level therapists (DPT) versus bachelor's or master's degree providers",
+    "Advanced certifications (OCS, SCS, CSCS) versus entry-level licensure only",
+    "Private treatment rooms versus open gym environment with multiple patients",
+    "Cutting-edge equipment (laser therapy, dry needling, blood flow restriction) versus basic tools only",
+    "Comprehensive initial evaluations of 90 minutes versus rushed 30-minute assessments"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 10,
+    "trigger_event": "After achieving 50% improvement in primary outcome measure or significant functional milestone like returning to work or sport",
+    "ask_method": "In-person request during session when patient expresses satisfaction, followed by email link to Google/Facebook review platforms within 2 hours while experience is fresh"
+  },
+  "competitive_advantages": [
+    "Only clinic in 20-mile radius offering dry needling and cupping therapy",
+    "Exclusive AlterG anti-gravity treadmill access outside of hospital setting",
+    "24-hour online scheduling with real-time availability updates",
+    "Bilingual staff serving 40% Hispanic population underserved by competitors",
+    "Direct access appointments without physician referral in states allowing",
+    "Proprietary recovery protocol reducing visit frequency by 30% versus traditional"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display cash price of $275 per visit before showing copay of $25-40 to create value perception",
+    "sensitivity": "Price breaks at visit 6 and 12 align with typical insurance authorization periods",
+    "sweet_spots": [
+      "$40 copay maximum tolerance",
+      "$150 cash visit for uninsured",
+      "$500 monthly unlimited membership",
+      "$2,000 post-surgical package"
+    ],
+    "decoy_pricing": "Offer premium package at $4,500 to make $2,000 standard package appear reasonable"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 40,
+    "approval_required": 150,
+    "competitor_research": 75
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.3,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Insurance",
+      "price_range": "$25-50 copay",
+      "target_customer": "Standard insurance patients",
+      "margin": 35
+    },
+    {
+      "tier": "Premium Cash",
+      "price_range": "$150-200 per visit",
+      "target_customer": "Out-of-network or uninsured",
+      "margin": 65
+    },
+    {
+      "tier": "Concierge Unlimited",
+      "price_range": "$500-750 monthly",
+      "target_customer": "Athletes and chronic pain",
+      "margin": 78
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Group therapy sessions for appropriate conditions increase revenue per hour by 280%",
+    "Wellness programs and injury prevention workshops generate 82% margins",
+    "Telehealth follow-ups reduce overhead by 65% while maintaining full reimbursement",
+    "Product sales (braces, supplements, exercise equipment) add 18% to revenue at 55% margin",
+    "Corporate contracts eliminate billing costs and bad debt, improving margin by 22%",
+    "Cash-pay packages reduce administrative costs by 40% while increasing patient compliance"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 135,
+      "reason": "New Year fitness injuries and insurance reset",
+      "opportunity": "Promote injury prevention programs"
+    },
+    {
+      "month": "February",
+      "variation": 115,
+      "reason": "Winter sports injuries peak",
+      "opportunity": "Partner with ski resorts"
+    },
+    {
+      "month": "March",
+      "variation": 125,
+      "reason": "Spring training for summer sports",
+      "opportunity": "Athletic performance packages"
+    },
+    {
+      "month": "April",
+      "variation": 110,
+      "reason": "Yard work and spring cleaning injuries",
+      "opportunity": "Weekend warrior campaigns"
+    },
+    {
+      "month": "May",
+      "variation": 120,
+      "reason": "Pre-summer fitness push",
+      "opportunity": "Return to activity programs"
+    },
+    {
+      "month": "June",
+      "variation": 105,
+      "reason": "Vacation season begins",
+      "opportunity": "Travel wellness tips content"
+    },
+    {
+      "month": "July",
+      "variation": 95,
+      "reason": "Summer vacation slowdown",
+      "opportunity": "Intensive camp programs"
+    },
+    {
+      "month": "August",
+      "variation": 130,
+      "reason": "Fall sports preparation",
+      "opportunity": "Student athlete specials"
+    },
+    {
+      "month": "September",
+      "variation": 140,
+      "reason": "Return to routine and sports",
+      "opportunity": "Corporate wellness programs"
+    },
+    {
+      "month": "October",
+      "variation": 125,
+      "reason": "Use remaining insurance benefits",
+      "opportunity": "Benefits reminder campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 118,
+      "reason": "Holiday preparation injuries",
+      "opportunity": "Gift certificate promotions"
+    },
+    {
+      "month": "December",
+      "variation": 108,
+      "reason": "Maximize insurance before reset",
+      "opportunity": "Year-end package deals"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "New evaluations and treatment planning",
+      "avoid": "Group classes due to high demand",
+      "conversion_rate": 14.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Regular treatment sessions",
+      "avoid": "Marketing outreach",
+      "conversion_rate": 11.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week progress checks",
+      "avoid": "Staff meetings",
+      "conversion_rate": 12.1
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend intensive sessions",
+      "avoid": "New patient scheduling",
+      "conversion_rate": 13.5
+    },
+    {
+      "day": "Friday",
+      "best_for": "Discharge planning and HEP training",
+      "avoid": "Complex evaluations",
+      "conversion_rate": 10.2
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working professional appointments",
+      "avoid": "Insurance verification",
+      "conversion_rate": 16.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Athlete and urgent care overflow",
+      "avoid": "Routine follow-ups",
+      "conversion_rate": 8.4
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Patients most responsive to payment plans on 1st and 15th when paychecks arrive",
+    "cash_flow_peaks": "Days 5-10 when insurance payments post, days 20-25 when patient payments process",
+    "slow_periods": "Days 23-31 as patients delay starting treatment until new month"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 6-8 AM",
+      "crisis_type": "Weekend injury needing work clearance",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Friday 4-7 PM",
+      "crisis_type": "Injury before weekend sports/travel",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Sunday evening",
+      "crisis_type": "Preparation for Monday return to work",
+      "premium_multiplier": 1.8
+    },
+    {
+      "time": "Holiday weekends",
+      "crisis_type": "Family gathering activity injuries",
+      "premium_multiplier": 2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Post-Surgical Recovery",
+      "components": [
+        "12 visits over 8 weeks",
+        "Home exercise app",
+        "Weekly progress reports to surgeon",
+        "DME coordination"
+      ],
+      "pricing_model": "Bundle at $1,800",
+      "margin": 42
+    },
+    {
+      "name": "Return to Sport",
+      "components": [
+        "Biomechanical analysis",
+        "8 performance sessions",
+        "Sport-specific training",
+        "Injury prevention program"
+      ],
+      "pricing_model": "$1,500 package",
+      "margin": 58
+    },
+    {
+      "name": "Chronic Pain Management",
+      "components": [
+        "Monthly maintenance visits",
+        "Dry needling included",
+        "Group support sessions",
+        "Lifestyle coaching"
+      ],
+      "pricing_model": "$299/month subscription",
+      "margin": 71
+    },
+    {
+      "name": "Corporate Wellness",
+      "components": [
+        "Quarterly ergonomic assessments",
+        "Monthly lunch workshops",
+        "Injury hotline access",
+        "On-site treatment hours"
+      ],
+      "pricing_model": "$50 per employee annually",
+      "margin": 83
+    }
+  ],
+  "upsell_paths": [
+    "Free screen → Evaluation ($150) → Treatment plan (8 visits at $150 each)",
+    "Insurance PT → Cash wellness program ($99/month) after discharge",
+    "Individual therapy → Group fitness classes ($40/session) → Personal training ($75/session)",
+    "Basic PT → Add dry needling (+$50/visit) → Comprehensive recovery package (+$500)",
+    "In-clinic → Hybrid with telehealth → Concierge home visits (+$100/visit)",
+    "Treatment → Prevention program → Performance optimization coaching ($200/month)"
+  ],
+  "retention_hooks": [
+    "Monthly progress celebrations with social media recognition and patient of the month awards",
+    "Loyalty program offering 10th visit free or 20% off wellness services after discharge",
+    "Exclusive access to educational workshops and injury prevention seminars for active patients",
+    "Family member discounts of 25% creating household loyalty and referrals",
+    "Lifetime phone/email support for exercise questions maintaining connection post-discharge",
+    "Quarterly check-ins with free movement screens to catch problems early",
+    "VIP scheduling priority for established patients guaranteeing same-day appointments"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Patient success story video testimonials",
+      "timing": "Week 6 of treatment at 60% improvement",
+      "incentive": "$50 credit for referrer and referee",
+      "conversion_rate": 23
+    },
+    {
+      "strategy": "Physician lunch-and-learns with CEU credits",
+      "timing": "Quarterly educational sessions",
+      "incentive": "Direct referral hotline and co-treatment opportunities",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Corporate partnership employee benefits",
+      "timing": "Annual benefits enrollment periods",
+      "incentive": "Discounted rates and on-site services",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Community sports team sponsorships",
+      "timing": "Season start with injury prevention clinics",
+      "incentive": "Free team assessments and priority scheduling",
+      "conversion_rate": 27
+    },
+    {
+      "strategy": "Social media share campaigns",
+      "timing": "After positive outcomes and milestones",
+      "incentive": "Contest entries for free services",
+      "conversion_rate": 12
+    },
+    {
+      "strategy": "Strategic healthcare partner cross-referrals",
+      "timing": "Ongoing reciprocal relationship",
+      "incentive": "Mutual patient benefit and care coordination",
+      "conversion_rate": 34
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Massage therapy add-on",
+      "attach_rate": 34,
+      "timing": "Week 3 when muscle tension peaks"
+    },
+    {
+      "service": "Custom orthotics fitting",
+      "attach_rate": 18,
+      "timing": "After gait analysis reveals dysfunction"
+    },
+    {
+      "service": "Nutritional counseling for inflammation",
+      "attach_rate": 22,
+      "timing": "Chronic pain patients at week 4"
+    },
+    {
+      "service": "Personal training transition",
+      "attach_rate": 28,
+      "timing": "Discharge planning for continued fitness"
+    },
+    {
+      "service": "Ergonomic workplace assessment",
+      "attach_rate": 41,
+      "timing": "Return-to-work planning phase"
+    },
+    {
+      "service": "Family member evaluations",
+      "attach_rate": 37,
+      "timing": "During patient's successful treatment"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Telehealth PT serving rural markets 50+ miles away",
+      "market_size": "$2.3M annually",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Mobile PT for homebound seniors and facilities",
+      "market_size": "$1.8M annually",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Industrial athlete programs for warehouses/manufacturing",
+      "market_size": "$3.2M annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Franchise or multi-location expansion to suburbs",
+      "market_size": "$5.5M annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Wellness center addition with fitness and massage",
+      "market_size": "$1.5M annually",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Direct-to-employer occupational health contracts",
+      "market_size": "$2.7M annually",
+      "difficulty": 6
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "ATI Physical Therapy's 'Movement is Medicine' campaign featuring patient transformation videos showing before/after mobility improvements with specific exercises demonstrated",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Visual proof of results, educational value, emotional connection through real patient stories, demonstrates expertise while being accessible",
+        "metrics": "Average engagement rate 4.2% on Instagram (above industry average), video views averaging 15K-50K per post",
+        "source": "Healthcare Success case study and ATI Physical Therapy social media analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "Therapeutic Associates' educational blog series 'Common PT Questions Answered' addressing specific conditions with SEO-optimized content (e.g., 'How Long Does Physical Therapy Take for Knee Replacement?')",
+        "platform": "Blog/Website",
+        "why_it_worked": "Answers exact questions patients search for, establishes authority, long-tail keyword targeting, provides value before selling",
+        "metrics": "Organic traffic increase of 127% year-over-year, average time on page 3:45 minutes, 23% conversion to appointment requests",
+        "source": "Healthcare Marketing Report 2023, Therapeutic Associates digital marketing case study",
+        "confidence": "high"
+      },
+      {
+        "example": "Dr. Grayson Wickham PT's mobility exercises on Instagram Reels and TikTok demonstrating quick fixes for common pain points (e.g., '90-Second Hip Flexor Stretch for Desk Workers')",
+        "platform": "TikTok/Instagram Reels",
+        "why_it_worked": "Short-form, actionable content that provides immediate value, addresses specific pain points, easy to follow along, shareable format",
+        "metrics": "Individual videos reaching 500K-2M views, follower growth from 50K to 1.2M in 18 months, 6-8% engagement rate",
+        "source": "Social Media Examiner physical therapy case study, Movement Vault Instagram analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "BenchMark Physical Therapy's email nurture campaign for post-surgical patients with day-by-day recovery expectations and exercises",
+        "platform": "Email",
+        "why_it_worked": "Timely, personalized to surgery type, reduces anxiety by setting expectations, positions PT as essential partner in recovery",
+        "metrics": "42% open rate, 18% click-through rate, 31% conversion to scheduled appointment",
+        "source": "Healthcare Email Marketing Benchmarks 2024, BenchMark PT marketing materials",
+        "confidence": "medium"
+      },
+      {
+        "example": "Select Physical Therapy's Google Business Profile posts featuring quick patient testimonials and condition-specific tips updated 3x weekly",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Captures high-intent local searchers, builds trust through reviews, improves local SEO, provides social proof at decision moment",
+        "metrics": "34% increase in 'Get Directions' clicks, 28% increase in phone calls, 4.8-star average rating with 500+ reviews",
+        "source": "Local SEO for Healthcare Providers 2024 report",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "2.8-3.5% for healthcare/PT industry",
+        "best_content_format": "Reels (5.2% engagement) and carousel posts with exercise demonstrations (3.8% engagement)",
+        "optimal_frequency": "4-7 posts per week with daily Stories",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM and 7-9 PM, Saturday mornings 8-10 AM",
+        "source": "Socialinsider Healthcare Social Media Benchmarks 2024, Sprout Social Industry Report 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "1.2-1.8% for healthcare services",
+        "best_content_format": "Video content (2.3% engagement), patient testimonials, educational posts with images",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3 PM, weekends 10 AM-12 PM",
+        "source": "Hootsuite Healthcare Marketing Report 2024, Rival IQ Social Media Benchmarks"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.7-8.2% for health and wellness content",
+        "best_content_format": "15-30 second exercise demonstrations, myth-busting content, quick tips",
+        "optimal_frequency": "5-7 posts per week for growth phase",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-9 PM EST",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024, Healthcare Content Creators Survey",
+        "confidence": "medium"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-28% open rate, 3-5% click-through rate for healthcare",
+        "best_content_format": "Educational newsletters, appointment reminders with value-add content, condition-specific nurture sequences",
+        "optimal_frequency": "1-2 times per week for existing patients, weekly for prospects",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM local time",
+        "source": "Mailchimp Healthcare Industry Benchmarks 2024, Constant Contact Medical Marketing Report"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.5-2.2% for healthcare professionals",
+        "best_content_format": "Industry insights, research summaries, professional development content, thought leadership articles",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday 7-8 AM and 12 PM",
+        "source": "LinkedIn B2B Healthcare Marketing Benchmarks 2024"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "3.5-4.8% for healthcare educational content",
+        "best_content_format": "10-15 minute educational videos, exercise tutorials, patient success stories, condition explanations",
+        "optimal_frequency": "1-2 videos per week",
+        "best_posting_times": "Weekday evenings 5-7 PM, weekend mornings",
+        "source": "Tubular Labs Healthcare Video Performance 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-bound pain relief promise",
+        "example": "3 Exercises That Eliminate Lower Back Pain in 7 Days (No Pills Required)",
+        "why_it_works": "Specific timeframe creates urgency and measurability, addresses desire to avoid medication, promises fast results",
+        "source": "Physical therapy clinic Facebook ad analysis, Healthcare Marketing Advisor"
+      },
+      {
+        "hook_pattern": "Surgical avoidance angle",
+        "example": "How I Avoided Knee Replacement Surgery Using These 4 Simple Movements",
+        "why_it_works": "Taps into fear of surgery, positions PT as alternative, uses social proof (first person), promises simplicity",
+        "source": "High-performing PT blog headlines, BuzzSumo healthcare content analysis"
+      },
+      {
+        "hook_pattern": "Mistake/myth correction",
+        "example": "The #1 Mistake People Make After Rotator Cuff Surgery (And How to Fix It)",
+        "why_it_works": "Creates curiosity gap, positions reader as potentially making error, establishes expertise, promises solution",
+        "source": "PT email subject line A/B testing results, Digital Health Marketing Report"
+      },
+      {
+        "hook_pattern": "Lifestyle restoration",
+        "example": "From Unable to Walk to Running My First 5K: Sarah's Recovery Journey",
+        "why_it_works": "Emotional transformation story, relatable patient name, specific achievement, hope-building narrative",
+        "source": "ATI Physical Therapy and Therapeutic Associates top-performing content"
+      },
+      {
+        "hook_pattern": "Professional authority challenge",
+        "example": "What Your Doctor Didn't Tell You About Healing Chronic Pain",
+        "why_it_works": "Positions PT as insider knowledge, creates information gap, implies incompleteness of medical advice",
+        "source": "PT practice marketing materials, healthcare content engagement analysis"
+      },
+      {
+        "hook_pattern": "Immediate action/quick fix",
+        "example": "Do This One Stretch Before Bed to Wake Up Without Back Pain",
+        "why_it_works": "Single action is non-overwhelming, timing specificity, immediate benefit promise, addresses common pain point",
+        "source": "Instagram Reels and TikTok top performers in PT niche"
+      },
+      {
+        "hook_pattern": "Age/demographic specific",
+        "example": "Why Everyone Over 50 Should See a Physical Therapist (Even If Nothing Hurts)",
+        "why_it_works": "Targets specific demographic, preventive angle, challenges assumption that PT is only for injury",
+        "source": "APTA marketing materials and successful PT clinic campaigns"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can't even tie my own shoes without shooting pain",
+        "Every step feels like knives in my knee",
+        "I'm missing my kid's games because I can't sit that long",
+        "My doctor said surgery is the only option left",
+        "I've tried everything and nothing works anymore",
+        "The pain keeps me up all night",
+        "I'm afraid I'll lose my job if I can't get back to work",
+        "I don't want to be dependent on pain pills",
+        "I feel like I'm 80 years old and I'm only 45",
+        "I can't pick up my grandkids anymore and it's breaking my heart"
+      ],
+      "solution_phrases": [
+        "I just want to be able to walk my dog again",
+        "I need to get back to normal life",
+        "I want to play with my kids without pain",
+        "I'm looking for something that actually fixes the problem, not just masks it",
+        "I need someone who understands my specific injury",
+        "I want to avoid surgery if at all possible",
+        "I need to get strong enough to return to work",
+        "I'm looking for permanent relief, not temporary fixes",
+        "I want to get off these medications",
+        "I just want my life back"
+      ],
+      "objection_phrases": [
+        "I don't know if my insurance covers it",
+        "I've tried PT before and it didn't help",
+        "I don't have time for multiple appointments every week",
+        "Isn't it just stretching? Can't I do that at home?",
+        "How is this different from a personal trainer?",
+        "I'm worried it will make the pain worse",
+        "My doctor never mentioned physical therapy",
+        "It's too expensive without a guarantee it will work",
+        "I don't want to commit to months of treatment",
+        "What if I need surgery anyway?"
+      ],
+      "decision_factors": [
+        "How quickly can I get an appointment?",
+        "Do they specialize in my specific condition?",
+        "What do other patients say about their results?",
+        "Are they in-network with my insurance?",
+        "How many sessions will I need?",
+        "Can they work around my work schedule?",
+        "Do they have experience with cases like mine?",
+        "Will the same therapist see me every time?",
+        "What's their success rate with avoiding surgery?",
+        "Are they close to my home or work?"
+      ],
+      "emotional_language": [
+        "desperate for relief",
+        "frustrated with the medical system",
+        "scared about surgery",
+        "hopeful this will work",
+        "tired of being in pain",
+        "worried about my future mobility",
+        "anxious about recovery time",
+        "determined to get better",
+        "overwhelmed by options",
+        "grateful to finally feel heard",
+        "relieved to have a plan",
+        "empowered to take control"
+      ],
+      "sources": [
+        "Reddit r/physicaltherapy patient threads",
+        "Google Reviews for major PT chains (ATI, Athletico, BenchMark)",
+        "HealthGrades and Vitals patient reviews",
+        "Facebook comments on PT clinic posts",
+        "Patient testimonials from PT practice websites",
+        "Quora questions about physical therapy",
+        "WebMD and Healthline comment sections on PT articles"
+      ]
+    },
+    "competitive_gaps": [
+      "Virtual/telehealth PT content - most competitors focus only on in-person care",
+      "Preventive PT for healthy individuals - almost all content targets existing pain/injury",
+      "Cost transparency and insurance navigation - patients express confusion but few clinics address directly",
+      "Mental health connection to physical pain - emerging topic with limited PT content",
+      "Return-to-sport protocols for recreational athletes - gap between pro athlete content and general population",
+      "Workplace ergonomics and injury prevention for remote workers - timely but underserved",
+      "PT for chronic conditions like arthritis, Parkinson's, MS - most content focuses on acute injuries",
+      "Cultural competency and language-specific content - limited non-English PT marketing",
+      "Integration with other healthcare providers - lack of content showing collaborative care",
+      "Technology-assisted PT (apps, wearables, AI) - few clinics showcase modern tools"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February (New Year)",
+        "opportunity": "Resolution season, gym injuries spike, motivation for health goals high",
+        "content_angle": "Injury prevention for new exercisers, proper form tutorials, 'start the year pain-free' campaigns"
+      },
+      {
+        "period": "March-April (Spring sports season)",
+        "opportunity": "Youth sports injuries increase, adults resume outdoor activities, runners train for spring races",
+        "content_angle": "Sports injury prevention, return-to-play protocols, runner's knee and common running injuries"
+      },
+      {
+        "period": "May (Older Americans Month, Arthritis Awareness Month)",
+        "opportunity": "Focus on senior mobility, fall prevention, arthritis management",
+        "content_angle": "Balance and fall prevention programs, arthritis-friendly exercises, aging well content"
+      },
+      {
+        "period": "June-August (Summer vacation, outdoor activities)",
+        "opportunity": "Travel-related back pain, summer sports injuries, people have more flexible schedules",
+        "content_angle": "Travel tips for pain management, summer activity prep, flexible summer scheduling"
+      },
+      {
+        "period": "September (Back to School, Fall sports)",
+        "opportunity": "Fall sports injuries, backpack-related pain in students, routine re-establishment",
+        "content_angle": "Youth athlete screenings, proper backpack use, injury prevention for fall sports"
+      },
+      {
+        "period": "October (National Physical Therapy Month)",
+        "opportunity": "Industry awareness campaigns, professional recognition, public education focus",
+        "content_angle": "What PT can treat, choosing a physical therapist, PT success stories, profession promotion"
+      },
+      {
+        "period": "November-December (Holiday season, winter activities)",
+        "opportunity": "Ski season prep, holiday travel pain, end-of-year insurance benefits expiring, winter slip/fall injuries",
+        "content_angle": "Use your benefits before year-end, ski conditioning programs, travel pain management, ice safety"
+      },
+      {
+        "period": "Post-major holidays",
+        "opportunity": "Injury recovery from holiday activities, gift certificate promotions, winter weather injuries",
+        "content_angle": "Recovery from holiday overexertion, winter injury prevention, wellness gift certificates"
+      },
+      {
+        "period": "Tax refund season (February-April)",
+        "opportunity": "Discretionary spending increases, people invest in health",
+        "content_angle": "Invest your refund in your health, wellness packages, preventive care programs"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Socialinsider Healthcare Social Media Benchmarks 2024",
+      "Sprout Social Industry Report 2024",
+      "Hootsuite Healthcare Marketing Report 2024",
+      "Mailchimp Healthcare Industry Benchmarks 2024",
+      "Healthcare Success marketing case studies",
+      "Reddit r/physicaltherapy",
+      "Google Business Profile reviews for ATI, Athletico, BenchMark PT",
+      "HealthGrades and Vitals patient reviews",
+      "BuzzSumo healthcare content analysis",
+      "Influencer Marketing Hub TikTok Report 2024",
+      "APTA (American Physical Therapy Association) marketing resources",
+      "Healthcare Marketing Advisor",
+      "Digital Health Marketing Report",
+      "Social Media Examiner case studies",
+      "Constant Contact Medical Marketing Report",
+      "LinkedIn B2B Healthcare Marketing Benchmarks",
+      "Tubular Labs Healthcare Video Performance 2024",
+      "Rival IQ Social Media Benchmarks"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data from PT clinics (most is proprietary)",
+      "TikTok benchmarks for PT specifically are newer and less established than other platforms",
+      "Exact A/B testing results from email campaigns are rarely published publicly",
+      "Some engagement metrics estimated from industry averages rather than PT-specific data",
+      "Telehealth PT content performance data is emerging but limited"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Revolutionary pain relief technology teaser - Building curiosity around advanced treatment modalities patients haven't experienced",
+        "Week 2: Surgical avoidance breakthrough - Positioning new service as evidence-based alternative to invasive procedures",
+        "Week 3: Real patient transformations - Showcasing before/after mobility improvements and lifestyle restoration stories",
+        "Week 4: Limited availability urgency - Final push emphasizing exclusive access and year-end insurance benefit optimization"
+      ],
+      "weekly_hooks": [
+        [
+          "What if you could avoid [surgery type] without pills or injections? Discover the breakthrough coming to [clinic name] next week",
+          "The #1 reason patients are canceling their surgery appointments (and what they're doing instead)",
+          "We're bringing a proven treatment to [city] that's helped over [X] patients avoid surgery - here's what you need to know"
+        ],
+        [
+          "LIVE NOW: The treatment that eliminates [condition] pain in 3-5 sessions (no surgery required)",
+          "How [Patient Name] went from unable to walk to running her first 5K in 8 weeks using our new [service]",
+          "Your doctor said surgery is the only option? Here's what they didn't tell you about [new treatment]"
+        ],
+        [
+          "From missing my kid's games to coaching their team: [Patient]'s recovery journey with [new service]",
+          "'I avoided a $35,000 knee replacement and got my life back' - Real patient results from week one",
+          "Do this one assessment to find out if you're a candidate for surgery-free relief (takes 60 seconds)"
+        ],
+        [
+          "Only [X] spots left before year-end - Use your insurance benefits before they reset",
+          "Final week to schedule: Why everyone over 50 should try [new service] (even if nothing hurts yet)",
+          "We're fully booked through January - Last chance to get immediate relief before the new year"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address skepticism from previous PT failures - Explain advanced techniques impossible to self-perform, show what makes this different",
+        "Week 2: Address 'Can't I just do exercises at home?' - Demonstrate specialized manual therapy and immediate in-clinic pain relief",
+        "Week 3: Address time commitment concerns - Highlight early morning 6am and evening 7pm availability, intensive weekend options",
+        "Week 4: Address cost and insurance coverage - Provide flexible payment plans, HSA/FSA options, compare to $35,000+ surgery alternative"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce clinical certifications and evidence-based research supporting new treatment methodology",
+        "Week 2: Share video testimonials showing immediate pain relief during first treatment session",
+        "Week 3: Feature detailed case studies with specific metrics (pain scale reduction, ROM improvements, timeline to goals)",
+        "Week 4: Final credibility push with success rate statistics, insurance acceptance confirmation, satisfaction guarantees"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide 'Is [New Treatment] Right for Your Condition?' - Educational, low commitment",
+        "Week 2: Watch free 15-minute webinar showing live treatment demonstration - Engagement building",
+        "Week 3: Schedule free movement screening to determine candidacy - Conversion-focused but risk-free",
+        "Week 4: Call now to claim your spot before year-end - Direct booking with urgency"
+      ],
+      "platform_priority": [
+        "Instagram Reels (5-7 posts/week) - Highest engagement rate 5.2% for exercise demonstrations and patient transformations",
+        "Facebook Video (3-4 posts/week) - Strong for patient testimonials and longer educational content, 2.3% engagement",
+        "Email (2 sends/week) - Tuesday/Thursday 8-10am for existing patient list and prospect nurture sequence",
+        "Google Business Profile (3 posts/week) - Captures high-intent local searchers at decision moment"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on ATI Physical Therapy's 'Movement is Medicine' campaign success (4.2% engagement, 15K-50K video views) and BenchMark PT's email nurture campaign achieving 42% open rate and 31% appointment conversion. Launch campaigns require higher promotional ratio while maintaining educational value through patient transformation stories and specific exercise demonstrations."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common condition education - Answering exact patient search queries like 'How long does PT take for knee replacement?'",
+        "Week 2: Quick-fix mobility solutions - 90-second stretches and exercises for specific pain points addressing desk workers and active adults",
+        "Week 3: Surgical avoidance stories - First-person patient narratives showing conservative care success",
+        "Week 4: Myth-busting misconceptions - Correcting common mistakes patients make during recovery and self-treatment",
+        "Week 5: Lifestyle restoration focus - Emotional transformation stories returning to activities patients love",
+        "Week 6: Preventive care education - Why healthy individuals should see PT before injury occurs",
+        "Week 7: Insurance and accessibility - Demystifying coverage, costs, and scheduling flexibility",
+        "Week 8: Professional authority content - Research summaries and evidence-based practice updates"
+      ],
+      "weekly_hooks": [
+        [
+          "How long does physical therapy actually take for [condition]? Here's what the research shows",
+          "The 3 stages of recovery from [injury] - What to expect week by week",
+          "What your doctor didn't tell you about healing [chronic pain condition]"
+        ],
+        [
+          "Do this one stretch before bed to wake up without back pain (takes 90 seconds)",
+          "The desk worker's guide to pain-free hips: 3 movements you can do at your desk",
+          "Eliminate shoulder pain in 7 days with these evidence-based exercises (no equipment needed)"
+        ],
+        [
+          "How I avoided knee replacement surgery using these 4 simple movements",
+          "From facing surgery to running marathons: [Patient]'s journey back to the activities she loves",
+          "'My doctor said surgery was inevitable' - What happened when [Patient] tried PT first"
+        ],
+        [
+          "The #1 mistake people make after rotator cuff surgery (and how to fix it)",
+          "Why your back pain keeps coming back (hint: you're treating the wrong area)",
+          "Isn't PT just stretching? Here's what actually happens in a session"
+        ],
+        [
+          "From unable to pick up my grandkids to playing on the floor with them: Sarah's story",
+          "I just wanted to walk my dog again - How PT gave me my independence back",
+          "Missing your kid's games because you can't sit that long? Here's what worked for me"
+        ],
+        [
+          "Why everyone over 50 should see a physical therapist (even if nothing hurts)",
+          "The preventive PT screening that could save you from surgery in 5 years",
+          "How to stay active and pain-free as you age - What the research actually says"
+        ],
+        [
+          "Does my insurance cover physical therapy? Here's how to find out in 5 minutes",
+          "Can't commit to 3x weekly appointments? Here are your flexible scheduling options",
+          "The real cost of PT vs. surgery: A breakdown that might surprise you"
+        ],
+        [
+          "New research reveals why [treatment approach] works better than traditional methods",
+          "What the latest studies show about recovery timelines for [common condition]",
+          "Evidence-based vs. outdated PT: How to know if your therapist is current"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection - Pure education building authority",
+        "Week 2: Address 'Can do exercises at home myself' through demonstrating proper form complexity",
+        "Week 3: Address 'Previous PT didn't help' by showing advanced techniques and missed diagnoses",
+        "Week 4: Address misconceptions about PT being just stretching",
+        "Week 5: No objection - Emotional connection building",
+        "Week 6: Address 'Only for injured people' misconception",
+        "Week 7: Address insurance coverage and time commitment concerns directly",
+        "Week 8: No objection - Authority reinforcement"
+      ],
+      "proof_timing": [
+        "Week 1: Cite clinical research and evidence-based sources",
+        "Week 2: Show engagement metrics (comments of people trying exercises)",
+        "Week 3: Feature detailed patient testimonials with specific outcomes",
+        "Week 4: Reference professional certifications and specialized training",
+        "Week 5: Share video testimonials and before/after mobility footage",
+        "Week 6: Present prevention success statistics and long-term outcome data",
+        "Week 7: Display insurance acceptance, 4.8+ star ratings, review counts",
+        "Week 8: Highlight continuing education, research participation, industry recognition"
+      ],
+      "cta_progression": [
+        "Week 1: Read full blog post for detailed recovery timeline - Educational",
+        "Week 2: Save this post and try the exercise today, comment your results - Engagement",
+        "Week 3: Download free guide '10 Questions to Ask Before Surgery' - Lead generation",
+        "Week 4: Share this with someone who needs to hear it - Amplification",
+        "Week 5: Schedule free consultation to discuss your goals - Soft conversion",
+        "Week 6: Get your free movement screening (limited spots) - Conversion",
+        "Week 7: Call to verify your insurance coverage today - Direct action",
+        "Week 8: Follow for weekly evidence-based PT tips - Retention"
+      ],
+      "platform_priority": [
+        "Instagram Reels and Carousels (5-7 posts/week) - Best for exercise demos and educational content, 3.8-5.2% engagement",
+        "Blog/Website SEO content (2 long-form posts/week) - Therapeutic Associates saw 127% organic traffic increase with condition-specific content",
+        "Email newsletter (1x/week Tuesday 9am) - Maintain 21-28% open rate with educational focus",
+        "TikTok (5-7 posts/week) - Quick tips and myth-busting, 5.7-8.2% engagement rate",
+        "Facebook (3 posts/week Wed-Fri 1-3pm) - Patient stories and longer educational content"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Therapeutic Associates' blog series achieving 127% organic traffic increase by answering exact patient questions, and Dr. Grayson Wickham's success growing from 50K to 1.2M followers with actionable quick-fix content (6-8% engagement). Evergreen content requires heavy educational focus (70%) with minimal promotion to build sustainable authority and organic reach."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized quick wins - 15-30 second exercise demonstrations and immediate pain relief techniques targeting maximum shareability",
+        "Week 2: Controversial myth-busting - Challenge common medical advice and conventional wisdom to spark conversation and shares"
+      ],
+      "weekly_hooks": [
+        [
+          "Do this for 90 seconds to instantly release tight hip flexors (works for desk workers)",
+          "The one stretch physical therapists do every morning (and why you should too)",
+          "POV: You just discovered the real reason your back hurts (it's not what you think)",
+          "This is what happens to your body when you sit for 8 hours straight",
+          "Try this quick test to see if you need physical therapy (60 seconds)",
+          "The exercise your doctor never showed you for knee pain relief"
+        ],
+        [
+          "Unpopular opinion: Rest is NOT always the answer for back pain (here's what works)",
+          "Your physical therapist won't tell you this, but I will...",
+          "Why 'no pain, no gain' is ruining your recovery (what to do instead)",
+          "The truth about ice vs. heat that most people get wrong",
+          "What your MRI results don't tell you about your pain (and why that matters)",
+          "Stop doing crunches for back pain - Do this instead"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No direct objection handling - Focus on value delivery and viral potential",
+        "Week 2: Address 'This seems too simple to work' skepticism through explanation of biomechanics"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase immediate results through user-generated content and comment engagement ('This actually worked!')",
+        "Week 2: Share professional credentials briefly in bio/captions to back up controversial claims"
+      ],
+      "cta_progression": [
+        "Week 1: Try this now and comment your results - Maximum engagement focus",
+        "Week 1 (mid-week): Share this with someone who needs it - Amplification",
+        "Week 1 (weekend): Save this for later and follow for daily PT tips - Retention",
+        "Week 2: Disagree? Comment why below - Conversation starter",
+        "Week 2 (mid-week): Tag someone who does this wrong - Engagement and reach",
+        "Week 2 (end): DM me your specific question - Direct connection building"
+      ],
+      "platform_priority": [
+        "TikTok (7-10 posts/week) - Highest viral potential with 5.7-8.2% engagement, post 7-9am and 7-9pm",
+        "Instagram Reels (7-10 posts/week) - Secondary viral platform, 5.2% engagement on Reels",
+        "Instagram Stories (3-5 per day) - Behind-scenes, polls, questions to boost engagement signals",
+        "Facebook (1-2 viral-optimized videos/week) - Cross-post top performers for older demographic reach"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Dr. Grayson Wickham's TikTok/Instagram Reels success reaching 500K-2M views per video with 15-30 second actionable content addressing specific pain points. His growth from 50K to 1.2M followers in 18 months demonstrates the power of short-form, high-value content optimized for sharing. Awareness campaigns require authentic, personality-driven content (5-3-2 ratio) rather than heavy promotion."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Evidence-based practice foundations - Translating recent research into patient-friendly insights on what actually works",
+        "Week 2: Condition-specific deep dives - Comprehensive education on recovery timelines, expectations, and protocols for major conditions",
+        "Week 3: Collaborative care models - Demonstrating integration with physicians, surgeons, and other healthcare providers",
+        "Week 4: Advanced treatment techniques - Explaining specialized modalities like dry needling, manual therapy, and technology-assisted PT",
+        "Week 5: Long-term outcomes focus - Presenting data on sustained results and preventive approaches beyond acute care",
+        "Week 6: Industry thought leadership - Commentary on healthcare trends, policy, and the evolving role of physical therapy"
+      ],
+      "weekly_hooks": [
+        [
+          "New research reveals the optimal recovery timeline for [condition] - Here's what the data actually shows",
+          "What 10 years of treating [condition] has taught me about lasting results",
+          "The science behind why [treatment approach] works better than traditional methods"
+        ],
+        [
+          "Everything you need to know about recovering from [surgery type]: A comprehensive guide",
+          "The 4 phases of [condition] recovery - What to expect and when",
+          "How long does physical therapy take for [condition]? Here's the evidence-based answer"
+        ],
+        [
+          "Why the best outcomes happen when your PT and surgeon work together - A case study",
+          "What your doctor wants you to know about physical therapy (but doesn't have time to explain)",
+          "The collaborative care approach that's changing [condition] outcomes"
+        ],
+        [
+          "Dry needling vs. traditional PT: What the research shows about pain relief",
+          "How we use movement analysis technology to identify hidden compensations",
+          "Advanced manual therapy techniques you can't replicate at home (and why that matters)"
+        ],
+        [
+          "What happens 6 months after PT ends? Long-term outcome data you should know",
+          "Why preventive PT reduces surgery risk by [X]% - The research breakdown",
+          "The difference between temporary relief and permanent solutions: A data-driven analysis"
+        ],
+        [
+          "The future of physical therapy: How technology is improving patient outcomes",
+          "Why direct access to PT (no referral needed) improves healthcare outcomes and reduces costs",
+          "What the latest healthcare policy changes mean for your access to physical therapy"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: No objection - Pure authority building",
+        "Week 2: Subtly address 'How is this different from what I can Google?' by providing deeper analysis",
+        "Week 3: Address 'My doctor never mentioned physical therapy' by showing collaborative relationships",
+        "Week 4: Address 'Isn't it just stretching?' by explaining advanced techniques",
+        "Week 5: Address 'What if I need surgery anyway?' with long-term outcome data",
+        "Week 6: No objection - Thought leadership positioning"
+      ],
+      "proof_timing": [
+        "Week 1: Cite peer-reviewed research, clinical studies, and evidence-based guidelines",
+        "Week 2: Present detailed case studies with specific metrics and timelines",
+        "Week 3: Feature testimonials from referring physicians and collaborative care success stories",
+        "Week 4: Display advanced certifications, specialized training credentials, and technique mastery",
+        "Week 5: Share longitudinal outcome data, patient follow-up results, and success rate statistics",
+        "Week 6: Highlight industry speaking engagements, published articles, professional association leadership"
+      ],
+      "cta_progression": [
+        "Week 1: Download research summary PDF - Educational resource",
+        "Week 2: Read the full blog post for complete recovery protocol - Deep engagement",
+        "Week 3: Schedule consultation to discuss your collaborative care options - Soft conversion",
+        "Week 4: Book free assessment to see if you're a candidate for advanced techniques - Qualified lead",
+        "Week 5: Join our preventive care program waitlist - Future pipeline",
+        "Week 6: Follow for ongoing industry insights and research updates - Long-term relationship"
+      ],
+      "platform_priority": [
+        "Blog/Website (2 long-form posts/week 1500+ words) - SEO authority building, 127% traffic increase potential",
+        "LinkedIn (3 posts/week Tue-Thu 7-8am) - Professional audience, 1.5-2.2% engagement for thought leadership",
+        "YouTube (1 video/week 10-15 min) - Educational deep dives, 3.5-4.8% engagement for healthcare content",
+        "Email newsletter (1x/week with in-depth analysis) - 21-28% open rate for educational content",
+        "Instagram Carousels (2-3/week) - Multi-slide educational content, 3.8% engagement"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Therapeutic Associates' educational blog series success achieving 127% organic traffic increase and 3:45 average time on page by answering specific patient questions with in-depth, SEO-optimized content. Authority building requires heavy educational focus (70%) with curated industry insights (20%) and minimal self-promotion (10%) to establish genuine expertise and trust."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive pain point discovery - Polls, questions, and challenges that encourage audience participation and reveal their specific struggles",
+        "Week 2: Community success celebration - User-generated content featuring audience wins, shared experiences, and collective motivation"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop a 🙋 if you've ever said 'I'm too young to feel this old'",
+          "Comment your biggest physical limitation right now - I'll reply with one exercise that can help",
+          "Poll: What stops you from being as active as you want? A) Pain B) Time C) Don't know where to start D) Fear of injury",
+          "Fill in the blank: I would feel like my old self again if I could just _____ without pain",
+          "Quick quiz: Point to where you feel pain most often (comment: neck, back, knee, shoulder, hip)",
+          "What's one activity you've given up because of pain? Let's brainstorm solutions together"
+        ],
+        [
+          "Share your win! What movement felt easier this week? 🎉",
+          "Tag someone who inspires you to stay active despite challenges",
+          "Before/After: Show us your progress (flexibility, strength, pain-free activities) - Use #[ClinicName]Wins",
+          "What's the best PT advice you've ever received? Share below to help others",
+          "Challenge: Do [specific stretch] right now and comment how it feels - I'm doing it with you!",
+          "Celebrate with us: Share one thing your body can do today that it couldn't do last month"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Surface objections through questions - 'What's your biggest hesitation about trying PT?'",
+        "Week 2: Address revealed objections through community responses - 'Great question! Here's why...'"
+      ],
+      "proof_timing": [
+        "Week 1: Share quick win stories in responses to build hope ('Sarah had the same issue and here's what worked')",
+        "Week 2: Feature user-generated content and community testimonials as social proof"
+      ],
+      "cta_progression": [
+        "Week 1 (early): Answer this poll - Maximum low-barrier engagement",
+        "Week 1 (mid): Comment your specific situation for personalized advice - Building individual connections",
+        "Week 1 (late): Save this post and tag someone who needs to see it - Amplification",
+        "Week 2 (early): Share your progress using #[Hashtag] - User-generated content",
+        "Week 2 (mid): Join our free community challenge starting Monday - List building",
+        "Week 2 (late): DM me to schedule your personalized assessment - Conversion from engaged audience"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 per day) - Polls, questions, quizzes for maximum interaction, daily engagement",
+        "Instagram Feed (1-2 posts/day) - Conversation starters with strong comment prompts, 2.8-3.5% engagement",
+        "Facebook Groups/Comments (Active response all week) - Community building, 1.2-1.8% engagement but higher conversion",
+        "TikTok (3-5 posts/week) - Duet/Stitch opportunities, challenges, 5.7-8.2% engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on social media engagement benchmarks showing Instagram Reels achieving 5.2% engagement and the success of interactive content formats. Select Physical Therapy's Google Business Profile strategy of frequent patient testimonials and condition-specific tips generated 34% increase in actions. Engagement campaigns require authentic, personal content (5-3-2 ratio) with heavy emphasis on two-way conversation rather than broadcasting."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The #1 Mistake Employers Make With Workers Comp Claims (And How to Fix It)\n\nProblem: Most companies wait until an injury becomes severe before involving PT. Result? 3x longer recovery times and 400% higher costs.\n\nAgitation: Your employee is out for 12 weeks instead of 4. You're paying premium workers comp rates. Productivity tanks. Morale suffers.\n\nSolution: Early PT intervention within 48 hours of injury reduces recovery time by 50% and saves an average of $[AMOUNT] per claim.\n\nOur [COMPANY] protocol:\n→ Same-day injury assessments\n→ Customized return-to-work programs\n→ On-site ergonomic evaluations\n→ Direct insurance coordination\n\nFree resource: Download our Workplace Injury Prevention Checklist\n[LINK]\n\nWhat's your biggest challenge with workplace injuries? #PhysicalTherapy #WorkersComp #EmployeeWellness #OccupationalHealth",
+        "framework": "PAS",
+        "char_count": 847
+      },
+      "authority": {
+        "template": "Why Everyone Over 50 Should See a Physical Therapist (Even If Nothing Hurts)\n\nAttention: Preventive PT isn't just smart—it's essential. New research shows pre-emptive intervention reduces fall risk by 67% and prevents 80% of age-related mobility decline.\n\nInterest: At [COMPANY], we've analyzed [NUMBER] patients over 5 years. Those who started preventive PT at 50 maintained:\n• 85% better balance scores at age 70\n• 3x higher activity levels\n• 90% lower surgery rates\n• Independent living 12 years longer on average\n\nDesire: Imagine staying active, independent, and pain-free well into your 80s. Not hoping for it—engineering it.\n\nAction: We're offering complimentary Movement Health Assessments this month for adults 50+. [NUMBER] spots available.\n\nBook yours: [LINK]\n\nThought: Should preventive PT be covered like annual physicals? #HealthcareInnovation #PreventiveCare #PhysicalTherapy #HealthyAging",
+        "framework": "AIDA",
+        "char_count": 943
+      },
+      "promotional": {
+        "template": "From Facing Knee Replacement to Running Her First 5K at 62\n\nBefore: [PATIENT NAME] couldn't walk to her mailbox without severe pain. Her orthopedic surgeon scheduled knee replacement for 8 weeks out.\n\nAfter: She postponed surgery indefinitely and just completed a 5K. No surgery. No pills. Just evidence-based PT.\n\nBridge: The difference? Our [PROPRIETARY METHOD] protocol combining:\n→ Advanced manual therapy techniques\n→ Personalized strength progression\n→ Neuromuscular re-education\n→ Pain science education\n\n[PATIENT NAME] isn't unique. We help [NUMBER]% of surgical candidates avoid or delay procedures through conservative care.\n\nSpecial offer for LinkedIn connections: Complimentary Surgical Alternative Consultation (normally $[AMOUNT])\n\nQualify if you:\n✓ Have been told you need surgery\n✓ Want to explore all options first\n✓ Are committed to active participation\n\nClaim your spot: [LINK]\n\n#PhysicalTherapy #SurgeryAlternative #PainRelief #PatientSuccess",
+        "framework": "BAB",
+        "char_count": 1021
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Do This One Stretch Before Bed to Wake Up Without Back Pain 🛌➡️💪\n\nThe 90-Second Hip Flexor Release that changed everything for [NUMBER] of our patients:\n\n[SWIPE for step-by-step]\n\n👉 Why it works: Tight hip flexors pull your pelvis forward, creating lower back compression while you sleep. This targeted stretch releases tension at the source.\n\n✨ Results our patients report:\n• Waking up pain-free (within 3-7 days)\n• Easier mornings getting out of bed\n• Better sleep quality\n• Reduced stiffness\n\nTry it tonight and DM me your results tomorrow! 📩\n\nSave this for your bedtime routine 🔖\n\n#BackPainRelief #PhysicalTherapy #PainFree #MobilityMatters #StretchingRoutine #ChronicPainRelief",
+        "visual": "CAROUSEL: Slide 1: Person in bed with back pain (relatable) with text overlay '1 Stretch = Pain-Free Mornings'. Slides 2-5: Step-by-step photos of hip flexor stretch with numbered instructions and duration. Slide 6: Before/After split screen with testimonial quote. Clean, bright aesthetic with consistent branding colors.",
+        "framework": "PAS",
+        "hashtags": "#PhysicalTherapy #BackPain #PainRelief #Stretching #MobilityWork #ChronicPain #BackPainRelief #HealthyLiving #WellnessJourney #PainFreeLife #PhysicalTherapist #PTLife #MovementIsMedicine #FunctionalMovement #PainManagement #HipFlexors #MorningRoutine #SleepBetter #HealthTips #WellnessTips"
+      },
+      "authority": {
+        "caption": "What Your Doctor Didn't Tell You About Healing Chronic Pain 🩺❌\n\nAfter treating [NUMBER]+ chronic pain patients, here's what I've learned:\n\nPain ≠ Damage\n\nYour MRI might show:\n• Bulging discs\n• Arthritis\n• Degeneration\n\nBut studies prove 64% of pain-free people have the SAME findings.\n\nThe real issue? Your nervous system is stuck in threat mode.\n\nOur approach:\n✅ Pain science education\n✅ Graded movement exposure\n✅ Nervous system regulation\n✅ Functional strength building\n\nNot just exercises. Not just stretching. Complete nervous system retraining.\n\nResult: [NUMBER]% of our chronic pain patients reduce pain by 70%+ in 8-12 weeks.\n\nDrop a 💡 if this changed how you think about pain.\n\nWant to learn more? Link in bio for our free Chronic Pain Recovery Guide.\n\n#ChronicPainWarrior #PainScience #PhysicalTherapy #PainEducation #ChronicPainRelief",
+        "visual": "REEL: Split screen showing MRI images on one side (labeled 'What doctors see') and person moving pain-free on other side (labeled 'What actually matters'). Text overlays explaining pain science concepts. Transitions between patient testimonials. Ends with CTA slide. Professional but accessible aesthetic.",
+        "framework": "AIDA",
+        "hashtags": "#ChronicPain #PainScience #PhysicalTherapy #PainRelief #ChronicIllness #InvisibleIllness #PainManagement #ChronicPainRelief #FibroWarrior #BackPain #NeckPain #PainFree #HealingJourney #PhysicalTherapist #PTEducation #PainAwareness #ChronicPainSupport #PainFreeLife #MovementMedicine #NervousSystemHealing"
+      },
+      "promotional": {
+        "caption": "SURGERY AVOIDANCE SUCCESS 🎉\n\nMeet [NAME], told she needed shoulder surgery in 6 weeks.\n\nToday? Back to CrossFit, pain-free, surgery cancelled.\n\nHer transformation:\n📅 Week 1: Couldn't lift arm above shoulder\n📅 Week 4: Reaching overhead without pain\n📅 Week 8: Full range of motion restored\n📅 Week 12: First pull-up in 2 years\n\nNo surgery. No cortisone shots. Just targeted PT.\n\n💬 \"I was terrified of surgery. [COMPANY] gave me hope and a plan. Best decision I ever made.\" - [NAME]\n\nFacing surgery? Let's explore your options first.\n\n🎁 LIMITED OFFER: Free Surgical Alternative Consultation\n[NUMBER] spots left this month\n\nDM 'CONSULT' or click link in bio to claim yours.\n\nTag someone who needs to see this 👇\n\n#SurgeryAvoidance #ShoulderPain #PhysicalTherapy #PainRelief #PatientSuccess #CrossFit #FitnessRecovery",
+        "visual": "BEFORE/AFTER POST: Side-by-side images. Left: Patient in sling, looking frustrated. Right: Patient doing pull-up, smiling. Middle overlay: '12 Weeks | No Surgery | Full Recovery'. Bottom: Branded timeline graphic showing weekly progress. Include patient testimonial quote as text overlay. Authentic, real patient photos (with permission).",
+        "framework": "BAB",
+        "hashtags": "#PhysicalTherapy #SurgeryAvoidance #ShoulderPain #PainRelief #PatientSuccess #RecoveryJourney #CrossFitRecovery #InjuryRecovery #ShoulderInjury #RotatorCuff #PainFree #NoSurgery #ConservativeCare #PhysicalTherapist #InjuryPrevention #StrengthTraining #FunctionalFitness #AthleteRecovery #SportsRehab #TransformationTuesday"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🎯 MYTH BUSTER: \"Rest is Best for Back Pain\" ❌\n\nI see this mistake DAILY, and it's costing people months of unnecessary suffering.\n\nThe Truth: Prolonged rest actually DELAYS recovery and can make pain worse.\n\nHere's what research shows:\n✅ Early movement reduces recovery time by 50%\n✅ Staying active prevents muscle deconditioning\n✅ Gentle exercise reduces pain faster than bed rest\n✅ Movement helps your nervous system understand you're safe\n\nThe 3 Movements That Help Most Back Pain:\n\n1️⃣ CAT-COW STRETCH (2 minutes)\n   → Restores spinal mobility\n   → Reduces morning stiffness\n   → Safe for most back conditions\n\n2️⃣ BIRD DOG EXERCISE (3 sets of 10)\n   → Builds core stability\n   → Protects spine during daily activities\n   → Improves balance and coordination\n\n3️⃣ WALKING (15-20 minutes)\n   → Low-impact cardiovascular benefit\n   → Natural pain relief through endorphins\n   → Maintains hip and leg strength\n\nIMPORTANT: Start gentle. Pain should not increase during or after. If it does, you need professional guidance.\n\n💙 At [COMPANY], we create personalized movement plans that work WITH your body, not against it.\n\nFREE RESOURCE: Comment \"BACK\" below and I'll send you our Complete Back Pain Recovery Guide with video demonstrations of all 3 exercises.\n\nShare this with someone who's been told to \"just rest\" their back pain! They'll thank you. 🙏\n\n#BackPainRelief #PhysicalTherapy #PainFree #BackPain #ChronicPain #MovementIsMedicine",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Why Everyone Over 50 Should See a Physical Therapist (Even If Nothing Hurts) 🤔\n\nControversial opinion? Maybe. But hear me out...\n\nI've been a physical therapist for [NUMBER] years, and I've noticed something heartbreaking:\n\nMost people wait until they LOSE their mobility before trying to save it.\n\nBy then, recovery is 10x harder and takes 3x longer.\n\nThink about it:\n→ You get annual physicals to catch problems early\n→ You get dental cleanings to prevent cavities\n→ You get eye exams before you go blind\n\nSo why wait until you CAN'T climb stairs to address your movement health?\n\nThe Data Doesn't Lie:\n📊 Falls are the leading cause of injury death in adults 65+\n📊 1 in 3 seniors falls each year\n📊 50% of people who break a hip never regain full independence\n📊 BUT: Preventive PT reduces fall risk by 67%\n\nWhat Preventive PT Looks Like:\n✓ Balance assessment and training\n✓ Strength screening and progression\n✓ Flexibility and mobility optimization\n✓ Posture and movement pattern correction\n✓ Personalized home exercise program\n\nReal Story: [PATIENT NAME], age 58, came in for \"prevention.\" Our assessment found significant balance deficits she didn't even notice. 12 weeks later, she's hiking trails she thought were behind her.\n\nShe didn't wait for a fall. She invested in her future mobility.\n\n🎁 SPECIAL OFFER FOR OUR COMMUNITY:\nComplimentary Movement Health Assessments for adults 50+ this month only.\n\nWe'll evaluate:\n• Balance and fall risk\n• Strength and flexibility\n• Movement quality\n• Injury risk factors\n\nNo obligation. Just information to make empowered decisions about your health.\n\nInterested? Call us at [PHONE] or visit [WEBSITE]\n\nLimited to [NUMBER] assessments. Book by [DATE].\n\nQuestion for the group: At what age did you start thinking about \"maintaining\" your health instead of just \"fixing\" problems? I'm curious! 👇\n\n#HealthyAging #PhysicalTherapy #FallPrevention #SeniorHealth #PreventiveCare #ActiveAging",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "\"I Avoided Knee Replacement Surgery Using These 4 Simple Movements\" 🙌\n\nBEFORE:\nMary, 62, couldn't walk to her mailbox without shooting knee pain. Her orthopedic surgeon scheduled knee replacement for 8 weeks out. She was terrified but felt she had no choice.\n\n\"I couldn't even tie my own shoes. I thought my active life was over,\" Mary told us at her first appointment.\n\nAFTER:\nMary postponed her surgery indefinitely. Last month, she completed her first 5K. This weekend, she's hiking with her grandkids.\n\nNo surgery. No pills. Just strategic, evidence-based physical therapy.\n\nTHE BRIDGE:\nWhat changed everything? Our [PROPRIETARY METHOD] protocol.\n\nWe didn't just give her exercises. We addressed:\n✅ The ROOT CAUSE of her knee pain (weak hips, not the knee itself)\n✅ Movement patterns that were damaging her joint\n✅ Muscle imbalances creating uneven pressure\n✅ Her nervous system's pain response\n\nThe 4 Movements That Saved Mary's Knee:\n1. Hip Strengthening Protocol\n2. Knee Tracking Correction\n3. Balance and Proprioception Training\n4. Gradual Load Progression\n\nHer Results:\n📅 Week 2: Walking without limping\n📅 Week 4: Stairs without holding the railing\n📅 Week 8: Pain reduced by 80%\n📅 Week 12: Back to gardening and hiking\n\n💬 \"I tell everyone: try PT before surgery. [COMPANY] literally gave me my life back. I'm doing things I couldn't do 5 years ago.\" - Mary S.\n\nMary isn't special. She's one of [NUMBER] patients we've helped avoid or delay surgery this year alone.\n\n🎯 FACING KNEE SURGERY?\nLet's explore all your options first.\n\nWe're offering COMPLIMENTARY Surgical Alternative Consultations (normally $[AMOUNT]) to [NUMBER] people this month.\n\nYou qualify if:\n✓ You've been told you need knee surgery\n✓ You want to explore conservative options first\n✓ You're willing to commit to the process\n✓ You have [INSURANCE TYPES] or self-pay\n\nWhat you'll get:\n→ Comprehensive movement assessment\n→ Honest evaluation of your surgical alternatives\n→ Personalized treatment plan\n→ No-pressure, educational consultation\n\nWe'll tell you the truth: whether PT can help or if surgery is your best option.\n\n📞 Call [PHONE] and mention \"Knee Surgery Alternative\"\n🌐 Or book online: [WEBSITE]\n\n⏰ Only [NUMBER] spots available. Must book by [DATE].\n\nTag someone who's facing knee surgery! This could change their life. 👇\n\n#KneePain #SurgeryAvoidance #PhysicalTherapy #KneeReplacement #PainRelief #PatientSuccess #ConservativeCare",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your physical therapist finally tells you the REAL reason your back hurts (it's not what you think)",
+        "script": "HOOK (0-3 sec): [Direct to camera, casual setting] \"Your back doesn't hurt because of your back...\"\n\nPROBLEM (3-15 sec): [Show common positions: sitting at desk, looking at phone] \"You've been treating the wrong thing. That's why nothing works.\"\n\nEDUCATION (15-40 sec): [Demonstrate on camera] \"Your back pain? It's actually your HIPS. Watch this test: [Show hip mobility test]. See how tight? That pulls your pelvis forward, compressing your lower back.\"\n\n[Text overlay: \"90% of back pain starts in the hips\"]\n\nSOLUTION (40-55 sec): [Quick demo] \"This 90-second hip stretch before bed: [Demonstrate]. Do it tonight.\"\n\nCTA (55-60 sec): \"Try it and comment your results tomorrow. Follow for more pain hacks. #BackPain #PhysicalTherapy #PainRelief\"\n\n[Text overlays throughout: \"Not medical advice\" \"Consult your PT\" \"Results vary\"]",
+        "framework": "PAS",
+        "visual_notes": "Casual, authentic setting (not clinical). Direct eye contact. Quick cuts. Trending audio in background. Text overlays for key points. Use CapCut-style transitions."
+      },
+      "authority": {
+        "hook": "Doctor told you that you need surgery? Watch this first (I'm a PT and this is what we actually see)",
+        "script": "HOOK (0-3 sec): [Hold up MRI image] \"See this? Your doctor says you need surgery...\"\n\nATTENTION (3-12 sec): [Flip to different MRI] \"This person? Zero pain. Same exact MRI findings. Confused?\"\n\nINTEREST (12-35 sec): [Explain with graphics] \"Here's what they don't tell you: 64% of people with NO PAIN have bulging discs, arthritis, degeneration on their MRIs. Your MRI doesn't predict your pain.\"\n\n[Text overlay: \"Pain ≠ Damage\"]\n\n\"What actually matters: How your nervous system responds. How you move. Your strength. Your beliefs about the pain.\"\n\nDESIRE (35-50 sec): [Show patient transformation clip] \"This is [NAME]. Told she needed surgery. 12 weeks of PT later? Cancelled it. Running pain-free.\"\n\nACTION (50-60 sec): \"Before you book that surgery, try PT. Link in bio for free consult. Your future self will thank you.\"\n\n[End screen: \"Not medical advice - Consult your provider\"]",
+        "framework": "AIDA",
+        "visual_notes": "Start with attention-grabbing visual (MRI). Use split-screen comparisons. Include real patient footage (with permission). Professional but conversational tone. Trending sound low in background."
+      },
+      "promotional": {
+        "hook": "She cancelled her knee surgery after learning these 4 movements (her doctor was shocked)",
+        "script": "HOOK (0-3 sec): [Show before clip of patient limping] \"She could barely walk. Surgery scheduled in 6 weeks...\"\n\nBEFORE (3-15 sec): [Patient testimonial clip] \"I couldn't tie my shoes. Couldn't play with my grandkids. I was terrified of surgery but felt I had no choice.\"\n\nAFTER (15-25 sec): [Show after clip: patient doing squats, walking] \"12 weeks later: Surgery cancelled. Back to hiking. Zero pain.\"\n\nBRIDGE (25-45 sec): [Quick cuts of 4 exercises] \"These 4 movements changed everything:\n1. Hip strengthening [quick demo]\n2. Knee tracking [quick demo]\n3. Balance training [quick demo]\n4. Load progression [quick demo]\n\nWe didn't just treat her knee. We fixed the ROOT CAUSE.\"\n\n[Text overlay: \"Works for 78% of surgical candidates\"]\n\nCTA (45-60 sec): [Direct to camera] \"Facing surgery? We have [NUMBER] free consultations left this month. Link in bio. Let's explore your options first.\"\n\n[End screen: \"Results vary - Not guaranteed - Consult your provider\"]",
+        "framework": "BAB",
+        "visual_notes": "Start with compelling before footage. Use authentic patient videos (with permission). Quick exercise demos (2-3 seconds each). Emotional music. Text overlays for key stats. End with clear CTA screen."
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The #1 mistake making your back pain worse (and how to fix it)",
+        "preview_text": "Hint: Your doctor probably told you to do this...",
+        "body": "Hi [FIRST_NAME],\n\nIf you're dealing with back pain, you've probably heard this advice:\n\n\"Just rest. Take it easy. Avoid movement.\"\n\nHere's the problem: That advice is making you worse.\n\nPROBLEM:\nProlonged rest leads to:\n• Muscle deconditioning (weakness)\n• Increased stiffness\n• Longer recovery times\n• Higher chance of chronic pain\n• More fear around movement\n\nResearch shows people who rest for back pain take 50% LONGER to recover than those who stay gently active.\n\nAGITATION:\nEvery day you rest is another day of:\n→ Lost strength\n→ Increased stiffness\n→ Your nervous system learning that movement = danger\n→ Your pain becoming more chronic\n\nSOLUTION:\nThe 3 movements that help most back pain (even when it hurts):\n\n1. CAT-COW STRETCH (2 minutes, 3x daily)\n   [LINK to video demonstration]\n   Why it works: Gentle spinal mobility without load\n\n2. BIRD DOG (3 sets of 10, daily)\n   [LINK to video demonstration]\n   Why it works: Builds core stability that protects your back\n\n3. WALKING (15-20 minutes, daily)\n   [LINK to guide]\n   Why it works: Low-impact movement that reduces pain naturally\n\nIMPORTANT: Start gentle. Pain should not increase during or after.\n\nWant a personalized plan?\n\nWe're offering [NUMBER] complimentary Back Pain Assessments this week.\n\nYou'll get:\n✓ Root cause analysis of YOUR specific pain\n✓ Personalized movement plan\n✓ Video demonstrations for home\n✓ Direct access to our PT team\n\n[CTA BUTTON: Claim Your Free Assessment]\n\nOnly [NUMBER] spots left.\n\nTo your recovery,\n[THERAPIST NAME], PT, DPT\n[COMPANY NAME]\n\nP.S. Still resting? Every day matters. Book your assessment now: [LINK]",
+        "framework": "PAS",
+        "segmentation": "People who downloaded back pain content, visited back pain pages, or indicated back pain in intake forms"
+      },
+      "authority": {
+        "subject": "Why I tell my patients over 50 to come BEFORE they have pain",
+        "preview_text": "Preventive PT could add 10+ years of independence...",
+        "body": "Hi [FIRST_NAME],\n\nControversial opinion from a physical therapist:\n\nIf you're over 50, you should see me even if nothing hurts.\n\nLet me explain why...\n\nATTENTION:\nWe treat movement health like crisis management:\n→ Wait for the fall\n→ Wait for the injury\n→ Wait until you CAN'T do something\n\nThen try to fix it.\n\nBut what if we prevented it instead?\n\nINTEREST:\nThe data is clear:\n• Falls are the #1 cause of injury death in adults 65+\n• 1 in 3 seniors falls each year\n• 50% who break a hip never regain independence\n\nBUT:\n• Preventive PT reduces fall risk by 67%\n• Maintains strength 3x better than reactive treatment\n• Adds an average of 12 years of independent living\n\nDESIRE:\nImagine being 75 and still:\n✓ Hiking with grandkids\n✓ Traveling independently\n✓ Living in your own home\n✓ Playing the sports you love\n\nNot hoping for it. Engineering it.\n\nThat's what preventive PT does.\n\nWhat You'll Get:\nOur Movement Health Assessment evaluates:\n→ Fall risk factors\n→ Balance and stability\n→ Strength benchmarks\n→ Flexibility and mobility\n→ Movement quality\n→ Injury risk\n\nThen we create a personalized plan to maintain (or improve) your independence for decades.\n\nACTION:\nThis month only: Complimentary Movement Health Assessments for adults 50+\n\n[CTA BUTTON: Book Your Free Assessment]\n\nLimited to [NUMBER] assessments.\nMust book by [DATE].\n\nNo obligation. Just information to make empowered decisions about your future.\n\nYour 75-year-old self will thank you.\n\n[THERAPIST NAME], PT, DPT\n[COMPANY NAME]\n[PHONE] | [WEBSITE]\n\nP.S. Know someone over 50 who should read this? Forward this email. Prevention is the best gift you can give.",
+        "framework": "AIDA",
+        "segmentation": "Subscribers 50+, people who engaged with aging/senior content, or general newsletter list"
+      },
+      "promotional": {
+        "subject": "She avoided knee surgery with 4 simple movements (real patient story)",
+        "preview_text": "From surgical candidate to 5K finisher in 12 weeks...",
+        "body": "Hi [FIRST_NAME],\n\nMary's orthopedic surgeon scheduled her knee replacement for 8 weeks out.\n\nShe was 62, couldn't walk to her mailbox, and felt she had no choice.\n\nBEFORE:\n\"I couldn't tie my own shoes without shooting pain. I thought my active life was over. Surgery terrified me, but what else could I do?\"\n\nThat's when she called us for a second opinion.\n\nAFTER:\n12 weeks later:\n✓ Surgery postponed indefinitely\n✓ Completed her first 5K\n✓ Hiking with grandkids\n✓ Zero pain medication\n✓ Full return to gardening\n\n\"I tell everyone: try PT before surgery. [COMPANY] literally gave me my life back.\"\n\nTHE BRIDGE:\nWhat changed?\n\nWe didn't just treat her knee. We found the ROOT CAUSE:\n→ Weak hips creating uneven knee pressure\n→ Movement patterns damaging her joint\n→ Muscle imbalances\n→ Nervous system stuck in pain mode\n\nOur [PROPRIETARY METHOD] protocol addressed all of it.\n\nThe result? No surgery needed.\n\nMary isn't unique. We've helped [NUMBER]% of surgical candidates avoid or delay procedures this year.\n\nARE YOU FACING SURGERY?\n\nKnee, hip, shoulder, back—whatever it is, you deserve to know ALL your options before going under the knife.\n\nWe're offering [NUMBER] Complimentary Surgical Alternative Consultations this month (normally $[AMOUNT]).\n\nYou'll get:\n✓ Comprehensive movement assessment\n✓ Honest evaluation: Can PT help YOU specifically?\n✓ Personalized treatment plan\n✓ No pressure, just education\n\nWe'll tell you the truth—whether conservative care can help or if surgery is your best path.\n\n[CTA BUTTON: Claim Your Free Consultation]\n\nOnly [NUMBER] spots available.\nMust book by [DATE].\n\nQualify if you:\n→ Have been told you need surgery\n→ Want to explore all options first\n→ Are willing to commit to the process\n\nYour future mobility is worth 60 minutes of your time.\n\n[THERAPIST NAME], PT, DPT\n[COMPANY NAME]\n[PHONE] | [WEBSITE]\n\nP.S. Surgery is sometimes necessary. But shouldn't you try everything else first? Book your consultation: [LINK]",
+        "framework": "BAB",
+        "segmentation": "People who indicated surgical consultation, downloaded surgery-related content, or expressed interest in surgery alternatives"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "5 Movements That Helped [Patient Name] Avoid [Surgery Type] Surgery in [X] Weeks",
+      "[X] Exercises to Eliminate [Pain Location] Pain Before Your Insurance Authorization Expires",
+      "3 Stretches That Got [Patient] Back to [Activity] in [X] Days (After Doctors Said It Was Impossible)"
+    ],
+    "question_hooks": [
+      "Are You Missing [Important Life Event] Because [Pain Location] Pain Won't Let You Sit That Long?",
+      "Is [Pain Location] Pain Keeping You Up All Night and Making You Dependent on Pills?",
+      "Are You Afraid You'll Lose Your Job Because [Injury Type] Won't Let You Return to Work?"
+    ],
+    "story_hooks": [
+      "How [Patient Name] Went From Unable to Tie Shoes to Running a 5K in [X] Weeks",
+      "From Every Step Feeling Like Knives to Walking the Dog Pain-Free: [Patient]'s [Injury] Recovery",
+      "How [Age]-Year-Old [Patient] Avoided [Surgery Type] and Started Picking Up Grandkids Again"
+    ],
+    "fear_hooks": [
+      "Is Your [Body Part] Injury Putting Your Return-to-Work Deadline at Risk?",
+      "Are You One Fall Away From Losing Your Independence Like [X]% of [Age Group] Adults?",
+      "Is Delaying Post-Surgical PT Making Your [Surgery Type] Recovery Permanently Incomplete?"
+    ],
+    "howto_hooks": [
+      "How to Get Back to [Sport/Activity] Without Risking Re-Injury to Your [Body Part]",
+      "How to Heal [Injury Type] Without Surgery (Even When Your Doctor Says It's Your Only Option)",
+      "How to Document Your [Injury] Recovery for Workers' Comp While Actually Getting Better"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your doctor said surgery is your only option",
+      "body": "Show patient doing simple desk work, wincing in pain [0-5s]. Cut to PT assessment, therapist identifying root cause [6-15s]. Time-lapse montage: Week 1 struggling with basic exercises, Week 4 doing moderate movements pain-free, Week 8 playing with kids/returning to sport [16-45s]. Text overlay: '73% of our knee patients avoid surgery' [46-50s]. Final shot: same patient from opening now moving freely, smiling [51-57s].",
+      "cta": "Link in bio - free pain assessment, no referral needed"
+    },
+    "reels": {
+      "hook": "This 90-second fix saved my knees",
+      "body": "Demonstrate hip flexor stretch for desk workers. Split screen: left shows wrong form (common mistakes), right shows correct technique [0-15s]. Text: 'Do this before AND after sitting' [16-20s]. Show person doing stretch, then walking pain-free [21-27s].",
+      "cta": "Save this + follow for daily pain hacks"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second before/after showing one movement you couldn't do when you started PT vs. now. Caption: 'Week 1 vs Week [X] at [Clinic Name]' - genuine reactions only!",
+      "hashtag": "#PTworks"
+    },
+    {
+      "prompt": "Show us your PT homework setup at home. What's the one exercise that's made the biggest difference? Bonus: demonstrate it!",
+      "hashtag": "#PainFreeLife"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Debunk common pain myths with surprising truths - '5 Things Your Doctor Got Wrong About Back Pain' featuring research-backed corrections to common medical advice",
+      "why": "Controversy + authority + validates patient frustration with traditional medicine. Highly shareable because it challenges established beliefs with credible alternative"
+    },
+    {
+      "angle": "Remote worker ergonomic setup reviews - 'Rate My WFH Setup' series where PT critiques real followers' home offices and suggests $0-cost fixes using household items",
+      "why": "Interactive, personalized, timely to remote work trend. Encourages submissions and tagging. Provides immediate actionable value that viewers want to share with coworkers"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:31:16.592Z",
+    "last_tier2_refresh": "2025-11-27T20:31:16.592Z",
+    "last_tier3_refresh": "2025-11-27T20:31:16.592Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:31:16.592Z"
+  }
+}

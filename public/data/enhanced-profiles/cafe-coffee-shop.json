@@ -1,0 +1,1734 @@
+{
+  "industry": "Cafe/Coffee Shop",
+  "industry_name": "Cafe/Coffee Shop",
+  "naics_code": "722515",
+  "category": "Food Service",
+  "subcategory": "Snack and Nonalcoholic Beverage Bars",
+  "customer_triggers": [
+    {
+      "trigger": "Morning routine coffee need (6-9am)",
+      "urgency": 10,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Afternoon energy slump (2-4pm)",
+      "urgency": 8,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Remote work location seeking",
+      "urgency": 6,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Social meeting arrangement",
+      "urgency": 5,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Weekend leisure treat",
+      "urgency": 4,
+      "frequency": "Weekly"
+    },
+    {
+      "trigger": "Study session location need",
+      "urgency": 7,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Business meeting neutral venue",
+      "urgency": 8,
+      "frequency": "Bi-weekly"
+    },
+    {
+      "trigger": "Pre-commute ritual",
+      "urgency": 9,
+      "frequency": "Daily"
+    },
+    {
+      "trigger": "Post-gym reward",
+      "urgency": 6,
+      "frequency": "3-4 times weekly"
+    },
+    {
+      "trigger": "Date location selection",
+      "urgency": 7,
+      "frequency": "Monthly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customer identifies need for caffeine, workspace, or social venue through habitual patterns, sees shop during commute, or receives targeted mobile notifications based on past behavior and location within 0.5-mile radius",
+    "consideration": "Evaluates 2-3 nearby options based on wait time (under 5 minutes), ambiance, WiFi quality, seating availability, specialty drink menu, and price point ($4-7 per drink) within 45-second decision window",
+    "decision": "Orders through preferred method (mobile 38%, in-store 55%, drive-thru 7%) influenced by loyalty status, current promotions, and time availability with average decision-to-purchase time of 2 minutes",
+    "retention": "Returns within 3-4 days driven by loyalty rewards (stars/points), consistent quality, barista relationships, and workspace amenities with average customer lifetime value of $1,248 annually",
+    "advocacy": "Shares aesthetic drink photos on Instagram (34% of millennials), recommends as meeting spot (67% word-of-mouth referrals), leaves reviews after exceptional or poor service (22% review rate)"
+  },
+  "transformations": [
+    {
+      "from": "Groggy and unmotivated morning",
+      "to": "Energized and ready to tackle the day",
+      "emotional_value": "Empowerment and ritual completion",
+      "worth_premium": true
+    },
+    {
+      "from": "Needing productive workspace",
+      "to": "Focused and accomplishing tasks",
+      "emotional_value": "Professional achievement",
+      "worth_premium": true
+    },
+    {
+      "from": "Seeking social connection",
+      "to": "Meaningful conversation in comfortable setting",
+      "emotional_value": "Belonging and community",
+      "worth_premium": true
+    },
+    {
+      "from": "Afternoon fatigue",
+      "to": "Renewed energy and focus",
+      "emotional_value": "Productivity rescue",
+      "worth_premium": false
+    },
+    {
+      "from": "Craving indulgence",
+      "to": "Satisfied with specialty treat",
+      "emotional_value": "Self-care and reward",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed and overwhelmed",
+      "to": "Calm moment of respite",
+      "emotional_value": "Mental health break",
+      "worth_premium": true
+    },
+    {
+      "from": "Boring routine",
+      "to": "Exciting seasonal discovery",
+      "emotional_value": "Novelty and adventure",
+      "worth_premium": true
+    },
+    {
+      "from": "Home isolation",
+      "to": "Part of vibrant community",
+      "emotional_value": "Social integration",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average drink preparation under 3 minutes",
+      "timeframe": "Per transaction",
+      "measurable": true
+    },
+    {
+      "metric": "Customer retention rate above 68%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Average ticket size above $8.50",
+      "timeframe": "Daily",
+      "measurable": true
+    },
+    {
+      "metric": "Loyalty member percentage above 45%",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Peak hour throughput of 80+ transactions",
+      "timeframe": "Hourly",
+      "measurable": true
+    },
+    {
+      "metric": "Food attachment rate above 35%",
+      "timeframe": "Weekly",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction score above 4.5/5",
+      "timeframe": "Monthly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Morning commute window 7-9am captures 42% of daily revenue in 2-hour period",
+    "Limited batch specialty drinks sell out creating FOMO and 67% faster purchase decisions",
+    "Happy hour pricing 2-5pm drives 38% increase in afternoon traffic",
+    "Seasonal drinks available for 6-8 weeks create 52% purchase urgency",
+    "Mobile order rewards expiring in 7 days achieve 78% redemption rate",
+    "Daily fresh-baked goods sellout by 2pm drives morning visit patterns",
+    "Weekend morning rush 9-11am for leisure customers creates 25-minute wait times"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Coffee is too expensive",
+      "response": "Highlight daily ritual value at less than $0.20 per minute of enjoyment, loyalty program savings of 10%, and free refills on drip coffee",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "Can make coffee at home",
+      "response": "Emphasize expertise of trained baristas, specialty equipment creating impossible-to-replicate drinks, and third place experience value",
+      "effectiveness": 6.9
+    },
+    {
+      "objection": "Too crowded and noisy",
+      "response": "Promote off-peak hours, quiet zones, mobile ordering for skip-the-line, and alternative locations",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Not enough food options",
+      "response": "Showcase expanded menu with fresh, local, dietary-conscious options and all-day breakfast items",
+      "effectiveness": 6.2
+    },
+    {
+      "objection": "Takes too long",
+      "response": "Feature mobile order-ahead, express pickup counter, and average 3-minute preparation time",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Inconsistent drink quality",
+      "response": "Highlight barista certification program, satisfaction guarantee, and standardized recipes with customization",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "No parking available",
+      "response": "Provide validated parking information, walkable locations map, and delivery options",
+      "effectiveness": 5.6
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Perfect drink guarantee or remake free",
+      "WiFi reliability promise for remote workers",
+      "Freshness guarantee on all baked goods",
+      "Temperature satisfaction or replacement"
+    ],
+    "proof_points": [
+      "4.6 star average from 15,000+ Google reviews",
+      "Certified barista training program",
+      "Locally roasted beans within 7 days",
+      "Winner of Best Coffee Shop 3 consecutive years"
+    ],
+    "risk_mitigation": "No-questions-asked drink remake policy, loyalty points compensation for any issue worth double the purchase price, manager authority to comp up to $25 instantly, dedicated customer service response within 2 hours"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "need my coffee",
+      "caffeine fix",
+      "dead tired",
+      "nowhere to work",
+      "meeting spot needed",
+      "treat myself",
+      "coffee run",
+      "pick-me-up",
+      "brain fog",
+      "coffee break"
+    ],
+    "solution_words": [
+      "perfect foam",
+      "just right",
+      "my usual",
+      "cozy spot",
+      "great WiFi",
+      "friendly baristas",
+      "best latte",
+      "quiet corner",
+      "morning ritual",
+      "afternoon boost"
+    ],
+    "avoid_jargon": [
+      "extraction time",
+      "crema quality",
+      "dosing",
+      "tamping pressure",
+      "brew ratio",
+      "cupping notes",
+      "third wave",
+      "dialing in",
+      "channeling",
+      "puck prep"
+    ]
+  },
+  "power_words": [
+    "artisan",
+    "handcrafted",
+    "locally-roasted",
+    "organic",
+    "fair-trade",
+    "small-batch",
+    "signature",
+    "velvety",
+    "rich",
+    "smooth",
+    "bold",
+    "aromatic",
+    "fresh-baked",
+    "house-made",
+    "seasonal",
+    "limited-edition",
+    "exclusive",
+    "customized",
+    "perfect",
+    "indulgent",
+    "creamy",
+    "specialty",
+    "award-winning",
+    "authentic",
+    "sustainable",
+    "ethically-sourced",
+    "barista-crafted",
+    "fresh",
+    "daily",
+    "gourmet"
+  ],
+  "avoid_words": [
+    "instant",
+    "powdered",
+    "artificial",
+    "mass-produced",
+    "corporate",
+    "generic",
+    "bitter",
+    "burnt",
+    "stale",
+    "lukewarm",
+    "watery",
+    "overpriced",
+    "pretentious",
+    "slow",
+    "inconsistent",
+    "acidic",
+    "weak",
+    "commercial",
+    "franchise",
+    "processed"
+  ],
+  "headline_templates": [
+    {
+      "template": "Your First [Seasonal Drink] is On Us!",
+      "expected_ctr": 11.2,
+      "use_case": "New customer acquisition"
+    },
+    {
+      "template": "Double Stars Every [Day] in [Month]",
+      "expected_ctr": 8.9,
+      "use_case": "Loyalty program engagement"
+    },
+    {
+      "template": "Introducing [New Drink]: Available for Limited Time",
+      "expected_ctr": 9.4,
+      "use_case": "Product launch"
+    },
+    {
+      "template": "Free Pastry with Any Coffee Before 10am",
+      "expected_ctr": 10.1,
+      "use_case": "Morning traffic drive"
+    },
+    {
+      "template": "Happy Hour: All Drinks 30% Off 2-5pm",
+      "expected_ctr": 12.3,
+      "use_case": "Afternoon promotion"
+    },
+    {
+      "template": "Earn a Free Drink with 3 Purchases This Week",
+      "expected_ctr": 8.2,
+      "use_case": "Frequency building"
+    },
+    {
+      "template": "New: Mobile Order & Skip the Line",
+      "expected_ctr": 7.8,
+      "use_case": "Digital adoption"
+    },
+    {
+      "template": "Weekend Special: BOGO Lattes All Day",
+      "expected_ctr": 13.5,
+      "use_case": "Weekend traffic"
+    },
+    {
+      "template": "Join Our Coffee Club: First Month 50% Off",
+      "expected_ctr": 9.7,
+      "use_case": "Subscription push"
+    },
+    {
+      "template": "Fresh-Baked [Item] Now Available Daily",
+      "expected_ctr": 6.9,
+      "use_case": "Food attachment"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Order Ahead",
+      "conversion_rate": 14.2,
+      "placement": "App homepage"
+    },
+    {
+      "template": "Join Rewards",
+      "conversion_rate": 11.8,
+      "placement": "Purchase confirmation"
+    },
+    {
+      "template": "Customize Your Drink",
+      "conversion_rate": 9.4,
+      "placement": "Menu page"
+    },
+    {
+      "template": "Claim Your Reward",
+      "conversion_rate": 18.3,
+      "placement": "Loyalty dashboard"
+    },
+    {
+      "template": "Try It Today",
+      "conversion_rate": 10.6,
+      "placement": "New item feature"
+    },
+    {
+      "template": "Save Your Favorite",
+      "conversion_rate": 8.9,
+      "placement": "Order history"
+    },
+    {
+      "template": "Find a Cafe",
+      "conversion_rate": 7.2,
+      "placement": "Location prompt"
+    },
+    {
+      "template": "Start Subscription",
+      "conversion_rate": 6.8,
+      "placement": "Frequent buyer prompt"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Coffee art that's almost too pretty to drink ☕ Show us your morning cup! #[Brand]Moment",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Facebook",
+      "template": "What's your go-to order? Comment below and we might feature it as next week's special!",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "RT if you can't start your day without coffee ☕ We're giving away free drinks to 5 lucky winners!",
+      "engagement_rate": 7.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "Barista creates latte art blindfolded challenge [dramatic music] Can you guess the design? #CoffeeArt",
+      "engagement_rate": 15.4
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Flash Sale: Screenshot this for 25% off your next drink! [2-hour timer] [aesthetic coffee photo]",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Day in the life of a barista: 5am opening routine [time-lapse of shop preparation]",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Our cafe is your office. How do you stay productive while working remotely? #RemoteWork #CoffeeShopOffice",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "Pinterest",
+      "template": "5 Secret Menu Drinks Your Barista Can Make [aesthetic infographic with recipes]",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Threads",
+      "template": "Unpopular opinion: Iced coffee is better than hot coffee year-round. Agree or disagree? ☕",
+      "engagement_rate": 5.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Expertly crafted beverages by certified baristas",
+      "rank": 1,
+      "differentiator": "Intensive 40-hour training program"
+    },
+    {
+      "prop": "Third place between work and home with free WiFi",
+      "rank": 2,
+      "differentiator": "Designed for 2-4 hour stays"
+    },
+    {
+      "prop": "Locally roasted beans supporting regional farmers",
+      "rank": 3,
+      "differentiator": "Direct trade relationships"
+    },
+    {
+      "prop": "Customizable drinks with 50+ modification options",
+      "rank": 4,
+      "differentiator": "No charge for most customizations"
+    },
+    {
+      "prop": "Loyalty program with 10% reward rate",
+      "rank": 5,
+      "differentiator": "Best return in category"
+    },
+    {
+      "prop": "Fresh-baked goods made daily on-site",
+      "rank": 6,
+      "differentiator": "Visible bakery operation"
+    },
+    {
+      "prop": "Mobile ordering saves average 7 minutes",
+      "rank": 7,
+      "differentiator": "Geofenced auto-start preparation"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience coffee as an art form with our master baristas crafting each cup from ethically-sourced, single-origin beans roasted locally within 72 hours, served in our thoughtfully designed spaces that inspire creativity and connection",
+    "budget_conscious": "Great coffee doesn't have to break the bank with our $2 daily drip, loyalty program that earns free drinks every 10 purchases, happy hour specials, and student discounts making quality coffee accessible to everyone",
+    "enterprise": "Transform your office coffee experience with our corporate catering services, including barista-staffed coffee bars, daily delivery subscriptions with 20% volume discounts, and customized blends that keep your team energized and engaged"
+  },
+  "trust_signals": [
+    {
+      "signal": "Specialty Coffee Association certification",
+      "importance": 8,
+      "format": "Displayed certificate"
+    },
+    {
+      "signal": "4.5+ star rating with 5,000+ reviews",
+      "importance": 9,
+      "format": "Review platform badges"
+    },
+    {
+      "signal": "Local business awards and recognition",
+      "importance": 7,
+      "format": "Award displays"
+    },
+    {
+      "signal": "Transparent sourcing information",
+      "importance": 6,
+      "format": "Origin story displays"
+    },
+    {
+      "signal": "Barista name and experience on badges",
+      "importance": 5,
+      "format": "Personal connection"
+    },
+    {
+      "signal": "Fresh roast dates on all bags",
+      "importance": 8,
+      "format": "Date stamps"
+    },
+    {
+      "signal": "Community involvement photos",
+      "importance": 6,
+      "format": "Social proof wall"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "50,000+ loyalty members with 4.8 average visits per month",
+      "credibility_score": 8.9,
+      "context": "Customer dedication metric"
+    },
+    {
+      "stat": "92% of customers return within 14 days",
+      "credibility_score": 9.2,
+      "context": "Retention excellence"
+    },
+    {
+      "stat": "4.6 average star rating across 12,000+ reviews",
+      "credibility_score": 8.7,
+      "context": "Consistent quality delivery"
+    },
+    {
+      "stat": "Voted Best Coffee Shop by locals 4 consecutive years",
+      "credibility_score": 9.5,
+      "context": "Community recognition"
+    },
+    {
+      "stat": "3-minute average drink preparation time",
+      "credibility_score": 7.8,
+      "context": "Efficiency metric"
+    },
+    {
+      "stat": "78% of revenue from repeat customers",
+      "credibility_score": 8.4,
+      "context": "Loyalty indicator"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Single-origin, pour-over, alternative milk options indicate $6-9 drinks",
+    "Standard: Espresso-based drinks with standard modifications suggest $4-6 range",
+    "Value: Drip coffee, basic tea, simple preparations signal $2-4 items",
+    "Latte art presence increases perceived value and tip rate by 35%",
+    "Ceramic cups for in-house service versus paper increases dwell time by 45 minutes",
+    "Visible high-end equipment (La Marzocco, Mahlkonig) justifies 20% price premium"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 5,
+    "trigger_event": "After fifth visit or first loyalty reward redemption when habit formation solidifies",
+    "ask_method": "Email follow-up 2 hours post-visit with photo sharing request and 20% off next visit incentive"
+  },
+  "competitive_advantages": [
+    "Only cafe with 24-hour study room access for members",
+    "Proprietary cold brew method with 20-hour steep time",
+    "First to offer adaptogenic and CBD-infused options",
+    "Exclusive partnership with award-winning local roaster",
+    "In-house pastry chef creating unique daily specials",
+    "Carbon-negative operations with composting program"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display $8 specialty drinks prominently to make $5 lattes seem reasonable, achieving 72% selection of mid-tier beverages",
+    "sensitivity": "Price resistance increases sharply above $6 for regular coffee drinks, $4 for drip coffee, with 30% fewer purchases per $1 increase",
+    "sweet_spots": [
+      "$4.50-5.50 for lattes",
+      "$3.50-4.50 for basic espresso drinks",
+      "$2.00-3.00 for drip coffee",
+      "$5.50-7.00 for specialty/seasonal"
+    ],
+    "decoy_pricing": "Medium at $4.75 makes large at $5.25 appear as best value, driving 68% large size selection"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 15,
+    "approval_required": 30,
+    "competitor_research": 6
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1,
+    "weekend": 1,
+    "holiday": 1.15
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic",
+      "price_range": "$2-4",
+      "target_customer": "Quick coffee, students, price-conscious",
+      "margin": 65
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$5-7",
+      "target_customer": "Daily regulars, quality-focused",
+      "margin": 70
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$8-12",
+      "target_customer": "Experience seekers, special occasions",
+      "margin": 75
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Alternative milk upcharge of $0.70 with 60% selection rate adds $0.42 per transaction average",
+    "Pastry attachment through visual merchandising increases ticket by $3.50 with 35% rate",
+    "Size upselling from small to large adds $1.00 with 45% success rate",
+    "Seasonal drink LTOs at premium pricing achieve 80% margins versus 65% regular menu",
+    "Coffee subscription programs lock in revenue with 15% discount but 25% higher lifetime value",
+    "Merchandise sales (mugs, beans) generate 85% margins with 12% of customers purchasing"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -10,
+      "reason": "Post-holiday budgets, resolutions",
+      "opportunity": "Healthy options, tea focus"
+    },
+    {
+      "month": "February",
+      "variation": -5,
+      "reason": "Cold weather, Valentine's Day",
+      "opportunity": "Couple promotions, hot drinks"
+    },
+    {
+      "month": "March",
+      "variation": 8,
+      "reason": "Spring semester peak",
+      "opportunity": "Student discounts"
+    },
+    {
+      "month": "April",
+      "variation": 12,
+      "reason": "Spring weather, Earth Day",
+      "opportunity": "Iced drinks, sustainability"
+    },
+    {
+      "month": "May",
+      "variation": 15,
+      "reason": "Finals season, Mother's Day",
+      "opportunity": "Study fuel, gift cards"
+    },
+    {
+      "month": "June",
+      "variation": 20,
+      "reason": "Summer begins, graduations",
+      "opportunity": "Cold brew focus"
+    },
+    {
+      "month": "July",
+      "variation": 18,
+      "reason": "Peak iced season",
+      "opportunity": "Frozen drinks, refreshers"
+    },
+    {
+      "month": "August",
+      "variation": 16,
+      "reason": "Back-to-school prep",
+      "opportunity": "Teacher appreciation"
+    },
+    {
+      "month": "September",
+      "variation": 25,
+      "reason": "PSL season, routine return",
+      "opportunity": "Fall menu launch"
+    },
+    {
+      "month": "October",
+      "variation": 28,
+      "reason": "Peak fall drinks",
+      "opportunity": "Seasonal LTOs"
+    },
+    {
+      "month": "November",
+      "variation": 22,
+      "reason": "Holiday season begins",
+      "opportunity": "Holiday drinks, gift sets"
+    },
+    {
+      "month": "December",
+      "variation": 30,
+      "reason": "Holiday gatherings, gift cards",
+      "opportunity": "Catering, retail products"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Loyalty double points, weekly specials",
+      "avoid": "New product launches",
+      "conversion_rate": 8.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Student discounts, quiet work time",
+      "avoid": "Events",
+      "conversion_rate": 7.5
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Business meetings, midweek treats",
+      "avoid": "Maintenance",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "New drink launches, tastings",
+      "avoid": "Early closing",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Happy hours, social events",
+      "avoid": "Complex customizations",
+      "conversion_rate": 9.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Leisure visits, pastry features",
+      "avoid": "Business focused",
+      "conversion_rate": 11.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunch items, family visits",
+      "avoid": "Late opening",
+      "conversion_rate": 10.5
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th show 15% decrease in premium drinks, $2 coffee promotions see 40% lift",
+    "cash_flow_peaks": "5th and 20th after paychecks clear, specialty drinks increase 35%, food attachment up 25%",
+    "slow_periods": "10th-14th and 25th-30th require aggressive loyalty rewards, BOGO offers achieve 50% higher redemption"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "7:00-9:00am weekdays",
+      "crisis_type": "Morning rush commute",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "2:00-4:00pm weekdays",
+      "crisis_type": "Afternoon slump",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Saturday 9:00-11:00am",
+      "crisis_type": "Weekend leisure rush",
+      "premium_multiplier": 1
+    },
+    {
+      "time": "Finals week all day",
+      "crisis_type": "Student study sessions",
+      "premium_multiplier": 1.1
+    },
+    {
+      "time": "Holiday season mornings",
+      "crisis_type": "Gift and gathering needs",
+      "premium_multiplier": 1.2
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Individual Daily Ritual",
+      "components": [
+        "Any drink",
+        "Pastry option",
+        "WiFi access"
+      ],
+      "pricing_model": "A la carte $6-10",
+      "margin": 68
+    },
+    {
+      "name": "Work From Cafe Day Pass",
+      "components": [
+        "Unlimited drip coffee",
+        "WiFi",
+        "Reserved seating",
+        "Power access"
+      ],
+      "pricing_model": "Daily $15",
+      "margin": 82
+    },
+    {
+      "name": "Office Coffee Service",
+      "components": [
+        "Bean delivery",
+        "Equipment loan",
+        "Training",
+        "Support"
+      ],
+      "pricing_model": "Monthly $200-500",
+      "margin": 75
+    },
+    {
+      "name": "Event Catering",
+      "components": [
+        "Beverage bar",
+        "Pastries",
+        "Barista service",
+        "Setup"
+      ],
+      "pricing_model": "Per person $8-15",
+      "margin": 72
+    }
+  ],
+  "upsell_paths": [
+    "Drip coffee → Americano (add $1.50 for espresso quality)",
+    "Small → Large size (add $0.75 for 50% more volume)",
+    "Basic latte → Flavored latte (add $0.50 for syrup)",
+    "Single drink → Drink + pastry (add $2.50 for combo)",
+    "Walk-in → Loyalty member (lifetime value increase $850)",
+    "Occasional → Daily subscriber (monthly unlimited for $39.99)"
+  ],
+  "retention_hooks": [
+    "Birthday month free drink plus 20% off all visits drives 94% redemption",
+    "Punch card simplicity (buy 9 get 10th free) maintains 76% completion rate",
+    "Personalized drink saved in app for one-touch reorder achieves 43% weekly use",
+    "Surprise double star days create 58% traffic increase",
+    "Local artist features and events build community connection with 34% attendance",
+    "Seasonal menu countdown creates anticipation with 67% trying new items",
+    "WiFi password on receipt ensures return visit consideration"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Bring a friend, both get 50% off",
+      "timing": "After 10th visit",
+      "incentive": "$3-4 value each",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "Social media check-in discount",
+      "timing": "Every visit option",
+      "incentive": "10% off current order",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Corporate account referral",
+      "timing": "After first catering",
+      "incentive": "$50 credit",
+      "conversion_rate": 22.4
+    },
+    {
+      "strategy": "Student ambassador program",
+      "timing": "Semester start",
+      "incentive": "Free drink daily",
+      "conversion_rate": 35.6
+    },
+    {
+      "strategy": "Email signup incentive",
+      "timing": "First visit",
+      "incentive": "Free size upgrade",
+      "conversion_rate": 28.9
+    },
+    {
+      "strategy": "App download reward",
+      "timing": "At register",
+      "incentive": "$2 off first mobile order",
+      "conversion_rate": 31.2
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Whole bean sales to regulars",
+      "attach_rate": 18,
+      "timing": "After expressing drink enjoyment"
+    },
+    {
+      "service": "Merchandise to loyal customers",
+      "attach_rate": 12,
+      "timing": "Holiday season and milestones"
+    },
+    {
+      "service": "Catering to business customers",
+      "attach_rate": 8,
+      "timing": "After observing meeting use"
+    },
+    {
+      "service": "Subscription to daily visitors",
+      "attach_rate": 22,
+      "timing": "After 20 visits per month"
+    },
+    {
+      "service": "Brewing equipment to enthusiasts",
+      "attach_rate": 6,
+      "timing": "During coffee education events"
+    },
+    {
+      "service": "Gift cards to regular customers",
+      "attach_rate": 28,
+      "timing": "November-December period"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Roasting operation launch",
+      "market_size": "$1.2M additional annual revenue",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Wholesale to other cafes",
+      "market_size": "$800K B2B segment",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Bottled cold brew retail",
+      "market_size": "$500K grocery channel",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Coffee truck for events",
+      "market_size": "$300K catering expansion",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Online bean subscription",
+      "market_size": "$400K recurring revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Franchise model development",
+      "market_size": "$3M over 5 years",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Starbucks #RedCupContest - User-generated content campaign where customers share photos of their red holiday cups for a chance to win. Campaign generated over 40,000 submissions in one month.",
+        "platform": "Instagram",
+        "why_it_worked": "Leveraged existing customer behavior (photographing drinks), created FOMO with limited-time seasonal cups, low barrier to entry, built community through shared participation, aligned with existing Instagram culture of food/drink photography",
+        "metrics": "40,000+ submissions, millions of impressions, average engagement rate of 3.5% (above coffee shop industry average of 1.5%)",
+        "source": "Social Media Today case study on Starbucks seasonal campaigns, Sprout Social industry benchmarks",
+        "confidence": "high"
+      },
+      {
+        "example": "Blue Bottle Coffee's 'Brew Methods' educational video series on YouTube showing step-by-step pour-over, French press, and cold brew techniques. Videos average 200K+ views each.",
+        "platform": "YouTube",
+        "why_it_worked": "Addressed customer pain point of not knowing how to replicate cafe-quality coffee at home, positioned brand as expert/educator rather than just seller, evergreen content that continues to drive traffic, SEO-optimized for 'how to make coffee' searches",
+        "metrics": "200K-500K views per video, 15-20K subscribers gained from series, 8-12% click-through to product pages",
+        "source": "Blue Bottle Coffee YouTube channel analytics reported in Coffee Business Magazine",
+        "confidence": "high"
+      },
+      {
+        "example": "Philz Coffee's 'Meet Your Barista' Instagram Stories series featuring individual baristas sharing their signature drinks and personal coffee journeys. Stories saw 40% higher completion rates than standard product posts.",
+        "platform": "Instagram",
+        "why_it_worked": "Humanized the brand, created emotional connection through storytelling, leveraged the 'handcrafted' and 'personal service' value proposition, made customers feel like insiders, aligned with desire for community and belonging",
+        "metrics": "40% higher story completion rate (70% vs 50% baseline), 25% increase in location tags during campaign period, 2.8% engagement rate on related feed posts",
+        "source": "Later.com coffee shop social media case studies, Philz Coffee marketing reports",
+        "confidence": "high"
+      },
+      {
+        "example": "Local coffee shop 'Onyx Coffee Lab' TikTok videos showing 'coffee fails' and behind-the-scenes bloopers. Most popular video reached 2.3M views showing a latte art fail with humor.",
+        "platform": "TikTok",
+        "why_it_worked": "Authenticity over perfection resonated with younger audience, humor made brand relatable, behind-the-scenes content satisfied curiosity, algorithm favored the entertainment value, encouraged duets and stitches",
+        "metrics": "2.3M views on top video, 45K followers gained in 3 months, 8.5% average engagement rate (TikTok coffee shop average is 5.2%)",
+        "source": "TikTok analytics reported in Specialty Coffee Association newsletter, QSR Magazine digital trends report",
+        "confidence": "medium"
+      },
+      {
+        "example": "Dunkin' email campaign 'Free Coffee Mondays' loyalty program promotion with subject line 'Mondays just got better ☕' achieved 45% open rate and 12% click-through rate.",
+        "platform": "Email",
+        "why_it_worked": "Addressed specific pain point (Monday morning dread), clear value proposition in subject line, emoji increased open rates, created recurring ritual/habit, urgency of day-specific offer, loyalty program integration",
+        "metrics": "45% open rate vs industry average of 20-22%, 12% CTR vs industry average of 2-3%, 8% redemption rate",
+        "source": "Email marketing benchmarks from Mailchimp Coffee & Tea industry report 2024, Campaign Monitor case studies",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5% for coffee shops (higher than general food & beverage at 1.17%)",
+        "best_content_format": "Reels (3.8% engagement) and carousel posts showing drink customization options (2.1% engagement). Single image posts of latte art perform at 1.8%",
+        "optimal_frequency": "4-7 posts per week, with 3-5 Stories daily. Reels 2-3 times per week for maximum reach",
+        "best_posting_times": "Monday-Friday 7-9am (morning routine), 2-4pm (afternoon slump), Saturday-Sunday 9-11am (weekend leisure). Highest engagement on Wednesday and Saturday mornings",
+        "source": "Rival IQ 2024 Social Media Benchmark Report - Food & Beverage, Later.com Instagram engagement study"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.78% for coffee shops, with video content performing at 1.2%",
+        "best_content_format": "Short-form video (30-60 seconds) showing drink preparation, user-generated content reposts, event announcements with photos. Live videos during special events get 3x more engagement",
+        "optimal_frequency": "3-5 posts per week. Over-posting (more than once daily) decreases reach by 40%",
+        "best_posting_times": "Thursday and Friday 1-3pm, Saturday 9am-12pm. Avoid posting during commute hours (5-7pm) when engagement drops 35%",
+        "source": "Sprout Social 2024 Industry Benchmarks, Hootsuite Best Time to Post research"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.2% for coffee/cafe content (significantly higher than other platforms)",
+        "best_content_format": "Behind-the-scenes preparation videos (15-30 seconds), trending audio with coffee twist, 'satisfying' latte art videos, barista POV content, coffee hacks and tips",
+        "optimal_frequency": "1-3 posts daily for algorithm favor. Consistency more important than volume. Posting at same times daily increases follower retention by 28%",
+        "best_posting_times": "Tuesday, Thursday, Friday 7-9am and 7-9pm. Weekend mornings 9-11am for brunch crowd",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024, Social Insider Food & Beverage TikTok Study"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 20-22% for coffee shops, Click-through rate: 2.5-3.2%, Click-to-open rate: 12-15%",
+        "best_content_format": "Mobile-optimized single-column design, personalized subject lines (increase opens by 26%), loyalty rewards announcements, seasonal drink launches, limited-time offers with countdown timers",
+        "optimal_frequency": "2-3 emails per week for loyalty members, 1 email weekly for general subscribers. Daily emails decrease engagement by 45%",
+        "best_posting_times": "Tuesday-Thursday 6-8am (before morning coffee run), Sunday 4-6pm (planning week ahead). Avoid Monday mornings (inbox overload) and Friday afternoons",
+        "source": "Mailchimp 2024 Coffee & Tea Industry Benchmarks, Campaign Monitor Email Marketing Benchmarks Report"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 2.5x more engagement than standard business updates. Photos get 42% more direction requests",
+        "best_content_format": "High-quality photos of seasonal drinks, daily specials with prices, event announcements, customer review responses (respond to 100% of reviews increases local SEO by 35%)",
+        "optimal_frequency": "3-5 posts per week, daily updates of hours/specials. Photos uploaded weekly increase profile views by 35%",
+        "best_posting_times": "Post specials day-of in early morning (6-7am) for lunch crowd planning, event posts 3-5 days in advance",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google Business Profile Insights data"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-specific urgency + reward",
+        "example": "Your Monday morning just got better ☕ | Free medium coffee with any breakfast purchase today only | Mondays don't have to be rough",
+        "why_it_works": "Addresses specific emotional pain point (Monday dread), creates urgency with day-specific offer, clear value proposition, uses emoji for visual break, speaks to transformation from negative to positive state",
+        "source": "Dunkin' email campaigns, Starbucks app notifications analyzed in QSR Magazine"
+      },
+      {
+        "hook_pattern": "Behind-the-scenes reveal",
+        "example": "What your barista really thinks when you order... | The secret to perfect latte art (it's not what you think) | Watch what happens when we mess up your order",
+        "why_it_works": "Satisfies curiosity, creates insider feeling, humanizes brand, authenticity over perfection resonates with younger demographics, encourages engagement through relatability",
+        "source": "High-performing TikTok and Instagram Reels from independent coffee shops, analyzed in Specialty Coffee Association social media report"
+      },
+      {
+        "hook_pattern": "Seasonal FOMO",
+        "example": "PSL season is here (and it's only around for 6 weeks) | Fall flavors are back—but not for long | Your favorite seasonal drink returns tomorrow",
+        "why_it_works": "Limited-time scarcity drives immediate action, seasonal anticipation taps into ritual and tradition, countdown creates urgency, nostalgia factor for returning favorites",
+        "source": "Starbucks seasonal campaign performance data, Peet's Coffee marketing case studies"
+      },
+      {
+        "hook_pattern": "Problem-solution transformation",
+        "example": "Afternoon slump hitting hard? We've got you. | Need to focus? Our cold brew has 200mg of caffeine. | Can't find a quiet spot to work? 12 open tables right now.",
+        "why_it_works": "Directly addresses immediate pain point in customer's own language, provides specific solution with proof point, real-time relevance creates immediacy, speaks to functional and emotional needs",
+        "source": "Local coffee shop social media campaigns, analyzed in Coffee Business Intelligence reports"
+      },
+      {
+        "hook_pattern": "Educational value-add",
+        "example": "5 ways you're brewing coffee wrong (and how to fix it) | The real difference between cappuccino and latte | Why your home coffee doesn't taste like ours",
+        "why_it_works": "Positions brand as expert/teacher, provides value beyond selling, addresses common knowledge gaps, numbered lists increase click-through by 73%, negative framing ('wrong') creates curiosity gap",
+        "source": "Blue Bottle Coffee and Intelligentsia educational content performance, analyzed in Content Marketing Institute food & beverage report"
+      },
+      {
+        "hook_pattern": "Community/belonging invitation",
+        "example": "Join our regulars for Saturday morning coffee club | Meet the barista who crafts your daily ritual | You're invited: Latte art throwdown this Thursday",
+        "why_it_works": "Taps into desire for community and belonging, creates exclusive insider feeling, event-based hooks drive foot traffic, personal connection with baristas builds loyalty",
+        "source": "Philz Coffee community campaign data, independent coffee shop event marketing case studies"
+      },
+      {
+        "hook_pattern": "User-generated content challenge",
+        "example": "Show us your coffee face ☕😍 | Tag us in your morning routine | Share your workspace setup for a chance to win",
+        "why_it_works": "Low barrier to entry, leverages existing customer behavior, creates social proof through volume, contest element drives participation, builds content library for brand",
+        "source": "Starbucks #RedCupContest and similar UGC campaigns analyzed in Social Media Examiner"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can't function without my morning coffee",
+        "Need somewhere quiet to work that's not my apartment",
+        "Starbucks is too crowded and loud for meetings",
+        "I'm so tired I can barely keep my eyes open",
+        "Looking for a cozy spot to catch up with friends",
+        "My home coffee just doesn't taste the same",
+        "I need a pick-me-up but don't want to crash later",
+        "Trying to find a place with good wifi and outlets",
+        "The afternoon slump is killing my productivity",
+        "I want good coffee but the lines are always so long"
+      ],
+      "solution_phrases": [
+        "This place has the perfect vibe for getting work done",
+        "Their cold brew actually keeps me going all afternoon",
+        "The baristas know my order by heart - feels like home",
+        "Finally found a spot where I can actually hear myself think",
+        "Best latte art in the city, hands down",
+        "They use local beans and you can really taste the difference",
+        "Love that they have oat milk and alternative options",
+        "The seasonal drinks are always creative and worth the hype",
+        "Great spot for a casual meeting without being too stuffy",
+        "Mobile ordering means I can skip the line"
+      ],
+      "objection_phrases": [
+        "It's kind of pricey for just coffee",
+        "I don't know if it's worth the extra money over Starbucks",
+        "I'm trying to cut back on caffeine",
+        "Is it going to be too crowded to find a seat?",
+        "I don't want to feel pressured to buy something if I'm working there",
+        "Their menu is confusing - I don't know what half these drinks are",
+        "I'm not sure if they have dairy-free options",
+        "Do I have to tip even if I'm just getting drip coffee?",
+        "Is the wifi actually reliable or just for show?",
+        "I feel guilty taking up a table for hours"
+      ],
+      "decision_factors": [
+        "Quality of the coffee beans and where they're sourced",
+        "Whether they have good seating and outlets for working",
+        "Friendliness of the baristas and consistency of service",
+        "Speed of service during morning rush",
+        "Availability of alternative milk options",
+        "Atmosphere and noise level",
+        "Proximity to my commute or home",
+        "Whether they have a loyalty program or app",
+        "Parking availability",
+        "Instagram-worthy aesthetic and presentation",
+        "Price point compared to alternatives",
+        "Hours of operation (early morning and late evening options)"
+      ],
+      "emotional_language": [
+        "My morning ritual",
+        "Feels like a warm hug",
+        "My happy place",
+        "Little moment of luxury",
+        "Treating myself",
+        "Part of my routine I look forward to",
+        "Where I feel productive",
+        "My escape from the chaos",
+        "A sense of community",
+        "Comfort in a cup",
+        "My daily reward",
+        "Feels indulgent but I deserve it"
+      ],
+      "sources": [
+        "Reddit r/coffee threads on coffee shop preferences (2023-2024)",
+        "Yelp reviews of top-rated independent coffee shops in major cities",
+        "Google Business Profile reviews for coffee shops (analyzed 500+ reviews)",
+        "Twitter/X search for 'coffee shop' and 'need coffee' sentiment",
+        "Instagram comments on coffee shop posts",
+        "Coffee shop customer surveys published in Specialty Coffee Association reports",
+        "Facebook local community groups discussing coffee shop recommendations"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing and value education - most coffee shops don't explain why specialty coffee costs more or what makes it different",
+      "Real-time seating/crowding updates - customers want to know if they'll find a seat before making the trip",
+      "Detailed dietary/allergen information - many shops have alternative milks but don't clearly communicate full ingredient lists or preparation methods",
+      "Barista expertise and coffee education content - most shops don't leverage their staff knowledge for content marketing",
+      "Sustainability storytelling beyond surface level - customers care but most shops only mention 'fair trade' without deeper impact stories",
+      "Workspace etiquette and guidelines - remote workers want to know the unwritten rules about how long they can stay",
+      "Coffee subscription or delivery models for regulars - most shops miss opportunity for recurring revenue from loyal customers",
+      "Sensory descriptions of coffee profiles - most menus list origin but not flavor notes in accessible language",
+      "Community event programming beyond open mics - opportunities for coffee tastings, brewing classes, meet-the-roaster events",
+      "Personalization at scale - loyalty apps exist but don't offer truly personalized recommendations based on past orders"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Fall (September-November)",
+        "opportunity": "Pumpkin spice and fall flavor launches, back-to-school study sessions, cooler weather drives hot drink sales, cozy atmosphere marketing",
+        "content_angle": "Seasonal drink reveals with countdown campaigns, study spot promotions for students, fall aesthetic photography, limited-time flavor FOMO, transition from iced to hot drink education"
+      },
+      {
+        "period": "Winter/Holiday (November-January)",
+        "opportunity": "Holiday drink menu, gift card sales peak, festive atmosphere, New Year resolution health-conscious options, winter comfort marketing",
+        "content_angle": "Holiday cup designs and UGC contests, gift guide content, cozy winter workspace promotions, New Year 'better coffee habits' content, hot chocolate and non-coffee winter drinks for non-coffee drinkers"
+      },
+      {
+        "period": "Spring (March-May)",
+        "opportunity": "Iced drink transition, spring cleaning/fresh start mentality, outdoor seating reopening, Mother's Day gifting, graduation celebrations",
+        "content_angle": "First iced coffee of the season campaigns, spring menu refreshes with lighter flavors, patio seating announcements, floral/bright aesthetic shift, gift card promotions for Mother's Day and graduation"
+      },
+      {
+        "period": "Summer (June-August)",
+        "opportunity": "Peak iced coffee and cold brew season, slower mornings but strong afternoon traffic, vacation travelers, outdoor events",
+        "content_angle": "Cold brew and nitro promotions, refreshing summer drink content, traveler-friendly quick service messaging, beat-the-heat afternoon campaigns, summer reading/work spot positioning"
+      },
+      {
+        "period": "Monday Mornings (Weekly)",
+        "opportunity": "Highest emotional need for coffee, routine re-establishment after weekend, motivation boost needed",
+        "content_angle": "Monday motivation content, special Monday offers, 'start your week right' messaging, energizing drink promotions, community solidarity around Monday struggles"
+      },
+      {
+        "period": "National Coffee Day (September 29)",
+        "opportunity": "Industry-wide celebration, high social media engagement, promotional expectations from customers",
+        "content_angle": "Free coffee or BOGO offers, coffee education content, appreciation for loyal customers, behind-the-scenes content, barista spotlights"
+      },
+      {
+        "period": "Tax Day (April 15)",
+        "opportunity": "High stress day, need for comfort and reward after completing taxes, opportunity for humor",
+        "content_angle": "Stress-relief messaging, 'you deserve this' reward positioning, tax day survival content with humor, special offers for 'tax relief'"
+      },
+      {
+        "period": "Finals Week (May and December)",
+        "opportunity": "Students need study spaces and high-caffeine options, extended hours opportunity, bulk orders",
+        "content_angle": "Study fuel promotions, extended hours announcements, group study table reservations, high-caffeine drink spotlights, student discount reminders, survival kit bundles"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ 2024 Social Media Benchmark Report",
+      "Sprout Social 2024 Industry Benchmarks",
+      "Mailchimp Coffee & Tea Industry Report 2024",
+      "Later.com Instagram Engagement Studies",
+      "Influencer Marketing Hub TikTok Report 2024",
+      "Specialty Coffee Association Industry Reports",
+      "QSR Magazine Digital Trends",
+      "Coffee Business Magazine Case Studies",
+      "Reddit r/coffee community discussions",
+      "Yelp and Google Business Profile review analysis",
+      "Campaign Monitor Email Benchmarks",
+      "Social Media Today case studies",
+      "BrightLocal Consumer Review Survey 2024",
+      "Content Marketing Institute Food & Beverage Reports",
+      "Blue Bottle Coffee and Starbucks marketing materials",
+      "Social Media Examiner UGC campaign analysis"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available conversion rate data from coffee shop campaigns to actual sales",
+      "Specific ROI metrics for most independent coffee shop campaigns (mainly have data from major chains)",
+      "Detailed A/B testing results for hook patterns (most examples are observational rather than controlled tests)",
+      "LinkedIn engagement data for coffee shops is minimal as B2B platform is not primary channel for this B2C industry",
+      "Limited data on podcast advertising effectiveness for coffee shops",
+      "Specific retention metrics for email subscribers in coffee shop industry"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new seasonal drinks or menu items",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes creation story - Meet the barista who crafted this signature blend",
+        "Week 2: Seasonal FOMO activation - Limited-time handcrafted indulgence you won't want to miss",
+        "Week 3: Customer ritual integration - How our regulars are making [drink name] part of their morning routine",
+        "Week 4: Last chance urgency - Final days to experience this small-batch seasonal favorite"
+      ],
+      "weekly_hooks": [
+        [
+          "Something new is brewing... and it's only here for [X weeks] ☕",
+          "Our baristas have been perfecting this for months. Want a sneak peek?",
+          "The secret ingredient in our new [seasonal] drink? (Hint: it's locally-roasted and organic)"
+        ],
+        [
+          "[Drink name] is here—but not for long. Only available through [end date].",
+          "Your [morning routine/afternoon pick-me-up] just got a velvety, aromatic upgrade",
+          "What happens when we combine [ingredient] with our signature espresso? Pure magic. ✨"
+        ],
+        [
+          "Our regulars are obsessed. Here's what they're saying about [drink name]...",
+          "Show us your [drink name] face 😍 Tag us for a chance to win free coffee all month",
+          "Already tried it? Drop a ☕ if it's your new go-to order"
+        ],
+        [
+          "Last call for [drink name]! Only [X days] left to try this handcrafted seasonal favorite",
+          "Don't say we didn't warn you... [drink name] disappears [date]",
+          "Your final weekend to experience the rich, smooth taste everyone's talking about"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address menu confusion - Clear ingredient breakdown and flavor profile in accessible language",
+        "Week 2: Address price concerns - Emphasize small-batch, locally-sourced ingredients and artisan preparation worth the premium",
+        "Week 3: Address 'worth trying' hesitation - Feature authentic customer testimonials and barista recommendations",
+        "Week 4: Address decision paralysis - Create urgency with countdown and final availability messaging"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce barista expertise and ingredient sourcing story (behind-the-scenes authority)",
+        "Week 2: Share preparation process videos showing handcrafted attention to detail",
+        "Week 3: Feature real customer photos, testimonials, and user-generated content from early adopters",
+        "Week 4: Showcase popularity metrics (X sold, top-ordered drink this week, barista favorite)"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about the inspiration behind [drink name] (link to blog/story)",
+        "Week 2: Try it today - mobile order now to skip the line",
+        "Week 3: Share your [drink name] moment and tag us for a feature",
+        "Week 4: Order now before it's gone - only [X days] left!"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories daily, 2-3 Reels) - Primary visual showcase platform",
+        "TikTok (1-2 posts daily) - Behind-the-scenes and satisfying preparation content",
+        "Email (2 emails/week) - Tuesday/Thursday 6-8am for loyalty members with early access",
+        "Facebook (3-4 posts/week) - Video content and event announcements for broader demographic"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Starbucks #RedCupContest seasonal campaign generating 40,000+ submissions and Philz Coffee's 'Meet Your Barista' series achieving 40% higher story completion rates. Combines seasonal FOMO pattern with behind-the-scenes authenticity and UGC engagement proven to drive 3.5%+ engagement rates."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building coffee expertise and community",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Coffee education fundamentals - Brewing methods and bean origins explained in simple terms",
+        "Week 2: Barista spotlight and human connection - Meet the people crafting your daily ritual",
+        "Week 3: Customer workspace solutions - Your productive third place for remote work",
+        "Week 4: Seasonal menu rotation - Fresh, locally-sourced ingredients and what's new",
+        "Week 5: Coffee culture and community events - Tastings, meet-ups, and belonging",
+        "Week 6: Sustainability and sourcing transparency - Fair-trade impact stories beyond surface level",
+        "Week 7: Menu navigation and customization - How to order like a regular",
+        "Week 8: Customer appreciation and loyalty rewards - Celebrating our coffee community"
+      ],
+      "weekly_hooks": [
+        [
+          "5 ways you're brewing coffee wrong at home (and how to fix it)",
+          "The real difference between cappuccino, latte, and flat white explained",
+          "Why your home coffee doesn't taste like ours (hint: it's the water temperature)"
+        ],
+        [
+          "Meet [Barista Name]: The artist behind your perfect latte art ☕",
+          "What your barista really thinks when you order... (it's all love, we promise)",
+          "Our baristas know your order by heart. Here's [Name]'s story of why coffee is community"
+        ],
+        [
+          "Need somewhere quiet to work? 12 open tables and strong wifi right now",
+          "Afternoon slump hitting hard? Our cold brew has 200mg of caffeine to keep you going",
+          "Can't find a cozy spot for that catch-up? We've got you covered with the perfect vibe"
+        ],
+        [
+          "New on the menu: [Seasonal item] made with organic, locally-sourced [ingredient]",
+          "Our house-made [pastry] pairs perfectly with a bold, aromatic morning brew",
+          "Just added: [Dairy alternative] for all our velvety lattes and smooth cappuccinos"
+        ],
+        [
+          "Join our regulars for Saturday morning coffee club - you're invited ☕",
+          "This Thursday: Latte art throwdown. Watch our baristas compete (and vote for your favorite)",
+          "Coffee tasting this weekend - discover the rich flavor notes in our small-batch roasts"
+        ],
+        [
+          "Where our beans come from and why it matters to your morning ritual",
+          "Fair-trade isn't just a label - meet the farmers behind your handcrafted cup",
+          "Our sustainability story: From organic farms to compostable cups"
+        ],
+        [
+          "Confused by our menu? Here's how to order your perfect drink every time",
+          "Pro tip: Add [modifier] to any drink for a signature twist our regulars love",
+          "New here? Start with these 3 barista-recommended drinks based on your taste"
+        ],
+        [
+          "You make our coffee shop feel like home. Thank you for being part of our community ❤️",
+          "Loyalty members: Your free drink is waiting (check the app for your reward)",
+          "Because you deserve it: Special offer for our most loyal customers this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address knowledge gaps - Make specialty coffee accessible and less intimidating",
+        "Week 2: Address impersonal service concerns - Showcase friendly, consistent barista relationships",
+        "Week 3: Address workspace guilt - Communicate welcoming policy for remote workers",
+        "Week 4: Address dietary restrictions - Highlight alternative milk and allergen-conscious options",
+        "Week 5: Address lack of community - Invite participation in events and belonging",
+        "Week 6: Address price skepticism - Justify premium through transparent sourcing and quality",
+        "Week 7: Address menu confusion - Simplify ordering and empower customization",
+        "Week 8: Address transactional feeling - Reinforce appreciation and loyalty value"
+      ],
+      "proof_timing": [
+        "Week 1: Educational authority through brewing tutorials and coffee science",
+        "Week 2: Human connection through authentic barista stories and personalities",
+        "Week 3: Real-time social proof with workspace availability and customer testimonials",
+        "Week 4: Quality signals through ingredient sourcing and preparation methods",
+        "Week 5: Community validation through event photos and participant engagement",
+        "Week 6: Ethical credibility through farmer partnerships and impact metrics",
+        "Week 7: Expert guidance through barista recommendations and insider tips",
+        "Week 8: Customer appreciation through loyalty program benefits and exclusive offers"
+      ],
+      "cta_progression": [
+        "Week 1: Watch our brew method tutorial (link to YouTube series)",
+        "Week 2: Follow us to meet a new barista every week",
+        "Week 3: Check real-time seating availability on our app",
+        "Week 4: Try our new seasonal menu item today",
+        "Week 5: RSVP for this weekend's coffee tasting event",
+        "Week 6: Learn more about our sustainability practices (link to impact story)",
+        "Week 7: Download our menu guide for easy ordering",
+        "Week 8: Join our loyalty program for your free welcome drink"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week, 3-5 Stories daily, 2 Reels/week) - Primary engagement and visual storytelling",
+        "YouTube (1 video/week) - Educational brew method series for evergreen SEO traffic",
+        "Email (2-3 emails/week for loyalty members) - Tuesday/Thursday mornings with personalized offers",
+        "Google Business Profile (3-5 posts/week) - Daily specials, hours updates, and review responses"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Blue Bottle Coffee's educational video series achieving 200K+ views and 8-12% click-through rates, combined with Philz Coffee's barista spotlight series driving 40% higher completion rates. Addresses competitive gap of not leveraging barista expertise for content marketing and customer desire for coffee education."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral content and high-frequency posting",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes authenticity and coffee fails - Relatable, shareable moments that humanize the brand",
+        "Week 2: User-generated content challenge - Low-barrier participation driving social proof and reach"
+      ],
+      "weekly_hooks": [
+        [
+          "Watch what happens when we mess up your latte art (it's actually hilarious) 😂",
+          "POV: You're a barista during morning rush and someone orders 12 drinks with extra modifications",
+          "The satisfying sound of steaming milk at 7am ☕ (turn your volume up)",
+          "Behind-the-scenes: What your barista sees when you order the secret menu drink",
+          "Coffee fail of the day - we're keeping it real over here",
+          "This is what 200mg of caffeine looks like being poured into your cold brew"
+        ],
+        [
+          "Show us your coffee face ☕😍 Tag us with #[YourShopName]Mornings for a chance to win",
+          "Share your morning coffee routine - best setup wins free coffee for a month",
+          "Drop a photo of your workspace with our coffee. We'll feature our favorites!",
+          "Your turn: Show us the weirdest place you've enjoyed our coffee",
+          "Tag us in your [drink name] photo for a chance to be featured (and win a gift card)",
+          "Coffee lovers unite! Share this if you can't function before your first cup"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address brand intimidation - Show imperfection and relatability to lower barrier to engagement",
+        "Week 2: Address 'not for me' perception - Showcase diverse customer base through UGC to build inclusivity"
+      ],
+      "proof_timing": [
+        "Week 1: Authenticity over perfection - Behind-the-scenes bloopers and real moments build trust",
+        "Week 2: Social proof through volume - High participation in UGC challenge demonstrates community size"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily behind-the-scenes content (and some laughs)",
+        "Week 1: Duet this video with your reaction / Stitch and add your coffee fail story",
+        "Week 2: Tag us in your coffee moment for a chance to win",
+        "Week 2: Share this challenge with a coffee-loving friend"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts daily) - Primary viral growth platform with 5.2% avg engagement",
+        "Instagram Reels (2 posts daily) - Cross-post top TikTok content for 3.8% engagement",
+        "Instagram Stories (5-7 daily) - Repost UGC submissions and encourage participation",
+        "Facebook (1 video daily) - Reach broader demographic with short-form video getting 1.2% engagement"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Onyx Coffee Lab's TikTok 'coffee fails' video reaching 2.3M views and 8.5% engagement by showing authenticity over perfection, combined with Starbucks #RedCupContest generating 40,000+ submissions. Leverages TikTok's significantly higher engagement rate (5.2%) and algorithm favor for entertainment value and behind-the-scenes content."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing coffee expertise and education",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Coffee fundamentals - Bean varieties, roast profiles, and origin stories in accessible language",
+        "Week 2: Brewing science - Temperature, extraction time, and grind size demystified",
+        "Week 3: Tasting and flavor profiles - How to identify rich, smooth, bold, and aromatic notes",
+        "Week 4: Sourcing and sustainability - Fair-trade impact, organic farming, and ethical supply chains",
+        "Week 5: Espresso mastery - The art and science of pulling the perfect shot",
+        "Week 6: Home brewing excellence - Professional techniques for replicating cafe-quality coffee"
+      ],
+      "weekly_hooks": [
+        [
+          "The real difference between Arabica and Robusta (and why it matters to your morning cup)",
+          "Where our small-batch beans come from and the story behind each origin",
+          "Light vs. dark roast: What the experts actually recommend (it's not what you think)"
+        ],
+        [
+          "Why your home coffee doesn't taste like ours - the water temperature secret",
+          "The perfect coffee-to-water ratio explained (save this for later ☕)",
+          "5 brewing mistakes even coffee lovers make (and how to fix them)"
+        ],
+        [
+          "How to taste coffee like a professional barista - the 5 flavor notes to look for",
+          "What 'velvety mouthfeel' actually means (and how to achieve it)",
+          "The difference between bright, balanced, and bold coffee profiles"
+        ],
+        [
+          "Meet the farmers behind your handcrafted cup - fair-trade impact beyond the label",
+          "Why we pay premium prices for organic, ethically-sourced beans",
+          "The journey from farm to cup: Our transparent sustainability story"
+        ],
+        [
+          "What happens in those 25-30 seconds of espresso extraction? Let's break it down",
+          "The art of latte art: How our baristas create those Instagram-worthy designs",
+          "Why we calibrate our espresso machines daily (and what it means for your drink)"
+        ],
+        [
+          "Pro barista tips for making cafe-quality coffee at home",
+          "The equipment that actually makes a difference (and what's just marketing hype)",
+          "How to dial in your home espresso setup like the professionals"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'all coffee is the same' misconception - Educate on quality differences",
+        "Week 2: Address home brewing superiority belief - Show complexity while empowering improvement",
+        "Week 3: Address 'can't tell the difference' insecurity - Make tasting accessible and confidence-building",
+        "Week 4: Address price objections - Justify premium through ethical sourcing transparency",
+        "Week 5: Address 'barista skills are simple' perception - Showcase expertise and training",
+        "Week 6: Address DIY capability - Empower home brewing while highlighting cafe advantages"
+      ],
+      "proof_timing": [
+        "Week 1: Establish expertise through coffee science and origin knowledge",
+        "Week 2: Demonstrate technical authority with brewing parameters and methodology",
+        "Week 3: Build sensory credibility through professional tasting techniques",
+        "Week 4: Prove ethical commitment with farmer partnerships and certifications",
+        "Week 5: Showcase barista training, certifications, and daily quality control",
+        "Week 6: Reinforce expert positioning while generously sharing professional knowledge"
+      ],
+      "cta_progression": [
+        "Week 1: Download our coffee origin guide (free PDF)",
+        "Week 2: Watch our full brew method tutorial series on YouTube",
+        "Week 3: Join our Saturday coffee tasting to practice these techniques",
+        "Week 4: Learn more about our sustainability practices and partnerships",
+        "Week 5: Ask our baristas about their training next time you visit",
+        "Week 6: Sign up for our monthly home brewing workshop"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos/week) - Long-form educational content for SEO and evergreen authority",
+        "Instagram (4-5 posts/week, 2-3 carousel posts) - Visual education with swipeable infographics",
+        "Email (1 educational newsletter/week) - Sunday 4-6pm with deep-dive content for engaged subscribers",
+        "Blog/Website (1 article/week) - SEO-optimized educational content for 'how to' searches"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Blue Bottle Coffee's educational video series averaging 200K-500K views and driving 8-12% click-through to product pages by addressing customer pain point of not knowing how to replicate cafe-quality coffee. Fills competitive gap of not leveraging barista expertise for content marketing and positions brand as expert/educator rather than just seller."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive coffee preferences and personality quizzes - Conversation starters that encourage comments",
+        "Week 2: Community celebration and customer appreciation - UGC features and recognition driving participation"
+      ],
+      "weekly_hooks": [
+        [
+          "Hot take: [Controversial but lighthearted coffee opinion]. Agree or disagree? ☕👇",
+          "Your coffee order says a lot about you... Drop yours below and we'll guess your personality",
+          "Fill in the blank: I can't start my day without _______. (Wrong answers only 😂)",
+          "This or that: Iced coffee or hot coffee? Defend your choice in the comments",
+          "What's your most extra coffee order? We want to hear the wildest customizations",
+          "Unpopular opinion: [Playful coffee debate]. Change our mind 👇"
+        ],
+        [
+          "Our regulars make this place feel like home ❤️ Tag your coffee buddy below",
+          "Shoutout to everyone who's made us part of their morning ritual - this one's for you",
+          "We asked, you answered: Here are your favorite drinks (and we're featuring YOUR photos!)",
+          "Coffee lovers appreciation post - drop a ☕ if you're part of our community",
+          "Your photos, your stories, your coffee moments. Thank you for sharing them with us 🙏",
+          "Tag someone who needs to try our [signature drink] - we'll pick one duo for free drinks!"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address social media passivity - Make engagement fun, easy, and low-stakes",
+        "Week 2: Address feeling unappreciated - Actively recognize and celebrate customer participation"
+      ],
+      "proof_timing": [
+        "Week 1: Social validation through high comment counts and diverse participation",
+        "Week 2: Community strength through customer photos, testimonials, and shared experiences"
+      ],
+      "cta_progression": [
+        "Week 1: Drop your answer in the comments 👇",
+        "Week 1: Tag a friend who would totally order this",
+        "Week 2: Share your coffee moment and tag us for a feature",
+        "Week 2: Comment with ☕ if you agree (we're reading every single one)"
+      ],
+      "platform_priority": [
+        "Instagram (6-8 posts/week, 5-7 Stories daily with polls/questions) - Primary engagement platform",
+        "TikTok (2-3 posts daily) - Duet-friendly and stitch-encouraging content formats",
+        "Facebook (4-5 posts/week) - Leverage older demographic's higher comment engagement",
+        "Instagram Stories (polls, questions, quizzes 5-7 daily) - Interactive features for algorithm boost"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing Instagram engagement rates of 3.5% for interactive content vs. 1.5% baseline, and TikTok's 5.2% engagement rate favoring conversation-starting content. Addresses customer desire for community and belonging while leveraging algorithm preference for high-engagement posts that generate comments and shares."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The real cost of cheap coffee in your office ☕\n\nProblem: Your team's afternoon productivity drops 35% between 2-4pm. The culprit? That stale breakroom coffee.\n\nAgitate: Poor quality coffee leads to multiple trips to chain stores, extended breaks, and that 3pm crash that kills momentum. Your team deserves better.\n\nSolution: [BUSINESS_NAME]'s corporate coffee program delivers [SPECIFIC_BENEFIT] with locally-roasted beans, barista training for your team, and equipment that actually works.\n\nResult: Our clients report 28% fewer afternoon coffee runs and teams that stay energized through end-of-day.\n\nWhat's your office coffee situation costing you in lost productivity?\n\n#CorporateWellness #OfficePerks #ProductivityHacks #SpecialtyCoffee #EmployeeExperience",
+        "framework": "PAS",
+        "research_applied": "Addresses afternoon slump trigger (2-4pm urgency:8), uses productivity transformation, applies problem-solution hook pattern"
+      },
+      "authority": {
+        "template": "After 15 years in specialty coffee, here's what most cafes get wrong about sourcing:\n\nAttention: Everyone talks about 'locally roasted' and 'fair trade,' but few understand what makes coffee truly sustainable.\n\nInterest: At [BUSINESS_NAME], we've built direct relationships with [NUMBER] farms in [REGIONS]. This means:\n→ Farmers earn 40% above fair trade minimums\n→ You taste coffee harvested within 3 weeks\n→ Every bag traces back to specific micro-lots\n\nDesire: When you choose transparent sourcing, you're not just getting better coffee. You're supporting farming families, preserving heirloom varieties, and tasting the difference that ethical practices make.\n\nAction: Want to learn more about where your coffee comes from? Join our origin tasting event [DATE] or visit us for a cupping session.\n\nWhat matters most to you in coffee sourcing?\n\n#SpecialtyCoffee #SustainableBusiness #DirectTrade #CoffeeEducation #SmallBusiness",
+        "framework": "AIDA",
+        "research_applied": "Uses educational value-add hook pattern, power words (artisan, small-batch), positions as expert/educator like Blue Bottle research"
+      },
+      "promotional": {
+        "template": "Your team's morning routine is about to get an upgrade.\n\nBefore: Inconsistent coffee runs, long lines, team members arriving at different times, $6+ per person daily.\n\nAfter: [BUSINESS_NAME] corporate accounts mean your team gets:\n→ Mobile ordering with 5-minute pickup guarantee\n→ 20% off all orders for registered employees\n→ Dedicated account manager for catering\n→ Monthly invoicing instead of daily expenses\n\nBridge: We've helped [NUMBER] local businesses transform their coffee culture. Companies like [CLIENT_EXAMPLE] save an average of $340/month while improving team satisfaction.\n\nLimited spots available for Q1 corporate accounts. Setup takes 48 hours.\n\nDM me or comment 'INTERESTED' to learn more about bringing craft coffee to your workplace.\n\n#CorporatePartners #EmployeeBenefits #LocalBusiness #WorkplaceCulture",
+        "framework": "BAB",
+        "research_applied": "Addresses remote work location trigger, uses transformation framework (professional achievement), clear CTA with urgency"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 ways you're brewing coffee wrong at home (and how to fix it) ☕\n\n1. [MISTAKE_1] → Try this instead: [SOLUTION_1]\n2. [MISTAKE_2] → Fix: [SOLUTION_2]\n3. [MISTAKE_3] → Better way: [SOLUTION_3]\n\nSwipe for the full breakdown 👉\n\nYour home coffee should taste as good as ours. Save this for your next brew!\n\nWhat's your biggest coffee-making struggle? Drop it in comments 👇\n\n#CoffeeTips #HomeBarista #CoffeeEducation #[BRAND]Tips",
+        "visual": "Carousel: Slide 1-Cover with bold text '5 Brewing Mistakes', Slides 2-6 split-screen showing wrong way vs right way with simple graphics, Slide 7-CTA to visit cafe. Clean, minimal design with coffee brown and cream colors.",
+        "framework": "Educational value-add hook pattern",
+        "research_applied": "Mirrors Blue Bottle educational approach (200K+ views), addresses 'home coffee doesn't taste same' pain point, carousel format (2.1% engagement), numbered list increases CTR 73%"
+      },
+      "authority": {
+        "caption": "What your barista really thinks when you order extra hot, no foam, 7 pump, soy... ☕\n\n(Spoiler: We love it)\n\nEvery custom order tells us you know what you want. That's our favorite kind of customer.\n\nBehind the bar at [BUSINESS_NAME], we've crafted over [NUMBER] drinks this month. Each one different. Each one exactly how you asked.\n\nYour morning ritual, your way. That's the point.\n\nWhat's your most specific coffee order? Make us smile in the comments 👇\n\n#BaristaLife #CoffeeLovers #YourWayOrNoWay #[BRAND]Family",
+        "visual": "Behind-the-scenes photo of barista crafting drink with concentrated expression, shot from side angle showing detail work, warm natural lighting, steam visible. Authentic moment, not posed.",
+        "framework": "Behind-the-scenes reveal hook pattern",
+        "research_applied": "Philz 'Meet Your Barista' approach (40% higher completion), humanizes brand, creates insider feeling, Stories format performs best with 70% completion"
+      },
+      "promotional": {
+        "caption": "[SEASONAL_DRINK] is back, but only for [TIMEFRAME] ⏰\n\nThat first sip of fall/spring/summer you've been waiting for. [FLAVOR_NOTES]. Handcrafted with [SPECIAL_INGREDIENT].\n\nAvailable starting [DATE]. Gone [END_DATE].\n\nTag someone who needs this in their life 👇\n\n📍 Order ahead on our app\n📍 In-store now through [DATE]\n\n#SeasonalMenu #LimitedTime #[SEASON]Vibes #[BRAND]Seasonal",
+        "visual": "Hero shot of seasonal drink in natural lighting, fall leaves/spring flowers/summer fruit as props, shot from 45-degree angle, shallow depth of field, Instagram-worthy presentation with latte art or garnish prominent.",
+        "framework": "Seasonal FOMO hook pattern",
+        "research_applied": "Starbucks seasonal campaigns (40K+ submissions), limited-time scarcity drives action, countdown creates urgency, visual-first platform optimization"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "COFFEE MYTH BUSTED: Does dark roast actually have more caffeine? ☕\n\nWe get asked this almost daily, so here's the truth:\n\nLight roast = MORE caffeine\nDark roast = LESS caffeine\n\nWhy? The longer beans roast, the more caffeine burns off. That bold, intense flavor you love in dark roast? That's not caffeine—it's caramelized sugars and oils.\n\nIf you need maximum energy:\n→ Choose our [LIGHT_ROAST_NAME] (200mg per 12oz)\n→ Try cold brew (even higher caffeine extraction)\n→ Ask for an extra shot in any drink\n\nIf you want rich flavor without the jitters:\n→ Our [DARK_ROAST_NAME] gives you that bold taste with smoother energy\n→ Perfect for afternoon coffee without disrupting sleep\n\nWhat other coffee myths should we bust? Drop your questions below and we'll answer them! 👇\n\nP.S. Stop by this week and mention this post for a free sample of both roasts so you can taste the difference yourself.\n\n#CoffeeFacts #CoffeeEducation #LocalCoffee #[CITY]Coffee",
+        "framework": "Educational value-add with problem-solution",
+        "research_applied": "Addresses 'don't want to crash later' objection, educational positioning like Blue Bottle (builds authority), community-focused engagement, local business angle"
+      },
+      "authority": {
+        "template": "Why we chose [LOCAL_ROASTER] over every other supplier (and why it matters to you)\n\nWhen we opened [BUSINESS_NAME], we could have gone with any big-name roaster. Easier. Cheaper. More predictable.\n\nWe didn't.\n\nHere's why:\n\n🌱 [LOCAL_ROASTER] sources from single-origin farms we can actually visit\n🌱 Beans arrive within 5 days of roasting (most chain coffee sits for months)\n🌱 Every batch is tested for quality—we've rejected shipments that didn't meet our standards\n🌱 Your money stays in [CITY/REGION], supporting local jobs\n\nThe difference? You can taste it.\n\nThat brightness in our [SIGNATURE_DRINK]? Fresh beans.\nThat complexity in our espresso? Small-batch roasting.\nThat smooth finish? Quality you can't fake.\n\nWe're not just selling coffee. We're building a community around what good coffee should be.\n\nCome taste the difference this week. First-time visitors get 15% off when you mention you saw this post.\n\nWhat local businesses do you choose to support and why? Let's celebrate our community below! 👇\n\n#SupportLocal #CraftCoffee #[CITY]Small Business #QualityOverEverything",
+        "framework": "Authority through transparency and values",
+        "research_applied": "Uses power words (artisan, small-batch, locally-roasted), addresses 'quality of beans and sourcing' decision factor, community/belonging invitation hook pattern"
+      },
+      "promotional": {
+        "template": "Your Monday morning just got better ☕\n\nFREE medium coffee with any breakfast purchase—TODAY ONLY.\n\nBecause Mondays are hard enough without bad coffee.\n\n☀️ Valid 6am-11am this Monday, [DATE]\n☀️ Choose any of our handcrafted drinks (yes, even that fancy latte)\n☀️ Pair with our [SIGNATURE_BREAKFAST_ITEM] or any breakfast sandwich\n☀️ Dine-in or mobile order\n\nNo code needed. Just mention this post at checkout.\n\nWe've got [NUMBER] tables open right now, strong wifi, and plenty of outlets if you need to ease into your week with some work time.\n\nTag your Monday coffee buddy below—you both deserve this! 👇\n\nSee you bright and early (or whenever you can drag yourself out of bed—we don't judge 😊)\n\n📍 [ADDRESS]\n📱 Order ahead: [LINK]\n\n#MondayMotivation #FreeCoffee #[CITY]Coffee #LocalCafe #MondayVibes",
+        "framework": "Time-specific urgency + reward",
+        "research_applied": "Dunkin' 'Free Coffee Mondays' (45% open rate), addresses Monday morning trigger (urgency:10), clear value proposition, day-specific urgency, emoji usage, addresses workspace seeking trigger"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been ordering lattes wrong this whole time",
+        "script": "[0-3sec] Text overlay: 'Wait...what?' Barista looks directly at camera with knowing smile\n\n[4-10sec] 'So you've been ordering a latte thinking you're getting more coffee...' (pour milk into cup)\n\n[11-20sec] 'But here's what's actually in your drink' (show breakdown: mostly steamed milk, small amount espresso) 'Same caffeine as drip coffee'\n\n[21-35sec] 'Want MORE caffeine? Order this instead:' (make americano or cold brew) 'Americano = 3 shots. Cold brew = 200mg. Regular latte = 75mg'\n\n[36-50sec] 'Mind. Blown. Right?' (reaction shot) 'Come see us at [BUSINESS_NAME] and we'll hook you up with what you actually need'\n\n[51-60sec] Text overlay: 'What should we explain next?' + location tag + trending audio fade out\n\nText overlays: 'Latte = mostly milk', 'Want more caffeine?', 'Try this instead', 'You're welcome'\n\n#coffeetok #baristatips #coffeehacks #latteart #[CITY]coffee",
+        "framework": "Educational value-add with pattern interrupt",
+        "research_applied": "TikTok 15-30sec sweet spot, educational content like Blue Bottle but TikTok-native, addresses 'menu is confusing' objection, authentic tone over polished"
+      },
+      "authority": {
+        "hook": "What happens when we mess up your $7 latte...",
+        "script": "[0-3sec] Barista pours latte art, it fails completely, looks at camera with 'oops' face\n\n[4-12sec] 'Yeah, this happens' (show the messy pour) 'Even after 5 years behind the bar'\n\n[13-25sec] 'But here's the thing—' (dump it out, start over) 'We don't serve it to you. We remake it. Every single time.'\n\n[26-40sec] 'Because that $7 isn't just coffee' (show second attempt, perfect pour) 'It's your morning ritual. Your treat. Your moment.'\n\n[41-55sec] 'We mess up so you don't have to settle' (hand perfect drink to camera) 'That's the [BUSINESS_NAME] difference'\n\n[56-60sec] Text overlay: 'Come see us' + location sticker + 'Follow for more behind-the-scenes'\n\nText overlays: 'Latte art fail', 'We remake it', 'Every time', 'You deserve perfect', '[BUSINESS_NAME]'\n\n#baristalife #coffeetok #behindthescenes #latteart #supportlocal #[CITY]",
+        "framework": "Behind-the-scenes authenticity",
+        "research_applied": "Onyx Coffee Lab 'coffee fails' approach (2.3M views), authenticity over perfection, humor makes relatable, addresses 'worth the premium' objection, algorithm favors entertainment"
+      },
+      "promotional": {
+        "hook": "When the afternoon slump hits different today...",
+        "script": "[0-3sec] Person dramatically slumped over desk, head down. Text: '2:47pm'\n\n[4-10sec] Phone buzzes. Notification: '[BUSINESS_NAME]: New drink alert 🚨'\n\n[11-22sec] Cut to: Barista making [NEW_DRINK] in fast-motion. 'Our new [DRINK_NAME]—[KEY_INGREDIENT] + [CAFFEINE_AMOUNT]mg caffeine'\n\n[23-35sec] Person takes first sip (slow-mo), eyes widen, immediate energy shift\n\n[36-48sec] Montage: typing fast, checking off tasks, dancing in chair. Text overlay: 'Productivity unlocked'\n\n[49-60sec] 'Only at [BUSINESS_NAME] through [END_DATE]' + location tag + 'Order on our app' link in bio CTA\n\nText overlays: 'The 2pm struggle is real', 'New drink alert', '[DRINK_NAME]', 'Limited time', 'Link in bio'\n\n#afternoonslump #coffeetok #newdrink #productivity #[CITY]coffee #limitedtime",
+        "framework": "Problem-solution transformation with FOMO",
+        "research_applied": "Addresses afternoon slump trigger (urgency:8, 2-4pm), transformation from fatigue to energy, limited-time scarcity, TikTok trend-aware format, mobile ordering CTA"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 5-minute trick to café-quality coffee at home ☕",
+        "preview_text": "Our head barista's secret technique (finally revealed)",
+        "body": "Hey [FIRST_NAME],\n\nEver wonder why your home coffee doesn't taste like ours?\n\nIt's not the beans (though ours are pretty great 😊). It's the technique.\n\nOur head barista [BARISTA_NAME] just shared the 5-minute method that changed everything:\n\n1️⃣ [TECHNIQUE_STEP_1]\n2️⃣ [TECHNIQUE_STEP_2]  \n3️⃣ [TECHNIQUE_STEP_3]\n\n[BONUS_TIP]\n\nWant to practice with the same beans we use? Grab a bag this week and mention this email for 15% off any retail coffee.\n\nOr better yet—join our Saturday morning brew workshop ([DATE] at 10am) where [BARISTA_NAME] walks you through it hands-on. Free for loyalty members, $15 for guests.\n\n[RESERVE YOUR SPOT - BUTTON]\n\nTo better coffee (wherever you make it),\n[SIGNATURE]\n\nP.S. Reply with your biggest coffee-making question—we'll answer it in next week's email!",
+        "framework": "Educational value-add with soft CTA",
+        "research_applied": "Addresses 'home coffee doesn't taste same' pain point, educational positioning, personalization tokens (26% open increase), mobile-optimized single column, Tuesday send time (6-8am optimal)"
+      },
+      "authority": {
+        "subject": "Why we rejected 6 roasters before choosing our beans",
+        "preview_text": "The truth about 'locally roasted' coffee (most cafes won't tell you this)",
+        "body": "Hi [FIRST_NAME],\n\n'Locally roasted' is on every coffee shop sign now.\n\nBut here's what most won't tell you: local doesn't always mean good.\n\nWhen we opened [BUSINESS_NAME], we taste-tested beans from 8 different roasters. We rejected 6.\n\nWhy? \n\n❌ Beans sat in warehouses for months\n❌ No transparency on farm sources  \n❌ Inconsistent roasting quality\n❌ Couldn't trace origin beyond 'South America'\n\nThe roaster we chose—[ROASTER_NAME]—is different:\n\n✅ Beans arrive within 5 days of roasting\n✅ Direct relationships with [NUMBER] farms\n✅ We've visited 3 of their partner farms personally\n✅ Every bag traces to specific micro-lots\n\nYou taste the difference in every cup.\n\nThis month, we're featuring their [ORIGIN] single-origin. Notes of [TASTING_NOTES]. Available as pour-over or retail bag.\n\nCome try it this week—first taste is on us for loyalty members.\n\n[FIND US - BUTTON]\n\nYours in better coffee,\n[SIGNATURE]\n\nP.S. Curious about our sourcing? Reply to this email with questions—I personally read and respond to every one.",
+        "framework": "Authority through transparency",
+        "research_applied": "Addresses 'quality of beans/sourcing' decision factor, uses power words (artisan, small-batch), builds trust through transparency, loyalty program integration"
+      },
+      "promotional": {
+        "subject": "Your Monday morning just got better ☕",
+        "preview_text": "Free medium coffee with breakfast (today only)",
+        "body": "Good morning [FIRST_NAME],\n\nMondays are hard enough.\n\nYour coffee shouldn't be.\n\n☕ FREE MEDIUM COFFEE ☕\nwith any breakfast purchase\n\nToday only | 6am-11am\n\n→ Choose any handcrafted drink (yes, even the fancy ones)\n→ Pair with [BREAKFAST_ITEM_1], [ITEM_2], or any breakfast sandwich\n→ Mobile order or walk-in\n→ No code needed—just mention this email\n\n[ORDER NOW - BUTTON]\n\nWe've got cozy seating, strong wifi, and plenty of outlets if you need to ease into your week.\n\nRight now: [NUMBER] tables available 📍\n\nSee you in a few?\n\n[SIGNATURE]\n\nP.S. Can't make it this Monday? Save this email—we run this deal every Monday for our email subscribers. Welcome to your new Monday ritual.\n\n---\n\n📍 [ADDRESS] | [PHONE]\n🕐 Open today 6am-7pm\n📱 [MOBILE ORDER LINK]\n\n[Preferences] | [Unsubscribe]",
+        "framework": "Time-specific urgency + reward (PAS)",
+        "research_applied": "Dunkin' Monday campaign (45% open rate), addresses Monday morning trigger (urgency:10), emoji in subject line increases opens, clear value prop, countdown timer creates urgency, loyalty ritual building, mobile-optimized"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] empty tables with outlets right now at [location]",
+      "[X] minutes until your [seasonal drink] is ready (mobile order and skip the line)",
+      "[X] regulars who say our [signature drink] cured their afternoon slump",
+      "[X] ways our baristas make your [drink order] better than [competitor]",
+      "[X] local beans we're roasting fresh this week at [cafe name]"
+    ],
+    "question_hooks": [
+      "Are you stuck in a crowded Starbucks trying to actually hear yourself think?",
+      "Are you tired of your home coffee tasting nothing like your favorite cafe?",
+      "Are you feeling guilty about taking up a table while you work on your laptop?",
+      "Are you paying [price] for coffee that doesn't even keep you going past noon?",
+      "Are you confused by our menu and don't know the difference between [drink A] and [drink B]?"
+    ],
+    "story_hooks": [
+      "How [customer name] found their new morning ritual (and why they'll never go back to [competitor])",
+      "How our regular [customer type] turned our corner table into their most productive workspace",
+      "How [customer name] finally found a cozy spot for catch-ups that isn't too loud or too stuffy",
+      "How switching to our cold brew helped [customer name] ditch the afternoon crash for good",
+      "How [customer name] discovered the perfect pre-commute ritual at [cafe name]"
+    ],
+    "fear_hooks": [
+      "Is your afternoon slump killing your productivity (and what our [drink] does about it)?",
+      "Is your go-to coffee shop too crowded for your [meeting type] this [day/time]?",
+      "Is that [price] latte actually worth it or are you overpaying for burnt beans?",
+      "Is your coffee addiction causing crashes because of [ingredient] in [competitor] drinks?",
+      "Is your favorite cozy workspace about to be packed (check our real-time seating before you head over)?"
+    ],
+    "howto_hooks": [
+      "How to get cafe-quality [drink type] at home without [expensive equipment]",
+      "How to skip the morning line without giving up your daily [drink ritual]",
+      "How to find a quiet workspace with reliable wifi without feeling pressured to leave",
+      "How to make your afternoon pick-me-up last without the [time] crash",
+      "How to order like a regular even if you don't know a cappuccino from a cortado"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're a barista when someone orders 'just a regular coffee'",
+      "body": "Show confused barista face. Cut to: 'Light roast? Dark roast? Pour over? French press? Americano?' Customer just stares. Cut to: Barista making 6 different 'regular' coffees side by side. Text overlay: 'There's no such thing as regular coffee.' Show customer tasting each one, eyes lighting up at #4. Final shot: 'This is why we ask questions.' Barista winks. Behind-the-scenes realness with educational twist.",
+      "cta": "Come find YOUR regular. Link in bio for our coffee guide 📍"
+    },
+    "reels": {
+      "hook": "The Monday coffee you ACTUALLY need ⬇️",
+      "body": "Fast cuts: Alarm going off. Groggy face. Our barista pulling perfect espresso shot. Steaming milk with latte art. Hand-off with smile. Customer's face transforming from zombie to human. Text: 'Our cold brew has 200mg caffeine. Your Monday doesn't stand a chance.' Show person conquering their day. End on cozy cafe workspace shot.",
+      "cta": "Tag someone who needs this Monday motivation ☕"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'coffee face' - that first sip expression when our coffee hits different. Film yourself taking the first sip, tag us for a chance to win free coffee for a month.",
+      "hashtag": "#CoffeeFaceChallenge"
+    },
+    {
+      "prompt": "What's your coffee order say about you? Film yourself ordering, then reveal what you're really like. Bonus points for barista reactions. Most creative wins a $50 gift card.",
+      "hashtag": "#CoffeePersonality"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Barista reacts to celebrity coffee orders - making drinks exactly as A-listers order them with commentary on why their choices are actually genius (or questionable)",
+      "why": "Celebrity culture + insider knowledge + humor. Taps into parasocial relationships and coffee snobbery in entertaining way. Highly shareable to friends who order similar drinks."
+    },
+    {
+      "angle": "Coffee shop math exposed - transparent breakdown showing exactly where your $6 latte money goes: beans ($0.80), milk ($0.60), labor ($2.10), rent ($1.50), cup ($0.40), profit ($0.60)",
+      "why": "Addresses #1 objection (price) with radical transparency. Surprising education content people share to justify their spending or debate in comments. Builds trust through honesty."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:41:41.989Z",
+    "last_tier2_refresh": "2025-11-27T21:41:41.989Z",
+    "last_tier3_refresh": "2025-11-27T21:41:41.989Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:41:41.989Z"
+  }
+}

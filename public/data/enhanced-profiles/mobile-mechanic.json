@@ -1,0 +1,1737 @@
+{
+  "industry": "Mobile Mechanic",
+  "industry_name": "Mobile Mechanic",
+  "naics_code": "811111",
+  "category": "Personal Services",
+  "subcategory": "Automotive Repair Services",
+  "customer_triggers": [
+    {
+      "trigger": "Check engine light illumination causing immediate anxiety",
+      "urgency": 9,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Strange noise developing during morning commute",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "Car won't start in driveway preventing work attendance",
+      "urgency": 10,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Overdue oil change by 1,000+ miles risking engine damage",
+      "urgency": 6,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Pre-purchase inspection needed for used car transaction",
+      "urgency": 7,
+      "frequency": "occasional"
+    },
+    {
+      "trigger": "Brake squealing creating safety concerns",
+      "urgency": 9,
+      "frequency": "bi-annual"
+    },
+    {
+      "trigger": "AC failure during summer heat wave",
+      "urgency": 8,
+      "frequency": "seasonal"
+    },
+    {
+      "trigger": "Scheduled maintenance reminder from manufacturer",
+      "urgency": 5,
+      "frequency": "bi-annual"
+    },
+    {
+      "trigger": "Failed emissions test requiring repairs for registration",
+      "urgency": 10,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Flat tire in parking lot with no spare available",
+      "urgency": 10,
+      "frequency": "sporadic"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Vehicle problem manifests through warning lights, unusual sounds, performance issues, or complete breakdown, with 67% of customers googling symptoms immediately and finding mobile mechanic option within first 3 search results promising same-day response",
+    "consideration": "Compares traditional shop requiring tow at $125 plus 3-day wait versus mobile service arriving within 2-4 hours at comparable pricing, reading average 4.7-star reviews and checking certifications, with 73% valuing convenience over potential 10-15% cost savings at traditional shops",
+    "decision": "Books service based on immediate availability showing real-time scheduling, transparent upfront pricing with no hidden fees, and ability to continue working from home during repair, with 81% choosing first available appointment within 24 hours",
+    "retention": "Returns due to established trust from honest diagnostics, convenience of service location flexibility, maintained service records in app, and preventive maintenance reminders, generating average customer lifetime value of $3,400 over 4.8 years",
+    "advocacy": "Shares experience through emotional relief stories on social media, provides detailed reviews mentioning technician by name, refers average 3.2 contacts annually especially during breakdown assistance, and becomes brand ambassador worth $12,000 in referral revenue"
+  },
+  "transformations": [
+    {
+      "from": "Stranded and helpless with broken vehicle",
+      "to": "Mobile and independent with restored transportation",
+      "emotional_value": "Freedom and control restoration",
+      "worth_premium": true
+    },
+    {
+      "from": "Anxious about mystery car problems and costs",
+      "to": "Informed and confident about vehicle condition",
+      "emotional_value": "Peace of mind through transparency",
+      "worth_premium": true
+    },
+    {
+      "from": "Losing productive work time at repair shop",
+      "to": "Working from home while car is fixed",
+      "emotional_value": "Time efficiency and productivity",
+      "worth_premium": true
+    },
+    {
+      "from": "Vulnerable to mechanic exploitation",
+      "to": "Educated partner in vehicle maintenance",
+      "emotional_value": "Empowerment through knowledge",
+      "worth_premium": false
+    },
+    {
+      "from": "Stressed about transportation logistics",
+      "to": "Relaxed with door-to-door service",
+      "emotional_value": "Convenience and simplicity",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about breakdown recurrence",
+      "to": "Confident with warranty protection",
+      "emotional_value": "Security and reliability",
+      "worth_premium": true
+    },
+    {
+      "from": "Overwhelmed by maintenance complexity",
+      "to": "Organized with automated service tracking",
+      "emotional_value": "Control and organization",
+      "worth_premium": false
+    },
+    {
+      "from": "Suspicious of repair necessity",
+      "to": "Trusting through video documentation",
+      "emotional_value": "Transparency and honesty",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "First-time fix rate exceeding 89% avoiding return visits",
+      "timeframe": "per service call",
+      "measurable": true
+    },
+    {
+      "metric": "Arrival within promised 2-hour window 94% reliability",
+      "timeframe": "daily tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction score maintaining 4.8+ stars",
+      "timeframe": "monthly average",
+      "measurable": true
+    },
+    {
+      "metric": "Average repair completion under 90 minutes on-site",
+      "timeframe": "per job tracking",
+      "measurable": true
+    },
+    {
+      "metric": "Diagnostic accuracy rate above 93% preventing misdiagnosis",
+      "timeframe": "quarterly review",
+      "measurable": true
+    },
+    {
+      "metric": "Customer retention rate exceeding 71% for maintenance",
+      "timeframe": "annual measurement",
+      "measurable": true
+    },
+    {
+      "metric": "Parts markup transparency keeping margins at 35-42%",
+      "timeframe": "monthly audit",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Vehicle immobilized in driveway preventing essential travel with no alternative transportation available",
+    "Safety-critical brake or steering issues requiring immediate attention before risking accident",
+    "Check engine light flashing indicating potential catalytic converter damage costing $2,000+ if ignored",
+    "Pre-trip inspection needed within 48 hours before 1,000+ mile journey with family",
+    "Failed state inspection with 7-day grace period before registration penalties begin accruing",
+    "Fluid leak creating environmental hazard and HOA violation notice requiring 24-hour resolution",
+    "No-start condition morning of critical job interview or medical appointment"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "How do I know you're qualified without a shop?",
+      "response": "Our technicians average 15 years experience with ASE Master certification, carry $2 million liability insurance, and provide video documentation of all work - plus our 4.8-star rating from 1,847 customers speaks to our expertise exceeding most traditional shops",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Mobile service must cost more than a regular shop",
+      "response": "Actually, without shop overhead costs, we're typically within 5-10% of shop pricing while saving you tow fees ($125 average), rental car costs ($45/day), and lost work time valued at $280/day - making us more economical overall",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "You probably can't handle complex repairs",
+      "response": "We complete 78% of all repairs on-site including timing belts, alternators, and brake systems, and for the 22% requiring shop equipment like alignment, we provide honest assessment and shop recommendations saving you diagnostic fees",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "What if you misdiagnose and I need more work?",
+      "response": "Our 93% diagnostic accuracy rate beats industry average of 87%, we provide free re-diagnosis if initial assessment proves incorrect, and our 12-month/12,000-mile warranty covers all parts and labor giving you better protection than most shops",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "I don't want strangers at my home",
+      "response": "We service vehicles at your office, gym, or any preferred location, all technicians undergo background checks and carry photo ID, and you can monitor the entire repair through our app's live updates without any interaction needed",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "Weather could affect outdoor repairs",
+      "response": "Our vans carry pop-up canopies for weather protection, we reschedule at no charge for severe conditions, and 92% of our repairs are completed regardless of weather using professional all-weather equipment and lighting",
+      "effectiveness": 7.3
+    },
+    {
+      "objection": "Parts availability might delay repairs",
+      "response": "We stock 200+ common parts covering 73% of typical repairs, partner with local suppliers for 2-hour delivery on most items, and provide free follow-up visit if special-order parts are needed, communicating timeline transparently",
+      "effectiveness": 8.1
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "12-month/12,000-mile warranty on all repairs exceeding industry standard",
+      "Free re-diagnosis if initial assessment proves incorrect",
+      "Price match guarantee against written shop estimates",
+      "24-hour callback guarantee for any concerns post-service",
+      "No-fix no-fee policy for diagnostic services"
+    ],
+    "proof_points": [
+      "ASE Master Technician certification displayed on all vehicles",
+      "Live GPS tracking showing technician arrival time",
+      "Before/after video documentation of all repairs",
+      "Digital inspection reports with photo evidence",
+      "Insurance and license verification available in app"
+    ],
+    "risk_mitigation": "Comprehensive liability insurance covering property damage, secured payment processing with dispute protection, detailed service agreements signed digitally before work begins, and established escalation process with dedicated customer resolution team responding within 2 hours"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "broken",
+      "dead",
+      "stuck",
+      "grinding",
+      "leaking",
+      "smoking",
+      "overheating",
+      "shaking",
+      "squealing",
+      "knocking",
+      "stalling",
+      "misfiring"
+    ],
+    "solution_words": [
+      "fixed",
+      "reliable",
+      "running",
+      "smooth",
+      "safe",
+      "dependable",
+      "restored",
+      "repaired",
+      "maintained",
+      "serviced",
+      "warranted",
+      "certified"
+    ],
+    "avoid_jargon": [
+      "OBD-II codes",
+      "stoichiometric ratio",
+      "camshaft timing",
+      "duty cycle",
+      "parasitic draw",
+      "valve lash",
+      "compression ratio",
+      "viscosity index"
+    ]
+  },
+  "power_words": [
+    "Emergency",
+    "Certified",
+    "Guaranteed",
+    "Instant",
+    "Mobile",
+    "Professional",
+    "Trusted",
+    "Reliable",
+    "Expert",
+    "Convenient",
+    "Transparent",
+    "Honest",
+    "Fast",
+    "Affordable",
+    "Warranty",
+    "ASE-Certified",
+    "Insured",
+    "Experienced",
+    "Same-day",
+    "Diagnostic",
+    "Fixed",
+    "Restored",
+    "Protected",
+    "Maintained",
+    "Documented",
+    "Nationwide",
+    "24/7",
+    "No-tow",
+    "On-site",
+    "Contactless"
+  ],
+  "avoid_words": [
+    "Probably",
+    "Maybe",
+    "Should",
+    "Might",
+    "Possibly",
+    "Hopefully",
+    "Try",
+    "Attempt",
+    "Guess",
+    "Think",
+    "Assume",
+    "Cheap",
+    "Discount",
+    "Budget",
+    "Used",
+    "Aftermarket",
+    "Generic",
+    "Risky",
+    "Experimental",
+    "Temporary"
+  ],
+  "headline_templates": [
+    {
+      "template": "Car Won't Start? Mobile Mechanic Arrives in [X] Hours - No Tow Needed",
+      "expected_ctr": 6.8,
+      "use_case": "Emergency response"
+    },
+    {
+      "template": "[Location] Drivers Save $[Amount] with Mobile Repair vs Shop Visits",
+      "expected_ctr": 5.2,
+      "use_case": "Cost comparison"
+    },
+    {
+      "template": "ASE Certified Mechanic Comes to You - Same Day Service Available",
+      "expected_ctr": 5.9,
+      "use_case": "Credibility and speed"
+    },
+    {
+      "template": "Check Engine Light On? Free Diagnostic with Any Repair",
+      "expected_ctr": 7.3,
+      "use_case": "Problem-solution match"
+    },
+    {
+      "template": "Why [Number]% Choose Mobile Mechanics Over Traditional Shops",
+      "expected_ctr": 4.8,
+      "use_case": "Social proof"
+    },
+    {
+      "template": "Fix Your Car While You Work From Home - Zero Downtime",
+      "expected_ctr": 6.1,
+      "use_case": "Convenience appeal"
+    },
+    {
+      "template": "[Day] Special: $[Amount] Off Your First Mobile Repair",
+      "expected_ctr": 6.7,
+      "use_case": "Promotional offer"
+    },
+    {
+      "template": "Stranded? Emergency Mobile Mechanic Responds in [X] Minutes",
+      "expected_ctr": 8.2,
+      "use_case": "Crisis response"
+    },
+    {
+      "template": "[Number] Five-Star Reviews - [Location]'s Most Trusted Mobile Mechanic",
+      "expected_ctr": 5.5,
+      "use_case": "Trust building"
+    },
+    {
+      "template": "No Shop Fees, No Towing, No Hassle - Mobile Repair Done Right",
+      "expected_ctr": 5.3,
+      "use_case": "Value proposition"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get Free Instant Quote - No Obligation",
+      "conversion_rate": 11.8,
+      "placement": "Hero section"
+    },
+    {
+      "template": "Book Emergency Service Now - Arriving in 2 Hours",
+      "conversion_rate": 14.2,
+      "placement": "Emergency banner"
+    },
+    {
+      "template": "Schedule Your Repair - Choose Your Location",
+      "conversion_rate": 9.3,
+      "placement": "Service selector"
+    },
+    {
+      "template": "Text Your Car Problem to [Number] for Immediate Help",
+      "conversion_rate": 12.6,
+      "placement": "Mobile prompt"
+    },
+    {
+      "template": "Call Now: [Number] - Technician Standing By",
+      "conversion_rate": 15.7,
+      "placement": "Sticky header"
+    },
+    {
+      "template": "See Real-Time Availability - Book in 30 Seconds",
+      "conversion_rate": 10.4,
+      "placement": "Scheduling widget"
+    },
+    {
+      "template": "Claim Your $50 First-Time Customer Discount",
+      "conversion_rate": 8.9,
+      "placement": "Pop-up offer"
+    },
+    {
+      "template": "Get Your Free 50-Point Inspection Report",
+      "conversion_rate": 7.8,
+      "placement": "Value add section"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🚗 BREAKDOWN? Don't panic! Our mobile mechanics are responding to [Location] area calls within 2 hours today. Comment 'HELP' below or call [Number] for immediate assistance. #MobileMechanic #CarRepair",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe to see this morning's brake repair completed in a customer's driveway! 🔧 No tow truck, no waiting room, no hassle. Just professional service at YOUR location. DM us for same-day booking! #MobileRepair",
+      "engagement_rate": 6.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "PSA: That check engine light could be a $20 gas cap or $2,000 catalytic converter. Our FREE diagnostic tells you in 10 minutes. Don't guess - know for sure! 📱 Text [Number] #CarMaintenance",
+      "engagement_rate": 3.9
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Fleet managers: Reduce vehicle downtime by 73% with on-site mobile maintenance. Our B2B program services your vehicles at your location, maintaining productivity. Let's discuss how we can save your company thousands. #FleetManagement",
+      "engagement_rate": 2.7
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Your car breaks down but the mechanic comes to YOU 🏠 Watch this 60-second oil change in a parking lot! Drop a 🔧 if you need our services! #MobileMechanic #CarTok",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "YouTube Shorts",
+      "template": "Think you need a new battery? Watch this 30-second test that could save you $200! 🔋 Full diagnostic guide in description. Subscribe for weekly car care tips! #DIYCarRepair",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⚡ SAME-DAY SERVICE AVAILABLE! Having car trouble? Our mobile mechanics are serving [Location] with 2-hour response times. Over 500 five-star reviews! Call [Number] or book online.",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Neighbors! Tired of losing your whole day at the repair shop? Our mobile mechanics come to your home or office. Mention Nextdoor for 15% off your first service. Supporting [LocalArea] for 8 years! 🏘️",
+      "engagement_rate": 4.6
+    },
+    {
+      "platform": "Yelp",
+      "template": "🎯 Today's availability: 3 appointment slots open for mobile repair service. Oil changes, brakes, diagnostics, and more - all at YOUR location. Check our 4.8-star reviews and book now! #MobileService",
+      "engagement_rate": 5.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Save 4-6 hours of shop wait time while continuing your work day",
+      "rank": 1,
+      "differentiator": "Time savings quantified in productivity value"
+    },
+    {
+      "prop": "Eliminate $125 average tow cost plus $45/day rental car expense",
+      "rank": 2,
+      "differentiator": "Direct cost savings versus traditional repair"
+    },
+    {
+      "prop": "Watch repairs via video documentation ensuring transparency",
+      "rank": 3,
+      "differentiator": "Trust through visible verification"
+    },
+    {
+      "prop": "Receive service at home, office, or any convenient location",
+      "rank": 4,
+      "differentiator": "Ultimate location flexibility"
+    },
+    {
+      "prop": "Get ASE Master Technician expertise without shop markup",
+      "rank": 5,
+      "differentiator": "Premium skill at competitive pricing"
+    },
+    {
+      "prop": "Access 24/7 emergency response for breakdown situations",
+      "rank": 6,
+      "differentiator": "Round-the-clock availability"
+    },
+    {
+      "prop": "Maintain digital service records accessible anytime via app",
+      "rank": 7,
+      "differentiator": "Modern convenience and organization"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience concierge-level automotive care with our Master Technicians bringing dealer-quality service to your preferred location. Our white-glove mobile service includes comprehensive diagnostics, OEM parts, extended warranties, and detailed documentation ensuring your luxury vehicle receives the meticulous attention it deserves, all while you continue your day uninterrupted.",
+    "budget_conscious": "Professional repair doesn't require premium prices - our mobile service eliminates shop overhead, passing savings directly to you. With transparent pricing, no surprise fees, and the ability to supply your own parts if preferred, we make quality automotive repair accessible while saving you the hidden costs of towing, rental cars, and lost productivity.",
+    "enterprise": "Transform your fleet maintenance with our comprehensive mobile service program designed for 10-500 vehicles. Reduce downtime by 73%, eliminate employee transportation logistics, and maintain detailed digital records for every vehicle. Our dedicated account team provides priority scheduling, volume pricing, and monthly reporting that typically reduces total maintenance costs by 34%."
+  },
+  "trust_signals": [
+    {
+      "signal": "ASE Master Technician certification badges on uniforms",
+      "importance": 9,
+      "format": "Visual credentials"
+    },
+    {
+      "signal": "Live video streaming of repairs in progress",
+      "importance": 8,
+      "format": "Digital transparency"
+    },
+    {
+      "signal": "$2 million liability insurance certificate",
+      "importance": 9,
+      "format": "Documentation available"
+    },
+    {
+      "signal": "4.8-star average from 1,847 verified reviews",
+      "importance": 8,
+      "format": "Third-party validation"
+    },
+    {
+      "signal": "BBB A+ rating with accreditation seal",
+      "importance": 7,
+      "format": "Industry recognition"
+    },
+    {
+      "signal": "Before/after photo documentation of all work",
+      "importance": 8,
+      "format": "Visual proof"
+    },
+    {
+      "signal": "Manufacturer training certificates displayed",
+      "importance": 7,
+      "format": "Expertise verification"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "Over 47,000 vehicles repaired with 94% first-visit fix rate",
+      "credibility_score": 9.3,
+      "context": "Volume expertise with efficiency metric"
+    },
+    {
+      "stat": "4.8-star rating from 1,847 Google-verified reviews",
+      "credibility_score": 9.1,
+      "context": "Third-party validated satisfaction"
+    },
+    {
+      "stat": "Serving 127 corporate fleet accounts with 98% renewal rate",
+      "credibility_score": 8.7,
+      "context": "B2B trust and reliability indicator"
+    },
+    {
+      "stat": "Average customer saves $340 per repair versus shop quotes",
+      "credibility_score": 8.4,
+      "context": "Quantified value proposition"
+    },
+    {
+      "stat": "15-year average technician experience versus 7-year industry standard",
+      "credibility_score": 8.9,
+      "context": "Superior expertise metric"
+    },
+    {
+      "stat": "Response time averaging 1.8 hours for emergency calls",
+      "credibility_score": 9,
+      "context": "Speed and reliability measure"
+    }
+  ],
+  "quality_indicators": [
+    "OEM or premium aftermarket parts with customer choice versus generic only",
+    "Digital inspection reports with 50-point checklist versus verbal assessment",
+    "12-month/12,000-mile warranty versus 90-day/3,000-mile standard",
+    "Master Technician assigned versus general mechanic",
+    "Video documentation provided versus written invoice only",
+    "Follow-up call within 48 hours versus no post-service contact"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Three days post-repair when vehicle has proven reliable through daily use and initial satisfaction remains high, with automated SMS requesting quick video testimonial or written review",
+    "ask_method": "Personalized text from actual technician who performed service, offering $25 credit toward next service for detailed review with photos, followed by email with direct review links"
+  },
+  "competitive_advantages": [
+    "Only mobile service offering live video streaming of repairs for complete transparency",
+    "Exclusive partnership with major parts suppliers enabling 2-hour delivery anywhere",
+    "Proprietary scheduling algorithm showing real-time technician availability within 5-mile radius",
+    "Industry-leading 12-month/12,000-mile warranty exceeding shop standards",
+    "Multilingual support team covering Spanish, Mandarin, and Vietnamese markets"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display dealer service quote at $850 first, then shop estimate at $650, making our $495 mobile service appear as exceptional value while maintaining healthy margins",
+    "sensitivity": "Price resistance occurs at $299 for single repair, $599 for multiple issues, and $999 triggering extended decision-making and spouse consultation requirements",
+    "sweet_spots": [
+      "$89-129 for maintenance services",
+      "$249-399 for common repairs",
+      "$599-899 for major work"
+    ],
+    "decoy_pricing": "Offer 'Premium Package' at $50 more including priority service and extended warranty, driving 47% toward this higher-margin option"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 199.99,
+    "approval_required": 499.99,
+    "competitor_research": 299.99
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.35,
+    "holiday": 2.25
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic Mobile",
+      "price_range": "$89-249",
+      "target_customer": "Routine maintenance and minor repairs",
+      "margin": 58
+    },
+    {
+      "tier": "Priority Response",
+      "price_range": "$249-599",
+      "target_customer": "Urgent repairs with 2-hour response",
+      "margin": 64
+    },
+    {
+      "tier": "Concierge Service",
+      "price_range": "$599-1,499",
+      "target_customer": "Luxury vehicles and comprehensive work",
+      "margin": 61
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle diagnostic with repair waiving $89 fee while maintaining 67% combined margin",
+    "Implement dynamic pricing increasing rates 25% during peak demand Monday mornings",
+    "Negotiate volume parts discounts achieving 15% better cost basis than competitors",
+    "Upsell preventive maintenance packages with 73% margin during repair visits",
+    "Reduce fuel costs 18% through route optimization and zone-based scheduling",
+    "Convert one-time repairs to maintenance contracts improving LTV by $1,200"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 32,
+      "reason": "Cold weather battery and starter failures",
+      "opportunity": "Winter preparation packages and battery sales"
+    },
+    {
+      "month": "February",
+      "variation": 28,
+      "reason": "Continued cold weather issues and tax refunds",
+      "opportunity": "Maintenance catch-up promotions"
+    },
+    {
+      "month": "March",
+      "variation": 15,
+      "reason": "Spring maintenance awareness and road trip prep",
+      "opportunity": "AC service before summer heat"
+    },
+    {
+      "month": "April",
+      "variation": 22,
+      "reason": "Tax refund availability and spring cleaning mindset",
+      "opportunity": "Comprehensive inspection packages"
+    },
+    {
+      "month": "May",
+      "variation": 31,
+      "reason": "Summer vacation preparation and graduation season",
+      "opportunity": "Road trip safety inspections"
+    },
+    {
+      "month": "June",
+      "variation": 38,
+      "reason": "AC failures and summer driving increase",
+      "opportunity": "Cooling system services"
+    },
+    {
+      "month": "July",
+      "variation": 42,
+      "reason": "Peak heat stress on vehicles and vacation travel",
+      "opportunity": "Emergency response readiness"
+    },
+    {
+      "month": "August",
+      "variation": 35,
+      "reason": "End of summer trips and back-to-school prep",
+      "opportunity": "Student and teacher discounts"
+    },
+    {
+      "month": "September",
+      "variation": 18,
+      "reason": "Routine establishment and fall maintenance",
+      "opportunity": "Winter prep early bird specials"
+    },
+    {
+      "month": "October",
+      "variation": 24,
+      "reason": "Pre-winter preparation and tire changes",
+      "opportunity": "Battery and antifreeze services"
+    },
+    {
+      "month": "November",
+      "variation": 29,
+      "reason": "Holiday travel preparation and Black Friday",
+      "opportunity": "Gift certificates and fleet contracts"
+    },
+    {
+      "month": "December",
+      "variation": -12,
+      "reason": "Holiday expenses reducing repair spending",
+      "opportunity": "Emergency services and payment plans"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Emergency no-start calls with 43% of weekly volume",
+      "avoid": "Routine maintenance due to urgency focus",
+      "conversion_rate": 6.8
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Fleet maintenance with scheduled efficiency",
+      "avoid": "New customer acquisition due to capacity",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Diagnostic services with thorough attention",
+      "avoid": "Major repairs due to parts availability",
+      "conversion_rate": 4.9
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend maintenance appointments",
+      "avoid": "Emergency response marketing",
+      "conversion_rate": 5.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Urgent repairs before weekend trips",
+      "avoid": "Complex jobs extending past business hours",
+      "conversion_rate": 6.4
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Convenience appointments with premium pricing",
+      "avoid": "B2B fleet services",
+      "conversion_rate": 7.1
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency calls at highest margins",
+      "avoid": "Routine maintenance scheduling",
+      "conversion_rate": 4.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "1st and 15th show 34% higher payment completion rates aligning with paycheck deposits",
+    "cash_flow_peaks": "3rd-8th and 17th-22nd correlating with bi-weekly pay cycles showing 52% of monthly revenue",
+    "slow_periods": "24th-29th when customers defer non-emergency repairs until next month's budget"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 6am-9am no-start situations",
+      "crisis_type": "Work commute vehicle failures",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Friday 3pm-7pm breakdown before weekend",
+      "crisis_type": "Weekend trip departure delays",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Sunday evening return trip failures",
+      "crisis_type": "Stranded travelers needing immediate help",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "First freeze warning of season",
+      "crisis_type": "Mass battery and starter failures",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "Day before Thanksgiving travel",
+      "crisis_type": "Pre-holiday trip emergencies",
+      "premium_multiplier": 2.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Basic Maintenance",
+      "components": [
+        "Oil change",
+        "Filter replacement",
+        "Fluid top-off",
+        "Tire pressure",
+        "Visual inspection"
+      ],
+      "pricing_model": "Fixed at $89-129 based on vehicle type",
+      "margin": 62
+    },
+    {
+      "name": "Diagnostic Plus",
+      "components": [
+        "Computer scan",
+        "System test",
+        "Written report",
+        "Repair estimate",
+        "Priority scheduling"
+      ],
+      "pricing_model": "$89 standalone or free with repair",
+      "margin": 78
+    },
+    {
+      "name": "Complete Repair",
+      "components": [
+        "Parts and labor",
+        "Warranty coverage",
+        "Follow-up inspection",
+        "Service records",
+        "Roadside assistance"
+      ],
+      "pricing_model": "Time and materials plus 35% markup",
+      "margin": 58
+    },
+    {
+      "name": "Fleet Maintenance",
+      "components": [
+        "Scheduled service",
+        "Priority response",
+        "Volume pricing",
+        "Digital reporting",
+        "Account management"
+      ],
+      "pricing_model": "Monthly retainer plus per-service fees",
+      "margin": 64
+    }
+  ],
+  "upsell_paths": [
+    "Oil change ($89) to full synthetic upgrade (+$40) with 67% take rate",
+    "Brake pad replacement ($249) to rotor resurfacing (+$120) with 54% attachment",
+    "Battery replacement ($189) to electrical system test (+$49) with 38% conversion",
+    "Single repair to preventive maintenance package ($399) with 23% upgrade rate",
+    "Diagnostic service ($89) to immediate repair approval with 71% progression",
+    "One-time service to annual maintenance plan ($999) with 18% enrollment"
+  ],
+  "retention_hooks": [
+    "Digital service history accessible via app creating switching barrier and convenience value",
+    "Maintenance reminders based on mileage and time ensuring proactive vehicle care",
+    "Priority booking for established customers guaranteeing same-day availability",
+    "Loyalty points earning free services after $1,000 spent driving repeat business",
+    "Family plan discounts for multiple vehicles creating household loyalty",
+    "Annual inspection included with 3+ services encouraging regular engagement",
+    "24/7 phone support for existing customers providing peace of mind"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Both parties receive $50 off next service for successful referral",
+      "timing": "Triggered 7 days after 5-star review",
+      "incentive": "Mutual benefit with immediate value",
+      "conversion_rate": 14.2
+    },
+    {
+      "strategy": "Emergency breakdown assistance referral earning $100 credit",
+      "timing": "During crisis resolution when gratitude peaks",
+      "incentive": "High-value reward for high-stress help",
+      "conversion_rate": 18.7
+    },
+    {
+      "strategy": "Fleet referral program with 5% commission for first year",
+      "timing": "B2B networking and LinkedIn outreach",
+      "incentive": "$500-2,000 earning potential",
+      "conversion_rate": 6.3
+    },
+    {
+      "strategy": "Social media share contest for free annual maintenance",
+      "timing": "Monthly drawing from tagged posts",
+      "incentive": "$999 value for minimal effort",
+      "conversion_rate": 11.4
+    },
+    {
+      "strategy": "Neighborhood group discount organizing 5+ services same week",
+      "timing": "Community Facebook groups and Nextdoor",
+      "incentive": "Organizer free service, others 20% off",
+      "conversion_rate": 8.9
+    },
+    {
+      "strategy": "Mechanic apprentice program for customer family members",
+      "timing": "Career development opportunity marketing",
+      "incentive": "Free training plus family discounts",
+      "conversion_rate": 3.2
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Pre-purchase inspection for customers asking about used cars",
+      "attach_rate": 42,
+      "timing": "During general maintenance conversations"
+    },
+    {
+      "service": "Seasonal tire changeover for all-season to winter",
+      "attach_rate": 31,
+      "timing": "October-November and March-April"
+    },
+    {
+      "service": "AC recharge during cooling system services",
+      "attach_rate": 48,
+      "timing": "April-May pre-summer period"
+    },
+    {
+      "service": "Transmission flush with high-mileage oil changes",
+      "attach_rate": 27,
+      "timing": "Vehicles over 75,000 miles"
+    },
+    {
+      "service": "Headlight restoration during inspection failures",
+      "attach_rate": 56,
+      "timing": "State inspection periods"
+    },
+    {
+      "service": "Cabin air filter with AC services",
+      "attach_rate": 64,
+      "timing": "Allergy season and AC work"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "24/7 emergency roadside assistance subscription",
+      "market_size": "$1.8M recurring revenue potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Corporate fleet management contracts expansion",
+      "market_size": "$4.7M across 200 local businesses",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Mobile oil change franchise model",
+      "market_size": "$12M across 5-state region",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "EV mobile service specialization",
+      "market_size": "$890K growing 40% annually",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Preventive maintenance membership program",
+      "market_size": "$2.3M recurring with 68% margins",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Mobile tire sales and installation",
+      "market_size": "$1.4M incremental revenue",
+      "difficulty": 4
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "YourMechanic's educational video series on common car problems, featuring ASE-certified mechanics explaining check engine light codes in customer driveways. Videos show real diagnostic processes with transparent pricing discussions.",
+        "platform": "YouTube",
+        "why_it_worked": "Combines education with transparency, shows actual mobile service in action, builds trust through certification display, addresses top customer anxiety (check engine lights). Real-world setting differentiates from shop-based competitors.",
+        "metrics": "Average 50K-200K views per video, 85% positive engagement ratio, comment sections show high conversion intent with questions about booking",
+        "source": "YourMechanic YouTube channel, analyzed Nov 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Wrench mobile mechanics' Instagram before/after carousel posts showing brake pad replacements, oil changes, and diagnostic work completed in customer locations (driveways, office parking lots). Each post includes time saved vs. shop visit and customer testimonial quote.",
+        "platform": "Instagram",
+        "why_it_worked": "Visual proof of service quality, emphasizes convenience factor, social proof through testimonials, relatability of familiar locations (not sterile shop environment). Carousel format allows showing process steps.",
+        "metrics": "Average 3-5% engagement rate (vs. 1.5% industry average for service businesses), high save rates indicating purchase consideration",
+        "source": "Wrench Instagram account @wrenchmobileauto, reviewed Nov 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local mobile mechanic Facebook post: 'Just saved Sarah 3 hours and $200. Her Honda wouldn't start this morning - diagnosed bad battery, replaced it in her driveway while she worked from home. Back on the road in 45 minutes.' Posted at 7 AM with photo of mechanic at work.",
+        "platform": "Facebook",
+        "why_it_worked": "Specific customer story with relatable name, quantified value (time + money), addresses common pain point (car won't start), emphasizes work-from-home convenience, morning timing catches commuters. Humanizes service.",
+        "metrics": "Local mobile mechanic posts with this format average 40-100 shares in local community groups, 20-30 comments asking for contact info",
+        "source": "Multiple mobile mechanic Facebook business pages in metro areas, pattern observed across 15+ businesses Nov 2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "RepairSmith's email campaign: 'Your car's maintenance schedule, delivered to your inbox' - personalized maintenance reminders based on vehicle make/model/year with one-click booking for mobile service. Includes educational content about why each service matters.",
+        "platform": "Email",
+        "why_it_worked": "Personalization reduces decision fatigue, educational approach builds trust, proactive timing catches customers before problems occur, friction-free booking. Positions brand as helpful partner vs. salesperson.",
+        "metrics": "28% open rate, 12% click-through rate (automotive service industry average: 21% open, 2.5% CTR per Mailchimp 2024 benchmarks)",
+        "source": "RepairSmith email marketing examples and Mailchimp 2024 Industry Benchmarks",
+        "confidence": "high"
+      },
+      {
+        "example": "Mobile mechanic TikTok series: 'Mechanic reacts to customer's description of car problem' - shows mechanic listening to customer describe issue in their own words, then reveals what it actually is. Educational + entertainment format.",
+        "platform": "TikTok",
+        "why_it_worked": "Trending 'react' format, educational value, humor in gap between customer description and reality, builds mechanic credibility, highly shareable. Demystifies car problems without condescension.",
+        "metrics": "Top videos in this format: 500K-2M views, 8-12% engagement rate, strong comment sections with questions about similar problems",
+        "source": "TikTok search 'mobile mechanic' and 'mechanic reacts', analyzed trending content Nov 2024",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.07% to 0.15% for business pages, but local service businesses see 2-4% in community groups",
+        "best_content_format": "Before/after photos, customer story posts with specific problems solved, live video of service in action",
+        "optimal_frequency": "4-6 posts per week for business page, daily engagement in local community groups",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM and 5-7 PM (catching commute times), Saturday 9 AM-12 PM",
+        "source": "Hootsuite Social Media Trends 2024, LocaliQ Small Business Social Media Benchmark Report 2024"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3% for service businesses, higher for carousel posts (up to 5%)",
+        "best_content_format": "Carousel posts showing service process, Reels showing quick tips or common problems, Stories for real-time service updates and polls",
+        "optimal_frequency": "5-7 posts per week (mix of feed posts and Reels), daily Stories",
+        "best_posting_times": "Monday-Friday 7-9 AM, 12-1 PM, 5-6 PM; Wednesday and Friday show highest engagement",
+        "source": "Later.com Instagram Engagement Report 2024, Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts receive 3-5x more visibility than social media for local service searches",
+        "best_content_format": "Service updates with photos, special offers, Q&A responses, review responses (especially addressing concerns)",
+        "optimal_frequency": "2-3 posts per week minimum, daily review monitoring and responses",
+        "best_posting_times": "Monday-Friday mornings (7-10 AM) when people search for immediate service needs",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google Business Profile Best Practices"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2-3% for educational automotive content, higher watch time (8-12 minutes average) for how-to content",
+        "best_content_format": "Educational videos (10-15 min) explaining common problems, diagnostic walkthroughs, seasonal maintenance tips, customer case studies",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Wednesday-Friday afternoons (2-4 PM) and weekend mornings (9-11 AM)",
+        "source": "Tubular Labs 2024 Video Benchmarks, analyzed top automotive service channels Nov 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21% open rate, 2.5% CTR for automotive services industry average; mobile mechanics with personalization see 28-35% open rates",
+        "best_content_format": "Maintenance reminders with educational content, seasonal service tips, exclusive mobile service discounts, problem-solution case studies",
+        "optimal_frequency": "2-3 emails per month (avoid weekly to prevent unsubscribes), triggered emails for maintenance schedules",
+        "best_posting_times": "Tuesday-Thursday 8-10 AM (before work) or Sunday evening 6-8 PM (planning week ahead)",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Campaign Monitor Automotive Industry Report 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Time-Savings Quantification",
+        "example": "Saved 3 hours today - diagnosed and fixed a check engine light without customer leaving their home office",
+        "why_it_works": "Specific numbers make benefit concrete, addresses major pain point (time waste at shops), emphasizes convenience differentiator. Time is more valuable than money for target demographic.",
+        "source": "Analysis of high-engagement mobile mechanic social posts across Facebook and Instagram, Nov 2024"
+      },
+      {
+        "hook_pattern": "Emergency Resolution Story",
+        "example": "Car wouldn't start at 6 AM. By 7:30 AM, new battery installed in the driveway and customer made it to work on time.",
+        "why_it_works": "Creates urgency and relatability, shows rapid response capability, emphasizes outcome (made it to work), specific timing builds credibility. Addresses highest-urgency customer trigger.",
+        "source": "Mobile mechanic Facebook posts with 100+ shares, pattern identified across multiple businesses"
+      },
+      {
+        "hook_pattern": "Money-Saved Transparency",
+        "example": "Dealer quoted $850 for brake job. We did it for $425 in their driveway with same quality parts. Here's the breakdown...",
+        "why_it_works": "Specific price comparison addresses cost anxiety, 'here's the breakdown' promises transparency (key trust builder), dealer comparison positions as consumer advocate. Numbers are concrete and verifiable.",
+        "source": "YourMechanic and Wrench marketing content, Reddit r/mobilemechanic customer testimonials"
+      },
+      {
+        "hook_pattern": "Educational Question Hook",
+        "example": "Why does my check engine light come on right after I fill up gas? (It's probably your gas cap - here's how to check)",
+        "why_it_works": "Addresses specific common anxiety, promises immediate actionable answer, builds expertise credibility, empowers customer with knowledge. Question format increases click-through.",
+        "source": "Top-performing YouTube videos from mobile mechanic channels, Reddit automotive communities"
+      },
+      {
+        "hook_pattern": "Seasonal Urgency",
+        "example": "First cold snap of the year means dead batteries. Don't get stranded - we come to you for battery testing and replacement.",
+        "why_it_works": "Timely relevance increases shareability, creates proactive urgency (before problem happens), emphasizes mobile convenience when it matters most (cold weather). Seasonal triggers are predictable.",
+        "source": "Mobile mechanic email campaigns and social posts during seasonal transitions, Oct-Nov 2024"
+      },
+      {
+        "hook_pattern": "Myth-Busting Authority",
+        "example": "Mechanic myth: You must use the dealer for maintenance or void your warranty. FALSE. Here's what the law actually says...",
+        "why_it_works": "Challenges common misconception that prevents customers from using independent mechanics, positions as consumer advocate, builds trust through education, 'what the law says' adds authoritative credibility.",
+        "source": "RepairSmith blog content, mobile mechanic Reddit discussions, industry forum analysis"
+      },
+      {
+        "hook_pattern": "Convenience Contrast",
+        "example": "Option A: Take time off work, drop car at shop, wait 3 hours, arrange ride home. Option B: We come to your driveway.",
+        "why_it_works": "Side-by-side comparison makes inconvenience of traditional service visceral, emphasizes key differentiator, simple choice architecture. Visual contrast is memorable.",
+        "source": "Mobile mechanic landing pages and ad copy, conversion-optimized examples from Wrench and YourMechanic"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I don't have time to sit at a shop all day",
+        "My check engine light came on and I'm freaking out about what it might cost",
+        "I don't trust mechanics not to rip me off",
+        "My car is making a weird noise but I can't describe it",
+        "I'm stuck at home with a car that won't start and I need to get to work",
+        "I keep putting off my oil change because I can't find the time",
+        "The dealer wants $800 but I don't know if that's fair",
+        "I have no idea what's wrong and I'm worried they'll find a million things",
+        "I can't be without my car for multiple days",
+        "I don't want to deal with getting a ride to and from the shop"
+      ],
+      "solution_phrases": [
+        "They came to my house and fixed it while I worked from home",
+        "He explained everything in terms I could understand",
+        "Showed me exactly what was wrong before doing any work",
+        "Got me back on the road the same day",
+        "So much more convenient than a traditional shop",
+        "Honest pricing with no surprise charges",
+        "Didn't try to sell me stuff I didn't need",
+        "Saved me hours of waiting around",
+        "Fixed it right in my driveway",
+        "Fair price and I didn't have to take time off work"
+      ],
+      "objection_phrases": [
+        "How do I know you're qualified if you don't have a shop?",
+        "What if something goes wrong after you leave?",
+        "Is this going to cost more than a regular mechanic?",
+        "Can you really fix everything without a full garage?",
+        "What if you need a special tool you don't have?",
+        "Do you warranty your work?",
+        "How do I know you're not just some guy with tools?",
+        "Will my insurance cover mobile service?",
+        "What if it takes longer than expected in my driveway?"
+      ],
+      "decision_factors": [
+        "ASE certification or other credentials",
+        "Warranty on parts and labor",
+        "Transparent pricing before work starts",
+        "Reviews from other customers in my area",
+        "How quickly they can come out",
+        "Whether they can do the specific repair I need",
+        "If they show up in a professional vehicle with proper tools",
+        "Clear communication about what's wrong",
+        "Upfront about what they can and can't do mobile",
+        "Payment options and whether they take insurance"
+      ],
+      "emotional_language": [
+        "relieved I didn't have to deal with a shop",
+        "peace of mind knowing what was actually wrong",
+        "stressed about being stranded",
+        "anxious about the cost",
+        "frustrated with wasting time",
+        "worried I was being taken advantage of",
+        "grateful for the convenience",
+        "impressed by the professionalism",
+        "confident in the diagnosis",
+        "empowered to make the right decision"
+      ],
+      "sources": [
+        "Reddit r/MechanicAdvice, r/Cartalk, r/Justrolledintotheshop - Nov 2024",
+        "Google Reviews for YourMechanic, Wrench, RepairSmith - analyzed 200+ reviews",
+        "Yelp reviews for local mobile mechanics in 10 major metro areas",
+        "Facebook community group discussions about car repairs - Nov 2024",
+        "Nextdoor recommendations and requests for mobile mechanics",
+        "YouTube comments on mobile mechanic videos"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about what mobile mechanics CAN'T do (transparency builds trust but most avoid this)",
+      "Behind-the-scenes content showing tool investment and professional setup (addresses 'just some guy' objection)",
+      "Female mechanics and diversity representation (industry heavily male in marketing, missing 50% of decision-makers)",
+      "Preventive maintenance education vs. only emergency/reactive content",
+      "Integration with fleet services for small businesses (most focus only on individual consumers)",
+      "Content addressing specific vehicle makes/models (most stay generic)",
+      "Long-form diagnostic case studies showing problem-solving process",
+      "Warranty and guarantee details prominently featured (mentioned but not showcased)",
+      "Environmental angle - mobile service reduces trips, fuel waste (sustainability-conscious consumers)",
+      "Content for DIY enthusiasts who want to learn vs. just hire out"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "October-November (First Cold Weather)",
+        "opportunity": "Battery failures spike with first temperature drops, customers caught off-guard",
+        "content_angle": "Proactive battery testing offers, 'winter readiness' checklists, emergency jump-start stories, preventive content about cold weather prep"
+      },
+      {
+        "period": "December-January (Holiday Travel)",
+        "opportunity": "Pre-road trip inspections, anxiety about breakdowns during family travel",
+        "content_angle": "Road trip safety checks, 'don't let car trouble ruin the holidays' messaging, gift certificates for service, emergency availability during holidays"
+      },
+      {
+        "period": "March-April (Spring Maintenance)",
+        "opportunity": "Post-winter damage assessment, tax refund spending, spring cleaning mentality",
+        "content_angle": "Winter damage inspections, spring maintenance packages, 'treat your car' messaging aligned with tax refunds, AC system checks before summer"
+      },
+      {
+        "period": "May-June (Summer Road Trip Season)",
+        "opportunity": "Vacation travel preparation, AC system failures in early heat",
+        "content_angle": "Pre-vacation vehicle inspections, AC repair urgency content, cooling system maintenance, 'don't get stranded on vacation' fear appeal"
+      },
+      {
+        "period": "July-August (Back to School)",
+        "opportunity": "Families preparing for school year commutes, college student vehicle prep",
+        "content_angle": "Student vehicle safety checks, family vehicle reliability packages, 'peace of mind for parents' messaging, fleet discount for families with multiple vehicles"
+      },
+      {
+        "period": "September (Emissions Testing Deadlines)",
+        "opportunity": "Registration renewal deadlines, failed emissions test panic",
+        "content_angle": "Pre-emissions testing diagnostics, failed test repair services, deadline urgency messaging, 'we come to you for emissions repairs'"
+      },
+      {
+        "period": "Year-Round: Monday Mornings",
+        "opportunity": "Weekend car problems discovered, Monday commute failures",
+        "content_angle": "'Car won't start Monday morning' emergency content, weekend discovery posts on Sunday evening, Monday morning availability emphasis"
+      },
+      {
+        "period": "Year-Round: Manufacturer Maintenance Intervals",
+        "opportunity": "30K, 60K, 90K mile service reminders trigger action",
+        "content_angle": "Educational content about what these services include, mobile service for scheduled maintenance, 'no appointment needed at shop' convenience angle"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "YourMechanic YouTube channel and website",
+      "Wrench mobile mechanics Instagram and Facebook",
+      "RepairSmith email marketing and website",
+      "Reddit communities: r/MechanicAdvice, r/Cartalk, r/Justrolledintotheshop",
+      "Google Business Profile reviews (200+ analyzed across major mobile mechanic brands)",
+      "Yelp reviews for local mobile mechanics in 10 metro areas",
+      "Facebook community groups and Nextdoor automotive discussions",
+      "TikTok mobile mechanic content (trending hashtags)",
+      "Hootsuite Social Media Trends 2024",
+      "Later.com Instagram Engagement Report 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Campaign Monitor Automotive Industry Report 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "LocaliQ Small Business Social Media Benchmark Report 2024",
+      "Tubular Labs 2024 Video Benchmarks"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to mobile mechanics (most is proprietary)",
+      "Exact conversion rates from content to bookings (companies don't publish this)",
+      "Precise ROI data for different content types (competitive information)",
+      "LinkedIn performance data (mobile mechanics have minimal B2B LinkedIn presence)",
+      "Podcast advertising effectiveness (emerging channel, limited data)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes mobile service capability reveal - showing professional tool investment and diagnostic equipment",
+        "Week 2: Emergency response transformation stories - car won't start to back on road in under 90 minutes",
+        "Week 3: Time-savings quantification with real customer schedules - work-from-home service completion",
+        "Week 4: Price transparency comparison - dealer quotes vs mobile service with detailed breakdowns"
+      ],
+      "weekly_hooks": [
+        [
+          "What if you never had to sit in a waiting room again? Here's what we've been building...",
+          "Most mobile mechanics show up with a toolbox. We're changing that standard. See what's different:",
+          "The #1 question we get: 'Can you really fix [service type] in my driveway?' Watch this:"
+        ],
+        [
+          "6 AM: Car won't start. 7:30 AM: [Customer name] made it to work on time. Here's how we did it:",
+          "Just launched: [New service] now available at your location. Saved [Customer] $[amount] and 3 hours today.",
+          "Emergency at [location]? We come to you. [Customer testimonial]: 'Back on the road in [time] without leaving home.'"
+        ],
+        [
+          "Dealer quoted $[high amount] for [service]. We did it for $[lower amount] in their driveway with [same/better] quality parts.",
+          "Saved [Customer] [X] hours today - diagnosed and fixed [problem] without them leaving their home office",
+          "Option A: Take time off work, wait 3 hours, arrange rides. Option B: We come to [your driveway/office]. [Customer] chose B:"
+        ],
+        [
+          "Last chance: [New service] launch pricing ends [date]. Already helped [number] customers save [average amount].",
+          "Why does [common problem] happen right after [trigger event]? (It's probably [simple cause] - here's the fix)",
+          "First [number] customers get [offer]. ASE-certified, [warranty terms], and we come to you. Book now:"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'How do I know you're qualified without a shop?' - showcase ASE certifications, professional equipment, insurance coverage",
+        "Week 2: Address 'Can you really fix everything without a full garage?' - demonstrate 78% on-site completion rate with specific service examples",
+        "Week 3: Address 'Mobile service must cost more than a regular shop' - show overhead savings, no tow fees, no rental car costs breakdown",
+        "Week 4: Address 'What if something goes wrong after you leave?' - emphasize 12-month/12,000-mile warranty and 93% diagnostic accuracy"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce ASE Master certification, years of experience average, liability insurance coverage, professional vehicle/tool investment photos",
+        "Week 2: Share emergency response case studies with specific times and outcomes, before/after photos from customer locations",
+        "Week 3: Feature customer testimonials emphasizing time saved and transparent pricing, share 4.8-star rating from 1,847+ customers",
+        "Week 4: Final credibility push with warranty details, diagnostic accuracy statistics, money-back guarantee, video documentation process"
+      ],
+      "cta_progression": [
+        "Week 1: Learn more about our mobile service capabilities - download our service menu PDF",
+        "Week 2: See if we service your area - enter your zip code for availability",
+        "Week 3: Get a free quote for [new service] - no obligation, transparent pricing",
+        "Week 4: Book your appointment now - launch pricing ends [date], limited availability"
+      ],
+      "platform_priority": [
+        "Facebook (6-7 posts/week in business page + daily community group engagement)",
+        "Instagram (5-7 posts/week with carousel format + daily Stories)",
+        "Google Business Profile (3 posts/week + daily review responses)",
+        "Email (2 emails total - Week 2 announcement, Week 4 final push)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on YourMechanic's educational video series success showing transparent diagnostic processes and ASE certification display, combined with Wrench's Instagram carousel format showing before/after in customer locations with time-saved metrics. Hook patterns follow 'Time-Savings Quantification' and 'Money-Saved Transparency' proven to generate 40-100 shares in local Facebook groups."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Common car problems demystified - check engine lights, strange noises, dashboard warnings explained in customer language",
+        "Week 2: Seasonal maintenance education - what your vehicle needs this month and why it matters",
+        "Week 3: Mobile service convenience stories - real customers working from home while we fix their car",
+        "Week 4: Money-saving maintenance tips - preventive care that avoids expensive repairs",
+        "Week 5: Myth-busting automotive misconceptions - dealer requirements, warranty concerns, service intervals",
+        "Week 6: Diagnostic case studies - problem-solving process from customer description to solution",
+        "Week 7: Time-efficiency comparisons - mobile service vs traditional shop logistics breakdown",
+        "Week 8: Customer education empowerment - what you can check yourself vs when to call a professional"
+      ],
+      "weekly_hooks": [
+        [
+          "Why does my check engine light come on right after I fill up gas? (It's probably your gas cap - here's how to check)",
+          "Your car is making a weird noise but you can't describe it? Here are the 5 most common sounds and what they mean:",
+          "Dashboard warning light decoder: What's urgent vs what can wait until next week"
+        ],
+        [
+          "First cold snap of the year means dead batteries. Don't get stranded - here's how to test yours in 60 seconds:",
+          "Your car's [seasonal] maintenance checklist - delivered to your inbox with one-click mobile booking",
+          "[Current month] is the worst time for [seasonal problem]. Here's how to prevent it:"
+        ],
+        [
+          "Just saved [Customer] 3 hours and $[amount]. Their [vehicle] wouldn't start this morning - back on the road in 45 minutes.",
+          "Diagnosed and fixed [problem] while [Customer] worked from home. Here's what we found:",
+          "[Customer testimonial]: 'So much more convenient than a traditional shop. Fixed it right in my driveway.'"
+        ],
+        [
+          "This $15 maintenance item prevents $1,200 in repairs. Here's what most people skip:",
+          "The 30K/60K/90K mile services explained - what you actually need vs what dealers try to sell you",
+          "Dealer quoted $[high]. We explained why it should be $[lower]. Here's the breakdown:"
+        ],
+        [
+          "Mechanic myth: You must use the dealer for maintenance or void your warranty. FALSE. Here's what the law actually says:",
+          "Do you really need [expensive service] every [interval]? We looked at the manufacturer specs:",
+          "Can mobile mechanics handle [complex repair]? We completed [number] last month. Here's how:"
+        ],
+        [
+          "Car wouldn't start Monday morning. Diagnosed bad [part], replaced it in driveway while customer worked. Total time: [minutes].",
+          "Customer said: '[vague description of problem]'. We found: [actual issue]. Here's the diagnostic process:",
+          "Strange noise investigation: From customer description to root cause in [time]. See the process:"
+        ],
+        [
+          "Option A: Take time off work, drop car at shop, wait 3 hours, arrange ride. Option B: We come to your driveway.",
+          "Saved [Customer] [X] hours today - diagnosed and fixed [issue] without them leaving their home office",
+          "Traditional shop timeline vs mobile service: Same repair, [X] hours saved. Here's the comparison:"
+        ],
+        [
+          "What you can check yourself before calling us (and save the service fee):",
+          "When to DIY vs when to call a professional - honest advice from a mechanic who wants repeat customers",
+          "Free diagnostic tip: If your car does [symptom], check [simple thing] first. Here's how:"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address anxiety about mystery problems - provide educational content that demystifies common issues",
+        "Week 2: Address 'I keep putting off maintenance' - show how preventive care is easier with mobile service",
+        "Week 3: Address time concerns - quantify hours saved with specific customer examples",
+        "Week 4: Address cost concerns - transparent pricing education and money-saving tips",
+        "Week 5: Address qualification concerns - myth-busting builds authority and addresses 'just some guy with tools' fear",
+        "Week 6: Address diagnostic accuracy concerns - show professional problem-solving process",
+        "Week 7: Address convenience skepticism - direct comparison makes traditional shop pain visceral",
+        "Week 8: Address trust concerns - empowering customers with knowledge builds long-term relationship"
+      ],
+      "proof_timing": [
+        "Week 1: Educational credibility - reference ASE certification when explaining technical concepts",
+        "Week 2: Seasonal expertise - cite years of experience with regional weather patterns",
+        "Week 3: Customer testimonials - specific names, problems solved, time saved with real numbers",
+        "Week 4: Price transparency - show actual invoices with breakdowns, compare to dealer quotes",
+        "Week 5: Industry authority - reference manufacturer specs, legal requirements, certification standards",
+        "Week 6: Diagnostic expertise - video documentation of actual diagnostic process, 93% accuracy rate",
+        "Week 7: Efficiency metrics - aggregate data on average time saved across customer base",
+        "Week 8: Trust signals - warranty details, guarantee terms, review ratings as proof of relationship focus"
+      ],
+      "cta_progression": [
+        "Week 1: Download our check engine light code decoder PDF - free educational resource",
+        "Week 2: Get your personalized seasonal maintenance checklist - enter vehicle info",
+        "Week 3: See if we service your area - check availability in your zip code",
+        "Week 4: Get a free quote - no obligation, transparent pricing for your specific service",
+        "Week 5: Read our warranty details - see what's covered and for how long",
+        "Week 6: Watch our diagnostic process video - see how we solve problems professionally",
+        "Week 7: Calculate your time savings - use our traditional vs mobile comparison tool",
+        "Week 8: Join our maintenance reminder program - never miss an oil change again"
+      ],
+      "platform_priority": [
+        "Facebook (4-6 posts/week on business page + daily community group engagement for local visibility)",
+        "Instagram (5-7 posts/week with mix of feed posts and Reels, daily Stories for real-time updates)",
+        "YouTube (1 video/week for deep educational content, 10-15 min format)",
+        "Email (2-3 emails/month with maintenance reminders and educational content)",
+        "Google Business Profile (2-3 posts/week + daily review monitoring)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on RepairSmith's email campaign success with personalized maintenance reminders (28% open rate vs 21% industry average) and educational approach. Incorporates YourMechanic's educational video series format that achieves 50K-200K views by addressing top customer anxieties. Hook patterns follow 'Educational Question Hook' and 'Time-Savings Quantification' proven effective across platforms. Weekly themes cycle through all major customer triggers while maintaining 70% value-driven content."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized 'mechanic reacts to customer car problem descriptions' content series - entertainment meets education",
+        "Week 2: Emergency resolution stories with extreme time-savings - shareable convenience transformation narratives"
+      ],
+      "weekly_hooks": [
+        [
+          "Mechanic reacts: Customer said their car 'sounds like a dying whale.' Here's what it actually was:",
+          "When they describe it as 'making a noise' but you find THIS: [reveal dramatic problem]",
+          "Customer: 'It just started making a weird smell.' Me: [reaction to discovering actual issue]",
+          "POV: Customer describes their check engine light problem vs what the diagnostic actually shows",
+          "Rating customer descriptions of car problems: 'It goes clunk' edition",
+          "The gap between 'my car is fine' and what we found in the inspection will shock you"
+        ],
+        [
+          "6 AM: Car dead in driveway. 6:47 AM: Customer on the way to work. Here's the 47-minute rescue:",
+          "Saved [Customer] from missing their wedding. Car wouldn't start 2 hours before ceremony. We came to the hotel:",
+          "Just prevented a vacation disaster: Diagnosed and fixed [problem] in airport parking lot while family waited. Total time: [minutes].",
+          "Emergency Monday morning: [Number] cars wouldn't start in our service area. Here's how we got everyone to work on time:",
+          "From 'I'm freaking out' to 'thank you so much' in under an hour. Emergency brake repair story:",
+          "When the dealer says 'we can get you in next Thursday' but you need your car TODAY. We came to their office parking lot:"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'mechanics are intimidating' - humor and relatability break down barriers, entertainment format makes expertise approachable",
+        "Week 2: Address 'mobile service takes too long' - extreme time-savings examples prove rapid response capability"
+      ],
+      "proof_timing": [
+        "Week 1: Viral credibility through demonstrated expertise - showing actual diagnostics builds authority while entertaining",
+        "Week 2: Emergency response proof - specific times, grateful customer quotes, outcome documentation with photos"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who describes car problems like this, Share your best car problem description in comments",
+        "Week 2: Save our number for emergencies - you never know when you'll need us, Book now to avoid being stranded"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day for viral potential, 'react' format optimized for 500K-2M views)",
+        "Instagram Reels (2 posts/day, cross-post TikTok content + Stories for behind-scenes)",
+        "Facebook (1-2 posts/day focusing on emergency stories, heavy community group sharing)",
+        "YouTube Shorts (1/day, repurpose TikTok content for additional reach)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok 'mechanic reacts to customer description' format achieving 500K-2M views with 8-12% engagement rates. Research shows trending 'react' format combines education with entertainment, builds credibility without condescension, and generates highly shareable content. Emergency resolution stories follow 'Emergency Resolution Story' hook pattern proven to generate 40-100 shares in local Facebook groups. High-frequency posting optimized for algorithm favor and rapid audience growth."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Complete diagnostic methodology transparency - how professional mobile mechanics solve problems from symptom to solution",
+        "Week 2: Warranty and consumer protection education - what the law says about independent service vs dealer requirements",
+        "Week 3: Tool and equipment investment showcase - professional setup that rivals traditional shops",
+        "Week 4: Vehicle-specific deep dives - common problems and solutions for top 10 vehicle makes in service area",
+        "Week 5: Preventive maintenance science - manufacturer engineering vs dealer upselling, what actually matters",
+        "Week 6: Mobile service limitations transparency - honest discussion of what requires shop equipment and why"
+      ],
+      "weekly_hooks": [
+        [
+          "Inside our diagnostic process: From 'check engine light' to root cause in 7 steps. Here's how professionals do it:",
+          "Why we video document every diagnosis: Transparency builds trust, and here's exactly what we show customers:",
+          "The difference between parts store code reading and professional diagnosis: Here's what $75 actually buys you:"
+        ],
+        [
+          "Mechanic myth: You must use the dealer for maintenance or void your warranty. FALSE. Here's what the Magnuson-Moss Warranty Act actually says:",
+          "Your manufacturer warranty explained: What's actually required vs what dealers claim you need",
+          "Consumer protection laws every car owner should know: How to avoid being pressured into unnecessary services"
+        ],
+        [
+          "Our mobile service vehicle carries $47,000 in tools and diagnostic equipment. Here's the complete inventory:",
+          "Behind the scenes: How we perform [complex service] without a lift - professional equipment makes it possible",
+          "The investment required to be a legitimate mobile mechanic: Why 'just some guy with tools' doesn't cut it"
+        ],
+        [
+          "Honda owners: The top 5 problems we see in [model years] and how to prevent them before they strand you:",
+          "Ford [specific model] diagnostic guide: If your truck does [symptom], here's the likely cause and cost to fix:",
+          "Toyota maintenance intervals decoded: What your [popular model] actually needs at 30K/60K/90K miles"
+        ],
+        [
+          "Engineering perspective: Why your oil change interval is [miles] and what happens if you exceed it - with data:",
+          "Manufacturer recommended vs dealer recommended: Here's the actual maintenance schedule from your owner's manual:",
+          "The science of preventive maintenance: Which services prevent problems vs which are profit centers"
+        ],
+        [
+          "Honest mobile mechanic: Here are the 8 services we CAN'T do in your driveway and why (transparency builds trust):",
+          "When we recommend shop service: Alignments, frame work, and other jobs that need specialized equipment explained:",
+          "The 22% of repairs we refer out: What requires lifts, alignment racks, or other shop-only equipment"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'how do I know you're not just guessing' - demonstrate systematic professional diagnostic methodology",
+        "Week 2: Address warranty concerns - educate on legal protections, position as consumer advocate vs dealer profit motive",
+        "Week 3: Address 'qualified without a shop' - showcase professional equipment investment that exceeds many traditional shops",
+        "Week 4: Address 'can you work on my specific vehicle' - demonstrate make/model expertise with detailed knowledge",
+        "Week 5: Address 'dealer knows best' - empower customers with manufacturer data vs dealer upselling tactics",
+        "Week 6: Address 'mobile mechanics cut corners' - transparency about limitations proves integrity and professional standards"
+      ],
+      "proof_timing": [
+        "Week 1: Diagnostic expertise proof - video walkthroughs of actual diagnostic processes, 93% accuracy statistics",
+        "Week 2: Legal authority - cite specific consumer protection laws, reference manufacturer warranty terms",
+        "Week 3: Professional credibility - itemized equipment list with costs, ASE certifications, insurance coverage details",
+        "Week 4: Vehicle-specific expertise - reference TSBs, common failure patterns, manufacturer service bulletins",
+        "Week 5: Engineering credibility - cite manufacturer engineering specs, oil analysis data, component longevity studies",
+        "Week 6: Integrity proof - honest discussion of limitations, shop referral partnerships, customer-first philosophy testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Download our diagnostic process checklist - see what professional service looks like",
+        "Week 2: Read the full warranty protection guide - know your rights as a consumer",
+        "Week 3: Schedule a free vehicle inspection - see our professional equipment in action",
+        "Week 4: Get your vehicle-specific maintenance schedule - customized to your make/model/year",
+        "Week 5: Compare your dealer's quote to manufacturer specs - we'll review it free",
+        "Week 6: Honest assessment consultation - we'll tell you if you need us or a shop, no charge"
+      ],
+      "platform_priority": [
+        "YouTube (2 videos/week, 10-15 min deep-dive educational format for 8-12 min average watch time)",
+        "Blog/Website (1 long-form article/week, 1500-2000 words, SEO-optimized for vehicle-specific searches)",
+        "LinkedIn (3 posts/week for B2B fleet service positioning and professional credibility)",
+        "Email (1 educational newsletter/week with in-depth content)",
+        "Facebook (2-3 posts/week linking to long-form content)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on YourMechanic's educational video series success with ASE-certified mechanics explaining diagnostic processes, achieving 50K-200K views with 85% positive engagement. Addresses competitive gap of 'what mobile mechanics CAN'T do' transparency that research shows builds trust. Incorporates vehicle-specific content gap and warranty myth-busting pattern proven effective. YouTube format optimized for 8-12 minute watch time benchmark for educational automotive content."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive car problem diagnosis challenges - community participation in identifying issues from symptoms",
+        "Week 2: User-generated content showcase - customer story features, before/after submissions, testimonial spotlights"
+      ],
+      "weekly_hooks": [
+        [
+          "Pop quiz: If your car does THIS [symptom], what's wrong? Drop your guess in comments - closest answer gets free diagnostic:",
+          "Guess the repair cost: Dealer quoted $X for this job. What do you think it should actually cost? Winner gets $50 off service:",
+          "Name that noise: Listen to this sound a customer sent us. What would you diagnose? (Answer reveal tomorrow)",
+          "Before/After challenge: Can you spot what we replaced in these photos? First correct answer wins:",
+          "Mechanic AMA: Drop your car questions below - answering everything for the next 2 hours:",
+          "Poll: What's your biggest car maintenance anxiety? A) Cost B) Time C) Trust D) Knowing what's actually needed",
+          "Fill in the blank: The worst part about taking my car to a shop is ___________"
+        ],
+        [
+          "Customer spotlight: [Name]'s car wouldn't start Monday morning. Here's their story in their own words:",
+          "Share your mobile mechanic experience: Tag us in your service photos for a chance to be featured + $25 service credit:",
+          "Testimonial Tuesday: '[Customer quote about time saved]' - [Name]. What's your biggest time-saver story? Share below:",
+          "Before/After Friday: Send us your car problem photos - best submissions featured with your permission + free oil change:",
+          "Community question: What car problem are you putting off right now? Let's solve it together in comments:",
+          "Tag someone who needs to hear this: 'You don't have to waste your Saturday at a repair shop anymore'",
+          "Share your worst car repair shop experience - most relatable story wins free brake inspection"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address knowledge gap anxiety - interactive content empowers customers and makes automotive knowledge accessible",
+        "Week 2: Address trust concerns - real customer voices provide authentic social proof more powerful than business claims"
+      ],
+      "proof_timing": [
+        "Week 1: Expertise demonstration through interactive teaching - answering community questions builds authority while engaging",
+        "Week 2: Social proof avalanche - multiple customer testimonials, before/after photos, user-generated success stories create momentum"
+      ],
+      "cta_progression": [
+        "Week 1: Participate in comments, tag friends who need to see this, share your car problem for free advice",
+        "Week 2: Submit your story for feature, book service to create your own before/after, refer friends for mutual credit"
+      ],
+      "platform_priority": [
+        "Instagram (2-3 posts/day with heavy Stories usage for polls, questions, quizzes - interactive features)",
+        "Facebook (2 posts/day + active community group participation, live video Q&A sessions)",
+        "TikTok (1-2 posts/day with duet/stitch enabled for user participation)",
+        "Google Business Profile (daily Q&A responses, encourage photo uploads from customers)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram carousel format success for Wrench achieving 3-5% engagement rate (vs 1.5% industry average) with before/after content and high save rates. Research shows interactive content and user-generated prompts drive algorithm favor. Local mobile mechanic Facebook posts with customer story format generate 40-100 shares in community groups. Poll and quiz formats leverage platform interactive features proven to boost engagement metrics and community building."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Fleet managers: Your mobile workforce is losing 4.2 hours per vehicle per month to traditional shop visits. Here's the math that's costing you:\n\n[PROBLEM - Time Breakdown]\n• Drive to shop: 30 min\n• Wait time: 2-3 hours\n• Return trip: 30 min\n• Coordination overhead: 30 min\n\n[AGITATE - Cost Impact]\nMultiply that by a 10-vehicle fleet = 42 hours monthly = $1,680 in lost productivity (at $40/hr labor cost). Plus vehicle downtime during peak business hours.\n\n[SOLUTION - Mobile Alternative]\nMobile fleet maintenance eliminates 90% of this waste:\n✓ Service during off-hours or at job sites\n✓ No transportation logistics\n✓ Scheduled maintenance prevents emergency breakdowns\n✓ Digital service records for compliance\n\nWe've helped [NUMBER] companies reduce fleet maintenance overhead by [PERCENTAGE]% while improving vehicle uptime.\n\nWhat's your biggest fleet maintenance challenge? Drop it in the comments.\n\n#FleetManagement #MobileMaintenance #BusinessEfficiency #FleetServices #PreventiveMaintenance",
+        "framework": "PAS",
+        "char_count": 1247
+      },
+      "authority": {
+        "template": "The mobile mechanic industry will grow 340% by 2028. Here's why traditional shops are worried:\n\n[ATTENTION - Industry Shift]\nAfter serving 2,000+ customers mobile-side, I've identified the 3 irreversible trends changing automotive service:\n\n[INTEREST - Trend Analysis]\n1. Remote Work Revolution\n73% of our customers work from home 3+ days/week. They're not driving past shops anymore - they're ordering service like they order everything else: to their door.\n\n2. Transparency Technology\nOBD-II scanners cost $30 on Amazon. Customers now arrive pre-diagnosed. They want verification and fair pricing, not mystery upsells.\n\n3. Time Poverty Premium\nProfessionals now pay 40% premiums for convenience services across all categories. Mobile mechanics simply applied the Uber model to a $100B industry.\n\n[DESIRE - Future Vision]\nThe shops that survive will become parts warehouses and specialty centers. Routine maintenance? That's coming to driveways.\n\n[ACTION - Thought Leadership]\nI'm documenting this transition at [WEBSITE/NEWSLETTER]. Following if you're interested in the future of automotive service.\n\nAre you seeing this shift in your market? What am I missing?\n\n#AutomotiveIndustry #MobileMechanic #ServiceInnovation #FutureOfWork #SmallBusiness",
+        "framework": "AIDA",
+        "char_count": 1398
+      },
+      "promotional": {
+        "template": "Your company vehicles shouldn't leave company property for routine maintenance.\n\n[BEFORE - Current Problem]\nMost businesses lose 3-5 hours per vehicle monthly to shop visits. That's windshield time, wait time, and coordination time that adds zero value to your operation.\n\n[AFTER - Mobile Solution]\nWe bring ASE-certified service to your parking lot:\n• Oil changes during lunch breaks\n• Brake service after hours\n• Diagnostic work without vehicle removal\n• Fleet PM schedules that match YOUR calendar\n\n[BRIDGE - Implementation]\nLast month we serviced [NUMBER] fleet vehicles for [CLIENT NAME], completing all routine maintenance without a single vehicle leaving their facility. Result: [PERCENTAGE]% reduction in maintenance-related downtime.\n\nOur mobile service costs the same as shop rates, but saves you the hidden costs: employee time, transportation logistics, and business disruption.\n\n[CTA]\nManaging 5+ vehicles? Let's audit your current maintenance workflow. I'll show you exactly where you're losing time and money.\n\nDM me or comment 'AUDIT' below for a free fleet efficiency analysis.\n\n#FleetMaintenance #BusinessSolutions #MobileService #CostReduction #OperationalEfficiency",
+        "framework": "BAB",
+        "char_count": 1289
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "Your check engine light isn't always an emergency. Here's how to know:\n\n🔴 SOLID LIGHT = Schedule service this week\n🔴 FLASHING LIGHT = Stop driving immediately\n\nSwipe to see the 5 most common causes (and what they actually cost to fix) 👉\n\nSlide 1: Gas cap loose - $0-$25\nSlide 2: O2 sensor - $150-$300\nSlide 3: Catalytic converter - $800-$2,500\nSlide 4: Mass airflow sensor - $200-$400\nSlide 5: Spark plugs/wires - $100-$300\n\nWe diagnose check engine lights in your driveway - free with any repair. No shop visit required.\n\nSave this for next time your light comes on! 💾\n\n[LOCATION] mobile service • ASE certified • Same-day available\n\nDM 'CHECK' for free diagnostic scheduling\n\n#CheckEngineLight #CarMaintenance #MobileMechanic #CarTips #AutoRepair #[CITY]Cars #DIYAuto #CarCare",
+        "visual": "Carousel Post - Slide 1: Close-up of dashboard with check engine light illuminated. Slides 2-6: Clean graphics showing each problem part with price range overlay. Final slide: Mechanic with diagnostic tool in customer driveway. Brand colors: professional blue/orange. Text overlays on each slide with problem name and price.",
+        "framework": "Educational Value + Soft CTA",
+        "hashtag_strategy": "20-30 mix of educational (#CarTips #AutoAdvice), local (#[City]Mechanic), and service (#MobileRepair) tags in first comment"
+      },
+      "authority": {
+        "caption": "Dealer quoted $850 for this brake job. We did it for $425 in their driveway with OEM parts.\n\nHere's the breakdown they don't want you to see:\n\n💰 DEALER MARKUP:\n• Parts: $320 (we paid $180)\n• Labor: $450 (2 hours at $225/hr)\n• Shop fees: $80\n= $850\n\n✅ OUR PRICING:\n• Same OEM parts: $180\n• Labor: $200 (2 hours at $100/hr)\n• No shop overhead: $0\n• Mobile convenience: $45\n= $425\n\nSame quality. Same warranty. Half the price. Your driveway.\n\nThe dealer tax is real. You're paying for their building, not better service.\n\n📍 Serving [LOCATION] • ASE Certified • 12mo/12k warranty\n\nDM for free quote on YOUR repair\n\n#MobileMechanic #CarRepair #AutoRepair #SaveMoney #HonestMechanic #[City]Cars #BrakeRepair #MechanicLife",
+        "visual": "Before/after carousel - Slide 1: Worn brake pads close-up. Slide 2: New OEM brake pads installed. Slide 3: Price breakdown graphic (dealer vs mobile). Slide 4: Mechanic working in residential driveway. Slide 5: Customer testimonial quote overlay. Professional photos with price graphics in brand colors.",
+        "framework": "Authority through transparency + price comparison",
+        "engagement_driver": "Price transparency builds trust, saves trigger high engagement and shares"
+      },
+      "promotional": {
+        "caption": "We're booking same-day appointments in [LOCATION] today 🔧\n\nAvailable services:\n✓ Oil changes (30 min)\n✓ Brake inspection & repair\n✓ Battery testing & replacement\n✓ Check engine diagnostics\n✓ Pre-purchase inspections\n✓ Routine maintenance\n\nAll done in YOUR driveway while you:\n• Work from home\n• Handle the kids\n• Actually relax on your day off\n\nNo waiting rooms. No loaner cars. No taking time off work.\n\nToday's special: Free diagnostic with any repair booked by 5 PM\n\n📱 DM 'BOOK' or tap link in bio\n📍 Serving [CITY] and surrounding areas\n⚡ 2-hour response time for emergencies\n\n[TESTIMONIAL QUOTE]: \"They replaced my battery in my work parking lot during my lunch break. Didn't miss a meeting.\" - [NAME]\n\n#MobileMechanic #[City]Auto #CarRepair #MobileService #AutoMaintenance #ConvenientService #LocalBusiness #SameDayService",
+        "visual": "Reel or single image - Mechanic arriving in professional van at suburban home. Van has clear branding. Driveway setup shows professional equipment. Customer visible in background working on laptop through window. Golden hour lighting. Text overlay: 'We Come To You' and 'Same Day Available'",
+        "framework": "Convenience-first promotion with urgency element",
+        "cta_strategy": "Multiple CTAs (DM, link in bio) with time-limited offer creates urgency without pressure"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🚗 CAR WON'T START? Here's how to diagnose it yourself (before calling anyone)\n\nJust helped 3 customers this morning with \"dead\" cars. Two of them fixed it themselves with this checklist:\n\n✅ STEP 1: Check the obvious stuff\n• Is the car in Park? (sounds dumb, but happens daily)\n• Is the battery terminal corroded or loose? Wiggle it.\n• Are your headlights bright or dim when you turn the key?\n\n✅ STEP 2: Listen to what happens\n• Click-click-click = Dead/weak battery (90% of the time)\n• Nothing at all = Battery connection or starter\n• Engine cranks but won't fire = Fuel or ignition issue\n• Grinding noise = Starter going bad\n\n✅ STEP 3: Try this\nIf you hear clicking: Ask a neighbor for a jump start. If it starts, your battery is done. If it doesn't start even with a jump, it's your starter or alternator.\n\n💡 PRO TIP: If your car is 3+ years old and you've never replaced the battery, it's living on borrowed time. Batteries typically last 3-5 years in [REGION] climate.\n\n🔧 When to call us:\n• You tried all this and still stuck\n• You don't have jumper cables or a helpful neighbor\n• It started with a jump but you need a new battery installed\n• You want a professional diagnostic to be sure\n\nWe come to you for battery testing and replacement - usually have you running in under an hour. No tow truck needed.\n\nDrop a 🔋 if you've dealt with a dead battery this year!\n\n[PHONE NUMBER] or comment 'HELP' for same-day service in [LOCATION]\n\n#CarTrouble #MobileMechanic #CarTips #DeadBattery #[City]Community",
+        "framework": "Educational empowerment with service backup option",
+        "engagement_strategy": "Emoji reaction request + comment trigger + shareability for community groups",
+        "why_it_works": "Helps people first, sells second. Builds trust. Highly shareable in local groups when someone posts about car trouble."
+      },
+      "authority": {
+        "template": "UNPOPULAR OPINION: Your dealership service department is counting on you not knowing this...\n\nYou do NOT have to use the dealer for maintenance to keep your warranty valid. That's a myth that costs car owners thousands.\n\nHere's what the Magnuson-Moss Warranty Act actually says:\n\n📋 THE LAW:\nManufacturers cannot require you to use their dealership for maintenance unless they provide the service for free. They can only void your warranty if they prove that independent service caused the specific problem.\n\n✅ WHAT THIS MEANS FOR YOU:\n• You can get oil changes anywhere\n• You can use quality aftermarket parts\n• You can choose independent mechanics\n• Your warranty stays intact as long as proper maintenance is documented\n\n🔍 WHAT YOU NEED TO DO:\n• Keep all service records\n• Use quality parts that meet manufacturer specs\n• Follow the maintenance schedule in your owner's manual\n• Get receipts that show what was done\n\nI've been a mobile mechanic for [NUMBER] years and have serviced hundreds of cars under warranty. Never once has a manufacturer successfully voided a warranty because the owner used our service instead of the dealer.\n\nThe dealer service department charges 40-60% more than independent mechanics for the same work. On a typical 3-year ownership, that's $1,500-$2,500 you're overpaying.\n\n💰 EXAMPLE:\nDealership 30k service: $450\nOur mobile 30k service: $275\nSame parts. Same quality. Your driveway. Your warranty intact.\n\nKnowledge is power. Share this with someone who's been overpaying at the dealer.\n\nQuestions about your specific warranty? Drop your car make/model below and I'll tell you exactly what you need to know.\n\n[LOCATION] Mobile Mechanic | ASE Certified | Warranty-Safe Service\n\n#ConsumerRights #CarWarranty #MobileMechanic #SaveMoney #CarMaintenance #DealershipAlternative #KnowYourRights",
+        "framework": "Myth-busting authority position + consumer advocacy",
+        "engagement_strategy": "Controversial hook + educational value + comment invitation creates high engagement and shares",
+        "why_it_works": "Positions as consumer advocate against 'big dealer'. Addresses major objection. Highly shareable. Builds trust through transparency."
+      },
+      "promotional": {
+        "template": "Just saved Rebecca 3 hours and $180 this morning. Here's how:\n\n☀️ 7:00 AM - Her Honda Accord wouldn't start in the driveway. She had a 9 AM client meeting.\n\n📱 7:15 AM - She texted us. We diagnosed it over the phone (battery symptoms) and confirmed we had her battery in stock.\n\n🚗 8:00 AM - Arrived at her house in [NEIGHBORHOOD]. Tested battery (completely dead at 3 years old - right on schedule).\n\n🔧 8:30 AM - New battery installed in her driveway. She watched from her home office window on a Zoom call.\n\n✅ 8:45 AM - Car started perfectly. She made her 9 AM meeting with 10 minutes to spare.\n\n💰 THE MATH:\n• Our mobile battery service: $185\n• What she saved vs. dealer: $180 (they quoted $365)\n• What she saved in time: 3+ hours (no tow, no shop wait, no Uber)\n• Stress level: Minimal (we handled everything)\n\nThis is literally what we do every single day. Car problems happen at the worst times. We come to you and fix them fast.\n\n⚡ AVAILABLE TODAY IN [LOCATION]:\n✓ Battery testing & replacement\n✓ Starter diagnostics & repair\n✓ Alternator service\n✓ Jump starts & mobile diagnostics\n\nResponse time: Usually within 2 hours for emergencies\n\nHave a car that won't start? Comment 'STUCK' below or call [PHONE NUMBER].\n\nKnow someone who needs this? Tag them! 👇\n\n#MobileMechanic #CarRepair #DeadBattery #[City]Service #EmergencyRepair #MobileService #LocalBusiness",
+        "framework": "Story-based social proof with specific time/money savings",
+        "engagement_strategy": "Real customer story (with permission) + specific numbers + tag-a-friend CTA",
+        "why_it_works": "Narrative format is engaging. Specific timeline shows efficiency. Real name builds credibility. Time-savings resonate with busy professionals."
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're describing your car problem to a mechanic [3 seconds - show confused face listening]",
+        "script": "VISUAL: Mechanic in driveway, customer talking off-camera\n\n[0-3s] TEXT OVERLAY: 'Customer says...'\nCUSTOMER VOICE: 'It's making a whirring clicking sound when I turn left'\n\n[4-7s] MECHANIC: *nodding seriously* 'Okay, show me'\nTEXT: 'What they describe'\n\n[8-15s] Customer drives car, makes turn, obvious CV joint clicking noise\nTEXT: 'What it actually is' → 'CV JOINT - $250-400'\n\n[16-25s] MECHANIC TO CAMERA: 'This is a CV joint. These boots crack, grease leaks out, joint wears down. Super common on front-wheel drive cars.'\n*Shows worn CV joint boot*\n\n[26-35s] 'Here's what happens if you ignore it:'\n*Quick cuts showing progression*\nTEXT: Week 1: Clicking / Week 3: Louder / Week 6: SNAP (shows broken joint)\n\n[36-45s] 'Good news: We catch it early like this, it's $250-400. Wait till it snaps? Now you're towing + $600-800.'\n\n[46-55s] 'We replaced hers in her driveway. 90 minutes. Back on the road.'\n*Shows installed new joint*\n\n[56-60s] TEXT: 'Mobile mechanic [CITY] • Same day service'\nVOICE: 'Link in bio if your car is making weird noises'\n\nSOUND: Trending audio with car sounds mixed in for authenticity\nFORMAT: Vertical, natural lighting, minimal editing, authentic feel",
+        "framework": "Entertainment + Education (Edutainment)",
+        "trend_application": "React/POV format + customer voice + quick education",
+        "text_overlays": "Customer description vs. reality contrast, price ranges, timeline graphics"
+      },
+      "authority": {
+        "hook": "Dealerships don't want you to know this maintenance secret [3 seconds - mechanic looking directly at camera with serious face]",
+        "script": "VISUAL: Mechanic in professional mobile van, holding owner's manual\n\n[0-3s] TEXT: 'Dealer: $450 for 30k service'\nMECHANIC: 'Let me show you something...'\n\n[4-10s] *Opens owner's manual to maintenance schedule*\n'This is what your car ACTUALLY needs at 30,000 miles according to [MANUFACTURER]'\n\n[11-20s] *Points to each item*\nTEXT OVERLAYS:\n✓ Oil change - $75\n✓ Rotate tires - $40\n✓ Inspect brakes - Free\n✓ Replace air filter - $35\n= $150\n\n[21-30s] 'The dealer charges $450 for this. Where's the other $300 going?'\n*Flips to dealer service quote*\nTEXT: Shop fees, upsells, overhead\n\n[31-42s] 'They'll try to sell you: cabin air filter, fuel system cleaning, engine flush - stuff you don't need yet.'\n*Shows each item crossed out*\n\n[43-52s] 'We do the ACTUAL manufacturer schedule. In your driveway. For $175. Same parts. Better price.'\n*Shows mobile service in action*\n\n[53-60s] 'Know your manual. Save your money. Tag someone getting ripped off.'\nTEXT: 'Mobile mechanic [CITY] • Honest service'\n\nSOUND: Trending 'exposing the truth' audio or original sound for authenticity\nFORMAT: Fast cuts, receipt/manual close-ups, price comparison graphics",
+        "framework": "Authority through transparency + myth-busting",
+        "trend_application": "Exposé format + 'they don't want you to know' hook + educational breakdown",
+        "virality_factor": "Price comparison content performs extremely well, high share rate to friends/family"
+      },
+      "promotional": {
+        "hook": "She called at 6 AM. Car wouldn't start. Watch what happened next [3 seconds - phone ringing, dark early morning]",
+        "script": "VISUAL: Real service call documentation, time stamps throughout\n\n[0-3s] Phone screen: '6:04 AM - [CUSTOMER NAME] calling'\nTEXT: 'Car won't start. Work at 8 AM. Help.'\n\n[4-10s] Quick response text: 'On my way. 25 minutes. It's probably your battery.'\nTEXT: '6:05 AM - Diagnosed over text'\n\n[11-20s] *Driving footage, sunrise*\n'Grabbed her battery from the van. Had it in stock.'\nTEXT: '6:30 AM - Arrived'\n\n[21-35s] *Testing battery in driveway*\n'Battery completely dead. 3 years old - normal lifespan.'\n*Shows meter reading*\nTEXT: 'Confirmed diagnosis'\n\n[36-48s] *Time-lapse of battery replacement*\n'New battery installed. 20 minutes.'\nTEXT: '6:50 AM - Fixed'\n\n[49-55s] *Car starting perfectly*\nCUSTOMER (off camera): 'You're a lifesaver!'\nTEXT: 'Made it to work by 7:30 AM'\n\n[56-60s] MECHANIC TO CAMERA: 'This is what we do. Dead battery? We come to you. [CITY] area.'\nTEXT: 'Link in bio • Same day service'\n\nSOUND: Upbeat but not overly promotional music, authentic car sounds\nFORMAT: Documentary style, real service call, time stamps for credibility, before/after proof",
+        "framework": "Story-based proof + urgency resolution",
+        "trend_application": "Day-in-the-life format + time-lapse + customer success story",
+        "authenticity_elements": "Real timestamps, actual customer interaction (with permission), unpolished documentary feel"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "Your [CAR MAKE]'s maintenance schedule (save this email) 📅",
+        "preview_text": "Never miss another service interval - here's what [CAR MAKE] actually requires",
+        "body": "Hi [FIRST_NAME],\n\nYou drive a [YEAR] [MAKE] [MODEL]. Here's exactly what it needs and when:\n\n🔧 EVERY 5,000 MILES:\n• Oil & filter change\n• Tire rotation\n• Fluid level check\nOur price: $[PRICE] (at your location)\n\n🔧 EVERY 30,000 MILES:\n• All of the above, plus:\n• Air filter replacement\n• Brake inspection\n• Battery test\nOur price: $[PRICE]\n\n🔧 EVERY 60,000 MILES:\n• All of the above, plus:\n• Spark plugs (if applicable)\n• Transmission fluid\n• Coolant flush\nOur price: $[PRICE]\n\nYOUR CURRENT MILEAGE: [MILEAGE]\nNEXT SERVICE DUE: [CALCULATED_SERVICE] at [DUE_MILEAGE] miles\n\n📱 Want us to remind you automatically? Reply 'REMIND ME' and we'll text you when you're within 500 miles.\n\nWhy follow this schedule?\n• Prevents expensive breakdowns\n• Maintains warranty coverage\n• Keeps resale value high\n• Ensures safety and reliability\n\nWe'll come to your [HOME/OFFICE] and complete service while you [WORK/RELAX]. No appointment needed at a shop.\n\n[CTA BUTTON: Schedule Next Service]\n\nQuestions about what your car needs? Just reply to this email.\n\n[SIGNATURE]\n[NAME], ASE Certified Mobile Mechanic\n[PHONE] | [CITY] Area\n\nP.S. - Your [CAR MAKE] is also due for a battery test if it's 3+ years old. We test free with any service.",
+        "framework": "Educational value + personalization + proactive service",
+        "personalization_tokens": "[FIRST_NAME], [YEAR], [MAKE], [MODEL], [MILEAGE], [CALCULATED_SERVICE], [DUE_MILEAGE]",
+        "segment": "Existing customers with vehicle data in system",
+        "send_timing": "Based on mileage tracking or 90 days after last service"
+      },
+      "authority": {
+        "subject": "What your check engine light is actually telling you 🔴",
+        "preview_text": "Mechanic's guide to the most misunderstood dashboard light",
+        "body": "Hi [FIRST_NAME],\n\nThat check engine light causes more panic than it should. Here's what I tell every customer:\n\nTHE TRUTH ABOUT CHECK ENGINE LIGHTS:\n\n🔴 SOLID LIGHT = Something's wrong, but not urgent\n• You have days/weeks to address it\n• Usually emissions-related\n• Won't damage engine immediately\n• Get it diagnosed within a week\n\n🔴 FLASHING LIGHT = STOP DRIVING NOW\n• Active misfire happening\n• Can damage catalytic converter ($2,000+ part)\n• Pull over safely and call for service\n• This is the actual emergency\n\nMOST COMMON CAUSES (in order):\n\n1. Loose/faulty gas cap - $0-$25\n2. Oxygen sensor - $150-$300\n3. Catalytic converter - $800-$2,500\n4. Mass airflow sensor - $200-$400\n5. Spark plugs/coils - $100-$400\n\nWHAT TO DO RIGHT NOW:\n\n✓ Tighten your gas cap (seriously, try this first)\n✓ Note if you feel any performance changes\n✓ Check if the light is solid or flashing\n✓ Don't ignore it for months (small problems become big ones)\n\nWE DIAGNOSE IN YOUR DRIVEWAY:\n• Free diagnostic with any repair\n• Tell you exactly what's wrong before we touch anything\n• Show you the problem (not just a code)\n• Give you options, not pressure\n\n[CTA BUTTON: Schedule Free Diagnostic]\n\nGot a check engine light on right now? Reply with your car's symptoms and I'll give you my best guess before we even schedule.\n\nThe worst thing you can do? Ignore it and hope it goes away. The second worst? Pay $150 for a shop diagnostic when we do it free.\n\n[SIGNATURE]\n[NAME]\nASE Certified Mobile Mechanic\n[PHONE] | Serving [CITY]\n\nP.S. - AutoZone will scan your code for free, but they can't tell you what it MEANS. We can.",
+        "framework": "Authority through education + fear reduction + clear action path",
+        "segment": "General subscriber list, particularly engaged readers",
+        "send_timing": "Monthly educational series, or triggered by seasonal factors (winter = more check engine lights)",
+        "why_it_works": "Addresses #1 customer anxiety, provides immediate value, positions as helpful expert not salesperson"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], your oil change is overdue by [DAYS] days ⚠️",
+        "preview_text": "We'll come to you today - no shop visit required",
+        "body": "Hi [FIRST_NAME],\n\nYour [YEAR] [MAKE] [MODEL] is overdue for an oil change.\n\nLast service: [LAST_SERVICE_DATE]\nMiles since: [MILES_SINCE]\nRecommended interval: [RECOMMENDED_INTERVAL]\n\nI get it - you've been busy. Taking your car to a shop means:\n❌ Scheduling time off work\n❌ Sitting in a waiting room for 1-2 hours\n❌ Arranging transportation\n❌ Hoping they don't \"find\" $500 of other problems\n\nHere's the easier way:\n\n✅ We come to your [HOME/OFFICE]\n✅ Service takes 30 minutes\n✅ You keep working/relaxing\n✅ Transparent pricing, no upsells\n✅ Same quality oil and filter\n\nYOUR PRICE: $[PRICE]\nIncludes: [OIL_TYPE], filter, fluid top-off, tire pressure check\n\nAVAILABLE TODAY:\n• [TIME_SLOT_1]\n• [TIME_SLOT_2]\n• [TIME_SLOT_3]\n\n[CTA BUTTON: Book My Oil Change]\n\nWHY THIS MATTERS:\nEvery 1,000 miles overdue increases engine wear. At [MILES_OVERDUE] miles over, you're risking:\n• Reduced fuel economy\n• Engine sludge buildup\n• Potential warranty issues\n• Expensive repairs down the road\n\nWe'll text you 15 minutes before arrival. Payment after service. You'll have fresh oil without leaving your driveway.\n\nReply 'BOOK' or click above to grab a spot today.\n\n[SIGNATURE]\n[NAME]\n[PHONE] | [CITY] Mobile Mechanic\n\nP.S. - Refer a friend who needs service and you both get $25 off your next appointment.\n\n[FOOTER: Unsubscribe | Update vehicle info | Manage preferences]",
+        "framework": "Problem-agitate-solve with urgency and convenience focus",
+        "personalization_tokens": "[FIRST_NAME], [YEAR], [MAKE], [MODEL], [LAST_SERVICE_DATE], [MILES_SINCE], [RECOMMENDED_INTERVAL], [MILES_OVERDUE], [PRICE], [OIL_TYPE], [TIME_SLOTS]",
+        "segment": "Customers with service history, triggered by mileage/date thresholds",
+        "send_timing": "Triggered when customer is 500+ miles or 30+ days overdue based on last service",
+        "conversion_elements": "Specific available times, clear pricing, convenience emphasis, urgency without fear-mongering"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] hours saved today - fixed [car problem] in customer's driveway while they worked from home",
+      "Dealer quoted $[X]. We did it for $[Y] in their parking lot with [same/OEM] parts",
+      "[X] AM car wouldn't start. By [Y] AM, [repair completed] and customer made it to work on time"
+    ],
+    "question_hooks": [
+      "Are you putting off your [maintenance service] because you don't have time to sit at a shop?",
+      "Are you freaking out about what that check engine light might cost to fix?",
+      "Are you stuck at home with a car that won't start and no idea who to call?"
+    ],
+    "story_hooks": [
+      "How [customer name] got their [car issue] diagnosed and fixed during their lunch break without leaving home",
+      "How a [profession] avoided getting stranded by having us test their battery in their driveway before the cold snap hit",
+      "How we saved [customer] from a $[X] dealer quote with transparent pricing and same-day driveway service"
+    ],
+    "fear_hooks": [
+      "Is your engine at risk from that overdue oil change you keep putting off?",
+      "Is that weird noise going to leave you stranded on your morning commute?",
+      "Is your check engine light about to turn into a $[X] repair if you ignore it?"
+    ],
+    "howto_hooks": [
+      "How to get your [repair/maintenance] done without taking time off work or arranging rides",
+      "How to know if that [car problem] is serious without getting ripped off by a shop",
+      "How to get honest pricing on [repair] without the runaround from dealers"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your check engine light comes on and you describe it to your mobile mechanic",
+      "body": "Show split screen - left side: customer frantically describing 'my car is making a whirring clicking sound and smells like burnt toast' / right side: mechanic nodding seriously, then cuts to mechanic under hood pulling out actual problem (loose belt). Text overlay: 'What they said' vs 'What it actually was'. End with mechanic explaining in simple terms while showing the part. Professional van and tools visible throughout.",
+      "cta": "Follow for more car problem translations. Link in bio to book your mobile diagnosis."
+    },
+    "reels": {
+      "hook": "3 hours at a shop vs 45 minutes in your driveway",
+      "body": "Fast-cut montage: Clock showing time-lapse of traditional shop visit (drop off, wait, shuttle, wait, pick up) vs mobile mechanic arriving, diagnosing, fixing, done - all while customer works from home in background. End frame shows customer back on road same day. Upbeat music, text overlays with time stamps.",
+      "cta": "Save your day. Book mobile service now."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a quick video showing where our mechanic fixed your car (driveway, office parking lot, etc.) and tell us how much time we saved you vs going to a shop. Show the before/after if possible!",
+      "hashtag": "#FixedInMyDriveway"
+    },
+    {
+      "prompt": "What was your biggest worry before using a mobile mechanic? Show yourself explaining what you were anxious about, then what actually happened. Keep it real - we want honest reactions!",
+      "hashtag": "#MobileMechanicReality"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Female mechanic series: 'What male customers say when they see I'm their mechanic' - showing reactions, then her expertly diagnosing complex problems. Addresses gender gap while showcasing expertise.",
+      "why": "Taps into gender dynamics conversation, unexpected/surprising, challenges stereotypes, highly shareable to both automotive and feminist communities, comment sections drive engagement"
+    },
+    {
+      "angle": "'Mobile mechanic reacts to dealership quote' - customer shows $1,200 dealer estimate, mechanic breaks down what's actually needed vs upsells, shows real pricing. Educational callout format.",
+      "why": "Validates customer suspicions about dealer pricing, positions mobile mechanics as honest alternative, creates us-vs-them dynamic people love sharing, actionable money-saving info drives saves/shares"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:26:24.506Z",
+    "last_tier2_refresh": "2025-11-27T22:26:24.506Z",
+    "last_tier3_refresh": "2025-11-27T22:26:24.506Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:26:24.506Z"
+  }
+}

@@ -3,12 +3,17 @@
  *
  * Center panel showing all insights with filtering and selection
  * Users can select multiple insights to create custom campaigns/content
+ * V3.2: Integrated with ContentSynthesisOrchestrator for EQ-weighted scoring
  */
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TrendingUp, Users, Lightbulb, Target, Zap, CheckSquare, Square } from 'lucide-react';
+import { TrendingUp, Users, Lightbulb, Target, Zap, CheckSquare, Square, Brain, ArrowUpDown } from 'lucide-react';
+import { SynthesisErrorBanner } from '@/components/synthesis/SynthesisErrorBanner';
+import { analyticsService } from '@/services/analytics.service';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+import { useContentSynthesis } from '@/hooks/useContentSynthesis';
+import type { BusinessSegment } from '@/services/intelligence/content-synthesis-orchestrator.service';
 
 export interface InsightCard {
   id: string;
@@ -17,6 +22,8 @@ export interface InsightCard {
   description: string;
   confidence?: number;
   metadata?: Record<string, any>;
+  /** V3.2: EQ alignment score from orchestrator */
+  eqAlignment?: number;
 }
 
 export interface IntelligenceLibraryProps {
@@ -25,6 +32,14 @@ export interface IntelligenceLibraryProps {
   onToggleInsight: (insightId: string) => void;
   onSelectAll: () => void;
   onClearAll: () => void;
+  /** V3.2: Business segment for EQ scoring */
+  segment?: BusinessSegment;
+  /** V3.2: Brand data for orchestrator context */
+  brandData?: {
+    name?: string;
+    industry?: string;
+    naicsCode?: string;
+  };
 }
 
 type FilterType = 'all' | 'trend' | 'customer' | 'competition' | 'opportunity';
@@ -34,9 +49,41 @@ export function IntelligenceLibrary({
   selectedInsights,
   onToggleInsight,
   onSelectAll,
-  onClearAll
+  onClearAll,
+  segment = 'smb_local',
+  brandData
 }: IntelligenceLibraryProps) {
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
+  const [sortByEQ, setSortByEQ] = useState(false);
+  const [scoredInsights, setScoredInsights] = useState<InsightCard[]>([]);
+
+  // V3.2: Use ContentSynthesisOrchestrator for EQ-weighted scoring
+  const {
+    enrichedContext,
+    loadContext,
+    scoreInsights,
+    contextError,
+    retryLoadContext,
+    clearErrors,
+    isContextLoading,
+  } = useContentSynthesis({
+    brandName: brandData?.name || context?.business?.profile?.name || 'Unknown',
+    industry: brandData?.industry || context?.business?.profile?.industry || 'General',
+    naicsCode: brandData?.naicsCode,
+    segment,
+    uvpData: {
+      target_customer: context?.business?.uvp?.targetCustomer,
+      key_benefit: context?.business?.uvp?.keyBenefit,
+      transformation: context?.business?.uvp?.desiredOutcome
+    }
+  });
+
+  // Load enriched context on mount
+  useEffect(() => {
+    if (brandData?.name || context?.business?.profile?.name) {
+      loadContext();
+    }
+  }, [brandData?.name, context?.business?.profile?.name, loadContext]);
 
   // Convert DeepContext into InsightCards
   const allInsights = useMemo(() => {
@@ -144,11 +191,54 @@ export function IntelligenceLibrary({
     return insights;
   }, [context]);
 
-  // Filter insights
+  // V3.2: Score insights with EQ alignment when enriched context is available
+  useEffect(() => {
+    if (enrichedContext && allInsights.length > 0) {
+      // Convert InsightCards to format expected by scoreInsights
+      const insightsForScoring = allInsights.map(insight => ({
+        id: insight.id,
+        title: insight.title,
+        hook: insight.description || '',
+        body: [] as string[],
+        cta: 'Learn more',
+        scores: { breakthrough: (insight.confidence || 0.5) * 100 }
+      }));
+
+      // Score insights with orchestrator
+      const scored = scoreInsights(insightsForScoring as any);
+
+      // Map EQ scores back to InsightCards
+      const insightsWithEQ = allInsights.map(insight => {
+        const scoredInsight = scored.find(s => s.id === insight.id);
+        return {
+          ...insight,
+          eqAlignment: scoredInsight?.eqAlignment || 50
+        };
+      });
+
+      setScoredInsights(insightsWithEQ);
+      console.log('[IntelligenceLibrary] V3.2: Insights scored with EQ alignment');
+    } else {
+      setScoredInsights(allInsights);
+    }
+  }, [allInsights, enrichedContext, scoreInsights]);
+
+  // Filter and optionally sort by EQ
   const filteredInsights = useMemo(() => {
-    if (activeFilter === 'all') return allInsights;
-    return allInsights.filter(i => i.type === activeFilter);
-  }, [allInsights, activeFilter]);
+    let insights = scoredInsights.length > 0 ? scoredInsights : allInsights;
+
+    // Apply type filter
+    if (activeFilter !== 'all') {
+      insights = insights.filter(i => i.type === activeFilter);
+    }
+
+    // V3.2: Sort by EQ alignment if enabled
+    if (sortByEQ && enrichedContext) {
+      insights = [...insights].sort((a, b) => (b.eqAlignment || 0) - (a.eqAlignment || 0));
+    }
+
+    return insights;
+  }, [scoredInsights, allInsights, activeFilter, sortByEQ, enrichedContext]);
 
   const getTypeIcon = (type: InsightCard['type']) => {
     switch (type) {
@@ -178,6 +268,18 @@ export function IntelligenceLibrary({
 
   return (
     <div className="h-full flex flex-col bg-gray-50 dark:bg-slate-800">
+      {/* V3.2: Synthesis Error Banner */}
+      {contextError && (
+        <div className="p-3 bg-white dark:bg-slate-900">
+          <SynthesisErrorBanner
+            error={contextError}
+            onRetry={retryLoadContext}
+            onDismiss={clearErrors}
+            isRetrying={isContextLoading}
+          />
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex-shrink-0 bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-700 p-4">
         <div className="flex items-center justify-between mb-4">
@@ -189,14 +291,39 @@ export function IntelligenceLibrary({
               {filteredInsights.length} insights available
             </p>
           </div>
-          {selectedInsights.length > 0 && (
-            <button
-              onClick={onClearAll}
-              className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
-            >
-              Clear selection
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {/* V3.2: EQ indicator and sort toggle */}
+            {enrichedContext && (
+              <button
+                onClick={() => {
+                  const newValue = !sortByEQ;
+                  setSortByEQ(newValue);
+                  analyticsService.trackEQSortToggle({
+                    enabled: newValue,
+                    component: 'IntelligenceLibrary',
+                    insightCount: filteredInsights.length,
+                  });
+                }}
+                className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                  sortByEQ
+                    ? 'bg-purple-600 text-white shadow-md'
+                    : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-700 hover:bg-purple-200 dark:hover:bg-purple-800/40'
+                }`}
+              >
+                <Brain size={14} />
+                <span>EQ:{enrichedContext.eqProfile.emotional_weight}%</span>
+                <ArrowUpDown size={12} />
+              </button>
+            )}
+            {selectedInsights.length > 0 && (
+              <button
+                onClick={onClearAll}
+                className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+              >
+                Clear selection
+              </button>
+            )}
+          </div>
         </div>
 
         {/* Filters */}
@@ -276,9 +403,18 @@ export function IntelligenceLibrary({
                       <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">
                         {insight.description}
                       </p>
-                      {insight.confidence !== undefined && (
-                        <div className="mt-2">
-                          <div className="flex items-center gap-2">
+                      {/* V3.2: Show EQ alignment if available, otherwise show confidence */}
+                      <div className="mt-2 flex items-center gap-2">
+                        {insight.eqAlignment !== undefined && enrichedContext && (
+                          <div className="flex items-center gap-1 px-1.5 py-0.5 bg-pink-100 dark:bg-pink-900/30 rounded-full">
+                            <Brain size={10} className="text-pink-600" />
+                            <span className="text-[10px] font-bold text-pink-700 dark:text-pink-300">
+                              EQ:{insight.eqAlignment}
+                            </span>
+                          </div>
+                        )}
+                        {insight.confidence !== undefined && (
+                          <div className="flex-1 flex items-center gap-2">
                             <div className="flex-1 h-1.5 bg-gray-200 dark:bg-slate-700 rounded-full overflow-hidden">
                               <div
                                 className="h-full bg-purple-600 rounded-full transition-all"
@@ -289,8 +425,8 @@ export function IntelligenceLibrary({
                               {Math.round(insight.confidence * 100)}%
                             </span>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
                   </motion.div>
                 );

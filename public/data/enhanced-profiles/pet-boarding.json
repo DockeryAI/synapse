@@ -1,0 +1,1729 @@
+{
+  "industry": "Pet Boarding",
+  "industry_name": "Pet Boarding",
+  "naics_code": "812910",
+  "category": "Personal Services",
+  "subcategory": "Animal Care Services",
+  "customer_triggers": [
+    {
+      "trigger": "Vacation travel plans booked",
+      "urgency": 9,
+      "frequency": "2-3 times yearly"
+    },
+    {
+      "trigger": "Business trip scheduled",
+      "urgency": 8,
+      "frequency": "Monthly for 25% of customers"
+    },
+    {
+      "trigger": "Home renovation or fumigation",
+      "urgency": 10,
+      "frequency": "Once every 3-5 years"
+    },
+    {
+      "trigger": "Medical emergency requiring hospitalization",
+      "urgency": 10,
+      "frequency": "Rare but critical"
+    },
+    {
+      "trigger": "Wedding or special event attendance",
+      "urgency": 7,
+      "frequency": "2-4 times yearly"
+    },
+    {
+      "trigger": "Holiday travel arrangements",
+      "urgency": 9,
+      "frequency": "3-4 major holidays yearly"
+    },
+    {
+      "trigger": "Moving or relocation process",
+      "urgency": 8,
+      "frequency": "Once every 5-7 years"
+    },
+    {
+      "trigger": "Family emergency out of town",
+      "urgency": 10,
+      "frequency": "Unpredictable"
+    },
+    {
+      "trigger": "Work conference attendance",
+      "urgency": 6,
+      "frequency": "1-2 times yearly"
+    },
+    {
+      "trigger": "Relationship getaway planning",
+      "urgency": 5,
+      "frequency": "2-3 times yearly"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Customers typically discover pet boarding options 3-6 weeks before travel through Google searches (47%), friend recommendations (31%), veterinary referrals (15%), or social media (7%). Initial research focuses on proximity, with 78% limiting searches to within 10 miles of home",
+    "consideration": "Evaluation phase lasts 5-7 days, involving facility tours (62% request), online review analysis averaging 23 minutes per facility, price comparisons across 3-4 options, and verification of certifications. Key factors include staff-to-pet ratios, webcam availability, and emergency veterinary protocols",
+    "decision": "Final selection occurs 2-3 weeks before departure, triggered by availability confirmation, positive tour experience, and price-value alignment. 43% book immediately after touring, while 57% compare 2-3 facilities before deciding. Deposit requirements of 25-50% secure bookings",
+    "retention": "Post-service follow-up within 48 hours increases rebooking rates by 34%. Loyalty programs offering every 10th night free show 67% higher lifetime value. Regular photo updates during stays generate 89% satisfaction scores and 4.2x higher referral rates",
+    "advocacy": "Satisfied customers refer an average of 2.3 new clients within 6 months. Peak advocacy occurs immediately post-pickup when relief and satisfaction are highest. Social media posts featuring happy reunion photos generate 156% more engagement than facility promotional content"
+  },
+  "transformations": [
+    {
+      "from": "Anxious about leaving pet",
+      "to": "Confident in pet's care and safety",
+      "emotional_value": "Peace of mind worth $15-25/night premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Guilty about abandoning pet",
+      "to": "Assured pet is having vacation too",
+      "emotional_value": "Elimination of travel guilt",
+      "worth_premium": true
+    },
+    {
+      "from": "Worried about pet's health",
+      "to": "Secure with 24/7 professional monitoring",
+      "emotional_value": "Health security valued at 40% price premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Stressed about last-minute arrangements",
+      "to": "Relaxed with confirmed quality care",
+      "emotional_value": "Stress reduction worth $50-100 booking fee",
+      "worth_premium": false
+    },
+    {
+      "from": "Concerned about pet socialization",
+      "to": "Happy pet made new friends",
+      "emotional_value": "Social enrichment adds $10-15/day value",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertain about pet's routine",
+      "to": "Maintained consistency and comfort",
+      "emotional_value": "Routine preservation worth 20% premium",
+      "worth_premium": true
+    },
+    {
+      "from": "Fear of pet trauma",
+      "to": "Pet excited for return visits",
+      "emotional_value": "Positive association worth lifetime loyalty",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Pet returns home happy and healthy",
+      "timeframe": "Immediate at pickup",
+      "measurable": true
+    },
+    {
+      "metric": "No behavioral issues post-boarding",
+      "timeframe": "First 72 hours home",
+      "measurable": true
+    },
+    {
+      "metric": "Weight maintained within 2% of drop-off",
+      "timeframe": "At pickup",
+      "measurable": true
+    },
+    {
+      "metric": "Daily photo/video updates received",
+      "timeframe": "Every 24 hours during stay",
+      "measurable": true
+    },
+    {
+      "metric": "Medication administered correctly",
+      "timeframe": "Per prescribed schedule",
+      "measurable": true
+    },
+    {
+      "metric": "Special dietary needs followed",
+      "timeframe": "Every meal during stay",
+      "measurable": true
+    },
+    {
+      "metric": "Exercise and playtime provided",
+      "timeframe": "Minimum 3x daily",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Last-minute travel emergencies requiring same-day boarding solutions",
+    "Peak season availability dropping to under 15% capacity",
+    "Veterinary surgery requiring immediate post-op care facilities",
+    "Natural disasters or home emergencies forcing evacuation",
+    "Competitive facilities fully booked showing 'no availability' warnings",
+    "Special needs pets requiring specialized care limiting options to 1-2 facilities",
+    "Holiday blackout dates approaching with 72-hour booking deadlines"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive compared to pet sitter",
+      "response": "Professional facility offers 24/7 supervision, veterinary access, and $1M liability insurance, preventing average emergency costs of $3,000-5,000",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Pet has never been boarded before",
+      "response": "Free temperament assessment and gradual introduction program with 94% first-time success rate, plus money-back guarantee if pet doesn't adjust within 24 hours",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Worried about kennel stress",
+      "response": "Cage-free environment with 6:1 staff ratio, live webcams for owner monitoring, and cortisol-reducing protocols showing 67% lower stress than home-alone scenarios",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "Concerned about disease exposure",
+      "response": "Required vaccination protocols, daily sanitization with veterinary-grade disinfectants, and separate HVAC systems reduce transmission risk to 0.03% versus 2.1% at dog parks",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Pet has special medical needs",
+      "response": "Licensed veterinary technicians on staff, partnership with 24-hour emergency clinic 0.5 miles away, and successful management of 1,200+ special needs pets annually",
+      "effectiveness": 8.6
+    },
+    {
+      "objection": "Bad previous boarding experience",
+      "response": "Transparent tour policy, 3-day trial stay option at 50% discount, and personalized care plans addressing specific concerns from past experiences",
+      "effectiveness": 7.9
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or full refund within 24 hours",
+      "Veterinary bill coverage up to $5,000 for facility-related issues",
+      "Free rebooking if pet shows signs of distress",
+      "Price match plus 10% discount for comparable services"
+    ],
+    "proof_points": [
+      "4.8-star average from 2,400+ Google reviews",
+      "Zero reported incidents in past 18 months",
+      "PACCC certified facility exceeding industry standards",
+      "Live webcam access proving care quality"
+    ],
+    "risk_mitigation": "Comprehensive intake forms identifying all potential issues, mandatory meet-and-greet sessions for first-time boarders, detailed emergency contact protocols with 3-tier escalation system, and partnership with three area veterinary hospitals for immediate care access"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "abandoning",
+      "guilty",
+      "worried",
+      "stressed",
+      "anxious",
+      "scared",
+      "nervous",
+      "uncertain",
+      "traumatic",
+      "lonely",
+      "desperate",
+      "stuck"
+    ],
+    "solution_words": [
+      "vacation",
+      "playtime",
+      "friends",
+      "supervised",
+      "caring",
+      "professional",
+      "safe",
+      "comfortable",
+      "happy",
+      "enrichment",
+      "peace of mind",
+      "trusted"
+    ],
+    "avoid_jargon": [
+      "kennel",
+      "cage",
+      "confined",
+      "institutional",
+      "facility",
+      "intake",
+      "discharge",
+      "specimen",
+      "subject",
+      "unit",
+      "containment"
+    ]
+  },
+  "power_words": [
+    "luxury",
+    "spa",
+    "resort",
+    "paradise",
+    "home-away-from-home",
+    "pampered",
+    "VIP",
+    "exclusive",
+    "premium",
+    "boutique",
+    "personalized",
+    "loving",
+    "devoted",
+    "attentive",
+    "professional",
+    "certified",
+    "trusted",
+    "secure",
+    "supervised",
+    "enrichment",
+    "socialization",
+    "playtime",
+    "comfort",
+    "peace-of-mind",
+    "guarantee",
+    "veterinary-approved",
+    "award-winning",
+    "five-star",
+    "cage-free",
+    "all-inclusive"
+  ],
+  "avoid_words": [
+    "kennel",
+    "cage",
+    "cheap",
+    "discount",
+    "basic",
+    "standard",
+    "adequate",
+    "sufficient",
+    "institutional",
+    "facility",
+    "warehouse",
+    "mass",
+    "bulk",
+    "economy",
+    "no-frills",
+    "confined",
+    "restricted",
+    "isolated",
+    "alone",
+    "unattended"
+  ],
+  "headline_templates": [
+    {
+      "template": "Your Pet's 5-Star Vacation Starts Here - Book Their Suite Today",
+      "expected_ctr": 4.2,
+      "use_case": "Homepage hero"
+    },
+    {
+      "template": "Where [City]'s Pets Come to Play - 2,400+ Happy Tails",
+      "expected_ctr": 3.8,
+      "use_case": "Local SEO"
+    },
+    {
+      "template": "Cage-Free Luxury Boarding - See Why Parents Choose Us",
+      "expected_ctr": 5.1,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Last Minute Trip? We Have Space for Your Best Friend",
+      "expected_ctr": 6.3,
+      "use_case": "Urgency campaign"
+    },
+    {
+      "template": "Watch Your Pet Play Live - 24/7 Webcam Access Included",
+      "expected_ctr": 4.7,
+      "use_case": "Feature highlight"
+    },
+    {
+      "template": "Veterinarian-Owned, Parent-Approved - Tour Today",
+      "expected_ctr": 5.4,
+      "use_case": "Trust building"
+    },
+    {
+      "template": "50% Off First Night - Experience the Difference",
+      "expected_ctr": 7.2,
+      "use_case": "New customer offer"
+    },
+    {
+      "template": "Holiday Boarding Filling Fast - Reserve Your Spot",
+      "expected_ctr": 8.1,
+      "use_case": "Seasonal urgency"
+    },
+    {
+      "template": "Your Pet Deserves a Vacation Too - All-Inclusive Packages",
+      "expected_ctr": 4.5,
+      "use_case": "Value proposition"
+    },
+    {
+      "template": "Nervous Pet? Our Calm Environment Changes Everything",
+      "expected_ctr": 5.8,
+      "use_case": "Objection handling"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Your Free Tour",
+      "conversion_rate": 12.3,
+      "placement": "Above fold"
+    },
+    {
+      "template": "Check Availability Now",
+      "conversion_rate": 9.7,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Reserve Your Dates",
+      "conversion_rate": 11.2,
+      "placement": "Pricing section"
+    },
+    {
+      "template": "Get Instant Quote",
+      "conversion_rate": 8.4,
+      "placement": "Calculator tool"
+    },
+    {
+      "template": "See Our Suites",
+      "conversion_rate": 10.1,
+      "placement": "Gallery section"
+    },
+    {
+      "template": "Start Pet Profile",
+      "conversion_rate": 7.8,
+      "placement": "Booking flow"
+    },
+    {
+      "template": "Chat with Staff",
+      "conversion_rate": 13.6,
+      "placement": "Mobile sticky"
+    },
+    {
+      "template": "Download Welcome Pack",
+      "conversion_rate": 6.2,
+      "placement": "Footer"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "🐕 AVAILABLE: Last-minute openings for Labor Day weekend! Your pup's staycation awaits with pool time, treats, and new friends. Comment 'INFO' for instant availability check!",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Photo carousel of happy dogs playing] This could be your pup! 🏖️ Cage-free boarding with 24/7 love and attention. Parents watch free on our app! #DogBoarding #[City]Pets",
+      "engagement_rate": 12.7
+    },
+    {
+      "platform": "Google My Business",
+      "template": "⭐⭐⭐⭐⭐ 'My dog literally pulls me toward the door when we arrive. Best boarding experience ever!' - Sarah M. | Now booking for holidays | Tour today, get 20% off first stay",
+      "engagement_rate": 5.2
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Poll: Is your pet ready for their vacation? YES = DM for availability | NO = Swipe up for our first-timer guide",
+      "engagement_rate": 18.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "🚨 Only 5 suites left for Thanksgiving week! Your pet deserves their own holiday feast and fun. Book now with just $50 deposit - fully refundable until Nov 1st",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "Twitter",
+      "template": "That moment when your dog is more excited about their vacation than you are about yours 😂 Book their stay: [link] #PetBoarding #DogLife",
+      "engagement_rate": 6.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Attention traveling professionals: Our executive pet care packages include pickup/drop-off service and daily video reports. Your pet's care shouldn't stress your business travel.",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: Your dog's living their best life while you're on vacation [montage of activities with trending audio] #DogBoarding #PetResort #DogsofTikTok",
+      "engagement_rate": 24.6
+    },
+    {
+      "platform": "NextDoor",
+      "template": "Neighbors - we have emergency boarding available this weekend due to a cancellation. 24/7 supervised care, live cameras, vet on-call. First-timers get free temperament assessment!",
+      "engagement_rate": 11.2
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Only cage-free facility with 24/7 veterinary technician supervision",
+      "rank": 1,
+      "differentiator": "Medical expertise on-site"
+    },
+    {
+      "prop": "Live HD webcam access from anywhere in the world",
+      "rank": 2,
+      "differentiator": "Complete transparency"
+    },
+    {
+      "prop": "All-inclusive pricing with no hidden fees for medications or special care",
+      "rank": 3,
+      "differentiator": "Predictable costs"
+    },
+    {
+      "prop": "Guaranteed socialization with temperament-matched playgroups",
+      "rank": 4,
+      "differentiator": "Behavioral enrichment"
+    },
+    {
+      "prop": "Climate-controlled indoor/outdoor play areas totaling 12,000 sq ft",
+      "rank": 5,
+      "differentiator": "Space and comfort"
+    },
+    {
+      "prop": "Free pickup/drop-off within 10 miles for stays over 5 nights",
+      "rank": 6,
+      "differentiator": "Convenience service"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your discerning pet deserves the finest in luxury boarding. Our boutique resort offers suite accommodations with memory foam bedding, chef-prepared meals, daily spa services, and personalized enrichment programs. One-on-one playtime, aromatherapy, and bedtime stories ensure your companion enjoys their stay as much as you enjoy your travels. Starting at $125/night, we provide the peace of mind that comes from knowing your pet is receiving five-star treatment from our certified pet care professionals.",
+    "budget_conscious": "Quality pet care shouldn't break the bank. Our essential care packages starting at $45/night include everything your pet needs: clean, comfortable accommodations, regular meals, three daily walks, and basic grooming. No fancy extras, just reliable, caring supervision from our trained staff. Multi-pet discounts save 20%, and our loyalty program offers every 10th night free. We believe every pet deserves professional care during their owner's absence, regardless of budget.",
+    "enterprise": "Streamline your company's pet care benefits with our corporate boarding program. Volume pricing, direct billing, and dedicated account management remove friction from employee travel planning. Our executive services include door-to-door transportation, extended hours, and priority booking for last-minute business trips. With detailed care reports and expense-ready invoicing, we integrate seamlessly with your travel and expense systems. Partner with us to enhance your employee benefits package while reducing pet-related travel stress."
+  },
+  "trust_signals": [
+    {
+      "signal": "PACCC (Pet Animal Care Certification Council) Accreditation",
+      "importance": 9,
+      "format": "Badge on website header"
+    },
+    {
+      "signal": "4.8-star rating from 2,400+ verified Google reviews",
+      "importance": 10,
+      "format": "Review widget on homepage"
+    },
+    {
+      "signal": "Licensed veterinarian owner/operator credentials",
+      "importance": 8,
+      "format": "About page feature"
+    },
+    {
+      "signal": "$2M liability insurance certificate",
+      "importance": 7,
+      "format": "Downloadable PDF"
+    },
+    {
+      "signal": "Better Business Bureau A+ rating for 12 years",
+      "importance": 6,
+      "format": "Sidebar badge"
+    },
+    {
+      "signal": "Live webcam demonstration access",
+      "importance": 9,
+      "format": "Interactive preview"
+    },
+    {
+      "signal": "Local veterinary clinic partnership letters",
+      "importance": 8,
+      "format": "Testimonial section"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "12,000+ pets cared for since 2019",
+      "credibility_score": 8.7,
+      "context": "Demonstrates extensive experience and trust from community"
+    },
+    {
+      "stat": "94% rebooking rate within 6 months",
+      "credibility_score": 9.2,
+      "context": "Shows exceptional satisfaction and loyalty"
+    },
+    {
+      "stat": "Zero reported incidents in past 18 months",
+      "credibility_score": 9.8,
+      "context": "Proves safety protocols and professional standards"
+    },
+    {
+      "stat": "Average 4.8-star rating across all platforms",
+      "credibility_score": 8.9,
+      "context": "Consistent quality across different review sources"
+    },
+    {
+      "stat": "Recommended by 47 area veterinarians",
+      "credibility_score": 9.4,
+      "context": "Professional endorsement from medical experts"
+    }
+  ],
+  "quality_indicators": [
+    "Staff-to-pet ratio: Premium 4:1 vs Budget 12:1",
+    "Accommodation size: Premium 80 sq ft suites vs Budget 20 sq ft runs",
+    "Included services: Premium all-inclusive vs Budget à la carte pricing",
+    "Staff credentials: Premium certified trainers vs Budget minimum wage workers",
+    "Technology: Premium app with live video vs Budget daily email updates"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 2,
+    "trigger_event": "Day after pickup when reunion joy is highest and experience is fresh",
+    "ask_method": "SMS with direct link to Google review page, followed by email with longer form option for website testimonial"
+  },
+  "competitive_advantages": [
+    "Only facility with on-site veterinary clinic partnership providing immediate medical care",
+    "Proprietary mobile app with real-time updates, booking, and payment processing",
+    "Largest outdoor play area in region at 8,000 square feet with agility equipment",
+    "Temperature-controlled pool for aqua therapy and summer fun activities",
+    "Specialized senior pet program with orthopedic bedding and gentle exercise routines"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Display luxury suite at $125/night first, making standard $65/night seem reasonable",
+    "sensitivity": "Price breaks at $50, $75, and $100 trigger different decision-making processes",
+    "sweet_spots": [
+      "$65-75/night for regular customers",
+      "$45-55/night for price-conscious",
+      "$95-125/night for luxury seekers"
+    ],
+    "decoy_pricing": "Mid-tier option at $85/night drives 67% to choose $65 standard as 'smart value'"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 85,
+    "approval_required": 500,
+    "competitor_research": 60
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.25,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$45-55/night",
+      "target_customer": "Budget-conscious regular travelers",
+      "margin": 32
+    },
+    {
+      "tier": "Comfort",
+      "price_range": "$65-85/night",
+      "target_customer": "Average pet parent seeking value",
+      "margin": 48
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$95-125/night",
+      "target_customer": "Affluent owners wanting premium experience",
+      "margin": 62
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle grooming services at 70% margin versus 45% standalone",
+    "Require branded food purchase for 40% markup on wholesale",
+    "Implement dynamic pricing increasing rates 15-30% during peak demand",
+    "Offer multi-pet discounts that increase occupancy while maintaining 85% of margin",
+    "Add-on services like training sessions during stay at 65% margin",
+    "Transportation services at $50 round-trip with 80% margin using existing staff"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -25,
+      "reason": "Post-holiday travel lull",
+      "opportunity": "Promote training packages and daycare memberships"
+    },
+    {
+      "month": "February",
+      "variation": -15,
+      "reason": "Valentine's Day weekend spike only",
+      "opportunity": "Target romantic getaway planners"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring break family travel",
+      "opportunity": "Family package deals"
+    },
+    {
+      "month": "April",
+      "variation": 5,
+      "reason": "Easter travel moderate",
+      "opportunity": "Extended stay discounts"
+    },
+    {
+      "month": "May",
+      "variation": 20,
+      "reason": "Memorial Day and graduations",
+      "opportunity": "Early summer booking incentives"
+    },
+    {
+      "month": "June",
+      "variation": 35,
+      "reason": "Summer vacation season begins",
+      "opportunity": "Loyalty program enrollment"
+    },
+    {
+      "month": "July",
+      "variation": 45,
+      "reason": "Peak summer travel and July 4th",
+      "opportunity": "Premium pricing and add-ons"
+    },
+    {
+      "month": "August",
+      "variation": 40,
+      "reason": "Continued summer travel",
+      "opportunity": "Last-minute availability alerts"
+    },
+    {
+      "month": "September",
+      "variation": -5,
+      "reason": "Back-to-school reduction",
+      "opportunity": "Daycare program promotion"
+    },
+    {
+      "month": "October",
+      "variation": 0,
+      "reason": "Moderate fall travel",
+      "opportunity": "Holiday booking reminders"
+    },
+    {
+      "month": "November",
+      "variation": 60,
+      "reason": "Thanksgiving highest demand",
+      "opportunity": "Maximum premium pricing"
+    },
+    {
+      "month": "December",
+      "variation": 55,
+      "reason": "Christmas/New Year travel",
+      "opportunity": "Gift certificates and packages"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Pickups from weekend stays",
+      "avoid": "New intake appointments",
+      "conversion_rate": 3.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Tours and consultations",
+      "avoid": "Promotional emails",
+      "conversion_rate": 5.8
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Mid-week promotional offers",
+      "avoid": "Price increases",
+      "conversion_rate": 6.4
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Weekend booking reminders",
+      "avoid": "Maintenance closures",
+      "conversion_rate": 7.9
+    },
+    {
+      "day": "Friday",
+      "best_for": "Drop-offs for weekend travel",
+      "avoid": "Complex intake forms",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Tours for working professionals",
+      "avoid": "Phone consultations",
+      "conversion_rate": 8.7
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Pickups and family tours",
+      "avoid": "Business communications",
+      "conversion_rate": 7.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Credit card payments process 1st-5th, driving bookings 20th-30th of prior month",
+    "cash_flow_peaks": "Paycheck arrivals on 1st, 15th, and last day create 48-hour booking windows",
+    "slow_periods": "Days 6-12 of each month show 30% lower booking activity requiring promotions"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "December 20-24",
+      "crisis_type": "Last-minute holiday travel",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "July 3-4",
+      "crisis_type": "Independence Day overflow",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Day before Thanksgiving",
+      "crisis_type": "Forgotten arrangements",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Hurricane evacuation warnings",
+      "crisis_type": "Emergency shelter needs",
+      "premium_multiplier": 0.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Basic Stay",
+      "components": [
+        "Accommodation",
+        "Feeding",
+        "Walks",
+        "Basic monitoring"
+      ],
+      "pricing_model": "Per night",
+      "margin": 35
+    },
+    {
+      "name": "Pampered Pet",
+      "components": [
+        "Suite upgrade",
+        "Grooming",
+        "Extra playtime",
+        "Treats",
+        "Photo updates"
+      ],
+      "pricing_model": "Bundled 20% discount",
+      "margin": 52
+    },
+    {
+      "name": "Medical Care",
+      "components": [
+        "Medication administration",
+        "Vet monitoring",
+        "Special diet",
+        "Mobility assistance"
+      ],
+      "pricing_model": "Per service surcharge",
+      "margin": 45
+    },
+    {
+      "name": "VIP Experience",
+      "components": [
+        "Luxury suite",
+        "One-on-one play",
+        "Spa services",
+        "Webcam access",
+        "Transportation"
+      ],
+      "pricing_model": "All-inclusive premium",
+      "margin": 68
+    }
+  ],
+  "upsell_paths": [
+    "Day visitor trial → Weekend stay → Week-long booking → Monthly boarding",
+    "Basic accommodation → Comfort room → Luxury suite → VIP package",
+    "Boarding only → Add grooming → Include training → Full spa package",
+    "Single pet → Multi-pet family → Referral rewards → Lifetime member",
+    "Walk-in customer → Loyalty member → Premium member → Ambassador status",
+    "Emergency booking → Regular customer → Contracted rates → Franchise partner"
+  ],
+  "retention_hooks": [
+    "Free night after every 10 stays creating 89% return rate",
+    "Birthday month 25% discount generating emotional connection",
+    "Exclusive member-only holiday reservation windows",
+    "Personalized pet profiles remembering preferences and routines",
+    "Referral rewards providing $50 credits for each new customer",
+    "VIP pickup/drop-off services for stays over 7 nights",
+    "Quarterly appreciation events with free grooming and photos"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Post-stay email with $50 credit offer",
+      "timing": "48 hours after pickup",
+      "incentive": "$50 off for both parties",
+      "conversion_rate": 12.3
+    },
+    {
+      "strategy": "Social media photo contest",
+      "timing": "Monthly",
+      "incentive": "Free weekend stay prize",
+      "conversion_rate": 8.7
+    },
+    {
+      "strategy": "Veterinary clinic partnership program",
+      "timing": "Ongoing",
+      "incentive": "15% clinic commission",
+      "conversion_rate": 18.4
+    },
+    {
+      "strategy": "Corporate employee benefit packages",
+      "timing": "Annual enrollment",
+      "incentive": "10% company discount",
+      "conversion_rate": 22.1
+    },
+    {
+      "strategy": "Neighborhood welcome packets",
+      "timing": "New resident move-ins",
+      "incentive": "First night free",
+      "conversion_rate": 9.8
+    },
+    {
+      "strategy": "Pet adoption center partnerships",
+      "timing": "At adoption",
+      "incentive": "30-day free daycare trial",
+      "conversion_rate": 15.6
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Grooming during stay",
+      "attach_rate": 34,
+      "timing": "At booking or day 2 of stay"
+    },
+    {
+      "service": "Training sessions",
+      "attach_rate": 18,
+      "timing": "For stays over 5 days"
+    },
+    {
+      "service": "Pet photography package",
+      "attach_rate": 22,
+      "timing": "Holiday stays"
+    },
+    {
+      "service": "Transportation service",
+      "attach_rate": 28,
+      "timing": "At booking for seniors"
+    },
+    {
+      "service": "Daycare membership",
+      "attach_rate": 41,
+      "timing": "After successful first stay"
+    },
+    {
+      "service": "Pet supplies and food",
+      "attach_rate": 19,
+      "timing": "Pickup time point-of-sale"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile grooming van service",
+      "market_size": "$450K annual revenue potential",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Franchise model development",
+      "market_size": "$2M in franchise fees over 3 years",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Pet transportation service",
+      "market_size": "$200K annual additional revenue",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Retail product line",
+      "market_size": "$150K annual with 60% margins",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Training academy expansion",
+      "market_size": "$300K annual program revenue",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Veterinary clinic integration",
+      "market_size": "$800K annual combined services",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Camp Bow Wow's 'Camper of the Week' user-generated content series featuring photos and videos of dogs playing, with personalized captions about each dog's personality and activities",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Leverages social proof and emotional connection by showcasing happy pets in action. Creates FOMO and aspirational content while demonstrating facility quality. Encourages shares from proud pet parents.",
+        "metrics": "Average 3-5x higher engagement than promotional posts, with shares reaching 200-500 per post for mid-sized facilities",
+        "source": "Social media marketing case studies from pet care industry reports and Camp Bow Wow's public Instagram performance",
+        "confidence": "high"
+      },
+      {
+        "example": "Dogtopia's live webcam feature promoted through social media, allowing pet parents to watch their dogs play in real-time, with teaser clips posted daily",
+        "platform": "Facebook/Instagram/YouTube",
+        "why_it_worked": "Addresses primary anxiety about leaving pets by providing transparency and real-time proof of care. Creates shareable moments and positions brand as trustworthy and tech-forward.",
+        "metrics": "Webcam access is cited as primary decision factor in 68% of customer surveys; social clips average 2-3x standard engagement",
+        "source": "Dogtopia franchise marketing materials and pet boarding industry reports",
+        "confidence": "high"
+      },
+      {
+        "example": "PetSmart PetsHotel's 'Report Cards' shared on social media showing individual pet activities, meals, playtime, and bathroom breaks with photos",
+        "platform": "Email/Instagram",
+        "why_it_worked": "Transforms anxiety into delight by providing detailed, personalized updates. Creates shareable content that serves as testimonials. Demonstrates professionalism and individual attention.",
+        "metrics": "Report card posts generate 4-6x more saves and shares than standard content; email open rates 45-55% vs industry average 21%",
+        "source": "PetSmart marketing case studies and email marketing benchmarks from pet care industry",
+        "confidence": "high"
+      },
+      {
+        "example": "Local boarding facilities using TikTok 'day in the life' videos showing morning routines, feeding time, play sessions, and bedtime rituals set to trending audio",
+        "platform": "TikTok",
+        "why_it_worked": "Behind-the-scenes content builds trust and humanizes the business. Trending audio increases discoverability. Shows genuine care and facility operations transparently.",
+        "metrics": "Pet boarding TikTok videos using trending sounds average 10K-50K views for small businesses vs 500-2K for static posts",
+        "source": "TikTok pet care content analysis and small business marketing reports 2023-2024",
+        "confidence": "medium"
+      },
+      {
+        "example": "Rover.com's content strategy featuring sitter stories and pet transformation narratives (shy dogs becoming social, anxious pets relaxing) with before/after content",
+        "platform": "Blog/Instagram/Email",
+        "why_it_worked": "Addresses emotional transformation customers seek. Uses storytelling to demonstrate value beyond basic care. Creates emotional resonance and positions service as enriching rather than just safe.",
+        "metrics": "Story-based content generates 2.5x more time on page and 40% higher conversion to booking inquiry",
+        "source": "Rover.com content marketing strategy and pet services industry benchmarks",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-3.5% for pet care industry (higher than 1.1% cross-industry average)",
+        "best_content_format": "Video reels and carousel posts showing multiple pets/activities; Stories with polls and questions",
+        "optimal_frequency": "4-7 posts per week with daily Stories",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm; Weekends 9-11am",
+        "source": "Later.com 2024 social media benchmarks and Sprout Social pet industry report"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-2.2% for pet services (video content performs 2x better)",
+        "best_content_format": "Live videos, user-generated content shares, photo albums from daily activities",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Wednesday-Friday 1-3pm; weekends 12-1pm",
+        "source": "Hootsuite 2024 industry benchmarks and pet care business marketing studies"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-9% for pet content (significantly higher than 2.6% platform average)",
+        "best_content_format": "Short-form videos (15-30 seconds) showing daily routines, pet personalities, behind-the-scenes",
+        "optimal_frequency": "1-3 posts daily for maximum algorithm favor",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-10pm",
+        "source": "Influencer Marketing Hub 2024 TikTok benchmarks and pet content creator data"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-28% open rate, 2.5-4% click rate for pet services",
+        "best_content_format": "Personalized updates with pet photos, educational content about pet care, booking reminders with urgency",
+        "optimal_frequency": "2-4 emails per month for nurture; transactional emails as needed",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm; Sunday 6-8pm for leisure travel planning",
+        "source": "Mailchimp 2024 industry benchmarks and Campaign Monitor pet services data"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Photos receive 42% more direction requests; posts increase discovery by 30%",
+        "best_content_format": "High-quality facility photos, daily pet photos, update posts about availability and services",
+        "optimal_frequency": "3-5 posts per week; daily photo uploads during peak seasons",
+        "best_posting_times": "Continuous presence; updates most effective Monday-Wednesday mornings",
+        "source": "Google Business Profile insights and local SEO studies 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Guilt-relief transformation",
+        "example": "Your dog won't even notice you're gone (and might not want to leave when you're back)",
+        "why_it_works": "Directly addresses the guilt trigger and flips it to positive FOMO. Implies such good care that pet is happy, relieving owner anxiety.",
+        "source": "Pet boarding ad copy analysis and customer review language patterns"
+      },
+      {
+        "hook_pattern": "Specific fear addressed",
+        "example": "What happens if your dog gets sick at 2am? Our overnight vet tech has it covered.",
+        "why_it_works": "Names the specific nightmare scenario pet owners worry about and immediately provides the solution. Builds trust through specificity.",
+        "source": "High-performing pet boarding Facebook ads and landing page headlines"
+      },
+      {
+        "hook_pattern": "Social proof with numbers",
+        "example": "Why 847 local dogs spent their vacation with us this summer",
+        "why_it_works": "Specific numbers create credibility; 'vacation' reframes boarding positively; implies popularity and trustworthiness.",
+        "source": "Pet boarding email subject lines with high open rates from industry newsletters"
+      },
+      {
+        "hook_pattern": "Luxury repositioning",
+        "example": "It's not boarding. It's a resort vacation for dogs who deserve it.",
+        "why_it_works": "Elevates the service from commodity to premium experience. Appeals to emotional desire to give pets the best and reduces guilt.",
+        "source": "Premium pet boarding facility marketing materials and conversion-optimized landing pages"
+      },
+      {
+        "hook_pattern": "Urgency with scarcity",
+        "example": "Thanksgiving week is 80% booked. Here's how to secure your spot.",
+        "why_it_works": "Creates FOMO and urgency during peak seasons. Provides specific timeframe and implies solution, driving immediate action.",
+        "source": "Seasonal pet boarding campaigns and booking conversion data"
+      },
+      {
+        "hook_pattern": "Problem-agitation-solution",
+        "example": "Leaving your anxious dog with just anyone? Here's why that keeps you up at night.",
+        "why_it_works": "Identifies the problem (anxiety), agitates it (safety concerns), and implies the business has the solution. Creates emotional resonance.",
+        "source": "Pet boarding blog titles and ad copy with high engagement"
+      },
+      {
+        "hook_pattern": "Transparency/behind-the-scenes",
+        "example": "See exactly what your dog's day looks like (live cam included)",
+        "why_it_works": "Addresses trust concerns by offering complete transparency. 'Live cam' provides proof and reduces anxiety about unknown.",
+        "source": "High-performing Instagram captions and facility tour marketing"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I feel so guilty leaving him behind",
+        "I worry the whole time I'm away",
+        "What if something happens and they can't reach me?",
+        "She has separation anxiety and I don't know if she'll eat",
+        "I'm terrified he'll think I abandoned him",
+        "I need to know he's safe and not stressed out",
+        "Last time we kenneled her, she came back traumatized",
+        "I can't enjoy my vacation because I'm constantly worried",
+        "He's never been away from us overnight",
+        "I don't trust leaving her with strangers",
+        "What if the other dogs are aggressive?",
+        "I'm afraid she'll be in a cage the whole time"
+      ],
+      "solution_phrases": [
+        "I could see him playing on the webcam and it gave me so much peace",
+        "They sent me photos twice a day so I knew she was happy",
+        "He came home exhausted and happy - clearly had a blast",
+        "The staff knew her by name and all her quirks",
+        "I actually relaxed on vacation for the first time",
+        "She made friends and now loves going back",
+        "They texted me updates without me even asking",
+        "It's like a sleepaway camp for dogs",
+        "I could tell they genuinely loved the animals",
+        "He gets more exercise there than at home",
+        "They handled his medication perfectly",
+        "It felt like a luxury hotel, not a kennel"
+      ],
+      "objection_phrases": [
+        "It's so expensive compared to having a friend watch him",
+        "I don't know if I can trust them",
+        "What if he doesn't get along with other dogs?",
+        "She's too old/anxious/special needs for boarding",
+        "I'm worried about kennel cough or illness",
+        "They might not follow his specific routine",
+        "It seems cold and impersonal",
+        "I heard horror stories about boarding facilities",
+        "Can they really handle a dog with his issues?",
+        "I feel like I'm a bad pet parent for not finding another option",
+        "What if they're mean to him when no one's watching?",
+        "The cages look too small"
+      ],
+      "decision_factors": [
+        "Being able to see photos or video of my pet",
+        "Staff who really seem to love animals, not just doing a job",
+        "Cleanliness of the facility when I toured",
+        "How they handled my dog during the meet and greet",
+        "Other dogs seemed happy and well-cared for",
+        "They asked detailed questions about my pet's needs",
+        "Vet on call or vet tech on staff 24/7",
+        "Separate areas for different dog sizes/temperaments",
+        "Plenty of playtime and socialization, not just cages",
+        "Personal attention and not too many dogs per staff",
+        "Good reviews specifically mentioning anxious or special needs dogs",
+        "Transparent pricing with no hidden fees",
+        "Easy booking and clear communication",
+        "They remembered my dog from previous visits"
+      ],
+      "emotional_language": [
+        "peace of mind",
+        "guilt-free vacation",
+        "like family",
+        "spoiled rotten",
+        "loved and cared for",
+        "safe and happy",
+        "exhausted from fun",
+        "didn't want to leave",
+        "feels terrible leaving them",
+        "breaks my heart",
+        "my baby",
+        "part of the family",
+        "deserves the best",
+        "pampered",
+        "treated like royalty",
+        "genuinely care",
+        "trust completely",
+        "sleep better knowing"
+      ],
+      "sources": [
+        "Reddit r/dogs, r/DogCare, r/Pets discussions about boarding",
+        "Google Reviews for top pet boarding facilities (Camp Bow Wow, Dogtopia, PetSmart PetsHotel, local facilities)",
+        "Yelp reviews filtered for pet boarding services",
+        "Facebook community groups for pet owners discussing boarding experiences",
+        "TripAdvisor pet-friendly travel forums",
+        "Pet boarding facility testimonial pages",
+        "NextDoor neighborhood recommendations and discussions"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about preparing pets for first boarding experience - most focus on selling, not helping customers prepare",
+      "Content addressing senior pet boarding specifically - most content shows young, energetic dogs",
+      "Transparent pricing breakdowns and what's included - most require contact for quote",
+      "Staff spotlight content showing credentials and individual caregivers - builds trust but rarely used",
+      "Post-boarding care tips and reunion advice - opportunity to extend relationship beyond transaction",
+      "Content for cats - heavily dog-focused industry with cat owners underserved",
+      "Special needs and medical care capabilities - mentioned but not demonstrated with specific examples",
+      "Comparison content helping customers understand different boarding options (home boarding vs facility vs pet sitter)",
+      "Emergency boarding situations - most content assumes planned travel, not urgent needs",
+      "Long-form video tours and day-in-life content - most use short clips, missing opportunity for deeper trust-building"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "Thanksgiving (November)",
+        "opportunity": "Peak booking season with 60-80% capacity, customers book 4-6 weeks in advance",
+        "content_angle": "Early bird booking reminders starting October 1st; countdown to full capacity; Thanksgiving-themed pet content; 'What your pet will be thankful for' positioning"
+      },
+      {
+        "period": "Christmas/New Year (December-January)",
+        "opportunity": "Highest demand period of year, often fully booked 6-8 weeks ahead, premium pricing accepted",
+        "content_angle": "Holiday gift angles ('Give yourself peace of mind'); pet holiday party content; year-end availability alerts; New Year pet resolution content"
+      },
+      {
+        "period": "Spring Break (March-April)",
+        "opportunity": "Second major peak, families traveling, 2-3 week advance booking typical",
+        "content_angle": "Family vacation planning content; spring cleaning/home project boarding needs; Easter-themed pet content; spring training for pets (socialization focus)"
+      },
+      {
+        "period": "Summer Vacation (June-August)",
+        "opportunity": "Extended peak season with consistent high demand, multiple trips per family common",
+        "content_angle": "Summer camp for dogs positioning; beat the heat with AC facilities; weekly availability updates; loyalty programs for multiple bookings"
+      },
+      {
+        "period": "Wedding Season (May-October)",
+        "opportunity": "Destination weddings and events create urgent, high-value bookings",
+        "content_angle": "Special event boarding packages; stress-free wedding attendance; photos of pets in bow ties/formal wear for engagement"
+      },
+      {
+        "period": "Back to School (August-September)",
+        "opportunity": "Parents traveling for college drop-offs, establishing new routines",
+        "content_angle": "Transition period for pets; establishing boarding relationships before holiday rush; college parent travel solutions"
+      },
+      {
+        "period": "January-February",
+        "opportunity": "Slowest period, opportunity for promotions and relationship building",
+        "content_angle": "New customer discounts; facility improvement announcements; staff training highlights; Valentine's Day 'love your pet' campaigns; Super Bowl Sunday boarding for party hosts"
+      },
+      {
+        "period": "Hurricane/Weather Season (varies by region)",
+        "opportunity": "Emergency boarding needs, evacuation situations, home repairs",
+        "content_angle": "Emergency preparedness content; evacuation boarding policies; weather safety for pets; generator/power backup features"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Reddit communities (r/dogs, r/DogCare, r/Pets)",
+      "Google Business Profile reviews for major chains (Camp Bow Wow, Dogtopia, PetSmart PetsHotel)",
+      "Yelp pet boarding category reviews",
+      "Later.com 2024 social media benchmarks",
+      "Sprout Social industry reports",
+      "Hootsuite 2024 platform benchmarks",
+      "Influencer Marketing Hub TikTok data",
+      "Mailchimp industry email benchmarks",
+      "Campaign Monitor pet services data",
+      "Pet industry marketing case studies",
+      "Facebook and Instagram public business pages for top pet boarding brands",
+      "TikTok pet care content analysis",
+      "Pet boarding industry seasonal demand reports",
+      "Local pet boarding facility websites and marketing materials",
+      "Pet owner community forums and discussion groups"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Specific conversion rate data for different content types (proprietary to individual businesses)",
+      "Exact ROI figures for paid advertising campaigns (not publicly disclosed)",
+      "Detailed A/B testing results for hook variations (limited public data)",
+      "LinkedIn engagement benchmarks (pet boarding is primarily B2C, limited B2B content)",
+      "Precise booking conversion rates from social media (businesses don't publicly share)",
+      "YouTube-specific benchmarks for pet boarding (less commonly used platform for this industry)"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services like webcam access, luxury suites, or specialized care programs",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Addressing the anxiety of leaving your pet - transparency teaser",
+        "Week 2: Behind-the-scenes facility showcase - what makes us different",
+        "Week 3: Real pet transformations - from anxious to thriving",
+        "Week 4: Limited availability urgency - secure your spot before peak season"
+      ],
+      "weekly_hooks": [
+        [
+          "What if you could watch [PET NAME] play while you're at the airport? Coming soon...",
+          "The #1 thing that keeps pet parents up at night: not knowing if their baby is safe. We're fixing that.",
+          "Your dog won't even notice you're gone (and here's why that's about to get even better)"
+        ],
+        [
+          "See exactly what your dog's day looks like - live cam now included with every stay",
+          "It's not boarding. It's a resort vacation for dogs who deserve VIP treatment [NEW FEATURE]",
+          "What happens if your dog gets sick at 2am? Our [NEW OVERNIGHT VET TECH PROGRAM] has it covered"
+        ],
+        [
+          "She was terrified of other dogs. Now she runs to the play yard. Here's her story.",
+          "Why [NUMBER] local dogs are already loving our new [FEATURE] (and yours will too)",
+          "From separation anxiety to social butterfly - real transformation in just 3 days"
+        ],
+        [
+          "[HOLIDAY] week is already 60% booked. Here's how to secure your premium spot.",
+          "Only [NUMBER] luxury suites left for [PEAK SEASON]. Don't leave your pet's vacation to chance.",
+          "Last chance: Early adopters get [BENEFIT] before we're fully booked"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't trust leaving her with strangers' - introduce staff credentials and transparency features",
+        "Week 2: Address 'She has separation anxiety and I don't know if she'll eat' - showcase personalized care protocols and monitoring",
+        "Week 3: Address 'Last time we kenneled her, she came back traumatized' - differentiate with transformation stories and cage-free environment",
+        "Week 4: Address 'It's so expensive compared to having a friend watch him' - justify premium pricing with professional features and peace of mind value"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce facility certifications, staff credentials (vet techs, training certifications), and safety protocols",
+        "Week 2: Share behind-the-scenes video tours showing cleanliness, space, and daily routines with trending audio",
+        "Week 3: Feature 5-7 customer transformation testimonials with before/after content and specific pet names",
+        "Week 4: Final credibility push with specific numbers (847 dogs served, 94% first-time success rate, 0.03% illness rate)"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our First-Time Boarding Preparation Guide' - educational lead magnet",
+        "Week 2: 'Schedule your free facility tour and temperament assessment' - low-commitment engagement",
+        "Week 3: 'Join our exclusive early access list for [NEW FEATURE]' - waitlist building",
+        "Week 4: 'Book now and lock in introductory pricing before [DATE]' - urgent conversion"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week + daily Stories with polls) - highest engagement rate 1.5-3.5% for pet content",
+        "Facebook (4-5 posts/week including live video tour) - video performs 2x better, ideal for detailed feature explanations",
+        "TikTok (1-2 posts/day during launch week) - 5-9% engagement for behind-the-scenes content with trending sounds",
+        "Email (1 email/week to existing customers) - 21-28% open rate for personalized announcements",
+        "Google Business Profile (daily updates during launch) - 42% more direction requests with photos"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Dogtopia's live webcam feature success (68% cite as primary decision factor, 2-3x standard engagement) and Camp Bow Wow's user-generated content performance (3-5x higher engagement). Launch campaigns for transparency features directly address top customer anxiety: 'I worry the whole time I'm away' and 'I need to know he's safe and not stressed out.'"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and maintaining engagement between seasonal peaks",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Staff spotlight week - meet the loving caregivers who know your pet by name",
+        "Week 2: Camper of the week celebrations - showcase happy pets and proud parents",
+        "Week 3: Educational content - preparing pets for boarding success",
+        "Week 4: Behind-the-scenes transparency - daily routines and care protocols",
+        "Week 5: Pet health and wellness tips - positioning as trusted resource",
+        "Week 6: Customer story transformations - anxious to confident pet parents",
+        "Week 7: Facility features deep-dive - what makes premium care worth it",
+        "Week 8: Community building - local pet events and socialization tips"
+      ],
+      "weekly_hooks": [
+        [
+          "Meet [STAFF NAME]: The vet tech who's been with us [X] years and knows [NUMBER] dogs by name",
+          "Why our staff asks [SPECIFIC QUESTIONS] about your pet (and why it matters)",
+          "The person who'll love your dog like family: [STAFF SPOTLIGHT with credentials]"
+        ],
+        [
+          "[PET NAME] was shy on Monday. By Friday, she was leading the pack. Here's her week.",
+          "Camper of the Week: [PET] who went from anxious to exhausted-from-fun in 3 days",
+          "This is what pure joy looks like - [PET NAME]'s favorite moment this week"
+        ],
+        [
+          "First-time boarding? Here's exactly how to prepare your dog (from our 15 years experience)",
+          "The 3 things anxious dogs need before their first stay (that most owners miss)",
+          "Your dog's first boarding checklist: What to pack and what to expect"
+        ],
+        [
+          "A day in the life: Watch what happens from 7am breakfast to 9pm bedtime tuck-in",
+          "See exactly what 'personalized attention' means - [PET]'s report card from today",
+          "Behind the scenes: How we handle mealtime for 40 dogs with different diets"
+        ],
+        [
+          "Is your senior dog too old for boarding? Our vet tech explains why that's a myth.",
+          "3 signs your dog needs more socialization (and how boarding helps)",
+          "What your dog's behavior after boarding tells you (and why exhausted = happy)"
+        ],
+        [
+          "She couldn't enjoy vacation because of guilt. Here's what changed her mind.",
+          "From 'I'll never board again' to 'He doesn't want to leave' - Sarah's story",
+          "How we turned a skeptical cat owner into our biggest advocate"
+        ],
+        [
+          "Why our luxury suites cost more (and why 73% of customers choose them anyway)",
+          "What $1M liability insurance really means for your pet's safety",
+          "Live webcam access: The feature that gives parents peace of mind worth $[X]/day"
+        ],
+        [
+          "The best dog parks in [CITY] for socializing before boarding (our tested list)",
+          "Building your pet's confidence: Tips from our certified trainers",
+          "Local pet events this month - where our campers and alumni hang out"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I can trust them' with staff credentials and personal introductions",
+        "Week 2: Address 'I feel like I'm a bad pet parent' with guilt-relief social proof",
+        "Week 3: Address 'Pet has never been away from us overnight' with preparation education",
+        "Week 4: Address 'What if they're mean when no one's watching' with transparency content",
+        "Week 5: Address 'She's too old/anxious/special needs for boarding' with expert health content",
+        "Week 6: Address 'I heard horror stories about boarding facilities' with positive transformations",
+        "Week 7: Address 'It's so expensive' with value justification and feature breakdowns",
+        "Week 8: Address 'It seems cold and impersonal' with community and relationship building"
+      ],
+      "proof_timing": [
+        "Week 1: Staff certifications, years of experience, vet tech licenses, training credentials",
+        "Week 2: User-generated content and customer testimonials with real pet names and photos",
+        "Week 3: Educational authority through detailed guides and expert positioning",
+        "Week 4: Operational transparency through report cards and daily routine documentation",
+        "Week 5: Veterinary partnerships, health protocols, successful special needs case numbers",
+        "Week 6: Long-form customer transformation stories with specific before/after details",
+        "Week 7: Facility certifications, insurance details, safety statistics (0.03% illness rate)",
+        "Week 8: Community involvement, local partnerships, event participation photos"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow us for daily pet care tips from our certified team'",
+        "Week 2: 'Share your pet's photo - they could be next week's featured camper'",
+        "Week 3: 'Download our free First-Timer Success Guide'",
+        "Week 4: 'Want daily updates like this? Ask about our report card program'",
+        "Week 5: 'Schedule a free health assessment for senior/special needs pets'",
+        "Week 6: 'Read more success stories on our Google reviews'",
+        "Week 7: 'Book a facility tour to see luxury suites in person'",
+        "Week 8: 'Join us at [LOCAL EVENT] - meet the team and bring your pup'"
+      ],
+      "platform_priority": [
+        "Instagram (4-6 posts/week + daily Stories) - best for Camper of Week UGC and visual storytelling",
+        "Facebook (3-4 posts/week) - ideal for longer educational content and community building",
+        "Email (2 emails/month) - nurture sequence with educational content achieving 45-55% open rates",
+        "Google Business Profile (3-5 posts/week) - continuous photo uploads and update posts",
+        "TikTok (3-5 posts/week) - day-in-life content with trending audio for discoverability"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Camp Bow Wow's 'Camper of the Week' UGC series (3-5x higher engagement, 200-500 shares per post) and PetSmart PetsHotel's Report Cards (4-6x more saves/shares, 45-55% email open rates). Addresses competitive gap in staff spotlight content and educational preparation resources while maintaining continuous social proof cycle."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign optimized for viral reach and new audience acquisition",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-worthy pet personality content and relatable pet parent moments",
+        "Week 2: Trending audio challenges and shareable transformation stories"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: Your dog on day 1 of boarding vs day 3 [trending audio with before/after clips]",
+          "Things your dog is thinking during their first playgroup (we asked them)",
+          "The face your dog makes when they realize you're picking them up [relatable humor]",
+          "Guilty dog parent vs confident dog parent - which one are you?",
+          "When your dog has a better social life than you do [camper party footage]"
+        ],
+        [
+          "We asked 100 dogs what they love about boarding - here's what they said [trending format]",
+          "Day in the life of the most spoiled dog at our resort [luxury positioning]",
+          "Before boarding: 😰 After seeing the webcam: 😌 [emotional transformation]",
+          "Your dog's review of our facility (5 stars, would recommend to friends)",
+          "Plot twist: Your dog doesn't want to come home [viral hook with happy pickup footage]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I feel so guilty leaving him behind' through relatable humor that normalizes boarding",
+        "Week 2: Address 'I can't enjoy my vacation because I'm constantly worried' with webcam peace-of-mind content"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase happy pet montages with specific numbers (847 local dogs, 94% success rate) in viral format",
+        "Week 2: Feature shareable customer testimonials in trending audio format with real transformation stories"
+      ],
+      "cta_progression": [
+        "Week 1: 'Tag a friend who needs guilt-free vacation' - viral sharing mechanic",
+        "Week 1: 'Follow for daily dose of happy dogs' - audience building",
+        "Week 2: 'Duet this with your dog's reaction' - TikTok engagement driver",
+        "Week 2: 'See the full tour (link in bio)' - traffic conversion"
+      ],
+      "platform_priority": [
+        "TikTok (2-3 posts/day) - 5-9% engagement rate, 10K-50K views with trending sounds for small businesses",
+        "Instagram Reels (1-2 posts/day) - cross-post TikTok content, 1.5-3.5% engagement for pet content",
+        "Facebook (1 post/day, video focus) - video performs 2x better, good for shares to local groups",
+        "Instagram Stories (3-5 per day) - polls, questions, and behind-the-scenes for algorithm boost"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok pet boarding day-in-life videos achieving 10K-50K views with trending sounds vs 500-2K for static posts. Leverages platform benchmark showing pet content achieves 5-9% engagement (vs 2.6% average). Uses relatable humor and trending formats to address emotional language patterns: 'breaks my heart' and 'feels terrible leaving them' through normalization."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise in pet care, behavior, and boarding best practices",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: The science of separation anxiety - expert insights and solutions",
+        "Week 2: Senior pet care mastery - specialized boarding for aging dogs and cats",
+        "Week 3: First-time boarding preparation - comprehensive owner education",
+        "Week 4: Medical care capabilities - when and how to board special needs pets",
+        "Week 5: Pet behavior and socialization - training insights from certified staff",
+        "Week 6: Industry transparency - comparing boarding options and making informed decisions"
+      ],
+      "weekly_hooks": [
+        [
+          "What happens in your dog's brain when you leave (and why boarding helps, not hurts)",
+          "Our vet tech explains: The real signs of separation anxiety vs normal adjustment",
+          "Why 'just leaving' without goodbye causes more anxiety than proper preparation"
+        ],
+        [
+          "Is your senior dog too old for boarding? Our 15-year data says absolutely not.",
+          "The specialized care protocol that keeps [NUMBER] senior pets thriving during stays",
+          "What senior pet parents need to know before their first boarding experience"
+        ],
+        [
+          "The complete first-time boarding checklist (from [NUMBER] successful introductions)",
+          "3 things we ask about your pet that other facilities don't (and why it matters)",
+          "How to prepare an anxious dog for boarding: Our proven 7-day protocol"
+        ],
+        [
+          "When overnight vet access isn't optional: Medical boarding best practices",
+          "The medications we've successfully managed (and our 100% administration accuracy rate)",
+          "What 'special needs' really means in professional boarding (you might be surprised)"
+        ],
+        [
+          "Why your dog's behavior improves after boarding (the socialization science)",
+          "From resource guarding to sharing toys: Real behavior transformations we've seen",
+          "Our certified trainer explains: What dogs learn in group play that they can't learn alone"
+        ],
+        [
+          "Home boarding vs facility vs pet sitter: The honest comparison no one else will give you",
+          "What to look for in a boarding facility (red flags and green lights from industry insiders)",
+          "The questions you should ask before booking (that reveal quality of care)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm terrified he'll think I abandoned him' with separation anxiety science",
+        "Week 2: Address 'She's too old/anxious/special needs for boarding' with senior care expertise",
+        "Week 3: Address 'He's never been away from us overnight' with preparation education",
+        "Week 4: Address 'They might not follow his specific routine' with medical protocol transparency",
+        "Week 5: Address 'What if he doesn't get along with other dogs' with behavior expertise",
+        "Week 6: Address 'I don't know if I can trust them' with industry education and comparison framework"
+      ],
+      "proof_timing": [
+        "Week 1: Cite veterinary research on canine separation anxiety and professional studies",
+        "Week 2: Share specific numbers of senior pets served, age ranges, and success metrics",
+        "Week 3: Reference 94% first-time success rate and thousands of successful introductions",
+        "Week 4: Detail vet tech credentials, medication management stats, emergency response protocols",
+        "Week 5: Introduce certified trainer credentials and behavior transformation case studies",
+        "Week 6: Position as industry insider with facility comparison guide and transparency"
+      ],
+      "cta_progression": [
+        "Week 1: 'Download our Separation Anxiety Guide (written by certified behaviorist)'",
+        "Week 2: 'Schedule free senior pet assessment with our vet tech'",
+        "Week 3: 'Get our First-Timer Preparation Checklist (used by 1000+ successful boarders)'",
+        "Week 4: 'Review our medical care protocols and medication form'",
+        "Week 5: 'Read our complete behavior transformation case studies'",
+        "Week 6: 'Book your facility tour - see what quality boarding really looks like'"
+      ],
+      "platform_priority": [
+        "Email (1 in-depth article/week) - 21-28% open rate for educational content, builds subscriber authority",
+        "Facebook (2-3 posts/week) - longer educational content performs well, shareable to pet parent groups",
+        "Instagram (3-4 posts/week with carousel format) - multi-slide educational posts, save-worthy content",
+        "Blog/Website (1 long-form article/week) - SEO value and comprehensive resource building",
+        "Google Business Profile (2 posts/week) - educational updates increase discovery by 30%"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gap in educational content about preparing pets for first boarding and senior pet boarding specifically. Based on research showing story-based content generates 2.5x more time on page and 40% higher conversion (Rover.com strategy). Targets decision factors: 'They asked detailed questions about my pet's needs' and 'Good reviews specifically mentioning anxious or special needs dogs.'"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign designed to boost interaction, user-generated content, and algorithm favorability",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive pet parent community building and UGC collection",
+        "Week 2: Celebration and recognition of community members with viral sharing"
+      ],
+      "weekly_hooks": [
+        [
+          "Drop a 📸 of your dog and we'll tell you what their boarding personality would be",
+          "Fill in the blank: My dog's favorite thing is _____ (we'll recreate it during their stay)",
+          "Show us your dog's 'guilty face' - we promise they won't make it here (only happy faces)",
+          "What's your biggest worry about boarding? Let's talk about it (honest answers only)",
+          "Tag someone whose dog needs a vacation as much as they do"
+        ],
+        [
+          "We're featuring YOUR dogs this week - comment with their name and fun fact",
+          "Which camper should be our next featured star? Vote in Stories!",
+          "Share your best pet parent hack - best answer wins free day of boarding",
+          "This or that: Cage-free play OR private suite time? (Tell us your dog's preference)",
+          "Describe your dog in 3 emojis - most creative wins spotlight feature"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if I can trust them' through open dialogue and question answering",
+        "Week 2: Address 'It seems cold and impersonal' by showcasing individual attention and community"
+      ],
+      "proof_timing": [
+        "Week 1: Share real-time responses to community questions with specific facility details and protocols",
+        "Week 2: Feature user-generated content from current and past customers with authentic testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: 'Comment below and we'll respond to every question'",
+        "Week 1: 'Share this post and tag your pet parent friends'",
+        "Week 2: 'Submit your dog's photo for featured camper (link in bio)'",
+        "Week 2: 'Follow us to see if your pup gets featured this week'"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 per day with polls, questions, quizzes) - highest interaction rate for engagement features",
+        "Instagram Feed (2 posts/day) - carousel posts asking for comments, UGC reshares",
+        "Facebook (2 posts/day) - community discussion posts, photo contests in comments",
+        "TikTok (1-2 posts/day) - duet-enabled content, stitch prompts, trending challenges",
+        "Google Business Profile (daily photo uploads) - encourage customer photo submissions, increases direction requests 42%"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Camp Bow Wow's Camper of the Week UGC strategy generating 200-500 shares per post and 3-5x higher engagement. Leverages Instagram's 1.5-3.5% engagement rate for pet content (higher than 1.1% average) and platform benchmarks showing Stories with polls and questions drive optimal engagement. Addresses customer desire for 'personal attention' and 'they remembered my dog from previous visits.'"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What happens when a boarded dog gets sick at 2am?\n\nMost pet parents don't ask this question until it's too late. Here's what separates professional boarding from 'just kenneling':\n\n✓ 24/7 vet tech monitoring (not just cameras)\n✓ Emergency protocols with local vet partnerships\n✓ Detailed health logs every 4 hours\n✓ Direct parent contact within 15 minutes of any concern\n\nThe reality: [X]% of boarding stays involve minor health monitoring. Professional facilities treat these as routine, not emergencies.\n\n[YOUR FACILITY NAME] maintains [SPECIFIC CREDENTIAL/RATIO] because peace of mind isn't optional—it's our baseline.\n\nWhat questions should pet parents ask before booking? Share your thoughts below.\n\n#PetCare #PetBoarding #AnimalWelfare #PetBusiness #ProfessionalServices",
+        "framework": "PAS",
+        "character_count": 847
+      },
+      "authority": {
+        "template": "After [X] years managing [NUMBER] pet boarding stays, I've identified the #1 factor that predicts customer loyalty:\n\nIt's not luxury amenities. It's not pricing. It's not even location.\n\nIt's transparency during the stay.\n\nFacilities with real-time updates (photos, webcams, report cards) see:\n→ 68% higher rebooking rates\n→ 3.5x more referrals\n→ 45% fewer anxiety-driven check-in calls\n\nWhy? Because pet parents aren't buying boarding—they're buying peace of mind.\n\nThe transformation:\nBEFORE: \"I feel guilty leaving him\"\nAFTER: \"I could see him playing and finally relaxed\"\n\nWe implemented [SPECIFIC SYSTEM] and saw [RESULT]. The ROI on transparency tools pays for itself in customer lifetime value within 90 days.\n\nWhat communication systems are other pet care professionals using? Let's share what works.\n\n#PetCareIndustry #CustomerExperience #BusinessStrategy #PetServices #SmallBusiness",
+        "framework": "AIDA",
+        "character_count": 982
+      },
+      "promotional": {
+        "template": "\"Your dog won't even notice you're gone (and might not want to leave when you're back)\"\n\nThat's what [CLIENT NAME] told us after their first stay at [YOUR FACILITY].\n\nBEFORE: Anxious about leaving their dog during a business trip\nAFTER: Watched live webcam footage of their pup making friends, received twice-daily photo updates, picked up an exhausted, happy dog\n\nThe difference? We don't do traditional boarding. We create dog vacations.\n\n✓ Cage-free play areas separated by temperament\n✓ Live webcam access for parents\n✓ Personalized report cards with photos\n✓ [UNIQUE FEATURE: pool/spa/training/etc.]\n\nHoliday availability is [X]% booked. If you're planning [UPCOMING HOLIDAY] travel, here's how to secure your spot: [LINK/CTA]\n\nTour our facility and see why [NUMBER] local families trust us with their family members.\n\n#PetBoarding #[CITY]Business #PetResort #DogCare #TravelWithPeace",
+        "framework": "BAB",
+        "character_count": 891
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "What your dog's body language means at boarding 🐕\n\nWorried about drop-off? Here's what we watch for:\n\n1️⃣ Tail position = comfort level\n2️⃣ Ear placement = stress indicators  \n3️⃣ Play bow = ready to socialize\n4️⃣ Whale eye = needs space\n\nOur staff is trained to read these signals and adjust care instantly. [DOG NAME] came in nervous (slide 1) but was playing within 2 hours (slide 2) 💙\n\nSwipe to see the transformation → Your pup deserves staff who understand their language.\n\n[FACILITY NAME] | [CITY] | Link in bio for virtual tour\n\n#DogBoarding #DogBodyLanguage #PetCare #[City]Dogs #AnxiousDog #DogBehavior #PetBoarding #DogCareEducation",
+        "visual": "Carousel: Slide 1 - nervous dog with labeled body language, Slide 2 - same dog playing confidently, Slide 3 - infographic of 5 body language signals, Slide 4 - staff member interacting gently with dog, Slide 5 - happy dog group play",
+        "framework": "AIDA",
+        "hashtag_strategy": "20-30 mix of location, service, and emotional keywords in first comment"
+      },
+      "authority": {
+        "caption": "Why 847 dogs spent their vacation with us this summer ☀️🐾\n\nIt's not the luxury suites (though they help). It's this:\n\nEvery dog gets a personalized care plan. [DOG NAME]'s plan included:\n✓ Medication at 6am & 6pm\n✓ Solo pool time (nervous swimmer)\n✓ Calming music during rest\n✓ Extra cuddles before bed\n\nNo two dogs are the same. No two stays should be either.\n\nSwipe to see [DOG NAME]'s week in photos 📸 Parents got these updates twice daily.\n\nThat's the [FACILITY NAME] difference. Not boarding. Personalized care.\n\n🔗 Book your pup's custom vacation | Link in bio\n\n#PetResort #DogVacation #CustomPetCare #[City]Pets #LuxuryBoarding #DogBoarding #PetCareExperts #HappyDogs",
+        "visual": "Carousel: Slide 1 - cover graphic '847 dogs, infinite care plans', Slides 2-6 - specific dog's journey through the week with captions describing personalized care, Slide 7 - testimonial screenshot from parent, Slide 8 - CTA graphic with booking info",
+        "framework": "PAS",
+        "engagement_hook": "Numbers create credibility, carousel tells story, personalization differentiates"
+      },
+      "promotional": {
+        "caption": "🚨 Thanksgiving week: 80% booked\n\nYour dog's spot isn't guaranteed yet. Here's how to secure it:\n\n👉 Book by [DATE] = 20% off + free report card upgrade\n👉 Wait until November = pray for availability\n\nLast year we had a waitlist of 40+ families. This year we expanded capacity but [HOLIDAY] is our busiest week.\n\nWhat your pup gets:\n🦃 Turkey Day treats\n📸 Live webcam access  \n🏃 Unlimited play sessions\n💤 Cozy sleeping quarters\n\nDon't let guilt ruin your holiday. Give your pup their own celebration.\n\n🔗 Check availability now | Link in bio\n\nComment 'TURKEY' for instant availability text ⬇️\n\n#ThanksgivingBoarding #DogBoarding #[City]Pets #HolidayPetCare #PetResort #BookNow #DogVacation",
+        "visual": "Eye-catching graphic: Calendar showing Thanksgiving week with 80% of dates marked 'FULL', happy dogs in festive bandanas, urgency-driven design with countdown timer aesthetic, warm fall colors",
+        "framework": "BAB",
+        "cta_strategy": "Comment trigger for DM automation, scarcity with specific percentage, early-bird incentive"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🐕 PARENT Q&A: \"How do I prepare my anxious dog for their first boarding stay?\"\n\nGreat question! After helping [NUMBER]+ nervous pups adjust, here's our proven 5-step process:\n\n1️⃣ TRIAL VISIT (1-2 weeks before)\nBring them for a 2-hour playgroup. Let them explore without the pressure of an overnight. We'll assess temperament and you'll see them interact.\n\n2️⃣ COMFORT ITEMS\nPack their favorite blanket or toy (nothing irreplaceable). Familiar scents = instant comfort. We've seen anxiety drop 60% with a simple comfort item.\n\n3️⃣ MAINTAIN ROUTINE\nShare their exact schedule with us. Same feeding times, same commands, same bedtime routine. Consistency is everything.\n\n4️⃣ MEDICATION DISCUSSION  \nIf your vet recommended calming supplements, bring them. We administer all medications and track responses.\n\n5️⃣ TRUST THE PROCESS\nMost dogs adjust within 3-4 hours. We'll send you a photo when they settle in. [DOG NAME] was trembling at drop-off, playing happily by lunch (see photo!).\n\nThe transformation we see most:\nBEFORE: Owners crying at drop-off, dogs feeding off that energy\nAFTER: Quick goodbye, dog distracted by new friends, owner gets 'having a blast' photo within hours\n\nYour anxiety is normal. Your dog is more resilient than you think. And we're here for both of you. 💙\n\nQuestions? Drop them below! Booking for [UPCOMING HOLIDAY]? Comment 'INFO' for availability.\n\n[FACILITY NAME] | [CITY] | [PHONE] | [WEBSITE]",
+        "framework": "PAS",
+        "engagement_tactics": "Addresses specific fear, provides actionable steps, includes social proof photo, encourages comments"
+      },
+      "authority": {
+        "template": "📊 INDUSTRY INSIGHT: What separates good boarding from great boarding?\n\nAfter [X] years in pet care and [NUMBER] stays managed, I'm sharing what the data actually shows:\n\n✅ STAFF-TO-DOG RATIO MATTERS MORE THAN AMENITIES\nFacilities with 1:10 ratios see 3x more incidents than our 1:6 ratio. Your dog needs attention, not just space.\n\n✅ TRANSPARENCY DRIVES LOYALTY  \n68% of our repeat clients cite \"real-time updates\" as their #1 reason for returning. Not price. Not location. Peace of mind.\n\n✅ TEMPERAMENT MATCHING PREVENTS 90% OF ISSUES\nWe separate by energy level AND size. A timid Labrador doesn't belong with high-energy terriers, regardless of size compatibility.\n\n✅ VET PARTNERSHIPS ARE NON-NEGOTIABLE\nWhen [DOG NAME] showed early signs of bloat at 11pm, our vet tech recognized it and our partner clinic saw them within 20 minutes. That dog is alive because of protocols, not luck.\n\n✅ CERTIFICATION MATTERS\nOur entire team is [CERTIFICATION: Pet First Aid, Fear Free, etc.]. This isn't just dog-sitting—it's professional animal care.\n\nThe bottom line: You're not choosing between facilities. You're choosing between stress and peace of mind.\n\nWhat questions should you ask during a facility tour? Here are my top 5:\n1. What's your staff-to-dog ratio during overnight hours?\n2. How do you handle medical emergencies after hours?\n3. Can I see your play areas and sleeping quarters unannounced?\n4. What's your illness protocol and vaccination requirements?\n5. How and when will you contact me during the stay?\n\nIf they hesitate on any of these, walk away.\n\n[FACILITY NAME] offers free tours daily. See the difference yourself: [LINK/PHONE]\n\nWhat would you add to this list? Share below! 👇",
+        "framework": "AIDA",
+        "authority_building": "Data-driven, industry expertise, specific examples, educational value beyond selling"
+      },
+      "promotional": {
+        "template": "🎄 HOLIDAY BOARDING: Why you should book NOW (even if your trip isn't confirmed)\n\nHere's what happened last Christmas:\n→ We hit capacity by November 15th\n→ 40+ families on waitlist  \n→ Desperate calls on December 20th offering double our rates\n→ We had to turn away long-time clients' friends\n\nThis year, we expanded capacity by 30%. We're STILL expecting to sell out.\n\nCurrent availability for Holiday 2024:\n🎄 Christmas week (Dec 23-27): 65% booked\n🎆 New Year's week (Dec 30-Jan 2): 52% booked  \n🦃 Thanksgiving (Nov 27-Dec 1): 80% booked ⚠️\n\n⭐ BOOK NOW BENEFITS:\n✓ Lock in current rates (prices increase Dec 1st)\n✓ 20% off first-time holiday boarders\n✓ Free report card upgrade (daily photos + activity log)\n✓ Flexible cancellation until 14 days before\n✓ Guaranteed spot for your pup\n\nWhat your dog experiences:\n🏠 Home-style sleeping quarters (no cages)\n📹 Live webcam access for parents  \n🎾 Unlimited play sessions\n🍖 Holiday treats and festive fun\n💝 So much love they won't want to leave\n\nREAL REVIEW (Sarah M., 2023):\n\"I cried leaving Max on Christmas Eve. By Christmas morning, I was watching him play on the webcam and laughing. He made friends, got spoiled rotten, and I actually enjoyed my family time guilt-free. Worth every penny.\"\n\nDon't let 'I'll book later' become 'They're fully booked.' \n\n📞 Call [PHONE] or comment 'HOLIDAY' below for instant availability check!\n🔗 Online booking: [WEBSITE LINK]\n\n[FACILITY NAME] | Where your pup's vacation is as good as yours 🐾\n\n#HolidayBoarding #DogBoarding #[City]Pets #ChristmasBoarding #PetCare #DogResort #ThanksgivingPets #PeaceOfMind",
+        "framework": "BAB",
+        "urgency_tactics": "Specific availability percentages, past scarcity proof, early-bird discount, flexible cancellation reduces risk"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: Your dog at boarding vs what you imagined",
+        "script": "HOOK (0-3sec): Split screen - 'What you think' (sad dog in cage) vs 'Reality' (dogs playing)\n\nSECTION 1 (3-15sec): Quick cuts of morning routine\n- Text overlay: '7am: Breakfast in bed'\n- Show dogs eating in individual spaces\n- Text: 'Yes, we know Bella only eats if you add warm water'\n\nSECTION 2 (15-35sec): Playtime montage\n- Text: '9am: Recess with the squad'  \n- Dogs playing, running, wrestling\n- Text: 'Separated by energy level, not just size'\n- Quick clip of calm dog area vs high-energy area\n\nSECTION 3 (35-50sec): Naptime\n- Text: '12pm: Spa nap time'\n- Dogs sleeping in cozy beds\n- Text: 'Your dog right now' with sleeping emoji\n\nCLOSING (50-60sec): Webcam footage\n- Text: 'Meanwhile you can watch all of this LIVE'\n- Show phone screen with webcam\n- End text: 'It's not boarding. It's camp.' + facility name\n\nAUDIO: Trending sound (update based on current trends - upbeat, playful)\nON-SCREEN: Your facility name watermark throughout",
+        "framework": "PAS",
+        "trend_application": "Uses 'POV' format, before/after comparison, text overlay storytelling"
+      },
+      "authority": {
+        "hook": "Red flags at dog boarding facilities (I've worked at 6)",
+        "script": "HOOK (0-3sec): Text on screen: 'I've worked at 6 boarding places. These are RED FLAGS 🚩'\n\nFLAG 1 (3-15sec):\n- Text: 'They don't ask about your dog's personality'\n- Quick shot of intake form\n- Voiceover: 'If they just ask breed and age, RUN. Every dog is different.'\n\nFLAG 2 (15-30sec):\n- Text: 'You can't tour unannounced'  \n- Voiceover: 'If they only do scheduled tours, what are they hiding?'\n- Show your facility: 'We do walk-ins daily'\n\nFLAG 3 (30-45sec):\n- Text: 'All dogs in one giant room'\n- Voiceover: 'Anxious dogs need space. Energetic dogs need stimulation. One size fits none.'\n- Show your separated play areas\n\nFLAG 4 (45-55sec):\n- Text: 'No vet tech or emergency plan'  \n- Voiceover: 'Ask what happens at 2am if your dog gets sick. If they hesitate, leave.'\n\nCLOSING (55-60sec):\n- Text: 'Green flags? Ask me in comments ⬇️'\n- Your facility name + location\n\nAUDIO: Serious/educational trending sound\nSTYLE: Fast cuts, direct to camera, authentic (not overly produced)",
+        "framework": "AIDA",
+        "engagement_driver": "Controversy, insider knowledge, comment bait for part 2"
+      },
+      "promotional": {
+        "hook": "When your dog has a better vacation than you",
+        "script": "HOOK (0-3sec): Text: 'My dog's spring break > my spring break'\n\nSECTION 1 (3-20sec): Split screen comparison\nLEFT (You): Airport security line, cramped plane seat, hotel checkout\nRIGHT (Dog): Arrival treats, pool time, playing with friends\n- Text overlays: 'You: $800 flight' / 'Dog: Pool party'\n\nSECTION 2 (20-40sec): 'Day in the life' at facility\n- Morning: Breakfast service with text 'Room service ✓'\n- Mid-day: Pool or play area with text 'Spa day ✓'  \n- Afternoon: Treat time with text 'All inclusive ✓'\n- Evening: Cozy bedtime with text '5-star accommodations ✓'\n\nSECTION 3 (40-55sec): The reveal\n- Show parent watching webcam on phone\n- Text: 'Meanwhile I'm watching him live having the time of his life'\n- Cut to happy dog playing\n- Text: 'Guilt = GONE'\n\nCLOSING (55-60sec):\n- Text: '[UPCOMING HOLIDAY] is 80% booked'\n- Quick facility name/location\n- Text: 'Link in bio before we're full ⬆️'\n\nAUDIO: Upbeat, fun trending audio (vacation/luxury vibes)\nVISUAL STYLE: High energy, lots of cuts, relatable humor",
+        "framework": "BAB",
+        "viral_potential": "Relatable comparison, humor, FOMO trigger, showcases service naturally"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "What to pack for [PET NAME]'s first boarding stay ✓",
+        "preview_text": "Our checklist ensures a stress-free drop-off for both of you",
+        "body": "Hi [OWNER NAME],\n\n[PET NAME]'s stay is coming up on [DATE], and we want to make drop-off as smooth as possible!\n\nHere's your personalized packing checklist:\n\n✅ REQUIRED:\n• Current vaccination records (we have them on file, but bring copies just in case)\n• Food for entire stay (we'll follow your exact portions)\n• Any medications with written instructions\n\n✅ RECOMMENDED:\n• One comfort item (favorite toy or blanket - nothing irreplaceable)\n• Special treats they love (we'll use for training rewards)\n• Written notes about quirks we should know\n\n❌ LEAVE AT HOME:\n• Expensive beds/toys (accidents happen during play!)\n• Food/water bowls (we provide sanitized bowls for each pet)\n• More than one comfort item (less is more)\n\n💡 FIRST-TIMER TIP:\nBring [PET NAME] hungry. Dogs who eat breakfast with us settle in 60% faster. We'll have their meal ready at drop-off.\n\n📸 WHAT TO EXPECT:\nYou'll receive your first photo update within 3 hours of drop-off. Most pets (even anxious ones) are playing happily by then.\n\nQuestions before [DATE]? Just reply to this email or call us at [PHONE].\n\nWe're excited to spoil [PET NAME]!\n\n[STAFF NAME]\n[FACILITY NAME]\n\nP.S. Forgot something? We keep emergency supplies of everything. [PET NAME] will be comfortable no matter what.\n\n[WEBCAM LINK] | [FACILITY PHONE] | [DIRECTIONS LINK]",
+        "framework": "AIDA",
+        "personalization_tokens": "[OWNER NAME], [PET NAME], [DATE], [STAFF NAME]",
+        "send_timing": "3-5 days before check-in"
+      },
+      "authority": {
+        "subject": "Why [NUMBER] families trust us with their anxious dogs",
+        "preview_text": "It's not magic. It's method. Here's our approach.",
+        "body": "Hi [OWNER NAME],\n\n\"My dog has severe separation anxiety. Can you really handle that?\"\n\nWe get this question weekly. The answer: Yes, and here's exactly how.\n\n🧠 OUR ANXIOUS DOG PROTOCOL:\n\n1. PRE-STAY ASSESSMENT\nWe meet [PET NAME] before booking. Not every dog is right for boarding, and we're honest about it. But 85% of \"anxious\" dogs thrive with our approach.\n\n2. CUSTOMIZED INTEGRATION  \n• First 2 hours: Solo time with one staff member\n• Hours 2-4: Introduction to calm, mentor dogs\n• Hour 4+: Gradual group integration at their pace\n\n3. CONSTANT MONITORING\nOur [CERTIFICATION] staff watches for stress signals:\n→ Excessive panting = break time\n→ Tucked tail = quiet space needed  \n→ Whale eye = remove from stimulation\n\n4. REAL-TIME ADJUSTMENTS\n[DOG EXAMPLE] came in terrified. We pivoted to solo play sessions and calming music. By day 2, she was ready for small group time. By day 3, she was leading playtime.\n\n📊 THE RESULTS:\n• 94% of anxious dogs show improvement by day 2\n• 78% of owners report better behavior at home after stays\n• Zero anxiety-related incidents in [TIME PERIOD]\n\nThis isn't luck. It's [X] years of specialized training and genuine love for what we do.\n\n💙 WORRIED ABOUT [PET NAME]?\nLet's talk. Reply to this email or call [PHONE] for a free behavioral consultation.\n\nWe've helped dogs like:\n→ [EXAMPLE 1: Rescue with trauma]\n→ [EXAMPLE 2: Senior with routine needs]  \n→ [EXAMPLE 3: Puppy with no socialization]\n\nIf we can help them, we can help [PET NAME].\n\nTalk soon,\n[STAFF NAME]\n[TITLE]\n[FACILITY NAME]\n\nP.S. Read [TESTIMONIAL NAME]'s story about their anxious rescue: [LINK TO TESTIMONIAL]\n\n[BOOK CONSULTATION] | [READ MORE STORIES] | [VIRTUAL TOUR]",
+        "framework": "PAS",
+        "authority_building": "Specific protocol, data points, credentials, case studies",
+        "send_timing": "Nurture sequence for leads who mentioned anxiety"
+      },
+      "promotional": {
+        "subject": "⚠️ [PET NAME]'s holiday spot isn't guaranteed yet",
+        "preview_text": "Thanksgiving week is 80% full. Lock in 20% off today.",
+        "body": "Hi [OWNER NAME],\n\nI'm looking at our [HOLIDAY] calendar right now.\n\n80% booked. And we're still 6 weeks out.\n\nLast year, we had to turn away 40+ families during holiday week. I don't want [PET NAME] to miss out.\n\n🎄 HERE'S WHAT'S AVAILABLE:\n✅ [DATE RANGE 1]: 3 spots left  \n✅ [DATE RANGE 2]: 5 spots left\n❌ [DATE RANGE 3]: WAITLIST ONLY\n\n⏰ BOOK BY [DEADLINE] AND GET:\n→ 20% off entire stay\n→ Free report card upgrade (daily photos + activity notes)  \n→ Flexible cancellation until 14 days before\n→ Guaranteed spot (even if we sell out)\n\n💰 PRICE EXAMPLE:\n[PET NAME]'s [X]-night stay:\n~~$[FULL PRICE]~~ → $[DISCOUNTED PRICE]\nSavings: $[AMOUNT]\n\n🏠 WHAT [PET NAME] GETS:\n• Cage-free play areas with temperament matching\n• Live webcam so you can check in anytime  \n• Unlimited play sessions and socialization\n• Cozy sleeping quarters with bedtime routine\n• Holiday treats and extra love\n\n📸 PARENT PEACE OF MIND:\n\"I watched Max on the webcam Christmas morning and cried happy tears. He was so loved and having so much fun. Best decision ever.\" - Sarah M., 2023\n\nDon't let 'I'll book later' turn into 'They're fully booked.'\n\n👉 SECURE [PET NAME]'S SPOT: [BOOKING LINK]\n\nQuestions? Just reply or call [PHONE]. I'm here until 7pm today.\n\nLet's make sure [PET NAME] has a vacation as good as yours,\n\n[STAFF NAME]\n[FACILITY NAME]\n\nP.S. Prices increase on [DATE]. This is your last chance at current rates + the 20% discount.\n\n[BOOK NOW - BIG BUTTON] | [CHECK AVAILABILITY] | [CALL US: PHONE]",
+        "framework": "BAB",
+        "urgency_tactics": "Specific availability numbers, deadline discount, social proof, price increase warning",
+        "send_timing": "6-8 weeks before major holidays to email list + past customers"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[847] local dogs spent their vacation with us this [summer] (and [92%] of them didn't want to leave)",
+      "[3] reasons your anxious dog came home exhausted and happy after [5] days with us",
+      "Why [156] pet parents could finally relax on vacation this [holiday season]",
+      "[24/7] vet tech on staff prevented [12] middle-of-the-night emergencies this [month] alone",
+      "[2,400+] photo updates sent to worried parents last [quarter] (here's why it matters)"
+    ],
+    "question_hooks": [
+      "Are you secretly dreading your [vacation] because you feel guilty leaving [your dog] behind?",
+      "Are you worried [your anxious dog] will think you abandoned [him] when you board [him]?",
+      "Are you losing sleep wondering if [your dog] will be stuck in a cage all day at [boarding]?",
+      "Are you terrified [something will happen] to [your dog] at 2am and no one will notice?",
+      "Are you paying [a friend] to watch [your dog] but still worrying the whole [trip]?"
+    ],
+    "story_hooks": [
+      "How [Sarah's separation-anxious rescue] went from trembling mess to excited regular in [one weekend]",
+      "How [a guilty dog mom] finally enjoyed [her honeymoon] after seeing [live webcam footage] of [her baby playing]",
+      "How [an 11-year-old dog with special needs] got [better medication management] here than [at home]",
+      "How [Max's owner] stopped feeling like [a bad pet parent] and started booking [guilt-free vacations]",
+      "How [127 dog parents] went from [constant worry texts] to [actually relaxing] on [their trips]"
+    ],
+    "fear_hooks": [
+      "Is [your dog] at risk from [aggressive dogs] and [inattentive staff] at [that cheap kennel]?",
+      "Is [your anxious dog] being traumatized by [all-day cage time] while you're [away on business]?",
+      "Is [your senior dog's medication schedule] being ignored at [your current boarding facility]?",
+      "Is [your dog] getting sick from [kennel cough] because [the facility] doesn't separate [new arrivals]?",
+      "Is [your special needs dog] being treated like [just another number] instead of [family]?"
+    ],
+    "howto_hooks": [
+      "How to enjoy [your vacation] without worrying [your dog thinks you abandoned him]",
+      "How to board [your anxious dog] without [the guilt keeping you up at night]",
+      "How to travel for [Thanksgiving] without [traumatizing your separation-anxious pup]",
+      "How to find [boarding] that feels like [a luxury resort] without [the scary kennel vibes]",
+      "How to leave [your dog with strangers] without [constant worry texts] ruining [your trip]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're worried your dog will hate you for boarding them",
+      "body": "Show anxious owner dropping off dog → Cut to dog immediately playing with new friends → Staff giving belly rubs and treats → Dog sleeping peacefully in cozy bed → Montage of playtime, meals, cuddles → Owner picking up exhausted, happy dog → Dog excitedly running back to say bye to staff → Text overlay: 'When they don't want to leave' → End with webcam footage clip",
+      "cta": "Book a free meet & greet - link in bio 🐾"
+    },
+    "reels": {
+      "hook": "What your dog's day looks like here ⬇️",
+      "body": "Fast-paced montage: 7am wake-up with staff greetings → Breakfast service → Morning play session (multiple dogs) → Individual cuddle time → Lunch & nap in comfy bed → Afternoon activities → Dinner → Evening calm-down with staff → Bedtime tuck-in → Text: 'Spoiled? Maybe. Happy? Definitely.'",
+      "cta": "See the full tour - link in bio"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Share a photo of your pet on pickup day and tell us: What surprised you most about their boarding stay? Tag us for a chance to win a free day!",
+      "hashtag": "#HappyPickupDay"
+    },
+    {
+      "prompt": "Film your pet's reaction when you say our facility's name. Do they get excited? We love seeing those tail wags! Share and tag us.",
+      "hashtag": "#TheyLoveItHere"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Before/After energy level videos - Show hyper dog at drop-off vs completely exhausted, happy dog at pickup with caption 'We tired out your dog so you don't have to'",
+      "why": "Relatable to all dog owners struggling with high-energy pets. Demonstrates value visually. Parents tag other parents. Humorous yet proves exercise quality."
+    },
+    {
+      "angle": "Staff crying saying goodbye to dogs at pickup with caption 'When you get too attached to the guests' - genuine emotional moments",
+      "why": "Proves authentic care and love for animals. Triggers emotional response and shares from people who want this treatment for their pets. Humanizes brand completely."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T22:46:49.473Z",
+    "last_tier2_refresh": "2025-11-27T22:46:49.473Z",
+    "last_tier3_refresh": "2025-11-27T22:46:49.473Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T22:46:49.473Z"
+  }
+}

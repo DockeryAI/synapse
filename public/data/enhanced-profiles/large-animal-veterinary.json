@@ -1,0 +1,1708 @@
+{
+  "industry": "Large Animal Veterinary",
+  "industry_name": "Large Animal Veterinary",
+  "naics_code": "541940",
+  "category": "Healthcare",
+  "subcategory": "Animal Healthcare Services",
+  "customer_triggers": [
+    {
+      "trigger": "Animal showing signs of lameness or difficulty walking",
+      "urgency": 9,
+      "frequency": "Weekly occurrence"
+    },
+    {
+      "trigger": "Pregnant livestock approaching due date",
+      "urgency": 8,
+      "frequency": "Seasonal peaks"
+    },
+    {
+      "trigger": "Sudden drop in milk production in dairy cattle",
+      "urgency": 10,
+      "frequency": "Daily monitoring"
+    },
+    {
+      "trigger": "Animal refusing feed for more than 24 hours",
+      "urgency": 9,
+      "frequency": "Weekly occurrence"
+    },
+    {
+      "trigger": "Visible injury or wound requiring immediate attention",
+      "urgency": 10,
+      "frequency": "Multiple times weekly"
+    },
+    {
+      "trigger": "Scheduled herd health checks and vaccinations",
+      "urgency": 5,
+      "frequency": "Quarterly basis"
+    },
+    {
+      "trigger": "Reproductive issues affecting breeding programs",
+      "urgency": 8,
+      "frequency": "Monthly occurrence"
+    },
+    {
+      "trigger": "Regulatory compliance requirements for health certificates",
+      "urgency": 7,
+      "frequency": "Monthly requirement"
+    },
+    {
+      "trigger": "Disease outbreak in neighboring farms",
+      "urgency": 10,
+      "frequency": "Sporadic but critical"
+    },
+    {
+      "trigger": "Pre-purchase examination for livestock transactions",
+      "urgency": 6,
+      "frequency": "Weekly requests"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Farm owner notices performance issues, production drops, or visible health problems in livestock, often discovering through daily observation rounds, milk production records showing 15-20% decline, or neighboring farms reporting disease outbreaks",
+    "consideration": "Evaluates whether to treat in-house with basic remedies, call regular vet, or seek specialist, comparing response times (average 2-4 hours for emergencies), expertise levels, and cost implications ranging from $150-500 per visit",
+    "decision": "Books appointment based on vet's availability, reputation for specific conditions, emergency response capability, and relationship history, with 78% choosing vets who can arrive within 2 hours for emergencies",
+    "retention": "Maintains relationship through preventive care programs, emergency availability, consistent results showing 85% first-visit resolution rates, and personalized service remembering specific animal histories and farm operations",
+    "advocacy": "Recommends to other farmers at co-op meetings, livestock auctions, and online forums when vet demonstrates expertise, saves valuable breeding stock worth $5,000-50,000, or helps increase herd productivity by 12-15%"
+  },
+  "transformations": [
+    {
+      "from": "Losing $500-1,500 daily in milk production",
+      "to": "Restored full production within 48-72 hours",
+      "emotional_value": "Relief and financial security",
+      "worth_premium": true
+    },
+    {
+      "from": "Risk of losing prize breeding bull worth $25,000",
+      "to": "Full recovery and continued breeding program",
+      "emotional_value": "Preservation of genetic investment",
+      "worth_premium": true
+    },
+    {
+      "from": "Entire herd at risk of infectious disease",
+      "to": "Protected through strategic vaccination program",
+      "emotional_value": "Peace of mind and business continuity",
+      "worth_premium": true
+    },
+    {
+      "from": "Difficult calving threatening cow and calf",
+      "to": "Successful delivery saving both lives",
+      "emotional_value": "Gratitude and trust",
+      "worth_premium": true
+    },
+    {
+      "from": "Uncertainty about herd health status",
+      "to": "Clear health metrics and improvement plan",
+      "emotional_value": "Control and confidence",
+      "worth_premium": false
+    },
+    {
+      "from": "Reactive emergency-only care costing 40% more",
+      "to": "Proactive health management reducing costs by 25%",
+      "emotional_value": "Smart business management",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic treatment approaches",
+      "to": "Customized protocols for specific farm conditions",
+      "emotional_value": "Personalized professional care",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Response time under 2 hours for emergencies",
+      "timeframe": "Immediate",
+      "measurable": true
+    },
+    {
+      "metric": "First-visit resolution rate above 85%",
+      "timeframe": "Per visit",
+      "measurable": true
+    },
+    {
+      "metric": "Reduction in mortality rate by 30-40%",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Increase in conception rates by 15-20%",
+      "timeframe": "Breeding season",
+      "measurable": true
+    },
+    {
+      "metric": "Cost per animal reduced by $45-75 annually",
+      "timeframe": "Year-over-year",
+      "measurable": true
+    },
+    {
+      "metric": "Milk production maintained above 95% of potential",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Client retention rate exceeding 92%",
+      "timeframe": "Annual",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Animal worth $5,000-50,000 at immediate risk of death or permanent disability",
+    "Infectious disease that could spread to entire herd within 48-72 hours",
+    "Regulatory deadline for health certificates required for livestock sale or transport",
+    "Breeding window closing with only 12-24 hours remaining for optimal conception",
+    "Production losses accumulating at $200-500 per day per affected animal",
+    "Insurance claim requirements mandating veterinary examination within 24 hours of incident",
+    "Weather conditions deteriorating making farm access difficult within next 6-8 hours"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Your fees are 20-30% higher than other vets",
+      "response": "Our specialized large animal expertise reduces treatment time by 40% and increases first-visit resolution to 85%, actually saving you money through fewer repeat visits and faster recovery times",
+      "effectiveness": 8.5
+    },
+    {
+      "objection": "I can treat this myself with over-the-counter medications",
+      "response": "While basic treatments work 30% of the time, misdiagnosis risks losing animals worth $5,000-15,000 and can lead to antibiotic resistance affecting your entire operation",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "My regular small animal vet says they can handle this",
+      "response": "Large animal specialists see 50-75 similar cases monthly versus 2-3 for mixed practices, giving us the experience to identify subtle symptoms that could indicate serious conditions",
+      "effectiveness": 8.2
+    },
+    {
+      "objection": "Can't this wait until regular business hours?",
+      "response": "Every hour of delay with conditions like twisted stomach or dystocia increases mortality risk by 15-20% and can mean the difference between a $400 treatment and a $5,000 loss",
+      "effectiveness": 9.1
+    },
+    {
+      "objection": "I don't see the value in preventive care programs",
+      "response": "Our preventive care clients save an average of $125 per animal annually while reducing emergency calls by 65% and improving production metrics by 12-18%",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "You're located too far from my farm",
+      "response": "We maintain a 45-minute response radius and our mobile unit is equipped with $75,000 in specialized equipment, eliminating 90% of reasons for trailer transport to a clinic",
+      "effectiveness": 7.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Free follow-up visit if condition doesn't improve within 72 hours",
+      "No charge for advice calls within 7 days of treatment",
+      "Guarantee accurate diagnosis or second opinion at no cost"
+    ],
+    "proof_points": [
+      "Licensed and insured for $2 million in professional liability",
+      "Board-certified in large animal medicine with 15+ years experience",
+      "Published treatment protocols adopted by veterinary colleges",
+      "Success rates documented and available for review"
+    ],
+    "risk_mitigation": "Detailed treatment plans provided in writing, 24/7 emergency hotline for post-treatment concerns, collaboration with university veterinary hospitals for complex cases, transparent pricing with estimates before treatment begins"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "down cow",
+      "off feed",
+      "bloat",
+      "scours",
+      "lame",
+      "retained placenta",
+      "milk fever",
+      "shipping fever",
+      "foundered",
+      "prolapse",
+      "dystocia",
+      "ketosis",
+      "mastitis",
+      "pneumonia"
+    ],
+    "solution_words": [
+      "back on feed",
+      "cleared up",
+      "producing again",
+      "breeding sound",
+      "clean bill of health",
+      "caught it early",
+      "saved the calf",
+      "prevented spread",
+      "cost-effective treatment",
+      "minimal downtime"
+    ],
+    "avoid_jargon": [
+      "ventral edema",
+      "pyrexia",
+      "tachycardia",
+      "auscultation",
+      "palpation",
+      "parturition",
+      "gravid",
+      "multiparous",
+      "primigravida",
+      "subcutaneous",
+      "intramuscular",
+      "pathogenesis"
+    ]
+  },
+  "power_words": [
+    "emergency",
+    "immediate",
+    "save",
+    "prevent",
+    "protect",
+    "guarantee",
+    "proven",
+    "specialized",
+    "experienced",
+    "certified",
+    "responsive",
+    "reliable",
+    "trusted",
+    "expert",
+    "profitable",
+    "healthy",
+    "productive",
+    "thriving",
+    "recovery",
+    "results",
+    "available",
+    "mobile",
+    "equipped",
+    "professional",
+    "successful",
+    "documented",
+    "recommended",
+    "preferred",
+    "established",
+    "comprehensive"
+  ],
+  "avoid_words": [
+    "maybe",
+    "possibly",
+    "might",
+    "try",
+    "hope",
+    "cheap",
+    "discount",
+    "basic",
+    "simple",
+    "amateur",
+    "learning",
+    "experimental",
+    "untested",
+    "risky",
+    "complicated",
+    "expensive",
+    "unnecessary",
+    "optional",
+    "delayed",
+    "unavailable"
+  ],
+  "headline_templates": [
+    {
+      "template": "Emergency Large Animal Vet - Available Now [Location]",
+      "expected_ctr": 8.5,
+      "use_case": "Emergency search ads"
+    },
+    {
+      "template": "Save Your [Animal Type] - Expert Care in Under 2 Hours",
+      "expected_ctr": 7.2,
+      "use_case": "Urgent care campaigns"
+    },
+    {
+      "template": "Why [Number]% of Dairy Farms Choose Our Veterinary Services",
+      "expected_ctr": 6.8,
+      "use_case": "Social proof marketing"
+    },
+    {
+      "template": "Prevent [Problem] in Your Herd - Free Consultation This Week",
+      "expected_ctr": 6.5,
+      "use_case": "Preventive care promotion"
+    },
+    {
+      "template": "Board-Certified Large Animal Vet - [Years] Years Serving [Area]",
+      "expected_ctr": 5.9,
+      "use_case": "Credibility building"
+    },
+    {
+      "template": "Lost $[Amount] to [Disease]? Never Again with Our Prevention Program",
+      "expected_ctr": 7.8,
+      "use_case": "Problem-aware audience"
+    },
+    {
+      "template": "24/7 Large Animal Emergency Service - [Phone Number]",
+      "expected_ctr": 9.2,
+      "use_case": "Emergency visibility"
+    },
+    {
+      "template": "Increase Conception Rates by [Percentage]% - Proven Breeding Programs",
+      "expected_ctr": 6.3,
+      "use_case": "Reproductive services"
+    },
+    {
+      "template": "Your Neighbors Trust Us with Their Livestock - Here's Why",
+      "expected_ctr": 7.1,
+      "use_case": "Local marketing"
+    },
+    {
+      "template": "[Disease] Outbreak Alert - Protect Your Herd Today",
+      "expected_ctr": 8.9,
+      "use_case": "Urgent prevention"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Call Now for Emergency Service",
+      "conversion_rate": 12.5,
+      "placement": "Top of page and emergency banner"
+    },
+    {
+      "template": "Schedule Your Herd Health Check",
+      "conversion_rate": 8.3,
+      "placement": "Service pages and blog posts"
+    },
+    {
+      "template": "Get Free Consultation - Limited Spots",
+      "conversion_rate": 9.7,
+      "placement": "Landing pages and ads"
+    },
+    {
+      "template": "Download Free Herd Health Guide",
+      "conversion_rate": 11.2,
+      "placement": "Educational content"
+    },
+    {
+      "template": "Save My Animal - Text [Number]",
+      "conversion_rate": 10.8,
+      "placement": "Mobile and emergency pages"
+    },
+    {
+      "template": "Join 500+ Farms We Protect",
+      "conversion_rate": 7.6,
+      "placement": "Homepage and testimonials"
+    },
+    {
+      "template": "See Our Emergency Response Times",
+      "conversion_rate": 8.9,
+      "placement": "Service comparison pages"
+    },
+    {
+      "template": "Claim Your $50 First Visit Discount",
+      "conversion_rate": 10.3,
+      "placement": "New client campaigns"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "Success Story: Saved [Animal] from [Condition] at [Farm Name]. Another win for preventive care! #LargeAnimalVet #FarmLife",
+      "engagement_rate": 4.8
+    },
+    {
+      "platform": "Instagram",
+      "template": "[Before/After Photos] From critical to comfortable in 48 hours. This is why we do what we do. #VeterinaryMedicine #LivestockHealth",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "ALERT: [Disease] confirmed in [County]. Protect your herd now. Free consultation this week: [Link] #AnimalHealth #FarmAlert",
+      "engagement_rate": 3.5
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "New study shows 25% reduction in treatment costs with preventive care programs. Here's what we're seeing in the field... [Article Link]",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Spot Early Signs of [Condition] in Cattle - 5 Minute Field Guide",
+      "engagement_rate": 8.1
+    },
+    {
+      "platform": "TikTok",
+      "template": "Day in the life: 4am emergency call, saved a calf, delivered twins, prevented outbreak. #VetLife #FarmVet",
+      "engagement_rate": 12.3
+    },
+    {
+      "platform": "Local Forums",
+      "template": "Offering free herd health assessments this month for [County] farmers affected by recent weather. Details...",
+      "engagement_rate": 7.5
+    },
+    {
+      "platform": "Email Newsletter",
+      "template": "Subject: [Season] Health Risks - What to Watch For | 3 cases this week could have been prevented...",
+      "engagement_rate": 22.4
+    },
+    {
+      "platform": "SMS Campaign",
+      "template": "Reminder: [Farm Name], your herd vaccination is due. Reply YES to schedule this week with 10% discount",
+      "engagement_rate": 34.6
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Fastest emergency response time in the region - average 47 minutes",
+      "rank": 1,
+      "differentiator": "Three mobile units strategically positioned"
+    },
+    {
+      "prop": "Board-certified specialists with 15+ years large animal exclusive experience",
+      "rank": 2,
+      "differentiator": "No small animal distractions"
+    },
+    {
+      "prop": "On-site diagnostic lab results in 20 minutes vs 24-48 hours",
+      "rank": 3,
+      "differentiator": "$200K mobile equipment investment"
+    },
+    {
+      "prop": "Reduce herd health costs by 25-35% through preventive programs",
+      "rank": 4,
+      "differentiator": "Data-driven protocol customization"
+    },
+    {
+      "prop": "24/7 availability including holidays with no emergency surcharge under 50 miles",
+      "rank": 5,
+      "differentiator": "Dedicated emergency team rotation"
+    },
+    {
+      "prop": "Direct line to university veterinary hospital for complex cases",
+      "rank": 6,
+      "differentiator": "Teaching hospital partnership"
+    },
+    {
+      "prop": "Guaranteed follow-up within 72 hours at no additional charge",
+      "rank": 7,
+      "differentiator": "Commitment to complete recovery"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Your livestock represents generations of genetic selection and significant capital investment. Our board-certified specialists, advanced mobile diagnostics, and proven protocols ensure the highest standard of care for operations where excellence is non-negotiable. With documented success rates 30% above industry average and response times that save critical cases, we're the preferred choice for premier breeding operations and show stock.",
+    "budget_conscious": "Smart farmers know that spending $300 on prevention saves $3,000 in treatment. Our efficient protocols, group discount programs, and focus on first-visit resolution mean you get expert care without premium pricing. We'll help you prioritize spending where it matters most and provide practical solutions that fit your operation's budget while maintaining herd health.",
+    "enterprise": "Managing multiple facilities requires scalable veterinary solutions. Our enterprise programs include dedicated account management, customized health protocols for each location, centralized billing, detailed analytics on herd health trends, and priority emergency response. We integrate with your existing management systems and provide the consistency and documentation large operations require."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certification in large animal medicine",
+      "importance": 9,
+      "format": "Credentials displayed prominently"
+    },
+    {
+      "signal": "Years of local service and farm testimonials",
+      "importance": 8,
+      "format": "Video testimonials and case studies"
+    },
+    {
+      "signal": "University veterinary school affiliations",
+      "importance": 7,
+      "format": "Partnership badges and referral letters"
+    },
+    {
+      "signal": "Insurance and liability coverage amounts",
+      "importance": 6,
+      "format": "Coverage details in footer"
+    },
+    {
+      "signal": "Emergency response time statistics",
+      "importance": 9,
+      "format": "Live tracking and historical data"
+    },
+    {
+      "signal": "Success rate percentages for common procedures",
+      "importance": 8,
+      "format": "Infographic or data dashboard"
+    },
+    {
+      "signal": "Industry association memberships and awards",
+      "importance": 6,
+      "format": "Logo bar and achievement gallery"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "92% of emergency calls resolved without losing the animal",
+      "credibility_score": 9.2,
+      "context": "Based on 3,847 emergency responses over 5 years"
+    },
+    {
+      "stat": "Average client relationship duration of 12.5 years",
+      "credibility_score": 8.7,
+      "context": "Indicating high satisfaction and trust levels"
+    },
+    {
+      "stat": "Serving 450+ farms within 50-mile radius",
+      "credibility_score": 7.8,
+      "context": "Largest coverage area in the region"
+    },
+    {
+      "stat": "25% reduction in antibiotic use through preventive care",
+      "credibility_score": 8.3,
+      "context": "Addressing consumer concerns about food safety"
+    },
+    {
+      "stat": "Featured in 3 veterinary journals for innovative treatments",
+      "credibility_score": 7.5,
+      "context": "Recognition from professional peers"
+    },
+    {
+      "stat": "$2.3 million in livestock value saved annually",
+      "credibility_score": 9,
+      "context": "Direct economic impact for clients"
+    }
+  ],
+  "quality_indicators": [
+    "Mobile unit equipped with digital radiography and ultrasound versus basic equipment only",
+    "Detailed written treatment plans versus verbal instructions only",
+    "Follow-up calls within 24-48 hours versus no follow-up",
+    "Customized herd health protocols versus generic recommendations",
+    "Direct specialist access versus general practitioner only",
+    "Comprehensive diagnostic capabilities versus referral requirements"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "Successful resolution of emergency case or completion of herd health program showing measurable improvement",
+    "ask_method": "Personal phone call from veterinarian followed by easy mobile-friendly form, emphasizing how their story helps other farmers"
+  },
+  "competitive_advantages": [
+    "Only practice with three fully-equipped mobile surgical units in the region",
+    "Exclusive partnership with state university veterinary teaching hospital",
+    "Proprietary herd health tracking software with predictive analytics",
+    "Specialized reproduction program with 20% higher conception rates",
+    "No emergency surcharge within standard service area unlike competitors",
+    "Bilingual staff serving Hispanic-owned dairy operations"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Lead with emergency surgery cost of $2,500 to make $400 regular emergency visit seem reasonable",
+    "sensitivity": "Farmers most sensitive at $500+ per visit threshold, requiring clear value demonstration",
+    "sweet_spots": [
+      "$275-350 for farm calls",
+      "$150-200 for routine procedures",
+      "$75-100 for vaccinations"
+    ],
+    "decoy_pricing": "Offer premium package at $5,000/year to make $2,500/year standard package appear more attractive"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 1000,
+    "competitor_research": 500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.75,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Only",
+      "price_range": "$300-500 per call",
+      "target_customer": "Small farms under 50 head",
+      "margin": 45
+    },
+    {
+      "tier": "Basic Prevention",
+      "price_range": "$150-200 per month",
+      "target_customer": "Mid-size operations 50-200 head",
+      "margin": 55
+    },
+    {
+      "tier": "Comprehensive Care",
+      "price_range": "$400-600 per month",
+      "target_customer": "Large operations 200+ head",
+      "margin": 62
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Bundle diagnostic tests with treatment for 15% higher margin than separate billing",
+    "Implement minimum farm call fees to ensure 40% margin on travel time",
+    "Promote preventive care contracts with 60% margins versus 45% emergency margins",
+    "Utilize veterinary technicians for routine procedures to maintain 70% margins",
+    "Negotiate bulk pharmaceutical purchases for 20% cost reduction",
+    "Offer prepaid service packages with 8% discount that improves cash flow by 30 days"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -15,
+      "reason": "Post-holiday slowdown and winter weather",
+      "opportunity": "Promote indoor facility health checks"
+    },
+    {
+      "month": "February",
+      "variation": -10,
+      "reason": "Continued winter challenges",
+      "opportunity": "Breeding soundness exams for spring"
+    },
+    {
+      "month": "March",
+      "variation": 25,
+      "reason": "Spring calving season begins",
+      "opportunity": "Dystocia emergency preparedness"
+    },
+    {
+      "month": "April",
+      "variation": 35,
+      "reason": "Peak calving and breeding prep",
+      "opportunity": "Reproduction packages and calf care"
+    },
+    {
+      "month": "May",
+      "variation": 30,
+      "reason": "Continued calving and pasture injuries",
+      "opportunity": "Herd health assessments"
+    },
+    {
+      "month": "June",
+      "variation": 15,
+      "reason": "Breeding season and parasite issues",
+      "opportunity": "Reproductive services and deworming"
+    },
+    {
+      "month": "July",
+      "variation": 5,
+      "reason": "Heat stress and breeding continuation",
+      "opportunity": "Heat stress prevention programs"
+    },
+    {
+      "month": "August",
+      "variation": -5,
+      "reason": "Routine maintenance period",
+      "opportunity": "Vaccination campaigns"
+    },
+    {
+      "month": "September",
+      "variation": 20,
+      "reason": "Fall calving and pre-winter prep",
+      "opportunity": "Pregnancy checking services"
+    },
+    {
+      "month": "October",
+      "variation": 15,
+      "reason": "Weaning stress and respiratory issues",
+      "opportunity": "Preventive respiratory programs"
+    },
+    {
+      "month": "November",
+      "variation": 10,
+      "reason": "Winter preparation and pregnancy checks",
+      "opportunity": "Winter wellness packages"
+    },
+    {
+      "month": "December",
+      "variation": -20,
+      "reason": "Holiday season and year-end budgets",
+      "opportunity": "Tax-advantaged prepaid services"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Scheduling routine herd checks",
+      "avoid": "Complex surgeries after weekend emergencies",
+      "conversion_rate": 7.2
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Elective procedures and fertility work",
+      "avoid": "Large group vaccinations",
+      "conversion_rate": 8.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Educational workshops and consultations",
+      "avoid": "Emergency-heavy scheduling",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pregnancy checking and breeding",
+      "avoid": "New client appointments",
+      "conversion_rate": 8.3
+    },
+    {
+      "day": "Friday",
+      "best_for": "Completing weekly rounds",
+      "avoid": "Starting long treatments",
+      "conversion_rate": 6.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Emergency coverage",
+      "avoid": "Routine appointments",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Critical emergencies only",
+      "avoid": "Any non-urgent care",
+      "conversion_rate": 3.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Milk checks arrive around the 15th, making 20th-25th optimal for payment collection",
+    "cash_flow_peaks": "Beginning of month after milk payments, corn/soy harvest periods in fall",
+    "slow_periods": "Mid-month before milk payments, end of year during tax planning"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "2 AM - 6 AM",
+      "crisis_type": "Calving difficulties and milk fever",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "Friday 6 PM - Monday 6 AM",
+      "crisis_type": "Weekend emergencies with no regular vet available",
+      "premium_multiplier": 1.75
+    },
+    {
+      "time": "Holiday periods",
+      "crisis_type": "Emergencies with minimal staffing",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "Severe weather events",
+      "crisis_type": "Storm-related injuries and access issues",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Disease outbreak periods",
+      "crisis_type": "Rapid spread requiring immediate intervention",
+      "premium_multiplier": 1.25
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Emergency Response Plan",
+      "components": [
+        "Priority response",
+        "24/7 hotline",
+        "No travel charges",
+        "Follow-up included"
+      ],
+      "pricing_model": "Monthly retainer $400-600",
+      "margin": 58
+    },
+    {
+      "name": "Reproductive Success Program",
+      "components": [
+        "Breeding soundness exams",
+        "AI timing",
+        "Pregnancy checks",
+        "Fertility treatments"
+      ],
+      "pricing_model": "Per head $45-65",
+      "margin": 62
+    },
+    {
+      "name": "Herd Health Management",
+      "components": [
+        "Monthly visits",
+        "Vaccination protocols",
+        "Parasite control",
+        "Nutrition consultation"
+      ],
+      "pricing_model": "Annual contract $3,000-5,000",
+      "margin": 65
+    },
+    {
+      "name": "Calf Care Package",
+      "components": [
+        "Newborn exams",
+        "Vaccination series",
+        "Growth monitoring",
+        "Disease prevention"
+      ],
+      "pricing_model": "Per calf $125-175",
+      "margin": 55
+    }
+  ],
+  "upsell_paths": [
+    "Emergency call → Post-emergency health assessment → Monthly wellness plan",
+    "Single animal treatment → Herd investigation → Preventive protocol implementation",
+    "Pregnancy check → Reproductive management → Complete breeding program",
+    "Vaccination visit → Health records review → Comprehensive health management",
+    "Calf delivery assistance → Calf care program → Whole herd pediatric protocols",
+    "Disease treatment → Biosecurity assessment → Facility improvement consultation"
+  ],
+  "retention_hooks": [
+    "Personalized health protocols based on farm's specific history and challenges",
+    "Direct cell phone access to veterinarian for urgent questions",
+    "Annual health report showing cost savings and productivity improvements",
+    "Loyalty pricing with 5-10% discounts after first year",
+    "Priority scheduling during busy seasons for established clients",
+    "Free educational workshops and training for farm staff",
+    "Integrated health records accessible via mobile app"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Success story sharing at co-op meetings",
+      "timing": "Within 2 weeks of major save",
+      "incentive": "$100 credit per referral",
+      "conversion_rate": 32
+    },
+    {
+      "strategy": "Veterinary report for livestock sales",
+      "timing": "During animal purchase/sale",
+      "incentive": "Free health certificate",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Emergency response testimonials",
+      "timing": "48 hours after crisis resolution",
+      "incentive": "Month of free wellness visits",
+      "conversion_rate": 41
+    },
+    {
+      "strategy": "Neighboring farm disease prevention",
+      "timing": "During disease outbreaks",
+      "incentive": "Free herd assessment",
+      "conversion_rate": 53
+    },
+    {
+      "strategy": "Social media case studies",
+      "timing": "Monthly feature",
+      "incentive": "Featured farm recognition",
+      "conversion_rate": 22
+    },
+    {
+      "strategy": "Industry publication features",
+      "timing": "Quarterly",
+      "incentive": "Co-authored article opportunity",
+      "conversion_rate": 18
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Nutrition consultation with health visits",
+      "attach_rate": 42,
+      "timing": "During poor body condition observations"
+    },
+    {
+      "service": "Facility design with disease management",
+      "attach_rate": 28,
+      "timing": "After repeated health issues"
+    },
+    {
+      "service": "Staff training with new protocols",
+      "attach_rate": 35,
+      "timing": "When implementing prevention programs"
+    },
+    {
+      "service": "Reproductive ultrasound with breeding programs",
+      "attach_rate": 67,
+      "timing": "During initial breeding soundness exams"
+    },
+    {
+      "service": "Laboratory diagnostics with treatment plans",
+      "attach_rate": 78,
+      "timing": "For complex or non-responsive cases"
+    },
+    {
+      "service": "Records management software with health programs",
+      "attach_rate": 31,
+      "timing": "When establishing preventive care"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Telemedicine consultations for remote farms",
+      "market_size": "$2.3M additional revenue potential",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Veterinary technician training programs",
+      "market_size": "$500K annual education revenue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Pharmaceutical distribution center",
+      "market_size": "$1.8M annual product sales",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Genetic consulting and breeding programs",
+      "market_size": "$750K specialized services",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Mobile lab services for other practices",
+      "market_size": "$400K B2B revenue",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "International consultation via digital platforms",
+      "market_size": "$1.2M consulting fees",
+      "difficulty": 8
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Rood & Riddle Equine Hospital's educational video series on colic prevention and emergency recognition, featuring veterinarians explaining warning signs in plain language with real farm scenarios",
+        "platform": "YouTube/Facebook",
+        "why_it_worked": "Educational content addressing the #1 emergency concern for horse owners, featuring trusted veterinarians, practical demonstrations, and actionable advice that builds authority while providing immediate value",
+        "metrics": "Videos averaging 15K-50K views, high save rates, extensive shares in equine community groups",
+        "source": "Rood & Riddle Equine Hospital YouTube channel and veterinary marketing case studies from AVMA",
+        "confidence": "high"
+      },
+      {
+        "example": "Peterson & Smith Equine Hospital's 'Behind the Scenes' Instagram Stories showing emergency calls, surgical procedures, and day-in-the-life content of large animal vets responding to farm emergencies",
+        "platform": "Instagram",
+        "why_it_worked": "Humanizes the practice, builds trust through transparency, showcases expertise and dedication, creates emotional connection with livestock owners who see themselves in the situations",
+        "metrics": "Story completion rates above 70%, significant increase in emergency call inquiries, high engagement on Q&A stickers",
+        "source": "Veterinary marketing analysis from dvm360 and social media case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Pilchuck Veterinary Hospital's client testimonial campaign featuring dairy farmers discussing how rapid response to mastitis outbreaks saved their operations, with specific dollar amounts recovered",
+        "platform": "Facebook/Website",
+        "why_it_worked": "Peer-to-peer credibility, specific financial outcomes that resonate with business-minded farmers, real faces and names from local community, addresses ROI concerns directly",
+        "metrics": "30% increase in new client inquiries, testimonials shared 200+ times in farming communities, converted into print ads for trade publications",
+        "source": "Veterinary practice management publications and marketing case studies",
+        "confidence": "medium"
+      },
+      {
+        "example": "Countryside Large Animal Veterinary Service's seasonal email campaign on pre-calving preparation checklists sent 4-6 weeks before peak calving season with downloadable resources",
+        "platform": "Email",
+        "why_it_worked": "Timely, anticipates customer needs before crisis hits, provides practical value (checklist), positions practice as proactive partner, includes clear CTA for scheduling herd checks",
+        "metrics": "42% open rate (vs 21% industry average), 18% click-through rate, 25% conversion to scheduled appointments",
+        "source": "Veterinary email marketing benchmarks from Constant Contact veterinary industry reports",
+        "confidence": "medium"
+      },
+      {
+        "example": "Mobile large animal vet practices posting 'On the Road' content showing geographic service areas, response times, and equipped vehicles with medical technology",
+        "platform": "Facebook/Instagram",
+        "why_it_worked": "Addresses key concern about availability and response time, demonstrates preparedness and professional equipment, builds confidence in mobile service quality, shows coverage area clearly",
+        "metrics": "High engagement from rural communities, increased service area awareness, reduced 'Do you serve my area?' calls",
+        "source": "Rural veterinary practice marketing studies and social media analysis",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.13% to 0.18% for veterinary services, higher (0.25-0.40%) for educational and emergency-focused content",
+        "best_content_format": "Video content (especially educational how-to and emergency recognition), client testimonials, before/after case studies with images",
+        "optimal_frequency": "3-5 posts per week, with daily Stories during peak seasons",
+        "best_posting_times": "Early morning (5-7 AM) and evening (6-9 PM) when farmers are not in fields, weekends show higher engagement",
+        "source": "Rival IQ Social Media Benchmark Report 2024, Veterinary Practice News digital marketing surveys"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "0.70% to 1.2% for veterinary and agricultural services, Stories see 5-7% tap-through rates",
+        "best_content_format": "Behind-the-scenes Stories, Reels showing procedures or day-in-life (15-30 seconds), carousel posts with educational content, before/after case images",
+        "optimal_frequency": "4-6 feed posts per week, daily Stories, 2-3 Reels per week",
+        "best_posting_times": "6-8 AM and 7-10 PM, Sunday mornings show strong engagement in agricultural communities",
+        "source": "Later.com 2024 Instagram Benchmarks, agricultural marketing studies from Farm Journal"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21-24% open rate for veterinary services, 2.5-3.8% click-through rate, emergency/urgent subject lines see 35-45% open rates",
+        "best_content_format": "Mobile-optimized newsletters with clear sections, seasonal health alerts, educational one-topic emails, appointment reminders with value-add tips",
+        "optimal_frequency": "Bi-weekly for newsletters, immediate for emergency alerts/seasonal warnings, monthly for educational content",
+        "best_posting_times": "Tuesday-Thursday mornings (6-9 AM) or Sunday evenings (6-8 PM) for rural audiences",
+        "source": "Constant Contact Veterinary Industry Benchmarks 2024, Mailchimp Agriculture/Veterinary Sector Reports"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "0.40% to 0.65% for B2B veterinary content, higher for thought leadership and industry insights",
+        "best_content_format": "Long-form posts about industry trends, professional achievements, educational content for farm managers and agricultural businesses, case studies with business outcomes",
+        "optimal_frequency": "2-3 posts per week",
+        "best_posting_times": "Tuesday-Thursday, 7-8 AM and 12-1 PM",
+        "source": "LinkedIn B2B Marketing Benchmarks 2024, professional services engagement data"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts see 50-150 views for local veterinary services, Q&A features heavily used, photos get 2x more engagement than text posts",
+        "best_content_format": "Emergency service announcements, hours updates, photos of team and facilities, quick health tips, seasonal service reminders",
+        "optimal_frequency": "2-3 posts per week, immediate updates for emergency availability or weather-related service changes",
+        "best_posting_times": "Updates during business hours for immediate visibility, emergency posts as needed",
+        "source": "BrightLocal Local Business Benchmarks 2024, veterinary local SEO studies"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgent Problem Recognition",
+        "example": "3 Signs Your Cow Needs a Vet RIGHT NOW (Don't Wait Until Tomorrow)",
+        "why_it_works": "Triggers immediate concern, leverages fear of loss, implies insider knowledge, creates urgency while positioning vet as essential resource, uses specific number for credibility",
+        "source": "High-performing veterinary blog titles and email subject lines from dvm360 marketing analysis"
+      },
+      {
+        "hook_pattern": "Financial Loss Prevention",
+        "example": "This $50 Herd Check Saved Our Client $15,000 in Lost Calves",
+        "why_it_works": "Speaks directly to ROI-focused farmers, uses specific numbers for credibility, implies preventive care value, social proof through client example, massive return ratio",
+        "source": "Veterinary practice marketing case studies and successful ad copy examples"
+      },
+      {
+        "hook_pattern": "Seasonal Preparation",
+        "example": "Calving Season Starts in 6 Weeks - Is Your Emergency Kit Ready?",
+        "why_it_works": "Creates time-based urgency, addresses predictable anxiety point, positions practice as planning partner, implies checklist/actionable content, shows proactive care",
+        "source": "Agricultural veterinary email marketing campaigns with high open rates"
+      },
+      {
+        "hook_pattern": "Common Mistake Correction",
+        "example": "Why Waiting 24 Hours to Call About Colic Could Cost You Your Horse",
+        "why_it_works": "Challenges common dangerous behavior, education-based authority building, fear of regret, specific timeframe, high-value animal at stake",
+        "source": "Equine veterinary educational content and emergency service marketing"
+      },
+      {
+        "hook_pattern": "Local Authority/Availability",
+        "example": "Large Animal Emergency? We're On-Call 24/7 Within 30 Miles of [Location]",
+        "why_it_works": "Addresses top concern (availability), specific geographic targeting, emergency readiness, clear service promise, removes uncertainty about coverage",
+        "source": "High-converting Google Ads and local veterinary service landing pages"
+      },
+      {
+        "hook_pattern": "Insider Knowledge Share",
+        "example": "What Your Dairy Cows' Manure Is Telling You (And When to Worry)",
+        "why_it_works": "Positions vet as expert translator of animal signals, practical daily observation farmers can use, implies diagnostic expertise, creates 'need to know' curiosity",
+        "source": "Popular veterinary educational blog posts and social media content"
+      },
+      {
+        "hook_pattern": "Peer Success Story",
+        "example": "How [Local Farm Name] Eliminated Mastitis Losses This Year",
+        "why_it_works": "Local social proof, specific achievable outcome, peer credibility in tight-knit farming community, implies replicable system, addresses common costly problem",
+        "source": "Veterinary testimonial campaigns and case study marketing"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "She's not eating and I don't know what's wrong",
+        "He's been limping for three days and it's getting worse",
+        "I'm losing money every day she's not producing milk",
+        "I can't afford to lose this calf or the cow",
+        "None of the vets around here do large animals anymore",
+        "I called three places and nobody could come out today",
+        "I don't know if this is an emergency or if I should wait",
+        "The last vet charged me $800 and didn't fix the problem",
+        "I need someone who knows cattle, not just dogs and cats",
+        "She's trying to calve but nothing's happening",
+        "The whole herd could get sick if this spreads",
+        "I can't get him in a trailer to bring him anywhere"
+      ],
+      "solution_phrases": [
+        "They came out the same day I called",
+        "He knew exactly what was wrong just by looking at her",
+        "She was back to normal production within two days",
+        "They saved both the cow and the calf",
+        "Finally found a vet who actually understands dairy operations",
+        "They have everything in their truck, didn't need to go back for supplies",
+        "Explained everything in plain English, not vet jargon",
+        "Fair pricing and they told me the cost upfront",
+        "They do all our herd health and come out for emergencies",
+        "Available 24/7 and they actually answer the phone",
+        "Helped us set up a prevention program so we have fewer emergencies",
+        "They work with our schedule around milking times"
+      ],
+      "objection_phrases": [
+        "Large animal vets are so expensive",
+        "I don't know if I can afford the emergency fee",
+        "Can't I just wait until Monday to save the weekend charge?",
+        "I've treated this myself before with [home remedy]",
+        "The farm call fee is more than the treatment",
+        "Do you even service our area? We're pretty far out",
+        "How do I know you'll actually come when I call?",
+        "My regular vet retired and I don't know who to trust",
+        "Will you accept payment plans for expensive treatments?",
+        "I don't want to spend money if the animal might not make it anyway",
+        "Are you going to try to sell me a bunch of stuff I don't need?"
+      ],
+      "decision_factors": [
+        "How fast can they get here in an emergency",
+        "Do they answer the phone or call back quickly",
+        "Experience with my specific type of livestock",
+        "Whether they have the equipment on their truck",
+        "If they understand the business side of farming",
+        "Upfront honest pricing before they start",
+        "Availability for after-hours and weekends",
+        "How far they're willing to travel to our location",
+        "If they do both routine and emergency care",
+        "Recommendations from other farmers in the area",
+        "Whether they explain what's wrong and why",
+        "If they respect our time and farming schedule"
+      ],
+      "emotional_language": [
+        "I was panicking when I called",
+        "So relieved when they said they could come right away",
+        "I felt helpless watching her suffer",
+        "Peace of mind knowing they're available",
+        "Grateful they saved my investment",
+        "Frustrated that I waited too long",
+        "Scared I was going to lose her",
+        "Confident in their expertise",
+        "Worried about the cost but knew I had no choice",
+        "Devastated when we lost the calf",
+        "Thankful they were honest about the prognosis",
+        "Trust them completely with my herd"
+      ],
+      "sources": [
+        "Google Reviews for large animal veterinary practices across US",
+        "Reddit r/farming and r/homestead discussions about veterinary services",
+        "Facebook farming community groups discussing vet recommendations",
+        "Testimonials from large animal veterinary practice websites",
+        "AgWeb and Farm Journal forum discussions",
+        "Yelp reviews for rural veterinary services",
+        "Dairy farmer online communities and discussion boards"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few practices create content showing actual pricing or cost transparency - most avoid discussing fees until contact",
+      "Limited content addressing the business/financial ROI of preventive care with actual farm data and case studies",
+      "Minimal educational content for farm hands and employees (not just owners) on when to escalate issues",
+      "Lack of bilingual content for Spanish-speaking farm workers who often notice problems first",
+      "Few practices showcase their mobile equipment and technology capabilities in detail",
+      "Underutilized video content showing common procedures to demystify costs and build trust",
+      "Limited content on telehealth/photo triage options for initial assessment before farm calls",
+      "Sparse coverage of partnership with feed stores, livestock auctions, and agricultural suppliers for referral relationships",
+      "Few practices create seasonal preparedness content timed to actual farming calendars (calving, breeding, weaning)",
+      "Minimal presence on agricultural podcasts and YouTube channels where farmers consume content",
+      "Limited content addressing succession planning and working with next-generation farmers who prefer digital communication"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-March (Winter Calving Season)",
+        "opportunity": "Peak calving season for beef cattle, highest demand for obstetric emergencies and newborn calf care",
+        "content_angle": "Pre-calving preparation checklists, emergency calving guides, when to call the vet content, calving kit essentials, newborn calf health monitoring, colostrum management tips"
+      },
+      {
+        "period": "April-May (Spring Turnout)",
+        "opportunity": "Livestock transitioning to pasture, vaccination season, breeding season preparation",
+        "content_angle": "Pasture safety checks, vaccination schedules, breeding soundness exams, parasite control programs, spring herd health check reminders, grass tetany prevention"
+      },
+      {
+        "period": "June-August (Summer Breeding/Heat Stress)",
+        "opportunity": "Peak breeding season, heat stress concerns, fly control, summer mastitis risks",
+        "content_angle": "Heat stress recognition and prevention, breeding program optimization, fly control strategies, summer mastitis prevention, water quality and quantity management"
+      },
+      {
+        "period": "September-October (Weaning/Pregnancy Checking)",
+        "opportunity": "Weaning season, pregnancy checking for spring-bred cattle, pre-winter health assessments",
+        "content_angle": "Weaning stress reduction, pregnancy diagnosis importance, pre-winter body condition scoring, vaccination boosters, fall herd health protocols"
+      },
+      {
+        "period": "November-December (Winter Preparation)",
+        "opportunity": "Winter housing preparation, holiday emergency coverage concerns, year-end tax planning for health expenses",
+        "content_angle": "Winter housing health checks, emergency vet availability during holidays, year-end health program reviews, cold weather lameness prevention, holiday emergency preparedness"
+      },
+      {
+        "period": "Year-Round Emergency Triggers",
+        "opportunity": "Weather events (blizzards, heat waves, floods), disease outbreaks in region, livestock market fluctuations affecting care decisions",
+        "content_angle": "Weather-specific emergency preparedness, regional disease alerts and prevention, economic-focused content on protecting livestock investments during market downturns"
+      },
+      {
+        "period": "Agricultural Show Season (Spring-Fall, varies by region)",
+        "opportunity": "Pre-show health certificates, show animal preparation, post-show biosecurity",
+        "content_angle": "Show health certificate requirements and timing, show animal conditioning and health, biosecurity after shows to protect home herd, show-related injury treatment"
+      },
+      {
+        "period": "Tax Season (January-April)",
+        "opportunity": "Farmers reviewing expenses and planning for year ahead",
+        "content_angle": "Preventive care as tax-deductible business expense, herd health program ROI documentation, planning annual veterinary budgets, records organization for tax purposes"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "dvm360 veterinary marketing research and case studies",
+      "AVMA (American Veterinary Medical Association) practice management resources",
+      "Veterinary Practice News digital marketing surveys",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com 2024 Instagram Benchmarks",
+      "Constant Contact Veterinary Industry Benchmarks 2024",
+      "Mailchimp industry sector reports",
+      "LinkedIn B2B Marketing Benchmarks 2024",
+      "BrightLocal Local Business Benchmarks 2024",
+      "Google Reviews for large animal veterinary practices",
+      "Reddit farming and homestead communities",
+      "Facebook farming groups and discussions",
+      "Large animal veterinary practice websites and testimonials",
+      "AgWeb and Farm Journal forums",
+      "Yelp reviews for rural veterinary services",
+      "YouTube channels for equine and large animal veterinary hospitals",
+      "Rural veterinary practice marketing studies"
+    ],
+    "confidence_score": 7.8,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to large animal veterinary marketing",
+      "Exact engagement metrics for individual campaigns often proprietary and not disclosed",
+      "TikTok benchmarks for large animal veterinary specifically are sparse as platform adoption is still emerging in this sector",
+      "Conversion rate data from content to actual appointments rarely published in detail",
+      "Regional variations in seasonal patterns not fully captured (significant differences between dairy regions, beef cattle areas, equine-focused practices)",
+      "Spanish-language content performance data virtually non-existent in published research"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1 theme: Emergency preparedness gap - revealing what farmers don't know about [new service] availability",
+        "Week 2 theme: Behind-the-scenes technology showcase - demonstrating mobile equipment capabilities and response protocols",
+        "Week 3 theme: Local farmer success stories - peer proof of ROI and outcomes with specific dollar amounts saved",
+        "Week 4 theme: Seasonal timing urgency - why starting [new service] before [calving/breeding/turnout] season protects investments"
+      ],
+      "weekly_hooks": [
+        [
+          "What 73% of Cattle Farmers Don't Know About [New Service] (Until It's Too Late)",
+          "We're Bringing [New Service] to Farms Within 30 Miles of [Location] - Here's Why It Matters",
+          "The $8,500 Problem [New Service] Prevents (That Most Vets Don't Talk About)"
+        ],
+        [
+          "Inside Our Mobile [Service] Unit: The Equipment That Comes to Your Farm in Under 45 Minutes",
+          "Why [New Service] Required Us to Add [Specific Technology] to Every Truck",
+          "Watch What Happens When We Respond to a [Emergency Type] Call With Our New [Service]"
+        ],
+        [
+          "How [Local Farm Name] Saved $12,000 in Lost Production Using Our [New Service]",
+          "[Farmer Name]'s Herd Was at Risk - Here's How [New Service] Turned It Around in 48 Hours",
+          "3 Local Farms, 3 Different Problems, 1 Solution: Real Results From [New Service]"
+        ],
+        [
+          "[Season] Starts in 4 Weeks - Farms With [New Service] Have 65% Fewer Emergencies",
+          "Last Chance to Set Up [New Service] Before Peak [Season] (We're Limiting Initial Clients)",
+          "Why Waiting Until [Season] Hits to Try [New Service] Could Cost You $5,000+ Per Incident"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Do you even service our area? We're pretty far out' by showcasing geographic coverage and response times",
+        "Week 2: Address 'How do I know you'll actually come when I call?' with behind-the-scenes availability systems and equipment readiness",
+        "Week 3: Address 'Large animal vets are so expensive' with specific ROI data and cost-of-waiting comparisons from real cases",
+        "Week 4: Address 'Can't I just wait until Monday to save the weekend charge?' with urgency-based mortality and loss statistics"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce veterinarian credentials and specialized large animal certifications for new service",
+        "Week 2: Share equipment specifications, technology capabilities, and response time data from soft launch",
+        "Week 3: Feature 2-3 detailed client testimonials with farmer names, farm names, and specific financial outcomes",
+        "Week 4: Final credibility push with limited availability messaging and early adopter benefits"
+      ],
+      "cta_progression": [
+        "Week 1: Download free '[Season] Emergency Preparedness Checklist' to learn more about prevention",
+        "Week 2: Watch full behind-the-scenes video tour of mobile unit and comment with questions",
+        "Week 3: Schedule a free 15-minute consultation to assess if [new service] fits your operation",
+        "Week 4: Call now to secure your spot as a founding client before [season] - limited to first 25 farms"
+      ],
+      "platform_priority": [
+        "Facebook (5 posts/week) - primary platform for educational video content and farmer testimonials",
+        "Email (2 sends/week) - targeted launch announcements to existing client base with high open rates",
+        "Instagram Stories (daily) - behind-the-scenes equipment and response documentation",
+        "Google Business Profile (3 posts/week) - local service area announcements and availability updates"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Rood & Riddle's educational video success (15K-50K views) and Peterson & Smith's behind-the-scenes transparency approach (70% story completion rates), combined with Pilchuck's testimonial campaign results (30% increase in inquiries). Launch timing leverages seasonal opportunity research showing peak engagement during preparation periods 4-6 weeks before major farming events."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1 theme: Emergency recognition education - teaching farmers to identify critical signs before calling",
+        "Week 2 theme: Preventive care ROI documentation - showing business case for herd health programs",
+        "Week 3 theme: Day-in-the-life transparency - humanizing vets and building trust through real farm scenarios",
+        "Week 4 theme: Seasonal preparation timing - anticipating needs 4-6 weeks before peak periods",
+        "Week 5 theme: Common mistake correction - addressing dangerous delays and home remedy risks",
+        "Week 6 theme: Local availability and coverage - reinforcing response times and service area confidence",
+        "Week 7 theme: Peer success stories - featuring recognizable local farms and specific outcomes",
+        "Week 8 theme: Insider diagnostic knowledge - translating animal signals farmers see daily into actionable insights"
+      ],
+      "weekly_hooks": [
+        [
+          "3 Signs Your Horse Has Colic RIGHT NOW (Don't Wait Until Morning)",
+          "When Limping Means Emergency vs. When It Can Wait - A Vet's Guide",
+          "What Your Cow's Manure Is Telling You About Her Health (And When to Worry)"
+        ],
+        [
+          "This $75 Herd Check Saved Our Client $18,000 in Lost Calves Last Season",
+          "The Real Cost of Skipping Pre-Breeding Exams: Data From 200 Local Farms",
+          "Why Our Preventive Care Clients Have 65% Fewer Emergency Calls (With Actual Numbers)"
+        ],
+        [
+          "Inside a 2 AM Emergency Call: What Really Happens When You Call Our Service",
+          "A Day on the Road: 6 Farms, 4 Emergencies, and Everything In Between",
+          "Behind the Scenes: What's Actually in Our Mobile Surgery Unit"
+        ],
+        [
+          "Calving Season Starts in 6 Weeks - Is Your Emergency Kit Ready? (Free Checklist)",
+          "The Pre-Breeding Season Checklist Every Cattle Farmer Needs (Download Now)",
+          "Heat Stress Season Approaches: 5 Things to Check on Your Farm This Week"
+        ],
+        [
+          "Why Waiting 24 Hours to Call About Bloat Could Cost You Your Best Cow",
+          "The Home Remedy That Makes Mastitis Worse (And What to Do Instead)",
+          "Stop Doing This: The #1 Mistake Farmers Make With Down Cows"
+        ],
+        [
+          "Large Animal Emergency? We're On-Call 24/7 Within 30 Miles of [Location]",
+          "Our Average Response Time to Farm Emergencies: 42 Minutes (Here's How)",
+          "Yes, We Come to Your Area - See Our Full Service Map and Response Zones"
+        ],
+        [
+          "How [Local Farm Name] Eliminated Pneumonia Losses in Their Calf Herd",
+          "[Farmer Name] Was Losing $1,200/Month to Mastitis - Here's What Changed",
+          "Local Dairy Operation Increased Production 12% With This Herd Health Strategy"
+        ],
+        [
+          "What Your Dairy Cows' Lying Time Tells You About Lameness (Before You See Limping)",
+          "Reading Body Condition Scores: The Skill That Prevents 80% of Metabolic Emergencies",
+          "How to Spot Pneumonia in Calves 3 Days Before They Stop Eating"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Subtly address 'I don't know if this is an emergency or if I should wait' through education",
+        "Week 2: Address 'I don't see the value in preventive care programs' with ROI data",
+        "Week 3: Address 'My regular vet retired and I don't know who to trust' through transparency",
+        "Week 4: Address 'None of the vets around here do large animals anymore' with proactive outreach",
+        "Week 5: Address 'I've treated this myself before with home remedy' by showing risks",
+        "Week 6: Address 'Do you even service our area?' with clear geographic messaging",
+        "Week 7: Address 'How do I know you'll accept payment plans?' through client testimonials mentioning affordability",
+        "Week 8: Address 'I need someone who knows cattle, not just dogs and cats' through specialized expertise demonstration"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce veterinarian expertise through educational authority",
+        "Week 2: Share data from practice's own preventive care program outcomes",
+        "Week 3: Feature team member profiles and certifications in behind-the-scenes content",
+        "Week 4: Provide downloadable resources that demonstrate proactive partnership",
+        "Week 5: Reference case studies where early intervention prevented major losses",
+        "Week 6: Show response time data and geographic coverage maps",
+        "Week 7: Feature detailed client testimonials with real names and farms",
+        "Week 8: Demonstrate diagnostic expertise through educational content"
+      ],
+      "cta_progression": [
+        "Week 1: Save this post for reference when you spot these signs on your farm",
+        "Week 2: Download our free Preventive Care ROI Calculator for your operation",
+        "Week 3: Comment below with questions about our emergency response process",
+        "Week 4: Get your free seasonal checklist and schedule your herd check",
+        "Week 5: Share this with another farmer who needs to see it",
+        "Week 6: Check if your farm is in our service area (link in bio)",
+        "Week 7: Read the full case study and see if this approach fits your operation",
+        "Week 8: Call us to discuss your herd's specific health monitoring needs"
+      ],
+      "platform_priority": [
+        "Facebook (4 posts/week) - primary educational content and video platform with proven 0.25-0.40% engagement on emergency-focused content",
+        "Email (bi-weekly newsletter) - seasonal preparation content with 42% open rates on timely topics",
+        "Instagram (5 feed posts/week + daily Stories) - behind-the-scenes and visual education with 0.70-1.2% engagement",
+        "Google Business Profile (2 posts/week) - quick tips and emergency availability updates"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Countryside Large Animal's seasonal email success (42% open rate, 18% CTR) and the proven hook patterns showing urgent problem recognition and insider knowledge share perform best. Incorporates competitive gap finding that practices underutilize educational content timed to farming calendars. Cycle designed to be repeatable across all seasonal opportunities identified in research."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Viral emergency education - shareable content addressing top farmer fears and common crises",
+        "Week 2 theme: Local hero positioning - showcasing community impact and farm-saving interventions with emotional stories"
+      ],
+      "weekly_hooks": [
+        [
+          "URGENT: 5 Signs Your Livestock Needs a Vet in the Next Hour (Not Tomorrow) - Share This",
+          "The Colic Mistake That Costs Horse Owners $15,000 - Every Horse Owner Needs to See This",
+          "Why 'She'll Be Fine in the Morning' Is the Deadliest Phrase in Farming (Save This Post)",
+          "What Happens Inside Your Cow's Stomach During Bloat (3-Minute Video Every Cattle Farmer Must Watch)",
+          "The 2 AM Phone Call That Saved This Farm $25,000 - A True Emergency Story"
+        ],
+        [
+          "We Drove 45 Miles in a Blizzard to Save This Calf - The Story Every Farmer Is Sharing",
+          "From 'We're Going to Lose Her' to Full Recovery in 36 Hours - [Local Farm] Shares Their Story",
+          "This Dairy Farmer Called 5 Vets Before Finding Us - His Message to Other Farmers Will Hit You Hard",
+          "The Emergency Call That Turned Into a $22,000 Save for [Local Farm Name]",
+          "What This 4th-Generation Farmer Wishes He'd Known Before Almost Losing His Prize Bull"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know if this is an emergency or if I should wait' through dramatic educational content",
+        "Week 2: Address 'None of the vets around here do large animals anymore' by demonstrating widespread availability and dedication"
+      ],
+      "proof_timing": [
+        "Week 1: Establish expertise through high-value educational content that demonstrates diagnostic knowledge",
+        "Week 2: Flood with emotional client testimonials, before/after case photos, and community impact stories"
+      ],
+      "cta_progression": [
+        "Week 1: SAVE this post - you might need it at 2 AM someday. Share it with every farmer you know.",
+        "Week 1: Tag a farmer who needs to see this. Download our emergency guide (link in bio).",
+        "Week 1: Share your own emergency story in the comments - let's help other farmers learn.",
+        "Week 2: Know a farm that needs reliable large animal care? Share this post with them.",
+        "Week 2: Save our emergency number now, before you need it: [PHONE]. Share this with your farming community.",
+        "Week 2: Read the full story and share it with farmers in [County/Region] who deserve this level of care."
+      ],
+      "platform_priority": [
+        "Facebook (10-12 posts/week) - maximum reach through shareable educational and emotional content, leveraging 0.40% engagement on emergency-focused posts",
+        "Instagram Reels (2-3 per day) - viral-optimized 15-30 second educational clips and emergency scenarios",
+        "Instagram Stories (3-4 updates daily) - real-time emergency responses and behind-the-scenes urgency",
+        "Email (3 sends in 2 weeks) - emergency preparedness content to existing list with urgent subject lines for 35-45% open rates"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Peterson & Smith's behind-the-scenes Instagram success (70% story completion, high engagement on emergency content) and research showing urgent problem recognition hooks perform best. Leverages customer emotional language like 'panicking,' 'relieved,' 'grateful they saved my investment.' Designed to exploit competitive gap of limited dramatic case study content and underutilized video showing actual procedures."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1 theme: Advanced diagnostic interpretation - teaching farmers to understand what vets see that they miss",
+        "Week 2 theme: Industry data transparency - sharing practice's own herd health outcomes and benchmarking",
+        "Week 3 theme: Economic analysis of livestock health - connecting veterinary decisions to farm profitability metrics",
+        "Week 4 theme: Emerging disease prevention - positioning as regional disease surveillance authority",
+        "Week 5 theme: Technology in large animal medicine - educating on ultrasound, bloodwork, and mobile diagnostics",
+        "Week 6 theme: Succession planning and next-generation farming - bridging traditional and modern approaches"
+      ],
+      "weekly_hooks": [
+        [
+          "What Your Cow's Rumen Fill Tells Me in 30 Seconds (That Takes You Days to Notice)",
+          "The Subtle Gait Change That Predicts Lameness 2 Weeks Before You See Limping",
+          "How Veterinarians Read Body Condition Scores Differently Than Farmers (And Why It Matters)"
+        ],
+        [
+          "We Analyzed 500 Herd Health Visits - Here's What Separates Top-Performing Farms",
+          "The Data Behind Our 85% First-Visit Resolution Rate (And What It Means for Your Farm)",
+          "Benchmarking Your Operation: How Your Herd Health Compares to 200 Local Farms"
+        ],
+        [
+          "The True Cost of a Down Cow: Breaking Down the $3,800 Average Loss",
+          "ROI Analysis: Why $500 in Preventive Care Saves $6,200 in Emergency Treatments",
+          "How Top Dairies Calculate the Business Case for Veterinary Partnerships (Spreadsheet Included)"
+        ],
+        [
+          "Disease Alert: What We're Seeing Across 50 Farms This Month and How to Protect Your Herd",
+          "Regional Trends in Bovine Respiratory Disease - Data From Our Practice Network",
+          "Why [Disease] Cases Spiked 40% This Season and Our Prevention Protocol"
+        ],
+        [
+          "Inside Ultrasound Pregnancy Checking: What We See That Palpation Misses",
+          "The Mobile Bloodwork Technology That Gives Results in Your Barn in 12 Minutes",
+          "How Digital Radiography Changed Large Animal Lameness Diagnosis (Case Study)"
+        ],
+        [
+          "Working With Next-Generation Farmers: How Digital Tools Improve Herd Health Communication",
+          "Bridging Traditional Farming Knowledge With Modern Veterinary Technology",
+          "What Young Farmers Want From Veterinary Partners (And How We're Adapting)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I need someone who knows cattle, not just dogs and cats' through specialized expertise demonstration",
+        "Week 2: Address 'Are you going to try to sell me a bunch of stuff I don't need?' with transparent data and benchmarking",
+        "Week 3: Address 'Large animal vets are so expensive' by breaking down true costs and ROI comprehensively",
+        "Week 4: Address 'My regular vet retired and I don't know who to trust' through regional authority positioning",
+        "Week 5: Address 'They have everything in their truck, didn't need to go back for supplies' by showcasing technology",
+        "Week 6: Address generational transition concerns and preference for digital communication"
+      ],
+      "proof_timing": [
+        "Week 1: Establish diagnostic expertise through detailed educational breakdowns",
+        "Week 2: Share practice's own performance data and outcome metrics",
+        "Week 3: Provide third-party validated ROI studies and economic analyses",
+        "Week 4: Position as regional disease surveillance authority with multi-farm data",
+        "Week 5: Demonstrate technology investment and capabilities with equipment specs",
+        "Week 6: Feature testimonials from both established and next-generation farmers"
+      ],
+      "cta_progression": [
+        "Week 1: Download our 'Advanced Health Monitoring Guide' for detailed observation protocols",
+        "Week 2: Request your farm's benchmarking report compared to regional averages",
+        "Week 3: Get our free 'Veterinary Cost-Benefit Calculator' spreadsheet",
+        "Week 4: Sign up for our monthly regional disease alert emails",
+        "Week 5: Schedule a technology demonstration visit to see our mobile capabilities",
+        "Week 6: Book a consultation to discuss your operation's long-term veterinary partnership strategy"
+      ],
+      "platform_priority": [
+        "LinkedIn (3 posts/week) - thought leadership content for farm managers and agricultural businesses with 0.40-0.65% engagement",
+        "Email (weekly deep-dive newsletter) - detailed educational content for engaged subscribers",
+        "Facebook (3 posts/week) - educational content with data visualizations and case studies",
+        "YouTube (1 long-form video/week) - detailed procedure explanations and technology demonstrations"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Addresses competitive gaps of 'limited content addressing business/financial ROI with actual farm data,' 'minimal presence on agricultural podcasts and YouTube,' and 'few practices create content showing pricing transparency.' Based on Rood & Riddle's educational video success and insider knowledge share hook pattern. Targets decision factor 'if they understand the business side of farming' from customer voice research."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1 theme: Farmer knowledge exchange - celebrating farmer expertise and creating peer-to-peer discussion",
+        "Week 2 theme: Community problem-solving - crowdsourcing farm challenges and collaborative solutions"
+      ],
+      "weekly_hooks": [
+        [
+          "Farmers: What's the Weirdest Thing You've Called a Vet For? (We'll Share the Best Stories)",
+          "Fill in the Blank: 'I Knew I Needed a Vet When My Cow __________' - Best Answer Wins",
+          "Show Us Your Farm's Emergency Kit - Let's See What Everyone Keeps on Hand",
+          "What's One Thing You Wish Your Vet Understood About Your Operation? (Honest Answers Only)",
+          "Tag a Farmer Who's Saved One of Your Animals With Quick Thinking"
+        ],
+        [
+          "What's Your Biggest Herd Health Challenge Right Now? Let's Problem-Solve Together in the Comments",
+          "Controversial Opinion: Share Your Unpopular Farming Take (We'll React to the Best Ones)",
+          "Before and After: Show Us Your Farm Then vs. Now - What Changed?",
+          "What Question Do You Wish You'd Asked Your Vet But Felt Too Embarrassed? (Anonymous Q&A)",
+          "Farmers: Rate These Common Farm Emergencies From 'I Can Handle It' to 'Call the Vet NOW'"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Indirectly address 'I don't want to spend money if the animal might not make it anyway' by celebrating successful farmer interventions",
+        "Week 2: Address 'Will you accept payment plans for expensive treatments?' through open dialogue about cost concerns"
+      ],
+      "proof_timing": [
+        "Week 1: Build trust through active listening and valuing farmer expertise in comments",
+        "Week 2: Demonstrate responsiveness by personally answering every question and concern raised"
+      ],
+      "cta_progression": [
+        "Week 1: Comment below with your story - we're reading every single one",
+        "Week 1: Share a photo in the comments - we'll feature the best ones in our Stories",
+        "Week 1: Tag 3 farmers who need to join this conversation",
+        "Week 2: Drop your question below - our vets will answer in tomorrow's post",
+        "Week 2: Vote in the poll and tell us why you chose that answer",
+        "Week 2: Share this post and challenge other farmers to rate these scenarios"
+      ],
+      "platform_priority": [
+        "Facebook (12-15 posts/week) - primary engagement platform for farming communities with high comment activity",
+        "Instagram Stories (4-5 polls/questions daily) - interactive stickers and Q&A features with 5-7% tap-through rates",
+        "Instagram Feed (7-8 posts/week) - carousel posts and question-based content",
+        "Facebook Groups (daily participation) - active engagement in local farming community groups"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on research showing Instagram Stories Q&A stickers drive high engagement and Peterson & Smith's success with story completion rates above 70%. Addresses competitive gap of 'limited educational content for farm hands and employees' by creating inclusive community discussion. Leverages customer voice phrases like 'I felt helpless,' 'peace of mind,' and 'trust them completely' to create emotionally resonant prompts that encourage sharing."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "What Your [LIVESTOCK TYPE]'s [OBSERVABLE SYMPTOM] Is Really Telling You\n\nPROBLEM: Most [livestock owners/farm managers] miss the early warning signs of [CONDITION] because they look like normal behavior. By the time it's obvious, you're looking at [FINANCIAL IMPACT] in losses.\n\nHere's what to watch for:\n\n→ [SPECIFIC SIGN #1] - indicates [what it means]\n→ [SPECIFIC SIGN #2] - suggests [condition]\n→ [SPECIFIC SIGN #3] - requires immediate attention\n\nSOLUTION: Early detection changes everything. We've helped [NUMBER] operations in [REGION] prevent [CONDITION] from becoming catastrophic through strategic monitoring protocols.\n\nThe difference between a $[LOW AMOUNT] intervention and a $[HIGH AMOUNT] emergency? Usually 24-48 hours.\n\nWhat early warning signs have you learned to watch for in your operation? Drop them in comments - let's build a resource for the community.\n\n#LargeAnimalVet #LivestockManagement #HerdHealth #PreventiveCare #AnimalAgriculture",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "[NUMBER]% of [CONDITION] Cases Could Be Prevented With This One Change\n\nATTENTION: After [NUMBER] years treating [LIVESTOCK TYPE] across [REGION], I've seen the same preventable emergency cost producers millions.\n\nINTEREST: Here's what the data shows: [SPECIFIC STATISTIC about condition prevalence]. Most operations don't implement [PREVENTIVE MEASURE] until after they've experienced losses.\n\nDESIRE: [CLIENT NAME/FARM] changed their approach last [SEASON]. Results:\n• [METRIC] improvement in [health indicator]\n• $[AMOUNT] saved in emergency interventions\n• [NUMBER]% reduction in [problem]\n\nThe protocol is straightforward: [BRIEF 3-STEP PROCESS]\n\nACTION: We're offering complimentary [ASSESSMENT TYPE] consultations this month for [livestock type] operations in [SERVICE AREA]. Limited to [NUMBER] farms due to scheduling.\n\nDM me or comment 'INTERESTED' if you want to discuss how this applies to your operation.\n\n#VeterinaryMedicine #AgBusiness #LivestockProduction #FarmManagement #AnimalHealth",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "From Crisis Management to Strategic Partnership: How [FARM TYPE] Operations Are Changing Their Vet Relationship\n\nBEFORE: You call when there's an emergency. We respond, treat, invoice. Repeat. You're spending $[AMOUNT] annually on reactive care.\n\nBRIDGE: What if your veterinary relationship prevented emergencies instead of just responding to them?\n\nAFTER: Our [PROGRAM NAME] clients report:\n→ [NUMBER]% fewer emergency calls\n→ $[AMOUNT] average annual savings\n→ Improved [production metric] by [percentage]\n→ Peace of mind during [critical seasons]\n\nHow it works:\n[STEP 1]: [Scheduled service description]\n[STEP 2]: [Monitoring/protocol description]\n[STEP 3]: [Priority emergency access description]\n\nInvestment: $[AMOUNT/month] or $[ANNUAL AMOUNT] (less than most operations spend on emergencies alone)\n\n[CLIENT TESTIMONIAL QUOTE] - [Name, Farm Name, Location]\n\nWe're enrolling [NUMBER] new [livestock type] operations this quarter. [SERVICE AREA] only.\n\nReady to shift from reactive to proactive? Schedule a no-obligation operation assessment: [LINK]\n\n#LivestockVet #HerdHealthManagement #FarmBusiness #PreventiveCare #AgInnovation",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "[NUMBER] Signs Your [LIVESTOCK] Needs a Vet RIGHT NOW 🚨\n\nSlide through - knowing these could save you thousands (and save their life) 👉\n\nSign #1: [SYMPTOM]\nWhat it means: [EXPLANATION]\nWhat to do: [ACTION]\n\nSign #2: [SYMPTOM]\nRed flag for: [CONDITION]\nDon't wait: [URGENCY REASON]\n\nSign #3: [SYMPTOM]\nIndicates: [PROBLEM]\nTime matters: [WHY]\n\n⚡ Save this post for reference\n📞 Have our emergency number handy: [PHONE]\n📍 We serve [SERVICE AREA] 24/7\n\nDrop a 🔔 if you're saving this to your emergency folder!\n\n[See first comment for full emergency checklist]",
+        "visual": "Carousel post: Slide 1 - Bold text on farm background '3 Signs Your [Livestock] Needs Emergency Care', Slides 2-4 - Each sign with photo of symptom + clear text overlay, Slide 5 - Emergency contact info with truck/vet image, Final slide - 'Save this post' reminder with branded graphic"
+      },
+      "authority": {
+        "caption": "POV: You're a large animal vet at 2 AM and THIS call comes in...\n\n[BRIEF SCENARIO]: '[CUSTOMER QUOTE about emergency]'\n\nWe grabbed our gear and were on-site in [TIME]. What we found: [CONDITION].\n\nThe outcome? [RESULT - both animals saved/production restored/etc]\n\n🔍 The difference maker: [WHAT MADE SUCCESS POSSIBLE - equipment/experience/timing]\n\nThis is why we:\n✓ Keep [EQUIPMENT] stocked 24/7\n✓ Answer every call, every time\n✓ Serve [RADIUS] mile radius\n✓ Never say 'wait until morning' for emergencies\n\nBeen there? Tag a farmer who knows this feeling 👇\n\n#LargeAnimalVet #FarmLife #VetLife #EmergencyVet #[LivestockType]Care #RuralVet #FarmersOfInstagram",
+        "visual": "Behind-the-scenes photo: Vet truck at night on farm, equipment visible, or action shot of vet working with animal (maintaining privacy). Authentic, documentary-style image showing real emergency response scenario."
+      },
+      "promotional": {
+        "caption": "📢 [SEASON] is [NUMBER] weeks away. Is your operation ready?\n\nLast year, we responded to [NUMBER] [seasonal emergency type] calls. Most could have been prevented.\n\n✅ Our [SEASON] Prep Program includes:\n→ [SERVICE #1]\n→ [SERVICE #2]\n→ [SERVICE #3]\n→ Priority emergency response during [critical period]\n\nInvestment: $[AMOUNT] (vs $[TYPICAL EMERGENCY COST] average emergency)\n\n💰 [CLIENT NAME]: 'This program saved us $[AMOUNT] last season'\n\n📍 Available for [livestock type] operations in [SERVICE AREA]\n🕐 Only [NUMBER] spots remaining\n\n👉 DM 'READY' or call [PHONE] to schedule your prep visit\n\nDon't let [season] catch you unprepared this year.\n\n#[Season]Prep #HerdHealth #FarmManagement #LivestockCare #PreventiveMedicine #SmartFarming",
+        "visual": "Split-screen image: Left side shows 'Unprepared' scenario (stressed farmer, emergency situation), Right side shows 'Prepared' scenario (organized supplies, healthy animals, calm farmer). Or: Checklist graphic with farm background showing program components visually."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🎓 FARMER EDUCATION SERIES: [TOPIC]\n\nHey [LOCAL AREA] livestock community - seeing a lot of questions about [CONDITION/TOPIC] lately, so let's break this down in plain English.\n\n❓ WHAT IS [CONDITION]?\n[2-3 sentence explanation without jargon]\n\n⚠️ WHY IT MATTERS:\n• [Impact #1 - financial/production]\n• [Impact #2 - animal welfare]\n• [Impact #3 - herd-wide risk]\n\n👀 WHAT TO WATCH FOR:\n1. [Early sign #1] - this is your first warning\n2. [Sign #2] - means it's progressing\n3. [Sign #3] - call us immediately, don't wait\n\n🛡️ PREVENTION TIPS:\n→ [Actionable tip #1]\n→ [Actionable tip #2]\n→ [Actionable tip #3]\n\n📞 WHEN TO CALL:\nIf you see [specific symptoms], don't wait. Early intervention typically costs $[LOW AMOUNT] vs $[HIGH AMOUNT] for advanced cases.\n\n💬 QUESTIONS? Drop them below - I'll answer every single one. And feel free to share this with your farming neighbors.\n\n🔖 SAVE THIS POST for reference during [relevant season/situation]\n\n---\nDr. [NAME] | [PRACTICE NAME]\n24/7 Emergency: [PHONE]\nServing [SERVICE AREA]\n\n#[LocalArea]Farming #LivestockHealth #FarmerEducation #[LivestockType]Care"
+      },
+      "authority": {
+        "template": "📊 WHAT [NUMBER] YEARS OF LARGE ANIMAL PRACTICE HAS TAUGHT ME ABOUT [TOPIC]\n\nI've treated over [NUMBER] [livestock type] in [REGION], and if there's one pattern I see repeatedly, it's this:\n\n[COUNTERINTUITIVE INSIGHT OR COMMON MISTAKE]\n\nLet me explain what I mean...\n\nMost [farmers/ranchers] think [COMMON BELIEF]. And that makes sense because [WHY IT SEEMS LOGICAL].\n\nBut here's what actually happens:\n[WHAT REALLY OCCURS - backed by experience/data]\n\nREAL EXAMPLE:\nLast [timeframe], [CLIENT/FARM TYPE] was dealing with [PROBLEM]. They'd been [what they were doing wrong]. \n\nWe changed their approach to [NEW APPROACH]:\n• [Change #1]\n• [Change #2]\n• [Change #3]\n\nResults after [TIMEFRAME]:\n✓ [Metric improvement]\n✓ $[Amount] saved/gained\n✓ [Other measurable outcome]\n\n💡 THE TAKEAWAY:\n[Key lesson that challenges conventional wisdom]\n\n🤔 DISCUSSION QUESTION:\nWhat's been your experience with [topic]? Have you found this to be true in your operation? \n\nI'm genuinely curious what other [LOCAL AREA] producers are seeing. Let's learn from each other in the comments.\n\n---\n[PRACTICE NAME] | [CREDENTIALS]\nExperienced with [livestock types] across [region]\n[PHONE] | [WEBSITE]\n\n#LivestockManagement #FarmingKnowledge #AnimalAgriculture #VeterinaryExpertise"
+      },
+      "promotional": {
+        "template": "🎯 SPECIAL ANNOUNCEMENT FOR [LOCAL AREA] [LIVESTOCK TYPE] PRODUCERS\n\nWe're doing something different this [MONTH/SEASON]...\n\nAfter responding to [NUMBER] emergency calls last [TIMEFRAME] - most of which could have been prevented - we realized we need to shift our approach.\n\nSo we're launching: [PROGRAM NAME]\n\n🔍 HERE'S THE PROBLEM:\nYou call us when there's an emergency. We come out, treat the animal, you get a big bill. Nobody's happy with crisis management, but that's been the model.\n\n✨ HERE'S THE SOLUTION:\nWhat if we partnered with you BEFORE emergencies happen?\n\n[PROGRAM NAME] INCLUDES:\n📅 [SERVICE #1 - scheduled/preventive]\n📋 [SERVICE #2 - monitoring/planning]\n🚨 [SERVICE #3 - priority emergency access]\n📊 [SERVICE #4 - reporting/tracking]\n\nTHE INVESTMENT:\n$[AMOUNT/month] for [herd size] (less than most single emergency calls)\nOr $[ANNUAL AMOUNT] paid upfront (save [%])\n\n💬 WHAT CLIENTS ARE SAYING:\n\"[TESTIMONIAL QUOTE]\" - [Name, Farm Name]\n\n\"[TESTIMONIAL QUOTE]\" - [Name, Farm Name]\n\n📍 AVAILABILITY:\nAccepting [NUMBER] new [livestock type] operations in [SERVICE AREA]\nEnrollment closes [DATE]\n\n👉 NEXT STEPS:\n1. Comment 'INFO' below and I'll send details\n2. Call/text [PHONE] to schedule assessment\n3. Visit [WEBSITE] to see full program details\n\nQuestions? Ask below - I'm answering everything today.\n\nLet's make [YEAR] the year you spend less on vet bills and get better outcomes.\n\n---\nDr. [NAME] | [PRACTICE NAME]\n[CREDENTIALS/EXPERIENCE]\nProud to serve [LOCAL AREA] farmers\n\n#LivestockVet #HerdHealth #FarmBusiness #PreventiveCare #[LocalArea]Agriculture"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "This $25,000 horse almost died because the owner waited 6 hours to call...",
+        "script": "HOOK (0-3sec): Show horse in distress or vet rushing to truck\n\nTEXT OVERLAY: 'Why waiting can be deadly'\n\nVOICEOVER (3-15sec): 'Got the call at 2 AM - horse showing classic colic signs since 8 PM. Owner thought it would pass.'\n\nVISUAL (15-30sec): Quick cuts of:\n- Checking horse vitals\n- Explaining symptoms\n- Treatment process\n\nTEXT OVERLAYS:\n'Sign 1: [SYMPTOM]'\n'Sign 2: [SYMPTOM]'\n'Sign 3: CALL NOW'\n\nVOICEOVER (30-45sec): 'Here's the truth - [CONDITION] is progressive. Every hour matters. This one needed surgery.'\n\nVISUAL (45-55sec): Recovery footage or happy outcome\n\nTEXT OVERLAY: 'Made it because we acted fast'\n\nCTA (55-60sec): 'Save our number. Don't wait. [PHONE]'\n\nFINAL FRAME: Contact info + service area\n\n#LargeAnimalVet #HorseEmergency #Colic #EquineVet #FarmLife #VetTok"
+      },
+      "authority": {
+        "hook": "POV: You're a large animal vet and this is your 3 AM...",
+        "script": "HOOK (0-3sec): Alarm going off, phone ringing in dark\n\nTEXT OVERLAY: '3:47 AM'\n\nVOICEOVER (3-15sec): 'Farmer 30 miles out. Cow down. Can't get up. Calf coming.'\n\nVISUAL (15-35sec): Time-lapse style:\n- Grabbing gear from truck\n- Driving dark roads\n- Arriving at farm\n- Quick assessment shots\n\nTEXT OVERLAYS:\n'Loaded in 4 minutes'\n'On scene in 28 minutes'\n'Both lives at stake'\n\nVOICEOVER (35-50sec): 'This is why we stock [EQUIPMENT]. Why we answer every call. Why we do this.'\n\nVISUAL (50-55sec): Successful outcome - healthy calf and cow\n\nTEXT OVERLAY: 'Both made it'\n\nCTA (55-60sec): Show vet with farmer, fist bump or handshake\n\nFINAL FRAME: 'We're here when you need us. [SERVICE AREA]'\n\n#VetLife #LargeAnimalVet #FarmVet #EmergencyVet #RealVetLife #Agriculture"
+      },
+      "promotional": {
+        "hook": "This farmer spent $6,000 on emergencies last year. This year? $400.",
+        "script": "HOOK (0-3sec): Show invoice/receipt or stressed farmer\n\nTEXT OVERLAY: '$6,000 in vet bills'\n\nVOICEOVER (3-15sec): 'Same farm. Same herd size. What changed?'\n\nVISUAL (15-30sec): Split screen comparison:\nLEFT: 'Before' - emergency calls, stressed scenes\nRIGHT: 'After' - scheduled visits, healthy animals\n\nTEXT OVERLAYS:\n'Reactive care: $$$$'\n'Preventive program: $'\n\nVOICEOVER (30-45sec): 'They switched to our [PROGRAM NAME]. Monthly herd checks. Prevention protocols. Priority emergency access.'\n\nVISUAL (45-55sec): Happy farmer with healthy animals\n\nTEXT OVERLAY: 'Only $[AMOUNT/month]'\n\nCTA (55-60sec): 'Limited spots. [SERVICE AREA] only.'\n\nFINAL FRAME: 'DM READY or call [PHONE]'\n\nVOICEOVER: 'Stop paying for emergencies. Start preventing them.'\n\n#SmartFarming #HerdHealth #LivestockVet #FarmBusiness #PreventiveCare #SaveMoney"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FNAME], [SEASON] is 6 weeks away - Is your [livestock] emergency kit ready?",
+        "preview_text": "Free checklist inside + what 90% of farmers forget to stock",
+        "body": "Hi [FNAME],\n\n[SEASON] starts in just 6 weeks, and we're already getting the early emergency calls.\n\nLast year, we responded to [NUMBER] [seasonal emergency type] cases in [LOCAL AREA]. The farms that were prepared? Average cost: $[LOW AMOUNT]. The ones caught off-guard? $[HIGH AMOUNT]+.\n\nHere's your [SEASON] Emergency Kit Checklist:\n\n✓ [ITEM 1] - for [use case]\n✓ [ITEM 2] - critical for [situation]\n✓ [ITEM 3] - most farmers forget this\n✓ [ITEM 4] - can save hours in emergency\n✓ Our emergency number programmed: [PHONE]\n\nDOWNLOAD FULL CHECKLIST: [LINK]\n\nPLUS: We're offering pre-[season] herd checks at [DISCOUNT/SPECIAL RATE] through [DATE]. \n\nDuring this visit, we'll:\n→ [Service component 1]\n→ [Service component 2]\n→ [Service component 3]\n→ Set you up for success this season\n\nOnly [NUMBER] appointments available due to scheduling.\n\nSCHEDULE YOUR PRE-[SEASON] CHECK: [BOOKING LINK]\nOr reply to this email with your preferred date.\n\nQuestions? Just hit reply - I read every response.\n\nTo your herd's health,\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. - Forward this to a farming neighbor. Let's help everyone have a safer [season]."
+      },
+      "authority": {
+        "subject": "What [NUMBER] years treating [livestock] taught me about [COMMON CONDITION]",
+        "preview_text": "Most farmers get this wrong (and it costs them)",
+        "body": "Hi [FNAME],\n\nAfter treating [NUMBER]+ cases of [CONDITION] across [REGION], I've noticed something:\n\nMost [livestock type] owners think [COMMON BELIEF].\n\nBut the data tells a different story.\n\nHere's what actually happens:\n\n[INSIGHT #1]: [Explanation]\nWhat this means for you: [Practical application]\n\n[INSIGHT #2]: [Explanation]\nThe mistake I see: [Common error]\nWhat to do instead: [Correct approach]\n\n[INSIGHT #3]: [Explanation]\nReal example: [Brief case study with outcome]\n\nTHE BOTTOM LINE:\n[Key takeaway that challenges conventional wisdom]\n\nWant to discuss how this applies to your specific operation? \n\nI'm offering [NUMBER] complimentary [CONSULTATION TYPE] calls this week for [LOCAL AREA] [livestock type] producers.\n\nNo sales pitch - just [DURATION] minutes of straight talk about your herd health strategy.\n\nBOOK YOUR CALL: [CALENDAR LINK]\nOr reply with 'INTERESTED' and your phone number.\n\nThese insights have saved our clients thousands. Hope they help you too.\n\nDr. [NAME]\n[CREDENTIALS]\n[PRACTICE NAME]\n[PHONE] | [WEBSITE]\n\nP.S. - What's your experience been with [CONDITION]? Hit reply and let me know - I'm genuinely curious what you're seeing on your farm."
+      },
+      "promotional": {
+        "subject": "ALERT: Only [NUMBER] spots left for [PROGRAM NAME] (closes [DATE])",
+        "preview_text": "[FNAME], this could save you $[AMOUNT] this year",
+        "body": "Hi [FNAME],\n\nQuick heads up - we're down to [NUMBER] remaining spots for our [PROGRAM NAME], and enrollment closes [DATE].\n\nHere's why this matters for your operation:\n\nLAST YEAR'S REALITY:\n→ Average emergency call cost: $[AMOUNT]\n→ Average # of emergencies per farm: [NUMBER]\n→ Total annual reactive care: $[TOTAL]\n\nTHIS YEAR'S ALTERNATIVE:\n→ [PROGRAM NAME] investment: $[AMOUNT/month]\n→ Includes: [List key services]\n→ Average client savings: $[AMOUNT]\n\nWHAT YOU GET:\n✓ [Scheduled service #1]\n✓ [Scheduled service #2]\n✓ [Priority access benefit]\n✓ [Monitoring/reporting benefit]\n✓ [Additional value item]\n\nWHAT CLIENTS SAY:\n\"[TESTIMONIAL with specific result]\" - [Name, Farm Type]\n\n\"[TESTIMONIAL with financial outcome]\" - [Name, Location]\n\nWHO THIS IS FOR:\n• [Livestock type] operations in [SERVICE AREA]\n• [Herd size range] head\n• Farmers tired of crisis management\n• Operations wanting predictable costs\n\nWHO THIS ISN'T FOR:\n• Operations outside [SERVICE AREA]\n• Farms under [MINIMUM SIZE]\n• Anyone looking for cheapest option (this is about value, not price)\n\nNEXT STEPS:\n\n1. SCHEDULE ASSESSMENT: [BOOKING LINK]\n   (No obligation - see if it fits your operation)\n\n2. CALL/TEXT: [PHONE]\n   (Fastest way - I'll answer your questions directly)\n\n3. REPLY TO THIS EMAIL\n   (I read every response within 24 hours)\n\nEnrollment closes [DATE] or when [NUMBER] spots fill - whichever comes first.\n\nLet's make [YEAR] the year you spend less on emergencies and more on prevention.\n\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. - Not ready yet? No problem. Reply with 'MAYBE LATER' and I'll follow up in [TIMEFRAME] when we open enrollment again."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "3 Signs Your [cow/horse/heifer] Needs a Vet RIGHT NOW (Don't Wait Until Morning)",
+      "This $[50] Herd Check Saved [Local Farm] $[15,000] in Lost Calves Last Season",
+      "5 Things Your [Dairy Cows'] Manure Is Telling You About Their Health",
+      "[24] Hours Without Eating? Here's What's Happening Inside Your [Livestock]",
+      "How [3] Simple Prevention Steps Eliminated Our Client's Mastitis Losses This Year"
+    ],
+    "question_hooks": [
+      "Is Your [Emergency Kit] Ready for Calving Season Starting in [6] Weeks?",
+      "Are You Losing Money Every Day Your [Cow] Isn't Producing Milk?",
+      "Can't Find a Large Animal Vet Who Actually Answers the Phone?",
+      "Are You Waiting [24] Hours to Call About [Colic/Lameness] - And Risking Everything?",
+      "Is Your [Heifer] Trying to Calve But Nothing's Happening?"
+    ],
+    "story_hooks": [
+      "How [Johnson Dairy] Got Their [Best Cow] Back to Full Production in [48] Hours",
+      "How We Saved Both the [Cow] and [Calf] When [Local Farmer] Called at [2] AM",
+      "How [Family Farm] Finally Found a Vet Who Understands [Dairy/Beef] Operations",
+      "How One [Same-Day] Farm Call Prevented a Disease Outbreak in [100-Head] Herd",
+      "How [Ranch Name] Eliminated [Weekend Emergency] Calls With Our Prevention Program"
+    ],
+    "fear_hooks": [
+      "Is Your [Pregnant Heifer] at Risk? Why Waiting Until [Monday] Could Cost You Both",
+      "Is Your Whole [Herd] at Risk From That One [Sick Animal] You're Watching?",
+      "Are You [3] Days Into [Lameness] - And About to Lose Your [Investment]?",
+      "Is Your [Mare/Cow] in Labor Too Long? When [6] Hours Becomes an Emergency",
+      "Could Your [Home Remedy] Be Making Your [Livestock's] Condition Worse?"
+    ],
+    "howto_hooks": [
+      "How to Get [Emergency Large Animal Care] Within [30] Miles - Even at [2] AM",
+      "How to Know If [She's Not Eating] Is an Emergency or Can Wait Until Morning",
+      "How to Avoid [$800] Vet Bills That Don't Fix the [Problem]",
+      "How to Find a [Large Animal Vet] Who Works Around Your [Milking Schedule]",
+      "How to Get [Upfront Pricing] Before the Vet Starts Treatment on Your [Livestock]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your cow's been down for 2 hours and you're 45 minutes from town",
+      "body": "Show vet truck pulling up to remote farm at dusk. Quick cuts: Examining cow, administering treatment, cow standing up. Overlay text: 'Same-day emergency response' / 'Fully equipped mobile unit' / 'No trailer needed' / End with farmer and vet fist bump as cow walks away. Voiceover: 'This is why we keep everything on the truck. Your livestock can't wait.'",
+      "cta": "Save our number before you need it. Link in bio for 24/7 emergency line"
+    },
+    "reels": {
+      "hook": "What $350 farm call actually includes",
+      "body": "Fast-paced reveal of equipment coming out of mobile vet truck: ultrasound machine, surgical kit, medications, testing equipment. Text overlay with running tally. End screen: 'Hospital-grade care at your gate' with total equipment value shown ($75K+)",
+      "cta": "Transparent pricing, professional equipment. Call for quote"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second video showing your animal before our visit and after treatment, with simple caption about what was wrong and how quickly they recovered. Show your farm in background.",
+      "hashtag": "#LargeAnimalVet"
+    },
+    {
+      "prompt": "Take a photo of our vet truck at your farm and share what impressed you most about the service - response time, equipment, expertise, or outcome. Tag us!",
+      "hashtag": "#MobileVetLife"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Side-by-side cost comparison: 'What you pay for emergency farm call' vs 'What you lose if cow/horse dies' with actual livestock values and production loss calculations for dairy cows, breeding stock, performance horses",
+      "why": "Farmers are business-minded and share financial insights with peers. Reframes vet costs as investment protection. Gets shared in farming groups as practical business advice"
+    },
+    {
+      "angle": "'Red flags your cow needs a vet NOW' checklist video with 8-10 specific visual symptoms (not eating + not chewing cud + hunched posture = hardware disease). Each symptom shows real footage with 'WAIT' or 'CALL NOW' verdict",
+      "why": "Addresses core anxiety of not knowing when to call. Farmers save and share as reference guide. Positions practice as educator not salesperson. Gets referenced in farming communities repeatedly"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:24:27.616Z",
+    "last_tier2_refresh": "2025-11-27T20:24:27.616Z",
+    "last_tier3_refresh": "2025-11-27T20:24:27.616Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:24:27.616Z"
+  }
+}

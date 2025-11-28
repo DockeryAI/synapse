@@ -1,5 +1,20 @@
 /**
- * Insight Synthesis Service
+ * @deprecated LEGACY SERVICE - DO NOT USE FOR NEW DEVELOPMENT
+ *
+ * This is the OLD insight synthesis service.
+ * Use ai-insight-synthesizer.service.ts instead for:
+ * - Opus 4.5 for deep breakthrough analysis
+ * - Sonnet 4.5 for fast title/hook generation at scale
+ * - ContentFrameworkLibrary integration
+ * - EQ Profile and Industry Profile context
+ *
+ * Only used by the legacy deepcontext-builder.service.ts
+ *
+ * TODO: Delete this file when deepcontext-builder.service.ts is removed
+ *
+ * ============================================================================
+ *
+ * Insight Synthesis Service (LEGACY)
  *
  * Uses Claude AI to extract specific, actionable insights from raw data points
  * with proper provenance and real evidence.

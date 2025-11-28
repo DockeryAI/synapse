@@ -140,9 +140,12 @@ function normalizeModelName(model: string, provider: Provider): string {
       'anthropic/claude-3-5-sonnet-20241022': 'anthropic/claude-sonnet-4',
       'anthropic/claude-sonnet-4': 'anthropic/claude-sonnet-4',
       'anthropic/claude-sonnet-4.5': 'anthropic/claude-sonnet-4',
+      'anthropic/claude-sonnet-4-5-20250514': 'anthropic/claude-sonnet-4', // Dated variant
       // Opus variants
       'anthropic/claude-opus-4': 'anthropic/claude-opus-4',
       'anthropic/claude-opus-4.5': 'anthropic/claude-opus-4',
+      'anthropic/claude-opus-4-5-20250514': 'anthropic/claude-opus-4', // Dated variant
+      'anthropic/claude-opus-4.1': 'anthropic/claude-opus-4', // Legacy variant
       'anthropic/claude-3-opus': 'anthropic/claude-3-opus',
       'anthropic/claude-3-opus-20240229': 'anthropic/claude-3-opus',
     };

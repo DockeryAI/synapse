@@ -468,7 +468,7 @@ export function IntelligenceLibraryV2({ context, onGenerateCampaign, onRefreshIn
                       console.log('[OpportunityRadar] Create content for:', alert);
                       // Future: Trigger content generation flow
                     }}
-                    maxVisible={20}
+                    maxVisible={200}
                     hideHidden={true}
                   />
                 </div>

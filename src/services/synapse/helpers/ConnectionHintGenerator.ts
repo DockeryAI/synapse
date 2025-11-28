@@ -54,8 +54,14 @@ export async function generateConnectionHints(
   // Initialize embedding service
   const embeddingService = new EmbeddingService();
 
-  // Extract texts for embedding
-  const texts = dataSources.map(ds => ds.text);
+  // Extract texts for embedding - DEFENSIVE: ensure all are strings
+  const texts = dataSources.map(ds => {
+    if (typeof ds.text === 'string') return ds.text;
+    if (!ds.text) return '';
+    // Try to extract text from object
+    const text = ds.text.text || ds.text.content || ds.text.description || ds.text.title || ds.text.name;
+    return typeof text === 'string' ? text : String(ds.text);
+  }).filter(t => t.length > 0);
 
   // Generate embeddings
   const embeddingResponse = await embeddingService.createEmbeddings({ texts });
@@ -264,69 +270,74 @@ export function formatHintsForPrompt(result: ConnectionHintResult): string {
 export function createDataSourcesFromIntelligence(intelligence: any): DataSource[] {
   const sources: DataSource[] = [];
 
+  // Helper to safely extract string from various formats
+  const extractText = (item: any): string => {
+    if (typeof item === 'string') return item;
+    if (!item) return '';
+    // Try common text field names
+    const text = item.term || item.topic || item.description || item.trigger ||
+                 item.need || item.advantage || item.insight || item.content ||
+                 item.text || item.title || item.name;
+    return typeof text === 'string' ? text : String(item);
+  };
+
   // Trending topics from realTimeCultural
   if (intelligence.realTimeCultural?.trending?.topics) {
     for (const topic of intelligence.realTimeCultural.trending.topics.slice(0, 10)) {
-      sources.push({
-        type: 'trend',
-        text: typeof topic === 'string' ? topic : topic.term || topic.topic,
-        metadata: topic
-      });
+      const text = extractText(topic);
+      if (text) {
+        sources.push({ type: 'trend', text, metadata: topic });
+      }
     }
   }
 
   // Competitive opportunities/gaps
   if (intelligence.competitiveIntel?.opportunities) {
     for (const opportunity of intelligence.competitiveIntel.opportunities.slice(0, 10)) {
-      sources.push({
-        type: 'competitive',
-        text: typeof opportunity === 'string' ? opportunity : opportunity.description || opportunity,
-        metadata: opportunity
-      });
+      const text = extractText(opportunity);
+      if (text) {
+        sources.push({ type: 'competitive', text, metadata: opportunity });
+      }
     }
   }
 
   // Customer psychology - behavioral triggers (pain points, desires)
   if (intelligence.customerPsychology?.behavioral) {
     for (const trigger of intelligence.customerPsychology.behavioral.slice(0, 8)) {
-      sources.push({
-        type: 'customer',
-        text: typeof trigger === 'string' ? trigger : trigger.trigger || trigger.description || trigger,
-        metadata: trigger
-      });
+      const text = extractText(trigger);
+      if (text) {
+        sources.push({ type: 'customer', text, metadata: trigger });
+      }
     }
   }
 
   // Customer segments - unarticulated needs
   if (intelligence.customerPsychology?.unarticulated) {
     for (const need of intelligence.customerPsychology.unarticulated.slice(0, 5)) {
-      sources.push({
-        type: 'customer_need',
-        text: typeof need === 'string' ? need : need.need || need.description || need,
-        metadata: need
-      });
+      const text = extractText(need);
+      if (text) {
+        sources.push({ type: 'customer_need', text, metadata: need });
+      }
     }
   }
 
   // Business unique advantages
   if (intelligence.business?.uniqueAdvantages) {
     for (const advantage of intelligence.business.uniqueAdvantages.slice(0, 5)) {
-      sources.push({
-        type: 'advantage',
-        text: typeof advantage === 'string' ? advantage : advantage.advantage || advantage.description || advantage,
-        metadata: advantage
-      });
+      const text = extractText(advantage);
+      if (text) {
+        sources.push({ type: 'advantage', text, metadata: advantage });
+      }
     }
   }
 
   // Synthesis insights
   if (intelligence.synthesis?.keyInsights) {
     for (const insight of intelligence.synthesis.keyInsights.slice(0, 5)) {
-      sources.push({
-        type: 'insight',
-        text: typeof insight === 'string' ? insight : insight.insight || insight.description || insight,
-        metadata: insight
-      });
+      const text = extractText(insight);
+      if (text) {
+        sources.push({ type: 'insight', text, metadata: insight });
+      }
     }
   }
 

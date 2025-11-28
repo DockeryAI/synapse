@@ -284,6 +284,11 @@ class ClusteringService {
    * Generate theme from cluster content
    */
   private generateTheme(points: DataPoint[]): string {
+    // CRITICAL FIX: Ensure points is a valid array before iterating
+    if (!points || !Array.isArray(points) || points.length === 0) {
+      return 'General Insights';
+    }
+
     // Extract common words from content
     const words: Record<string, number> = {};
     const stopWords = new Set(['the', 'a', 'an', 'is', 'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may', 'might', 'must', 'shall', 'to', 'of', 'in', 'for', 'on', 'with', 'at', 'by', 'from', 'as', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'between', 'under', 'again', 'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 'just', 'and', 'but', 'or', 'if', 'because', 'while', 'although', 'this', 'that', 'these', 'those', 'i', 'me', 'my', 'we', 'our', 'you', 'your', 'he', 'him', 'his', 'she', 'her', 'it', 'its', 'they', 'them', 'their', 'what', 'which', 'who', 'whom']);
@@ -322,10 +327,16 @@ class ClusteringService {
    */
   async generateAITheme(points: DataPoint[]): Promise<string> {
     try {
+      // CRITICAL FIX: Ensure points is a valid array before processing
+      if (!points || !Array.isArray(points) || points.length === 0) {
+        return 'General Insights';
+      }
+
       // Get sample content for AI analysis
       const sampleContent = points
         .slice(0, 5)
-        .map(p => p.content.substring(0, 200))
+        .filter(p => p && p.content) // Filter out null/undefined points
+        .map(p => (p.content || '').substring(0, 200))
         .join('\n\n');
 
       const sources = [...new Set(points.map(p => p.source))].join(', ');

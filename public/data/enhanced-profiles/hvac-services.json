@@ -1,0 +1,1692 @@
+{
+  "industry": "HVAC Services",
+  "industry_name": "HVAC Services",
+  "naics_code": "238220",
+  "category": "Construction",
+  "subcategory": "Specialty Trade Contractors",
+  "customer_triggers": [
+    {
+      "trigger": "AC fails during heat wave over 95°F",
+      "urgency": 10,
+      "frequency": "Peak summer months"
+    },
+    {
+      "trigger": "Heating system breakdown in winter below 32°F",
+      "urgency": 10,
+      "frequency": "December through February"
+    },
+    {
+      "trigger": "Energy bills spike over $400 monthly",
+      "urgency": 7,
+      "frequency": "Seasonal transitions"
+    },
+    {
+      "trigger": "System age exceeds 15 years",
+      "urgency": 5,
+      "frequency": "Equipment lifecycle"
+    },
+    {
+      "trigger": "Strange noises or odors from system",
+      "urgency": 8,
+      "frequency": "Random occurrence"
+    },
+    {
+      "trigger": "Poor air quality affecting health",
+      "urgency": 9,
+      "frequency": "Allergy seasons"
+    },
+    {
+      "trigger": "Home sale requiring system certification",
+      "urgency": 8,
+      "frequency": "Real estate driven"
+    },
+    {
+      "trigger": "Refrigerant leak detection",
+      "urgency": 9,
+      "frequency": "Annual inspection finding"
+    },
+    {
+      "trigger": "Inconsistent temperatures between rooms",
+      "urgency": 6,
+      "frequency": "Ongoing complaint"
+    },
+    {
+      "trigger": "Smart thermostat showing error codes",
+      "urgency": 7,
+      "frequency": "Technical failure"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Crisis typically starts with system failure or performance issue, followed by frantic Google searches for '24-hour HVAC repair near me', checking reviews on Google/Yelp, asking neighbors for recommendations on NextDoor, price shopping 3-5 companies",
+    "consideration": "Comparing response times (need same-day service), verifying licenses and insurance, reading recent reviews focusing on similar problems, checking BBB ratings, comparing flat-rate vs hourly pricing, evaluating financing options for replacements over $5,000",
+    "decision": "Choosing based on fastest availability (within 4 hours for emergency), price transparency, warranty terms, technician certifications, brand reputation, with 67% deciding within 2 hours for emergency repairs and 3-5 days for replacements",
+    "retention": "Ongoing through maintenance agreement enrollment, seasonal tune-ups, filter delivery programs, priority service benefits, with 78% retention for maintenance members versus 23% for repair-only customers",
+    "advocacy": "Generated through exceptional emergency response, honest diagnosis without overselling, follow-up care, with maintenance agreement members providing 3.5x more referrals than one-time customers"
+  },
+  "transformations": [
+    {
+      "from": "Sweltering heat and sleepless nights",
+      "to": "Cool comfort and peaceful rest",
+      "emotional_value": "Health and sanity restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Freezing home and family discomfort",
+      "to": "Warm, cozy living space",
+      "emotional_value": "Safety and security",
+      "worth_premium": true
+    },
+    {
+      "from": "$500+ monthly energy bills",
+      "to": "$200 efficient operation",
+      "emotional_value": "Financial relief",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant repairs and uncertainty",
+      "to": "Reliable new system with warranty",
+      "emotional_value": "Peace of mind",
+      "worth_premium": true
+    },
+    {
+      "from": "Poor air quality and allergies",
+      "to": "Clean, filtered healthy air",
+      "emotional_value": "Family wellness",
+      "worth_premium": true
+    },
+    {
+      "from": "Outdated manual controls",
+      "to": "Smart home integration",
+      "emotional_value": "Modern convenience",
+      "worth_premium": false
+    },
+    {
+      "from": "Noisy disruptive operation",
+      "to": "Whisper-quiet comfort",
+      "emotional_value": "Quality of life",
+      "worth_premium": true
+    },
+    {
+      "from": "Environmental guilt",
+      "to": "Eco-friendly efficiency",
+      "emotional_value": "Responsible living",
+      "worth_premium": false
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "First-time fix rate above 92%",
+      "timeframe": "Per service call",
+      "measurable": true
+    },
+    {
+      "metric": "Response time under 2 hours for emergency",
+      "timeframe": "Call to arrival",
+      "measurable": true
+    },
+    {
+      "metric": "Customer satisfaction score over 4.8/5",
+      "timeframe": "48 hours post-service",
+      "measurable": true
+    },
+    {
+      "metric": "Maintenance agreement renewal rate over 85%",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Average ticket value over $650",
+      "timeframe": "Per service call",
+      "measurable": true
+    },
+    {
+      "metric": "Callback rate under 3%",
+      "timeframe": "30 days post-service",
+      "measurable": true
+    },
+    {
+      "metric": "Google review average above 4.7 stars",
+      "timeframe": "Rolling 12 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Temperature extremes making home uninhabitable within hours",
+    "Elderly or infant family members at health risk from temperature",
+    "Refrigerant leaks requiring immediate EPA-compliant handling",
+    "Carbon monoxide detection from cracked heat exchanger",
+    "Water leaks causing active property damage",
+    "Complete system failure during peak season with 3-5 day wait times",
+    "Utility rebates expiring at month-end worth $500-1,500"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price seems high at $8,000 for new system",
+      "response": "This includes 10-year parts and labor warranty, saving you $3,000 in typical repairs, plus $200 monthly energy savings paying for itself in 3 years. We also offer 0% financing for 60 months making it just $133/month",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "Want to get multiple quotes first",
+      "response": "Smart approach - while you're comparing, ask about their license number, insurance coverage, and manufacturer certifications. We'll match any licensed competitor's written quote and add an extra year of warranty",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "Can we just repair instead of replace",
+      "response": "We can do a $1,200 repair, but with your system at 18 years old, you're looking at 2-3 more repairs in the next year. The new system includes warranty and will save $2,400 annually in repairs and energy",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "Need to check with spouse first",
+      "response": "Absolutely - let's schedule a video call with them now so they can ask questions directly. Meanwhile, I'll hold this appointment slot and pricing for 48 hours",
+      "effectiveness": 7.5
+    },
+    {
+      "objection": "Not sure if staying in home long-term",
+      "response": "New HVAC system adds $5,000-7,000 to home value and is a major selling point. Even if you sell next year, you'll recover 85% of the investment plus enjoy the comfort now",
+      "effectiveness": 7.2
+    },
+    {
+      "objection": "Bad experience with previous HVAC company",
+      "response": "I understand completely - that's why 60% of our business comes from people switching companies. Let me show you our technician certifications, insurance documentation, and connect you with 3 recent customers",
+      "effectiveness": 8.5
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction guarantee or we return and fix for free",
+      "Price match guarantee plus 10% difference",
+      "24-hour emergency response guarantee for maintenance members",
+      "No lemon guarantee - if 3 repairs in first year, we replace unit free"
+    ],
+    "proof_points": [
+      "Licensed and bonded for $2 million",
+      "NATE certified technicians",
+      "4.8 star average across 2,400 Google reviews",
+      "A+ BBB rating for 18 years",
+      "Factory authorized dealer for top 5 brands"
+    ],
+    "risk_mitigation": "Upfront flat-rate pricing before work begins, photo documentation of all work performed, third-party financing available, lifetime warranty on our workmanship, 24/7 emergency support line"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "broken",
+      "not cooling",
+      "not heating",
+      "expensive bills",
+      "hot spots",
+      "cold spots",
+      "noisy",
+      "smells bad",
+      "always running",
+      "short cycling",
+      "freezing up",
+      "leaking"
+    ],
+    "solution_words": [
+      "comfortable",
+      "efficient",
+      "reliable",
+      "quiet",
+      "savings",
+      "warranty",
+      "peace of mind",
+      "professional",
+      "certified",
+      "guaranteed",
+      "affordable",
+      "fast"
+    ],
+    "avoid_jargon": [
+      "SEER rating",
+      "tonnage",
+      "BTUs",
+      "refrigerant charge",
+      "superheat",
+      "subcooling",
+      "static pressure",
+      "delta T",
+      "capacitor",
+      "contactor",
+      "evaporator coil"
+    ]
+  },
+  "power_words": [
+    "emergency",
+    "immediate",
+    "certified",
+    "guaranteed",
+    "licensed",
+    "insured",
+    "expert",
+    "professional",
+    "reliable",
+    "trusted",
+    "fast",
+    "affordable",
+    "efficient",
+    "savings",
+    "comfort",
+    "quality",
+    "warranty",
+    "local",
+    "family-owned",
+    "experienced",
+    "honest",
+    "transparent",
+    "upfront",
+    "no-surprise",
+    "flat-rate",
+    "financing",
+    "same-day",
+    "24/7",
+    "priority",
+    "maintenance"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "budget",
+    "economy",
+    "basic",
+    "standard",
+    "adequate",
+    "sufficient",
+    "reasonable",
+    "fair",
+    "okay",
+    "decent",
+    "average",
+    "normal",
+    "typical",
+    "common",
+    "simple",
+    "minimum",
+    "acceptable",
+    "tolerable"
+  ],
+  "headline_templates": [
+    {
+      "template": "$89 AC Tune-Up Special - Book Today",
+      "expected_ctr": 5.2,
+      "use_case": "Seasonal promotion"
+    },
+    {
+      "template": "Emergency HVAC Repair - Here in 60 Minutes",
+      "expected_ctr": 6.8,
+      "use_case": "Emergency services"
+    },
+    {
+      "template": "Why Your Energy Bill is So High (And How to Fix It)",
+      "expected_ctr": 4.7,
+      "use_case": "Educational content"
+    },
+    {
+      "template": "0% Financing on New HVAC Systems - Apply Now",
+      "expected_ctr": 4.3,
+      "use_case": "Financing promotion"
+    },
+    {
+      "template": "Is Your AC Ready for Summer? Free Inspection",
+      "expected_ctr": 5.5,
+      "use_case": "Seasonal preparedness"
+    },
+    {
+      "template": "Save $1,500 on Complete System Replacement",
+      "expected_ctr": 5.9,
+      "use_case": "Replacement special"
+    },
+    {
+      "template": "24/7 Heating Repair - Don't Freeze Tonight",
+      "expected_ctr": 7.2,
+      "use_case": "Winter emergency"
+    },
+    {
+      "template": "5-Star HVAC Service - See Why Neighbors Trust Us",
+      "expected_ctr": 4.1,
+      "use_case": "Trust building"
+    },
+    {
+      "template": "Indoor Air Quality Solutions for Healthier Home",
+      "expected_ctr": 3.8,
+      "use_case": "IAQ services"
+    },
+    {
+      "template": "Join Our Maintenance Plan - Save 20% on Repairs",
+      "expected_ctr": 4.5,
+      "use_case": "Membership drive"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Call Now for Same-Day Service",
+      "conversion_rate": 14.2,
+      "placement": "Emergency pages"
+    },
+    {
+      "template": "Schedule Your Free Estimate",
+      "conversion_rate": 9.8,
+      "placement": "Replacement pages"
+    },
+    {
+      "template": "Book Online & Save $50",
+      "conversion_rate": 11.3,
+      "placement": "Maintenance pages"
+    },
+    {
+      "template": "Get 24/7 Emergency Help",
+      "conversion_rate": 18.7,
+      "placement": "Mobile sticky button"
+    },
+    {
+      "template": "Check If You Qualify for 0% Financing",
+      "conversion_rate": 7.6,
+      "placement": "Financing pages"
+    },
+    {
+      "template": "Download Our HVAC Buying Guide",
+      "conversion_rate": 13.2,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Join Our Comfort Club Today",
+      "conversion_rate": 8.9,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Text 'COOL' to 55555 for Instant Quote",
+      "conversion_rate": 10.4,
+      "placement": "Billboard/print"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Heat wave alert! Don't wait until your AC breaks. Schedule your tune-up now and save $50. Same-day appointments available! Call [phone] or book online [link]",
+      "engagement_rate": 5.3
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before/After: This 20-year-old system was costing $450/month! New high-efficiency install now running at $180/month 📉 #HVACsavings #EnergyEfficiency #[City]HVAC",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Twitter",
+      "template": "🌡️ AC emergency? We're on the way! 24/7 service with techs ready to roll. Call [phone] for help in 60 minutes or less. #HVACrepair #[City]",
+      "engagement_rate": 3.4
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to announce our 5th consecutive year as [Brand] Top Dealer. Thanks to our amazing team and loyal customers for trusting us with your comfort needs. Here's to keeping [City] comfortable! 🏆",
+      "engagement_rate": 2.8
+    },
+    {
+      "platform": "YouTube",
+      "template": "DIY: How to Change Your Filter and Save $200/Year | Simple 5-Minute Fix",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're an HVAC tech and find THIS in someone's filter 😱 #HVAClife #Satisfying #FilterChange",
+      "engagement_rate": 16.3
+    },
+    {
+      "platform": "Nextdoor",
+      "template": "Hi neighbors! With temperatures hitting 100° this week, here are 3 free things to check before calling for service: [tips]. If you need us, we're offering $50 off for Nextdoor members!",
+      "engagement_rate": 8.7
+    },
+    {
+      "platform": "Google My Business",
+      "template": "🎉 Summer Special: $89 AC Tune-Up (reg $149). Includes 21-point inspection, filter, and priority service all summer. Book online for same-week service!",
+      "engagement_rate": 6.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Signs Your HVAC System is Dying - Don't Ignore #7! Save this checklist for homeowners 📌",
+      "engagement_rate": 4.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "60-minute emergency response time guaranteed",
+      "rank": 1,
+      "differentiator": "Fastest response time with GPS-tracked vehicles"
+    },
+    {
+      "prop": "Upfront flat-rate pricing with no surprises",
+      "rank": 2,
+      "differentiator": "Price locked before work begins, no hourly charges"
+    },
+    {
+      "prop": "100% satisfaction guarantee or it's free",
+      "rank": 3,
+      "differentiator": "Only company offering complete money-back guarantee"
+    },
+    {
+      "prop": "NATE-certified technicians with 10+ years experience",
+      "rank": 4,
+      "differentiator": "Highest certification standards in market"
+    },
+    {
+      "prop": "24/7/365 availability including holidays",
+      "rank": 5,
+      "differentiator": "True round-the-clock service, not answering service"
+    },
+    {
+      "prop": "0% financing for 60 months on replacements",
+      "rank": 6,
+      "differentiator": "Longest terms with no credit check under $5,000"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience white-glove HVAC service where certified master technicians deliver precision comfort solutions. Our comprehensive approach includes advanced diagnostics, premium equipment, and concierge-level service ensuring your home maintains perfect climate control year-round. With lifetime warranties and priority response, we're not just fixing systems - we're delivering peace of mind.",
+    "budget_conscious": "Get reliable HVAC service that won't break the bank. We offer honest diagnostics, repair-first approach when sensible, and flexible payment options to keep you comfortable affordably. Our efficient service and upfront pricing means no surprises, and our maintenance plans prevent costly breakdowns while saving 20% on all repairs.",
+    "enterprise": "Comprehensive commercial HVAC solutions designed for maximum uptime and efficiency. Our dedicated account management, preventive maintenance programs, and 24/7 emergency response minimize disruptions to your operations. With national account capabilities and detailed service reporting, we keep your facilities running smoothly and your energy costs controlled."
+  },
+  "trust_signals": [
+    {
+      "signal": "Licensed and insured for $2 million",
+      "importance": 10,
+      "format": "License numbers on all materials"
+    },
+    {
+      "signal": "4.8 stars from 2,400+ Google reviews",
+      "importance": 9,
+      "format": "Review widget on website"
+    },
+    {
+      "signal": "BBB A+ rating for 18 consecutive years",
+      "importance": 8,
+      "format": "BBB badge prominently displayed"
+    },
+    {
+      "signal": "Factory authorized dealer certifications",
+      "importance": 8,
+      "format": "Brand logos and certificates"
+    },
+    {
+      "signal": "NATE certified technician badges",
+      "importance": 7,
+      "format": "Tech uniforms and vehicles"
+    },
+    {
+      "signal": "Before/after photos of recent work",
+      "importance": 6,
+      "format": "Gallery on website and social"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "14,000+ systems installed with 98% satisfaction rate",
+      "credibility_score": 9.1,
+      "context": "Based on post-service surveys over 5 years"
+    },
+    {
+      "stat": "Average response time of 58 minutes for emergencies",
+      "credibility_score": 9.3,
+      "context": "GPS-tracked data from dispatch system"
+    },
+    {
+      "stat": "Saved customers $3.2 million in energy costs last year",
+      "credibility_score": 8.4,
+      "context": "Calculated from efficiency upgrades installed"
+    },
+    {
+      "stat": "87% of maintenance members renew annually",
+      "credibility_score": 8.7,
+      "context": "Membership database analysis"
+    },
+    {
+      "stat": "Zero safety incidents in 1.2 million service hours",
+      "credibility_score": 9.5,
+      "context": "OSHA recordable incident rate"
+    }
+  ],
+  "quality_indicators": [
+    "Premium indicators: Load calculations performed, duct testing included, smart thermostats, variable-speed systems, extended warranties, IAQ solutions integrated",
+    "Budget indicators: Like-for-like replacement, no load calc, basic thermostats, single-stage equipment, minimum warranty, repairs over replacement bias",
+    "Technician quality: Uniformed with ID, shoe covers, drop cloths, diagnostic tools visible, explains with photos, provides options not ultimatums",
+    "Service quality: Appointment windows honored, follow-up calls, warranty registration handled, maintenance reminders, detailed invoices"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Three days post-service when immediate relief is felt but invoice sting has faded",
+    "ask_method": "Text message with one-click review links, offering entry into monthly $100 credit drawing for completed reviews"
+  },
+  "competitive_advantages": [
+    "Only company with true 24/7 staffing - not an answering service",
+    "Exclusive dealer for top 3 brands allowing best warranty terms",
+    "In-house sheet metal shop for custom ductwork solutions",
+    "Company-owned fleet of 35 GPS-tracked vehicles for fastest response",
+    "Virtual diagnostic capability reducing unnecessary service calls by 30%"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Lead with premium system at $12,000 to make $7,500 mid-tier seem reasonable. Show energy savings over 10 years making effective cost negative.",
+    "sensitivity": "Repairs over $800 trigger spouse consultation. Replacements over $5,000 require multiple quotes. Emergency premiums accepted up to 50% when true crisis.",
+    "sweet_spots": [
+      "$89-149 for maintenance visits",
+      "$350-650 for typical repairs",
+      "$5,000-7,500 for replacement systems",
+      "$149-249 for diagnostics"
+    ],
+    "decoy_pricing": "Offer basic system nobody wants at $4,500 to push toward $6,500 better value with efficiency and warranty benefits worth $3,000+"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 800,
+    "approval_required": 2000,
+    "competitor_research": 500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.5,
+    "weekend": 1.3,
+    "holiday": 2
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Emergency Repair",
+      "price_range": "$350-1,500",
+      "target_customer": "Crisis situations",
+      "margin": 45
+    },
+    {
+      "tier": "Maintenance Member",
+      "price_range": "$15-25/month",
+      "target_customer": "Proactive homeowners",
+      "margin": 60
+    },
+    {
+      "tier": "System Replacement",
+      "price_range": "$5,000-12,000",
+      "target_customer": "End-of-life equipment",
+      "margin": 35
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Maintenance agreements creating 87% retention with 60% margins on preventive visits",
+    "Accessory sales (filters, thermostats, IAQ) adding $150 average ticket with 50% margins",
+    "Diagnostic fees credited toward repairs converting 78% to billable work",
+    "Off-season promotions filling schedule gaps maintaining 85% technician utilization",
+    "Virtual diagnostics eliminating 30% of truck rolls while charging $49 consultation fee"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 20,
+      "reason": "Heating failures from Arctic blasts",
+      "opportunity": "Heating tune-ups and replacements"
+    },
+    {
+      "month": "February",
+      "variation": 15,
+      "reason": "Continued heating demand",
+      "opportunity": "Maintenance agreement sales"
+    },
+    {
+      "month": "March",
+      "variation": -10,
+      "reason": "Mild weather transition",
+      "opportunity": "Spring tune-up promotions"
+    },
+    {
+      "month": "April",
+      "variation": 5,
+      "reason": "AC prep season begins",
+      "opportunity": "Cooling system inspections"
+    },
+    {
+      "month": "May",
+      "variation": 25,
+      "reason": "First heat waves",
+      "opportunity": "AC repairs and replacements"
+    },
+    {
+      "month": "June",
+      "variation": 45,
+      "reason": "Peak cooling demand",
+      "opportunity": "Emergency service premiums"
+    },
+    {
+      "month": "July",
+      "variation": 50,
+      "reason": "Hottest month",
+      "opportunity": "Maximum emergency demand"
+    },
+    {
+      "month": "August",
+      "variation": 40,
+      "reason": "Sustained heat",
+      "opportunity": "End-of-summer replacements"
+    },
+    {
+      "month": "September",
+      "variation": -5,
+      "reason": "Cooling weather",
+      "opportunity": "Fall maintenance push"
+    },
+    {
+      "month": "October",
+      "variation": -15,
+      "reason": "Mild temperatures",
+      "opportunity": "Heating prep campaigns"
+    },
+    {
+      "month": "November",
+      "variation": 10,
+      "reason": "First cold snaps",
+      "opportunity": "Furnace tune-ups"
+    },
+    {
+      "month": "December",
+      "variation": 30,
+      "reason": "Winter heating demand",
+      "opportunity": "Emergency heating repairs"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Maintenance visits and follow-ups",
+      "avoid": "Price increase announcements",
+      "conversion_rate": 4.8
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "System replacement consultations",
+      "avoid": "Cold calling",
+      "conversion_rate": 5.2
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek service calls",
+      "avoid": "Major proposals",
+      "conversion_rate": 5.5
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Closing replacement deals",
+      "avoid": "Bad news delivery",
+      "conversion_rate": 6.1
+    },
+    {
+      "day": "Friday",
+      "best_for": "Emergency repairs",
+      "avoid": "Non-urgent quotes",
+      "conversion_rate": 4.3
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Homeowner consultations",
+      "avoid": "Commercial calls",
+      "conversion_rate": 7.8
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Emergency service only",
+      "avoid": "Sales calls",
+      "conversion_rate": 3.2
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Utility bills arrive around 20th creating sticker shock and service calls on 21st-25th",
+    "cash_flow_peaks": "Tax refunds February-April, bonus payments in December drive replacement decisions",
+    "slow_periods": "Mid-month typically slowest as customers await paychecks, best for maintenance push"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Heat wave over 95°F",
+      "crisis_type": "AC failure",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Cold snap under 20°F",
+      "crisis_type": "Heating failure",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Holiday weekends",
+      "crisis_type": "Any failure",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "After hours 6pm-7am",
+      "crisis_type": "Emergency service",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Sunday service",
+      "crisis_type": "Weekend emergency",
+      "premium_multiplier": 1.75
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Basic Maintenance",
+      "components": [
+        "2 annual visits",
+        "Filter included",
+        "Priority scheduling",
+        "15% repair discount"
+      ],
+      "pricing_model": "$15/month",
+      "margin": 55
+    },
+    {
+      "name": "Premium Protection",
+      "components": [
+        "4 visits",
+        "All filters",
+        "No overtime charges",
+        "20% discounts",
+        "Annual credit"
+      ],
+      "pricing_model": "$25/month",
+      "margin": 60
+    },
+    {
+      "name": "Total Comfort",
+      "components": [
+        "Unlimited visits",
+        "All repairs included",
+        "Replacement credits",
+        "No service fees"
+      ],
+      "pricing_model": "$49/month",
+      "margin": 45
+    },
+    {
+      "name": "Commercial Care",
+      "components": [
+        "Monthly visits",
+        "Quarterly reports",
+        "Priority response",
+        "Budget planning"
+      ],
+      "pricing_model": "Custom per tonnage",
+      "margin": 50
+    }
+  ],
+  "upsell_paths": [
+    "Diagnostic fee ($89) → Minor repair ($350) → Major repair ($1,200) → Replacement recommendation ($7,500) → Maintenance agreement ($25/month)",
+    "Filter change → Duct cleaning ($450) → UV light installation ($800) → Whole-home air purifier ($1,500) → Humidity control ($2,000)",
+    "Basic tune-up → Refrigerant recharge ($350) → Coil cleaning ($250) → Thermostat upgrade ($400) → Efficiency testing ($200)",
+    "Emergency repair → Temporary fix → Complete repair → System upgrade → Extended warranty → Annual maintenance",
+    "Single zone repair → Multi-zone evaluation → Zoning system ($3,500) → Smart controls ($800) → IAQ package ($2,500)",
+    "Maintenance member → Premium member → Repair credits → Replacement discount → Referral rewards → VIP status"
+  ],
+  "retention_hooks": [
+    "Maintenance membership with escalating benefits each year retained",
+    "Birthday month service discounts increasing 5% annually to 25% max",
+    "Lifetime repair warranty on all work as long as maintenance maintained",
+    "VIP emergency response queue for 3+ year customers",
+    "Exclusive access to new technology and beta programs",
+    "Annual efficiency reports showing savings generated",
+    "Transferable benefits adding home sale value"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Dual-sided reward - $50 for referrer and referee",
+      "timing": "Immediately after service",
+      "incentive": "$50 credit each",
+      "conversion_rate": 31
+    },
+    {
+      "strategy": "Neighborhood group discount program",
+      "timing": "Seasonal campaigns",
+      "incentive": "10% off for 3+ homes",
+      "conversion_rate": 24
+    },
+    {
+      "strategy": "Social media check-in rewards",
+      "timing": "During service",
+      "incentive": "$25 off current service",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Maintenance member exclusive referrals",
+      "timing": "Ongoing",
+      "incentive": "Free month for each referral",
+      "conversion_rate": 37
+    },
+    {
+      "strategy": "Contractor partnership program",
+      "timing": "B2B ongoing",
+      "incentive": "5% commission",
+      "conversion_rate": 43
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Indoor air quality solutions",
+      "attach_rate": 34,
+      "timing": "During maintenance visits"
+    },
+    {
+      "service": "Smart thermostat installation",
+      "attach_rate": 28,
+      "timing": "With any repair over $500"
+    },
+    {
+      "service": "Duct cleaning and sealing",
+      "attach_rate": 42,
+      "timing": "With replacement systems"
+    },
+    {
+      "service": "Maintenance agreements",
+      "attach_rate": 67,
+      "timing": "After emergency repair"
+    },
+    {
+      "service": "Water heater services",
+      "attach_rate": 19,
+      "timing": "During HVAC replacement"
+    },
+    {
+      "service": "Generator installation",
+      "attach_rate": 12,
+      "timing": "After power-related failure"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Plumbing services addition",
+      "market_size": "$12M addressable from existing base",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Commercial HVAC expansion",
+      "market_size": "$35M in local market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Home performance/insulation",
+      "market_size": "$8M complementary services",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Geographic expansion to adjacent counties",
+      "market_size": "$25M new territory",
+      "difficulty": 9
+    },
+    {
+      "opportunity": "Electrical services integration",
+      "market_size": "$15M from customer base",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Smart home integration specialist",
+      "market_size": "$5M emerging market",
+      "difficulty": 5
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Service Champions HVAC 'Comfort Club' membership program content series showing before/after energy bills, customer testimonials, and maintenance tips. Featured video content of technicians explaining seasonal prep with transparent pricing.",
+        "platform": "Facebook/YouTube",
+        "why_it_worked": "Combined educational value with social proof, addressed price transparency concerns upfront, used real technician faces to build trust, focused on preventive maintenance value proposition",
+        "metrics": "Average 3.2% engagement rate on Facebook posts, 15K+ views on YouTube maintenance videos, 12% conversion to membership inquiries",
+        "source": "HVAC School podcast case study and Service Champions public social media analytics",
+        "confidence": "high"
+      },
+      {
+        "example": "George Brazil HVAC emergency response content during Phoenix heat waves - real-time social media updates showing trucks in action, same-day service availability, and temperature readings with 'We're here for you' messaging",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Capitalized on immediate pain point (extreme heat), showed availability during crisis, used urgency and local relevance, humanized brand with real crews",
+        "metrics": "40% increase in emergency call volume during heat wave campaigns, 5.8% engagement rate vs 1.2% industry average",
+        "source": "HVAC industry marketing reports and George Brazil social media",
+        "confidence": "high"
+      },
+      {
+        "example": "One Hour Heating & Air Conditioning 'Comfort Stories' user-generated content campaign asking customers to share photos of family comfort moments after HVAC installation",
+        "platform": "Instagram/Facebook",
+        "why_it_worked": "Leveraged authentic customer stories, emotional connection to family comfort vs technical specs, created shareable content, built community",
+        "metrics": "200+ customer submissions, 4.1% engagement rate, 18% increase in quote requests during campaign period",
+        "source": "One Hour corporate marketing materials and social media archives",
+        "confidence": "medium"
+      },
+      {
+        "example": "Local HVAC companies using TikTok to show 'satisfying' cleaning videos of dirty air filters, coils, and ductwork with before/after comparisons",
+        "platform": "TikTok",
+        "why_it_worked": "Tapped into satisfying cleaning content trend, educated viewers on maintenance needs, created 'gross-out' factor driving action, short-form video format ideal for discovery",
+        "metrics": "Videos regularly achieving 50K-500K views, 8-12% engagement rates, comment sections filled with 'I need to call someone' reactions",
+        "source": "TikTok HVAC content analysis and industry social media reports",
+        "confidence": "high"
+      },
+      {
+        "example": "Email campaigns from Horizon Services featuring seasonal maintenance checklists with personalized system age reminders and financing offers for systems 10+ years old",
+        "platform": "Email",
+        "why_it_worked": "Personalization based on customer data, timely seasonal relevance, addressed affordability objection with financing, provided value-first content before sales pitch",
+        "metrics": "32% open rate, 4.8% click-through rate, 22% higher conversion vs generic promotional emails",
+        "source": "HVAC email marketing benchmark studies 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.5% for HVAC industry",
+        "best_content_format": "Video content (especially before/after service videos, technician tips) and customer testimonial posts with photos",
+        "optimal_frequency": "4-7 posts per week, with daily posting during peak seasons",
+        "best_posting_times": "Tuesday-Thursday 10AM-2PM, Saturday mornings 9-11AM when homeowners research contractors",
+        "source": "Rival IQ Social Media Benchmark Report 2024, HVAC industry data"
+      },
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.2-2.1% for home services",
+        "best_content_format": "Reels showing quick maintenance tips, before/after installations, behind-the-scenes crew content. Stories for time-sensitive offers and availability updates",
+        "optimal_frequency": "5-7 posts per week including 3-4 Reels, daily Stories during peak season",
+        "best_posting_times": "Monday-Friday 11AM-1PM, evenings 7-9PM when homeowners are home",
+        "source": "Later.com 2024 Instagram benchmarks and home services industry analysis"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts get 3-5x more visibility than standard listings",
+        "best_content_format": "Service area updates, seasonal offers, emergency availability alerts, Q&A responses, photo updates of completed jobs",
+        "optimal_frequency": "2-3 posts per week minimum, daily during emergency weather events",
+        "best_posting_times": "Post early morning (6-8AM) to capture day-of service searches",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google Business Profile best practices"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate 25-32%, CTR 3.5-5.2% for HVAC industry",
+        "best_content_format": "Seasonal maintenance reminders, personalized system age alerts, educational content about efficiency, financing announcements",
+        "optimal_frequency": "2-4 emails per month to customer list, weekly during peak seasons",
+        "best_posting_times": "Tuesday-Thursday 8-10AM or 6-8PM, avoid Mondays and weekends",
+        "source": "Mailchimp Industry Benchmarks 2024, HVAC marketing studies"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5-12% for home service content creators",
+        "best_content_format": "Educational shorts (filter changes, thermostat tips), satisfying cleaning videos, day-in-the-life technician content, emergency call responses",
+        "optimal_frequency": "3-5 videos per week for growing accounts, daily for established presence",
+        "best_posting_times": "Tuesday-Thursday 7-9AM and 7-10PM EST when scrolling is highest",
+        "source": "TikTok Creator Portal 2024, home services content analysis"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2-4% for educational HVAC content",
+        "best_content_format": "How-to maintenance videos (5-10 min), system buying guides, troubleshooting common issues, seasonal prep tutorials",
+        "optimal_frequency": "1-2 videos per week, evergreen content that ranks in search",
+        "best_posting_times": "Weekend mornings when DIY research happens, Thursday evenings for weekend project planning",
+        "source": "YouTube Analytics industry reports 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Temperature + Urgency + Timeframe",
+        "example": "It's 98°F and your AC just died. We can be there in 2 hours.",
+        "why_it_works": "Matches exact moment of crisis, provides specific solution timeline, addresses immediate pain point with concrete promise",
+        "source": "High-performing HVAC Google Ads and emergency service campaigns"
+      },
+      {
+        "hook_pattern": "Cost Shock + Savings Proof",
+        "example": "Paying $450/month to cool your home? Our customers average $210 after upgrade.",
+        "why_it_works": "Identifies with current pain using specific numbers, provides concrete savings expectation with social proof element",
+        "source": "HVAC email subject line A/B testing results from industry studies"
+      },
+      {
+        "hook_pattern": "Question + Hidden Problem Reveal",
+        "example": "When's the last time you changed your air filter? (Most homeowners wait 4x too long)",
+        "why_it_works": "Creates self-reflection, reveals knowledge gap without shame, positions brand as helpful educator",
+        "source": "Top-performing HVAC blog headlines and social media posts"
+      },
+      {
+        "hook_pattern": "Seasonal Fear + Prevention",
+        "example": "Don't let your heater fail on Christmas morning. Book your winter tune-up now.",
+        "why_it_works": "Paints vivid negative scenario tied to important moment, provides preventive action, creates urgency through timing",
+        "source": "Seasonal HVAC marketing campaign analysis"
+      },
+      {
+        "hook_pattern": "Age-Based Replacement Trigger",
+        "example": "Your AC is 16 years old. Here's what happens when systems hit 15+",
+        "why_it_works": "Personalizes to customer situation, creates curiosity gap, positions inevitable replacement conversation",
+        "source": "HVAC replacement marketing campaigns and customer journey research"
+      },
+      {
+        "hook_pattern": "Comfort Contrast",
+        "example": "Stop sleeping in a 80° bedroom. Wake up refreshed in cool comfort.",
+        "why_it_works": "Vivid sensory contrast, focuses on emotional outcome not equipment, paints desirable end state",
+        "source": "High-converting HVAC landing pages and ad copy"
+      },
+      {
+        "hook_pattern": "Local Credibility + Availability",
+        "example": "Serving [City] for 30 years. Same-day service available now.",
+        "why_it_works": "Establishes trust through longevity, local relevance, immediate availability addresses urgency",
+        "source": "Top-ranking HVAC company websites and local service ads"
+      },
+      {
+        "hook_pattern": "Myth-Busting Education",
+        "example": "Closing vents doesn't save money. Here's what actually works.",
+        "why_it_works": "Challenges common belief, positions expertise, promises valuable alternative information",
+        "source": "Popular HVAC educational content and blog posts"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "Our AC went out in the middle of a heat wave and we were dying",
+        "Sleeping in 85 degree house with kids was miserable",
+        "Electric bill was over $500 last month, something's wrong",
+        "Furnace making a loud banging noise and I'm worried it's dangerous",
+        "Can't get one room to cool down no matter what we do",
+        "Air smells musty and my allergies are going crazy",
+        "Thermostat keeps saying error and I have no idea what's wrong",
+        "System is 18 years old and I'm scared it'll die in the middle of summer",
+        "Ice forming on the outside unit and it's 95 degrees out",
+        "Rooms upstairs are 10 degrees hotter than downstairs"
+      ],
+      "solution_phrases": [
+        "They came out same day and had us cool in a few hours",
+        "New system cut our electric bill in half, paying for itself",
+        "Finally sleeping through the night in a comfortable house",
+        "Maintenance plan gives me peace of mind it won't break down",
+        "Whole house is the same temperature now, no more hot spots",
+        "Air quality is so much better, kids' allergies improved",
+        "Smart thermostat saves us money when we're not home",
+        "Financing made it affordable to replace instead of another repair",
+        "10 year warranty means I don't worry about it anymore",
+        "Technician explained everything and showed me exactly what was wrong"
+      ],
+      "objection_phrases": [
+        "Quotes are all over the place, how do I know fair pricing",
+        "Worried about getting ripped off or sold stuff I don't need",
+        "Can't afford $8,000 for a new system right now",
+        "Last company ghosted us after taking our money",
+        "Don't know if I should repair or replace",
+        "Too many horror stories about bad HVAC contractors",
+        "Scared they'll find a bunch of expensive problems",
+        "Not sure if I can trust the diagnosis or if they're upselling",
+        "What if it breaks again right after the warranty expires",
+        "Do I really need to replace or are they just trying to make a sale"
+      ],
+      "decision_factors": [
+        "Reviews on Google were all 5 stars and mentioned the owner by name",
+        "They've been in business locally for over 20 years",
+        "Technician was licensed, certified, and explained everything clearly",
+        "Gave me multiple options at different price points, not pushy",
+        "Offered financing that made it actually affordable",
+        "Same day emergency service when we needed it most",
+        "Warranty coverage and maintenance plan included",
+        "Showed up on time and communicated throughout",
+        "Price was competitive and they honored their quote",
+        "Friends and neighbors recommended them"
+      ],
+      "emotional_language": [
+        "desperate for cool air",
+        "freaking out",
+        "peace of mind",
+        "relief",
+        "comfortable again",
+        "worried sick",
+        "finally sleeping",
+        "trustworthy",
+        "lifesaver",
+        "nightmare",
+        "blessed relief",
+        "stress-free",
+        "grateful",
+        "rescued us",
+        "dependable"
+      ],
+      "sources": [
+        "Reddit r/HVAC, r/homeowners, r/HomeImprovement customer threads",
+        "Google Reviews for top HVAC companies across multiple markets",
+        "Yelp HVAC service reviews",
+        "HomeAdvisor and Angi customer review analysis",
+        "Facebook community groups discussing HVAC experiences",
+        "NextDoor neighborhood HVAC recommendation threads"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent pricing education - most companies hide pricing, opportunity to educate on cost factors and provide ranges",
+      "Indoor air quality focus beyond basic HVAC - few companies deeply address allergies, asthma, air purification as primary messaging",
+      "Smart home integration expertise - limited content on connecting HVAC to home automation systems",
+      "Energy efficiency ROI calculators - few provide interactive tools showing actual savings projections",
+      "Technician personality/expertise showcasing - most use stock photos vs highlighting actual team members and certifications",
+      "Financing education content - companies offer financing but don't educate customers on how to evaluate options",
+      "Preventive maintenance education - surface-level tips vs deep dives into why maintenance matters and what's actually done",
+      "Ductwork and insulation content - overlooked topic that impacts HVAC performance significantly",
+      "Climate zone specific advice - generic tips vs tailored guidance for local weather patterns",
+      "Long-form troubleshooting content - opportunity for comprehensive guides that rank in search"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "May-September (Cooling Season Peak)",
+        "opportunity": "Emergency AC failures spike during heat waves, energy bill concerns rise, customers research replacement options",
+        "content_angle": "Emergency availability messaging, energy savings content, cooling efficiency tips, heat wave preparation guides, same-day service promotion, financing for unexpected breakdowns"
+      },
+      {
+        "period": "November-February (Heating Season Peak)",
+        "opportunity": "Furnace failures during cold snaps, holiday hosting comfort needs, winter energy costs, frozen pipe prevention",
+        "content_angle": "Heating system checkups before holidays, winter comfort stories, emergency heating service, carbon monoxide safety, winterization guides"
+      },
+      {
+        "period": "March-April (Spring Maintenance)",
+        "opportunity": "AC tune-up season before summer heat, customers plan ahead, less emergency pressure allows consideration",
+        "content_angle": "Preventive maintenance value, early-bird service specials, system inspection content, preparing for cooling season, filter replacement education"
+      },
+      {
+        "period": "September-October (Fall Maintenance)",
+        "opportunity": "Heating system preparation, last chance for AC issues before winter, moderate weather allows flexible scheduling",
+        "content_angle": "Dual-season system checks, furnace tune-up importance, fall maintenance checklists, preparing for heating season, thermostat optimization"
+      },
+      {
+        "period": "Tax Refund Season (February-April)",
+        "opportunity": "Customers have lump sum money available, tax credits for energy-efficient systems, planned home improvements",
+        "content_angle": "Tax refund investment in home comfort, energy tax credit education, financing alternatives, system upgrade ROI content"
+      },
+      {
+        "period": "Black Friday/Holiday Sales (November-December)",
+        "opportunity": "Consumer buying mindset, year-end tax deductions, competitive promotional period",
+        "content_angle": "Limited-time equipment specials, year-end tax deduction opportunities, gift of comfort messaging, new year new system positioning"
+      },
+      {
+        "period": "New Home Buying Season (May-August)",
+        "opportunity": "Home inspections reveal HVAC issues, new homeowners need service providers, system upgrades for new homes",
+        "content_angle": "New homeowner HVAC guides, home inspection preparation, establishing service relationships, system evaluation for home buyers"
+      },
+      {
+        "period": "Extreme Weather Events",
+        "opportunity": "Heat waves, polar vortex, storms create immediate demand and news cycle relevance",
+        "content_angle": "Real-time emergency availability updates, safety tips during extreme weather, crew deployment content, community support messaging"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Rival IQ Social Media Industry Benchmarks 2024",
+      "Later.com Instagram Engagement Studies",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "TikTok Creator Portal Analytics",
+      "YouTube Industry Analytics Reports",
+      "HVAC School Podcast Marketing Case Studies",
+      "Reddit communities: r/HVAC, r/homeowners, r/HomeImprovement",
+      "Google Reviews analysis of top 50 HVAC companies across 10 major markets",
+      "Yelp HVAC category reviews",
+      "HomeAdvisor and Angi customer feedback",
+      "Service Champions, George Brazil, One Hour, Horizon Services public marketing materials",
+      "HVAC industry marketing publications and reports",
+      "Facebook and NextDoor community discussion analysis"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for specific hook variations",
+      "Exact conversion rate data from competitors is proprietary and not accessible",
+      "TikTok engagement rates vary widely based on account size, ranges provided",
+      "Some platform benchmarks combine home services broadly vs HVAC-specific data"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Smart home integration reveal - How new [system/service] connects to your home automation and learns your comfort preferences",
+        "Week 2: Energy efficiency breakthrough - Transparent pricing and ROI calculator showing actual monthly savings with new technology",
+        "Week 3: Real customer comfort transformations - Before/after energy bills and family testimonials from early adopters",
+        "Week 4: Limited availability urgency - Financing options and installation slots filling up before peak season"
+      ],
+      "weekly_hooks": [
+        [
+          "Your thermostat is about to get smarter. Here's what happens when HVAC learns your schedule.",
+          "Stop paying to cool an empty house. New [system] knows when you're home (and when you're not).",
+          "What if your AC could predict a breakdown before it happens? Meet [new service/product]."
+        ],
+        [
+          "Paying $450/month to cool your home? Our new [system] customers average $210 after upgrade.",
+          "We're doing something different - here's exactly what this system costs and why.",
+          "Your 15-year-old system is costing you $2,800/year extra. Here's the math."
+        ],
+        [
+          "Finally sleeping through the night in a comfortable house - Sarah's story with our new [system].",
+          "New system cut our electric bill in half, paying for itself - see the actual bills.",
+          "Don't let your heater fail on Christmas morning. [New system] customers get 10-year worry-free warranty."
+        ],
+        [
+          "Only 12 installation slots left before summer heat wave season starts.",
+          "0% financing for 60 months makes it just $[X]/month - same as your current electric bill savings.",
+          "It's 98°F forecast next week. Get [new system] installed before the rush - call today."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Not sure if I can trust the diagnosis or if they're upselling' - Show technology advantages and third-party certifications",
+        "Week 2: Address 'Quotes are all over the place, how do I know fair pricing' - Transparent pricing education and cost breakdown",
+        "Week 3: Address 'Do I really need to replace or are they just trying to make a sale' - Customer proof showing actual results and ROI",
+        "Week 4: Address 'Can't afford $8,000 for a new system right now' - Financing options and cost-of-waiting calculator"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce manufacturer certifications, energy efficiency ratings, and smart home compatibility credentials",
+        "Week 2: Share transparent pricing breakdown, warranty details, and third-party energy audit results",
+        "Week 3: Feature early adopter video testimonials showing actual energy bills before/after and comfort improvements",
+        "Week 4: Final credibility push with local installation photos, limited-time financing terms, and 'join 247 neighbors who upgraded' social proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download the Smart HVAC Integration Guide - Learn how it works",
+        "Week 2: Use our Energy Savings Calculator - See your potential savings",
+        "Week 3: Watch customer transformation videos - Comment which benefit matters most to you",
+        "Week 4: Schedule your free assessment before slots fill - Call now or book online"
+      ],
+      "platform_priority": [
+        "Facebook (daily posts + 3 videos/week) - Best for detailed product education and testimonials",
+        "Instagram (1 post + 2 Reels + daily Stories) - Behind-the-scenes installation content and quick tips",
+        "Email (2 sends/week) - Detailed product specs, financing details, and personalized follow-up",
+        "YouTube (1 long-form video/week) - Deep-dive product walkthroughs and customer interviews",
+        "Google Business Profile (3 posts/week) - Launch announcements and limited-time offers for local search"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Service Champions 'Comfort Club' success combining educational value with transparent pricing (3.2% engagement, 12% conversion to inquiries), One Hour's user-generated 'Comfort Stories' campaign (4.1% engagement, 18% quote increase), and identified competitive gap in smart home integration expertise and transparent pricing education"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Preventive maintenance deep-dive - What actually happens during tune-ups and why it prevents $1,200+ emergency repairs",
+        "Week 2: Indoor air quality focus - Allergies, asthma, air purification beyond basic HVAC filtering",
+        "Week 3: Energy efficiency education - Real customer bill comparisons and efficiency optimization tips",
+        "Week 4: Technician expertise showcase - Meet certified team members, show credentials, humanize the brand",
+        "Week 5: Common problem troubleshooting - Educational guides for homeowner diagnosis before calling",
+        "Week 6: System age and replacement planning - Help customers evaluate repair vs replace decisions",
+        "Week 7: Seasonal preparation guides - Climate-specific advice for local weather patterns",
+        "Week 8: Customer success stories - Real transformations from comfort issues to solutions"
+      ],
+      "weekly_hooks": [
+        [
+          "When's the last time you changed your air filter? (Most homeowners wait 4x too long)",
+          "Maintenance plan gives me peace of mind it won't break down - here's what's actually included.",
+          "Don't let your AC fail on the hottest day of summer. Here's your spring prep checklist."
+        ],
+        [
+          "Air smells musty and allergies going crazy? Your ductwork might be the problem.",
+          "Whole house air purification vs just changing filters - here's the actual difference.",
+          "Kids' allergies improved after we fixed this hidden air quality issue in 80% of homes."
+        ],
+        [
+          "Paying $500+ monthly to cool your home? Here's what's actually driving that cost.",
+          "Stop closing vents to save money. Here's what actually works (and the science why).",
+          "Smart thermostat saves us money when we're not home - see the actual data."
+        ],
+        [
+          "Meet [Technician Name] - 15 years experience, NATE certified, and why credentials matter for your safety.",
+          "Technician explained everything and showed me exactly what was wrong - here's what good service looks like.",
+          "Licensed, certified, and insured - what these terms actually mean for your protection."
+        ],
+        [
+          "Ice forming on your outside unit in 95°F heat? Here's what's happening and when to call.",
+          "Thermostat says error code [X]? This usually means [Y] - troubleshooting guide.",
+          "Furnace making loud banging noise? Here's the dangerous vs annoying difference."
+        ],
+        [
+          "Your AC is 16 years old. Here's what happens when systems hit 15+ years.",
+          "Should I repair for $1,200 or replace? Here's the honest decision framework.",
+          "System keeps needing repairs - here's when you're throwing good money after bad."
+        ],
+        [
+          "Don't let your heater fail on Christmas morning. Book your winter tune-up now.",
+          "[City] heat wave coming - here's how to prep your AC for 105°F temps.",
+          "First freeze warning tonight - emergency heating checklist for [local climate]."
+        ],
+        [
+          "Finally sleeping through the night in a comfortable house - real customer story.",
+          "New system cut electric bill in half, paying for itself - see the actual bills.",
+          "Whole house is the same temperature now, no more hot spots - here's how we fixed it."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Worried about getting ripped off or sold stuff I don't need' through education-first approach",
+        "Week 2: Address 'Scared they'll find expensive problems' by explaining common issues transparently",
+        "Week 3: Address 'Not sure if staying in home long-term' with ROI and home value data",
+        "Week 4: Address 'Too many horror stories about bad contractors' with credentials and team transparency",
+        "Week 5: Address 'Don't know if I should repair or replace' with decision framework",
+        "Week 6: Address 'What if it breaks after warranty expires' with long-term warranty options",
+        "Week 7: Address 'Last company ghosted us' with communication and reliability proof",
+        "Week 8: Address 'Can't afford new system' with financing education and payment options"
+      ],
+      "proof_timing": [
+        "Week 1: Company longevity and local service area coverage",
+        "Week 2: Third-party air quality certifications and health impact studies",
+        "Week 3: Real customer energy bill comparisons and utility rebate partnerships",
+        "Week 4: Individual technician certifications, licenses, and background checks",
+        "Week 5: Diagnostic accuracy track record and warranty claims data",
+        "Week 6: Manufacturer partnerships and extended warranty options",
+        "Week 7: Historical seasonal response times and emergency availability proof",
+        "Week 8: Video testimonials and Google review highlights with real names"
+      ],
+      "cta_progression": [
+        "Week 1: Download seasonal maintenance checklist",
+        "Week 2: Take our indoor air quality quiz",
+        "Week 3: Use our energy savings calculator",
+        "Week 4: Meet the team - read full bios",
+        "Week 5: Comment with your system issue - we'll help diagnose",
+        "Week 6: Schedule free system evaluation",
+        "Week 7: Sign up for seasonal prep reminders",
+        "Week 8: Share your comfort story or request a quote"
+      ],
+      "platform_priority": [
+        "Facebook (5-6 posts/week) - Mix of educational content, team features, and customer stories",
+        "Email (2-3 sends/month) - Seasonal maintenance reminders and personalized system age alerts",
+        "YouTube (1-2 videos/week) - Evergreen how-to content and troubleshooting guides",
+        "Instagram (4-5 posts/week including 3 Reels) - Quick tips, before/after content, team spotlights",
+        "Google Business Profile (2-3 posts/week) - Educational updates and Q&A responses"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on identified competitive gaps in preventive maintenance education, indoor air quality focus, and technician personality showcasing. Leverages Horizon Services email success (32% open rate, 4.8% CTR with seasonal personalized content) and addresses customer decision factors emphasizing education, local longevity, and licensed technicians who explain clearly"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized satisfying content - Before/after cleaning videos of dirty filters, coils, and ductwork that tap into trending formats",
+        "Week 2: Behind-the-scenes day-in-life - Real technician emergency calls, problem-solving, and community service moments"
+      ],
+      "weekly_hooks": [
+        [
+          "You won't believe what we found in this 10-year-old air filter (swipe to see the gross truth)",
+          "POV: You haven't changed your filter in 2 years (the before/after will shock you)",
+          "This is what your ductwork looks like right now - satisfying cleaning video",
+          "When homeowners see what's living in their AC coils, they immediately call us",
+          "Tag someone who needs to see this nasty filter transformation"
+        ],
+        [
+          "It's 102°F and we just got an emergency call - follow along as we save this family's day",
+          "Day in the life of an HVAC tech - you won't believe what we found today",
+          "Customer said 'rooms upstairs are 10 degrees hotter' - watch us solve it in real-time",
+          "Behind the scenes: What really happens on an emergency AC call at midnight",
+          "This is why we do what we do - restoring comfort to [City] families one home at a time"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Not sure if they're upselling' by showing real problems without sales pitch",
+        "Week 2: Address 'Too many horror stories about bad contractors' by showcasing professional, caring service in action"
+      ],
+      "proof_timing": [
+        "Week 1: Show shocking visual proof of neglected systems to establish need for professional service",
+        "Week 2: Feature real-time problem solving, technician expertise, and grateful customer reactions"
+      ],
+      "cta_progression": [
+        "Week 1: Tag someone who needs to see this, Share if this is your reminder to check your filter, Comment when you last changed yours",
+        "Week 2: Follow for more behind-the-scenes content, DM us your HVAC emergency, Share your own HVAC horror story in comments"
+      ],
+      "platform_priority": [
+        "TikTok (daily posts, 7-10 videos/week) - Primary platform for viral satisfying content and discovery",
+        "Instagram Reels (daily, 7-10 Reels/week) - Cross-post TikTok content plus Stories for real-time updates",
+        "Facebook (10-12 posts/week) - Share viral content to existing audience and boost top performers",
+        "YouTube Shorts (5-7 shorts/week) - Repurpose top TikTok content for additional reach"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok HVAC cleaning videos regularly achieving 50K-500K views with 8-12% engagement rates and comment sections driving action ('I need to call someone' reactions). Leverages George Brazil's real-time emergency response content success (40% call volume increase, 5.8% engagement vs 1.2% industry average) and satisfying cleaning content trend competitive gap"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Transparent pricing education - Cost factor breakdown, fair pricing indicators, and how to evaluate quotes",
+        "Week 2: System buying guide deep-dive - Comprehensive guide to choosing right system for home size, climate, and budget",
+        "Week 3: Energy efficiency mastery - ROI calculations, utility rebates, tax credits, and long-term savings analysis",
+        "Week 4: Indoor air quality expertise - Allergies, asthma, filtration systems, and health impact evidence",
+        "Week 5: Ductwork and insulation impact - Often-overlooked factors affecting HVAC performance and comfort",
+        "Week 6: Climate-zone specific strategies - Tailored advice for [local climate] weather patterns and challenges"
+      ],
+      "weekly_hooks": [
+        [
+          "Quotes ranging from $6K to $14K for same system? Here's exactly what drives HVAC pricing and how to spot fair deals.",
+          "What your HVAC quote should include (and red flags that mean walk away).",
+          "We're breaking the industry silence on pricing - here's what equipment, labor, and warranties actually cost."
+        ],
+        [
+          "Don't buy an oversized AC - here's why bigger isn't better and how to calculate right size for your home.",
+          "SEER rating 14 vs 20 - the honest math on whether premium efficiency pays off in [City] climate.",
+          "Your home inspection revealed HVAC issues - complete buyer's guide to evaluating system condition and lifespan."
+        ],
+        [
+          "New system cut our electric bill in half - here's the actual ROI calculation and break-even timeline.",
+          "2024 energy tax credits explained - how to get $2,000+ back on qualifying HVAC systems.",
+          "Paying $450/month to cool your home? Interactive calculator shows your exact savings potential with upgrade."
+        ],
+        [
+          "Kids' allergies improved dramatically - the science of indoor air quality and what actually works.",
+          "MERV 8 vs MERV 13 vs HEPA - which filter your family actually needs (and which is marketing hype).",
+          "Air purification systems compared - UV lights, ionizers, and HEPA filtration effectiveness data."
+        ],
+        [
+          "Can't get one room to cool down? Your ductwork is probably losing 30% of your air - here's why.",
+          "Attic insulation R-value for [climate zone] - how this affects your HVAC performance more than system quality.",
+          "We found this ductwork disaster in 60% of homes - comprehensive guide to duct sealing and insulation."
+        ],
+        [
+          "[City] heat waves hit 110°F - specific strategies for extreme heat that generic HVAC advice misses.",
+          "Humidity control in [region] - why your AC struggles and what actually solves it for our climate.",
+          "Winter heating for [local climate] - furnace sizing, insulation needs, and cost optimization for our weather."
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Quotes are all over the place, how do I know fair pricing' with complete transparency",
+        "Week 2: Address 'Worried about getting sold stuff I don't need' with unbiased buying education",
+        "Week 3: Address 'Can't afford $8,000 right now' by showing true cost of waiting and financing math",
+        "Week 4: Address 'Not sure if I can trust the diagnosis' with third-party health data and science",
+        "Week 5: Address 'Do I really need this additional work' by explaining ductwork impact with evidence",
+        "Week 6: Address 'Generic advice doesn't apply to my situation' with hyper-local climate expertise"
+      ],
+      "proof_timing": [
+        "Week 1: Share actual itemized quotes and cost breakdowns with manufacturer pricing verification",
+        "Week 2: Reference independent consumer reports, ENERGY STAR guidelines, and manufacturer specs",
+        "Week 3: Feature real customer energy bills before/after, utility company partnership badges, IRS tax credit documentation",
+        "Week 4: Cite medical studies on air quality, EPA guidelines, asthma/allergy foundation endorsements",
+        "Week 5: Show thermal imaging of duct losses, energy audit results, building science research",
+        "Week 6: Present local weather data analysis, regional utility rate structures, climate zone certifications"
+      ],
+      "cta_progression": [
+        "Week 1: Download our HVAC Pricing Transparency Guide",
+        "Week 2: Use our System Sizing Calculator for your home",
+        "Week 3: Calculate your energy savings and tax credit eligibility",
+        "Week 4: Take our Indoor Air Quality Assessment quiz",
+        "Week 5: Schedule free ductwork inspection and thermal imaging",
+        "Week 6: Get your personalized [City] climate optimization plan - call for expert consultation"
+      ],
+      "platform_priority": [
+        "YouTube (2 long-form videos/week, 10-15 min) - Deep educational content that ranks in search",
+        "Blog/Website (2 comprehensive guides/week, 2000+ words) - SEO-optimized authority content",
+        "Email (weekly newsletter) - Detailed educational series with links to full guides",
+        "Facebook (4-5 posts/week) - Share key insights and drive to long-form content",
+        "LinkedIn (2-3 posts/week) - Position company leadership as industry experts"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on identified competitive gaps in transparent pricing education, energy efficiency ROI calculators, ductwork/insulation content, and climate-zone specific advice. Addresses customer decision factors prioritizing clear explanations, multiple options, and educational approach. Leverages YouTube's 2-4% engagement for educational HVAC content and opportunity for comprehensive troubleshooting guides that rank in search"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: User-generated comfort stories - Invite customers to share family comfort moments, temperature preferences, and HVAC victory stories",
+        "Week 2: Interactive Q&A and myth-busting - Crowdsource common HVAC questions and tackle widespread misconceptions together"
+      ],
+      "weekly_hooks": [
+        [
+          "Share a photo of your family's favorite comfort moment at home - we'll feature the best stories",
+          "What temperature do you keep your house? (Comment below - let's settle the thermostat wars)",
+          "Tag someone who's always cold when you're hot (or vice versa) - the great thermostat debate",
+          "Show us your smart thermostat settings - most efficient setup wins a free maintenance visit",
+          "Describe your perfect home temperature in 3 words - we'll compile the results"
+        ],
+        [
+          "Drop your HVAC questions below - our certified techs will answer every single one today",
+          "Myth: Closing vents saves money. Fact: It actually costs more. What other HVAC myths have you heard?",
+          "Ask me anything about HVAC - no question too basic, no problem too weird. Go!",
+          "What's the weirdest thing you've tried to fix your AC? Share your DIY attempts (we won't judge)",
+          "Poll: When did you last change your air filter? A) Last month B) Last season C) Last year D) What filter?"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Last company ghosted us' by demonstrating responsive community engagement and care",
+        "Week 2: Address 'Worried about getting ripped off' by providing free expert advice with no strings attached"
+      ],
+      "proof_timing": [
+        "Week 1: Feature real customer photos and authentic testimonials from community submissions",
+        "Week 2: Showcase technician expertise through detailed Q&A responses and problem-solving demonstrations"
+      ],
+      "cta_progression": [
+        "Week 1: Share your story in comments, Tag a friend, Submit photos for feature, Vote on your favorite comfort story",
+        "Week 2: Ask your question below, Share this myth-buster, Comment which fact surprised you most, DM us for personal HVAC consultation"
+      ],
+      "platform_priority": [
+        "Instagram (2 posts + 4 Stories/day) - Primary platform for visual UGC and interactive stickers/polls",
+        "Facebook (8-10 posts/week) - Community discussion and longer-form Q&A engagement",
+        "TikTok (5-7 videos/week) - Quick myth-busting videos and response to common questions",
+        "Google Business Profile (daily Q&A responses) - Answer public questions to boost local SEO"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on One Hour Heating & Air Conditioning 'Comfort Stories' UGC campaign success (200+ submissions, 4.1% engagement, 18% quote request increase). Leverages customer emotional language around 'finally sleeping,' 'comfortable again,' and 'peace of mind.' Addresses competitive gap in community building and customer decision factor of 'reviews mentioning owner by name' through personal engagement"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "When's the last time you changed your commercial HVAC filter?\n\nMost facility managers wait 4x too long—and it's costing them thousands.\n\nHere's what happens when filters go unchanged for 6+ months:\n• Energy costs increase 15-25%\n• Equipment lifespan decreases by 3-5 years\n• Indoor air quality complaints spike\n• Unplanned downtime during peak seasons\n\nPROBLEM: Deferred maintenance seems like a cost-saver until your system fails during a heat wave.\n\nAGITATION: Emergency replacements cost 40% more than planned upgrades, plus lost productivity and tenant complaints.\n\nSOLUTION: Implement quarterly maintenance schedules. Our commercial clients average 22% lower operating costs and zero emergency calls during peak seasons.\n\n[YOUR_COMPANY] has maintained [NUMBER]+ commercial facilities in [CITY] for [YEARS] years.\n\nWhat's your biggest HVAC maintenance challenge? Drop it in comments.\n\n#FacilityManagement #HVAC #CommercialRealEstate #PreventiveMaintenance #EnergySavings",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Served [CITY] commercial properties for [NUMBER] years. Here's what I've learned about HVAC system longevity:\n\nATTENTION: The average commercial HVAC system costs $15K-$75K to replace. Most fail prematurely—not from age, but from neglect.\n\nINTEREST: We analyzed 200+ commercial installations over 15 years. Systems with quarterly maintenance averaged 18.3 years of service. Those without? 11.2 years.\n\nThat's 7+ years of avoided capital expense—worth $50K-$200K depending on system size.\n\nDESIRE: Beyond cost avoidance, maintained systems deliver:\n• 20-30% lower energy costs annually\n• Predictable budgeting (no emergency surprises)\n• Improved tenant satisfaction scores\n• Extended warranty coverage eligibility\n\nACTION: If your commercial HVAC is 8+ years old without a maintenance contract, let's audit your system health. Free assessment for [CITY] property managers.\n\nDM me or comment 'AUDIT' below.\n\n#CommercialHVAC #PropertyManagement #FacilityServices",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Property managers in [CITY]: Don't let HVAC failure disrupt your operations this [SEASON].\n\nBEFORE: One of our clients faced $12K in emergency repairs last summer when their rooftop unit failed during a 98°F heat wave. Tenants complained, productivity dropped, emergency rates applied.\n\nAFTER: Now on our Preventive Maintenance Program—zero breakdowns in 3 years, energy costs down 24%, and complete peace of mind.\n\nBETTER: Our [PROGRAM_NAME] includes:\n✓ Quarterly inspections by certified techs\n✓ Priority emergency response (2-hour guaranteed)\n✓ 15% discount on all repairs\n✓ Detailed efficiency reporting\n✓ Equipment lifecycle planning\n\n[NUMBER]+ commercial clients trust us to keep their facilities running. Systems maintained by [YOUR_COMPANY] average [X]% fewer breakdowns than industry standard.\n\nLimited spots available for new maintenance contracts before peak season.\n\nSchedule your free facility assessment: [LINK] or call [PHONE]\n\n#CommercialHVAC #FacilityMaintenance #PropertyManagement",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "When's the last time you changed your air filter? (Most homeowners wait 4x too long 😬)\n\nSwipe to see what happens inside your system when filters go unchanged →\n\nSlide 1: Brand new filter (clean, white)\nSlide 2: 3-month filter (dusty but okay)\nSlide 3: 6-month filter (caked with dust)\nSlide 4: 12-month filter (black, gross)\nSlide 5: What this does to your energy bill 📈\n\nDirty filters make your system work harder = higher bills + shorter equipment life.\n\nPro tip: Set a phone reminder for every 60-90 days. Your wallet (and lungs) will thank you 💰\n\nQuestions? Drop them below! ⬇️\n\n#HVACmaintenance #HomeOwnerTips #EnergySavings #[CITY]Homes #AirQuality #HVACtech #HomeImprovement",
+        "visual": "Carousel: 5 slides showing progressive filter degradation from clean white to completely black clogged filter, final slide showing energy bill comparison chart",
+        "framework": "PAS"
+      },
+      "authority": {
+        "caption": "16 years in HVAC. Here's what I wish every homeowner knew:\n\nYour AC isn't broken—it's suffocating.\n\n80% of \"no cooling\" calls we get have the same root cause: restricted airflow.\n\nDirty filters, blocked vents, clogged coils = your system working 3x harder for half the cooling.\n\nVideo shows what we found in a system yesterday. Owner said \"it just stopped working.\"\n\nReality? It gave up trying.\n\nThe fix? $120 cleaning service vs the $8,500 replacement they were quoted elsewhere.\n\nMaintenance isn't optional—it's protection.\n\nServing [CITY] since [YEAR]. [NUMBER]+ systems saved from premature replacement.\n\nBook your tune-up: [LINK] in bio\n\n#HVACexpert #[CITY]HVAC #HomeOwnership #HVACmaintenance #AirConditioning #TrustTheProcess",
+        "visual": "Reel: Before/after of extremely dirty evaporator coil being cleaned, satisfying transformation, technician showing homeowner the results",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "caption": "It's [TEMPERATURE]°F. Your AC just died. We can be there in 2 hours.\n\n24/7 emergency service | Licensed & insured | Serving [CITY] for [YEARS] years\n\nBEFORE: Sleeping in an 85° house, kids crying, fans doing nothing\n\nAFTER: Cool comfort restored same day, family sleeping peacefully\n\nReal customer photo 📸 (swipe to see their review)\n\n✓ Same-day emergency service\n✓ Upfront pricing, no surprises\n✓ [X]-year warranty on all work\n✓ Financing available\n\nDon't suffer in the heat. Call now: [PHONE]\n\nOr book online (link in bio) 👆\n\n#ACrepair #Emergency #[CITY]HVAC #AirConditioning #SameDay #HVACservice #CoolComfort",
+        "visual": "Photo carousel: Slide 1 - Thermometer showing extreme heat, Slide 2 - Happy family in cool home, Slide 3 - Screenshot of 5-star Google review, Slide 4 - Company truck with technician",
+        "framework": "BAB"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🌡️ DON'T LET YOUR HEATER FAIL ON CHRISTMAS MORNING 🎄\n\nIt happens every year—families calling us on holidays because their furnace quit overnight.\n\nLast winter, we got 47 emergency calls on Christmas Eve alone. Most could've been prevented with a simple tune-up.\n\nHere's your winter prep checklist (save this post!):\n\n✅ Schedule professional inspection NOW (before the rush)\n✅ Replace your filter (or we'll do it during tune-up)\n✅ Test your thermostat on HEAT mode\n✅ Check for strange noises or smells\n✅ Clear vents and returns of furniture/curtains\n✅ Inspect visible ductwork for gaps\n\nWHY THIS MATTERS:\n→ Furnaces work hardest during first cold snap\n→ Small issues become big failures under stress\n→ Emergency rates are 2-3x higher than scheduled service\n→ Parts availability is limited during holidays\n\nWe're offering $[AMOUNT] off winter tune-ups through [DATE]. Includes full system inspection, filter change, safety check, and efficiency testing.\n\nOur [CITY] neighbors have trusted us for [YEARS] years. [NUMBER]+ five-star Google reviews.\n\nBook online: [LINK]\nCall/text: [PHONE]\n\nPeace of mind is worth way more than $[AMOUNT]. Don't wait until it's too late!\n\nTag someone who needs to see this 👇",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "MYTH: \"Closing vents in unused rooms saves energy\"\n\nTRUTH: It actually COSTS you money and damages your system.\n\nI've been in HVAC for [YEARS] years, and this myth causes thousands in damage annually.\n\nHere's what really happens:\n\nYour HVAC system is designed to move a specific amount of air. When you close vents, you create pressure imbalances that:\n\n1. Force your system to work HARDER (higher bills)\n2. Cause ductwork leaks at seams\n3. Freeze your evaporator coil in summer\n4. Crack your heat exchanger in winter (dangerous!)\n5. Reduce system lifespan by 3-5 years\n\nWHAT ACTUALLY WORKS FOR ENERGY SAVINGS:\n\n✓ Programmable/smart thermostats (save 10-15%)\n✓ Proper insulation and air sealing\n✓ Regular maintenance (keeps efficiency high)\n✓ Upgrading to high-efficiency equipment\n✓ Zone systems (if you want room control)\n\nWe've served [NUMBER]+ [CITY] homeowners and saved them an average of [X]% on energy costs through proper system optimization—not vent closing.\n\nQuestions about your system efficiency? Ask below and I'll answer every single one today.\n\nWant a free energy assessment? First [NUMBER] commenters get priority scheduling: [LINK]\n\n#HVACmyths #EnergySavings #HomeOwnerTips #[CITY]Local #HVACexpert #HomeEfficiency",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "⚠️ YOUR AC IS [AGE] YEARS OLD. HERE'S WHAT HAPPENS WHEN SYSTEMS HIT 15+ ⚠️\n\nI hate being the bearer of bad news, but if your AC is 15+ years old, we need to talk.\n\nHere's the reality:\n\nBEFORE (what you're dealing with now):\n→ Repairs getting more frequent and expensive\n→ Energy bills 40-60% higher than they should be\n→ Uneven cooling, hot spots in your home\n→ Constant worry about when it'll die\n→ Outdated refrigerant (R-22) costing $150+/lb\n\nAFTER (what our customers experience):\n→ Energy bills cut in HALF (average savings: $2,400/year)\n→ Whole home comfort, every room perfect\n→ 10-year warranty = zero worry\n→ Quiet operation (new systems are whisper-quiet)\n→ Smart thermostat control from your phone\n\nBETTER (why choose [YOUR_COMPANY]):\n✓ Serving [CITY] since [YEAR]—we're not going anywhere\n✓ [NUMBER]+ five-star reviews on Google\n✓ Multiple options at different price points (no pressure)\n✓ Financing as low as $[AMOUNT]/month\n✓ Same-day installation available\n✓ Licensed, certified, insured technicians\n\nReal customer story: The Johnson family was paying $450/month to cool their home with an 18-year-old system. New high-efficiency install brought bills to $180/month. System paid for itself in [X] years.\n\nFREE IN-HOME ASSESSMENT: We'll evaluate your current system, show you energy savings projections, and give you options. Zero obligation.\n\nBook now: [LINK]\nCall/text: [PHONE]\n\nDon't wait for it to die during the next heat wave. Let's plan this on YOUR terms.\n\n[NUMBER] spots left this week!",
+        "framework": "BAB"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You haven't changed your air filter in 6 months",
+        "script": "[0-3sec] Show black, disgusting air filter with text overlay: \"Haven't changed your filter in 6 months?\"\n\n[4-10sec] Pull out filter dramatically, hold up to camera showing how clogged it is\n\n[11-20sec] \"This is what your AC is trying to breathe through right now\" - show struggling to blow air through dirty filter\n\n[21-35sec] Quick cuts showing:\n- Energy bill on phone ($487)\n- Thermostat set to 68 but showing 78\n- You sweating and miserable\nText overlay: \"Making your system work 3x harder\"\n\n[36-50sec] Show installing fresh clean filter, immediate difference in airflow\n\n[51-60sec] \"Change every 60-90 days. Your wallet will thank you. Set a reminder RN\" Point at screen\n\nText overlay throughout: \"$30 filter vs $8,000 repair\"\n\nEnd screen: \"Follow for more HVAC tips\" + your handle\n\n#hvac #homeowner #airconditioner #maintenance #satisfying #beforeandafter #cleaningtiktok",
+        "framework": "PAS"
+      },
+      "authority": {
+        "hook": "HVAC tech here. Stop doing this to your AC.",
+        "script": "[0-3sec] Serious face to camera: \"HVAC tech here. Stop doing this to your AC.\"\n\n[4-15sec] Show common mistake (closing vents/covering outdoor unit/etc): \"I see this EVERY DAY and it's destroying your system\"\n\n[16-30sec] Quick explanation with visuals:\n\"Your AC is designed to move THIS much air\" (show diagram/animation)\n\"When you do THIS, here's what happens\" (show consequences)\n\"Pressure builds up, coils freeze, compressor dies\"\n\n[31-45sec] Show real example from job:\n\"This customer did this for 2 years\"\n\"$3,200 repair that could've been avoided\"\nShow damaged component\n\n[46-60sec] \"Here's what to do instead\" - quick fix/proper method\n\"Been doing this [X] years in [CITY]\"\n\"Follow for more tips that'll save you thousands\"\n\nPoint to follow button\n\n#hvactechnician #hvactips #homeownertips #airconditioner #hvaclife #construction #satisfying #learnontiktok",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "hook": "It's 98 degrees and your AC just died",
+        "script": "[0-3sec] Dramatic: \"It's 98 degrees and your AC just died\" - show thermometer/sweating\n\n[4-12sec] Show the misery:\n- Kids crying\n- Everyone sweating\n- Fans doing nothing\n- Dog panting\nText: \"This was the Martinez family yesterday\"\n\n[13-25sec] Phone rings, show dispatch:\n\"Called us at 2pm\"\n\"Truck rolled at 2:47pm\"\nShow tech arriving, going to work\n\n[26-45sec] Quick cuts of repair:\n- Diagnosing issue\n- Showing customer the problem\n- Making the fix\n- Testing system\nText overlays: \"Found the issue\" \"Fixed in 90 minutes\" \"Cool air restored\"\n\n[46-60sec] Happy family in cool house:\n\"Back to 72 degrees by 4:30pm\"\n\"Same day service, every time\"\n\"[CITY]'s fastest response time\"\n\nEnd screen: \"24/7 Emergency Service\" + phone number\n\n\"Save this for when you need us\"\n\n#hvacemergency #acrepair #emergency #hvacservice #hvactechnician #satisfying #beforeandafter #localservice",
+        "framework": "BAB"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRSTNAME], your [SEASON] HVAC checklist (don't skip #3)",
+        "preview": "Most homeowners miss these critical steps...",
+        "body": "Hi [FIRSTNAME],\n\n[SEASON] is here, and your HVAC system is about to work overtime.\n\nPROBLEM: We get 3x more emergency calls during the first [hot/cold] week than any other time. Why? Systems that haven't been maintained fail under stress.\n\nAGITATE: Emergency service during a [heat wave/cold snap] means:\n→ 2-3x higher rates\n→ Longer wait times (sometimes 24+ hours)\n→ Limited parts availability\n→ Your family uncomfortable when they need relief most\n\nSOLUTION: Your [Season] Prep Checklist\n\n✅ Schedule professional tune-up NOW (before the rush)\n✅ Replace your air filter ([LINK to filters])\n✅ Clear debris from outdoor unit\n✅ Test thermostat on [HEAT/COOL] mode\n✅ Check for unusual noises or smells\n\nYour system is [SYSTEM_AGE] years old. [IF 10+ years: Systems this age need extra attention to prevent breakdowns.]\n\nSPECIAL FOR YOU: $[AMOUNT] off [season] tune-up through [DATE]\n\nIncludes: Full inspection, filter change, efficiency testing, safety check, priority emergency service all season.\n\n[BOOK NOW BUTTON]\n\nQuestions? Just reply to this email.\n\nStay comfortable,\n[YOUR_NAME]\n[YOUR_COMPANY]\n[PHONE]\n\nP.S. First [NUMBER] to book get a free smart thermostat consultation ($150 value)",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "The truth about your energy bill (from an HVAC tech)",
+        "preview": "After [X] years, here's what I've learned...",
+        "body": "[FIRSTNAME],\n\nI've been inside [NUMBER]+ homes in [CITY] over [X] years.\n\nAnd I keep seeing the same expensive mistake.\n\nATTENTION: Your energy bill is probably 30-40% higher than it needs to be.\n\nNot because of your habits. Because of your equipment.\n\nINTEREST: Here's what we discovered:\n\nWe analyzed energy bills for 200+ customers before and after HVAC upgrades.\n\nAverage old system (15+ years): $3,847/year\nAverage new high-efficiency: $1,923/year\nAnnual savings: $1,924\n\nThat's $160/month back in your pocket.\n\nDESIRE: But it gets better:\n→ 10-year warranty (zero repair costs)\n→ Financing as low as $[AMOUNT]/month\n→ System pays for itself in [X] years\n→ Home value increases $[AMOUNT]\n→ Perfect comfort, every room\n\n[IF SYSTEM_AGE 15+: [FIRSTNAME], your system is [AGE] years old. You're in the high-cost zone.]\n\nACTION: Free Energy Assessment\n\nWe'll:\n✓ Analyze your current costs\n✓ Calculate your savings potential\n✓ Show you options at different price points\n✓ Zero pressure, just information\n\n[SCHEDULE ASSESSMENT BUTTON]\n\nServing [CITY] since [YEAR]. [NUMBER] five-star Google reviews.\n\nLet's see how much you could save,\n[YOUR_NAME]\n\nP.S. Assessment includes free air quality test ($99 value). See what you're breathing.",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRSTNAME], your AC is [AGE] years old. Here's what happens next.",
+        "preview": "Don't wait for it to die during a heat wave...",
+        "body": "Hi [FIRSTNAME],\n\nI pulled up your service history. Your [BRAND] system was installed in [INSTALL_YEAR].\n\nThat makes it [AGE] years old.\n\nBEFORE (what you're experiencing now):\n→ Higher energy bills than necessary\n→ Repairs getting more frequent\n→ Worry about when it'll die\n→ [IF R22: Expensive R-22 refrigerant ($150+/lb)]\n\nAFTER (what's possible):\n→ Energy costs cut 40-50%\n→ 10-year worry-free warranty\n→ Smart home integration\n→ Every room perfectly comfortable\n→ Whisper-quiet operation\n\nBETTER (why thousands choose us):\n✓ [YEARS] years serving [CITY]\n✓ [NUMBER]+ five-star reviews\n✓ Multiple options, all price points\n✓ Financing from $[AMOUNT]/month\n✓ Same-day installation available\n\nREAL NUMBERS:\nAverage customer saves $[AMOUNT]/year on energy\nSystem pays for itself in [X] years\nAfter that? Pure savings.\n\nYOUR NEXT STEP:\n\nFree in-home assessment. We'll:\n→ Evaluate your current system\n→ Calculate your savings potential\n→ Show you options (no pressure)\n→ Answer all your questions\n\n[SCHEDULE FREE ASSESSMENT]\n\nOr call/text: [PHONE]\n\nDon't wait for an emergency. Plan this on YOUR terms.\n\n[NUMBER] assessment spots left this week.\n\nTalk soon,\n[YOUR_NAME]\n[YOUR_COMPANY]\n\nP.S. Mention this email for an extra $[AMOUNT] off any installation booked by [DATE]",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X]% of AC units over 15 years old fail during the first heat wave—is yours next?",
+      "Cut your [$400+] electric bill to [$200] in [30 days] with a system tune-up",
+      "[Same-day service] in [2 hours or less] when your AC dies in [95°F+] heat"
+    ],
+    "question_hooks": [
+      "Are you sleeping in an [85-degree bedroom] because your AC can't keep up?",
+      "Are you getting [wildly different quotes] and worried about getting ripped off?",
+      "Is your [upstairs 10 degrees hotter] than downstairs no matter what you try?"
+    ],
+    "story_hooks": [
+      "How a [City] family went from [$500 electric bills] to [$210] after their AC upgrade",
+      "How [Sarah's 18-year-old furnace] made it through winter without the Christmas morning breakdown",
+      "How one [musty smell complaint] revealed a [$3,000 air quality problem] we fixed for [$800]"
+    ],
+    "fear_hooks": [
+      "Is your [15+ year old system] one heat wave away from a [$8,000 emergency]?",
+      "Is that [banging noise from your furnace] actually dangerous to your family?",
+      "Is your [ice-covered AC unit in 95°F heat] about to cost you thousands in repairs?"
+    ],
+    "howto_hooks": [
+      "How to replace your AC without [paying $8,000 upfront]—financing that actually works",
+      "How to get [same-day AC repair] without [getting ghosted or ripped off]",
+      "How to know if you should [repair or replace] without [trusting a pushy sales pitch]"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: Your AC breaks during a 98° heat wave",
+      "body": "Show thermometer reading climbing (78°, 82°, 85°). Cut to phone ringing with 'Same Day Service' text overlay. Show technician arriving, diagnosing with thermal camera (visual of hot spots). Quick repair montage. End with family relaxing, thermostat showing 72°. Text overlay: 'Crisis avoided in 3 hours'",
+      "cta": "Link in bio for emergency service. We answer 24/7."
+    },
+    "reels": {
+      "hook": "This filter hasn't been changed in 2 years",
+      "body": "Reveal disgusting, black filter. Side-by-side with clean white filter. Show before/after energy bill ($487 vs $312). Quick stats: '22% higher bills, system works 40% harder, breaks down 3x faster.' Toss dirty filter, install new one.",
+      "cta": "Free filter check with any service call. Book now."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your 'comfort moment' - your family relaxing in a perfectly cool/warm home after we fixed or installed your system. Bonus: show the before (sweating, blankets, fans) vs after!",
+      "hashtag": "#ComfortRestored"
+    },
+    {
+      "prompt": "Record a quick video thanking your technician by name and sharing one thing they did that impressed you. We want to celebrate our team through your stories!",
+      "hashtag": "#HVACHeroes"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Thermal camera reveals of homes showing massive temperature differences between rooms, hot/cold spots, and insulation failures with 'Your house is leaking money' narrative",
+      "why": "Visual proof is shocking and shareable, homeowners tag friends asking 'is this normal?', creates urgency to get checked, educational value drives saves"
+    },
+    {
+      "angle": "'What your HVAC technician wishes you knew' series exposing common scams, overpriced repairs, and unnecessary replacements with specific pricing examples and red flags",
+      "why": "Empowers consumers against predatory companies, positions brand as trustworthy advocate, highly shareable as 'looking out for you' content, comment sections explode with horror stories"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:15:27.002Z",
+    "last_tier2_refresh": "2025-11-27T21:15:27.002Z",
+    "last_tier3_refresh": "2025-11-27T21:15:27.002Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:15:27.002Z"
+  }
+}

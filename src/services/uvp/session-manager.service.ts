@@ -146,7 +146,7 @@ export class SessionManagerService {
 
       const { data, error } = await supabase
         .from('uvp_sessions')
-        .select('id, session_name, website_url, current_step, progress_percentage, last_accessed, created_at')
+        .select('id, session_name, website_url, current_step, progress_percentage, last_accessed, created_at, brand_id')
         .eq('brand_id', brandId)
         .order('last_accessed', { ascending: false });
 
@@ -163,9 +163,48 @@ export class SessionManagerService {
         progress_percentage: row.progress_percentage || 0,
         last_accessed: new Date(row.last_accessed),
         created_at: new Date(row.created_at),
+        brand_id: row.brand_id,
       }));
 
       console.log('[SessionManager] Found', sessions.length, 'sessions');
+      return { success: true, sessions };
+    } catch (error) {
+      console.warn('[SessionManager] ⚠️ Unexpected error:', error);
+      return { success: false, error: String(error) };
+    }
+  }
+
+  /**
+   * List ALL sessions from database (regardless of brand)
+   * Used when no brand is selected to show all available sessions
+   */
+  async listAllSessions(): Promise<{ success: boolean; sessions?: SessionListItem[]; error?: string }> {
+    try {
+      console.log('[SessionManager] Listing ALL sessions from database');
+
+      const { data, error } = await supabase
+        .from('uvp_sessions')
+        .select('id, session_name, website_url, current_step, progress_percentage, last_accessed, created_at, brand_id')
+        .order('last_accessed', { ascending: false })
+        .limit(50); // Limit to 50 most recent sessions
+
+      if (error) {
+        console.warn('[SessionManager] ⚠️ Error listing all sessions:', error);
+        return { success: false, error: error.message };
+      }
+
+      const sessions: SessionListItem[] = data.map(row => ({
+        id: row.id,
+        session_name: row.session_name,
+        website_url: row.website_url,
+        current_step: row.current_step as UVPStepKey,
+        progress_percentage: row.progress_percentage || 0,
+        last_accessed: new Date(row.last_accessed),
+        created_at: new Date(row.created_at),
+        brand_id: row.brand_id,
+      }));
+
+      console.log('[SessionManager] Found', sessions.length, 'total sessions');
       return { success: true, sessions };
     } catch (error) {
       console.warn('[SessionManager] ⚠️ Unexpected error:', error);

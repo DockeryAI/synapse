@@ -47,7 +47,7 @@ export const OpportunityRadar: React.FC<OpportunityRadarProps> = ({
   onCreateContent,
   isSelected = () => false,
   filter = 'all',
-  maxVisible = 10,
+  maxVisible = 200, // INCREASED from 10 to show all insights
   hideHidden = true,
   className,
 }) => {

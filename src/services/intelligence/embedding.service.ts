@@ -46,37 +46,85 @@ class EmbeddingService {
   }
 
   /**
+   * Generate embeddings for multiple texts in a SINGLE API call
+   * OpenAI supports batch embedding - send array of texts, get array of embeddings
+   */
+  async generateBatchEmbeddings(texts: string[]): Promise<number[][]> {
+    if (texts.length === 0) return [];
+
+    const response = await fetch(`${this.SUPABASE_URL}/functions/v1/ai-proxy`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.SUPABASE_ANON_KEY}`,
+      },
+      body: JSON.stringify({
+        provider: 'openai',
+        endpoint: 'embeddings',
+        model: this.EMBEDDING_MODEL,
+        input: texts.map(t => t.substring(0, 8000)) // OpenAI accepts array of strings
+      })
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      throw new Error(`Batch embedding error: ${response.status} - ${error}`);
+    }
+
+    const data = await response.json();
+    // OpenAI returns embeddings in same order as input
+    return data.data.map((d: { embedding: number[] }) => d.embedding);
+  }
+
+  /**
    * Generate embeddings for multiple data points in batches
+   * OPTIMIZED: Uses batch API (100 texts per call instead of 1)
    */
   async embedDataPoints(dataPoints: DataPoint[]): Promise<DataPoint[]> {
     console.log(`[Embedding] Generating embeddings for ${dataPoints.length} data points...`);
+    const startTime = Date.now();
 
-    const BATCH_SIZE = 20;
+    // INCREASED batch size from 20 to 100 - OpenAI handles this easily
+    const BATCH_SIZE = 100;
     const embeddedPoints: DataPoint[] = [];
 
     for (let i = 0; i < dataPoints.length; i += BATCH_SIZE) {
       const batch = dataPoints.slice(i, i + BATCH_SIZE);
 
-      const embeddings = await Promise.all(
-        batch.map(async (dp) => {
+      try {
+        // Create text for each data point
+        const texts = batch.map(dp => this.createEmbeddingText(dp));
+
+        // SINGLE API call for entire batch instead of 100 separate calls!
+        const embeddings = await this.generateBatchEmbeddings(texts);
+
+        // Merge embeddings back into data points
+        batch.forEach((dp, idx) => {
+          embeddedPoints.push({
+            ...dp,
+            embedding: embeddings[idx]
+          });
+        });
+
+        console.log(`[Embedding] Batch ${Math.ceil((i + BATCH_SIZE) / BATCH_SIZE)}/${Math.ceil(dataPoints.length / BATCH_SIZE)} complete`);
+      } catch (error) {
+        console.warn(`[Embedding] Batch failed, falling back to individual:`, error);
+        // Fallback to individual if batch fails
+        for (const dp of batch) {
           try {
-            // Create rich text for embedding
             const text = this.createEmbeddingText(dp);
             const embedding = await this.generateEmbedding(text);
-            return { ...dp, embedding };
-          } catch (error) {
-            console.warn(`[Embedding] Failed for ${dp.id}:`, error);
-            return dp;
+            embeddedPoints.push({ ...dp, embedding });
+          } catch (e) {
+            embeddedPoints.push(dp);
           }
-        })
-      );
-
-      embeddedPoints.push(...embeddings);
-      console.log(`[Embedding] Processed ${Math.min(i + BATCH_SIZE, dataPoints.length)}/${dataPoints.length}`);
+        }
+      }
     }
 
     const successCount = embeddedPoints.filter(dp => dp.embedding).length;
-    console.log(`[Embedding] ✅ Generated ${successCount} embeddings`);
+    const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
+    console.log(`[Embedding] ✅ Generated ${successCount} embeddings in ${elapsed}s`);
 
     return embeddedPoints;
   }

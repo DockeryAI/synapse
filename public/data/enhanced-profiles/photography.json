@@ -1,0 +1,1683 @@
+{
+  "industry": "Photography",
+  "industry_name": "Photography",
+  "naics_code": "541921",
+  "category": "Professional Services",
+  "subcategory": "Creative and Artistic Services",
+  "customer_triggers": [
+    {
+      "trigger": "Wedding date set 6-12 months out requiring photographer booking",
+      "urgency": 9,
+      "frequency": "seasonal peaks"
+    },
+    {
+      "trigger": "New product launch needing e-commerce photography within 2 weeks",
+      "urgency": 8,
+      "frequency": "monthly"
+    },
+    {
+      "trigger": "LinkedIn profile views dropping below 100/month triggering headshot update",
+      "urgency": 5,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Real estate listing going live in 5 days needing property photos",
+      "urgency": 10,
+      "frequency": "weekly"
+    },
+    {
+      "trigger": "Corporate event or conference requiring event photographer",
+      "urgency": 7,
+      "frequency": "quarterly"
+    },
+    {
+      "trigger": "Website refresh showing 2+ year old imagery",
+      "urgency": 6,
+      "frequency": "bi-annual"
+    },
+    {
+      "trigger": "Social media engagement below 2% requiring fresh visual content",
+      "urgency": 7,
+      "frequency": "ongoing"
+    },
+    {
+      "trigger": "New baby arrival wanting newborn session within 14 days",
+      "urgency": 10,
+      "frequency": "sporadic"
+    },
+    {
+      "trigger": "Annual family reunion or milestone birthday approaching",
+      "urgency": 8,
+      "frequency": "annual"
+    },
+    {
+      "trigger": "Insurance claim requiring detailed property documentation",
+      "urgency": 10,
+      "frequency": "emergency"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Discovers need when seeing competitor's professional photos getting 3x more engagement, friend's stunning wedding album, or realizing iPhone photos look amateur on website",
+    "consideration": "Reviews 5-8 photographer portfolios over 1-2 weeks, compares styles and packages, reads 20+ reviews, checks Instagram feeds for consistency, evaluates investment from $500-5000 based on project type",
+    "decision": "Books based on portfolio style match (40% weight), personality fit (25% weight), price within budget (20% weight), availability (15% weight), typically deciding within 48 hours of consultation",
+    "retention": "Returns for annual updates, seasonal mini-sessions, refers 3-4 friends per year, upgrades to premium packages after seeing initial results showing 200% social media engagement increase",
+    "advocacy": "Posts photos across all social channels tagging photographer, leaves detailed 5-star reviews after receiving gallery, displays prints prominently, becomes brand ambassador when photos generate 50+ compliments"
+  },
+  "transformations": [
+    {
+      "from": "Smartphone selfies with poor lighting",
+      "to": "Professional headshots that book meetings",
+      "emotional_value": "Confidence and executive presence",
+      "worth_premium": true
+    },
+    {
+      "from": "Blurry family snapshots",
+      "to": "Wall-worthy artistic portraits",
+      "emotional_value": "Family legacy and pride",
+      "worth_premium": true
+    },
+    {
+      "from": "Amateur product photos",
+      "to": "Commercial-quality images increasing sales 40%",
+      "emotional_value": "Business credibility and growth",
+      "worth_premium": true
+    },
+    {
+      "from": "No professional photos of life events",
+      "to": "Timeless memories beautifully captured",
+      "emotional_value": "Irreplaceable moments preserved",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic stock photography",
+      "to": "Authentic brand imagery",
+      "emotional_value": "Unique market positioning",
+      "worth_premium": false
+    },
+    {
+      "from": "Dark real estate photos",
+      "to": "Bright, inviting property images selling 32% faster",
+      "emotional_value": "Quick sale confidence",
+      "worth_premium": true
+    },
+    {
+      "from": "Missing important moments",
+      "to": "Every detail professionally documented",
+      "emotional_value": "Peace of mind and completeness",
+      "worth_premium": false
+    },
+    {
+      "from": "Inconsistent social media visuals",
+      "to": "Cohesive brand aesthetic",
+      "emotional_value": "Professional brand perception",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Social media likes increasing by 250% with professional photos",
+      "timeframe": "Within 7 days of posting",
+      "measurable": true
+    },
+    {
+      "metric": "LinkedIn profile views up 400% after headshot update",
+      "timeframe": "30 days",
+      "measurable": true
+    },
+    {
+      "metric": "Product sales conversion rate improving from 2.1% to 3.8%",
+      "timeframe": "60 days",
+      "measurable": true
+    },
+    {
+      "metric": "Real estate properties selling 21 days faster with professional photos",
+      "timeframe": "Immediate impact",
+      "measurable": true
+    },
+    {
+      "metric": "Print sales generating additional $800-2000 revenue",
+      "timeframe": "30 days post-session",
+      "measurable": true
+    },
+    {
+      "metric": "Website bounce rate decreasing from 68% to 41%",
+      "timeframe": "14 days after image update",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Wedding venue only holds date for 48 hours without photographer confirmation",
+    "Product launch scheduled with media already bought for specific date",
+    "Real estate showing scheduled this weekend needs photos by Thursday",
+    "LinkedIn article going viral requires updated headshot immediately",
+    "Baby will only be newborn for first 14 days for those curled poses",
+    "Annual report deadline requires executive portraits by month end",
+    "Insurance adjuster coming tomorrow needs documentation today"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Too expensive at $3,000 for wedding photography",
+      "response": "You'll look at these photos every day for 50+ years, making it just 16 cents per day for professional memories vs phone photos you'll rarely revisit",
+      "effectiveness": 8.9
+    },
+    {
+      "objection": "My iPhone 14 Pro takes great photos",
+      "response": "While phone cameras are impressive, professional photographers bring lighting, posing expertise, and editing skills that transform snapshots into art, plus backup equipment ensuring no missed moments",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "I'm not photogenic",
+      "response": "That's exactly why you need a professional - we know 47 different poses and lighting setups to flatter every face shape and body type, with 98% of clients surprised how good they look",
+      "effectiveness": 9.2
+    },
+    {
+      "objection": "Don't have time for a photo session",
+      "response": "We offer 30-minute express sessions that deliver 20+ edited images, and our mobile studio can come to your office, saving travel time",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "Can't we just use stock photos?",
+      "response": "Authentic photography increases engagement by 67% over stock photos, and Google prioritizes original images, improving your SEO ranking by an average of 3 positions",
+      "effectiveness": 8.4
+    },
+    {
+      "objection": "Need to think about it",
+      "response": "Totally understand - while you're considering, I'll hold your preferred date for 24 hours at no obligation, as my calendar fills 3-4 weeks out and I'd hate for you to miss your ideal timing",
+      "effectiveness": 7.8
+    },
+    {
+      "objection": "Want to see more examples first",
+      "response": "I'll send you a private gallery with 50+ images from similar projects, plus contact info for 3 recent clients who were initially unsure but are now repeat customers",
+      "effectiveness": 8.7
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "100% satisfaction or free reshoot within 30 days",
+      "Minimum 50 edited images or session is free",
+      "Weather guarantee for outdoor sessions",
+      "Equipment backup guarantee with redundant cameras"
+    ],
+    "proof_points": [
+      "500+ five-star reviews across Google and Facebook",
+      "Featured in 3 national photography magazines",
+      "Certified Professional Photographer (CPP) designation",
+      "$1M liability insurance for all sessions"
+    ],
+    "risk_mitigation": "Pay only 25% deposit to book, remaining balance due only after seeing preview gallery, with option to cancel if unsatisfied with no further obligation"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "unflattering photos",
+      "awkward poses",
+      "bad lighting",
+      "missed moments",
+      "blurry images",
+      "expensive packages",
+      "pushy photographer",
+      "long wait times",
+      "limited options",
+      "poor communication"
+    ],
+    "solution_words": [
+      "stunning images",
+      "natural poses",
+      "perfect lighting",
+      "every moment captured",
+      "magazine quality",
+      "investment in memories",
+      "relaxed experience",
+      "quick turnaround",
+      "flexible packages",
+      "responsive service"
+    ],
+    "avoid_jargon": [
+      "aperture",
+      "bokeh",
+      "ISO",
+      "f-stop",
+      "depth of field",
+      "white balance",
+      "RAW files",
+      "chromatic aberration",
+      "dynamic range",
+      "exposure triangle"
+    ]
+  },
+  "power_words": [
+    "stunning",
+    "timeless",
+    "captivating",
+    "authentic",
+    "magazine-worthy",
+    "breathtaking",
+    "artistic",
+    "memorable",
+    "professional",
+    "elegant",
+    "natural",
+    "vibrant",
+    "classic",
+    "modern",
+    "luxury",
+    "exclusive",
+    "award-winning",
+    "creative",
+    "beautiful",
+    "perfect",
+    "exceptional",
+    "premier",
+    "signature",
+    "bespoke",
+    "refined",
+    "sophisticated",
+    "compelling",
+    "dramatic",
+    "intimate",
+    "candid"
+  ],
+  "avoid_words": [
+    "cheap",
+    "discount",
+    "amateur",
+    "basic",
+    "simple",
+    "quick",
+    "budget",
+    "standard",
+    "regular",
+    "common",
+    "snapshot",
+    "ordinary",
+    "generic",
+    "template",
+    "boring",
+    "flat",
+    "dull",
+    "mediocre",
+    "acceptable",
+    "adequate"
+  ],
+  "headline_templates": [
+    {
+      "template": "Transform Your [Business/Event] With Photography That Sells",
+      "expected_ctr": 4.5,
+      "use_case": "Commercial photography"
+    },
+    {
+      "template": "Book Now: Only [X] Wedding Dates Left for [Season]",
+      "expected_ctr": 6.2,
+      "use_case": "Wedding urgency"
+    },
+    {
+      "template": "See Why 500+ Families Trust Us With Their Memories",
+      "expected_ctr": 5.1,
+      "use_case": "Family photography"
+    },
+    {
+      "template": "Professional Headshots That Book 3X More Meetings",
+      "expected_ctr": 5.8,
+      "use_case": "Corporate headshots"
+    },
+    {
+      "template": "Your Products Deserve Photos That Convert at 40% Higher",
+      "expected_ctr": 4.9,
+      "use_case": "Product photography"
+    },
+    {
+      "template": "From Camera Shy to Confident: Real Client Transformations",
+      "expected_ctr": 6.7,
+      "use_case": "Personal branding"
+    },
+    {
+      "template": "Limited Time: Free Engagement Session With Wedding Booking",
+      "expected_ctr": 5.4,
+      "use_case": "Package promotion"
+    },
+    {
+      "template": "Why Your Competitors' Photos Get More Engagement",
+      "expected_ctr": 4.3,
+      "use_case": "Problem agitation"
+    },
+    {
+      "template": "[Location]'s Most Awarded Photography Studio",
+      "expected_ctr": 4.8,
+      "use_case": "Authority building"
+    },
+    {
+      "template": "48-Hour Turnaround: Professional Photos When You Need Them",
+      "expected_ctr": 5.6,
+      "use_case": "Speed emphasis"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "View Our Portfolio & Check Your Date",
+      "conversion_rate": 7.8,
+      "placement": "Homepage hero"
+    },
+    {
+      "template": "Get Your Custom Quote in 60 Seconds",
+      "conversion_rate": 8.4,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Download: What to Wear Guide (Free PDF)",
+      "conversion_rate": 9.2,
+      "placement": "Blog posts"
+    },
+    {
+      "template": "Book Your Session - Save $200 This Month",
+      "conversion_rate": 6.9,
+      "placement": "Email campaigns"
+    },
+    {
+      "template": "See Real Client Galleries",
+      "conversion_rate": 7.3,
+      "placement": "Portfolio page"
+    },
+    {
+      "template": "Schedule Your Free Consultation Call",
+      "conversion_rate": 8.1,
+      "placement": "Contact page"
+    },
+    {
+      "template": "Reserve Your Date With Just $99",
+      "conversion_rate": 7.6,
+      "placement": "Booking page"
+    },
+    {
+      "template": "Join 5,000+ Happy Clients - Start Here",
+      "conversion_rate": 6.5,
+      "placement": "Footer"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Behind the lens: Capturing [Client]'s perfect moment at [Location] 📸 That golden hour light though! ✨ #PhotographerLife #[LocationTag]",
+      "engagement_rate": 8.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "⭐⭐⭐⭐⭐ 'Best decision ever!' - Sarah M. just received her wedding gallery. Now booking 2025 dates - only 12 Saturdays left!",
+      "engagement_rate": 5.7
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Professional headshots statistically increase profile views by 400%. Just wrapped a corporate session for [Company] - 47 headshots in 4 hours. Efficiency meets excellence.",
+      "engagement_rate": 4.2
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Poses Every Bride Should Know | Including the viral 'veil toss' that's gotten 50K+ repins | Full guide on blog [Link]",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Swipe to see the before/after magic ➡️ Natural light vs. professional lighting makes ALL the difference #TransformationTuesday",
+      "engagement_rate": 9.8
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a photographer and the bride says 'just take candids' then asks for 73 specific posed shots 😂 #WeddingPhotographer #Reality",
+      "engagement_rate": 14.3
+    },
+    {
+      "platform": "Facebook",
+      "template": "Mini Session Alert! 🍂 Fall family portraits - 20 minutes, 15 edited images, only $299. Just 8 spots available for October 15th!",
+      "engagement_rate": 7.1
+    },
+    {
+      "platform": "Instagram",
+      "template": "That moment when perfect light meets perfect timing 🌅 This is why we always recommend golden hour sessions",
+      "engagement_rate": 7.9
+    },
+    {
+      "platform": "Twitter",
+      "template": "Reminder: Your LinkedIn photo from 2018 isn't doing you any favors in 2024. Time for an update? DM for quick session info.",
+      "engagement_rate": 3.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "48-hour turnaround when competitors take 3-4 weeks",
+      "rank": 1,
+      "differentiator": "Speed without sacrificing quality"
+    },
+    {
+      "prop": "Unlimited poses and outfit changes in all sessions",
+      "rank": 2,
+      "differentiator": "Value and flexibility"
+    },
+    {
+      "prop": "Mobile studio brings professional setup to your location",
+      "rank": 3,
+      "differentiator": "Convenience factor"
+    },
+    {
+      "prop": "Every image hand-edited by award-winning retouchers",
+      "rank": 4,
+      "differentiator": "Premium quality assurance"
+    },
+    {
+      "prop": "Lifetime storage of your images in cloud gallery",
+      "rank": 5,
+      "differentiator": "Long-term value"
+    },
+    {
+      "prop": "Same-day sneak peeks for social media sharing",
+      "rank": 6,
+      "differentiator": "Instant gratification"
+    },
+    {
+      "prop": "Complimentary styling consultation with every booking",
+      "rank": 7,
+      "differentiator": "Full-service experience"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your image with luxury photography that captures not just moments, but emotions. Our signature style combines artistic vision with technical mastery, creating heirloom-quality images that appreciate in value over time. Every session includes professional styling consultation, premium retouching, and archival-quality prints.",
+    "budget_conscious": "Professional photography that fits your budget without compromising quality. Our streamlined process and efficient shooting style delivers stunning results at fair prices. Mini-sessions, digital-only packages, and payment plans make professional photography accessible for everyone.",
+    "enterprise": "Corporate photography solutions designed for scale and brand consistency. From hundreds of headshots to nationwide location shoots, our team delivers uniform quality with project management expertise. Includes brand guidelines compliance, bulk processing, and enterprise cloud delivery systems."
+  },
+  "trust_signals": [
+    {
+      "signal": "Professional Photographers of America member since 2010",
+      "importance": 7,
+      "format": "Certification badge"
+    },
+    {
+      "signal": "1000+ weddings photographed without a single complaint",
+      "importance": 9,
+      "format": "Statistics graphic"
+    },
+    {
+      "signal": "Featured in Vogue, Martha Stewart Weddings, and Style Me Pretty",
+      "importance": 8,
+      "format": "Media logos"
+    },
+    {
+      "signal": "4.9 star average across 500+ Google reviews",
+      "importance": 9,
+      "format": "Review widget"
+    },
+    {
+      "signal": "$2M professional liability insurance coverage",
+      "importance": 7,
+      "format": "Insurance certificate"
+    },
+    {
+      "signal": "Exclusive photographer for 5 Fortune 500 companies",
+      "importance": 8,
+      "format": "Client logos"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "97% of clients book again or refer friends",
+      "credibility_score": 9.1,
+      "context": "Based on 3-year client survey data"
+    },
+    {
+      "stat": "Average client rates experience 9.7/10",
+      "credibility_score": 8.8,
+      "context": "From 1,200+ post-session surveys"
+    },
+    {
+      "stat": "15 international photography awards in past 5 years",
+      "credibility_score": 8.3,
+      "context": "Including WPPI and PPA recognition"
+    },
+    {
+      "stat": "2.3 million images delivered to happy clients",
+      "credibility_score": 7.9,
+      "context": "Since studio founding in 2010"
+    },
+    {
+      "stat": "62% of business from referrals",
+      "credibility_score": 8.6,
+      "context": "Indicating exceptional satisfaction"
+    }
+  ],
+  "quality_indicators": [
+    "Full-frame camera mention indicates professional equipment vs crop sensor",
+    "Prime lens collection suggests artistic capability vs kit zoom lenses",
+    "Studio lighting equipment shows indoor capability vs natural light only",
+    "Backup equipment mentioned demonstrates reliability and professionalism",
+    "Print lab partnerships indicate quality output vs consumer printing",
+    "Calibrated monitor reference shows color accuracy commitment"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 3,
+    "trigger_event": "Client posts photos on social media with positive caption or receives 20+ positive comments",
+    "ask_method": "Personal text message with direct link to Google review page, followed by email with pre-written testimonial template they can customize"
+  },
+  "competitive_advantages": [
+    "Only local photographer with Profoto lighting certification",
+    "Exclusive partnership with area's premier wedding venues",
+    "In-house printing lab for same-week physical products",
+    "Bilingual team serving Hispanic market competitors ignore",
+    "24/7 online booking system with instant confirmation",
+    "Proprietary editing style recognized by industry leaders"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Show $8,000 luxury wedding package first to make $3,500 standard package appear reasonable",
+    "sensitivity": "Price points at $497, $997, $1,997 align with psychological barriers",
+    "sweet_spots": [
+      "$150-300 for headshots",
+      "$500-1500 for family sessions",
+      "$2,500-4,000 for weddings"
+    ],
+    "decoy_pricing": "Offer $1,497 silver package to push buyers to $1,997 gold with 50% more value for 33% more cost"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 500,
+    "approval_required": 2000,
+    "competitor_research": 1000
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.25,
+    "holiday": 3
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Essential",
+      "price_range": "$200-500",
+      "target_customer": "Individual portraits and headshots",
+      "margin": 65
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$500-2,000",
+      "target_customer": "Family sessions and small events",
+      "margin": 72
+    },
+    {
+      "tier": "Luxury",
+      "price_range": "$2,000-10,000",
+      "target_customer": "Weddings and commercial projects",
+      "margin": 78
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Digital delivery only options eliminate print costs for 85% margins",
+    "Upsell wall art and albums with 300% markup over cost",
+    "Batch similar sessions on same day to reduce travel and setup time",
+    "Implement print credit model forcing minimum purchase amounts",
+    "Charge separately for expedited editing at premium rates",
+    "License image usage rights for commercial clients at 90% margin"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 0.6,
+      "reason": "Post-holiday slowdown",
+      "opportunity": "Headshot specials for new year goals"
+    },
+    {
+      "month": "February",
+      "variation": 0.8,
+      "reason": "Valentine's mini sessions",
+      "opportunity": "Couple's photography promotions"
+    },
+    {
+      "month": "March",
+      "variation": 1.1,
+      "reason": "Spring wedding bookings begin",
+      "opportunity": "Bridal show participation"
+    },
+    {
+      "month": "April",
+      "variation": 1.3,
+      "reason": "Graduation and prom season",
+      "opportunity": "Senior portrait packages"
+    },
+    {
+      "month": "May",
+      "variation": 1.5,
+      "reason": "Peak wedding season begins",
+      "opportunity": "Second shooter opportunities"
+    },
+    {
+      "month": "June",
+      "variation": 1.8,
+      "reason": "Maximum wedding demand",
+      "opportunity": "Premium pricing period"
+    },
+    {
+      "month": "July",
+      "variation": 1.4,
+      "reason": "Summer family reunions",
+      "opportunity": "Extended family packages"
+    },
+    {
+      "month": "August",
+      "variation": 1.2,
+      "reason": "Back-to-school photos",
+      "opportunity": "Mini session marathons"
+    },
+    {
+      "month": "September",
+      "variation": 1.6,
+      "reason": "Fall wedding season",
+      "opportunity": "Outdoor session focus"
+    },
+    {
+      "month": "October",
+      "variation": 1.7,
+      "reason": "Peak fall colors and Halloween",
+      "opportunity": "Themed mini sessions"
+    },
+    {
+      "month": "November",
+      "variation": 1.3,
+      "reason": "Holiday card photos",
+      "opportunity": "Family portrait rush"
+    },
+    {
+      "month": "December",
+      "variation": 0.9,
+      "reason": "Holiday events but fewer portraits",
+      "opportunity": "Corporate party coverage"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Commercial and product photography",
+      "avoid": "Wedding consultations",
+      "conversion_rate": 3.4
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Headshot sessions",
+      "avoid": "Family sessions",
+      "conversion_rate": 4.2
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Editing and delivery",
+      "avoid": "New bookings",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Consultations and planning",
+      "avoid": "Large events",
+      "conversion_rate": 4.6
+    },
+    {
+      "day": "Friday",
+      "best_for": "Wedding prep and rehearsals",
+      "avoid": "Corporate headshots",
+      "conversion_rate": 3.9
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Weddings and events",
+      "avoid": "Business photography",
+      "conversion_rate": 2.1
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Family sessions",
+      "avoid": "B2B communication",
+      "conversion_rate": 5.3
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Clients prefer booking after 1st and 15th when paychecks arrive",
+    "cash_flow_peaks": "Days 5-10 when session deposits are due",
+    "slow_periods": "Days 25-31 when clients are conserving for month end"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "2 hours before wedding ceremony",
+      "crisis_type": "Primary photographer emergency",
+      "premium_multiplier": 5
+    },
+    {
+      "time": "Day before real estate closing",
+      "crisis_type": "Property photos needed urgently",
+      "premium_multiplier": 3
+    },
+    {
+      "time": "Morning of corporate headshot day",
+      "crisis_type": "Photographer cancellation",
+      "premium_multiplier": 4
+    },
+    {
+      "time": "48 hours before product launch",
+      "crisis_type": "E-commerce photos required",
+      "premium_multiplier": 2.5
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Headshot Express",
+      "components": [
+        "30-minute session",
+        "3 looks",
+        "10 edited images",
+        "LinkedIn optimization guide"
+      ],
+      "pricing_model": "Fixed at $397",
+      "margin": 71
+    },
+    {
+      "name": "Family Forever",
+      "components": [
+        "90-minute session",
+        "3 locations",
+        "50 edited images",
+        "16x20 canvas print"
+      ],
+      "pricing_model": "Package at $1,297",
+      "margin": 68
+    },
+    {
+      "name": "Wedding Complete",
+      "components": [
+        "8 hours coverage",
+        "Second shooter",
+        "500+ edited images",
+        "Premium album",
+        "Engagement session"
+      ],
+      "pricing_model": "Package at $4,997",
+      "margin": 74
+    },
+    {
+      "name": "Brand Builder",
+      "components": [
+        "Monthly sessions",
+        "100 images/month",
+        "Social media sizing",
+        "Usage rights"
+      ],
+      "pricing_model": "Subscription at $2,000/month",
+      "margin": 82
+    }
+  ],
+  "upsell_paths": [
+    "Digital files only → Add 10 prints (+$300 with 70% margin)",
+    "Standard editing → Premium retouching (+$20/image)",
+    "Single location → Multiple locations (+$200/location)",
+    "6-hour coverage → 8-hour coverage (+$500)",
+    "Digital gallery → Premium leather album (+$800)",
+    "Standard turnaround → Rush 48-hour delivery (+$250)"
+  ],
+  "retention_hooks": [
+    "Annual family session membership with 20% discount",
+    "First look at mini-session dates before public release",
+    "Complimentary anniversary session after wedding",
+    "Loyalty program: 5th session free after 4 bookings",
+    "Exclusive client-only holiday party with free portraits",
+    "Birthday month discount reminders via email",
+    "Free cloud storage upgrade for repeat clients"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Print credit program: $50 credit for each successful referral",
+      "timing": "Triggered when referral books session",
+      "incentive": "$50 print credit",
+      "conversion_rate": 14.2
+    },
+    {
+      "strategy": "Friends and family mini-session events",
+      "timing": "Quarterly exclusive events",
+      "incentive": "Discounted group rates",
+      "conversion_rate": 11.8
+    },
+    {
+      "strategy": "Social media tag rewards",
+      "timing": "When clients post and tag studio",
+      "incentive": "5% off next session per tag",
+      "conversion_rate": 8.9
+    },
+    {
+      "strategy": "Wedding party discount cascade",
+      "timing": "After wedding delivery",
+      "incentive": "15% off for all wedding party members",
+      "conversion_rate": 16.3
+    },
+    {
+      "strategy": "Business card referral tracking",
+      "timing": "Ongoing with unique codes",
+      "incentive": "Both parties save $75",
+      "conversion_rate": 10.4
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Photo booth rental for events",
+      "attach_rate": 28,
+      "timing": "During wedding consultation"
+    },
+    {
+      "service": "Video highlights package",
+      "attach_rate": 22,
+      "timing": "After photography booking confirmed"
+    },
+    {
+      "service": "Custom framing services",
+      "attach_rate": 45,
+      "timing": "During image reveal session"
+    },
+    {
+      "service": "Annual storage and backup service",
+      "attach_rate": 31,
+      "timing": "At final delivery"
+    },
+    {
+      "service": "Photo restoration for old family photos",
+      "attach_rate": 19,
+      "timing": "During family sessions"
+    },
+    {
+      "service": "Social media content management",
+      "attach_rate": 15,
+      "timing": "After successful headshot session"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "360-degree product photography for e-commerce",
+      "market_size": "$450M growing 35% annually",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Drone photography and videography services",
+      "market_size": "$1.2B by 2025",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Virtual reality real estate tours",
+      "market_size": "$800M emerging market",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "AI-powered instant editing services",
+      "market_size": "$320M developing market",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Photography education and workshops",
+      "market_size": "$180M stable market",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Stock photography licensing platform",
+      "market_size": "$3.3B established market",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Jose Villa's Instagram carousel posts showcasing wedding photography with behind-the-scenes storytelling and technical details about lighting and composition",
+        "platform": "Instagram",
+        "why_it_worked": "Combined stunning final images with educational content about the creative process, building trust and demonstrating expertise while entertaining followers",
+        "metrics": "Average engagement rate of 4.2% with carousel posts receiving 2x more saves than single images",
+        "source": "Later.com Instagram Engagement Benchmarks 2024 and Jose Villa Instagram account analysis",
+        "confidence": "high"
+      },
+      {
+        "example": "Peter McKinnon's YouTube tutorial series 'Learn Photography in 10 Minutes' combining quick-win education with aspirational cinematography",
+        "platform": "YouTube",
+        "why_it_worked": "Addressed specific pain points with time-constrained format, used dramatic visuals and fast pacing to maintain attention, positioned photographer as educator and expert",
+        "metrics": "Videos average 500K-2M views, 95% like ratio, 8-12% engagement rate on comments",
+        "source": "Peter McKinnon YouTube channel analytics and Social Blade data",
+        "confidence": "high"
+      },
+      {
+        "example": "Sue Bryce's Facebook Live sessions offering free portrait photography critiques and business advice, building community engagement",
+        "platform": "Facebook",
+        "why_it_worked": "Live format created urgency and FOMO, direct interaction built personal connection, free value established authority and reciprocity",
+        "metrics": "Average 15K live viewers, 3K+ comments per session, 40% conversion to email list signups",
+        "source": "Sue Bryce Education case study and Facebook Live benchmarks",
+        "confidence": "medium"
+      },
+      {
+        "example": "Jasmine Star's email nurture sequence for wedding photographers featuring client booking templates and pricing guides as lead magnets",
+        "platform": "Email",
+        "why_it_worked": "Solved immediate practical problems, segmented audience by specialty, used storytelling about her own struggles to build connection",
+        "metrics": "42% open rate, 18% click-through rate, 12% conversion to paid courses",
+        "source": "Jasmine Star Social Curator marketing materials and email marketing case studies",
+        "confidence": "medium"
+      },
+      {
+        "example": "Brandon Woelfel's TikTok trend-jacking videos showing 'how I edit my photos' with trending audio, demystifying the creative process",
+        "platform": "TikTok",
+        "why_it_worked": "Leveraged trending sounds for algorithm boost, satisfied curiosity about 'how it's done', short format matched platform behavior, relatable personality",
+        "metrics": "Average 2M+ views per video, 8.5% engagement rate, 15% follower growth month-over-month",
+        "source": "TikTok Creator Analytics and Influencer Marketing Hub photography category data",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for photography accounts (higher than 1.47% platform average)",
+        "best_content_format": "Carousel posts (2.3x engagement vs single images), Reels (3.8% engagement rate)",
+        "optimal_frequency": "4-7 posts per week, 3-5 Reels per week",
+        "best_posting_times": "Tuesday-Thursday 9-11am and 7-9pm EST, Sunday 10am-12pm",
+        "source": "Later.com 2024 Instagram Benchmarks Report and Hootsuite Social Media Trends 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for photography business pages",
+        "best_content_format": "Video posts (0.89% engagement), photo albums from events/sessions, Facebook Live",
+        "optimal_frequency": "3-5 posts per week (daily posting shows diminishing returns)",
+        "best_posting_times": "Wednesday-Friday 1-3pm, Thursday 8-9am",
+        "source": "Sprout Social 2024 Best Times to Post and photography industry benchmarks"
+      },
+      {
+        "platform": "Pinterest",
+        "avg_engagement_rate": "Photography is top 3 category with 2.7x platform average engagement",
+        "best_content_format": "Vertical pins (2:3 ratio), Idea Pins with multiple images, video pins under 15 seconds",
+        "optimal_frequency": "5-10 new pins per day, consistent daily pinning",
+        "best_posting_times": "Saturday-Sunday 8-11pm, weekday evenings 8-10pm",
+        "source": "Pinterest Business 2024 Trends Report and Tailwind Pinterest Analytics"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% for photography/creative content creators",
+        "best_content_format": "Behind-the-scenes shoots (7.2% engagement), before/after reveals, tutorial content 15-60 seconds",
+        "optimal_frequency": "1-3 videos per day for growth phase, minimum 4-5 per week for maintenance",
+        "best_posting_times": "Tuesday-Thursday 7-9am and 7-11pm EST, Friday 5-7pm",
+        "source": "Influencer Marketing Hub TikTok Engagement Report 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "22.8% open rate, 2.9% click-through rate for photography services",
+        "best_content_format": "Portfolio showcases with storytelling, educational tips, seasonal mini-session announcements",
+        "optimal_frequency": "Bi-weekly for nurture campaigns, weekly during peak booking seasons",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm, avoid Mondays and weekends",
+        "source": "Mailchimp Email Marketing Benchmarks 2024 and Constant Contact Industry Reports"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "1.89% for photography professionals (corporate/headshot photographers)",
+        "best_content_format": "Document posts with carousel PDFs, native video under 3 minutes, text posts with single image",
+        "optimal_frequency": "3-5 posts per week",
+        "best_posting_times": "Tuesday-Wednesday 9-10am and 12pm, Thursday 9am and 1-2pm",
+        "source": "LinkedIn Marketing Solutions 2024 and Hootsuite B2B Social Media Benchmarks"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Mistake/Warning Pattern",
+        "example": "5 mistakes that ruin wedding photos (and how to avoid them) | Don't make this lighting mistake in portraits | The #1 reason your product photos aren't selling",
+        "why_it_works": "Triggers loss aversion and fear of missing out, positions photographer as expert who can prevent problems, creates curiosity gap",
+        "source": "Photography marketing case studies from Photowhoa and Format.com"
+      },
+      {
+        "hook_pattern": "Transformation/Before-After",
+        "example": "How I turned this cluttered room into a magazine-worthy listing photo | From awkward to confident: The headshot transformation | This product photo increased sales by 47%",
+        "why_it_works": "Provides social proof of capability, shows tangible results, appeals to desire for similar transformation",
+        "source": "High-performing photography Instagram posts and Facebook ad analysis"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes/Process Reveal",
+        "example": "What really happens during a newborn session | The truth about wedding photography timelines | Here's my exact editing process for portraits",
+        "why_it_works": "Demystifies the service, builds trust through transparency, satisfies curiosity, educates while entertaining",
+        "source": "YouTube photography channels and TikTok viral content analysis"
+      },
+      {
+        "hook_pattern": "Urgency/Scarcity",
+        "example": "Only 3 wedding dates left for 2024 | Last chance for fall mini sessions | 48-hour flash sale on headshot sessions",
+        "why_it_works": "Creates immediate action trigger, leverages FOMO, aligns with decision-making urgency customers already feel",
+        "source": "Photography studio email campaigns and social media ads"
+      },
+      {
+        "hook_pattern": "Problem-Agitation-Solution",
+        "example": "Tired of being the only mom not in family photos? | Your LinkedIn profile is losing you clients | Product photos that look amateur are costing you sales",
+        "why_it_works": "Speaks directly to pain point, agitates emotional response, positions photography as solution",
+        "source": "Photography service landing pages and ad copy from successful campaigns"
+      },
+      {
+        "hook_pattern": "Number/List Pattern",
+        "example": "7 signs you need new headshots | 10 questions to ask before booking a wedding photographer | 3 types of lighting that transform portraits",
+        "why_it_works": "Sets clear expectation of value, easy to scan and digest, promises complete information",
+        "source": "Photography blogs and email subject line testing data"
+      },
+      {
+        "hook_pattern": "Question Hook",
+        "example": "When was the last time you had a professional photo taken? | What if your wedding photos could look like this? | Are your product photos costing you sales?",
+        "why_it_works": "Engages reader mentally, prompts self-reflection, creates open loop requiring answer",
+        "source": "Social media engagement analysis and email marketing tests"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I'm always the one taking photos, so I'm never in any family pictures",
+        "My LinkedIn profile looks outdated and unprofessional",
+        "I don't know how to pose or what to do with my hands",
+        "Our wedding is in 8 months and all the good photographers are already booked",
+        "My product photos look cheap compared to my competitors",
+        "I hate how I look in photos so I avoid getting them taken",
+        "We need photos fast for our listing and can't wait weeks",
+        "I'm overwhelmed by all the photography packages and don't know what I actually need",
+        "The photographer I wanted is way out of my budget",
+        "I'm worried the photos won't turn out how I imagined"
+      ],
+      "solution_phrases": [
+        "I want photos I'm proud to hang on my walls",
+        "Looking for someone who can make me feel comfortable and natural",
+        "Need images that will make my products stand out and increase conversions",
+        "Want timeless photos we'll treasure for generations",
+        "Looking for a photographer who gets our vision and style",
+        "Need someone reliable who won't disappear with our wedding photos",
+        "Want to look confident and professional in my headshots",
+        "Looking for quick turnaround without sacrificing quality",
+        "Need a photographer who can direct us because we're awkward in front of cameras",
+        "Want authentic, candid moments not just posed shots"
+      ],
+      "objection_phrases": [
+        "That's more than I budgeted for photography",
+        "I'm not sure we need professional photos when phones are so good now",
+        "What if we don't like how the photos turn out?",
+        "How do I know you'll deliver the photos on time?",
+        "I'm camera shy and worried I'll look awkward",
+        "Do we really need to book this far in advance?",
+        "What's included in the package? Are prints extra?",
+        "I saw another photographer charging half your price",
+        "What if it rains on our outdoor session day?",
+        "Can we see all the photos or just the edited ones you choose?"
+      ],
+      "decision_factors": [
+        "Portfolio style matching our aesthetic and vision",
+        "Responsiveness and communication during inquiry process",
+        "Reviews and testimonials from past clients",
+        "Personality fit and feeling comfortable with the photographer",
+        "Turnaround time for receiving edited photos",
+        "Package inclusions and what's covered vs. add-ons",
+        "Availability on our specific date or timeline",
+        "Experience level with our specific type of photography need",
+        "Clear pricing and no hidden fees",
+        "Backup plan if photographer is sick or equipment fails"
+      ],
+      "emotional_language": [
+        "I want to feel beautiful and confident",
+        "These moments are irreplaceable and only happen once",
+        "I'm so excited but also nervous about being photographed",
+        "I want my family to remember us this way",
+        "I feel like I'm invisible in our family photos",
+        "I'm worried about regretting this decision later",
+        "I want to feel proud when clients see my headshot",
+        "This is a once-in-a-lifetime event and I'm stressed about getting it right",
+        "I want authentic memories, not stiff posed pictures",
+        "I'm investing in this because it matters to me"
+      ],
+      "sources": [
+        "Reddit r/WeddingPhotography customer threads",
+        "Reddit r/AskPhotography client questions",
+        "Google Reviews for top photography studios",
+        "Facebook photography recommendation threads in local groups",
+        "Yelp reviews for photography services",
+        "Photography studio consultation call transcripts",
+        "Wedding planning forum discussions",
+        "LinkedIn photography service testimonials"
+      ]
+    },
+    "competitive_gaps": [
+      "Educational content about what to wear for different types of photo sessions - most photographers assume clients know",
+      "Transparent pricing breakdowns explaining why professional photography costs what it does",
+      "Day-in-the-life content showing the full workflow from shoot to delivery",
+      "Accessibility-focused content for clients with disabilities or body image concerns",
+      "Post-session guidance on how to use, display, and preserve photos",
+      "Comparison guides helping clients choose between session types or packages",
+      "Client preparation resources sent before sessions (posing tips, outfit suggestions, timeline expectations)",
+      "Long-form case studies showing problem-solving for difficult shooting conditions",
+      "Content addressing photography for non-traditional families and diverse representation",
+      "Technical education for DIY product photography for small businesses who can't afford full service yet",
+      "Sustainability practices in photography (digital delivery, eco-friendly printing options)"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "New Year professional refresh, Valentine's Day couples sessions, tax refund spending",
+        "content_angle": "New year, new headshot campaigns; Valentine's couples mini-sessions; professional image refresh for Q1 goals"
+      },
+      {
+        "period": "March-May",
+        "opportunity": "Spring family sessions, graduation portraits, Mother's Day gift certificates, wedding season prep",
+        "content_angle": "Spring outdoor session showcases; graduation package promotions; Mother's Day gift marketing; last-minute wedding availability"
+      },
+      {
+        "period": "June-August",
+        "opportunity": "Peak wedding season, summer family vacation photos, back-to-school portraits, golden hour outdoor sessions",
+        "content_angle": "Wedding day behind-the-scenes; family reunion session promotions; senior portrait bookings; extended golden hour content"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Fall family photos peak demand, holiday card photo sessions, corporate headshot updates before year-end, engagement season begins",
+        "content_angle": "Fall foliage session showcases; holiday card deadlines and package deals; LinkedIn profile refresh for Q4; proposal photo services"
+      },
+      {
+        "period": "November-December",
+        "opportunity": "Holiday mini-sessions, gift certificates for Christmas, New Year's Eve event coverage, year-in-review content",
+        "content_angle": "Holiday-themed mini-session promotions; gift certificate marketing; event photography availability; portfolio year-end showcases"
+      },
+      {
+        "period": "Year-round event triggers",
+        "opportunity": "Newborn sessions (within 14 days of birth), real estate listing photos (5-day turnaround), corporate events, product launches",
+        "content_angle": "On-call availability messaging; fast turnaround case studies; relationship building with real estate agents and event planners"
+      },
+      {
+        "period": "Engagement season (November-February)",
+        "opportunity": "Newly engaged couples booking wedding photographers 12+ months in advance",
+        "content_angle": "Wedding portfolio showcases; early booking incentives; wedding planning guide lead magnets; venue collaboration content"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Later.com Instagram Benchmarks 2024",
+      "Hootsuite Social Media Trends 2024",
+      "Sprout Social Best Times to Post 2024",
+      "Pinterest Business Trends Report 2024",
+      "Influencer Marketing Hub TikTok Engagement Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "LinkedIn Marketing Solutions 2024",
+      "Reddit r/WeddingPhotography",
+      "Reddit r/AskPhotography",
+      "Google Reviews for photography studios",
+      "Yelp photography service reviews",
+      "Photography industry blogs (Format.com, Photowhoa)",
+      "YouTube analytics for photography creators",
+      "Social Blade influencer data",
+      "Facebook local photography recommendation groups",
+      "Wedding planning forums",
+      "Tailwind Pinterest Analytics"
+    ],
+    "confidence_score": 8.5,
+    "data_gaps": [
+      "Limited publicly available A/B testing data for photography-specific email subject lines",
+      "Conversion rate data from social media to bookings is rarely published by photographers",
+      "Specific ROI metrics for different content types are typically proprietary",
+      "Geographic variation in engagement rates and best posting times not fully captured"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new photography packages or service offerings",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Behind-the-scenes creation process - showing how the new service was developed based on client requests",
+        "Week 2: Transformation reveals - before/after examples demonstrating the new service's unique value",
+        "Week 3: Client testimonials and early adopter stories showcasing real results from the new offering",
+        "Week 4: Limited availability urgency - only X spots remaining for early booking discount"
+      ],
+      "weekly_hooks": [
+        [
+          "I've been secretly working on something for [client type] who told me: '[specific problem phrase]'",
+          "What really happens when [photography situation] - the truth about why [current solution] isn't working",
+          "5 mistakes photographers make with [service type] (I'm fixing all of them with this new approach)"
+        ],
+        [
+          "From [problem state] to [solution state]: Here's the exact [service] process I'm launching",
+          "This [client type] increased [metric] by [percentage] using my new [service approach] - here's how",
+          "The #1 reason your [photography type] isn't [desired outcome] (and how my new [service] solves it)"
+        ],
+        [
+          "When was the last time you felt [emotional desire from research]? Here's what [client name] said about their experience",
+          "[Number] clients have already booked - here's what they're saying about [new service benefit]",
+          "Don't make this mistake: [objection] - Here's the truth from someone who just experienced [new service]"
+        ],
+        [
+          "Only [number] spots left for [new service] at launch pricing - here's why this matters",
+          "48-hour flash: Early booking bonus for [new service] ends [specific date/time]",
+          "Last chance: [benefit] is only available to the first [number] clients who book [new service] this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm not sure we need professional photos when phones are so good now' by showing technical expertise and unique approach",
+        "Week 2: Address 'What if we don't like how the photos turn out?' with process transparency and quality guarantees",
+        "Week 3: Address 'That's more than I budgeted for photography' with value breakdown and ROI examples from early clients",
+        "Week 4: Address 'Do we really need to book this far in advance?' with scarcity proof and availability calendar"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce behind-the-scenes workflow footage showing professional equipment, backup systems, and expertise differentiators",
+        "Week 2: Share technical before/after editing breakdowns demonstrating the transformation process unique to new service",
+        "Week 3: Feature 3-5 detailed client testimonials with specific results metrics and emotional outcomes achieved",
+        "Week 4: Final credibility push with portfolio showcase, booking calendar showing limited availability, and satisfaction guarantee"
+      ],
+      "cta_progression": [
+        "Week 1: 'Comment below: What's your biggest challenge with [photography type]?' - engagement and research gathering",
+        "Week 2: 'Download my free [Service] Planning Guide to see if this is right for you' - lead magnet capture",
+        "Week 3: 'DM me 'INTERESTED' to get early access pricing before public launch' - qualified lead generation",
+        "Week 4: 'Book your [service] session now - only [number] launch spots at this investment level' - direct conversion"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week + 3-5 Reels/week) - Primary platform for visual portfolio and carousel storytelling",
+        "TikTok (1-3 videos/day) - Behind-the-scenes process reveals and transformation content for viral reach",
+        "Email (2 sends/week) - Detailed service breakdown, early access offers, and testimonial deep-dives",
+        "Facebook (3-4 posts/week) - Community engagement and Facebook Live Q&A about new service"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Jose Villa's Instagram carousel success (4.2% engagement with educational + portfolio content) and Jasmine Star's email nurture sequence achieving 42% open rates with practical value delivery before conversion asks"
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and consistent bookings",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Educational foundations - teaching clients what to expect and how to prepare for sessions",
+        "Week 2: Portfolio showcase - highlighting different photography styles and client transformations",
+        "Week 3: Behind-the-scenes transparency - demystifying the photography process from shoot to delivery",
+        "Week 4: Client preparation resources - what to wear, how to pose, session timeline expectations",
+        "Week 5: Problem-solving case studies - difficult lighting, weather challenges, camera-shy clients",
+        "Week 6: Seasonal opportunity positioning - upcoming holidays, family events, professional milestones",
+        "Week 7: Social proof and testimonials - letting satisfied clients tell their transformation stories",
+        "Week 8: Soft promotional - package options, booking availability, special offers for next month"
+      ],
+      "weekly_hooks": [
+        [
+          "5 things to do before your [session type] that make you look stunning (most people skip #3)",
+          "The truth about what to wear for [photography type] - and why that Pinterest board is wrong",
+          "Here's my exact [session type] timeline so you know what to expect from start to finish"
+        ],
+        [
+          "From awkward to confident: How this [client type] transformed their [photo type] in one session",
+          "This [specific photo scenario] increased [client's metric] by [percentage] - here's the approach",
+          "What magazine-worthy [photography type] actually looks like (and how we create it)"
+        ],
+        [
+          "What really happens during a [session type] - the complete behind-the-scenes process",
+          "Here's my exact editing workflow for [photography type] (and why it takes [timeframe])",
+          "The lighting setup that transforms [photography challenge] - technical breakdown"
+        ],
+        [
+          "Don't make this mistake: [common client preparation error] ruins [photography type]",
+          "[Number] outfit ideas for [session type] that photograph beautifully every time",
+          "Worried about [common fear]? Here's how I make every client feel natural and comfortable"
+        ],
+        [
+          "When [difficult situation] happened during [client's] session, here's how we solved it",
+          "This [weather/lighting challenge] could have ruined the shoot - here's the backup plan that saved it",
+          "How I photographed [challenging scenario] and still delivered breathtaking results"
+        ],
+        [
+          "Only [timeframe] left to book [seasonal opportunity] - here's why timing matters for [benefit]",
+          "[Seasonal event] is coming - [number] reasons to schedule your [session type] now",
+          "The best time to book [photography type] for [upcoming season/event] is actually right now"
+        ],
+        [
+          "When was the last time you felt [emotional desire]? Here's what [client name] experienced",
+          "I asked [client type] what surprised them most about their session - here's what they said",
+          "[Client name] was worried about [common objection] - here's their story and results"
+        ],
+        [
+          "[Number] session spots available for [month/season] - here's what's included",
+          "Thinking about [photography type]? Here's how to know if you're ready to book",
+          "New [package/offering] now available - designed for [client type] who want [specific outcome]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't know how to pose or what to do with my hands' through educational preparation content",
+        "Week 2: Address 'I'm worried the photos won't turn out how I imagined' with portfolio examples matching different visions",
+        "Week 3: Address 'How do I know you'll deliver the photos on time?' with transparent timeline and process breakdown",
+        "Week 4: Address 'I'm camera shy and worried I'll look awkward' with posing guidance and comfort-building techniques",
+        "Week 5: Address 'What if it rains on our outdoor session day?' with backup plan case studies",
+        "Week 6: Address 'Do we really need to book this far in advance?' with seasonal booking timeline education",
+        "Week 7: Address 'What's included in the package? Are prints extra?' through testimonials mentioning package clarity",
+        "Week 8: Address 'That's more than I budgeted for photography' with value breakdown in package presentation"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce educational credentials and years of experience with specific session counts",
+        "Week 2: Share portfolio with diversity of styles, client types, and successful outcomes",
+        "Week 3: Behind-the-scenes showing professional equipment, backup gear, and technical expertise",
+        "Week 4: Client preparation guides demonstrating thoroughness and customer service excellence",
+        "Week 5: Problem-solving examples proving reliability and adaptability under pressure",
+        "Week 6: Seasonal portfolio from previous years showing consistent quality and experience",
+        "Week 7: Detailed testimonials with specific metrics, emotional outcomes, and client photos",
+        "Week 8: Package details with satisfaction guarantee, refund policy, and booking security measures"
+      ],
+      "cta_progression": [
+        "Week 1: 'Save this post for when you book your next session' - low-commitment engagement",
+        "Week 2: 'Which style speaks to you? Comment A, B, or C below' - interactive engagement",
+        "Week 3: 'Tag someone who needs to see this process' - reach expansion",
+        "Week 4: 'Download my free Session Prep Guide in bio' - lead capture",
+        "Week 5: 'What photography challenge would you like me to solve? Comment below' - engagement and research",
+        "Week 6: 'Check availability for [seasonal opportunity] - link in bio' - soft conversion",
+        "Week 7: 'Ready for your transformation? DM me to chat about your vision' - conversation starter",
+        "Week 8: 'Book your session for [month] - [number] spots available' - direct conversion"
+      ],
+      "platform_priority": [
+        "Instagram (4-7 posts/week + 3-5 Reels/week) - Primary engagement and portfolio showcase platform",
+        "Pinterest (5-10 pins/day) - Evergreen discovery and inspiration content for long-tail traffic",
+        "Email (bi-weekly) - Deeper educational content and seasonal booking reminders",
+        "Facebook (3-5 posts/week) - Community building and local market engagement"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Peter McKinnon's educational YouTube success (500K-2M views per tutorial) and Sue Bryce's community-building approach (40% email conversion from free value), prioritizing education and authority before promotional content"
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign maximizing reach and new audience discovery",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Viral-optimized transformation reveals and before/after content across all platforms",
+        "Week 2: Trend-jacking with photography education - leveraging trending audio and formats while teaching valuable skills"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You finally see yourself the way everyone else does [before/after transformation reveal]",
+          "The difference between a $200 and $2,000 [photography type] (side-by-side comparison)",
+          "This [client type] had no idea they could look like this - watch the reaction",
+          "How I turned this [challenging scenario] into a magazine-worthy photo in [timeframe]",
+          "Before you book cheap photography, watch what happens to [specific photo element]",
+          "The moment [client] saw their [photo type] for the first time [emotional reveal]"
+        ],
+        [
+          "Using [trending audio] to show you my exact editing process for [photography type]",
+          "Everyone is doing [viral trend] but here's the photography version you need to see",
+          "How to make your [phone/amateur photos] look professional using this one trick",
+          "The lighting mistake everyone makes (and how to fix it) [trending format]",
+          "Watch me transform [ordinary scenario] into [stunning result] in 60 seconds",
+          "Photographers don't want you to know this simple [technique] - here's why"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'My iPhone 14 Pro takes great photos' by showing dramatic before/after comparisons highlighting professional difference",
+        "Week 2: Address 'I'm not photogenic' through transformation content proving everyone can look stunning with proper technique"
+      ],
+      "proof_timing": [
+        "Week 1: Lead with most dramatic transformation portfolio pieces showing clear before/after value",
+        "Week 2: Share client reaction videos and testimonials about being surprised by their own appearance in professional photos"
+      ],
+      "cta_progression": [
+        "Week 1: 'Follow for daily photography transformations and tips' - follower growth focus",
+        "Week 1: 'Share this with someone who needs to see their own transformation' - viral expansion",
+        "Week 2: 'Try this technique and tag me in your results' - user-generated content creation",
+        "Week 2: 'Want your own transformation? Link in bio to book' - conversion for hot leads"
+      ],
+      "platform_priority": [
+        "TikTok (3 videos/day) - Maximum viral potential with before/after and trend-jacking content",
+        "Instagram Reels (5-7 Reels/week) - Secondary viral platform with cross-posting from TikTok",
+        "Instagram carousel posts (1/day) - Before/after transformations with detailed storytelling",
+        "Pinterest video pins (3-5/day) - Evergreen discovery traffic from transformation content"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Brandon Woelfel's TikTok success (2M+ views, 8.5% engagement through trend-jacking with educational content) and Instagram carousel benchmark data showing 2.3x engagement for before/after transformation posts in photography niche"
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and premium positioning",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Photography fundamentals education - teaching the technical 'why' behind beautiful photos",
+        "Week 2: Common photography mistakes and professional solutions - positioning as problem-solver",
+        "Week 3: Client preparation mastery - comprehensive guides for different session types",
+        "Week 4: Industry insights and trends - what's changing in professional photography and why it matters",
+        "Week 5: Deep-dive case studies - complex projects and how professional expertise solved challenges",
+        "Week 6: Investment education - transparent pricing breakdown explaining professional photography value"
+      ],
+      "weekly_hooks": [
+        [
+          "The science behind why [lighting technique] makes everyone look stunning (technical breakdown)",
+          "Here's what [photography equipment/technique] actually does to your photos - most people don't know this",
+          "After [number] sessions, I've learned these [number] lighting setups work for every face shape"
+        ],
+        [
+          "5 mistakes that ruin [photography type] (and the professional fix for each one)",
+          "Don't make this [common error] - here's what it does to your [photo element] and how to avoid it",
+          "The #1 reason [photography type] looks amateur (and the professional approach that fixes it)"
+        ],
+        [
+          "The complete guide to preparing for [session type] - everything I tell my clients before we shoot",
+          "[Number] questions to ask before booking a [photography type] photographer (most people skip these)",
+          "Here's my exact [session type] preparation checklist I send every client - save this"
+        ],
+        [
+          "Why [industry trend] is changing [photography type] - and what it means for your photos",
+          "The truth about [photography topic] that most photographers won't tell you",
+          "After [number] years photographing [specialty], here's what I've learned about [specific insight]"
+        ],
+        [
+          "When [challenging scenario] happened during [client's] session, here's the professional solution I used",
+          "This [complex project] required [specific expertise] - here's the complete problem-solving process",
+          "How I photographed [difficult situation] and delivered results that [specific outcome]"
+        ],
+        [
+          "Here's why professional [photography type] costs [price range] - the complete value breakdown",
+          "What you're actually paying for when you invest in professional photography (it's not just clicking a button)",
+          "The difference between $[low price] and $[high price] [photography type] - transparent comparison"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm not sure we need professional photos when phones are so good now' through technical education showing professional advantages",
+        "Week 2: Address 'What if we don't like how the photos turn out?' by teaching quality indicators and professional standards",
+        "Week 3: Address 'I don't know how to pose or what to do with my hands' with comprehensive preparation education",
+        "Week 4: Address 'I'm overwhelmed by all the photography packages and don't know what I actually need' through decision-making framework",
+        "Week 5: Address 'How do I know you'll deliver the photos on time?' with case studies proving reliability and process",
+        "Week 6: Address 'That's more than I budgeted for photography' with transparent pricing education and value justification"
+      ],
+      "proof_timing": [
+        "Week 1: Establish technical credentials with equipment showcases, certifications, and training background",
+        "Week 2: Share portfolio examples illustrating each mistake vs. professional solution side-by-side",
+        "Week 3: Provide downloadable preparation guides demonstrating thoroughness and client service excellence",
+        "Week 4: Reference industry publications, speaking engagements, or professional association memberships",
+        "Week 5: Present detailed case studies with client testimonials about problem-solving and expertise",
+        "Week 6: Offer transparent pricing guides with package breakdowns and client investment testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: 'Save this for reference - follow for more photography education' - authority establishment",
+        "Week 2: 'Which mistake have you experienced? Comment below' - engagement and research",
+        "Week 3: 'Download my complete [Session Type] Preparation Guide - link in bio' - lead capture",
+        "Week 4: 'Not sure which package is right for you? Take my quiz - link in bio' - qualification tool",
+        "Week 5: 'Want to see more case studies? Join my email list for monthly deep-dives' - list building",
+        "Week 6: 'Ready to invest in professional photography? Schedule a consultation - link in bio' - qualified conversion"
+      ],
+      "platform_priority": [
+        "YouTube (1-2 videos/week) - Long-form educational content establishing deep expertise",
+        "LinkedIn (3-5 posts/week) - Professional authority building, especially for corporate/headshot photographers",
+        "Instagram carousel posts (3-4/week) - Educational deep-dives with multiple slides of teaching content",
+        "Email (weekly) - Comprehensive guides and case studies for engaged audience",
+        "Pinterest (5-10 pins/day) - Educational infographics and guides for long-tail discovery"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Peter McKinnon's educational YouTube approach (500K-2M views on technical tutorials with 95% like ratio) and Sue Bryce's authority-building through free education (40% conversion to email list from educational value delivery)"
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive polls, questions, and debates about photography preferences and decisions",
+        "Week 2: User-generated content prompts and community showcase celebrating audience participation"
+      ],
+      "weekly_hooks": [
+        [
+          "Quick poll: Would you rather have [option A] or [option B] for your [photography type]? Comment A or B",
+          "Honest question: When was the last time you had a professional photo taken? (I'm curious about the answers)",
+          "Debate time: [Controversial photography opinion] - agree or disagree? Let's discuss in comments",
+          "Fill in the blank: The hardest part about getting professional photos is ___",
+          "This or that: [Style A] vs [Style B] - which speaks to you? Comment your choice",
+          "Real talk: What's stopping you from booking [photography type] right now? No judgment, genuinely asking"
+        ],
+        [
+          "Show me your favorite photo of yourself - drop it in the comments (I'll share the best ones in stories)",
+          "Tag someone who needs new [photography type] and tell them why in the comments",
+          "Share your best photography tip in the comments - I'll compile the top ones into a guide",
+          "Post your phone wallpaper in the comments - I want to see what photos you treasure most",
+          "Tell me about the photo you wish you had - I'll share the most common answers and how to make them happen",
+          "Share a photo memory you're grateful for in the comments - let's celebrate what matters"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm camera shy and worried I'll look awkward' through community discussion normalizing the fear",
+        "Week 2: Address 'I'm always the one taking photos, so I'm never in any family pictures' by highlighting this common pain point in prompts"
+      ],
+      "proof_timing": [
+        "Week 1: Share engagement statistics and community size to demonstrate active, supportive audience",
+        "Week 2: Feature user-generated content and community member stories as social proof of engaged following"
+      ],
+      "cta_progression": [
+        "Week 1: 'Drop your answer in the comments - I read every single one' - comment engagement",
+        "Week 1: 'Share this poll in your stories and tag me with your answer' - reach expansion",
+        "Week 2: 'Tag 3 friends who would love this and comment why' - audience growth through referrals",
+        "Week 2: 'Want to be featured? Follow me and use #[YourHashtag] on your posts' - follower incentive"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-8 stories/day) - Interactive stickers, polls, questions, and quizzes for maximum engagement",
+        "Instagram Feed (2 posts/day) - Conversation-starter posts with strong comment prompts",
+        "Facebook (1-2 posts/day) - Community discussion posts and photo-sharing prompts",
+        "TikTok (2-3 videos/day) - Duet and stitch-friendly content encouraging user participation"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Sue Bryce's Facebook Live engagement success (15K live viewers, 3K+ comments per session through direct interaction) and Instagram engagement benchmarks showing photography content achieving 1.94% engagement with interactive carousel and story features driving 2.3x higher engagement"
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "Your LinkedIn profile is losing you clients.\n\nHere's what 73% of executives look at first: Your headshot.\n\nYet most professionals are using:\n→ Cropped wedding photos\n→ 5-year-old conference snapshots\n→ Poorly lit selfies\n\nThe data is clear: Professional headshots increase profile views by 400%.\n\n3 signs you need an update:\n\n1. Your photo is older than your current role\n2. You're wearing something you'd never wear to a client meeting\n3. The background is distracting or unprofessional\n\nWhat clients actually see in a great headshot:\n✓ Approachability and confidence\n✓ Current, relevant expertise\n✓ Attention to professional details\n\nI've photographed [NUMBER] executives this quarter. The common thread? They all waited too long.\n\nYour headshot is your digital handshake. Make it count.\n\nWhat's holding you back from updating yours?\n\n#ProfessionalHeadshots #ExecutivePresence #LinkedInTips #CorporatePhotography #PersonalBrand",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "After photographing [NUMBER] corporate events this year, I've noticed something fascinating:\n\nThe companies getting the most value from event photography aren't just documenting—they're strategizing.\n\nHere's their playbook:\n\nBEFORE the event:\n→ Shot list aligned with marketing goals\n→ Key stakeholder portraits scheduled\n→ Social media moments planned\n\nDURING the event:\n→ Real-time content for live posting\n→ Candid networking moments captured\n→ Speaker headshots between sessions\n\nAFTER the event:\n→ 48-hour gallery delivery\n→ Pre-sized assets for each platform\n→ Rights-cleared images for PR use\n\nThe ROI? [CLIENT COMPANY] generated 47 pieces of content from one half-day conference. Their social engagement jumped 340% that week.\n\nEvent photography isn't an expense. It's a content multiplication strategy.\n\nMost companies are sitting on goldmine moments and walking away with a handful of unusable photos.\n\nWhat's your approach to event content capture?\n\n#EventPhotography #CorporateEvents #ContentStrategy #B2BMarketing",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Remember when professional headshots meant stiff poses and awkward smiles?\n\nThat was the problem.\n\nNow imagine: Walking into a session where you're directed like an executive, not a mannequin. Natural conversation, not forced grins. Confident poses that actually feel like you.\n\nThat's the transformation.\n\nI'm opening [NUMBER] corporate headshot sessions for [MONTH]. Here's what's different:\n\n→ 15-minute sessions (because your time matters)\n→ On-location at your office (no travel disruption)\n→ Same-day digital delivery (when you need them fast)\n→ Unlimited outfit changes (get options for different contexts)\n→ Professional direction (you'll know exactly what to do)\n\nPerfect for:\n✓ Executive teams needing brand consistency\n✓ Sales professionals updating LinkedIn profiles\n✓ Companies onboarding new leadership\n✓ Anyone who's been putting this off for months\n\n[NUMBER] sessions available. [MONTH DATES].\n\nDM me 'HEADSHOT' or comment below and I'll send details.\n\nYour next client meeting starts with the photo they see first.\n\n#CorporateHeadshots #ProfessionalPhotography #ExecutivePortraits #[CITY]Business",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "5 mistakes that ruin wedding photos (and how to avoid them) 👰📸\n\nSwipe to see what 90% of couples don't know until it's too late →\n\n1️⃣ TIMELINE CHAOS: Rushing portraits = stressed faces. Build in 30 extra minutes.\n\n2️⃣ HARSH MIDDAY SUN: That 2pm ceremony? Squinty eyes in every shot. Golden hour or shade.\n\n3️⃣ CLUTTERED BACKGROUNDS: Beautiful dress, messy reception hall behind you. Scout locations first.\n\n4️⃣ FORGETTING FAMILY PHOTOS: Grandma left early. Make a shot list with your photographer.\n\n5️⃣ SKIPPING ENGAGEMENT SESSION: First time in front of camera = wedding day. Practice matters.\n\nThe couples with stunning galleries? They planned for photos, not just around them.\n\nSave this for your wedding planning! Which mistake surprised you most?\n\n📸 Photos from [COUPLE]'s [VENUE] wedding | [MONTH YEAR]\n\n#WeddingPhotography #WeddingPlanning #BrideTips #[CITY]Weddings #WeddingPhotographer",
+        "visual": "Carousel: Cover = split image showing mistake vs. correct approach. Slides 2-6 = each mistake with visual example and solution overlay. Slide 7 = stunning wedding photo with 'Plan ahead for timeless photos' text. Final slide = engagement CTA with booking info."
+      },
+      "authority": {
+        "caption": "What really happens during a newborn session (the truth) 👶\n\nMost parents think it's 1 hour of perfect baby poses.\n\nReality? It's 3 hours of patience, feeding breaks, and working with baby's rhythm.\n\nHere's my actual process:\n\n0:00 - Parents arrive, baby is awake (this is normal)\n0:20 - First feeding while we chat and baby settles\n0:45 - Now baby's sleepy, we start posing\n1:15 - Diaper change, another feeding\n1:45 - Deep sleep = magic happens\n2:30 - Family and sibling shots\n3:00 - Wrapped up with 40+ beautiful images\n\nThe secret? I never rush a newborn.\n\nStudio is 80°F (yes, I'm sweating). White noise playing. Patience unlimited.\n\nBecause these first 14 days? They're gone forever.\n\nParents of newborns: What surprised you most about your session? Drop a 👶 if you learned something new!\n\n#NewbornPhotography #NewbornPhotographer #BabyPhotography #[CITY]Newborn #NewbornSession",
+        "visual": "Behind-the-scenes photo of photographer working with newborn, showing the setup, props, and relaxed environment. Authentic, unpolished moment showing the reality vs. expectation. Include time stamps as text overlay showing the actual session timeline."
+      },
+      "promotional": {
+        "caption": "Only 3 fall mini session spots left 🍂\n\nThat golden autumn light? Gone by November.\n\nYour kids at this exact age? Never again.\n\n[DATE] | [LOCATION] | [TIME SLOTS]\n\n20-minute sessions, 15+ edited images, delivered in 5 days.\n\nPerfect for:\n✓ Holiday card photos\n✓ Grandparent gifts\n✓ Updating those family photos from 2019\n\nLast year these sold out in 36 hours. This year I added extra dates and we're down to final spots.\n\nInvestment: [PRICE] (includes digital gallery + print release)\n\nLink in bio to book or DM me 'FALL' for details.\n\nThese moments don't wait. Neither should you 🧡\n\n#FallMiniSessions #FamilyPhotography #[CITY]Photographer #FallPhotos #FamilyPortraits",
+        "visual": "Stunning fall family portrait from previous year's mini sessions, warm golden hour light, beautiful autumn colors. Vibrant, magazine-worthy image that showcases the transformation and emotional value. Text overlay: 'Only 3 spots left | [DATES]' in elegant font."
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "📸 PHOTOGRAPHY TIPS: How to prepare for your headshot session\n\nHey [CITY] professionals! Getting asked this a lot lately, so here's my complete prep guide:\n\n👔 WHAT TO WEAR:\n- Solid colors photograph better than busy patterns\n- Bring 2-3 outfit options (we'll choose what works best)\n- Avoid bright white (creates harsh contrast)\n- Your 'client meeting' outfit is usually perfect\n\n💇 GROOMING:\n- Schedule haircuts 1 week before (not day-of)\n- Minimal jewelry (less is more)\n- Matte makeup for women (shiny = unflattering)\n- Men: check for stray eyebrow/nose hairs (I'll see them!)\n\n😴 THE NIGHT BEFORE:\n- Get good sleep (tired eyes show up in photos)\n- Hydrate well (helps skin look fresh)\n- Avoid alcohol (reduces puffiness)\n\n🎯 DAY OF SESSION:\n- Arrive 5 minutes early to relax\n- Bring a bottle of water\n- Trust the process—I'll direct you completely\n\nThe #1 thing that makes headshots great? Confidence. And confidence comes from preparation.\n\nQuestions? Drop them below! Booking headshot sessions for [MONTH].\n\n[Your Name] Photography | [City] Professional Headshots\n\n#[City]Business #ProfessionalHeadshots #CareerTips #LinkedInProfile"
+      },
+      "authority": {
+        "template": "Can we talk about something the photography industry won't say out loud?\n\nYour phone camera is actually amazing.\n\nThere. I said it.\n\nSo why hire a professional photographer in 2024?\n\nAfter 15 years and [NUMBER] sessions, here's the honest answer:\n\n1. DIRECTION\nYou don't know what to do with your hands. Where to look. How to stand. I do. That's 80% of a great photo.\n\n2. LIGHTING\nYour phone captures light. I create it, shape it, control it. Massive difference.\n\n3. EDITING\nFilters vs. professional retouching? Not even close. Skin tones, color correction, professional polish.\n\n4. EXPERIENCE\nI've photographed [NUMBER] weddings/sessions/events. I know what works, what doesn't, and how to fix problems in real-time.\n\n5. THE MOMENT\nYou're experiencing it. I'm capturing it. You can't do both.\n\nBut here's what really matters:\n\nWhen your daughter's wedding photos hang in your home for 30 years...\nWhen your product photos increase sales by 40%...\nWhen your headshot books the meeting that changes your career...\n\nThat's not about the camera. That's about the photographer.\n\nTechnology is a tool. Vision, skill, and experience? That's what you're investing in.\n\nThoughts? What made you choose professional photography over DIY?\n\n📸 [Your Name] | [City] Photographer\n\n#PhotographyBusiness #ProfessionalPhotography #[City]Photographer"
+      },
+      "promotional": {
+        "template": "⭐⭐⭐⭐⭐ \"Best investment we made for our wedding!\"\n\nJust delivered [COUPLE]'s wedding gallery and I'm still emotional over these moments 😭💕\n\nTheir story: Booked me 14 months out (smart!), had a clear vision but trusted my expertise, and created a timeline that prioritized photos without feeling rushed.\n\nThe result? 487 stunning images capturing every moment, laugh, and happy tear.\n\nMy favorite part? The first look. [GROOM] absolutely lost it when he saw [BRIDE]. Not a dry eye anywhere.\n\n📸 Now booking 2025 weddings!\n\nCurrently available dates:\n[LIST 3-5 SPECIFIC DATES]\n\n2026 calendar opens [DATE].\n\nWhat's included:\n✓ Engagement session\n✓ 8 hours wedding day coverage\n✓ Second photographer\n✓ Online gallery + print release\n✓ Sneak peek within 48 hours\n✓ Full gallery in 6 weeks\n\nInvestment starts at [PRICE].\n\nThe photographers you love? They're booking 12-18 months out. If you found 'the one' (photographer or partner 😉), don't wait.\n\nComment 'INFO' below or message me for availability + pricing guide!\n\nCongratulations [COUPLE]! Thank you for trusting me with your most important day 🥂\n\n#[City]Wedding #WeddingPhotographer #2025Weddings #[Venue]Wedding #EngagedCouples"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're about to waste $3,000 on wedding photos",
+        "script": "HOOK: POV: You're about to waste $3,000 on wedding photos [show shocked face]\n\n[Cut to photographer speaking directly]\n\"Here's what nobody tells you before booking...\"\n\n[Quick cuts with text overlays]\n\n❌ MISTAKE 1: \"Booking the cheapest photographer\"\n[Show example of bad wedding photo]\n\"You get what you pay for. These moments don't have a redo button.\"\n\n❌ MISTAKE 2: \"Not checking the actual contract\"\n[Show contract pages flipping]\n\"Who owns the photos? What if they go out of business? READ IT.\"\n\n❌ MISTAKE 3: \"Skipping the engagement session\"\n[Show awkward couple vs. natural couple]\n\"This is your practice round. Use it.\"\n\n✅ WHAT TO DO INSTEAD:\n[Confident photographer speaking]\n\"Look at FULL galleries, not just Instagram highlights\"\n\"Meet them in person—you'll spend 8+ hours together\"\n\"Ask about backup plans, equipment, and timelines\"\n\n[Final shot: Beautiful wedding photo]\n\"Your wedding photos last forever. Choose like it.\"\n\n[Text overlay: \"Save this before you book! Part 2?\"]\n\n#weddingtok #weddingphotographer #bridetips #weddingplanning #photographytips"
+      },
+      "authority": {
+        "hook": "I've photographed 300+ weddings. Here's what the best ones do differently.",
+        "script": "HOOK: I've photographed 300+ weddings. Here's what the best ones do differently [knowing look]\n\n[Cut to photographer in studio]\n\"And it's not what you think...\"\n\n[Fast-paced cuts with overlays]\n\n1️⃣ \"They build in BUFFER TIME\"\n[Show timeline graphic]\n\"30 extra minutes in the schedule = relaxed, natural photos\"\n\"Rushed = stressed faces in every shot\"\n\n2️⃣ \"They feed their photographer\"\n[Show photographer eating quickly]\n\"We're working 10+ hours. Hangry photographer = missed moments\"\n\"Vendor meals are worth it.\"\n\n3️⃣ \"They trust their photographer's vision\"\n[Show behind-the-scenes directing]\n\"We've done this hundreds of times. You've done it once.\"\n\"Let us guide you.\"\n\n4️⃣ \"They make a DO NOT SHARE list\"\n[Show phone with social media]\n\"Aunt Karen posting blurry iPhone pics before your professional gallery? Hard pass.\"\n\n[Final wisdom shot]\n\"The couples with stunning photos didn't just hire well...\"\n\"They planned FOR photos, not just around them.\"\n\n[Text: \"Which tip surprised you? 👇\"]\n\n#weddingphotographer #photographertips #weddingtok #behindthescenes #weddingplanning"
+      },
+      "promotional": {
+        "hook": "If you're getting married in 2025 and don't have a photographer yet... we need to talk",
+        "script": "HOOK: If you're getting married in 2025 and don't have a photographer yet... [concerned face] we need to talk\n\n[Cut to calendar/planner shot]\n\"Here's the reality:\"\n\n[Show booking calendar with X's]\n\"The good photographers? Booked 12-18 months out.\"\n\n\"I'm already 80% full for 2025\"\n[Show remaining dates]\n\n[Serious tone, direct to camera]\n\"You can change your flowers, your favors, your menu...\"\n\n\"But bad wedding photos? That's forever.\"\n\n[Show stunning wedding photo examples, quick cuts]\n\"This is what you're investing in:\"\n- First look reactions\n- Your grandma dancing\n- That moment you said 'I do'\n- Details you'll forget\n\n[Back to photographer]\n\"I have [NUMBER] dates left for 2025:\"\n[List dates as text overlay]\n\n\"Link in bio for pricing + availability\"\n\n[Final shot: couple laughing]\n\"Your wedding day happens once.\"\n\"Make sure someone's there to capture it right.\"\n\n[Text overlay: \"DM me 'AVAILABLE' for open dates\"]\n\n#weddingphotographer #2025wedding #bookyourphotographer #weddingplanning #engagedcouples #weddingtok"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The family photo mistake you're probably making",
+        "preview_text": "And how to fix it before your next session",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: When was the last time you were IN a family photo?\n\nNot taking it. Actually in it.\n\nIf you're like most parents, the answer is \"I honestly can't remember.\"\n\nHere's what I see constantly:\n- Moms with thousands of photos of their kids... and maybe 5 of themselves\n- Dads who avoid cameras entirely\n- Families with no recent photos together because \"we'll do it next year\"\n\nThen next year comes. And goes.\n\nThe problem? Your kids won't remember what you looked like during these years. Not really.\n\nThey'll have photos of themselves. But not WITH you.\n\nHere's the truth that changed how I approach family photography:\n\nYour kids don't care if you're 15 pounds heavier or having a bad hair day.\n\nThey care that you were there. That you're in the frame with them.\n\nSo here's my challenge:\n\nBook a family session. Not \"someday.\" Not \"when we lose weight\" or \"after we redecorate.\"\n\nNow. This season. This version of your family.\n\nBecause this exact moment—these ages, these smiles, this season—it's already disappearing.\n\n[MONTH] family sessions are open. [NUMBER] spots available.\n\n→ Click here to see availability and pricing: [LINK]\n\nYour future self (and your kids) will thank you.\n\n[YOUR NAME]\nP.S. If budget is the concern, I offer payment plans. Don't let that be the reason you wait another year."
+      },
+      "authority": {
+        "subject": "Why your product photos aren't converting (from a commercial photographer)",
+        "preview_text": "3 technical mistakes costing you sales",
+        "body": "Hey [FIRST_NAME],\n\nYour product is great. Your photos? They're sabotaging your sales.\n\nI've photographed products for [NUMBER] e-commerce brands. The pattern is clear:\n\nBad product photos = low conversion rates. Every. Single. Time.\n\nHere's what's actually happening:\n\n❌ MISTAKE 1: Inconsistent lighting\nYour photos look like they're from different products. Customers notice. Trust drops.\n\n❌ MISTAKE 2: Poor background choices\nBusy backgrounds = distracted buyers. Clean, simple backgrounds = 34% higher conversion (yes, we track this).\n\n❌ MISTAKE 3: Missing the lifestyle context\nProduct-only shots don't tell the story. Customers need to see it in use, at scale, in real life.\n\nThe brands crushing it? They invest in professional product photography.\n\nNot once a year. Consistently. For every launch.\n\nBecause here's the reality:\n\nYou have 3 seconds to grab attention on a product page.\nYour photo is doing that work, not your description.\n\nIf your photos look amateur, your brand looks amateur.\nEven if your product is superior.\n\nI'm opening [NUMBER] product photography sessions for [MONTH].\n\nWhat you get:\n→ Studio or lifestyle shots (or both)\n→ Consistent lighting and editing across all products\n→ Multiple angles and detail shots\n→ Commercial rights for all platforms\n→ Fast turnaround (72 hours)\n\nPerfect for:\n- E-commerce brands launching new products\n- Companies refreshing their product catalog\n- Businesses tired of low conversion rates\n\n→ See portfolio + book a consultation: [LINK]\n\nYour product deserves photos that sell.\n\n[YOUR NAME]\n[COMPANY NAME] | Commercial Photography\n\nP.S. Current clients average 40% increase in conversion after updating product photography. Just saying."
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], only 12 wedding dates left for 2025",
+        "preview_text": "The dates you want are going fast",
+        "body": "Hi [FIRST_NAME],\n\nCongratulations on your engagement! 💍\n\nI'm reaching out because you inquired about wedding photography for [WEDDING_DATE], and I wanted to give you a heads up:\n\nI'm down to 12 available Saturdays for 2025.\n\n[YOUR_MONTH] specifically? Only 2 dates left.\n\nHere's what I'm seeing:\n\nCouples are booking 12-18 months out (sometimes longer). The photographers you love? They're filling up fast.\n\nI get it—wedding planning is overwhelming. Photography feels like something you can \"get to later.\"\n\nBut here's the reality:\n\nYou can change your centerpieces, your menu, even your venue in a pinch.\n\nYour photographer? That's a one-shot decision. And the good ones book early.\n\nWhy couples choose to work with me:\n\n✓ 15+ years capturing [CITY] weddings\n✓ Engagement session included (practice before the big day)\n✓ Second shooter (never miss a moment)\n✓ Sneak peek in 48 hours (because you can't wait 6 weeks)\n✓ Full gallery delivery in 6 weeks max\n✓ Print release included (your photos, your choice)\n\nInvestment: Starting at [PRICE] | Payment plans available\n\n→ Check current availability: [CALENDAR_LINK]\n→ View full wedding galleries: [PORTFOLIO_LINK]\n\nIf [YOUR_MONTH] [YEAR] is your date, let's chat this week.\n\nI'd love to be part of your day.\n\n[YOUR_NAME]\n[PHONE] | [WEBSITE]\n\nP.S. Not ready to decide? I hold dates for 7 days with a refundable deposit. No pressure, just peace of mind while you finalize details."
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X] signs your headshot is costing you clients (and losing you [Y]% of profile views)",
+      "[X] wedding photography mistakes that ruin [specific moment] photos forever",
+      "[X] product photo tweaks that increased conversions by [Y]% in [timeframe]",
+      "[X] questions to ask before booking [photography type] (that prevent disaster)",
+      "[X] poses that make [target audience] look confident instead of awkward in [timeframe]"
+    ],
+    "question_hooks": [
+      "Are you the only [family member] missing from every family photo because you're always behind the camera?",
+      "Is your [platform] profile losing you clients because your headshot looks outdated and unprofessional?",
+      "Are your product photos looking cheap compared to competitors and costing you sales?",
+      "Is your [event type] in [timeframe] and all the good photographers already booked?",
+      "Are you avoiding professional photos because you don't know what to do with your hands or how to pose?"
+    ],
+    "story_hooks": [
+      "How [client type] went from camera-shy and awkward to confident headshots they're proud to share on [platform]",
+      "How this [product type] seller increased sales [X]% just by changing their product photography approach",
+      "How [couple names] found their dream wedding photographer [timeframe] before their date when everyone said it was too late",
+      "How this [professional type] transformed their [platform] presence and started attracting [ideal client type] with one photo update",
+      "How [family type] finally got [family member] in the photos after [timeframe] of being the invisible photographer"
+    ],
+    "fear_hooks": [
+      "Is your wedding photographer going to disappear with your once-in-a-lifetime photos (and how to prevent it)?",
+      "Is your cheap product photography costing you [X]% of potential sales without you realizing it?",
+      "Is your outdated [platform] headshot making clients scroll past you to your competitors?",
+      "Is waiting to book your [event type] photographer going to leave you with no options for [specific date]?",
+      "Is your real estate listing losing buyers in the first [X] seconds because of amateur property photos?"
+    ],
+    "howto_hooks": [
+      "How to look natural and confident in headshots without feeling awkward or camera-shy",
+      "How to book the perfect wedding photographer [timeframe] out without settling or going over budget",
+      "How to get magazine-worthy product photos without expensive studio setups or waiting weeks for turnaround",
+      "How to finally appear in family photos without relying on awkward selfies or strangers",
+      "How to choose the right [photography type] package without confusion over what's included vs. hidden fees"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You're always behind the camera, never in family photos",
+      "body": "Show photographer setting up camera on tripod, hitting self-timer, running into frame with family. Cut to beautiful family portrait on wall. Text overlay: 'You deserve to be in the memories too.' Show 3 quick posing tips: relax shoulders, slight lean in, genuine laugh. End with before/after of awkward vs. natural pose.",
+      "cta": "Link in bio for session availability - let's get you IN the frame 📸"
+    },
+    "reels": {
+      "hook": "Why professional photos cost $500+ (photographer reacts)",
+      "body": "Split screen showing client's phone photo vs. professional result. Quick cuts showing: lighting setup (3 sec), posing direction (3 sec), editing workflow (4 sec), final gallery delivery (3 sec). Text: 'Equipment + Expertise + Editing + Experience = Investment in memories that last forever'",
+      "cta": "Save this to show your partner why it's worth it ❤️"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your favorite photo from your session and tell us one thing your photographer did that made you feel comfortable. Tag us!",
+      "hashtag": "#ComfortableInFrontOfCamera"
+    },
+    {
+      "prompt": "Share a before/after of where you display your professional photos in your home. We love seeing our work in your lives!",
+      "hashtag": "#ProudToDisplay"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "What to wear for photos: Show 3 outfit mistakes vs. 3 winning looks side-by-side with quick explanation why (patterns that clash, colors that wash out, etc.)",
+      "why": "Saves to reference later, fills knowledge gap most photographers don't address, highly practical and immediately useful"
+    },
+    {
+      "angle": "Photographer reacts to client's Pinterest board: 'We can do this... this won't work in your space... here's a better version of this idea' - validating and educating",
+      "why": "Relatable anxiety about vision vs. reality, educational, builds trust, encourages tagging and sharing with partners/friends planning sessions"
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T23:57:43.946Z",
+    "last_tier2_refresh": "2025-11-27T23:57:43.946Z",
+    "last_tier3_refresh": "2025-11-27T23:57:43.946Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T23:57:43.946Z"
+  }
+}

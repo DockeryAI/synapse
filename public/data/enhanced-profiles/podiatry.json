@@ -1,0 +1,1734 @@
+{
+  "industry": "Podiatry",
+  "industry_name": "Podiatry",
+  "naics_code": "621391",
+  "category": "Healthcare",
+  "subcategory": "Specialty Medical Care",
+  "customer_triggers": [
+    {
+      "trigger": "Inability to walk without pain for over 1 week",
+      "urgency": 10,
+      "frequency": "daily"
+    },
+    {
+      "trigger": "Diabetic foot complications or numbness",
+      "urgency": 10,
+      "frequency": "continuous monitoring"
+    },
+    {
+      "trigger": "Visible foot deformity affecting shoe fit",
+      "urgency": 8,
+      "frequency": "daily discomfort"
+    },
+    {
+      "trigger": "Sports injury limiting training or competition",
+      "urgency": 9,
+      "frequency": "per athletic event"
+    },
+    {
+      "trigger": "Ingrown toenail with infection signs",
+      "urgency": 9,
+      "frequency": "progressive worsening"
+    },
+    {
+      "trigger": "Heel pain preventing normal morning routine",
+      "urgency": 8,
+      "frequency": "every morning"
+    },
+    {
+      "trigger": "Work requirements for safety shoe clearance",
+      "urgency": 7,
+      "frequency": "annual certification"
+    },
+    {
+      "trigger": "Failed over-the-counter treatments after 30 days",
+      "urgency": 7,
+      "frequency": "monthly assessment"
+    },
+    {
+      "trigger": "Children's gait abnormalities noticed by parents/teachers",
+      "urgency": 8,
+      "frequency": "developmental milestones"
+    },
+    {
+      "trigger": "Elderly fall risk due to foot instability",
+      "urgency": 10,
+      "frequency": "continuous concern"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Typically starts with Google searches for specific symptoms like 'heel pain in morning' or 'diabetic foot care' after 2-3 weeks of self-treatment failure. 68% discover podiatrists through primary care physician referrals, 22% through insurance provider directories, 10% through urgent care recommendations",
+    "consideration": "Research phase lasting 1-2 weeks comparing 3-5 podiatrists based on insurance acceptance, proximity (within 10 miles preferred), specialization match, and same-week availability. Read average of 25 reviews focusing on wait times, bedside manner, and treatment success. Key concerns include surgery avoidance (78%), cost with high-deductible plans, and treatment duration",
+    "decision": "Booking triggered by pain level reaching 8/10, inability to perform work duties, or specific deadline (marathon, vacation, work physical). 76% book within 24 hours of finding podiatrist accepting their insurance with appointments within 5 days. Diabetic patients book immediately upon referral",
+    "retention": "Average patient requires 3-4 visits for acute issues, ongoing quarterly care for chronic conditions. 72% compliance with custom orthotics, 45% compliance with exercise prescriptions. Retention highest when offering in-office procedures avoiding hospital trips, digital communication portal, and coordinated care with primary physician",
+    "advocacy": "Patients become advocates after avoiding surgery (85% referral rate), successful diabetic limb preservation, or return to sports/activities. Share experiences in diabetes support groups, running clubs, and workplace safety committees. Average satisfied patient refers 3.2 others within first year"
+  },
+  "transformations": [
+    {
+      "from": "Limping with every step",
+      "to": "Walking pain-free for miles",
+      "emotional_value": "Independence and mobility restored",
+      "worth_premium": true
+    },
+    {
+      "from": "Facing potential amputation",
+      "to": "Preserving limb through preventive care",
+      "emotional_value": "Life-saving intervention",
+      "worth_premium": true
+    },
+    {
+      "from": "Sitting out from sports/activities",
+      "to": "Full return to competition",
+      "emotional_value": "Athletic identity preserved",
+      "worth_premium": true
+    },
+    {
+      "from": "Hiding feet in embarrassment",
+      "to": "Wearing sandals confidently",
+      "emotional_value": "Social confidence restored",
+      "worth_premium": false
+    },
+    {
+      "from": "Multiple shoe failures daily",
+      "to": "All-day comfort in any footwear",
+      "emotional_value": "Professional capability",
+      "worth_premium": true
+    },
+    {
+      "from": "Constant infection worry",
+      "to": "Stable, healthy feet",
+      "emotional_value": "Peace of mind for diabetics",
+      "worth_premium": true
+    },
+    {
+      "from": "Child struggling in PE class",
+      "to": "Keeping up with peers",
+      "emotional_value": "Childhood normalcy",
+      "worth_premium": true
+    },
+    {
+      "from": "Fall risk and instability",
+      "to": "Confident, stable walking",
+      "emotional_value": "Maintaining independence in elderly",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Pain reduction from 8/10 to 2/10 on standardized scale",
+      "timeframe": "2-3 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Return to full work duties without restrictions",
+      "timeframe": "4-6 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "Wound healing rate of 85% within 12 weeks",
+      "timeframe": "3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Running/sports return without re-injury",
+      "timeframe": "6-8 weeks",
+      "measurable": true
+    },
+    {
+      "metric": "A1C improvement in diabetic foot patients",
+      "timeframe": "3-6 months",
+      "measurable": true
+    },
+    {
+      "metric": "Surgery avoidance rate of 70% for plantar fasciitis",
+      "timeframe": "3 months",
+      "measurable": true
+    },
+    {
+      "metric": "Fall reduction by 60% in elderly patients",
+      "timeframe": "6 months",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Diabetic foot ulcer requiring immediate intervention to prevent amputation",
+    "Work physical or safety clearance deadline within 2 weeks",
+    "Athletic event or competition in next 30 days requiring clearance",
+    "Progressive numbness indicating nerve damage requiring swift action",
+    "Infection spreading with red streaks requiring same-day care",
+    "Insurance deductible met with 6 weeks remaining in plan year",
+    "Child's sports season starting requiring medical clearance"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "I can't afford custom orthotics at $400-600",
+      "response": "Compare to knee replacement surgery at $35,000 that poor foot mechanics often cause. We offer payment plans, FSA/HSA eligible, and many insurances cover partially. Our orthotics last 3-5 years, costing just 30 cents per day. 78% of patients avoid surgery with proper orthotic support",
+      "effectiveness": 8.3
+    },
+    {
+      "objection": "I don't want foot surgery",
+      "response": "90% of our patients never need surgery. We exhaust conservative treatments first: orthotics, injections, physical therapy, laser therapy. Surgery is only recommended when conservative care fails after 3-6 months. Our non-surgical success rate for plantar fasciitis is 85%",
+      "effectiveness": 8.7
+    },
+    {
+      "objection": "My primary doctor can handle this",
+      "response": "PCPs see 2-3 foot conditions monthly; we see 50+ daily. We have specialized diagnostic equipment (digital X-ray, ultrasound, vascular testing) and perform in-office procedures PCPs can't. Studies show 40% faster resolution with podiatric care vs primary care for foot conditions",
+      "effectiveness": 7.9
+    },
+    {
+      "objection": "It's just foot pain, I can live with it",
+      "response": "Foot problems cause knee, hip, and back issues through compensation patterns. Untreated plantar fasciitis leads to chronic pain in 30% of cases. For diabetics, a small foot problem can become life-threatening in 48 hours. Early treatment means 3 visits vs 10+ for chronic cases",
+      "effectiveness": 8.1
+    },
+    {
+      "objection": "I don't have time for multiple appointments",
+      "response": "We offer comprehensive care in single visits: X-rays, diagnosis, and treatment same day. Extended hours including Saturdays. Many procedures done in-office avoiding hospital trips. Telehealth follow-ups available. Average acute case resolved in 3 visits over 4 weeks",
+      "effectiveness": 7.6
+    },
+    {
+      "objection": "The wait time for specialists is too long",
+      "response": "We reserve 20% of schedule for urgent cases - same week availability for acute pain. New patient appointments within 5 business days. Diabetic emergencies seen within 24 hours. Our average wait time is 8 days vs 24 days for orthopedic surgeons",
+      "effectiveness": 8.2
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "Custom orthotic 90-day comfort guarantee with free adjustments",
+      "Second opinion provided free if surgery recommended",
+      "Diabetic shoe fit guarantee with unlimited adjustments first 30 days",
+      "Free follow-up within 2 weeks if problem persists"
+    ],
+    "proof_points": [
+      "Board certified with surgical privileges at 3 area hospitals",
+      "25+ years experience with 15,000+ successful procedures",
+      "Wound care certification with 85% healing rate",
+      "Team podiatrist for local university and marathon",
+      "Published research in foot and ankle journals"
+    ],
+    "risk_mitigation": "Comprehensive intake identifying all risk factors, digital X-rays preventing missed diagnoses, collaborative care with primary physicians, detailed post-procedure instructions with 24-hour call service, infection rate below 0.5% through strict protocols"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "can't walk",
+      "throbbing pain",
+      "burning feet",
+      "stabbing heel",
+      "diabetic",
+      "numbness",
+      "infection",
+      "swollen",
+      "ingrown",
+      "bunion",
+      "hammer toe",
+      "fallen arches"
+    ],
+    "solution_words": [
+      "walk again",
+      "pain relief",
+      "back to normal",
+      "active lifestyle",
+      "proper support",
+      "corrected",
+      "healed",
+      "comfortable shoes",
+      "running again",
+      "surgery avoided",
+      "saved my foot",
+      "life-changing"
+    ],
+    "avoid_jargon": [
+      "metatarsalgia",
+      "hallux valgus",
+      "plantar aponeurosis",
+      "sesamoiditis",
+      "Morton's neuroma",
+      "calcaneal apophysitis",
+      "tibialis dysfunction",
+      "equinus contracture",
+      "subtalar joint",
+      "first ray hypermobility"
+    ]
+  },
+  "power_words": [
+    "immediate",
+    "relief",
+    "expert",
+    "specialist",
+    "board-certified",
+    "experienced",
+    "advanced",
+    "comprehensive",
+    "diabetic-safe",
+    "surgery-free",
+    "same-week",
+    "proven",
+    "customized",
+    "permanent",
+    "correction",
+    "restoration",
+    "mobility",
+    "comfort",
+    "solution",
+    "healing",
+    "prevention",
+    "protection",
+    "performance",
+    "recovery",
+    "innovative",
+    "precise",
+    "gentle",
+    "effective",
+    "lasting",
+    "trusted"
+  ],
+  "avoid_words": [
+    "experimental",
+    "risky",
+    "painful",
+    "lengthy",
+    "expensive",
+    "unnecessary",
+    "aggressive",
+    "outdated",
+    "generic",
+    "temporary",
+    "band-aid",
+    "quick-fix",
+    "miracle",
+    "guaranteed",
+    "instant",
+    "revolutionary",
+    "breakthrough",
+    "secret",
+    "exclusive",
+    "limited"
+  ],
+  "headline_templates": [
+    {
+      "template": "Walk Without Pain Again - [City]'s Top-Rated Podiatrist",
+      "expected_ctr": 4.5,
+      "use_case": "General practice Google Ads"
+    },
+    {
+      "template": "Diabetic Foot Emergency? Same-Day Appointments Available",
+      "expected_ctr": 6.2,
+      "use_case": "Diabetic-focused urgent care"
+    },
+    {
+      "template": "Avoid Foot Surgery - 85% Success with Conservative Treatment",
+      "expected_ctr": 5.1,
+      "use_case": "Surgery-averse audience"
+    },
+    {
+      "template": "Marathon Training Stopped by Foot Pain? We Get Runners Back on Track",
+      "expected_ctr": 5.8,
+      "use_case": "Sports medicine focus"
+    },
+    {
+      "template": "Custom Orthotics Covered by Insurance - Free Benefits Check",
+      "expected_ctr": 4.9,
+      "use_case": "Insurance-focused messaging"
+    },
+    {
+      "template": "Heel Pain Every Morning? Plantar Fasciitis Experts in [City]",
+      "expected_ctr": 5.3,
+      "use_case": "Condition-specific landing pages"
+    },
+    {
+      "template": "Ingrown Toenail? Permanent Relief in One 15-Minute Visit",
+      "expected_ctr": 4.7,
+      "use_case": "Procedure-specific ads"
+    },
+    {
+      "template": "Why 3,000+ Diabetics Trust [Practice] for Foot Care",
+      "expected_ctr": 4.4,
+      "use_case": "Trust-building for at-risk populations"
+    },
+    {
+      "template": "Kids Foot Problems? Pediatric Podiatrist Accepting New Patients",
+      "expected_ctr": 4.2,
+      "use_case": "Parent-targeted messaging"
+    },
+    {
+      "template": "Workers Comp Accepted - Return to Work Foot Clearances",
+      "expected_ctr": 3.9,
+      "use_case": "Occupational health marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Book Same-Week Appointment Online",
+      "conversion_rate": 4.3,
+      "placement": "Homepage hero section"
+    },
+    {
+      "template": "Get Free Insurance Verification Now",
+      "conversion_rate": 4.7,
+      "placement": "Insurance page"
+    },
+    {
+      "template": "Download: Diabetic Foot Care Checklist",
+      "conversion_rate": 5.3,
+      "placement": "Blog post opt-in"
+    },
+    {
+      "template": "Schedule Your Foot Pain Assessment Today",
+      "conversion_rate": 3.9,
+      "placement": "Service pages"
+    },
+    {
+      "template": "Claim Your Custom Orthotic Discount",
+      "conversion_rate": 4.5,
+      "placement": "Exit intent popup"
+    },
+    {
+      "template": "Text FEET to 77777 for Instant Booking",
+      "conversion_rate": 3.6,
+      "placement": "Mobile sticky footer"
+    },
+    {
+      "template": "Start Your Virtual Consultation Now",
+      "conversion_rate": 3.2,
+      "placement": "Telehealth page"
+    },
+    {
+      "template": "See If You Qualify for Diabetic Shoes",
+      "conversion_rate": 5.1,
+      "placement": "Diabetic care page"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Facebook",
+      "template": "⚠️ Diabetics: Don't ignore foot numbness! It could save your foot. Here are 5 warning signs that need immediate attention... [carousel of symptoms]",
+      "engagement_rate": 5.2
+    },
+    {
+      "platform": "Instagram",
+      "template": "Before & After: Custom orthotics transformed Sarah's life! Swipe to see how we helped her run pain-free again ➡️ #podiatry #foothealth #runningcommunity",
+      "engagement_rate": 6.3
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Workplace foot injuries cost employers $1.8B annually. Our occupational podiatry program reduced lost work days by 45%. Here's our approach to workplace foot safety...",
+      "engagement_rate": 3.1
+    },
+    {
+      "platform": "YouTube",
+      "template": "How to Treat Plantar Fasciitis at Home (And When to See a Podiatrist) - 5 exercises that actually work",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a podiatrist seeing someone walk... *points out gait issues* Here's what your walk reveals about your foot health #footdoctor #gaitanalysis",
+      "engagement_rate": 9.2
+    },
+    {
+      "platform": "Twitter",
+      "template": "New study: Custom orthotics reduce knee pain by 67% by correcting foot alignment. This is why foot health matters for whole-body wellness. [study link]",
+      "engagement_rate": 2.7
+    },
+    {
+      "platform": "Pinterest",
+      "template": "10 Signs You Need to See a Podiatrist Immediately - Save for reference! [medical infographic]",
+      "engagement_rate": 5.8
+    },
+    {
+      "platform": "Google Business",
+      "template": "⭐⭐⭐⭐⭐ 'Dr. Smith saved my foot! As a diabetic, I was terrified of amputation. 6 months later, completely healed!' - Review from Robert M.",
+      "engagement_rate": 4.1
+    },
+    {
+      "platform": "Email",
+      "template": "Subject: Your insurance covers custom orthotics (most don't know this) - Inside: How to use your benefits before deductible resets",
+      "engagement_rate": 24.7
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Same-week appointments for urgent foot pain",
+      "rank": 1,
+      "differentiator": "Faster access than 3-4 week waits at other practices"
+    },
+    {
+      "prop": "In-office procedures avoiding hospital visits and costs",
+      "rank": 2,
+      "differentiator": "Convenience and 70% cost savings vs hospital setting"
+    },
+    {
+      "prop": "Diabetic limb preservation program with 85% success rate",
+      "rank": 3,
+      "differentiator": "Specialized wound care certification most lack"
+    },
+    {
+      "prop": "Digital X-ray and ultrasound diagnostics on-site",
+      "rank": 4,
+      "differentiator": "Immediate diagnosis vs waiting for imaging appointments"
+    },
+    {
+      "prop": "Custom orthotics with 90-day comfort guarantee",
+      "rank": 5,
+      "differentiator": "Risk-free trial most competitors don't offer"
+    },
+    {
+      "prop": "Sports medicine expertise with return-to-play protocols",
+      "rank": 6,
+      "differentiator": "Athletic performance focus beyond basic treatment"
+    },
+    {
+      "prop": "Insurance billing handled completely by our staff",
+      "rank": 7,
+      "differentiator": "No paperwork hassle for patients"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Experience podiatric excellence where precision meets innovation. Our board-certified surgical team brings Mayo Clinic-trained expertise to every case, from complex reconstructions to diabetic limb salvage. With advanced diagnostics including digital motion X-ray and vascular imaging, we provide comprehensive care that prevents problems, not just treats symptoms. For those who understand that foot health is the foundation of whole-body wellness.",
+    "budget_conscious": "Quality foot care shouldn't require choosing between health and finances. We accept all major insurance plans, offer cash discounts up to 30%, and provide payment plans for larger procedures. Our in-office treatments cost 70% less than hospital settings. Generic orthotics available at $150 vs custom at $500. Your feet deserve care, regardless of budget. Let's find a solution that works for you.",
+    "enterprise": "Reduce workplace injuries, workers' comp claims, and lost productivity with our comprehensive occupational podiatry program. On-site screenings, safety shoe programs, and ergonomic assessments tailored to your industry. Average ROI of 4:1 through reduced claims and absenteeism. OSHA compliant documentation and return-to-work protocols. Serving manufacturing, healthcare, and service industries with 10,000+ employee clearances annually."
+  },
+  "trust_signals": [
+    {
+      "signal": "Board certification in foot and ankle surgery",
+      "importance": 10,
+      "format": "Diplomas and ABFAS certification displayed"
+    },
+    {
+      "signal": "Hospital surgical privileges at major medical centers",
+      "importance": 9,
+      "format": "Hospital affiliations listed"
+    },
+    {
+      "signal": "15,000+ successful procedures over 25 years",
+      "importance": 8,
+      "format": "Experience statistics and case studies"
+    },
+    {
+      "signal": "Diabetic wound care certification",
+      "importance": 9,
+      "format": "Specialized credentials for at-risk populations"
+    },
+    {
+      "signal": "Team podiatrist for sports teams/marathons",
+      "importance": 7,
+      "format": "Athletic organization partnerships"
+    },
+    {
+      "signal": "Insurance panel participation with major carriers",
+      "importance": 8,
+      "format": "Insurance logos and verification tools"
+    },
+    {
+      "signal": "Same-day emergency appointment availability",
+      "importance": 8,
+      "format": "Urgent care capability messaging"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "15,000+ procedures with 98.5% patient satisfaction",
+      "credibility_score": 9,
+      "context": "Verified through post-procedure surveys over 10 years"
+    },
+    {
+      "stat": "85% diabetic limb preservation rate vs 60% national average",
+      "credibility_score": 10,
+      "context": "Documented outcomes for 500+ diabetic wound cases"
+    },
+    {
+      "stat": "3-week average return to sports vs 6-week standard",
+      "credibility_score": 8,
+      "context": "Athletic injury tracking over 1,000+ cases"
+    },
+    {
+      "stat": "70% of patients avoid surgery with conservative care",
+      "credibility_score": 8,
+      "context": "Treatment outcome data from EMR system"
+    },
+    {
+      "stat": "4.8 star average from 2,000+ verified reviews",
+      "credibility_score": 7,
+      "context": "Google, Healthgrades, and Vitals ratings combined"
+    },
+    {
+      "stat": "Zero post-surgical infections in past 24 months",
+      "credibility_score": 9,
+      "context": "Quality assurance data with hospital reporting"
+    }
+  ],
+  "quality_indicators": [
+    "Premium: Digital motion X-ray and diagnostic ultrasound on-site",
+    "Premium: Custom orthotic fabrication lab in-office",
+    "Premium: Surgical suite for complex procedures",
+    "Budget: Generic orthotic options and payment plans available",
+    "Premium: Concierge services including house calls for mobility-impaired",
+    "Budget: Group education classes and community screenings offered"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 14,
+    "trigger_event": "After successful return to activities or wound healing milestone. Also post-procedure when pain relief is immediate (ingrown toenail removal, injection therapy)",
+    "ask_method": "Text message 2 weeks post-treatment with direct review link, followed by email if no response. Best results when doctor personally mentions how reviews help other patients with similar conditions find appropriate care"
+  },
+  "competitive_advantages": [
+    "Only practice in region with both podiatric surgery and wound care certifications",
+    "In-office surgical suite eliminates hospital facility fees saving patients thousands",
+    "Same-day diagnostics with digital X-ray and ultrasound vs 1-2 week imaging waits",
+    "Diabetic shoe dispensary on-site with certified pedorthist for immediate fitting",
+    "24/7 on-call service for diabetic emergencies and post-surgical concerns",
+    "Integrated care team including physical therapist and vascular specialist"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present complex surgical option at $8,000 first, making $500 custom orthotics seem reasonable. Show total knee replacement cost of $35,000 that untreated foot problems can cause",
+    "sensitivity": "Price breaks at $200 (cash pay consideration), $500 (payment plan trigger), $1,000 (insurance pre-authorization required)",
+    "sweet_spots": [
+      "$150-200 for routine care",
+      "$400-600 for custom orthotics",
+      "$1,500-2,500 for in-office procedures",
+      "$75-100 for nail care"
+    ],
+    "decoy_pricing": "Offer semi-custom orthotics at $350 to make $500 full-custom seem worth the extra investment for proper fit"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 250,
+    "approval_required": 1000,
+    "competitor_research": 500
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.75,
+    "weekend": 1.5,
+    "holiday": 2.5
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Basic",
+      "price_range": "$75-150",
+      "target_customer": "Routine nail and skin care",
+      "margin": 35
+    },
+    {
+      "tier": "Standard",
+      "price_range": "$200-500",
+      "target_customer": "Acute injuries and common conditions",
+      "margin": 50
+    },
+    {
+      "tier": "Premium",
+      "price_range": "$1,000-5,000",
+      "target_customer": "Surgical and complex reconstructive cases",
+      "margin": 60
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Dispensing diabetic shoes and inserts with 45% margins vs referral out",
+    "In-office procedures bill at 3x rate of exam room visits with same time investment",
+    "DME dispensing (walking boots, night splints) adds $50-150 margin per item",
+    "Package pricing for bilateral procedures increases margin by 25%",
+    "Laser therapy cash service at $150/session with 80% margin",
+    "Annual care plans for diabetics ensuring consistent revenue and 30% higher LTV"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": 125,
+      "reason": "New insurance year and resolution-driven fitness injuries",
+      "opportunity": "Promote deductible planning and sports medicine"
+    },
+    {
+      "month": "February",
+      "variation": 110,
+      "reason": "Continued fitness activity and tax refund availability",
+      "opportunity": "Market elective procedures and custom orthotics"
+    },
+    {
+      "month": "March",
+      "variation": 115,
+      "reason": "Spring sports starting and marathon training",
+      "opportunity": "Athletic injury prevention programs"
+    },
+    {
+      "month": "April",
+      "variation": 120,
+      "reason": "Increased outdoor activity and sandal season prep",
+      "opportunity": "Cosmetic procedures and nail care"
+    },
+    {
+      "month": "May",
+      "variation": 105,
+      "reason": "Moderate activity, end of school sports",
+      "opportunity": "Pediatric sports physicals and screenings"
+    },
+    {
+      "month": "June",
+      "variation": 100,
+      "reason": "Summer vacation period beginning",
+      "opportunity": "Convenient surgery scheduling for teachers"
+    },
+    {
+      "month": "July",
+      "variation": 95,
+      "reason": "Peak vacation season, lower utilization",
+      "opportunity": "Promote August back-to-school prep"
+    },
+    {
+      "month": "August",
+      "variation": 108,
+      "reason": "Fall sports preparation and back-to-school",
+      "opportunity": "Student athlete clearances"
+    },
+    {
+      "month": "September",
+      "variation": 118,
+      "reason": "Fall activities and running season",
+      "opportunity": "Marathon training support programs"
+    },
+    {
+      "month": "October",
+      "variation": 122,
+      "reason": "Diabetic foot checks before holidays",
+      "opportunity": "Diabetic education and prevention"
+    },
+    {
+      "month": "November",
+      "variation": 130,
+      "reason": "Insurance benefits maximization push",
+      "opportunity": "Year-end procedure scheduling"
+    },
+    {
+      "month": "December",
+      "variation": 115,
+      "reason": "HSA spending and deductible met",
+      "opportunity": "Elective procedures and orthotics"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Urgent weekend injury follow-ups",
+      "avoid": "Elective procedures (high cancellation)",
+      "conversion_rate": 3.4
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Surgical procedures requiring recovery time",
+      "avoid": "New patient consultations (rushed)",
+      "conversion_rate": 4.1
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Diabetic comprehensive care appointments",
+      "avoid": "Pediatric appointments (school conflict)",
+      "conversion_rate": 4.3
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Pre-weekend procedures allowing rest",
+      "avoid": "Complex surgeries needing follow-up",
+      "conversion_rate": 4.5
+    },
+    {
+      "day": "Friday",
+      "best_for": "Quick procedures and injections",
+      "avoid": "Major surgeries before weekend",
+      "conversion_rate": 3.8
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Working adults and family appointments",
+      "avoid": "Procedures requiring next-day follow-up",
+      "conversion_rate": 4.9
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Urgent care and emergency cases only",
+      "avoid": "Routine care and administrative tasks",
+      "conversion_rate": 2.8
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Most medical bills due by 15th, avoiding financial discussions days 13-17",
+    "cash_flow_peaks": "Paychecks on 1st/15th, tax refunds February-April, HSA contributions January",
+    "slow_periods": "Days 20-28 typically slowest, days 1-10 busiest with new month energy"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Monday 7-10am",
+      "crisis_type": "Weekend injury realization needing work clearance",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "Friday 2-6pm",
+      "crisis_type": "Ingrown toenails and acute pain before weekend",
+      "premium_multiplier": 1.6
+    },
+    {
+      "time": "Pre-marathon week",
+      "crisis_type": "Runner injuries threatening race participation",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "Holiday weekends",
+      "crisis_type": "Diabetic emergencies and injuries",
+      "premium_multiplier": 2.5
+    },
+    {
+      "time": "First day of sports season",
+      "crisis_type": "Required clearances for participation",
+      "premium_multiplier": 1.3
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Diabetic Protection Plan",
+      "components": [
+        "Quarterly comprehensive exams",
+        "Annual shoes and inserts",
+        "Wound care if needed",
+        "24/7 emergency access"
+      ],
+      "pricing_model": "$200/month or $2,000/year",
+      "margin": 55
+    },
+    {
+      "name": "Runner's Performance Package",
+      "components": [
+        "Gait analysis",
+        "Custom orthotics",
+        "4 follow-up visits",
+        "Injury prevention plan"
+      ],
+      "pricing_model": "$1,500 package",
+      "margin": 48
+    },
+    {
+      "name": "Surgical Bundle",
+      "components": [
+        "Pre-op consultation",
+        "Surgery",
+        "Post-op visits (3)",
+        "Surgical shoe/boot"
+      ],
+      "pricing_model": "$3,500-5,000 depending on complexity",
+      "margin": 58
+    },
+    {
+      "name": "Family Foot Care",
+      "components": [
+        "4 family members",
+        "Annual check-ups",
+        "Basic treatments",
+        "10% discount on procedures"
+      ],
+      "pricing_model": "$75/month",
+      "margin": 42
+    }
+  ],
+  "upsell_paths": [
+    "Nail care ($75) → Fungal treatment ($200) → Laser therapy package ($800) → Preventive care plan ($100/month)",
+    "Consultation ($150) → X-rays ($100) → Custom orthotics ($500) → Annual orthotic replacement program ($400/year)",
+    "Acute visit ($200) → Injection therapy ($350) → Physical therapy referral → Surgery if needed ($3,500)",
+    "Diabetic exam ($200) → Therapeutic shoes ($400) → Quarterly monitoring ($800/year) → Wound care program ($300/month)",
+    "Sports injury ($250) → Temporary orthotics ($150) → Custom orthotics ($500) → Performance optimization program ($1,200)",
+    "Ingrown toenail ($300) → Permanent procedure ($600) → Preventive care → Annual maintenance plan ($300/year)"
+  ],
+  "retention_hooks": [
+    "Annual foot health plans with priority scheduling and discounts",
+    "Diabetic reminder program with automated quarterly scheduling",
+    "Custom orthotic replacement reminders with loyalty discounts",
+    "Family care packages covering multiple family members",
+    "Sports season packages for athletes requiring regular care",
+    "VIP program for patients with 5+ years of loyalty",
+    "Birthday month free consultation for established patients"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Primary care physician partnership program",
+      "timing": "Monthly relationship building visits",
+      "incentive": "Mutual referral agreement and case consultations",
+      "conversion_rate": 7.2
+    },
+    {
+      "strategy": "Diabetic patient success stories",
+      "timing": "After wound healing or amputation prevention",
+      "incentive": "$50 credit for referrer and referred",
+      "conversion_rate": 5.8
+    },
+    {
+      "strategy": "Running club sponsorships",
+      "timing": "Pre-marathon season",
+      "incentive": "Free gait analysis for club members",
+      "conversion_rate": 4.6
+    },
+    {
+      "strategy": "Workplace wellness presentations",
+      "timing": "Quarterly lunch-and-learns",
+      "incentive": "Employee discounts and on-site screenings",
+      "conversion_rate": 5.1
+    },
+    {
+      "strategy": "Family member incentive program",
+      "timing": "After successful treatment",
+      "incentive": "20% family discount",
+      "conversion_rate": 6.3
+    },
+    {
+      "strategy": "Senior center partnerships",
+      "timing": "Monthly fall prevention workshops",
+      "incentive": "Free balance assessments",
+      "conversion_rate": 4.2
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Custom orthotics after initial consultation",
+      "attach_rate": 0.42,
+      "timing": "Second visit after diagnosis"
+    },
+    {
+      "service": "Diabetic shoes with therapeutic inserts",
+      "attach_rate": 0.78,
+      "timing": "During diabetic comprehensive exam"
+    },
+    {
+      "service": "Laser therapy for fungal nails",
+      "attach_rate": 0.35,
+      "timing": "When topical treatments discussed"
+    },
+    {
+      "service": "Compression socks and medical grade products",
+      "attach_rate": 0.28,
+      "timing": "For circulation issues"
+    },
+    {
+      "service": "Physical therapy referral coordination",
+      "attach_rate": 0.31,
+      "timing": "Post-procedure or chronic conditions"
+    },
+    {
+      "service": "Preventive care plans",
+      "attach_rate": 0.24,
+      "timing": "After acute issue resolution"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Mobile podiatry for nursing homes",
+      "market_size": "$800K from 10 facility contracts",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Occupational medicine contracts",
+      "market_size": "$1.5M from major employers",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Diabetic center of excellence designation",
+      "market_size": "$2M in referrals from health systems",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Sports medicine partnerships with schools",
+      "market_size": "$600K from athletic programs",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Telehealth consultations for rural areas",
+      "market_size": "$400K additional revenue",
+      "difficulty": 3
+    },
+    {
+      "opportunity": "Multi-location practice expansion",
+      "market_size": "$4M across metro area",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Dr. Brad Schaeffer's TikTok videos showing ingrown toenail procedures and foot care education. His content shows real procedures with educational commentary, demystifying podiatric treatments.",
+        "platform": "TikTok",
+        "why_it_worked": "Educational medical content with high shock value and satisfying procedure results. The 'gross but fascinating' factor drives shares, while educational value provides justification for watching. Short-form video format perfect for procedure demonstrations.",
+        "metrics": "Videos regularly receive 500K-2M+ views, with engagement rates of 8-12% (significantly above platform average of 5.3%)",
+        "source": "TikTok @doctorschaeffer and social media marketing analysis from Podiatry Today",
+        "confidence": "high"
+      },
+      {
+        "example": "The Foot Collective's Instagram educational carousels on barefoot training and foot strengthening exercises. They use before/after transformation photos and simple exercise demonstrations.",
+        "platform": "Instagram",
+        "why_it_worked": "Empowers patients with actionable exercises they can do at home. Carousel format allows step-by-step instruction. Before/after social proof drives credibility. Addresses prevention rather than just treatment, creating ongoing engagement.",
+        "metrics": "Average engagement rate of 4.5-6% on educational carousels vs. 1.5% industry average. Posts with exercise demonstrations get 3x more saves than general foot health tips.",
+        "source": "Instagram @thefootcollective and healthcare social media benchmarks from Hootsuite 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "American Podiatric Medical Association's (APMA) 'Knock Out Foot Pain' campaign featuring patient testimonials and preventive care messaging during National Foot Health Awareness Month (April).",
+        "platform": "Multi-channel (Facebook, Instagram, Email)",
+        "why_it_worked": "Leveraged awareness month for timing, used real patient stories for emotional connection, provided actionable tips rather than just selling services. Campaign tied to broader health initiatives increased credibility.",
+        "metrics": "Campaign reached 2.3M people with 15% engagement rate on video testimonials. Email open rates of 28% vs. healthcare average of 21%.",
+        "source": "APMA.org case study and healthcare email marketing benchmarks from Mailchimp 2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Local podiatry practices using Google Business Profile posts about 'same-day appointments available' for urgent foot pain, combined with patient review highlights.",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Addresses immediate need (urgency trigger) at the moment of search intent. Reviews provide social proof exactly when potential patients are deciding. Local SEO optimization captures high-intent searches.",
+        "metrics": "Practices posting 3+ times weekly on GBP see 35% more calls and 25% more direction requests than those posting monthly. Posts about availability get 2x more engagement than general health tips.",
+        "source": "BrightLocal Local Consumer Review Survey 2024 and podiatry practice management forums",
+        "confidence": "medium"
+      },
+      {
+        "example": "Dr. Andrew Schneider's blog content on diabetic foot care prevention, ranking #1 for 'diabetic foot care Houston' and related long-tail keywords.",
+        "platform": "Blog/SEO",
+        "why_it_worked": "Comprehensive, patient-focused content answering specific questions diabetic patients search for. Regular updates and internal linking structure. Addresses high-urgency patient segment with educational rather than sales-focused content.",
+        "metrics": "Blog drives 40% of new patient inquiries. Average time on page 4:32 minutes vs. industry average of 2:15. Conversion rate from blog to appointment request: 8.5%.",
+        "source": "Podiatry practice marketing case studies from Healthcare Success and SEMrush healthcare industry reports 2024",
+        "confidence": "medium"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.5-2.3% for healthcare/medical practices",
+        "best_content_format": "Educational carousels (4.5-6% engagement), Reels showing exercises or procedures (3.8-5.2% engagement), before/after posts (3.2% engagement)",
+        "optimal_frequency": "4-5 posts per week, with 3-4 Reels per week performing best",
+        "best_posting_times": "Tuesday-Thursday 9-11 AM and 7-9 PM, Saturday mornings 9-11 AM",
+        "source": "Hootsuite Social Media Trends 2024, Healthcare Success Social Media Benchmarks"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.8-1.2% for healthcare services",
+        "best_content_format": "Video content (2.1% engagement), patient testimonials (1.8% engagement), educational posts with images (1.1% engagement)",
+        "optimal_frequency": "3-4 posts per week to maintain visibility without overwhelming feed",
+        "best_posting_times": "Wednesday-Friday 1-3 PM, Thursday evenings 7-9 PM",
+        "source": "Sprout Social 2024 Healthcare Industry Report, Rival IQ Social Media Benchmarks"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.3% average, medical/educational content 8-12%",
+        "best_content_format": "Procedure videos (highest engagement), educational explainers under 60 seconds, myth-busting content, Q&A format",
+        "optimal_frequency": "Daily posting ideal, minimum 3-4x per week for algorithm favor",
+        "best_posting_times": "Tuesday-Thursday 7-9 AM and 7-10 PM EST",
+        "source": "TikTok for Business Healthcare Insights 2024, Influencer Marketing Hub benchmarks"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "Open rate: 21-23% for healthcare, Click rate: 2.3-2.8%",
+        "best_content_format": "Educational newsletters with single clear CTA, appointment reminders, seasonal foot care tips, patient success stories",
+        "optimal_frequency": "Bi-weekly for existing patients, monthly for prospects. Weekly during awareness campaigns.",
+        "best_posting_times": "Tuesday-Wednesday 10 AM - 12 PM, avoid Mondays and Fridays",
+        "source": "Mailchimp Healthcare Email Benchmarks 2024, Constant Contact Industry Statistics"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Posts generate 35% more calls when updated 3+ times weekly",
+        "best_content_format": "Availability updates, patient reviews highlights, before/after photos (with consent), seasonal health tips, special offers",
+        "optimal_frequency": "3-5 posts per week, daily during high-demand periods",
+        "best_posting_times": "Monday mornings for week planning, Thursday for weekend appointment booking",
+        "source": "BrightLocal Local Consumer Review Survey 2024, Google Business Profile best practices"
+      },
+      {
+        "platform": "YouTube",
+        "avg_engagement_rate": "2.8-3.5% for healthcare educational content",
+        "best_content_format": "Exercise demonstrations (5-8 min), procedure explanations (3-5 min), patient testimonials (2-3 min), FAQ videos",
+        "optimal_frequency": "1-2 videos per week for consistent growth",
+        "best_posting_times": "Weekend mornings (Saturday-Sunday 9-11 AM) when people research health topics",
+        "source": "YouTube Healthcare Content Performance Report 2024, Tubular Labs healthcare insights"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Urgency + Consequence Warning",
+        "example": "Don't ignore heel pain for more than 2 weeks - it could become chronic plantar fasciitis requiring months of treatment",
+        "why_it_works": "Creates fear of worse outcome (loss aversion) while establishing clear timeframe for action. Positions early intervention as preventing bigger problem.",
+        "source": "Podiatry practice email campaigns and healthcare copywriting analysis"
+      },
+      {
+        "hook_pattern": "Myth-Busting Question",
+        "example": "Think you need surgery for bunions? 85% of our patients avoid surgery with custom orthotics and proper footwear",
+        "why_it_works": "Challenges common assumption, provides surprising statistic, offers hope for non-invasive solution. Addresses major patient objection upfront.",
+        "source": "High-performing podiatry social media posts and medical content marketing studies"
+      },
+      {
+        "hook_pattern": "Relatable Pain Point Opening",
+        "example": "If your first steps in the morning feel like walking on glass, you're not alone - and you don't have to live with it",
+        "why_it_works": "Uses specific, visceral language patients use themselves. Creates immediate recognition and reduces isolation. Promises solution without medical jargon.",
+        "source": "Patient review analysis and podiatry marketing forums"
+      },
+      {
+        "hook_pattern": "Timeline Promise",
+        "example": "Same-week relief for diabetic foot pain - here's what to expect at your first visit",
+        "why_it_works": "Addresses urgency trigger with specific timeframe. Reduces uncertainty about treatment process. 'Same-week' is achievable promise that feels immediate without being unrealistic.",
+        "source": "High-converting podiatry landing pages and healthcare marketing case studies"
+      },
+      {
+        "hook_pattern": "Identity-Based Transformation",
+        "example": "From sidelined athlete to back on the field - how we treat sports foot injuries differently",
+        "why_it_works": "Speaks to patient's core identity (athlete) not just symptom. Implies specialized understanding. Before/after framing creates clear transformation narrative.",
+        "source": "Sports medicine podiatry marketing and patient testimonial analysis"
+      },
+      {
+        "hook_pattern": "Shocking Statistic + Solution",
+        "example": "73% of Americans experience foot pain, but only 1 in 3 seek professional help. Here's when you should",
+        "why_it_works": "Normalizes the problem with data, highlights gap between problem and action, positions content as guidance for decision-making.",
+        "source": "APMA statistical resources and healthcare content marketing best practices"
+      },
+      {
+        "hook_pattern": "Qualification Question",
+        "example": "Are you a diabetic patient experiencing numbness in your feet? This could save your limb",
+        "why_it_works": "Self-selects high-urgency audience segment. Dramatic stakes (limb preservation) appropriate for diabetic complications. Creates immediate relevance for target audience.",
+        "source": "Diabetic foot care campaigns and medical emergency marketing analysis"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I can barely walk in the morning - feels like stepping on broken glass",
+        "My feet are so embarrassing I won't wear sandals or go to the beach",
+        "I've tried every insert from the drugstore and nothing works",
+        "The pain is so bad I'm limping and my back is starting to hurt too",
+        "I'm scared about my diabetes - my feet are numb and I can't feel cuts",
+        "I had to quit running because my heel pain won't go away",
+        "My bunion is so big I can't find shoes that fit without pain",
+        "I'm terrified they're going to have to amputate - I can see an infection",
+        "My kid walks funny and the pediatrician said to see a podiatrist",
+        "I keep falling because my feet feel unstable and I'm afraid I'll break a hip"
+      ],
+      "solution_phrases": [
+        "I just want to walk without pain - is that too much to ask?",
+        "I need to get back to running - it's my stress relief",
+        "I want to keep my foot - I'll do whatever it takes",
+        "I need someone who specializes in diabetic feet, not just a general doctor",
+        "I want custom orthotics that actually work, not drugstore inserts",
+        "I need same-day or same-week appointment - this can't wait",
+        "I want to avoid surgery if possible but fix this permanently",
+        "I need a podiatrist who takes my insurance and is accepting new patients",
+        "I want to wear normal shoes again without pain",
+        "I need relief fast - I have a race/wedding/vacation coming up"
+      ],
+      "objection_phrases": [
+        "I don't know if my insurance covers podiatry",
+        "I'm worried this is going to be really expensive",
+        "Do I really need to see a specialist or can my regular doctor handle this?",
+        "I'm scared they're going to say I need surgery",
+        "I don't have time for multiple appointments and physical therapy",
+        "Will orthotics actually work or is it just a money grab?",
+        "I've been to doctors before and nothing helped",
+        "How do I know this podiatrist is good? There are so many options",
+        "I'm nervous about foot surgery - what if it doesn't work?",
+        "Can't I just deal with this myself with exercises from YouTube?"
+      ],
+      "decision_factors": [
+        "Takes my insurance and transparent about costs upfront",
+        "Can get me in quickly - same week or emergency appointments",
+        "Board certified and experienced with my specific problem",
+        "Good reviews from other diabetic patients / athletes / people like me",
+        "Offers conservative treatment first before jumping to surgery",
+        "Has modern equipment and technology - laser treatment, custom orthotics",
+        "Office is clean and staff is friendly and professional",
+        "Doctor actually listens and explains things in terms I understand",
+        "Convenient location and hours that work with my schedule",
+        "Other patients had successful outcomes - before/after proof"
+      ],
+      "emotional_language": [
+        "terrified of amputation",
+        "embarrassed and self-conscious",
+        "frustrated that nothing works",
+        "desperate for relief",
+        "scared and anxious about surgery",
+        "hopeful this will finally work",
+        "worried about being a burden",
+        "angry I waited so long",
+        "relieved to find a specialist",
+        "grateful to walk again",
+        "confident and proud",
+        "free and independent again"
+      ],
+      "sources": [
+        "Reddit r/Podiatry patient posts",
+        "Healthgrades and Vitals patient reviews for podiatrists",
+        "Google Business Profile reviews for podiatry practices",
+        "WebMD and Health forums foot pain discussions",
+        "Facebook groups for diabetic patients and runners",
+        "Yelp reviews for podiatry practices",
+        "Patient testimonials from podiatry practice websites"
+      ]
+    },
+    "competitive_gaps": [
+      "Very few practices create content specifically for caregivers of elderly patients at fall risk - most content targets the patient directly",
+      "Limited content addressing the emotional/psychological impact of foot problems (social anxiety, depression from limited mobility, identity loss for athletes)",
+      "Lack of transparent pricing content - patients constantly ask about costs but practices rarely publish even ranges",
+      "Minimal content for parents of children with gait abnormalities - this audience is underserved and highly engaged when found",
+      "Few practices create workplace-specific content (standing job foot health, safety shoe recommendations, workers comp navigation)",
+      "Gap in preventive content for pre-diabetic patients before complications develop",
+      "Limited video content showing actual office visits and what to expect - reduces anxiety barrier",
+      "Lack of content comparing treatment options with honest pros/cons (most content promotes practice's preferred method only)",
+      "Minimal engagement with fitness communities and running clubs despite high need in these populations",
+      "Few practices create follow-up content for post-treatment care and prevention of recurrence"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February (New Year)",
+        "opportunity": "Spike in fitness-related foot injuries and running program starts. People getting back to exercise after holidays.",
+        "content_angle": "Preventive content: 'Start your running program without injury', proper footwear for new exercises, gradual training increase tips. Partner with local gyms."
+      },
+      {
+        "period": "April (National Foot Health Awareness Month)",
+        "opportunity": "Industry-wide awareness campaigns, APMA resources available, media more receptive to foot health stories.",
+        "content_angle": "Educational campaign on preventive care, free foot screenings, diabetic foot care emphasis, partnership with diabetes organizations."
+      },
+      {
+        "period": "May-June (Sandal Season)",
+        "opportunity": "Increased concern about foot appearance, more visible foot problems, warm weather activities resuming.",
+        "content_angle": "Cosmetic foot concerns (bunions, hammertoes, fungal nails), summer foot care tips, getting beach-ready, preventing flip-flop injuries."
+      },
+      {
+        "period": "August-September (Back to School/Sports)",
+        "opportunity": "Youth sports physicals required, parents noticing children's gait issues, fall sports season starting.",
+        "content_angle": "Children's foot health, sports injury prevention, proper athletic footwear, growing pains vs. real problems, sports physical clearances."
+      },
+      {
+        "period": "October-November (Diabetes Awareness Month - November)",
+        "opportunity": "November is American Diabetes Month - heightened awareness of diabetic complications.",
+        "content_angle": "Diabetic foot care education, prevention of complications, partnership with endocrinologists, free diabetic foot screenings, limb preservation focus."
+      },
+      {
+        "period": "November-December (Holiday Prep)",
+        "opportunity": "People want to be pain-free for holiday travel, parties, shopping. Also end-of-year insurance benefits use-it-or-lose-it.",
+        "content_angle": "Travel foot care tips, surviving holiday shopping without pain, using remaining insurance benefits, gift ideas for foot health, party-ready feet."
+      },
+      {
+        "period": "Winter Months (Dec-Feb)",
+        "opportunity": "Increased elderly fall risk on ice/snow, winter boot fit issues, dry skin and cracking problems.",
+        "content_angle": "Fall prevention for seniors, winter footwear safety, moisturizing and crack prevention, ice-related injuries, proper boot fitting."
+      },
+      {
+        "period": "Marathon Season (Spring and Fall)",
+        "opportunity": "Major marathons in most cities, training cycles begin 16-20 weeks before race day.",
+        "content_angle": "Running injury prevention, gait analysis for runners, custom orthotics for training, recovery protocols, sponsoring local running events."
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "TikTok medical content creator accounts",
+      "Instagram healthcare and podiatry practice accounts",
+      "APMA.org (American Podiatric Medical Association)",
+      "Hootsuite Social Media Trends 2024",
+      "Sprout Social Healthcare Industry Report 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Reddit r/Podiatry community",
+      "Healthgrades and Vitals patient reviews",
+      "Google Business Profile podiatry practice reviews",
+      "Healthcare Success marketing case studies",
+      "Podiatry Today industry publications",
+      "WebMD and health forum discussions",
+      "SEMrush healthcare industry reports",
+      "YouTube healthcare content performance data",
+      "Rival IQ social media benchmarks"
+    ],
+    "confidence_score": 8.2,
+    "data_gaps": [
+      "Limited publicly available A/B testing data specific to podiatry marketing campaigns",
+      "Exact conversion rate data from social media to appointments is proprietary to individual practices",
+      "TikTok engagement metrics for smaller podiatry practices not widely published - relied on top creators",
+      "LinkedIn benchmarks for podiatry specifically are limited - healthcare general data used as proxy",
+      "Precise ROI data for different content types not publicly disclosed by most practices"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new products/services like laser therapy, custom orthotics technology, or diabetic prevention programs",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Revolutionary relief - introducing advanced treatment that 85% of patients didn't know existed",
+        "Week 2: Same-week results - how [new service] delivers faster recovery than traditional approaches",
+        "Week 3: Real patients avoiding surgery - transformation stories from early adopters",
+        "Week 4: Last chance for founding patient pricing - limited availability for new treatment slots"
+      ],
+      "weekly_hooks": [
+        [
+          "What if you could avoid [foot surgery/months of pain/chronic plantar fasciitis] with a treatment that didn't exist 5 years ago?",
+          "We've been testing [new treatment] on our most difficult cases for 6 months. The results shocked even us - here's what we found",
+          "Think you've tried everything for [heel pain/bunions/diabetic neuropathy]? This advanced treatment wasn't available until now"
+        ],
+        [
+          "Same-week relief for [condition] is finally possible - here's exactly how [new treatment] works differently",
+          "73% of our [new treatment] patients report significant improvement within 7 days. Here's the science behind why it works faster",
+          "From limping to walking pain-free in under 2 weeks - meet the first patients experiencing [new treatment]"
+        ],
+        [
+          "She was scheduled for bunion surgery next month. Then she tried [new treatment]. Here's what happened",
+          "He'd tried every drugstore insert and nothing worked - until this customized approach changed everything",
+          "Are you a diabetic patient tired of being told 'there's nothing we can do'? These patients proved that wrong"
+        ],
+        [
+          "Only 15 spots left for [new treatment] this month - here's why we're limiting availability",
+          "Founding patient pricing ends Friday. After that, [new treatment] goes to standard rates. Here's what you need to know",
+          "If your first steps in the morning feel like walking on glass, you have 72 hours to lock in early access pricing for [new treatment]"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I've been to doctors before and nothing helped' - Position new treatment as genuinely different with specific technology/approach explanation",
+        "Week 2: Address 'How do I know this will work for me?' - Share specific patient profiles and success rates for different conditions",
+        "Week 3: Address 'I'm worried this is going to be really expensive' - Introduce pricing transparency, payment plans, insurance coverage, cost comparison to surgery",
+        "Week 4: Address 'I don't have time for multiple appointments' - Emphasize streamlined process, same-day comprehensive care, in-office procedures"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce board certification, specialized training in new technology, years of experience with similar treatments",
+        "Week 2: Share clinical data, peer-reviewed research, success rate statistics, before/after diagnostic images",
+        "Week 3: Feature 3-5 detailed patient testimonials with specific conditions, timelines, and outcomes - video format preferred",
+        "Week 4: Showcase volume of successful cases, limited availability due to demand, media coverage or industry recognition"
+      ],
+      "cta_progression": [
+        "Week 1: Download free guide 'Is [New Treatment] Right for Your [Condition]?' - educational, low commitment",
+        "Week 2: Watch 5-minute procedure explanation video, comment with your biggest question about [new treatment]",
+        "Week 3: Schedule free 15-minute consultation to see if you're a candidate - assessment focused, not sales focused",
+        "Week 4: Call now for founding patient pricing - only [X] spots remaining this month. Same-week appointments available"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week: 3-4 Reels showing procedure/results, 2-3 carousel educational posts)",
+        "Facebook (4 posts/week: video testimonials, detailed educational content, event announcements)",
+        "Google Business Profile (5 posts/week: availability updates, review highlights, launch announcements)",
+        "Email (2 sends/week to existing patients, 1/week to prospects: detailed information, exclusive early access)"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on Dr. Brad Schaeffer's TikTok success with procedure videos (500K-2M views, 8-12% engagement) and APMA's 'Knock Out Foot Pain' campaign achieving 15% engagement on video testimonials. Launch campaigns require heavy educational content to explain new treatments, with social proof becoming critical in weeks 3-4 as demonstrated by The Foot Collective's before/after transformation content getting 3x more saves."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority through patient education and preventive care",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Diabetic foot complications prevention - daily self-checks and when to seek immediate care",
+        "Week 2: Athletic performance optimization - how foot mechanics affect your entire kinetic chain",
+        "Week 3: Morning heel pain decoded - why it happens and 3 exercises you can start today",
+        "Week 4: Bunion myths busted - 85% of patients avoid surgery with these conservative approaches",
+        "Week 5: Workplace foot health - surviving standing jobs without chronic pain developing",
+        "Week 6: Children's gait abnormalities - normal development vs. when to get professional evaluation",
+        "Week 7: Fall prevention for seniors - foot strength exercises that reduce risk by 40%",
+        "Week 8: Insurance and cost transparency - what podiatry visits actually cost and what's covered"
+      ],
+      "weekly_hooks": [
+        [
+          "Are you a diabetic patient experiencing numbness in your feet? This daily 60-second check could save your limb",
+          "If you can't feel this [demonstrate monofilament test] on your foot, you need to see a specialist this week - here's why",
+          "Diabetic foot ulcers can develop in 48 hours. Here are the 5 warning signs you can't afford to ignore"
+        ],
+        [
+          "From sidelined athlete to back on the field - how we treat sports foot injuries differently than general practitioners",
+          "Your foot strikes the ground 1,000+ times per mile. Even small mechanical issues multiply into major injuries. Here's what to watch for",
+          "Think your knee pain is a knee problem? 60% of our runners discover it's actually a foot mechanics issue. Here's the test"
+        ],
+        [
+          "If your first steps in the morning feel like walking on glass, you're not alone - and you don't have to live with it",
+          "Don't ignore heel pain for more than 2 weeks - it could become chronic plantar fasciitis requiring months of treatment",
+          "Why does heel pain hurt worst in the morning? Understanding this changes how you treat it. Here's the science"
+        ],
+        [
+          "Think you need surgery for bunions? 85% of our patients avoid surgery with custom orthotics and proper footwear",
+          "Your bunion didn't develop overnight, and it won't be fixed overnight. Here's the honest timeline for conservative treatment vs. surgery",
+          "Bunions run in families, but genetics isn't destiny. Here's how to prevent your daughter from developing the same problem"
+        ],
+        [
+          "Standing 8+ hours daily? Here's why your feet hurt and your back is starting to complain too - plus what actually works",
+          "I've tried every insert from the drugstore and nothing works - here's why retail inserts fail for standing workers",
+          "Nurses, teachers, retail workers: your profession puts you at 3x risk for plantar fasciitis. Here's your prevention protocol"
+        ],
+        [
+          "My kid walks funny and the pediatrician said to see a podiatrist - here's what that visit looks like and when to worry",
+          "In-toeing, out-toeing, toe-walking: which childhood gait patterns resolve naturally and which need intervention?",
+          "Your child's growing pains might not be growth - here's how to tell the difference between normal and concerning"
+        ],
+        [
+          "I keep falling because my feet feel unstable and I'm afraid I'll break a hip - this 5-minute daily routine reduces fall risk by 40%",
+          "Balance starts in your feet. Here are 3 exercises that strengthen the foundation preventing elderly falls",
+          "Neuropathy making you unsteady? These adaptive strategies help you stay independent and safe at home"
+        ],
+        [
+          "I don't know if my insurance covers podiatry - here's exactly what's typically covered and what you'll pay out-of-pocket",
+          "Custom orthotics cost $400-600, but compare that to knee replacement surgery at $35,000 that poor foot mechanics often cause",
+          "Same-week appointments available - and yes, we take your insurance. Here's our transparent pricing for common conditions"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm scared about my diabetes' - Provide empowering education showing complications are preventable with proper care",
+        "Week 2: Address 'Do I really need a specialist?' - Demonstrate specialized knowledge PCPs don't have for sports injuries",
+        "Week 3: Address 'Can't I just deal with this myself with exercises from YouTube?' - Explain when self-care works vs. needs professional diagnosis",
+        "Week 4: Address 'I don't want foot surgery' - Emphasize conservative treatment success rates",
+        "Week 5: Address 'Will orthotics actually work or is it a money grab?' - Provide evidence-based outcomes for workplace applications",
+        "Week 6: Address 'My pediatrician can handle this' - Explain specialized pediatric foot assessment and treatment",
+        "Week 7: Address 'I'm worried about being a burden' - Frame preventive care as maintaining independence",
+        "Week 8: Address 'I'm worried this is going to be really expensive' - Full pricing transparency and payment options"
+      ],
+      "proof_timing": [
+        "Week 1: Share diabetic limb preservation statistics, partnership with endocrinologists, specialized vascular testing capabilities",
+        "Week 2: Feature athlete testimonials, return-to-sport timelines, sports medicine certifications",
+        "Week 3: Before/after pain scale improvements, patient success stories with similar morning heel pain",
+        "Week 4: Conservative treatment success rates (85% avoid surgery), before/after footwear photos",
+        "Week 5: Workplace injury prevention case studies, workers comp navigation expertise",
+        "Week 6: Pediatric training credentials, growth and development expertise, parent testimonials",
+        "Week 7: Fall prevention statistics, balance improvement measurements, senior patient testimonials",
+        "Week 8: Insurance acceptance list, transparent pricing sheet, payment plan options, FSA/HSA eligibility"
+      ],
+      "cta_progression": [
+        "Week 1: Download free diabetic foot care checklist - print and use daily",
+        "Week 2: Take our 2-minute runner's foot health assessment - get personalized recommendations",
+        "Week 3: Watch our heel pain exercise video series - 3 exercises to start today",
+        "Week 4: Schedule free bunion assessment - find out if you're a candidate for conservative treatment",
+        "Week 5: Request our workplace foot health guide for your HR department - help your whole team",
+        "Week 6: Book your child's gait evaluation - most insurances cover preventive pediatric care",
+        "Week 7: Join our senior fall prevention workshop - free monthly community event",
+        "Week 8: Call for same-week appointment - we'll verify your insurance benefits before your visit"
+      ],
+      "platform_priority": [
+        "Instagram (4-5 posts/week: educational carousels on exercises, Reels demonstrating techniques, condition-specific content)",
+        "Facebook (3-4 posts/week: longer educational content, community event promotion, patient testimonials)",
+        "Blog/SEO (2 posts/week: comprehensive guides targeting long-tail keywords like 'diabetic foot care [city]')",
+        "Email (bi-weekly newsletter: rotating through 8 themes, seasonal tips, appointment reminders)",
+        "YouTube (1 video/week: exercise demonstrations, FAQ answers, procedure explanations)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on The Foot Collective's Instagram success with educational carousels (4.5-6% engagement vs 1.5% average) and exercise demonstrations getting 3x more saves. Dr. Andrew Schneider's blog driving 40% of new patient inquiries with comprehensive educational content. Platform benchmarks show educational healthcare content consistently outperforms promotional content, with Instagram carousels and YouTube exercise videos showing highest engagement and conversion rates."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign leveraging viral-optimized content and seasonal opportunities",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Shocking procedure reveals and myth-busting content - the 'gross but fascinating' educational hook",
+        "Week 2: Relatable pain point stories and transformation reveals - emotional connection through patient journey"
+      ],
+      "weekly_hooks": [
+        [
+          "POV: You've been ignoring that ingrown toenail for 3 months. Here's what I remove (graphic but educational)",
+          "Think bunions only happen to old people? This 24-year-old athlete proves otherwise. Here's what caused it",
+          "You've been cutting your toenails wrong your entire life. Here's the proper technique that prevents ingrown nails",
+          "73% of Americans experience foot pain, but only 1 in 3 seek professional help. Here's when you should",
+          "This is what 6 months of untreated plantar fasciitis looks like on ultrasound. Don't let this be you"
+        ],
+        [
+          "My feet are so embarrassing I won't wear sandals or go to the beach - she said this 8 weeks ago. Here's her today",
+          "I can barely walk in the morning - feels like stepping on broken glass. If this is you, watch what happens next",
+          "From sidelined runner to marathon finisher - the 12-week transformation you need to see to believe",
+          "I'm terrified they're going to have to amputate - he said this on day 1. Here's his outcome 6 months later",
+          "She had to quit her nursing job because of foot pain. Here's how she got back to 12-hour shifts pain-free"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm scared they're going to say I need surgery' - Show shocking procedures are often minor, in-office, quick recovery",
+        "Week 2: Address 'I've been to doctors before and nothing helped' - Demonstrate specialized podiatric care achieves different outcomes than general medicine"
+      ],
+      "proof_timing": [
+        "Week 1: Showcase procedure volume (we do 50+ of these weekly), years of experience, specialized equipment/technology",
+        "Week 2: Feature dramatic before/after transformations, specific timeline improvements (pain scale 9/10 to 2/10 in 4 weeks), video testimonials"
+      ],
+      "cta_progression": [
+        "Week 1: Follow for daily foot health facts you won't learn anywhere else - tag someone who needs to see this",
+        "Week 1: Comment below - what foot problem have you been ignoring? Let's talk about it",
+        "Week 2: Share your transformation story - DM us for a feature on our page",
+        "Week 2: Ready for your own transformation? Link in bio to schedule - same-week appointments available"
+      ],
+      "platform_priority": [
+        "TikTok (daily posts: procedure videos, myth-busting, shocking reveals, educational explainers under 60 seconds)",
+        "Instagram Reels (5-7 Reels/week: repurpose TikTok content, before/afters, patient transformations)",
+        "Facebook (4-5 posts/week: share viral TikTok/Reels content, longer context in captions for older demographic)",
+        "Google Business Profile (daily posts: leverage increased traffic with availability updates, review requests)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Dr. Brad Schaeffer's TikTok videos regularly receiving 500K-2M+ views with 8-12% engagement rates (vs 5.3% platform average) through educational procedure content with 'gross but fascinating' factor. Research shows short-form video procedure demonstrations and before/after transformations drive maximum shares and viral potential. TikTok algorithm favors daily posting, and medical/educational content significantly outperforms platform averages when combining shock value with educational justification."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing specialized expertise and trust through comprehensive education",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Diabetic foot care mastery - comprehensive prevention protocol that saves limbs",
+        "Week 2: Sports medicine specialization - biomechanics and performance optimization for athletes",
+        "Week 3: Surgical vs. conservative treatment - honest comparison with success rates and recovery timelines",
+        "Week 4: Pediatric foot development - expert guidance for parents on normal vs. concerning patterns",
+        "Week 5: Geriatric fall prevention - evidence-based foot strengthening and balance protocols",
+        "Week 6: Diagnostic technology showcase - advanced equipment and assessment techniques that provide superior outcomes"
+      ],
+      "weekly_hooks": [
+        [
+          "As a board-certified podiatrist treating 200+ diabetic patients monthly, here's my exact protocol for preventing complications",
+          "Diabetic neuropathy doesn't mean inevitable amputation. Here's the comprehensive care plan that achieves 95% limb preservation in our practice",
+          "If you can't feel this on your foot [demonstrate monofilament test], you need vascular testing within 48 hours. Here's why and what we look for"
+        ],
+        [
+          "I've treated Olympic athletes and weekend warriors - here's what they have in common and why specialized sports podiatry matters",
+          "Your running coach focuses on miles and pace. We focus on the 1,000+ foot strikes per mile that make or break your training. Here's our gait analysis process",
+          "Think your IT band syndrome is a hip problem? 60% of the time, it starts in your feet. Here's the biomechanical chain reaction explained"
+        ],
+        [
+          "After 15 years and 5,000+ procedures, here's my honest comparison: bunion surgery vs. conservative treatment - success rates, timelines, costs",
+          "We exhaust conservative treatments first: orthotics, injections, physical therapy, laser therapy. Surgery is only recommended when these fail after 3-6 months. Here's our decision tree",
+          "Our non-surgical success rate for plantar fasciitis is 85%. Here are the specific protocols we use and when we know surgery is necessary"
+        ],
+        [
+          "In-toeing, out-toeing, toe-walking: I've evaluated 10,000+ children. Here's my framework for what resolves naturally vs. needs intervention",
+          "Your pediatrician sees 2-3 gait abnormalities monthly. I see 50+. Here's the specialized assessment that determines treatment needs",
+          "Flat feet in children: the most over-treated and under-treated condition. Here's the evidence-based approach to when orthotics actually help"
+        ],
+        [
+          "Falls are the leading cause of injury death in seniors over 65. Here's the foot-focused prevention protocol that reduces risk by 40%",
+          "Balance starts in your feet - proprioception, strength, and joint mobility. Here's the progressive exercise program I prescribe to every senior patient",
+          "Neuropathy, arthritis, and poor circulation: the triple threat for elderly falls. Here's how we address all three systematically"
+        ],
+        [
+          "Our digital X-ray, diagnostic ultrasound, and vascular testing provide same-day answers. Here's what these technologies reveal that standard exams miss",
+          "Gait analysis technology shows exactly how your foot mechanics create problems up the kinetic chain. Here's what we measure and why it matters",
+          "Custom orthotics aren't just arch supports - here's the 3D scanning, pressure mapping, and biomechanical analysis that creates truly customized devices"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm terrified of amputation' - Provide empowering statistics showing prevention success rates with proper specialized care",
+        "Week 2: Address 'Do I really need a specialist or can my regular doctor handle this?' - Demonstrate volume of cases and specialized training/equipment",
+        "Week 3: Address 'I don't want foot surgery' - Provide transparent conservative treatment protocols and honest success rates",
+        "Week 4: Address 'My pediatrician can handle this' - Explain specialized pediatric podiatric assessment beyond general development screening",
+        "Week 5: Address 'I'm worried about being a burden to my family' - Frame fall prevention as maintaining independence and quality of life",
+        "Week 6: Address 'How do I know this podiatrist is good?' - Showcase technology investment, continuing education, specialized certifications"
+      ],
+      "proof_timing": [
+        "Week 1: Share limb preservation statistics, diabetic care certifications, partnership with endocrinologists and wound care specialists",
+        "Week 2: Feature athlete testimonials with return-to-sport timelines, sports medicine fellowship training, team physician roles",
+        "Week 3: Provide surgical outcome data, conservative treatment success rates, peer-reviewed research citations, surgical training credentials",
+        "Week 4: Highlight pediatric training, number of children evaluated annually, developmental milestone expertise, parent satisfaction scores",
+        "Week 5: Share fall reduction statistics, balance improvement measurements, geriatric care certifications, senior community partnerships",
+        "Week 6: Showcase equipment investment, technology training certifications, diagnostic accuracy improvements, continuing education commitment"
+      ],
+      "cta_progression": [
+        "Week 1: Download comprehensive diabetic foot care guide - 40-page evidence-based protocol",
+        "Week 2: Schedule free gait analysis for runners - identify your injury risk factors",
+        "Week 3: Watch our surgical consultation process video - see exactly what we discuss and how we make decisions together",
+        "Week 4: Book pediatric gait evaluation - early intervention prevents long-term complications",
+        "Week 5: Join our monthly senior fall prevention workshop - free community education event",
+        "Week 6: Schedule comprehensive foot assessment using our advanced diagnostic technology - same-week appointments available"
+      ],
+      "platform_priority": [
+        "Blog/SEO (2 comprehensive posts/week: 2,000+ word guides targeting 'diabetic foot care [city]', 'sports podiatrist near me', etc.)",
+        "YouTube (2 videos/week: 5-8 minute deep dives on topics, procedure explanations, FAQ sessions)",
+        "LinkedIn (3 posts/week: professional content, research sharing, thought leadership for referral sources)",
+        "Email (weekly newsletter: in-depth educational content, case studies, research updates)",
+        "Instagram (4-5 posts/week: carousel summaries of blog content, video clips from YouTube)"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on Dr. Andrew Schneider's blog success driving 40% of new patient inquiries with comprehensive educational content ranking #1 for key terms, with average time on page of 4:32 minutes (vs 2:15 industry average) and 8.5% conversion rate. Research shows long-form educational content builds authority and trust, particularly for high-stakes decisions like surgery vs. conservative treatment. YouTube healthcare educational content averages 2.8-3.5% engagement with 5-8 minute videos performing best for procedure explanations."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm favor through participatory content",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive foot health challenges and self-assessment prompts - get audience actively participating",
+        "Week 2: Community story sharing and user-generated transformation content - amplify patient voices"
+      ],
+      "weekly_hooks": [
+        [
+          "Take the 60-second foot health quiz: Can you stand on one foot for 30 seconds with eyes closed? Comment your result below",
+          "Show me your running shoes - I'll tell you if they're causing your pain. Post a photo in the comments",
+          "Poll: What's your biggest foot problem? A) Morning heel pain B) Bunions C) Diabetic concerns D) Sports injury. Comment below",
+          "Challenge: Try this arch strengthening exercise and tell me if you feel it working. Film yourself and tag us",
+          "Quiz: Is your foot pain normal or serious? Answer these 5 questions in the comments and I'll respond to each one"
+        ],
+        [
+          "Share your foot health transformation story - tag us and use #PainFreeTransformation for a chance to be featured",
+          "What's the worst foot pain advice you've ever received? Comment below - let's debunk some myths together",
+          "Parents: Share a photo of your kid's shoes. I'll tell you if they're supporting healthy development or causing problems",
+          "Runners: Drop your weekly mileage and current foot issues below. I'll give you personalized advice in the comments",
+          "Before/After challenge: Share your journey from foot pain to pain-free. Best stories get featured on our page this week"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'Can't I just deal with this myself?' - Interactive content shows when self-assessment indicates professional need",
+        "Week 2: Address 'I've been to doctors before and nothing helped' - User-generated success stories provide peer proof of different outcomes"
+      ],
+      "proof_timing": [
+        "Week 1: Demonstrate expertise through personalized responses to every comment, showing depth of knowledge and individual attention",
+        "Week 2: Feature patient transformation stories with permission, showing diversity of successful outcomes across different conditions"
+      ],
+      "cta_progression": [
+        "Week 1: Participate in today's challenge - comment your results below",
+        "Week 1: Tag 3 friends who need to see this - let's help more people understand their foot health",
+        "Week 2: Share your story for a chance to be featured - DM us for details",
+        "Week 2: Ready to write your own transformation story? Link in bio to schedule your first visit - same-week appointments available"
+      ],
+      "platform_priority": [
+        "Instagram Stories (10-15 stories/day: polls, quizzes, question stickers, challenge prompts with heavy interaction features)",
+        "Instagram Feed (7-10 posts/week: carousel posts with interactive prompts, Reels with participation challenges)",
+        "Facebook (5-7 posts/week: discussion prompts, photo challenges, poll posts, community questions)",
+        "TikTok (daily posts: duet-friendly content, challenge participation, Q&A format videos encouraging stitches)"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on platform benchmarks showing Instagram carousels achieving 4.5-6% engagement (vs 1.5% average) when they include interactive elements, and TikTok's Q&A format content driving 8-12% engagement. Research shows posts with exercise demonstrations get 3x more saves, indicating high engagement. Interactive content (polls, challenges, self-assessments) triggers algorithm favor through increased comments, shares, and saves. The Foot Collective's success with exercise demonstrations shows participatory content drives both engagement and authority building."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "73% of Americans experience foot pain, but only 1 in 3 seek professional help. Here's when waiting becomes dangerous:\n\n[PROBLEM - Describe specific condition/symptom]\n\nWhat most patients don't realize: [AGITATE - Explain progression/consequences if untreated]\n\nThe solution isn't complex, but timing matters:\n• [SOLUTION POINT 1]\n• [SOLUTION POINT 2]\n• [SOLUTION POINT 3]\n\nIn my [X] years treating [SPECIALTY AREA], I've seen patients avoid [SERIOUS OUTCOME] simply by addressing symptoms within [TIMEFRAME].\n\nQuestion for healthcare professionals: What barriers do you see preventing patients from seeking podiatric care early?\n\n#Podiatry #FootHealth #PreventiveCare #HealthcareLeadership #PatientEducation",
+        "framework": "PAS",
+        "character_count": "~850",
+        "hook_length": "124 chars"
+      },
+      "authority": {
+        "template": "Workplace foot injuries cost employers $1.8B annually. Our occupational podiatry program reduced this by 45%.\n\nThe difference? [ATTENTION - State unique approach]\n\nMost workplace safety programs overlook foot health until injury occurs. We flipped the model:\n\n[INTEREST - Detail preventive methodology]\n• Assessment protocol: [SPECIFIC PROCESS]\n• Intervention timeline: [TIMEFRAME]\n• Employee education: [APPROACH]\n\n[DESIRE - Share measurable outcomes]\nResults across [NUMBER] companies:\n→ [METRIC 1]\n→ [METRIC 2]\n→ [METRIC 3]\n\n[ACTION] HR directors and safety managers: DM me for our workplace foot health assessment framework.\n\n#OccupationalHealth #WorkplaceSafety #CorporateWellness #PodiatricMedicine #EmployeeHealth",
+        "framework": "AIDA",
+        "character_count": "~780",
+        "hook_length": "112 chars"
+      },
+      "promotional": {
+        "template": "[BEFORE] Athletes sidelined with chronic heel pain, missing training and competitions.\n\n[AFTER] Same athletes back to full competition in [TIMEFRAME] without surgery.\n\n[BRIDGE] The difference: Our sports podiatry protocol combining [TREATMENT 1], [TREATMENT 2], and [TREATMENT 3].\n\nWhat makes our approach different:\n→ Sport-specific biomechanical analysis\n→ Custom treatment plans for your training schedule\n→ Partnership with sports medicine teams\n→ Same-week appointments for acute injuries\n\nWe've helped [NUMBER] athletes from [SPORTS/LEVELS] return to peak performance.\n\n[ATHLETE TYPE] dealing with foot/ankle issues? We're accepting new patients. Comment 'ATHLETE' or visit [PRACTICE NAME] to schedule.\n\n#SportsMedicine #AthleticPerformance #InjuryRecovery #Podiatry #SportsInjury",
+        "framework": "BAB",
+        "character_count": "~820",
+        "hook_length": "89 chars"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "If your first steps in the morning feel like walking on glass, you're not alone 👣\n\nSwipe for 5 exercises that relieved plantar fasciitis for [X]% of our patients →\n\n[CAROUSEL BREAKDOWN]\nSlide 1: The problem (relatable pain description)\nSlide 2-6: Exercise demonstrations with reps/sets\nSlide 7: When to seek professional help\n\nSave this for your morning routine ⬇️\n\nThese exercises work best when: [INSTRUCTION]. If pain persists beyond [TIMEFRAME], custom orthotics or other interventions may be needed.\n\nTried these? Drop a 🦶 in the comments!\n\n[PRACTICE NAME] | [LOCATION]\n📍 Same-week appointments available\n🔗 Link in bio to schedule",
+        "visual": "Carousel: Cover with person holding foot in pain at bedside. Slides 2-6 show clear exercise demonstrations with arrows/text overlays indicating movement. Slide 7 shows checklist of warning signs. Clean, bright aesthetic with brand colors.",
+        "framework": "PAS",
+        "hashtags": "#plantarfasciitis #footpain #heelpain #foothealth #podiatry #footexercises #morningpain #podiatrist #footcare #healthyfeet #painfreelife #footrelief #stretching #physiotherapy #footdoctor #chronicpain #wellness #selfcare #healthtips #footfitness"
+      },
+      "authority": {
+        "caption": "Think you need surgery for bunions? 85% of our patients avoid it with this protocol 🎯\n\nBunion surgery is major. But here's what most people don't know: [ATTENTION GRABBER ABOUT CONSERVATIVE TREATMENT]\n\nOur non-surgical approach:\n✓ Custom orthotics (not drugstore inserts)\n✓ Footwear modification guidance\n✓ Targeted exercises for [SPECIFIC BENEFIT]\n✓ [ADVANCED TREATMENT OPTION]\n\nReal results: [PATIENT OUTCOME EXAMPLE]\n\nSurgery has its place, but informed choices start with knowing ALL your options.\n\nBunion questions? Ask below 👇\n\n[PRACTICE NAME] | Board-Certified Podiatric Surgeons\n📲 [LOCATION] | Link in bio",
+        "visual": "Before/after comparison (with consent) showing bunion improvement with conservative treatment OR educational graphic showing bunion anatomy and treatment options. Professional medical aesthetic with credibility markers (board certification, years experience).",
+        "framework": "AIDA",
+        "hashtags": "#bunions #bunionrelief #footsurgery #podiatry #foothealth #buniontreatment #footdoctor #podiatrist #footpain #orthotics #customorthotics #nonsurgical #footcare #bunionpain #healthyfeet #medicaladvice #footspecialist #boardcertified #patientcare #footwellness"
+      },
+      "promotional": {
+        "caption": "From \"I can barely walk\" to running pain-free in [TIMEFRAME] 🏃‍♀️➡️✨\n\n[PATIENT NAME]'s story: [BRIEF RELATABLE PROBLEM DESCRIPTION]\n\nWhat changed: [BRIDGE TO SOLUTION]\n→ Comprehensive biomechanical assessment\n→ [TREATMENT APPROACH]\n→ Custom [INTERVENTION]\n\nNow? [TRANSFORMATION OUTCOME]\n\n\"[PATIENT TESTIMONIAL QUOTE]\" - [Patient Name]\n\nYour turn. Stop accepting foot pain as normal.\n\n📍 [PRACTICE NAME] | [LOCATION]\n🗓️ Same-week appointments for new patients\n💼 Most insurance accepted\n🔗 Book through link in bio or call [PHONE]\n\nReady for relief? Comment \"READY\" below 👇",
+        "visual": "Before/after split screen OR patient testimonial video (15-30 sec Reel). Before shows limited mobility/pain. After shows patient doing desired activity pain-free. Include text overlays with timeline and key treatment points. Authentic, documentary-style footage.",
+        "framework": "BAB",
+        "hashtags": "#patienttransformation #footpainrelief #podiatry #foothealth #painfreeliving #podiatrist #footdoctor #customorthotics #footcare #healthyfeet #chronicpain #plantarfasciitis #heelpain #runninginjury #backtorunning #patientstory #medicaltransformation #foottreatment #wellness #newpatients"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "⚠️ DIABETICS: Don't ignore these 5 foot warning signs - they could save your limb\n\nI've been treating diabetic foot complications for [X] years, and I see the same pattern: patients wait too long because they don't realize numbness IS the emergency.\n\nHere's what needs immediate attention:\n\n1️⃣ [WARNING SIGN 1 with specific description]\nWhy it matters: [Consequence if ignored]\n\n2️⃣ [WARNING SIGN 2 with specific description]\nWhy it matters: [Consequence if ignored]\n\n3️⃣ [WARNING SIGN 3 with specific description]\nWhy it matters: [Consequence if ignored]\n\n4️⃣ [WARNING SIGN 4 with specific description]\nWhy it matters: [Consequence if ignored]\n\n5️⃣ [WARNING SIGN 5 with specific description]\nWhy it matters: [Consequence if ignored]\n\nThe truth about diabetic foot care: Prevention is 100x easier than treatment. A simple quarterly check-up can prevent complications that lead to amputation.\n\nWhat to do NOW:\n✅ Check your feet daily (use a mirror for bottoms)\n✅ Schedule podiatry appointments every [TIMEFRAME]\n✅ Never go barefoot, even at home\n✅ Report ANY changes to your podiatrist immediately\n\nQuestions about diabetic foot care? Ask below - I'm answering all comments today.\n\n[PRACTICE NAME] | Specialized Diabetic Foot Care\n[LOCATION] | [PHONE] for same-week appointments\n\n#diabeticfootcare #diabetes #foothealth #podiatry #diabetescomplications #footcare #diabetesawareness",
+        "framework": "PAS",
+        "engagement_hook": "Asking questions in comments, urgency-based sharing trigger"
+      },
+      "authority": {
+        "template": "MYTH: \"Drugstore inserts are just as good as custom orthotics\"\n\nREALITY: I've treated hundreds of patients who spent years and hundreds of dollars on drugstore solutions before getting actual relief.\n\nHere's what the insert industry doesn't tell you:\n\nDrugstore inserts are made for \"average\" feet. But here's the problem - there's no such thing as an average foot. Your biomechanics are as unique as your fingerprint.\n\nThink about it: Would you buy \"average\" prescription glasses? Of course not. Your eyes are unique. So are your feet.\n\nWhat makes custom orthotics different:\n\n📊 3D scanning or plaster casting of YOUR specific foot structure\n🔬 Biomechanical analysis of how YOU walk and run\n🎯 Correction for YOUR specific issues (pronation, supination, arch collapse, etc.)\n💪 Medical-grade materials designed for YOUR activity level\n⚙️ Adjustable and refinable based on YOUR feedback\n\nReal example: [PATIENT STORY - spent $X on drugstore inserts over Y years, got relief in Z weeks with custom orthotics]\n\nThe investment breakdown:\n• Drugstore inserts: $20-60 every 3-6 months = $80-240/year\n• Custom orthotics: [PRICE] one time, lasting 3-5 years = $[ANNUAL COST]\n\nPlus: Most insurance covers a significant portion of custom orthotics.\n\nAre custom orthotics right for everyone? No. For minor issues, drugstore options might work. But if you've tried multiple brands without relief, it's time for a professional assessment.\n\nWe offer free consultations to determine if custom orthotics are appropriate for your situation.\n\nQuestions? Drop them below 👇\n\n[PRACTICE NAME] | [LOCATION]\n[PHONE] | [WEBSITE]",
+        "framework": "AIDA",
+        "engagement_hook": "Myth-busting format encourages sharing and debate"
+      },
+      "promotional": {
+        "template": "🏃‍♂️ Had to quit running because of heel pain? You're not alone - and you don't have to stay sidelined.\n\nBEFORE: [Relatable runner problem description - pain with every step, sitting out races, watching friends train without you]\n\nI hear this story weekly: \"I've tried rest, ice, stretching, new shoes, YouTube exercises... nothing works. I'm ready to just give up running.\"\n\nHere's the truth: Generic solutions don't work because heel pain isn't generic. Plantar fasciitis in a marathon runner is different from a casual jogger. Your training volume, running surface, gait mechanics, footwear - it all matters.\n\nAFTER: Runners back to training within [TIMEFRAME] using our sport-specific protocol\n\nTHE BRIDGE: Our approach for runners:\n\n1️⃣ Gait analysis on actual running surface\n2️⃣ [TREATMENT COMPONENT]\n3️⃣ [TREATMENT COMPONENT]\n4️⃣ Gradual return-to-running protocol (not just \"rest until it feels better\")\n5️⃣ Ongoing adjustments based on your training schedule\n\nWe've helped [NUMBER] runners from [LOCAL RUNNING CLUBS/EVENTS] get back to the sport they love.\n\n\"[TESTIMONIAL QUOTE FROM RUNNER]\" - [Runner Name, Race/Achievement]\n\n🏃‍♀️ RUNNERS: We're offering [SPECIAL OFFER/TIMEFRAME] for comprehensive running injury assessments.\n\nIncludes:\n✅ [COMPONENT 1]\n✅ [COMPONENT 2]\n✅ [COMPONENT 3]\n✅ Personalized treatment plan\n\n📅 Limited spots available for [MONTH]\n📞 Call [PHONE] and mention \"RUNNER ASSESSMENT\"\n🔗 Or book online: [WEBSITE]\n\nDon't let heel pain steal another season. Let's get you back to running.\n\nTag a runner who needs to see this 👇",
+        "framework": "BAB",
+        "engagement_hook": "Runner-specific identity targeting, tag-a-friend CTA"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You've been ignoring your heel pain for 6 months and now you can barely walk 😬",
+        "script": "[0-3 sec] Hook with text overlay: \"Don't make this mistake\"\n\n[3-10 sec] Show person limping dramatically in morning. Text: \"Me thinking heel pain will just go away\"\n\n[10-20 sec] Cut to podiatrist (you) looking at camera: \"Here's what actually happens when you ignore plantar fasciitis\"\n\n[20-40 sec] Quick cuts showing progression:\n• Week 1: \"Little heel pain, probably nothing\"\n• Week 4: \"Ok it's not going away\"\n• Week 12: \"Now my back hurts from limping\"\n• Week 24: \"I literally can't walk\"\n\n[40-55 sec] \"What you should do instead:\"\n• Day 3 of pain: Start stretching (show quick demo)\n• Week 1: If not better, see podiatrist\n• Treatment options: [QUICK LIST]\n\n[55-60 sec] \"Don't wait until you're limping. Your future self will thank you.\"\n\nText overlay: \"Same-week appointments available\"\n\nComments CTA: \"Drop a 🦶 if your feet hurt right now\"",
+        "framework": "PAS",
+        "visual_notes": "Use trending POV format, fast cuts, text overlays for key points, relatable humor mixed with educational content",
+        "hashtags": "#footpain #heelpain #plantarfasciitis #podiatrist #footdoctor #healthtips #medicaltiktok #foothealth #chronicpain #podiatry"
+      },
+      "authority": {
+        "hook": "I've removed over 1,000 ingrown toenails and THIS is the #1 mistake people make 🩸",
+        "script": "[0-3 sec] Hook with close-up of ingrown toenail tool. Text: \"Stop doing this\"\n\n[3-8 sec] \"As a podiatrist, I see this every single day...\"\n\n[8-15 sec] Show common mistakes (with graphics/demos):\n• Cutting nails too short\n• Rounding the corners\n• Using dirty tools\n\n[15-25 sec] \"Here's what happens:\" Show progression from minor to infected (educational graphics, not graphic photos)\n\n[25-40 sec] \"The RIGHT way to prevent ingrown toenails:\"\n• Cut straight across (demonstrate)\n• Leave [LENGTH] of white\n• Don't dig at corners\n• Wear proper-fitting shoes\n\n[40-50 sec] \"Already have one? Signs you need a podiatrist NOW:\"\n• [WARNING SIGN 1]\n• [WARNING SIGN 2]\n• [WARNING SIGN 3]\n\n[50-60 sec] \"We can fix it in one visit. Don't let it get infected.\"\n\nText overlay: \"Board-certified podiatrist | [LOCATION]\"\n\nComments CTA: \"Have an ingrown toenail question? Ask below\"",
+        "framework": "AIDA",
+        "visual_notes": "Mix of educational demonstrations and relatable content. Use trending sounds. Professional but approachable tone. Can show procedure clips if appropriate for audience.",
+        "hashtags": "#podiatrist #ingrowtoenail #footcare #foothealth #medicaltok #healthtips #toenails #podiatry #doctorsoftiktok #medical"
+      },
+      "promotional": {
+        "hook": "This runner couldn't walk. 3 weeks later she ran a half marathon. Here's what we did 🏃‍♀️",
+        "script": "[0-3 sec] Show before footage: person limping/in pain. Text: \"Severe plantar fasciitis\"\n\n[3-8 sec] \"She came to our clinic barely able to walk...\"\n\n[8-15 sec] \"Had a half marathon in 4 weeks and thought she'd have to drop out\"\n\n[15-25 sec] Quick montage of treatment process:\n• Assessment/scanning\n• Custom orthotic creation\n• Fitting\n• Exercise protocol\nText overlays with each step\n\n[25-35 sec] \"Week 1: Could walk without limping\"\n\"Week 2: Started light jogging\"\n\"Week 3: Back to training runs\"\n\n[35-45 sec] Show after footage: crossing finish line or running happily. Text: \"Finished her half marathon pain-free\"\n\n[45-55 sec] \"This is what sport-specific podiatry looks like. Not just treating symptoms - getting athletes back to their sport.\"\n\n[55-60 sec] \"Same-week appointments available. Link in bio.\"\n\nText overlay: \"[PRACTICE NAME] | [LOCATION]\"\n\nComments CTA: \"Athletes: comment your sport 👇\"",
+        "framework": "BAB",
+        "visual_notes": "Transformation story format. Use patient testimonial clips if available. Before/after footage. Inspirational but authentic. Trending motivational sound.",
+        "hashtags": "#runninginjury #runnersoftiktok #plantarfasciitis #sportsmedicine #injuryrecovery #podiatry #halfmarathon #runningtips #athleterecovery #footdoctor"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "[FIRST_NAME], are you ignoring these 5 diabetic foot warning signs?",
+        "preview_text": "Early detection could save your foot. Here's what to watch for...",
+        "body": "Hi [FIRST_NAME],\n\nIf your first steps in the morning feel like walking on glass, you're not alone - but you shouldn't ignore it.\n\n[PROBLEM]\nAs a diabetic patient, foot complications are [X]x more likely. But here's what most patients don't realize: numbness isn't a symptom to watch for - it's already an emergency.\n\n[AGITATE]\nI've treated hundreds of diabetic patients, and the ones who avoid serious complications have one thing in common: they catch warning signs early.\n\nHere are 5 signs that need immediate attention:\n\n1. [WARNING SIGN] - What it means: [EXPLANATION]\n2. [WARNING SIGN] - What it means: [EXPLANATION]\n3. [WARNING SIGN] - What it means: [EXPLANATION]\n4. [WARNING SIGN] - What it means: [EXPLANATION]\n5. [WARNING SIGN] - What it means: [EXPLANATION]\n\n[SOLUTION]\nYour action plan:\n✓ Daily foot checks (use a mirror for bottoms)\n✓ Quarterly podiatry appointments\n✓ Immediate reporting of any changes\n\nWe offer specialized diabetic foot care including:\n→ Comprehensive diabetic foot exams\n→ Custom diabetic-safe orthotics\n→ Preventive care plans\n→ Same-week urgent appointments\n\n[CTA_BUTTON: Schedule Your Diabetic Foot Exam]\n\nOr call us at [PHONE] - mention this email for priority scheduling.\n\nYour feet carry you through life. Let's keep them healthy.\n\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. Diabetic foot exams are covered by most insurance plans. We'll verify your coverage before your appointment.",
+        "framework": "PAS",
+        "segment": "Diabetic patients or high-risk individuals"
+      },
+      "authority": {
+        "subject": "The $847 mistake most foot pain sufferers make",
+        "preview_text": "Drugstore inserts vs. custom orthotics - here's the truth...",
+        "body": "Hi [FIRST_NAME],\n\n[ATTENTION]\nLast month, a patient told me she'd spent $847 over 3 years on drugstore inserts. Still had foot pain. We fixed it in 6 weeks with custom orthotics.\n\nShe's not alone.\n\n[INTEREST]\nHere's what the $30 insert aisle at [DRUGSTORE] doesn't tell you:\n\nDrugstore inserts are designed for \"average\" feet. But there's no such thing as an average foot - your biomechanics are as unique as your fingerprint.\n\nThe real difference:\n\n🔬 DRUGSTORE INSERTS:\n• Generic arch support\n• One-size-fits-most approach\n• Replace every 3-6 months\n• Cost: $20-60 each ($80-240/year)\n• Success rate: ~30% for chronic issues\n\n🎯 CUSTOM ORTHOTICS:\n• 3D scan of YOUR specific foot structure\n• Biomechanical analysis of YOUR gait\n• Medical-grade materials for YOUR activity level\n• Last 3-5 years\n• Cost: [PRICE] ([ANNUAL_COST]/year)\n• Success rate: ~85% for appropriate conditions\n• Most insurance covers significant portion\n\n[DESIRE]\nReal results from our patients:\n\n\"I spent 2 years trying every insert at [STORE]. Custom orthotics from Dr. [NAME] worked in 3 weeks.\" - [PATIENT]\n\n\"Wish I'd done this years ago instead of wasting money on temporary fixes.\" - [PATIENT]\n\n[ACTION]\nNot sure if custom orthotics are right for you?\n\nWe offer complimentary consultations to assess your specific situation. No pressure, just professional guidance.\n\n[CTA_BUTTON: Book Free Consultation]\n\nOr reply to this email with your questions - I read every response.\n\nStop guessing. Get answers.\n\nDr. [NAME]\n[PRACTICE NAME]\n[PHONE]\n\nP.S. We'll verify your insurance coverage before your appointment so there are no surprises.",
+        "framework": "AIDA",
+        "segment": "Prospects who have shown interest but haven't booked, or patients with chronic unresolved foot pain"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], same-week appointments now available",
+        "preview_text": "Don't wait weeks for foot pain relief. We can see you this week.",
+        "body": "Hi [FIRST_NAME],\n\n[BEFORE]\nYou're limping through your day, hoping the pain will just go away.\n\nYou've tried:\n✗ Rest (it comes back)\n✗ Ice (temporary relief)\n✗ Drugstore inserts (don't fit right)\n✗ YouTube exercises (confusing and ineffective)\n\nMeanwhile, you're:\n→ Missing workouts\n→ Avoiding activities you love\n→ Compensating with your gait (now your back hurts too)\n\n[AFTER]\nImagine walking pain-free again. Not just manageable pain - actual relief.\n\nThat's what our patients experience:\n\n\"I went from barely walking to running 5 miles in [TIMEFRAME]. Dr. [NAME] didn't just treat my symptoms - they fixed the root cause.\" - [PATIENT_NAME]\n\n[BRIDGE]\nHere's what makes us different:\n\n✓ Same-week appointments (no month-long waits)\n✓ Comprehensive assessment on day one\n✓ Custom treatment plan for YOUR lifestyle\n✓ Conservative treatment first (surgery only when necessary)\n✓ Modern technology: [TREATMENT OPTIONS]\n✓ Most insurance accepted\n\nYour first visit includes:\n→ Complete biomechanical evaluation\n→ Gait analysis\n→ Treatment options discussion\n→ Clear pricing (no surprises)\n→ Same-day relief strategies you can start immediately\n\nLimited same-week appointments available for [MONTH].\n\n[CTA_BUTTON: Book Your Same-Week Appointment]\n\nOr call [PHONE] - we're answering calls until [TIME] today.\n\nStop accepting foot pain as normal. You deserve better.\n\nDr. [NAME]\n[PRACTICE NAME]\n\nP.S. Not ready to book? Reply with your questions. I personally respond to every email.\n\n---\n\n[FOOTER]\nYou're receiving this because you [SUBSCRIPTION_REASON].\nPreferences | Unsubscribe\n[PRACTICE_ADDRESS]",
+        "framework": "BAB",
+        "segment": "Engaged prospects who haven't booked, or lapsed patients with previous foot pain history"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "[X]% of diabetic patients avoid amputation with [early intervention type] - here's the warning signs you can't ignore",
+      "[X] morning steps without that broken glass feeling - what [X] weeks of custom orthotics actually does",
+      "[X] bunion patients returned to sandals and normal shoes in [X] weeks without surgery - here's the protocol"
+    ],
+    "question_hooks": [
+      "Are you limping so badly your back and knees are starting to hurt too?",
+      "Is numbness in your diabetic feet making you terrified about amputation?",
+      "Are drugstore inserts failing you after spending over $[X] trying everything?"
+    ],
+    "story_hooks": [
+      "How a [age] year old runner got back to [X] miles per week after [X] months of heel pain",
+      "How [patient type] went from seeing infection to saving their foot in [X] days",
+      "How a mom too embarrassed for sandals wore flip-flops to the beach [X] weeks later"
+    ],
+    "fear_hooks": [
+      "Is your heel pain turning into chronic plantar fasciitis because you've waited [X] weeks?",
+      "Is that ingrown toenail infection spreading - here's the [X] hour rule diabetics must follow",
+      "Is your bunion deformity getting worse every [timeframe] you delay treatment?"
+    ],
+    "howto_hooks": [
+      "How to walk pain-free in the morning without that stepping-on-glass feeling",
+      "How to get back to running without surgery or [X] months of physical therapy",
+      "How to keep your foot as a diabetic without living in fear of every cut and scrape"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You've tried every drugstore insert and NOTHING works",
+      "body": "Here's why - [Show drugstore inserts] These are one-size-fits-all. Your feet? Totally unique. [Quick foot scan visual] Custom orthotics are molded to YOUR exact foot shape, pressure points, and gait. [Before/after walk comparison] See the difference? This patient tried 6 different inserts over 2 years. Custom orthotics fixed her plantar fasciitis in 6 weeks. [Show patient walking pain-free] The cost difference? About $200 more than buying inserts that don't work every few months. [Quick math on screen] Stop wasting money on temporary fixes.",
+      "cta": "Link in bio to see if you're a candidate for custom orthotics - most insurance covers it"
+    },
+    "reels": {
+      "hook": "Diabetic? Your feet can't wait.",
+      "body": "[Urgent tone] If you have diabetes and ANY of these - [Quick cuts: numbness, cuts that won't heal, color changes, swelling] - you need a podiatrist THIS WEEK, not next month. [Show statistics: 'Every 20 seconds, someone loses a limb to diabetes'] Early intervention saves limbs. Period. [Show healthy diabetic foot care routine] We offer same-day urgent appointments for diabetic patients.",
+      "cta": "Call the number on screen NOW if you have diabetes and foot concerns. Same-day appointments available."
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Show us your before/after - what activity can you do now that foot pain was stopping you from? Film yourself doing that thing (running, playing with grandkids, wearing heels, hiking) and tell us how long you suffered before getting help.",
+      "hashtag": "#WalkingPainFree"
+    },
+    {
+      "prompt": "Parents: Film your child walking/running before and after gait correction treatment. Share how long you noticed something was off and what finally made you seek help. Other parents need to see this.",
+      "hashtag": "#HealthySteps"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "The '5 signs you waited too long to see a podiatrist' with shocking patient story examples and visual symptoms. Include the emotional cost (missed events, stopped hobbies, relationship impact) not just physical symptoms.",
+      "why": "Fear-based + educational + relatable. People tag friends/family who ignore foot pain. The emotional stories make it shareable beyond just medical advice. Fills the gap of addressing psychological impact."
+    },
+    {
+      "angle": "Transparent pricing breakdown video: 'Here's exactly what podiatry costs WITH and WITHOUT insurance' showing real numbers for common treatments (custom orthotics, bunion surgery, routine diabetic care). Include payment plan options.",
+      "why": "Addresses #1 objection and fills major competitive gap. Extremely high save rate as reference content. Gets shared in diabetes/chronic pain support groups. Builds trust through radical transparency."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T20:38:16.681Z",
+    "last_tier2_refresh": "2025-11-27T20:38:16.681Z",
+    "last_tier3_refresh": "2025-11-27T20:38:16.681Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T20:38:16.681Z"
+  }
+}

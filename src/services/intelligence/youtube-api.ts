@@ -157,7 +157,7 @@ class YouTubeAPIService {
   /**
    * Search videos by keywords using Apify YouTube scraper
    */
-  async searchVideos(keywords: string[], maxResults: number = 20): Promise<YouTubeVideo[]> {
+  async searchVideos(keywords: string[], maxResults: number = 100): Promise<YouTubeVideo[]> {
     const query = keywords.join(' ')
     const cacheKey = `search_${query}_${maxResults}`
     const cached = this.getCached(cacheKey)
@@ -240,19 +240,32 @@ class YouTubeAPIService {
     if (cached) return cached
 
     try {
-      const videos = await this.searchVideos(keywords, 50)
+      const videos = await this.searchVideos(keywords, 100)
 
-      // Extract trending topics from titles and tags
-      const allTags = videos.flatMap(v => v.tags)
-      const tagFrequency = allTags.reduce((acc, tag) => {
-        acc[tag] = (acc[tag] || 0) + 1
-        return acc
-      }, {} as Record<string, number>)
+      // Extract trending topics from video TITLES (tags are often empty from Apify)
+      // Parse meaningful phrases from titles
+      const trendingTopics: string[] = []
+      const titleKeywords: Record<string, number> = {}
 
-      const trendingTopics = Object.entries(tagFrequency)
+      videos.forEach(v => {
+        // Add the full title as a topic (these are highly relevant)
+        if (v.title && v.title.length > 10) {
+          trendingTopics.push(v.title)
+        }
+        // Also extract key phrases
+        const words = v.title.toLowerCase().split(/\s+/)
+        words.forEach(word => {
+          if (word.length > 4) {
+            titleKeywords[word] = (titleKeywords[word] || 0) + 1
+          }
+        })
+      })
+
+      // Add top keywords as additional topics
+      const topKeywords = Object.entries(titleKeywords)
         .sort((a, b) => b[1] - a[1])
         .slice(0, 10)
-        .map(([tag]) => tag)
+        .map(([word]) => word)
 
       // Analyze formats based on titles
       const formats: Record<string, number> = {}
@@ -270,24 +283,28 @@ class YouTubeAPIService {
         .map(([format]) => format)
 
       // Calculate engagement metrics
-      const avgViewCount = videos.reduce((sum, v) => sum + v.viewCount, 0) / videos.length
+      const avgViewCount = videos.reduce((sum, v) => sum + v.viewCount, 0) / (videos.length || 1)
       const avgEngagementRate = videos.reduce((sum, v) => {
         const engagement = (v.likeCount + v.commentCount) / (v.viewCount || 1)
         return sum + engagement
-      }, 0) / videos.length
+      }, 0) / (videos.length || 1)
 
-      // Extract content angles
-      const contentAngles = [
-        ...new Set(videos.slice(0, 10).map(v => {
-          const title = v.title.toLowerCase()
-          if (title.includes('beginner')) return 'Beginner-friendly content'
-          if (title.includes('advanced')) return 'Advanced techniques'
-          if (title.includes('mistake')) return 'Common mistakes to avoid'
-          if (title.includes('secret')) return 'Insider secrets'
-          if (title.includes('best')) return 'Best practices'
-          return 'Educational content'
-        }))
-      ]
+      // Extract content angles from titles
+      const contentAngles: string[] = []
+      videos.slice(0, 20).forEach(v => {
+        const title = v.title.toLowerCase()
+        if (title.includes('beginner') && !contentAngles.includes('Beginner-friendly content')) contentAngles.push('Beginner-friendly content')
+        if (title.includes('advanced') && !contentAngles.includes('Advanced techniques')) contentAngles.push('Advanced techniques')
+        if (title.includes('mistake') && !contentAngles.includes('Common mistakes to avoid')) contentAngles.push('Common mistakes to avoid')
+        if (title.includes('secret') && !contentAngles.includes('Insider secrets')) contentAngles.push('Insider secrets')
+        if (title.includes('best') && !contentAngles.includes('Best practices')) contentAngles.push('Best practices')
+        if (title.includes('how to') && !contentAngles.includes('Step-by-step guides')) contentAngles.push('Step-by-step guides')
+        if (title.includes('tips') && !contentAngles.includes('Pro tips and tricks')) contentAngles.push('Pro tips and tricks')
+        if (title.includes('guide') && !contentAngles.includes('Complete guides')) contentAngles.push('Complete guides')
+        if (title.includes('2024') || title.includes('2025') && !contentAngles.includes('Current/updated content')) contentAngles.push('Current/updated content')
+      })
+      // Ensure we have at least some content angles
+      if (contentAngles.length === 0) contentAngles.push('Educational content')
 
       const analysis: TrendAnalysis = {
         trending_topics: trendingTopics,

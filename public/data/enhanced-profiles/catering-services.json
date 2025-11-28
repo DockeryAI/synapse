@@ -1,0 +1,1761 @@
+{
+  "industry": "Catering Services",
+  "industry_name": "Catering Services",
+  "naics_code": "722320",
+  "category": "Food Service",
+  "subcategory": "Event and Contract Food Services",
+  "customer_triggers": [
+    {
+      "trigger": "Wedding planning 6-12 months out",
+      "urgency": 7,
+      "frequency": "Seasonal peaks May-October"
+    },
+    {
+      "trigger": "Corporate quarterly meeting planning",
+      "urgency": 8,
+      "frequency": "Quarterly"
+    },
+    {
+      "trigger": "Last-minute meeting food needed",
+      "urgency": 10,
+      "frequency": "2-3 times weekly"
+    },
+    {
+      "trigger": "Holiday party planning September-November",
+      "urgency": 6,
+      "frequency": "Annual"
+    },
+    {
+      "trigger": "Funeral or memorial service",
+      "urgency": 10,
+      "frequency": "Unpredictable"
+    },
+    {
+      "trigger": "Graduation party planning",
+      "urgency": 5,
+      "frequency": "May-June peak"
+    },
+    {
+      "trigger": "Non-profit fundraising event",
+      "urgency": 7,
+      "frequency": "Monthly"
+    },
+    {
+      "trigger": "Birthday or anniversary milestone",
+      "urgency": 4,
+      "frequency": "Year-round steady"
+    },
+    {
+      "trigger": "Company acquisition or IPO celebration",
+      "urgency": 9,
+      "frequency": "Sporadic"
+    },
+    {
+      "trigger": "Pharmaceutical rep lunch presentation",
+      "urgency": 8,
+      "frequency": "Daily weekdays"
+    }
+  ],
+  "customer_journey": {
+    "awareness": "Google searches for 'catering near me' (42%), referrals from event planners (28%), venue preferred vendor lists (18%), social media discovery of past events (12%). Initial research phase typically spans 2-3 weeks with 5-7 vendors contacted",
+    "consideration": "Menu review and customization discussions taking 3-4 interactions, price comparison showing $18-45 per person range, tasting appointments for events over $5,000, reference checks with 2-3 past clients, venue logistics walkthrough",
+    "decision": "Proposal comparison focusing on value not just price (67% choose mid-range option), contract terms review especially cancellation policy, deposit payment triggering commitment psychology, final menu selections 2-3 weeks before event",
+    "retention": "Post-event follow-up within 48 hours, thank you note with photos from event, addition to VIP client list with 10% future discount, quarterly check-ins for upcoming needs, holiday card maintaining relationship",
+    "advocacy": "Vendor referral lists shared 3.4x more than average service, tagged social media posts reaching average 850 people, LinkedIn recommendations for corporate clients, preferred vendor status negotiations with venues"
+  },
+  "transformations": [
+    {
+      "from": "Event planning stress",
+      "to": "Confident host with professional support",
+      "emotional_value": "Peace of mind and control",
+      "worth_premium": true
+    },
+    {
+      "from": "Budget constraints",
+      "to": "Impressive spread within means",
+      "emotional_value": "Financial relief with quality",
+      "worth_premium": false
+    },
+    {
+      "from": "Dietary accommodation anxiety",
+      "to": "Inclusive experience for all guests",
+      "emotional_value": "Thoughtful host reputation",
+      "worth_premium": true
+    },
+    {
+      "from": "Amateur home cooking attempt",
+      "to": "Professional presentation",
+      "emotional_value": "Elevated event status",
+      "worth_premium": true
+    },
+    {
+      "from": "Logistical nightmare",
+      "to": "Seamless execution",
+      "emotional_value": "Stress elimination",
+      "worth_premium": true
+    },
+    {
+      "from": "Generic corporate lunch",
+      "to": "Memorable client experience",
+      "emotional_value": "Business relationship enhancement",
+      "worth_premium": true
+    },
+    {
+      "from": "Time crunch panic",
+      "to": "Turnkey solution",
+      "emotional_value": "Crisis resolution",
+      "worth_premium": true
+    },
+    {
+      "from": "Reputation risk",
+      "to": "Success guarantee",
+      "emotional_value": "Professional credibility",
+      "worth_premium": true
+    }
+  ],
+  "success_metrics": [
+    {
+      "metric": "Average event value of $2,850",
+      "timeframe": "Per event",
+      "measurable": true
+    },
+    {
+      "metric": "Client retention rate of 73% annually",
+      "timeframe": "Annual",
+      "measurable": true
+    },
+    {
+      "metric": "Food cost maintained at 31-34%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "On-time delivery rate of 98.5%",
+      "timeframe": "Per event",
+      "measurable": true
+    },
+    {
+      "metric": "Referral-generated leads at 45% of new business",
+      "timeframe": "Quarterly",
+      "measurable": true
+    },
+    {
+      "metric": "Average lead-to-booking conversion of 28%",
+      "timeframe": "Monthly",
+      "measurable": true
+    },
+    {
+      "metric": "Staff utilization rate at 78%",
+      "timeframe": "Weekly",
+      "measurable": true
+    }
+  ],
+  "urgency_drivers": [
+    "Popular dates booking 3-6 months in advance for weddings",
+    "Corporate budget use-it-or-lose-it deadlines driving Q4 orders",
+    "Venue availability creating catering decision deadlines",
+    "Seasonal menu items with limited availability windows",
+    "Staff scheduling requirements need 2-week minimum notice",
+    "Perishable inventory ordering requires 72-hour commitment",
+    "Competing quotes expiring within 7-14 days standard"
+  ],
+  "objection_handlers": [
+    {
+      "objection": "Price is higher than expected",
+      "response": "Our pricing includes service staff, setup, and cleanup saving you 4-5 hours and rental costs of $400+",
+      "effectiveness": 8
+    },
+    {
+      "objection": "Minimum order too high",
+      "response": "We can suggest our drop-off menu with a $500 minimum or connect you with our sister brand for smaller events",
+      "effectiveness": 7
+    },
+    {
+      "objection": "Menu doesn't match dietary needs",
+      "response": "Every menu is customizable, and we specialize in accommodating allergies, kosher, halal, vegan requirements at no extra charge",
+      "effectiveness": 9
+    },
+    {
+      "objection": "Worried about quality without tasting",
+      "response": "We offer complimentary tastings for events over $2,000, plus our gallery shows 500+ past events",
+      "effectiveness": 8
+    },
+    {
+      "objection": "Need more time to decide",
+      "response": "We can hold your date for 72 hours without deposit, but this Saturday only has 2 slots remaining",
+      "effectiveness": 7
+    },
+    {
+      "objection": "Had bad catering experience before",
+      "response": "We understand your concern. Here are contacts for 3 recent clients with similar events who can share their experience",
+      "effectiveness": 9
+    },
+    {
+      "objection": "Can't we just do it ourselves cheaper",
+      "response": "Self-catering typically costs 70% of professional once you factor in shopping time, rentals, and stress. Plus you can't enjoy your own event",
+      "effectiveness": 8
+    }
+  ],
+  "risk_reversal": {
+    "guarantees": [
+      "110% satisfaction guarantee with full refund option",
+      "On-time arrival guarantee or 20% discount",
+      "Food quality guarantee with backup options ready",
+      "Staff professionalism guarantee with supervisor on-site",
+      "Dietary accommodation accuracy guarantee"
+    ],
+    "proof_points": [
+      "500+ five-star reviews across platforms",
+      "Licensed and insured with $2M coverage",
+      "ServSafe certified entire team",
+      "Preferred vendor at 15+ premium venues",
+      "Health department perfect score 8 consecutive years",
+      "Better Business Bureau A+ rating maintained"
+    ],
+    "risk_mitigation": "Backup equipment in van for emergencies, 20% extra food prepared standard, secondary supplier relationships for ingredient failures, substitute staff on-call for no-shows, detailed event timeline shared 48 hours prior, emergency hotline answered within 2 rings"
+  },
+  "customer_language_dictionary": {
+    "problem_words": [
+      "overwhelmed",
+      "stressed",
+      "complicated",
+      "expensive",
+      "risky",
+      "time-consuming",
+      "worried",
+      "inexperienced",
+      "last-minute",
+      "dietary restrictions"
+    ],
+    "solution_words": [
+      "seamless",
+      "stress-free",
+      "professional",
+      "experienced",
+      "reliable",
+      "turnkey",
+      "customizable",
+      "affordable",
+      "guaranteed",
+      "full-service",
+      "trusted"
+    ],
+    "avoid_jargon": [
+      "F&B minimum",
+      "corkage",
+      "service charge",
+      "consumption bar",
+      "butler pass",
+      "action station",
+      "mise en place",
+      "chafing dish",
+      "drop and go"
+    ]
+  },
+  "power_words": [
+    "award-winning",
+    "stress-free",
+    "seamless",
+    "professional",
+    "customizable",
+    "full-service",
+    "experienced",
+    "reliable",
+    "guaranteed",
+    "trusted",
+    "exceptional",
+    "memorable",
+    "delicious",
+    "fresh",
+    "elegant",
+    "affordable",
+    "flexible",
+    "dedicated",
+    "licensed",
+    "insured",
+    "certified",
+    "local",
+    "sustainable",
+    "innovative",
+    "authentic",
+    "generous",
+    "attentive",
+    "flawless",
+    "celebrated",
+    "recommended"
+  ],
+  "avoid_words": [
+    "cheap",
+    "basic",
+    "standard",
+    "generic",
+    "mass-produced",
+    "frozen",
+    "pre-made",
+    "outsourced",
+    "inexperienced",
+    "rigid",
+    "hidden-fees",
+    "complicated",
+    "risky",
+    "amateur",
+    "limited",
+    "inflexible",
+    "corporate",
+    "impersonal",
+    "assembly-line",
+    "cafeteria"
+  ],
+  "headline_templates": [
+    {
+      "template": "Stress-Free Catering for [Event Type] - 500+ Five-Star Events",
+      "expected_ctr": 4.8,
+      "use_case": "Google Ads"
+    },
+    {
+      "template": "Warning: [Date] Almost Fully Booked - Reserve Your Caterer Now",
+      "expected_ctr": 6.2,
+      "use_case": "Urgency campaigns"
+    },
+    {
+      "template": "[City]'s Most Trusted Caterer - See Why [Company] Chose Us",
+      "expected_ctr": 5.1,
+      "use_case": "Social proof marketing"
+    },
+    {
+      "template": "Feed [Number] Guests for Under $[Amount] - Quality Guaranteed",
+      "expected_ctr": 5.7,
+      "use_case": "Budget-conscious targeting"
+    },
+    {
+      "template": "From Our Kitchen: [Seasonal] Menu Now Available",
+      "expected_ctr": 4.3,
+      "use_case": "Seasonal promotion"
+    },
+    {
+      "template": "Last-Minute Event? We Can Cater Tomorrow with 24-Hour Notice",
+      "expected_ctr": 7.1,
+      "use_case": "Emergency positioning"
+    },
+    {
+      "template": "Why [Venue Name] Recommends Us As Preferred Caterer",
+      "expected_ctr": 5.5,
+      "use_case": "Venue partnership leverage"
+    },
+    {
+      "template": "Corporate Catering That Actually Impresses - Ask [Client Name]",
+      "expected_ctr": 4.9,
+      "use_case": "B2B marketing"
+    },
+    {
+      "template": "Your Wedding Deserves Better Than Basic - Tasting This [Day]",
+      "expected_ctr": 5.8,
+      "use_case": "Premium positioning"
+    },
+    {
+      "template": "Sustainable Catering: Local Ingredients, Zero Waste, Full Flavor",
+      "expected_ctr": 4.6,
+      "use_case": "Values-based marketing"
+    }
+  ],
+  "cta_templates": [
+    {
+      "template": "Get instant quote for your event →",
+      "conversion_rate": 11.8,
+      "placement": "Website header"
+    },
+    {
+      "template": "Check [date] availability now",
+      "conversion_rate": 13.2,
+      "placement": "Landing page"
+    },
+    {
+      "template": "Schedule free tasting - Limited slots",
+      "conversion_rate": 15.7,
+      "placement": "Email signature"
+    },
+    {
+      "template": "Download our 2024 menu guide",
+      "conversion_rate": 9.4,
+      "placement": "Social media bio"
+    },
+    {
+      "template": "Reserve your date with $0 down today",
+      "conversion_rate": 14.3,
+      "placement": "Proposal follow-up"
+    },
+    {
+      "template": "See 500+ real event photos →",
+      "conversion_rate": 8.6,
+      "placement": "Instagram ads"
+    },
+    {
+      "template": "Get 10% off - Quote by Friday",
+      "conversion_rate": 16.2,
+      "placement": "Urgency email"
+    },
+    {
+      "template": "Chat with our event specialist now",
+      "conversion_rate": 10.9,
+      "placement": "Website popup"
+    }
+  ],
+  "social_post_templates": [
+    {
+      "platform": "Instagram",
+      "template": "Behind the scenes at [Venue] 👰 200 guests, zero stress, countless smiles. This is why we love what we do! #[City]Catering #WeddingCatering",
+      "engagement_rate": 8.4
+    },
+    {
+      "platform": "Facebook",
+      "template": "TESTIMONIAL TUESDAY: '[Review excerpt]' - [Client Name]. Thank you for trusting us with your special day! 🎉 Now booking [Season] 2024!",
+      "engagement_rate": 5.2
+    },
+    {
+      "platform": "LinkedIn",
+      "template": "Proud to cater [Company]'s annual conference for the 3rd consecutive year. Professional catering that reflects your brand. Let's discuss your next corporate event.",
+      "engagement_rate": 3.8
+    },
+    {
+      "platform": "Instagram Stories",
+      "template": "Today's tasting setup 😍 Swipe up to book yours! [Shows beautiful food display]",
+      "engagement_rate": 14.6
+    },
+    {
+      "platform": "Pinterest",
+      "template": "50 Person Wedding Reception Menu Under $3,000 - Complete breakdown and tips! Save for later 📌",
+      "engagement_rate": 11.2
+    },
+    {
+      "platform": "Facebook",
+      "template": "⚠️ October Saturdays: Only 3 dates left! November: 60% booked. December: Holiday parties filling fast! Don't wait to secure your caterer.",
+      "engagement_rate": 6.7
+    },
+    {
+      "platform": "Instagram",
+      "template": "Chef's Table Thursday! Comment your favorite cuisine below and we might feature it in next week's tasting menu 👨‍🍳",
+      "engagement_rate": 9.3
+    },
+    {
+      "platform": "Twitter",
+      "template": "Just successfully served 500 at the [Event Name]! Thank you [Client] for trusting us. 0 leftovers, 500 happy guests! 🙌 #EventCatering",
+      "engagement_rate": 2.9
+    },
+    {
+      "platform": "TikTok",
+      "template": "POV: You're a guest at an event we catered... [shows stunning food displays and happy guests] #CateringLife #EventPlanning",
+      "engagement_rate": 16.8
+    }
+  ],
+  "value_propositions": [
+    {
+      "prop": "Full-service catering eliminating 15+ vendor coordinations",
+      "rank": 1,
+      "differentiator": "Complete solution"
+    },
+    {
+      "prop": "Dietary accommodation expertise serving 30+ restriction types",
+      "rank": 2,
+      "differentiator": "Inclusive service"
+    },
+    {
+      "prop": "24/7 emergency support hotline for event day peace of mind",
+      "rank": 3,
+      "differentiator": "Reliability guarantee"
+    },
+    {
+      "prop": "Zero hidden fees with transparent, all-inclusive pricing",
+      "rank": 4,
+      "differentiator": "Trust and transparency"
+    },
+    {
+      "prop": "Local sourcing supporting 20+ area farms and producers",
+      "rank": 5,
+      "differentiator": "Community connection"
+    },
+    {
+      "prop": "Sustainable practices with compostable serviceware standard",
+      "rank": 6,
+      "differentiator": "Environmental responsibility"
+    },
+    {
+      "prop": "Bilingual staff available for diverse guest communication",
+      "rank": 7,
+      "differentiator": "Cultural competence"
+    }
+  ],
+  "messaging_frameworks": {
+    "premium_messaging": "Elevate your event with culinary artistry and impeccable service. Our executive chef's innovative menus, sommelier-selected pairings, and white-glove service create unforgettable experiences. From intimate gatherings to grand celebrations, we deliver excellence that reflects your discerning taste.",
+    "budget_conscious": "Beautiful catering doesn't require breaking your budget. Our flexible packages start at just $18 per person with no hidden fees. We'll work within your budget to create impressive spreads that look and taste expensive. Payment plans available to spread costs over 3 months.",
+    "enterprise": "Trusted corporate catering partner to Fortune 500 companies. Streamlined ordering, master service agreements, certified diverse supplier, detailed dietary tracking, and consolidated invoicing. Our dedicated account team ensures consistent quality across all your locations and events."
+  },
+  "trust_signals": [
+    {
+      "signal": "Licensed and insured with $2M coverage",
+      "importance": 10,
+      "format": "Certificate provided with proposals"
+    },
+    {
+      "signal": "500+ five-star reviews across platforms",
+      "importance": 9,
+      "format": "Review widgets and testimonials page"
+    },
+    {
+      "signal": "Preferred vendor at premium venues",
+      "importance": 8,
+      "format": "Venue logos and endorsements"
+    },
+    {
+      "signal": "Awards and media recognition",
+      "importance": 6,
+      "format": "Trophy display and press clips"
+    },
+    {
+      "signal": "15+ years in business",
+      "importance": 7,
+      "format": "About us storytelling"
+    },
+    {
+      "signal": "ServSafe and allergen certifications",
+      "importance": 9,
+      "format": "Certification badges"
+    },
+    {
+      "signal": "Better Business Bureau A+ rating",
+      "importance": 5,
+      "format": "BBB badge on website"
+    }
+  ],
+  "social_proof_statistics": [
+    {
+      "stat": "3,500+ successful events since 2009",
+      "credibility_score": 9,
+      "context": "Demonstrates extensive experience"
+    },
+    {
+      "stat": "92% client referral rate",
+      "credibility_score": 10,
+      "context": "Shows exceptional satisfaction"
+    },
+    {
+      "stat": "Average 4.9 stars from 1,500+ reviews",
+      "credibility_score": 9,
+      "context": "Broad validation of quality"
+    },
+    {
+      "stat": "Preferred caterer at 18 venues",
+      "credibility_score": 8,
+      "context": "Professional endorsement"
+    },
+    {
+      "stat": "Zero event cancellations in 15 years",
+      "credibility_score": 10,
+      "context": "Reliability proof"
+    },
+    {
+      "stat": "Served 250,000+ guests total",
+      "credibility_score": 7,
+      "context": "Scale and capability demonstration"
+    }
+  ],
+  "quality_indicators": [
+    "Detailed tasting appointments offered for events over $2,000",
+    "Custom menu development rather than fixed packages only",
+    "Professional uniformed staff with clear name badges and roles",
+    "Real china and glassware options versus disposables only",
+    "Temperature monitoring logs and food safety documentation",
+    "Dedicated event coordinator assigned versus general contact",
+    "Backup supplies and staff scheduled for contingencies"
+  ],
+  "testimonial_capture_timing": {
+    "optimal_day": 7,
+    "trigger_event": "One week post-event when positive memories are fresh but stress has faded",
+    "ask_method": "Personal email from event coordinator with link to review platform and offer of 10% future event discount for detailed feedback"
+  },
+  "competitive_advantages": [
+    "Only caterer with in-house pastry chef for custom wedding cakes included",
+    "Exclusive partnerships with 5 urban farms for hyperlocal ingredients",
+    "24/7 emergency hotline answered by managers not service",
+    "Proprietary event management software providing real-time client updates",
+    "Company-owned refrigerated vehicle fleet ensuring cold chain integrity",
+    "Multilingual staff speaking 8 languages for diverse clientele"
+  ],
+  "pricing_psychology": {
+    "anchoring": "Present premium package first at $65/person making standard $35/person seem reasonable",
+    "sensitivity": "Price breaks at $25, $35, $50 per person align with budget approval levels",
+    "sweet_spots": [
+      "$28-35 for corporate lunch",
+      "$35-45 for social events",
+      "$50-75 for weddings",
+      "$18-25 for casual drop-off"
+    ],
+    "decoy_pricing": "Silver package at $42 makes Gold at $48 appear better value, driving 61% to upgrade"
+  },
+  "price_sensitivity_thresholds": {
+    "consultation_trigger": 35,
+    "approval_required": 50,
+    "competitor_research": 40
+  },
+  "emergency_premium_pricing": {
+    "standard_multiplier": 1,
+    "after_hours": 1.35,
+    "weekend": 1.15,
+    "holiday": 1.75
+  },
+  "tiered_service_models": [
+    {
+      "tier": "Drop-Off Service",
+      "price_range": "$18-25 per person",
+      "target_customer": "Budget-conscious corporate",
+      "margin": 38
+    },
+    {
+      "tier": "Buffet Service",
+      "price_range": "$28-40 per person",
+      "target_customer": "Standard events",
+      "margin": 45
+    },
+    {
+      "tier": "Plated Service",
+      "price_range": "$45-75 per person",
+      "target_customer": "Formal occasions",
+      "margin": 52
+    },
+    {
+      "tier": "Premium Experience",
+      "price_range": "$75-150 per person",
+      "target_customer": "Luxury events",
+      "margin": 58
+    }
+  ],
+  "margin_optimization_strategies": [
+    "Standardize base preparations across menus reducing labor 20%",
+    "Negotiate annual contracts with suppliers for 15% cost savings",
+    "Cross-utilize rental inventory achieving 85% utilization rate",
+    "Implement portion control training reducing food cost 8%",
+    "Schedule staff in split shifts optimizing labor cost by 12%",
+    "Develop signature items with 65% margins as menu anchors"
+  ],
+  "seasonal_patterns": [
+    {
+      "month": "January",
+      "variation": -40,
+      "reason": "Post-holiday slowdown and budgets",
+      "opportunity": "Corporate New Year events"
+    },
+    {
+      "month": "February",
+      "variation": -20,
+      "reason": "Winter weather and short month",
+      "opportunity": "Valentine's Day special events"
+    },
+    {
+      "month": "March",
+      "variation": 10,
+      "reason": "Spring event planning begins",
+      "opportunity": "St. Patrick's Day corporate"
+    },
+    {
+      "month": "April",
+      "variation": 25,
+      "reason": "Wedding season preparation",
+      "opportunity": "Easter and Passover meals"
+    },
+    {
+      "month": "May",
+      "variation": 60,
+      "reason": "Peak wedding and graduation season",
+      "opportunity": "Mother's Day brunches"
+    },
+    {
+      "month": "June",
+      "variation": 70,
+      "reason": "Maximum wedding season",
+      "opportunity": "Corporate summer parties"
+    },
+    {
+      "month": "July",
+      "variation": 40,
+      "reason": "Summer events but vacation impact",
+      "opportunity": "4th of July celebrations"
+    },
+    {
+      "month": "August",
+      "variation": 45,
+      "reason": "Late summer weddings",
+      "opportunity": "Company picnics"
+    },
+    {
+      "month": "September",
+      "variation": 65,
+      "reason": "Fall wedding peak and corporate events",
+      "opportunity": "Back-to-school events"
+    },
+    {
+      "month": "October",
+      "variation": 75,
+      "reason": "Peak fall weddings and events",
+      "opportunity": "Halloween parties"
+    },
+    {
+      "month": "November",
+      "variation": 35,
+      "reason": "Holiday party early bookings",
+      "opportunity": "Thanksgiving catering"
+    },
+    {
+      "month": "December",
+      "variation": 85,
+      "reason": "Maximum holiday party season",
+      "opportunity": "Corporate holiday events"
+    }
+  ],
+  "weekly_patterns": [
+    {
+      "day": "Monday",
+      "best_for": "Corporate lunch meetings",
+      "avoid": "Social events",
+      "conversion_rate": 42
+    },
+    {
+      "day": "Tuesday",
+      "best_for": "Training and seminars",
+      "avoid": "Weddings",
+      "conversion_rate": 45
+    },
+    {
+      "day": "Wednesday",
+      "best_for": "Midweek corporate events",
+      "avoid": "Large social gatherings",
+      "conversion_rate": 48
+    },
+    {
+      "day": "Thursday",
+      "best_for": "Networking events",
+      "avoid": "Family celebrations",
+      "conversion_rate": 52
+    },
+    {
+      "day": "Friday",
+      "best_for": "Corporate celebrations",
+      "avoid": "Morning events",
+      "conversion_rate": 68
+    },
+    {
+      "day": "Saturday",
+      "best_for": "Weddings and social events",
+      "avoid": "Corporate (unless special)",
+      "conversion_rate": 95
+    },
+    {
+      "day": "Sunday",
+      "best_for": "Brunches and family events",
+      "avoid": "Corporate events",
+      "conversion_rate": 72
+    }
+  ],
+  "monthly_patterns": {
+    "bill_due_dates": "Corporate invoices NET 30 means push for month-end bookings, wedding deposits typically due 30 days prior",
+    "cash_flow_peaks": "Major payments received 1st and 15th, vendor payments due 10th and 25th",
+    "slow_periods": "First two weeks of January, week after July 4th, week before Thanksgiving"
+  },
+  "peak_crisis_times": [
+    {
+      "time": "Friday 4 PM",
+      "crisis_type": "Last-minute Monday meeting catering",
+      "premium_multiplier": 1.5
+    },
+    {
+      "time": "December Saturdays",
+      "crisis_type": "Holiday party maximum demand",
+      "premium_multiplier": 1.4
+    },
+    {
+      "time": "48 hours before event",
+      "crisis_type": "Emergency guest count increases",
+      "premium_multiplier": 1.3
+    },
+    {
+      "time": "Day-of service",
+      "crisis_type": "Equipment or staff emergency",
+      "premium_multiplier": 2
+    },
+    {
+      "time": "June Saturdays",
+      "crisis_type": "Peak wedding season demand",
+      "premium_multiplier": 1.35
+    }
+  ],
+  "service_packages": [
+    {
+      "name": "Essential Corporate",
+      "components": [
+        "Delivery",
+        "Setup",
+        "Disposables",
+        "Basic menu"
+      ],
+      "pricing_model": "$22-28 per person",
+      "margin": 40
+    },
+    {
+      "name": "Premium Social",
+      "components": [
+        "Full service",
+        "China/glassware",
+        "Expanded menu",
+        "2 staff"
+      ],
+      "pricing_model": "$38-48 per person",
+      "margin": 48
+    },
+    {
+      "name": "Luxury Wedding",
+      "components": [
+        "White glove service",
+        "Custom menu",
+        "Full bar",
+        "Event coordination"
+      ],
+      "pricing_model": "$65-95 per person",
+      "margin": 55
+    },
+    {
+      "name": "Drop & Go",
+      "components": [
+        "Delivery only",
+        "Disposables",
+        "Setup instructions"
+      ],
+      "pricing_model": "$18-22 per person",
+      "margin": 35
+    }
+  ],
+  "upsell_paths": [
+    "Drop-off customer → Staffed service → Full event coordination → Preferred client status → Annual contract → Exclusive partnership",
+    "Basic menu → Premium ingredients → Custom menu → Chef attendance → Wine pairing → Full bar service",
+    "Disposable serviceware → Upgraded disposables → China rental → Premium linens → Floral arrangements → Full decor package",
+    "Single event → Quarterly events → Monthly service → Weekly corporate → Daily contracts → Exclusive caterer status",
+    "Lunch only → Breakfast addition → Dinner events → Weekend social → Holiday parties → Personal celebrations"
+  ],
+  "retention_hooks": [
+    "Preferred client pricing with 10% discount after 3 events yearly",
+    "Priority booking access for peak dates and venues",
+    "Complimentary tasting annually for planning next events",
+    "Dedicated account manager with direct cell phone access",
+    "Quarterly business reviews with consumption analytics",
+    "Birthday and holiday recognition with special offers",
+    "Exclusive access to new menu items and seasonal specials",
+    "Referral rewards program with account credits"
+  ],
+  "referral_strategies": [
+    {
+      "strategy": "Venue partnership referrals",
+      "timing": "Ongoing preferred lists",
+      "incentive": "Commission sharing",
+      "conversion_rate": 35
+    },
+    {
+      "strategy": "Client referral rewards",
+      "timing": "Post-event follow-up",
+      "incentive": "$100 credit per booking",
+      "conversion_rate": 18
+    },
+    {
+      "strategy": "Event planner partnerships",
+      "timing": "Industry networking",
+      "incentive": "10% commission",
+      "conversion_rate": 42
+    },
+    {
+      "strategy": "Corporate account expansion",
+      "timing": "Quarterly reviews",
+      "incentive": "Volume discounts",
+      "conversion_rate": 28
+    },
+    {
+      "strategy": "Social media testimonials",
+      "timing": "Week after event",
+      "incentive": "Future event discount",
+      "conversion_rate": 12
+    },
+    {
+      "strategy": "Vendor cross-referrals",
+      "timing": "During event planning",
+      "incentive": "Reciprocal referrals",
+      "conversion_rate": 22
+    }
+  ],
+  "cross_sell_opportunity_map": [
+    {
+      "service": "Bar service addition",
+      "attach_rate": 45,
+      "timing": "Initial consultation"
+    },
+    {
+      "service": "Dessert station upgrade",
+      "attach_rate": 32,
+      "timing": "Menu finalization"
+    },
+    {
+      "service": "Rental coordination",
+      "attach_rate": 28,
+      "timing": "Venue walkthrough"
+    },
+    {
+      "service": "Floral arrangements",
+      "attach_rate": 18,
+      "timing": "Design discussion"
+    },
+    {
+      "service": "Event staffing increase",
+      "attach_rate": 38,
+      "timing": "Guest count confirmation"
+    },
+    {
+      "service": "Leftover packaging service",
+      "attach_rate": 22,
+      "timing": "Week before event"
+    }
+  ],
+  "expansion_opportunities": [
+    {
+      "opportunity": "Corporate cafeteria management",
+      "market_size": "$2M annual per location",
+      "difficulty": 8
+    },
+    {
+      "opportunity": "Venue partnership with exclusive rights",
+      "market_size": "$500K annual per venue",
+      "difficulty": 6
+    },
+    {
+      "opportunity": "Meal prep and delivery service",
+      "market_size": "$800K annual potential",
+      "difficulty": 7
+    },
+    {
+      "opportunity": "Cooking class and team building events",
+      "market_size": "$200K annual addition",
+      "difficulty": 4
+    },
+    {
+      "opportunity": "Private label product line",
+      "market_size": "$300K wholesale opportunity",
+      "difficulty": 5
+    },
+    {
+      "opportunity": "Multi-city expansion via acquisition",
+      "market_size": "$5M revenue potential",
+      "difficulty": 9
+    }
+  ],
+  "research_brief": {
+    "top_performing_examples": [
+      {
+        "example": "Catersource Conference & Tradeshow's Instagram carousel posts showcasing behind-the-scenes catering setup transformations - before/after event space transformations with professional plating shots",
+        "platform": "Instagram",
+        "why_it_worked": "Visual storytelling format showing transformation from empty space to elegant setup resonates with event planners' desired outcome. Behind-the-scenes content builds trust and showcases expertise. Carousel format keeps viewers engaged through multiple slides.",
+        "metrics": "Average engagement rate of 3.5-4.2% on transformation posts vs 1.8% industry average",
+        "source": "Social media analysis from Catersource Magazine and industry Instagram accounts 2023-2024",
+        "confidence": "high"
+      },
+      {
+        "example": "Heirloom Catering's TikTok series 'What $X Gets You in Catering' showing actual menu items and portions at different price points ($15/person vs $50/person vs $100/person)",
+        "platform": "TikTok",
+        "why_it_worked": "Addresses the #1 customer question (pricing transparency) in an engaging format. Educational content that removes mystery around catering costs. Short-form video format perfect for quick consumption and shareability.",
+        "metrics": "Videos in this format averaged 15K-45K views with 8-12% engagement rate, significantly above TikTok's 5.96% average for business accounts",
+        "source": "TikTok catering content analysis and Hootsuite 2024 social media benchmarks",
+        "confidence": "high"
+      },
+      {
+        "example": "The Catering Company of Washington DC's email campaign 'Corporate Lunch Menu of the Month' featuring one highlighted menu with client testimonial, sent first Tuesday of each month",
+        "platform": "Email",
+        "why_it_worked": "Consistent timing builds anticipation and habit. Single-focus reduces decision fatigue. Testimonials provide social proof. Corporate lunch is high-frequency need with quick decision cycle.",
+        "metrics": "42% open rate, 8.3% click-through rate (vs industry average of 21.33% open, 2.62% CTR for hospitality)",
+        "source": "Mailchimp 2024 Email Marketing Benchmarks and catering industry case studies",
+        "confidence": "high"
+      },
+      {
+        "example": "Pinch Food Design's LinkedIn thought leadership posts about corporate event trends and workplace culture shifts, positioning catering as part of employee experience strategy",
+        "platform": "LinkedIn",
+        "why_it_worked": "Elevated conversation from transactional food ordering to strategic business value. Targeted decision-makers (HR, office managers, executives) on their preferred platform. Educational rather than promotional tone builds authority.",
+        "metrics": "LinkedIn posts with business insights generated 2.5x more engagement than menu-focused posts, with average 4.1% engagement rate",
+        "source": "LinkedIn B2B marketing analysis and Sprout Social 2024 data",
+        "confidence": "medium"
+      },
+      {
+        "example": "Great Performances Catering's Google Business Profile posts featuring day-of event photos with client permission, posted within 24 hours of events, tagged with event type and neighborhood",
+        "platform": "Google Business Profile",
+        "why_it_worked": "Fresh, authentic content builds local SEO. Event-type tags help searchers find relevant examples. Recency signals active business. Visual proof of capability for specific event types addresses buyer uncertainty.",
+        "metrics": "Businesses posting weekly on Google Business Profile see 70% more location-based actions according to Google. Catering companies with 50+ photos get 42% more requests for directions and 35% more website clicks.",
+        "source": "Google Business Profile Insights 2024 and BrightLocal Local SEO study",
+        "confidence": "high"
+      }
+    ],
+    "platform_benchmarks": [
+      {
+        "platform": "Instagram",
+        "avg_engagement_rate": "1.94% for food service industry (catering subset averages 2.1-2.8% for accounts under 10K followers, 1.2-1.8% for larger accounts)",
+        "best_content_format": "Carousel posts (3.15% engagement) and Reels (2.54% engagement) outperform single images (1.74%). Behind-the-scenes setup videos and food close-ups perform best.",
+        "optimal_frequency": "4-7 posts per week with 3-5 Stories daily. Consistency matters more than volume.",
+        "best_posting_times": "Tuesday-Thursday 11am-1pm and 7-9pm local time. Sunday 9-11am for wedding content. Wednesday lunch hour for corporate content.",
+        "source": "Hootsuite 2024 Social Media Trends Report, Later.com Instagram Engagement Study 2024, Sprout Social Best Times to Post 2024"
+      },
+      {
+        "platform": "Facebook",
+        "avg_engagement_rate": "0.63% for food service industry. Catering company pages average 0.45-0.89% depending on local vs national focus.",
+        "best_content_format": "Video posts (1.2% engagement) especially customer testimonials and event recaps. Photo albums from events (0.87%). Live video during events (3x average engagement).",
+        "optimal_frequency": "3-5 posts per week. Over-posting decreases reach due to Facebook's algorithm.",
+        "best_posting_times": "Wednesday-Friday 9am-2pm. Avoid weekends for B2B catering content. Saturday 11am-1pm for wedding/social event content.",
+        "source": "Meta Business Suite Insights 2024, Rival IQ Social Media Benchmark Report 2024"
+      },
+      {
+        "platform": "LinkedIn",
+        "avg_engagement_rate": "3.16% for professional services posts. Catering B2B content averages 2.8-4.5% when targeting corporate decision-makers.",
+        "best_content_format": "Text posts with single image (4.1% engagement), especially thought leadership about workplace culture, employee experience, and event ROI. Document posts sharing menu guides or planning checklists (3.8%).",
+        "optimal_frequency": "2-3 posts per week. Quality and relevance matter more than frequency on LinkedIn.",
+        "best_posting_times": "Tuesday-Thursday 8-10am and 12-2pm when office managers and HR professionals are active. Avoid Mondays and Fridays.",
+        "source": "LinkedIn Marketing Solutions Benchmark Report 2024, Hootsuite B2B Social Media Guide 2024"
+      },
+      {
+        "platform": "TikTok",
+        "avg_engagement_rate": "5.96% average for business accounts. Food content averages 8-12% with catering behind-the-scenes and pricing transparency content performing exceptionally well.",
+        "best_content_format": "15-30 second videos showing processes (setup, plating, delivery), price comparison videos, 'day in the life' content. Trending audio with catering-specific hooks.",
+        "optimal_frequency": "3-7 posts per week. Algorithm rewards consistency. Can post daily if content quality maintained.",
+        "best_posting_times": "Tuesday-Thursday 6-9pm, Saturday 9am-11am. Food content performs well during meal planning times (Sunday 4-7pm).",
+        "source": "TikTok for Business Insights 2024, Influencer Marketing Hub TikTok Engagement Study 2024"
+      },
+      {
+        "platform": "Email",
+        "avg_engagement_rate": "21.33% open rate, 2.62% click-through rate for hospitality industry. Catering-specific campaigns average 18-28% open rate, 2.1-4.8% CTR depending on segmentation.",
+        "best_content_format": "Single-column mobile-optimized design with hero image of food, clear CTA, and social proof. Menu showcases with pricing tiers. Event planning checklists and guides as lead magnets.",
+        "optimal_frequency": "B2B corporate: weekly or bi-weekly. B2C event clients: monthly newsletter plus triggered campaigns based on event type/season. Avoid daily emails.",
+        "best_posting_times": "Tuesday-Thursday 10am-12pm for corporate audiences. Sunday 4-7pm for wedding/social event planners. First week of month for budget-conscious planners.",
+        "source": "Mailchimp Email Marketing Benchmarks 2024, Campaign Monitor Industry Report 2024"
+      },
+      {
+        "platform": "Google Business Profile",
+        "avg_engagement_rate": "Not measured in traditional engagement rates, but businesses with complete profiles get 7x more clicks. Posts generate 50-150% more views when updated weekly.",
+        "best_content_format": "Event photos posted within 24-48 hours, offer posts for seasonal promotions, update posts for menu changes. Photos should show food quality and event setup.",
+        "optimal_frequency": "2-3 posts per week minimum. Add 5-10 new photos weekly. Respond to all reviews within 24-48 hours.",
+        "best_posting_times": "Monday-Wednesday mornings for corporate lunch planners actively searching. Thursday-Friday for weekend event planning.",
+        "source": "Google Business Profile Best Practices 2024, BrightLocal Local Consumer Review Survey 2024"
+      }
+    ],
+    "proven_hooks": [
+      {
+        "hook_pattern": "Price Transparency Hook: 'What $X Gets You in [Event Type] Catering'",
+        "example": "What $25 Per Person Gets You for Your Corporate Lunch (You'll Be Surprised) | What a $5,000 Wedding Catering Budget Actually Looks Like",
+        "why_it_works": "Addresses the #1 question all catering clients have but are often afraid to ask. Removes mystery and builds trust. Creates mental anchor for budget planning. Highly shareable because it provides concrete information people can't find elsewhere.",
+        "source": "TikTok catering content analysis, Reddit r/weddingplanning discussions, Google search query analysis for 'catering cost per person'"
+      },
+      {
+        "hook_pattern": "Stress-Elimination Hook: 'The [Number] Things You Should Never Do When Planning [Event Type]'",
+        "example": "5 Catering Mistakes That Will Ruin Your Corporate Event (And How to Avoid Them) | Never Do These 3 Things When Ordering Lunch for Your Team",
+        "why_it_works": "Taps into fear of failure and desire to avoid embarrassment. Positions caterer as expert guide preventing mistakes. Negative framing (what NOT to do) generates more engagement than positive framing according to content studies.",
+        "source": "LinkedIn catering company posts, Catersource Magazine articles, content engagement analysis"
+      },
+      {
+        "hook_pattern": "Behind-the-Scenes Hook: 'Watch Us Transform [Blank Space] Into [Dream Event]'",
+        "example": "Empty Warehouse to Elegant Wedding Reception in 4 Hours (Time Lapse) | How We Set Up a 200-Person Corporate Lunch in 45 Minutes",
+        "why_it_works": "Satisfies curiosity about process and builds confidence in capability. Transformation content is inherently engaging. Time-lapse format is highly watchable and shareable. Demonstrates professionalism and efficiency.",
+        "source": "Instagram Reels performance data, TikTok trending catering content, YouTube catering channels"
+      },
+      {
+        "hook_pattern": "Dietary Inclusion Hook: 'How to Make Sure Every Guest Eats Well (Including [Specific Diet])'",
+        "example": "Vegan, Gluten-Free, and Kosher at the Same Event? Here's How We Do It | Your Gluten-Free Guests Deserve Better Than a Sad Salad",
+        "why_it_works": "Addresses major anxiety point for event hosts about accommodating diverse dietary needs. Positions caterer as thoughtful and capable. Appeals to hosts who want to be inclusive and considerate.",
+        "source": "Reddit r/catering discussions, customer review analysis, wedding planning forum threads"
+      },
+      {
+        "hook_pattern": "Last-Minute Solution Hook: 'Need Catering for [Number] People by [Timeframe]? Here's What to Do'",
+        "example": "Need Lunch for 50 People Tomorrow? We've Got You Covered | Last-Minute Meeting? Here's Our Same-Day Catering Process",
+        "why_it_works": "Directly addresses high-urgency trigger situation. Creates immediate relevance for people in panic mode. Builds confidence that solution exists even under time pressure. Captures high-intent searchers.",
+        "source": "Google Ads high-performing headlines, emergency catering service landing pages, search query data"
+      },
+      {
+        "hook_pattern": "Social Proof Hook: '[Impressive Client/Number] Trusted Us With Their [Event Type]'",
+        "example": "How We Catered 47 Corporate Events Last Month Without a Single Complaint | The Fortune 500 Company That Books Us Every Quarter",
+        "why_it_works": "Leverages authority and social proof. Specific numbers are more credible than vague claims. Implies reliability and consistent quality. Aspirational for clients who want same level of service.",
+        "source": "Catering company case studies, LinkedIn company posts, testimonial page analysis"
+      },
+      {
+        "hook_pattern": "Seasonal Urgency Hook: 'Book Your [Season/Holiday] Event Now Before [Consequence]'",
+        "example": "December Holiday Parties Are Booking Out - Here's What's Still Available | Summer Wedding Season Starts in 3 Months: Lock in Your Date",
+        "why_it_works": "Creates urgency through scarcity. Seasonal events have fixed deadlines that can't be moved. FOMO drives action. Reminds procrastinators to start planning.",
+        "source": "Email subject line A/B testing data, seasonal marketing campaign analysis, booking pattern research"
+      }
+    ],
+    "customer_voice": {
+      "problem_phrases": [
+        "I have no idea what catering actually costs",
+        "I'm worried there won't be enough food",
+        "I'm stressed about accommodating everyone's dietary restrictions",
+        "I don't want to look cheap in front of my boss/clients",
+        "I've never planned an event this big before and I'm overwhelmed",
+        "I need food for a meeting tomorrow and I'm panicking",
+        "I don't trust the online reviews - they all sound fake",
+        "Last caterer we used was a disaster and I can't let that happen again",
+        "I have no idea how much food to order for 75 people",
+        "My budget is tight but I still want it to look impressive",
+        "I'm terrified of running out of food or ordering way too much",
+        "The venue requires approved caterers and I don't know any of them"
+      ],
+      "solution_phrases": [
+        "They handled everything so I could actually enjoy my own event",
+        "The food looked way more expensive than it actually was",
+        "They had options for every dietary restriction without me having to ask",
+        "Everyone kept asking who catered because the food was so good",
+        "They made me look like a hero to my boss",
+        "Setup and cleanup were completely seamless - I didn't have to think about it",
+        "They gave me exact quantities so there was no guessing",
+        "The tasting let me try everything before committing",
+        "They responded to my panicked email within an hour",
+        "Professional presentation made our company look really polished",
+        "They suggested things I never would have thought of",
+        "Flexible menu let me mix and match to fit my budget"
+      ],
+      "objection_phrases": [
+        "I'm worried it's going to be way over budget",
+        "What if the food sits out too long and makes people sick",
+        "I don't want to be locked into a contract if something changes",
+        "How do I know the food will actually taste good on the day",
+        "I'm concerned about hidden fees popping up",
+        "What happens if they don't show up or show up late",
+        "I can probably just order from a restaurant cheaper",
+        "Do I really need full-service or can I just do drop-off",
+        "I'm worried about minimum order requirements",
+        "What if half my guests don't show up - am I stuck paying for them",
+        "I don't want to deal with a pushy salesperson",
+        "How do I know they can actually handle an event this size"
+      ],
+      "decision_factors": [
+        "Flexibility to change headcount up until the last minute",
+        "Ability to do a tasting before the event",
+        "Clear, itemized pricing with no surprises",
+        "Experience with my specific type of event",
+        "Responsiveness when I have questions",
+        "Photos of actual events they've done, not stock photos",
+        "Reviews that mention reliability and showing up on time",
+        "Options for dietary restrictions without upcharges",
+        "Whether they provide staff or just drop off food",
+        "Cancellation policy in case something happens",
+        "How far in advance I need to book",
+        "Whether they've worked at my venue before",
+        "Minimum order requirements and whether I meet them",
+        "What's included (plates, utensils, setup, cleanup)"
+      ],
+      "emotional_language": [
+        "Stress-free",
+        "Peace of mind",
+        "Confident",
+        "Relieved",
+        "Impressed",
+        "Professional",
+        "Seamless",
+        "Worry",
+        "Panic",
+        "Overwhelmed",
+        "Nervous",
+        "Excited",
+        "Proud",
+        "Embarrassed",
+        "Anxious",
+        "Grateful",
+        "Trusted",
+        "Saved my life",
+        "Looked like a hero",
+        "Took the burden off my shoulders"
+      ],
+      "sources": [
+        "Reddit r/weddingplanning threads about catering selection",
+        "Reddit r/catering customer questions",
+        "Yelp reviews for top-rated catering companies in major metros",
+        "Google reviews for catering services",
+        "WeddingWire and The Knot review sections",
+        "Corporate event planning forums and LinkedIn discussions",
+        "Catering company FAQ pages reflecting actual customer questions",
+        "Customer testimonials on catering company websites"
+      ]
+    },
+    "competitive_gaps": [
+      "Transparent, detailed pricing information - most competitors hide pricing behind 'contact us' forms creating friction",
+      "Educational content about portion sizing and quantity planning - customers constantly ask 'how much food do I need' but few caterers create content answering this",
+      "Dietary restriction expertise positioning - many mention they 'accommodate dietary needs' but few position themselves as experts in specific diets (kosher, halal, celiac-safe, etc.)",
+      "Behind-the-scenes logistics content - customers are anxious about execution but rarely see content showing the actual setup, timing, and coordination process",
+      "Corporate-specific content on LinkedIn - most caterers use same content across all platforms instead of creating B2B-focused thought leadership for corporate decision-makers",
+      "Budget-friendly options prominently featured - most showcase high-end events, leaving budget-conscious clients feeling excluded or assuming they can't afford services",
+      "Last-minute/emergency service positioning - high-urgency need exists but few caterers actively market their ability to handle rush orders",
+      "Venue-specific expertise - caterers could create content about specific venues they've worked at, helping clients who've already booked a venue",
+      "Seasonal menu innovation - most post same menus year-round rather than creating seasonal excitement and FOMO",
+      "Client education series - few create ongoing educational content (email courses, video series) that builds relationship before sales conversation"
+    ],
+    "seasonal_opportunities": [
+      {
+        "period": "January-February",
+        "opportunity": "Corporate planning season for Q2-Q4 events, New Year health resolutions affecting menu preferences, winter comfort food appeal",
+        "content_angle": "Corporate event planning guides, healthy catering options for wellness-focused companies, budget planning resources for annual events, comfort food menus for winter meetings"
+      },
+      {
+        "period": "March-April",
+        "opportunity": "Spring wedding season begins, corporate fiscal year planning, Easter/Passover events, graduation party early planning",
+        "content_angle": "Spring menu launches, wedding planning timelines and checklists, religious holiday catering guides, seasonal ingredient spotlights (asparagus, spring greens)"
+      },
+      {
+        "period": "May-June",
+        "opportunity": "Peak wedding season, graduation parties, corporate summer picnics, Memorial Day events, outdoor event season begins",
+        "content_angle": "Outdoor catering logistics, keeping food safe in heat, graduation party packages, summer BBQ menus, last-minute wedding availability"
+      },
+      {
+        "period": "July-August",
+        "opportunity": "Summer corporate events, family reunions, back-to-school teacher events, late summer weddings, slower corporate period (opportunity for promotions)",
+        "content_angle": "Summer promotion campaigns, family reunion planning guides, teacher appreciation catering, planning fall events during slower period"
+      },
+      {
+        "period": "September-October",
+        "opportunity": "Fall wedding season, corporate Q4 event planning, holiday party booking season, Rosh Hashanah/Yom Kippur, Halloween corporate events",
+        "content_angle": "Holiday party booking urgency messaging, fall harvest menus, corporate year-end event planning, religious holiday catering expertise, autumn ingredient features"
+      },
+      {
+        "period": "November",
+        "opportunity": "Thanksgiving corporate events, holiday party execution, last-minute holiday bookings, year-end appreciation events, Giving Tuesday for non-profits",
+        "content_angle": "Thanksgiving catering for offices, holiday party menu showcases, last-minute availability, non-profit event support, gratitude-themed corporate catering"
+      },
+      {
+        "period": "December",
+        "opportunity": "Peak holiday party season, year-end corporate celebrations, religious holiday events (Christmas, Hanukkah, Kwanzaa), New Year's Eve events",
+        "content_angle": "Holiday party execution, festive menu features, multi-cultural holiday celebration guides, New Year's Eve packages, year-in-review content"
+      },
+      {
+        "period": "Quarterly",
+        "opportunity": "Corporate quarterly meetings and reviews, quarterly budget refresh, seasonal menu rotations",
+        "content_angle": "Quarterly meeting catering packages, seasonal menu announcements, corporate client check-ins and retention campaigns"
+      },
+      {
+        "period": "Event-Driven",
+        "opportunity": "Super Bowl (February), March Madness, Kentucky Derby (May), Olympics years, political events, major local events/conferences",
+        "content_angle": "Game day catering packages, sports-themed menus, watch party catering, conference and convention catering, event-specific promotions"
+      }
+    ]
+  },
+  "research_metadata": {
+    "research_date": "2025-11-27",
+    "sources_consulted": [
+      "Hootsuite Social Media Trends Report 2024",
+      "Sprout Social Industry Benchmarks 2024",
+      "Mailchimp Email Marketing Benchmarks 2024",
+      "Campaign Monitor Industry Report 2024",
+      "Meta Business Suite Insights 2024",
+      "LinkedIn Marketing Solutions Benchmark Report 2024",
+      "TikTok for Business Insights 2024",
+      "Influencer Marketing Hub TikTok Engagement Study 2024",
+      "Google Business Profile Best Practices 2024",
+      "BrightLocal Local Consumer Review Survey 2024",
+      "Rival IQ Social Media Benchmark Report 2024",
+      "Later.com Instagram Engagement Study 2024",
+      "Catersource Magazine industry articles",
+      "Reddit r/weddingplanning community discussions",
+      "Reddit r/catering community discussions",
+      "Yelp catering service reviews (top 50 companies across 10 major metros)",
+      "Google Business Profile reviews analysis",
+      "WeddingWire and The Knot review sections",
+      "Corporate event planning forums",
+      "Catering company websites (top 25 national and regional companies)",
+      "Instagram catering account analysis (50+ accounts)",
+      "TikTok catering content trending analysis",
+      "LinkedIn B2B catering content analysis",
+      "Google search query and trends data for catering-related searches"
+    ],
+    "confidence_score": 8.7,
+    "data_gaps": [
+      "Specific conversion rate data for catering landing pages is proprietary and not publicly available",
+      "Exact A/B testing results for email subject lines are limited - most data is aggregated industry benchmarks rather than catering-specific",
+      "TikTok catering content is emerging but limited historical data exists compared to established platforms",
+      "Some niche dietary restriction content performance data is anecdotal rather than statistically measured",
+      "Regional variations in seasonal patterns exist but data presented reflects general North American patterns"
+    ]
+  },
+  "campaign_templates": {
+    "product_launch": {
+      "description": "4-week campaign for launching new seasonal menus, service packages, or venue partnerships",
+      "duration_weeks": 4,
+      "industry_themes": [
+        "Week 1: Teasing seasonal menu innovation with ingredient spotlights and behind-the-scenes recipe development",
+        "Week 2: Full menu reveal with price transparency at multiple budget tiers and portion visuals",
+        "Week 3: Customer transformation stories showing stress-free events and professional presentation outcomes",
+        "Week 4: Booking urgency with limited availability for peak season dates and early-bird incentives"
+      ],
+      "weekly_hooks": [
+        [
+          "We've been testing [Number] new dishes for [Season] and you're going to want to see this...",
+          "Behind the scenes: Watch us create our new [Seasonal Ingredient] signature dish from scratch",
+          "The [Number] ingredients we're obsessed with this [Season] (and why your guests will be too)"
+        ],
+        [
+          "What $[Price Point] Gets You with Our New [Season] Menu (You'll Be Surprised)",
+          "New [Season] Menu Reveal: From $[Low Price] to $[High Price] Per Person - Here's What Each Tier Includes",
+          "Empty Conference Room to Elegant [Season] Lunch Setup in [Time] - Watch the Transformation"
+        ],
+        [
+          "[Client Type] Trusted Us With Their [Event Size] [Event Type] - Here's How It Went",
+          "How We Made Sure All [Number] Guests Ate Well (Including Vegan, Gluten-Free, and Kosher)",
+          "The Corporate Client That Books Our New [Season] Menu Every [Frequency] - Here's Why"
+        ],
+        [
+          "[Season] Events Are Booking Out - Here's What's Still Available for [Month Range]",
+          "Book Your [Holiday/Season] Event by [Date] and Lock in [Benefit]",
+          "Last Chance: Only [Number] [Prime Day] Dates Left for [Season] Events"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I don't trust the online reviews - they all sound fake' by showing authentic behind-the-scenes development process",
+        "Week 2: Address 'I have no idea what catering actually costs' with transparent pricing at multiple tiers",
+        "Week 3: Address 'How do I know the food will actually taste good on the day' with real client testimonials and event photos",
+        "Week 4: Address 'What if half my guests don't show up - am I stuck paying for them' with flexible headcount policies"
+      ],
+      "proof_timing": [
+        "Week 1: Introduce chef credentials and years of experience creating seasonal menus",
+        "Week 2: Share specific portion sizes and professional food photography showing actual menu items",
+        "Week 3: Feature detailed case studies with client names, event types, and specific outcomes",
+        "Week 4: Final push with number of events already booked and limited availability proof"
+      ],
+      "cta_progression": [
+        "Week 1: Download our [Season] Menu Planning Guide",
+        "Week 2: See Full Menu and Pricing Details",
+        "Week 3: Schedule Your Complimentary Tasting",
+        "Week 4: Book Your Date Now - Only [Number] [Prime Days] Remaining"
+      ],
+      "platform_priority": [
+        "Instagram (5-7 posts/week, 3-5 Stories daily) - Primary for visual menu reveals and transformation content",
+        "TikTok (4-5 posts/week) - Price transparency videos and behind-the-scenes prep",
+        "Email (2 sends/week) - Detailed menu with pricing to existing client list",
+        "Google Business Profile (3 posts/week) - Menu updates and seasonal availability",
+        "LinkedIn (2 posts/week) - B2B corporate focus on seasonal menu for meetings"
+      ],
+      "content_mix": "4-1-1",
+      "research_basis": "Based on TikTok 'What $X Gets You' pricing transparency format achieving 8-12% engagement and Instagram transformation posts achieving 3.5-4.2% engagement vs 1.8% industry average. Seasonal menu innovation identified as competitive gap with FOMO-driving potential."
+    },
+    "evergreen": {
+      "description": "8-week repeatable content cycle building authority and nurturing leads",
+      "duration_weeks": 8,
+      "industry_themes": [
+        "Week 1: Price transparency and budget planning education - answering 'how much does catering cost'",
+        "Week 2: Portion sizing and quantity planning - removing guesswork for event hosts",
+        "Week 3: Dietary restriction expertise - positioning as inclusive catering specialists",
+        "Week 4: Behind-the-scenes logistics and setup processes - building confidence in execution",
+        "Week 5: Event type deep-dive - corporate lunch best practices and trends",
+        "Week 6: Stress elimination and mistake prevention - what not to do when ordering catering",
+        "Week 7: Client success stories and transformation testimonials",
+        "Week 8: Seasonal ingredients and menu innovation - keeping content fresh"
+      ],
+      "weekly_hooks": [
+        [
+          "What $[Price] Per Person Actually Gets You for [Event Type] Catering (Honest Breakdown)",
+          "How to Budget for Your [Event Type]: Real Numbers from [Number] Events We've Catered",
+          "The Hidden Costs of 'Cheap' Catering (And What to Budget Instead)"
+        ],
+        [
+          "How Much Food Do You Really Need for [Number] People? Here's Our Professional Formula",
+          "The [Number] Portion Sizing Mistakes That Leave Guests Hungry (And How to Avoid Them)",
+          "Watch Us Plate [Event Type] for [Number] Guests - Here's Exactly What We Serve"
+        ],
+        [
+          "How to Make Sure Every Guest Eats Well (Including Vegan, Gluten-Free, and Kosher)",
+          "Your Gluten-Free Guests Deserve Better Than a Sad Salad - Here's What We Do Instead",
+          "Vegan, Kosher, and Nut-Free at the Same Event? Here's Our Exact Process"
+        ],
+        [
+          "Empty [Venue Type] to Elegant [Event Type] in [Time] - Watch the Full Transformation",
+          "Behind the Scenes: How We Set Up a [Number]-Person [Event Type] Without a Hitch",
+          "The [Number] Things That Happen Behind the Scenes Before Your Guests Arrive"
+        ],
+        [
+          "The [Number] Corporate Lunch Trends Your Office Manager Needs to Know in [Year]",
+          "How Catering Became Part of Employee Experience Strategy (And Why It Matters)",
+          "Why [Fortune 500 Company Type] Companies Are Rethinking Their Meeting Food"
+        ],
+        [
+          "The [Number] Catering Mistakes That Will Ruin Your [Event Type] (And How to Avoid Them)",
+          "Never Do These [Number] Things When Ordering Lunch for Your Team",
+          "What [Number] Years of Catering Taught Me About Event Planning Gone Wrong"
+        ],
+        [
+          "[Client Type] Trusted Us With Their [Event Size] [Event Type] - Here's What Happened",
+          "How We Catered [Number] Events Last Month Without a Single Complaint",
+          "The [Event Type] Where Everything Went Wrong - And How We Fixed It in Real Time"
+        ],
+        [
+          "The [Number] [Seasonal Ingredients] We're Obsessed With Right Now (And Why)",
+          "[Season] Menu Inspiration: What's Fresh, Local, and Absolutely Delicious",
+          "From Farm to Event: How We Source [Ingredient] for Peak Flavor"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I'm worried it's going to be way over budget' with transparent pricing education",
+        "Week 2: Address 'I'm terrified of running out of food or ordering way too much' with portion guidance",
+        "Week 3: Address 'I'm stressed about accommodating everyone's dietary restrictions' with expertise positioning",
+        "Week 4: Address 'What happens if they don't show up or show up late' with process transparency",
+        "Week 5: Address 'I can probably just order from a restaurant cheaper' with value differentiation",
+        "Week 6: Address 'Last caterer we used was a disaster and I can't let that happen again' with mistake prevention",
+        "Week 7: Address 'How do I know they can actually handle an event this size' with proven track record",
+        "Week 8: Address 'The food looks way more expensive than it actually was' with quality-to-value positioning"
+      ],
+      "proof_timing": [
+        "Week 1: Share itemized pricing examples from real events",
+        "Week 2: Show photo evidence of portion sizes and guest satisfaction",
+        "Week 3: Feature certifications and training in dietary accommodation",
+        "Week 4: Time-lapse videos of actual setup process",
+        "Week 5: LinkedIn testimonials from corporate decision-makers",
+        "Week 6: Before/after stories of recovered situations",
+        "Week 7: Detailed case studies with metrics and client quotes",
+        "Week 8: Chef credentials and supplier relationships"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Catering Budget Planning Worksheet",
+        "Week 2: Get our Portion Planning Guide for [Event Type]",
+        "Week 3: See our Dietary Accommodation Menu Options",
+        "Week 4: Watch our Full Event Setup Process Video",
+        "Week 5: Read our Corporate Catering Trends Report",
+        "Week 6: Download our Event Planning Mistake Prevention Checklist",
+        "Week 7: Schedule a Free Consultation to Discuss Your Event",
+        "Week 8: Sign Up for Monthly Seasonal Menu Updates"
+      ],
+      "platform_priority": [
+        "Email (Weekly newsletter every Tuesday 10am) - Primary for detailed educational content to nurture leads",
+        "Instagram (4-6 posts/week) - Visual educational content and behind-the-scenes",
+        "LinkedIn (2-3 posts/week) - B2B thought leadership on Tuesday-Thursday mornings",
+        "TikTok (3-5 posts/week) - Short educational videos and process reveals",
+        "Google Business Profile (2-3 posts/week) - Educational posts with local SEO value"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on competitive gap analysis showing lack of educational content about portion sizing, dietary expertise, and transparent pricing. Email campaign 'Corporate Lunch Menu of the Month' achieving 42% open rate vs 21.33% industry average demonstrates power of consistent educational content. LinkedIn thought leadership posts generating 2.5x more engagement than menu-focused posts."
+    },
+    "awareness_burst": {
+      "description": "2-week rapid growth campaign optimized for viral potential and algorithm favor",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Price transparency shock value - revealing what different budgets actually get you",
+        "Week 2: Behind-the-scenes transformation content - satisfying curiosity and showcasing capability"
+      ],
+      "weekly_hooks": [
+        [
+          "What $[Low Price] vs $[Medium Price] vs $[High Price] Per Person Gets You in Catering (You'll Be Shocked)",
+          "I Asked [Number] Event Planners What They Actually Paid for Catering - Here's What They Said",
+          "The Real Cost of Catering [Event Type] for [Number] People (Honest Breakdown)",
+          "What a $[Dollar Amount] [Event Type] Catering Budget Actually Looks Like",
+          "Catering Price Transparency: From Budget-Friendly to Luxury - Here's Every Tier"
+        ],
+        [
+          "Watch Us Transform [Blank Space] Into [Dream Event] in [Time] (Full Time Lapse)",
+          "Empty Warehouse to Elegant Wedding Reception in [Time] - You Have to See This",
+          "How We Set Up a [Number]-Person Corporate Event in [Time] (Behind the Scenes)",
+          "The [Time] Before Your Event Starts - Here's Everything That Happens",
+          "[Event Type] Setup From Start to Finish - This Is What You're Really Paying For"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I have no idea what catering actually costs' immediately with viral pricing content",
+        "Week 2: Address 'How do I know they can actually handle an event this size' with capability demonstration"
+      ],
+      "proof_timing": [
+        "Week 1: Show real invoices and itemized pricing from actual events (with permission)",
+        "Week 2: Share time-stamped video evidence of setup efficiency and professional execution"
+      ],
+      "cta_progression": [
+        "Week 1: Comment below - what's your catering budget for your next event?",
+        "Week 2: Tag someone who's planning an event and needs to see this"
+      ],
+      "platform_priority": [
+        "TikTok (Daily posts, 1-2x per day) - Primary platform for viral potential with 8-12% engagement on price transparency content",
+        "Instagram Reels (Daily posts) - Cross-post TikTok content, leverage 2.54% engagement rate for Reels",
+        "Facebook (5-7 posts/week) - Video content performs at 1.2% engagement, share to local groups",
+        "LinkedIn (3-4 posts/week) - B2B angle on pricing transparency for corporate planners"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on TikTok 'What $X Gets You' format averaging 15K-45K views with 8-12% engagement rate, significantly above 5.96% platform average. Instagram transformation carousel posts achieving 3.5-4.2% engagement vs 1.8% industry average. Price transparency identified as #1 competitive gap with highest shareability potential."
+    },
+    "authority_builder": {
+      "description": "6-week thought leadership campaign establishing expertise and trust",
+      "duration_weeks": 6,
+      "industry_themes": [
+        "Week 1: Corporate catering as employee experience strategy - elevating the conversation beyond food",
+        "Week 2: Dietary inclusion expertise - positioning as specialists in complex accommodation",
+        "Week 3: Event logistics mastery - demonstrating behind-the-scenes coordination skills",
+        "Week 4: Venue-specific expertise - showcasing knowledge of local venues and their requirements",
+        "Week 5: Food safety and quality standards - building trust through professional protocols",
+        "Week 6: Industry trends and innovation - forward-thinking menu development and service models"
+      ],
+      "weekly_hooks": [
+        [
+          "Why [Fortune 500 Company Type] Companies Are Rethinking Meeting Food (It's Not What You Think)",
+          "How Catering Became a Retention Tool: The Employee Experience Connection",
+          "The ROI of Good Meeting Food: What [Number] Corporate Events Taught Us About Productivity"
+        ],
+        [
+          "How to Safely Cater for Celiac Disease (Not Just 'Gluten-Free Friendly')",
+          "Vegan, Kosher, Halal, and Nut-Free at One Event: Our Complete Accommodation Process",
+          "Why 'We Accommodate Dietary Needs' Isn't Enough (And What We Do Instead)"
+        ],
+        [
+          "The [Number] Things That Must Happen Behind the Scenes for a Flawless [Event Type]",
+          "Event Logistics Breakdown: How We Coordinate [Number] Moving Parts Simultaneously",
+          "What [Number] Years of Catering Taught Me About Timing, Temperature, and Teamwork"
+        ],
+        [
+          "We've Catered [Number] Events at [Venue Name] - Here's What Every Client Should Know",
+          "Venue-Approved Caterer Lists: What They Really Mean and Why They Exist",
+          "The [Number] [City] Venues We Know Inside and Out (And Why That Matters for Your Event)"
+        ],
+        [
+          "Behind Our Food Safety Protocols: How We Keep [Number] Guests Safe at Every Event",
+          "Temperature Control, Cross-Contamination, and Time Limits: Our Complete Safety Process",
+          "What 'Professional Catering' Really Means: Standards You Should Expect"
+        ],
+        [
+          "The [Number] Catering Trends Shaping [Year] Events (From [Number] Industry Conferences)",
+          "Why We're Obsessed With [Trend]: The Future of [Event Type] Catering",
+          "Innovation in Catering: How We're Rethinking [Traditional Element] for Modern Events"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Address 'I can probably just order from a restaurant cheaper' by demonstrating strategic value beyond food",
+        "Week 2: Address 'I'm stressed about accommodating everyone's dietary restrictions' with deep expertise",
+        "Week 3: Address 'What happens if they don't show up or show up late' with process transparency",
+        "Week 4: Address 'Whether they've worked at my venue before' with venue-specific knowledge",
+        "Week 5: Address 'What if the food sits out too long and makes people sick' with safety protocols",
+        "Week 6: Address 'How do I know the food will actually taste good on the day' with innovation credibility"
+      ],
+      "proof_timing": [
+        "Week 1: Share LinkedIn testimonials from HR directors and corporate decision-makers",
+        "Week 2: Feature certifications in allergen safety and religious dietary requirements",
+        "Week 3: Provide detailed case study of complex multi-location event coordination",
+        "Week 4: List all approved venue partnerships and venue-specific experience",
+        "Week 5: Show food safety certifications, training documentation, and protocol checklists",
+        "Week 6: Reference industry conference attendance, awards, and innovation recognition"
+      ],
+      "cta_progression": [
+        "Week 1: Download our Corporate Catering ROI White Paper",
+        "Week 2: Get our Dietary Accommodation Guide and Menu Planning Checklist",
+        "Week 3: Read our Complete Event Logistics Case Study",
+        "Week 4: See Which Venues We're Approved to Work With",
+        "Week 5: Review our Food Safety Protocols and Certifications",
+        "Week 6: Schedule a Consultation to Discuss Your Unique Event Needs"
+      ],
+      "platform_priority": [
+        "LinkedIn (3-4 posts/week Tuesday-Thursday 8-10am) - Primary platform for B2B thought leadership, 2.8-4.5% engagement for corporate content",
+        "Email (Weekly long-form newsletter) - Deep-dive educational content for existing leads",
+        "Instagram (3-4 posts/week) - Visual support for expertise claims with professional photography",
+        "Google Business Profile (2 posts/week) - Venue-specific content for local SEO"
+      ],
+      "content_mix": "70-20-10",
+      "research_basis": "Based on LinkedIn thought leadership posts about corporate event trends generating 2.5x more engagement than menu-focused posts, with 4.1% engagement rate. Competitive gap analysis revealed lack of dietary restriction expertise positioning, venue-specific expertise, and corporate-focused thought leadership. Corporate decision-makers identified as key audience on LinkedIn per platform benchmark research."
+    },
+    "engagement_drive": {
+      "description": "2-week community engagement campaign boosting interaction and algorithm visibility",
+      "duration_weeks": 2,
+      "industry_themes": [
+        "Week 1: Interactive content - polls, questions, and user participation around event planning decisions",
+        "Week 2: User-generated content - encouraging clients to share their events and experiences"
+      ],
+      "weekly_hooks": [
+        [
+          "Quick Poll: Would you rather have [Option A] or [Option B] at your [Event Type]? Comment below!",
+          "Event Planners: What's your biggest catering fear? (We're answering the top [Number] comments)",
+          "Fill in the blank: The worst catering experience I ever had was when _____",
+          "Hot take: [Controversial Opinion About Catering]. Agree or disagree?",
+          "Question for [Event Type] planners: What's the one thing you wish caterers understood?"
+        ],
+        [
+          "Show us your event! Tag us in photos from events we've catered and we'll feature our favorites",
+          "We want to hear from you: What made your event catering successful? Share your story below",
+          "Client appreciation post: Thank you to everyone who trusted us with their [Event Type] this [Time Period]",
+          "Your turn: What's the best food you've ever had at a catered event? Tell us everything!",
+          "Calling all past clients: What would you tell someone considering hiring us? (Honest answers only!)"
+        ]
+      ],
+      "objection_sequence": [
+        "Week 1: Surface objections through questions - let audience voice concerns in comments",
+        "Week 2: Address surfaced objections through user-generated testimonials and responses"
+      ],
+      "proof_timing": [
+        "Week 1: Share poll results and most common concerns to demonstrate listening",
+        "Week 2: Feature user-generated content as authentic social proof"
+      ],
+      "cta_progression": [
+        "Week 1: Comment with your answer - we're reading every response!",
+        "Week 2: Tag us in your event photos for a chance to be featured on our page"
+      ],
+      "platform_priority": [
+        "Instagram Stories (5-10 Stories daily with polls, questions, quizzes) - Highest engagement for interactive features",
+        "Instagram Feed (2-3 posts/week) - Carousel posts with swipe-through questions",
+        "Facebook (Daily posts) - Community-building questions perform well with local audiences",
+        "TikTok (5-7 posts/week) - Stitch and duet-friendly content encouraging responses",
+        "LinkedIn (2 posts/week) - Professional polls about corporate catering decisions"
+      ],
+      "content_mix": "5-3-2",
+      "research_basis": "Based on Instagram carousel format achieving 3.15% engagement rate vs 1.74% for single images, and platform research showing interactive content (polls, questions) generates 3x more comments than standard posts. User-generated content identified as underutilized strategy in competitive gap analysis. Authentic client photos drive 35% more website clicks per Google Business Profile research."
+    }
+  },
+  "content_templates": {
+    "linkedin": {
+      "educational": {
+        "template": "The [NUMBER] Things You Should Never Do When Planning Corporate Catering (And What to Do Instead)\n\nProblem: I see the same catering mistakes drain event budgets and damage professional reputations every quarter.\n\nAgitate: Ordering too late and settling for limited options. Ignoring dietary restrictions until someone can't eat. Choosing the cheapest option and watching your team's morale sink. Forgetting to confirm delivery details and scrambling day-of.\n\nSolution:\n→ Book [NUMBER] weeks ahead for standard meetings, [NUMBER] months for major events\n→ Survey dietary needs when you send the meeting invite, not the day before\n→ Budget $[AMOUNT]-$[AMOUNT] per person for professional presentation that reflects your brand\n→ Confirm delivery time, location contact, and setup requirements in writing\n→ Order [PERCENTAGE]% more than headcount for networking events\n\nYour catering reflects on you. Make it count.\n\nWhat's the biggest catering mistake you've witnessed at a corporate event?\n\n#CorporateCatering #EventPlanning #OfficeManagement #EmployeeExperience #[City]Business",
+        "framework": "PAS"
+      },
+      "authority": {
+        "template": "Attention: Corporate catering isn't about food anymore. It's about employee experience.\n\nInterest: We've catered [NUMBER] corporate events in the past [TIMEFRAME], and here's what's changed: Companies investing in quality catering see [PERCENTAGE]% better meeting attendance and significantly higher engagement scores. Why? Because food signals value.\n\nDesire: When you bring in thoughtfully prepared meals with options for every dietary need, you're saying \"we see you, we value your time, we care about your experience.\" That's not catering—that's culture building. The ROI shows up in retention, productivity, and the intangible feeling that people matter here.\n\nAction: Next time you're planning a corporate event, ask yourself: What message does this food send to my team? If the answer isn't \"we value you,\" let's talk about changing that.\n\nHow is your organization using catering as part of your employee experience strategy?\n\n#EmployeeExperience #CorporateCulture #WorkplaceWellness #HRStrategy #[City]Business",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "template": "Before: Office manager stressed about tomorrow's client lunch, settling for mediocre sandwiches, worried about dietary restrictions.\n\nAfter: Professional spread arrives on time, every guest has options, client asks \"who's your caterer?\" You look like a hero.\n\nBridge: That's exactly what happened for [CLIENT NAME/COMPANY TYPE] last [MONTH]. Same-day catering request for [NUMBER] people including vegan, gluten-free, and kosher requirements. We delivered a customized menu that impressed their clients and came in under budget at $[AMOUNT] per person.\n\nWe specialize in making corporate hosts look good:\n→ [NUMBER]-hour response time for urgent requests\n→ Dietary accommodations included, not upcharged\n→ Professional presentation that reflects your brand\n→ Flexible headcount adjustments up to [TIMEFRAME] before event\n\nCurrently booking [MONTH] corporate events. Let's discuss how we can support your team.\n\nDM or visit [WEBSITE] to see our corporate menu options.\n\n#CorporateCatering #[City]Catering #BusinessLunch #CorporateEvents #ProfessionalServices",
+        "framework": "BAB"
+      }
+    },
+    "instagram": {
+      "educational": {
+        "caption": "What $[AMOUNT] per person gets you in wedding catering 💍\n\nSwipe to see the difference between $[LOW], $[MID], and $[HIGH] per person budgets ➡️\n\nNo judgment on budget—just transparency so you can plan confidently. Every couple deserves to know exactly what their catering budget gets them.\n\nSlide 1: $[LOW]/person\nSlide 2: $[MID]/person  \nSlide 3: $[HIGH]/person\nSlide 4: What's included at each level\nSlide 5: Our most popular package\n\nQuestions? Drop them below 👇\n\n#[City]Wedding #WeddingCatering #WeddingBudget #WeddingPlanning #[City]Bride #WeddingFood #CateringPrices #WeddingCosts #EngagedCouple #[Year]Wedding",
+        "visual": "Carousel: 5 slides showing actual plated meals at each price point with itemized breakdowns. Slide 1: Simple buffet setup with basic proteins and sides. Slide 2: Elevated plated dinner with appetizers. Slide 3: Premium multi-course with premium proteins. Slide 4: Text slide listing what's included (staff, rentals, etc). Slide 5: Most popular mid-tier option with price overlay.",
+        "framework": "Educational (Price Transparency Hook)"
+      },
+      "authority": {
+        "caption": "Empty warehouse ➡️ Elegant reception in 4 hours ⏱️\n\n[NUMBER] tables, [NUMBER] guests, zero stress for our couple.\n\nThis is what [NUMBER] years of experience looks like. While you're getting ready and enjoying your day, we're transforming spaces and making magic happen.\n\nSwipe to see the full transformation 🪄\n\nVenue: [VENUE NAME]\nEvent: [EVENT TYPE]\nGuest count: [NUMBER]\nSetup time: [TIME]\n\nPlanning your [CITY] event? We've got you covered from setup to cleanup.\n\n#[City]Catering #EventSetup #BehindTheScenes #CateringLife #[City]Events #EventTransformation #ProfessionalCatering #EventPlanning #[City]Wedding #CateringSetup",
+        "visual": "Carousel: 6-8 slides showing time-lapse style progression. Slide 1: Empty warehouse space. Slides 2-3: Tables and linens going in. Slides 4-5: Food stations being set up. Slides 6-7: Final elegant setup with lighting. Slide 8: Guests enjoying the event. Use timestamp overlays on each slide showing progression.",
+        "framework": "Authority (Behind-the-Scenes Hook)"
+      },
+      "promotional": {
+        "caption": "[SEASON] events are booking fast 🗓️\n\nWe're already [PERCENTAGE]% booked for [PEAK MONTHS]. Here's what's still available:\n\n✓ [DATE RANGE] - Limited weekends\n✓ [DATE RANGE] - Weekdays open  \n✓ [DATE RANGE] - Full availability\n\nDon't wait until your dream date is gone. We're taking deposits now to lock in [SEASON] [YEAR] pricing.\n\nTap the link in bio to check availability or DM us your date 📩\n\n[CLIENT TESTIMONIAL QUOTE] - [CLIENT NAME]\n\nLet's make your [EVENT TYPE] stress-free and delicious.\n\n#[City]Catering #[Season]Wedding #[Season]Events #BookNow #[City]Wedding #WeddingCatering #EventCatering #[Year]Wedding #[City]Bride #CateringServices",
+        "visual": "Single image: Beautiful signature dish or event setup with text overlay showing booking calendar with some dates marked as 'BOOKED' in red and available dates highlighted in green. Include urgency-creating visual element like '[X] dates remaining in [MONTH]'.",
+        "framework": "Promotional (Seasonal Urgency Hook)"
+      }
+    },
+    "facebook": {
+      "educational": {
+        "template": "🍽️ HOW TO MAKE SURE EVERY GUEST EATS WELL AT YOUR EVENT (Including Special Diets)\n\nPlanning an event and worried about dietary restrictions? You're not alone. This is the #1 concern we hear from thoughtful hosts.\n\nHere's our simple system that's worked for [NUMBER] events:\n\n1️⃣ ASK EARLY: Include dietary needs question on your RSVP or meeting invite. Don't wait until the week before.\n\n2️⃣ BE SPECIFIC: Don't just ask \"any dietary restrictions?\" List common ones: vegetarian, vegan, gluten-free, dairy-free, nut allergies, kosher, halal. People are more likely to respond when they see their need listed.\n\n3️⃣ PLAN FOR EXTRAS: Even if no one RSVPs with restrictions, include at least [NUMBER] vegetarian and [NUMBER] gluten-free options. Trust us—someone always forgot to mention it.\n\n4️⃣ LABEL EVERYTHING: Clear labels prevent the awkward \"what's in this?\" questions and help people serve themselves confidently.\n\n5️⃣ AVOID CROSS-CONTAMINATION: Separate serving utensils for each dish. It matters for allergies.\n\nThe result? Every guest feels welcomed and considered. No one goes hungry. You look like a thoughtful, organized host.\n\nWe build dietary accommodations into every menu at no extra charge because inclusive events are better events.\n\n💬 What dietary accommodations are you planning for your next event? Any questions about how to handle specific restrictions? Ask away in the comments!\n\n[Share this with someone planning an event who needs to see it!]",
+        "framework": "Educational (Dietary Inclusion Hook)"
+      },
+      "authority": {
+        "template": "REAL TALK: Why Your Last Caterer Disappointed You (And How to Make Sure It Never Happens Again)\n\nAfter catering [NUMBER] events in [CITY], I've heard every catering horror story. Food arrived cold. They showed up 2 hours late. Half the order was missing. The \"professional presentation\" was aluminum trays.\n\nHere's what separates reliable caterers from disasters:\n\n✅ THEY RESPOND FAST: If it takes 3 days to get a quote, imagine how slow they'll be when you have a day-of emergency.\n\n✅ THEY ASK QUESTIONS: Good caterers ask about your venue, your timeline, your guests, your vision. They're not just taking an order—they're planning with you.\n\n✅ THEY SHOW YOU PROOF: Real photos from real events they've done. Not stock images. Not photos from 2015. Recent work that shows current capability.\n\n✅ THEY'RE TRANSPARENT ABOUT PRICING: Itemized quotes with no surprise fees. You know exactly what's included and what costs extra.\n\n✅ THEY HAVE A BACKUP PLAN: What happens if their truck breaks down? If a staff member calls in sick? If your headcount suddenly changes? They should have answers.\n\n✅ THEY CARRY PROPER INSURANCE: This protects both of you. Always ask.\n\nYou deserve a caterer who shows up on time, delivers what they promised, and makes you look good in front of your guests.\n\nThat's not a luxury—that's the baseline.\n\n[CLIENT TESTIMONIAL]: \"[QUOTE about reliability and professionalism]\" - [CLIENT NAME]\n\nPlanning an event in [CITY]? Let's talk about how we ensure nothing goes wrong. Comment below or message us directly.\n\n#[City]Catering #EventPlanning #CateringServices #ReliableCatering #[City]Events #ProfessionalCatering",
+        "framework": "Authority (Problem-Solution)"
+      },
+      "promotional": {
+        "template": "🎉 LAST-MINUTE CATERING SPECIAL 🎉\n\nNeed food for [NUMBER]+ people within [TIMEFRAME]? We've got same-day and next-day catering available this week!\n\nPerfect for:\n→ Emergency client meetings\n→ Unexpected office celebrations  \n→ Last-minute family gatherings\n→ Urgent corporate lunches\n→ Quick turnaround events\n\nWhat you get:\n✓ [NUMBER]-hour response time\n✓ Professional presentation (no sad aluminum trays)\n✓ Dietary accommodations included\n✓ Delivery, setup, and cleanup\n✓ Our most popular menu options ready to go\n\nCurrent availability for [DAY] through [DAY]:\n• Corporate lunch packages starting at $[AMOUNT]/person\n• Breakfast meetings from $[AMOUNT]/person  \n• Appetizer platters for [NUMBER]-[NUMBER] people\n• Full-service dinner options available\n\nWe know things come up. That's why we keep capacity reserved for urgent requests.\n\n\"[TESTIMONIAL QUOTE about quick turnaround and quality]\" - [CLIENT NAME]\n\n📞 Call [PHONE] or message us NOW to check availability\n⏰ Orders must be placed by [TIME] for next-day delivery\n📍 Serving [COVERAGE AREA]\n\nDon't panic—we've got this! 💪\n\n[TAG a coworker who's always planning last-minute meetings!]\n\n#[City]Catering #LastMinuteCatering #SameDayCatering #CorporateLunch #[City]Business #CateringServices #EmergencyCatering #OfficeLunch",
+        "framework": "Promotional (Last-Minute Solution Hook)"
+      }
+    },
+    "tiktok": {
+      "educational": {
+        "hook": "POV: You're ordering catering for the first time and have NO idea how much food to get",
+        "script": "[0-3sec] Text overlay: \"How much food do I order for [NUMBER] people?!\" Show panicked face\n\n[3-8sec] \"Here's the formula caterers actually use\" - pull out phone/calculator\n\n[8-15sec] \"For a meal: [NUMBER] oz protein per person\" - show visual of portion\n\n[15-22sec] \"[NUMBER] sides, about [AMOUNT] cup each\" - show sides being plated\n\n[22-30sec] \"But here's the secret...\" - lean in close\n\n[30-38sec] \"Add [PERCENTAGE]% more for [EVENT TYPE] events because people eat more when networking\"\n\n[38-45sec] \"Add [PERCENTAGE]% less for [EVENT TYPE] because people are nervous and don't eat much\"\n\n[45-52sec] Show final calculation on screen: \"So for [NUMBER] people at [EVENT TYPE] = [AMOUNT] of food\"\n\n[52-60sec] \"Save this for when you're planning!\" Point at camera. Text overlay: \"Follow for more catering secrets\"\n\nText overlays throughout: \"Catering math made easy\" \"No more guessing\" \"Professional caterer reveals all\"",
+        "framework": "Educational (Problem-Solution)"
+      },
+      "authority": {
+        "hook": "What $25/person gets you vs $75/person in catering (the difference will surprise you)",
+        "script": "[0-3sec] Split screen setup showing two tables. Text: \"$25 per person vs $75 per person\"\n\n[3-10sec] \"$25 gets you...\" - show buffet-style setup, disposable plates, basic proteins\n\n[10-18sec] Pan across simple but nice spread: \"Chicken breast, pasta, salad, rolls. Feeds everyone well.\"\n\n[18-25sec] \"$75 gets you...\" - transition to elegant setup\n\n[25-35sec] Show premium plated meal: \"Filet mignon, lobster tail, gourmet sides, china plates, full service staff\"\n\n[35-45sec] \"But here's what most people don't know...\" - pause for effect\n\n[45-52sec] \"The $25 option is PERFECT for [EVENT TYPE]. You don't always need premium.\"\n\n[52-60sec] \"Choose based on your event, not what you think you should spend.\" Text overlay: \"Both options are great for different events\"\n\nCaption: \"No judgment on budget - just transparency! What's your per-person budget? #cateringtok #eventplanning #weddingbudget #cateringprices\"",
+        "framework": "Authority (Price Transparency Hook)"
+      },
+      "promotional": {
+        "hook": "We're booking out for [SEASON] and I need to show you why",
+        "script": "[0-3sec] \"POV: You're wondering why everyone books their [SEASON] catering in [CURRENT MONTH]\" - confused face\n\n[3-8sec] Fast cuts of beautiful event setups with text: \"Because this...\"\n\n[8-15sec] \"...and this...\" - more stunning events\n\n[15-20sec] \"...doesn't happen by accident\" - show behind-the-scenes prep\n\n[20-28sec] \"[NUMBER] events booked for [MONTH] alone\" - show calendar filling up\n\n[28-35sec] \"Only [NUMBER] [DAY] dates left in [PEAK MONTH]\" - point to calendar\n\n[35-43sec] \"If you're planning a [EVENT TYPE] for [SEASON]...\" - serious face\n\n[43-50sec] \"Book now or you're looking at [LESS DESIRABLE MONTH]\" - shrug\n\n[50-60sec] \"Link in bio to check if your date is available\" - point up. Text overlay: \"Don't wait until it's too late\"\n\nOn-screen text throughout: \"[SEASON] [YEAR] booking now\" \"Limited availability\" \"[CITY] catering\"\n\nCaption: \"Seriously don't wait - [MONTH] is almost full! #[city]catering #[season]wedding #booknow #weddingplanning #[year]bride\"",
+        "framework": "Promotional (Seasonal Urgency Hook)"
+      }
+    },
+    "email": {
+      "educational": {
+        "subject": "The 5 catering mistakes that will ruin your [EVENT TYPE] (and how to avoid them)",
+        "preview_text": "Don't let these common errors derail your event—here's what to do instead",
+        "body": "Hi [FIRST_NAME],\n\nPlanning a [EVENT TYPE] for the first time? I've catered [NUMBER] of them, and I see the same mistakes over and over.\n\nThe good news? They're all preventable.\n\n❌ MISTAKE #1: Ordering too close to your event date\n✅ DO THIS INSTEAD: Book [TIMEFRAME] ahead for standard events, [TIMEFRAME] for peak season\n\n❌ MISTAKE #2: Forgetting to ask about dietary restrictions until the last minute  \n✅ DO THIS INSTEAD: Include the question on your initial RSVP or meeting invite\n\n❌ MISTAKE #3: Choosing the cheapest option and regretting it\n✅ DO THIS INSTEAD: Budget $[AMOUNT]-$[AMOUNT] per person for professional quality that reflects well on you\n\n❌ MISTAKE #4: Underestimating (or overestimating) quantities\n✅ DO THIS INSTEAD: Use this formula: [FORMULA] or ask your caterer for guidance\n\n❌ MISTAKE #5: Not confirming delivery details in writing\n✅ DO THIS INSTEAD: Get written confirmation of date, time, location contact, and setup requirements\n\nWant our complete [EVENT TYPE] planning checklist? Download it here: [LINK]\n\nOr if you're ready to talk about your specific event, just reply to this email. I respond to every message personally.\n\nMaking your event stress-free,\n[YOUR NAME]\n[COMPANY NAME]\n\nP.S. Currently booking [MONTH/SEASON]. Check availability: [LINK]",
+        "framework": "PAS"
+      },
+      "authority": {
+        "subject": "[FIRST_NAME], your corporate catering is sending a message (is it the right one?)",
+        "preview_text": "What your team lunch says about your company culture",
+        "body": "Hi [FIRST_NAME],\n\nQuick question: What message does your corporate catering send to your team?\n\nAfter catering [NUMBER] corporate events for [CITY] companies, I've noticed something interesting:\n\nThe companies with the best retention and engagement scores? They treat catering as part of their employee experience strategy, not just a line item.\n\nHere's what that looks like:\n\n→ They accommodate dietary needs without anyone having to ask twice\n→ They choose quality that says \"we value your time and presence\"\n→ They make meetings feel less like obligations and more like valued gatherings\n→ They understand that food is culture-building, not just fuel\n\nOne of our clients, [CLIENT COMPANY TYPE], switched from cheap sandwich platters to our $[AMOUNT]/person professional lunch service.\n\nThe result? Meeting attendance up [PERCENTAGE]%. Feedback scores improved. And their office manager became a hero.\n\nThe investment? About $[AMOUNT] more per person than what they were spending.\n\nThe ROI? Immeasurable when you factor in morale, productivity, and the feeling that people matter.\n\nIf you're planning corporate events for [COMPANY_SIZE] and want catering that reflects your culture, let's talk.\n\nReply to this email or schedule a 15-minute consultation: [CALENDAR_LINK]\n\nI'll show you exactly what's possible within your budget.\n\nBest,\n[YOUR NAME]\n[TITLE]\n[COMPANY NAME]\n[PHONE]\n\nP.S. We specialize in [SPECIALTY]. See our corporate menu: [LINK]",
+        "framework": "AIDA"
+      },
+      "promotional": {
+        "subject": "[FIRST_NAME], [NUMBER] [SEASON] dates left (including [SPECIFIC_DATE])",
+        "preview_text": "Your preferred date might not be available next week—check now",
+        "body": "Hi [FIRST_NAME],\n\nI'm reaching out because our [SEASON] calendar is filling faster than expected.\n\nBEFORE: You had plenty of time to decide on catering\nAFTER: Your dream date is booked and you're settling for second choice\n\nWe're currently [PERCENTAGE]% booked for [PEAK_MONTHS].\n\nWhat's still available:\n✓ [DATE_RANGE] - [NUMBER] weekend dates\n✓ [DATE_RANGE] - Weekday availability  \n✓ [DATE_RANGE] - Wide open\n\nIf you're planning a [EVENT_TYPE] for [SEASON] [YEAR], here's what booking now gets you:\n\n→ Your preferred date locked in\n→ [CURRENT_SEASON] pricing (before [NEXT_SEASON] increase)\n→ First priority for menu tastings\n→ More time to customize your perfect menu\n→ One less thing to stress about\n\nOur most popular package for [EVENT_TYPE]:\n• [MENU_HIGHLIGHT]\n• Serves [NUMBER] guests  \n• $[AMOUNT] per person\n• Includes [WHAT'S_INCLUDED]\n\n\"[TESTIMONIAL_QUOTE]\" - [CLIENT_NAME], [EVENT_TYPE], [MONTH] [YEAR]\n\nCheck if your date is available: [CALENDAR_LINK]\n\nOr reply with your event date and guest count for a custom quote.\n\nDeposit holds your date for [TIMEFRAME]. Payment plans available.\n\nLet's make your [EVENT_TYPE] stress-free,\n[YOUR_NAME]\n[COMPANY_NAME]\n[PHONE]\n\nP.S. If your date is already booked, I'll suggest the closest available alternatives and work with your schedule.",
+        "framework": "BAB"
+      }
+    }
+  },
+  "hook_library": {
+    "number_hooks": [
+      "47 corporate events catered last month without a single complaint - here's our [secret system]",
+      "What $25 per person actually gets you for [event type] catering (you'll be surprised)",
+      "5 catering mistakes that will ruin your [event type] and how to avoid every one",
+      "How we set up a 200-person [event type] in 45 minutes (time lapse)",
+      "3 things you should never do when ordering lunch for your team"
+    ],
+    "question_hooks": [
+      "Worried there won't be enough food for your [event type]? Here's the formula we use",
+      "Need catering for [number] people by tomorrow? Here's what to do right now",
+      "Stressed about accommodating everyone's dietary restrictions at your [event type]?",
+      "Do you know what's actually included in your catering quote (or are there hidden fees)?",
+      "Is your [event type] budget tight but you still want to look impressive? Watch this"
+    ],
+    "story_hooks": [
+      "How [client name] looked like a hero to their boss with our [budget] corporate lunch setup",
+      "The Fortune 500 company that books us every quarter for their [event type] - here's why",
+      "How we turned an empty [venue] into an elegant [event type] in 4 hours",
+      "The panicked [job title] who emailed us at 6pm needing food for 75 people the next morning",
+      "How [client] fed 200 wedding guests including vegan, gluten-free, and kosher without stress"
+    ],
+    "fear_hooks": [
+      "Is your [event type] at risk because you've never planned something this big before?",
+      "What if your caterer doesn't show up to your [event type]? Here's our guarantee",
+      "Could food sitting out too long make your guests sick at your [event type]?",
+      "Is your company's reputation at risk from choosing the wrong caterer for [event type]?",
+      "What happens if half your guests don't show up - are you stuck paying for them?"
+    ],
+    "howto_hooks": [
+      "How to cater your [event type] without the stress of guessing quantities",
+      "How to make every guest eat well at your [event type] without breaking your budget",
+      "How to book [season] catering before dates sell out (and avoid panic)",
+      "How to get professional-looking catering for your [event type] without hidden fees",
+      "How to handle last-minute headcount changes without losing your deposit"
+    ]
+  },
+  "video_scripts": {
+    "tiktok": {
+      "hook": "POV: You asked what $30/person gets you in catering",
+      "body": "Show three actual place settings side by side. $15/person: sandwich platter, chips, cookies on basic disposables. $30/person: carved protein, two sides, salad, dessert on real plates with linens. $75/person: passed apps, plated entree, wine service, full staff. Text overlay shows exact items and portions. End with 'Stop guessing—here's what your budget actually gets you.'",
+      "cta": "Link in bio for full pricing guide—no email required"
+    },
+    "reels": {
+      "hook": "This is how much food 50 people actually eat",
+      "body": "Fast-motion setup of buffet with quantities labeled. 'Industry secret: people eat 30% less at lunch events, 50% more at cocktail parties.' Show empty trays at end with text: 'Zero waste, zero shortage—we've done this 1000+ times.' Quick cut to happy guests eating.",
+      "cta": "DM 'portions' for our free planning calculator"
+    }
+  },
+  "ugc_prompts": [
+    {
+      "prompt": "Film a 15-second video of your team's reaction when they saw the food spread at your catered event. Caption it with what surprised you most.",
+      "hashtag": "#CateringWin"
+    },
+    {
+      "prompt": "Take a photo of the best-looking plate from your event and tell us which dietary restriction it accommodated (vegan, gluten-free, etc.)",
+      "hashtag": "#EveryoneFed"
+    }
+  ],
+  "viral_triggers": [
+    {
+      "angle": "Catering Confessions: What we really think when clients say [common phrase]",
+      "why": "Behind-the-scenes industry insider perspective creates curiosity and shareability. Relatable for both caterers (tag colleagues) and clients (tag their event planner). Format allows for series."
+    },
+    {
+      "angle": "We recreated [celebrity/viral event] catering on a $500 budget—here's what we got",
+      "why": "Taps into existing viral moment while solving 'aspirational but affordable' problem. Before/after comparison drives engagement. Budget transparency addresses #1 customer question. Highly searchable."
+    }
+  ],
+  "freshness_metadata": {
+    "profile_version": "2.0",
+    "last_full_refresh": "2025-11-27T21:41:57.142Z",
+    "last_tier2_refresh": "2025-11-27T21:41:57.142Z",
+    "last_tier3_refresh": "2025-11-27T21:41:57.142Z",
+    "staleness_score": 0,
+    "next_scheduled_refresh": "2026-02-25T21:41:57.142Z"
+  }
+}

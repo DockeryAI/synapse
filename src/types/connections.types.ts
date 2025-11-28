@@ -259,3 +259,291 @@ export const DEFAULT_SCORING_WEIGHTS: ScoringWeights = {
   timeliness: 1.0,
   threeWay: 1.0,
 };
+
+// ============================================
+// INSIGHT DIMENSIONS (V2 - Variety Framework)
+// ============================================
+
+// Buyer Journey Stage
+export type JourneyStage =
+  | 'AWARENESS'
+  | 'CONSIDERATION'
+  | 'DECISION'
+  | 'RETENTION'
+  | 'ADVOCACY';
+
+// Psychological Emotion (Plutchik's 8 + Extensions)
+export type EmotionTrigger =
+  | 'JOY'
+  | 'TRUST'
+  | 'FEAR'
+  | 'SURPRISE'
+  | 'SADNESS'
+  | 'DISGUST'
+  | 'ANGER'
+  | 'ANTICIPATION'
+  | 'CURIOSITY'
+  | 'BELONGING'
+  | 'ACHIEVEMENT'
+  | 'LOSS_AVERSION';
+
+// Content Format
+export type ContentFormat =
+  | 'HOWTO'
+  | 'COMPARISON'
+  | 'CASE_STUDY'
+  | 'CHECKLIST'
+  | 'DATA'
+  | 'CONTROVERSY'
+  | 'STORY'
+  | 'FAQ'
+  | 'TOOL'
+  | 'TESTIMONIAL';
+
+// Target Persona
+export type TargetPersona =
+  | 'DECISION_MAKER'
+  | 'INFLUENCER'
+  | 'USER'
+  | 'BLOCKER'
+  | 'CHAMPION';
+
+// Objection Type
+export type ObjectionType =
+  | 'OBJ_PRICE'
+  | 'OBJ_TIMING'
+  | 'OBJ_AUTHORITY'
+  | 'OBJ_NEED'
+  | 'OBJ_TRUST'
+  | 'OBJ_COMPETITOR';
+
+// Content Angle
+export type ContentAngle =
+  | 'CONTRARIAN'
+  | 'DATA_DRIVEN'
+  | 'STORY_DRIVEN'
+  | 'EXPERT'
+  | 'TRENDING'
+  | 'COMPARISON'
+  | 'BEHIND_SCENES'
+  | 'PREDICTION';
+
+// CTA Type
+export type CTAType =
+  | 'CTA_DOWNLOAD'
+  | 'CTA_DEMO'
+  | 'CTA_TRIAL'
+  | 'CTA_PRICING'
+  | 'CTA_CONSULT'
+  | 'CTA_WEBINAR'
+  | 'CTA_ASSESS'
+  | 'CTA_CALL'
+  | 'CTA_VISIT'
+  | 'CTA_BOOK';
+
+// Urgency Level
+export type UrgencyLevel =
+  | 'URGENT_CRITICAL'
+  | 'URGENT_HIGH'
+  | 'URGENT_MEDIUM'
+  | 'URGENT_LOW';
+
+// Source Confidence
+export type SourceConfidence =
+  | 'CONF_5WAY'
+  | 'CONF_4WAY'
+  | 'CONF_3WAY'
+  | 'CONF_2WAY'
+  | 'CONF_SINGLE';
+
+// Competitive Position
+export type CompetitivePosition =
+  | 'POS_LEADER'
+  | 'POS_CHALLENGER'
+  | 'POS_NICHE'
+  | 'POS_INNOVATOR'
+  | 'POS_VALUE';
+
+// Content Lifecycle
+export type ContentLifecycle =
+  | 'LIFE_EVERGREEN'
+  | 'LIFE_SEASONAL'
+  | 'LIFE_TRENDING'
+  | 'LIFE_REACTIVE';
+
+// Business Segment
+export type BusinessSegment =
+  | 'SMB_LOCAL'
+  | 'SMB_REGIONAL'
+  | 'B2B_NATIONAL'
+  | 'B2B_GLOBAL';
+
+// Hook Formula Type
+export type HookFormula =
+  | 'NUMBER'
+  | 'QUESTION'
+  | 'CONTRARIAN'
+  | 'STORY'
+  | 'DATA'
+  | 'URGENCY'
+  | 'CURIOSITY'
+  | 'FEAR'
+  | 'DESIRE'
+  | 'SOCIAL_PROOF'
+  | 'HOWTO'
+  | 'COMPARISON'
+  | 'MISTAKE'
+  | 'SECRET'
+  | 'PREDICTION';
+
+// Content Pillar (Topic Authority Areas)
+export type ContentPillar =
+  | 'PILLAR_EXPERTISE'      // Technical knowledge, how-to
+  | 'PILLAR_TRUST'          // Reviews, testimonials, credentials
+  | 'PILLAR_VALUE'          // Pricing, ROI, cost savings
+  | 'PILLAR_DIFFERENTIATION' // What makes you unique vs competitors
+  | 'PILLAR_TRENDS'         // Industry news, market changes
+  | 'PILLAR_COMMUNITY';     // Local events, partnerships, culture
+
+// Complete Insight Dimensions (12 dimensions + pillar)
+export interface InsightDimensions {
+  journeyStage: JourneyStage;
+  emotion: EmotionTrigger;
+  format: ContentFormat;
+  persona: TargetPersona;
+  objection?: ObjectionType;
+  angle: ContentAngle;
+  cta: CTAType;
+  urgency: UrgencyLevel;
+  confidence: SourceConfidence;
+  position?: CompetitivePosition;
+  lifecycle: ContentLifecycle;
+  segment: BusinessSegment;
+  hookFormula: HookFormula;
+  pillar: ContentPillar;  // Added: Content pillar for topic authority
+}
+
+// Source-to-Dimension Default Mappings
+export const SOURCE_DIMENSION_DEFAULTS: Record<DataSource, Partial<InsightDimensions>> = {
+  youtube: { journeyStage: 'AWARENESS', format: 'HOWTO', pillar: 'PILLAR_EXPERTISE' },
+  outscraper: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST', emotion: 'TRUST' },
+  news: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
+  weather: { lifecycle: 'LIFE_SEASONAL', urgency: 'URGENT_HIGH', pillar: 'PILLAR_COMMUNITY' },
+  serper: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
+  reddit: { journeyStage: 'AWARENESS', emotion: 'CURIOSITY', pillar: 'PILLAR_COMMUNITY' },
+  quora: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
+  g2: { journeyStage: 'DECISION', format: 'COMPARISON', pillar: 'PILLAR_DIFFERENTIATION', persona: 'INFLUENCER' },
+  trustpilot: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST' },
+  twitter: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
+  apify: { journeyStage: 'CONSIDERATION', pillar: 'PILLAR_EXPERTISE' },
+  perplexity: { journeyStage: 'AWARENESS', format: 'FAQ', pillar: 'PILLAR_EXPERTISE' },
+  semrush: { journeyStage: 'CONSIDERATION', format: 'DATA', pillar: 'PILLAR_DIFFERENTIATION', angle: 'DATA_DRIVEN' },
+  website: { journeyStage: 'CONSIDERATION', pillar: 'PILLAR_EXPERTISE' },
+  linkedin: { journeyStage: 'CONSIDERATION', persona: 'DECISION_MAKER', pillar: 'PILLAR_TRENDS' },
+  tiktok: { journeyStage: 'AWARENESS', lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_COMMUNITY' },
+  google_trends: { lifecycle: 'LIFE_TRENDING', pillar: 'PILLAR_TRENDS', emotion: 'ANTICIPATION' },
+  whisper: { format: 'STORY', pillar: 'PILLAR_COMMUNITY', emotion: 'BELONGING' },
+  yelp: { journeyStage: 'DECISION', format: 'TESTIMONIAL', pillar: 'PILLAR_TRUST', emotion: 'TRUST' },
+};
+
+// Hook Templates for Title Generation
+export const HOOK_TEMPLATES: Record<HookFormula, string> = {
+  NUMBER: '{count} {topic} That {outcome}',
+  QUESTION: 'Are You Making This {topic} Mistake?',
+  CONTRARIAN: 'Why Most {topic} Actually {negative_outcome}',
+  STORY: 'How {company} {achieved_outcome} in {timeframe}',
+  DATA: 'New Data: {percentage} {metric_change}',
+  URGENCY: '{event} Is Coming—Here\'s How to Prepare',
+  CURIOSITY: 'The Hidden Reason Your {topic} {problem}',
+  FEAR: 'Is Your {topic} Putting You at Risk?',
+  DESIRE: 'Imagine {positive_outcome} Without {pain}',
+  SOCIAL_PROOF: '{count}+ {audience} Trust This {approach}',
+  HOWTO: 'How to {achieve_outcome} (Step-by-Step)',
+  COMPARISON: '{product_a} vs {product_b}: Which Wins?',
+  MISTAKE: 'The #1 Mistake {audience} Make with {topic}',
+  SECRET: 'The {topic} Secret {competitors} Don\'t Share',
+  PREDICTION: '{count} {industry} Trends That Will Define {year}',
+};
+
+// Dimension Distribution Requirements (for variety enforcement)
+export interface VarietyDistribution {
+  journeyStage: Record<JourneyStage, { min: number; max: number }>;
+  emotion: Record<EmotionTrigger, { min: number }>;
+  format: Record<ContentFormat, { min: number }>;
+}
+
+export const REQUIRED_DISTRIBUTION: VarietyDistribution = {
+  journeyStage: {
+    AWARENESS: { min: 0.30, max: 0.40 },
+    CONSIDERATION: { min: 0.25, max: 0.35 },
+    DECISION: { min: 0.20, max: 0.25 },
+    RETENTION: { min: 0.05, max: 0.10 },
+    ADVOCACY: { min: 0.05, max: 0.10 },
+  },
+  emotion: {
+    JOY: { min: 0.10 },
+    TRUST: { min: 0.15 },
+    FEAR: { min: 0.15 },
+    SURPRISE: { min: 0.05 },
+    SADNESS: { min: 0.02 },
+    DISGUST: { min: 0.02 },
+    ANGER: { min: 0.08 },
+    ANTICIPATION: { min: 0.12 },
+    CURIOSITY: { min: 0.12 },
+    BELONGING: { min: 0.05 },
+    ACHIEVEMENT: { min: 0.05 },
+    LOSS_AVERSION: { min: 0.10 },
+  },
+  format: {
+    HOWTO: { min: 0.15 },
+    COMPARISON: { min: 0.12 },
+    CASE_STUDY: { min: 0.12 },
+    CHECKLIST: { min: 0.05 },
+    DATA: { min: 0.08 },
+    CONTROVERSY: { min: 0.05 },
+    STORY: { min: 0.10 },
+    FAQ: { min: 0.12 },
+    TOOL: { min: 0.05 },
+    TESTIMONIAL: { min: 0.08 },
+  },
+};
+
+// SMB vs B2B Defaults
+export const SEGMENT_DEFAULTS: Record<BusinessSegment, Partial<InsightDimensions>> = {
+  SMB_LOCAL: {
+    journeyStage: 'AWARENESS',
+    emotion: 'TRUST',
+    format: 'FAQ',
+    persona: 'DECISION_MAKER',
+    cta: 'CTA_CALL',
+    urgency: 'URGENT_MEDIUM',
+    lifecycle: 'LIFE_SEASONAL',
+  },
+  SMB_REGIONAL: {
+    journeyStage: 'CONSIDERATION',
+    emotion: 'TRUST',
+    format: 'COMPARISON',
+    persona: 'DECISION_MAKER',
+    cta: 'CTA_BOOK',
+    urgency: 'URGENT_MEDIUM',
+    lifecycle: 'LIFE_EVERGREEN',
+  },
+  B2B_NATIONAL: {
+    journeyStage: 'CONSIDERATION',
+    emotion: 'FEAR',
+    format: 'CASE_STUDY',
+    persona: 'INFLUENCER',
+    cta: 'CTA_DEMO',
+    urgency: 'URGENT_MEDIUM',
+    lifecycle: 'LIFE_EVERGREEN',
+  },
+  B2B_GLOBAL: {
+    journeyStage: 'CONSIDERATION',
+    emotion: 'ANTICIPATION',
+    format: 'DATA',
+    persona: 'DECISION_MAKER',
+    cta: 'CTA_CONSULT',
+    urgency: 'URGENT_LOW',
+    lifecycle: 'LIFE_EVERGREEN',
+  },
+};
