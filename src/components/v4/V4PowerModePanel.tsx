@@ -3177,32 +3177,10 @@ export function V4PowerModePanel({
           return;
         }
 
-        // DEV MODE: Skip API calls - try localStorage cache or use minimal context
+        // DEV MODE: Skip ALL API calls - use UVP data from database only
         if (skipApis) {
-          console.log('[V4PowerMode] 🔧 DEV MODE: Skipping API calls');
-          setLoadingStatus('DEV MODE: Loading cached data only...');
-
-          // Try localStorage cache first
-          const cachedKey = `deepContext_${brandId}`;
-          const cached = localStorage.getItem(cachedKey);
-          if (cached) {
-            try {
-              const cachedContext = JSON.parse(cached) as DeepContext;
-              console.log('[V4PowerMode] ✅ DEV MODE: Using localStorage cache');
-              setDeepContext(cachedContext);
-              const insights = await extractInsightsFromDeepContextAsync(cachedContext, uvp, (partialInsights, section) => {
-                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights (${section})`);
-              });
-              setAllInsights(insights);
-              setIsLoading(false);
-              return;
-            } catch (e) {
-              console.warn('[V4PowerMode] Failed to parse cached context:', e);
-            }
-          }
-
-          // No cache - create minimal context with just UVP data
-          console.log('[V4PowerMode] ⚠️ DEV MODE: No cache, using UVP-only context');
+          console.log('[V4PowerMode] 🔧 DEV MODE: Using UVP data only (no APIs)');
+          setLoadingStatus('Loading UVP data...');
           const minimalContext: DeepContext = {
             business: {
               profile: {

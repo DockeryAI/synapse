@@ -809,7 +809,7 @@ export function V4ContentGenerationPanel({
                 onContentGenerated?.([content]);
               }}
               onSaveToCalendar={onSaveToCalendar}
-              skipApis={import.meta.env.VITE_SKIP_APIS === 'true'}
+              skipApis={true}  // FEATURE BRANCH: Always skip APIs, use UVP data only
             />
           </div>
         </TabsContent>
