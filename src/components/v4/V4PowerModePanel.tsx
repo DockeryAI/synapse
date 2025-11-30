@@ -56,7 +56,15 @@ import {
   Crown,
   Settings,
   Cpu,
-  Megaphone
+  Megaphone,
+  Calendar,
+  FileEdit,
+  LayoutTemplate,
+  Plus,
+  Lock,
+  Star,
+  Trash2,
+  RefreshCcw
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -595,6 +603,11 @@ interface InsightRecipe {
   minInsights: number;
   maxInsights: number;
   primaryFramework: PsychologyFramework;
+  targetFunnelStage: FunnelStage;
+  suggestedPlatforms: {
+    b2b: ('linkedin' | 'twitter' | 'facebook')[];
+    b2c: ('instagram' | 'tiktok' | 'facebook' | 'twitter')[];
+  };
   compatibleTemplates: string[];
 }
 
@@ -624,6 +637,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 3,
     maxInsights: 6,
     primaryFramework: 'AIDA',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['linkedin'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['Authority Builder', 'Education First', 'Comparison Campaign'],
   },
   {
@@ -635,6 +650,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 3,
     maxInsights: 5,
     primaryFramework: 'StoryBrand',
+    targetFunnelStage: 'MOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'facebook'], b2c: ['instagram', 'facebook'] },
     compatibleTemplates: ['Social Proof', 'Trust Ladder', 'Hero\'s Journey'],
   },
   {
@@ -646,6 +663,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 3,
     maxInsights: 6,
     primaryFramework: 'PAS',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'twitter'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['PAS Series', 'BAB Campaign', 'Quick Win'],
   },
   {
@@ -657,6 +676,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'CuriosityGap',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['twitter', 'linkedin'], b2c: ['tiktok', 'instagram'] },
     compatibleTemplates: ['Seasonal Urgency', 'Scarcity Sequence', 'Product Launch'],
   },
   {
@@ -668,6 +689,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'BAB',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['facebook', 'linkedin'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['Social Proof', 'Quick Win', 'PAS Series'],
   },
   {
@@ -679,6 +702,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 3,
     maxInsights: 5,
     primaryFramework: 'AIDA',
+    targetFunnelStage: 'BOFU',
+    suggestedPlatforms: { b2b: ['linkedin'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['Value Stack', 'Scarcity Sequence', 'Objection Crusher'],
   },
   {
@@ -690,6 +715,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'AIDA',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'twitter'], b2c: ['instagram', 'tiktok'] },
     compatibleTemplates: ['Product Launch', 'RACE Journey', 'Value Stack'],
   },
   {
@@ -701,6 +728,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 6,
     primaryFramework: 'PAS',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['linkedin'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['Education First', 'Authority Builder', 'Trust Ladder'],
   },
   {
@@ -712,6 +741,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'AIDA',
+    targetFunnelStage: 'MOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'twitter'], b2c: ['facebook', 'instagram'] },
     compatibleTemplates: ['Comparison Campaign', 'Authority Builder', 'Objection Crusher'],
   },
   {
@@ -723,6 +754,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 1,
     maxInsights: 4,
     primaryFramework: 'BAB',
+    targetFunnelStage: 'MOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'twitter'], b2c: ['instagram', 'facebook'] },
     compatibleTemplates: ['Quick Win', 'PAS Series', 'BAB Campaign'],
   },
   {
@@ -734,6 +767,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'SocialProof',
+    targetFunnelStage: 'MOFU',
+    suggestedPlatforms: { b2b: ['linkedin', 'facebook'], b2c: ['instagram', 'facebook'] },
     compatibleTemplates: ['Social Proof', 'Trust Ladder', 'Authority Builder'],
   },
   {
@@ -745,6 +780,8 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     minInsights: 2,
     maxInsights: 4,
     primaryFramework: 'CuriosityGap',
+    targetFunnelStage: 'TOFU',
+    suggestedPlatforms: { b2b: ['twitter', 'linkedin'], b2c: ['tiktok', 'instagram'] },
     compatibleTemplates: ['RACE Journey', 'Education First', 'Authority Builder'],
   },
 ];
@@ -4831,6 +4868,28 @@ export function V4PowerModePanel({
   const abortControllerRef = useRef<AbortController | null>(null);
   const deepContextLoadedRef = useRef<boolean>(false); // Guard against duplicate loads
   const [autoGenerateEnabled, setAutoGenerateEnabled] = useState(false); // Disabled by default to prevent freeze
+  const [isRefreshingApis, setIsRefreshingApis] = useState(false); // Track API refresh state
+  const [recipeDropdownOpen, setRecipeDropdownOpen] = useState(false); // Recipe dropdown state
+
+  // Detect B2B vs B2C from UVP for platform suggestions
+  const isB2B = useMemo(() => {
+    // Check target customer for B2B indicators
+    const targetStatement = uvp?.targetCustomer?.statement?.toLowerCase() || '';
+    const industry = (uvp as any)?.industry?.toLowerCase() || '';
+
+    const b2bIndicators = [
+      'business', 'enterprise', 'b2b', 'company', 'companies', 'organization',
+      'corporate', 'professional', 'saas', 'software', 'agency', 'firm',
+      'service provider', 'vendor', 'client', 'consultant', 'insurance agent',
+      'broker', 'carrier', 'underwriter'
+    ];
+
+    const hasB2BIndicator = b2bIndicators.some(indicator =>
+      targetStatement.includes(indicator) || industry.includes(indicator)
+    );
+
+    return hasB2BIndicator;
+  }, [uvp]);
 
   // V4 Hook
   const {
@@ -5333,7 +5392,7 @@ export function V4PowerModePanel({
     );
   }, []);
 
-  // Handle recipe selection
+  // Handle recipe selection - sets framework, funnelStage, and suggested platforms
   const handleSelectRecipe = useCallback((recipe: InsightRecipe) => {
     // Filter insights that match the recipe types
     const matchingInsights = allInsights.filter(insight =>
@@ -5346,9 +5405,133 @@ export function V4PowerModePanel({
 
     setSelectedInsights(selected.map(i => i.id));
     setActiveFramework(recipe.primaryFramework);
+    setActiveFunnelStage(recipe.targetFunnelStage);
+
+    // Set suggested platforms based on B2B/B2C detection
+    const suggestedPlatforms = isB2B
+      ? recipe.suggestedPlatforms.b2b
+      : recipe.suggestedPlatforms.b2c;
+    setSelectedPlatforms(new Set(suggestedPlatforms as any[]));
+
     setSelectedRecipe(recipe);
+    setRecipeDropdownOpen(false);
     setShowTemplateDropdown(false);
-  }, [allInsights]);
+  }, [allInsights, isB2B]);
+
+  // ==========================================================================
+  // CLEAR CACHE AND CALL APIS HANDLERS
+  // ==========================================================================
+
+  // Clear all cached data from localStorage for triggers, proof, trends, gaps
+  const handleClearCache = useCallback(() => {
+    const keysToDelete = [
+      'triggersPanel_deepContext_v1',
+      'triggersPanel_triggers_v1',
+      `conversations_${brandId}`,
+      'proofPanel_data_v1',
+      'trendsPanel_data_v1',
+      'gapsPanel_data_v1',
+      'deepContext_cache',
+      `competitor_intelligence_${brandId}`,
+      `competitor_gaps_${brandId}`,
+    ];
+
+    let clearedCount = 0;
+    keysToDelete.forEach(key => {
+      if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        clearedCount++;
+        console.log(`[ClearCache] Removed: ${key}`);
+      }
+    });
+
+    // Also clear any brand-specific keys
+    const allKeys = Object.keys(localStorage);
+    allKeys.forEach(key => {
+      if (brandId && key.includes(brandId)) {
+        localStorage.removeItem(key);
+        clearedCount++;
+        console.log(`[ClearCache] Removed brand key: ${key}`);
+      }
+    });
+
+    // Reset trigger count state
+    setCachedTriggerCount(0);
+
+    console.log(`[ClearCache] Cleared ${clearedCount} cached items`);
+    alert(`Cache cleared! Removed ${clearedCount} cached items. Click "Call APIs" to refresh data.`);
+  }, [brandId]);
+
+  // Call all APIs to refresh data for triggers, proof, trends, competitors
+  const handleCallApis = useCallback(async () => {
+    if (!brandId || !uvp) {
+      console.warn('[CallApis] Missing brandId or uvp');
+      return;
+    }
+
+    setIsRefreshingApis(true);
+    console.log('[CallApis] Starting fresh API calls...');
+
+    try {
+      // Call dashboardPreloader to refresh DeepContext
+      setLoadingStatus('Refreshing intelligence data...');
+
+      // Clear existing preloaded data
+      dashboardPreloader.clearPreloadedData();
+
+      // Start fresh preload
+      dashboardPreloader.startPreload(uvp, brandId);
+
+      // Subscribe to progress updates
+      const unsubscribe = dashboardPreloader.subscribeToProgress((progress, status) => {
+        setLoadingStatus(`${status} (${Math.round(progress)}%)`);
+        console.log(`[CallApis] Progress: ${progress}% - ${status}`);
+      });
+
+      // Wait for preload to complete (with timeout)
+      let attempts = 0;
+      const maxAttempts = 120; // 2 minutes max
+      while (attempts < maxAttempts) {
+        const preloadedContext = dashboardPreloader.getPreloadedContext();
+        if (preloadedContext) {
+          setDeepContext(preloadedContext);
+          console.log('[CallApis] DeepContext refreshed successfully');
+
+          // Trigger insight extraction with fresh data
+          const freshInsights = await extractInsightsFromDeepContextAsync(
+            preloadedContext,
+            uvp,
+            (insights, section) => {
+              console.log(`[CallApis] Extracted ${insights.length} insights from ${section}`);
+            }
+          );
+
+          setAllInsights(freshInsights);
+          console.log(`[CallApis] Total ${freshInsights.length} insights extracted`);
+          break;
+        }
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        attempts++;
+      }
+
+      unsubscribe();
+
+      // Also rescan competitors if available
+      if (rescanAll) {
+        setLoadingStatus('Rescanning competitor intelligence...');
+        await rescanAll();
+      }
+
+      setLoadingStatus('All data refreshed!');
+      setTimeout(() => setLoadingStatus(''), 2000);
+
+    } catch (err) {
+      console.error('[CallApis] Error refreshing data:', err);
+      setLoadingStatus('Error refreshing data');
+    } finally {
+      setIsRefreshingApis(false);
+    }
+  }, [brandId, uvp, rescanAll]);
 
   // Handle UVP item selection - finds related insights or creates a synthetic insight
   const handleUVPItemSelect = useCallback((item: { type: string; text: string }) => {
@@ -5542,32 +5725,117 @@ export function V4PowerModePanel({
     <div className="h-full flex flex-col bg-gray-50 dark:bg-slate-900 relative">
       {/* Top Toolbar */}
       <div className="flex-shrink-0 px-4 py-3 bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-slate-700 flex items-center gap-3 flex-wrap">
-        {/* Templates Sidebar Toggle */}
-        <button
-          onClick={() => setTemplateSidebarCollapsed(!templateSidebarCollapsed)}
-          className="flex items-center gap-2 px-3 py-2 rounded-lg font-medium transition-all bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-200"
-          title={templateSidebarCollapsed ? 'Show Templates' : 'Hide Templates'}
-        >
-          <Layers className="w-4 h-4" />
-          <ChevronRight className={`w-4 h-4 transition-transform ${templateSidebarCollapsed ? '' : 'rotate-180'}`} />
-        </button>
-
-        {selectedRecipe && (
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 rounded-lg text-sm">
-            <span>{selectedRecipe.emoji}</span>
-            <span className="font-medium">{selectedRecipe.name}</span>
+        {/* Content Recipe Dropdown */}
+        <TooltipProvider delayDuration={100}>
+          <div className="flex flex-col gap-1 relative">
+            <div className="flex items-center gap-1">
+              <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                Content Recipe
+              </label>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                  <p className="font-medium text-sm mb-1">One-Click Content Strategy</p>
+                  <p className="text-xs text-gray-300">Select a recipe to auto-select relevant insights and configure optimal settings for your content goal.</p>
+                </TooltipContent>
+              </Tooltip>
+            </div>
             <button
               onClick={() => {
-                setSelectedRecipe(null);
-                setSelectedInsights([]);
-                setActiveFramework('AIDA');
+                setRecipeDropdownOpen(!recipeDropdownOpen);
+                setFrameworkDropdownOpen(false);
+                setFunnelDropdownOpen(false);
+                setPlatformDropdownOpen(false);
               }}
-              className="ml-1 hover:text-green-900"
+              className={`flex items-center justify-between w-48 h-8 px-3 text-sm rounded-md transition-colors ${
+                selectedRecipe
+                  ? 'bg-green-800 border border-green-600 text-green-100 hover:bg-green-700'
+                  : 'bg-slate-800 border border-slate-600 text-white hover:bg-slate-700'
+              }`}
             >
-              <X className="w-3 h-3" />
+              <span className="text-sm truncate flex items-center gap-2">
+                {selectedRecipe ? (
+                  <>
+                    <span>{selectedRecipe.emoji}</span>
+                    <span>{selectedRecipe.name}</span>
+                  </>
+                ) : (
+                  <>
+                    <LayoutTemplate className="w-4 h-4" />
+                    <span>Select Recipe...</span>
+                  </>
+                )}
+              </span>
+              <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${recipeDropdownOpen ? 'rotate-180' : ''}`} />
             </button>
+
+            {/* Recipe Dropdown Menu with Tooltips */}
+            {recipeDropdownOpen && (
+              <div className="absolute top-full left-0 mt-1 w-64 bg-slate-800 border border-slate-600 rounded-md shadow-lg z-50">
+                <div className="max-h-80 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                  {/* Clear Recipe Option */}
+                  {selectedRecipe && (
+                    <button
+                      onClick={() => {
+                        setSelectedRecipe(null);
+                        setSelectedInsights([]);
+                        setActiveFramework('AIDA');
+                        setActiveFunnelStage('TOFU');
+                        setRecipeDropdownOpen(false);
+                      }}
+                      className="w-full flex items-center gap-2 px-3 py-2 hover:bg-slate-700 cursor-pointer text-left border-b border-slate-600 text-gray-400"
+                    >
+                      <X className="w-4 h-4" />
+                      <span className="text-sm">Clear Recipe</span>
+                    </button>
+                  )}
+                  {TEMPLATE_RECIPES.map((recipe) => {
+                    const matchCount = allInsights.filter(i =>
+                      recipe.insightTypes.includes(i.type)
+                    ).length;
+                    return (
+                      <Tooltip key={recipe.id}>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => handleSelectRecipe(recipe)}
+                            className={`w-full flex flex-col items-start px-3 py-2 hover:bg-slate-700 cursor-pointer text-left ${
+                              selectedRecipe?.id === recipe.id ? 'bg-green-900/30 border-l-2 border-green-500' : ''
+                            }`}
+                          >
+                            <div className="flex items-center justify-between w-full">
+                              <span className="text-sm text-white flex items-center gap-2">
+                                <span>{recipe.emoji}</span>
+                                <span>{recipe.name}</span>
+                              </span>
+                              <span className="text-[10px] text-gray-400 bg-slate-700 px-1.5 py-0.5 rounded">
+                                {matchCount} insights
+                              </span>
+                            </div>
+                            <span className="text-[10px] text-gray-400 mt-0.5">{recipe.description}</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3 z-[60]">
+                          <p className="font-medium text-sm mb-2">{recipe.name}</p>
+                          <div className="space-y-1 text-xs text-gray-300">
+                            <p><span className="text-gray-400">Framework:</span> {FRAMEWORK_TOOLTIPS[recipe.primaryFramework]?.displayName}</p>
+                            <p><span className="text-gray-400">Funnel Stage:</span> {FUNNEL_TOOLTIPS[recipe.targetFunnelStage]?.displayName}</p>
+                            <p><span className="text-gray-400">Best for {isB2B ? 'B2B' : 'B2C'}:</span> {(isB2B ? recipe.suggestedPlatforms.b2b : recipe.suggestedPlatforms.b2c).map(p => PLATFORM_TOOLTIPS[p]?.label || p).join(', ')}</p>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+                {/* Scroll indicator */}
+                <div className="flex justify-center py-1 border-t border-slate-700 bg-slate-800/90">
+                  <ChevronDown className="w-4 h-4 text-gray-500 animate-bounce" />
+                </div>
+              </div>
+            )}
           </div>
-        )}
+        </TooltipProvider>
 
         {/* Separator */}
         <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />
@@ -5581,26 +5849,46 @@ export function V4PowerModePanel({
                 <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                   Content Goal
                 </label>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
-                    <p className="font-medium text-sm mb-1">What should this content do?</p>
-                    <p className="text-xs text-gray-300">Choose a messaging framework that matches your goal - from grabbing attention to driving conversions.</p>
-                  </TooltipContent>
-                </Tooltip>
+                {selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Lock className="w-3 h-3 text-green-500 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="text-xs text-gray-300">Locked by {selectedRecipe.name} recipe. Clear recipe to change.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {!selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="font-medium text-sm mb-1">What should this content do?</p>
+                      <p className="text-xs text-gray-300">Choose a messaging framework that matches your goal - from grabbing attention to driving conversions.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
               </div>
               <button
                 onClick={() => {
+                  if (selectedRecipe) return; // Don't open if recipe is selected
                   setFrameworkDropdownOpen(!frameworkDropdownOpen);
                   setFunnelDropdownOpen(false);
                   setPlatformDropdownOpen(false);
                 }}
-                className="flex items-center justify-between w-44 h-8 px-3 text-sm bg-slate-800 border border-slate-600 text-white rounded-md hover:bg-slate-700 transition-colors"
+                className={`flex items-center justify-between w-44 h-8 px-3 text-sm rounded-md transition-colors ${
+                  selectedRecipe
+                    ? 'bg-slate-700 border border-green-600/50 text-green-100 cursor-not-allowed'
+                    : 'bg-slate-800 border border-slate-600 text-white hover:bg-slate-700'
+                }`}
               >
-                <span className="text-sm truncate">{FRAMEWORK_TOOLTIPS[activeFramework]?.displayName || activeFramework}</span>
-                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${frameworkDropdownOpen ? 'rotate-180' : ''}`} />
+                <span className="text-sm truncate flex items-center gap-1">
+                  {selectedRecipe && <Lock className="w-3 h-3 text-green-500" />}
+                  {FRAMEWORK_TOOLTIPS[activeFramework]?.displayName || activeFramework}
+                </span>
+                {!selectedRecipe && <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${frameworkDropdownOpen ? 'rotate-180' : ''}`} />}
               </button>
 
               {/* Framework Dropdown Menu with Tooltips */}
@@ -5645,28 +5933,46 @@ export function V4PowerModePanel({
                 <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                   Audience
                 </label>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
-                    <p className="font-medium text-sm mb-1">Who is this content for?</p>
-                    <p className="text-xs text-gray-300">Cold = strangers who don't know you. Warm = people considering options. Hot = ready-to-buy prospects.</p>
-                  </TooltipContent>
-                </Tooltip>
+                {selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Lock className="w-3 h-3 text-green-500 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="text-xs text-gray-300">Locked by {selectedRecipe.name} recipe. Clear recipe to change.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {!selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="font-medium text-sm mb-1">Who is this content for?</p>
+                      <p className="text-xs text-gray-300">Cold = strangers who don't know you. Warm = people considering options. Hot = ready-to-buy prospects.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
               </div>
               <button
                 onClick={() => {
+                  if (selectedRecipe) return; // Don't open if recipe is selected
                   setFunnelDropdownOpen(!funnelDropdownOpen);
                   setFrameworkDropdownOpen(false);
                   setPlatformDropdownOpen(false);
                 }}
-                className="flex items-center justify-between w-44 h-8 px-3 text-sm bg-slate-800 border border-slate-600 text-white rounded-md hover:bg-slate-700 transition-colors"
+                className={`flex items-center justify-between w-44 h-8 px-3 text-sm rounded-md transition-colors ${
+                  selectedRecipe
+                    ? 'bg-slate-700 border border-green-600/50 text-green-100 cursor-not-allowed'
+                    : 'bg-slate-800 border border-slate-600 text-white hover:bg-slate-700'
+                }`}
               >
-                <div className="flex flex-col items-start">
-                  <span className="text-sm">{FUNNEL_TOOLTIPS[activeFunnelStage]?.emoji} {FUNNEL_TOOLTIPS[activeFunnelStage]?.displayName}</span>
-                </div>
-                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${funnelDropdownOpen ? 'rotate-180' : ''}`} />
+                <span className="text-sm flex items-center gap-1">
+                  {selectedRecipe && <Lock className="w-3 h-3 text-green-500" />}
+                  {FUNNEL_TOOLTIPS[activeFunnelStage]?.emoji} {FUNNEL_TOOLTIPS[activeFunnelStage]?.displayName}
+                </span>
+                {!selectedRecipe && <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${funnelDropdownOpen ? 'rotate-180' : ''}`} />}
               </button>
 
               {/* Funnel Dropdown Menu with Tooltips */}
@@ -5703,15 +6009,27 @@ export function V4PowerModePanel({
                 <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
                   Platforms
                 </label>
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
-                    <p className="font-medium text-sm mb-1">Where will this be posted?</p>
-                    <p className="text-xs text-gray-300">Select one or more platforms. Content will be optimized for each platform's best practices.</p>
-                  </TooltipContent>
-                </Tooltip>
+                {selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Star className="w-3 h-3 text-yellow-500 fill-yellow-500 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="text-xs text-gray-300">Recommended by {selectedRecipe.name} recipe for {isB2B ? 'B2B' : 'B2C'}. You can change these selections.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
+                {!selectedRecipe && (
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                      <p className="font-medium text-sm mb-1">Where will this be posted?</p>
+                      <p className="text-xs text-gray-300">Select one or more platforms. Content will be optimized for each platform's best practices.</p>
+                    </TooltipContent>
+                  </Tooltip>
+                )}
               </div>
               <button
                 onClick={() => {
@@ -5758,10 +6076,17 @@ export function V4PowerModePanel({
                   {/* Individual Platforms */}
                   {(['linkedin', 'instagram', 'twitter', 'facebook', 'tiktok'] as const).map((platform) => {
                     const Icon = PlatformIcons[platform];
+                    const isRecommended = selectedRecipe && (
+                      isB2B
+                        ? selectedRecipe.suggestedPlatforms.b2b.includes(platform as any)
+                        : selectedRecipe.suggestedPlatforms.b2c.includes(platform as any)
+                    );
                     return (
                       <Tooltip key={platform}>
                         <TooltipTrigger asChild>
-                          <label className="flex items-center gap-3 px-3 py-2 hover:bg-slate-700 cursor-pointer">
+                          <label className={`flex items-center gap-3 px-3 py-2 hover:bg-slate-700 cursor-pointer ${
+                            isRecommended ? 'bg-yellow-900/20' : ''
+                          }`}>
                             <Checkbox
                               checked={selectedPlatforms.has(platform)}
                               onCheckedChange={(checked) => {
@@ -5778,14 +6103,20 @@ export function V4PowerModePanel({
                               }}
                               className="h-4 w-4 border-slate-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
                             />
-                            <div className="flex items-center gap-2 text-white">
+                            <div className="flex items-center gap-2 text-white flex-1">
                               <Icon />
                               <span className="text-sm">{PLATFORM_TOOLTIPS[platform].label}</span>
+                              {isRecommended && (
+                                <Star className="w-3 h-3 text-yellow-500 fill-yellow-500 ml-auto" />
+                              )}
                             </div>
                           </label>
                         </TooltipTrigger>
                         <TooltipContent side="right" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3 z-[60]">
                           <p className="text-xs text-gray-300">{PLATFORM_TOOLTIPS[platform].description}</p>
+                          {isRecommended && (
+                            <p className="text-xs text-yellow-400 mt-1">⭐ Recommended for {selectedRecipe?.name}</p>
+                          )}
                         </TooltipContent>
                       </Tooltip>
                     );
@@ -5819,8 +6150,11 @@ export function V4PowerModePanel({
           )}
         </button>
 
-        <div className="ml-auto text-sm text-gray-500 dark:text-gray-400">
-          {selectedInsights.length} insights selected
+        {/* Right side: insights count */}
+        <div className="ml-auto flex items-center gap-3">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            {selectedInsights.length} insights selected
+          </div>
         </div>
       </div>
 
@@ -5838,8 +6172,19 @@ export function V4PowerModePanel({
       )}
 
       {/* Main Content Area - Three Columns */}
-      <div className="flex-1 flex gap-0 overflow-hidden">
-        {/* Templates Sidebar (Collapsible Left) */}
+      <div className="flex-1 flex gap-0 overflow-hidden relative">
+        {/* Sidebar Toggle Button (Edge of sidebar) */}
+        <button
+          onClick={() => setTemplateSidebarCollapsed(!templateSidebarCollapsed)}
+          className={`absolute top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-5 h-10 bg-purple-600 hover:bg-purple-700 text-white rounded-r-md shadow-md transition-all ${
+            templateSidebarCollapsed ? 'left-0' : 'left-[280px]'
+          }`}
+          title={templateSidebarCollapsed ? 'Show UVP Sidebar' : 'Hide UVP Sidebar'}
+        >
+          <ChevronRight className={`w-4 h-4 transition-transform ${templateSidebarCollapsed ? '' : 'rotate-180'}`} />
+        </button>
+
+        {/* UVP Sidebar (Collapsible Left) */}
         <AnimatePresence initial={false}>
           {!templateSidebarCollapsed && (
             <motion.div
@@ -5851,66 +6196,7 @@ export function V4PowerModePanel({
             >
               <div className="w-[280px] h-full flex flex-col">
                 <ScrollArea className="flex-1">
-                  {/* Templates Section */}
-                  <SidebarSection
-                    title="Templates"
-                    icon={<Sparkles className="w-4 h-4" />}
-                    defaultExpanded={false}
-                    badgeCount={TEMPLATE_RECIPES.length}
-                  >
-                    <div className="space-y-2">
-                      {TEMPLATE_RECIPES.map((recipe) => {
-                        const matchCount = allInsights.filter(i =>
-                          recipe.insightTypes.includes(i.type)
-                        ).length;
-                        const isSelected = selectedRecipe?.id === recipe.id;
-
-                        return (
-                          <button
-                            key={recipe.id}
-                            onClick={() => handleSelectRecipe(recipe)}
-                            className={`w-full text-left p-3 rounded-lg transition-all ${
-                              isSelected
-                                ? 'bg-purple-100 dark:bg-purple-900/30 border-purple-300 dark:border-purple-600 border-2'
-                                : 'bg-gray-50 dark:bg-slate-900 hover:bg-purple-50 dark:hover:bg-purple-900/20 border border-gray-200 dark:border-slate-700'
-                            }`}
-                          >
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="text-lg">{recipe.emoji}</span>
-                              <span className={`text-sm font-bold ${isSelected ? 'text-purple-700 dark:text-purple-300' : 'text-gray-900 dark:text-white'}`}>
-                                {recipe.name}
-                              </span>
-                            </div>
-                            <p className="text-xs text-gray-600 dark:text-gray-400 mb-2 line-clamp-2">
-                              {recipe.description}
-                            </p>
-                            <div className="flex items-center justify-between">
-                              <div className="flex gap-1 flex-wrap">
-                                {recipe.insightTypes.slice(0, 2).map((type) => (
-                                  <span
-                                    key={type}
-                                    className={`px-1.5 py-0.5 text-xs rounded ${typeConfig[type]?.bgColor} ${typeConfig[type]?.color}`}
-                                  >
-                                    {type.slice(0, 4)}
-                                  </span>
-                                ))}
-                                {recipe.insightTypes.length > 2 && (
-                                  <span className="px-1.5 py-0.5 text-xs bg-gray-200 dark:bg-slate-700 rounded">
-                                    +{recipe.insightTypes.length - 2}
-                                  </span>
-                                )}
-                              </div>
-                              <span className="text-xs text-purple-600 font-medium">
-                                {matchCount}
-                              </span>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </SidebarSection>
-
-                  {/* UVP Building Blocks */}
+                  {/* UVP Building Blocks - Templates moved to toolbar dropdown */}
                   <UVPBuildingBlocks uvp={uvp} deepContext={deepContext} onSelectItem={handleUVPItemSelect} />
 
                   {/* NOTE: Removed sidebar Competitive Gaps section - gaps now ONLY come from real

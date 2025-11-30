@@ -124,7 +124,7 @@ export function V4ContentPage() {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-slate-900 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="w-12 h-12 animate-spin text-purple-500 mx-auto mb-4" />
-          <p className="text-gray-600 dark:text-gray-400">Loading V4 Content Engine...</p>
+          <p className="text-gray-600 dark:text-gray-400">Loading Synapse Engine...</p>
         </div>
       </div>
     );
@@ -160,53 +160,6 @@ export function V4ContentPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-slate-900">
-      {/* Header */}
-      <header className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-slate-900">
-        <div className="max-w-7xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('/dashboard')}
-                className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Dashboard
-              </Button>
-              <div className="h-6 w-px bg-gray-300 dark:bg-gray-700" />
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-purple-500" />
-                <h1 className="text-lg font-semibold text-gray-900 dark:text-white">
-                  V4 Content Engine
-                </h1>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {savedCount > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="flex items-center gap-2 text-sm text-green-600"
-                >
-                  <CheckCircle2 className="w-4 h-4" />
-                  {savedCount} saved
-                </motion.div>
-              )}
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => navigate('/content-calendar')}
-                className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
-              >
-                <Calendar className="w-4 h-4 mr-2" />
-                View Calendar
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
 
       {/* UVP Summary Banner */}
       <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white">

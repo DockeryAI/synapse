@@ -34,8 +34,13 @@ import {
   BarChart3,
   Filter,
   AlertCircle,
-  Award
+  Award,
+  Trash2,
+  RefreshCcw,
+  Loader2
 } from 'lucide-react';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 
 import { useV4ContentGeneration } from '@/hooks/useV4ContentGeneration';
 import { V4PowerModePanel } from './V4PowerModePanel';
@@ -546,6 +551,7 @@ export function V4ContentGenerationPanel({
   const [selectedFunnel, setSelectedFunnel] = useState<FunnelStage>('TOFU');
   const [selectedTemplate, setSelectedTemplate] = useState<CampaignTemplateType | null>(null);
   const [regeneratingId, setRegeneratingId] = useState<string | null>(null);
+  const [isRefreshingApis, setIsRefreshingApis] = useState(false);
 
   const {
     isGenerating,
@@ -632,26 +638,80 @@ export function V4ContentGenerationPanel({
 
   const frameworks = getFrameworkOptions();
 
+  // Clear all cached data from localStorage for triggers, proof, trends, gaps
+  const handleClearCache = () => {
+    const keysToDelete = [
+      'triggersPanel_deepContext_v1',
+      'triggersPanel_triggers_v1',
+      `conversations_${brandId}`,
+      'proofPanel_data_v1',
+      'trendsPanel_data_v1',
+      'gapsPanel_data_v1',
+      'deepContext_cache',
+      `competitor_intelligence_${brandId}`,
+      `competitor_gaps_${brandId}`,
+    ];
+
+    let clearedCount = 0;
+    keysToDelete.forEach(key => {
+      if (localStorage.getItem(key)) {
+        localStorage.removeItem(key);
+        clearedCount++;
+        console.log(`[ClearCache] Removed: ${key}`);
+      }
+    });
+
+    // Also clear any brand-specific keys
+    const allKeys = Object.keys(localStorage);
+    allKeys.forEach(key => {
+      if (brandId && key.includes(brandId)) {
+        localStorage.removeItem(key);
+        clearedCount++;
+        console.log(`[ClearCache] Removed brand key: ${key}`);
+      }
+    });
+
+    console.log(`[ClearCache] Cleared ${clearedCount} cached items`);
+    alert(`Cache cleared! Removed ${clearedCount} cached items. Click "Call APIs" to refresh data.`);
+  };
+
+  // Call all APIs to refresh data for triggers, proof, trends, competitors
+  const handleCallApis = async () => {
+    if (!brandId) {
+      console.warn('[CallApis] Missing brandId');
+      return;
+    }
+
+    setIsRefreshingApis(true);
+    console.log('[CallApis] Starting fresh API calls...');
+
+    try {
+      // Clear existing preloaded data
+      dashboardPreloader.clearPreload();
+
+      // Start fresh preload
+      await dashboardPreloader.preloadDashboard(brandId);
+
+      console.log('[CallApis] API refresh complete');
+      alert('API refresh complete! Reload the page to see fresh data.');
+    } catch (err) {
+      console.error('[CallApis] Error:', err);
+      alert('Error refreshing APIs. Check console for details.');
+    } finally {
+      setIsRefreshingApis(false);
+    }
+  };
+
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-2xl font-bold flex items-center gap-2 text-gray-900 dark:text-white">
-            <Sparkles className="w-6 h-6 text-purple-500" />
-            V4 Content Engine
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm mt-1">
-            Generate high-impact content powered by your UVP
-          </p>
-        </div>
-
-        {generatedContent.length > 0 && (
+      {/* Header - Clear All button only */}
+      {generatedContent.length > 0 && (
+        <div className="flex justify-end">
           <Button variant="outline" size="sm" onClick={clearContent} className="text-gray-700 dark:text-gray-300">
             Clear All
           </Button>
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Error display - Enhanced with helpful recovery options */}
       {error && (
@@ -697,24 +757,88 @@ export function V4ContentGenerationPanel({
         </Card>
       )}
 
-      {/* Mode Tabs */}
+      {/* Mode Tabs Row - Toggle centered, buttons on right */}
+      <div className="flex items-center justify-center relative">
+        {/* Mode Toggle - Centered */}
+        <Tabs value={mode} onValueChange={(v) => setMode(v as 'easy' | 'power')}>
+          <TabsList className="grid grid-cols-2 w-80 h-14 p-1.5 bg-gray-200 dark:bg-slate-800 rounded-xl">
+            <TabsTrigger
+              value="easy"
+              className="flex items-center justify-center gap-2 text-sm font-semibold rounded-lg transition-all text-gray-600 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white data-[state=active]:shadow-md"
+            >
+              <Zap className="w-4 h-4" />
+              Easy Mode
+            </TabsTrigger>
+            <TabsTrigger
+              value="power"
+              className="flex items-center justify-center gap-2 text-sm font-semibold rounded-lg transition-all text-gray-600 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white data-[state=active]:shadow-md"
+            >
+              <Settings2 className="w-4 h-4" />
+              Power Mode
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+
+        {/* Cache/API Buttons - Absolute right */}
+        <div className="absolute right-0 flex items-center gap-2">
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleClearCache}
+                  className="h-9 px-3 text-gray-600 dark:text-gray-400 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+                >
+                  <Trash2 className="w-4 h-4 mr-1.5" />
+                  Clear Cache
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-xs">
+                <p className="font-medium">Clear All Cached Data</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  Removes cached triggers, proof, trends, and competitor data from localStorage.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleCallApis}
+                  disabled={isRefreshingApis}
+                  className="h-9 px-3 text-blue-600 dark:text-blue-400 border-blue-300 dark:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30"
+                >
+                  {isRefreshingApis ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-1.5 animate-spin" />
+                      Refreshing...
+                    </>
+                  ) : (
+                    <>
+                      <RefreshCcw className="w-4 h-4 mr-1.5" />
+                      Call APIs
+                    </>
+                  )}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-xs">
+                <p className="font-medium">Refresh All Intelligence Data</p>
+                <p className="text-xs text-gray-400 mt-1">
+                  Calls all external APIs to fetch fresh data for triggers, proof, trends, and competitors.
+                </p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        </div>
+      </div>
+
+      {/* Mode Content */}
       <Tabs value={mode} onValueChange={(v) => setMode(v as 'easy' | 'power')}>
-        <TabsList className="grid w-full grid-cols-2 h-14 p-1.5 bg-gray-200 dark:bg-slate-800 rounded-xl">
-          <TabsTrigger
-            value="easy"
-            className="flex items-center justify-center gap-2 text-sm font-semibold rounded-lg transition-all text-gray-600 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white data-[state=active]:shadow-md"
-          >
-            <Zap className="w-4 h-4" />
-            Easy Mode
-          </TabsTrigger>
-          <TabsTrigger
-            value="power"
-            className="flex items-center justify-center gap-2 text-sm font-semibold rounded-lg transition-all text-gray-600 dark:text-gray-400 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-700 data-[state=active]:text-gray-900 dark:data-[state=active]:text-white data-[state=active]:shadow-md"
-          >
-            <Settings2 className="w-4 h-4" />
-            Power Mode
-          </TabsTrigger>
-        </TabsList>
 
         {/* Easy Mode */}
         <TabsContent value="easy" className="mt-6">
