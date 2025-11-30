@@ -75,6 +75,10 @@ export interface WebsiteAnalysis {
   customerProblems?: string[];
   solutions?: string[];
   confidence?: number;
+  // SEO extraction fields
+  title?: string;
+  h1s?: string[];
+  schemaData?: any;
 }
 
 export interface BusinessContext {

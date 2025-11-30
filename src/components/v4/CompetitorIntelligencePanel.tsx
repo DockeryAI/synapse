@@ -16,6 +16,23 @@
 import React, { memo, useState, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
+import {
   ChevronDown,
   ChevronRight,
   Target,
@@ -40,7 +57,8 @@ import {
   BarChart3,
   Swords,
   Crown,
-  AlertTriangle
+  AlertTriangle,
+  GripVertical
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import type {
@@ -79,6 +97,8 @@ interface CompetitorIntelligencePanelProps {
     alternatives?: DiscoveredCompetitor[];
     error?: string;
   }>;
+  /** Callback when user manually reorders competitors via drag-and-drop */
+  onReorderCompetitors?: (newOrder: string[]) => void;
 }
 
 // ============================================================================
@@ -1408,6 +1428,97 @@ const BattlecardSection = memo(function BattlecardSection({
 });
 
 // ============================================================================
+// SORTABLE COMPETITOR ITEM - Wrapper for drag-and-drop
+// ============================================================================
+
+interface SortableCompetitorItemProps {
+  competitor: CompetitorChipState & { relevance_score?: number; tier?: string };
+  index: number;
+  gaps: GapCardState[];
+  insights?: Partial<EnhancedCompetitorInsights>;
+  customerVoice?: CustomerVoice;
+  brandName?: string;
+  isExpanded: boolean;
+  onToggle: () => void;
+  onSelectGap?: (gap: GapCardState) => void;
+  onRemove?: () => void;
+  onRescan?: () => void;
+  showRankBadge?: boolean;
+  rankBadgeColor?: string;
+}
+
+const SortableCompetitorItem = memo(function SortableCompetitorItem({
+  competitor,
+  index,
+  gaps,
+  insights,
+  customerVoice,
+  brandName,
+  isExpanded,
+  onToggle,
+  onSelectGap,
+  onRemove,
+  onRescan,
+  showRankBadge = false,
+  rankBadgeColor = 'bg-gray-100 text-gray-700'
+}: SortableCompetitorItemProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id: competitor.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 100 : 'auto'
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`relative group ${isDragging ? 'shadow-lg' : ''}`}
+    >
+      {/* Drag Handle */}
+      <div
+        {...attributes}
+        {...listeners}
+        className="absolute left-0 top-0 bottom-0 w-6 flex items-center justify-center cursor-grab active:cursor-grabbing opacity-0 group-hover:opacity-100 transition-opacity z-10"
+      >
+        <GripVertical className="w-4 h-4 text-gray-400" />
+      </div>
+
+      {/* Rank Badge */}
+      {showRankBadge && (
+        <div className={`absolute -left-6 top-4 flex items-center justify-center w-5 h-5 rounded-full ${rankBadgeColor} text-xs font-bold`}>
+          {index + 1}
+        </div>
+      )}
+
+      <div className="pl-6">
+        <CompetitorAccordion
+          competitor={competitor}
+          gaps={gaps}
+          insights={insights}
+          customerVoice={customerVoice}
+          brandName={brandName}
+          isExpanded={isExpanded}
+          onToggle={onToggle}
+          onSelectGap={onSelectGap}
+          onRemove={onRemove}
+          onRescan={onRescan}
+        />
+      </div>
+    </div>
+  );
+});
+
+// ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
@@ -1426,10 +1537,17 @@ export const CompetitorIntelligencePanel = memo(function CompetitorIntelligenceP
   onRescanCompetitor,
   onDiscoverCompetitors,
   onAddCompetitor,
-  onIdentifyCompetitor
+  onIdentifyCompetitor,
+  onReorderCompetitors
 }: CompetitorIntelligencePanelProps) {
   const [expandedCompetitorId, setExpandedCompetitorId] = useState<string | null>(
     competitors.length > 0 ? competitors[0].id : null
+  );
+
+  // DnD sensors for drag-and-drop reordering
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   // Add Competitor Dialog state
@@ -1450,6 +1568,72 @@ export const CompetitorIntelligencePanel = memo(function CompetitorIntelligenceP
 
     return map;
   }, [competitors, gaps]);
+
+  // Compute relevance scores and sort competitors into tiers
+  // Score factors: gap_count, has_battlecard, has_voice, evidence quality
+  const rankedCompetitors = useMemo(() => {
+    const withScores = competitors.map(competitor => {
+      const gapCount = competitor.gap_count || 0;
+      const hasVoice = customerVoiceByCompetitor.has(competitor.id);
+      const hasBattlecard = enhancedInsights.has(competitor.id);
+
+      // Compute relevance score (0-100)
+      // More gaps = more competitive threat = higher score
+      let score = competitor.relevance_score ?? 0;
+
+      // If no AI score, compute a heuristic
+      if (!competitor.relevance_score) {
+        score = Math.min(100,
+          gapCount * 10 +           // Each gap adds 10 points
+          (hasVoice ? 15 : 0) +     // Voice data adds 15
+          (hasBattlecard ? 15 : 0)  // Battlecard adds 15
+        );
+      }
+
+      return { ...competitor, relevance_score: score };
+    });
+
+    // Sort by user_rank (if set) then by relevance_score
+    const sorted = [...withScores].sort((a, b) => {
+      // User rank takes priority
+      if (a.user_rank !== undefined && b.user_rank !== undefined) {
+        return a.user_rank - b.user_rank;
+      }
+      if (a.user_rank !== undefined) return -1;
+      if (b.user_rank !== undefined) return 1;
+      // Fall back to relevance score (higher is more important)
+      return (b.relevance_score || 0) - (a.relevance_score || 0);
+    });
+
+    // Assign tiers
+    return sorted.map((c, index) => ({
+      ...c,
+      tier: index < 3 ? 'top3' as const : index < 10 ? 'top10' as const : 'other' as const
+    }));
+  }, [competitors, customerVoiceByCompetitor, enhancedInsights]);
+
+  // Group ranked competitors into tiers for display
+  const { top3, top10, other } = useMemo(() => {
+    const top3 = rankedCompetitors.filter(c => c.tier === 'top3');
+    const top10 = rankedCompetitors.filter(c => c.tier === 'top10');
+    const other = rankedCompetitors.filter(c => c.tier === 'other');
+    return { top3, top10, other };
+  }, [rankedCompetitors]);
+
+  // Handle drag end - reorder competitors (must be after rankedCompetitors is defined)
+  const handleDragEnd = useCallback((event: DragEndEvent) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+
+    // Find the current order based on rankedCompetitors
+    const oldIndex = rankedCompetitors.findIndex(c => c.id === active.id);
+    const newIndex = rankedCompetitors.findIndex(c => c.id === over.id);
+
+    if (oldIndex !== -1 && newIndex !== -1) {
+      const newOrder = arrayMove(rankedCompetitors.map(c => c.id), oldIndex, newIndex);
+      onReorderCompetitors?.(newOrder);
+    }
+  }, [rankedCompetitors, onReorderCompetitors]);
 
   const handleToggleAccordion = useCallback((competitorId: string) => {
     setExpandedCompetitorId(prev => prev === competitorId ? null : competitorId);
@@ -1547,23 +1731,113 @@ export const CompetitorIntelligencePanel = memo(function CompetitorIntelligenceP
           )}
         </div>
       ) : (
-        <div className="space-y-3">
-          {competitors.map((competitor) => (
-            <CompetitorAccordion
-              key={competitor.id}
-              competitor={competitor}
-              gaps={gapsByCompetitor.get(competitor.id) || []}
-              insights={enhancedInsights.get(competitor.id)}
-              customerVoice={customerVoiceByCompetitor.get(competitor.id)}
-              brandName={brandName}
-              isExpanded={expandedCompetitorId === competitor.id}
-              onToggle={() => handleToggleAccordion(competitor.id)}
-              onSelectGap={onSelectGap}
-              onRemove={onRemoveCompetitor ? () => onRemoveCompetitor(competitor.id) : undefined}
-              onRescan={onRescanCompetitor ? () => onRescanCompetitor(competitor.id) : undefined}
-            />
-          ))}
-        </div>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={rankedCompetitors.map(c => c.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <div className="space-y-6 pl-8">
+              {/* Top 3 Competitors - Primary Threats */}
+              {top3.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-purple-200 dark:border-purple-800">
+                    <Crown className="w-4 h-4 text-amber-500" />
+                    <h3 className="text-sm font-semibold text-purple-900 dark:text-purple-100">
+                      Top 3 Competitors
+                    </h3>
+                    <span className="px-1.5 py-0.5 text-[10px] font-medium bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 rounded">
+                      Primary Threats
+                    </span>
+                    <span className="ml-auto text-[10px] text-gray-400">Drag to reorder</span>
+                  </div>
+                  {top3.map((competitor, index) => (
+                    <SortableCompetitorItem
+                      key={competitor.id}
+                      competitor={competitor}
+                      index={index}
+                      gaps={gapsByCompetitor.get(competitor.id) || []}
+                      insights={enhancedInsights.get(competitor.id)}
+                      customerVoice={customerVoiceByCompetitor.get(competitor.id)}
+                      brandName={brandName}
+                      isExpanded={expandedCompetitorId === competitor.id}
+                      onToggle={() => handleToggleAccordion(competitor.id)}
+                      onSelectGap={onSelectGap}
+                      onRemove={onRemoveCompetitor ? () => onRemoveCompetitor(competitor.id) : undefined}
+                      onRescan={onRescanCompetitor ? () => onRescanCompetitor(competitor.id) : undefined}
+                      showRankBadge={true}
+                      rankBadgeColor="bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300"
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Positions 4-10 - Secondary Competitors */}
+              {top10.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+                    <BarChart3 className="w-4 h-4 text-blue-500" />
+                    <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">
+                      Top 4-10
+                    </h3>
+                    <span className="px-1.5 py-0.5 text-[10px] font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded">
+                      Monitor Closely
+                    </span>
+                  </div>
+                  {top10.map((competitor, index) => (
+                    <SortableCompetitorItem
+                      key={competitor.id}
+                      competitor={competitor}
+                      index={index + 3}
+                      gaps={gapsByCompetitor.get(competitor.id) || []}
+                      insights={enhancedInsights.get(competitor.id)}
+                      customerVoice={customerVoiceByCompetitor.get(competitor.id)}
+                      brandName={brandName}
+                      isExpanded={expandedCompetitorId === competitor.id}
+                      onToggle={() => handleToggleAccordion(competitor.id)}
+                      onSelectGap={onSelectGap}
+                      onRemove={onRemoveCompetitor ? () => onRemoveCompetitor(competitor.id) : undefined}
+                      onRescan={onRescanCompetitor ? () => onRescanCompetitor(competitor.id) : undefined}
+                      showRankBadge={true}
+                      rankBadgeColor="bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Other Competitors */}
+              {other.length > 0 && (
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-700">
+                    <Building2 className="w-4 h-4 text-gray-400" />
+                    <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                      Other ({other.length})
+                    </h3>
+                  </div>
+                  {other.map((competitor, index) => (
+                    <SortableCompetitorItem
+                      key={competitor.id}
+                      competitor={competitor}
+                      index={index + 10}
+                      gaps={gapsByCompetitor.get(competitor.id) || []}
+                      insights={enhancedInsights.get(competitor.id)}
+                      customerVoice={customerVoiceByCompetitor.get(competitor.id)}
+                      brandName={brandName}
+                      isExpanded={expandedCompetitorId === competitor.id}
+                      onToggle={() => handleToggleAccordion(competitor.id)}
+                      onSelectGap={onSelectGap}
+                      onRemove={onRemoveCompetitor ? () => onRemoveCompetitor(competitor.id) : undefined}
+                      onRescan={onRescanCompetitor ? () => onRescanCompetitor(competitor.id) : undefined}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          </SortableContext>
+        </DndContext>
       )}
 
       {/* Add Competitor Dialog */}

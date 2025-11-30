@@ -127,6 +127,8 @@ interface TriggersPanelV2Props {
   onSelectTrigger?: (trigger: ConsolidatedTrigger) => void;
   /** Pre-consolidated triggers (from LLM synthesis or cache) - skips re-consolidation */
   preConsolidatedTriggers?: ConsolidatedTrigger[] | null;
+  /** Callback to report trigger count to parent for tab badge */
+  onTriggerCountChange?: (count: number) => void;
 }
 
 // ============================================================================
@@ -376,7 +378,8 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
   loadingStatus: parentLoadingStatus = 'Loading triggers...',
   onToggle,
   onSelectTrigger,
-  preConsolidatedTriggers
+  preConsolidatedTriggers,
+  onTriggerCountChange
 }: TriggersPanelV2Props) {
   const [expandedCard, setExpandedCard] = useState<string | null>(null);
 
@@ -555,6 +558,14 @@ export const TriggersPanelV2 = memo(function TriggersPanelV2({
       });
     }
   }, [triggers, consolidationResult, detectedProfile]);
+
+  // Report trigger count to parent for tab badge display
+  useEffect(() => {
+    const count = consolidationResult?.triggers?.length || 0;
+    if (onTriggerCountChange) {
+      onTriggerCountChange(count);
+    }
+  }, [consolidationResult?.triggers?.length, onTriggerCountChange]);
 
   const handleToggleExpand = useCallback((id: string, e: React.MouseEvent) => {
     e.stopPropagation();

@@ -421,13 +421,15 @@ interface ProofTabProps {
   brandId?: string;
   deepContext?: DeepContext | null;
   onSelectProofs?: (proofs: ConsolidatedProof[]) => void;
+  /** Callback to report proof count to parent for tab badge */
+  onProofCountChange?: (count: number) => void;
 }
 
 // ============================================================================
 // MAIN COMPONENT
 // ============================================================================
 
-export function ProofTab({ uvp, brandId, deepContext: providedDeepContext, onSelectProofs }: ProofTabProps) {
+export function ProofTab({ uvp, brandId, deepContext: providedDeepContext, onSelectProofs, onProofCountChange }: ProofTabProps) {
   const { currentBrand } = useBrand();
   const [selectedProofs, setSelectedProofs] = useState<string[]>([]);
   const [activeFilter, setActiveFilter] = useState<FilterType>('all');
@@ -644,6 +646,14 @@ export function ProofTab({ uvp, brandId, deepContext: providedDeepContext, onSel
 
     return counts;
   }, [consolidationResult]);
+
+  // Report proof count to parent for tab badge display
+  useEffect(() => {
+    const count = consolidationResult?.proofs?.length || 0;
+    if (onProofCountChange) {
+      onProofCountChange(count);
+    }
+  }, [consolidationResult?.proofs?.length, onProofCountChange]);
 
   const handleToggle = (proofId: string) => {
     setSelectedProofs(prev => {

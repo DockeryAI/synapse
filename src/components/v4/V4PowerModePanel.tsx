@@ -64,7 +64,9 @@ import {
   Lock,
   Star,
   Trash2,
-  RefreshCcw
+  RefreshCcw,
+  Pencil,
+  Check
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -76,6 +78,7 @@ import { useV4ContentGeneration } from '@/hooks/useV4ContentGeneration';
 import { useBusinessProfile } from '@/hooks/useBusinessProfile';
 import { useCompetitorIntelligence } from '@/hooks/useCompetitorIntelligence';
 import { useEarlyCompetitorDiscovery } from '@/hooks/useEarlyCompetitorDiscovery';
+import { useKeywords } from '@/hooks/useKeywords';
 import { CompetitorGapsPanel } from './CompetitorGapsPanel';
 import { CompetitorChipsBar } from './CompetitorChipsBar';
 import { CompetitorIntelligencePanel } from './CompetitorIntelligencePanel';
@@ -91,6 +94,9 @@ import type { DeepContext } from '@/types/synapse/deepContext.types';
 
 // Intelligence cache service for Supabase-based caching
 import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
+// Proof consolidation service for computing proof count from cache
+import { proofConsolidationService } from '@/services/proof/proof-consolidation.service';
+import { profileDetectionService } from '@/services/triggers/profile-detection.service';
 import type {
   GeneratedContent,
   PsychologyFramework,
@@ -1030,19 +1036,45 @@ async function extractInsightsFromDeepContextAsync(
 
       batch.forEach((dp: any, batchIdx: number) => {
         const idx = i + batchIdx;
+        // Complete type mapping for all raw data point types
         const typeMap: Record<string, InsightType> = {
+          // TRIGGERS: Psychological hooks that drive action
           'pain_point': 'triggers',
-          'unarticulated_need': 'conversations',
           'customer_trigger': 'triggers',
+          'fear': 'triggers',
+          'aspiration': 'triggers',
+
+          // CONVERSATIONS: Voice of customer
+          'unarticulated_need': 'conversations',
+          'community_discussion': 'conversations',
+          'question': 'conversations',
+          'review': 'conversations',
+          'testimonial': 'conversations',
+
+          // TRENDS: Timely relevance hooks
           'trending_topic': 'trends',
-          'competitive_gap': 'gaps',
           'timing': 'trends',
           'market_signal': 'trends',
+          'weather_trigger': 'trends',
+          'news_story': 'trends',
+          'local_event': 'trends',
+
+          // GAPS (Competitors): Competitive intelligence
+          'competitive_gap': 'gaps',
           'opportunity': 'gaps',
-          'community_discussion': 'conversations', // Reddit conversations from UVP pain point mining
+          'keyword_gap': 'gaps',
+          'competitor_weakness': 'gaps',
+          'competitor_mention': 'gaps',
+          'market_gap': 'gaps',
+
+          // PROOF: Social proof and validation
+          'social_proof': 'proof',
+          'case_study': 'proof',
+          'metric': 'proof',
+          'statistic': 'proof',
         };
 
-        const insightType: InsightType = typeMap[dp.type] || 'gaps';
+        const insightType: InsightType = typeMap[dp.type] || 'conversations'; // Default to conversations (voice of customer) instead of gaps
 
         let category = 'Intelligence Data';
         if (dp.type === 'community_discussion') {
@@ -1213,7 +1245,7 @@ async function extractInsightsFromDeepContextAsync(
       if (uvp.targetCustomer) {
         insights.push({
           id: 'uvp-target',
-          type: 'conversations' as InsightType,
+          type: 'triggers' as InsightType, // Target customer helps craft psychological hooks
           title: `Target: ${uvp.targetCustomer.industry || 'Ideal Customer'}`,
           category: 'Customer Profile',
           confidence: 0.95,
@@ -1229,7 +1261,7 @@ async function extractInsightsFromDeepContextAsync(
         const benefitMetrics = uvp.keyBenefit.metrics?.map(m => `${m.metric}: ${m.value}`).join(', ');
         insights.push({
           id: 'uvp-benefit',
-          type: 'gaps' as InsightType,
+          type: 'proof' as InsightType, // Key differentiator is PROOF of your value
           title: 'Key Differentiator',
           category: 'Value Proposition',
           confidence: 0.92,
@@ -1242,7 +1274,7 @@ async function extractInsightsFromDeepContextAsync(
       if (uvp.uniqueSolution) {
         insights.push({
           id: 'uvp-solution',
-          type: 'gaps' as InsightType,
+          type: 'proof' as InsightType, // Unique approach is PROOF of differentiation
           title: 'Unique Approach',
           category: 'Competitive Edge',
           confidence: 0.88,
@@ -1508,18 +1540,45 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   // RAW DATA POINTS - Display ALL collected data points directly
   // ============================================================================
   context.rawDataPoints?.forEach((dp: any, idx: number) => {
+    // Complete type mapping for all raw data point types (synced with async extractor)
     const typeMap: Record<string, InsightType> = {
+      // TRIGGERS: Psychological hooks that drive action
       'pain_point': 'triggers',
-      'unarticulated_need': 'conversations',
       'customer_trigger': 'triggers',
+      'fear': 'triggers',
+      'aspiration': 'triggers',
+
+      // CONVERSATIONS: Voice of customer
+      'unarticulated_need': 'conversations',
+      'community_discussion': 'conversations',
+      'question': 'conversations',
+      'review': 'conversations',
+      'testimonial': 'conversations',
+
+      // TRENDS: Timely relevance hooks
       'trending_topic': 'trends',
-      'competitive_gap': 'gaps',
       'timing': 'trends',
       'market_signal': 'trends',
+      'weather_trigger': 'trends',
+      'news_story': 'trends',
+      'local_event': 'trends',
+
+      // GAPS (Competitors): Competitive intelligence
+      'competitive_gap': 'gaps',
       'opportunity': 'gaps',
+      'keyword_gap': 'gaps',
+      'competitor_weakness': 'gaps',
+      'competitor_mention': 'gaps',
+      'market_gap': 'gaps',
+
+      // PROOF: Social proof and validation
+      'social_proof': 'proof',
+      'case_study': 'proof',
+      'metric': 'proof',
+      'statistic': 'proof',
     };
 
-    const insightType: InsightType = typeMap[dp.type] || 'gaps';
+    const insightType: InsightType = typeMap[dp.type] || 'conversations'; // Default to conversations instead of gaps
 
     let category = 'Intelligence Data';
     if (dp.metadata?.triggerCategory) {
@@ -3445,9 +3504,10 @@ interface UVPBuildingBlocksProps {
   uvp: CompleteUVP;
   deepContext?: DeepContext | null;
   onSelectItem: (item: { type: string; text: string }) => void;
+  brandId?: string;
 }
 
-const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, onSelectItem }: UVPBuildingBlocksProps) {
+const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, onSelectItem, brandId }: UVPBuildingBlocksProps) {
   // Debug log websiteAnalysis and UVP data
   useEffect(() => {
     const wsAnalysis = deepContext?.business?.websiteAnalysis;
@@ -3769,65 +3829,199 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     return items;
   }, [uvp?.transformationGoal, deepContext?.business?.websiteAnalysis?.customerProblems]);
 
-  // Extract keywords from DeepContext business profile, with fallbacks from UVP data and websiteAnalysis
-  const keywordItems = useMemo(() => {
-    const keywords: string[] = [];
+  // Extract domain from UVP or business profile
+  const domain = useMemo(() => {
+    // Try to extract domain from brandId or business profile
+    if (brandId) {
+      // brandId might be a URL or domain
+      try {
+        const url = brandId.includes('://') ? brandId : `https://${brandId}`;
+        return new URL(url).hostname.replace(/^www\./, '');
+      } catch {
+        return brandId;
+      }
+    }
+    return undefined;
+  }, [brandId]);
+
+  // Build website data from deepContext for keyword extraction
+  const websiteDataForKeywords = useMemo(() => {
     const wsAnalysis = deepContext?.business?.websiteAnalysis;
+    if (!wsAnalysis) return undefined;
 
-    // Primary source: DeepContext business profile
-    if (deepContext?.business?.profile?.keywords?.length) {
-      keywords.push(...deepContext.business.profile.keywords);
+    // WebsiteAnalysis type has metaTags as Record<string, string>
+    const metaTags = wsAnalysis.metaTags || {};
+
+    return {
+      title: wsAnalysis.title || metaTags['title'] || metaTags['og:title'] || undefined,
+      metaDescription: metaTags['description'] || undefined,
+      metaKeywords: metaTags['keywords'] || undefined,
+      h1s: wsAnalysis.h1s || undefined,
+      ogTitle: metaTags['og:title'] || undefined,
+      ogDescription: metaTags['og:description'] || undefined,
+      schemaData: wsAnalysis.schemaData || undefined,
+    };
+  }, [deepContext?.business?.websiteAnalysis]);
+
+  // Use the new Keywords 2.0 hook for intent-based keyword extraction + SEMrush validation
+  const {
+    keywords: keywordsData,
+    isLoading: keywordsLoading,
+    isValidating: keywordsValidating,
+    totalSearchVolume,
+    rankingCount,
+    refresh: refreshKeywords
+  } = useKeywords(brandId, domain, websiteDataForKeywords, deepContext?.business?.profile?.name);
+
+  // User keyword modifications (local state for add/edit/delete)
+  const [userKeywordEdits, setUserKeywordEdits] = useState<{
+    deleted: Set<string>;
+    added: { id: string; text: string }[];
+    edited: Map<string, string>; // original -> new text
+  }>({ deleted: new Set(), added: [], edited: new Map() });
+  const [editingKeywordId, setEditingKeywordId] = useState<string | null>(null);
+  const [editingKeywordText, setEditingKeywordText] = useState('');
+  const [newKeywordText, setNewKeywordText] = useState('');
+  const [isAddingKeyword, setIsAddingKeyword] = useState(false);
+
+  // Keyword management handlers
+  const handleDeleteKeyword = useCallback((keywordId: string, keywordText: string) => {
+    setUserKeywordEdits(prev => {
+      const newDeleted = new Set(prev.deleted);
+      newDeleted.add(keywordText);
+      // Also remove from added if it was a user-added keyword
+      const newAdded = prev.added.filter(k => k.id !== keywordId);
+      return { ...prev, deleted: newDeleted, added: newAdded };
+    });
+  }, []);
+
+  const handleStartEditKeyword = useCallback((keywordId: string, keywordText: string) => {
+    setEditingKeywordId(keywordId);
+    setEditingKeywordText(keywordText);
+  }, []);
+
+  const handleSaveEditKeyword = useCallback((originalText: string) => {
+    if (editingKeywordText.trim() && editingKeywordText.trim() !== originalText) {
+      setUserKeywordEdits(prev => {
+        const newEdited = new Map(prev.edited);
+        newEdited.set(originalText, editingKeywordText.trim());
+        return { ...prev, edited: newEdited };
+      });
     }
+    setEditingKeywordId(null);
+    setEditingKeywordText('');
+  }, [editingKeywordText]);
 
-    // Secondary source: websiteAnalysis keywords
-    if (wsAnalysis?.keywords?.length) {
-      keywords.push(...wsAnalysis.keywords);
+  const handleCancelEditKeyword = useCallback(() => {
+    setEditingKeywordId(null);
+    setEditingKeywordText('');
+  }, []);
+
+  const handleAddKeyword = useCallback(() => {
+    if (newKeywordText.trim()) {
+      setUserKeywordEdits(prev => ({
+        ...prev,
+        added: [...prev.added, { id: `user-keyword-${Date.now()}`, text: newKeywordText.trim() }]
+      }));
+      setNewKeywordText('');
+      setIsAddingKeyword(false);
     }
+  }, [newKeywordText]);
 
-    // Fallback: Extract keywords from UVP components when DeepContext unavailable
-    if (keywords.length === 0) {
-      // Extract key terms from UVP value proposition statement
-      if (uvp?.valuePropositionStatement) {
-        // Extract significant words (3+ characters, not common words)
-        const stopWords = ['the', 'and', 'for', 'with', 'that', 'from', 'your', 'are', 'who', 'our', 'you', 'can', 'will', 'their', 'they', 'this', 'into', 'not'];
-        const words = uvp.valuePropositionStatement
-          .toLowerCase()
-          .replace(/[^a-z\s]/g, '')
-          .split(/\s+/)
-          .filter((w: string) => w.length >= 4 && !stopWords.includes(w));
-        keywords.push(...words.slice(0, 5));
+  // Format keywords for sidebar display (with search volume badges)
+  const keywordItems = useMemo(() => {
+    let baseKeywords: { id: string; text: string; type: string; searchVolume: number | null; difficulty: number | null; isRanking: boolean; isUserAdded?: boolean }[] = [];
+
+    // If hook returned keywords, use those (with SEMrush data)
+    if (keywordsData.length > 0) {
+      baseKeywords = keywordsData.slice(0, 15).map((kw, i) => ({
+        id: `keyword-${i}`,
+        text: kw.keyword,
+        type: 'keyword',
+        searchVolume: kw.searchVolume,
+        difficulty: kw.difficulty,
+        isRanking: kw.isRanking,
+        isUserAdded: false
+      }));
+    } else {
+      // Fallback to legacy extraction from DeepContext/UVP
+      const keywords: string[] = [];
+      const wsAnalysis = deepContext?.business?.websiteAnalysis;
+
+      // Primary source: DeepContext business profile
+      if (deepContext?.business?.profile?.keywords?.length) {
+        keywords.push(...deepContext.business.profile.keywords);
       }
 
-      // Add industry-related keywords from unique solution statement
-      if (uvp?.uniqueSolution?.statement) {
-        const solutionWords = uvp.uniqueSolution.statement
-          .toLowerCase()
-          .replace(/[^a-z\s]/g, '')
-          .split(/\s+/)
-          .filter((w: string) => w.length >= 5);
-        keywords.push(...solutionWords.slice(0, 3));
+      // Secondary source: websiteAnalysis keywords
+      if (wsAnalysis?.keywords?.length) {
+        keywords.push(...wsAnalysis.keywords);
       }
 
-      // Add target customer keywords - targetCustomer.statement is a string
-      if (uvp?.targetCustomer?.statement) {
-        const customerWords = uvp.targetCustomer.statement
-          .toLowerCase()
-          .replace(/[^a-z\s]/g, '')
-          .split(/\s+/)
-          .filter((w: string) => w.length >= 5);
-        keywords.push(...customerWords.slice(0, 3));
+      // Fallback: Extract keywords from UVP components
+      if (keywords.length === 0) {
+        if (uvp?.valuePropositionStatement) {
+          const stopWords = ['the', 'and', 'for', 'with', 'that', 'from', 'your', 'are', 'who', 'our', 'you', 'can', 'will', 'their', 'they', 'this', 'into', 'not'];
+          const words = uvp.valuePropositionStatement
+            .toLowerCase()
+            .replace(/[^a-z\s]/g, '')
+            .split(/\s+/)
+            .filter((w: string) => w.length >= 4 && !stopWords.includes(w));
+          keywords.push(...words.slice(0, 5));
+        }
+
+        if (uvp?.uniqueSolution?.statement) {
+          const solutionWords = uvp.uniqueSolution.statement
+            .toLowerCase()
+            .replace(/[^a-z\s]/g, '')
+            .split(/\s+/)
+            .filter((w: string) => w.length >= 5);
+          keywords.push(...solutionWords.slice(0, 3));
+        }
+
+        if (uvp?.targetCustomer?.statement) {
+          const customerWords = uvp.targetCustomer.statement
+            .toLowerCase()
+            .replace(/[^a-z\s]/g, '')
+            .split(/\s+/)
+            .filter((w: string) => w.length >= 5);
+          keywords.push(...customerWords.slice(0, 3));
+        }
       }
+
+      const uniqueKeywords = [...new Set(keywords)].slice(0, 12);
+      baseKeywords = uniqueKeywords.map((kw, i) => ({
+        id: `keyword-${i}`,
+        text: kw,
+        type: 'keyword',
+        searchVolume: null as number | null,
+        difficulty: null as number | null,
+        isRanking: false,
+        isUserAdded: false
+      }));
     }
 
-    // Deduplicate and limit
-    const uniqueKeywords = [...new Set(keywords)].slice(0, 12);
+    // Apply user edits: filter deleted, apply edits, add user-added keywords
+    const filteredKeywords = baseKeywords
+      .filter(kw => !userKeywordEdits.deleted.has(kw.text))
+      .map(kw => ({
+        ...kw,
+        text: userKeywordEdits.edited.get(kw.text) || kw.text
+      }));
 
-    return uniqueKeywords.map((kw, i) => ({
-      id: `keyword-${i}`,
-      text: kw,
-      type: 'keyword'
+    // Add user-added keywords
+    const userAddedKeywords = userKeywordEdits.added.map(kw => ({
+      id: kw.id,
+      text: kw.text,
+      type: 'keyword',
+      searchVolume: null as number | null,
+      difficulty: null as number | null,
+      isRanking: false,
+      isUserAdded: true
     }));
-  }, [deepContext?.business?.profile?.keywords, deepContext?.business?.websiteAnalysis?.keywords, uvp?.valuePropositionStatement, uvp?.uniqueSolution?.statement, uvp?.targetCustomer?.statement]);
+
+    return [...filteredKeywords, ...userAddedKeywords];
+  }, [keywordsData, deepContext?.business?.profile?.keywords, deepContext?.business?.websiteAnalysis?.keywords, uvp?.valuePropositionStatement, uvp?.uniqueSolution?.statement, uvp?.targetCustomer?.statement, userKeywordEdits]);
 
   // Extract case studies from competitive intelligence and synthesis
   const caseStudyItems = useMemo(() => {
@@ -3855,9 +4049,10 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     return items;
   }, [deepContext?.synthesis, deepContext?.competitiveIntel]);
 
-  // Extract customer testimonials from website analysis
+  // Extract customer testimonials from website analysis AND deep testimonials
+  // Also check ProofTab localStorage cache since that's where live scrapes are stored
   const testimonialItems = useMemo(() => {
-    const items: { id: string; text: string; type: string }[] = [];
+    const items: { id: string; text: string; type: string; sourceUrl?: string; authorName?: string; authorCompany?: string }[] = [];
 
     // Check deepContext for website testimonials
     const websiteTestimonials = deepContext?.business?.websiteAnalysis?.testimonials || [];
@@ -3866,6 +4061,52 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
         items.push({ id: `testimonial-${i}`, text: testimonial, type: 'testimonial' });
       }
     });
+
+    // Include deep testimonials (from dedicated testimonial/case study pages)
+    // First try deepContext (Supabase cache), then fall back to ProofTab localStorage
+    let deepTestimonials = (deepContext as any)?.deepTestimonials;
+
+    // If not in deepContext, check ProofTab's localStorage cache
+    if (!deepTestimonials) {
+      try {
+        const proofCache = localStorage.getItem('proofTab_deepContext_v1');
+        if (proofCache) {
+          const parsed = JSON.parse(proofCache);
+          deepTestimonials = parsed.deepTestimonials;
+        }
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+
+    if (deepTestimonials) {
+      // Add testimonials from deep scraper
+      deepTestimonials.testimonials?.forEach((t: any, i: number) => {
+        if (t.quote && t.quote.length > 20) {
+          items.push({
+            id: `deep-testimonial-${i}`,
+            text: t.quote,
+            type: 'testimonial',
+            sourceUrl: t.sourceUrl,
+            authorName: t.authorName,
+            authorCompany: t.authorCompany
+          });
+        }
+      });
+      // Add case studies as testimonials
+      deepTestimonials.caseStudies?.forEach((cs: any, i: number) => {
+        if (cs.quote && cs.quote.length > 20) {
+          items.push({
+            id: `case-study-${i}`,
+            text: cs.caseStudy?.execSummary || cs.quote,
+            type: 'case_study',
+            sourceUrl: cs.sourceUrl,
+            authorName: cs.authorName,
+            authorCompany: cs.caseStudy?.customerName || cs.authorCompany
+          });
+        }
+      });
+    }
 
     // Include ALL proof points from website analysis (these are credibility signals)
     const proofPoints = deepContext?.business?.websiteAnalysis?.proofPoints || [];
@@ -3876,7 +4117,7 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     });
 
     return items;
-  }, [deepContext?.business?.websiteAnalysis]);
+  }, [deepContext?.business?.websiteAnalysis, (deepContext as any)?.deepTestimonials]);
 
   // Extract meta tag keywords from website
   const metaKeywords = useMemo(() => {
@@ -4088,96 +4329,154 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
         </SidebarSection>
       )}
 
-      {/* Keywords (SEO) */}
-      {keywordItems.length > 0 && (
+      {/* Keywords (SEO) - Intent-based with search volume */}
+      {(keywordItems.length > 0 || keywordsLoading || keywordsValidating || isAddingKeyword) && (
         <SidebarSection
           title="Keywords (SEO)"
           icon={<Globe className="w-4 h-4" />}
           defaultExpanded={false}
           badgeCount={keywordItems.length}
         >
+          {/* Loading state */}
+          {(keywordsLoading || keywordsValidating) && keywordItems.length === 0 && (
+            <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-400 py-2">
+              <Loader2 className="w-3 h-3 animate-spin" />
+              <span>{keywordsLoading ? 'Extracting keywords...' : 'Validating with SEMrush...'}</span>
+            </div>
+          )}
+
+          {/* Keywords with edit/delete capabilities */}
           <div className="flex flex-wrap gap-1.5">
             {keywordItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => onSelectItem({ type: item.type, text: item.text })}
-                className="px-2 py-1 text-xs rounded-full bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
-              >
-                {item.text}
-              </button>
+              <div key={item.id} className="group relative">
+                {editingKeywordId === item.id ? (
+                  /* Inline edit mode */
+                  <div className="flex items-center gap-1 bg-white dark:bg-zinc-800 border border-blue-300 dark:border-blue-600 rounded-full px-2 py-1">
+                    <input
+                      type="text"
+                      value={editingKeywordText}
+                      onChange={(e) => setEditingKeywordText(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleSaveEditKeyword(item.text);
+                        if (e.key === 'Escape') handleCancelEditKeyword();
+                      }}
+                      className="w-20 text-xs bg-transparent outline-none text-zinc-900 dark:text-zinc-100"
+                      autoFocus
+                    />
+                    <button
+                      onClick={() => handleSaveEditKeyword(item.text)}
+                      className="p-0.5 text-green-600 hover:text-green-700"
+                      title="Save"
+                    >
+                      <Check className="w-3 h-3" />
+                    </button>
+                    <button
+                      onClick={handleCancelEditKeyword}
+                      className="p-0.5 text-zinc-400 hover:text-zinc-600"
+                      title="Cancel"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                ) : (
+                  /* Normal display mode */
+                  <div
+                    className={`px-2 py-1 text-xs rounded-full border transition-colors flex items-center gap-1 cursor-pointer ${
+                      item.isRanking
+                        ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border-green-200 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/30'
+                        : item.isUserAdded
+                        ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700 hover:bg-purple-100 dark:hover:bg-purple-900/30'
+                        : 'bg-blue-50 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/30'
+                    }`}
+                    title={item.searchVolume ? `${item.searchVolume.toLocaleString()} monthly searches${item.difficulty ? `, difficulty: ${item.difficulty}` : ''}${item.isRanking ? ' (ranking)' : ''}` : (item.isUserAdded ? 'User added' : 'Click to use in content')}
+                  >
+                    <span onClick={() => onSelectItem({ type: item.type, text: item.text })}>{item.text}</span>
+                    {item.searchVolume && item.searchVolume >= 100 && (
+                      <span className="text-[10px] opacity-70 ml-0.5">
+                        {item.searchVolume >= 1000 ? `${Math.round(item.searchVolume / 1000)}k` : item.searchVolume}
+                      </span>
+                    )}
+                    {/* Edit/Delete buttons - show on hover */}
+                    <div className="hidden group-hover:flex items-center gap-0.5 ml-1 border-l border-current/20 pl-1">
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleStartEditKeyword(item.id, item.text); }}
+                        className="p-0.5 opacity-60 hover:opacity-100"
+                        title="Edit keyword"
+                      >
+                        <Pencil className="w-2.5 h-2.5" />
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); handleDeleteKeyword(item.id, item.text); }}
+                        className="p-0.5 opacity-60 hover:opacity-100 text-red-500"
+                        title="Delete keyword"
+                      >
+                        <X className="w-2.5 h-2.5" />
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             ))}
-          </div>
-        </SidebarSection>
-      )}
 
-      {/* Customer Testimonials */}
-      {testimonialItems.length > 0 && (
-        <SidebarSection
-          title="Customer Testimonials"
-          icon={<Quote className="w-4 h-4" />}
-          defaultExpanded={true}
-          badgeCount={testimonialItems.length}
-        >
-          <div className="space-y-1.5">
-            {testimonialItems.slice(0, 5).map(renderClickableItem)}
-          </div>
-        </SidebarSection>
-      )}
-
-      {/* Meta Tags & SEO */}
-      {metaKeywords.length > 0 && (
-        <SidebarSection
-          title="Meta Tags & SEO"
-          icon={<Globe className="w-4 h-4" />}
-          defaultExpanded={false}
-          badgeCount={metaKeywords.length}
-        >
-          <div className="space-y-1.5">
-            {metaKeywords.map(renderClickableItem)}
-          </div>
-        </SidebarSection>
-      )}
-
-      {/* Website Value Props - from website analysis */}
-      {deepContext?.business?.websiteAnalysis?.valuePropositions?.length > 0 && (
-        <SidebarSection
-          title="Website Value Props"
-          icon={<Lightbulb className="w-4 h-4" />}
-          defaultExpanded={false}
-          badgeCount={deepContext.business.websiteAnalysis.valuePropositions.length}
-        >
-          <div className="space-y-1.5">
-            {deepContext.business.websiteAnalysis.valuePropositions.slice(0, 5).map((vp: string, i: number) => (
+            {/* Add keyword button / input */}
+            {isAddingKeyword ? (
+              <div className="flex items-center gap-1 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded-full px-2 py-1">
+                <input
+                  type="text"
+                  value={newKeywordText}
+                  onChange={(e) => setNewKeywordText(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleAddKeyword();
+                    if (e.key === 'Escape') { setIsAddingKeyword(false); setNewKeywordText(''); }
+                  }}
+                  placeholder="Add keyword..."
+                  className="w-24 text-xs bg-transparent outline-none text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
+                  autoFocus
+                />
+                <button
+                  onClick={handleAddKeyword}
+                  disabled={!newKeywordText.trim()}
+                  className="p-0.5 text-green-600 hover:text-green-700 disabled:opacity-40"
+                  title="Add"
+                >
+                  <Check className="w-3 h-3" />
+                </button>
+                <button
+                  onClick={() => { setIsAddingKeyword(false); setNewKeywordText(''); }}
+                  className="p-0.5 text-zinc-400 hover:text-zinc-600"
+                  title="Cancel"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ) : (
               <button
-                key={`ws-vp-${i}`}
-                onClick={() => onSelectItem({ type: 'value_proposition', text: vp })}
-                className="w-full text-left p-2 text-xs rounded-lg bg-yellow-50 dark:bg-yellow-900/20 hover:bg-yellow-100 dark:hover:bg-yellow-900/30 border border-yellow-200 dark:border-yellow-700 transition-colors line-clamp-2"
+                onClick={() => setIsAddingKeyword(true)}
+                className="px-2 py-1 text-xs rounded-full border border-dashed border-zinc-300 dark:border-zinc-600 text-zinc-500 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors flex items-center gap-1"
+                title="Add keyword"
               >
-                {vp}
+                <Plus className="w-3 h-3" />
+                <span>Add</span>
               </button>
-            ))}
+            )}
           </div>
-        </SidebarSection>
-      )}
 
-      {/* Website Differentiators - from website analysis */}
-      {deepContext?.business?.websiteAnalysis?.differentiators?.length > 0 && (
-        <SidebarSection
-          title="Website Differentiators"
-          icon={<Shield className="w-4 h-4" />}
-          defaultExpanded={false}
-          badgeCount={deepContext.business.websiteAnalysis.differentiators.length}
-        >
-          <div className="space-y-1.5">
-            {deepContext.business.websiteAnalysis.differentiators.slice(0, 5).map((diff: string, i: number) => (
-              <button
-                key={`ws-diff-${i}`}
-                onClick={() => onSelectItem({ type: 'differentiator', text: diff })}
-                className="w-full text-left p-2 text-xs rounded-lg bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/30 border border-purple-200 dark:border-purple-700 transition-colors line-clamp-2"
-              >
-                {diff}
-              </button>
-            ))}
+          {/* Summary stats and refresh button */}
+          <div className="mt-2 pt-2 border-t border-zinc-200 dark:border-zinc-700 text-xs text-zinc-500 dark:text-zinc-400 flex justify-between items-center">
+            <div className="flex flex-col gap-0.5">
+              {totalSearchVolume > 0 && (
+                <span>{totalSearchVolume.toLocaleString()} total monthly searches</span>
+              )}
+              {rankingCount > 0 && <span className="text-green-600 dark:text-green-400">{rankingCount} ranking</span>}
+            </div>
+            <button
+              onClick={refreshKeywords}
+              disabled={keywordsLoading || keywordsValidating}
+              className="p-1 rounded hover:bg-zinc-100 dark:hover:bg-zinc-800 disabled:opacity-50 transition-colors"
+              title="Refresh keywords"
+            >
+              <RefreshCcw className={`w-3 h-3 ${(keywordsLoading || keywordsValidating) ? 'animate-spin' : ''}`} />
+            </button>
           </div>
         </SidebarSection>
       )}
@@ -4648,6 +4947,39 @@ export function V4PowerModePanel({
   const [isRefreshingApis, setIsRefreshingApis] = useState(false); // Track API refresh state
   const [recipeDropdownOpen, setRecipeDropdownOpen] = useState(false); // Recipe dropdown state
 
+  // Compute trigger and proof counts directly from localStorage cache
+  // This ensures counts are accurate even before user clicks on those tabs
+  const { triggerCount, proofCount } = useMemo(() => {
+    // Trigger count: read from localStorage cache (same key as TriggersPanelV2)
+    let triggers = 0;
+    try {
+      const cachedTriggers = localStorage.getItem('triggersPanel_triggers_v1');
+      if (cachedTriggers) {
+        const parsed = JSON.parse(cachedTriggers);
+        triggers = Array.isArray(parsed) ? parsed.length : 0;
+      }
+    } catch (err) {
+      console.warn('[V4PowerModePanel] Failed to read cached triggers:', err);
+    }
+
+    // Proof count: read from localStorage cache and run consolidation (same as ProofTab)
+    let proofs = 0;
+    try {
+      const cachedProofContext = localStorage.getItem('proofTab_deepContext_v1');
+      if (cachedProofContext && uvp) {
+        const parsedContext = JSON.parse(cachedProofContext) as DeepContext;
+        const brandData = { name: uvp?.brandId || '', industry: 'Auto-detected' };
+        const analysis = profileDetectionService.detectProfile(uvp, brandData);
+        const result = proofConsolidationService.consolidate(parsedContext, uvp, analysis.profileType);
+        proofs = result?.proofs?.length || 0;
+      }
+    } catch (err) {
+      console.warn('[V4PowerModePanel] Failed to compute proof count:', err);
+    }
+
+    return { triggerCount: triggers, proofCount: proofs };
+  }, [uvp]); // Re-compute when uvp changes
+
   // Detect B2B vs B2C from UVP for platform suggestions
   const isB2B = useMemo(() => {
     // Check target customer for B2B indicators
@@ -4755,11 +5087,42 @@ export function V4PowerModePanel({
         console.log(`[Dev] ✅ ${name} added successfully!`);
       };
 
+      // Rescan a specific competitor by name (bypasses 24-hour limit by re-adding)
+      (window as any).__rescanByName = async (name: string) => {
+        if (!name) {
+          console.error('Usage: window.__rescanByName("Competitor Name")');
+          return;
+        }
+        const normalized = name.toLowerCase();
+        const competitor = discoveredCompetitors.find(c =>
+          c.name.toLowerCase().includes(normalized) || normalized.includes(c.name.toLowerCase())
+        );
+        if (!competitor) {
+          console.error(`[Dev] Competitor "${name}" not found. Available: ${discoveredCompetitors.map(c => c.name).join(', ')}`);
+          return;
+        }
+        console.log(`[Dev] Force rescanning: ${competitor.name}`);
+        await rescanCompetitor(competitor.id);
+        console.log(`[Dev] ✅ ${competitor.name} rescanned!`);
+      };
+
+      // List all competitors
+      (window as any).__listCompetitors = () => {
+        console.log('[Dev] Current competitors:');
+        discoveredCompetitors.forEach((c, i) => {
+          const hasVoice = customerVoiceByCompetitor.has(c.id);
+          const hasBattlecard = enhancedInsights.has(c.id);
+          console.log(`  ${i + 1}. ${c.name} - Voice: ${hasVoice ? '✅' : '❌'}, Battlecard: ${hasBattlecard ? '✅' : '❌'}`);
+        });
+      };
+
       console.log('[V4PowerMode] Dev helpers available:');
       console.log('  - window.__refreshGaps() - Refresh business profile');
       console.log('  - window.__runDiscovery() - Run full competitor discovery');
       console.log('  - window.__rescanAll() - Rescan gaps only (uses existing competitors, saves to cache)');
       console.log('  - window.__addCompetitor("Name", "https://url") - Add single competitor & scan');
+      console.log('  - window.__rescanByName("Name") - Rescan specific competitor');
+      console.log('  - window.__listCompetitors() - Show all competitors and their data status');
     }
     return () => {
       if (typeof window !== 'undefined') {
@@ -4767,9 +5130,11 @@ export function V4PowerModePanel({
         delete (window as any).__runDiscovery;
         delete (window as any).__rescanAll;
         delete (window as any).__addCompetitor;
+        delete (window as any).__rescanByName;
+        delete (window as any).__listCompetitors;
       }
     };
-  }, [refreshBusinessProfile, runDiscovery, rescanAll, addCompetitor]);
+  }, [refreshBusinessProfile, runDiscovery, rescanAll, addCompetitor, rescanCompetitor, discoveredCompetitors, customerVoiceByCompetitor, enhancedInsights]);
 
   // Log business profile when resolved
   useEffect(() => {
@@ -5261,15 +5626,22 @@ export function V4PowerModePanel({
   }, [generatedContent, onSaveToCalendar]);
 
   // FREEZE FIX: Count insights by type using deferred value (non-blocking)
-  // This uses deferredInsights so counts update AFTER main render completes
-  const insightCounts = useMemo(() => ({
-    all: deferredInsights.length,
-    triggers: deferredInsights.filter(i => i.type === 'triggers').length,
-    proof: deferredInsights.filter(i => i.type === 'proof').length,
-    trends: deferredInsights.filter(i => i.type === 'trends').length,
-    conversations: deferredInsights.filter(i => i.type === 'conversations').length,
-    gaps: deferredInsights.filter(i => i.type === 'gaps').length,
-  }), [deferredInsights]);
+  // Use child component counts for triggers/proof (from callbacks), deferredInsights for others
+  const insightCounts = useMemo(() => {
+    const trendsCount = deferredInsights.filter(i => i.type === 'trends').length;
+    const conversationsCount = deferredInsights.filter(i => i.type === 'conversations').length;
+    const gapsCount = deferredInsights.filter(i => i.type === 'gaps').length;
+    // "All" = sum of child component counts + deferredInsights for non-child types
+    const allCount = triggerCount + proofCount + trendsCount + conversationsCount + gapsCount;
+    return {
+      all: allCount,
+      triggers: triggerCount,  // From TriggersPanelV2 callback
+      proof: proofCount,       // From ProofTab callback
+      trends: trendsCount,
+      conversations: conversationsCount,
+      gaps: gapsCount,
+    };
+  }, [deferredInsights, triggerCount, proofCount]);
 
   // Auto-generate live preview when selection changes (debounced) - DISABLED BY DEFAULT
   useEffect(() => {
@@ -5858,7 +6230,7 @@ export function V4PowerModePanel({
               <div className="w-[280px] h-full flex flex-col">
                 <ScrollArea className="flex-1">
                   {/* UVP Building Blocks - Templates moved to toolbar dropdown */}
-                  <UVPBuildingBlocks uvp={uvp} deepContext={deepContext} onSelectItem={handleUVPItemSelect} />
+                  <UVPBuildingBlocks uvp={uvp} deepContext={deepContext} onSelectItem={handleUVPItemSelect} brandId={brandId} />
 
                   {/* NOTE: Removed sidebar Competitive Gaps section - gaps now ONLY come from real
                        competitor intelligence in the Gaps tab, no fallback dummy data */}

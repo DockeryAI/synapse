@@ -46,7 +46,9 @@ export type ApiEventType =
   | 'linkedin-company'
   | 'linkedin-network'
   | 'perplexity-research'
-  | 'website-analysis';
+  | 'website-analysis'
+  | 'keywords-intent'
+  | 'keywords-validated';
 
 export interface ApiUpdate {
   type: ApiEventType;
@@ -1220,7 +1222,9 @@ class StreamingApiManager extends EventEmitter {
 
   private async loadWebsiteAnalysis(brand: any): Promise<void> {
     const type: ApiEventType = 'website-analysis';
+    const keywordsType: ApiEventType = 'keywords-intent';
     this.updateStatus(type, 'loading');
+    this.updateStatus(keywordsType, 'loading');
 
     try {
       const { websiteAnalysisService } = await import('./website-analysis.service');
@@ -1228,7 +1232,60 @@ class StreamingApiManager extends EventEmitter {
 
       this.emitUpdate(type, analysis, false);
       this.updateStatus(type, 'success');
+
+      // Trigger keyword extraction from the website analysis (T+100ms parallel start)
+      // This fires keywords-intent event which the sidebar can consume
+      try {
+        const { keywordExtractionService } = await import('../keywords/keyword-extraction.service');
+        const brandId = brand.id || brand.name || brand.website;
+        const domain = brand.website?.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+
+        const extractedKeywords = keywordExtractionService.extractFromWebsiteAnalysis(
+          brandId,
+          domain || brand.name,
+          {
+            title: analysis?.title || analysis?.metaTags?.title,
+            metaDescription: analysis?.metaTags?.description,
+            metaKeywords: analysis?.metaTags?.keywords,
+            h1s: analysis?.h1s,
+            ogTitle: analysis?.metaTags?.['og:title'],
+            ogDescription: analysis?.metaTags?.['og:description'],
+            schemaData: analysis?.schemaData,
+          }
+        );
+
+        this.emitUpdate(keywordsType, extractedKeywords, false);
+        this.updateStatus(keywordsType, 'success');
+
+        // Also trigger SEMrush validation in parallel
+        this.loadKeywordValidation(brandId, domain || brand.name, extractedKeywords.keywords, brand.name);
+      } catch (kwError) {
+        console.warn('[StreamingAPI] Keyword extraction failed:', kwError);
+        this.handleApiError(keywordsType, kwError as Error);
+      }
     } catch (error) {
+      this.handleApiError(type, error as Error);
+      this.handleApiError(keywordsType, error as Error);
+    }
+  }
+
+  private async loadKeywordValidation(brandId: string, domain: string, extractedKeywords: any[], brandName?: string): Promise<void> {
+    const type: ApiEventType = 'keywords-validated';
+    this.updateStatus(type, 'loading');
+
+    try {
+      const { keywordValidationService } = await import('../keywords/keyword-validation.service');
+      const validatedKeywords = await keywordValidationService.validateKeywords(
+        brandId,
+        domain,
+        extractedKeywords,
+        brandName
+      );
+
+      this.emitUpdate(type, validatedKeywords, false);
+      this.updateStatus(type, 'success');
+    } catch (error) {
+      console.warn('[StreamingAPI] Keyword validation failed:', error);
       this.handleApiError(type, error as Error);
     }
   }

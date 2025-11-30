@@ -785,7 +785,9 @@ function extractFromDeepTestimonials(deepContext: DeepContext, profileType: Busi
 
   if (!deepTestimonials) return proofs;
 
-  console.log('[ProofConsolidation] Deep testimonials found:', deepTestimonials.totalFound);
+  console.log('[ProofConsolidation] Deep testimonials found:', deepTestimonials.totalFound,
+    'testimonials array:', deepTestimonials.testimonials?.length || 0,
+    'caseStudies array:', deepTestimonials.caseStudies?.length || 0);
 
   // Process testimonials
   deepTestimonials.testimonials?.slice(0, 10).forEach((testimonial, idx) => {
@@ -1070,32 +1072,52 @@ class ProofConsolidationService {
     // Extract from EXTERNAL sources only (must have sourceUrl or be from verified platform)
     if (deepContext) {
       // Google Reviews - has verified ratings
-      allProofs.push(...extractFromReviews(deepContext, profileType));
+      const reviews = extractFromReviews(deepContext, profileType);
+      allProofs.push(...reviews);
 
       // NOTE: Removed sourceless extractors - these are our own claims
       // allProofs.push(...extractFromSynthesis(deepContext, profileType)); // No source URLs
       // allProofs.push(...extractFromIndustry(deepContext, profileType));  // No source URLs
 
       // Raw data points - only those with source URLs
-      allProofs.push(...extractFromRawDataPoints(deepContext, profileType));
+      const rawData = extractFromRawDataPoints(deepContext, profileType);
+      allProofs.push(...rawData);
 
       // Website testimonials - these should have source URLs
-      allProofs.push(...extractFromWebsiteAnalysis(deepContext, profileType));
+      const websiteProofs = extractFromWebsiteAnalysis(deepContext, profileType);
+      allProofs.push(...websiteProofs);
 
       // Review platforms (G2, Capterra, etc) - verified external sources
-      allProofs.push(...extractFromReviewPlatforms(deepContext, profileType));
+      const platformProofs = extractFromReviewPlatforms(deepContext, profileType);
+      allProofs.push(...platformProofs);
 
       // Press mentions - have source URLs
-      allProofs.push(...extractFromPressMentions(deepContext, profileType));
+      const pressProofs = extractFromPressMentions(deepContext, profileType);
+      allProofs.push(...pressProofs);
 
       // Deep testimonials/case studies - have source URLs
-      allProofs.push(...extractFromDeepTestimonials(deepContext, profileType));
+      const deepTestimonialProofs = extractFromDeepTestimonials(deepContext, profileType);
+      allProofs.push(...deepTestimonialProofs);
+      console.log('[ProofConsolidation] Deep testimonials extracted:', deepTestimonialProofs.length, 'proofs', deepTestimonialProofs.filter(p => p.type === 'testimonial').length, 'testimonials');
 
       // Client logos - have source URLs
-      allProofs.push(...extractFromClientLogos(deepContext, profileType));
+      const logoProofs = extractFromClientLogos(deepContext, profileType);
+      allProofs.push(...logoProofs);
 
       // Social proof - have profile URLs
-      allProofs.push(...extractFromSocialProof(deepContext, profileType));
+      const socialProofs = extractFromSocialProof(deepContext, profileType);
+      allProofs.push(...socialProofs);
+
+      console.log('[ProofConsolidation] Extraction summary:', {
+        reviews: reviews.length,
+        rawData: rawData.length,
+        website: websiteProofs.length,
+        platforms: platformProofs.length,
+        press: pressProofs.length,
+        deepTestimonials: deepTestimonialProofs.length,
+        logos: logoProofs.length,
+        social: socialProofs.length
+      });
     }
 
     // NOTE: Removed extractFromUVP - we only want real external proof, not our own claims
@@ -1107,8 +1129,13 @@ class ProofConsolidationService {
     console.log(`[ProofConsolidation] Extracted ${totalExtracted} proof points`);
 
     // FILTER: Only keep proofs with source URLs (external validation)
-    allProofs = allProofs.filter(p => p.sourceUrl && p.sourceUrl.length > 0);
-    console.log(`[ProofConsolidation] After sourceUrl filter: ${allProofs.length} proof points`);
+    // EXCEPTION: Website-sourced content (testimonials, metrics from brand site) doesn't need external URLs
+    const beforeFilter = allProofs.length;
+    allProofs = allProofs.filter(p =>
+      (p.sourceUrl && p.sourceUrl.length > 0) ||
+      p.source === 'website' // Allow website-sourced proofs without external URL requirement
+    );
+    console.log(`[ProofConsolidation] After sourceUrl filter: ${allProofs.length} proof points (filtered ${beforeFilter - allProofs.length})`);
 
     // Deduplicate
     allProofs = deduplicateProofs(allProofs);
@@ -1141,6 +1168,7 @@ class ProofConsolidationService {
     }, {} as Record<string, number>);
 
     console.log(`[ProofConsolidation] Complete: ${allProofs.length} proofs, avg quality ${avgQualityScore}`);
+    console.log(`[ProofConsolidation] Type breakdown:`, typeCounts);
 
     return {
       proofs: allProofs,

@@ -430,6 +430,12 @@ export interface CompetitorChipState {
   scan_progress?: number;
   last_scanned?: string;
   gap_count: number;
+  /** AI-computed relevance/threat score (0-100) */
+  relevance_score?: number;
+  /** User-assigned rank (lower = more important, used for manual reordering) */
+  user_rank?: number;
+  /** Tier: 'top3' | 'top10' | 'other' (derived from ranking) */
+  tier?: 'top3' | 'top10' | 'other';
 }
 
 /**

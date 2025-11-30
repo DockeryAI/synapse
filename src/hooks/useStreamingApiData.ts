@@ -17,11 +17,16 @@ interface ApiDataStates {
   youtubeComments: any | null;
   youtubeEngagement: any | null;
 
-  // Apify (4 sources)
+  // Apify (8 sources including new social/review sources)
   apifyWebsite: any | null;
   apifyMaps: any | null;
   apifyReviews: any | null;
   apifyInstagram: any | null;
+  apifyTwitterSentiment: any | null;
+  apifyQuoraInsights: any | null;
+  apifyLinkedinB2b: any | null;
+  apifyTrustpilotReviews: any | null;
+  apifyG2Reviews: any | null;
 
   // OutScraper (2 sources)
   outscraperBusiness: any | null;
@@ -48,6 +53,10 @@ interface ApiDataStates {
   linkedinNetwork: any | null;
   perplexityResearch: any | null;
   websiteAnalysis: any | null;
+
+  // Keywords 2.0 (2 sources)
+  keywordsIntent: any | null;
+  keywordsValidated: any | null;
 }
 
 // Loading states for each API
@@ -81,6 +90,11 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     apifyMaps: null,
     apifyReviews: null,
     apifyInstagram: null,
+    apifyTwitterSentiment: null,
+    apifyQuoraInsights: null,
+    apifyLinkedinB2b: null,
+    apifyTrustpilotReviews: null,
+    apifyG2Reviews: null,
     outscraperBusiness: null,
     outscraperReviews: null,
     serperSearch: null,
@@ -97,6 +111,8 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     linkedinNetwork: null,
     perplexityResearch: null,
     websiteAnalysis: null,
+    keywordsIntent: null,
+    keywordsValidated: null,
   });
 
   const [loading, setLoading] = useState<ApiLoadingStates>({});
@@ -113,6 +129,11 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     'apify-maps': 'apifyMaps',
     'apify-reviews': 'apifyReviews',
     'apify-instagram': 'apifyInstagram',
+    'apify-twitter-sentiment': 'apifyTwitterSentiment',
+    'apify-quora-insights': 'apifyQuoraInsights',
+    'apify-linkedin-b2b': 'apifyLinkedinB2b',
+    'apify-trustpilot-reviews': 'apifyTrustpilotReviews',
+    'apify-g2-reviews': 'apifyG2Reviews',
     'outscraper-business': 'outscraperBusiness',
     'outscraper-reviews': 'outscraperReviews',
     'serper-search': 'serperSearch',
@@ -129,6 +150,8 @@ export function useStreamingApiData(brand: Brand | null): StreamingApiResult {
     'linkedin-network': 'linkedinNetwork',
     'perplexity-research': 'perplexityResearch',
     'website-analysis': 'websiteAnalysis',
+    'keywords-intent': 'keywordsIntent',
+    'keywords-validated': 'keywordsValidated',
   };
 
   // Handle API updates - update ONLY the specific state slice
