@@ -935,7 +935,7 @@ export function V4ContentGenerationPanel({
                 onContentGenerated?.([content]);
               }}
               onSaveToCalendar={onSaveToCalendar}
-              skipApis={true}  // Only fetch data on Force Refresh button click
+              skipApis={false}  // Use cache-first loading, APIs only on manual refresh
               forceApiRefresh={false}  // Set to true to force fresh API calls
             />
           </div>

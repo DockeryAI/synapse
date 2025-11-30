@@ -86,20 +86,11 @@ import { ProofTab } from './ProofTab';
 import { EnhancedCompetitorIntelligence } from './EnhancedCompetitorIntelligence';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
-import { redditAPI } from '@/services/intelligence/reddit-apify-api';
-import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
 
-// Feature branch cache - only applies to OpenDialog brand
-import {
-  CACHED_BRAND_ID,
-  CACHED_DEEP_CONTEXT,
-  CACHED_INSIGHTS,
-  hasCachedData,
-  getCachedData,
-  type CachedInsight
-} from '@/data/cache/brand-insights-cache';
+// Intelligence cache service for Supabase-based caching
+import { intelligenceCache } from '@/services/intelligence/intelligence-cache.service';
 import type {
   GeneratedContent,
   PsychologyFramework,
@@ -107,224 +98,10 @@ import type {
 } from '@/services/v4/types';
 
 // ============================================================================
-// ONE-TIME CONVERSATION FETCHER (Set to true to fetch, then set back to false)
-// Fetches from: LinkedIn (via Perplexity), Reddit, Industry Forums, Google Reviews
+// CONVERSATION FETCHING (Now handled via progressive loading in DeepContext builder)
 // ============================================================================
-const FETCH_CONVERSATIONS_ONCE = false; // Set to false - conversations already cached
-let conversationsFetched = false; // Module-level flag to prevent duplicate fetches
-
-async function fetchAndCacheConversations(uvp: CompleteUVP, brandId: string): Promise<InsightCard[]> {
-  if (!FETCH_CONVERSATIONS_ONCE || conversationsFetched) {
-    return [];
-  }
-  conversationsFetched = true;
-
-  console.log('[ConversationFetcher] 🔥 ONE-TIME: Fetching conversations from multiple sources...');
-
-  // Extract pain point keywords from UVP
-  const painPointKeywords: string[] = [];
-
-  // From transformation goal
-  if (uvp.transformationGoal?.statement) {
-    painPointKeywords.push(uvp.transformationGoal.statement.slice(0, 50));
-  }
-  if (uvp.transformationGoal?.before) {
-    painPointKeywords.push(uvp.transformationGoal.before);
-  }
-  // From emotional/functional drivers
-  if (uvp.transformationGoal?.emotionalDrivers) {
-    painPointKeywords.push(...uvp.transformationGoal.emotionalDrivers.slice(0, 2));
-  }
-  if (uvp.transformationGoal?.functionalDrivers) {
-    painPointKeywords.push(...uvp.transformationGoal.functionalDrivers.slice(0, 2));
-  }
-  // From key benefit
-  if (uvp.keyBenefit?.statement) {
-    painPointKeywords.push(uvp.keyBenefit.statement.slice(0, 50));
-  }
-
-  // Fallback if no UVP data
-  const uvpData = uvp as any;
-  const industry = uvpData.industry || 'insurance';
-  const customerSegment = uvp.targetCustomer?.statement || 'insurance professionals';
-
-  if (painPointKeywords.length === 0) {
-    painPointKeywords.push(
-      `${industry} problems`,
-      `${industry} frustrating`,
-      `${industry} challenges`
-    );
-  }
-
-  console.log('[ConversationFetcher] Keywords:', painPointKeywords.slice(0, 3));
-  console.log('[ConversationFetcher] Customer segment:', customerSegment);
-
-  const allInsights: InsightCard[] = [];
-
-  // 1. LINKEDIN & INDUSTRY FORUMS (via Perplexity) - PRIORITY SOURCE for B2B
-  try {
-    console.log('[ConversationFetcher] 📍 Fetching LinkedIn/Forum discussions via Perplexity...');
-    const perplexityConvos = await perplexityAPI.findIndustryConversations(industry, customerSegment);
-
-    console.log(`[ConversationFetcher] ✅ Perplexity returned ${perplexityConvos.length} discussions`);
-
-    perplexityConvos.forEach((convo, idx) => {
-      allInsights.push({
-        id: `linkedin-convo-${Date.now()}-${idx}`,
-        type: 'conversations' as InsightType,
-        title: convo.content.slice(0, 60) + '...',
-        category: 'LinkedIn/Industry Discussion',
-        confidence: convo.confidence || 0.85,
-        isTimeSensitive: false,
-        description: convo.content,
-        evidence: [],
-        sources: [{
-          source: 'LinkedIn/Forums',
-          quote: convo.content.slice(0, 100)
-        }],
-        rawData: {
-          type: 'community_discussion',
-          source: 'perplexity',
-          metadata: {
-            platform: 'linkedin',
-            domain: 'community'
-          }
-        }
-      });
-    });
-  } catch (error) {
-    console.error('[ConversationFetcher] Perplexity error:', error);
-  }
-
-  // 2. PAIN POINT CONVERSATIONS (via Perplexity) - searches Reddit, forums, communities
-  try {
-    console.log('[ConversationFetcher] 📍 Fetching pain point conversations via Perplexity...');
-    const painPointConvos = await perplexityAPI.findPainPointConversations(painPointKeywords, industry);
-
-    console.log(`[ConversationFetcher] ✅ Pain point search returned ${painPointConvos.length} conversations`);
-
-    painPointConvos.forEach((convo, idx) => {
-      allInsights.push({
-        id: `painpoint-convo-${Date.now()}-${idx}`,
-        type: 'conversations' as InsightType,
-        title: convo.content.slice(0, 60) + '...',
-        category: 'Customer Pain Point',
-        confidence: convo.confidence || 0.8,
-        isTimeSensitive: false,
-        description: convo.content,
-        evidence: [],
-        sources: [{
-          source: 'Community Forums',
-          quote: convo.content.slice(0, 100)
-        }],
-        rawData: {
-          type: 'community_discussion',
-          source: 'perplexity',
-          metadata: {
-            platform: 'forums',
-            domain: 'community'
-          }
-        }
-      });
-    });
-  } catch (error) {
-    console.error('[ConversationFetcher] Pain point search error:', error);
-  }
-
-  // 3. REDDIT (via Apify) - direct Reddit scraping
-  try {
-    console.log('[ConversationFetcher] 📍 Fetching Reddit conversations via Apify...');
-    const redditConvos = await redditAPI.mineConversations(
-      painPointKeywords,
-      industry,
-      { limit: 10, timeFilter: 'month' }
-    );
-
-    console.log(`[ConversationFetcher] ✅ Reddit returned ${redditConvos.insights.length} conversations`);
-
-    redditConvos.insights.forEach((insight, idx) => {
-      allInsights.push({
-        id: `reddit-convo-${Date.now()}-${idx}`,
-        type: 'conversations' as InsightType,
-        title: (insight.painPoint || insight.context || '').slice(0, 60) + '...',
-        category: insight.subreddit ? `r/${insight.subreddit}` : 'Reddit Discussion',
-        confidence: 0.8,
-        isTimeSensitive: false,
-        description: insight.context || insight.painPoint || '',
-        evidence: insight.url ? [`Source: ${insight.url}`] : [],
-        sources: [{
-          source: 'Reddit',
-          quote: insight.painPoint
-        }],
-        rawData: {
-          type: 'community_discussion',
-          source: 'reddit',
-          metadata: {
-            subreddit: insight.subreddit,
-            upvotes: insight.upvotes,
-            url: insight.url,
-            platform: 'reddit',
-            domain: 'community'
-          }
-        }
-      });
-    });
-  } catch (error) {
-    console.error('[ConversationFetcher] Reddit error:', error);
-  }
-
-  // 4. GOOGLE REVIEWS (from cached OutScraper data)
-  try {
-    console.log('[ConversationFetcher] 📍 Checking for cached Google Reviews...');
-    const deepContextKey = `deepContext_${brandId}`;
-    const cachedContextStr = localStorage.getItem(deepContextKey);
-
-    if (cachedContextStr) {
-      const cachedContext = JSON.parse(cachedContextStr) as any; // Use any for flexible access
-      const reviews = cachedContext.customerIntel?.reviews || cachedContext.reviews || [];
-
-      console.log(`[ConversationFetcher] ✅ Found ${reviews.length} cached reviews`);
-
-      reviews.slice(0, 10).forEach((review: any, idx: number) => {
-        if (review.text && review.text.length > 20) {
-          allInsights.push({
-            id: `review-convo-${Date.now()}-${idx}`,
-            type: 'conversations' as InsightType,
-            title: review.text.slice(0, 60) + '...',
-            category: `Google Review (${review.rating || 5}★)`,
-            confidence: 0.9,
-            isTimeSensitive: false,
-            description: review.text,
-            evidence: [],
-            sources: [{
-              source: 'Google Reviews',
-              quote: review.text.slice(0, 100)
-            }],
-            rawData: {
-              type: 'community_discussion',
-              source: 'outscraper',
-              metadata: {
-                rating: review.rating,
-                platform: 'google',
-                domain: 'community'
-              }
-            }
-          });
-        }
-      });
-    }
-  } catch (error) {
-    console.error('[ConversationFetcher] Reviews error:', error);
-  }
-
-  // Save all conversations to localStorage cache
-  const cacheKey = `conversations_${brandId}`;
-  localStorage.setItem(cacheKey, JSON.stringify(allInsights));
-  console.log(`[ConversationFetcher] ✅ TOTAL: Saved ${allInsights.length} conversations to localStorage`);
-  console.log(`[ConversationFetcher] Breakdown: LinkedIn/Forums, Pain Points, Reddit, Reviews`);
-
-  return allInsights;
-}
+// Conversations are fetched as part of the trueProgressiveBuilder.buildTrueProgressive()
+// which fires all APIs in parallel and streams results progressively
 
 // ============================================================================
 // TYPES
@@ -5067,175 +4844,49 @@ export function V4PowerModePanel({
       }
 
       try {
-        // FEATURE BRANCH CACHE: Check for cached data for this specific brand (unless forcing refresh)
-        if (!forceApiRefresh && hasCachedData(brandId)) {
-          console.log('[V4PowerMode] 🗃️ Using CACHED data from feature branch cache');
-          setLoadingStatus('Loading cached intelligence...');
-          const cachedData = getCachedData(brandId);
-          if (cachedData?.deepContext) {
-            setDeepContext(cachedData.deepContext);
-            // Use cached insights directly if available, otherwise extract from context
-            if (cachedData.insights && cachedData.insights.length > 0) {
-              console.log(`[V4PowerMode] Using ${cachedData.insights.length} pre-categorized cached insights`);
-              const convertedInsights: InsightCard[] = cachedData.insights.map(ci => ({
-                id: ci.id,
-                type: ci.type,
-                title: ci.title,
-                category: ci.category,
-                confidence: ci.confidence,
-                isTimeSensitive: ci.isTimeSensitive,
-                description: ci.description,
-                actionableInsight: ci.actionableInsight,
-                evidence: ci.evidence,
-                sources: ci.sources,
-                rawData: ci.rawData,
-              }));
-              setAllInsights(convertedInsights);
-            } else {
-              const insights = await extractInsightsFromDeepContextAsync(cachedData.deepContext, uvp, (partialInsights, section) => {
-                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from cache (${section})`);
-              });
-              setAllInsights(insights);
-            }
+        // CACHE-FIRST: Check Supabase intelligence_cache for cached DeepContext (unless forcing refresh)
+        if (!forceApiRefresh) {
+          console.log('[V4PowerMode] 📦 Checking Supabase cache for DeepContext...');
+          setLoadingStatus('Checking cache...');
+
+          const cacheKey = `deepcontext:${brandId}`;
+          const cachedContext = await intelligenceCache.get<DeepContext>(cacheKey);
+
+          if (cachedContext) {
+            console.log('[V4PowerMode] ✅ Using CACHED DeepContext from Supabase');
+            setLoadingStatus('Loading cached intelligence...');
+            setDeepContext(cachedContext);
+
+            const insights = await extractInsightsFromDeepContextAsync(cachedContext, uvp, (partialInsights, section) => {
+              console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from cache (${section})`);
+            });
+            setAllInsights(insights);
             setIsLoading(false);
             return;
           }
-        }
 
-        // DEV MODE: Skip ALL API calls - use cached data from localStorage if available
-        if (skipApis && !forceApiRefresh) {
-          // First, check localStorage for cached DeepContext from previous API run
-          const cacheKey = `deepContext_${brandId}`;
-          const cachedContextStr = localStorage.getItem(cacheKey);
-
-          if (cachedContextStr) {
+          // Also check localStorage as fallback (for backwards compatibility during transition)
+          const localCacheKey = `deepContext_${brandId}`;
+          const localCachedStr = localStorage.getItem(localCacheKey);
+          if (localCachedStr) {
             try {
-              const cachedContext = JSON.parse(cachedContextStr) as DeepContext;
-              console.log('[V4PowerMode] 🔧 DEV MODE: Using CACHED DeepContext from localStorage');
+              const localCachedContext = JSON.parse(localCachedStr) as DeepContext;
+              console.log('[V4PowerMode] ✅ Using CACHED DeepContext from localStorage (fallback)');
               setLoadingStatus('Loading cached intelligence...');
-              setDeepContext(cachedContext);
-              let insights = await extractInsightsFromDeepContextAsync(cachedContext, uvp, (partialInsights, section) => {
-                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from cache (${section})`);
+              setDeepContext(localCachedContext);
+
+              const insights = await extractInsightsFromDeepContextAsync(localCachedContext, uvp, (partialInsights, section) => {
+                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from localStorage cache (${section})`);
               });
-
-              // ONE-TIME: Fetch Reddit conversations and merge
-              if (FETCH_CONVERSATIONS_ONCE && !conversationsFetched) {
-                setLoadingStatus('Fetching Reddit conversations...');
-                const conversationInsights = await fetchAndCacheConversations(uvp, brandId);
-                if (conversationInsights.length > 0) {
-                  insights = [...insights, ...conversationInsights];
-                  console.log(`[V4PowerMode] ✅ Merged ${conversationInsights.length} conversation insights`);
-                }
-              } else {
-                // Check for cached conversations from previous fetch
-                const convoCacheKey = `conversations_${brandId}`;
-                const cachedConvos = localStorage.getItem(convoCacheKey);
-                if (cachedConvos) {
-                  try {
-                    const parsedConvos = JSON.parse(cachedConvos) as InsightCard[];
-                    insights = [...insights, ...parsedConvos];
-                    console.log(`[V4PowerMode] ✅ Loaded ${parsedConvos.length} cached conversation insights`);
-                  } catch (e) {
-                    console.warn('[V4PowerMode] Failed to parse cached conversations');
-                  }
-                }
-              }
-
               setAllInsights(insights);
               setIsLoading(false);
               return;
             } catch (e) {
-              console.warn('[V4PowerMode] Failed to parse cached context:', e);
+              console.warn('[V4PowerMode] Failed to parse localStorage cache:', e);
             }
           }
 
-          console.log('[V4PowerMode] 🔧 DEV MODE: No cached data - using UVP data only');
-          setLoadingStatus('Loading UVP data...');
-          // Cast to any to access extended properties that might exist at runtime
-          const uvpData = uvp as any;
-          // Load brand from localStorage (one-time read, no hook dependency)
-          let storedBrand: { name?: string; industry?: string; website?: string } | null = null;
-          try {
-            const stored = localStorage.getItem('currentBrand');
-            if (stored) storedBrand = JSON.parse(stored);
-          } catch (e) { /* ignore parse errors */ }
-          const brandName = storedBrand?.name || uvpData.brandName || 'Brand';
-          const brandIndustry = storedBrand?.industry || uvpData.industry || 'General';
-          console.log('[V4PowerMode] Using brand info for context:', { brandName, brandIndustry });
-          const minimalContext: DeepContext = {
-            business: {
-              profile: {
-                id: brandId,
-                name: brandName,
-                industry: brandIndustry,
-                website: storedBrand?.website || uvpData.websiteUrl || '',
-                location: { city: '', state: '', country: '' },
-                keywords: []
-              },
-              brandVoice: {
-                tone: ['professional'],
-                values: [],
-                personality: [],
-                avoidWords: [],
-                signaturePhrases: []
-              },
-              uniqueAdvantages: [],
-              goals: [],
-              uvp: {
-                targetCustomer: uvp.targetCustomer?.statement || '',
-                customerProblem: uvpData.customerProblem?.statement || '',
-                desiredOutcome: uvp.transformationGoal?.statement || '',
-                uniqueSolution: uvp.uniqueSolution?.statement || '',
-                keyBenefit: uvp.keyBenefit?.statement || '',
-                emotionalDrivers: uvp.transformationGoal?.emotionalDrivers || [],
-                functionalDrivers: uvp.transformationGoal?.functionalDrivers || []
-              }
-            },
-            industry: {
-              profile: null,
-              trends: [],
-              seasonality: [],
-              competitiveLandscape: { topCompetitors: [], marketConcentration: 'moderate', barrierToEntry: 'medium' },
-              economicFactors: []
-            },
-            realTimeCultural: {},
-            competitiveIntel: {
-              blindSpots: [],
-              mistakes: [],
-              opportunities: [],
-              contentGaps: [],
-              positioningWeaknesses: []
-            },
-            customerPsychology: {
-              unarticulated: [],
-              emotional: [],
-              behavioral: [],
-              identityDesires: [],
-              purchaseMotivations: [],
-              objections: []
-            },
-            synthesis: {
-              keyInsights: [],
-              hiddenPatterns: [],
-              opportunityScore: 0,
-              recommendedAngles: [],
-              confidenceLevel: 0,
-              generatedAt: new Date()
-            },
-            rawDataPoints: [],
-            correlatedInsights: [],
-            metadata: {
-              aggregatedAt: new Date(),
-              dataSourcesUsed: ['uvp_only'],
-              processingTimeMs: 0,
-              version: 'dev-mode'
-            }
-          };
-          setDeepContext(minimalContext);
-          const insights = await extractInsightsFromDeepContextAsync(minimalContext, uvp, () => {});
-          setAllInsights(insights);
-          setIsLoading(false);
-          return;
+          console.log('[V4PowerMode] No cached DeepContext found, will build fresh...');
         }
 
         // PROGRESSIVE RENDERING: Extract and show insights AS APIs complete
@@ -5309,13 +4960,22 @@ export function V4PowerModePanel({
         setDeepContext(buildResult.context);
         setIsLoading(false);
 
-        // Cache context to localStorage for DEV MODE
+        // Cache context to Supabase (primary) and localStorage (fallback)
         try {
-          const cacheKey = `deepContext_${brandId}`;
-          localStorage.setItem(cacheKey, JSON.stringify(buildResult.context));
-          console.log('[V4PowerMode] 💾 Cached DeepContext to localStorage for dev mode');
+          const supabaseCacheKey = `deepcontext:${brandId}`;
+          await intelligenceCache.set(supabaseCacheKey, buildResult.context, {
+            dataType: 'deepcontext',
+            brandId: brandId,
+            sourceApi: 'progressive-builder'
+          });
+          console.log('[V4PowerMode] 💾 Cached DeepContext to Supabase (7 day TTL)');
+
+          // Also cache to localStorage as fallback
+          const localCacheKey = `deepContext_${brandId}`;
+          localStorage.setItem(localCacheKey, JSON.stringify(buildResult.context));
+          console.log('[V4PowerMode] 💾 Cached DeepContext to localStorage (fallback)');
         } catch (e) {
-          // localStorage might be full or unavailable
+          // Cache failure shouldn't block the UI
           console.warn('[V4PowerMode] Failed to cache context:', e);
         }
 
@@ -5455,9 +5115,6 @@ export function V4PowerModePanel({
       }
     });
 
-    // Reset trigger count state
-    setCachedTriggerCount(0);
-
     console.log(`[ClearCache] Cleared ${clearedCount} cached items`);
     alert(`Cache cleared! Removed ${clearedCount} cached items. Click "Call APIs" to refresh data.`);
   }, [brandId]);
@@ -5476,42 +5133,46 @@ export function V4PowerModePanel({
       // Call dashboardPreloader to refresh DeepContext
       setLoadingStatus('Refreshing intelligence data...');
 
-      // Clear existing preloaded data
-      dashboardPreloader.clearPreloadedData();
+      // Clear existing preloaded and cached data
+      dashboardPreloader.clearPreload();
 
-      // Start fresh preload
-      dashboardPreloader.startPreload(uvp, brandId);
+      // Clear Supabase cache for this brand
+      const cacheKey = `deepcontext:${brandId}`;
+      await intelligenceCache.invalidate(cacheKey);
 
-      // Subscribe to progress updates
-      const unsubscribe = dashboardPreloader.subscribeToProgress((progress, status) => {
-        setLoadingStatus(`${status} (${Math.round(progress)}%)`);
-        console.log(`[CallApis] Progress: ${progress}% - ${status}`);
+      // Start fresh preload with progress tracking
+      const unsubscribe = dashboardPreloader.subscribeToProgress((context, metadata) => {
+        setLoadingStatus(`Loading... ${metadata.completedApis.length} APIs complete (${metadata.dataPointsCollected} data points)`);
+        console.log(`[CallApis] Progress: ${metadata.completedApis.length} APIs, ${metadata.dataPointsCollected} data points`);
       });
 
-      // Wait for preload to complete (with timeout)
-      let attempts = 0;
-      const maxAttempts = 120; // 2 minutes max
-      while (attempts < maxAttempts) {
-        const preloadedContext = dashboardPreloader.getPreloadedContext();
-        if (preloadedContext) {
-          setDeepContext(preloadedContext);
-          console.log('[CallApis] DeepContext refreshed successfully');
+      // Trigger the preload (this runs in background and populates the preloader state)
+      await dashboardPreloader.preloadDashboard(brandId);
 
-          // Trigger insight extraction with fresh data
-          const freshInsights = await extractInsightsFromDeepContextAsync(
-            preloadedContext,
-            uvp,
-            (insights, section) => {
-              console.log(`[CallApis] Extracted ${insights.length} insights from ${section}`);
-            }
-          );
+      // Get the result
+      const preloadedContext = dashboardPreloader.getPreloadedContext(brandId);
+      if (preloadedContext) {
+        setDeepContext(preloadedContext);
+        console.log('[CallApis] DeepContext refreshed successfully');
 
-          setAllInsights(freshInsights);
-          console.log(`[CallApis] Total ${freshInsights.length} insights extracted`);
-          break;
-        }
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        attempts++;
+        // Cache the fresh context to Supabase
+        await intelligenceCache.set(cacheKey, preloadedContext, {
+          dataType: 'deepcontext',
+          brandId: brandId,
+          sourceApi: 'manual-refresh'
+        });
+
+        // Trigger insight extraction with fresh data
+        const freshInsights = await extractInsightsFromDeepContextAsync(
+          preloadedContext,
+          uvp,
+          (insights, section) => {
+            console.log(`[CallApis] Extracted ${insights.length} insights from ${section}`);
+          }
+        );
+
+        setAllInsights(freshInsights);
+        console.log(`[CallApis] Total ${freshInsights.length} insights extracted`);
       }
 
       unsubscribe();
