@@ -52,17 +52,46 @@ import {
   ExternalLink,
   Quote,
   CheckCircle2,
-  Package
+  Package,
+  Crown,
+  Settings,
+  Cpu,
+  Megaphone
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Checkbox } from '@/components/ui/checkbox';
 
 import { useV4ContentGeneration } from '@/hooks/useV4ContentGeneration';
+import { useBusinessProfile } from '@/hooks/useBusinessProfile';
+import { useCompetitorIntelligence } from '@/hooks/useCompetitorIntelligence';
+import { useEarlyCompetitorDiscovery } from '@/hooks/useEarlyCompetitorDiscovery';
+import { CompetitorGapsPanel } from './CompetitorGapsPanel';
+import { CompetitorChipsBar } from './CompetitorChipsBar';
+import { CompetitorIntelligencePanel } from './CompetitorIntelligencePanel';
+import { StreamingGapIndicator, GapSkeletonGrid } from './GapSkeletonCards';
+import { CompetitorScanProgress } from './CompetitorScanProgress';
+import { TriggersPanelV2 } from './TriggersPanelV2';
+import { ProofTab } from './ProofTab';
+import { EnhancedCompetitorIntelligence } from './EnhancedCompetitorIntelligence';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
+import { redditAPI } from '@/services/intelligence/reddit-apify-api';
+import { perplexityAPI } from '@/services/uvp-wizard/perplexity-api';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { DeepContext } from '@/types/synapse/deepContext.types';
+
+// Feature branch cache - only applies to OpenDialog brand
+import {
+  CACHED_BRAND_ID,
+  CACHED_DEEP_CONTEXT,
+  CACHED_INSIGHTS,
+  hasCachedData,
+  getCachedData,
+  type CachedInsight
+} from '@/data/cache/brand-insights-cache';
 import type {
   GeneratedContent,
   PsychologyFramework,
@@ -70,11 +99,276 @@ import type {
 } from '@/services/v4/types';
 
 // ============================================================================
+// ONE-TIME CONVERSATION FETCHER (Set to true to fetch, then set back to false)
+// Fetches from: LinkedIn (via Perplexity), Reddit, Industry Forums, Google Reviews
+// ============================================================================
+const FETCH_CONVERSATIONS_ONCE = false; // Set to false - conversations already cached
+let conversationsFetched = false; // Module-level flag to prevent duplicate fetches
+
+async function fetchAndCacheConversations(uvp: CompleteUVP, brandId: string): Promise<InsightCard[]> {
+  if (!FETCH_CONVERSATIONS_ONCE || conversationsFetched) {
+    return [];
+  }
+  conversationsFetched = true;
+
+  console.log('[ConversationFetcher] 🔥 ONE-TIME: Fetching conversations from multiple sources...');
+
+  // Extract pain point keywords from UVP
+  const painPointKeywords: string[] = [];
+
+  // From transformation goal
+  if (uvp.transformationGoal?.statement) {
+    painPointKeywords.push(uvp.transformationGoal.statement.slice(0, 50));
+  }
+  if (uvp.transformationGoal?.before) {
+    painPointKeywords.push(uvp.transformationGoal.before);
+  }
+  // From emotional/functional drivers
+  if (uvp.transformationGoal?.emotionalDrivers) {
+    painPointKeywords.push(...uvp.transformationGoal.emotionalDrivers.slice(0, 2));
+  }
+  if (uvp.transformationGoal?.functionalDrivers) {
+    painPointKeywords.push(...uvp.transformationGoal.functionalDrivers.slice(0, 2));
+  }
+  // From key benefit
+  if (uvp.keyBenefit?.statement) {
+    painPointKeywords.push(uvp.keyBenefit.statement.slice(0, 50));
+  }
+
+  // Fallback if no UVP data
+  const uvpData = uvp as any;
+  const industry = uvpData.industry || 'insurance';
+  const customerSegment = uvp.targetCustomer?.statement || 'insurance professionals';
+
+  if (painPointKeywords.length === 0) {
+    painPointKeywords.push(
+      `${industry} problems`,
+      `${industry} frustrating`,
+      `${industry} challenges`
+    );
+  }
+
+  console.log('[ConversationFetcher] Keywords:', painPointKeywords.slice(0, 3));
+  console.log('[ConversationFetcher] Customer segment:', customerSegment);
+
+  const allInsights: InsightCard[] = [];
+
+  // 1. LINKEDIN & INDUSTRY FORUMS (via Perplexity) - PRIORITY SOURCE for B2B
+  try {
+    console.log('[ConversationFetcher] 📍 Fetching LinkedIn/Forum discussions via Perplexity...');
+    const perplexityConvos = await perplexityAPI.findIndustryConversations(industry, customerSegment);
+
+    console.log(`[ConversationFetcher] ✅ Perplexity returned ${perplexityConvos.length} discussions`);
+
+    perplexityConvos.forEach((convo, idx) => {
+      allInsights.push({
+        id: `linkedin-convo-${Date.now()}-${idx}`,
+        type: 'conversations' as InsightType,
+        title: convo.content.slice(0, 60) + '...',
+        category: 'LinkedIn/Industry Discussion',
+        confidence: convo.confidence || 0.85,
+        isTimeSensitive: false,
+        description: convo.content,
+        evidence: [],
+        sources: [{
+          source: 'LinkedIn/Forums',
+          quote: convo.content.slice(0, 100)
+        }],
+        rawData: {
+          type: 'community_discussion',
+          source: 'perplexity',
+          metadata: {
+            platform: 'linkedin',
+            domain: 'community'
+          }
+        }
+      });
+    });
+  } catch (error) {
+    console.error('[ConversationFetcher] Perplexity error:', error);
+  }
+
+  // 2. PAIN POINT CONVERSATIONS (via Perplexity) - searches Reddit, forums, communities
+  try {
+    console.log('[ConversationFetcher] 📍 Fetching pain point conversations via Perplexity...');
+    const painPointConvos = await perplexityAPI.findPainPointConversations(painPointKeywords, industry);
+
+    console.log(`[ConversationFetcher] ✅ Pain point search returned ${painPointConvos.length} conversations`);
+
+    painPointConvos.forEach((convo, idx) => {
+      allInsights.push({
+        id: `painpoint-convo-${Date.now()}-${idx}`,
+        type: 'conversations' as InsightType,
+        title: convo.content.slice(0, 60) + '...',
+        category: 'Customer Pain Point',
+        confidence: convo.confidence || 0.8,
+        isTimeSensitive: false,
+        description: convo.content,
+        evidence: [],
+        sources: [{
+          source: 'Community Forums',
+          quote: convo.content.slice(0, 100)
+        }],
+        rawData: {
+          type: 'community_discussion',
+          source: 'perplexity',
+          metadata: {
+            platform: 'forums',
+            domain: 'community'
+          }
+        }
+      });
+    });
+  } catch (error) {
+    console.error('[ConversationFetcher] Pain point search error:', error);
+  }
+
+  // 3. REDDIT (via Apify) - direct Reddit scraping
+  try {
+    console.log('[ConversationFetcher] 📍 Fetching Reddit conversations via Apify...');
+    const redditConvos = await redditAPI.mineConversations(
+      painPointKeywords,
+      industry,
+      { limit: 10, timeFilter: 'month' }
+    );
+
+    console.log(`[ConversationFetcher] ✅ Reddit returned ${redditConvos.insights.length} conversations`);
+
+    redditConvos.insights.forEach((insight, idx) => {
+      allInsights.push({
+        id: `reddit-convo-${Date.now()}-${idx}`,
+        type: 'conversations' as InsightType,
+        title: (insight.painPoint || insight.context || '').slice(0, 60) + '...',
+        category: insight.subreddit ? `r/${insight.subreddit}` : 'Reddit Discussion',
+        confidence: 0.8,
+        isTimeSensitive: false,
+        description: insight.context || insight.painPoint || '',
+        evidence: insight.url ? [`Source: ${insight.url}`] : [],
+        sources: [{
+          source: 'Reddit',
+          quote: insight.painPoint
+        }],
+        rawData: {
+          type: 'community_discussion',
+          source: 'reddit',
+          metadata: {
+            subreddit: insight.subreddit,
+            upvotes: insight.upvotes,
+            url: insight.url,
+            platform: 'reddit',
+            domain: 'community'
+          }
+        }
+      });
+    });
+  } catch (error) {
+    console.error('[ConversationFetcher] Reddit error:', error);
+  }
+
+  // 4. GOOGLE REVIEWS (from cached OutScraper data)
+  try {
+    console.log('[ConversationFetcher] 📍 Checking for cached Google Reviews...');
+    const deepContextKey = `deepContext_${brandId}`;
+    const cachedContextStr = localStorage.getItem(deepContextKey);
+
+    if (cachedContextStr) {
+      const cachedContext = JSON.parse(cachedContextStr) as any; // Use any for flexible access
+      const reviews = cachedContext.customerIntel?.reviews || cachedContext.reviews || [];
+
+      console.log(`[ConversationFetcher] ✅ Found ${reviews.length} cached reviews`);
+
+      reviews.slice(0, 10).forEach((review: any, idx: number) => {
+        if (review.text && review.text.length > 20) {
+          allInsights.push({
+            id: `review-convo-${Date.now()}-${idx}`,
+            type: 'conversations' as InsightType,
+            title: review.text.slice(0, 60) + '...',
+            category: `Google Review (${review.rating || 5}★)`,
+            confidence: 0.9,
+            isTimeSensitive: false,
+            description: review.text,
+            evidence: [],
+            sources: [{
+              source: 'Google Reviews',
+              quote: review.text.slice(0, 100)
+            }],
+            rawData: {
+              type: 'community_discussion',
+              source: 'outscraper',
+              metadata: {
+                rating: review.rating,
+                platform: 'google',
+                domain: 'community'
+              }
+            }
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.error('[ConversationFetcher] Reviews error:', error);
+  }
+
+  // Save all conversations to localStorage cache
+  const cacheKey = `conversations_${brandId}`;
+  localStorage.setItem(cacheKey, JSON.stringify(allInsights));
+  console.log(`[ConversationFetcher] ✅ TOTAL: Saved ${allInsights.length} conversations to localStorage`);
+  console.log(`[ConversationFetcher] Breakdown: LinkedIn/Forums, Pain Points, Reddit, Reviews`);
+
+  return allInsights;
+}
+
+// ============================================================================
 // TYPES
 // ============================================================================
 
-type InsightType = 'customer' | 'market' | 'competition' | 'local' | 'opportunity';
+// New Synapse-aligned insight categories (action-driven, not source-driven)
+type InsightType = 'triggers' | 'proof' | 'trends' | 'conversations' | 'gaps';
 type FilterType = 'all' | InsightType;
+
+// Legacy type mapping for backward compatibility with existing data
+const LEGACY_TYPE_MAP: Record<string, InsightType> = {
+  'customer': 'conversations',  // Customer insights → what customers are saying
+  'market': 'trends',           // Market insights → what's happening now
+  'competition': 'gaps',        // Competition insights → where competitors fall short
+  'local': 'trends',            // Local insights → timely local relevance
+  'opportunity': 'gaps',        // Opportunity insights → unmet needs
+};
+
+// New Synapse insight type mapping - maps data sources to content-action categories
+// This defines HOW data should be used for content creation
+const SYNAPSE_TYPE_MAP = {
+  // TRIGGERS: Psychological hooks that drive action
+  emotionalTriggers: 'triggers' as InsightType,      // Emotional drivers from customer psychology
+  painPoints: 'triggers' as InsightType,             // Frustrations and fears
+  desires: 'triggers' as InsightType,                // What customers want to become/achieve
+  objections: 'triggers' as InsightType,             // Barriers to conversion
+
+  // PROOF: Validation and credibility signals
+  testimonials: 'proof' as InsightType,              // Customer success stories
+  metrics: 'proof' as InsightType,                   // Numbers and statistics
+  caseStudies: 'proof' as InsightType,               // Detailed success examples
+  reviews: 'proof' as InsightType,                   // Third-party validation
+  competitorWeaknesses: 'proof' as InsightType,      // Why you're better
+
+  // TRENDS: Timely relevance hooks
+  industryTrends: 'trends' as InsightType,           // What's changing in the industry
+  culturalMoments: 'trends' as InsightType,          // Current events, seasonal
+  newsHooks: 'trends' as InsightType,                // Breaking news angles
+  localEvents: 'trends' as InsightType,              // Location-specific timing
+
+  // CONVERSATIONS: Voice of customer
+  redditDiscussions: 'conversations' as InsightType, // Reddit threads
+  forumPosts: 'conversations' as InsightType,        // Community discussions
+  socialComments: 'conversations' as InsightType,    // Social media sentiment
+  reviewQuotes: 'conversations' as InsightType,      // Actual customer language
+
+  // GAPS: Opportunity spaces
+  marketGaps: 'gaps' as InsightType,                 // Unmet market needs
+  competitorBlindSpots: 'gaps' as InsightType,       // What competitors miss
+  unarticuatedNeeds: 'gaps' as InsightType,          // Hidden customer desires
+  contentGaps: 'gaps' as InsightType,                // Underserved topics
+};
 
 interface InsightSource {
   source: string;
@@ -147,6 +441,151 @@ function getDisplaySourceName(source: string): string {
   return SOURCE_DISPLAY_NAMES[lowerSource] || SOURCE_DISPLAY_NAMES[source] || source;
 }
 
+// ============================================================================
+// FRAMEWORK & FUNNEL TOOLTIP DATA
+// ============================================================================
+
+const FRAMEWORK_TOOLTIPS: Record<string, { displayName: string; label: string; description: string }> = {
+  AIDA: {
+    displayName: 'Grab Attention → Drive Action',
+    label: 'AIDA (Attention → Interest → Desire → Action)',
+    description: 'Classic 4-step persuasion model. Best for: Sales pages, email sequences, ads. Guides readers from awareness to purchase decision.'
+  },
+  PAS: {
+    displayName: 'Problem → Solution',
+    label: 'PAS (Problem → Agitate → Solution)',
+    description: 'Highlight pain, intensify it, then offer relief. Best for: Landing pages, sales copy. Very effective for problem-aware audiences.'
+  },
+  BAB: {
+    displayName: 'Show Transformation',
+    label: 'BAB (Before → After → Bridge)',
+    description: 'Show transformation: current state → desired state → how to get there. Best for: Case studies, testimonials, transformation stories.'
+  },
+  PASTOR: {
+    displayName: 'Story + Social Proof',
+    label: 'PASTOR (Problem → Amplify → Story → Testimony → Offer → Response)',
+    description: 'Comprehensive framework combining storytelling with social proof. Best for: Long-form sales pages, webinar scripts, high-ticket offers.'
+  },
+  StoryBrand: {
+    displayName: 'Hero\'s Journey',
+    label: 'StoryBrand (Hero\'s Journey)',
+    description: 'Position customer as hero, brand as guide. Best for: Brand messaging, about pages, mission statements. Creates emotional connection.'
+  },
+  CuriosityGap: {
+    displayName: 'Create Intrigue',
+    label: 'Curiosity Gap',
+    description: 'Create intrigue by hinting at valuable information. Best for: Headlines, email subjects, social hooks. Drives clicks and opens.'
+  },
+  PatternInterrupt: {
+    displayName: 'Stop the Scroll',
+    label: 'Pattern Interrupt',
+    description: 'Break expectations to capture attention. Best for: Scroll-stopping content, ads, competitive markets. Cuts through noise.'
+  },
+  SocialProof: {
+    displayName: 'Show Trust & Results',
+    label: 'Social Proof',
+    description: 'Leverage testimonials, numbers, and peer behavior. Best for: Trust-building, overcoming objections, conversion optimization.'
+  },
+  Scarcity: {
+    displayName: 'Create Urgency',
+    label: 'Scarcity & Urgency',
+    description: 'Limited time/quantity creates action pressure. Best for: Promotions, launches, closing deals. Use authentically to maintain trust.'
+  },
+  Reciprocity: {
+    displayName: 'Give Value First',
+    label: 'Reciprocity',
+    description: 'Give value first to create obligation. Best for: Lead magnets, free trials, relationship building. Builds goodwill and trust.'
+  },
+  LossAversion: {
+    displayName: 'Fear of Missing Out',
+    label: 'Loss Aversion',
+    description: 'People fear losing more than they value gaining. Best for: Risk-reversal, guarantees, "what you\'re missing" messaging.'
+  },
+  Authority: {
+    displayName: 'Build Credibility',
+    label: 'Authority',
+    description: 'Establish expertise and credibility. Best for: Thought leadership, B2B, professional services. Builds trust through competence.'
+  },
+  FAB: {
+    displayName: 'Features → Benefits',
+    label: 'FAB (Features → Advantages → Benefits)',
+    description: 'Connect product features to customer outcomes. Best for: Product descriptions, feature announcements, comparison content.'
+  }
+};
+
+const FUNNEL_TOOLTIPS: Record<string, { displayName: string; emoji: string; acronym: string; description: string }> = {
+  TOFU: {
+    displayName: 'Cold Audience',
+    emoji: '❄️',
+    acronym: 'TOFU - Top of Funnel',
+    description: 'Strangers who don\'t know you yet. Focus on educational content, thought leadership, and brand awareness. Goal: Attract and inform without selling.'
+  },
+  MOFU: {
+    displayName: 'Warm Leads',
+    emoji: '🌡️',
+    acronym: 'MOFU - Middle of Funnel',
+    description: 'People actively considering options. Focus on case studies, comparisons, demos, and webinars. Goal: Build trust and differentiate from competitors.'
+  },
+  BOFU: {
+    displayName: 'Hot Prospects',
+    emoji: '🔥',
+    acronym: 'BOFU - Bottom of Funnel',
+    description: 'Ready-to-buy decision makers. Focus on pricing, testimonials, guarantees, and direct CTAs. Goal: Remove final objections and close the sale.'
+  }
+};
+
+// Platform icons as inline SVG components
+const PlatformIcons = {
+  linkedin: () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+  ),
+  instagram: () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+    </svg>
+  ),
+  twitter: () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  ),
+  facebook: () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+    </svg>
+  ),
+  tiktok: () => (
+    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/>
+    </svg>
+  )
+};
+
+const PLATFORM_TOOLTIPS: Record<string, { label: string; description: string }> = {
+  linkedin: {
+    label: 'LinkedIn',
+    description: 'Professional network. Best for: B2B, thought leadership, industry insights. Tone: Professional, value-driven. Optimal: 1,300 chars, weekday mornings.'
+  },
+  instagram: {
+    label: 'Instagram',
+    description: 'Visual-first platform. Best for: Brand personality, behind-scenes, lifestyle. Tone: Authentic, visual. Optimal: Carousels, Reels, Stories.'
+  },
+  twitter: {
+    label: 'Twitter/X',
+    description: 'Real-time conversation. Best for: Hot takes, threads, engagement. Tone: Concise, witty, timely. Optimal: 280 chars, high frequency.'
+  },
+  facebook: {
+    label: 'Facebook',
+    description: 'Community-focused. Best for: Groups, local business, community building. Tone: Conversational, relatable. Optimal: Longer posts, video.'
+  },
+  tiktok: {
+    label: 'TikTok',
+    description: 'Short-form video. Best for: Trends, entertainment, younger demos. Tone: Authentic, fun, trend-aware. Optimal: 15-60 sec videos, sounds.'
+  }
+};
+
 interface InsightRecipe {
   id: string;
   name: string;
@@ -167,6 +606,8 @@ interface V4PowerModePanelProps {
   onSaveToCalendar?: (content: GeneratedContent) => void;
   /** DEV MODE: Skip all external API calls, use cached/mock data only */
   skipApis?: boolean;
+  /** Force fresh API calls, bypassing all caches (preloader, file cache, etc.) */
+  forceApiRefresh?: boolean;
 }
 
 // ============================================================================
@@ -179,7 +620,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Authority Builder',
     description: 'Build credibility and expertise with data-driven content',
     emoji: '🎯',
-    insightTypes: ['market', 'competition', 'opportunity'],
+    insightTypes: ['trends', 'gaps', 'proof'],
     minInsights: 3,
     maxInsights: 6,
     primaryFramework: 'AIDA',
@@ -190,7 +631,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Trust Builder',
     description: 'Build customer confidence with social proof and stories',
     emoji: '🤝',
-    insightTypes: ['customer', 'opportunity'],
+    insightTypes: ['conversations', 'proof'],
     minInsights: 3,
     maxInsights: 5,
     primaryFramework: 'StoryBrand',
@@ -201,7 +642,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Problem Solver',
     description: 'Address pain points directly with PAS framework',
     emoji: '💡',
-    insightTypes: ['customer', 'competition', 'opportunity'],
+    insightTypes: ['triggers', 'conversations', 'gaps'],
     minInsights: 3,
     maxInsights: 6,
     primaryFramework: 'PAS',
@@ -212,7 +653,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Viral Content',
     description: 'Trending and shareable content that spreads',
     emoji: '🚀',
-    insightTypes: ['market', 'opportunity'],
+    insightTypes: ['trends', 'gaps'],
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'CuriosityGap',
@@ -223,7 +664,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Local Champion',
     description: 'Community-focused content with local relevance',
     emoji: '📍',
-    insightTypes: ['local', 'customer', 'opportunity'],
+    insightTypes: ['trends', 'conversations', 'gaps'],
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'BAB',
@@ -234,7 +675,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Conversion Driver',
     description: 'Direct response content optimized for action',
     emoji: '💰',
-    insightTypes: ['customer', 'opportunity', 'competition'],
+    insightTypes: ['triggers', 'conversations', 'gaps'],
     minInsights: 3,
     maxInsights: 5,
     primaryFramework: 'AIDA',
@@ -245,7 +686,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Product Launch',
     description: 'Create buzz and anticipation for new products',
     emoji: '🎉',
-    insightTypes: ['market', 'customer', 'opportunity'],
+    insightTypes: ['trends', 'conversations', 'gaps'],
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'AIDA',
@@ -256,7 +697,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Education First',
     description: 'Lead with value and educate your audience',
     emoji: '📚',
-    insightTypes: ['market', 'customer', 'opportunity'],
+    insightTypes: ['trends', 'conversations', 'proof'],
     minInsights: 2,
     maxInsights: 6,
     primaryFramework: 'PAS',
@@ -267,7 +708,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Competitive Edge',
     description: 'Position against competitors with clear differentiation',
     emoji: '⚖️',
-    insightTypes: ['competition', 'market', 'opportunity'],
+    insightTypes: ['gaps', 'trends', 'proof'],
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'AIDA',
@@ -278,7 +719,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Quick Wins',
     description: 'Fast results with minimal friction',
     emoji: '⚡',
-    insightTypes: ['customer', 'opportunity'],
+    insightTypes: ['triggers', 'conversations'],
     minInsights: 1,
     maxInsights: 4,
     primaryFramework: 'BAB',
@@ -289,7 +730,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Social Proof Engine',
     description: 'Leverage testimonials and case studies',
     emoji: '👥',
-    insightTypes: ['customer', 'local'],
+    insightTypes: ['proof', 'conversations'],
     minInsights: 2,
     maxInsights: 5,
     primaryFramework: 'SocialProof',
@@ -300,7 +741,7 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
     name: 'Curiosity Gap',
     description: 'Hook attention with knowledge gaps',
     emoji: '🤔',
-    insightTypes: ['market', 'opportunity', 'customer'],
+    insightTypes: ['trends', 'gaps', 'triggers'],
     minInsights: 2,
     maxInsights: 4,
     primaryFramework: 'CuriosityGap',
@@ -312,12 +753,55 @@ const TEMPLATE_RECIPES: InsightRecipe[] = [
 // INSIGHT TYPE CONFIG
 // ============================================================================
 
-const typeConfig: Record<InsightType, { label: string; color: string; bgColor: string }> = {
-  customer: { label: 'Customer', color: 'text-pink-600', bgColor: 'bg-pink-100 dark:bg-pink-900/30' },
-  market: { label: 'Market', color: 'text-blue-600', bgColor: 'bg-blue-100 dark:bg-blue-900/30' },
-  competition: { label: 'Competition', color: 'text-orange-600', bgColor: 'bg-orange-100 dark:bg-orange-900/30' },
-  local: { label: 'Local', color: 'text-green-600', bgColor: 'bg-green-100 dark:bg-green-900/30' },
-  opportunity: { label: 'Opportunity', color: 'text-purple-600', bgColor: 'bg-purple-100 dark:bg-purple-900/30' },
+// New Synapse-aligned tab configuration
+const typeConfig: Record<InsightType, {
+  label: string;
+  color: string;
+  bgColor: string;
+  description: string;
+  icon: React.ElementType;
+  gradient: string;
+}> = {
+  triggers: {
+    label: 'Triggers',
+    color: 'text-red-600',
+    bgColor: 'bg-red-100 dark:bg-red-900/30',
+    description: 'Psychological hooks, emotional drivers, pain points',
+    icon: Heart,
+    gradient: 'from-red-500 to-rose-600'
+  },
+  proof: {
+    label: 'Proof',
+    color: 'text-green-600',
+    bgColor: 'bg-green-100 dark:bg-green-900/30',
+    description: 'Social proof, testimonials, metrics, case studies',
+    icon: CheckCircle2,
+    gradient: 'from-green-500 to-emerald-600'
+  },
+  trends: {
+    label: 'Trends',
+    color: 'text-blue-600',
+    bgColor: 'bg-blue-100 dark:bg-blue-900/30',
+    description: 'Timely topics, industry shifts, cultural moments',
+    icon: TrendingUp,
+    gradient: 'from-blue-500 to-cyan-600'
+  },
+  conversations: {
+    label: 'Conversations',
+    color: 'text-purple-600',
+    bgColor: 'bg-purple-100 dark:bg-purple-900/30',
+    description: 'What customers are saying - Reddit, reviews, forums',
+    icon: MessageSquare,
+    gradient: 'from-purple-500 to-violet-600'
+  },
+  gaps: {
+    label: 'Competitors',
+    color: 'text-orange-600',
+    bgColor: 'bg-orange-100 dark:bg-orange-900/30',
+    description: 'Competitor intelligence, gaps, and opportunities',
+    icon: Target,
+    gradient: 'from-orange-500 to-amber-600'
+  },
 };
 
 // ============================================================================
@@ -469,11 +953,11 @@ async function extractInsightsFromDeepContextAsync(
 
         return {
           id: insightId,
-          type: 'market',
+          type: 'trends' as InsightType, // Synapse: Industry trends → Trends tab
           title,
-          category: 'Market Trend',
+          category: 'Industry Trend',
           confidence: trend.strength || 0.75,
-          isTimeSensitive: false,
+          isTimeSensitive: true, // Trends are time-sensitive
           description: trend.trend || 'Industry trend',
           evidence: evidenceArray,
           sources: [{
@@ -501,9 +985,9 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `customer-need-${idx}`,
-        type: 'customer',
+        type: 'gaps' as InsightType, // Synapse: Unarticulated needs → Gaps tab (hidden desires)
         title,
-        category: 'Customer Need',
+        category: 'Unarticulated Need',
         confidence: need.confidence || 0.8,
         isTimeSensitive: false,
         description: need.need || 'Customer need',
@@ -531,7 +1015,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `customer-trigger-${idx}`,
-        type: 'customer',
+        type: 'triggers' as InsightType, // Synapse: Emotional triggers → Triggers tab (psychological hooks)
         title,
         category: 'Emotional Trigger',
         confidence: typeof trigger === 'object' ? trigger.strength : 0.85,
@@ -562,7 +1046,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `competition-blindspot-${idx}`,
-        type: 'competition',
+        type: 'gaps' as InsightType, // Synapse: Competitor blindspots → Gaps tab (competitive opportunities)
         title,
         category: 'Competitor Blindspot',
         confidence: blindspot.opportunityScore ? blindspot.opportunityScore / 100 : 0.8,
@@ -594,7 +1078,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `opportunity-gap-${idx}`,
-        type: 'opportunity',
+        type: 'gaps' as InsightType, // Synapse: Market gaps → Gaps tab (opportunity spaces)
         title,
         category: 'Market Gap',
         confidence: gap.confidence || 0.85,
@@ -624,7 +1108,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `local-event-${idx}`,
-        type: 'local',
+        type: 'trends' as InsightType,
         title,
         category: 'Local Event',
         confidence: 0.85,
@@ -651,7 +1135,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `local-moment-${idx}`,
-        type: 'local',
+        type: 'trends' as InsightType,
         title,
         category: 'Cultural Moment',
         confidence: 0.8,
@@ -677,7 +1161,7 @@ async function extractInsightsFromDeepContextAsync(
 
         insights.push({
           id: `synthesis-${idx}`,
-          type: 'opportunity',
+          type: 'gaps' as InsightType,
           title,
           category: 'Key Insight',
           confidence: context.synthesis?.confidenceLevel || 0.8,
@@ -702,7 +1186,7 @@ async function extractInsightsFromDeepContextAsync(
 
       insights.push({
         id: `pattern-${idx}`,
-        type: 'opportunity',
+        type: 'gaps' as InsightType,
         title,
         category: `${pattern.type?.charAt(0).toUpperCase() + pattern.type?.slice(1)} Pattern`,
         confidence: pattern.confidence || 0.8,
@@ -733,20 +1217,25 @@ async function extractInsightsFromDeepContextAsync(
       batch.forEach((dp: any, batchIdx: number) => {
         const idx = i + batchIdx;
         const typeMap: Record<string, InsightType> = {
-          'pain_point': 'customer',
-          'unarticulated_need': 'customer',
-          'customer_trigger': 'customer',
-          'trending_topic': 'market',
-          'competitive_gap': 'competition',
-          'timing': 'local',
-          'market_signal': 'market',
-          'opportunity': 'opportunity',
+          'pain_point': 'triggers',
+          'unarticulated_need': 'conversations',
+          'customer_trigger': 'triggers',
+          'trending_topic': 'trends',
+          'competitive_gap': 'gaps',
+          'timing': 'trends',
+          'market_signal': 'trends',
+          'opportunity': 'gaps',
+          'community_discussion': 'conversations', // Reddit conversations from UVP pain point mining
         };
 
-        const insightType: InsightType = typeMap[dp.type] || 'opportunity';
+        const insightType: InsightType = typeMap[dp.type] || 'gaps';
 
         let category = 'Intelligence Data';
-        if (dp.metadata?.triggerCategory) {
+        if (dp.type === 'community_discussion') {
+          // Special category for Reddit conversations from pain point mining
+          const subreddit = dp.metadata?.subreddit;
+          category = subreddit ? `r/${subreddit} Discussion` : 'Community Discussion';
+        } else if (dp.metadata?.triggerCategory) {
           const triggerCategoryMap: Record<string, string> = {
             'pain_point': 'Pain Point',
             'fear': 'Fear-Based Trigger',
@@ -797,14 +1286,14 @@ async function extractInsightsFromDeepContextAsync(
     const correlatedCount = context.correlatedInsights?.length || 0;
     context.correlatedInsights?.forEach((ci: any, idx: number) => {
       const typeMap: Record<string, InsightType> = {
-        'validated_pain': 'customer',
-        'psychological_breakthrough': 'customer',
-        'competitive_gap': 'competition',
-        'timing_opportunity': 'local',
-        'hidden_pattern': 'opportunity',
+        'validated_pain': 'triggers',
+        'psychological_breakthrough': 'triggers',
+        'competitive_gap': 'gaps',
+        'timing_opportunity': 'trends',
+        'hidden_pattern': 'gaps',
       };
 
-      const insightType: InsightType = typeMap[ci.type] || 'opportunity';
+      const insightType: InsightType = typeMap[ci.type] || 'gaps';
 
       const categoryMap: Record<string, string> = {
         'validated_pain': '✓ Validated Pain Point',
@@ -847,13 +1336,13 @@ async function extractInsightsFromDeepContextAsync(
     // ============================================================================
     const breakthroughCount = context.synthesis?.breakthroughs?.length || 0;
     context.synthesis?.breakthroughs?.forEach((bt: any, idx: number) => {
-      let insightType: InsightType = 'opportunity';
+      let insightType: InsightType = 'gaps';
       if (bt.uvpValidation) {
-        insightType = 'customer';
+        insightType = 'triggers';
       } else if (bt.competitive) {
-        insightType = 'competition';
+        insightType = 'gaps';
       } else if (bt.timing?.isTimeSensitive) {
-        insightType = 'local';
+        insightType = 'trends';
       }
 
       const stars = '⭐'.repeat(bt.confidenceStars || 0);
@@ -910,7 +1399,7 @@ async function extractInsightsFromDeepContextAsync(
       if (uvp.targetCustomer) {
         insights.push({
           id: 'uvp-target',
-          type: 'customer',
+          type: 'conversations' as InsightType,
           title: `Target: ${uvp.targetCustomer.industry || 'Ideal Customer'}`,
           category: 'Customer Profile',
           confidence: 0.95,
@@ -926,7 +1415,7 @@ async function extractInsightsFromDeepContextAsync(
         const benefitMetrics = uvp.keyBenefit.metrics?.map(m => `${m.metric}: ${m.value}`).join(', ');
         insights.push({
           id: 'uvp-benefit',
-          type: 'opportunity',
+          type: 'gaps' as InsightType,
           title: 'Key Differentiator',
           category: 'Value Proposition',
           confidence: 0.92,
@@ -939,7 +1428,7 @@ async function extractInsightsFromDeepContextAsync(
       if (uvp.uniqueSolution) {
         insights.push({
           id: 'uvp-solution',
-          type: 'competition',
+          type: 'gaps' as InsightType,
           title: 'Unique Approach',
           category: 'Competitive Edge',
           confidence: 0.88,
@@ -985,7 +1474,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
       return {
         id: insightId,
-        type: 'market',
+        type: 'trends' as InsightType,
         title,
         category: 'Market Trend',
         confidence: trend.strength || 0.75,
@@ -1013,7 +1502,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `customer-need-${idx}`,
-      type: 'customer',
+      type: 'conversations' as InsightType,
       title,
       category: 'Customer Need',
       confidence: need.confidence || 0.8,
@@ -1039,7 +1528,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `customer-trigger-${idx}`,
-      type: 'customer',
+      type: 'conversations' as InsightType,
       title,
       category: 'Emotional Trigger',
       confidence: typeof trigger === 'object' ? trigger.strength : 0.85,
@@ -1066,7 +1555,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `competition-blindspot-${idx}`,
-      type: 'competition',
+      type: 'gaps' as InsightType,
       title,
       category: 'Competitor Blindspot',
       confidence: blindspot.opportunityScore ? blindspot.opportunityScore / 100 : 0.8,
@@ -1094,7 +1583,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `opportunity-gap-${idx}`,
-      type: 'opportunity',
+      type: 'gaps' as InsightType,
       title,
       category: 'Market Gap',
       confidence: gap.confidence || 0.85,
@@ -1120,7 +1609,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `local-event-${idx}`,
-      type: 'local',
+      type: 'trends' as InsightType,
       title,
       category: 'Local Event',
       confidence: 0.85,
@@ -1143,7 +1632,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `local-moment-${idx}`,
-      type: 'local',
+      type: 'trends' as InsightType,
       title,
       category: 'Cultural Moment',
       confidence: 0.8,
@@ -1165,7 +1654,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
       insights.push({
         id: `synthesis-${idx}`,
-        type: 'opportunity',
+        type: 'gaps' as InsightType,
         title,
         category: 'Key Insight',
         confidence: context.synthesis?.confidenceLevel || 0.8,
@@ -1186,7 +1675,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
 
     insights.push({
       id: `pattern-${idx}`,
-      type: 'opportunity',
+      type: 'gaps' as InsightType,
       title,
       category: `${pattern.type?.charAt(0).toUpperCase() + pattern.type?.slice(1)} Pattern`,
       confidence: pattern.confidence || 0.8,
@@ -1206,17 +1695,17 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   // ============================================================================
   context.rawDataPoints?.forEach((dp: any, idx: number) => {
     const typeMap: Record<string, InsightType> = {
-      'pain_point': 'customer',
-      'unarticulated_need': 'customer',
-      'customer_trigger': 'customer',
-      'trending_topic': 'market',
-      'competitive_gap': 'competition',
-      'timing': 'local',
-      'market_signal': 'market',
-      'opportunity': 'opportunity',
+      'pain_point': 'triggers',
+      'unarticulated_need': 'conversations',
+      'customer_trigger': 'triggers',
+      'trending_topic': 'trends',
+      'competitive_gap': 'gaps',
+      'timing': 'trends',
+      'market_signal': 'trends',
+      'opportunity': 'gaps',
     };
 
-    const insightType: InsightType = typeMap[dp.type] || 'opportunity';
+    const insightType: InsightType = typeMap[dp.type] || 'gaps';
 
     let category = 'Intelligence Data';
     if (dp.metadata?.triggerCategory) {
@@ -1262,14 +1751,14 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   // ============================================================================
   context.correlatedInsights?.forEach((ci: any, idx: number) => {
     const typeMap: Record<string, InsightType> = {
-      'validated_pain': 'customer',
-      'psychological_breakthrough': 'customer',
-      'competitive_gap': 'competition',
-      'timing_opportunity': 'local',
-      'hidden_pattern': 'opportunity',
+      'validated_pain': 'triggers',
+      'psychological_breakthrough': 'triggers',
+      'competitive_gap': 'gaps',
+      'timing_opportunity': 'trends',
+      'hidden_pattern': 'gaps',
     };
 
-    const insightType: InsightType = typeMap[ci.type] || 'opportunity';
+    const insightType: InsightType = typeMap[ci.type] || 'gaps';
 
     const categoryMap: Record<string, string> = {
       'validated_pain': '✓ Validated Pain Point',
@@ -1306,13 +1795,13 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   // BREAKTHROUGH OPPORTUNITIES - Rich multi-source validated insights
   // ============================================================================
   context.synthesis?.breakthroughs?.forEach((bt: any, idx: number) => {
-    let insightType: InsightType = 'opportunity';
+    let insightType: InsightType = 'gaps';
     if (bt.uvpValidation) {
-      insightType = 'customer';
+      insightType = 'triggers';
     } else if (bt.competitive) {
-      insightType = 'competition';
+      insightType = 'gaps';
     } else if (bt.timing?.isTimeSensitive) {
-      insightType = 'local';
+      insightType = 'trends';
     }
 
     const stars = '⭐'.repeat(bt.confidenceStars || 0);
@@ -1364,7 +1853,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
     if (uvp.targetCustomer) {
       insights.push({
         id: 'uvp-target',
-        type: 'customer',
+        type: 'conversations' as InsightType,
         title: `Target: ${uvp.targetCustomer.industry || 'Ideal Customer'}`,
         category: 'Customer Profile',
         confidence: 0.95,
@@ -1380,7 +1869,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
       const benefitMetrics = uvp.keyBenefit.metrics?.map(m => `${m.metric}: ${m.value}`).join(', ');
       insights.push({
         id: 'uvp-benefit',
-        type: 'opportunity',
+        type: 'gaps' as InsightType,
         title: 'Key Differentiator',
         category: 'Value Proposition',
         confidence: 0.92,
@@ -1393,7 +1882,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
     if (uvp.uniqueSolution) {
       insights.push({
         id: 'uvp-solution',
-        type: 'competition',
+        type: 'gaps' as InsightType,
         title: 'Unique Approach',
         category: 'Competitive Edge',
         confidence: 0.88,
@@ -1406,7 +1895,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
     if (uvp.valuePropositionStatement) {
       insights.push({
         id: 'uvp-statement',
-        type: 'opportunity',
+        type: 'gaps' as InsightType,
         title: 'Value Proposition',
         category: 'Core Message',
         confidence: 0.95,
@@ -1426,7 +1915,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   if (month >= 9 && month <= 11) {
     insights.push({
       id: 'seasonal-q4',
-      type: 'market',
+      type: 'trends' as InsightType,
       title: 'Q4 Budget Season',
       category: 'Seasonal Opportunity',
       confidence: 0.9,
@@ -1436,7 +1925,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
     });
     insights.push({
       id: 'seasonal-holiday',
-      type: 'local',
+      type: 'trends' as InsightType,
       title: 'Holiday Marketing Window',
       category: 'Seasonal Trend',
       confidence: 0.88,
@@ -1449,7 +1938,7 @@ function extractInsightsFromDeepContext(context: DeepContext, uvp: CompleteUVP):
   if (month >= 0 && month <= 2) {
     insights.push({
       id: 'seasonal-newyear',
-      type: 'market',
+      type: 'trends' as InsightType,
       title: 'New Year Fresh Start',
       category: 'Seasonal Opportunity',
       confidence: 0.9,
@@ -1583,14 +2072,201 @@ function determineContentPillars(insight: InsightCard): string[] {
   return pillars.length > 0 ? pillars : ['General'];
 }
 
+// Synthesize better titles for gap insights - extracts the key actionable insight
+function synthesizeGapTitle(insight: InsightCard): string {
+  const { title, description, category, rawData } = insight;
+  const lowerDesc = description.toLowerCase();
+  const lowerCat = category.toLowerCase();
+
+  // For unarticulated needs - extract what customers secretly want
+  if (lowerCat.includes('unarticulated') || lowerCat.includes('need')) {
+    // Try to find the core desire/need
+    const patterns = [
+      /want[s]?\s+(to\s+)?(.{10,50}?)(?:\.|,|but|because)/i,
+      /need[s]?\s+(to\s+)?(.{10,50}?)(?:\.|,|but|because)/i,
+      /desire[s]?\s+(to\s+)?(.{10,50}?)(?:\.|,|but|because)/i,
+      /looking\s+for\s+(.{10,50}?)(?:\.|,|but|because)/i,
+    ];
+    for (const pattern of patterns) {
+      const match = description.match(pattern);
+      if (match) {
+        const extracted = match[2] || match[1];
+        return `Customers secretly want: ${extracted.trim()}`;
+      }
+    }
+    // Fallback: use first meaningful phrase
+    if (description.length > 15) {
+      const firstPhrase = description.split(/[.!?]|\band\b|\bbut\b/)[0].trim();
+      if (firstPhrase.length > 10 && firstPhrase.length < 80) {
+        return `Hidden need: ${firstPhrase}`;
+      }
+    }
+  }
+
+  // For competitor blindspots - highlight the competitive opportunity
+  if (lowerCat.includes('blindspot') || lowerCat.includes('competitor')) {
+    const patterns = [
+      /competitor[s]?\s+(don't|aren't|fail|miss|ignore|overlook)(.{10,50}?)(?:\.|,|but|because)/i,
+      /gap\s+in\s+(.{10,50}?)(?:\.|,|but|because)/i,
+      /missing\s+(.{10,50}?)(?:\.|,|but|because)/i,
+      /overlooked?\s+(.{10,50}?)(?:\.|,|but|because)/i,
+    ];
+    for (const pattern of patterns) {
+      const match = description.match(pattern);
+      if (match) {
+        const extracted = match[2] || match[1];
+        return `Competitors miss: ${extracted.trim()}`;
+      }
+    }
+    // Fallback for blindspots
+    if (rawData?.topic) {
+      return `Blindspot: ${rawData.topic.substring(0, 60)}`;
+    }
+    if (description.length > 15) {
+      return `Untapped opportunity: ${description.substring(0, 60)}...`;
+    }
+  }
+
+  // For market gaps - highlight the opportunity space
+  if (lowerCat.includes('market') || lowerCat.includes('gap') || lowerCat.includes('opportunity')) {
+    const patterns = [
+      /opportunity\s+(to|for|in)\s+(.{10,50}?)(?:\.|,|but|because)/i,
+      /gap\s+(in|for|around)\s+(.{10,50}?)(?:\.|,|but|because)/i,
+      /underserved\s+(.{10,50}?)(?:\.|,|but|because)/i,
+      /unmet\s+(need|demand)\s+(for\s+)?(.{10,50}?)(?:\.|,|but|because)/i,
+    ];
+    for (const pattern of patterns) {
+      const match = description.match(pattern);
+      if (match) {
+        const extracted = match[3] || match[2] || match[1];
+        return `Opportunity: ${extracted.trim()}`;
+      }
+    }
+    // Fallback for market gaps
+    if (rawData?.gap) {
+      return `Market gap: ${rawData.gap.substring(0, 60)}`;
+    }
+  }
+
+  // Default: clean up the existing title
+  if (title && title.length > 5 && title !== 'Customer Need' && title !== 'Market Gap' && title !== 'Competitor Blindspot') {
+    return title;
+  }
+
+  // Last resort: truncate description
+  return description.substring(0, 70) + (description.length > 70 ? '...' : '');
+}
+
+// Extract provenance info for gaps - returns structured source data
+function extractGapProvenance(insight: InsightCard): {
+  summary: string;
+  sourcePlatform: string;
+  sourceIcon: string;
+  quotes: Array<{ text: string; author?: string; platform?: string }>;
+} {
+  const { description, category, sources, rawData, evidence } = insight;
+
+  // Determine the primary source platform
+  let sourcePlatform = 'AI Analysis';
+  let sourceIcon = '🤖';
+
+  if (sources && sources.length > 0) {
+    const firstSource = sources[0].source?.toLowerCase() || '';
+    if (firstSource.includes('reddit')) {
+      sourcePlatform = 'Reddit';
+      sourceIcon = '🔴';
+    } else if (firstSource.includes('linkedin')) {
+      sourcePlatform = 'LinkedIn';
+      sourceIcon = '💼';
+    } else if (firstSource.includes('twitter') || firstSource.includes('x')) {
+      sourcePlatform = 'Twitter/X';
+      sourceIcon = '🐦';
+    } else if (firstSource.includes('review') || firstSource.includes('g2') || firstSource.includes('trustpilot')) {
+      sourcePlatform = 'Customer Reviews';
+      sourceIcon = '⭐';
+    } else if (firstSource.includes('perplexity') || firstSource.includes('web')) {
+      sourcePlatform = 'Web Research';
+      sourceIcon = '🌐';
+    } else if (firstSource.includes('competitor') || firstSource.includes('competitive')) {
+      sourcePlatform = 'Competitive Intelligence';
+      sourceIcon = '🎯';
+    } else if (firstSource.includes('customer')) {
+      sourcePlatform = 'Customer Research';
+      sourceIcon = '👥';
+    }
+  }
+
+  // Build concise summary based on category
+  let summary = description;
+  const lowerCat = category.toLowerCase();
+
+  if (lowerCat.includes('unarticulated')) {
+    summary = `This gap reveals an unspoken customer need that isn't being addressed by current market offerings. ${rawData?.emotionalDriver ? `Emotional driver: ${rawData.emotionalDriver}` : ''}`;
+  } else if (lowerCat.includes('blindspot')) {
+    summary = `Competitors are overlooking this area, creating a strategic opportunity for differentiation. ${rawData?.reasoning ? rawData.reasoning : ''}`;
+  } else if (lowerCat.includes('market') || lowerCat.includes('gap')) {
+    summary = `Market analysis identified this as an underserved space with high potential. ${rawData?.positioning ? `Position: ${rawData.positioning}` : ''}`;
+  }
+
+  // Extract quotes from evidence, sources, and rawData
+  const quotes: Array<{ text: string; author?: string; platform?: string }> = [];
+
+  // From evidence array
+  if (evidence && evidence.length > 0) {
+    evidence.forEach(ev => {
+      if (typeof ev === 'string' && ev.length > 20) {
+        quotes.push({ text: ev, platform: sourcePlatform });
+      }
+    });
+  }
+
+  // From sources with quotes
+  if (sources) {
+    sources.forEach(s => {
+      if (s.quote && s.quote.length > 20) {
+        quotes.push({
+          text: s.quote,
+          platform: getDisplaySourceName(s.source) || sourcePlatform
+        });
+      }
+    });
+  }
+
+  // From rawData
+  if (rawData) {
+    if (rawData.evidence && typeof rawData.evidence === 'string' && rawData.evidence.length > 20) {
+      quotes.push({ text: rawData.evidence, platform: sourcePlatform });
+    }
+    if (rawData.post || rawData.comment) {
+      quotes.push({
+        text: rawData.post || rawData.comment,
+        author: rawData.author || rawData.username,
+        platform: rawData.subreddit ? `r/${rawData.subreddit}` : sourcePlatform
+      });
+    }
+  }
+
+  return {
+    summary: summary.substring(0, 300),
+    sourcePlatform,
+    sourceIcon,
+    quotes: quotes.slice(0, 5) // Limit to 5 quotes
+  };
+}
+
 const InsightCardComponent = memo(function InsightCardComponent({ insight, isSelected, onToggle }: InsightCardComponentProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [expandedSection, setExpandedSection] = useState<'sources' | 'uvp' | 'pillars' | null>(null);
+  const [expandedSection, setExpandedSection] = useState<'sources' | 'uvp' | 'pillars' | 'provenance' | null>(null);
   const config = typeConfig[insight.type];
+  const isGapInsight = insight.type === 'gaps';
 
   const rawQuotes = useMemo(() => extractRawQuotes(insight.rawData), [insight.rawData]);
   const uvpAlignment = useMemo(() => determineUVPAlignment(insight), [insight]);
   const contentPillars = useMemo(() => determineContentPillars(insight), [insight]);
+
+  // For gap insights: synthesized title and provenance
+  const gapTitle = useMemo(() => isGapInsight ? synthesizeGapTitle(insight) : insight.title, [insight, isGapInsight]);
+  const gapProvenance = useMemo(() => isGapInsight ? extractGapProvenance(insight) : null, [insight, isGapInsight]);
 
   // Get unique sources
   const displaySources = useMemo(() => {
@@ -1607,7 +2283,7 @@ const InsightCardComponent = memo(function InsightCardComponent({ insight, isSel
     if (isExpanded) setExpandedSection(null);
   };
 
-  const toggleSection = (section: 'sources' | 'uvp' | 'pillars', e: React.MouseEvent) => {
+  const toggleSection = (section: 'sources' | 'uvp' | 'pillars' | 'provenance', e: React.MouseEvent) => {
     e.stopPropagation();
     setExpandedSection(expandedSection === section ? null : section);
   };
@@ -1644,7 +2320,7 @@ const InsightCardComponent = memo(function InsightCardComponent({ insight, isSel
               ))}
             </div>
             <h4 className="text-sm font-bold text-gray-900 dark:text-white mb-1">
-              {insight.title}
+              {isGapInsight ? gapTitle : insight.title}
             </h4>
             <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2">
               {insight.description}
@@ -1690,6 +2366,91 @@ const InsightCardComponent = memo(function InsightCardComponent({ insight, isSel
             className="overflow-hidden border-t border-gray-200 dark:border-slate-700"
           >
             <div className="p-4 space-y-3 bg-gray-50 dark:bg-slate-800/50">
+
+              {/* Gap Provenance Section - Only for gap insights */}
+              {isGapInsight && gapProvenance && (
+                <div className="rounded-lg border border-orange-200 dark:border-orange-700 overflow-hidden">
+                  <button
+                    onClick={(e) => toggleSection('provenance', e)}
+                    className="w-full flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/20 hover:bg-orange-100 dark:hover:bg-orange-900/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-2">
+                      <span className="text-lg">{gapProvenance.sourceIcon}</span>
+                      <span className="text-sm font-medium text-orange-800 dark:text-orange-200">
+                        Gap Provenance
+                      </span>
+                      <span className="px-2 py-0.5 text-xs font-medium rounded-full bg-orange-200 dark:bg-orange-800 text-orange-700 dark:text-orange-200">
+                        {gapProvenance.sourcePlatform}
+                      </span>
+                    </div>
+                    <ChevronRight className={`w-4 h-4 text-orange-400 transition-transform ${expandedSection === 'provenance' ? 'rotate-90' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {expandedSection === 'provenance' && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="p-3 space-y-3 bg-white dark:bg-slate-800">
+                          {/* Gap Summary */}
+                          <div className="p-3 bg-orange-50 dark:bg-orange-900/10 rounded-lg border border-orange-100 dark:border-orange-800">
+                            <h5 className="text-xs font-semibold text-orange-800 dark:text-orange-300 mb-1 uppercase tracking-wide">
+                              Gap Summary
+                            </h5>
+                            <p className="text-sm text-gray-700 dark:text-gray-300">
+                              {gapProvenance.summary}
+                            </p>
+                          </div>
+
+                          {/* Source Platform */}
+                          <div className="flex items-center gap-2 p-2 bg-slate-100 dark:bg-slate-700 rounded-lg">
+                            <span className="text-lg">{gapProvenance.sourceIcon}</span>
+                            <div>
+                              <span className="text-xs text-gray-500 dark:text-gray-400 block">Primary Source</span>
+                              <span className="text-sm font-medium text-gray-900 dark:text-white">{gapProvenance.sourcePlatform}</span>
+                            </div>
+                          </div>
+
+                          {/* Evidence Quotes */}
+                          {gapProvenance.quotes.length > 0 && (
+                            <div className="space-y-2">
+                              <h5 className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+                                Supporting Evidence ({gapProvenance.quotes.length})
+                              </h5>
+                              {gapProvenance.quotes.map((quote, i) => (
+                                <div key={i} className="bg-slate-50 dark:bg-slate-900 rounded-lg p-3 border-l-4 border-orange-400">
+                                  <div className="flex items-start gap-2">
+                                    <Quote className="w-3 h-3 text-orange-400 mt-1 flex-shrink-0" />
+                                    <div className="flex-1 min-w-0">
+                                      <p className="text-xs text-gray-700 dark:text-gray-300 italic">
+                                        "{quote.text.substring(0, 400)}{quote.text.length > 400 ? '...' : ''}"
+                                      </p>
+                                      <div className="flex items-center gap-2 mt-2 text-xs text-gray-500">
+                                        {quote.author && <span className="font-medium">{quote.author}</span>}
+                                        {quote.platform && <span className="px-1.5 py-0.5 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 rounded">{quote.platform}</span>}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+
+                          {/* No quotes fallback */}
+                          {gapProvenance.quotes.length === 0 && (
+                            <div className="text-center py-3 text-xs text-gray-500 dark:text-gray-400 italic">
+                              No direct quotes available. This gap was identified through pattern analysis.
+                            </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
 
               {/* Sources Section */}
               {(displaySources.length > 0 || rawQuotes.length > 0) && (
@@ -1934,12 +2695,43 @@ const SidebarSection = memo(function SidebarSection({
 // EXPANDABLE CUSTOMER PROFILE CARD - Shows UVP customer profile details
 // ============================================================================
 
+// Role type categories for grouping profiles
+type RoleCategory = 'C-Suite' | 'Operations' | 'Technology' | 'Sales & Marketing' | 'Other';
+
 interface ParsedCustomerProfile {
   title: string;
   description: string;
+  roleCategory: RoleCategory;
 }
 
-// Parse UVP statement to extract individual customer profiles
+// Classify a role title into a category
+function classifyRole(title: string): RoleCategory {
+  const lowerTitle = title.toLowerCase();
+
+  // C-Suite roles
+  if (/\b(ceo|cfo|cto|cmo|coo|cio|cpo|chief|president|founder|owner|principal|partner)\b/i.test(lowerTitle)) {
+    return 'C-Suite';
+  }
+
+  // Operations roles
+  if (/\b(operations|ops|process|supply chain|logistics|procurement|quality|compliance|risk)\b/i.test(lowerTitle)) {
+    return 'Operations';
+  }
+
+  // Technology roles
+  if (/\b(technology|tech|it|digital|data|software|engineer|developer|architect|transformation)\b/i.test(lowerTitle)) {
+    return 'Technology';
+  }
+
+  // Sales & Marketing roles
+  if (/\b(sales|marketing|growth|revenue|business development|account|customer success)\b/i.test(lowerTitle)) {
+    return 'Sales & Marketing';
+  }
+
+  return 'Other';
+}
+
+// Parse UVP statement to extract individual customer profiles with role categories
 function parseCustomerProfiles(statement: string): ParsedCustomerProfile[] {
   if (!statement) return [];
 
@@ -1952,20 +2744,158 @@ function parseCustomerProfiles(statement: string): ParsedCustomerProfile[] {
     const titleMatch = profile.match(/^([A-Z][^,;.]*?(?:Director|Manager|Leader|Owner|Principal|Officer|COO|CEO|CFO|CTO|CMO|VP|Head|Executive|Specialist|Analyst|Consultant|Agent|Broker)[^,;.]*?)(?:\s+(?:seeking|looking|responsible|needing|frustrated|in\s|who|that))/i);
 
     if (titleMatch) {
+      const title = titleMatch[1].trim();
       return {
-        title: titleMatch[1].trim(),
-        description: profile
+        title,
+        description: profile,
+        roleCategory: classifyRole(title)
       };
     }
 
     // Fallback: use first few words as title
     const words = profile.split(' ').slice(0, 4).join(' ');
+    const title = words.length > 30 ? words.slice(0, 30) + '...' : words;
     return {
-      title: words.length > 30 ? words.slice(0, 30) + '...' : words,
-      description: profile
+      title,
+      description: profile,
+      roleCategory: classifyRole(title)
     };
   });
 }
+
+// Group profiles by role category
+function groupProfilesByRole(profiles: ParsedCustomerProfile[]): Map<RoleCategory, ParsedCustomerProfile[]> {
+  const grouped = new Map<RoleCategory, ParsedCustomerProfile[]>();
+  const order: RoleCategory[] = ['C-Suite', 'Operations', 'Technology', 'Sales & Marketing', 'Other'];
+
+  // Initialize all categories
+  order.forEach(cat => grouped.set(cat, []));
+
+  // Group profiles
+  profiles.forEach(profile => {
+    const category = grouped.get(profile.roleCategory) || [];
+    category.push(profile);
+    grouped.set(profile.roleCategory, category);
+  });
+
+  // Remove empty categories
+  order.forEach(cat => {
+    if (grouped.get(cat)?.length === 0) {
+      grouped.delete(cat);
+    }
+  });
+
+  return grouped;
+}
+
+// Role category styling
+const roleCategoryStyles: Record<RoleCategory, { icon: string; color: string; bg: string; border: string }> = {
+  'C-Suite': {
+    icon: 'crown',
+    color: 'text-purple-600 dark:text-purple-400',
+    bg: 'bg-purple-50 dark:bg-purple-900/20',
+    border: 'border-purple-200 dark:border-purple-700/50'
+  },
+  'Operations': {
+    icon: 'cog',
+    color: 'text-blue-600 dark:text-blue-400',
+    bg: 'bg-blue-50 dark:bg-blue-900/20',
+    border: 'border-blue-200 dark:border-blue-700/50'
+  },
+  'Technology': {
+    icon: 'cpu',
+    color: 'text-cyan-600 dark:text-cyan-400',
+    bg: 'bg-cyan-50 dark:bg-cyan-900/20',
+    border: 'border-cyan-200 dark:border-cyan-700/50'
+  },
+  'Sales & Marketing': {
+    icon: 'megaphone',
+    color: 'text-green-600 dark:text-green-400',
+    bg: 'bg-green-50 dark:bg-green-900/20',
+    border: 'border-green-200 dark:border-green-700/50'
+  },
+  'Other': {
+    icon: 'users',
+    color: 'text-gray-600 dark:text-gray-400',
+    bg: 'bg-gray-50 dark:bg-gray-800/50',
+    border: 'border-gray-200 dark:border-gray-600'
+  }
+};
+
+// Role Category Group Component - Expandable group header
+interface RoleCategoryGroupProps {
+  category: RoleCategory;
+  profiles: ParsedCustomerProfile[];
+  emotionalDrivers: string[];
+  functionalDrivers: string[];
+  onSelectItem: (item: { type: string; text: string }) => void;
+}
+
+const RoleCategoryGroup = memo(function RoleCategoryGroup({
+  category,
+  profiles,
+  emotionalDrivers,
+  functionalDrivers,
+  onSelectItem
+}: RoleCategoryGroupProps) {
+  const [isExpanded, setIsExpanded] = useState(false); // Default collapsed
+  const style = roleCategoryStyles[category];
+
+  // Get icon component based on category
+  const IconComponent = {
+    'C-Suite': Crown,
+    'Operations': Settings,
+    'Technology': Cpu,
+    'Sales & Marketing': Megaphone,
+    'Other': Users
+  }[category] || Users;
+
+  return (
+    <div className={`rounded-lg border ${style.border} overflow-hidden`}>
+      {/* Category Header */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className={`w-full flex items-center justify-between p-2 ${style.bg} hover:opacity-90 transition-opacity`}
+      >
+        <div className="flex items-center gap-2">
+          <IconComponent className={`w-3.5 h-3.5 ${style.color}`} />
+          <span className={`text-[11px] font-semibold ${style.color} uppercase tracking-wide`}>
+            {category}
+          </span>
+          <span className={`px-1.5 py-0.5 text-[9px] rounded ${style.bg} ${style.color} border ${style.border}`}>
+            {profiles.length}
+          </span>
+        </div>
+        <ChevronRight className={`w-3.5 h-3.5 ${style.color} transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+      </button>
+
+      {/* Profiles in this category */}
+      <AnimatePresence initial={false}>
+        {isExpanded && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="p-2 space-y-2 bg-white/50 dark:bg-slate-800/30">
+              {profiles.map((profile, index) => (
+                <CustomerProfileCard
+                  key={`${category}-profile-${index}`}
+                  title={profile.title}
+                  description={profile.description}
+                  emotionalDrivers={emotionalDrivers}
+                  functionalDrivers={functionalDrivers}
+                  onSelectItem={onSelectItem}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+});
 
 interface CustomerProfileCardProps {
   title: string;
@@ -2014,7 +2944,7 @@ const CustomerProfileCard = memo(function CustomerProfileCard({
             <div className="p-2.5 space-y-2 bg-white dark:bg-slate-800/50">
               {/* Description - clickable */}
               <button
-                onClick={() => onSelectItem({ type: 'customer', text: description })}
+                onClick={() => onSelectItem({ type: 'conversations' as InsightType, text: description })}
                 className="w-full text-left p-2 text-[11px] rounded bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors text-gray-600 dark:text-gray-300 leading-relaxed"
               >
                 {description}
@@ -2116,6 +3046,584 @@ const CustomerProfileCard = memo(function CustomerProfileCard({
 });
 
 // ============================================================================
+// DIFFERENTIATOR CARD COMPONENT - Expandable card showing full UVP data
+// ============================================================================
+
+interface DifferentiatorCardProps {
+  statement: string;
+  evidence?: string;
+  strengthScore?: number;
+  source?: string;
+  type: 'uvp' | 'website';
+  onSelectItem: (item: { type: string; text: string }) => void;
+}
+
+const DifferentiatorCard = memo(function DifferentiatorCard({
+  statement,
+  evidence,
+  strengthScore,
+  source,
+  type,
+  onSelectItem
+}: DifferentiatorCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasDetails = evidence || strengthScore !== undefined || source;
+
+  // Color scheme based on type (green for UVP, teal for website)
+  const isUvp = type === 'uvp';
+  const colors = isUvp ? {
+    border: 'border-emerald-200 dark:border-emerald-700/50',
+    bg: 'bg-gradient-to-r from-emerald-50 to-green-50 dark:from-emerald-900/20 dark:to-green-900/20',
+    hoverBg: 'hover:from-emerald-100 hover:to-green-100 dark:hover:from-emerald-900/30 dark:hover:to-green-900/30',
+    icon: 'text-emerald-500',
+    text: 'text-emerald-800 dark:text-emerald-200',
+    badge: 'bg-emerald-200 dark:bg-emerald-800/50 text-emerald-700 dark:text-emerald-300'
+  } : {
+    border: 'border-teal-200 dark:border-teal-700/50',
+    bg: 'bg-gradient-to-r from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20',
+    hoverBg: 'hover:from-teal-100 hover:to-cyan-100 dark:hover:from-teal-900/30 dark:hover:to-cyan-900/30',
+    icon: 'text-teal-500',
+    text: 'text-teal-800 dark:text-teal-200',
+    badge: 'bg-teal-200 dark:bg-teal-800/50 text-teal-700 dark:text-teal-300'
+  };
+
+  return (
+    <div className={`rounded-lg border ${colors.border} overflow-hidden`}>
+      {/* Card Header */}
+      <button
+        onClick={() => hasDetails ? setIsExpanded(!isExpanded) : onSelectItem({ type: 'differentiator', text: statement })}
+        className={`w-full flex items-center justify-between p-2.5 ${colors.bg} ${colors.hoverBg} transition-colors`}
+      >
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Shield className={`w-3.5 h-3.5 ${colors.icon} flex-shrink-0`} />
+          <span className={`text-xs font-medium ${colors.text} text-left line-clamp-2`}>
+            {statement}
+          </span>
+        </div>
+        {hasDetails && (
+          <ChevronRight className={`w-3.5 h-3.5 text-gray-400 transition-transform flex-shrink-0 ml-2 ${isExpanded ? 'rotate-90' : ''}`} />
+        )}
+      </button>
+
+      {/* Expanded Content */}
+      <AnimatePresence initial={false}>
+        {isExpanded && hasDetails && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="p-2.5 space-y-2 bg-white dark:bg-slate-800/50">
+              {/* Statement - clickable */}
+              <button
+                onClick={() => onSelectItem({ type: 'differentiator', text: statement })}
+                className="w-full text-left p-2 text-[11px] rounded bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors text-gray-700 dark:text-gray-300 leading-relaxed"
+              >
+                <span className="text-gray-500 dark:text-gray-400 mr-1">💡</span>
+                {statement}
+              </button>
+
+              {/* Evidence Section */}
+              {evidence && (
+                <div className="rounded-lg border border-purple-200 dark:border-purple-700/50 overflow-hidden">
+                  <div className="p-2 bg-purple-50 dark:bg-purple-900/20">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <Quote className="w-3 h-3 text-purple-600 dark:text-purple-400" />
+                      <span className="text-[10px] font-semibold text-purple-700 dark:text-purple-300 uppercase tracking-wide">
+                        Evidence
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => onSelectItem({ type: 'evidence', text: evidence })}
+                      className="w-full text-left p-1.5 text-[10px] rounded bg-purple-100/50 dark:bg-purple-900/30 hover:bg-purple-100 dark:hover:bg-purple-900/40 text-purple-800 dark:text-purple-200 transition-colors italic"
+                    >
+                      "{evidence}"
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Strength Score & Source Row */}
+              {(strengthScore !== undefined || source) && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  {strengthScore !== undefined && (
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50">
+                      <Zap className="w-3 h-3 text-amber-500" />
+                      <span className="text-[10px] font-medium text-amber-700 dark:text-amber-300">
+                        Strength: {strengthScore}/100
+                      </span>
+                    </div>
+                  )}
+                  {source && (
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/50">
+                      <Globe className="w-3 h-3 text-blue-500" />
+                      <span className="text-[10px] font-medium text-blue-700 dark:text-blue-300">
+                        {source}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+});
+
+// ============================================================================
+// KEY BENEFIT CARD COMPONENT - Expandable card showing full benefit data
+// ============================================================================
+
+interface BenefitCardProps {
+  statement: string;
+  outcomeStatement?: string;
+  outcomeType?: 'quantifiable' | 'qualitative' | 'mixed';
+  eqFraming?: 'emotional' | 'rational' | 'balanced';
+  metrics?: Array<{ metric: string; value: string; improvement?: string }>;
+  source?: string;
+  type: 'uvp' | 'website';
+  onSelectItem: (item: { type: string; text: string }) => void;
+}
+
+const BenefitCard = memo(function BenefitCard({
+  statement,
+  outcomeStatement,
+  outcomeType,
+  eqFraming,
+  metrics,
+  source,
+  type,
+  onSelectItem
+}: BenefitCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasDetails = outcomeStatement || outcomeType || eqFraming || (metrics && metrics.length > 0) || source;
+
+  // Color scheme based on type (rose/pink for UVP, coral for website)
+  const isUvp = type === 'uvp';
+  const colors = isUvp ? {
+    border: 'border-rose-200 dark:border-rose-700/50',
+    bg: 'bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-900/20 dark:to-pink-900/20',
+    hoverBg: 'hover:from-rose-100 hover:to-pink-100 dark:hover:from-rose-900/30 dark:hover:to-pink-900/30',
+    icon: 'text-rose-500',
+    text: 'text-rose-800 dark:text-rose-200',
+    badge: 'bg-rose-200 dark:bg-rose-800/50 text-rose-700 dark:text-rose-300'
+  } : {
+    border: 'border-orange-200 dark:border-orange-700/50',
+    bg: 'bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20',
+    hoverBg: 'hover:from-orange-100 hover:to-amber-100 dark:hover:from-orange-900/30 dark:hover:to-amber-900/30',
+    icon: 'text-orange-500',
+    text: 'text-orange-800 dark:text-orange-200',
+    badge: 'bg-orange-200 dark:bg-orange-800/50 text-orange-700 dark:text-orange-300'
+  };
+
+  // EQ framing badge colors
+  const eqColors = {
+    emotional: 'bg-pink-100 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 border-pink-200 dark:border-pink-700/50',
+    rational: 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-700/50',
+    balanced: 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 border-purple-200 dark:border-purple-700/50'
+  };
+
+  return (
+    <div className={`rounded-lg border ${colors.border} overflow-hidden`}>
+      {/* Card Header */}
+      <button
+        onClick={() => hasDetails ? setIsExpanded(!isExpanded) : onSelectItem({ type: 'benefit', text: statement })}
+        className={`w-full flex items-center justify-between p-2.5 ${colors.bg} ${colors.hoverBg} transition-colors`}
+      >
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Heart className={`w-3.5 h-3.5 ${colors.icon} flex-shrink-0`} />
+          <span className={`text-xs font-medium ${colors.text} text-left line-clamp-2`}>
+            {statement}
+          </span>
+        </div>
+        {hasDetails && (
+          <ChevronRight className={`w-3.5 h-3.5 text-gray-400 transition-transform flex-shrink-0 ml-2 ${isExpanded ? 'rotate-90' : ''}`} />
+        )}
+      </button>
+
+      {/* Expanded Content */}
+      <AnimatePresence initial={false}>
+        {isExpanded && hasDetails && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="p-2.5 space-y-2 bg-white dark:bg-slate-800/50">
+              {/* Statement - clickable */}
+              <button
+                onClick={() => onSelectItem({ type: 'benefit', text: statement })}
+                className="w-full text-left p-2 text-[11px] rounded bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors text-gray-700 dark:text-gray-300 leading-relaxed"
+              >
+                <span className="text-rose-500 mr-1">💎</span>
+                {statement}
+              </button>
+
+              {/* Outcome Statement */}
+              {outcomeStatement && (
+                <div className="rounded-lg border border-green-200 dark:border-green-700/50 overflow-hidden">
+                  <div className="p-2 bg-green-50 dark:bg-green-900/20">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <Rocket className="w-3 h-3 text-green-600 dark:text-green-400" />
+                      <span className="text-[10px] font-semibold text-green-700 dark:text-green-300 uppercase tracking-wide">
+                        Outcome
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => onSelectItem({ type: 'outcome', text: outcomeStatement })}
+                      className="w-full text-left p-1.5 text-[10px] rounded bg-green-100/50 dark:bg-green-900/30 hover:bg-green-100 dark:hover:bg-green-900/40 text-green-800 dark:text-green-200 transition-colors"
+                    >
+                      {outcomeStatement}
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Metrics Section */}
+              {metrics && metrics.length > 0 && (
+                <div className="rounded-lg border border-indigo-200 dark:border-indigo-700/50 overflow-hidden">
+                  <div className="p-2 bg-indigo-50 dark:bg-indigo-900/20">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <TrendingUp className="w-3 h-3 text-indigo-600 dark:text-indigo-400" />
+                      <span className="text-[10px] font-semibold text-indigo-700 dark:text-indigo-300 uppercase tracking-wide">
+                        Metrics
+                      </span>
+                    </div>
+                    <div className="space-y-1">
+                      {metrics.map((m, i) => (
+                        <button
+                          key={i}
+                          onClick={() => onSelectItem({ type: 'metric', text: `${m.metric}: ${m.value}${m.improvement ? ` (${m.improvement})` : ''}` })}
+                          className="w-full text-left p-1.5 text-[10px] rounded bg-indigo-100/50 dark:bg-indigo-900/30 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 text-indigo-800 dark:text-indigo-200 transition-colors flex items-center gap-1.5"
+                        >
+                          <span className="text-indigo-500">📊</span>
+                          <span className="font-medium">{m.metric}:</span>
+                          <span>{m.value}</span>
+                          {m.improvement && <span className="text-green-600 dark:text-green-400">({m.improvement})</span>}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Outcome Type, EQ Framing & Source Row */}
+              {(outcomeType || eqFraming || source) && (
+                <div className="flex items-center gap-2 flex-wrap">
+                  {outcomeType && (
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-700/50">
+                      <Scale className="w-3 h-3 text-cyan-500" />
+                      <span className="text-[10px] font-medium text-cyan-700 dark:text-cyan-300 capitalize">
+                        {outcomeType}
+                      </span>
+                    </div>
+                  )}
+                  {eqFraming && (
+                    <div className={`flex items-center gap-1.5 px-2 py-1 rounded border ${eqColors[eqFraming]}`}>
+                      <Brain className="w-3 h-3" />
+                      <span className="text-[10px] font-medium capitalize">
+                        {eqFraming}
+                      </span>
+                    </div>
+                  )}
+                  {source && (
+                    <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                      <Globe className="w-3 h-3 text-gray-500" />
+                      <span className="text-[10px] font-medium text-gray-600 dark:text-gray-400">
+                        {source}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+});
+
+// ============================================================================
+// VALUE PROPOSITION CARD - Expandable card with variations and statements
+// ============================================================================
+
+interface ValuePropositionCardProps {
+  statement: string;
+  variations?: Array<{ uvp: string; style: string; wordCount: number }>;
+  whyStatement?: string;
+  whatStatement?: string;
+  howStatement?: string;
+  onSelectItem: (item: { type: string; text: string }) => void;
+}
+
+const ValuePropositionCard = memo(function ValuePropositionCard({
+  statement,
+  variations,
+  whyStatement,
+  whatStatement,
+  howStatement,
+  onSelectItem
+}: ValuePropositionCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [showVariations, setShowVariations] = useState(false);
+  const hasDetails = (variations && variations.length > 0) || whyStatement || whatStatement || howStatement;
+
+  return (
+    <div className="rounded-lg border border-purple-200 dark:border-purple-700/50 overflow-hidden">
+      {/* Main Statement Header */}
+      <button
+        onClick={() => hasDetails ? setIsExpanded(!isExpanded) : onSelectItem({ type: 'uvp', text: statement })}
+        className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 hover:from-purple-100 hover:to-blue-100 dark:hover:from-purple-900/30 dark:hover:to-blue-900/30 transition-colors"
+      >
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Target className="w-4 h-4 text-purple-500 flex-shrink-0" />
+          <span className="text-xs font-medium text-purple-800 dark:text-purple-200 text-left">
+            {statement}
+          </span>
+        </div>
+        {hasDetails && (
+          <ChevronRight className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ml-2 ${isExpanded ? 'rotate-90' : ''}`} />
+        )}
+      </button>
+
+      {/* Expanded Content */}
+      <AnimatePresence initial={false}>
+        {isExpanded && hasDetails && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="p-3 space-y-2.5 bg-white dark:bg-slate-800/50">
+              {/* Main Statement - clickable */}
+              <button
+                onClick={() => onSelectItem({ type: 'uvp', text: statement })}
+                className="w-full text-left p-2.5 text-xs rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 hover:from-purple-100 hover:to-blue-100 dark:hover:from-purple-900/30 dark:hover:to-blue-900/30 border border-purple-200 dark:border-purple-700 text-purple-800 dark:text-purple-200 transition-colors"
+              >
+                <span className="text-purple-500 mr-1">✨</span>
+                {statement}
+              </button>
+
+              {/* Why/What/How Statements */}
+              {(whyStatement || whatStatement || howStatement) && (
+                <div className="space-y-1.5">
+                  {whyStatement && (
+                    <button
+                      onClick={() => onSelectItem({ type: 'why', text: whyStatement })}
+                      className="w-full text-left p-2 text-[11px] rounded bg-amber-50 dark:bg-amber-900/20 hover:bg-amber-100 dark:hover:bg-amber-900/30 border border-amber-200 dark:border-amber-700/50 text-amber-800 dark:text-amber-200 transition-colors"
+                    >
+                      <span className="font-semibold text-amber-600 dark:text-amber-400 mr-1">WHY:</span>
+                      {whyStatement}
+                    </button>
+                  )}
+                  {whatStatement && (
+                    <button
+                      onClick={() => onSelectItem({ type: 'what', text: whatStatement })}
+                      className="w-full text-left p-2 text-[11px] rounded bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/30 border border-blue-200 dark:border-blue-700/50 text-blue-800 dark:text-blue-200 transition-colors"
+                    >
+                      <span className="font-semibold text-blue-600 dark:text-blue-400 mr-1">WHAT:</span>
+                      {whatStatement}
+                    </button>
+                  )}
+                  {howStatement && (
+                    <button
+                      onClick={() => onSelectItem({ type: 'how', text: howStatement })}
+                      className="w-full text-left p-2 text-[11px] rounded bg-green-50 dark:bg-green-900/20 hover:bg-green-100 dark:hover:bg-green-900/30 border border-green-200 dark:border-green-700/50 text-green-800 dark:text-green-200 transition-colors"
+                    >
+                      <span className="font-semibold text-green-600 dark:text-green-400 mr-1">HOW:</span>
+                      {howStatement}
+                    </button>
+                  )}
+                </div>
+              )}
+
+              {/* UVP Variations - Expandable */}
+              {variations && variations.length > 0 && (
+                <div className="rounded-lg border border-violet-200 dark:border-violet-700/50 overflow-hidden">
+                  <button
+                    onClick={() => setShowVariations(!showVariations)}
+                    className="w-full flex items-center justify-between p-2 bg-violet-50 dark:bg-violet-900/20 hover:bg-violet-100 dark:hover:bg-violet-900/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <Layers className="w-3 h-3 text-violet-600 dark:text-violet-400" />
+                      <span className="text-[10px] font-semibold text-violet-700 dark:text-violet-300 uppercase tracking-wide">
+                        UVP Variations
+                      </span>
+                      <span className="px-1 py-0.5 text-[9px] rounded bg-violet-200 dark:bg-violet-800/50 text-violet-700 dark:text-violet-300">
+                        {variations.length}
+                      </span>
+                    </div>
+                    <ChevronRight className={`w-3 h-3 text-violet-500 transition-transform ${showVariations ? 'rotate-90' : ''}`} />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {showVariations && (
+                      <motion.div
+                        initial={{ height: 0 }}
+                        animate={{ height: 'auto' }}
+                        exit={{ height: 0 }}
+                        transition={{ duration: 0.15 }}
+                      >
+                        <div className="p-2 space-y-1.5 bg-violet-25 dark:bg-violet-900/10">
+                          {variations.map((v, i) => (
+                            <button
+                              key={i}
+                              onClick={() => onSelectItem({ type: 'uvp-variation', text: v.uvp })}
+                              className="w-full text-left p-2 text-[10px] rounded bg-violet-100/50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/40 text-violet-800 dark:text-violet-200 transition-colors"
+                            >
+                              <div className="flex items-center gap-2 mb-1">
+                                <span className="px-1.5 py-0.5 text-[9px] rounded bg-violet-200 dark:bg-violet-800 text-violet-700 dark:text-violet-300 capitalize">
+                                  {v.style}
+                                </span>
+                                <span className="text-[9px] text-violet-500 dark:text-violet-400">
+                                  {v.wordCount} words
+                                </span>
+                              </div>
+                              <p className="leading-relaxed">{v.uvp}</p>
+                            </button>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+});
+
+// ============================================================================
+// PRODUCT CARD COMPONENT - Expandable card for product/service
+// ============================================================================
+
+interface ProductCardProps {
+  name: string;
+  description: string;
+  category: string;
+  confidence: number;
+  source: 'website' | 'manual';
+  sourceExcerpt?: string;
+  onSelectItem: (item: { type: string; text: string }) => void;
+}
+
+const ProductCard = memo(function ProductCard({
+  name,
+  description,
+  category,
+  confidence,
+  source,
+  sourceExcerpt,
+  onSelectItem
+}: ProductCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const hasDetails = description || sourceExcerpt || confidence > 0;
+
+  return (
+    <div className="rounded-lg border border-sky-200 dark:border-sky-700/50 overflow-hidden">
+      {/* Card Header */}
+      <button
+        onClick={() => hasDetails ? setIsExpanded(!isExpanded) : onSelectItem({ type: 'product', text: name })}
+        className="w-full flex items-center justify-between p-2.5 bg-gradient-to-r from-sky-50 to-cyan-50 dark:from-sky-900/20 dark:to-cyan-900/20 hover:from-sky-100 hover:to-cyan-100 dark:hover:from-sky-900/30 dark:hover:to-cyan-900/30 transition-colors"
+      >
+        <div className="flex items-center gap-2 min-w-0 flex-1">
+          <Package className="w-3.5 h-3.5 text-sky-500 flex-shrink-0" />
+          <span className="text-xs font-medium text-sky-800 dark:text-sky-200 text-left truncate">
+            {name}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 flex-shrink-0">
+          {category && (
+            <span className="px-1.5 py-0.5 text-[9px] rounded bg-sky-200 dark:bg-sky-800/50 text-sky-700 dark:text-sky-300">
+              {category}
+            </span>
+          )}
+          {hasDetails && (
+            <ChevronRight className={`w-3.5 h-3.5 text-gray-400 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+          )}
+        </div>
+      </button>
+
+      {/* Expanded Content */}
+      <AnimatePresence initial={false}>
+        {isExpanded && hasDetails && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            <div className="p-2.5 space-y-2 bg-white dark:bg-slate-800/50">
+              {/* Name - clickable */}
+              <button
+                onClick={() => onSelectItem({ type: 'product', text: name })}
+                className="w-full text-left p-2 text-[11px] rounded bg-gray-50 dark:bg-slate-700/50 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors text-gray-700 dark:text-gray-300 font-medium"
+              >
+                <span className="text-sky-500 mr-1">📦</span>
+                {name}
+              </button>
+
+              {/* Description */}
+              {description && (
+                <button
+                  onClick={() => onSelectItem({ type: 'product-description', text: description })}
+                  className="w-full text-left p-2 text-[10px] rounded bg-sky-50 dark:bg-sky-900/20 hover:bg-sky-100 dark:hover:bg-sky-900/30 text-sky-800 dark:text-sky-200 transition-colors leading-relaxed"
+                >
+                  {description}
+                </button>
+              )}
+
+              {/* Source Excerpt */}
+              {sourceExcerpt && (
+                <div className="rounded-lg border border-gray-200 dark:border-gray-700/50 overflow-hidden">
+                  <div className="p-2 bg-gray-50 dark:bg-gray-800/50">
+                    <div className="flex items-center gap-1.5 mb-1.5">
+                      <Quote className="w-3 h-3 text-gray-500" />
+                      <span className="text-[10px] font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">
+                        Source
+                      </span>
+                    </div>
+                    <p className="text-[10px] text-gray-600 dark:text-gray-400 italic">
+                      "{sourceExcerpt}"
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Confidence & Source Row */}
+              <div className="flex items-center gap-2 flex-wrap">
+                {confidence > 0 && (
+                  <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-700/50">
+                    <Zap className="w-3 h-3 text-green-500" />
+                    <span className="text-[10px] font-medium text-green-700 dark:text-green-300">
+                      {confidence}% confident
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center gap-1.5 px-2 py-1 rounded bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                  <Globe className="w-3 h-3 text-gray-500" />
+                  <span className="text-[10px] font-medium text-gray-600 dark:text-gray-400 capitalize">
+                    {source}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+});
+
+// ============================================================================
 // UVP BUILDING BLOCKS COMPONENT - Shows UVP data as clickable items
 // ============================================================================
 
@@ -2130,9 +3638,35 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
   useEffect(() => {
     const wsAnalysis = deepContext?.business?.websiteAnalysis;
     const dcUvp = deepContext?.business?.uvp as any;
+    // Count total products across all categories
+    let totalProducts = 0;
+    const productNames: string[] = [];
+    if (uvp?.productsServices?.categories) {
+      uvp.productsServices.categories.forEach((cat: any) => {
+        if (cat?.items?.length) {
+          totalProducts += cat.items.length;
+          cat.items.forEach((p: any) => productNames.push(p.name));
+        }
+      });
+    }
+
+    // Count benefits (handling semicolon-separated)
+    const benefitCount = uvp?.keyBenefit?.statement?.includes(';')
+      ? uvp.keyBenefit.statement.split(';').filter((s: string) => s.trim()).length
+      : (uvp?.keyBenefit?.statement ? 1 : 0);
+
+    // Count customer profiles (handling semicolon-separated)
+    const customerCount = uvp?.targetCustomer?.statement?.includes(';')
+      ? uvp.targetCustomer.statement.split(';').filter((s: string) => s.trim()).length
+      : (uvp?.targetCustomer?.statement ? 1 : 0);
+
     console.log('[UVPBuildingBlocks] Data received:', {
       // UVP structure - CompleteUVP type
-      uvp_targetCustomer: uvp?.targetCustomer?.statement ? 'yes' : 'no',
+      uvp_productsServices_categories: uvp?.productsServices?.categories?.length || 0,
+      uvp_productsServices_totalProducts: totalProducts,
+      uvp_productsServices_names: productNames.slice(0, 5).join(', ') || 'none',
+      uvp_targetCustomer_count: customerCount,
+      uvp_targetCustomer_preview: uvp?.targetCustomer?.statement?.slice(0, 50) || 'none',
       uvp_emotionalDrivers: uvp?.targetCustomer?.emotionalDrivers?.length || 0,
       uvp_functionalDrivers: uvp?.targetCustomer?.functionalDrivers?.length || 0,
       uvp_transformation_emotionalDrivers: uvp?.transformationGoal?.emotionalDrivers?.length || 0,
@@ -2140,6 +3674,8 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
       uvp_transformationBefore: uvp?.transformationGoal?.before?.slice(0, 30) || 'none',
       uvp_transformationAfter: uvp?.transformationGoal?.after?.slice(0, 30) || 'none',
       uvp_differentiators: uvp?.uniqueSolution?.differentiators?.length || 0,
+      uvp_keyBenefits_count: benefitCount,
+      uvp_keyBenefit_preview: uvp?.keyBenefit?.statement?.slice(0, 50) || 'none',
       // DeepContext UVP (different structure)
       dc_uvp_emotionalDrivers: dcUvp?.emotionalDrivers?.length || 0,
       dc_uvp_functionalDrivers: dcUvp?.functionalDrivers?.length || 0,
@@ -2169,8 +3705,15 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     const wsAnalysis = deepContext?.business?.websiteAnalysis;
 
     // Target Customer - CustomerProfile object with statement
+    // Handle semicolon-separated customer profiles (common in UVP data)
     if (uvp?.targetCustomer?.statement) {
-      items.push({ id: 'customer-main', text: uvp.targetCustomer.statement, type: 'customer' });
+      const customerStatements = uvp.targetCustomer.statement.includes(';')
+        ? uvp.targetCustomer.statement.split(';').map((s: string) => s.trim()).filter((s: string) => s.length > 0)
+        : [uvp.targetCustomer.statement];
+
+      customerStatements.forEach((statement: string, i: number) => {
+        items.push({ id: `customer-${i}`, text: statement, type: 'conversations' as InsightType });
+      });
     }
 
     // Emotional Drivers - nested under targetCustomer in CompleteUVP
@@ -2211,50 +3754,101 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     return items;
   }, [uvp?.targetCustomer, deepContext?.business?.websiteAnalysis]);
 
-  const differentiatorItems = useMemo(() => {
-    const items: { id: string; text: string; type: string }[] = [];
+  // Full differentiator data for expandable cards
+  const differentiatorData = useMemo(() => {
+    const items: {
+      id: string;
+      statement: string;
+      evidence?: string;
+      strengthScore?: number;
+      source?: string;
+      type: 'uvp' | 'website';
+    }[] = [];
 
-    // From UVP
+    // From UVP - full data
     if (uvp?.uniqueSolution?.differentiators && Array.isArray(uvp.uniqueSolution.differentiators)) {
       uvp.uniqueSolution.differentiators
         .filter((d: any) => d?.statement)
         .forEach((d: any, i: number) => {
-          items.push({ id: `diff-${i}`, text: d.statement, type: 'differentiator' });
+          items.push({
+            id: `diff-${i}`,
+            statement: d.statement,
+            evidence: d.evidence,
+            strengthScore: d.strengthScore,
+            source: d.source?.type || d.source?.url || 'UVP Analysis',
+            type: 'uvp'
+          });
         });
     }
 
     // ALWAYS add websiteAnalysis differentiators (complement UVP data)
     if (deepContext?.business?.websiteAnalysis?.differentiators?.length) {
       deepContext.business.websiteAnalysis.differentiators.forEach((diff: string, i: number) => {
-        if (diff) items.push({ id: `ws-diff-${i}`, text: diff, type: 'ws-differentiator' });
+        if (diff) items.push({
+          id: `ws-diff-${i}`,
+          statement: diff,
+          source: 'Website Analysis',
+          type: 'website'
+        });
       });
     }
 
     return items;
   }, [uvp?.uniqueSolution, deepContext?.business?.websiteAnalysis?.differentiators]);
 
-  const benefitItems = useMemo(() => {
-    const items: { id: string; text: string; type: string }[] = [];
+  // Legacy format for backward compatibility
+  const differentiatorItems = useMemo(() => {
+    return differentiatorData.map(d => ({ id: d.id, text: d.statement, type: 'differentiator' }));
+  }, [differentiatorData]);
 
-    // Support both single keyBenefit.statement and array keyBenefits
+  // Full benefit data for expandable cards
+  const benefitData = useMemo(() => {
+    const items: {
+      id: string;
+      statement: string;
+      outcomeStatement?: string;
+      outcomeType?: 'quantifiable' | 'qualitative' | 'mixed';
+      eqFraming?: 'emotional' | 'rational' | 'balanced';
+      metrics?: Array<{ metric: string; value: string; improvement?: string }>;
+      source?: string;
+      type: 'uvp' | 'website';
+    }[] = [];
+
+    // Primary: keyBenefit from UVP with full data
+    // Handle semicolon-separated benefits (common in UVP data)
     if (uvp?.keyBenefit?.statement) {
-      items.push({ id: 'benefit-main', text: uvp.keyBenefit.statement, type: 'benefit' });
-    }
+      const benefitStatements = uvp.keyBenefit.statement.includes(';')
+        ? uvp.keyBenefit.statement.split(';').map((s: string) => s.trim()).filter((s: string) => s.length > 0)
+        : [uvp.keyBenefit.statement];
 
-    // Support array of benefits (keyBenefits) - new format
-    if (Array.isArray((uvp as any)?.keyBenefits)) {
-      (uvp as any).keyBenefits.forEach((benefit: string, i: number) => {
-        if (benefit && !items.some(item => item.text === benefit)) {
-          items.push({ id: `benefit-${i}`, text: benefit, type: 'benefit' });
-        }
+      benefitStatements.forEach((statement: string, i: number) => {
+        items.push({
+          id: `benefit-${i}`,
+          statement: statement,
+          outcomeStatement: i === 0 ? uvp.keyBenefit.outcomeStatement : undefined,
+          outcomeType: uvp.keyBenefit.outcomeType,
+          eqFraming: uvp.keyBenefit.eqFraming,
+          metrics: i === 0 ? uvp.keyBenefit.metrics?.map((m: any) => ({
+            metric: m.metric,
+            value: m.value,
+            improvement: m.improvement
+          })) : undefined,
+          source: 'UVP Analysis',
+          type: 'uvp'
+        });
       });
     }
 
-    // Metrics - defensive check
-    if (Array.isArray(uvp?.keyBenefit?.metrics)) {
-      uvp.keyBenefit.metrics.forEach((m: any, i: number) => {
-        if (m?.metric && m?.value) {
-          items.push({ id: `metric-${i}`, text: `${m.metric}: ${m.value}`, type: 'metric' });
+    // Support array of benefits (keyBenefits) - additional format
+    if (Array.isArray((uvp as any)?.keyBenefits)) {
+      (uvp as any).keyBenefits.forEach((benefit: string, i: number) => {
+        if (benefit && !items.some(item => item.statement === benefit)) {
+          items.push({
+            id: `benefit-${i}`,
+            statement: benefit,
+            source: 'UVP Analysis',
+            type: 'uvp'
+          });
         }
       });
     }
@@ -2262,8 +3856,13 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     // Add websiteAnalysis valuePropositions as additional benefits
     if (deepContext?.business?.websiteAnalysis?.valuePropositions?.length) {
       deepContext.business.websiteAnalysis.valuePropositions.forEach((vp: string, i: number) => {
-        if (vp && !items.some(item => item.text === vp)) {
-          items.push({ id: `ws-vp-${i}`, text: vp, type: 'benefit' });
+        if (vp && !items.some(item => item.statement === vp)) {
+          items.push({
+            id: `ws-vp-${i}`,
+            statement: vp,
+            source: 'Website Analysis',
+            type: 'website'
+          });
         }
       });
     }
@@ -2271,19 +3870,67 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     return items;
   }, [uvp?.keyBenefit, (uvp as any)?.keyBenefits, deepContext?.business?.websiteAnalysis?.valuePropositions]);
 
-  // Products/Services from websiteAnalysis.solutions
-  const productItems = useMemo(() => {
-    const items: { id: string; text: string; type: string }[] = [];
+  // Legacy format for backward compatibility
+  const benefitItems = useMemo(() => {
+    return benefitData.map(b => ({ id: b.id, text: b.statement, type: 'benefit' }));
+  }, [benefitData]);
 
-    // Primary source: websiteAnalysis solutions (products/services they offer)
-    if (deepContext?.business?.websiteAnalysis?.solutions?.length) {
+  // Products/Services - Full data from UVP productsServices
+  const productsData = useMemo(() => {
+    const items: {
+      id: string;
+      name: string;
+      description: string;
+      category: string;
+      confidence: number;
+      source: 'website' | 'manual';
+      sourceExcerpt?: string;
+    }[] = [];
+
+    // Primary source: UVP productsServices (confirmed by user in onboarding flow)
+    if (uvp?.productsServices?.categories?.length) {
+      uvp.productsServices.categories.forEach((cat: any) => {
+        if (cat?.items?.length) {
+          cat.items.forEach((product: any, i: number) => {
+            if (product?.name) {
+              items.push({
+                id: `product-${cat.name || 'default'}-${i}`,
+                name: product.name,
+                description: product.description || '',
+                category: cat.name || product.category || 'General',
+                confidence: product.confidence || 0,
+                source: product.source || 'website',
+                sourceExcerpt: product.sourceExcerpt,
+              });
+            }
+          });
+        }
+      });
+    }
+
+    // Fallback: websiteAnalysis solutions (if no UVP products)
+    if (items.length === 0 && deepContext?.business?.websiteAnalysis?.solutions?.length) {
       deepContext.business.websiteAnalysis.solutions.forEach((sol: string, i: number) => {
-        if (sol) items.push({ id: `product-${i}`, text: sol, type: 'product' });
+        if (sol) {
+          items.push({
+            id: `ws-product-${i}`,
+            name: sol,
+            description: '',
+            category: 'Service',
+            confidence: 0,
+            source: 'website',
+          });
+        }
       });
     }
 
     return items;
-  }, [deepContext?.business?.websiteAnalysis?.solutions]);
+  }, [uvp?.productsServices, deepContext?.business?.websiteAnalysis?.solutions]);
+
+  // Legacy productItems for backward compatibility
+  const productItems = useMemo(() => {
+    return productsData.map(p => ({ id: p.id, text: p.name, type: 'product' }));
+  }, [productsData]);
 
   const transformationItems = useMemo(() => {
     const items: { id: string; text: string; type: string }[] = [];
@@ -2476,9 +4123,41 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
     return parseCustomerProfiles(uvp.targetCustomer.statement);
   }, [uvp?.targetCustomer?.statement]);
 
+  // Group profiles by role category
+  const groupedProfiles = useMemo(() => {
+    return groupProfilesByRole(parsedProfiles);
+  }, [parsedProfiles]);
+
+  // Get drivers from UVP - check multiple sources
+  const emotionalDrivers = useMemo(() => {
+    const drivers =
+      uvp?.transformationGoal?.emotionalDrivers ||
+      uvp?.targetCustomer?.emotionalDrivers ||
+      (deepContext?.business?.uvp as any)?.emotionalDrivers ||
+      [];
+    return drivers;
+  }, [uvp, deepContext]);
+
+  const functionalDrivers = useMemo(() => {
+    const drivers =
+      uvp?.transformationGoal?.functionalDrivers ||
+      uvp?.targetCustomer?.functionalDrivers ||
+      (deepContext?.business?.uvp as any)?.functionalDrivers ||
+      [];
+    return drivers;
+  }, [uvp, deepContext]);
+
+  // Convert grouped map to array for rendering
+  const groupedProfilesArray = useMemo(() => {
+    const order: RoleCategory[] = ['C-Suite', 'Operations', 'Technology', 'Sales & Marketing', 'Other'];
+    return order
+      .filter(cat => groupedProfiles.has(cat))
+      .map(cat => ({ category: cat, profiles: groupedProfiles.get(cat) || [] }));
+  }, [groupedProfiles]);
+
   return (
     <>
-      {/* Customer Profile - Expandable cards showing UVP customer profiles */}
+      {/* Customer Profile - Grouped by Role Type */}
       {parsedProfiles.length > 0 && (
         <SidebarSection
           title="Customer Profile"
@@ -2486,25 +4165,15 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
           defaultExpanded={false}
           badgeCount={parsedProfiles.length}
         >
-          <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
-            {/* Each parsed customer profile as expandable card */}
-            {parsedProfiles.map((profile, index) => (
-              <CustomerProfileCard
-                key={`profile-${index}`}
-                title={profile.title}
-                description={profile.description}
-                emotionalDrivers={
-                  uvp?.transformationGoal?.emotionalDrivers ||
-                  uvp?.targetCustomer?.emotionalDrivers ||
-                  (deepContext?.business?.uvp as any)?.emotionalDrivers ||
-                  []
-                }
-                functionalDrivers={
-                  uvp?.transformationGoal?.functionalDrivers ||
-                  uvp?.targetCustomer?.functionalDrivers ||
-                  (deepContext?.business?.uvp as any)?.functionalDrivers ||
-                  []
-                }
+          <div className="space-y-3 max-h-[500px] overflow-y-auto pr-1">
+            {/* Render grouped profiles by role category */}
+            {groupedProfilesArray.map(({ category, profiles }) => (
+              <RoleCategoryGroup
+                key={category}
+                category={category}
+                profiles={profiles}
+                emotionalDrivers={emotionalDrivers}
+                functionalDrivers={functionalDrivers}
                 onSelectItem={onSelectItem}
               />
             ))}
@@ -2512,61 +4181,96 @@ const UVPBuildingBlocks = memo(function UVPBuildingBlocks({ uvp, deepContext, on
         </SidebarSection>
       )}
 
-      {/* Differentiators */}
-      {differentiatorItems.length > 0 && (
-        <SidebarSection
-          title="Differentiators"
-          icon={<Shield className="w-4 h-4" />}
-          defaultExpanded={false}
-          badgeCount={differentiatorItems.length}
-        >
-          <div className="space-y-1.5">
-            {differentiatorItems.map(renderClickableItem)}
-          </div>
-        </SidebarSection>
-      )}
-
-      {/* Key Benefits */}
-      {benefitItems.length > 0 && (
-        <SidebarSection
-          title="Key Benefits"
-          icon={<Heart className="w-4 h-4" />}
-          defaultExpanded={false}
-          badgeCount={benefitItems.length}
-        >
-          <div className="space-y-1.5">
-            {benefitItems.map(renderClickableItem)}
-          </div>
-        </SidebarSection>
-      )}
-
-      {/* Products/Services */}
-      {productItems.length > 0 && (
+      {/* Products & Services - Right after Customer Profile */}
+      {productsData.length > 0 && (
         <SidebarSection
           title="Products & Services"
           icon={<Package className="w-4 h-4" />}
           defaultExpanded={false}
-          badgeCount={productItems.length}
+          badgeCount={productsData.length}
         >
-          <div className="space-y-1.5">
-            {productItems.map(renderClickableItem)}
+          <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+            {productsData.map((product) => (
+              <ProductCard
+                key={product.id}
+                name={product.name}
+                description={product.description}
+                category={product.category}
+                confidence={product.confidence}
+                source={product.source}
+                sourceExcerpt={product.sourceExcerpt}
+                onSelectItem={onSelectItem}
+              />
+            ))}
           </div>
         </SidebarSection>
       )}
 
-      {/* Value Proposition Statement */}
+      {/* Differentiators - Expandable Cards with UVP Data */}
+      {differentiatorData.length > 0 && (
+        <SidebarSection
+          title="Differentiators"
+          icon={<Shield className="w-4 h-4" />}
+          defaultExpanded={false}
+          badgeCount={differentiatorData.length}
+        >
+          <div className="space-y-2">
+            {differentiatorData.map((diff) => (
+              <DifferentiatorCard
+                key={diff.id}
+                statement={diff.statement}
+                evidence={diff.evidence}
+                strengthScore={diff.strengthScore}
+                source={diff.source}
+                type={diff.type}
+                onSelectItem={onSelectItem}
+              />
+            ))}
+          </div>
+        </SidebarSection>
+      )}
+
+      {/* Key Benefits - Expandable Cards with UVP Data */}
+      {benefitData.length > 0 && (
+        <SidebarSection
+          title="Key Benefits"
+          icon={<Heart className="w-4 h-4" />}
+          defaultExpanded={false}
+          badgeCount={benefitData.length}
+        >
+          <div className="space-y-2 max-h-[400px] overflow-y-auto pr-1">
+            {benefitData.map((benefit) => (
+              <BenefitCard
+                key={benefit.id}
+                statement={benefit.statement}
+                outcomeStatement={benefit.outcomeStatement}
+                outcomeType={benefit.outcomeType}
+                eqFraming={benefit.eqFraming}
+                metrics={benefit.metrics}
+                source={benefit.source}
+                type={benefit.type}
+                onSelectItem={onSelectItem}
+              />
+            ))}
+          </div>
+        </SidebarSection>
+      )}
+
+      {/* Value Proposition - Expandable Card with Variations & Statements */}
       {uvp.valuePropositionStatement && (
         <SidebarSection
           title="Value Proposition"
           icon={<Target className="w-4 h-4" />}
           defaultExpanded={false}
         >
-          <button
-            onClick={() => onSelectItem({ type: 'uvp', text: uvp.valuePropositionStatement })}
-            className="w-full text-left p-2 text-xs rounded-lg bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-700 hover:border-purple-400 transition-colors"
-          >
-            {uvp.valuePropositionStatement}
-          </button>
+          <ValuePropositionCard
+            statement={uvp.valuePropositionStatement}
+            variations={uvp.variations}
+            whyStatement={uvp.whyStatement}
+            whatStatement={uvp.whatStatement}
+            howStatement={uvp.howStatement}
+            onSelectItem={onSelectItem}
+          />
         </SidebarSection>
       )}
 
@@ -3091,7 +4795,8 @@ export function V4PowerModePanel({
   context: providedContext,
   onContentGenerated,
   onSaveToCalendar,
-  skipApis = false  // DEV MODE: Set to true to skip all external API calls
+  skipApis = false,  // DEV MODE: Set to true to skip all external API calls
+  forceApiRefresh = false  // ONE-TIME: Set to true to force fresh API calls
 }: V4PowerModePanelProps) {
   // State
   const [allInsights, setAllInsights] = useState<InsightCard[]>([]);
@@ -3101,7 +4806,12 @@ export function V4PowerModePanel({
   const [templateSidebarCollapsed, setTemplateSidebarCollapsed] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState<InsightRecipe | null>(null);
   const [activeFramework, setActiveFramework] = useState<PsychologyFramework>('AIDA');
-  const [activePlatform, setActivePlatform] = useState<'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'tiktok'>('linkedin');
+  const [selectedPlatforms, setSelectedPlatforms] = useState<Set<'linkedin' | 'instagram' | 'twitter' | 'facebook' | 'tiktok'>>(new Set(['linkedin']));
+  const [platformDropdownOpen, setPlatformDropdownOpen] = useState(false);
+  const [frameworkDropdownOpen, setFrameworkDropdownOpen] = useState(false);
+  const [funnelDropdownOpen, setFunnelDropdownOpen] = useState(false);
+  // Derived: Primary platform for single-platform APIs (first selected)
+  const activePlatform = Array.from(selectedPlatforms)[0] || 'linkedin';
   const [activeFunnelStage, setActiveFunnelStage] = useState<FunnelStage>('TOFU');
   const [generatedContent, setGeneratedContent] = useState<GeneratedContent | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -3130,6 +4840,115 @@ export function V4PowerModePanel({
     clearError
   } = useV4ContentGeneration({ uvp, brandId, mode: 'power' });
 
+  // Business Profile Hook - provides competitor-aware gaps, industry hooks, and segment features
+  const {
+    profile: businessProfile,
+    gaps: competitorAwareGaps,
+    competitors: discoveredCompetitors,
+    hooks: industryHooks,
+    features: segmentFeatures,
+    segmentLabel,
+    isLoading: isLoadingProfile,
+    refresh: refreshBusinessProfile
+  } = useBusinessProfile(deepContext, uvp);
+
+  // NEW: Competitor Intelligence Hook - provides real competitor data from Gap Tab 2.0 system
+  const {
+    competitors: realCompetitorChips,
+    gaps: realCompetitorGaps,
+    filteredGaps,
+    // Enhanced intelligence data
+    enhancedInsights,
+    customerVoiceByCompetitor,
+    isLoading: isLoadingCompetitors,
+    isDiscovering,
+    isScanning,
+    isAnalyzing,
+    // Phase tracking for enhanced progress UI
+    scanPhase,
+    phaseLabel,
+    overallProgress,
+    competitorStatuses,
+    elapsedSeconds,
+    toggleCompetitor,
+    identifyCompetitor,
+    addCompetitor,
+    removeCompetitor,
+    rescanCompetitor,
+    rescanAll,
+    runDiscovery,
+    dismissGap,
+    toggleGapStar,
+    error: competitorError
+  } = useCompetitorIntelligence(brandId, deepContext, { autoLoad: true, autoDiscover: true });
+
+  // Early competitor discovery hook - triggers at 30% progress during DeepContext build (Task 6.7)
+  const {
+    state: earlyDiscoveryState,
+    triggerDiscovery: triggerEarlyDiscovery,
+    startFullAnalysis: startFullCompetitorAnalysis,
+    hasRunForBrand: hasEarlyDiscoveryRun
+  } = useEarlyCompetitorDiscovery({ triggerAtProgress: 30 });
+
+  // Ref to track if early discovery has been triggered during this session
+  const earlyDiscoveryTriggeredRef = useRef(false);
+
+  // Expose refresh functions to window for dev testing
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      (window as any).__refreshGaps = refreshBusinessProfile;
+      (window as any).__runDiscovery = runDiscovery;
+      (window as any).__rescanAll = rescanAll; // Rescan existing competitors + extract gaps → saves to Supabase
+
+      // Add competitor manually - usage: window.__addCompetitor('Tidio', 'https://tidio.com')
+      (window as any).__addCompetitor = async (name: string, website?: string) => {
+        if (!name) {
+          console.error('Usage: window.__addCompetitor("Competitor Name", "https://website.com")');
+          return;
+        }
+        console.log(`[Dev] Adding competitor: ${name}`);
+        const competitor = {
+          name,
+          website: website || `https://${name.toLowerCase().replace(/\s+/g, '')}.com`,
+          confidence: 0.8,
+          reason: 'Manually added for testing'
+        };
+        await addCompetitor(competitor, (stage, progress) => {
+          console.log(`[Dev] ${name}: ${stage} (${progress}%)`);
+        });
+        console.log(`[Dev] ✅ ${name} added successfully!`);
+      };
+
+      console.log('[V4PowerMode] Dev helpers available:');
+      console.log('  - window.__refreshGaps() - Refresh business profile');
+      console.log('  - window.__runDiscovery() - Run full competitor discovery');
+      console.log('  - window.__rescanAll() - Rescan gaps only (uses existing competitors, saves to cache)');
+      console.log('  - window.__addCompetitor("Name", "https://url") - Add single competitor & scan');
+    }
+    return () => {
+      if (typeof window !== 'undefined') {
+        delete (window as any).__refreshGaps;
+        delete (window as any).__runDiscovery;
+        delete (window as any).__rescanAll;
+        delete (window as any).__addCompetitor;
+      }
+    };
+  }, [refreshBusinessProfile, runDiscovery, rescanAll, addCompetitor]);
+
+  // Log business profile when resolved
+  useEffect(() => {
+    if (businessProfile) {
+      console.log('[V4PowerMode] Business profile resolved:', {
+        segment: businessProfile.segmentLabel,
+        industry: businessProfile.industryProfile?.industry,
+        gapsCount: competitorAwareGaps.length,
+        competitorsCount: discoveredCompetitors.length,
+        hasHooks: Object.keys(industryHooks).length > 0,
+        features: segmentFeatures
+      });
+    }
+  }, [businessProfile, competitorAwareGaps, discoveredCompetitors, industryHooks, segmentFeatures]);
+
   // Load DeepContext if not provided
   useEffect(() => {
     async function loadDeepContext() {
@@ -3145,8 +4964,8 @@ export function V4PowerModePanel({
       }
       deepContextLoadedRef.current = true;
 
-      // If context was provided, use it directly
-      if (providedContext) {
+      // If context was provided, use it directly (unless forcing refresh)
+      if (providedContext && !forceApiRefresh) {
         console.log('[V4PowerMode] Using provided DeepContext');
         setDeepContext(providedContext);
         // FREEZE FIX: Use async chunked extraction with yield points
@@ -3159,35 +4978,138 @@ export function V4PowerModePanel({
       }
 
       setIsLoading(true);
-      setLoadingStatus('Checking for preloaded intelligence...');
+
+      // ONE-TIME API REFRESH: Skip all caches and go straight to API calls
+      if (forceApiRefresh) {
+        console.log('[V4PowerMode] 🔄 FORCE API REFRESH: Bypassing all caches...');
+        setLoadingStatus('Force refresh: Running all APIs...');
+        // Skip directly to API calls below
+      } else {
+        setLoadingStatus('Checking for preloaded intelligence...');
+
+        try {
+          // Check for preloaded context from UVP flow
+          const preloadedContext = dashboardPreloader.getPreloadedContext(brandId);
+
+          if (preloadedContext) {
+            console.log('[V4PowerMode] ✅ Using PRELOADED context from UVP flow');
+            setDeepContext(preloadedContext);
+            // FREEZE FIX: Use async chunked extraction with yield points
+            const insights = await extractInsightsFromDeepContextAsync(preloadedContext, uvp, (partialInsights, section) => {
+              console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights (${section})`);
+            });
+            setAllInsights(insights);
+            setIsLoading(false);
+            return;
+          }
+        } catch (e) {
+          console.warn('[V4PowerMode] Preload check failed:', e);
+        }
+      }
 
       try {
-        // Check for preloaded context from UVP flow
-        const preloadedContext = dashboardPreloader.getPreloadedContext(brandId);
-
-        if (preloadedContext) {
-          console.log('[V4PowerMode] ✅ Using PRELOADED context from UVP flow');
-          setDeepContext(preloadedContext);
-          // FREEZE FIX: Use async chunked extraction with yield points
-          const insights = await extractInsightsFromDeepContextAsync(preloadedContext, uvp, (partialInsights, section) => {
-            console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights (${section})`);
-          });
-          setAllInsights(insights);
-          setIsLoading(false);
-          return;
+        // FEATURE BRANCH CACHE: Check for cached data for this specific brand (unless forcing refresh)
+        if (!forceApiRefresh && hasCachedData(brandId)) {
+          console.log('[V4PowerMode] 🗃️ Using CACHED data from feature branch cache');
+          setLoadingStatus('Loading cached intelligence...');
+          const cachedData = getCachedData(brandId);
+          if (cachedData?.deepContext) {
+            setDeepContext(cachedData.deepContext);
+            // Use cached insights directly if available, otherwise extract from context
+            if (cachedData.insights && cachedData.insights.length > 0) {
+              console.log(`[V4PowerMode] Using ${cachedData.insights.length} pre-categorized cached insights`);
+              const convertedInsights: InsightCard[] = cachedData.insights.map(ci => ({
+                id: ci.id,
+                type: ci.type,
+                title: ci.title,
+                category: ci.category,
+                confidence: ci.confidence,
+                isTimeSensitive: ci.isTimeSensitive,
+                description: ci.description,
+                actionableInsight: ci.actionableInsight,
+                evidence: ci.evidence,
+                sources: ci.sources,
+                rawData: ci.rawData,
+              }));
+              setAllInsights(convertedInsights);
+            } else {
+              const insights = await extractInsightsFromDeepContextAsync(cachedData.deepContext, uvp, (partialInsights, section) => {
+                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from cache (${section})`);
+              });
+              setAllInsights(insights);
+            }
+            setIsLoading(false);
+            return;
+          }
         }
 
-        // DEV MODE: Skip ALL API calls - use UVP data from database only
-        if (skipApis) {
-          console.log('[V4PowerMode] 🔧 DEV MODE: Using UVP data only (no APIs)');
+        // DEV MODE: Skip ALL API calls - use cached data from localStorage if available
+        if (skipApis && !forceApiRefresh) {
+          // First, check localStorage for cached DeepContext from previous API run
+          const cacheKey = `deepContext_${brandId}`;
+          const cachedContextStr = localStorage.getItem(cacheKey);
+
+          if (cachedContextStr) {
+            try {
+              const cachedContext = JSON.parse(cachedContextStr) as DeepContext;
+              console.log('[V4PowerMode] 🔧 DEV MODE: Using CACHED DeepContext from localStorage');
+              setLoadingStatus('Loading cached intelligence...');
+              setDeepContext(cachedContext);
+              let insights = await extractInsightsFromDeepContextAsync(cachedContext, uvp, (partialInsights, section) => {
+                console.log(`[V4PowerMode] Extracted ${partialInsights.length} insights from cache (${section})`);
+              });
+
+              // ONE-TIME: Fetch Reddit conversations and merge
+              if (FETCH_CONVERSATIONS_ONCE && !conversationsFetched) {
+                setLoadingStatus('Fetching Reddit conversations...');
+                const conversationInsights = await fetchAndCacheConversations(uvp, brandId);
+                if (conversationInsights.length > 0) {
+                  insights = [...insights, ...conversationInsights];
+                  console.log(`[V4PowerMode] ✅ Merged ${conversationInsights.length} conversation insights`);
+                }
+              } else {
+                // Check for cached conversations from previous fetch
+                const convoCacheKey = `conversations_${brandId}`;
+                const cachedConvos = localStorage.getItem(convoCacheKey);
+                if (cachedConvos) {
+                  try {
+                    const parsedConvos = JSON.parse(cachedConvos) as InsightCard[];
+                    insights = [...insights, ...parsedConvos];
+                    console.log(`[V4PowerMode] ✅ Loaded ${parsedConvos.length} cached conversation insights`);
+                  } catch (e) {
+                    console.warn('[V4PowerMode] Failed to parse cached conversations');
+                  }
+                }
+              }
+
+              setAllInsights(insights);
+              setIsLoading(false);
+              return;
+            } catch (e) {
+              console.warn('[V4PowerMode] Failed to parse cached context:', e);
+            }
+          }
+
+          console.log('[V4PowerMode] 🔧 DEV MODE: No cached data - using UVP data only');
           setLoadingStatus('Loading UVP data...');
+          // Cast to any to access extended properties that might exist at runtime
+          const uvpData = uvp as any;
+          // Load brand from localStorage (one-time read, no hook dependency)
+          let storedBrand: { name?: string; industry?: string; website?: string } | null = null;
+          try {
+            const stored = localStorage.getItem('currentBrand');
+            if (stored) storedBrand = JSON.parse(stored);
+          } catch (e) { /* ignore parse errors */ }
+          const brandName = storedBrand?.name || uvpData.brandName || 'Brand';
+          const brandIndustry = storedBrand?.industry || uvpData.industry || 'General';
+          console.log('[V4PowerMode] Using brand info for context:', { brandName, brandIndustry });
           const minimalContext: DeepContext = {
             business: {
               profile: {
                 id: brandId,
-                name: uvp.brandName || 'Brand',
-                industry: uvp.industry || 'General',
-                website: uvp.websiteUrl || '',
+                name: brandName,
+                industry: brandIndustry,
+                website: storedBrand?.website || uvpData.websiteUrl || '',
                 location: { city: '', state: '', country: '' },
                 keywords: []
               },
@@ -3202,7 +5124,7 @@ export function V4PowerModePanel({
               goals: [],
               uvp: {
                 targetCustomer: uvp.targetCustomer?.statement || '',
-                customerProblem: uvp.customerProblem?.statement || '',
+                customerProblem: uvpData.customerProblem?.statement || '',
                 desiredOutcome: uvp.transformationGoal?.statement || '',
                 uniqueSolution: uvp.uniqueSolution?.statement || '',
                 keyBenefit: uvp.keyBenefit?.statement || '',
@@ -3283,6 +5205,21 @@ export function V4PowerModePanel({
           // PROGRESSIVE RENDERING: Extract and render insights as data arrives
           const now = Date.now();
           setLoadingStatus(`Loading... ${metadata.completedApis.length} APIs complete (${metadata.dataPointsCollected} data points)`);
+
+          // TASK 6.7: Early competitor discovery trigger at ~30% progress
+          // Trigger when we have business profile data (usually ~3 APIs complete)
+          const hasBusinessProfile = context.business?.profile?.name && context.business?.profile?.industry;
+          const atEarlyDiscoveryThreshold = metadata.completedApis.length >= 3;
+
+          if (hasBusinessProfile && atEarlyDiscoveryThreshold && !earlyDiscoveryTriggeredRef.current) {
+            earlyDiscoveryTriggeredRef.current = true;
+            console.log('[V4PowerMode] 🚀 EARLY DISCOVERY: Triggering competitor discovery at ~30% progress');
+
+            // Non-blocking: Fire and forget - discovery runs in parallel with UVP extraction
+            triggerEarlyDiscovery(brandId, context).catch(err => {
+              console.warn('[V4PowerMode] Early discovery failed (non-blocking):', err);
+            });
+          }
 
           // Throttle extraction to prevent freeze - extract every 2 seconds
           if (now - lastExtractTime > EXTRACT_THROTTLE_MS && metadata.dataPointsCollected > 10) {
@@ -3483,11 +5420,11 @@ export function V4PowerModePanel({
   // This uses deferredInsights so counts update AFTER main render completes
   const insightCounts = useMemo(() => ({
     all: deferredInsights.length,
-    customer: deferredInsights.filter(i => i.type === 'customer').length,
-    market: deferredInsights.filter(i => i.type === 'market').length,
-    competition: deferredInsights.filter(i => i.type === 'competition').length,
-    local: deferredInsights.filter(i => i.type === 'local').length,
-    opportunity: deferredInsights.filter(i => i.type === 'opportunity').length,
+    triggers: deferredInsights.filter(i => i.type === 'triggers').length,
+    proof: deferredInsights.filter(i => i.type === 'proof').length,
+    trends: deferredInsights.filter(i => i.type === 'trends').length,
+    conversations: deferredInsights.filter(i => i.type === 'conversations').length,
+    gaps: deferredInsights.filter(i => i.type === 'gaps').length,
   }), [deferredInsights]);
 
   // Auto-generate live preview when selection changes (debounced) - DISABLED BY DEFAULT
@@ -3635,53 +5572,229 @@ export function V4PowerModePanel({
         {/* Separator */}
         <div className="w-px h-8 bg-gray-200 dark:bg-slate-700" />
 
-        {/* Framework Dropdown */}
-        <Select value={activeFramework} onValueChange={(v) => setActiveFramework(v as PsychologyFramework)}>
-          <SelectTrigger className="w-36 h-9 text-sm bg-slate-800 border-slate-600 text-white">
-            <SelectValue placeholder="Framework" />
-          </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-slate-600">
-            <SelectItem value="AIDA" className="text-white hover:bg-slate-700">AIDA</SelectItem>
-            <SelectItem value="PAS" className="text-white hover:bg-slate-700">PAS</SelectItem>
-            <SelectItem value="BAB" className="text-white hover:bg-slate-700">BAB</SelectItem>
-            <SelectItem value="PASTOR" className="text-white hover:bg-slate-700">PASTOR</SelectItem>
-            <SelectItem value="StoryBrand" className="text-white hover:bg-slate-700">StoryBrand</SelectItem>
-            <SelectItem value="CuriosityGap" className="text-white hover:bg-slate-700">Curiosity Gap</SelectItem>
-            <SelectItem value="PatternInterrupt" className="text-white hover:bg-slate-700">Pattern Interrupt</SelectItem>
-            <SelectItem value="SocialProof" className="text-white hover:bg-slate-700">Social Proof</SelectItem>
-            <SelectItem value="Scarcity" className="text-white hover:bg-slate-700">Scarcity</SelectItem>
-            <SelectItem value="Reciprocity" className="text-white hover:bg-slate-700">Reciprocity</SelectItem>
-            <SelectItem value="LossAversion" className="text-white hover:bg-slate-700">Loss Aversion</SelectItem>
-            <SelectItem value="Authority" className="text-white hover:bg-slate-700">Authority</SelectItem>
-            <SelectItem value="FAB" className="text-white hover:bg-slate-700">FAB</SelectItem>
-          </SelectContent>
-        </Select>
+        {/* Framework & Funnel Selectors with Titles */}
+        <TooltipProvider delayDuration={100}>
+          <div className="flex items-start gap-3">
+            {/* Content Goal (Framework) Custom Dropdown with Tooltips */}
+            <div className="flex flex-col gap-1 relative">
+              <div className="flex items-center gap-1">
+                <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  Content Goal
+                </label>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                    <p className="font-medium text-sm mb-1">What should this content do?</p>
+                    <p className="text-xs text-gray-300">Choose a messaging framework that matches your goal - from grabbing attention to driving conversions.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <button
+                onClick={() => {
+                  setFrameworkDropdownOpen(!frameworkDropdownOpen);
+                  setFunnelDropdownOpen(false);
+                  setPlatformDropdownOpen(false);
+                }}
+                className="flex items-center justify-between w-44 h-8 px-3 text-sm bg-slate-800 border border-slate-600 text-white rounded-md hover:bg-slate-700 transition-colors"
+              >
+                <span className="text-sm truncate">{FRAMEWORK_TOOLTIPS[activeFramework]?.displayName || activeFramework}</span>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${frameworkDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-        {/* Platform Dropdown */}
-        <Select value={activePlatform} onValueChange={(v) => setActivePlatform(v as typeof activePlatform)}>
-          <SelectTrigger className="w-32 h-9 text-sm bg-slate-800 border-slate-600 text-white">
-            <SelectValue placeholder="Platform" />
-          </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-slate-600">
-            <SelectItem value="linkedin" className="text-white hover:bg-slate-700">LinkedIn</SelectItem>
-            <SelectItem value="instagram" className="text-white hover:bg-slate-700">Instagram</SelectItem>
-            <SelectItem value="twitter" className="text-white hover:bg-slate-700">Twitter/X</SelectItem>
-            <SelectItem value="facebook" className="text-white hover:bg-slate-700">Facebook</SelectItem>
-            <SelectItem value="tiktok" className="text-white hover:bg-slate-700">TikTok</SelectItem>
-          </SelectContent>
-        </Select>
+              {/* Framework Dropdown Menu with Tooltips */}
+              {frameworkDropdownOpen && (
+                <div className="absolute top-full left-0 mt-1 w-52 bg-slate-800 border border-slate-600 rounded-md shadow-lg z-50">
+                  <div
+                    className="max-h-72 overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                  >
+                    {Object.entries(FRAMEWORK_TOOLTIPS).map(([key, { displayName, description }]) => (
+                      <Tooltip key={key}>
+                        <TooltipTrigger asChild>
+                          <button
+                            onClick={() => {
+                              setActiveFramework(key as PsychologyFramework);
+                              setFrameworkDropdownOpen(false);
+                            }}
+                            className={`w-full flex flex-col items-start px-3 py-2 hover:bg-slate-700 cursor-pointer text-left ${
+                              activeFramework === key ? 'bg-purple-900/30 border-l-2 border-purple-500' : ''
+                            }`}
+                          >
+                            <span className="text-sm text-white">{displayName}</span>
+                            <span className="text-[10px] text-gray-400">{key}</span>
+                          </button>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3 z-[60]">
+                          <p className="text-xs text-gray-300">{description}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
+                  </div>
+                  {/* Scroll indicator */}
+                  <div className="flex justify-center py-1 border-t border-slate-700 bg-slate-800/90">
+                    <ChevronDown className="w-4 h-4 text-gray-500 animate-bounce" />
+                  </div>
+                </div>
+              )}
+            </div>
 
-        {/* Funnel Stage Dropdown */}
-        <Select value={activeFunnelStage} onValueChange={(v) => setActiveFunnelStage(v as FunnelStage)}>
-          <SelectTrigger className="w-28 h-9 text-sm bg-slate-800 border-slate-600 text-white">
-            <SelectValue placeholder="Funnel" />
-          </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-slate-600">
-            <SelectItem value="TOFU" className="text-white hover:bg-slate-700">TOFU</SelectItem>
-            <SelectItem value="MOFU" className="text-white hover:bg-slate-700">MOFU</SelectItem>
-            <SelectItem value="BOFU" className="text-white hover:bg-slate-700">BOFU</SelectItem>
-          </SelectContent>
-        </Select>
+            {/* Audience Stage (Funnel) Custom Dropdown with Tooltips */}
+            <div className="flex flex-col gap-1 relative">
+              <div className="flex items-center gap-1">
+                <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  Audience
+                </label>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                    <p className="font-medium text-sm mb-1">Who is this content for?</p>
+                    <p className="text-xs text-gray-300">Cold = strangers who don't know you. Warm = people considering options. Hot = ready-to-buy prospects.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <button
+                onClick={() => {
+                  setFunnelDropdownOpen(!funnelDropdownOpen);
+                  setFrameworkDropdownOpen(false);
+                  setPlatformDropdownOpen(false);
+                }}
+                className="flex items-center justify-between w-44 h-8 px-3 text-sm bg-slate-800 border border-slate-600 text-white rounded-md hover:bg-slate-700 transition-colors"
+              >
+                <div className="flex flex-col items-start">
+                  <span className="text-sm">{FUNNEL_TOOLTIPS[activeFunnelStage]?.emoji} {FUNNEL_TOOLTIPS[activeFunnelStage]?.displayName}</span>
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform flex-shrink-0 ${funnelDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Funnel Dropdown Menu with Tooltips */}
+              {funnelDropdownOpen && (
+                <div className="absolute top-full left-0 mt-1 w-56 bg-slate-800 border border-slate-600 rounded-md shadow-lg z-50">
+                  {Object.entries(FUNNEL_TOOLTIPS).map(([key, { displayName, emoji, acronym, description }]) => (
+                    <Tooltip key={key}>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => {
+                            setActiveFunnelStage(key as FunnelStage);
+                            setFunnelDropdownOpen(false);
+                          }}
+                          className={`w-full flex flex-col items-start px-3 py-2 hover:bg-slate-700 cursor-pointer text-left ${
+                            activeFunnelStage === key ? 'bg-purple-900/30 border-l-2 border-purple-500' : ''
+                          }`}
+                        >
+                          <span className="text-sm text-white">{emoji} {displayName}</span>
+                          <span className="text-[10px] text-gray-400">{acronym}</span>
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="right" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3 z-[60]">
+                        <p className="text-xs text-gray-300">{description}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Platform Multi-Select Dropdown */}
+            <div className="flex flex-col gap-1 relative">
+              <div className="flex items-center gap-1">
+                <label className="text-[10px] font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                  Platforms
+                </label>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <HelpCircle className="w-3 h-3 text-gray-400 hover:text-gray-300 cursor-help" />
+                  </TooltipTrigger>
+                  <TooltipContent side="top" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3">
+                    <p className="font-medium text-sm mb-1">Where will this be posted?</p>
+                    <p className="text-xs text-gray-300">Select one or more platforms. Content will be optimized for each platform's best practices.</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+              <button
+                onClick={() => {
+                  setPlatformDropdownOpen(!platformDropdownOpen);
+                  setFrameworkDropdownOpen(false);
+                  setFunnelDropdownOpen(false);
+                }}
+                className="flex items-center justify-between w-44 h-8 px-3 text-sm bg-slate-800 border border-slate-600 text-white rounded-md hover:bg-slate-700 transition-colors"
+              >
+                <div className="flex items-center gap-1.5 overflow-hidden">
+                  {Array.from(selectedPlatforms).slice(0, 3).map((p) => {
+                    const Icon = PlatformIcons[p];
+                    return <Icon key={p} />;
+                  })}
+                  {selectedPlatforms.size > 3 && (
+                    <span className="text-xs text-gray-400">+{selectedPlatforms.size - 3}</span>
+                  )}
+                  {selectedPlatforms.size === 5 && (
+                    <span className="text-xs text-gray-300 ml-1">All</span>
+                  )}
+                </div>
+                <ChevronDown className={`w-4 h-4 text-gray-400 transition-transform ${platformDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {/* Platform Dropdown Menu */}
+              {platformDropdownOpen && (
+                <div className="absolute top-full left-0 mt-1 w-56 bg-slate-800 border border-slate-600 rounded-md shadow-lg z-50">
+                  {/* Select All */}
+                  <label className="flex items-center gap-3 px-3 py-2 hover:bg-slate-700 cursor-pointer border-b border-slate-600">
+                    <Checkbox
+                      checked={selectedPlatforms.size === 5}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setSelectedPlatforms(new Set(['linkedin', 'instagram', 'twitter', 'facebook', 'tiktok']));
+                        } else {
+                          setSelectedPlatforms(new Set(['linkedin']));
+                        }
+                      }}
+                      className="h-4 w-4 border-slate-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                    />
+                    <span className="text-sm text-white font-medium">Select All</span>
+                  </label>
+
+                  {/* Individual Platforms */}
+                  {(['linkedin', 'instagram', 'twitter', 'facebook', 'tiktok'] as const).map((platform) => {
+                    const Icon = PlatformIcons[platform];
+                    return (
+                      <Tooltip key={platform}>
+                        <TooltipTrigger asChild>
+                          <label className="flex items-center gap-3 px-3 py-2 hover:bg-slate-700 cursor-pointer">
+                            <Checkbox
+                              checked={selectedPlatforms.has(platform)}
+                              onCheckedChange={(checked) => {
+                                const newPlatforms = new Set(selectedPlatforms);
+                                if (checked) {
+                                  newPlatforms.add(platform);
+                                } else {
+                                  newPlatforms.delete(platform);
+                                  if (newPlatforms.size === 0) {
+                                    newPlatforms.add('linkedin');
+                                  }
+                                }
+                                setSelectedPlatforms(newPlatforms);
+                              }}
+                              className="h-4 w-4 border-slate-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600"
+                            />
+                            <div className="flex items-center gap-2 text-white">
+                              <Icon />
+                              <span className="text-sm">{PLATFORM_TOOLTIPS[platform].label}</span>
+                            </div>
+                          </label>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="max-w-xs bg-slate-900 border-slate-700 text-white p-3 z-[60]">
+                          <p className="text-xs text-gray-300">{PLATFORM_TOOLTIPS[platform].description}</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
+        </TooltipProvider>
 
         {/* Generate Button - Primary action */}
         <button
@@ -3799,6 +5912,9 @@ export function V4PowerModePanel({
 
                   {/* UVP Building Blocks */}
                   <UVPBuildingBlocks uvp={uvp} deepContext={deepContext} onSelectItem={handleUVPItemSelect} />
+
+                  {/* NOTE: Removed sidebar Competitive Gaps section - gaps now ONLY come from real
+                       competitor intelligence in the Gaps tab, no fallback dummy data */}
                 </ScrollArea>
               </div>
             </motion.div>
@@ -3807,9 +5923,9 @@ export function V4PowerModePanel({
 
         {/* Middle: Insight Grid */}
         <div className="flex-1 flex flex-col min-w-0 p-4">
-          {/* Filter Tabs */}
+          {/* Filter Tabs - Synapse-aligned categories */}
           <div className="flex-shrink-0 flex gap-2 mb-4 overflow-x-auto pb-2">
-            {(['all', 'customer', 'market', 'competition', 'local', 'opportunity'] as FilterType[]).map((filter) => (
+            {(['all', 'triggers', 'proof', 'trends', 'gaps'] as FilterType[]).map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
@@ -3819,9 +5935,9 @@ export function V4PowerModePanel({
                     : 'bg-white dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-purple-100 dark:hover:bg-purple-900/20'
                 }`}
               >
-                {filter === 'all' ? 'All' : typeConfig[filter].label}
+                {filter === 'all' ? 'All' : typeConfig[filter as InsightType].label}
                 <span className="ml-1.5 text-xs opacity-70">
-                  {insightCounts[filter]}
+                  {insightCounts[filter as keyof typeof insightCounts]}
                 </span>
               </button>
             ))}
@@ -3837,6 +5953,118 @@ export function V4PowerModePanel({
                   {allInsights.length > 0 && `${allInsights.length} insights loaded so far...`}
                 </p>
               </div>
+            ) : activeFilter === 'gaps' ? (
+              /* NEW: Gap Tab Phase 12 - Competitor-Centric UI with accordions */
+              <ScrollArea className="h-full">
+                <div className="p-4 space-y-4">
+                  {/* DEV ONLY: Force Fresh Scan Button */}
+                  <div className="flex items-center gap-2 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+                    <AlertCircle className="w-4 h-4 text-yellow-600 flex-shrink-0" />
+                    <span className="text-xs text-yellow-700 dark:text-yellow-400 flex-1">
+                      DEV: Force fresh competitor discovery + gap extraction
+                    </span>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={async () => {
+                        try {
+                          console.log('[GAPS TAB] Starting Force Fresh Scan...');
+                          await runDiscovery(true);
+                          console.log('[GAPS TAB] Force Fresh Scan complete!');
+                        } catch (err) {
+                          console.error('[GAPS TAB] Force Fresh Scan failed:', err);
+                        }
+                      }}
+                      disabled={isDiscovering || isScanning}
+                      className="gap-1.5 text-xs bg-yellow-100 hover:bg-yellow-200 dark:bg-yellow-900/40 dark:hover:bg-yellow-900/60 border-yellow-300 text-yellow-800 dark:text-yellow-200"
+                    >
+                      <RefreshCw className={`w-3.5 h-3.5 ${(isDiscovering || isScanning) ? 'animate-spin' : ''}`} />
+                      {isDiscovering ? 'Discovering...' : isScanning ? 'Scanning...' : 'Force Fresh Scan'}
+                    </Button>
+                  </div>
+
+                  {/* Enhanced Scan Progress */}
+                  <CompetitorScanProgress
+                    isActive={isScanning || isDiscovering || isAnalyzing}
+                    phase={scanPhase}
+                    phaseLabel={phaseLabel}
+                    competitorsFound={realCompetitorChips.length}
+                    competitorsScanned={realCompetitorChips.filter(c => !c.is_scanning).length}
+                    totalCompetitors={realCompetitorChips.length}
+                    gapsExtracted={filteredGaps.length}
+                    competitorStatuses={competitorStatuses}
+                    elapsedSeconds={elapsedSeconds}
+                    error={competitorError || undefined}
+                  />
+
+                  {/* Skeleton Cards while scanning */}
+                  {isScanning && filteredGaps.length === 0 && (
+                    <GapSkeletonGrid
+                      count={realCompetitorChips.length * 2}
+                      competitorNames={realCompetitorChips.map(c => c.name)}
+                      isScanning={isScanning}
+                    />
+                  )}
+
+                  {/* NEW: Competitor Intelligence Panel - Accordion-based UI */}
+                  <CompetitorIntelligencePanel
+                    competitors={realCompetitorChips}
+                    gaps={filteredGaps}
+                    enhancedInsights={enhancedInsights}
+                    customerVoiceByCompetitor={customerVoiceByCompetitor}
+                    isLoading={isLoadingCompetitors || isLoadingProfile}
+                    isDiscovering={isDiscovering}
+                    isScanning={isScanning}
+                    brandName={uvp?.brandId || businessProfile?.name}
+                    onSelectGap={(gap) => {
+                      // Add gap to selected insights for content generation
+                      const gapInsight: InsightCard = {
+                        id: gap.id,
+                        type: 'gaps',
+                        title: gap.title,
+                        description: `${gap.the_void} → ${gap.your_angle}`,
+                        category: 'competitive-gap',
+                        confidence: gap.confidence_score,
+                        isTimeSensitive: false,
+                        sources: [{ source: gap.primary_source }],
+                        rawData: gap
+                      };
+                      handleToggleInsight(gapInsight.id);
+                    }}
+                    onToggleCompetitor={toggleCompetitor}
+                    onRemoveCompetitor={removeCompetitor}
+                    onRescanCompetitor={rescanCompetitor}
+                    onDiscoverCompetitors={() => runDiscovery(true)}
+                    onAddCompetitor={addCompetitor}
+                    onIdentifyCompetitor={identifyCompetitor}
+                  />
+                </div>
+              </ScrollArea>
+            ) : activeFilter === 'triggers' ? (
+              /* Triggers 2.0 - Consolidated view with evidence nested under triggers */
+              <ScrollArea className="h-full">
+                <div className="p-4">
+                  <TriggersPanelV2
+                    deepContext={deepContext}
+                    uvp={uvp}
+                    brandData={{ name: uvp?.brandId, industry: 'Auto-detected' }}
+                    selectedTriggers={selectedInsights}
+                    isLoading={isLoading}
+                    loadingStatus={loadingStatus}
+                    onToggle={handleToggleInsight}
+                  />
+                </div>
+              </ScrollArea>
+            ) : activeFilter === 'proof' ? (
+              /* Proof 2.0 Panel - Consolidated proof points with selection */
+              <ScrollArea className="h-full">
+                <div className="p-4">
+                  <ProofTab
+                    uvp={uvp}
+                    brandId={uvp?.id}
+                  />
+                </div>
+              </ScrollArea>
             ) : filteredInsights.length > 0 ? (
               <>
                 {/* FREEZE FIX: Use paginatedInsights (max 20 at a time) instead of all filteredInsights */}
@@ -3884,3 +6112,6 @@ export function V4PowerModePanel({
 }
 
 export default V4PowerModePanel;
+
+// Export UVPBuildingBlocks for reuse in other pages (e.g., TriggersDevPage)
+export { UVPBuildingBlocks, SidebarSection };

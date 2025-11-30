@@ -5,7 +5,7 @@
 
 import * as React from 'react'
 import { SessionService, BrandSession } from '@/services/session/session.service'
-import { useBrand } from './BrandContext'
+import { useBrand } from '@/hooks/useBrand'
 
 interface SessionContextValue {
   // Auto-save functionality

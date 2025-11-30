@@ -26,7 +26,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { useStreamingApiData } from '@/hooks/useStreamingApiData';
 import { InsightDetailsModal } from '@/components/dashboard/InsightDetailsModal';
 import { InsightsHub } from '@/components/dashboard/InsightsHub';

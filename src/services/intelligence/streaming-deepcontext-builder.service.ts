@@ -32,6 +32,7 @@ import { aiInsightSynthesizer } from './ai-insight-synthesizer.service';
 // V3 FIX: Atomizer DISABLED - it creates fake title variations, not genuine insights
 // import { insightAtomizer } from './insight-atomizer.service';
 import { apifySocialScraper } from './apify-social-scraper.service';
+import { competitorStreamingManager } from './competitor-streaming-manager';
 import { contentSynthesisOrchestrator, type BusinessSegment as OrchestratorSegment, type EnrichedContext } from './content-synthesis-orchestrator.service';
 import { generateSynapses, type SynapseInput } from '@/services/synapse/SynapseGenerator';
 import { frameworkLibrary, type FrameworkType } from '@/services/synapse/generation/ContentFrameworkLibrary';
@@ -72,7 +73,8 @@ const ALL_APIS = [
   'g2',
   'trustpilot',
   'twitter',
-  'yelp'
+  'yelp',
+  'competitor-discovery'  // Task 6.7: Early competitor discovery in parallel
 ] as const;
 
 type ApiName = typeof ALL_APIS[number];
@@ -674,6 +676,7 @@ export class StreamingDeepContextBuilder {
           'website',     // Fast - own website analysis
           'news',        // Fast - local news hooks
           'weather',     // Fast - weather triggers (SMB-critical)
+          'competitor-discovery', // Task 6.7 - Early parallel discovery
           'outscraper',  // Medium - Google Maps reviews
           'youtube',     // Medium - local video content
           'semrush',     // Medium - local SEO keywords
@@ -692,6 +695,7 @@ export class StreamingDeepContextBuilder {
           'serper',      // Fast - search insights
           'website',     // Fast - own website analysis
           'news',        // Fast - industry news
+          'competitor-discovery', // Task 6.7 - Early parallel discovery
           'linkedin',    // Medium - B2B decision makers
           'youtube',     // Medium - industry content
           'semrush',     // Medium - B2B keywords
@@ -710,6 +714,7 @@ export class StreamingDeepContextBuilder {
           'serper',      // Fast - global search insights
           'website',     // Fast - own website analysis
           'news',        // Fast - global industry news
+          'competitor-discovery', // Task 6.7 - Early parallel discovery
           'linkedin',    // Medium - global B2B network (PRIORITY)
           'youtube',     // Medium - thought leadership content
           'semrush',     // Medium - global SEO competitive
@@ -723,7 +728,7 @@ export class StreamingDeepContextBuilder {
 
       default:
         // Fallback to local for unknown types
-        return ['serper', 'website', 'youtube', 'semrush', 'news', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter'];
+        return ['serper', 'website', 'competitor-discovery', 'youtube', 'semrush', 'news', 'perplexity', 'reddit', 'quora', 'trustpilot', 'twitter'];
     }
   }
 
@@ -782,6 +787,11 @@ export class StreamingDeepContextBuilder {
           break;
         case 'yelp':
           apiDataPoints = await this.fetchYelpData();
+          break;
+        case 'competitor-discovery':
+          // Task 6.7: Early competitor discovery runs in parallel with other APIs
+          // Uses the streaming manager to discover and save competitors
+          apiDataPoints = await this.fetchCompetitorDiscoveryData(config);
           break;
       }
 
@@ -3070,16 +3080,38 @@ export class StreamingDeepContextBuilder {
 
       console.log('[Streaming/perplexity] Running SPECIFIC pain point queries for:', customerTerm);
 
-      // Multiple SPECIFIC targeted questions (not one blob)
+      // Multiple SPECIFIC targeted questions focused on PSYCHOLOGICAL TRIGGERS
+      // These prompts are designed to elicit customer fears, frustrations, and desires - NOT recommendations
       const specificQueries = [
-        // Functional pain points
-        `What specific daily tasks frustrate ${customerTerm} the most? List the top 5 time-wasting activities.`,
-        // Emotional drivers
-        `What keeps ${customerTerm} up at night? What are their biggest fears and anxieties about ${customerProblem || 'their work'}?`,
-        // Buying triggers
-        `What events or situations trigger ${customerTerm} to finally seek a solution for ${customerProblem || 'their challenges'}?`,
-        // Objections
-        `What are the top 5 objections ${customerTerm} have when considering solutions? What makes them hesitate?`,
+        // Fears and anxieties (emotional triggers)
+        `What are ${customerTerm}'s biggest FEARS and ANXIETIES about ${customerProblem || 'their current situation'}?
+         Find real quotes from Reddit, forums, and reviews where people express worry, concern, or fear.
+         Format each as: "Fear of [specific concern]" - keep the customer's emotional language.
+         Examples: "Fear of vendor lock-in with proprietary platforms", "Anxiety about compliance violations"`,
+
+        // Frustrations and pain points
+        `What FRUSTRATES ${customerTerm} the most about current solutions for ${customerProblem || 'their challenges'}?
+         Find real complaints from reviews (G2, Trustpilot, Reddit) where people express genuine frustration.
+         Keep the customer's emotional words like "hate", "annoyed", "can't stand", "waste of time".
+         Format as direct customer frustrations, not recommendations.`,
+
+        // Desires and aspirations
+        `What do ${customerTerm} desperately WANT but can't find in current solutions?
+         Find unmet needs expressed in forums, reviews, and community discussions.
+         Look for phrases like "I wish", "If only", "Why can't", "Looking for".
+         Keep customer's voice - these should sound like customer quotes, not marketing copy.`,
+
+        // Objections and hesitations
+        `Why do ${customerTerm} HESITATE before buying solutions for ${customerProblem || 'their needs'}?
+         Find real objections from decision-maker discussions, Reddit, and review comments.
+         Look for trust concerns, price sensitivity, past bad experiences, implementation fears.
+         Format as: "Concern about [specific objection]" or "Hesitation due to [reason]"`,
+
+        // Buying triggers - what pushes them over the edge
+        `What EVENTS or SITUATIONS finally push ${customerTerm} to buy a solution?
+         Look for urgency triggers: regulatory deadlines, competitor pressure, customer complaints, failed audits.
+         Find real examples from case studies, Reddit threads, and industry discussions.
+         Format as: "When [trigger event happens]" - keep it specific to the industry.`,
       ];
 
       // Run queries in parallel
@@ -3097,7 +3129,7 @@ export class StreamingDeepContextBuilder {
             max_results: 8
           });
 
-          const queryType = ['functional_pain', 'emotional_fear', 'buying_trigger', 'objection'][qIdx];
+          const queryType = ['emotional_fear', 'frustration', 'desire', 'objection', 'buying_trigger'][qIdx];
 
           return response.insights.map((insight: string, idx: number) => ({
             id: `perplexity-${queryType}-${Date.now()}-${idx}`,
@@ -3139,14 +3171,22 @@ export class StreamingDeepContextBuilder {
    * Categorize Perplexity insight by emotional/functional type
    */
   private categorizePerplexityInsight(insight: string, queryType: string): DataPointType {
-    const emotionalKeywords = /fear|frustrat|anxious|worry|stress|overwhelm|confus|uncertain|risk|lose|fail|afraid|nervous|hesitat/i;
+    const emotionalKeywords = /fear|frustrat|anxious|worry|stress|overwhelm|confus|uncertain|risk|lose|fail|afraid|nervous|hesitat|concern|dread|panic/i;
+    const desireKeywords = /want|wish|need|looking for|searching|hope|dream|aspire|desire|if only|why can't/i;
     const isEmotional = emotionalKeywords.test(insight);
+    const isDesire = desireKeywords.test(insight);
 
+    // Map query types to data point types
     if (queryType === 'emotional_fear') return 'pain_point';
+    if (queryType === 'frustration') return 'pain_point';
+    if (queryType === 'desire') return 'unarticulated_need';
     if (queryType === 'objection') return 'customer_trigger';
     if (queryType === 'buying_trigger') return 'timing';
+
+    // Fallback based on content analysis
     if (isEmotional) return 'pain_point';
-    return 'unarticulated_need';
+    if (isDesire) return 'unarticulated_need';
+    return 'customer_trigger';
   }
 
   /**
@@ -4067,6 +4107,79 @@ export class StreamingDeepContextBuilder {
 
     } catch (error) {
       console.error('[Streaming/yelp] Error:', error);
+    }
+
+    return dataPoints;
+  }
+
+  // ============================================================================
+  // TASK 6.7: COMPETITOR DISCOVERY - Runs in parallel with other APIs
+  // ============================================================================
+
+  /**
+   * Fetch competitor discovery data during UVP process
+   * This runs in parallel with other APIs to pre-warm the Gap Tab
+   *
+   * Architecture:
+   * - Triggers competitorStreamingManager.startEarlyDiscovery()
+   * - Discovers competitors using Perplexity AI
+   * - Emits events for real-time UI updates
+   * - Returns discovered competitors as DataPoints for DeepContext
+   */
+  private async fetchCompetitorDiscoveryData(config: StreamingConfig): Promise<DataPoint[]> {
+    const dataPoints: DataPoint[] = [];
+    const brandId = config.brandId;
+
+    try {
+      console.log('[Streaming/competitor-discovery] Starting early competitor discovery for brand:', brandId);
+
+      // Build minimal context from current state for discovery
+      const minimalContext = this.currentContext || this.buildEmptyContext();
+
+      // Trigger early discovery via the streaming manager
+      const discovered = await competitorStreamingManager.startEarlyDiscovery(
+        brandId,
+        minimalContext
+      );
+
+      console.log(`[Streaming/competitor-discovery] Discovered ${discovered.length} competitors`);
+
+      // Convert discovered competitors to DataPoints for DeepContext integration
+      for (const competitor of discovered) {
+        dataPoints.push({
+          id: `competitor-${competitor.name.toLowerCase().replace(/\s+/g, '-')}-${Date.now()}`,
+          source: 'perplexity' as DataSource,
+          type: 'competitor' as DataPointType,
+          content: `Competitor: ${competitor.name}${competitor.website ? ` (${competitor.website})` : ''} - ${competitor.reason}`,
+          metadata: {
+            domain: 'competitive' as const,
+            relevance: competitor.confidence,
+            competitor_name: competitor.name,
+            competitor_website: competitor.website,
+            discovery_reason: competitor.reason,
+            confidence: competitor.confidence,
+            segment_type: competitor.segment_type,
+            business_type: competitor.business_type,
+            discovery_timestamp: Date.now()
+          },
+          createdAt: new Date()
+        });
+      }
+
+      // Store discovered competitors in business profile for Gap Tab to use
+      if (this.currentContext?.business?.profile) {
+        this.currentContext.business.profile.competitors = discovered.map(c => ({
+          name: c.name,
+          website: c.website || '',
+          overlap_score: c.confidence
+        }));
+      }
+
+      console.log(`[Streaming/competitor-discovery] Added ${dataPoints.length} competitor data points to context`);
+
+    } catch (error) {
+      console.error('[Streaming/competitor-discovery] Error during discovery:', error);
+      // Don't throw - this is a non-blocking enhancement
     }
 
     return dataPoints;

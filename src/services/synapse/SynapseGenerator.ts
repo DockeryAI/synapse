@@ -21,6 +21,14 @@ import {
 
 import type { SynapseInsight } from '@/types/synapse/synapse.types';
 
+export interface ProofPoint {
+  type: string;
+  title: string;
+  value: string;
+  source: string;
+  qualityScore?: number;
+}
+
 export interface SynapseInput {
   business: {
     name: string;
@@ -33,6 +41,7 @@ export interface SynapseInput {
   };
   intelligence: any; // BusinessIntelligence or similar
   detailedDataPoints?: any[]; // Raw data points from DeepContext for provenance
+  selectedProof?: ProofPoint[]; // Phase 5.1: Proof points to incorporate into content
 }
 
 export interface SynapseResult {
@@ -141,6 +150,69 @@ function transformToDetailedDataSources(dataPoints: any[]): any[] {
 }
 
 /**
+ * Format proof points for inclusion in the prompt (Phase 5.1 + 5.2)
+ * Includes source attribution for credibility
+ */
+function formatProofForPrompt(proofPoints?: ProofPoint[]): string {
+  if (!proofPoints || proofPoints.length === 0) {
+    return '';
+  }
+
+  const sections: string[] = [];
+
+  // Group by type for better organization
+  const byType = new Map<string, ProofPoint[]>();
+  for (const proof of proofPoints) {
+    const type = proof.type || 'other';
+    if (!byType.has(type)) {
+      byType.set(type, []);
+    }
+    byType.get(type)!.push(proof);
+  }
+
+  sections.push('CREDIBILITY & SOCIAL PROOF TO INCORPORATE:');
+  sections.push('(Use these naturally in content - cite sources for attribution)');
+  sections.push('');
+
+  // Format each type
+  const typeLabels: Record<string, string> = {
+    rating: '⭐ RATINGS',
+    review: '💬 REVIEWS',
+    testimonial: '🗣️ TESTIMONIALS',
+    metric: '📊 METRICS',
+    certification: '🏆 CERTIFICATIONS',
+    award: '🏅 AWARDS',
+    years: '📅 EXPERIENCE',
+    logo: '🏢 CLIENT LOGOS',
+    press: '📰 PRESS MENTIONS',
+    social: '👥 SOCIAL PROOF'
+  };
+
+  for (const [type, proofs] of byType) {
+    const label = typeLabels[type] || type.toUpperCase();
+    sections.push(`${label}:`);
+
+    for (const proof of proofs) {
+      // Include source attribution (Phase 5.2)
+      const attribution = proof.source ? ` (Source: ${proof.source})` : '';
+      const quality = proof.qualityScore ? ` [Quality: ${proof.qualityScore}/100]` : '';
+      sections.push(`  • ${proof.value}${attribution}${quality}`);
+    }
+    sections.push('');
+  }
+
+  sections.push('PROOF INTEGRATION GUIDELINES:');
+  sections.push('- Weave proof naturally into content, don\'t just list it');
+  sections.push('- For Awareness content: Use volume proof ("500+ customers trust us")');
+  sections.push('- For Consideration content: Use outcome proof ("40% cost reduction")');
+  sections.push('- For Decision content: Use risk-removal proof ("Money-back guarantee")');
+  sections.push('- Always cite the source when using specific claims');
+  sections.push('');
+
+  return sections.join('\n');
+}
+
+/**
  * Generate synapses using simple single-model approach
  */
 export async function generateSynapses(
@@ -199,6 +271,14 @@ export async function generateSynapses(
   const dataContext = buildDataContext(input.intelligence);
 
   // ==========================================================================
+  // STEP 3.5: Format Proof Points (Phase 5.1)
+  // ==========================================================================
+  const proofText = formatProofForPrompt(input.selectedProof);
+  if (input.selectedProof && input.selectedProof.length > 0) {
+    console.log(`[Synapse] Including ${input.selectedProof.length} proof points in generation`);
+  }
+
+  // ==========================================================================
   // STEP 4: Build Synapse Prompt
   // ==========================================================================
   console.log('[Synapse] Step 4: Building prompt...');
@@ -207,7 +287,8 @@ export async function generateSynapses(
     business: input.business,
     dataContext,
     costEquivalenceText,
-    connectionHintText
+    connectionHintText,
+    proofText
   });
 
   // ==========================================================================
@@ -462,6 +543,7 @@ function buildSynapsePrompt(params: {
   dataContext: string;
   costEquivalenceText: string;
   connectionHintText: string;
+  proofText?: string;
 }): string {
   // Get current date for seasonal context
   const now = new Date();
@@ -482,6 +564,8 @@ ${params.dataContext}
 ${params.costEquivalenceText}
 
 ${params.connectionHintText}
+
+${params.proofText || ''}
 
 ---
 

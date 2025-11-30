@@ -57,6 +57,11 @@ export async function saveCompleteUVP(
   brandId?: string  // Made optional for onboarding
 ): Promise<{ success: boolean; uvpId?: string; sessionId?: string; error?: string }> {
   console.log('[MarbaUVPService] Saving complete UVP...');
+  console.log('[MarbaUVPService] 🔍 DEBUG - uvp.productsServices:', {
+    hasProductsServices: !!uvp.productsServices,
+    categoriesCount: uvp.productsServices?.categories?.length || 0,
+    firstProductName: uvp.productsServices?.categories?.[0]?.items?.[0]?.name || 'none'
+  });
 
   try {
     // If no brandId, save to localStorage for onboarding
@@ -94,6 +99,7 @@ export async function saveCompleteUVP(
       brand_id: effectiveBrandId,
 
       // Core components (as JSONB)
+      products_services: uvp.productsServices || null, // Products/services confirmed during onboarding
       target_customer: uvp.targetCustomer,
       transformation_goal: uvp.transformationGoal,
       unique_solution: uvp.uniqueSolution,
@@ -230,6 +236,7 @@ export async function getUVPByBrand(brandId: string): Promise<CompleteUVP | null
     // Convert database row back to CompleteUVP type
     const uvp: CompleteUVP = {
       id: row.id,
+      productsServices: parseJSON(row.products_services, undefined),
       targetCustomer: parseJSON(row.target_customer, {} as CustomerProfile),
       transformationGoal: parseJSON(row.transformation_goal, {} as TransformationGoal),
       uniqueSolution: parseJSON(row.unique_solution, {} as UniqueSolution),
@@ -326,6 +333,177 @@ function parseJSON<T>(value: any, defaultValue: T): T {
   }
   // Already parsed by Supabase
   return value as T;
+}
+
+/**
+ * Recover/update UVP drivers from session data
+ *
+ * Looks for customer_data in uvp_sessions that has emotionalDrivers/functionalDrivers
+ * and updates the existing marba_uvps record with these drivers if missing.
+ *
+ * @param brandId - Brand ID to recover drivers for
+ * @returns Success status and whether drivers were found/updated
+ */
+export async function recoverDriversFromSession(brandId: string): Promise<{
+  success: boolean;
+  updated: boolean;
+  emotionalDriversCount: number;
+  functionalDriversCount: number;
+  error?: string;
+}> {
+  console.log('[MarbaUVPService] Attempting to recover drivers from session for brand:', brandId);
+
+  try {
+    // First check if UVP exists and if it already has drivers
+    const existingUVP = await getUVPByBrand(brandId);
+    if (!existingUVP) {
+      console.log('[MarbaUVPService] No UVP found for brand');
+      return { success: true, updated: false, emotionalDriversCount: 0, functionalDriversCount: 0 };
+    }
+
+    // Check if drivers already exist in UVP
+    const hasEmotionalDrivers = (existingUVP.targetCustomer?.emotionalDrivers?.length || 0) > 0 ||
+                                  (existingUVP.transformationGoal?.emotionalDrivers?.length || 0) > 0;
+    const hasFunctionalDrivers = (existingUVP.targetCustomer?.functionalDrivers?.length || 0) > 0 ||
+                                   (existingUVP.transformationGoal?.functionalDrivers?.length || 0) > 0;
+
+    if (hasEmotionalDrivers && hasFunctionalDrivers) {
+      console.log('[MarbaUVPService] UVP already has drivers, no recovery needed');
+      return {
+        success: true,
+        updated: false,
+        emotionalDriversCount: existingUVP.transformationGoal?.emotionalDrivers?.length || 0,
+        functionalDriversCount: existingUVP.transformationGoal?.functionalDrivers?.length || 0
+      };
+    }
+
+    // Look for customer_data in uvp_sessions that has drivers
+    const { data: sessions, error: sessionError } = await supabase
+      .from('uvp_sessions')
+      .select('id, customer_data, transformation_data, complete_uvp')
+      .eq('brand_id', brandId)
+      .order('created_at', { ascending: false })
+      .limit(5);
+
+    if (sessionError) {
+      console.error('[MarbaUVPService] Error querying sessions:', sessionError);
+      return { success: false, updated: false, emotionalDriversCount: 0, functionalDriversCount: 0, error: sessionError.message };
+    }
+
+    if (!sessions || sessions.length === 0) {
+      console.log('[MarbaUVPService] No sessions found for brand');
+      return { success: true, updated: false, emotionalDriversCount: 0, functionalDriversCount: 0 };
+    }
+
+    // Try to find drivers from various session sources
+    let emotionalDrivers: string[] = [];
+    let functionalDrivers: string[] = [];
+
+    for (const session of sessions) {
+      // Check complete_uvp first (most complete source)
+      const completeUvp = session.complete_uvp as any;
+      if (completeUvp?.transformationGoal?.emotionalDrivers?.length > 0) {
+        emotionalDrivers = completeUvp.transformationGoal.emotionalDrivers;
+      }
+      if (completeUvp?.transformationGoal?.functionalDrivers?.length > 0) {
+        functionalDrivers = completeUvp.transformationGoal.functionalDrivers;
+      }
+      if (completeUvp?.targetCustomer?.emotionalDrivers?.length > 0 && emotionalDrivers.length === 0) {
+        emotionalDrivers = completeUvp.targetCustomer.emotionalDrivers;
+      }
+      if (completeUvp?.targetCustomer?.functionalDrivers?.length > 0 && functionalDrivers.length === 0) {
+        functionalDrivers = completeUvp.targetCustomer.functionalDrivers;
+      }
+
+      // Check customer_data
+      const customerData = session.customer_data as any;
+      if (customerData?.selected?.emotionalDrivers?.length > 0 && emotionalDrivers.length === 0) {
+        emotionalDrivers = customerData.selected.emotionalDrivers;
+      }
+      if (customerData?.selected?.functionalDrivers?.length > 0 && functionalDrivers.length === 0) {
+        functionalDrivers = customerData.selected.functionalDrivers;
+      }
+
+      // Check suggestions in customer_data
+      if (customerData?.suggestions?.length > 0 && (emotionalDrivers.length === 0 || functionalDrivers.length === 0)) {
+        for (const suggestion of customerData.suggestions) {
+          if (suggestion.emotionalDrivers?.length > 0 && emotionalDrivers.length === 0) {
+            emotionalDrivers = suggestion.emotionalDrivers;
+          }
+          if (suggestion.functionalDrivers?.length > 0 && functionalDrivers.length === 0) {
+            functionalDrivers = suggestion.functionalDrivers;
+          }
+        }
+      }
+
+      // Check transformation_data
+      const transformationData = session.transformation_data as any;
+      if (transformationData?.selected?.emotionalDrivers?.length > 0 && emotionalDrivers.length === 0) {
+        emotionalDrivers = transformationData.selected.emotionalDrivers;
+      }
+      if (transformationData?.selected?.functionalDrivers?.length > 0 && functionalDrivers.length === 0) {
+        functionalDrivers = transformationData.selected.functionalDrivers;
+      }
+
+      if (emotionalDrivers.length > 0 && functionalDrivers.length > 0) {
+        break; // Found both, no need to check more sessions
+      }
+    }
+
+    if (emotionalDrivers.length === 0 && functionalDrivers.length === 0) {
+      console.log('[MarbaUVPService] No drivers found in any session');
+      return { success: true, updated: false, emotionalDriversCount: 0, functionalDriversCount: 0 };
+    }
+
+    console.log('[MarbaUVPService] Found drivers to recover:', {
+      emotional: emotionalDrivers.length,
+      functional: functionalDrivers.length
+    });
+
+    // Update the UVP with recovered drivers
+    const updatedTargetCustomer = {
+      ...existingUVP.targetCustomer,
+      emotionalDrivers: emotionalDrivers.length > 0 ? emotionalDrivers : existingUVP.targetCustomer?.emotionalDrivers || [],
+      functionalDrivers: functionalDrivers.length > 0 ? functionalDrivers : existingUVP.targetCustomer?.functionalDrivers || []
+    };
+
+    const updatedTransformationGoal = {
+      ...existingUVP.transformationGoal,
+      emotionalDrivers: emotionalDrivers.length > 0 ? emotionalDrivers : existingUVP.transformationGoal?.emotionalDrivers || [],
+      functionalDrivers: functionalDrivers.length > 0 ? functionalDrivers : existingUVP.transformationGoal?.functionalDrivers || []
+    };
+
+    const { error: updateError } = await supabase
+      .from('marba_uvps')
+      .update({
+        target_customer: updatedTargetCustomer,
+        transformation_goal: updatedTransformationGoal
+      })
+      .eq('brand_id', brandId);
+
+    if (updateError) {
+      console.error('[MarbaUVPService] Failed to update UVP with drivers:', updateError);
+      return { success: false, updated: false, emotionalDriversCount: 0, functionalDriversCount: 0, error: updateError.message };
+    }
+
+    console.log('[MarbaUVPService] Successfully recovered drivers from session');
+    return {
+      success: true,
+      updated: true,
+      emotionalDriversCount: emotionalDrivers.length,
+      functionalDriversCount: functionalDrivers.length
+    };
+
+  } catch (error) {
+    console.error('[MarbaUVPService] Driver recovery error:', error);
+    return {
+      success: false,
+      updated: false,
+      emotionalDriversCount: 0,
+      functionalDriversCount: 0,
+      error: error instanceof Error ? error.message : 'Unknown error'
+    };
+  }
 }
 
 /**

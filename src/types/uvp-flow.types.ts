@@ -40,6 +40,24 @@ export interface ProductServiceData {
 }
 
 /**
+ * Market Geography - Geographic scope and target regions
+ */
+export interface MarketGeography {
+  /** Geographic scope of the business */
+  scope: 'local' | 'regional' | 'national' | 'global';
+  /** Headquarters location (country/region) */
+  headquarters?: string;
+  /** Primary target regions */
+  primaryRegions?: string[];
+  /** Specific focus markets/countries */
+  focusMarkets?: string[];
+  /** How this was detected */
+  detectedFrom?: 'domain' | 'content' | 'address' | 'manual';
+  /** Detection confidence 0-1 */
+  confidence?: number;
+}
+
+/**
  * Step 2: Target Customer
  */
 export interface CustomerProfile {
@@ -55,6 +73,8 @@ export interface CustomerProfile {
   // Emotional and functional drivers specific to this persona
   emotionalDrivers?: string[]; // e.g., "Fear of falling behind competitors", "Desire for recognition"
   functionalDrivers?: string[]; // e.g., "Need to reduce manual processes", "Must improve team efficiency"
+  /** Market geography for profile detection */
+  marketGeography?: MarketGeography;
 }
 
 /**
@@ -155,6 +175,7 @@ export interface CompleteUVP {
   id: string;
 
   // Core components
+  productsServices?: ProductServiceData; // Products/services confirmed by user
   targetCustomer: CustomerProfile;
   transformationGoal: TransformationGoal;
   uniqueSolution: UniqueSolution;

@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { BrandProvider } from './contexts/BrandContext'
+import { BrandProfileProvider } from './contexts/BrandProfileContext'
 import { LoadingSpinner } from './components/ui/LoadingSpinner'
 import { AppLayout } from './components/layout/AppLayout'
 
@@ -15,6 +16,9 @@ const CampaignPage = lazy(() => import('./pages/CampaignPage').then(m => ({ defa
 const SocialPilotCallback = lazy(() => import('./pages/SocialPilotCallback').then(m => ({ default: m.SocialPilotCallback })))
 const BrandProfilePage = lazy(() => import('./pages/BrandProfilePage').then(m => ({ default: m.BrandProfilePage })))
 const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ default: m.V4ContentPage })))
+const TriggersDevPage = lazy(() => import('./pages/TriggersDevPage').then(m => ({ default: m.TriggersDevPage })))
+const ProofDevPage = lazy(() => import('./pages/ProofDevPage').then(m => ({ default: m.ProofDevPage })))
+const TrendsDevPage = lazy(() => import('./pages/TrendsDevPage').then(m => ({ default: m.TrendsDevPage })))
 
 // TODO: Lazy load auth routes when ready to enable authentication (Phase 0)
 // const LoginPage = lazy(() => import('./pages/LoginPage'))
@@ -26,7 +30,8 @@ const V4ContentPage = lazy(() => import('./pages/V4ContentPage').then(m => ({ de
 function App() {
   return (
     <BrandProvider>
-      <div className="min-h-screen bg-gray-50">
+      <BrandProfileProvider>
+        <div className="min-h-screen bg-gray-50">
         {/* Accessibility: Skip to main content link */}
         <a
           href="#main-content"
@@ -65,6 +70,16 @@ function App() {
 
                 {/* V4 Content Engine */}
                 <Route path="/v4-content" element={<V4ContentPage />} />
+                <Route path="/v4" element={<V4ContentPage />} />
+
+                {/* Triggers 2.0 Development - Isolated testing */}
+                <Route path="/triggers-dev" element={<TriggersDevPage />} />
+
+                {/* Proof Tab Development - Isolated testing */}
+                <Route path="/proof-dev" element={<ProofDevPage />} />
+
+                {/* Trends Tab Development - Isolated testing */}
+                <Route path="/trends-dev" element={<TrendsDevPage />} />
 
                 {/* Admin Routes - Commented out until authentication is enabled */}
                 {/* <Route path="/admin" element={<ProtectedRoute adminOnly><AdminDashboard /></ProtectedRoute>} /> */}
@@ -80,7 +95,8 @@ function App() {
             </Routes>
           </main>
         </Suspense>
-      </div>
+        </div>
+      </BrandProfileProvider>
     </BrandProvider>
   )
 }

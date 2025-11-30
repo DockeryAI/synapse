@@ -24,7 +24,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { sessionManager } from '@/services/uvp/session-manager.service';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { hasPendingUVP, getPendingUVP } from '@/services/database/marba-uvp-migration.service';
 import type { SessionListItem } from '@/types/session.types';
 

@@ -33,11 +33,13 @@ import {
   PieChart,
   BarChart3,
   Filter,
-  AlertCircle
+  AlertCircle,
+  Award
 } from 'lucide-react';
 
 import { useV4ContentGeneration } from '@/hooks/useV4ContentGeneration';
 import { V4PowerModePanel } from './V4PowerModePanel';
+import { ProofTab } from './ProofTab';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type {
   GeneratedContent,
@@ -809,10 +811,12 @@ export function V4ContentGenerationPanel({
                 onContentGenerated?.([content]);
               }}
               onSaveToCalendar={onSaveToCalendar}
-              skipApis={true}  // FEATURE BRANCH: Always skip APIs, use UVP data only
+              skipApis={true}  // Only fetch data on Force Refresh button click
+              forceApiRefresh={false}  // Set to true to force fresh API calls
             />
           </div>
         </TabsContent>
+
       </Tabs>
 
       {/* Loading state */}

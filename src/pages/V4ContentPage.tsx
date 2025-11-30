@@ -21,16 +21,16 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { V4ContentGenerationPanel } from '@/components/v4/V4ContentGenerationPanel';
 import { v4CalendarIntegration } from '@/services/v4';
-import { getUVPByBrand } from '@/services/database/marba-uvp.service';
+import { getUVPByBrand, recoverDriversFromSession } from '@/services/database/marba-uvp.service';
 import type { CompleteUVP } from '@/types/uvp-flow.types';
 import type { GeneratedContent } from '@/services/v4/types';
 
 export function V4ContentPage() {
   const navigate = useNavigate();
-  const { currentBrand: brand } = useBrand();
+  const { currentBrand: brand, loading: brandLoading } = useBrand();
   const [uvp, setUvp] = useState<CompleteUVP | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,6 +39,11 @@ export function V4ContentPage() {
   // Load UVP for current brand
   useEffect(() => {
     async function loadUVP() {
+      // Wait for brand context to finish loading before checking
+      if (brandLoading) {
+        return; // Still loading, don't set error yet
+      }
+
       if (!brand?.id) {
         setError('No brand selected');
         setLoading(false);
@@ -49,12 +54,32 @@ export function V4ContentPage() {
         console.log('[V4ContentPage] Loading UVP for brand:', brand.id);
 
         // Use the marba-uvp service which properly reconstructs CompleteUVP from columns
-        const uvpData = await getUVPByBrand(brand.id);
+        let uvpData = await getUVPByBrand(brand.id);
 
         if (!uvpData) {
           setError('No UVP found. Please complete the onboarding first.');
           setLoading(false);
           return;
+        }
+
+        // Check if drivers are missing and attempt recovery from session data
+        const hasDrivers = (uvpData.targetCustomer?.emotionalDrivers?.length || 0) > 0 ||
+                          (uvpData.transformationGoal?.emotionalDrivers?.length || 0) > 0;
+
+        if (!hasDrivers) {
+          console.log('[V4ContentPage] UVP missing drivers, attempting recovery from session...');
+          const recoveryResult = await recoverDriversFromSession(brand.id);
+
+          if (recoveryResult.updated) {
+            console.log('[V4ContentPage] Drivers recovered:', {
+              emotional: recoveryResult.emotionalDriversCount,
+              functional: recoveryResult.functionalDriversCount
+            });
+            // Re-fetch UVP with recovered drivers
+            uvpData = await getUVPByBrand(brand.id) || uvpData;
+          } else {
+            console.log('[V4ContentPage] No drivers found in session data');
+          }
         }
 
         console.log('[V4ContentPage] UVP loaded successfully:', uvpData.valuePropositionStatement?.substring(0, 50) + '...');
@@ -68,7 +93,7 @@ export function V4ContentPage() {
     }
 
     loadUVP();
-  }, [brand?.id]);
+  }, [brand?.id, brandLoading]);
 
   // Handle content save to calendar using V4 Calendar Integration
   const handleSaveToCalendar = async (content: GeneratedContent) => {
@@ -204,12 +229,14 @@ export function V4ContentPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 py-8">
-        <V4ContentGenerationPanel
-          uvp={uvp}
-          brandId={brand?.id}
-          onContentGenerated={handleContentGenerated}
-          onSaveToCalendar={handleSaveToCalendar}
-        />
+        <React.Suspense fallback={<div className="text-center py-8">Loading...</div>}>
+          <V4ContentGenerationPanel
+            uvp={uvp}
+            brandId={brand?.id}
+            onContentGenerated={handleContentGenerated}
+            onSaveToCalendar={handleSaveToCalendar}
+          />
+        </React.Suspense>
       </main>
     </div>
   );

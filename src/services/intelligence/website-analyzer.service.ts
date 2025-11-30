@@ -30,6 +30,16 @@ export interface WebsiteMessagingAnalysis {
   testimonials?: string[]
   metaTags?: Record<string, string>
   keywords?: string[]
+
+  // Phase 6: Enhanced proof extraction
+  extractedProof?: {
+    trustBadges: string[];     // BBB, security seals, etc.
+    clientLogos: string[];     // Company names from logo sections
+    awards: string[];          // Awards and recognition
+    pressMentions: string[];   // "As seen in" press logos
+    certifications: string[];  // Professional certifications
+    socialProof: string[];     // Follower counts, review counts
+  }
 }
 
 class WebsiteAnalyzerService {
@@ -182,6 +192,149 @@ class WebsiteAnalyzerService {
       .replace(/[^a-z\s-]/g, ' ')
       .split(/\s+/)
       .filter(word => word.length >= 4 && word.length <= 30 && !stopWords.has(word));
+  }
+
+  /**
+   * Phase 6: Extract proof elements from raw website HTML/content
+   * Uses pattern matching for common proof indicators
+   */
+  extractProofElements(rawContent?: string): {
+    trustBadges: string[];
+    clientLogos: string[];
+    awards: string[];
+    pressMentions: string[];
+    certifications: string[];
+    socialProof: string[];
+  } {
+    const content = rawContent || this.lastScrapeResult?.content?.rawText || '';
+    const textContent = this.lastScrapeResult?.content?.text || '';
+
+    const result = {
+      trustBadges: [] as string[],
+      clientLogos: [] as string[],
+      awards: [] as string[],
+      pressMentions: [] as string[],
+      certifications: [] as string[],
+      socialProof: [] as string[]
+    };
+
+    if (!content && !textContent) return result;
+
+    const fullContent = `${content} ${textContent}`.toLowerCase();
+
+    // 6.2 Trust Badge Detection
+    const badgePatterns = [
+      /bbb\s*(accredited|a\+|rating)/i,
+      /ssl\s*(secure|certificate)/i,
+      /norton\s*secured?/i,
+      /mcafee\s*secure/i,
+      /verified\s*(by|buyer|purchase)/i,
+      /trust\s*pilot/i,
+      /secure\s*(checkout|payment|site)/i,
+      /pci\s*(dss|compliant)/i,
+      /hipaa\s*compliant/i,
+      /gdpr\s*compliant/i
+    ];
+    badgePatterns.forEach(pattern => {
+      const match = fullContent.match(pattern);
+      if (match) result.trustBadges.push(match[0]);
+    });
+
+    // 6.3 Client Logo Detection (look for alt text patterns)
+    const logoPatterns = [
+      /trusted\s*by\s*([^<\n]+)/gi,
+      /our\s*clients?\s*include\s*([^<\n]+)/gi,
+      /used\s*by\s*([^<\n]+)/gi,
+      /partners?\s*include\s*([^<\n]+)/gi,
+      /logo[^>]*alt\s*=\s*["']([^"']+)["']/gi
+    ];
+    logoPatterns.forEach(pattern => {
+      const matches = fullContent.matchAll(pattern);
+      for (const match of matches) {
+        if (match[1] && match[1].length > 2 && match[1].length < 100) {
+          result.clientLogos.push(match[1].trim());
+        }
+      }
+    });
+
+    // 6.5 Awards Detection
+    const awardPatterns = [
+      /best\s*(of|in)\s*\d{4}/gi,
+      /award\s*winner/gi,
+      /(\d{4}\s*)?(gold|silver|bronze)\s*award/gi,
+      /top\s*rated\s*\d{4}/gi,
+      /voted\s*(#?\d+|best|top)/gi,
+      /winner\s*of\s*([^<\n]+)/gi,
+      /recognized\s*(by|as)\s*([^<\n]+)/gi
+    ];
+    awardPatterns.forEach(pattern => {
+      const matches = fullContent.matchAll(pattern);
+      for (const match of matches) {
+        result.awards.push(match[0].trim());
+      }
+    });
+
+    // 6.4 Press/Media Detection
+    const pressPatterns = [
+      /as\s*seen\s*(on|in)\s*([^<\n]{3,50})/gi,
+      /featured\s*(on|in)\s*([^<\n]{3,50})/gi,
+      /press\s*mention/gi,
+      /media\s*coverage/gi,
+      /(forbes|techcrunch|wsj|wall street journal|nyt|new york times|cnn|bbc|cnbc)/gi
+    ];
+    pressPatterns.forEach(pattern => {
+      const matches = fullContent.matchAll(pattern);
+      for (const match of matches) {
+        result.pressMentions.push(match[0].trim());
+      }
+    });
+
+    // 6.1 Certifications Detection
+    const certPatterns = [
+      /soc\s*2\s*(type\s*[12i])?/gi,
+      /iso\s*(27001|9001|14001)/gi,
+      /certified\s*([a-z]+\s*){1,3}/gi,
+      /licensed\s*(and\s*)?(insured|bonded)/gi,
+      /accredited\s*(by\s*)?([^<\n]{3,30})?/gi,
+      /(board\s*)?certified\s*(professional|expert)?/gi,
+      /(\d+)\s*years?\s*(of\s*)?(experience|in\s*business|serving)/gi
+    ];
+    certPatterns.forEach(pattern => {
+      const matches = fullContent.matchAll(pattern);
+      for (const match of matches) {
+        result.certifications.push(match[0].trim());
+      }
+    });
+
+    // Social Proof Detection
+    const socialPatterns = [
+      /(\d+[,\d]*k?)\+?\s*(followers?|customers?|users?|clients?|reviews?)/gi,
+      /(\d+\.?\d*)\s*star(s)?\s*(rating|reviews?)?/gi,
+      /rated\s*(\d\.?\d?)\s*(out\s*of\s*5|stars?)/gi,
+      /(\d+)\s*happy\s*(customers?|clients?)/gi,
+      /join\s*(\d+[,\d]*k?)\+?\s*(others?|customers?|users?)/gi
+    ];
+    socialPatterns.forEach(pattern => {
+      const matches = fullContent.matchAll(pattern);
+      for (const match of matches) {
+        result.socialProof.push(match[0].trim());
+      }
+    });
+
+    // Deduplicate and limit
+    result.trustBadges = [...new Set(result.trustBadges)].slice(0, 10);
+    result.clientLogos = [...new Set(result.clientLogos)].slice(0, 20);
+    result.awards = [...new Set(result.awards)].slice(0, 10);
+    result.pressMentions = [...new Set(result.pressMentions)].slice(0, 10);
+    result.certifications = [...new Set(result.certifications)].slice(0, 10);
+    result.socialProof = [...new Set(result.socialProof)].slice(0, 10);
+
+    const totalFound = Object.values(result).reduce((sum, arr) => sum + arr.length, 0);
+    if (totalFound > 0) {
+      console.log(`[WebsiteAnalyzer] Phase 6: Extracted ${totalFound} proof elements`);
+    }
+
+    return result;
   }
 
   /**

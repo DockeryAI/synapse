@@ -4,7 +4,7 @@
  */
 
 import * as React from 'react'
-import { useBrand } from '@/contexts/BrandContext'
+import { useBrand } from '@/hooks/useBrand'
 import { supabase } from '@/lib/supabase'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'

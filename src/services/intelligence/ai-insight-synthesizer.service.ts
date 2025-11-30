@@ -660,8 +660,20 @@ async function generateInsightsWithSonnet(
             }
 
             if (!batchInsights) {
-              console.error(`[AI-Synthesizer/Sonnet] Batch ${batch + 1} JSON repair FAILED`);
-              return [];
+              console.warn(`[AI-Synthesizer/Sonnet] Batch ${batch + 1} JSON repair FAILED - using raw fallback`);
+              // FALLBACK: Create minimal insights from breakthroughs in this batch
+              // This ensures we don't lose all data when AI returns bad JSON
+              const fallbackInsights = batchBreakthroughs.map((b: any, idx: number) => ({
+                id: `fallback-${batch}-${idx}`,
+                title: b.hook || b.title || 'Insight discovered',
+                hook: b.hook || '',
+                body: [],
+                sources: b.sources || ['Analysis'],
+                psychology: { triggerType: 'curiosity', emotionalIntensity: 0.5, urgency: 'medium' },
+                validation: { sourceCount: b.sources?.length || 1, crossPlatform: false },
+                scores: { breakthrough: b.score || 50, eq: 50, relevance: 50, actionability: 50 }
+              }));
+              return fallbackInsights;
             }
           }
         }

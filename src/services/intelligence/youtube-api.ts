@@ -482,11 +482,14 @@ class YouTubeAPIService {
       const videos = await this.searchVideos(keywords, maxVideos)
 
       // Get comments from each video
+      // FIXED: Don't skip videos based on commentCount - Apify may not return it
       const allComments: YouTubeComment[] = []
       for (const video of videos) {
-        if (video.commentCount > 0) {
-          const comments = await this.getVideoComments(video.id, 50)
+        // Try to get comments for ALL videos - commentCount may be missing from Apify response
+        const comments = await this.getVideoComments(video.id, 50)
+        if (comments.length > 0) {
           allComments.push(...comments)
+          console.log(`[YouTube API] Got ${comments.length} comments from video: ${video.title?.substring(0, 50)}`)
         }
       }
 

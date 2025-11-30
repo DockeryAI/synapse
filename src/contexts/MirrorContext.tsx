@@ -4,7 +4,7 @@
  */
 
 import * as React from 'react'
-import { useBrand } from './BrandContext'
+import { useBrand } from '@/hooks/useBrand'
 
 // Section data types
 export interface MeasureData {

@@ -57,29 +57,36 @@ serve(async (req) => {
     console.log('[Apify Edge] Starting actor:', finalActorId, scraperType ? `(${scraperType})` : '')
 
     // OPTIMIZATION: Add aggressive limits to ALL actors to ensure they complete fast
-    // Edge Functions have a 60s hard limit, so actors MUST finish in ~45s
+    // Edge Functions have a 60s hard limit, so actors MUST finish in ~50s
+    const isGoogleMaps = finalActorId.includes('google-maps') || finalActorId.includes('compass~google')
+    const isSlowActor = isGoogleMaps || finalActorId.includes('website-content')
+
     const optimizedInput = {
       ...input,
       // Force fast completion for web scrapers
-      maxRequestsPerCrawl: Math.min(input.maxRequestsPerCrawl || 10, 10),
-      maxCrawlPages: Math.min(input.maxCrawlPages || 5, 5),
+      maxRequestsPerCrawl: Math.min(input.maxRequestsPerCrawl || 10, isSlowActor ? 5 : 10),
+      maxCrawlPages: Math.min(input.maxCrawlPages || 5, isSlowActor ? 3 : 5),
       maxConcurrency: Math.min(input.maxConcurrency || 3, 3),
       // Aggressive timeouts (in seconds)
-      timeoutSecs: 40,
-      requestTimeoutSecs: 15,
-      pageLoadTimeoutSecs: 15,
+      timeoutSecs: isSlowActor ? 35 : 40,
+      requestTimeoutSecs: 10,
+      pageLoadTimeoutSecs: 10,
       // Reduce memory/compute to speed up
       maxRequestRetries: 1,
       // For dedicated scrapers (Twitter, Reddit, YouTube)
-      maxItems: Math.min(input.maxItems || 20, 20),
+      maxItems: Math.min(input.maxItems || 20, isSlowActor ? 10 : 20),
       maxTweets: Math.min(input.maxTweets || 20, 20),
       maxPosts: Math.min(input.maxPosts || 10, 10),
-      maxResults: Math.min(input.maxResults || 20, 20),
+      maxResults: Math.min(input.maxResults || 20, isSlowActor ? 10 : 20),
+      // Google Maps specific - limit reviews per place
+      maxReviews: Math.min(input.maxReviews || 10, 10),
+      reviewsCount: Math.min(input.reviewsCount || 10, 10),
     }
 
     // Start actor run with waitForFinish to get results inline if fast enough
+    // Increased to 45s waitForFinish for slower actors like Google Maps
     const runResponse = await fetch(
-      `${APIFY_API_URL}/acts/${finalActorId}/runs?token=${APIFY_API_KEY}&waitForFinish=30`,
+      `${APIFY_API_URL}/acts/${finalActorId}/runs?token=${APIFY_API_KEY}&waitForFinish=45`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -130,9 +137,10 @@ serve(async (req) => {
       }
     }
 
-    // Poll for completion (max 25 seconds remaining - since waitForFinish used 30s)
+    // Poll for completion (reduced to 10 seconds since waitForFinish now uses 45s)
+    // Total: ~55s which fits under Supabase's 60s limit
     const startTime = Date.now()
-    const timeout = 25000 // 25 seconds more (total ~55s including waitForFinish)
+    const timeout = 10000 // 10 seconds more (total ~55s including waitForFinish)
 
     while (Date.now() - startTime < timeout) {
       await new Promise(resolve => setTimeout(resolve, 2000)) // Poll every 2 seconds (faster)

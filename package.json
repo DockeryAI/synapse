@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:proof": "vite --config vite.config.proof.ts",
     "build": "vite build",
     "build:typecheck": "tsc && vite build",
     "typecheck": "tsc --noEmit",

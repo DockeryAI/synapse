@@ -41,7 +41,7 @@ import { synthesizeCompleteUVP } from '@/services/uvp-extractors/uvp-synthesis.s
 import { sessionManager } from '@/services/uvp/session-manager.service';
 import { useSessionAutoSave } from '@/hooks/useSessionAutoSave';
 import type { UVPStepKey } from '@/types/session.types';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { supabase } from '@/lib/supabase';
 import { getOrCreateBrand, validateBrandExists } from '@/services/brand/brand-persistence.service';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
@@ -1789,14 +1789,40 @@ export const OnboardingPageV5: React.FC = () => {
           functionalDrivers: [...new Set(transformationsToUse.flatMap(t => t.functionalDrivers || []))]
         };
 
+        // Pass ALL selected solutions for inclusive synthesis (combine differentiators)
+        const solutionsToUse = selectedSolutions.length > 0
+          ? selectedSolutions
+          : [selectedSolution];
+
+        // For synthesis, we still need a primary solution for backward compatibility
+        const primarySolution = selectedSolution || selectedSolutions[0];
+
+        // Create a combined solution that includes ALL differentiators from all selected solutions
+        const combinedSolution: UniqueSolution = {
+          ...primarySolution,
+          statement: solutionsToUse.length > 1
+            ? solutionsToUse.map(s => s.statement).join('; ')
+            : primarySolution.statement,
+          // Combine all differentiators from all selected solutions
+          differentiators: solutionsToUse.flatMap(s => s.differentiators || [])
+        };
+
+        console.log('[UVP Flow] 🔍 Combined solution with', combinedSolution.differentiators.length, 'differentiators from', solutionsToUse.length, 'solutions');
+
         const synthesizedUVP = await synthesizeCompleteUVP({
           customer: selectedCustomerProfile,
           transformation: combinedTransformation,
-          solution: selectedSolution,
+          solution: combinedSolution,
           benefit: selectedBenefit,
           businessName: refinedData?.businessName || extractedBusinessName || 'Your Business',
           industry: refinedData?.specialization || 'General'
         });
+
+        // Add products/services to the synthesized UVP (confirmed during discovery step)
+        if (productServiceData) {
+          (synthesizedUVP as any).productsServices = productServiceData;
+          console.log('[UVP Flow] Added productsServices to UVP:', productServiceData.categories?.length, 'categories');
+        }
 
         console.log('[UVP Flow] Synthesis complete, UVP:', synthesizedUVP.valuePropositionStatement);
         setCompleteUVP(synthesizedUVP);
@@ -1814,6 +1840,11 @@ export const OnboardingPageV5: React.FC = () => {
         const brandId = currentBrand?.id;
         if (brandId) {
           console.log('[UVP Flow] Auto-saving UVP to marba_uvps for brand:', brandId);
+          console.log('[UVP Flow] 🔍 DEBUG - synthesizedUVP.productsServices:', {
+            hasProductsServices: !!(synthesizedUVP as any).productsServices,
+            categoriesCount: (synthesizedUVP as any).productsServices?.categories?.length || 0,
+            productServiceDataState: productServiceData?.categories?.length || 'null'
+          });
           try {
             const result = await saveCompleteUVP(synthesizedUVP, brandId);
             if (result.success) {
@@ -1854,7 +1885,20 @@ export const OnboardingPageV5: React.FC = () => {
   // UVP Step 6: Synthesis
   const handleUVPComplete = async (uvp: CompleteUVP) => {
     console.log('[UVP Flow] UVP complete, saving to database');
-    setCompleteUVP(uvp);
+
+    // IMPORTANT: Attach productsServices from local state since the synthesis component doesn't have it
+    const uvpWithProducts = {
+      ...uvp,
+      productsServices: productServiceData || uvp.productsServices,
+    };
+
+    console.log('[UVP Flow] 🔍 DEBUG - handleUVPComplete productsServices:', {
+      fromState: productServiceData?.categories?.length || 0,
+      fromUvp: uvp.productsServices?.categories?.length || 0,
+      final: uvpWithProducts.productsServices?.categories?.length || 0
+    });
+
+    setCompleteUVP(uvpWithProducts);
 
     try {
       // Get brand ID from current brand context
@@ -1867,8 +1911,8 @@ export const OnboardingPageV5: React.FC = () => {
 
       console.log('[UVP Flow] Saving UVP for brand:', brandId);
 
-      // Save to database
-      const result = await saveCompleteUVP(uvp, brandId);
+      // Save to database with productsServices attached
+      const result = await saveCompleteUVP(uvpWithProducts, brandId);
 
       if (result.success) {
         console.log('[UVP Flow] UVP saved successfully:', result.uvpId);

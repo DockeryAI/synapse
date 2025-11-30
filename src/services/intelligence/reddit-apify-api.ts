@@ -490,6 +490,7 @@ export class RedditAPI {
     const allTriggers: RedditPsychologicalTrigger[] = [];
     const allInsights: RedditCustomerInsight[] = [];
     const topicMentions: Map<string, RedditTrendingTopic> = new Map();
+    const allRawPosts: any[] = []; // Store raw posts for LLM synthesis
 
     try {
       // If specific subreddits provided, search them IN PARALLEL (not sequential!)
@@ -508,8 +509,11 @@ export class RedditAPI {
           }).catch(() => []) // Don't fail entire batch if one subreddit fails
         );
 
-        const allPosts = await Promise.all(subredditPromises);
-        allPosts.forEach(posts => this.processPosts(posts, allTriggers, allInsights));
+        const allPostsArrays = await Promise.all(subredditPromises);
+        allPostsArrays.forEach(posts => {
+          allRawPosts.push(...posts); // Store raw posts
+          this.processPosts(posts, allTriggers, allInsights);
+        });
       } else {
         // General search across Reddit
         const posts = await this.fetchRedditViaApify({
@@ -521,6 +525,7 @@ export class RedditAPI {
           maxComments: commentsPerPost
         });
 
+        allRawPosts.push(...posts); // Store raw posts
         this.processPosts(posts, allTriggers, allInsights);
       }
 
@@ -528,18 +533,20 @@ export class RedditAPI {
       allTriggers.sort((a, b) => b.upvotes - a.upvotes);
       allInsights.sort((a, b) => b.upvotes - a.upvotes);
 
-      console.log('[RedditAPI] Extracted', allTriggers.length, 'triggers and', allInsights.length, 'insights');
+      console.log('[RedditAPI] Extracted', allTriggers.length, 'triggers and', allInsights.length, 'insights from', allRawPosts.length, 'raw posts');
 
       // V3 FIX: NO SLICE - return ALL triggers and insights, Atomizer handles variety
+      // ADDED: rawPosts for LLM synthesis when pattern matching fails
       return {
         triggers: allTriggers,
         insights: allInsights,
+        rawPosts: allRawPosts, // NEW: Include raw posts for LLM to process
         trendingTopics: Array.from(topicMentions.values()),
         metadata: {
           searchQuery: query,
           subreddits: subreddits.length > 0 ? subreddits : ['all'],
           totalComments: allTriggers.length + allInsights.length,
-          totalPosts: allTriggers.length,
+          totalPosts: allRawPosts.length,
           timestamp: new Date().toISOString()
         }
       };
@@ -549,6 +556,7 @@ export class RedditAPI {
       return {
         triggers: [],
         insights: [],
+        rawPosts: [], // Include rawPosts in error path for type consistency
         trendingTopics: [],
         metadata: {
           searchQuery: query,
@@ -596,17 +604,9 @@ export class RedditAPI {
         allInsights.push(postInsight);
       }
 
-      // CRITICAL FIX: If no pattern-matched insight, add title as raw insight anyway
-      // This ensures we get data points from every post instead of 0
-      if (!postInsight && title.length > 20) {
-        allInsights.push({
-          painPoint: title, // Treat Reddit post titles as potential pain points
-          context: body.substring(0, 300) || title,
-          subreddit,
-          upvotes,
-          url: postUrl
-        });
-      }
+      // REMOVED: Raw title fallback that was polluting triggers with nonsense
+      // Only pattern-matched insights should be added - raw titles are not psychological triggers
+      // If no insight extracted, skip this post - quality over quantity
 
       // Process comments if available
       const comments = post.comments || [];
@@ -642,8 +642,17 @@ export class RedditAPI {
       'dental': ['Dentistry', 'DentalHygiene', 'askdentists'],
       'realtor': ['RealEstate', 'FirstTimeHomeBuyer', 'realtors'],
       'cpa': ['Accounting', 'tax', 'smallbusiness'],
-      'insurance': ['Insurance', 'personalfinance'],
+      'insurance': ['Insurance', 'personalfinance', 'insurtech', 'InsurancePros', 'smallbusiness'],
+      'insurtech': ['insurtech', 'Insurance', 'fintech', 'InsurancePros', 'smallbusiness'],
+      'ai': ['artificial', 'MachineLearning', 'ChatGPT', 'LocalLLaMA', 'SaaS', 'startups'],
+      'agent': ['artificial', 'MachineLearning', 'ChatGPT', 'SaaS', 'customerservice', 'startups'],
+      'chatbot': ['artificial', 'ChatGPT', 'customerservice', 'SaaS', 'smallbusiness'],
+      'conversational': ['artificial', 'ChatGPT', 'customerservice', 'SaaS', 'smallbusiness', 'startups'],
+      'saas': ['SaaS', 'startups', 'Entrepreneur', 'smallbusiness', 'B2B'],
       'consultant': ['consulting', 'Entrepreneur', 'smallbusiness'],
+      'financial': ['fintech', 'personalfinance', 'FinancialPlanning', 'CFP'],
+      'b2b': ['B2B', 'SaaS', 'startups', 'smallbusiness', 'Entrepreneur'],
+      'enterprise': ['sysadmin', 'ITManagers', 'CIO', 'SaaS', 'startups'],
     };
 
     const normalizedIndustry = industry.toLowerCase();
@@ -654,7 +663,130 @@ export class RedditAPI {
       }
     }
 
-    return [industry.replace(/\s+/g, '')];
+    // Default fallback: broader business/tech subreddits
+    return ['smallbusiness', 'startups', 'SaaS', 'Entrepreneur'];
+  }
+
+  // ==========================================================================
+  // PAIN POINT CONVERSATION MINING (NEW - for Conversations tab)
+  // ==========================================================================
+
+  /**
+   * Mine Reddit for conversations about specific pain points
+   * Uses UVP-derived keywords instead of just industry name
+   *
+   * @param painPointKeywords - Array of pain point phrases from UVP
+   * @param industry - Industry for subreddit targeting
+   */
+  async mineConversations(
+    painPointKeywords: string[],
+    industry: string,
+    options: {
+      limit?: number;
+      timeFilter?: 'hour' | 'day' | 'week' | 'month' | 'year' | 'all';
+    } = {}
+  ): Promise<RedditIntelligenceResult> {
+    const { limit = 15, timeFilter = 'month' } = options;
+
+    console.log('[RedditAPI] Mining CONVERSATIONS for pain points:', painPointKeywords.slice(0, 3));
+
+    const allTriggers: RedditPsychologicalTrigger[] = [];
+    const allInsights: RedditCustomerInsight[] = [];
+
+    try {
+      // Get relevant subreddits
+      const subreddits = await this.findRelevantSubreddits(industry);
+
+      // Search for each pain point keyword (limit to 3 for speed)
+      const keywordsToSearch = painPointKeywords.slice(0, 3);
+
+      const searchPromises = keywordsToSearch.map(async (keyword) => {
+        const posts = await this.fetchRedditViaApify({
+          searchQuery: keyword,
+          sort: 'hot',
+          timeFilter,
+          limit: Math.ceil(limit / keywordsToSearch.length),
+          includeComments: true,
+          maxComments: 5
+        });
+        return { keyword, posts };
+      });
+
+      const results = await Promise.all(searchPromises);
+
+      // Process results and tag with search keyword
+      for (const { keyword, posts } of results) {
+        for (const post of posts) {
+          const postUrl = post.url || post.postUrl || '';
+          const subreddit = post.subreddit || post.subredditName || 'unknown';
+          const upvotes = post.upvotes || post.score || 0;
+          const title = post.title || '';
+          const body = post.text || post.selftext || '';
+          const postText = `${title} ${body}`;
+
+          // Add as conversation insight with source metadata
+          allInsights.push({
+            painPoint: title,
+            context: body.substring(0, 500) || title,
+            subreddit,
+            upvotes,
+            url: postUrl
+          });
+
+          // Also extract triggers
+          const postContext = { subreddit, upvotes, url: postUrl };
+          const triggers = this.analyzePsychologicalTriggers(postText, postContext);
+          allTriggers.push(...triggers);
+
+          // Process comments as conversations
+          const comments = post.comments || [];
+          for (const comment of comments) {
+            if (!comment.text || comment.text === '[deleted]' || comment.text.length < 30) continue;
+
+            allInsights.push({
+              painPoint: comment.text.substring(0, 200),
+              context: comment.text,
+              subreddit,
+              upvotes: comment.upvotes || comment.score || 0,
+              url: comment.url || postUrl
+            });
+          }
+        }
+      }
+
+      // Sort by engagement
+      allInsights.sort((a, b) => b.upvotes - a.upvotes);
+      allTriggers.sort((a, b) => b.upvotes - a.upvotes);
+
+      console.log('[RedditAPI] Mined', allInsights.length, 'conversation insights');
+
+      return {
+        triggers: allTriggers,
+        insights: allInsights,
+        trendingTopics: [],
+        metadata: {
+          searchQuery: painPointKeywords.join(' | '),
+          subreddits: subreddits.slice(0, 5),
+          totalComments: allInsights.length,
+          totalPosts: results.reduce((sum, r) => sum + r.posts.length, 0),
+          timestamp: new Date().toISOString()
+        }
+      };
+    } catch (error) {
+      console.error('[RedditAPI] Conversation mining failed:', error);
+      return {
+        triggers: [],
+        insights: [],
+        trendingTopics: [],
+        metadata: {
+          searchQuery: painPointKeywords.join(' | '),
+          subreddits: [],
+          totalComments: 0,
+          totalPosts: 0,
+          timestamp: new Date().toISOString()
+        }
+      };
+    }
   }
 }
 

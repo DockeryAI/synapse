@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { ModeProvider } from '@/contexts/v2/ModeContext';
 import { CampaignBuilder } from '@/components/v2/campaign-builder';
 import { ModeToggle } from '@/components/v2/ModeToggle';

@@ -46,7 +46,8 @@ export type DataPointType =
   | 'news_story'
   | 'weather_trigger'
   | 'service_offering'
-  | 'brand_voice';
+  | 'brand_voice'
+  | 'community_discussion'; // Reddit conversations from UVP pain point mining
 
 // Embedding model configuration
 export const EMBEDDING_MODEL = 'text-embedding-3-small';
@@ -60,7 +61,7 @@ export interface DataPoint {
   type: DataPointType;
   content: string;
   metadata: {
-    domain?: 'psychology' | 'timing' | 'competitive' | 'content_gap' | 'search_intent';
+    domain?: 'psychology' | 'timing' | 'competitive' | 'content_gap' | 'search_intent' | 'community';
     sentiment?: 'positive' | 'negative' | 'neutral';
     volume?: number;
     relevance?: number;

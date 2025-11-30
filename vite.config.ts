@@ -13,13 +13,15 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    hmr: {
-      overlay: false, // Disable error overlay
-    },
+    hmr: false, // DISABLED: Context exports break Fast Refresh, causing page resets during scans
     headers: {
       'Cache-Control': 'no-store, no-cache, must-revalidate',
       'Pragma': 'no-cache',
       'Expires': '0',
+    },
+    watch: {
+      // Ignore service files that may be written during runtime
+      ignored: ['**/src/services/proof/**', '**/src/data/cache/**', '**/node_modules/**'],
     },
   },
   logLevel: 'info', // Show startup info for debugging

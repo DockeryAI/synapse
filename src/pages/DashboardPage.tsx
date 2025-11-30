@@ -29,7 +29,7 @@ import {
   Calendar,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useBrand } from '@/contexts/BrandContext';
+import { useBrand } from '@/hooks/useBrand';
 import { insightsStorageService, type BusinessInsights } from '@/services/insights/insights-storage.service';
 import { trueProgressiveBuilder } from '@/services/intelligence/deepcontext-builder-progressive.service';
 import { dashboardPreloader } from '@/services/dashboard/dashboard-preloader.service';

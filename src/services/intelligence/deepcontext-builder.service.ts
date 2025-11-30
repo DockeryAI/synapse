@@ -413,11 +413,10 @@ export class DeepContextBuilderService {
         config.includeWebsiteAnalysis !== false && brandData.website
           ? this.fetchWebsiteIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
-        // Reddit psychological triggers and insights - DISABLED
-        // config.includeReddit !== false
-        //   ? this.fetchRedditIntelligence(brandData, errors, dataSourcesUsed)
-        //   : Promise.resolve(null),
-        Promise.resolve(null), // Reddit disabled
+        // Reddit conversations - UVP pain point based search for Conversations tab
+        config.includeReddit !== false
+          ? this.fetchRedditConversations(brandData, errors, dataSourcesUsed)
+          : Promise.resolve(null),
         config.includePerplexity !== false
           ? this.fetchPerplexityIntelligence(brandData, errors, dataSourcesUsed)
           : Promise.resolve(null),
@@ -1542,6 +1541,99 @@ export class DeepContextBuilderService {
       console.error('[DeepContext/Reddit] Error:', error);
       errors.push({
         source: 'reddit',
+        error: error instanceof Error ? error.message : String(error),
+        severity: 'warning'
+      });
+      return [];
+    }
+  }
+
+  /**
+   * 8b. Fetch Reddit Conversations - Using UVP Pain Points (NEW for Conversations tab)
+   * Searches Reddit using customer pain point keywords instead of just industry name
+   */
+  private async fetchRedditConversations(
+    brandData: any,
+    errors: any[],
+    dataSourcesUsed: string[]
+  ): Promise<DataPoint[]> {
+    try {
+      console.log('[DeepContext/Reddit-Conversations] Mining conversations using UVP pain points...');
+
+      const dataPoints: DataPoint[] = [];
+
+      // Extract pain point keywords from UVP data
+      const painPointKeywords: string[] = [];
+
+      // From transformation goal
+      if (brandData.uvp?.transformationGoal?.statement) {
+        painPointKeywords.push(brandData.uvp.transformationGoal.statement.slice(0, 50));
+      }
+      if (brandData.uvp?.transformationGoal?.before) {
+        painPointKeywords.push(brandData.uvp.transformationGoal.before);
+      }
+
+      // From emotional/functional drivers
+      if (brandData.uvp?.transformationGoal?.emotionalDrivers) {
+        painPointKeywords.push(...brandData.uvp.transformationGoal.emotionalDrivers.slice(0, 2));
+      }
+      if (brandData.uvp?.transformationGoal?.functionalDrivers) {
+        painPointKeywords.push(...brandData.uvp.transformationGoal.functionalDrivers.slice(0, 2));
+      }
+
+      // From key benefit (what they want)
+      if (brandData.uvp?.keyBenefit?.statement) {
+        painPointKeywords.push(brandData.uvp.keyBenefit.statement.slice(0, 50));
+      }
+
+      // Fallback to industry-based keywords if no UVP data
+      if (painPointKeywords.length === 0) {
+        painPointKeywords.push(
+          `${brandData.industry} problems`,
+          `${brandData.industry} frustrating`,
+          `${brandData.industry} challenges`
+        );
+      }
+
+      console.log('[DeepContext/Reddit-Conversations] Pain point keywords:', painPointKeywords.slice(0, 3));
+
+      // Mine conversations using the new method
+      const conversations = await redditAPI.mineConversations(
+        painPointKeywords,
+        brandData.industry,
+        { limit: 15, timeFilter: 'month' }
+      );
+
+      dataSourcesUsed.push('reddit_conversations');
+
+      // Convert to data points with 'conversation' type
+      conversations.insights.forEach((insight, idx) => {
+        dataPoints.push({
+          id: `reddit-convo-${Date.now()}-${idx}`,
+          source: 'reddit' as DataSource,
+          type: 'community_discussion' as DataPointType, // New type for conversations
+          content: insight.painPoint || insight.context,
+          metadata: {
+            insightType: 'conversation',
+            subreddit: insight.subreddit,
+            upvotes: insight.upvotes,
+            url: insight.url,
+            context: insight.context,
+            platform: 'reddit',
+            domain: 'community' as const
+          },
+          createdAt: new Date(),
+          embedding: undefined
+        });
+      });
+
+      console.log(`[DeepContext/Reddit-Conversations] ✅ Mined ${dataPoints.length} conversation data points`);
+      return dataPoints;
+
+    } catch (error) {
+      console.error('[DeepContext/Reddit-Conversations] Error:', error);
+      errors.push({
+        source: 'reddit_conversations',
         error: error instanceof Error ? error.message : String(error),
         severity: 'warning'
       });
